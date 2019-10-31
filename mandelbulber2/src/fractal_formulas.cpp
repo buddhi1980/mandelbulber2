@@ -18602,6 +18602,45 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		boxSize -= subZ;
 	}
 
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
+	{
+		double k = fractal->transformCommon.angle0;
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			k += zc.z * zc.z * sign(zc.z) + fractal->transformCommon.offset1;
+		if (fractal->transformCommon.functionEnabledBxFalse)
+			k *= zc.z * zc.z * sign(zc.z) + fractal->transformCommon.offset1;
+		if (fractal->transformCommon.functionEnabledAyFalse)
+			k += zc.z + fractal->transformCommon.offset1;
+		if (fractal->transformCommon.functionEnabledByFalse)
+			k *= zc.z + fractal->transformCommon.offset1;
+		if (fractal->transformCommon.functionEnabledAzFalse)
+			k += fabs(zc.z) + fractal->transformCommon.offset1;
+		if (fractal->transformCommon.functionEnabledBzFalse)
+			k *= fabs(zc.z) + fractal->transformCommon.offset1;
+
+		if (fractal->transformCommon.functionEnabledOFalse)
+		{
+			double c = cos(k * zc.y);
+			double s = sin(k * zc.y);
+			double tx = zc.x;
+			zc.x = c * zc.x + -s * zc.y;
+			zc.y = s * tx + c * zc.y;
+		}
+		else
+		{
+			double c = cos(k * zc.y);
+			double s = sin(k * zc.y);
+			double tz = zc.z;
+			zc.z = c * zc.z + -s * zc.y;
+			zc.y = s * tz + c * zc.y;
+		}
+
+
+	}
+
 	zc = fabs(zc) - boxSize;
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
