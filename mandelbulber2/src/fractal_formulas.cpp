@@ -18447,16 +18447,12 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		double torD;
 		// swap axis
-		if (!fractal->transformCommon.functionEnabledSwFalse)
-		{
-			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
-		}
-		else
-		{
-			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
-		}
+		CVector3 tp = CVector3(zc.x, zc.y, zc.z);
+		tp *= tp;
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(tp.x, tp.z);
+		double T1 = sqrt(tp.y + tp.x) - fractal->transformCommon.offsetT1;
+		torD = sqrt(T1 * T1 + tp.z) - fractal->transformCommon.offset05;
 
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
@@ -18789,9 +18785,7 @@ void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 
 	double size = fractal->transformCommon.scale1;
 	double hexD =0.0;
@@ -18835,9 +18829,7 @@ void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 	double sphereRadius = fractal->transformCommon.offsetR1;
 	double spD = zc.Length() - sphereRadius;
 	aux.dist = min(aux.dist, spD / aux.DE);
@@ -18849,13 +18841,47 @@ void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 	double torD;
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 	aux.dist = min(aux.dist, torD / aux.DE);
+}
+
+/**
+ * TransfDifsTorusV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z += fractal->transformCommon.offset001;
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		CVector4 zc = z;
+		double torD;
+		CVector3 tp = CVector3(zc.x, zc.y, zc.z);
+		tp *= tp;
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			swap(tp.x, tp.z);
+			swap(zc.x, zc.z);
+		}
+		double T1 = sqrt(tp.y + tp.x) - fractal->transformCommon.offsetT1;
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			torD = sqrt(T1 * T1 + tp.z);
+		else
+			torD = max(fabs(T1), fabs(zc.z));
+
+		aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
+	}
 }
 
 //  experimental testing
@@ -20455,7 +20481,6 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	CVector4 oldZ = z;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse

@@ -460,6 +460,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("DIFS Torus", "difs_torus", dIFSTorus, DIFSTorusIteration, analyticDEType,
 			dIFSDEFunction, cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 
+
 	//------------------------ DELTA DE FORMULAS ------------------------
 
 	// ----- Linear -----
@@ -940,6 +941,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>DIFS Torus", "transf_difs_torus", transfDIFSTorus,
 		TransfDIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>DIFS Torus V2", "transf_difs_torus_v2", transfDIFSTorusV2,
+		TransfDIFSTorusV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 	// ------------ delta DE ----------

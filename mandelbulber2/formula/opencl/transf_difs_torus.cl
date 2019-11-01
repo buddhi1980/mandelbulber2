@@ -16,9 +16,7 @@
 
 REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	REAL4 zc = oldZ;
+	REAL4 zc = z;
 	REAL torD;
 	REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
 	torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
