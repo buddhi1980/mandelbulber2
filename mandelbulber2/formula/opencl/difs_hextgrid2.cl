@@ -20,7 +20,6 @@
 REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
-	REAL4 oldZ = z;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -36,39 +35,21 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
-	if (fractal->transformCommon.functionEnabledAFalse
-			&& aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
-		REAL4 tempA, tempB;
-		if (fractal->transformCommon.functionEnabledx)
-			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
-		if (fractal->transformCommon.functionEnabledAx)
-			tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
-		z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
-
-		if (fractal->transformCommon.functionEnabledy)
-			tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-		if (fractal->transformCommon.functionEnabledAy)
-			tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
-		z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+		REAL Tp = fractal->transformCommon.offset2;
+		z.x = fmod(fabs(z.x) + Tp, 2.0 * Tp) - Tp;
+		Tp = fractal->transformCommon.offsetA2;
+		z.y = fmod(fabs(z.y) + Tp, 2.0 * Tp) - Tp;
 	}
 
-	// reverse offset part 1
-	if (aux->i >= fractal->transformCommon.startIterationsE
-			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offsetE2;
-
-	if (aux->i >= fractal->transformCommon.startIterationsF
-			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetF2;
-
 	// scale
-	REAL useScale = 1.0f;
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
+		REAL useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 		// scale vary
@@ -79,24 +60,12 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledCzFalse)
-				aux->actualScaleA = -vary;
-			else
-				aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA -= vary;
 		}
 	}
 
-	// reverse offset part 2
-	if (aux->i >= fractal->transformCommon.startIterationsE
-			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x += fractal->transformCommon.offsetE2;
-
-	if (aux->i >= fractal->transformCommon.startIterationsF
-			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y += fractal->transformCommon.offsetF2;
-
 	// offset
-	z += fractal->transformCommon.offset001;
+	z += fractal->transformCommon.offset000;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -108,7 +77,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 	// DE
 	REAL colorDist = aux->dist;
-	REAL4 zc = oldZ;
+	REAL4 zc = z;
 
 	// Hextgrid2
 	if (aux->i >= fractal->transformCommon.startIterations
