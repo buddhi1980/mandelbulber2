@@ -127,10 +127,7 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledCzFalse)
-				aux->actualScaleA = -vary;
-			else
-				aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA = aux->actualScaleA - vary;
 		}
 	}
 

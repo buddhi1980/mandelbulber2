@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>difs_box_diagonal_v3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1421,13 +1421,6 @@
             <widget class="QLabel" name="label_145">
              <property name="text">
               <string>Scale VaryA:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
-             <property name="text">
-              <string>enable var&amp;y scale mode B</string>
              </property>
             </widget>
            </item>
