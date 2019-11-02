@@ -952,6 +952,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfDIFSTorusV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
+
 	// ------------ delta DE ----------
 
 	fractalList->append(sFractalDescription("T>Benesi T2", "transf_benesi_t2", transfBenesiT2,

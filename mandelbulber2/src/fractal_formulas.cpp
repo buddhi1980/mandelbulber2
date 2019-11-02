@@ -18746,16 +18746,19 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
 }
 
-
 /**
  * TransfDifsCylinderIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		swap(zc.x, zc.z);
+	}
 
 	double cylR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
@@ -18774,25 +18777,20 @@ void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
 	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 
-	double cylR, lengthCyl, absH, temp;
+	double temp;
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		swap(zc.x, zc.z);
+	}
 
-	//swap
-	if (!fractal->transformCommon.functionEnabledSwFalse)
-	{
-		cylR = zc.x * zc.x;
-		absH = fabs(zc.z);
-		lengthCyl = zc.z;
-	}
-	else
-	{
-		cylR = zc.z * zc.z;
-		absH = fabs(zc.x);
-		lengthCyl = zc.x;
-	}
+	double cylR = zc.x * zc.x;
+	double absH = fabs(zc.z);
+	double lengthCyl = zc.z;
+
 	cylR = sqrt(cylR + zc.y * zc.y);
 	double cylH = absH - fractal->transformCommon.offsetA1;
 
@@ -18895,9 +18893,8 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
-	hexD -= fractal->transformCommon.offset0005;
 
-	aux.dist = min(aux.dist, hexD / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
 }
 
 /**
@@ -18971,10 +18968,8 @@ void TransfDIFSPrismV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		swap(zc.x, zc.z);
 	}
 
-	double px = fabs(zc.x);
-	double py = fabs(zc.y);
-	double priD = max(px - len,
-		max(py * SQRT_3_4 + zc.z * 0.5, -zc.z) - face);
+	double priD = max(fabs(zc.x) - len,
+		max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - face);
 
 	aux.dist = min(aux.dist, priD / aux.DE);
 }
