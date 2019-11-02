@@ -366,6 +366,7 @@ void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

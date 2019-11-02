@@ -40,6 +40,6 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	hexD -= fractal->transformCommon.offset0005;
 
-	aux->dist = min(aux->dist, native_divide(hexD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(hexD, (aux->DE + 1.0f)));
 	return z;
 }

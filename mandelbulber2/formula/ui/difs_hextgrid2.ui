@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_sphere_inversion_enabled_false">
      <property name="title">
-      <string>Sphere Invers&amp;ion (start hex at iteration 1)</string>
+      <string>Sphere Invers&amp;ion</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

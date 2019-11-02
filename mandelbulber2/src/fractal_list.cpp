@@ -945,6 +945,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>DIFS Torus V2", "transf_difs_torus_v2", transfDIFSTorusV2,
 		TransfDIFSTorusV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>DIFS Torus V3", "transf_difs_torus_v3", transfDIFSTorusV3,
+		TransfDIFSTorusV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 
 	// ------------ delta DE ----------
 

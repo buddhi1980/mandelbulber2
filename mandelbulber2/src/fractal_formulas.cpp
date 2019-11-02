@@ -18602,6 +18602,8 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			&& aux.i >= fractal->transformCommon.startIterationsN
 			&& aux.i < fractal->transformCommon.stopIterationsN)
 	{
+
+
 		double k = fractal->transformCommon.angle0;
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
@@ -18788,7 +18790,7 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	CVector4 zc = z;
 
 	double size = fractal->transformCommon.scale1;
-	double hexD =0.0;
+	double hexD = 0.0;
 	zc.z /= fractal->transformCommon.scaleF1;
 
 	double cosPi6 = cos(M_PI / 6.0);
@@ -18800,10 +18802,9 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
-
 	hexD -= fractal->transformCommon.offset0005;
 
-	aux.dist = min(aux.dist, hexD / aux.DE);
+	aux.dist = min(aux.dist, hexD / (aux.DE + 1.0));
 }
 
 /**
@@ -18883,6 +18884,54 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
 	}
 }
+
+/**
+ * TransfDifsTorusV3Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z += fractal->transformCommon.offset001;
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		CVector4 zc = z;
+
+		// rotation
+		if (fractal->transformCommon.functionEnabledRFalse
+				&& aux.i >= fractal->transformCommon.startIterationsR
+				&& aux.i < fractal->transformCommon.stopIterationsR)
+		{
+			zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+		}
+
+		double torD;
+		CVector3 tp = CVector3(zc.x, zc.y, zc.z);
+		tp *= tp;
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			swap(tp.x, tp.z);
+			swap(zc.x, zc.z);
+		}
+		double T1 = sqrt(tp.y + tp.x) - fractal->transformCommon.offsetT1;
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			torD = sqrt(T1 * T1 + tp.z);
+		else
+			torD = max(fabs(T1), fabs(zc.z));
+
+		aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
+	}
+
+}
+
+
 
 //  experimental testing
 /**
@@ -19036,24 +19085,9 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		double componentMaster = 0.0;
 		double orbitPoints = 0.0;
-
-		// double totalDist = 0.0;
 		double distL = 0.0;
 		double newR = 0.0;
 		double lastVec = 0.0;
-		// double auxColor = 0.0;
-
-		// double distEst = 0.0;
-		// double planeBias = 0.0;
-		// double factorR = fractal->mandelbox.color.factorR;
-
-		// double lengthIter = 0.0;
-		// double boxTrap = 0.0;
-		// double sphereTrap = 0.0;
-		// double lastDist = 0.0;
-		// double addI = 0.0;
-
-		// Note aux.addDist is used in more than one color function
 
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)
@@ -20512,7 +20546,7 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		double useScale = aux.actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fabs(useScale);
 		// scale vary
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux.i >= fractal->transformCommon.startIterationsK
@@ -20559,7 +20593,7 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			hexD = max(fabs(gridMin), fabs(zc.z));
 		hexD -= fractal->transformCommon.offset0005;
 
-		aux.dist = min(aux.dist, hexD / aux.DE);
+		aux.dist = min(aux.dist, hexD / (aux.DE + 1.0));
 	}
 
 	// aux.color
