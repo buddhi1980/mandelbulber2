@@ -19002,29 +19002,34 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
-	if (aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
+	CVector4 zc = z;
+	double torD;
+	double lenX = 0.0;
+	double lenY = 0.0;
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		CVector4 zc = z;
-		double torD;
-		CVector3 tp = CVector3(zc.x, zc.y, zc.z);
-		tp *= tp;
-
-		// swap axis
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			swap(tp.x, tp.z);
-			swap(zc.x, zc.z);
-		}
-		double T1 = sqrt(tp.y + tp.x) - fractal->transformCommon.offsetT1;
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			torD = sqrt(T1 * T1 + tp.z);
-		else
-			torD = max(fabs(T1), fabs(zc.z));
-
-		aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
+		swap(zc.x, zc.z);
 	}
+
+	CVector4 absZ = fabs(zc);
+	if (fractal->transformCommon.functionEnabledMFalse)
+		lenX = absZ.z * fractal->transformCommon.scale0;
+	if (fractal->transformCommon.functionEnabledNFalse)
+		lenY = absZ.z * fractal->transformCommon.scaleA0;
+
+	CVector3 q = CVector3(max(absZ.y - lenY, 0.0), max(absZ.x - lenX, 0.0), zc.z);
+	q *= q;
+
+	torD = sqrt(q.y + q.x) - fractal->transformCommon.offsetT1;
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		torD = sqrt(torD * torD + q.z);
+	else
+		torD = max(fabs(torD), fabs(zc.z));
+
+	aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
 }
 
 /**
@@ -19039,47 +19044,38 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
-	if (aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
+	CVector4 zc = z;
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		CVector4 zc = z;
-
-		// swap axis
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			swap(zc.x, zc.z);
-		}
-
-		double lenX = fractal->transformCommon.offset1;
-		double lenY = fractal->transformCommon.offsetA0;
-
-		if (fractal->transformCommon.functionEnabledNFalse
-				&& aux.i >= fractal->transformCommon.startIterationsN
-				&& aux.i < fractal->transformCommon.stopIterationsN)
-		{
-			double absX = fabs(zc.x);
-			lenX += absX * fractal->transformCommon.scale0;
-		}
-		if (fractal->transformCommon.functionEnabledOFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-		{
-			double absY = fabs(zc.y);
-			lenY += absY * fractal->transformCommon.scaleA0;
-		}
-
-		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
-		q *= q;
-
-		double streD = sqrt(q.x + q.y) - fractal->transformCommon.offsetR1;
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			streD = sqrt(streD * streD + q.z);
-		else
-			streD = max(fabs(streD), fabs(zc.z));
-
-		aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / aux.DE);
+		swap(zc.x, zc.z);
 	}
+
+	double lenX = fractal->transformCommon.offset1;
+	double lenY = fractal->transformCommon.offsetA0;
+	CVector4 absZ = fabs(zc);
+
+	if (fractal->transformCommon.functionEnabledMFalse)
+		lenX += absZ.z * fractal->transformCommon.scale0;
+	if (fractal->transformCommon.functionEnabledNFalse)
+		lenY += absZ.z * fractal->transformCommon.scaleA0;
+	if (fractal->transformCommon.functionEnabledOFalse)
+		lenX += absZ.y * fractal->transformCommon.scaleB0;
+	if (fractal->transformCommon.functionEnabledPFalse)
+		lenY += absZ.x * fractal->transformCommon.scaleC0;
+
+	CVector3 q = CVector3(max(absZ.y - lenY, 0.0), max(absZ.x - lenX, 0.0), zc.z);
+	q *= q;
+
+	double streD = sqrt(q.x + q.y) - fractal->transformCommon.offsetR1;
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		streD = sqrt(streD * streD + q.z);
+	else
+		streD = max(fabs(streD), fabs(zc.z));
+
+	aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / aux.DE);
 }
 
 //  experimental testing

@@ -307,6 +307,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.scale0 = container->Get<double>("transf_scale_0");
 	transformCommon.scaleA0 = container->Get<double>("transf_scaleA_0");
 	transformCommon.scaleB0 = container->Get<double>("transf_scaleB_0");
+	transformCommon.scaleC0 = container->Get<double>("transf_scaleC_0");
 	transformCommon.scale025 = container->Get<double>("transf_scale_025");
 	transformCommon.scale05 = container->Get<double>("transf_scale_05");
 	transformCommon.scale08 = container->Get<double>("transf_scale_08");
