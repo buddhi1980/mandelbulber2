@@ -16,9 +16,7 @@
 
 REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	REAL4 zc = oldZ;
+	REAL4 zc = z;
 	REAL px = fabs(zc.x);
 	REAL py = fabs(zc.y);
 	REAL priD = max(px - fractal->transformCommon.offset1,

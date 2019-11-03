@@ -15,9 +15,7 @@
 
 REAL4 TransfDIFSBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	REAL4 zc = oldZ;
+	REAL4 zc = z;
 	REAL4 boxSize = fractal->transformCommon.additionConstant111;
 	zc = fabs(zc) - boxSize;
 	zc.x = max(zc.x, 0.0f);

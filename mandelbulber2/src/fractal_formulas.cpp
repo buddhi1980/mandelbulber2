@@ -18602,9 +18602,7 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
 	zc = fabs(zc) - boxSize;
 	zc.x = max(zc.x, 0.0);
@@ -18620,9 +18618,8 @@ void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
  */
 void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	z += fractal->transformCommon.offset000;
+	CVector4 zc = z;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
 
 	// curve
@@ -18665,9 +18662,8 @@ void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	z += fractal->transformCommon.offset000;
+	CVector4 zc = z;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
 
 	// curvy shape
@@ -18728,8 +18724,6 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			zc.z = c * zc.z + -s * zc.y;
 			zc.y = s * tz + c * zc.y;
 		}
-
-
 	}
 
 	zc = fabs(zc) - boxSize;
@@ -18777,7 +18771,7 @@ void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z += fractal->transformCommon.offset001;
+	z += fractal->transformCommon.offset000;
 	CVector4 zc = z;
 
 	double temp;
@@ -18847,9 +18841,7 @@ void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
  */
 void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
-	z += fractal->transformCommon.offset001;
-	CVector4 zc = oldZ;
+	CVector4 zc = z;
 
 	CVector4 rads4 = fractal->transformCommon.additionConstant111;
 	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
@@ -18923,7 +18915,7 @@ void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfDIFSPrismV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z += fractal->transformCommon.offset001;
+	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
@@ -19004,7 +18996,7 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z += fractal->transformCommon.offset001;
+	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
@@ -19017,6 +19009,7 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		double torD;
 		CVector3 tp = CVector3(zc.x, zc.y, zc.z);
 		tp *= tp;
+
 		// swap axis
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
@@ -19040,7 +19033,7 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z += fractal->transformCommon.offset001;
+	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
@@ -19050,14 +19043,6 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		CVector4 zc = z;
-
-		// rotation
-		if (fractal->transformCommon.functionEnabledRFalse
-				&& aux.i >= fractal->transformCommon.startIterationsR
-				&& aux.i < fractal->transformCommon.stopIterationsR)
-		{
-			zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
-		}
 
 		// swap axis
 		if (fractal->transformCommon.functionEnabledSwFalse)
@@ -19093,7 +19078,7 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		else
 			streD = max(fabs(streD), fabs(zc.z));
 
-		aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05 / aux.DE));
+		aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / aux.DE);
 	}
 }
 
@@ -19324,8 +19309,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 /**
  * Hybrid DIFS aux.Color
- *
- *
  */
 void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -19358,8 +19341,8 @@ void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtended
 		// update for next iter
 		aux.colorHybrid = aux.dist;
 	}
-	else
-		aux.color = 0.0;
+	//else
+		//aux.color = 0.0;
 }
 
 
