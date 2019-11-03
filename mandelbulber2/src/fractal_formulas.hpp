@@ -370,6 +370,7 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

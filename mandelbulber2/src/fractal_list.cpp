@@ -991,6 +991,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfHybridColor2, TransfHybridColor2Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("T>DIFS Aux.Color", "transf_difs_aux_color",
+		transfDIFSAuxColor, TransfDIFSAuxColorIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+
 	// ------------------ experimental  -----------------------
 
 	fractalList->append(

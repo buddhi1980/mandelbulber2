@@ -19323,6 +19323,48 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
+ * Hybrid DIFS aux.Color
+ *
+ *
+ */
+void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z.z += 0.000000001; // so not detected as a  zero change in z
+
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		double colorAdd = 0.0;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			colorAdd += fractal->foldColor.difs0000.z * max(z.x * z.x, z.y * z.y);
+			colorAdd += fractal->foldColor.difs0000.w * z.z;
+
+		if (fractal->transformCommon.functionEnabledFalse)
+			colorAdd = fractal->transformCommon.scale1 * round(colorAdd);
+		}
+		colorAdd += fractal->foldColor.difs1;
+
+		if (!fractal->foldColor.auxColorEnabledA)
+		{
+			aux.color += colorAdd;
+		}
+		else
+		{
+			if (aux.dist != aux.colorHybrid) aux.color += colorAdd;
+		}
+		// update for next iter
+		aux.colorHybrid = aux.dist;
+	}
+	else
+		aux.color = 0.0;
+}
+
+
+
+/**
  * Testing  fragmentarium code, mdifs by knighty (jan 2012)
  *
  */
