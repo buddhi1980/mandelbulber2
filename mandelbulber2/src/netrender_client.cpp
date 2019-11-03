@@ -471,10 +471,16 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			{
 				if (systemData.noGui)
 				{
-					// FIXME memory leak - cImage is not deleted!
-					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-					gKeyframeAnimation = new cKeyframeAnimation(
-						gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
+					if (!gMainInterface->mainImage)
+					{
+						gMainInterface->mainImage =
+							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					}
+					if (!gKeyframeAnimation)
+					{
+						gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes,
+							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
+					}
 				}
 
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
@@ -485,10 +491,16 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			{
 				if (systemData.noGui)
 				{
-					// FIXME memory leak - cImage is not deleted!
-					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-					gFlightAnimation = new cFlightAnimation(
-						gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
+					if (!gMainInterface->mainImage)
+					{
+						gMainInterface->mainImage =
+							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					}
+					if (!gFlightAnimation)
+					{
+						gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames,
+							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
+					}
 				}
 
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
