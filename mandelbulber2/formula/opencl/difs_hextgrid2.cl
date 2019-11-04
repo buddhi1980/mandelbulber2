@@ -65,7 +65,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	// offset
-	z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offset001;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse

@@ -228,6 +228,7 @@ enum enumFractalFormula
 	dIFSTorus = 606,
 	dIFSMenger = 607,
 	dIFSHextgrid2 = 608,
+	dIFSPrism = 609,
 
 	mandelbulbEye = 800,
 
