@@ -63,7 +63,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 				}
 
 				sFractalIn fractIn(
-					tempPoint, 0, params->N * 10, params->common, formulaIndex, false, input.material);
+					tempPoint, 0, params->N * 4, params->common, formulaIndex, false, input.material);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				double nrCol = fmod(fabs(fractOut.colorIndex), 248.0 * 256.0); // kept for compatibility

@@ -86,7 +86,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.c = z;
 	extendedAux.const_c = z;
 	extendedAux.old_z = z;
-	//extendedAux.sum_z = z; //CVector4(0.0, 0.0, 0.0, 0.0);
+	// extendedAux.sum_z = z; //CVector4(0.0, 0.0, 0.0, 0.0);
 	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
@@ -228,15 +228,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			case scatorPower2:					// add v2.15
 			case scatorPower2Real:			// add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
-			//case testingLog:
-			{
-				CVector4 z2 = z * z;
-				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
-				// initial condition is normal r, becomes aux.r
+				// case testingLog:
+				{
+					CVector4 z2 = z * z;
+					r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+					// initial condition is normal r, becomes aux.r
 
-				// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
-				break;
-			}
+					// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
+					break;
+				}
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
 
@@ -447,8 +447,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::dIFSDEFunction)
 				{
 					out->distance = extendedAux.dist;
-					//double distDE = (r - in.common.linearDEOffset) / extendedAux.DE;
-					//out->distance =  distDE + (extendedAux.dist - distDE) * extendedAux.temp1000 / 1000.0;
+					// double distDE = (r - in.common.linearDEOffset) / extendedAux.DE;
+					// out->distance =  distDE + (extendedAux.dist - distDE) * extendedAux.temp1000 / 1000.0;
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
