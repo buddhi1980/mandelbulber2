@@ -18874,6 +18874,12 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	double size = fractal->transformCommon.scale1;
 	double hexD = 0.0;
+
+	if(fractal->transformCommon.rotationEnabled)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
+
 	zc.z /= fractal->transformCommon.scaleF1;
 
 	double cosPi6 = cos(M_PI / 6.0);
