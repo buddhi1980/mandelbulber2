@@ -19283,12 +19283,115 @@ void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	double size = fractal->transformCommon.scale1;
 	double grid = 0.0;
 
+	zc.z /= fractal->transformCommon.scaleF1;
+
 	if(fractal->transformCommon.rotationEnabled)
 	{
 		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 	}
 
+	double xFloor = fabs(zc.x - size * floor(zc.x / size + 0.5f));
+	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
+	double gridXY = min(xFloor, yFloor);
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		grid = sqrt(gridXY * gridXY + zc.z * zc.z);
+	else
+		grid = max(fabs(gridXY), fabs(zc.z));
+
+	aux.dist = min(aux.dist, (grid - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
+}
+
+/**
+ * DIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and  Buddhi
+ */
+void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 zc = z;
+
+	double size = fractal->transformCommon.scale1;
+	double grid = 0.0;
+
+
 	zc.z /= fractal->transformCommon.scaleF1;
+
+
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		double temp = zc.x;
+		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scaleA0;
+		zc.y = zc.y + sin(temp) * fractal->transformCommon.scaleB0;
+	}
+
+
+
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
+	{
+		double k = fractal->transformCommon.angle0;
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			k *= (aux.i - 1.0)+ fractal->transformCommon.offset1;
+
+
+		//if (fractal->transformCommon.functionEnabledAyFalse)
+		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
+		//if (fractal->transformCommon.functionEnabledByFalse)
+		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
+
+
+
+	double swap;
+	if (!fractal->transformCommon.functionEnabledOFalse) swap = zc.x;
+	else swap = zc.z;
+
+		if (fractal->transformCommon.functionEnabledAzFalse)
+			swap = fabs(swap);
+
+		if (!fractal->transformCommon.functionEnabledOFalse)
+		{
+			double c = cos(k * zc.y);
+			double s = sin(k * zc.y);
+			double tp = swap;
+			zc.x = c * swap + -s * zc.y;
+			zc.y = s * tp + c * zc.y;
+		}
+		else
+		{
+			double c = cos(k * zc.y);
+			double s = sin(k * zc.y);
+			double tp = swap;
+			zc.z = c * swap + -s * zc.y;
+			zc.y = s * tp + c * zc.y;
+		}
+	}
+
+
+
+
+
+	if(fractal->transformCommon.rotationEnabled)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	double xFloor = fabs(zc.x - size * floor(zc.x / size + 0.5f));
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
