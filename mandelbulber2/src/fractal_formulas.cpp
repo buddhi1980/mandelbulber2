@@ -19304,7 +19304,7 @@ void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 /**
  * DIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and  Buddhi
+ * and Buddhi
  */
 void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -19313,9 +19313,7 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double size = fractal->transformCommon.scale1;
 	double grid = 0.0;
 
-
 	zc.z /= fractal->transformCommon.scaleF1;
-
 
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
@@ -19326,8 +19324,6 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		zc.y = zc.y + sin(temp) * fractal->transformCommon.scaleB0;
 	}
 
-
-
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux.i >= fractal->transformCommon.startIterationsN
 			&& aux.i < fractal->transformCommon.stopIterationsN)
@@ -19335,19 +19331,11 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		double k = fractal->transformCommon.angle0;
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
-			k *= (aux.i - 1.0)+ fractal->transformCommon.offset1;
+			k *= (aux.i - 1.0) + fractal->transformCommon.offset1;
 
-
-		//if (fractal->transformCommon.functionEnabledAyFalse)
-		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
-		//if (fractal->transformCommon.functionEnabledByFalse)
-		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
-
-
-
-	double swap;
-	if (!fractal->transformCommon.functionEnabledOFalse) swap = zc.x;
-	else swap = zc.z;
+		double swap;
+		if (!fractal->transformCommon.functionEnabledOFalse) swap = zc.x;
+		else swap = zc.z;
 
 		if (fractal->transformCommon.functionEnabledAzFalse)
 			swap = fabs(swap);
@@ -19370,34 +19358,14 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 	}
 
-
-
-
-
 	if(fractal->transformCommon.rotationEnabled)
 	{
 		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	double xFloor = fabs(zc.x - size * floor(zc.x / size + 0.5f));
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
 	double gridXY = min(xFloor, yFloor);
-
-
 
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		grid = sqrt(gridXY * gridXY + zc.z * zc.z);
@@ -20934,103 +20902,58 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	// DE
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
-	double bxD = 0.0;
-	// torus
+	double mengD = 0.0;
+
+	// menger sponge
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
+		CVector4 ones = CVector4(1.0, 1.0, 1.0, 0.0);
 		double rr;
-		double offsetPy = fractal->transformCommon.offset4;
+		double sz = fractal->transformCommon.scale05;
 		int count = fractal->transformCommon.int8X; // Menger Sponge
+		zc *= 1.0 / CVector4(sz, sz, sz, 1.0);
+		aux.pseudoKleinianDE = 1.0;
 		int k;
-		for (k = 0; k < count; k++)
-		// fabs() and menger fold
+		for (k = 0; k < count &&rr < 5.0; k++)
 		{
 			zc = fabs(zc + fractal->transformCommon.additionConstantA000);
-			// if (z.x - z.y < 0.0) swap(z.y, z.x);
-			// if (z.x - z.z < 0.0) swap(z.z, z.x);
-			// if (z.y - z.z < 0.0) swap(z.z, z.y);
 
 			if (zc.y > zc.x) swap(zc.y, zc.x);
-			if (zc.y > zc.z) swap(zc.z, zc.y);
-			if (fractal->transformCommon.functionEnabledJFalse)
+			if (zc.y > zc.z) swap(zc.y, zc.z);
+			double factor = 1.0 / fractal->transformCommon.offset3;
+			if (!fractal->transformCommon.functionEnabledJFalse)
 			{
-				if (zc.y < 1.0 / offsetPy) zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;
+				if (zc.y < factor) zc.y = fabs(zc.y - factor) + factor;
 			}
-
 			else
 			{
-				zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;
+				zc.y = fabs(zc.y - factor) + factor;
 			}
 
-			//			if (fractal->transformCommon.functionEnabledM) {zc.y = fabs(zc.y - 3.0 / offsetPy)
-			//+ 3.0 / offsetPy;}
+			zc -= ones;
 			zc *= fractal->transformCommon.scale3;
-			aux.DE *= fractal->transformCommon.scale3;
+			aux.pseudoKleinianDE *= 1.0 / fractal->transformCommon.scale3;
+			zc += ones;
 
 			rr = zc.Length();
 		}
 
-		// menger offsets
-		// z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
-		// z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-		// if (fractal->transformCommon.functionEnabled)
-		//	if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
-		//}
-		// else
-		//{
-		//	z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
-		//}
-
-		zc = fabs(zc) - boxFold;
-
-		// if(any(greaterThan(p,vec3(0.)))) r2=length(max(p,0.));
-
-		// else r2 =max (p.x,max(p.y,p.z));
-
-		// return r2*dd*auxSize;
+		zc = fabs(zc) - ones;
 
 		CVector4 bxV = zc;
 
-		// bxV = fabs(bxV) - boxSize;
-		bxD = max(bxV.x, max(bxV.y, bxV.z));
-		if (bxD > 0.0)
+		mengD = max(bxV.x, max(bxV.y, bxV.z));
+		if (mengD > 0.0)
 		{
 			bxV.x = max(bxV.x, 0.0);
 			bxV.y = max(bxV.y, 0.0);
 			bxV.z = max(bxV.z, 0.0);
-			bxD = bxV.Length();
+			mengD = bxV.Length();
 		}
-		bxD = bxD * boxFold.x;
+		mengD =  mengD * sz * aux.pseudoKleinianDE;
 
-		aux.dist = min(aux.dist, bxD / aux.DE);
-	}
-
-	// Torus - stretched
-	if (fractal->transformCommon.functionEnabledMFalse
-			&& aux.i >= fractal->transformCommon.startIterationsM
-			&& aux.i < fractal->transformCommon.stopIterationsM)
-	{
-		double lenX = fractal->transformCommon.offset1;
-		double lenY = fractal->transformCommon.offsetA0;
-		if (fractal->transformCommon.functionEnabledNFalse
-				&& aux.i >= fractal->transformCommon.startIterationsN
-				&& aux.i < fractal->transformCommon.stopIterationsN)
-		{
-			double absX = fabs(zc.x);
-			lenX += absX * fractal->transformCommon.scale0;
-		}
-		if (fractal->transformCommon.functionEnabledOFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-		{
-			double absY = fabs(zc.y);
-			lenY += absY * fractal->transformCommon.scaleA0;
-		}
-		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
-		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
-		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
-		aux.dist = min(aux.dist, streD / aux.DE);
+		aux.dist = min(aux.dist, mengD / aux.DE);
 	}
 
 	// aux.color

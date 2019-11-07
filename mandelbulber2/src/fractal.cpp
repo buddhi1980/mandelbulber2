@@ -280,9 +280,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offsetD0 = container->Get<double>("transf_offsetD_0");
 	transformCommon.offsetE0 = container->Get<double>("transf_offsetE_0");
 	transformCommon.offsetF0 = container->Get<double>("transf_offsetF_0");
-
 	transformCommon.offsetR0 = container->Get<double>("transf_offsetR_0");
-
 	transformCommon.offset0005 = container->Get<double>("transf_offset_0005");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");
 	transformCommon.offsetA05 = container->Get<double>("transf_offsetA_05");
@@ -296,6 +294,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offsetE2 = container->Get<double>("transf_offsetE_2");
 	transformCommon.offsetF2 = container->Get<double>("transf_offsetF_2");
 	transformCommon.offsetR2 = container->Get<double>("transf_offsetR_2");
+	transformCommon.offset3 = container->Get<double>("transf_offset_3");
 	transformCommon.offset4 = container->Get<double>("transf_offset_4");
 	transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
 	transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
@@ -358,8 +357,6 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.startIterationsCx = container->Get<int>("transf_start_iterations_Cx");
 	transformCommon.stopIterationsCy = container->Get<int>("transf_stop_iterations_Cy");
 	transformCommon.startIterationsCy = container->Get<int>("transf_start_iterations_Cy");
-
-
 	transformCommon.stopIterationsC1 = container->Get<int>("transf_stop_iterations_C1");
 	transformCommon.startIterationsD = container->Get<int>("transf_start_iterations_D");
 	transformCommon.stopIterationsD = container->Get<int>("transf_stop_iterations_D");
