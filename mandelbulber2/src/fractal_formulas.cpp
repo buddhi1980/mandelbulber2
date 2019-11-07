@@ -19273,6 +19273,39 @@ void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
+ * DIFSGridIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and  Buddhi
+ */
+void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 zc = z;
+
+	double size = fractal->transformCommon.scale1;
+	double grid = 0.0;
+
+	if(fractal->transformCommon.rotationEnabled)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
+
+	zc.z /= fractal->transformCommon.scaleF1;
+
+	double xFloor = fabs(zc.x - size * floor(zc.x / size + 0.5f));
+	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
+	double gridXY = min(xFloor, yFloor);
+
+
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		grid = sqrt(gridXY * gridXY + zc.z * zc.z);
+	else
+		grid = max(fabs(gridXY), fabs(zc.z));
+
+	aux.dist = min(aux.dist, (grid - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
+}
+
+
+/**
  * DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and  darkbeams optimized verion @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/

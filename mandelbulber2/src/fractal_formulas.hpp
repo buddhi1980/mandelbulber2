@@ -360,6 +360,8 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSPrismV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

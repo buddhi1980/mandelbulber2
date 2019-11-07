@@ -7,10 +7,10 @@ camera 1.995803760536319 -3.775692360758277 4.223419267591945;
 camera_distance_to_target 10.00164422887763;
 camera_rotation 29.75985185297075 -49.84208337023394 -0.05982672200033496;
 camera_top -0.3802636830030061 0.6629543540218524 0.6448961589841095;
-DE_factor 0.18197;
+DE_factor 0.72788;
 detail_level 4;
 flight_last_to_render 0;
-formula_1 605;
+formula_1 1613;
 hdr true;
 hybrid_fractal_enable true;
 image_height 256;
@@ -29,7 +29,11 @@ mat1_surface_color_gradient 0 fd6029 999 698403 1999 205531 2999 f5bd22 3999 0b5
 target -1.205768164281165 1.823661680821933 -3.420536436642678;
 [fractal_1]
 transf_addition_constant_111 1 1 2.1;
+transf_function_enabledJ_false true;
+transf_offset_0005 0.05;
 transf_radius_1 0.5;
+transf_scale_1 2.000000000000001;
+transf_scaleF_1 1.800000000000001;
 [fractal_2]
 info true;
 mandelbox_folding_limit -0.5;

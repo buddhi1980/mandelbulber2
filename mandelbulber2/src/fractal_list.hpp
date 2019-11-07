@@ -370,7 +370,7 @@ enum enumFractalFormula
 	transfDIFSTorusV2 = 1610,
 	transfDIFSTorusV3 = 1611,
 	transfDIFSPrismV2 = 1612,
-
+	transfDIFSGrid = 1613,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
