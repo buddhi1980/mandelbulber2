@@ -20770,11 +20770,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 }
 
-
-
 /**
  * DifsMengerIteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -20915,9 +20912,9 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		zc *= 1.0 / CVector4(sz, sz, sz, 1.0);
 		aux.pseudoKleinianDE = 1.0;
 		int k;
-		for (k = 0; k < count &&rr < 5.0; k++)
+		for (k = 0; k < count && rr < 10.0; k++)
 		{
-			zc = fabs(zc + fractal->transformCommon.additionConstantA000);
+			zc = fabs(zc + fractal->transformCommon.offsetA000);
 
 			if (zc.y > zc.x) swap(zc.y, zc.x);
 			if (zc.y > zc.z) swap(zc.y, zc.z);
