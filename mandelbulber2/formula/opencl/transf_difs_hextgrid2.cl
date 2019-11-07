@@ -22,8 +22,14 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL4 zc = z;
 
 	REAL size = fractal->transformCommon.scale1;
-	REAL hexD = 0.0;
-	zc.z = native_divide(zc.z, fractal->transformCommon.scaleF1);
+	REAL hexD = 0.0f;
+
+	if (fractal->transformCommon.rotationEnabled)
+	{
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
+	}
+
+	zc.z /= fractal->transformCommon.scaleF1;
 
 	REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
 	REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
@@ -32,14 +38,12 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 												 * floor(native_divide(native_divide(zc.x, size), 1.5f) * cosPi6 + 0.5f));
 	REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(native_divide(M_PI_F, 6.0f)));
 	REAL gridMin = min(gridMax - size * 0.5f, yFloor);
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = native_sqrt(mad(gridMin, gridMin, zc.z * zc.z));
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
 
-	hexD -= fractal->transformCommon.offset0005;
-
-	aux->dist = min(aux->dist, native_divide(hexD, (aux->DE + 1.0f)));
+	aux->dist =
+		min(aux->dist, native_divide((hexD - fractal->transformCommon.offset0005), (aux->DE + 1.0f)));
 	return z;
 }

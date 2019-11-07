@@ -125,10 +125,7 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledCzFalse)
-				aux->actualScaleA = -vary;
-			else
-				aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA -= vary;
 		}
 	}
 
@@ -163,16 +160,17 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		REAL torD;
 		// swap axis
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+		REAL3 tp = (REAL3){zc.x, zc.y, zc.z};
+		tp *= tp;
+		// swap axis
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+			REAL temp = tp.x;
+			tp.x = tp.z;
+			tp.z = temp;
 		}
-		else
-		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.z * zc.z)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.x * zc.x)) - fractal->transformCommon.offset05;
-		}
+		REAL T1 = native_sqrt(tp.y + tp.x) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(mad(T1, T1, tp.z)) - fractal->transformCommon.offset05;
 
 		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
 	}

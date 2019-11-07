@@ -127,7 +127,7 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA -= vary;
 		}
 	}
 
@@ -167,14 +167,17 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			boxSize.x += absZZ;
 			boxSize.y += absZZ;
 		}
+
 		// pyramid
 		if (fractal->transformCommon.functionEnabledMFalse
 				&& aux->i >= fractal->transformCommon.startIterationsM
 				&& aux->i < fractal->transformCommon.stopIterationsM)
 		{
-			boxSize.x -= fractal->transformCommon.scaleA0 * zc.z;
-			boxSize.y -= fractal->transformCommon.scaleA0 * zc.z;
+			REAL subZ = fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.x -= subZ;
+			boxSize.y -= subZ;
 		}
+
 		zc = fabs(zc) - boxSize;
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
@@ -186,8 +189,7 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (!fractal->transformCommon.functionEnabledEFalse)
 			aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
 		else
-			aux->dist = min(aux->dist, native_divide(zcd, aux->DE))
-									- fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, native_divide(zcd, aux->DE)) - fractal->transformCommon.offsetB0;
 	}
 
 	// aux->color

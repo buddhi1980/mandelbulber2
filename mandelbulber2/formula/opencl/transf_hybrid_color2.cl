@@ -18,30 +18,15 @@
 
 REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	z.x += 0.000000001f; // so not detected as a  zero change in z ?????
+	z.x += 0.000000001f; // so not detected as a  zero change in z
 	if (aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
 		REAL componentMaster = 0.0f;
 		REAL orbitPoints = 0.0f;
-
-		// REAL totalDist = 0.0f;
 		REAL distL = 0.0f;
 		REAL newR = 0.0f;
 		REAL lastVec = 0.0f;
-		// REAL auxColor = 0.0f;
-
-		// REAL distEst = 0.0f;
-		// REAL planeBias = 0.0f;
-		// REAL factorR = fractal->mandelbox.color.factorR;
-
-		// REAL lengthIter = 0.0f;
-		// REAL boxTrap = 0.0f;
-		// REAL sphereTrap = 0.0f;
-		// REAL lastDist = 0.0f;
-		// REAL addI = 0.0f;
-
-		// Note aux->addDist is used in more than one color function
 
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)

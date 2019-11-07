@@ -70,6 +70,13 @@ REAL4 DIFSBoxDiagonalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		z -= fractal->transformCommon.additionConstantA111;
 	}
+	if (fractal->transformCommon.functionEnabledIFalse
+			&& aux->i >= fractal->transformCommon.startIterationsI
+			&& aux->i < fractal->transformCommon.stopIterationsI)
+	{
+		z = fabs(z + fractal->transformCommon.offsetA000)
+				- fabs(z - fractal->transformCommon.offsetA000) - z;
+	}
 
 	// abs offsets
 	if (fractal->transformCommon.functionEnabledCFalse
@@ -123,7 +130,7 @@ REAL4 DIFSBoxDiagonalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA -= vary;
 		}
 	}
 

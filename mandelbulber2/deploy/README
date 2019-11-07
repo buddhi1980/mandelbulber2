@@ -146,11 +146,11 @@ make install
 - Debian Buster x64
 - Ubuntu 19.04
 
-- gcc 8.3
+- gcc 9.2.1
 - clang 7.0
 - msvc17
 
-- Qt 5.11.3
+- Qt 5.12.5
 
 7. USAGE
 --------
