@@ -55,14 +55,6 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			k *= aux->i + fractal->transformCommon.offset1;
 
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			k *= mad(aux->i, aux->i, fractal->transformCommon.offset1);
-
-		// if (fractal->transformCommon.functionEnabledAyFalse)
-		//				k += mad(aux->i, aux->i, fractal->transformCommon.offset1);
-		// if (fractal->transformCommon.functionEnabledByFalse)
-		//				k += mad(aux->i, aux->i, fractal->transformCommon.offset1);
-
 		REAL swap;
 		if (!fractal->transformCommon.functionEnabledOFalse)
 			swap = zc.x;
@@ -70,7 +62,6 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			swap = zc.z;
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
-		if (fractal->transformCommon.functionEnabledBzFalse) swap *= swap;
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{

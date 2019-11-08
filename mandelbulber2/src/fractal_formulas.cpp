@@ -17323,7 +17323,7 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 
 /**
  * DIFSBoxV1Iteration  fragmentarium code, mdifs by knighty (jan 2012)
- *
+ * DIFS = direct distance iterated function (primitives) system
  */
 void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -19097,14 +19097,6 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			k *= aux.i + fractal->transformCommon.offset1;
 
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			k *= aux.i * aux.i + fractal->transformCommon.offset1;
-
-		// if (fractal->transformCommon.functionEnabledAyFalse)
-		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
-		// if (fractal->transformCommon.functionEnabledByFalse)
-		//				k += aux.i * aux.i + fractal->transformCommon.offset1;
-
 		double swap;
 		if (!fractal->transformCommon.functionEnabledOFalse)
 			swap = zc.x;
@@ -19112,7 +19104,6 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			swap = zc.z;
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
-		if (fractal->transformCommon.functionEnabledBzFalse) swap *= swap;
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
@@ -19325,7 +19316,7 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		double k = fractal->transformCommon.angle0;
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
-			k *= (aux.i - 1.0) + fractal->transformCommon.offset1;
+			k *= aux.i + fractal->transformCommon.offset1;
 
 		double swap;
 		if (!fractal->transformCommon.functionEnabledOFalse)

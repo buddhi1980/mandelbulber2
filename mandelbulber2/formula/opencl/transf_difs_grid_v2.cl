@@ -39,7 +39,7 @@ REAL4 TransfDIFSGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL k = fractal->transformCommon.angle0;
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
-			k *= (aux->i - 1.0f) + fractal->transformCommon.offset1;
+			k *= aux->i + fractal->transformCommon.offset1;
 
 		REAL swap;
 		if (!fractal->transformCommon.functionEnabledOFalse)
