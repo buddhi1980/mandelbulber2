@@ -1111,7 +1111,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			renderedFramesCount++;
 			alreadyRenderedFrames[index] = true;
 
-			qDebug() << "Finished rendering frame" << index;
+			// qDebug() << "Finished rendering frame" << index;
 
 			if (gNetRender->IsClient())
 			{
@@ -1636,7 +1636,7 @@ void cFlightAnimation::slotNetRenderFinishedFrame(
 
 	if (!animationStopRequest && animationIsRendered)
 	{
-		qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
+		// qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
 		// counting left frames
 		int countLeft = reservedFrames.count(false);
@@ -1666,7 +1666,7 @@ void cFlightAnimation::slotNetRenderFinishedFrame(
 				if (toDoList.size() >= numberOfNewFrames) break;
 			}
 			NetRenderSendFramesToDoList(clientIndex, toDoList);
-			qDebug() << "Server: new toDo list" << toDoList;
+			// qDebug() << "Server: new toDo list" << toDoList;
 		}
 	}
 }
@@ -1676,7 +1676,7 @@ void cFlightAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 	if (animationIsRendered)
 	{
 		netRenderListOfFramesToRender.append(listOfFrames);
-		qDebug() << "Client: got frames toDo:" << listOfFrames;
+		// qDebug() << "Client: got frames toDo:" << listOfFrames;
 	}
 }
 

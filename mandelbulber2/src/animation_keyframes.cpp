@@ -969,7 +969,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				renderedFramesCount++;
 				alreadyRenderedFrames[frameIndex] = true;
 
-				qDebug() << "Finished rendering frame" << frameIndex;
+				// qDebug() << "Finished rendering frame" << frameIndex;
 
 				if (gNetRender->IsClient())
 				{
@@ -1706,7 +1706,7 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 
 	if (!animationStopRequest && animationIsRendered)
 	{
-		qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
+		// qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
 		// counting left frames
 		int countLeft = reservedFrames.count(false);
@@ -1736,7 +1736,7 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 				if (toDoList.size() >= numberOfNewFrames) break;
 			}
 			NetRenderSendFramesToDoList(clientIndex, toDoList);
-			qDebug() << "Server: new toDo list" << toDoList;
+			// qDebug() << "Server: new toDo list" << toDoList;
 		}
 	}
 }
@@ -1746,7 +1746,7 @@ void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 	if (animationIsRendered)
 	{
 		netRenderListOfFramesToRender.append(listOfFrames);
-		qDebug() << "Client: got frames toDo:" << listOfFrames;
+		// qDebug() << "Client: got frames toDo:" << listOfFrames;
 	}
 }
 

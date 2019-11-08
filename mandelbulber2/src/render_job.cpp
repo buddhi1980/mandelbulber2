@@ -302,10 +302,10 @@ void cRenderJob::PrepareData()
 	bool loadTextures = !(
 		paramsContainer->Get<bool>("opencl_enabled")
 		&& (cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
-					 == cOpenClEngineRenderFractal::clRenderEngineTypeFast
-				 || cOpenClEngineRenderFractal::enumClRenderEngineMode(
-							paramsContainer->Get<int>("opencl_mode"))
-							== cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
+					== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+				|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 == cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
 
 	if (loadTextures)
 	{
@@ -322,7 +322,8 @@ void cRenderJob::PrepareData()
 	// connect signal for progress bar update
 	connect(&renderData->lights,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		Qt::UniqueConnection);
 
 	renderData->lights.Set(paramsContainer, fractalContainer);
 
@@ -438,7 +439,7 @@ bool cRenderJob::Execute()
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				// stereoscopic rendering of SSAO (separate for each half of image)
 				cRegion<int> region;
@@ -527,8 +528,8 @@ int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
 			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
 			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
 						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
-					 || (paramsContainer->Get<bool>("DOF_enabled")
-								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
+					|| (paramsContainer->Get<bool>("DOF_enabled")
+							&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
 	{
 		noOfRepeats = 2;
 		*twoPassStereo = true;
@@ -634,14 +635,16 @@ bool cRenderJob::RenderFractalWithOpenCl(
 {
 	bool result = false;
 	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
-		SIGNAL(updateStatistics(cStatistics)));
-	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+		SIGNAL(updateStatistics(cStatistics)), Qt::UniqueConnection);
+	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()),
+		Qt::UniqueConnection);
 	connect(gOpenCl->openClEngineRenderFractal,
 		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), this,
-		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)));
+		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), Qt::UniqueConnection);
 	connect(gOpenCl->openClEngineRenderFractal,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		Qt::UniqueConnection);
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
@@ -747,7 +750,7 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				cRegion<int> region;
 				region = renderData->stereo.GetRegion(

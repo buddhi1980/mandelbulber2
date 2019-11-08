@@ -375,7 +375,10 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 		else
 		{
 			// in noGui mode it must be started as separate thread to be able to process event loop
-			gMainInterface->headless = new cHeadless;
+			if (!gMainInterface->headless)
+			{
+				gMainInterface->headless = new cHeadless;
+			}
 
 			auto *thread = new QThread; // deleted by deleteLater()
 			gMainInterface->headless->moveToThread(thread);
@@ -384,7 +387,7 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 			thread->start();
 
 			connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
-				&cHeadless::deleteLater);
+				&cHeadless::deleteLater, Qt::UniqueConnection);
 			connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
 			connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 		}
@@ -481,6 +484,17 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 						gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes,
 							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
 					}
+
+					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless;
+
+					connect(gKeyframeAnimation,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						gMainInterface->headless,
+						SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+					connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+						gMainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)),
+						Qt::UniqueConnection);
 				}
 
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
@@ -501,6 +515,16 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 						gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames,
 							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
 					}
+
+					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless;
+
+					connect(gFlightAnimation,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+						gMainInterface->headless,
+						SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)),
+						Qt::UniqueConnection);
+					connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless,
+						SLOT(slotUpdateStatistics(cStatistics)), Qt::UniqueConnection);
 				}
 
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);

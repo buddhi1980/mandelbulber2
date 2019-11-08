@@ -1280,8 +1280,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					percentDone = percentDone * (1.0 - doneMC) + doneMC;
 				}
 				emit updateProgressAndStatus(
-					tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
-					progressText.getText(percentDone), percentDone);
+					tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
 
 				float totalNoise = 0.0;
 				for (quint64 i = 0; i < noiseTableSize; i++)
