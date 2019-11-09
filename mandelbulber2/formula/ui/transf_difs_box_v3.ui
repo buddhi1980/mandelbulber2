@@ -181,7 +181,7 @@
      <property name="title">
       <string>Box controls</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -315,6 +315,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
@@ -1125,14 +1132,14 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
