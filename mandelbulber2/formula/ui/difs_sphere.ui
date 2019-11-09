@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>difs_sphere</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1527,7 +1527,7 @@
      <property name="title">
       <string>Sphere shape controls</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1643,6 +1643,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled4d_false">
+        <property name="text">
+         <string>4D formulas</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

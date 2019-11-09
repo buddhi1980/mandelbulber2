@@ -18754,8 +18754,13 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double sphereRadius = fractal->transformCommon.offsetR1;
-		double spD = zc.Length() - sphereRadius;
+		double vecLen;
+		if (!fractal->transformCommon.functionEnabled4dFalse)
+			vecLen = CVector3(zc.x, zc.y, zc.z).Length();
+		else
+			vecLen = zc.Length();
+
+		double spD = vecLen - fractal->transformCommon.offsetR1;;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
 	// torus
@@ -18764,17 +18769,16 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		double torD;
+
 		// swap axis
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+			swap(zc.x, zc.z);
 		}
-		else
-		{
-			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
-		}
+
+		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
 

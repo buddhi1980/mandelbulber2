@@ -161,7 +161,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL rr;
 		REAL sz = fractal->transformCommon.scale05;
 		int count = fractal->transformCommon.int8X; // Menger Sponge
-		zc *= native_recip((REAL4)){sz, sz, sz, 1.0f};
+		zc *= native_recip((REAL4){sz, sz, sz, 1.0f});
 		aux->pseudoKleinianDE = 1.0f;
 		int k;
 		for (k = 0; k < count && rr < 10.0f; k++)
