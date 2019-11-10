@@ -21,7 +21,7 @@ REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (!fractal->transformCommon.functionEnabled4dFalse)
 		vecLen =length((REAL3){(zc.x, zc.y, zc.z});
 	else
-		vecLen = zc.Length();
+		vecLen = length(zc);
 
 	REAL spD = vecLen - fractal->transformCommon.offsetR1;
 

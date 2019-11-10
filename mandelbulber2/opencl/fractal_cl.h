@@ -719,6 +719,7 @@ typedef struct
 	cl_int benesiT1Enabled;
 	cl_int benesiT1EnabledFalse;
 	cl_int benesiT1MEnabledFalse;
+	cl_int functionEnabled4dFalse;
 	cl_int functionEnabled;
 	cl_int functionEnabledFalse;
 	cl_int functionEnabledx;
@@ -1433,6 +1434,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.benesiT1Enabled = source.benesiT1Enabled;
 	target.benesiT1EnabledFalse = source.benesiT1EnabledFalse;
 	target.benesiT1MEnabledFalse = source.benesiT1MEnabledFalse;
+	target.functionEnabled4dFalse = source.functionEnabled4dFalse;
 	target.functionEnabled = source.functionEnabled;
 	target.functionEnabledFalse = source.functionEnabledFalse;
 	target.functionEnabledx = source.functionEnabledx;
