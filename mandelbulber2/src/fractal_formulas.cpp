@@ -19994,223 +19994,54 @@ void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
- * Testing  fragmentarium code, mdifs by knighty (jan 2012)
+ * Testing
  *
+ * https://www.shadertoy.com/view/3ddSDs
+ * Based upon: https://www.shadertoy.com/view/XdlSD4
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
 
-	double sphere = z.Length() - fractal->transformCommon.foldingLimit; // auxSize;
-	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
 
-	// CVector4 oldZ = z;
-	// double fillet = fractal->transformCommon.offset0;
+	z = fabs(z + fractal->transformCommon.additionConstant111)
+				- fabs(z - fractal->transformCommon.additionConstant111) - z;
 
-	/*if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;*/
-
-	if (fractal->transformCommon.functionEnabledAxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
-		z.x = fabs(z.x);
-
-	if (fractal->transformCommon.functionEnabledAyFalse
-			&& aux.i >= fractal->transformCommon.startIterationsY
-			&& aux.i < fractal->transformCommon.stopIterationsY)
-		z.y = fabs(z.y);
-
-	if (fractal->transformCommon.functionEnabledAzFalse
-			&& aux.i >= fractal->transformCommon.startIterationsZ
-			&& aux.i < fractal->transformCommon.stopIterationsZ)
-		z.z = fabs(z.z);
-
-	if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;
-
-	if (fractal->transformCommon.functionEnabledCxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsJ
-			&& aux.i < fractal->transformCommon.stopIterationsJ)
-	{
-		z.x = fabs(z.x);
-		int poly = fractal->transformCommon.int3;
-		double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
-		double len = sqrt(z.x * z.x + z.y * z.y);
-		z.x = cos(psi) * len;
-		z.y = sin(psi) * len;
-	}
-
-	if (fractal->transformCommon.functionEnabledBy
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD)
-		if (z.y > z.x) swap(z.x, z.y);
-
-	if (fractal->transformCommon.functionEnabledBx
-			&& aux.i >= fractal->transformCommon.startIterationsI
-			&& aux.i < fractal->transformCommon.stopIterationsI)
-		z = z - boxSize;
-
-	double xOffset = fractal->transformCommon.offset0;
-	double yOffset = fractal->transformCommon.offset05;
-
-	if (fractal->transformCommon.functionEnabledxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-		if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
-
-	if (fractal->transformCommon.functionEnabledy
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
-		if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
-
-	if (aux.i >= fractal->transformCommon.startIterationsE
-			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset1;
-
-	if (aux.i >= fractal->transformCommon.startIterationsF
-			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA1;
-
-	/*	if (fractal->transformCommon.functionEnabledByFalse
-				&& aux.i >= fractal->transformCommon.startIterationsG
-				&& aux.i < fractal->transformCommon.stopIterationsG)
-			if (z.y > z.x) swap(z.x, z.y);
-
-	*/
-
-	// scale
-	double useScale = 1.0;
-	if (aux.i >= fractal->transformCommon.startIterationsS
-			&& aux.i < fractal->transformCommon.stopIterationsS)
-	{
-		useScale = aux.actualScaleA + fractal->transformCommon.scale2;
-
-		z *= useScale;
-
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fabs(useScale) + 1.0;
-		else
-			aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
-		if (fractal->transformCommon.functionEnabledKFalse
-				&& aux.i >= fractal->transformCommon.startIterationsK
-				&& aux.i < fractal->transformCommon.stopIterationsK)
+		double rr = z.Dot(z);
+		if (rr < fractal->transformCommon.minR2p25)
 		{
-			// update actualScaleA for next iteration
-			double vary = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledCzFalse)
-				aux.actualScaleA = -vary;
-			else
-				aux.actualScaleA = aux.actualScaleA - vary;
+			z *= fractal->transformCommon.maxMinR2factor;
+			aux.DE *= fractal->transformCommon.maxMinR2factor;
+
 		}
-	}
-
-	if (aux.i >= fractal->transformCommon.startIterationsH
-			&& aux.i < fractal->transformCommon.stopIterationsH)
-		z += fractal->transformCommon.offset111;
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-	double colorDist = aux.dist;
-	CVector4 zc = z;
-
-	if (fractal->analyticDE.enabled)
-	{
-		if (!fractal->analyticDE.enabledFalse)
+		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			if (fractal->transformCommon.functionEnabledBx) zc = fabs(zc) - boxSize;
-			double zcd = 1.0;
-			zcd = max(zc.x, max(zc.y, zc.z));
-			if (zcd > 0.0)
-			{
-				zc.x = max(zc.x, 0.0);
-				zc.y = max(zc.y, 0.0);
-				zc.z = max(zc.z, 0.0);
-				zcd = zc.Length();
-			}
-			aux.dist = min(aux.dist, zcd / aux.DE);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			aux.DE *= fractal->transformCommon.maxR2d1 / rr;
+
 		}
-		if (fractal->transformCommon.functionEnabledKFalse) aux.dist = min(aux.dist, sphere / aux.DE);
+	z *= fractal->transformCommon.scale2;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
+	z += aux.c;
+	//z += fractal->transformCommon.offset000;
 
-		/*else
-		{
-			double dist = max(z.x, max(z.y, z.z));
-				if (dist > 0.0)
-				{
-					zc.x = max(z.x, 0.0);
-					zc.y = max(z.y, 0.0);
-					if(fractal->transformCommon.functionEnabledz)
-						zc.z = z.y;
-					zc.z = max(zc.z, 0.0);
-					dist = max(dist, zc.Length());
-				}
-			double maxDist = dist;
-			maxDist = max(maxDist, z.Length());
-			aux.DE = aux.DE * maxDist / z.Length() * fractal->analyticDE.scale1 +
-			fractal->analyticDE.offset0; if(fractal->transformCommon.functionEnabledyFalse)
-			{
-				z = zc;
-			}*/
-		/*if (fractal->transformCommon.functionEnabledFalse)
-			zc  =  fabs(zc) - boxSize;
-		double zcd = 1.0;
-		zcd = max(zc.x, max(zc.y, zc.z));
-			if (zcd > 0.0)
-			{
-				zc.x = max(zc.x, 0.0);
-				zc.y = max(zc.y, 0.0);
-				zc.z = max(zc.z, 0.0);
-				zcd = zc.Length();
-			}
-			aux.dist = min(aux.dist, zcd / aux.DE); //
-		if (fractal->transformCommon.functionEnabledBx) zc = fabs(zc) - boxSize;
-		double zcd = 1.0;
-		zcd = max(zc.x, max(zc.y, zc.z));
-		if (zcd > 0.0)
-		{
-			zc.x = max(zc.x, 0.0);
-			zc.y = max(zc.y, 0.0);
-			zc.z = max(zc.z, 0.0);
-			zcd = zc.Length();
-		}
-		aux.dist = min(aux.dist, zcd / aux.DE);
-		double distDE = (z.Length()) / aux.DE;
-		aux.dist =
-			aux.dist
-			+ (distDE - aux.dist)
-					* (1.0 - pow(1.0 - fractal->transformCommon.scale1, fractal->transformCommon.scaleB1));
+	double sphere = z.Length() - fractal->transformCommon.offset3;
 
-	}*/
-	}
+	double torus = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset4;
+	torus = sqrt(torus * torus + z.y * z.y) - fractal->transformCommon.offset1;
 
-	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
-		}
-		else
-			aux.color += colorAdd;
-	}
+
+	int count = fractal->transformCommon.int3;
+
+	double r = (aux.i < count) ? torus : sphere;
+	double dd = r / aux.DE;
+	if (aux.i < 3 || dd < aux.colorHybrid) {
+			 aux.colorHybrid = dd;}
+
+	aux.dist = aux.colorHybrid ;
+
+
+
+
 }
 
 /**

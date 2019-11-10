@@ -1023,6 +1023,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Testing", "testing", testing, TestingIteration, analyticDEType,
 			dIFSDEFunction, cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 
+	/*fractalList->append(
+		sFractalDescription("Testing", "testing", testing, TestingIteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));*/
+
+
+
 	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog,
 		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
