@@ -16,15 +16,16 @@
 REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
-
 	REAL vecLen;
 	if (!fractal->transformCommon.functionEnabled4dFalse)
-		vecLen =length((REAL3){(zc.x, zc.y, zc.z});
+	{
+		REAL3 vec = (REAL3){zc.x, zc.y, zc.z};
+		vecLen = length(vec);
+	}
 	else
 		vecLen = length(zc);
 
 	REAL spD = vecLen - fractal->transformCommon.offsetR1;
-
 	aux->dist = min(aux->dist, native_divide(spD, aux->DE));
 	return z;
 }

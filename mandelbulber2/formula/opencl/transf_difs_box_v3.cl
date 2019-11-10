@@ -49,7 +49,6 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->transformCommon.startIterationsN
 			&& aux->i < fractal->transformCommon.stopIterationsN)
 	{
-
 		REAL k = fractal->transformCommon.angle0;
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
@@ -63,22 +62,13 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
 
+		REAL c = native_cos(k * zc.y);
+		REAL s = native_sin(k * zc.y);
 		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			REAL c = native_cos(k * zc.y);
-			REAL s = native_sin(k * zc.y);
-			REAL tp = swap;
 			zc.x = mad(c, swap, -s * zc.y);
-			zc.y = mad(s, tp, c * zc.y);
-		}
 		else
-		{
-			REAL c = native_cos(k * zc.y);
-			REAL s = native_sin(k * zc.y);
-			REAL tp = swap;
 			zc.z = mad(c, swap, -s * zc.y);
-			zc.y = mad(s, tp, c * zc.y);
-		}
+		zc.y = mad(s, swap, c * zc.y);
 	}
 
 	zc = fabs(zc) - boxSize;

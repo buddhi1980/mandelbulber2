@@ -165,12 +165,11 @@ REAL4 DIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		// swap axis
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			{
-				REAL temp = zc.x;
-				zc.x = zc.z;
-				zc.z = temp;
-			}
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
 		}
+
 		REAL4 absZ = fabs(zc);
 
 		if (fractal->transformCommon.functionEnabledMFalse
@@ -213,8 +212,6 @@ REAL4 DIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

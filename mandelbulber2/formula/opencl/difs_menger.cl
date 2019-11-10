@@ -158,13 +158,14 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
 		REAL4 ones = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
-		REAL rr;
+		REAL rr = 0.0f;
 		REAL sz = fractal->transformCommon.scale05;
+		REAL4 szVect = (REAL4){sz, sz, sz, 1.0f};
 		int count = fractal->transformCommon.int8X; // Menger Sponge
-		zc *= native_recip((REAL4){sz, sz, sz, 1.0f});
+		zc *= (native_recip(szVect));
 		aux->pseudoKleinianDE = 1.0f;
-		int k;
-		for (k = 0; k < count && rr < 10.0f; k++)
+
+		for (int k = 0; k < count && rr < 10.0f; k++)
 		{
 			zc = fabs(zc + fractal->transformCommon.offsetA000);
 
@@ -192,7 +193,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 			zc -= ones;
 			zc *= fractal->transformCommon.scale3;
-			aux->pseudoKleinianDE *= native_recip(fractal->transformCommon.scale3);
+			aux->pseudoKleinianDE *= fractal->transformCommon.scale3;
 			zc += ones;
 
 			rr = length(zc);
@@ -210,7 +211,8 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			bxV.z = max(bxV.z, 0.0f);
 			mengD = length(bxV);
 		}
-		mengD = mengD * sz * aux->pseudoKleinianDE;
+		mengD = mengD * sz;
+		mengD /= aux->pseudoKleinianDE;
 
 		aux->dist = min(aux->dist, native_divide(mengD, aux->DE));
 	}
@@ -222,8 +224,6 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

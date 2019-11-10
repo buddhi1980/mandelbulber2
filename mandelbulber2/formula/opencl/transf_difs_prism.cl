@@ -21,11 +21,9 @@ REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
 	}
 
 	REAL priD = max(fabs(zc.x) - fractal->transformCommon.offset1,

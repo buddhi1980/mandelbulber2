@@ -209,8 +209,6 @@ REAL4 DIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

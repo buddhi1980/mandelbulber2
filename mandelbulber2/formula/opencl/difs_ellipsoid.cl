@@ -170,14 +170,12 @@ REAL4 DIFSEllipsoidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				&& aux->i >= fractal->transformCommon.startIterationsN
 				&& aux->i < fractal->transformCommon.stopIterationsN)
 		{
-			// REAL absZ = fabs(zc.z);
 			tempX = mad(fractal->transformCommon.scale0, absZ, zc.x);
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)
 		{
-			// REAL absZ = fabs(zc.z);
 			tempY = mad(fractal->transformCommon.scaleA0, absZ, zc.y);
 		}
 
@@ -205,8 +203,7 @@ REAL4 DIFSEllipsoidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		REAL sphereRadius = fractal->transformCommon.offsetR1;
-		REAL spD = length(zc) - sphereRadius;
+		REAL spD = length(zc) - fractal->transformCommon.offsetR1;
 		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
 	}
 	// aux->color
@@ -216,8 +213,6 @@ REAL4 DIFSEllipsoidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

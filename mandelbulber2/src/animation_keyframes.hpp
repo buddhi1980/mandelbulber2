@@ -168,8 +168,8 @@ private:
 	QVector<bool> alreadyRenderedFrames;
 	QVector<bool> reservedFrames;
 	int renderedFramesCount = 0; // used for countig frames rendered with NetRender
-	const int maxFramesForNetRender = 50;
-	const int minFramesForNetRender = 5;
+	const int maxFramesForNetRender = 10;
+	const int minFramesForNetRender = 2;
 	bool animationStopRequest = false;
 	bool animationIsRendered = false;
 

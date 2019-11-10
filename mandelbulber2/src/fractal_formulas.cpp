@@ -18525,13 +18525,14 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		CVector4 ones = CVector4(1.0, 1.0, 1.0, 0.0);
-		double rr;
+		double rr = 0.0;
 		double sz = fractal->transformCommon.scale05;
+		CVector4 szVect = CVector4(sz, sz, sz, 1.0);
 		int count = fractal->transformCommon.int8X; // Menger Sponge
-		zc *= 1.0 / CVector4(sz, sz, sz, 1.0);
+		zc *= (1.0 / szVect);
 		aux.pseudoKleinianDE = 1.0;
-		int k;
-		for (k = 0; k < count && rr < 10.0; k++)
+
+		for (int k = 0; k < count && rr < 10.0; k++)
 		{
 			zc = fabs(zc + fractal->transformCommon.offsetA000);
 
@@ -18567,7 +18568,8 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			bxV.z = max(bxV.z, 0.0);
 			mengD = bxV.Length();
 		}
-		mengD = mengD * sz / aux.pseudoKleinianDE;
+		mengD = mengD * sz;
+		mengD /= aux.pseudoKleinianDE;
 
 		aux.dist = min(aux.dist, mengD / aux.DE);
 	}
@@ -18926,7 +18928,10 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	{
 		double vecLen;
 		if (!fractal->transformCommon.functionEnabled4dFalse)
-			vecLen = CVector3(zc.x, zc.y, zc.z).Length();
+		{
+			CVector3 vec3 = CVector3(zc.x, zc.y, zc.z);
+			vecLen = vec3.Length();
+		}
 		else
 			vecLen = zc.Length();
 
@@ -19613,7 +19618,10 @@ void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	CVector4 zc = z;
 	double vecLen;
 	if (!fractal->transformCommon.functionEnabled4dFalse)
-		vecLen = CVector3(zc.x, zc.y, zc.z).Length();
+	{
+		CVector3 vec = CVector3(zc.x, zc.y, zc.z);
+		vecLen = vec.Length();
+	}
 	else
 		vecLen = zc.Length();
 
@@ -20002,46 +20010,40 @@ void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtended
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-
 	z = fabs(z + fractal->transformCommon.additionConstant111)
-				- fabs(z - fractal->transformCommon.additionConstant111) - z;
+			- fabs(z - fractal->transformCommon.additionConstant111) - z;
 
-		double rr = z.Dot(z);
-		if (rr < fractal->transformCommon.minR2p25)
-		{
-			z *= fractal->transformCommon.maxMinR2factor;
-			aux.DE *= fractal->transformCommon.maxMinR2factor;
-
-		}
-		else if (rr < fractal->transformCommon.maxR2d1)
-		{
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			aux.DE *= fractal->transformCommon.maxR2d1 / rr;
-
-		}
+	double rr = z.Dot(z);
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		z *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
+	}
 	z *= fractal->transformCommon.scale2;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
 	z += aux.c;
-	//z += fractal->transformCommon.offset000;
+	// z += fractal->transformCommon.offset000;
 
 	double sphere = z.Length() - fractal->transformCommon.offset3;
 
 	double torus = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset4;
 	torus = sqrt(torus * torus + z.y * z.y) - fractal->transformCommon.offset1;
 
-
 	int count = fractal->transformCommon.int3;
 
 	double r = (aux.i < count) ? torus : sphere;
 	double dd = r / aux.DE;
-	if (aux.i < 3 || dd < aux.colorHybrid) {
-			 aux.colorHybrid = dd;}
+	if (aux.i < 3 || dd < aux.colorHybrid)
+	{
+		aux.colorHybrid = dd;
+	}
 
-	aux.dist = aux.colorHybrid ;
-
-
-
-
+	aux.dist = aux.colorHybrid;
 }
 
 /**
@@ -20724,7 +20726,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 }
 /**
- * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam
+ * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by
+ * DarkBeam
  *
  * This formula has a c.x c.y SWAP
  *
@@ -20771,4 +20774,3 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 }
-

@@ -21,11 +21,9 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
 	}
 
 	REAL cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.radius1;

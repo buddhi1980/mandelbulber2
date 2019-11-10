@@ -15,6 +15,7 @@ amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefaul
 amazingSurfMod1,"Amazing Surf - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod2,"Amazing Surf - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMod3,"Amazing Surf - Mod 3",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+amazingSurfMod4,"Amazing Surf - Mod 4",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMulti,"Amazing Surf - Multi",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 collatz,Collatz,analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
 collatzMod,"Collatz - Mod",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
@@ -261,7 +262,7 @@ transfPlatonicSolid,"T>Platonic Solid",deltaDEType,withoutDEFunction,cpixelDisab
 transfHybridColor,"T>Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfHybridColor2,"T>Hybrid Color2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfDIFSAuxColor,"T>DIFS Aux.Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
-testing,Testing,analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+testing,Testing,analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault

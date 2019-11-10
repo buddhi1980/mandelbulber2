@@ -164,18 +164,17 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		REAL cylR, lengthCyl, absH, temp;
 
 		// swap
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			cylR = zc.x * zc.x;
-			absH = fabs(zc.z);
-			lengthCyl = zc.z;
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
 		}
-		else
-		{
-			cylR = zc.z * zc.z;
-			absH = fabs(zc.x);
-			lengthCyl = zc.x;
-		}
+
+		cylR = zc.x * zc.x;
+		absH = fabs(zc.z);
+		lengthCyl = zc.z;
+
 		cylR = native_sqrt(mad(zc.y, zc.y, cylR));
 		REAL cylH = absH - fractal->transformCommon.offsetA1;
 
@@ -232,16 +231,16 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	{
 		REAL torD;
 		// swap axis
-		if (!fractal->transformCommon.functionEnabledJFalse)
+		if (fractal->transformCommon.functionEnabledJFalse)
 		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
 		}
-		else
-		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.z * zc.z)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.x * zc.x)) - fractal->transformCommon.offset05;
-		}
+
+		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+
 		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
 	}
 	// aux->color
@@ -251,8 +250,6 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

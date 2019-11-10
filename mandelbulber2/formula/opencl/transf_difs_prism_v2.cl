@@ -27,11 +27,9 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
 	}
 
 	REAL absZ = fabs(zc.z);

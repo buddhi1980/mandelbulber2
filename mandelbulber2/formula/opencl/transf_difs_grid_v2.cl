@@ -48,23 +48,17 @@ REAL4 TransfDIFSGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			swap = zc.z;
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
-
+		REAL c = native_cos(k * zc.y);
+		REAL s = native_sin(k * zc.y);
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
-			REAL c = native_cos(k * zc.y);
-			REAL s = native_sin(k * zc.y);
-			REAL tp = swap;
 			zc.x = mad(c, swap, -s * zc.y);
-			zc.y = mad(s, tp, c * zc.y);
 		}
 		else
 		{
-			REAL c = native_cos(k * zc.y);
-			REAL s = native_sin(k * zc.y);
-			REAL tp = swap;
 			zc.z = mad(c, swap, -s * zc.y);
-			zc.y = mad(s, tp, c * zc.y);
 		}
+		zc.y = mad(s, swap, c * zc.y);
 	}
 
 	if (fractal->transformCommon.rotationEnabled)

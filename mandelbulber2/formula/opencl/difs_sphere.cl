@@ -162,9 +162,13 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		REAL vecLen;
 		if (!fractal->transformCommon.functionEnabled4dFalse)
-			vecLen = length((REAL3){zc.x, zc.y, zc.z});
+		{
+			REAL3 vec3 = (REAL3){zc.x, zc.y, zc.z};
+			vecLen = length(vec3);
+		}
 		else
 			vecLen = length(zc);
+
 		REAL spD = vecLen - fractal->transformCommon.offsetR1;
 		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
 	}
@@ -174,17 +178,18 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
 		REAL torD;
+
 		// swap axis
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
 		}
-		else
-		{
-			REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.z * zc.z)) - fractal->transformCommon.offsetT1;
-			torD = native_sqrt(mad(T1, T1, zc.x * zc.x)) - fractal->transformCommon.offset05;
-		}
+
+		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+
 		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
 	}
 
@@ -195,8 +200,6 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)
