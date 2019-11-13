@@ -18726,8 +18726,6 @@ void DIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		// CVector4 zc = z;
-
 		double tp;
 		double len = fractal->transformCommon.offset1;
 		double face = fractal->transformCommon.offset05;
@@ -19397,11 +19395,8 @@ void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	CVector4 rads4 = fractal->transformCommon.additionConstant111;
 	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
-	double tempX = zc.x;
-	double tempY = zc.y;
-	double tempZ = zc.z;
 
-	CVector3 rV = CVector3(tempX, tempY, tempZ);
+	CVector3 rV = CVector3(zc.x, zc.y, zc.z);
 	rV /= rads3;
 
 	CVector3 rrV = rV;
@@ -20011,7 +20006,6 @@ void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	z = fabs(z + fractal->transformCommon.additionConstant111)
 			- fabs(z - fractal->transformCommon.additionConstant111) - z;
 
@@ -20027,12 +20021,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 	}
 
-
-
-
 	z *= fractal->transformCommon.scale2;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
-
 
 	z += fractal->transformCommon.offset000;
 
@@ -20044,6 +20034,23 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
+	/*aux.DE = aux.DE * 2.0 * aux.r;
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+
+
+	z += aux.c * fractal->transformCommon.constantMultiplier111;*/
+
+
+
 	double cylinder;
 	double cylR = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 	double cylH = fabs(z.z) - fractal->transformCommon.offsetA1;
@@ -20053,8 +20060,28 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	double cylD = sqrt(cylR * cylR + cylH * cylH);
 	cylinder = min(max(cylR, cylH), 0.0) + cylD;
 
+	CVector4 boxSize = fractal->transformCommon.offset111;
+	CVector4 zc = z;
+	zc = fabs(zc) - boxSize;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
+	zc.z = max(zc.z, 0.0);
+	double box = zc.Length();
 
+	zc = z;
 
+	CVector4 rads4 = fractal->transformCommon.offsetA111;
+	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
+
+	CVector3 rV = CVector3(zc.x, zc.y, zc.z);
+	rV /= rads3;
+
+	CVector3 rrV = rV;
+	rrV /= rads3;
+
+	double rd = rV.Length();
+	double rrd = rrV.Length();
+	double ellipse = rd * (rd - 1.0) / rrd;
 
 	double sphere = z.Length() - fractal->transformCommon.offset3;
 
@@ -20062,9 +20089,10 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	torus = sqrt(torus * torus + z.y * z.y) - fractal->transformCommon.offset1;
 
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
-
-
+	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
+	if (fractal->transformCommon.functionEnabledXFalse) sphere = ellipse;
 	int count = fractal->transformCommon.int3;
+	int tempC = fractal->transformCommon.int3X;
 	double r;
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
@@ -20072,9 +20100,9 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	else
 		{ r = (aux.i < count) ? sphere : torus;}
 
-
+	//double dd = 0.5 * r * log(r) / aux.DE;
 	double dd = r / aux.DE;
-	if (aux.i < 3 || dd < aux.colorHybrid)
+	if (aux.i < tempC || dd < aux.colorHybrid)
 	{
 		aux.colorHybrid = dd;
 	}
