@@ -19976,23 +19976,25 @@ void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtended
 			if (fractal->transformCommon.functionEnabledFalse)
 				colorAdd = fractal->transformCommon.scale1 * round(colorAdd);
 		}
-		colorAdd += fractal->foldColor.difs1;
+		colorAdd += fractal->foldColor.difs1; // 0 + 1 = 1
 
-		if (!fractal->foldColor.auxColorEnabledA)
-		{
-			aux.color += colorAdd;
-		}
-		else
-		{
+		if (fractal->foldColor.auxColorEnabledA)
+		{ // aux.color ini cond 1.0 = green. after first iter = 2 pale yellow, then  yellow,  blue
 			if (aux.dist != aux.colorHybrid) aux.color += colorAdd;
 		}
+		else
+		{ // stop iter 0 = green, 2 pale yellow,  then  yellow,  blue
+			aux.color += colorAdd; // color based only on iter (no aux.dist check)
+		}
+
+
 		// update for next iter
 		aux.colorHybrid = aux.dist;
 	}
 	// else
 	// aux.color = 0.0;
 
-	// aux.dist tweak
+	// NOT RELATED TO COLOR  an aux.dist tweak test
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
@@ -20025,22 +20027,42 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 	}
 
+
+
+
+	z *= fractal->transformCommon.scale2;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
+
+
+	z += fractal->transformCommon.offset000;
+
+	z += aux.c * fractal->transformCommon.constantMultiplier111;
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
+	double cylinder;
+	double cylR = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+	double cylH = fabs(z.z) - fractal->transformCommon.offsetA1;
 
-	z *= fractal->transformCommon.scale2;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
-	z += aux.c;
-	z += fractal->transformCommon.offset000;
+	cylR = max(cylR, 0.0);
+	cylH = max(cylH, 0.0);
+	double cylD = sqrt(cylR * cylR + cylH * cylH);
+	cylinder = min(max(cylR, cylH), 0.0) + cylD;
+
+
+
 
 	double sphere = z.Length() - fractal->transformCommon.offset3;
 
 	double torus = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset4;
 	torus = sqrt(torus * torus + z.y * z.y) - fractal->transformCommon.offset1;
+
+	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
+
 
 	int count = fractal->transformCommon.int3;
 	double r;

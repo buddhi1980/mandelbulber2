@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_aux_color</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -211,16 +211,6 @@ provides complete control</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
@@ -371,6 +361,20 @@ provides complete control</string>
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_58">
+     <property name="text">
+      <string>reduce ray step is faster</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1,0,1">
      <property name="topMargin">
       <number>0</number>
@@ -428,13 +432,6 @@ provides complete control</string>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_58">
-     <property name="text">
-      <string>reduce ray step is faster</string>
-     </property>
-    </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,0,1">
@@ -617,14 +614,14 @@ provides complete control</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
