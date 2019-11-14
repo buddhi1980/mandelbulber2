@@ -394,6 +394,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quaternion3D", "quaternion3d", quaternion3d,
 		Quaternion3dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
+		Quaternion4dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d",
+		quaternionCubic4d, QuaternionCubic4dIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Sphere Hobold Pow4",
@@ -514,13 +520,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, Makin3d2Iteration,
 		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
-		Quaternion4dIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d",
-		quaternionCubic4d, QuaternionCubic4dIteration, deltaDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Quick Dudley formulas
 	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley,

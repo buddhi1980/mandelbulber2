@@ -33,13 +33,13 @@ REAL4 TransfDIFSAuxColorIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		colorAdd += fractal->foldColor.difs1;
 
-		if (!fractal->foldColor.auxColorEnabledA)
+		if (fractal->foldColor.auxColorEnabledA)
 		{
-			aux->color += colorAdd;
+			if (aux->dist != aux->colorHybrid) aux->color += colorAdd;
 		}
 		else
 		{
-			if (aux->dist != aux->colorHybrid) aux->color += colorAdd;
+			aux->color += colorAdd;
 		}
 		// update for next iter
 		aux->colorHybrid = aux->dist;

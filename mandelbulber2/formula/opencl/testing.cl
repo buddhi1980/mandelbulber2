@@ -42,31 +42,61 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	REAL cylinder;
-	REAL cylR = native_sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
-	REAL cylH = fabs(z.z) - fractal->transformCommon.offsetA1;
+	REAL4 zc = z;
 
+		// cylinder
+	REAL cylinder;
+	REAL cylR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 	cylR = max(cylR, 0.0);
 	cylH = max(cylH, 0.0);
 	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
 	cylinder = min(max(cylR, cylH), 0.0) + cylD;
 
+		// box
+	REAL4 boxSize = fractal->transformCommon.offset111;
+	zc = fabs(zc) - boxSize;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
+	zc.z = max(zc.z, 0.0);
+	REAL box = zc.Length();
+	zc = z;
 
+	// ellipsoid
+	REAL4 rads4 = fractal->transformCommon.offsetA111;
+	REAL3 rads3 = (REAL3){rads4.x, rads4.y, rads4.z};
+	CVector3 rV = (REAL3){zc.x, zc.y, zc.z};
+	rV /= rads3;
+	CVector3 rrV = rV;
+	rrV /= rads3;
+	REAL rd = Length(rv);
+	REAL rrd = Length(rrV);
+	REAL ellipsoid = rd * (rd - 1.0) / rrd;
+
+		// sphere
 	REAL sphere = length(z) - fractal->transformCommon.offset3;
 
-	REAL torus = native_sqrt(mad(z.x, z.x, z.z * z.z)) - fractal->transformCommon.offset4;
-	torus = native_sqrt(mad(torus, torus, z.y * z.y)) - fractal->transformCommon.offset1;
+		// torus
+	REAL torus = native_sqrt(mad(zc.x, zc.x, zc.z * zc.z)) - fractal->transformCommon.offset4;
+	torus = native_sqrt(mad(torus, torus, zc.y * zc.y)) - fractal->transformCommon.offset1;
 
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
+	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
+	if (fractal->transformCommon.functionEnabledzFalse) sphere = ellipsoid;
 
 	int count = fractal->transformCommon.int3;
+	int tempC = fractal->transformCommon.int3X;
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+		{ r = (aux->i < count) ? torus : sphere;}
+	else
+		{ r = (aux->i < count) ? sphere : torus;}
 
 	REAL r = (aux->i < count) ? torus : sphere;
 	REAL dd = native_divide(r, aux->DE);
-	if (aux->i < 3 || dd < aux->colorHybrid)
+	if (aux->i < tempC || dd < aux->colorHybrid)
 	{
 		aux->colorHybrid = dd;
 	}

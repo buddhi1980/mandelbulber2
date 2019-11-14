@@ -602,14 +602,14 @@ void QuaternionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	Q_UNUSED(fractal);
 
 	aux.DE = aux.DE * 2.0 * aux.r;
-	double newx = z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w;
+	double newx = z.x * z.x - z.y * z.y - z.z * z.z;
 	double newy = 2.0 * z.x * z.y;
 	double newz = 2.0 * z.x * z.z;
-	double neww = 2.0 * z.x * z.w;
+	//double neww = 2.0 * z.x * z.w;
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
-	z.w = neww;
+	//z.w = neww;
 }
 
 /**
@@ -16381,6 +16381,7 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	aux.DE = aux.DE * 2.0 * aux.r;
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w, z.x * z.y, z.x * z.z, z.w);
 	z *= fractal->transformCommon.constantMultiplier1220;
 	z += fractal->transformCommon.additionConstant0000;
@@ -16443,6 +16444,7 @@ void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	aux.DE = aux.DE * 2.0 * aux.r;
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
@@ -20049,53 +20051,51 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 	z += aux.c * fractal->transformCommon.constantMultiplier111;*/
 
-
-
+	CVector4 zc = z;
+		// cylinder
 	double cylinder;
-	double cylR = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
-	double cylH = fabs(z.z) - fractal->transformCommon.offsetA1;
-
+	double cylR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 	cylR = max(cylR, 0.0);
 	cylH = max(cylH, 0.0);
 	double cylD = sqrt(cylR * cylR + cylH * cylH);
 	cylinder = min(max(cylR, cylH), 0.0) + cylD;
 
+		// box
 	CVector4 boxSize = fractal->transformCommon.offset111;
-	CVector4 zc = z;
 	zc = fabs(zc) - boxSize;
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
 	zc.z = max(zc.z, 0.0);
 	double box = zc.Length();
-
 	zc = z;
 
+		// ellipsoid
 	CVector4 rads4 = fractal->transformCommon.offsetA111;
 	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
-
 	CVector3 rV = CVector3(zc.x, zc.y, zc.z);
 	rV /= rads3;
-
 	CVector3 rrV = rV;
 	rrV /= rads3;
-
 	double rd = rV.Length();
 	double rrd = rrV.Length();
-	double ellipse = rd * (rd - 1.0) / rrd;
+	double ellipsoid = rd * (rd - 1.0) / rrd;
 
-	double sphere = z.Length() - fractal->transformCommon.offset3;
+		// sphere
+	double sphere = zc.Length() - fractal->transformCommon.offset3;
 
+		// torus
 	double torus = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset4;
 	torus = sqrt(torus * torus + z.y * z.y) - fractal->transformCommon.offset1;
 
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
 	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
-	if (fractal->transformCommon.functionEnabledXFalse) sphere = ellipse;
+	if (fractal->transformCommon.functionEnabledzFalse) sphere = ellipsoid;
 	int count = fractal->transformCommon.int3;
 	int tempC = fractal->transformCommon.int3X;
 	double r;
 
-	if (!fractal->transformCommon.functionEnabledzFalse)
+	if (!fractal->transformCommon.functionEnabledSwFalse)
 		{ r = (aux.i < count) ? torus : sphere;}
 	else
 		{ r = (aux.i < count) ? sphere : torus;}

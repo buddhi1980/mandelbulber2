@@ -835,7 +835,7 @@
     </layout>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="text">
       <string>swap</string>
      </property>
@@ -856,7 +856,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
      <property name="text">
       <string>sphere to ellipse</string>
      </property>
@@ -1155,7 +1155,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,1">
+    <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -1226,13 +1226,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-       <property name="text">
-        <string>swap axis XZ not used</string>
        </property>
       </widget>
      </item>
