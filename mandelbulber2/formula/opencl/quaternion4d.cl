@@ -15,6 +15,7 @@
 
 REAL4 Quaternion4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	aux->DE *= 2.0f * aux->r;
 	z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w, z.x * z.y, z.x * z.z, z.w};
 	z *= fractal->transformCommon.constantMultiplier1220;
 	z += fractal->transformCommon.additionConstant0000;

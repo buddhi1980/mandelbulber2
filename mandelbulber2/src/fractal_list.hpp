@@ -119,7 +119,7 @@ enum enumFractalFormula
 	aboxVSIcen1 = 76,
 	amazingSurfMod1 = 77, // updated V2.08 v2.12
 	mandelbulbVaryPowerV1 = 78,
-	quaternion4d = 79, // updated V2.10
+	quaternion4d = 79, // updated V2.10, add DE V2.20
 	msltoeSym3Mod2 = 80,
 	msltoeSym3Mod3 = 81, // DE v2.15
 	msltoeDonut = 82,
@@ -169,7 +169,7 @@ enum enumFractalFormula
 	mandelbulbJuliabulb = 121,
 	josKleinian = 122,
 	aboxMod12 = 123,
-	quaternionCubic4d = 124,
+	quaternionCubic4d = 124, // add DE V2.20
 	boxFoldBulbPow2V2 = 125,
 	boxFoldBulbPow2V3 = 126, // added sphere invert
 	aboxMod13 = 127, // add missing sphere fold iter controls
@@ -249,8 +249,8 @@ enum enumFractalFormula
 	transfBenesiT5b = 1014,
 	transfBenesiMagForward = 1015,
 	transfBenesiMagBackward = 1016,
-	transfBenesiCubeSphere = 1017,
-	transfBenesiSphereCube = 1018,
+	transfBenesiCubeSphere = 1017, // covert to analytic v2.20
+	transfBenesiSphereCube = 1018, // covert to analytic v2.20
 	transfAddCpixelSymmetrical = 1019,
 	transfBoxFold = 1020,
 	transfSphericalFold = 1021,

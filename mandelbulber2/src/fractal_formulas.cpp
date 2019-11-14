@@ -12238,7 +12238,7 @@ void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExte
 	z.z *= rCyz;
 
 	z *= rCxyz / SQRT_3_2;
-	aux.DE = aux.DE * z.Length() / oldZ.Length();
+	aux.DE *= z.Length() / oldZ.Length();
 }
 
 /**
@@ -12250,7 +12250,6 @@ void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExte
 void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(fractal);
-	//Q_UNUSED(aux);
 	CVector4 oldZ = z;
 	z *= z;
 	// if (z.z == 0.0) z.z = 1e-21;
@@ -12272,7 +12271,7 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 		rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
 
 	z *= rCxyz * SQRT_3_2;
-	aux.DE = aux.DE * z.Length() / oldZ.Length();
+	aux.DE *= z.Length() / oldZ.Length();
 }
 
 /**
@@ -16383,7 +16382,7 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.DE = aux.DE * 2.0 * aux.r;
+	aux.DE *= 2.0 * aux.r;
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w, z.x * z.y, z.x * z.z, z.w);
 	z *= fractal->transformCommon.constantMultiplier1220;
 	z += fractal->transformCommon.additionConstant0000;
@@ -16446,7 +16445,7 @@ void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.DE = aux.DE * 2.0 * aux.r;
+	aux.DE *= 2.0 * aux.r;
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);

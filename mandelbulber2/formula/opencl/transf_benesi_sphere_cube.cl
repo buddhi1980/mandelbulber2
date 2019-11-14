@@ -19,7 +19,7 @@
 REAL4 TransfBenesiSphereCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	REAL4 oldZ = z;
 
 	z *= z;
 	// if (z.z == 0.0f) z.z = 1e-21f;
@@ -41,5 +41,6 @@ REAL4 TransfBenesiSphereCubeIteration(REAL4 z, __constant sFractalCl *fractal, s
 		rCxyz = native_rsqrt(native_recip(rCxyz) + 1.0f);
 
 	z *= rCxyz * SQRT_3_2;
+	aux->DE *= length(z / length(oldZ);
 	return z;
 }

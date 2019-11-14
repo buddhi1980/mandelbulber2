@@ -25,6 +25,10 @@ v2.20
    msltoeSym4Mod, added mul and fixed scale
    aboxMod13,add missing sphere fold iter controls
    transfSurfBoxFoldV24d = 1104, // duplicated number 1089
+   quaternion4d, convert to analytic
+   quaternionCubic4d, convert to analytic
+   transfBenesiCubeSphere, convert to analytic
+   transfBenesiSphereCube, convert to analytic
 
 
 
