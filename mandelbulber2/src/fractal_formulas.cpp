@@ -12210,8 +12210,8 @@ void TransfBenesiMagBackwardIteration(CVector4 &z, const sFractal *fractal, sExt
 void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
+	//Q_UNUSED(aux);
+	CVector4 oldZ = z;
 	z *= z; // so all now positive
 
 	// if (z.x == 0.0)
@@ -12238,6 +12238,7 @@ void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExte
 	z.z *= rCyz;
 
 	z *= rCxyz / SQRT_3_2;
+	aux.DE = aux.DE * z.Length() / oldZ.Length();
 }
 
 /**
@@ -12249,8 +12250,8 @@ void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExte
 void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
+	//Q_UNUSED(aux);
+	CVector4 oldZ = z;
 	z *= z;
 	// if (z.z == 0.0) z.z = 1e-21;
 	double rCyz = z.y / z.z;
@@ -12271,6 +12272,7 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 		rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
 
 	z *= rCxyz * SQRT_3_2;
+	aux.DE = aux.DE * z.Length() / oldZ.Length();
 }
 
 /**

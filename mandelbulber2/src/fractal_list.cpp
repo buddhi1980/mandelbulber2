@@ -778,6 +778,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfBenesiT1Mod, TransfBenesiT1ModIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("T>Benesi Cube>Sphere", "transf_benesi_cube_sphere",
+		transfBenesiCubeSphere, TransfBenesiCubeSphereIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Benesi Sphere>Cube", "transf_benesi_sphere_cube",
+		transfBenesiSphereCube, TransfBenesiSphereCubeIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Iteration Weight", "transf_iteration_weight",
 		transfIterationWeight, TransfIterationWeightIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
@@ -988,12 +995,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfBenesiT5bIteration, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>Benesi Cube>Sphere", "transf_benesi_cube_sphere",
-		transfBenesiCubeSphere, TransfBenesiCubeSphereIteration, deltaDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Benesi Sphere>Cube", "transf_benesi_sphere_cube",
-		transfBenesiSphereCube, TransfBenesiSphereCubeIteration, deltaDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
 
 	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
 		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,

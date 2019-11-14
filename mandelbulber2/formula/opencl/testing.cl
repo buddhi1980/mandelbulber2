@@ -62,7 +62,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
 	zc.z = max(zc.z, 0.0);
-	REAL box = zc.Length();
+	REAL box = length(zc);
 	zc = z;
 
 	// ellipsoid
@@ -72,8 +72,8 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	rV /= rads3;
 	CVector3 rrV = rV;
 	rrV /= rads3;
-	REAL rd = Length(rv);
-	REAL rrd = Length(rrV);
+	REAL rd = length(rv);
+	REAL rrd = length(rrV);
 	REAL ellipsoid = rd * (rd - 1.0) / rrd;
 
 		// sphere
