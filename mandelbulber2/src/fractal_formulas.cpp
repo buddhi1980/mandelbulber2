@@ -20794,6 +20794,21 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		z += fractal->transformCommon.offset000;
+		double rr = z.Dot(z);
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= fractal->transformCommon.scaleA1;
+	}
+
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -20827,7 +20842,7 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
-	z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.additionConstantA000;
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 }

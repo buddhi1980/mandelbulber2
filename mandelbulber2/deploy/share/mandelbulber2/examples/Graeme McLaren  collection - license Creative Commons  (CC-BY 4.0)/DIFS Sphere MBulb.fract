@@ -1,0 +1,78 @@
+# Mandelbulber settings file
+# version 2.20
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 10;
+background_3_colors_enable false;
+background_color_1 3900 5500 3100;
+camera -0.004710881194566082 -3.28910086508767 0.02133950964830315;
+camera_distance_to_target 3;
+camera_rotation 0.283946977542782 0.964354856901283 -0.01398475426454995;
+camera_top -0.0001606692273657065 -0.01683137517406652 0.999858329462304;
+constant_DE_threshold true;
+DE_factor 0.125;
+DE_thresh 0.0001953125;
+delta_DE_function 5;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+fog_color_1 a400 d500 ef00;
+fog_color_2 d700 eb00 ef00;
+formula_2 604;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_beta 0;
+mat1_fractal_coloring_aux_color_weight 4;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_iter_group_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_round_scale 7.7;
+mat1_fractal_coloring_xyzC_111 0 0 1.5;
+mat1_is_defined true;
+mat1_specular_color c700 c700 c700;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 bebe5e 1000 5a5a5a 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_metallic false;
+mat2_name water;
+mat2_reflectance 1;
+mat2_specular 1;
+mat2_specular_width 0.161;
+mat2_surface_color 2300 4800 6800;
+mat2_use_colors_from_palette false;
+raytraced_reflections true;
+target -0.01957614348956535 -0.2895626221314647 0.0718306278781207;
+view_distance_max 20.57265789558106;
+volumetric_fog_density 0.25;
+[fractal_1]
+power 4;
+transf_addition_constant_111 0.3 0.3 0.3;
+transf_addition_constantA_111 0.3 0.3 0.3;
+transf_folding_limit 0.3;
+transf_function_enabledA_false true;
+transf_function_enabledB_false true;
+transf_function_enabledK_false true;
+transf_function_enabledM false;
+transf_function_enabledM_false true;
+transf_scale_2 1.4;
+transf_stop_iterations_M 6;
+[fractal_2]
+power 4;
+transf_addition_constant_111 0.3 0.3 0.3;
+transf_addition_constantA_111 0.3 0.3 0.3;
+transf_folding_limit 0.3;
+transf_function_enabledA_false true;
+transf_function_enabledB_false true;
+transf_function_enabledK_false true;
+transf_function_enabledM false;
+transf_function_enabledM_false true;
+transf_offset_001 0 0 0.4;
+transf_offsetR_1 0.2;
+transf_scale_2 1.4;
+transf_stop_iterations_M 6;

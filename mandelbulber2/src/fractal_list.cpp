@@ -777,7 +777,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Benesi T1 Mod", "transf_benesi_t1_mod",
 		transfBenesiT1Mod, TransfBenesiT1ModIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
+	fractalList->append(sFractalDescription("T>Benesi T2", "transf_benesi_t2", transfBenesiT2,
+		TransfBenesiT2Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Benesi Cube>Sphere", "transf_benesi_cube_sphere",
 		transfBenesiCubeSphere, TransfBenesiCubeSphereIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
@@ -810,6 +812,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Power2 Polynomial", "transf_pwr2_polynomial",
 		transfPwr2Polynomial, TransfPwr2PolynomialIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionLinear, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
+		transfPlatonicSolid, TransfPlatonicSolidIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>Rpow3", "transf_rpow3", transfRpow3,
+		TransfRpow3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 
 	// Scale Transforms
 	fractalList->append(sFractalDescription("T>Scale", "transf_scale", transfScale,
@@ -924,9 +934,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>R^Power", "transf_r_power", transfRPower,
 		TransfRPowerIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Rpow3", "transf_rpow3", transfRpow3,
-		TransfRpow3Iteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
+
 
 	// ---- dIFS ----
 
@@ -982,9 +990,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ------------ delta DE ----------
 
-	fractalList->append(sFractalDescription("T>Benesi T2", "transf_benesi_t2", transfBenesiT2,
-		TransfBenesiT2Iteration, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Benesi T3", "transf_benesi_t3", transfBenesiT3,
 		TransfBenesiT3Iteration, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
@@ -997,9 +1003,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 
 
-	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
-		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
 
 	//---------------------------------------------------------------
 

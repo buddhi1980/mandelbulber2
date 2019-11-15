@@ -22,6 +22,21 @@
 REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
+
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
+		z += fractal->transformCommon.offset000;
+		REAL rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.scaleG1, rr);
+		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= fractal->transformCommon.scaleA1;
+	}
+
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -55,7 +70,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
-	z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.additionConstantA000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 	return z;

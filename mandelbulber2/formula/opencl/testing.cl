@@ -72,7 +72,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	rV /= rads3;
 	REAL3 rrV = rV;
 	rrV /= rads3;
-	REAL rd = length(rv);
+	REAL rd = length(rV);
 	REAL rrd = length(rrV);
 	REAL ellipsoid = rd * (rd - 1.0) / rrd;
 
