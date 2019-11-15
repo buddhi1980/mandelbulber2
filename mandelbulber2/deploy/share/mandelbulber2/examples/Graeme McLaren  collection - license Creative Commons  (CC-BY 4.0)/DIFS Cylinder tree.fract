@@ -1,0 +1,67 @@
+# Mandelbulber settings file
+# version 2.20
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 0000 4e00 7600;
+camera -11.33548119537294 3.955690972427764 1.627805858942514;
+camera_distance_to_target 12.00009749539338;
+camera_rotation -110.5822522858905 2.112199084962731 0;
+camera_top -0.03450387384598214 0.01295695719151071 0.9993205691618472;
+constant_DE_threshold true;
+DE_thresh 1.953125e-05;
+delta_DE_function 5;
+flight_last_to_render 0;
+formula_1 603;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+keyframe_last_to_render 0;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_iter_scale 1;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_round_scale 7.7;
+mat1_fractal_coloring_xyzC_111 0 0 3.2;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 1000 698403 2000 635c37 3000 635c37 4000 635c37 5000 2b5539 6000 635c37 7000 316d44 8000 aa502c 9000 aa0000;
+N 7;
+raytraced_reflections true;
+target -0.1090010151615027 -0.260097195464615 2.070087201217884;
+view_distance_max 27.27841397565525;
+[fractal_1]
+transf_function_enabledK_false true;
+transf_function_enabledM_false true;
+transf_function_enabledR_false true;
+transf_offset_001 0 0 -5;
+transf_offsetA_1 2.3;
+transf_offsetE_2 2.6;
+transf_offsetF_2 2.6;
+transf_offsetR_0 -1.1;
+transf_radius_1 0.6;
+transf_rotation 37 -45 -53;
+transf_scale_0 0.05;
+transf_scale_vary_0 0.2;
+transf_scaleC_1 -0.4;
+[fractal_2]
+transf_addition_constant_111 0.2 0.2 1;
+transf_function_enabled_false true;
+transf_function_enabledK_false true;
+transf_function_enabledM_false true;
+transf_function_enabledO_false true;
+transf_function_enabledR_false true;
+transf_offset_001 0 0 -5;
+transf_offsetA_1 2.3;
+transf_offsetE_2 2.6;
+transf_offsetF_2 2.6;
+transf_offsetR_0 -1.1;
+transf_radius_1 0.6;
+transf_rotation 37 -45 -53;
+transf_scale_0 0.05;
+transf_scale_vary_0 0.2;
+transf_scaleC_1 -0.4;
+transf_start_iterations_Cx 4;
+transf_start_iterations_O 7;
+transf_stop_iterations 14;

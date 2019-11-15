@@ -1,0 +1,60 @@
+# Mandelbulber settings file
+# version 2.20
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+aux_light_intensity_1 2.6;
+aux_light_position_1 0 0 6;
+background_3_colors_enable false;
+background_color_1 4f00 4a00 9300;
+camera 0.284443256934044 10.40525799180487 4.400504504332744;
+camera_distance_to_target 7.193305647974663;
+camera_rotation -179.8598834527379 7.994521318182589 -179.8709787264671;
+camera_top 0.002591951758230385 -0.1390721345024718 -0.9902788613269543;
+delta_DE_function 3;
+detail_level 1.333333333333333;
+flight_last_to_render 0;
+formula_1 603;
+fov 0.8;
+image_proportion 2;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_orbit_trap_weight 0.5;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_is_defined true;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 005500 999 005500 1999 550000 2999 005500 3999 ffff7f 5000 005500 5999 550000 7000 0000ff 7999 550000 9000 005500;
+N 12;
+raytraced_reflections true;
+target 0.3018634709213625 3.281882705396644 5.400938015525437;
+view_distance_max 80.89440095816059;
+[fractal_1]
+transf_function_enabled_false true;
+transf_function_enabledC_false true;
+transf_function_enabledCx_false true;
+transf_function_enabledCy_false true;
+transf_function_enabledK_false true;
+transf_function_enabledM_false true;
+transf_function_enabledP_false true;
+transf_function_enabledSw_false true;
+transf_function_enabledT_false true;
+transf_int_6 8;
+transf_offset_001 -0.8 -0.8 -4.7;
+transf_offsetA_1 0.3;
+transf_offsetC_0 0.5;
+transf_offsetR_0 1.6;
+transf_radius_1 0.9;
+transf_scale_0 0.6;
+transf_scale_2 1.1;
+transf_scale_vary_0 0.8;
+transf_scaleC_1 1.4;
+transf_start_iterations 1;
+transf_start_iterations_Cy 1;
+transf_stop_iterations_K 2;
+transf_stop_iterations_O 3;
+transf_stop_iterations_P 2;
+transf_stop_iterations_T 2;

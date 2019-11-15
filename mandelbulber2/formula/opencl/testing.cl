@@ -68,9 +68,9 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	// ellipsoid
 	REAL4 rads4 = fractal->transformCommon.offsetA111;
 	REAL3 rads3 = (REAL3){rads4.x, rads4.y, rads4.z};
-	CVector3 rV = (REAL3){zc.x, zc.y, zc.z};
+	REAL3 rV = (REAL3){zc.x, zc.y, zc.z};
 	rV /= rads3;
-	CVector3 rrV = rV;
+	REAL3 rrV = rV;
 	rrV /= rads3;
 	REAL rd = length(rv);
 	REAL rrd = length(rrV);
@@ -89,12 +89,12 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 
 	int count = fractal->transformCommon.int3;
 	int tempC = fractal->transformCommon.int3X;
+	REAL r;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 		{ r = (aux->i < count) ? torus : sphere;}
 	else
 		{ r = (aux->i < count) ? sphere : torus;}
 
-	REAL r = (aux->i < count) ? torus : sphere;
 	REAL dd = native_divide(r, aux->DE);
 	if (aux->i < tempC || dd < aux->colorHybrid)
 	{

@@ -12,12 +12,31 @@ v2.20
    transfAddConstantRotV1
    transfScaleOffset
    transfScaleOffsetV2
-   dIFSBoxDiagonalV1
    dIFSBoxV1
+   dIFSBoxDiagonalV1
+   dIFSBoxDiagonalV3
    dIFSCylinder
+   dIFSHextgrid2
+   dIFSMenger
+   dIFSPrism
    dIFSSphere
    dIFSEllipsoid
    dIFSTorus
+   transfDIFSBox
+   transfDIFSBoxV2
+   transfDIFSBoxV3
+   transfDIFSCylinder
+   transfDIFSCylinderV2
+   transfDIFSEllipsoid
+   transfDIFSGrid
+   transfDIFSGridV2
+   transfDIFSHextgrid2
+   transfDIFSPrism
+   transfDIFSPrismV2
+   transfDIFSSphere
+   transfDIFSTorus
+   transfDIFSTorusV2
+   transfDIFSTorusV3
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert

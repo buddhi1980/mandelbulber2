@@ -1,0 +1,66 @@
+# Mandelbulber settings file
+# version 2.20
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 0000 5500 ff00;
+camera -7.061345344213569e-15 24.38268590217985 -11.7679491924311;
+camera_distance_to_target 27;
+camera_rotation -180 29.99999999999996 -134.9999999999999;
+camera_top 0.7071067811865475 -0.3535533905932732 -0.6123724356957949;
+constant_DE_threshold true;
+DE_thresh 6.95169817063212e-05;
+delta_DE_function 5;
+flight_last_to_render 0;
+formula_1 603;
+fov 0.5;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_orbit_trap_weight 3.9;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_fractal_coloring_rad_div_de_weight 19.5;
+mat1_fractal_coloring_xyzC_111 0 0 0.2;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_color ff00 ff00 7f00;
+mat1_specular_plastic_enable false;
+mat1_specular_width 1;
+mat1_surface_color 3600 5500 3300;
+mat1_surface_color_gradient 0 000000 999 698403 1999 505050 2999 474747 3999 0b5e87 5000 550000 5999 550000 7000 3b9fee 7955 aa0000 9000 717171;
+N 16;
+raytraced_reflections true;
+target -3.673940397442058e-16 0.9999999999999989 1.732050807568878;
+view_distance_max 116.4729680331951;
+volumetric_fog_colour_1_distance 0.03125;
+volumetric_fog_colour_2_distance 0.0625;
+volumetric_fog_density 0.125;
+volumetric_fog_distance_factor 0.0625;
+[fractal_1]
+fold_color_difs1 0.4;
+transf_function_enabledI_false true;
+transf_function_enabledK_false true;
+transf_function_enabledN_false true;
+transf_function_enabledR_false true;
+transf_offset_001 0 0 -5.6;
+transf_offsetA_1 5.3;
+transf_offsetE_2 1.5;
+transf_offsetF_2 1.5;
+transf_offsetR_0 -0.3;
+transf_radius_1 1.7;
+transf_rotation 0 0 30;
+transf_scale_0 0.05;
+transf_scale_vary_0 -0.3;
+transf_scaleC_1 0.7999999999999997;
+transf_start_iterations_I 2;
+transf_stop_iterations_N 3;
