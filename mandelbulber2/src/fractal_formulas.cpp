@@ -12093,6 +12093,12 @@ void TransfBenesiT3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z = (fabs(tempV2 - fractal->transformCommon.additionConstant222))
 			* fractal->transformCommon.scale3D222;
 
+	double avgScale = z.Length() / tempV2.Length();
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
 	if (fractal->transformCommon.rotationEnabled)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -12123,6 +12129,13 @@ void TransfBenesiT4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	tempV2.z = (z.x * z.x + z.y * z.y);
 	z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
 			* fractal->transformCommon.scale3D222;
+
+	double avgScale = z.Length() / tempV2.Length();
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -12163,6 +12176,13 @@ void TransfBenesiT5bIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		fabs(pow(pow(z.x, fractal->transformCommon.int8Z) + pow(z.y, fractal->transformCommon.int8Z),
 			fractal->transformCommon.power025.z));
 	z = (fabs(tempV2 - fractal->transformCommon.offsetC111)) * fractal->transformCommon.scale3Dd222;
+
+	double avgScale = z.Length() / tempV2.Length();
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -12238,7 +12258,12 @@ void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExte
 	z.z *= rCyz;
 
 	z *= rCxyz / SQRT_3_2;
-	aux.DE *= z.Length() / oldZ.Length();
+	//aux.DE *= z.Length() / oldZ.Length();
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1  *  z.Length() / oldZ.Length()
+				+ fractal->analyticDE.offset1;
+	}
 }
 
 /**
@@ -12271,7 +12296,12 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 		rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
 
 	z *= rCxyz * SQRT_3_2;
-	aux.DE *= z.Length() / oldZ.Length();
+	//aux.DE *= z.Length() / oldZ.Length();
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 * z.Length() / oldZ.Length()
+				+ fractal->analyticDE.offset1;
+	}
 }
 
 /**

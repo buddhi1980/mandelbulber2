@@ -48,9 +48,9 @@ v2.20
    quaternionCubic4d, convert to analytic
    transfBenesiCubeSphere, convert to analytic
    transfBenesiSphereCube, convert to analytic
-
-
-
+   transfBenesiT3, covert to analytic
+   transfBenesiT4, covert to analytic
+   transfBenesiT5b, covert to analytic
 
 v2.19-1
 - fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance

@@ -244,9 +244,9 @@ enum enumFractalFormula
 	transfBenesiT1 = 1009,
 	transfBenesiT1Mod = 1010,
 	transfBenesiT2 = 1011,
-	transfBenesiT3 = 1012,
-	transfBenesiT4 = 1013,
-	transfBenesiT5b = 1014,
+	transfBenesiT3 = 1012, // covert to analytic v2.20
+	transfBenesiT4 = 1013, // covert to analytic v2.20
+	transfBenesiT5b = 1014, // covert to analytic v2.20
 	transfBenesiMagForward = 1015,
 	transfBenesiMagBackward = 1016,
 	transfBenesiCubeSphere = 1017, // covert to analytic v2.20
