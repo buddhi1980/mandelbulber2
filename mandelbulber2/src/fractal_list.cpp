@@ -290,6 +290,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, Makin3d2Iteration,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
+
 	// Mandelbulb formulas
 	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb,
 		MandelbulbIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -400,6 +404,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d",
 		quaternionCubic4d, QuaternionCubic4dIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+	// Quick Dudley formulas
+	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley,
+		QuickDudleyIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quick Dudley - Mod", "quick_dudley_mod", quickDudleyMod,
+		QuickDudleyModIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionNone, coloringFunctionDefault));
 
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Sphere Hobold Pow4",
@@ -572,17 +584,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, LkmitchIteration,
 		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, Makin3d2Iteration,
-		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
-		coloringFunctionDefault));
 
-	// Quick Dudley formulas
-	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley,
-		QuickDudleyIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Quick Dudley - Mod", "quick_dudley_mod", quickDudleyMod,
-		QuickDudleyModIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionNone, coloringFunctionDefault));
+
+
 
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",

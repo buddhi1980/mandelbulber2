@@ -806,9 +806,7 @@ void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void QuickDudleyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
+	aux.DE = aux.DE * 2.0 * aux.r  * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
@@ -826,7 +824,7 @@ void QuickDudleyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	aux.DE = aux.DE * 2.0 * aux.r  * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -869,8 +867,7 @@ void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void Makin3d2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	aux.DE = aux.DE * 2.0 * aux.r  * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;

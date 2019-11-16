@@ -46,11 +46,18 @@ v2.20
    transfSurfBoxFoldV24d = 1104, // duplicated number 1089
    quaternion4d, convert to analytic
    quaternionCubic4d, convert to analytic
+   quickDudley, convert to analytic
+   quickDudleyMod, convert to analytic
+   makin3d2, convert to analytic
    transfBenesiCubeSphere, convert to analytic
    transfBenesiSphereCube, convert to analytic
    transfBenesiT3, covert to analytic
    transfBenesiT4, covert to analytic
    transfBenesiT5b, covert to analytic
+
+
+
+
 
 v2.19-1
 - fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance

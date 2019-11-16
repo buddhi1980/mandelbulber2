@@ -88,9 +88,9 @@ enum enumFractalFormula
 	ides = 39,
 	ides2 = 40,
 	buffalo = 41,
-	quickDudley = 48,
+	quickDudley = 48, // covert to analytic v2.20
 	lkmitch = 49,
-	makin3d2 = 50,
+	makin3d2 = 50, // covert to analytic v2.20
 	msltoeSym2Mod = 51,
 	// mandelbulb5 = 52,
 	// mandelbox103 = 53,
@@ -124,7 +124,7 @@ enum enumFractalFormula
 	msltoeSym3Mod3 = 81, // DE v2.15
 	msltoeDonut = 82,
 	iqBulb = 83,
-	quickDudleyMod = 84,
+	quickDudleyMod = 84, // covert to analytic v2.20
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,		// update DE v2.15

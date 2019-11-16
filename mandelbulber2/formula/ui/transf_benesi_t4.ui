@@ -30,6 +30,13 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="QLabel" name="label_180">
+     <property name="text">
+      <string>Often used as a pre-transform for the first iteration</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,0,0,1">
      <property name="spacing">
       <number>2</number>
