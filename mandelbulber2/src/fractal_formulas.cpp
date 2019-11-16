@@ -10078,7 +10078,7 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	// invert and scale
 	z *= fractal->transformCommon.scale08 / r;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) / r + 1.0; //  /r
+
 	// if (fabs(z.x) < 1e-21) z.x = 1e-21;
 	// if (fabs(z.z) < 1e-21) z.z = 1e-21;
 
@@ -10109,8 +10109,8 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE =
-			aux.DE * 8.0 * fractal->analyticDE.scale1 * z.Length() / r + fractal->analyticDE.offset1;
+		aux.DE *= 8.0 * fabs(fractal->transformCommon.scale08) * z.Length() / r;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
 /**

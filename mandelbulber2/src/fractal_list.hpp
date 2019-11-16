@@ -188,7 +188,7 @@ enum enumFractalFormula
 	// 2.16
 	mandelbulbAbsPower2 = 137,
 	mandelbulbPow2V2 = 138,
-	riemannSphereMsltoeV2 = 139,
+	riemannSphereMsltoeV2 = 139, // covert to analytic v2.20
 	aboxSurfBox = 140,
 	boxFoldBulbMenger = 141,
 	vicsek = 142,

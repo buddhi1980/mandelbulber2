@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>riemann_sphere_msltoe_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>862</width>
-    <height>1110</height>
+    <width>889</width>
+    <height>1460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,14 +39,6 @@
      </property>
      <property name="text">
       <string>Riemann Sphere Msltoe Version2</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_37">
-     <property name="text">
-      <string notr="true">Riemann Sphere normally requires deltaDE logarithmic
-but there is also an anayticDE option,</string>
      </property>
     </widget>
    </item>
@@ -433,7 +425,7 @@ but there is also an anayticDE option,</string>
       <string>Occasionally disable in Hybrid Mode. A few hybrid settings may work best with the analytic DE code disabled in this formula.</string>
      </property>
      <property name="title">
-      <string>Analytic D&amp;E option</string>
+      <string>Analytic D&amp;E option ( disable if  Force Delta DE method)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
