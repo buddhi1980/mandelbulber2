@@ -185,7 +185,10 @@ bool InitSystem()
 	systemData.logfileName = systemData.homeDir + ".mandelbulber_log.txt";
 #endif
 	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
-	fclose(logfile);
+	if (logfile)
+	{
+		fclose(logfile);
+	}
 
 	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << "\n";
 	out << "Log file name: " << systemData.logfileName << endl;
@@ -726,8 +729,8 @@ void UpdateLanguage()
 	// try to load qt translator
 	if (qtTranslator.load(
 				QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
-			|| qtTranslator.load(QLatin1String("qtbase_") + locale,
-					 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			|| qtTranslator.load(
+				QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 	{
 		QCoreApplication::installTranslator(&qtTranslator);
 	}

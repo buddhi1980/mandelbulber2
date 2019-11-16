@@ -151,15 +151,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// fake lights (orbit trap)
 		if (params->fakeLightsEnabled)
 		{
-			sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false);
+			sFractalIn fractIn(point, params->minN, params->N, &params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			float r = fractOut.orbitTrapR;
 			r = sqrtf(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f
 												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-															* powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-														+ 0.1f);
+														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+													 + 0.1f);
 			output.R +=
 				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
 			output.G +=
@@ -301,12 +301,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 								shadowOutputTemp.G *= params->iterFogBrightnessBoost;
 								shadowOutputTemp.B *= params->iterFogBrightnessBoost;
 							}
-							newColour.R += shadowOutputTemp.R * params->mainLightColour.R
-														 * params->mainLightIntensity;
-							newColour.G += shadowOutputTemp.G * params->mainLightColour.G
-														 * params->mainLightIntensity;
-							newColour.B += shadowOutputTemp.B * params->mainLightColour.B
-														 * params->mainLightIntensity;
+							newColour.R +=
+								shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
+							newColour.G +=
+								shadowOutputTemp.G * params->mainLightColour.G * params->mainLightIntensity;
+							newColour.B +=
+								shadowOutputTemp.B * params->mainLightColour.B * params->mainLightIntensity;
 						}
 					}
 

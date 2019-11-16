@@ -37,6 +37,6 @@
 #include "algebra.hpp"
 #include "common_params.hpp"
 
-double OrbitTrapShapeDistance(CVector4 z, const sCommonParams &par);
+double OrbitTrapShapeDistance(CVector4 z, const sCommonParams *par);
 
 #endif /* MANDELBULBER2_SRC_ORBIT_TRAP_SHAPE_HPP_ */

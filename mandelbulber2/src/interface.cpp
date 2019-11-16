@@ -2383,6 +2383,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	}
 
 	int maxDimension = max(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	if (maxDimension == 0) maxDimension = 1;
 	int newWidth = double(gPar->Get<int>("image_width")) / maxDimension * 256.0;
 	int newHeight = double(gPar->Get<int>("image_height")) / maxDimension * 256.0;
 

@@ -201,6 +201,16 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.reflectanceGradientEnable = source.reflectanceGradientEnable;
 	target.transparencyGradientEnable = source.transparencyGradientEnable;
 
+	// these are initialized in cOpenClDynamicData::BuildMaterialsData()
+	target.colorTextureIndex = 0;
+	target.diffusionTextureIndex = 0;
+	target.luminosityTextureIndex = 0;
+	target.displacementTextureIndex = 0;
+	target.normalMapTextureIndex = 0;
+	target.reflectanceTextureIndex = 0;
+	target.transparencyTextureIndex = 0;
+	target.roughnessTextureIndex = 0;
+
 	target.fractalColoring = clCopySFractalColoringCl(source.fractalColoring);
 
 	return target;

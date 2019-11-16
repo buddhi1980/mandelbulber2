@@ -49,8 +49,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	fractalFormulaFcn fractalFormulaFunction;
 
 	// repeat, move and rotate
-	CVector3 pointTransformed = (in.point - in.common.fractalPosition).mod(in.common.repeat);
-	pointTransformed = in.common.mRotFractalRotation.RotateVector(pointTransformed);
+	CVector3 pointTransformed = (in.point - in.common->fractalPosition).mod(in.common->repeat);
+	pointTransformed = in.common->mRotFractalRotation.RotateVector(pointTransformed);
 
 	CVector4 z = CVector4(pointTransformed, 0.0);
 
@@ -133,16 +133,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		// foldings
-		if (in.common.foldings.boxEnable)
+		if (in.common->foldings.boxEnable)
 		{
-			BoxFolding(z, &in.common.foldings, extendedAux);
+			BoxFolding(z, &in.common->foldings, extendedAux);
 			r = z.Length();
 		}
 
-		if (in.common.foldings.sphericalEnable)
+		if (in.common->foldings.sphericalEnable)
 		{
 			extendedAux.r = r;
-			SphericalFolding(z, &in.common.foldings, extendedAux);
+			SphericalFolding(z, &in.common->foldings, extendedAux);
 			r = z.Length();
 		}
 
@@ -374,7 +374,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				double distance = OrbitTrapShapeDistance(z, in.common);
 
-				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter)
+				if (i >= in.common->fakeLightsMinIter && i <= in.common->fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
 				if (distance > fractals.GetBailout(sequence))
 				{
@@ -423,7 +423,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = (r - in.common.linearDEOffset) / extendedAux.DE;
+					out->distance = (r - in.common->linearDEOffset) / extendedAux.DE;
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{

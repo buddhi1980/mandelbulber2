@@ -169,33 +169,37 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 	int samplesY = gPar->Get<int>("voxel_samples_y");
 	int samplesZ = gPar->Get<int>("voxel_samples_z");
 
-	if (voxelFormat == "slice")
+	if (samplesX > 0 && samplesY > 0 && samplesZ > 0)
 	{
-		QString folderString = gPar->Get<QString>("voxel_image_path");
-		QDir folder(folderString);
-		cVoxelExport *voxelExport =
-			new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
-		QObject::connect(voxelExport,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-		voxelExport->ProcessVolume();
-		delete voxelExport;
-	}
-	else if (voxelFormat == "ply")
-	{
-		QString fileString = gPar->Get<QString>("mesh_output_filename");
-		QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
-		if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
-		MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
-			MeshFileSave::enumMeshFileModeType(gPar->Get<int>("mesh_file_mode")));
 
-		cMeshExport *meshExport = new cMeshExport(
-			samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter, meshConfig);
-		QObject::connect(meshExport,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-		meshExport->ProcessVolume();
-		delete meshExport;
+		if (voxelFormat == "slice")
+		{
+			QString folderString = gPar->Get<QString>("voxel_image_path");
+			QDir folder(folderString);
+			cVoxelExport *voxelExport =
+				new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+			QObject::connect(voxelExport,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			voxelExport->ProcessVolume();
+			delete voxelExport;
+		}
+		else if (voxelFormat == "ply")
+		{
+			QString fileString = gPar->Get<QString>("mesh_output_filename");
+			QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
+			if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
+			MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
+				MeshFileSave::enumMeshFileModeType(gPar->Get<int>("mesh_file_mode")));
+
+			cMeshExport *meshExport = new cMeshExport(
+				samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter, meshConfig);
+			QObject::connect(meshExport,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			meshExport->ProcessVolume();
+			delete meshExport;
+		}
 	}
 	emit finished();
 }

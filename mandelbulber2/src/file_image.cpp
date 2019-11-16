@@ -162,46 +162,39 @@ QString ImageFileSave::CreateFullFileNameAndMakeDir(const QString &filename,
 	QString fullFilename;
 	if (gPar->Get<bool>("save_channels_in_separate_folders") && contentType != IMAGE_CONTENT_COLOR)
 	{
-		if (contentType != IMAGE_CONTENT_COLOR)
-		{
-			QFileInfo fileInfo(filename);
-			QDir dir = fileInfo.absoluteDir();
-			QString onlyFileName = fileInfo.fileName();
+		QFileInfo fileInfo(filename);
+		QDir dir = fileInfo.absoluteDir();
+		QString onlyFileName = fileInfo.fileName();
 
-			if (dir.exists())
+		if (dir.exists())
+		{
+			QString newDirName =
+				QDir::toNativeSeparators(dir.absolutePath() + QDir::separator() + postfix);
+			if (QDir(newDirName).exists())
 			{
-				QString newDirName =
-					QDir::toNativeSeparators(dir.absolutePath() + QDir::separator() + postfix);
-				if (QDir(newDirName).exists())
+				fullFilename =
+					QDir::toNativeSeparators(newDirName + QDir::separator() + onlyFileName + "." + extension);
+			}
+			else
+			{
+				if (dir.mkdir(newDirName))
 				{
 					fullFilename = QDir::toNativeSeparators(
 						newDirName + QDir::separator() + onlyFileName + "." + extension);
 				}
 				else
 				{
-					if (dir.mkdir(newDirName))
-					{
-						fullFilename = QDir::toNativeSeparators(
-							newDirName + QDir::separator() + onlyFileName + "." + extension);
-					}
-					else
-					{
-						cErrorMessage::showMessage(
-							QObject::tr("Cannot create directory for image!\n") + newDirName,
-							cErrorMessage::errorMessage);
-					}
+					cErrorMessage::showMessage(
+						QObject::tr("Cannot create directory for image!\n") + newDirName,
+						cErrorMessage::errorMessage);
 				}
-			}
-			else
-			{
-				cErrorMessage::showMessage(
-					QObject::tr("Directory for new image is not accessible!\n") + dir.absolutePath(),
-					cErrorMessage::errorMessage);
 			}
 		}
 		else
 		{
-			fullFilename = QDir::toNativeSeparators(filename + "." + extension);
+			cErrorMessage::showMessage(
+				QObject::tr("Directory for new image is not accessible!\n") + dir.absolutePath(),
+				cErrorMessage::errorMessage);
 		}
 	}
 	else
@@ -1109,7 +1102,7 @@ void ImageFileSaveEXR::SaveEXR(
 	Imf::Header header(width, height);
 	Imf::FrameBuffer frameBuffer;
 
-	//compress each scan line on its own. This gives a good compression / read performance tradeoff
+	// compress each scan line on its own. This gives a good compression / read performance tradeoff
 	header.compression() = Imf::ZIPS_COMPRESSION;
 
 	bool linear = gPar->Get<bool>("linear_colorspace");

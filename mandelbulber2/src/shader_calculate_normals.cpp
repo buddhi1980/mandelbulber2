@@ -94,7 +94,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 				{
 					point3 = input.point + point2 * delta;
 
-					sFractalIn fractIn(point3, params->minN, params->N, params->common, -1, false);
+					sFractalIn fractIn(point3, params->minN, params->N, &params->common, -1, false);
 					sFractalOut fractOut;
 					fractOut.colorIndex = 0;
 
