@@ -109,7 +109,8 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::benesiPineTree, QObject::tr("Logarithmic DE"));
 	insertHeader << QPair<int, QString>(fractal::josKleinian, QObject::tr("JosLeys-Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
-	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("dIFS DE"));
+	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("dIFS Formulas"));
+	insertHeader << QPair<int, QString>(fractal::transfDIFSAuxColor, QObject::tr("dIFS Transforms"));
 
 	insertHeader << QPair<int, QString>(
 		fractal::benesiMagTransforms, QObject::tr("*** Formulas with delta-DE ***"));
@@ -117,14 +118,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::aexion, QObject::tr("Logarithmic delta-DE"));
 
 	insertHeader << QPair<int, QString>(
-		fractal::transfAbsAddConstant, QObject::tr("*** Transforms with analytic DE ***"));
-	insertHeader << QPair<int, QString>(fractal::transfAbsAddConstant, QObject::tr("Neutral"));
-	insertHeader << QPair<int, QString>(fractal::transfAbsAddConditional, QObject::tr("Linear DE"));
-	insertHeader << QPair<int, QString>(fractal::transfQuaternionFold, QObject::tr("Logarithmic DE"));
-	insertHeader << QPair<int, QString>(fractal::transfDIFSBox, QObject::tr("dIFS DE"));
-
-	insertHeader << QPair<int, QString>(
-		fractal::transfBenesiT2, QObject::tr("*** Transforms with delta-DE ***"));
+		fractal::transfAbsAddConditional, QObject::tr("*** Transforms ***"));
 
 	insertHeader << QPair<int, QString>(
 		fractal::transfHybridColor, QObject::tr("*** Hybrid coloring ***"));
