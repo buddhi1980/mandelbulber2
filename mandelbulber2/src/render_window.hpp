@@ -153,6 +153,7 @@ private slots:
 	void slotMenuAnimationDocksPositions();
 	void slotMenuSaveDocksPositions();
 
+	void slotMenuSaveImageAll();
 	void slotMenuSaveImageJPEG();
 	void slotMenuSaveImagePNG();
 #ifdef USE_EXR

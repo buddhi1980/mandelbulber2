@@ -300,6 +300,7 @@
     <property name="title">
      <string>I&amp;mage</string>
     </property>
+    <addaction name="actionSave_as_IMAGE"/>
     <addaction name="actionSave_as_JPG"/>
     <addaction name="actionSave_as_PNG"/>
     <addaction name="actionSave_as_PNG_16_bit"/>
@@ -1421,6 +1422,18 @@
    </property>
    <property name="text">
     <string>S&amp;how statistics</string>
+   </property>
+  </action>
+  <action name="actionSave_as_IMAGE">
+   <property name="icon">
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save as Image</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+Alt+S</string>
    </property>
   </action>
   <action name="actionSave_as_EXR">

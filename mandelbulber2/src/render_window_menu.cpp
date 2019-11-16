@@ -200,7 +200,10 @@ void RenderWindow::slotMenuAboutHotKeys()
 		" <tr><th>" + altBadge + " + S</th><td>" + tr("Save settings to clipboard...") + "</td></tr>";
 	text +=
 		" <tr><th>" + ctrlBadge + " + I</th><td>" + tr("Import legacy settings...") + "</td></tr>";
+
 	text += " <tr><th>" + ctrlBadge + " + M</th><td>" + tr("Export Mesh") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + altBadge + " + S</th><td>" + tr("Save as Image...")
+					+ "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + P</th><td>" + tr("Program Preferences") + "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + Q</th><td>" + tr("Quit") + "</td></tr>";
 	text += " <tr><th>F11</th><td>" + tr("Full screen") + "</td></tr>";
@@ -530,6 +533,30 @@ void RenderWindow::slotMenuSaveDocksPositions()
 	gMainInterface->settings.setValue("mainWindowGeometry", saveGeometry());
 	gMainInterface->settings.setValue("mainWindowState", saveState());
 	// qDebug() << "settings saved";
+}
+
+void RenderWindow::slotMenuSaveImageAll()
+{
+	cImageSaveDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	QStringList filters;
+	filters << tr("images (*.jpg *.jpeg *.png *.exr *.tiff)");
+	dialog.setNameFilters(filters);
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save image to file..."));
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		ImageFileSave::enumImageFileType imageFileType = ImageFileSave::ImageFileType(QFileInfo(filename).suffix());
+		gApplication->processEvents();
+		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gApplication->processEvents();
+		systemData.lastImageFile = filename;
+	}
 }
 
 void RenderWindow::slotMenuSaveImageJPEG()

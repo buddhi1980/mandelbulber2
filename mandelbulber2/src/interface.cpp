@@ -364,6 +364,8 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow, SLOT(slotExportMesh()));
 	connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageJPEG()));
+	connect(mainWindow->ui->actionSave_as_IMAGE, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuSaveImageAll()));
 	connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImagePNG()));
 	connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow,
