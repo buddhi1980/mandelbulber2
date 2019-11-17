@@ -28,7 +28,7 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	// invert and scale
 	z *= native_divide(fractal->transformCommon.scale08, r);
-	aux->DE = aux->DE * native_divide(fabs(fractal->transformCommon.scale08), r) + 1.0f; //  /r
+
 	// if (fabs(z.x) < 1e-21f) z.x = 1e-21f;
 	// if (fabs(z.z) < 1e-21f) z.z = 1e-21f;
 
@@ -59,8 +59,8 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = aux->DE * 8.0f * fractal->analyticDE.scale1 * native_divide(length(z), r)
-							+ fractal->analyticDE.offset1;
+		aux->DE *= 8.0 * fabs(fractal->transformCommon.scale08) * z.Length() / r;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

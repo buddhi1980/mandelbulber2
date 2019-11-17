@@ -10059,7 +10059,14 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	z = t3 * fractal->transformCommon.constantMultiplier441;
 
 	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE *= 4.0 * fabs(fractal->transformCommon.scale) * z.Length() / r;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
 }
+
 /**
  * RiemannSphereMsltoe Version2
  * @reference
@@ -20870,6 +20877,7 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
+
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
