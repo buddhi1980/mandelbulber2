@@ -496,10 +496,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ---- dIFS transforms----
 
-	fractalList->append(sFractalDescription("T>DIFS Hybrid Color", "transf_difs_aux_color",
-		transfDIFSAuxColor, TransfDIFSAuxColorIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>DIFS Box", "transf_difs_box", transfDIFSBox,
 		TransfDIFSBoxIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
@@ -545,6 +541,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>DIFS Torus V3", "transf_difs_torus_v3",
 		transfDIFSTorusV3, TransfDIFSTorusV3Iteration, analyticDEType, dIFSDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>DIFS Hybrid Color", "transf_difs_hybrid_color",
+		transfDIFSHybridColor, TransfDIFSHybridColorIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	//------------------------ DELTA DE FORMULAS ------------------------
 

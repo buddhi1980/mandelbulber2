@@ -19981,7 +19981,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 /**
  * Hybrid DIFS aux.Color
  */
-void TransfDIFSAuxColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfDIFSHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z.z += 0.000000001; // so not detected as a  zero change in z
 
