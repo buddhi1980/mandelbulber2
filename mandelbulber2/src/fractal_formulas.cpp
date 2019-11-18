@@ -615,11 +615,9 @@ void QuaternionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	double newx = z.x * z.x - z.y * z.y - z.z * z.z;
 	double newy = 2.0 * z.x * z.y;
 	double newz = 2.0 * z.x * z.z;
-	// double neww = 2.0 * z.x * z.w;
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
-	// z.w = neww;
 }
 
 /**
@@ -856,8 +854,7 @@ void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  */
 void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	aux.DE = aux.DE * 2.0 * aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -3489,7 +3486,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21) tempL = 1e-21;
 		double avgScale = z.Length() / tempL;
-		aux.DE = aux.DE * avgScale + 1.0;
+		aux.DE = aux.DE * avgScale;
 
 		tempXZ = (z.y + z.x) * SQRT_1_2;
 		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
@@ -3577,7 +3574,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 					tempL = temp.Length();
 					// if (tempL < 1e-21) tempL = 1e-21;
 					avgScale = z.Length() / tempL;
-					aux.DE = aux.DE * avgScale + 1.0;
+					aux.DE = aux.DE * avgScale;
 					tempXZ = (z.y + z.x) * SQRT_1_2;
 					z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
 						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
@@ -3592,7 +3589,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 					tempL = temp.Length();
 					// if (tempL < 1e-21) tempL = 1e-21;
 					avgScale = z.Length() / tempL;
-					aux.DE = aux.DE * avgScale + 1.0;
+					aux.DE = aux.DE * avgScale;
 					z = (fabs(z + fractal->transformCommon.offset111)
 							 - fabs(z - fractal->transformCommon.offset111) - z);
 					tempXZ = (z.y + z.x) * SQRT_1_2;
@@ -3614,7 +3611,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 					z = fabs(z) * fractal->transformCommon.scale3D444;
 					// if (tempL < 1e-21) tempL = 1e-21;
 					avgScale = z.Length() / tempL;
-					aux.DE = aux.DE * avgScale + 1.0;
+					aux.DE = aux.DE * avgScale ;
 					tempXZ = (z.y + z.x) * SQRT_1_2;
 					z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
 						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
@@ -3631,6 +3628,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 					tempV2.z = (z.x + z.y);
 					z = (fabs(tempV2 - fractal->transformCommon.offset222))
 							* fractal->transformCommon.scale3Db222;
+					aux.DE *= z.Length() / tempV2.Length();
 
 					tempXZ = (z.y + z.x) * SQRT_1_2;
 					z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
@@ -3648,6 +3646,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 					tempV2.z = (z.x * z.x + z.y * z.y);
 					z = (fabs(tempV2 - fractal->transformCommon.offsetB111))
 							* fractal->transformCommon.scale3Dc222;
+					aux.DE *= z.Length() / tempV2.Length();
 
 					tempXZ = (z.y + z.x) * SQRT_1_2;
 					z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
@@ -3676,6 +3675,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 							fractal->transformCommon.power025.z));
 					z = (fabs(tempV2 - fractal->transformCommon.offsetC111))
 							* fractal->transformCommon.scale3Dd222;
+					aux.DE *= z.Length() / tempV2.Length();
 
 					tempXZ = (z.y + z.x) * SQRT_1_2;
 					z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
@@ -3684,6 +3684,9 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 			}
 		}
 	}
+	// analyticDE controls
+	if (fractal->analyticDE.enabled)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
@@ -12117,7 +12120,7 @@ void TransfBenesiT3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	double avgScale = z.Length() / tempV2.Length();
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.rotationEnabled)
@@ -12154,7 +12157,7 @@ void TransfBenesiT4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	double avgScale = z.Length() / tempV2.Length();
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.rotationEnabled)
@@ -12200,7 +12203,7 @@ void TransfBenesiT5bIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	double avgScale = z.Length() / tempV2.Length();
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fabs(avgScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.rotationEnabled)

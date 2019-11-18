@@ -89,7 +89,7 @@ enum enumFractalFormula
 	ides2 = 40,
 	buffalo = 41,
 	quickDudley = 48, // covert to analytic v2.20
-	lkmitch = 49,
+	lkmitch = 49, // covert to analytic v2.20
 	makin3d2 = 50, // covert to analytic v2.20
 	msltoeSym2Mod = 51,
 	// mandelbulb5 = 52,
@@ -142,7 +142,7 @@ enum enumFractalFormula
 	// V2.09
 	mengerCrossKIFS = 98,
 	mengerPrismShape = 99,		 // fix T1 T1M V2.10. DE v2.15
-	benesiMagTransforms = 100, // updated addCpixel V2.16
+	benesiMagTransforms = 100, // update addCpixel V2.16, analytic v2.20
 	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
 	bristorbrot4d = 102,
 	pseudoKleinian = 103,				// fix DE V2.10

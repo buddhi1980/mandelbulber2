@@ -114,7 +114,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 
 	insertHeader << QPair<int, QString>(
 		fractal::benesiMagTransforms, QObject::tr("*** Formulas with delta-DE ***"));
-	insertHeader << QPair<int, QString>(fractal::benesiMagTransforms, QObject::tr("Linear delta-DE"));
+	insertHeader << QPair<int, QString>(fractal::boxFoldBulbPow2, QObject::tr("Linear delta-DE"));
 	insertHeader << QPair<int, QString>(fractal::aexionOctopusMod, QObject::tr("Logarithmic delta-DE"));
 
 	insertHeader << QPair<int, QString>(

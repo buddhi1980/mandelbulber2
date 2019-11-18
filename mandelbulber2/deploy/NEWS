@@ -50,9 +50,11 @@ v2.20
    quaternionCubic4d, convert to analytic
    quickDudley, convert to analytic
    quickDudleyMod, convert to analytic
+   lkmitch, convert to analytic
    makin3d2, convert to analytic
    riemannSphereMsltoeV1, convert to analytic
    riemannSphereMsltoeV2, convert to analytic
+   benesiMagTransforms, convert to analytic
    transfBenesiCubeSphere, convert to analytic
    transfBenesiSphereCube, convert to analytic
    transfBenesiT3, covert to analytic

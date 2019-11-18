@@ -110,14 +110,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 3", "amazing_surf_mod3",
 		amazingSurfMod3, AmazingSurfMod3Iteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 4", "amazing_surf_mod4",
 		amazingSurfMod4, AmazingSurfMod4Iteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
 		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+
+	fractalList->append(sFractalDescription("Benesi - Mag Transforms", "benesi_mag_transforms",
+		benesiMagTransforms, BenesiMagTransformsIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLinear, coloringFunctionDefault));
 
 	// Collatz formulas
 	fractalList->append(
@@ -290,6 +292,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, LkmitchIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
@@ -557,10 +563,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ----- Linear -----
 
-	fractalList->append(sFractalDescription("Benesi - Mag Transforms", "benesi_mag_transforms",
-		benesiMagTransforms, BenesiMagTransformsIteration, deltaDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
 		boxFoldBulbPow2, BoxFoldBulbPow2Iteration, deltaDEType, linearDEFunction,
 		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
@@ -574,7 +576,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// Aexion formulas
 
-
 	fractalList->append(sFractalDescription("Aexion Octopus Mod", "aexion_octopus_mod",
 		aexionOctopusMod, AexionOctopusModIteration, deltaDEType, logarithmicDEFunction,
 		cpixelAlreadyHas, 10, analyticFunctionNone, coloringFunctionDefault));
@@ -587,10 +588,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, LkmitchIteration,
-		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
-		coloringFunctionDefault));
-
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, RiemannBulbMsltoeMod2Iteration, deltaDEType, logarithmicDEFunction,
@@ -598,7 +595,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe", "riemann_sphere_msltoe",
 		riemannSphereMsltoe, RiemannSphereMsltoeIteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
-
 
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",
