@@ -111,7 +111,7 @@ enum enumFractalFormula
 	msltoeSym3Mod = 68,
 	msltoeSym4Mod = 69, // fix scal , add mult
 	eiffieMsltoe = 70, // updated V2.08. DE v2.15
-	riemannSphereMsltoeV1 = 71,
+	riemannSphereMsltoeV1 = 71, // covert to analytic v2.20
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73, // fix scale v2.12
 	kalisets1 = 74,

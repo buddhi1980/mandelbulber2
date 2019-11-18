@@ -38,5 +38,11 @@ REAL4 RiemannSphereMsltoeV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	z = t3 * fractal->transformCommon.constantMultiplier441;
 
 	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->analyticDE.enabled)
+	{
+		aux->DE *= 8.0 * fractal->transformCommon.scale * length(z) / r;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
 	return z;
 }

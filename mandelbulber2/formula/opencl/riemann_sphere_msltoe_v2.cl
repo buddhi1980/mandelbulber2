@@ -59,7 +59,7 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE *= 8.0 * fabs(fractal->transformCommon.scale08) * z.Length() / r;
+		aux->DE *= 8.0 * fabs(fractal->transformCommon.scale08) * length(z) / r;
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;

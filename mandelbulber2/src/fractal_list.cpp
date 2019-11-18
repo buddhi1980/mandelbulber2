@@ -230,6 +230,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ----- Logarithmic -------
 
+
+	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration, analyticDEType,
+		logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 	// Benesi formulas
 	fractalList->append(sFractalDescription("Benesi - Pine Tree", "benesi_pine_tree", benesiPineTree,
 		BenesiPineTreeIteration, analyticDEType, logarithmicDEFunction, cpixelAlreadyHas, 10,
@@ -425,6 +429,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		"riemann_sphere_hobold_multi", riemannSphereHoboldMulti, RiemannSphereHoboldMultiIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2.5, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe V1", "riemann_sphere_msltoe_v1",
+		riemannSphereMsltoeV1, RiemannSphereMsltoeV1Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe V2", "riemann_sphere_msltoe_v2",
 		riemannSphereMsltoeV2, RiemannSphereMsltoeV2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -566,8 +573,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// ----- Logarithmic -----
 
 	// Aexion formulas
-	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration, deltaDEType,
-		logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionNone, coloringFunctionDefault));
+
 
 	fractalList->append(sFractalDescription("Aexion Octopus Mod", "aexion_octopus_mod",
 		aexionOctopusMod, AexionOctopusModIteration, deltaDEType, logarithmicDEFunction,
@@ -592,9 +598,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe", "riemann_sphere_msltoe",
 		riemannSphereMsltoe, RiemannSphereMsltoeIteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe V1", "riemann_sphere_msltoe_v1",
-		riemannSphereMsltoeV1, RiemannSphereMsltoeV1Iteration, deltaDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+
 
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",

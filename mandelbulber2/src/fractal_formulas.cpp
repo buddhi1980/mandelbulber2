@@ -568,6 +568,16 @@ void AexionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	z.y = tempY;
 	z.z = tempZ;
 	z.w = tempW;
+
+	if (fractal->analyticDE.enabled)
+	{
+		//aux.DE = aux.DE * fractal->analyticDE.scale1 * 2.2 * aux.r
+			//	+ (fractal->analyticDE.offset1 *2.0);
+		double de1 = 1.1 * aux.r;
+		double de2 = z.Length() / aux.r;
+		aux.DE = (de1 + (de2 - de1) * fractal->analyticDE.scale1) * 2.0 * aux.DE
+				+ fractal->analyticDE.offset1;
+	}
 }
 
 /**
@@ -2374,6 +2384,13 @@ void AexionOctopusModIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 * 2.0 * z.Length() / aux.r
+				+ fractal->analyticDE.offset1;
+	}
+
 }
 
 /**
@@ -10062,7 +10079,7 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE *= 4.0 * fabs(fractal->transformCommon.scale) * z.Length() / r;
+		aux.DE *= 4.0 * fractal->transformCommon.scale * z.Length() / r;
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
@@ -10116,7 +10133,7 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE *= 8.0 * fabs(fractal->transformCommon.scale08) * z.Length() / r;
+		aux.DE *= 8.0 * fractal->transformCommon.scale08 * z.Length() / r;
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }

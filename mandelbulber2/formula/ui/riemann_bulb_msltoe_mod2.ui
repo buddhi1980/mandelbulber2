@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>riemann_bulb_msltoe_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>864</width>
-    <height>1357</height>
+    <height>1433</height>
    </rect>
   </property>
   <property name="windowTitle">

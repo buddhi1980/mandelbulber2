@@ -2,6 +2,7 @@ Version history
 
 v2.20
 - Added new fractal formulas
+   amazingSurfMod4
    riemannSphereHoboldPow4
    riemannSphereHoboldPow8
    riemannSphereHoboldMulti
@@ -44,17 +45,20 @@ v2.20
    msltoeSym4Mod, added mul and fixed scale
    aboxMod13,add missing sphere fold iter controls
    transfSurfBoxFoldV24d = 1104, // duplicated number 1089
+   aexion, convert to analytic
    quaternion4d, convert to analytic
    quaternionCubic4d, convert to analytic
    quickDudley, convert to analytic
    quickDudleyMod, convert to analytic
    makin3d2, convert to analytic
+   riemannSphereMsltoeV1, convert to analytic
    riemannSphereMsltoeV2, convert to analytic
    transfBenesiCubeSphere, convert to analytic
    transfBenesiSphereCube, convert to analytic
    transfBenesiT3, covert to analytic
    transfBenesiT4, covert to analytic
    transfBenesiT5b, covert to analytic
+   aexionOctopusMod,  add Force Analytic option
 
 
 
