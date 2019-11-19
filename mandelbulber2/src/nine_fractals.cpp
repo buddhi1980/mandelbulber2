@@ -188,7 +188,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	maxFractalIndex = 0;
 	CreateSequence(generalPar);
 
-	if (isHybrid || forceDeltaDE)
+	if (isHybrid)
 	{
 		DEType[0] = fractal::analyticDEType;
 		useOptimizedDE = true;
@@ -269,7 +269,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		if (forceDeltaDE) DEType[0] = fractal::deltaDEType;
 		if (forceAnalyticDE) DEType[0] = fractal::analyticDEType;
 	}
-	else
+	else // not hybrid or boolean
 	{
 		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
@@ -278,6 +278,40 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 			DEType[f] = fractalList[index].DEType;
 			DEFunctionType[f] = fractalList[index].DEFunctionType;
+
+			if (forceDeltaDE) DEType[f] = fractal::deltaDEType;
+			if (forceAnalyticDE) DEType[f] = fractal::analyticDEType;
+
+			if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
+						!= fractal::preferredDEFunction
+					|| forceAnalyticDE)
+			{
+				if (!forceAnalyticDE)
+				{
+					DEFunctionType[f] =
+						fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
+				}
+
+				switch (DEFunctionType[f])
+				{
+					case fractal::linearDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionLinear;
+						break;
+					case fractal::logarithmicDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionLogarithmic;
+						break;
+					case fractal::pseudoKleinianDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionPseudoKleinian;
+						break;
+					case fractal::josKleinianDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionJosKleinian;
+						break;
+					case fractal::dIFSDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionDIFS;
+						break;
+					default: DEAnalyticFunction[f] = fractal::analyticFunctionLinear; break;
+				}
+			}
 		}
 	}
 
