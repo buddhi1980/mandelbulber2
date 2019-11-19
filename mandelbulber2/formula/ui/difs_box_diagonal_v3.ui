@@ -2659,7 +2659,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;DIFSBoxDiagonalV3Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Box DiagV3 asurf.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Box DiagV3 complex primitive.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

@@ -70,6 +70,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
+
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);

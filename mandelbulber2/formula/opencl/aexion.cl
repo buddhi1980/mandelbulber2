@@ -43,5 +43,15 @@ REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	z.y = tempY;
 	z.z = tempZ;
 	z.w = tempW;
+
+	if (fractal->analyticDE.enabled)
+	{
+		// aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.2f * aux->r
+		//	+ (fractal->analyticDE.offset1 *2.0);
+		REAL de1 = 1.1f * aux->r;
+		REAL de2 = native_divide(length(z), aux->r);
+		aux->DE = mad((mad((de2 - de1), fractal->analyticDE.scale1, de1)) * 2.0f, aux->DE,
+			fractal->analyticDE.offset1);
+	}
 	return z;
 }

@@ -174,8 +174,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL4 bxV = zc;
 		REAL bxD = 0.0f;
 		bxV = fabs(bxV) - boxSize;
-		bxD = max(bxV.x, max(bxV.y, bxV.z));
-		if (!fractal->transformCommon.functionEnabledFFalse && bxD > 0.0f)
+		bxD = max(bxV.x, max(bxV.y, bxV.z)); // infnorm
+		if (!fractal->transformCommon.functionEnabledJFalse && bxD > 0.0f)
 		{
 			bxV.x = max(bxV.x, 0.0f);
 			bxV.y = max(bxV.y, 0.0f);
@@ -206,21 +206,18 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
 		REAL cylD = 0.0f;
-		REAL radius2 = fractal->transformCommon.offsetR0;
 		//- fractal->transformCommon.scale0 * aux->i;
 
-		REAL cylR = 0.0f;
-		REAL cylH = 0.0f;
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y));
-			cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+			REAL temp = zc.x;
+			zc.x = zc.z;
+			zc.z = temp;
 		}
-		else
-		{
-			cylR = native_sqrt(mad(zc.y, zc.y, zc.z * zc.z));
-			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
-		}
+
+		REAL cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y));
+		REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+
 		REAL cylRm = cylR - fractal->transformCommon.radius1;
 
 		if (!fractal->transformCommon.functionEnabledXFalse)
@@ -233,7 +230,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		else
 			cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
 
-		cylD = min(max(cylRm, cylH) - radius2, 0.0f) + cylD;
+		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 		aux->dist = min(aux->dist, native_divide(cylD, aux->DE));
 	}
 
@@ -252,10 +249,10 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
+			colorAdd += fractal->foldColor.difs0000.z * (mad(z.x, z.x, z.y * z.y));
+			colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

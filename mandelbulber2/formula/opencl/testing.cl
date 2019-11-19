@@ -18,7 +18,6 @@
 
 REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	z = fabs(z + fractal->transformCommon.additionConstant111)
 			- fabs(z - fractal->transformCommon.additionConstant111) - z;
 
@@ -33,35 +32,51 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
 		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
 	}
+
 	z *= fractal->transformCommon.scale2;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale2), 1.0f);
 
-
 	z += fractal->transformCommon.offset000;
+
 	z += aux->c * fractal->transformCommon.constantMultiplier111;
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
+	/*aux->DE = aux->DE * 2.0f * aux->r;
+	REAL x2 = z.x * z.x;
+	REAL y2 = z.y * z.y;
+	REAL z2 = z.z * z.z;
+	REAL temp = 1.0f - native_divide(z2, (x2 + y2));
+	REAL newx = (x2 - y2) * temp;
+	REAL newy = 2.0f * z.x * z.y * temp;
+	REAL newz = -2.0f * z.z * native_sqrt(x2 + y2);
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+
+
+	z += aux->c * fractal->transformCommon.constantMultiplier111;*/
+
 	REAL4 zc = z;
-
-		// cylinder
+	// cylinder
 	REAL cylinder;
-	REAL cylR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	REAL cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.radius1;
 	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
-	cylR = max(cylR, 0.0);
-	cylH = max(cylH, 0.0);
-	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
-	cylinder = min(max(cylR, cylH), 0.0) + cylD;
+	cylR = max(cylR, 0.0f);
+	cylH = max(cylH, 0.0f);
+	REAL cylD = native_sqrt(mad(cylR, cylR, cylH * cylH));
+	cylinder = min(max(cylR, cylH), 0.0f) + cylD;
 
-		// box
+	// box
 	REAL4 boxSize = fractal->transformCommon.offset111;
 	zc = fabs(zc) - boxSize;
-	zc.x = max(zc.x, 0.0);
-	zc.y = max(zc.y, 0.0);
-	zc.z = max(zc.z, 0.0);
+	zc.x = max(zc.x, 0.0f);
+	zc.y = max(zc.y, 0.0f);
+	zc.z = max(zc.z, 0.0f);
 	REAL box = length(zc);
 	zc = z;
 
@@ -74,27 +89,32 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	rrV /= rads3;
 	REAL rd = length(rV);
 	REAL rrd = length(rrV);
-	REAL ellipsoid = rd * (rd - 1.0) / rrd;
+	REAL ellipsoid = rd * native_divide((rd - 1.0f), rrd);
 
-		// sphere
-	REAL sphere = length(z) - fractal->transformCommon.offset3;
+	// sphere
+	REAL sphere = length(zc) - fractal->transformCommon.offset3;
 
-		// torus
-	REAL torus = native_sqrt(mad(zc.x, zc.x, zc.z * zc.z)) - fractal->transformCommon.offset4;
-	torus = native_sqrt(mad(torus, torus, zc.y * zc.y)) - fractal->transformCommon.offset1;
+	// torus
+	REAL torus = native_sqrt(mad(z.x, z.x, z.z * z.z)) - fractal->transformCommon.offset4;
+	torus = native_sqrt(mad(torus, torus, z.y * z.y)) - fractal->transformCommon.offset1;
 
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
 	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
 	if (fractal->transformCommon.functionEnabledzFalse) sphere = ellipsoid;
-
 	int count = fractal->transformCommon.int3;
 	int tempC = fractal->transformCommon.int3X;
 	REAL r;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
-		{ r = (aux->i < count) ? torus : sphere;}
-	else
-		{ r = (aux->i < count) ? sphere : torus;}
 
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		r = (aux->i < count) ? torus : sphere;
+	}
+	else
+	{
+		r = (aux->i < count) ? sphere : torus;
+	}
+
+	// REAL dd = 0.5f * r * native_divide(log(r), aux->DE);
 	REAL dd = native_divide(r, aux->DE);
 	if (aux->i < tempC || dd < aux->colorHybrid)
 	{

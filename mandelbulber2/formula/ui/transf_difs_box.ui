@@ -180,7 +180,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;TransfDifsBoxIteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;hex grid 002.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

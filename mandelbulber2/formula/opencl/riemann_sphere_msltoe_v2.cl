@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -59,8 +59,8 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE *= 8.0 * fabs(fractal->transformCommon.scale08) * length(z) / r;
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux->DE *= 8.0f * fractal->transformCommon.scale08 * native_divide(length(z), r);
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	}
 	return z;
 }

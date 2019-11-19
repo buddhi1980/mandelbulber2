@@ -156,8 +156,6 @@ REAL4 DIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		// REAL4 zc = z;
-
 		REAL tp;
 		REAL len = fractal->transformCommon.offset1;
 		REAL face = fractal->transformCommon.offset05;

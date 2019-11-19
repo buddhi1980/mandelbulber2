@@ -49,5 +49,12 @@ REAL4 AexionOctopusModIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.0f * native_divide(length(z), aux->r)
+							+ fractal->analyticDE.offset1;
+	}
+
 	return z;
 }

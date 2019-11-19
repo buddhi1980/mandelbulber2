@@ -16,9 +16,7 @@
 
 REAL4 QuickDudleyIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
+	aux->DE = mad(aux->DE * 2.0f * aux->r, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	REAL x2 = z.x * z.x;
 	REAL y2 = z.y * z.y;
 	REAL z2 = z.z * z.z;

@@ -31,11 +31,13 @@ REAL4 BoxFoldBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (r2_2 < mR2_2)
 	{
 		z = z * tglad_factor1_2;
+		aux->DE *= tglad_factor1_2;
 	}
 	else if (r2_2 < fR2_2)
 	{
 		REAL tglad_factor2_2 = native_divide(fR2_2, r2_2);
 		z = z * tglad_factor2_2;
+		aux->DE *= tglad_factor2_2;
 	}
 
 	z = z * 2.0f;
@@ -50,7 +52,14 @@ REAL4 BoxFoldBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	zTemp.w = z.w;
 	z = zTemp;
 	z.z *= fractal->foldingIntPow.zFactor;
-
+	// analyticDE controls
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = mad((aux->DE + 1.0f) * 5.0f * aux->r * fractal->analyticDE.scale1,
+			native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
+									+ fractal->analyticDE.offset2),
+			fractal->analyticDE.offset1);
+	}
 	// INFO remark: changed sequence of operation.
 	// adding of C constant was before multiplying by z-factor
 	return z;

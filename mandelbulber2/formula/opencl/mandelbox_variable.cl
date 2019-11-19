@@ -118,7 +118,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// vary maxR2
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
-		if (aux->i > fractal->transformCommon.startIterationsA)
+		if (aux->i > fractal->transformCommon.startIterationsB)
 		{
 			maxR2use *=
 				(1.0f

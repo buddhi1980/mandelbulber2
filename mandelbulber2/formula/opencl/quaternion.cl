@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,13 +19,11 @@ REAL4 QuaternionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	Q_UNUSED(fractal);
 
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y)) - z.w * z.w;
+	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y));
 	REAL newy = 2.0f * z.x * z.y;
 	REAL newz = 2.0f * z.x * z.z;
-	REAL neww = 2.0f * z.x * z.w;
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
-	z.w = neww;
 	return z;
 }

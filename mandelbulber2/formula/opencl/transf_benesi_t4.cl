@@ -31,6 +31,12 @@ REAL4 TransfBenesiT4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
 			* fractal->transformCommon.scale3D222;
 
+	REAL avgScale = native_divide(length(z), length(tempV2));
+	if (fractal->analyticDE.enabled)
+	{
+		aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+	}
+
 	if (fractal->transformCommon.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 

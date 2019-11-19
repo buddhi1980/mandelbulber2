@@ -66,7 +66,7 @@ REAL4 TransfSurfBoxFoldV24dIteration(REAL4 z, __constant sFractalCl *fractal, sE
 				colorAdd += fractal->mandelbox.color.factor4D.z
 										* (fabs(zCol.z) - fractal->transformCommon.offset1111.z);
 			if (zCol.w != oldZ.w)
-				colorAdd += fractal->mandelbox.color.factor4D.z
+				colorAdd += fractal->mandelbox.color.factor4D.w
 										* (fabs(zCol.w) - fractal->transformCommon.offset1111.w);
 		}
 		else

@@ -20,11 +20,8 @@ REAL4 TransfDIFSEllipsoidIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL4 rads4 = fractal->transformCommon.additionConstant111;
 	REAL3 rads3 = (REAL3){rads4.x, rads4.y, rads4.z};
-	REAL tempX = zc.x;
-	REAL tempY = zc.y;
-	REAL tempZ = zc.z;
 
-	REAL3 rV = (REAL3){tempX, tempY, tempZ};
+	REAL3 rV = (REAL3){zc.x, zc.y, zc.z};
 	rV /= rads3;
 
 	REAL3 rrV = rV;
