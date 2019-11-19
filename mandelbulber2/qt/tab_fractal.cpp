@@ -104,18 +104,19 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	fontHeading.setBold(true);
 	QList<QPair<int, QString> /* */> insertHeader;
 	insertHeader << QPair<int, QString>(
-		fractal::aboxMod1, QObject::tr("*** Formulas with analytic DE ***"));
-	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Linear DE"));
+		fractal::aexion, QObject::tr("*** Formulas with analytic DE ***"));
 	insertHeader << QPair<int, QString>(fractal::aexion, QObject::tr("Logarithmic DE"));
+	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Linear DE"));
 	insertHeader << QPair<int, QString>(fractal::josKleinian, QObject::tr("JosLeys-Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("dIFS Formulas"));
 	insertHeader << QPair<int, QString>(fractal::transfDIFSBox, QObject::tr("dIFS Transforms"));
 
 	insertHeader << QPair<int, QString>(
-		fractal::benesiMagTransforms, QObject::tr("*** Formulas with delta-DE ***"));
+		fractal::aexionOctopusMod, QObject::tr("*** Formulas with delta-DE ***"));
+	insertHeader << QPair<int, QString>(
+		fractal::aexionOctopusMod, QObject::tr("Logarithmic delta-DE"));
 	insertHeader << QPair<int, QString>(fractal::boxFoldBulbPow2, QObject::tr("Linear delta-DE"));
-	insertHeader << QPair<int, QString>(fractal::aexionOctopusMod, QObject::tr("Logarithmic delta-DE"));
 
 	insertHeader << QPair<int, QString>(
 		fractal::transfAbsAddConditional, QObject::tr("*** Transforms ***"));

@@ -57,181 +57,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		withoutDEFunction, cpixelDisabledByDefault, 1, analyticFunctionNone, coloringFunctionDefault));
 
 	//------------------------ ANALYTIC DE FORMULAS ----------------------
-	// ----- Linear -------
-
-	// Abox formulas
-	fractalList->append(
-		sFractalDescription("Abox - Mod 1", "abox_mod1", aboxMod1, AboxMod1Iteration, analyticDEType,
-			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
-	fractalList->append(
-		sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration, analyticDEType,
-			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11,
-		AboxMod11Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - Mod 12", "abox_mod12", aboxMod12,
-		AboxMod12Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - Mod 13", "abox_mod13", aboxMod13,
-		AboxMod13Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
-		AboxModKaliIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Abox - Mod Kali-Eiffie", "abox_mod_kali_eiffie",
-		aboxModKaliEiffie, AboxModKaliEiffieIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - Mod Kali-V2", "abox_mod_kali_v2", aboxModKaliV2,
-		AboxModKaliV2Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Abox - Mod Kali-V3", "abox_mod_kali_v3", aboxModKaliV3,
-		AboxModKaliV3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
-		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
-		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(
-		sFractalDescription("Abox 4D", "abox4d", abox4d, Abox4dIteration, analyticDEType,
-			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-
-	// Amazing Surf formulas
-	fractalList->append(sFractalDescription("Amazing Surf", "amazing_surf", amazingSurf,
-		AmazingSurfIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionAmazingSurf));
-	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1",
-		amazingSurfMod1, AmazingSurfMod1Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Amazing Surf - Mod 2", "amazing_surf_mod2",
-		amazingSurfMod2, AmazingSurfMod2Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Amazing Surf - Mod 3", "amazing_surf_mod3",
-		amazingSurfMod3, AmazingSurfMod3Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Amazing Surf - Mod 4", "amazing_surf_mod4",
-		amazingSurfMod4, AmazingSurfMod4Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
-		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-
-	fractalList->append(sFractalDescription("Benesi - Mag Transforms", "benesi_mag_transforms",
-		benesiMagTransforms, BenesiMagTransformsIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionLinear, coloringFunctionDefault));
-
-	// Collatz formulas
-	fractalList->append(
-		sFractalDescription("Collatz", "collatz", collatz, CollatzIteration, analyticDEType,
-			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Collatz - Mod ", "collatz_mod", collatzMod,
-		CollatzModIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-
-	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
-		FoldBoxMod1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-
-	fractalList->append(sFractalDescription("Generalized Fold Box", "generalized_fold_box",
-		generalizedFoldBox, GeneralizedFoldBoxIteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-
-	fractalList->append(sFractalDescription("Ifs - XY", "ifs_xy", ifsXY, IfsXYIteration,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs",
-		kaleidoscopicIfs, KaleidoscopicIfsIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionIFS, coloringFunctionIFS));
-
-	fractalList->append(sFractalDescription("Kalisets1 Mod", "kalisets1", kalisets1,
-		Kalisets1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionLinear, coloringFunctionDefault));
-
-	// Mandelbox formulas
-	fractalList->append(
-		sFractalDescription("Mandelbox", "mandelbox", mandelbox, MandelboxIteration, analyticDEType,
-			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Mandelbox - Menger", "mandelbox_menger", mandelboxMenger,
-		MandelboxMengerIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Mandelbox - Smooth", "mandelbox_smooth", mandelboxSmooth,
-		MandelboxSmoothIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Mandelbox - Variable", "mandelbox_variable",
-		mandelboxVariable, MandelboxVariableIteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Mandelbox - Vary Scale 4D", "mandelbox_vary_scale4d",
-		mandelboxVaryScale4d, MandelboxVaryScale4dIteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
-
-	// Menger formulas
-	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", mengerSponge,
-		MengerSpongeIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Cross KIFS", "menger_cross_kifs",
-		mengerCrossKIFS, MengerCrossKIFSIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Cross Mod1", "menger_cross_mod1",
-		mengerCrossMod1, MengerCrossMod1Iteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
-		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Modulus", "modulus_menger_sponge",
-		modulusMengerSponge, ModulusMengerSpongeIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod",
-		mengerMiddleMod, MengerMiddleModIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Octo", "menger_octo", mengerOcto,
-		MengerOctoIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Prism Shape", "menger_prism_shape",
-		mengerPrismShape, MengerPrismShapeIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
-		mengerPrismShape2, MengerPrismShape2Iteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Poly Fold", "menger_poly_fold", mengerPolyFold,
-		MengerPolyFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
-		mengerPwr2Poly, MengerPwr2PolyIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth", mengerSmooth,
-		MengerSmoothIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger - Smooth Mod1", "menger_smooth_mod1",
-		mengerSmoothMod1, MengerSmoothMod1Iteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(
-		sFractalDescription("Menger 4D", "menger4d", menger4d, Menger4dIteration, analyticDEType,
-			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger 4D Mod1", "menger4d_mod1", menger4dMod1,
-		Menger4dMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Mix Pinski 4D", "mix_pinski4d", mixPinski4d,
-		MixPinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
-		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
-		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski4d", sierpinski4d,
-		Sierpinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
-	fractalList->append(
-		sFractalDescription("Vicsek", "vicsek", vicsek, VicsekIteration, analyticDEType,
-			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
 
 	// ----- Logarithmic -------
-
 
 	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration, analyticDEType,
 		logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -453,6 +280,179 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		XenodreambuieIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
+	// ----- Linear -------
+
+	// Abox formulas
+	fractalList->append(
+		sFractalDescription("Abox - Mod 1", "abox_mod1", aboxMod1, AboxMod1Iteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
+	fractalList->append(
+		sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11,
+		AboxMod11Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - Mod 12", "abox_mod12", aboxMod12,
+		AboxMod12Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - Mod 13", "abox_mod13", aboxMod13,
+		AboxMod13Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
+		AboxModKaliIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Abox - Mod Kali-Eiffie", "abox_mod_kali_eiffie",
+		aboxModKaliEiffie, AboxModKaliEiffieIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - Mod Kali-V2", "abox_mod_kali_v2", aboxModKaliV2,
+		AboxModKaliV2Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Abox - Mod Kali-V3", "abox_mod_kali_v3", aboxModKaliV3,
+		AboxModKaliV3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
+		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
+		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(
+		sFractalDescription("Abox 4D", "abox4d", abox4d, Abox4dIteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+
+	// Amazing Surf formulas
+	fractalList->append(sFractalDescription("Amazing Surf", "amazing_surf", amazingSurf,
+		AmazingSurfIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionAmazingSurf));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1",
+		amazingSurfMod1, AmazingSurfMod1Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 2", "amazing_surf_mod2",
+		amazingSurfMod2, AmazingSurfMod2Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 3", "amazing_surf_mod3",
+		amazingSurfMod3, AmazingSurfMod3Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 4", "amazing_surf_mod4",
+		amazingSurfMod4, AmazingSurfMod4Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
+		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+
+	fractalList->append(sFractalDescription("Benesi - Mag Transforms", "benesi_mag_transforms",
+		benesiMagTransforms, BenesiMagTransformsIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLinear, coloringFunctionDefault));
+
+	// Collatz formulas
+	fractalList->append(
+		sFractalDescription("Collatz", "collatz", collatz, CollatzIteration, analyticDEType,
+			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Collatz - Mod ", "collatz_mod", collatzMod,
+		CollatzModIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
+
+	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
+		FoldBoxMod1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+
+	fractalList->append(sFractalDescription("Generalized Fold Box", "generalized_fold_box",
+		generalizedFoldBox, GeneralizedFoldBoxIteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+
+	fractalList->append(sFractalDescription("Ifs - XY", "ifs_xy", ifsXY, IfsXYIteration,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
+		coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs",
+		kaleidoscopicIfs, KaleidoscopicIfsIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionIFS, coloringFunctionIFS));
+
+	fractalList->append(sFractalDescription("Kalisets1 Mod", "kalisets1", kalisets1,
+		Kalisets1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLinear, coloringFunctionDefault));
+
+	// Mandelbox formulas
+	fractalList->append(
+		sFractalDescription("Mandelbox", "mandelbox", mandelbox, MandelboxIteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Mandelbox - Menger", "mandelbox_menger", mandelboxMenger,
+		MandelboxMengerIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Mandelbox - Smooth", "mandelbox_smooth", mandelboxSmooth,
+		MandelboxSmoothIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Mandelbox - Variable", "mandelbox_variable",
+		mandelboxVariable, MandelboxVariableIteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Mandelbox - Vary Scale 4D", "mandelbox_vary_scale4d",
+		mandelboxVaryScale4d, MandelboxVaryScale4dIteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
+
+	// Menger formulas
+	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", mengerSponge,
+		MengerSpongeIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Cross KIFS", "menger_cross_kifs",
+		mengerCrossKIFS, MengerCrossKIFSIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Cross Mod1", "menger_cross_mod1",
+		mengerCrossMod1, MengerCrossMod1Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
+		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Modulus", "modulus_menger_sponge",
+		modulusMengerSponge, ModulusMengerSpongeIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod",
+		mengerMiddleMod, MengerMiddleModIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Octo", "menger_octo", mengerOcto,
+		MengerOctoIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Prism Shape", "menger_prism_shape",
+		mengerPrismShape, MengerPrismShapeIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
+		mengerPrismShape2, MengerPrismShape2Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Poly Fold", "menger_poly_fold", mengerPolyFold,
+		MengerPolyFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
+		mengerPwr2Poly, MengerPwr2PolyIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth", mengerSmooth,
+		MengerSmoothIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger - Smooth Mod1", "menger_smooth_mod1",
+		mengerSmoothMod1, MengerSmoothMod1Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(
+		sFractalDescription("Menger 4D", "menger4d", menger4d, Menger4dIteration, analyticDEType,
+			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Menger 4D Mod1", "menger4d_mod1", menger4dMod1,
+		Menger4dMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mix Pinski 4D", "mix_pinski4d", mixPinski4d,
+		MixPinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
+		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
+		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski4d", sierpinski4d,
+		Sierpinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(
+		sFractalDescription("Vicsek", "vicsek", vicsek, VicsekIteration, analyticDEType,
+			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+
 	// ----- JosLeys-Kleinian -----
 
 	fractalList->append(sFractalDescription("JosLeys-Kleinian", "jos_kleinian", josKleinian,
@@ -561,21 +561,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	//------------------------ DELTA DE FORMULAS ------------------------
 
-	// ----- Linear -----
-
-	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
-		boxFoldBulbPow2, BoxFoldBulbPow2Iteration, deltaDEType, linearDEFunction,
-		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
-
-	// Msltoe formulas
-	fractalList->append(sFractalDescription("Msltoe - Donut", "msltoe_donut", msltoeDonut,
-		MsltoeDonutIteration, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 4,
-		analyticFunctionNone, coloringFunctionDonut));
-
 	// ----- Logarithmic -----
 
 	// Aexion formulas
-
 	fractalList->append(sFractalDescription("Aexion Octopus Mod", "aexion_octopus_mod",
 		aexionOctopusMod, AexionOctopusModIteration, deltaDEType, logarithmicDEFunction,
 		cpixelAlreadyHas, 10, analyticFunctionNone, coloringFunctionDefault));
@@ -603,6 +591,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Scator Power 2 Imaginary", "scator_power2_imaginary",
 		scatorPower2Imaginary, ScatorPower2ImaginaryIteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+
+	// ----- Linear -----
+
+	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
+		boxFoldBulbPow2, BoxFoldBulbPow2Iteration, deltaDEType, linearDEFunction,
+		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
+
+	// Msltoe formulas
+	fractalList->append(sFractalDescription("Msltoe - Donut", "msltoe_donut", msltoeDonut,
+		MsltoeDonutIteration, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 4,
+		analyticFunctionNone, coloringFunctionDonut));
 
 	//-------------------------- Transforms -----------------------------------
 
