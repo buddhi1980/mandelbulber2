@@ -325,11 +325,6 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state) const
 		}
 	}
 
-	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(
-		state
-		|| gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEMethodCurrentIndex()
-				 == int(fractal::forceDeltaDEMethod));
-
 	ui->label_fractals_remark_hybrid->setVisible(!state);
 	ui->label_repeat_from->setEnabled(state);
 	ui->spinboxInt_repeat_from->setEnabled(state);
