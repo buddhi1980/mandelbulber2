@@ -278,19 +278,15 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 			DEType[f] = fractalList[index].DEType;
 			DEFunctionType[f] = fractalList[index].DEFunctionType;
+			DEAnalyticFunction[f] = fractalList[index].DEAnalyticFunction;
 
 			if (forceDeltaDE) DEType[f] = fractal::deltaDEType;
 			if (forceAnalyticDE) DEType[f] = fractal::analyticDEType;
 
 			if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
-						!= fractal::preferredDEFunction
-					|| forceAnalyticDE)
+					!= fractal::preferredDEFunction)
 			{
-				if (!forceAnalyticDE)
-				{
-					DEFunctionType[f] =
-						fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
-				}
+				DEFunctionType[f] = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
 
 				switch (DEFunctionType[f])
 				{

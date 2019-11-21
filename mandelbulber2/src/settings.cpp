@@ -1118,6 +1118,17 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 					mat + "_transparency_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
 		}
 	}
+
+	if (fileVersion < 2.20)
+	{
+		if (par->IfExists("delta_DE_method"))
+		{
+			if (fractal::enumDEMethod(par->Get<int>("delta_DE_method")) == fractal::preferredDEMethod)
+			{
+				par->Set("delta_DE_function", int(fractal::preferredDEFunction));
+			}
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(
