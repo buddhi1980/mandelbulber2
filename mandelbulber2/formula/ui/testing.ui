@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>2415</height>
+    <height>3059</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,76 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+     <property name="text">
+      <string>box</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
+     <property name="text">
+      <string>meng</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+     <property name="text">
+      <string>o</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>pow:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_power">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
+     <property name="text">
+      <string notr="true">disable for aSurf mode</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,0,0">
      <property name="spacing">
@@ -713,6 +783,16 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -1162,14 +1242,14 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>height:</string>
+        <string>cylinder height:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>radius1:</string>
+        <string>cylinder radius1:</string>
        </property>
       </widget>
      </item>
@@ -1290,7 +1370,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_127">
        <property name="text">
-        <string>int3</string>
+        <string>swap int3</string>
        </property>
       </widget>
      </item>
@@ -1442,6 +1522,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+     <property name="text">
+      <string>log</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -1647,14 +1734,14 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

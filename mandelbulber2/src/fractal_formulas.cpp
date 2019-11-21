@@ -328,8 +328,6 @@ void XenodreambuieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
  */
 void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);
 	z.z = fabs(z.z);
@@ -20069,23 +20067,69 @@ void TransfDIFSHybridColorIteration(CVector4 &z, const sFractal *fractal, sExten
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z = fabs(z + fractal->transformCommon.additionConstant111)
-			- fabs(z - fractal->transformCommon.additionConstant111) - z;
-
-	double rr = z.Dot(z);
-	if (rr < fractal->transformCommon.minR2p25)
+	if (fractal->transformCommon.functionEnabledMFalse)
 	{
-		z *= fractal->transformCommon.maxMinR2factor;
-		aux.DE *= fractal->transformCommon.maxMinR2factor;
-	}
-	else if (rr < fractal->transformCommon.maxR2d1)
-	{
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
-	}
 
-	z *= fractal->transformCommon.scale2;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+
+		double rr = z.Dot(z);
+		if (rr < fractal->transformCommon.minR2p25)
+		{
+			z *= fractal->transformCommon.maxMinR2factor;
+			aux.DE *= fractal->transformCommon.maxMinR2factor;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			aux.DE *= fractal->transformCommon.maxR2d1 / rr;
+		}
+
+		z *= fractal->transformCommon.scale2;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
+
+	}
+	if (fractal->transformCommon.functionEnabledNFalse)
+	{
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
+
+		if (z.x - z.y < 0.0) swap(z.x, z.y);
+		if (z.x - z.z < 0.0) swap(z.x, z.z);
+		if (z.y - z.z < 0.0) swap(z.y, z.z);
+
+		z *= fractal->transformCommon.scale2; // 3
+
+		z.x -= 2.0;
+		z.y -= 2.0;
+		if (z.z > 1.0) z.z -= 2.0;
+
+		aux.DE *= fractal->transformCommon.scale2; // 3
+
+	}
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		// if (aux.r < 1e-21) aux.r = 1e-21;
+		const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+		const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+		double rp = pow(aux.r, fractal->bulb.power - 1.0);
+		const double th = th0 * fractal->bulb.power;
+		const double ph = ph0 * fractal->bulb.power;
+		const double cth = cos(th);
+		aux.DE = (rp * aux.DE) * fractal->bulb.power + 1.0;
+		rp *= aux.r;
+		z.x = cth * cos(ph) * rp;
+		z.y = cth * sin(ph) * rp;
+		z.z = sin(th) * rp;
+	}
 
 	z += fractal->transformCommon.offset000;
 
@@ -20111,6 +20155,9 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 
 	z += aux.c * fractal->transformCommon.constantMultiplier111;*/
+
+
+	// THE FOLLOWING CAN BE A TRANSFORM
 
 	CVector4 zc = z;
 	// cylinder
@@ -20164,9 +20211,17 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		r = (aux.i < count) ? sphere : torus;
 	}
+	double dd;
+	if (!fractal->transformCommon.functionEnabledDFalse)
+	{
+		 dd = r / aux.DE;
+	}
+	else
+	{
+		dd = 0.5 * r * log(r) / aux.DE;
+	}
 
-	// double dd = 0.5 * r * log(r) / aux.DE;
-	double dd = r / aux.DE;
+	//
 	if (aux.i < tempC || dd < aux.colorHybrid)
 	{
 		aux.colorHybrid = dd;
