@@ -19454,7 +19454,6 @@ void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
-
 	CVector4 rads4 = fractal->transformCommon.additionConstant111;
 	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
 
@@ -19471,7 +19470,7 @@ void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
- * DIFSGridIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * transfDIFSGridIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and  Buddhi
  */
 void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -19501,7 +19500,7 @@ void TransfDIFSGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 }
 
 /**
- * DIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * transfDIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and Buddhi
  */
 void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -19569,7 +19568,7 @@ void TransfDIFSGridV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 }
 
 /**
- * DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * transfDIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and  darkbeams optimized verion @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  * "Beautiful iso-surface made of a hexagonal grid of tubes.
@@ -20211,14 +20210,24 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		r = (aux.i < count) ? sphere : torus;
 	}
-	double dd;
-	if (!fractal->transformCommon.functionEnabledDFalse)
+
+	aux.DE = aux.DE + fractal->analyticDE.offset0;
+
+
+	double dd = r;
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		 dd = r / aux.DE;
+		dd = dd / aux.DE; // same as an uncondtional aux.dist
 	}
-	else
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		dd = 0.5 * r * log(r) / aux.DE;
+		double rxy = sqrt(z.x * z.x + z.y * z.y);
+		dd =
+			max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+	}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		dd = 0.5 * dd * log(dd) / aux.DE; // = using linear and increasining detail level
 	}
 
 	//
@@ -21035,14 +21044,25 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		r = (aux.i < count) ? sphere : torus;
 	}*/
 	double dd = aux.DE0 - fractal->transformCommon.offset0;
-	if (!fractal->transformCommon.functionEnabledDFalse)
+	aux.DE = aux.DE + fractal->analyticDE.offset0;
+
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		 dd = dd / aux.DE;
+		dd = dd / aux.DE; // same as an uncondtional aux.dist
 	}
-	else
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		dd = 0.5 * dd * log(dd) / aux.DE;
+		double rxy = sqrt(z.x * z.x + z.y * z.y);
+		dd =
+			max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
 	}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		dd = 0.5 * dd * log(dd) / aux.DE; // = using linear and increasining detail level
+	}
+
+
+
 	double colorDist = aux.dist;
 
 	int tempC = fractal->transformCommon.int3X;
