@@ -20824,14 +20824,14 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			bxV.x = max(bxV.x, 0.0);
 			bxV.y = max(bxV.y, 0.0);
 			bxV.z = max(bxV.z, 0.0);
-			bxD = bxV.Length();
+			aux.DE0 = bxV.Length();
 		}
 
 		// round box
 		if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, bxD / aux.DE);
 		else
-			aux.dist = min(aux.dist, bxD / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+			aux.dist = min(aux.dist, aux.DE0 / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
 	}
 	// sphere
 	if (fractal->transformCommon.functionEnabledMFalse
@@ -20839,8 +20839,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		double sphereRadius = fractal->transformCommon.offsetR1;
-		double spD = zc.Length() - sphereRadius;
-		aux.dist = min(aux.dist, spD / aux.DE);
+		aux.DE0 = zc.Length() - sphereRadius;
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
 
 	// cylinder
@@ -20868,8 +20868,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		else
 			cylD = sqrt(cylRm * cylRm + cylH * cylH);
 
-		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
-		aux.dist = min(aux.dist, cylD / aux.DE);
+		aux.DE0 = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
 
 	// torus
@@ -20878,8 +20878,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-		double torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
-		aux.dist = min(aux.dist, torD / aux.DE);
+		aux.DE0 = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
 
 	// aux.color
@@ -21008,5 +21008,67 @@ void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	else aux.color += theta2;
 }
 
+/**
+ * Testing transform2
+ *
+ */
+void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double colorAdd = 0.0;
+	z += fractal->transformCommon.offset000;
 
+	z += aux.c * fractal->transformCommon.constantMultiplier111;
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+/*	double r;
+	//int count = fractal->transformCommon.int3;
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		r = (aux.i < count) ? torus : sphere;
+	}
+	else
+	{
+		r = (aux.i < count) ? sphere : torus;
+	}*/
+	double dd = aux.DE0 - fractal->transformCommon.offset0;
+	if (!fractal->transformCommon.functionEnabledDFalse)
+	{
+		 dd = dd / aux.DE;
+	}
+	else
+	{
+		dd = 0.5 * dd * log(dd) / aux.DE;
+	}
+	double colorDist = aux.dist;
+
+	int tempC = fractal->transformCommon.int3X;
+	if (aux.i < tempC || dd < aux.colorHybrid)
+	{
+		aux.colorHybrid = dd;
+	}
+
+	aux.dist = aux.colorHybrid;
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y); // max(z.x, z.y);
+			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
+			//colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist) aux.color += colorAdd;
+		}
+		else
+			aux.color += colorAdd;
+	}
+}
 

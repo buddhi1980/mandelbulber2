@@ -92,6 +92,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.r = r;
 	extendedAux.DE = 1.0;
+	extendedAux.DE0 = 0.0;
 	extendedAux.dist = 1000.0;
 	extendedAux.pseudoKleinianDE = 1.0;
 

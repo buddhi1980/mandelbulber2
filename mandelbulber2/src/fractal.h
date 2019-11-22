@@ -83,6 +83,7 @@ struct sExtendedAux
 
 	double r;
 	double DE;
+	double DE0;
 	double dist;
 	double pseudoKleinianDE;
 

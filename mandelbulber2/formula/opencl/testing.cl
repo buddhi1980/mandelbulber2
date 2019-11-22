@@ -113,9 +113,16 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	{
 		r = (aux->i < count) ? sphere : torus;
 	}
+	REAL dd;
+	if (!fractal->transformCommon.functionEnabledDFalse)
+	{
+		dd = native_divide(r, aux->DE);
+	}
+	else
+	{
+		dd = 0.5f * r * native_divide(log(r), aux->DE);
+	}
 
-	// REAL dd = 0.5f * r * native_divide(log(r), aux->DE);
-	REAL dd = native_divide(r, aux->DE);
 	if (aux->i < tempC || dd < aux->colorHybrid)
 	{
 		aux->colorHybrid = dd;

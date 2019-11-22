@@ -1015,4 +1015,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Testing Transform", "testing_transform",
 		testingTransform, TestingTransformIteration, analyticDEType, dIFSDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Testing Transform2", "testing_transform2",
+		testingTransform2, TestingTransform2Iteration, analyticDEType, dIFSDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 }
