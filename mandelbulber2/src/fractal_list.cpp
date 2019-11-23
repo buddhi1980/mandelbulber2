@@ -497,6 +497,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("DIFS Menger", "difs_menger", dIFSMenger,
 		DIFSMengerIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Msltoe Donut", "difs_msltoe_donut", dIFSMsltoeDonut,
+		DIFSMsltoeDonutIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(
 		sFractalDescription("DIFS Prism", "difs_prism", dIFSPrism, DIFSPrismIteration, analyticDEType,
 			dIFSDEFunction, cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));

@@ -8617,7 +8617,7 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  * http://www.fractalforums.com/new-theories-and-research/
  * low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
  */
-/*void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double radius2 = fractal->donut.ringThickness;
 	double nSect = M_PI_2x / fractal->donut.number;
@@ -8650,7 +8650,7 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		z /= t;
 	}
 	aux.color += theta2;
-}*/
+}
 
 /**
  * MsltoeSym2Mod based on the formula from Mandelbulb3D
@@ -18655,6 +18655,47 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 }
 
 /**
+ * DIFSMsltoeDonutIteration
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
+ */
+void DIFSMsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 zt = z;
+	double radius2 = fractal->donut.ringThickness;
+	double nSect = M_PI_2x / fractal->donut.number;
+
+	double R2 = fractal->donut.ringRadius - sqrt(z.x * z.x + z.y * z.y);
+	R2 *= R2;
+	double t = R2 + z.z * z.z - radius2 * radius2;
+	double theta2 = nSect * round(atan2(z.y, z.x) / nSect);
+
+	if (t > 0.03)
+	{
+		double c1 = cos(theta2);
+		double s1 = sin(theta2);
+
+		z.x = c1 * zt.x + s1 * z.y - fractal->donut.ringRadius;
+		z.z = -s1 * zt.x + c1 * z.y; // z.y z.z swap
+		z.y = zt.z;
+		z *= fractal->donut.factor;
+		aux.DE *= fractal->donut.factor;
+	}
+	else
+	{
+		z /= t;
+	}
+
+	t = sqrt(R2 + zt.z * zt.z) - radius2;
+	aux.dist = min(aux.dist, t / aux.DE);
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled) aux.color += fractal->foldColor.difs1;
+}
+
+
+/**
  * DifsPrismIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
@@ -20976,46 +21017,7 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 }
 
-/**
- * Msltoe Donut formula
- * @reference
- * http://www.fractalforums.com/new-theories-and-research/
- * low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
- */
-void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	CVector4 zt = z;
-	double radius2 = fractal->donut.ringThickness;
-	double nSect = M_PI_2x / fractal->donut.number;
 
-	double R2 = fractal->donut.ringRadius - sqrt(z.x * z.x + z.y * z.y);
-	R2 *= R2;
-	double t = R2 + z.z * z.z - radius2 * radius2;
-	double theta2 = nSect * round(atan2(z.y, z.x) / nSect);
-
-	if (t > 0.03)
-	{
-		double c1 = cos(theta2);
-		double s1 = sin(theta2);
-
-		z.x = c1 * zt.x + s1 * z.y - fractal->donut.ringRadius;
-		z.z = -s1 * zt.x + c1 * z.y; // z.y z.z swap
-		z.y = zt.z;
-		z *= fractal->donut.factor;
-		aux.DE *= fractal->donut.factor;
-	}
-	else
-	{
-		z /= t;
-	}
-
-	t = sqrt(R2 + zt.z * zt.z) - radius2;
-	aux.dist = min(aux.dist, t / aux.DE);
-
-	// aux.color
-	if (fractal->foldColor.auxColorEnabled) aux.color += fractal->foldColor.difs1;
-	else aux.color += theta2;
-}
 
 /**
  * Testing transform2

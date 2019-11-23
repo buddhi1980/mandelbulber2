@@ -230,6 +230,7 @@ enum enumFractalFormula
 	dIFSMenger = 607,
 	dIFSHextgrid2 = 608,
 	dIFSPrism = 609,
+	dIFSMsltoeDonut = 610,
 
 	mandelbulbEye = 800,
 
@@ -373,6 +374,7 @@ enum enumFractalFormula
 	transfDIFSPrismV2 = 1612,
 	transfDIFSGrid = 1613,
 	transfDIFSGridV2 = 1614,
+
 
 	// hybrid color trial
 	transfHybridColor = 2000,

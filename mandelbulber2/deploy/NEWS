@@ -17,11 +17,12 @@ v2.20
    dIFSBoxDiagonalV1
    dIFSBoxDiagonalV3
    dIFSCylinder
+   dIFSEllipsoid
    dIFSHextgrid2
    dIFSMenger
+   dIFSMsltoeDonut
    dIFSPrism
    dIFSSphere
-   dIFSEllipsoid
    dIFSTorus
    transfDIFSBox
    transfDIFSBoxV2
