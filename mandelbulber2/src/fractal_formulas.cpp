@@ -18694,7 +18694,6 @@ void DIFSMsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	if (fractal->foldColor.auxColorEnabled) aux.color += fractal->foldColor.difs1;
 }
 
-
 /**
  * DifsPrismIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
@@ -19724,6 +19723,7 @@ void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 	double spD = vecLen - fractal->transformCommon.offsetR1;
 	aux.dist = min(aux.dist, spD / aux.DE);
+	aux.DE0 = spD; // temp testing
 }
 
 /**
@@ -19779,6 +19779,7 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		torD = max(fabs(torD), fabs(zc.z));
 
 	aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
+	aux.DE0 = (torD - fractal->transformCommon.offset05); // temp testing
 }
 
 /**
@@ -20181,22 +20182,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	/*aux.DE = aux.DE * 2.0 * aux.r;
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
-
-
-	z += aux.c * fractal->transformCommon.constantMultiplier111;*/
-
-
 	// THE FOLLOWING CAN BE A TRANSFORM
 
 	CVector4 zc = z;
@@ -20239,6 +20224,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
 	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
 	if (fractal->transformCommon.functionEnabledzFalse) sphere = ellipsoid;
+
+		// THE FOLLOWING CAN BE A TRANSFORM
 	int count = fractal->transformCommon.int3;
 	int tempC = fractal->transformCommon.int3X;
 	double r;
@@ -20876,20 +20863,19 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			bxV.z = max(bxV.z, 0.0);
 			aux.DE0 = bxV.Length();
 		}
-
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 		// round box
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			aux.dist = min(aux.dist, bxD / aux.DE);
-		else
-			aux.dist = min(aux.dist, aux.DE0 / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+		if (fractal->transformCommon.functionEnabledEFalse)
+			aux.dist -= fractal->transformCommon.offsetB0 / 1000.0;
+
+
 	}
 	// sphere
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		double sphereRadius = fractal->transformCommon.offsetR1;
-		aux.DE0 = zc.Length() - sphereRadius;
+		aux.DE0 = zc.Length() - fractal->transformCommon.offsetR1;
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
 
@@ -21026,26 +21012,27 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	z += fractal->transformCommon.offset000;
+	double dd = 0.0;
 
-	z += aux.c * fractal->transformCommon.constantMultiplier111;
+	if (fractal->transformCommon.functionEnabledAx)
+		dd = z.Length(); // ecucli norm
 
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse)
+	if (fractal->transformCommon.functionEnabledAxFalse)
+		dd = aux.DE0;
+
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		CVector4 absZ =  fabs(z);
+		dd = max(absZ.x, max(absZ.y, absZ.z)); // infnorm
 	}
-/*	double r;
-	//int count = fractal->transformCommon.int3;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-		r = (aux.i < count) ? torus : sphere;
+		CVector4 zz =  z * z;
+		dd = max(sqrt(zz.x + zz.y), max(sqrt(zz.y + zz.z), sqrt(zz.z + zz.x)));
 	}
-	else
-	{
-		r = (aux.i < count) ? sphere : torus;
-	}*/
-	double dd = aux.DE0 - fractal->transformCommon.offset0;
+
+	 dd += fractal->transformCommon.offset0;
+
 	aux.DE = aux.DE + fractal->analyticDE.offset0;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
@@ -21060,20 +21047,47 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		dd = 0.5 * dd * log(dd) / aux.DE; // = using linear and increasining detail level
+		dd = 0.5 * dd * log(dd) / aux.DE;
+	}
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		double logD = 0.5 * dd * log(dd) / aux.DE;
+		double linD = dd / aux.DE;
+		dd = logD + (linD - logD) * fractal->transformCommon.scale1;
+	}
+	if (fractal->transformCommon.functionEnabledEFalse)
+	{
+		double rxy = sqrt(z.x * z.x + z.y * z.y);
+		double pkD =
+			max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+		double linD = dd / aux.DE;
+		dd = pkD + (linD - pkD) * fractal->transformCommon.scaleA1;
+	}
+	if (fractal->transformCommon.functionEnabledFFalse)
+	{
+		double rxy = sqrt(z.x * z.x + z.y * z.y);
+		double pkD =
+			max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+		double logD = 0.5 * dd * log(dd) / aux.DE;
+		dd = logD + (pkD - logD) * fractal->transformCommon.scaleB1;
 	}
 
-
-
 	double colorDist = aux.dist;
-
-	int tempC = fractal->transformCommon.int3X;
-	if (aux.i < tempC || dd < aux.colorHybrid)
+	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		aux.colorHybrid = dd;
 	}
-
+	else
+	{
+		int tempC = fractal->transformCommon.int3X;
+		if (aux.i < tempC || dd < aux.colorHybrid)
+		{
+			aux.colorHybrid = dd;
+		}
+	}
 	aux.dist = aux.colorHybrid;
+
+
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
 	{
