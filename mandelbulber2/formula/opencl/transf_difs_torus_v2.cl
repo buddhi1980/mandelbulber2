@@ -54,5 +54,6 @@ REAL4 TransfDIFSTorusV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		torD = max(fabs(torD), fabs(zc.z));
 
 	aux->dist = min(aux->dist, native_divide((torD - fractal->transformCommon.offset05), aux->DE));
+	aux->DE0 = (torD - fractal->transformCommon.offset05); // temp testing
 	return z;
 }

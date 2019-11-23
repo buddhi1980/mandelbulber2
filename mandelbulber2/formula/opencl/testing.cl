@@ -18,23 +18,82 @@
 
 REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	z = fabs(z + fractal->transformCommon.additionConstant111)
-			- fabs(z - fractal->transformCommon.additionConstant111) - z;
-
-	REAL rr = dot(z, z);
-	if (rr < fractal->transformCommon.minR2p25)
+	if (fractal->transformCommon.functionEnabledMFalse)
 	{
-		z *= fractal->transformCommon.maxMinR2factor;
-		aux->DE *= fractal->transformCommon.maxMinR2factor;
-	}
-	else if (rr < fractal->transformCommon.maxR2d1)
-	{
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
-	}
 
-	z *= fractal->transformCommon.scale2;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale2), 1.0f);
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+
+		REAL rr = dot(z, z);
+		if (rr < fractal->transformCommon.minR2p25)
+		{
+			z *= fractal->transformCommon.maxMinR2factor;
+			aux->DE *= fractal->transformCommon.maxMinR2factor;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		}
+
+		z *= fractal->transformCommon.scale2;
+		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale2), 1.0f);
+	}
+	if (fractal->transformCommon.functionEnabledNFalse)
+	{
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
+
+		if (z.x - z.y < 0.0f)
+		{
+			REAL temp = z.x;
+			z.x = z.y;
+			z.y = temp;
+		}
+		if (z.x - z.z < 0.0f)
+		{
+			REAL temp = z.x;
+			z.x = z.z;
+			z.z = temp;
+		}
+		if (z.y - z.z < 0.0f)
+		{
+			REAL temp = z.y;
+			z.y = z.z;
+			z.z = temp;
+		}
+
+		z *= fractal->transformCommon.scale2; // 3
+
+		z.x -= 2.0f;
+		z.y -= 2.0f;
+		if (z.z > 1.0f) z.z -= 2.0f;
+
+		aux->DE *= fractal->transformCommon.scale2; // 3
+	}
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		// if (aux->r < 1e-21f) aux->r = 1e-21f;
+		REAL th0 = asin(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset;
+		REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+		REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+		REAL th = th0 * fractal->bulb.power;
+		REAL ph = ph0 * fractal->bulb.power;
+		REAL cth = native_cos(th);
+		aux->DE = mad((rp * aux->DE), fractal->bulb.power, 1.0f);
+		rp *= aux->r;
+		z.x = cth * native_cos(ph) * rp;
+		z.y = cth * native_sin(ph) * rp;
+		z.z = native_sin(th) * rp;
+	}
 
 	z += fractal->transformCommon.offset000;
 
@@ -46,20 +105,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	/*aux->DE = aux->DE * 2.0f * aux->r;
-	REAL x2 = z.x * z.x;
-	REAL y2 = z.y * z.y;
-	REAL z2 = z.z * z.z;
-	REAL temp = 1.0f - native_divide(z2, (x2 + y2));
-	REAL newx = (x2 - y2) * temp;
-	REAL newy = 2.0f * z.x * z.y * temp;
-	REAL newz = -2.0f * z.z * native_sqrt(x2 + y2);
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
-
-
-	z += aux->c * fractal->transformCommon.constantMultiplier111;*/
+	// THE FOLLOWING CAN BE A TRANSFORM
 
 	REAL4 zc = z;
 	// cylinder
@@ -101,6 +147,8 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->transformCommon.functionEnabledxFalse) torus = cylinder;
 	if (fractal->transformCommon.functionEnabledyFalse) sphere = box;
 	if (fractal->transformCommon.functionEnabledzFalse) sphere = ellipsoid;
+
+	// THE FOLLOWING CAN BE A TRANSFORM
 	int count = fractal->transformCommon.int3;
 	int tempC = fractal->transformCommon.int3X;
 	REAL r;
@@ -113,16 +161,27 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	{
 		r = (aux->i < count) ? sphere : torus;
 	}
-	REAL dd;
-	if (!fractal->transformCommon.functionEnabledDFalse)
+
+	aux->DE = aux->DE + fractal->analyticDE.offset0;
+
+	REAL dd = r;
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		dd = native_divide(r, aux->DE);
+		dd = native_divide(dd, aux->DE); // same as an uncondtional aux->dist
 	}
-	else
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		dd = 0.5f * r * native_divide(log(r), aux->DE);
+		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
+		dd =
+			maxnative_divide((rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd)), aux->DE);
+	}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		dd =
+			0.5f * dd * native_divide(log(dd), aux->DE); // = using linear and increasining detail level
 	}
 
+	//
 	if (aux->i < tempC || dd < aux->colorHybrid)
 	{
 		aux->colorHybrid = dd;

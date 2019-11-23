@@ -673,7 +673,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;DIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and Buddhi&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;transfDIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and Buddhi&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS GridV2 boxBulb.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

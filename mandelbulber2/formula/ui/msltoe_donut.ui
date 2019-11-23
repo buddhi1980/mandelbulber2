@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>msltoe_donut</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -211,7 +211,7 @@
 &lt;a href=&quot;low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171&quot;&gt;low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;hybrid007.fract&lt;br&gt;msltoe_donut_001.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/msltoe donuts 001.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/continuum.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/msltoeDonut-coastn.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;hybrid007.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/continuum.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/msltoeDonut-coastn.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

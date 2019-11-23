@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.13
+# version 2.20
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 ff00 8200 1c00;
@@ -16,10 +16,8 @@ camera 0,7267813945924951 0,06263990842857148 -0,684559308543468;
 camera_distance_to_target 0,01239276721888785;
 camera_rotation -137,3670568687526 51,26502187660356 157,4750256973379;
 camera_top 0,2061821439420917 -0,7895712801905146 -0,5779845300851525;
-DE_factor 0,239883;
-detail_level 0,2;
 flight_last_to_render 0;
-formula_1 82;
+formula_1 610;
 gamma 0,72;
 hdr true;
 image_height 1200;
@@ -27,7 +25,11 @@ image_width 1600;
 keyframe_last_to_render 0;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
+mat1_metallic false;
 mat1_reflectance 2;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_transparency_interior_color 0000 1500 1500;
 mat1_transparency_of_interior 0,74131;
 mat1_transparency_of_surface 0,85;

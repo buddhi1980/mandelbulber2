@@ -96,6 +96,7 @@ typedef struct
 
 	cl_float r;
 	cl_float DE;
+	cl_float DE0;
 	cl_float dist;
 	cl_float pseudoKleinianDE;
 
@@ -829,6 +830,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.cw = source.cw;
 	target.r = source.r;
 	target.DE = source.DE;
+	target.DE0 = source.DE0;
 	target.dist = source.dist;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
 	target.actualScale = source.actualScale;

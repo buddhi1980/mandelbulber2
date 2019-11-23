@@ -126,6 +126,7 @@ dIFSCylinder,"DIFS Cylinder",analyticDEType,dIFSDEFunction,cpixelDisabledByDefau
 dIFSEllipsoid,"DIFS Ellipsoid",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSHextgrid2,"DIFS Hextgrid2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSMenger,"DIFS Menger",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSMsltoeDonut,"DIFS Msltoe Donut",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSPrism,"DIFS Prism",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSSphere,"DIFS Sphere",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSTorus,"DIFS Torus",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
@@ -267,3 +268,4 @@ testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDef
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 testingTransform,"Testing Transform",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+testingTransform2,"Testing Transform2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault

@@ -180,24 +180,20 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			bxV.x = max(bxV.x, 0.0f);
 			bxV.y = max(bxV.y, 0.0f);
 			bxV.z = max(bxV.z, 0.0f);
-			bxD = length(bxV);
+			aux->DE0 = length(bxV);
 		}
-
+		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
 		// round box
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			aux->dist = min(aux->dist, native_divide(bxD, aux->DE));
-		else
-			aux->dist = min(aux->dist, native_divide(bxD, aux->DE))
-									- native_divide(fractal->transformCommon.offsetB0, 1000.0f);
+		if (fractal->transformCommon.functionEnabledEFalse)
+			aux->dist -= native_divide(fractal->transformCommon.offsetB0, 1000.0f);
 	}
 	// sphere
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		REAL sphereRadius = fractal->transformCommon.offsetR1;
-		REAL spD = length(zc) - sphereRadius;
-		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
+		aux->DE0 = length(zc) - fractal->transformCommon.offsetR1;
+		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
 	}
 
 	// cylinder
@@ -230,8 +226,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		else
 			cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
 
-		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
-		aux->dist = min(aux->dist, native_divide(cylD, aux->DE));
+		aux->DE0 = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
+		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
 	}
 
 	// torus
@@ -240,8 +236,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
 		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-		REAL torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
-		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
+		aux->DE0 = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
 	}
 
 	// aux->color
