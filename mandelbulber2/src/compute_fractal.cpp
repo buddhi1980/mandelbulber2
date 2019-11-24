@@ -118,7 +118,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		lastGoodZ = lastZ;
 		lastLastZ = lastZ;
-		;
 		lastZ = z;
 
 		extendedAux.old_z = lastGoodZ; // temp TODO treplac
@@ -341,7 +340,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractal->formula != mandelbox)
 					{
 						if (len < colorMin) colorMin = len;
-						if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
+						if (r > fractals.GetBailout(sequence)) break;
+
+						if (fractals.UseAdditionalBailoutCond(sequence) && (z - lastZ).Length() / r < 1e-15)
+							break;
 					}
 					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
 					{
