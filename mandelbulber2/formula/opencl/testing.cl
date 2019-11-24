@@ -172,8 +172,8 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		dd =
-			maxnative_divide((rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd)), aux->DE);
+		REAL m = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
+		dd = native_divide(m, aux->DE);
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
