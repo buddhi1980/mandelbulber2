@@ -19973,7 +19973,6 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z.x += 0.000000001; // so not detected as a  zero change in z
 	if (aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
@@ -20057,8 +20056,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfDIFSHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z.z += 0.000000001; // so not detected as a  zero change in z
-
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{

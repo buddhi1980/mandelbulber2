@@ -18,7 +18,6 @@
 
 REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	z.x += 0.000000001f; // so not detected as a  zero change in z
 	if (aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
