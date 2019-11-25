@@ -38,15 +38,15 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	aux->DE = aux->DE + fractal->analyticDE.offset0;
 
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAy)
 	{
 		dd = native_divide(dd, aux->DE); // same as an uncondtional aux->dist
 	}
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL m = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
-		dd = native_divide(m, aux->DE);
+		REAL pkD = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
+		dd = native_divide(pkD, aux->DE);
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -61,16 +61,16 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL m = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
-		dd = native_divide(m, aux->DE);
+		REAL pkD = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
+		pkD = native_divide(pkD, aux->DE);
 		REAL linD = native_divide(dd, aux->DE);
 		dd = mad(fractal->transformCommon.scaleA1, (linD - pkD), pkD);
 	}
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL m = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
-		dd = native_divide(m, aux->DE);
+		REAL pkD = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
+		pkD = native_divide(pkD, aux->DE);
 		REAL logD = 0.5f * dd * native_divide(log(dd), aux->DE);
 		dd = mad(fractal->transformCommon.scaleB1, (pkD - logD), logD);
 	}

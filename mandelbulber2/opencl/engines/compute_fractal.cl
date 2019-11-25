@@ -195,7 +195,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		lastLastZ = lastZ;
 		lastZ = z;
-		aux.old_z = lastZ;
 
 #ifdef BOX_FOLDING
 		z = BoxFolding(z, &consts->params.common.foldings, &aux);

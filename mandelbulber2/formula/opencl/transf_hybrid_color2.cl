@@ -94,5 +94,6 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			aux->colorHybrid = aux->temp1000;
 		}
 	}
+	aux->old_z = z;
 	return z;
 }

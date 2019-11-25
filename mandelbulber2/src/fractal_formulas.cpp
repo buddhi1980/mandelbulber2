@@ -20004,7 +20004,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		// last two z lengths
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{
-			if (aux.i < fractal->transformCommon.stopIterationsM)
+			if (aux.i < fractal->transformCommon.stopIterationsM) // remove
 			{
 				CVector4 oldPt = aux.old_z;
 				double lastZ = oldPt.Length(); // aux.old_r;
@@ -20053,6 +20053,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			aux.colorHybrid = aux.temp1000;
 		}
 	}
+	aux.old_z = z;
 }
 
 /**
@@ -21026,7 +21027,7 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	aux.DE = aux.DE + fractal->analyticDE.offset0;
 
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAy)
 	{
 		dd = dd / aux.DE; // same as an uncondtional aux.dist
 	}

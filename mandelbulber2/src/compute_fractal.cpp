@@ -118,9 +118,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		lastGoodZ = lastZ;
 		lastLastZ = lastZ;
-		lastZ = z;
 
-		extendedAux.old_z = lastGoodZ; // temp TODO treplac
+		lastZ = z;
 
 		// hybrid fractal sequence
 		if (in.forcedFormulaIndex >= 0)
