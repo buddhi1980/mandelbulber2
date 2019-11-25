@@ -154,6 +154,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	aux.r = length(z);
 	aux.DE = 1.0f;
+	aux.DE0 = 0.0;
 	aux.dist = 1000.0f;
 	aux.pseudoKleinianDE = 1.0f;
 

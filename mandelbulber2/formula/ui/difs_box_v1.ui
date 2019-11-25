@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>difs_box_v1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1553,7 +1553,7 @@
      <property name="title">
       <string>Box shape controls</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1569,6 +1569,13 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+        <property name="text">
+         <string>use oldZ</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1,0,1">
         <property name="topMargin">

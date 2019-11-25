@@ -52,7 +52,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				REAL newZ = aux->r;
 				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = native_divide(newZ, lastZ);
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = native_divide(lastZ, newZ);
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = lastZ - newZ;
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 				lastVec *= fractal->transformCommon.scaleB1;
 			}
 		}
@@ -86,12 +86,12 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		if (!fractal->transformCommon.functionEnabledFalse)
 		{
-			aux->temp1000 = min(aux->temp1000, componentMaster);
-			aux->colorHybrid = aux->temp1000;
+			aux->colorHybrid += componentMaster;
 		}
 		else
 		{
-			aux->colorHybrid += componentMaster;
+			aux->temp1000 = min(aux->temp1000, componentMaster);
+			aux->colorHybrid = aux->temp1000;
 		}
 	}
 	return z;

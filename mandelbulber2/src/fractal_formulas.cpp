@@ -17389,6 +17389,7 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
+	CVector4 oldZ = z;
 	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
@@ -17513,6 +17514,8 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	double colorDist = aux.dist;
 	// DE
 	CVector4 zc = z;
+	if (fractal->transformCommon.functionEnabledYFalse) zc = oldZ;
+
 	// box
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
@@ -17577,6 +17580,7 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
+	CVector4 oldZ = z;
 	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// diag 1
@@ -17665,7 +17669,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	double colorDist = aux.dist;
 	CVector4 zc = z;
-
+	if (fractal->transformCommon.functionEnabledYFalse) zc = oldZ;
 	// box
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
@@ -17723,7 +17727,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-
+	CVector4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -17850,7 +17854,7 @@ void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	double colorDist = aux.dist;
 	CVector4 zc = z;
-
+	if (fractal->transformCommon.functionEnabledYFalse) zc = oldZ;
 	// box
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
@@ -20007,7 +20011,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				double newZ = aux.r;
 				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = lastZ - newZ;
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 				lastVec *= fractal->transformCommon.scaleB1;
 			}
 		}
@@ -20041,12 +20045,12 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 		if (!fractal->transformCommon.functionEnabledFalse)
 		{
-			aux.temp1000 = min(aux.temp1000, componentMaster);
-			aux.colorHybrid = aux.temp1000;
+			aux.colorHybrid += componentMaster;
 		}
 		else
 		{
-			aux.colorHybrid += componentMaster;
+			aux.temp1000 = min(aux.temp1000, componentMaster);
+			aux.colorHybrid = aux.temp1000;
 		}
 	}
 }
@@ -20073,11 +20077,11 @@ void TransfDIFSHybridColorIteration(CVector4 &z, const sFractal *fractal, sExten
 		colorAdd += fractal->foldColor.difs1; // 0 + 1 = 1
 
 		if (fractal->foldColor.auxColorEnabledA)
-		{ // aux.color ini cond 1.0 = green. after first iter = 2 pale yellow, then  yellow,  blue
+		{
 			if (aux.dist != aux.colorHybrid) aux.color += colorAdd;
 		}
 		else
-		{												 // stop iter 0 = green, 2 pale yellow,  then  yellow,  blue
+		{
 			aux.color += colorAdd; // color based only on iter (no aux.dist check)
 		}
 
@@ -21003,7 +21007,7 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double colorAdd = 0.0;
 	double dd = 0.0;
 
-	if (fractal->transformCommon.functionEnabledAx) dd = z.Length(); // ecucli norm
+	if (fractal->transformCommon.functionEnabledAx) dd = z.Length(); // eucli norm
 
 	if (fractal->transformCommon.functionEnabledAxFalse) dd = aux.DE0;
 

@@ -17,6 +17,7 @@
 REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
+	REAL4 oldZ = z;
 	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
@@ -153,6 +154,8 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL colorDist = aux->dist;
 	// DE
 	REAL4 zc = z;
+	if (fractal->transformCommon.functionEnabledYFalse) zc = oldZ;
+
 	// box
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
