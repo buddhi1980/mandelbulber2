@@ -29,6 +29,6 @@ REAL4 TransfDIFSEllipsoidIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL rd = length(rV);
 	REAL rrd = length(rrV);
 	REAL ellD = rd * native_divide((rd - 1.0f), rrd);
-	aux->dist = min(aux->dist, native_divide(ellD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(ellD, (aux->DE + 1.0f)));
 	return z;
 }

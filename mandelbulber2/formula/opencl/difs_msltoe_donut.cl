@@ -44,7 +44,7 @@ REAL4 DIFSMsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 
 	t = native_sqrt(mad(zt.z, zt.z, R2)) - radius2;
-	aux->dist = min(aux->dist, native_divide(t, aux->DE));
+	aux->dist = min(aux->dist, native_divide(t, (aux->DE + 1.0f)));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled) aux->color += fractal->foldColor.difs1;

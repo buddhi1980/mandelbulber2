@@ -45,12 +45,12 @@ REAL4 TransfDIFSBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	zc.z = max(zc.z, 0.0f);
 	REAL zcd = length(zc);
 
-	aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+	aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f)));
 
 	/*	if (!fractal->transformCommon.functionEnabledEFalse)
-			aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+			aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f)));
 		else
-			aux->dist = min(aux->dist, native_divide(zcd, aux->DE)) - fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f))) - fractal->transformCommon.offsetB0;
 	}*/
 	return z;
 }

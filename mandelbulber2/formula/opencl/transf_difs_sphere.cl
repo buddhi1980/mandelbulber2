@@ -26,7 +26,7 @@ REAL4 TransfDIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		vecLen = length(zc);
 
 	REAL spD = vecLen - fractal->transformCommon.offsetR1;
-	aux->dist = min(aux->dist, native_divide(spD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(spD, (aux->DE + 1.0f)));
 	aux->DE0 = spD; // temp testing
 	return z;
 }
