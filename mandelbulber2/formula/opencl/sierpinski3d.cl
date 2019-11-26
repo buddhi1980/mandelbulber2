@@ -119,9 +119,9 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux->DE *= fabs(fractal->transformCommon.scale2);
+		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scale2), fractal->analyticDE.scale1,
+		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scaleA2), fractal->analyticDE.scale1,
 			fractal->analyticDE.offset0);
 	return z;
 }

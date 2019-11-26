@@ -10766,9 +10766,9 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scale2);
+		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) * fractal->analyticDE.scale1
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
 

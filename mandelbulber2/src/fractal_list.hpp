@@ -151,11 +151,11 @@ enum enumFractalFormula
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107, // DE v2.15
-	mixPinski4d = 108,			 // fixed V2.11
-	sierpinski4d = 109,			 // update DE v2.15
-	sierpinski3d = 110,			 // update DE v2.15
-	menger4d = 111,					 // fixed V2.11
-	menger4dMod1 = 112,			 // fixed V2.11
+	mixPinski4d = 108, // fixed V2.11
+	sierpinski4d = 109, // update DE v2.15
+	sierpinski3d = 110, // update DE v2.15, fixDE v2.20
+	menger4d = 111, // fixed V2.11
+	menger4dMod1 = 112, // fixed V2.11
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
