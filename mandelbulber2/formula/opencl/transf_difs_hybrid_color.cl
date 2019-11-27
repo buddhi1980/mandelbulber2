@@ -32,11 +32,11 @@ REAL4 TransfDIFSHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		colorAdd += fractal->foldColor.difs1; // 0 + 1 = 1
 
 		if (fractal->foldColor.auxColorEnabledA)
-		{ // aux->color ini cond 1.0f = green. after first iter = 2 pale yellow, then  yellow,  blue
+		{
 			if (aux->dist != aux->colorHybrid) aux->color += colorAdd;
 		}
 		else
-		{													// stop iter 0 = green, 2 pale yellow,  then  yellow,  blue
+		{
 			aux->color += colorAdd; // color based only on iter (no aux->dist check)
 		}
 

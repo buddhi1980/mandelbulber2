@@ -45,7 +45,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		// last two z lengths
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{
-			if (aux->i < fractal->transformCommon.stopIterationsM)
+			if (aux->i < fractal->transformCommon.stopIterationsM) // remove
 			{
 				REAL4 oldPt = aux->old_z;
 				REAL lastZ = length(oldPt); // aux->old_r;
