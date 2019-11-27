@@ -23,6 +23,6 @@ REAL4 TransfDIFSBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	zc.z = max(zc.z, 0.0f);
 	REAL zcd = length(zc);
 
-	aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+	aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f)));
 	return z;
 }

@@ -20,6 +20,6 @@ REAL4 TransfDIFSTorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL torD;
 	REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
 	torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
-	aux->dist = min(aux->dist, native_divide(torD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(torD, (aux->DE + 1.0f)));
 	return z;
 }

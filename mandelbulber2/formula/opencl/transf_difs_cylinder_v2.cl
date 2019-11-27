@@ -78,6 +78,6 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 
-	aux->dist = min(aux->dist, native_divide(cylD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(cylD, (aux->DE + 1.0f)));
 	return z;
 }

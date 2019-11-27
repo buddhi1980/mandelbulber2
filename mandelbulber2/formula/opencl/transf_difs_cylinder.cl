@@ -34,6 +34,6 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL cylD = native_sqrt(mad(cylR, cylR, cylH * cylH));
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
 
-	aux->dist = min(aux->dist, native_divide(cylD, aux->DE));
+	aux->dist = min(aux->dist, native_divide(cylD, (aux->DE + 1.0f)));
 	return z;
 }

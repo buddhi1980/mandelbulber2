@@ -10766,9 +10766,9 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scale2);
+		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) * fractal->analyticDE.scale1
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
 
@@ -18691,7 +18691,7 @@ void DIFSMsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	}
 
 	t = sqrt(R2 + zt.z * zt.z) - radius2;
-	aux.dist = min(aux.dist, t / aux.DE);
+	aux.dist = min(aux.dist, t / (aux.DE + 1.0));
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled) aux.color += fractal->foldColor.difs1;
@@ -19280,7 +19280,7 @@ void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	zc.z = max(zc.z, 0.0);
 	double zcd = zc.Length();
 
-	aux.dist = min(aux.dist, zcd / aux.DE);
+	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 }
 
 /**
@@ -19318,12 +19318,12 @@ void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	zc.z = max(zc.z, 0.0);
 	double zcd = zc.Length();
 
-	aux.dist = min(aux.dist, zcd / aux.DE);
+	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 
 	/*	if (!fractal->transformCommon.functionEnabledEFalse)
-			aux.dist = min(aux.dist, zcd / aux.DE);
+			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 		else
-			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
+			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0)) - fractal->transformCommon.offsetB0;
 	}*/
 }
 
@@ -19394,12 +19394,10 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	zc.z = max(zc.z, 0.0);
 	double zcd = zc.Length();
 
-	aux.dist = min(aux.dist, zcd / aux.DE);
-
 	if (!fractal->transformCommon.functionEnabledEFalse)
-		aux.dist = min(aux.dist, zcd / aux.DE);
+		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 	else
-		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
+		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0)) - fractal->transformCommon.offsetB0;
 }
 
 /**
@@ -19421,7 +19419,7 @@ void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtended
 	double cylD = sqrt(cylR * cylR + cylH * cylH);
 	cylD = min(max(cylR, cylH), 0.0) + cylD;
 
-	aux.dist = min(aux.dist, cylD / aux.DE);
+	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
 }
 
 /**
@@ -19487,7 +19485,7 @@ void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
 
-	aux.dist = min(aux.dist, cylD / aux.DE);
+	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
 }
 
 /**
@@ -19509,7 +19507,7 @@ void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtende
 	double rd = rV.Length();
 	double rrd = rrV.Length();
 	double ellD = rd * (rd - 1.0) / rrd;
-	aux.dist = min(aux.dist, ellD / aux.DE);
+	aux.dist = min(aux.dist, ellD / (aux.DE + 1.0));
 }
 
 /**
@@ -19658,7 +19656,7 @@ void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	double priD = max(fabs(zc.x) - fractal->transformCommon.offset1,
 		max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - fractal->transformCommon.offset05);
 
-	aux.dist = min(aux.dist, priD / aux.DE);
+	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
 }
 
 /**
@@ -19706,7 +19704,7 @@ void TransfDIFSPrismV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	double priD = max(fabs(zc.x) - len, max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - face);
 
-	aux.dist = min(aux.dist, priD / aux.DE);
+	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
 }
 
 /**
@@ -19725,7 +19723,7 @@ void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		vecLen = zc.Length();
 
 	double spD = vecLen - fractal->transformCommon.offsetR1;
-	aux.dist = min(aux.dist, spD / aux.DE);
+	aux.dist = min(aux.dist, spD / (aux.DE + 1.0));
 	aux.DE0 = spD; // temp testing
 }
 
@@ -19739,7 +19737,7 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	double torD;
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
-	aux.dist = min(aux.dist, torD / aux.DE);
+	aux.dist = min(aux.dist, torD / (aux.DE + 1.0));
 }
 
 /**
@@ -19781,7 +19779,7 @@ void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	else
 		torD = max(fabs(torD), fabs(zc.z));
 
-	aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / aux.DE);
+	aux.dist = min(aux.dist, (torD - fractal->transformCommon.offset05) / (aux.DE + 1.0));
 	aux.DE0 = (torD - fractal->transformCommon.offset05); // temp testing
 }
 
@@ -19828,7 +19826,7 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	else
 		streD = max(fabs(streD), fabs(zc.z));
 
-	aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / aux.DE);
+	aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / (aux.DE + 1.0));
 }
 
 //  experimental testing
