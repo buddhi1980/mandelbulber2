@@ -21032,7 +21032,8 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		dd = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
+		dd = pkD / aux.DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -21047,14 +21048,16 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
+		pkD = pkD / aux.DE;
 		double linD = dd / aux.DE;
 		dd = pkD + (linD - pkD) * fractal->transformCommon.scaleA1;
 	}
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd) / aux.DE;
+		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
+		pkD = pkD / aux.DE;
 		double logD = 0.5 * dd * log(dd) / aux.DE;
 		dd = logD + (pkD - logD) * fractal->transformCommon.scaleB1;
 	}
