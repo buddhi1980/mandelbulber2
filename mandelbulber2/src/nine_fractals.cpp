@@ -319,7 +319,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					|| fractalList[GetIndexOnFractalList(fractals[f]->formula)].DEFunctionType
 							 == fractal::josKleinianDEFunction)
 			{
-				useAdditionalBailoutCond[0] = true;
+				useAdditionalBailoutCond[f] = true;
 			}
 		}
 	else if (!isBoolean)
