@@ -64,7 +64,36 @@ v2.20
    aexionOctopusMod, add Force Analytic option
    sierpinski3d, fixed DE
 
-
+- Fractals: added dIFS distance estimation mode
+- Fractals: Fixed issue #725. In some cases (only dummy iteration), colorIndex was uninitialized (noise on images)
+- Fractals: Fixed problem #737 (lack of coloring when slot#1 is disabled) 
+- Fractals: Force analytic DE now works in non-hybrid mode
+- Fractals: Fixed problem #685. There was incomplete bailout condition for coloring mode.
+- NetRender: added network distributed rendering of animations (also with 
+  OpenCL). Server controls rendering animation and distributes rendering of 
+  animation frames to all connected clients. Finished image frames and sent back 
+  to the server.
+- NetRender: clients can pull textures and audio files from server
+- Shaders: Added color property for ambient occlusion effects
+- Shaders: Added fill light (0-order ambient occlusion)
+- Primitives: Added boolean operators for primitive objects 
+- Primitives: Added parameter to control water progression speed in animation
+- Tools: Added Mandelbulber VFX Tools by Adrian Meyer
+- UI: Re-organized order in fractal list
+- UI: Colorized sections in comboBox with fractal list
+- UI: Added hotkey F11 to toggle full screen mode
+- UI: rendering of Julia set preview now is done by OpenCL
+- UI: Added Spanish language (translated by Jorge Abalo)
+- UI: Fixed bug #721. Deleted second material sometimes was really deleted and caused problems with Undo
+- UI: Fixed problem with Queue hanging program when deleting items from queue table
+- UI: add new generalized image file save with hotkey. This allows for all image 
+  file formats. The file format is derived from the given extension.
+- Examples: used $SHARED_DIR to substitute hardcoded texture paths
+- Examples: added many new examples
+- Files: Changed EXR compression from ZIP16 to ZIP1 
+- Compilation: Changed to use OpenCL/cl2.hpp (cl.hpp is already depreciated) with OpenCL 1.2 compatibility macros
+- Compilation: Changed xcode version to 9.4.1 for MacOS builds
+- Compilation: Fixed many errors showed by CoverityScan
 
 
 
