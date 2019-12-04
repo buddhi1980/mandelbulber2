@@ -58,6 +58,7 @@ ROOT = $$PWD/..
 
 SOURCES +=  $$ROOT/src/*.cpp
 SOURCES +=  $$ROOT/qt/*.cpp
+SOURCES +=  $$ROOT/formula/definition/*.cpp
 
 HEADERS += $$ROOT/src/*.hpp
 HEADERS += $$ROOT/src/*.h

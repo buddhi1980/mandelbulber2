@@ -37,6 +37,7 @@
 #include "fractal_formulas.hpp"
 
 QList<sFractalDescription> fractalList;
+QList<cAbstractFractal *> newFractalList;
 
 using namespace fractal;
 void DefineFractalList(QList<sFractalDescription> *fractalList)
@@ -60,8 +61,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ----- Logarithmic -------
 
-	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration, analyticDEType,
-		logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration,
+		analyticDEType, logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
 
 	// Benesi formulas
 	fractalList->append(sFractalDescription("Benesi - Pine Tree", "benesi_pine_tree", benesiPineTree,
@@ -1022,4 +1024,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Testing Transform2", "testing_transform2",
 		testingTransform2, TestingTransform2Iteration, analyticDEType, dIFSDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
+	//====================== NEW FRACTAL LIST  - test code - ==================
+	newFractalList.append(new cFractalMandelbulb());
+	newFractalList.append(new cFractalAexion());
+
+	for (cAbstractFractal *fractal : newFractalList)
+	{
+		fractal->CheckForErrors();
+	}
 }

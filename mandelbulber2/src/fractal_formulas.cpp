@@ -40,6 +40,8 @@
 #include "fractal.h"
 
 using namespace fractal;
+using std::max;
+using std::min;
 using std::swap;
 
 /**

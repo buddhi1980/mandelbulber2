@@ -10,31 +10,50 @@
 
 #include <QtCore>
 #include "src/fractal_enums.h"
+#include "src/fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal.h"
 
-namespace fractal
-{
+using namespace fractal;
 
-typedef void (*fractalFormulaFcn)(CVector4 &, const sFractal *, sExtendedAux &);
+#define NEWFRACTAL(fractalName)                                                         \
+	class fractalName : public cAbstractFractal                                           \
+	{                                                                                     \
+	public:                                                                               \
+		fractalName();                                                                      \
+		void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override; \
+	};
 
 class cAbstractFractal
 {
-protected:
-	virtual const void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
+public:
+	cAbstractFractal();
+	virtual ~cAbstractFractal();
 
 public:
-	virtual const fractal::enumColoringFunction getColoringFunction() = 0;
-	virtual const fractal::enumCPixelAddition getCpixelAddition() = 0;
-	virtual const fractal::enumDEAnalyticFunction getDeAnalyticFunction() = 0;
-	virtual const double getDefaultBailout() = 0;
-	virtual const fractal::enumDEFunctionType getDeFunctionType() = 0;
-	virtual const fractal::enumDEType getDeType() = 0;
-	virtual const fractalFormulaFcn getFractalFormulaFunction() = 0;
-	virtual const QString &getInternalName() = 0;
-	virtual const QString &getNameInComboBox() = 0;
-};
+	bool CheckForErrors() const; // this method will be used in NineFractals class
 
-} /* namespace fractal */
+protected:
+	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
+	QString nameInComboBox;
+	QString internalName;
+	fractal::enumFractalFormula internalID;
+	fractal::enumDEType DEType;
+	fractal::enumDEFunctionType DEFunctionType;
+	fractal::enumCPixelAddition cpixelAddition;
+	double defaultBailout;
+	fractal::enumDEAnalyticFunction DEAnalyticFunction;
+	fractal::enumColoringFunction coloringFunction;
+
+public:
+	fractal::enumColoringFunction getColoringFunction() const { return coloringFunction; }
+	fractal::enumCPixelAddition getCpixelAddition() const { return cpixelAddition; }
+	fractal::enumDEAnalyticFunction getDeAnalyticFunction() const { return DEAnalyticFunction; }
+	double getDefaultBailout() const { return defaultBailout; }
+	fractal::enumDEFunctionType getDeFunctionType() const { return DEFunctionType; }
+	fractal::enumDEType getDeType() const { return DEType; }
+	const QString &getInternalName() const { return internalName; }
+	const QString &getNameInComboBox() const { return nameInComboBox; }
+};
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_ */

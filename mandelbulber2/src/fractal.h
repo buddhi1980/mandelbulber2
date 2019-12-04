@@ -36,7 +36,7 @@
 #define MANDELBULBER2_SRC_FRACTAL_H_
 
 #include "algebra.hpp"
-#include "fractal_list.hpp"
+#include "fractal_list_enums.hpp"
 
 #ifndef M_PI_180
 #define M_PI_180 0.01745329251994329576923690768489
