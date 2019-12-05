@@ -291,6 +291,8 @@
     <QtIncludes Include="$(CppDir)/qt/*.h" />
     <QtIncludes Include="$(CppDir)/src/*.hpp" />
     <QtIncludes Include="$(CppDir)/src/*.h" />
+    <QtIncludes Include="$(CppDir)/formula/definition/*.hpp" />
+    <QtIncludes Include="$(CppDir)/formula/definition/*.h" />
   </ItemGroup>
   <ItemGroup>
     <QtuiInclude Include="$(CppDir)/qt/*.ui" />

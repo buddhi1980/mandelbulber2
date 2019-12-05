@@ -16,7 +16,7 @@
 
 using namespace fractal;
 
-#define NEWFRACTAL(fractalName)                                                         \
+#define FRACTAL_CLASS(fractalName)                                                         \
 	class fractalName : public cAbstractFractal                                           \
 	{                                                                                     \
 	public:                                                                               \

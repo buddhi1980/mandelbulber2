@@ -12,7 +12,7 @@
 
 #include "abstract_fractal.h"
 
-NEWFRACTAL(cFractalMandelbulb)
-NEWFRACTAL(cFractalAexion)
+FRACTAL_CLASS(cFractalMandelbulb)
+FRACTAL_CLASS(cFractalAexion)
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_MANDELBULB_H_ */
