@@ -39,13 +39,13 @@
 
 #include "formula_combo_box.h"
 
-#include <QStandardItemModel>
 #include <QLineEdit>
+#include <QStandardItemModel>
 #include <QWidget>
 
 #include "src/common_math.h"
-#include "src/random.hpp"
 #include "src/parameters.hpp"
+#include "src/random.hpp"
 
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 

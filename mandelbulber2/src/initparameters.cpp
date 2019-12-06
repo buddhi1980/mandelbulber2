@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -794,7 +794,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabledA_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_difs1", 1.0, morphAkima, paramStandard);
-	par->addParam("fold_color_difs_0000",  CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fold_color_difs_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
@@ -1120,11 +1120,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("platonic_solid_frequency", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_amplitude", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_rhoMul", 1.0, morphAkima, paramStandard);
-
-
-
-
-
 
 	// dummy parameter for information group box
 	par->addParam("info", false, morphNone, paramStandard);

@@ -51,7 +51,7 @@ public:
 	~cMandelbulb3dSettings();
 	bool LoadSettings(const QString &filename);
 	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal);
-	quint64 FourCharsTo3Bytes(char* fourChars);
+	quint64 FourCharsTo3Bytes(char *fourChars);
 
 private:
 	int getSettingsInt(int position);

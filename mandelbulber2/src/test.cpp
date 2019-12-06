@@ -248,11 +248,11 @@ void Test::netrender() const
 	QTest::qWait(500);
 
 	netRenderStatus clientStatus = netRenderClient->GetStatus();
-	QVERIFY2(
-		clientStatus == netRenderSts_READY, QString("client status wrong: should be 'READY' but is '%1'.")
-																			 .arg(cNetRender::GetStatusText(clientStatus))
-																			 .toStdString()
-																			 .c_str());
+	QVERIFY2(clientStatus == netRenderSts_READY,
+		QString("client status wrong: should be 'READY' but is '%1'.")
+			.arg(cNetRender::GetStatusText(clientStatus))
+			.toStdString()
+			.c_str());
 
 	QVERIFY2(netRenderServer->GetClientCount() == 1,
 		QString("client not connected to server.").toStdString().c_str());

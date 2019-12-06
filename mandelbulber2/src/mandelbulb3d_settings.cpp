@@ -83,7 +83,7 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 		QDataStream in(&settingsBinaryBytes, QIODevice::ReadOnly);
 		QDataStream out(&settings, QIODevice::WriteOnly);
 		out.setByteOrder(QDataStream::LittleEndian);
-		// mitigate Error E0028 expression must have a constant value 
+		// mitigate Error E0028 expression must have a constant value
 		const int chunkSize = 4;
 		char fourChars[chunkSize];
 		while (!in.atEnd())
@@ -93,7 +93,7 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 			// qDebug() << parsedLong;
 			// from the bytes of the long [0123] only [321] are used and need to be appended
 			// out.writeRawData((((char *)&parsedLong) + 1), 3);
-			char *parsedLongPtr = (char *) &parsedLong;
+			char *parsedLongPtr = (char *)&parsedLong;
 			out.writeRawData(parsedLongPtr + 2, 1);
 			out.writeRawData(parsedLongPtr + 1, 1);
 			out.writeRawData(parsedLongPtr + 0, 1);
@@ -122,25 +122,26 @@ void cMandelbulb3dSettings::ConvertToNewContainer(
 	par->Set("image_width", getSettingsInt(TMandHeader10Off + 4));
 	par->Set("image_width", getSettingsInt(TMandHeader10Off + 8));
 	par->Set("max_iter", getSettingsInt(TMandHeader10Off + 12));
-/*
-		// iOptions: Word;                   // iOptions: SmoothNs: (SpinEdit2.Value shl 6) or FirstStepRandom=bit1 or StepSubDEstop=bit3
-		getSettings16Bit(TMandHeader10Off + 16);
-		// bNewOptions: Byte;                // bit1: Quaternion instead of RotationMatrix! bit2: color on it nr:
-		getSettings8Bit(TMandHeader10Off + 18);
-		// bColorOnIt: Byte;                 //0: disabled 1: outputvec:=inputvec (1)2..255 iterate n-1 times + docolor
-		getSettings8Bit(TMandHeader10Off + 19);
-		// dZstart, dZend: Double;           //#20
-		getSettingsDouble(TMandHeader10Off + 20);
-		getSettingsDouble(TMandHeader10Off + 28);
-		// dXmid, dYmid, dZmid: Double;      //#36
-		getSettingsDouble(TMandHeader10Off + 36);
-		getSettingsDouble(TMandHeader10Off + 44);
-		getSettingsDouble(TMandHeader10Off + 52);*/
+	/*
+			// iOptions: Word;                   // iOptions: SmoothNs: (SpinEdit2.Value shl 6) or
+		 FirstStepRandom=bit1 or StepSubDEstop=bit3 getSettings16Bit(TMandHeader10Off + 16);
+			// bNewOptions: Byte;                // bit1: Quaternion instead of RotationMatrix! bit2:
+		 color on it nr: getSettings8Bit(TMandHeader10Off + 18);
+			// bColorOnIt: Byte;                 //0: disabled 1: outputvec:=inputvec (1)2..255 iterate
+		 n-1 times + docolor getSettings8Bit(TMandHeader10Off + 19);
+			// dZstart, dZend: Double;           //#20
+			getSettingsDouble(TMandHeader10Off + 20);
+			getSettingsDouble(TMandHeader10Off + 28);
+			// dXmid, dYmid, dZmid: Double;      //#36
+			getSettingsDouble(TMandHeader10Off + 36);
+			getSettingsDouble(TMandHeader10Off + 44);
+			getSettingsDouble(TMandHeader10Off + 52);*/
 	/*qCritical() << "ID: " << mandId << "width: " << par->Get<int>("image_width")
 					 << ", height: " << par->Get<int>("image_height");*/
 }
 
-int cMandelbulb3dSettings::getSettingsInt(int position){
+int cMandelbulb3dSettings::getSettingsInt(int position)
+{
 	bool ok;
 	QByteArray a = settings.mid(position, 4);
 	int ret = a.at(0);
@@ -150,31 +151,34 @@ int cMandelbulb3dSettings::getSettingsInt(int position){
 	return ret;
 }
 
-int cMandelbulb3dSettings::getSettings16Bit(int position){
+int cMandelbulb3dSettings::getSettings16Bit(int position)
+{
 	bool ok;
 	int ret = settings.mid(position, 2).toHex().toInt(&ok, 16);
-	if(!ok) qCritical() << "getSettings16Bit() error for position: " << position;
+	if (!ok) qCritical() << "getSettings16Bit() error for position: " << position;
 	qCritical() << "getSettings16Bit() return for position: " << position << " is " << ret;
 	return ret;
 }
 
-int cMandelbulb3dSettings::getSettings8Bit(int position){
+int cMandelbulb3dSettings::getSettings8Bit(int position)
+{
 	bool ok;
 	int ret = settings.mid(position, 1).toHex().toInt(&ok, 16);
-	if(!ok) qCritical() << "getSettings8Bit() error for position: " << position;
+	if (!ok) qCritical() << "getSettings8Bit() error for position: " << position;
 	qCritical() << "getSettings8Bit() return for position: " << position << " is " << ret;
 	return ret;
 }
 
-double cMandelbulb3dSettings::getSettingsDouble(int position){
+double cMandelbulb3dSettings::getSettingsDouble(int position)
+{
 	bool ok;
 	double ret = 0; // settings.mid(position, 8).toDouble(ok);
-	if(!ok) qCritical() << "getSettingsDouble() error for position: " << position;
+	if (!ok) qCritical() << "getSettingsDouble() error for position: " << position;
 	qCritical() << "getSettingsDouble() return for position: " << position << " is " << ret;
 	return ret;
 }
 
-quint64 cMandelbulb3dSettings::FourCharsTo3Bytes(char* fourChars)
+quint64 cMandelbulb3dSettings::FourCharsTo3Bytes(char *fourChars)
 {
 	// see also mandelbulb implementation here:
 	// https://github.com/thargor6/mb3d/blob/66c45c98eb666e1cb0ccb8aaf36bccbb3fc574d2/DivUtils.pas
@@ -185,13 +189,13 @@ quint64 cMandelbulb3dSettings::FourCharsTo3Bytes(char* fourChars)
 		bool c_46_57 = (c >= 46 && c <= 57);
 		bool c_65_90 = (c >= 65 && c <= 90);
 		bool c_97_122 = (c >= 97 && c <= 122);
-		if(c_46_57 || c_65_90 || c_97_122)
+		if (c_46_57 || c_65_90 || c_97_122)
 		{
 			if (c_97_122)
 				c -= 59;
 			else if (c_65_90)
 				c -= 53;
-			else if(c_46_57)
+			else if (c_46_57)
 				c -= 46;
 			i = (i + c) << (min(1, b - 0) * 6);
 		}

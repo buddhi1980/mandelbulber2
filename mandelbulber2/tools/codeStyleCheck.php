@@ -200,6 +200,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 			'srcHeader' => array(),
 			'uiHeader' => array(),
 			'openclHeader' => array(),
+			'formulaDefinitionHeader' => array(),
 		);
 		$customIncludes = '';
 		foreach ($includesIn as $k => $includeLine) {
@@ -224,6 +225,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 					else if (strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
 					else if (strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
 					else if (strpos($includeFileName, 'opencl/') !== false) $includesOut['openclHeader'][] = $includeLine;
+					else if (strpos($includeFileName, 'formula/definition/') !== false) $includesOut['formulaDefinitionHeader'][] = $includeLine;
 					else {
 						$status[] = errorString('invalid include line: "' . $includeLine . '"');
 						return false;

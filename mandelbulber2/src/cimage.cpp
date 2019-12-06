@@ -167,7 +167,8 @@ void cImage::ClearImage()
 	std::fill(colourBuffer.begin(), colourBuffer.end(), sRGB8());
 
 	if (opt.optionalNormal) std::fill(normalFloat.begin(), normalFloat.end(), sRGBFloat());
-	if (opt.optionalNormalWorld) std::fill(normalFloatWorld.begin(), normalFloatWorld.end(), sRGBFloat());
+	if (opt.optionalNormalWorld)
+		std::fill(normalFloatWorld.begin(), normalFloatWorld.end(), sRGBFloat());
 	if (opt.optionalSpecular) std::fill(specularFloat.begin(), specularFloat.end(), sRGBFloat());
 	if (opt.optionalDiffuse) std::fill(diffuseFloat.begin(), diffuseFloat.end(), sRGBFloat());
 	if (opt.optionalWorld) std::fill(worldFloat.begin(), worldFloat.end(), sRGBFloat());

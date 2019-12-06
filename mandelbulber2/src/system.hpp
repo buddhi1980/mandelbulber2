@@ -1,7 +1,3 @@
-#include <utility>
-
-#include <utility>
-
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
@@ -80,6 +76,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <utility>
 
 #include <QtCore>
 

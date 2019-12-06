@@ -55,6 +55,7 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
+#include "settings.hpp"
 #include "undo.h"
 
 #include "qt/dock_animation.h"
@@ -66,7 +67,6 @@
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
-#include "settings.hpp"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
@@ -1389,7 +1389,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-								params->Get<int>("keyframe_animation_image_type")));
+									params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 

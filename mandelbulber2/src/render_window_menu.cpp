@@ -551,7 +551,8 @@ void RenderWindow::slotMenuSaveImageAll()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
-		ImageFileSave::enumImageFileType imageFileType = ImageFileSave::ImageFileType(QFileInfo(filename).suffix());
+		ImageFileSave::enumImageFileType imageFileType =
+			ImageFileSave::ImageFileType(QFileInfo(filename).suffix());
 		gApplication->processEvents();
 		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gApplication->processEvents();

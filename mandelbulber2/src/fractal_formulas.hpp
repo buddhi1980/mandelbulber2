@@ -341,7 +341,6 @@ void TransfScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-
 // dIFS
 void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

@@ -39,13 +39,13 @@
 
 #include <QtCore>
 
-#include "../formula/definition/fractal_definitions.h"
 #include "algebra.hpp"
 #include "fractal_enums.h"
 #include "fractal_list_enums.hpp"
 #include "system.hpp"
-#include "formula/definition/abstract_fractal.h"
 
+#include "formula/definition/abstract_fractal.h"
+#include "formula/definition/fractal_definitions.h"
 
 struct sFractal;
 struct sExtendedAux;

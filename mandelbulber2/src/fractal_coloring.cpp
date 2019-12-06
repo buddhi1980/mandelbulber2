@@ -242,7 +242,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 						(1.0
 							- 1.0
 									/ (1.0
-										 + (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+											+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
 						* fractalColoring.addMax;
 				}
 			}

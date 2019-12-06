@@ -577,7 +577,6 @@ sFractal::sFractal(const cParameterContainer *container)
 	// transformCommon.functionEnabledTempFalse =
 	//	container->Get<bool>("transf_function_enabled_temp_false");
 
-
 	WriteLog("cFractal::RecalculateFractalParams(void)", 3);
 
 	RecalculateFractalParams();
@@ -616,8 +615,10 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.rotationMatrix44.SetRotation44b(
 		transformCommon.rotation44b * (M_PI / 180.0)); // ...............................
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI_180)); // T>Rotation
-	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI_180)); // T>Rotation2
-	transformCommon.rotationMatrixVary.SetRotation2(transformCommon.rotationVary * M_PI_180); // TODO check
+	transformCommon.rotationMatrix2.SetRotation2(
+		transformCommon.rotation2 * (M_PI_180)); // T>Rotation2
+	transformCommon.rotationMatrixVary.SetRotation2(
+		transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // for orig. abox asurf
 

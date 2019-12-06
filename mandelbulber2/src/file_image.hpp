@@ -45,6 +45,7 @@
 
 #include "color_structures.hpp"
 
+// custom includes
 #ifdef USE_EXR
 #include <ImfAttribute.h>
 #include <ImfChannelList.h>
@@ -54,8 +55,6 @@
 #include <ImfStringAttribute.h>
 #include <half.h>
 #endif // USE_EXR
-
-// custom includes
 extern "C"
 {
 #include <png.h>
@@ -188,7 +187,8 @@ public:
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
-	void SavePngRgbPixel(structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel, bool signedInput);
+	void SavePngRgbPixel(
+		structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel, bool signedInput);
 
 private:
 	bool hasAppendAlphaCustom;

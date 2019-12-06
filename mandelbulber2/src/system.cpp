@@ -729,8 +729,8 @@ void UpdateLanguage()
 	// try to load qt translator
 	if (qtTranslator.load(
 				QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
-			|| qtTranslator.load(
-				QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			|| qtTranslator.load(QLatin1String("qtbase_") + locale,
+					 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 	{
 		QCoreApplication::installTranslator(&qtTranslator);
 	}
