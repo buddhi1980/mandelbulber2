@@ -312,6 +312,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Abox - Mod Kali-V3", "abox_mod_kali_v3", aboxModKaliV3,
 		AboxModKaliV3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionIFS));
+
+	fractalList->append(sFractalDescription("Abox - Sphere", "abox_sphere", aboxSphere,
+		AboxSphereIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
+
 	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
 		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));

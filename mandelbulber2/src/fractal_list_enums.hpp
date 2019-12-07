@@ -212,6 +212,11 @@ enum enumFractalFormula
 	mandelbulbLambda = 185,
 	amazingSurfMod4 = 186,
 
+	// 2.21
+	aboxSphere = 187,
+
+
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
