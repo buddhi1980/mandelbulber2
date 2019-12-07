@@ -46,7 +46,7 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 		case params::perspFishEye:
 		case params::perspFishEyeCut:
 		{
-			CVector2<double> v = normalizedPoint * M_PI;
+			CVector2<double> v = normalizedPoint;
 			double r = v.Length();
 			if (r == 0.0)
 			{
@@ -65,7 +65,7 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 		}
 		case params::perspEquirectangular:
 		{
-			CVector2<double> v = normalizedPoint * M_PI;
+			CVector2<double> v = normalizedPoint * 0.5;
 			viewVector.x = sin(fov * v.x) * cos(fov * v.y);
 			viewVector.z = sin(fov * v.y);
 			viewVector.y = cos(fov * v.x) * cos(fov * v.y);
@@ -105,7 +105,12 @@ CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotIn
 		if (viewVector.y < 0) z = -z;
 		viewVector.Normalize();
 		double r = sqrt(viewVector.x * viewVector.x + viewVector.z * viewVector.z);
-		double r2 = asin(r) / (M_PI * 0.5);
+
+		double r2 = asin(r) * 2.0;
+
+		// TODO: to check if multiplying by 2.0 is correct
+		if (perspectiveType == params::perspEquirectangular) r2 *= 2.0;
+
 		x = (viewVector.x / fov) * r2 / r / 2.0;
 		y = (viewVector.z / fov) * r2 / r / 2.0;
 	}
@@ -123,4 +128,25 @@ CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotIn
 	screenPoint.z = z;
 
 	return screenPoint;
+}
+
+double CalcFOV(double fovDeegres, params::enumPerspectiveType perspType)
+{
+	double fov = 0.0;
+	switch (perspType)
+	{
+		case params::perspThreePoint:
+		{
+			fov = 2.0 * tan(fovDeegres / 360.0 * M_PI);
+			break;
+		}
+		case params::perspFishEye:
+		case params::perspEquirectangular:
+		case params::perspFishEyeCut:
+		{
+			fov = fovDeegres / 180.0 * M_PI;
+			break;
+		}
+	}
+	return fov;
 }

@@ -113,7 +113,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	fogColor = toRGBFloat(container->Get<sRGB>("basic_fog_color"));
 	fogEnabled = container->Get<bool>("basic_fog_enabled");
 	fogVisibility = container->Get<double>("basic_fog_visibility");
-	fov = container->Get<double>("fov");
+	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
+	fov = CalcFOV(container->Get<double>("fov"), perspectiveType);
 	frameNo = container->Get<int>("frame_no");
 	glowColor1 = toRGBFloat(container->Get<sRGB>("glow_color", 1));
 	glowColor2 = toRGBFloat(container->Get<sRGB>("glow_color", 2));
@@ -159,7 +160,6 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	monteCarloGIVolumetric = container->Get<bool>("MC_global_illumination_volumetric");
 	N = container->Get<int>("N");
 	penetratingLights = container->Get<bool>("penetrating_lights");
-	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");

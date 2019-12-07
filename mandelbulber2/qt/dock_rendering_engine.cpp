@@ -44,6 +44,7 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/netrender.hpp"
+#include "src/projection_3d.hpp"
 #include "src/render_window.hpp"
 #include "src/synchronize_interface.hpp"
 
@@ -430,8 +431,10 @@ void cDockRenderingEngine::slotCalculateDistanceThreshold()
 	double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
 	double detailLevel = gPar->Get<double>("detail_level");
 	double imageWidth = gPar->Get<int>("image_width");
-	double fov = gPar->Get<int>("fov");
-	double distThresh = fov / detailLevel / imageWidth * distance * 0.5;
+	params::enumPerspectiveType perspectiveType =
+		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
+	double fov = CalcFOV(gPar->Get<int>("fov"), perspectiveType);
+	double distThresh = fov / detailLevel / imageWidth * distance * 10.0;
 	gPar->Set("DE_thresh", distThresh);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }

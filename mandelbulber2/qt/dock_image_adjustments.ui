@@ -922,7 +922,10 @@ no ambient occlusion)</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_54">
           <property name="text">
-           <string>Field of view:</string>
+           <string>Field of view (degrees):</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -990,13 +993,13 @@ no ambient occlusion)</string>
            <double>0.010000000000000</double>
           </property>
           <property name="maximum">
-           <double>5.000000000000000</double>
+           <double>720.000000000000000</double>
           </property>
           <property name="singleStep">
-           <double>0.100000000000000</double>
+           <double>1.000000000000000</double>
           </property>
           <property name="value">
-           <double>0.010000000000000</double>
+           <double>90.000000000000000</double>
           </property>
          </widget>
         </item>

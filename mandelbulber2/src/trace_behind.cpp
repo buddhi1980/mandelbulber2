@@ -61,7 +61,7 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 		if (paramRender->perspectiveType == params::perspEquirectangular
 				|| paramRender->perspectiveType == params::perspFishEye
 				|| paramRender->perspectiveType == params::perspFishEyeCut)
-			distThresh *= M_PI;
+			distThresh *= 0.5;
 
 		const sDistanceIn in(point, 0, false);
 		sDistanceOut out;

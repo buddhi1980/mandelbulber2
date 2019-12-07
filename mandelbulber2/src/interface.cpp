@@ -1161,7 +1161,7 @@ void cInterface::SetByMouse(
 	cCameraTarget::enumRotationMode rollMode =
 		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 	double movementStep = gPar->Get<double>("camera_movement_step");
-	double fov = gPar->Get<double>("fov");
+	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
@@ -1401,7 +1401,7 @@ void cInterface::MouseDragStart(
 		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
 	double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 	double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
-	double fov = gPar->Get<double>("fov");
+	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
@@ -1477,7 +1477,7 @@ void cInterface::MouseDragDelta(int dx, int dy)
 			double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 			bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 			double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
-			double fov = gPar->Get<double>("fov");
+			double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
 			cCameraTarget::enumRotationMode rollMode =
 				cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 
@@ -1723,9 +1723,9 @@ void cInterface::ResetView()
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
-	double fov = gPar->Get<double>("fov");
 	params::enumPerspectiveType perspType =
 		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
+	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
 	double DEFactor = gPar->Get<double>("DE_factor");
 
 	cParameterContainer parTemp = *gPar;
@@ -1769,10 +1769,20 @@ void cInterface::ResetView()
 	delete params;
 	delete fractals;
 
-	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
-	if (perspType == params::perspFishEye || perspType == params::perspFishEyeCut
-			|| perspType == params::perspEquirectangular)
-		newCameraDist /= M_PI;
+	double newCameraDist;
+
+	if (perspType == params::perspThreePoint)
+	{
+		newCameraDist = maxDist / fov * 2.0 * sqrt(2);
+	}
+	else if (perspType == params::perspEquirectangular)
+	{
+		newCameraDist = maxDist / fov * 4.0;
+	}
+	else
+	{
+		newCameraDist = maxDist / fov * 2.0;
+	}
 
 	if (newCameraDist < 0.1) newCameraDist = 0.1;
 

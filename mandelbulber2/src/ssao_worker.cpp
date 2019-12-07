@@ -123,8 +123,8 @@ void cSSAOWorker::doWork()
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye || perspectiveType == params::perspFishEyeCut)
 				{
-					x2 = M_PI * (double(x - startX) / width - 0.5) * aspectRatio;
-					y2 = M_PI * (double(y - startLine) / height - 0.5);
+					x2 = (double(x - startX) / width - 0.5) * aspectRatio;
+					y2 = (double(y - startLine) / height - 0.5);
 					double r = sqrt(x2 * x2 + y2 * y2);
 					if (r != 0.0)
 					{

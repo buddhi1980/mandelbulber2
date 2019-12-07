@@ -111,7 +111,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam(
 		"camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
+	par->addParam("fov", 53.13, 0.0, 720.0, morphAkima, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard,
 		QStringList({"three_point", "fish_eye", "equirectangular", "fish_eye_cut"}));
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);

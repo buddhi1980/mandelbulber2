@@ -173,7 +173,7 @@ void cRenderWorker::doWork()
 			// full dome hemisphere cut
 			bool hemisphereCut = false;
 			if (params->perspectiveType == params::perspFishEyeCut
-					&& imagePoint.Length() > 0.5 / params->fov)
+					&& imagePoint.Length() > M_PI * 0.5f / params->fov)
 				hemisphereCut = true;
 
 			// Ray marching
@@ -617,10 +617,7 @@ double cRenderWorker::CalcDistThresh(CVector3 point) const
 				(params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
 	}
 
-	if (params->perspectiveType == params::perspEquirectangular
-			|| params->perspectiveType == params::perspFishEye
-			|| params->perspectiveType == params::perspFishEyeCut)
-		distThresh *= M_PI;
+	if (params->perspectiveType == params::perspEquirectangular) distThresh *= 0.5;
 
 	if (params->advancedQuality)
 	{
@@ -637,10 +634,7 @@ double cRenderWorker::CalcDelta(CVector3 point) const
 {
 	double delta;
 	delta = (params->camera - point).Length() * params->resolution * params->fov;
-	if (params->perspectiveType == params::perspEquirectangular
-			|| params->perspectiveType == params::perspFishEye
-			|| params->perspectiveType == params::perspFishEyeCut)
-		delta *= M_PI;
+	if (params->perspectiveType == params::perspEquirectangular) delta *= 0.5f;
 	return delta;
 }
 

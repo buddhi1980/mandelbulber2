@@ -302,7 +302,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 #ifdef PERSP_FISH_EYE_CUT
 		bool hemisphereCut = false;
-		if (length(normalizedScreenPoint) > 0.5f / consts->params.fov) hemisphereCut = true;
+		if (length(normalizedScreenPoint) > M_PI_F * 0.5f / consts->params.fov) hemisphereCut = true;
 #endif
 
 		float4 color4 = 0.0f;

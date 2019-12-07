@@ -331,7 +331,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		mRot.RotateZ(-sweetSpotHAngle);
 		mRot.RotateX(sweetSpotVAngle);
 
-		double fov = params->Get<double>("fov");
+		double fov = CalcFOV(params->Get<double>("fov"), perspType);
 
 		double sw = image->GetPreviewWidth();
 		double sh = image->GetPreviewHeight();
@@ -369,13 +369,14 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			p1.x = p.x;
 			p1.y = p.y;
 			Draw3DBox(scale, fov, p1, z, cStereo::eyeLeft);
-			if (perspType == params::perspThreePoint)
+			if (perspType == params::perspThreePoint || perspType == params::perspFishEye
+					|| perspType == params::perspFishEyeCut)
 			{
 				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov;
 			}
 			else
 			{
-				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov / M_PI;
+				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov * 2.0;
 			}
 			p2.y = p.y;
 			Draw3DBox(scale, fov, p2, z, cStereo::eyeRight);
@@ -815,7 +816,7 @@ void RenderedImage::DisplayCrosshair() const
 	params::enumPerspectiveType perspType =
 		params::enumPerspectiveType(params->Get<int>("perspective_type"));
 
-	float fov = params->Get<float>("fov");
+	double fov = CalcFOV(params->Get<double>("fov"), perspType);
 
 	float sw = image->GetPreviewWidth();
 	float sh = image->GetPreviewHeight();
@@ -841,7 +842,7 @@ void RenderedImage::DisplayCrosshair() const
 			double r = sqrt(forward.x * forward.x + forward.y * forward.y);
 			if (r > 0)
 			{
-				double r2 = asin(r) / (M_PI * 0.5);
+				double r2 = asin(r) * 2.;
 				crossShift.x = (forward.x / fov) * r2 / r / 2.0 / aspectRatio;
 				crossShift.y = (forward.y / fov) * r2 / r / 2.0;
 			}
@@ -857,10 +858,10 @@ void RenderedImage::DisplayCrosshair() const
 			CVector3 forward(0.0, 0.0, 1.0);
 			forward = forward.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), -sweetSpotHAngle);
 			forward = forward.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -sweetSpotVAngle);
-			crossShift.x = asin(forward.x / cos(asin(forward.y))) / M_PI / fov / aspectRatio;
+			crossShift.x = asin(forward.x / cos(asin(forward.y))) / 0.5 / fov / aspectRatio;
 			if (forward.z < 0 && crossShift.x > 0) crossShift.x = fov / aspectRatio - crossShift.x;
 			if (forward.z < 0 && crossShift.x < 0) crossShift.x = -fov / aspectRatio - crossShift.x;
-			crossShift.y = asin(forward.y) / M_PI / fov;
+			crossShift.y = asin(forward.y) / 0.5 / fov;
 			break;
 		}
 	}
@@ -1103,7 +1104,7 @@ void RenderedImage::DrawAnimationPath()
 	CVector3 rotation = params->Get<CVector3>("camera_rotation");
 	params::enumPerspectiveType perspectiveType =
 		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
-	double fov = params->Get<double>("fov");
+	double fov = CalcFOV(params->Get<double>("fov"), perspectiveType);
 	int width = image->GetPreviewWidth();
 	int height = image->GetPreviewHeight();
 

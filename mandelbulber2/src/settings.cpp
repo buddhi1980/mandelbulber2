@@ -47,6 +47,7 @@
 #include "keyframes.hpp"
 #include "material.h"
 #include "primitives.h"
+#include "projection_3d.hpp"
 #include "system.hpp"
 
 cSettings::cSettings(enumFormat _format)
@@ -692,7 +693,10 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 		}
 
-		Compatibility2(par, fractPar);
+		if (format != formatAppSettings)
+		{
+			Compatibility2(par, fractPar);
+		}
 
 		if (listOfParametersToProcess.isEmpty())
 		{
@@ -1128,6 +1132,36 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 				par->Set("delta_DE_function", int(fractal::preferredDEFunction));
 			}
 		}
+	}
+
+	if (fileVersion < 2.21)
+	{
+		params::enumPerspectiveType perspectiveType =
+			params::enumPerspectiveType(par->Get<int>("perspective_type"));
+		double fov = par->Get<double>("fov");
+		if (fov == 53.13) fov = 1.0;
+
+		double fovDegrees = 0.0;
+		switch (perspectiveType)
+		{
+			case params::perspThreePoint:
+			{
+				fovDegrees = atan(fov / 2.0) * 360.0 / M_PI;
+				break;
+			}
+			case params::perspFishEye:
+			case params::perspFishEyeCut:
+			{
+				fovDegrees = fov * 180.0;
+				break;
+			}
+			case params::perspEquirectangular:
+			{
+				fovDegrees = fov * 360.0;
+				break;
+			}
+		}
+		par->Set("fov", fovDegrees);
 	}
 }
 

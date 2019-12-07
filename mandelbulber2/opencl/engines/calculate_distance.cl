@@ -53,8 +53,8 @@ float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 									 * consts->params.fov / consts->params.detailLevel;
 	}
 
-#if defined(PERSP_FISH_EYE) || defined(PERSP_FISH_EYE_CUT) || defined(PERSP_EQUIRECTANGULAR)
-	distThresh *= M_PI_F;
+#if defined(PERSP_EQUIRECTANGULAR)
+	distThresh *= 0.5f;
 #endif
 
 #ifdef ADVANCED_QUALITY
@@ -72,8 +72,8 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	float delta;
 	delta = length(consts->params.camera - point) * consts->params.resolution * consts->params.fov;
 
-#if defined(PERSP_FISH_EYE) || defined(PERSP_FISH_EYE_CUT) || defined(PERSP_EQUIRECTANGULAR)
-	delta *= M_PI_F;
+#if defined(PERSP_EQUIRECTANGULAR)
+	delta *= 0.5f;
 #endif
 
 	delta = max(delta, 1e-6f);
