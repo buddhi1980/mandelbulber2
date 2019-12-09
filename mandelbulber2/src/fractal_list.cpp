@@ -315,11 +315,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox - Sphere", "abox_sphere", aboxSphere,
 		AboxSphereIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionIFS));
+		analyticFunctionLinear,  coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
 		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
+
+	fractalList->append(sFractalDescription("Abox - Tetra", "abox_tetra", aboxTetra,
+		AboxTetraIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear,  coloringFunctionABox));
+
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));

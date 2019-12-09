@@ -214,7 +214,7 @@ enum enumFractalFormula
 
 	// 2.21
 	aboxSphere = 187,
-
+	aboxTetra = 188,
 
 
 	// mandelbulber dIFS
