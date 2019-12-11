@@ -40,6 +40,7 @@
 
 #include <QtCore>
 
+#include "algebra.hpp"
 #include "opencl_engine.h"
 #include "opencl_scheduler.h"
 #include "opencl_worker_output_queue.h"
@@ -61,6 +62,8 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 	stopRequest = nullptr;
 	reservedGpuTime = 0.0;
 	finishedWithSuccess = false;
+	antiAliasingDepth = 0;
+	isFullEngine = false;
 }
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
@@ -94,6 +97,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	QElapsedTimer openclProcessingTime;
 	qint64 openclprocessingTimeNanoSeconds = 0;
 
+	int actualAADepth = 0;
+	int actualAARepeatIndex = 0;
+
 	for (int monteCarloLoop = 1; monteCarloLoop <= maxMonteCarloSamples; monteCarloLoop++)
 	{
 		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
@@ -104,6 +110,12 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			// refresh parameters (needed to update random seed)
 			engine->AssignParametersToKernel(deviceIndex);
+
+			// TODO calculation of aa depth and index
+			if (isFullEngine)
+			{
+				AddAntiAliasingParameters(actualAADepth, actualAARepeatIndex);
+			}
 
 			quint64 gridX = scheduler->getTileSequence()->at(tile).x();
 			quint64 gridY = scheduler->getTileSequence()->at(tile).y();
@@ -187,6 +199,14 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			finishedWithSuccess = false;
 			return;
 		}
+
+		actualAARepeatIndex++;
+		int numberOfAARepeats = int(pow(3.0, double(actualAADepth * 2)));
+		if (actualAARepeatIndex >= numberOfAARepeats)
+		{
+			actualAADepth++;
+			actualAARepeatIndex = 0;
+		}
 	} // next monteCarloLoop
 
 	finishedWithSuccess = true;
@@ -207,6 +227,39 @@ bool cOpenClWorkerThread::ProcessClQueue(
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
+
+bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatIndex)
+{
+	CVector2<float> offset;
+
+	if (actualDepth > 0)
+	{
+		int gridSize = int(pow(3.0, double(actualDepth)));
+		int xIndex = repeatIndex % gridSize;
+		int yIndex = repeatIndex / gridSize;
+
+		float gridOffset = 1.0 / gridSize;
+		offset.x = xIndex  * gridOffset - 0.5 + gridOffset * 0.5;
+		offset.y = yIndex  * gridOffset - 0.5 + gridOffset * 0.5;;
+		qDebug() << offset.x << offset.y;
+	}
+	else
+	{
+		offset.x = 0.0f;
+		offset.y = 0.0f;
+	}
+
+	cl_float2 antiAliasingOffset = {offset.x, offset.y};
+	cl_int err = clKernel->setArg(6, antiAliasingOffset);
+	if (!checkErr(err, "kernel->setArg(6, cl_int(actualDepth))"))
+	{
+		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
+			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 

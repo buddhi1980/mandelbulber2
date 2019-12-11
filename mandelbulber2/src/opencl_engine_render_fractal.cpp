@@ -564,6 +564,11 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 			case params::mapFlat: definesCollector += " -DBACKGROUND_FLAT"; break;
 		}
 	}
+
+	if (paramRender->antialiasingEnabled)
+	{
+		definesCollector += " -DANTIALIASING";
+	}
 }
 
 void cOpenClEngineRenderFractal::SetParametersForStereoscopic(sRenderData *renderData)
@@ -939,8 +944,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
 	const QSharedPointer<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
 	const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
-	QList<QSharedPointer<QThread>> &threads, QList<QSharedPointer<cOpenClWorkerThread>> &workers,
-	bool *stopRequest)
+	int antiAliasingDepth, QList<QSharedPointer<QThread>> &threads,
+	QList<QSharedPointer<cOpenClWorkerThread>> &workers, bool *stopRequest)
 {
 	for (int d = 0; d < numberOfOpenCLWorkers; d++)
 	{
@@ -960,8 +965,10 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setOutputBuffers(outputBuffers[d]);
 		workers[d]->setOutputQueue(outputQueue);
 		workers[d]->setMaxMonteCarloSamples(numberOfSamples);
+		workers[d]->setAntiAliasingDepth(antiAliasingDepth);
 		workers[d]->setStopRequest(stopRequest);
 		workers[d]->setReservedGpuTime(reservedGpuTime);
+		workers[d]->setFullEngineFlag(renderEngineMode == clRenderEngineTypeFull);
 		// stating threads
 		workers[d]->moveToThread(threads[d].data());
 		QObject::connect(
@@ -1102,6 +1109,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
 
+		int antiAliasingDepth = 0;
+		if (constantInBuffer->params.antialiasingEnabled)
+		{
+			antiAliasingDepth = constantInBuffer->params.antialiasingSize;
+		}
+
 		// list of latest rendered tiles - needed for image refreshing
 		QList<QRect> lastRenderedRects;
 		QList<sRenderedTileData> listOfRenderedTilesData;
@@ -1139,7 +1152,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		WriteLog(QString("Creating threads for OpenCL workers"), 2);
 		CreateThreadsForOpenCLWorkers(numberOfOpenCLWorkers, scheduler, width, height, outputQueue,
-			numberOfSamples, threads, workers, stopRequest);
+			numberOfSamples, antiAliasingDepth, threads, workers, stopRequest);
 
 		// while loop continue condition
 		bool continueWhileLoop = false;
@@ -1436,7 +1449,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("constant data")),
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -1450,7 +1463,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("constant mesh data")),
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant mesh data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -1465,7 +1478,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("background image")),
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("background image")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -1477,7 +1490,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot set OpenCL argument for %3").arg(QObject::tr("random seed")),
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}

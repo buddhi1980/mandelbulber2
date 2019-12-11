@@ -132,8 +132,8 @@ private:
 	void CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
 		const QSharedPointer<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
 		const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
-		QList<QSharedPointer<QThread>> &threads, QList<QSharedPointer<cOpenClWorkerThread>> &workers,
-		bool *stopRequest);
+		int antiAliasingDepth, QList<QSharedPointer<QThread>> &threads,
+		QList<QSharedPointer<cOpenClWorkerThread>> &workers, bool *stopRequest);
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,

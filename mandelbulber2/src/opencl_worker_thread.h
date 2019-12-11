@@ -39,6 +39,7 @@
 
 #include <QObject>
 
+#include "algebra.hpp"
 #include "error_message.hpp"
 #include "include_header_wrapper.hpp"
 #include "opencl_input_output_buffer.h"
@@ -55,7 +56,6 @@ public:
 	cOpenClWorkerThread(
 		cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int deviceIndex);
 	~cOpenClWorkerThread() override;
-	bool ProcessClQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
 
 	void setImageHeight(quint64 imageHeight) { this->imageHeight = imageHeight; }
 	void setImageWidth(quint64 imageWidth) { this->imageWidth = imageWidth; }
@@ -63,6 +63,8 @@ public:
 	void setOptimalStepY(quint64 optimalStepY) { this->optimalStepY = optimalStepY; }
 	void setClKernel(const QSharedPointer<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
 	void setClQueue(const QSharedPointer<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
+	void setAntiAliasingDepth(int antiAliasingDepth) { this->antiAliasingDepth = antiAliasingDepth; }
+	void setFullEngineFlag(bool fullEngine) { this->isFullEngine = fullEngine; }
 	void setInputAndOutputBuffers(const QList<sClInputOutputBuffer> &inputAndOutputBuffers)
 	{
 		this->inputAndOutputBuffers = inputAndOutputBuffers;
@@ -84,7 +86,9 @@ public:
 	bool wasFishedWithSuccess() { return finishedWithSuccess; }
 
 private:
+	bool ProcessClQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
 	static bool checkErr(cl_int err, QString functionName);
+	bool AddAntiAliasingParameters(int actualDepth, int repeatIndex);
 
 	QSharedPointer<cl::Kernel> clKernel;
 	QSharedPointer<cl::CommandQueue> clQueue;
@@ -106,6 +110,8 @@ private:
 	double reservedGpuTime;
 	int maxMonteCarloSamples;
 	bool finishedWithSuccess;
+	int antiAliasingDepth;
+	int isFullEngine;
 
 	const int deviceIndex;
 

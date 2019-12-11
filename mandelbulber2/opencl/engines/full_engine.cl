@@ -43,7 +43,8 @@ int GetInteger(int byte, __global char *array)
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global char *inTextureBuff,
-	__constant sClInConstants *consts, image2d_t image2dBackground, int initRandomSeed)
+	__constant sClInConstants *consts, image2d_t image2dBackground, int initRandomSeed,
+	float2 antiAliasingOffset)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -294,10 +295,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		normalizedScreenPoint.x *= aspectRatio;
 
-#ifdef MONTE_CARLO_ANTI_ALIASING
-		normalizedScreenPoint.x +=
-			(Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
-		normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
+		//#ifdef MONTE_CARLO_ANTI_ALIASING
+		//		normalizedScreenPoint.x +=
+		//			(Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
+		//		normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
+		//#endif
+
+#ifdef ANTIALIASING
+		normalizedScreenPoint.x += antiAliasingOffset.x / width * aspectRatio;
+		normalizedScreenPoint.y += antiAliasingOffset.y / height;
 #endif
 
 		float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
