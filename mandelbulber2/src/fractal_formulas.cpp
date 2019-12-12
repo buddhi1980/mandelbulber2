@@ -21104,7 +21104,7 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
  * http://www.fractalforums.com/mandelbulb-3d/how-to-make-a-sphere/msg90387/#msg90387
  * This formula contains aux.color and aux.actualScale
  */
-void AboxSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void AboxSphere4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
@@ -21146,8 +21146,21 @@ void AboxSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	}
 	z -= fractal->transformCommon.offset0000;
 
-	z *= aux.actualScale;
-	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	// scale
+	double useScale = 1.0;
+	useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+	z *= useScale;
+	aux.DE = aux.DE * fabs(useScale) + 1.0;
+	// scale vary
+	if (fractal->transformCommon.functionEnabledKFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA -= vary;
+	}
 
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -21222,11 +21235,11 @@ void AboxSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 }
 
 /**
- * Formula based on Aexion's SphereBox
+ * Formula based on Aexion's tetraBox
  * http://www.fractalforums.com/mandelbulb-3d/how-to-make-a-sphere/msg90387/#msg90387
  * This formula contains aux.color and aux.actualScale
  */
-void AboxTetraIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void AboxTetra4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 
@@ -21273,8 +21286,21 @@ void AboxTetraIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	z -= fractal->transformCommon.offset0000;
 
-	z *= aux.actualScale;
-	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	// scale
+	double useScale = 1.0;
+	useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+	z *= useScale;
+	aux.DE = aux.DE * fabs(useScale) + 1.0;
+	// scale vary
+	if (fractal->transformCommon.functionEnabledKFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA -= vary;
+	}
 
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse

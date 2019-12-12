@@ -213,8 +213,8 @@ enum enumFractalFormula
 	amazingSurfMod4 = 186,
 
 	// 2.21
-	aboxSphere = 187,
-	aboxTetra = 188,
+	aboxSphere4d = 187,
+	aboxTetra4d = 188,
 
 
 	// mandelbulber dIFS

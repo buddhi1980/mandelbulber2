@@ -313,16 +313,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		AboxModKaliV3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionIFS));
 
-	fractalList->append(sFractalDescription("Abox - Sphere", "abox_sphere", aboxSphere,
-		AboxSphereIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+	fractalList->append(sFractalDescription("Abox - Sphere 4D", "abox_sphere4d", aboxSphere4d,
+		AboxSphere4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear,  coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
 		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
 
-	fractalList->append(sFractalDescription("Abox - Tetra", "abox_tetra", aboxTetra,
-		AboxTetraIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+	fractalList->append(sFractalDescription("Abox - Tetra 4D", "abox_tetra4d", aboxTetra4d,
+		AboxTetra4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear,  coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
