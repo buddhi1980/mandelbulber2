@@ -352,6 +352,10 @@ enum enumFractalFormula
 	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
 	transfScaleOffset = 1105,
 	transfScaleOffsetV2 = 1106,
+	// 2.21
+	transfDEControls = 1107,
+
+
 
 	// mandelbulber transfdIFS
 	// 2.20
@@ -370,6 +374,9 @@ enum enumFractalFormula
 	transfDIFSPrismV2 = 1612,
 	transfDIFSGrid = 1613,
 	transfDIFSGridV2 = 1614,
+
+
+
 
 	// hybrid color trial
 	transfHybridColor = 2000,

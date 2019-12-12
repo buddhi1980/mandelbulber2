@@ -20936,15 +20936,14 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 /**
  * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by
  * DarkBeam
- *
  * This formula has a c.x c.y SWAP
- *
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+	double colorAdd = 0.0;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -20959,31 +20958,33 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
-
+	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	CVector4 zCol = z;
+
+
 	// no z fold
 	z += fractal->transformCommon.offsetA000;
 	double rr = z.Dot(z);
+	double rrCol = rr;
 	double MinRR = fractal->transformCommon.minR2p25;
 	double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
 
 	// scale
 	double useScale = 1.0;
-	{
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale2) / dividend;
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
 
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			// update actualScaleA for next iteration
-			double vary = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			aux.actualScaleA -= vary;
-		}
+	useScale = (aux.actualScaleA + fractal->transformCommon.scale2) / dividend;
+	z *= useScale;
+	aux.DE = aux.DE * fabs(useScale) + 1.0;
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA -= vary;
 	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
@@ -20997,13 +20998,28 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (zCol.x != oldZ.x)
+			colorAdd += fractal->mandelbox.color.factor.x
+									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+		if (zCol.y != oldZ.y)
+			colorAdd += fractal->mandelbox.color.factor.y
+									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+		if (rrCol > fractal->transformCommon.minR2p25)
+			colorAdd +=
+				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
+		aux.color += colorAdd;
+	}
 }
 
+
 /**
- * Testing transform2
+ * TransfDEControlsIteration
  *
  */
-void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfDEControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	double dd = 0.0;
@@ -21097,6 +21113,83 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		else
 			aux.color += colorAdd;
 	}
+}
+
+
+
+/**
+ * Testing transform2
+ *https://fractalforums.org/fractal-mathematics-and-new-theories/28/fake-3d-mandelbrot-set/1787/msg17940#msg17940
+ */
+void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	//double colorAdd = 0.0;
+	aux.DE = 2.0 * aux.DE * aux.r + 1.0;
+
+	//  pre-abs
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+	}
+
+
+	CVector4 ZZ = z * z;
+	double rr = z.Dot(z);
+	double theta = atan2(z.z, sqrt(ZZ.x + ZZ.y));
+	double phi = atan2(z.y, z.x);
+	// double thetatemp = theta;
+
+	/*if(usespin)if(spin)
+		{
+			theta = -theta;
+	if(theta > 0.0)
+	{
+		theta = -pi1p5 + theta;
+	}
+	else
+	{
+		double alpha = pi0p5 + theta;
+		theta = M_PI + alpha;
+	}
+	theta = theta + M_PI;
+	}*/
+
+	double phi_pow = 2.0 * phi + M_PI;
+	//double theta_pow = theta + thetatemp + M_PI / 2.0; // piAdd;
+	double theta_pow = theta + M_PI + M_PI / 2.0; // piAdd;
+
+	double rn_sin_theta_pow = rr * sin(theta_pow);
+	z.x = rn_sin_theta_pow * cos(phi_pow); //  + jx
+	z.y = rn_sin_theta_pow * sin(phi_pow); // + jy
+	z.z = rr * cos(theta_pow); //  + jz
+
+		//z+=(Julia ? JuliaC : pos);
+
+	/*if(usespin)
+	{
+		if(spin)
+		{
+			theta += thetatemp - piAdd;
+					if(theta > pi1p5) spin = !spin;
+		else
+		{
+		if(theta < pi0p5) spin = !spin;
+		}
+		}
+		else
+	{
+			if(theta > pi0p25) spin = !spin;
+			 else if(theta < -pi0p25) spin = !spin;
+		}
+	}*/
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -21216,8 +21309,6 @@ void AboxSphere4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 cR = CVector4(aux.const_c.x, aux.const_c.y, aux.const_c.z, lenC);
 	z += cR * fractal->transformCommon.scale1111;
 
-
-
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor4D.x;
@@ -21232,6 +21323,9 @@ void AboxSphere4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 		aux.color += colorAdd;
 	}
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -21356,8 +21450,6 @@ void AboxTetra4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	CVector4 cR = CT;
 	z += cR * fractal->transformCommon.scale1111;
 
-
-
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor4D.x;
@@ -21372,5 +21464,8 @@ void AboxTetra4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 		aux.color += colorAdd;
 	}
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 

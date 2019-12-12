@@ -994,6 +994,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfZvectorAxisSwap, TransfZvectorAxisSwapIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("T>DE Controls", "transf_de_controls",
+		transfDEControls, TransfDEControlsIteration, analyticDEType, dIFSDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
 	// ------------------ hybrid color trial -----------------------
 
 	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",
@@ -1032,8 +1036,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing Transform2", "testing_transform2",
-		testingTransform2, TestingTransform2Iteration, analyticDEType, dIFSDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+		testingTransform2, TestingTransform2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	//====================== NEW FRACTAL LIST  - test code - ==================
 	newFractalList.append(new cFractalMandelbulb());

@@ -314,6 +314,8 @@ void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfZvectorAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
+void TransfDEControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 // 4D
 void Abox4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Bristorbrot4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
