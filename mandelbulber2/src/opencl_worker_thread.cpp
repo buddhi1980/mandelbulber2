@@ -200,8 +200,12 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			return;
 		}
 
+		if(monteCarloLoop == 1) actualAADepth++;
+
 		actualAARepeatIndex++;
-		int numberOfAARepeats = int(pow(3.0, double(actualAADepth * 2)));
+		int numberOfAARepeats = int(pow(9.0, double((actualAADepth - 1) / 2))) * 4;
+		qDebug() << numberOfAARepeats;
+
 		if (actualAARepeatIndex >= numberOfAARepeats)
 		{
 			actualAADepth++;
@@ -239,14 +243,89 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 
 	if (actualDepth > 0)
 	{
-		int gridSize = int(pow(3.0, double(actualDepth)));
-		int xIndex = repeatIndex % gridSize;
-		int yIndex = repeatIndex / gridSize;
+		int gridSize = int(pow(3.0, double((actualDepth - 1) / 2)));
+		int positionIndex = repeatIndex / 4;
 
-		float gridOffset = 1.0 / gridSize;
-		offset.x = xIndex  * gridOffset - 0.5 + gridOffset * 0.5;
-		offset.y = yIndex  * gridOffset - 0.5 + gridOffset * 0.5;;
-		qDebug() << offset.x << offset.y;
+		int xIndex, yIndex;
+		float baseOffsetX, baseOffsetY;
+		float smallOffsetX = 0;
+		float smallOffsetY = 0;
+
+		xIndex = positionIndex % gridSize;
+		yIndex = positionIndex / gridSize;
+
+		qDebug() << repeatIndex << positionIndex << xIndex << yIndex;
+
+		baseOffsetX = (xIndex - gridSize / 2) / float(gridSize);
+		baseOffsetY = (yIndex - gridSize / 2) / float(gridSize);
+
+		float gridOffset = 1.0 / gridSize / 3.0;
+		if (actualDepth % 2 == 0)
+		{
+			switch (repeatIndex % 4)
+			{
+				case 0:
+				{
+					smallOffsetX = -gridOffset;
+					smallOffsetY = 0;
+					break;
+				}
+				case 1:
+				{
+					smallOffsetX = gridOffset;
+					smallOffsetY = 0;
+					break;
+				}
+				case 2:
+				{
+					smallOffsetX = 0;
+					smallOffsetY = -gridOffset;
+					break;
+				}
+				case 3:
+				{
+					smallOffsetX = 0;
+					smallOffsetY = gridOffset;
+					break;
+				}
+			}
+		}
+		else
+		{
+			switch (repeatIndex % 4)
+			{
+				case 0:
+				{
+					smallOffsetX = -gridOffset;
+					smallOffsetY = -gridOffset;
+					break;
+				}
+				case 1:
+				{
+					smallOffsetX = gridOffset;
+					smallOffsetY = -gridOffset;
+					break;
+				}
+				case 2:
+				{
+					smallOffsetX = -gridOffset;
+					smallOffsetY = gridOffset;
+					break;
+				}
+				case 3:
+				{
+					smallOffsetX = gridOffset;
+					smallOffsetY = gridOffset;
+					break;
+				}
+			}
+		}
+
+		offset.x = baseOffsetX + smallOffsetX;
+		offset.y = baseOffsetY + smallOffsetY;
+
+		qDebug() << "grid" << gridSize << "small" << smallOffsetX << smallOffsetY << "base"
+						 << baseOffsetX << baseOffsetY << "offset" << offset.x << offset.y;
 	}
 	else
 	{
