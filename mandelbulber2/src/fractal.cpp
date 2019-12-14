@@ -197,6 +197,9 @@ sFractal::sFractal(const cParameterContainer *container)
 	aSurf3Folds.orderOf3Folds3 =
 		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_3"));
 
+	// combo3 multi
+	combo3.combo3 = enumMulti_combo3(container->Get<int>("combo3"));
+
 	// combo4 multi
 	combo4.combo4 = enumMulti_combo4(container->Get<int>("combo4"));
 

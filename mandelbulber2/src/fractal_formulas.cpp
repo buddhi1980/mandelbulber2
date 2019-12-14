@@ -21022,100 +21022,87 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfDEControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	double dd = 0.0;
-
-	if (fractal->transformCommon.functionEnabledAx) dd = z.Length(); // eucli norm
-
-	if (fractal->transformCommon.functionEnabledAxFalse) dd = aux.DE0;
-
-	if (fractal->transformCommon.functionEnabledAyFalse)
+	double rd = 0.0;
+	CVector4 tZ;
+	// distance functions
+	switch (fractal->combo4.combo4)
 	{
-		CVector4 absZ = fabs(z);
-		dd = max(absZ.x, max(absZ.y, absZ.z)); // infnorm
+		case multi_combo4_type1:
+		default:
+			rd = aux.DE0;
+			break;
+		case multi_combo4_type2:
+			tZ = fabs(z);
+			rd = max(tZ.x, max(tZ.y, tZ.z)); // infnorm
+			break;
+		case multi_combo4_type3:
+			tZ = z * z;
+			rd = max(sqrt(tZ.x + tZ.y), max(sqrt(tZ.y + tZ.z), sqrt(tZ.z + tZ.x)));
+			break;
+		case multi_combo4_type4:
+			rd = z.Length(); // eucli norm
+			break;
 	}
-	if (fractal->transformCommon.functionEnabledAzFalse)
-	{
-		CVector4 zz = z * z;
-		dd = max(sqrt(zz.x + zz.y), max(sqrt(zz.y + zz.z), sqrt(zz.z + zz.x)));
-	}
+		// tweaks
+	rd += fractal->transformCommon.offset0;
+	aux.DE += fractal->analyticDE.offset0;
 
-	dd += fractal->transformCommon.offset0;
-
-	aux.DE = aux.DE + fractal->analyticDE.offset0;
-
+	// out distance functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		dd = dd / aux.DE; // same as an uncondtional aux.dist
+		rd = rd / aux.DE; // same as an uncondtional aux.dist
 	}
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
-		dd = pkD / aux.DE;
+		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+		rd = pkD / aux.DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		dd = 0.5 * dd * log(dd) / aux.DE;
-	}
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		double logD = 0.5 * dd * log(dd) / aux.DE;
-		double linD = dd / aux.DE;
-		dd = logD + (linD - logD) * fractal->transformCommon.scale1;
-	}
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
-		pkD = pkD / aux.DE;
-		double linD = dd / aux.DE;
-		dd = pkD + (linD - pkD) * fractal->transformCommon.scaleA1;
-	}
-	if (fractal->transformCommon.functionEnabledFFalse)
-	{
-		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
-		pkD = pkD / aux.DE;
-		double logD = 0.5 * dd * log(dd) / aux.DE;
-		dd = logD + (pkD - logD) * fractal->transformCommon.scaleB1;
+		rd = 0.5 * rd * log(rd) / aux.DE;
 	}
 
-	double colorDist = aux.dist;
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		double mixA;
+		double mixB;
+		double rxy;
+		switch (fractal->combo3.combo3)
+		{
+			case multi_combo3_type1:
+			default:
+				mixA = rd;
+				mixB = 0.5 * rd * log(rd);
+				break;
+			case multi_combo3_type2:
+				rxy = sqrt(z.x * z.x + z.y * z.y);
+				mixA = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+				mixB = rd;
+				break;
+			case multi_combo3_type3:
+				mixA = 0.5 * rd * log(rd);
+				rxy = sqrt(z.x * z.x + z.y * z.y);
+				mixB = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+			break;
+		}
+		rd = (mixA + (mixB - mixA) * fractal->transformCommon.scale1) / aux.DE;
+	}
+
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
-		aux.colorHybrid = dd;
+		aux.colorHybrid = rd; // aux.colorHybrid temp
 	}
 	else
 	{
 		int tempC = fractal->transformCommon.int3X;
-		if (aux.i < tempC || dd < aux.colorHybrid)
+		if (aux.i < tempC || rd < aux.colorHybrid)
 		{
-			aux.colorHybrid = dd;
+			aux.colorHybrid = rd;
 		}
 	}
 	aux.dist = aux.colorHybrid;
-
-	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
-			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
-			// colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
-		}
-		else
-			aux.color += colorAdd;
-	}
 }
-
-
 
 /**
  * Testing transform2
@@ -21141,7 +21128,7 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double rr = z.Dot(z);
 	double theta = atan2(z.z, sqrt(ZZ.x + ZZ.y));
 	double phi = atan2(z.y, z.x);
-	// double thetatemp = theta;
+	double thetatemp = theta;
 
 	/*if(usespin)if(spin)
 		{
@@ -21159,8 +21146,12 @@ void TestingTransform2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}*/
 
 	double phi_pow = 2.0 * phi + M_PI;
-	//double theta_pow = theta + thetatemp + M_PI / 2.0; // piAdd;
-	double theta_pow = theta + M_PI + M_PI / 2.0; // piAdd;
+	double theta_pow = theta + M_PI + M_PI / 2.0; // piAdd;+ M_PI / 2.0
+	if (fractal->transformCommon.functionEnabledFalse)
+		theta_pow = theta + M_PI / 4.0;
+		//theta_pow = theta + thetatemp + M_PI / 2.0;
+	if (fractal->transformCommon.functionEnabledAFalse)
+		theta_pow = theta + thetatemp + M_PI;
 
 	double rn_sin_theta_pow = rr * sin(theta_pow);
 	z.x = rn_sin_theta_pow * cos(phi_pow); //  + jx
