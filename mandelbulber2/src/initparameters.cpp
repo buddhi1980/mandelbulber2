@@ -593,6 +593,7 @@ void InitFractalParams(cParameterContainer *par)
 	QStringList qslOrderOfFolds({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslOrderOfTransf({"typeT1", "typeT1Mod", "typeT2", "typeT3", "typeT4", "typeT5b"});
 	QStringList qslOrderOf3Folds({"type1", "type2", "type3"});
+	QStringList qslCombo3({"type1", "type2", "type3"});
 	QStringList qslCombo4({"type1", "type2", "type3", "type4"});
 	QStringList qslCombo5({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslCombo6({"type1", "type2", "type3", "type4", "type5", "type6"});
@@ -705,6 +706,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard, qslOrderOfTransf);
 	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard, qslOrderOfTransf);
 	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard, qslOrderOfTransf);
+
+	// Combo3
+	par->addParam("combo3", 0, morphNone, paramStandard, qslCombo3);
 
 	// Combo4
 	par->addParam("combo4", 0, morphNone, paramStandard, qslCombo4);

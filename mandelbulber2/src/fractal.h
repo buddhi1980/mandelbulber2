@@ -348,6 +348,18 @@ struct sFractalMagTransforms
 	enumMulti_orderOfTransf orderOfTransf5;
 };
 
+// combo3
+enum enumMulti_combo3
+{
+	multi_combo3_type1,
+	multi_combo3_type2,
+	multi_combo3_type3,
+};
+struct sFractalCombo3
+{
+	enumMulti_combo3 combo3;
+};
+
 // combo4
 enum enumMulti_combo4
 {
@@ -795,6 +807,7 @@ struct sFractal
 	sFractalCpara Cpara;
 	sFractalCombo combo;
 	sFractalASurf3Folds aSurf3Folds;
+	sFractalCombo3 combo3;
 	sFractalCombo4 combo4;
 	sFractalCombo5 combo5;
 	sFractalCombo6 combo6;
