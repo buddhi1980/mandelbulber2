@@ -264,6 +264,9 @@ void cInterface::ShowUi()
 #else
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
 		gPar->Get<bool>("opencl_enabled"));
+
+	if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
+		mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
 #endif
 
 	QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_F11), mainWindow);

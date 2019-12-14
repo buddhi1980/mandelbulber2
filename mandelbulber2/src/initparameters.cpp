@@ -65,6 +65,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("image_proportion", 0, morphNone, paramStandard);
 	par->addParam("antialiasing_enabled", false, morphNone, paramStandard);
 	par->addParam("antialiasing_size", 2, 1, 10, morphNone, paramStandard);
+	par->addParam("antialiasing_ocl_depth", 1, 0, 5, morphNone, paramStandard);
+	par->addParam("antialiasing_adaptive", true, morphNone, paramStandard);
 
 	// flight animation
 	par->addParam("flight_first_to_render", 0, 0, 9999999, morphNone, paramStandard);

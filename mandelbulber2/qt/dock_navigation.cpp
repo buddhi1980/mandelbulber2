@@ -36,8 +36,11 @@
 
 #include "ui_dock_navigation.h"
 
+#include "dock_image_adjustments.h"
 #include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/render_window.hpp"
 #include "src/system.hpp"
 
 cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockNavigation)
@@ -136,6 +139,8 @@ void cDockNavigation::ConnectSignals() const
 
 	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(slotStopRender()));
 	connect(ui->pushButton_reset_view, SIGNAL(clicked()), this, SLOT(slotPressedButtonResetView()));
+	connect(ui->comboBox_opencl_mode, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotChangedOpenCLMode(int)));
 }
 
 void cDockNavigation::slotCameraMove() const
@@ -217,4 +222,10 @@ void cDockNavigation::EnableOpenCLModeComboBox(bool enabled) const
 {
 	ui->comboBox_opencl_mode->setVisible(enabled);
 	ui->label_opencl_mode->setVisible(enabled);
+}
+
+void cDockNavigation::slotChangedOpenCLMode(int index)
+{
+	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(
+		index > 0 && gPar->Get<bool>("opencl_enabled"));
 }

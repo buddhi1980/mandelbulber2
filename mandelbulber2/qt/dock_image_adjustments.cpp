@@ -52,6 +52,7 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
 {
 	ui->setupUi(this);
+
 	listOfPresetPushButtons = ui->groupBox_presets->findChildren<QToolButton *>();
 
 	automatedWidgets = new cAutomatedWidgets(this);
@@ -59,6 +60,8 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 	ConnectSignals();
 	resolutionPresets = new cParameterContainer;
 	InitResolutionPresets();
+
+	SetAntialiasingOpenCL(false);
 }
 
 cDockImageAdjustments::~cDockImageAdjustments()
@@ -417,4 +420,13 @@ void cDockImageAdjustments::slotOptimalDistancesBetweenEyes() const
 	double distanceBetweenEyes = distToFractal * 0.05;
 	gPar->Set("stereo_eye_distance", distanceBetweenEyes);
 	SynchronizeInterfaceWindow(ui->groupCheck_stereo_enabled, gPar, qInterface::write);
+}
+
+void cDockImageAdjustments::SetAntialiasingOpenCL(bool enable) const
+{
+	ui->label_antialiasingNumberOfSamples->setEnabled(!enable);
+	ui->label_antialiasing_depth->setEnabled(enable);
+	ui->checkBox_antialiasing_adaptive->setEnabled(enable);
+	ui->comboBox_antialiasing_ocl_depth->setEnabled(enable);
+	ui->spinboxInt_antialiasing_size->setEnabled(!enable);
 }

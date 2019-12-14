@@ -253,7 +253,7 @@
             <number>2</number>
            </property>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_73">
+            <widget class="QLabel" name="label_antialiasingNumberOfSamples">
              <property name="text">
               <string>Number of samples (n x n):</string>
              </property>
@@ -275,6 +275,66 @@
              </property>
              <property name="singleStep">
               <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="MyComboBox" name="comboBox_antialiasing_ocl_depth">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <item>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>45</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>81</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>405</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>729</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_antialiasing_depth">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Number of samples (OpenCL mode):</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="MyCheckBox" name="checkBox_antialiasing_adaptive">
+             <property name="text">
+              <string>Adaptive (faster)</string>
              </property>
             </widget>
            </item>

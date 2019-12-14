@@ -64,6 +64,7 @@ public:
 		quint64 gridY;
 		quint64 tileIndex;
 		int monteCarloLoop;
+		int aaDepth;
 		QList<sClDataBuffer> outputBuffers;
 	};
 

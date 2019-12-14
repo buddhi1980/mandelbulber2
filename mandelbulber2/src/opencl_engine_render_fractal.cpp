@@ -565,7 +565,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		}
 	}
 
-	if (paramRender->antialiasingEnabled)
+	if (paramRender->antialiasingEnabled && !paramRender->DOFMonteCarlo)
 	{
 		definesCollector += " -DANTIALIASING";
 	}
@@ -809,7 +809,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
-	monteCarlo = paramRender->DOFMonteCarlo && renderEngineMode != clRenderEngineTypeFast;
+	bool antiAliasing =
+		paramRender->antialiasingEnabled && renderEngineMode == clRenderEngineTypeFull;
+	monteCarlo =
+		(paramRender->DOFMonteCarlo && renderEngineMode != clRenderEngineTypeFast) || antiAliasing;
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -1104,15 +1107,37 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		// maximum count of rendering loop
 		int numberOfSamples = 1;
+		int minNumberOfSamples = constantInBuffer->params.DOFMinSamples;
+		float noiseTarget = constantInBuffer->params.DOFMaxNoise;
 		if (monteCarlo)
 		{
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
 
 		int antiAliasingDepth = 0;
-		if (constantInBuffer->params.antialiasingEnabled)
+		bool useAntiAlaising =
+			constantInBuffer->params.antialiasingEnabled && renderEngineMode == clRenderEngineTypeFull;
+
+		QVector<int> aaSampleNumberTable;
+		if (useAntiAlaising)
 		{
-			antiAliasingDepth = constantInBuffer->params.antialiasingSize;
+			antiAliasingDepth = constantInBuffer->params.antialiasingOclDepth + 1;
+			aaSampleNumberTable.append(5);
+			aaSampleNumberTable.append(9);
+			aaSampleNumberTable.append(45);
+			aaSampleNumberTable.append(81);
+			aaSampleNumberTable.append(405);
+			aaSampleNumberTable.append(429);
+			numberOfSamples = aaSampleNumberTable.at(constantInBuffer->params.antialiasingOclDepth);
+			if (constantInBuffer->params.antialiasingAdaptive)
+			{
+				minNumberOfSamples = 0;
+				noiseTarget = 20.0 / (constantInBuffer->params.antialiasingOclDepth + 1);
+			}
+			else
+			{
+				minNumberOfSamples = numberOfSamples;
+			}
 		}
 
 		// list of latest rendered tiles - needed for image refreshing
@@ -1171,110 +1196,134 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				// getting image data from queue
 				cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
 
-				// information about tile coordinates
-				quint64 jobWidth = output.jobWidth;
-				quint64 jobHeight = output.jobHeight;
-				quint64 jobX = output.jobX;
-				quint64 jobY = output.jobY;
-
-				pixelsRendered += jobWidth * jobHeight;
-
-				float monteCarloNoiseSum = 0.0;
-				float maxNoise = 0.0;
-
-				// processing pixels of tile
-				for (quint64 x = 0; x < jobWidth; x++)
+				if (scheduler->IsTileEnabled(output.tileIndex))
 				{
-					for (quint64 y = 0; y < jobHeight; y++)
+
+					// information about tile coordinates
+					quint64 jobWidth = output.jobWidth;
+					quint64 jobHeight = output.jobHeight;
+					quint64 jobX = output.jobX;
+					quint64 jobY = output.jobY;
+
+					pixelsRendered += jobWidth * jobHeight;
+
+					float monteCarloNoiseSum = 0.0;
+					float maxNoise = 0.0;
+					float maxBrightness = 0.0;
+					float minBrightness = 100.0;
+
+					// processing pixels of tile
+					for (quint64 x = 0; x < jobWidth; x++)
 					{
-						// getting pixel from output buffer
-						sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
-							output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
-						sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-						sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-						unsigned short opacity = pixelCl.opacity;
-						unsigned short alpha = pixelCl.alpha;
-						size_t xx = x + jobX;
-						size_t yy = y + jobY;
-
-						// if MC then paint pixels and calculate noise statistics
-						if (monteCarlo)
+						for (quint64 y = 0; y < jobHeight; y++)
 						{
-							// painting pixels with reduced opacity (averaging of MC samples)
-							sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
-							sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
+							// getting pixel from output buffer
+							sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
+								output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
+							sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+							unsigned short opacity = pixelCl.opacity;
+							unsigned short alpha = pixelCl.alpha;
+							size_t xx = x + jobX;
+							size_t yy = y + jobY;
 
-							unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
-							unsigned short newAlpha =
-								ushort(double(oldAlpha) * (1.0 - 1.0 / output.monteCarloLoop)
-											 + alpha * (1.0 / output.monteCarloLoop));
-
-							PutMultiPixel(xx, yy, newPixel, pixelCl, newAlpha, color, opacity, image);
-
-							// noise estimation
-							float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
-														+ (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
-														+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
-							noise *= 0.3333f;
-
-							float sumBrightness = newPixel.R + newPixel.G + newPixel.B;
-
-							if (qIsInf(sumBrightness))
+							// if MC then paint pixels and calculate noise statistics
+							if (monteCarlo)
 							{
-								sumBrightness = 0.0;
-								noise = 0.0;
-								image->PutPixelImage(xx, yy, sRGBFloat());
+								// painting pixels with reduced opacity (averaging of MC samples)
+								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
+								sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
+
+								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
+								unsigned short newAlpha =
+									ushort(double(oldAlpha) * (1.0 - 1.0 / output.monteCarloLoop)
+												 + alpha * (1.0 / output.monteCarloLoop));
+
+								PutMultiPixel(xx, yy, newPixel, pixelCl, newAlpha, color, opacity, image);
+
+								// noise estimation
+								float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
+															+ (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
+															+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
+								noise *= 0.3333f;
+
+								float sumBrightness = newPixel.R + newPixel.G + newPixel.B;
+								maxBrightness = max(sumBrightness, maxBrightness);
+								minBrightness = min(sumBrightness, minBrightness);
+
+								if (qIsInf(sumBrightness))
+								{
+									sumBrightness = 0.0;
+									noise = 0.0;
+									image->PutPixelImage(xx, yy, sRGBFloat());
+								}
+
+								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness);
+
+								monteCarloNoiseSum += noise;
+								if (noise > maxNoise) maxNoise = noise;
 							}
+							// if not MC then just paint pixels
+							else
+							{
+								PutMultiPixel(xx, yy, pixel, pixelCl, alpha, color, opacity, image);
+							}
+						} // next y
+					}		// next x
 
-							if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness);
+					// total noise in last rectangle
+					if (monteCarlo)
+					{
+						float weight = 0.2f;
 
-							monteCarloNoiseSum += noise;
-							if (noise > maxNoise) maxNoise = noise;
+						float totalNoiseRect;
+						if (output.monteCarloLoop == 1)
+						{
+							totalNoiseRect = (maxBrightness - minBrightness) / 3.0;
 						}
-						// if not MC then just paint pixels
 						else
 						{
-							PutMultiPixel(xx, yy, pixel, pixelCl, alpha, color, opacity, image);
+							totalNoiseRect = sqrtf(
+								(1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
 						}
-					} // next y
-				}		// next x
+						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = totalNoiseRect;
 
-				// total noise in last rectangle
-				if (monteCarlo)
-				{
-					float weight = 0.2f;
-					float totalNoiseRect =
-						sqrtf((1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
-					noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = totalNoiseRect;
+						bool anitiAliasingDepthFinished = true;
+						if (useAntiAlaising)
+						{
+							if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
+								anitiAliasingDepthFinished = false;
+						}
+						if (output.monteCarloLoop == 1) anitiAliasingDepthFinished = true;
 
-					if (noiseTable[output.gridX + output.gridY * (gridWidth + 1)]
-								< constantInBuffer->params.DOFMaxNoise / 100.0f
-							&& output.monteCarloLoop > constantInBuffer->params.DOFMinSamples)
+						if (noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
+								&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
+						{
+							scheduler->DisableTile(output.tileIndex);
+							doneMCpixels += jobWidth * jobHeight;
+							doneMC = double(doneMCpixels) / double(numberOfPixels);
+						}
+						lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
+
+						if (lastMonteCarloLoop == 1)
+							renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
+						renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
+
+						listOfRenderedTilesData.append(
+							sRenderedTileData(jobX, jobY, jobWidth, jobHeight, totalNoiseRect));
+					} // endif montecarlo
+					else
 					{
-						scheduler->DisableTile(output.tileIndex);
-						doneMCpixels += jobWidth * jobHeight;
-						doneMC = double(doneMCpixels) / double(numberOfPixels);
+						listOfRenderedTilesData.append(sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
 					}
-					lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
 
-					if (lastMonteCarloLoop == 1)
-						renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
-					renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
+					lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
 
-					listOfRenderedTilesData.append(
-						sRenderedTileData(jobX, jobY, jobWidth, jobHeight, totalNoiseRect));
-				} // endif montecarlo
-				else
-				{
-					listOfRenderedTilesData.append(sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
-				}
-
-				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
-
-				if (gNetRender->IsServer())
-				{
-					gApplication->processEvents();
-				}
+					if (gNetRender->IsServer())
+					{
+						gApplication->processEvents();
+					}
+				} // is tile still enabled
 
 			} // while something in queue
 

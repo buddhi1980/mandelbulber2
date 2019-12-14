@@ -77,6 +77,7 @@ typedef struct
 	// constructor with init
 
 	cl_int antialiasingSize;
+	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
 	cl_int auxLightNumber;
 	cl_int auxLightRandomNumber;
@@ -102,6 +103,7 @@ typedef struct
 
 	cl_int advancedQuality;
 	cl_int antialiasingEnabled;
+	cl_int antialiasingAdaptive;
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
 	cl_int auxLightRandomEnabled;
@@ -258,6 +260,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 {
 	sParamRenderCl target;
 	target.antialiasingSize = source.antialiasingSize;
+	target.antialiasingOclDepth = source.antialiasingOclDepth;
 	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
 	target.auxLightNumber = source.auxLightNumber;
 	target.auxLightRandomNumber = source.auxLightRandomNumber;
@@ -287,6 +290,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.delta_DE_function = source.delta_DE_function;
 	target.advancedQuality = source.advancedQuality;
 	target.antialiasingEnabled = source.antialiasingEnabled;
+	target.antialiasingAdaptive = source.antialiasingAdaptive;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
 	for (int i = 0; i < 4; i++)
 	{

@@ -74,6 +74,7 @@ private slots:
 	static void slotUndo();
 	static void slotRedo();
 	static void slotPressedButtonResetView();
+	void slotChangedOpenCLMode(int index);
 	void SetIconSizes();
 
 private:

@@ -70,6 +70,7 @@ struct sParamRender
 	sParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 
 	int antialiasingSize;
+	int antialiasingOclDepth;
 	int ambientOcclusionQuality; // ambient occlusion quality
 	int auxLightNumber;
 	int auxLightRandomNumber;
@@ -95,6 +96,7 @@ struct sParamRender
 
 	bool advancedQuality;
 	bool antialiasingEnabled;
+	bool antialiasingAdaptive;
 	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;

@@ -43,7 +43,9 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	advancedQuality = container->Get<bool>("advanced_quality");
 	absMaxMarchingStep = container->Get<double>("abs_max_marching_step");
 	absMinMarchingStep = container->Get<double>("abs_min_marching_step");
+	antialiasingAdaptive = container->Get<bool>("antialiasing_adaptive");
 	antialiasingEnabled = container->Get<bool>("antialiasing_enabled");
+	antialiasingOclDepth = container->Get<int>("antialiasing_ocl_depth");
 	antialiasingSize = container->Get<int>("antialiasing_size");
 	ambientOcclusion = container->Get<float>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");

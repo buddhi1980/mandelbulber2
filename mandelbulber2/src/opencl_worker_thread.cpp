@@ -164,6 +164,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				outputDataForQueue.jobWidth = jobWidth;
 				outputDataForQueue.jobHeight = jobHeight;
 				outputDataForQueue.monteCarloLoop = monteCarloLoop;
+				outputDataForQueue.aaDepth = actualAADepth;
 				outputDataForQueue.outputBuffers.append(dataBuffer);
 
 				outputQueue->AddToQueue(&outputDataForQueue);
@@ -200,11 +201,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			return;
 		}
 
-		if(monteCarloLoop == 1) actualAADepth++;
+		if (monteCarloLoop == 1) actualAADepth++;
 
 		actualAARepeatIndex++;
 		int numberOfAARepeats = int(pow(9.0, double((actualAADepth - 1) / 2))) * 4;
-		qDebug() << numberOfAARepeats;
+		// qDebug() << numberOfAARepeats;
 
 		if (actualAARepeatIndex >= numberOfAARepeats)
 		{
@@ -254,7 +255,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 		xIndex = positionIndex % gridSize;
 		yIndex = positionIndex / gridSize;
 
-		qDebug() << repeatIndex << positionIndex << xIndex << yIndex;
+		//		qDebug() << repeatIndex << positionIndex << xIndex << yIndex;
 
 		baseOffsetX = (xIndex - gridSize / 2) / float(gridSize);
 		baseOffsetY = (yIndex - gridSize / 2) / float(gridSize);
@@ -324,8 +325,8 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 		offset.x = baseOffsetX + smallOffsetX;
 		offset.y = baseOffsetY + smallOffsetY;
 
-		qDebug() << "grid" << gridSize << "small" << smallOffsetX << smallOffsetY << "base"
-						 << baseOffsetX << baseOffsetY << "offset" << offset.x << offset.y;
+		//		qDebug() << "grid" << gridSize << "small" << smallOffsetX << smallOffsetY << "base"
+		//						 << baseOffsetX << baseOffsetY << "offset" << offset.x << offset.y;
 	}
 	else
 	{

@@ -295,11 +295,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		normalizedScreenPoint.x *= aspectRatio;
 
-		//#ifdef MONTE_CARLO_ANTI_ALIASING
-		//		normalizedScreenPoint.x +=
-		//			(Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
-		//		normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
-		//#endif
+#ifdef MONTE_CARLO_ANTI_ALIASING
+		normalizedScreenPoint.x +=
+			(Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
+		normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
+#endif
 
 #ifdef ANTIALIASING
 		normalizedScreenPoint.x += antiAliasingOffset.x / width * aspectRatio;

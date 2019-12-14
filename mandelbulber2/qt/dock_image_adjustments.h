@@ -71,6 +71,7 @@ private:
 public:
 	void ApplyImageChangesSetEnabled(bool enable) const;
 	bool IsConnectDetailLevelEnabled() const;
+	void SetAntialiasingOpenCL(bool enable) const;
 
 public slots:
 	void slotCheckedDetailLevelLock(int state) const;
