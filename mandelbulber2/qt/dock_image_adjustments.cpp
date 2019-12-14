@@ -219,7 +219,8 @@ void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 	}
 	else if (perspType == params::perspThreePoint)
 	{
-		ui->spinbox_fov->setValue(90.0);
+		if(gPar->Get<double>("fov") > 179.0)
+		ui->spinbox_fov->setValue(53.13);
 	}
 }
 
