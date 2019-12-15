@@ -21481,14 +21481,54 @@ void AboxTetra4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
- * Testing difs DE transform
- * http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ * Testing
+ * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
+ * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
  */
 void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	CVector4 oldZ = z;
-	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
+	CVector4 ptFive = CVector4(0.5, 0.5, 0.5, 0.0);
+	CVector4 onePtFive = CVector4(1.5, 1.5, 1.5, 0.0);
+	CVector4 pp;
+
+	if (aux.i == 0)
+	{
+		z = z * 0.5 + ptFive;
+		pp = fabs(z - ptFive) - ptFive;
+		aux.DE0 = max(pp.x, max(pp.y, pp.z));
+	}
+
+	double pax = fmod(3.0 * z.x * aux.DE, 3.0);
+	double pay = fmod(3.0 * z.y * aux.DE, 3.0);
+	double paz = fmod(3.0 * z.z * aux.DE, 3.0);
+
+	CVector4 pa = CVector4(pax, pay, paz, 0.0);
+	aux.DE *= fractal->transformCommon.scale2;
+
+	pp = ptFive - fabs(pa - onePtFive) + fractal->transformCommon.offset001;
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
+	}
+
+
+	double d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) /aux.DE; // distance inside the 3 axis aligned square tubes
+
+	aux.DE0 = max(d, aux.DE0);
+
+		// Use this to crop to a sphere:
+	// double e = clamp(z.Length() - 1.0, 0.0, 100.0);
+	 //aux.dist =  min(z.z, max(aux.DE0, e));// distance estimate
+
+	 aux.dist = aux.DE0;
+
+
+	/*CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAx
@@ -21689,10 +21729,10 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 		aux.DE0 = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
-	}
+	}*/
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
+/*	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -21708,6 +21748,6 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 		else
 			aux.color += colorAdd;
-	}
+	}*/
 }
 
