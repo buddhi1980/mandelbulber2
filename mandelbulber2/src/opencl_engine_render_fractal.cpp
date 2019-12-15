@@ -1291,10 +1291,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						bool anitiAliasingDepthFinished = true;
 						if (useAntiAlaising)
 						{
-							if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
-								anitiAliasingDepthFinished = false;
+							if (output.monteCarloLoop == 1)
+								anitiAliasingDepthFinished = true;
+							else
+							{
+								if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
+									anitiAliasingDepthFinished = false;
+							}
 						}
-						if (output.monteCarloLoop == 1) anitiAliasingDepthFinished = true;
 
 						if (noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
 								&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
