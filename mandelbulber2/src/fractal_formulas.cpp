@@ -21751,3 +21751,117 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}*/
 }
 
+/**
+ * DifsMengerV2Iteration
+ * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
+ * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
+ */
+void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double colorAdd = 0.0;
+	CVector4 oldZ = z;
+
+	// abs z
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse
+				&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
+
+	// scale
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
+
+	// DE
+	double colorDist = aux.dist;
+	CVector4 zc = z;
+
+	if (aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		double rr = 0.0;
+		CVector4 ptFive = CVector4(0.5, 0.5, 0.5, 0.0);
+		CVector4 onePtFive = CVector4(1.5, 1.5, 1.5, 0.0);
+		zc = zc * 0.5 + ptFive;
+		CVector4 pp = fabs(zc - ptFive) - ptFive;
+		aux.DE0 = max(pp.x, max(pp.y, pp.z));
+			int count = fractal->transformCommon.int8X; // Menger Sponge
+		for (int k = 0; k < count && rr < 10.0; k++)
+		{
+
+			double pax = fmod(3.0 * zc.x * aux.DE, 3.0);
+			double pay = fmod(3.0 * zc.y * aux.DE, 3.0);
+			double paz = fmod(3.0 * zc.z * aux.DE, 3.0);
+
+			CVector4 pa = CVector4(pax, pay, paz, 0.0);
+			aux.DE *= fractal->transformCommon.scale3;
+
+			pp = ptFive - fabs(pa - onePtFive) + fractal->transformCommon.offsetA000;
+			// rotation
+			if (fractal->transformCommon.functionEnabledRFalse
+					&& aux.i >= fractal->transformCommon.startIterationsR
+					&& aux.i < fractal->transformCommon.stopIterationsR)
+			{
+				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
+			}
+			rr = pp.Dot(pp);
+
+			double d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) /aux.DE;
+
+			aux.DE0 = max(d, aux.DE0);
+		}
+
+		// Use this to crop to a sphere:
+	// double e = clamp(z.Length() - 1.0, 0.0, 100.0);
+	 //aux.dist =  min(z.z, max(aux.DE0, e));// distance estimate
+
+	 aux.dist = aux.DE0;
+	}
+
+	// aux.color
+	/*if (fractal->foldColor.auxColorEnabled)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist) aux.color += colorAdd;
+		}
+		else
+			aux.color += colorAdd;
+	}*/
+}
+
