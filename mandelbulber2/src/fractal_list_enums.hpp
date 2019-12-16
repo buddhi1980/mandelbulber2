@@ -380,7 +380,7 @@ enum enumFractalFormula
 	transfDIFSPrismV2 = 1612,
 	transfDIFSGrid = 1613,
 	transfDIFSGridV2 = 1614,
-
+	transfDIFSTorusGrid = 1615,
 
 
 

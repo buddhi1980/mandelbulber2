@@ -579,6 +579,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>DIFS Torus V3", "transf_difs_torus_v3",
 		transfDIFSTorusV3, TransfDIFSTorusV3Iteration, analyticDEType, dIFSDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>DIFS Torus Grid", "transf_difs_torus_grid",
+		transfDIFSTorusGrid, TransfDIFSTorusGridIteration, analyticDEType, dIFSDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
+
+
 
 	fractalList->append(sFractalDescription("T>DIFS Hybrid Color", "transf_difs_hybrid_color",
 		transfDIFSHybridColor, TransfDIFSHybridColorIteration, analyticDEType, withoutDEFunction,

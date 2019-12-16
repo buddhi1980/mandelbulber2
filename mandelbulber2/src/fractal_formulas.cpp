@@ -21487,8 +21487,8 @@ void AboxTetra4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
-	CVector4 oldZ = z;
+	// double colorAdd = 0.0;
+	// CVector4 oldZ = z;
 	CVector4 ptFive = CVector4(0.5, 0.5, 0.5, 0.0);
 	CVector4 onePtFive = CVector4(1.5, 1.5, 1.5, 0.0);
 	CVector4 pp;
@@ -21758,9 +21758,6 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
-	CVector4 oldZ = z;
-
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
@@ -21769,9 +21766,7 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// polyfold
-		if (fractal->transformCommon.functionEnabledPFalse
-				&& aux.i >= fractal->transformCommon.startIterationsP
-				&& aux.i < fractal->transformCommon.stopIterationsP)
+		if (fractal->transformCommon.functionEnabledPFalse)
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
@@ -21781,16 +21776,12 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			z.y = sin(psi) * len;
 		}
 		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse
-				&& aux.i >= fractal->transformCommon.startIterationsC
-				&& aux.i < fractal->transformCommon.stopIterationsC)
+		if (fractal->transformCommon.functionEnabledCFalse)
 		{
 			double xOffset = fractal->transformCommon.offsetC0;
 			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
 		}
-		if (fractal->transformCommon.functionEnabledDFalse
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD)
+		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			double yOffset = fractal->transformCommon.offsetD0;
 			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
@@ -21802,7 +21793,6 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	// DE
-	double colorDist = aux.dist;
 	CVector4 zc = z;
 
 	if (aux.i >= fractal->transformCommon.startIterations
@@ -21813,11 +21803,11 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		CVector4 onePtFive = CVector4(1.5, 1.5, 1.5, 0.0);
 		zc = zc * 0.5 + ptFive;
 		CVector4 pp = fabs(zc - ptFive) - ptFive;
+		aux.DE = aux.DE + fractal->analyticDE.offset0;
 		aux.DE0 = max(pp.x, max(pp.y, pp.z));
-			int count = fractal->transformCommon.int8X; // Menger Sponge
+		int count = fractal->transformCommon.int8X; // Menger Sponge
 		for (int k = 0; k < count && rr < 10.0; k++)
 		{
-
 			double pax = fmod(3.0 * zc.x * aux.DE, 3.0);
 			double pay = fmod(3.0 * zc.y * aux.DE, 3.0);
 			double paz = fmod(3.0 * zc.z * aux.DE, 3.0);
@@ -21839,29 +21829,61 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 			aux.DE0 = max(d, aux.DE0);
 		}
-
-		// Use this to crop to a sphere:
-	// double e = clamp(z.Length() - 1.0, 0.0, 100.0);
-	 //aux.dist =  min(z.z, max(aux.DE0, e));// distance estimate
-
-	 aux.dist = aux.DE0;
-	}
-
-	// aux.color
-	/*if (fractal->foldColor.auxColorEnabled)
-	{
-		if (fractal->foldColor.auxColorEnabledFalse)
+		if (!fractal->transformCommon.functionEnabledAFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
-		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux.dist) aux.color += colorAdd;
+			aux.dist = aux.DE0;
 		}
 		else
-			aux.color += colorAdd;
-	}*/
+		{
+			if (!fractal->transformCommon.functionEnabledBFalse)
+			{
+				// Use this to crop to a sphere:
+				double e = clamp(z.Length() - 1.0, 0.0, 100.0);
+				aux.dist =  max(aux.DE0, e);
+			}
+			else
+			{
+				// Use this to crop to a sphere:
+				double e = clamp(zc.Length() - 1.0, 0.0, 100.0);
+				aux.dist =  max(aux.DE0, e);
+			}
+		}
+		aux.dist *= fractal->analyticDE.scale1;
+	}
 }
+
+/**
+ * TransfDIFSTorusGridIteration
+ * a
+ */
+void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 zc = z;
+
+	if (fractal->transformCommon.rotationEnabled)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
+
+	zc.z /= fractal->transformCommon.scaleF1;
+
+	/*double f = 0.5 * fractal->transformCommon.offset2;
+	zc.x = fmod(zc.x + f, f * 2.0) - f;
+	zc.y = fmod(zc.y + f, f * 2.0) - f;*/
+	double size = fractal->transformCommon.offset2;
+	zc.x = fabs(zc.x - size * floor(zc.x / size + 0.5));
+	zc.y = fabs(zc.y - size * floor(zc.y / size + 0.5));
+
+
+
+	double torD = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		torD = sqrt(torD * torD + zc.z * zc.z);
+	else
+		torD = max(fabs(torD), fabs(zc.z));
+	aux.dist = min(aux.dist, torD - fractal->transformCommon.offset0005 / (aux.DE + 1.0));
+}
+
+
 
