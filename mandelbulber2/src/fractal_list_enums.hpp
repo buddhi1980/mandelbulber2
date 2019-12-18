@@ -231,7 +231,7 @@ enum enumFractalFormula
 	dIFSMsltoeDonut = 610,
 	dIFSMultiV1 = 611,
 	dIFSMengerV2 = 612,
-
+	dIFSMengerV3 = 613,
 
 
 

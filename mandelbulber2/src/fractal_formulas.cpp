@@ -21824,7 +21824,6 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
 			}
 			double d;
-
 			d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) / aux.DE;
 			aux.DE0 = max(d, aux.DE0);
 
@@ -21883,5 +21882,94 @@ void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtende
 	aux.dist = min(aux.dist, torD - fractal->transformCommon.offset0005 / (aux.DE + 1.0));
 }
 
+/**
+ * DifsMengerV3Iteration
+ * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
+ * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
+ */
+void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// abs z
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
 
+	// scale
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
+
+	// DE
+	CVector4 zc = z;
+
+	if (aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		double rr = 0.0;
+		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
+		swap(zc.y, zc.z);
+		zc += one;
+		double modOff = fractal->transformCommon.offset3;
+		aux.DE += fractal->analyticDE.offset0;
+		int count = fractal->transformCommon.int8X;
+		for (int k = 0; k < count && rr < 10.0; k++)
+		{
+			double pax = fmod(zc.x * aux.DE, modOff) - 0.5 * modOff;
+			double pay = fmod(zc.y * aux.DE, modOff) - 0.5 * modOff;
+			double paz = fmod(zc.z * aux.DE, modOff) - 0.5 * modOff;
+			CVector4 pp = CVector4(pax, pay, paz, 0.0);
+
+			pp += fractal->transformCommon.offsetA000;
+			rr = pp.Dot(pp);
+
+			// rotation
+			if (fractal->transformCommon.functionEnabledRFalse
+					&& k >= fractal->transformCommon.startIterationsR
+					&& k < fractal->transformCommon.stopIterationsR)
+			{
+				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
+			}
+			aux.DE0 = max(aux.DE0, (fractal->transformCommon.offset1 - pp.Length()) / aux.DE);
+			aux.DE *= fractal->transformCommon.scale3;
+		}
+		if (!fractal->transformCommon.functionEnabledAFalse)
+		{
+			// Use this to crop to a sphere:
+			double e;
+			if (!fractal->transformCommon.functionEnabledBFalse) e = z.Length();
+			else e = zc.Length();
+			e = clamp(e - fractal->transformCommon.offset2, 0.0, 100.0);
+			aux.dist =  max(aux.DE0, e);
+		}
+		else
+		{
+			aux.dist = aux.DE0;
+		}
+		aux.dist *= fractal->analyticDE.scale1;
+	}
+}
 

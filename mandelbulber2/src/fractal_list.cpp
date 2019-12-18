@@ -532,6 +532,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 
+	fractalList->append(sFractalDescription("DIFS Menger V3", "difs_menger_v3", dIFSMengerV3,
+		DIFSMengerV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
+
+
 	// ---- dIFS transforms----
 
 	fractalList->append(sFractalDescription("T>DIFS Box", "transf_difs_box", transfDIFSBox,
