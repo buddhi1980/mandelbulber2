@@ -21803,50 +21803,48 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		CVector4 onePtFive = CVector4(1.5, 1.5, 1.5, 0.0);
 		zc = zc * 0.5 + ptFive;
 		CVector4 pp = fabs(zc - ptFive) - ptFive;
-		aux.DE = aux.DE + fractal->analyticDE.offset0;
+		double modOff = fractal->transformCommon.offset3;
+		aux.DE += fractal->analyticDE.offset0;
 		aux.DE0 = max(pp.x, max(pp.y, pp.z));
-		int count = fractal->transformCommon.int8X; // Menger Sponge
+		int count = fractal->transformCommon.int8X;
 		for (int k = 0; k < count && rr < 10.0; k++)
 		{
-			double pax = fmod(3.0 * zc.x * aux.DE, 3.0);
-			double pay = fmod(3.0 * zc.y * aux.DE, 3.0);
-			double paz = fmod(3.0 * zc.z * aux.DE, 3.0);
-
+			double pax = fmod(modOff * zc.x * aux.DE, modOff);
+			double pay = fmod(modOff * zc.y * aux.DE, modOff);
+			double paz = fmod(modOff * zc.z * aux.DE, modOff);
 			CVector4 pa = CVector4(pax, pay, paz, 0.0);
-			aux.DE *= fractal->transformCommon.scale3;
 
 			pp = ptFive - fabs(pa - onePtFive) + fractal->transformCommon.offsetA000;
+			rr = pp.Dot(pp);
 			// rotation
 			if (fractal->transformCommon.functionEnabledRFalse
-					&& aux.i >= fractal->transformCommon.startIterationsR
-					&& aux.i < fractal->transformCommon.stopIterationsR)
+					&& k >= fractal->transformCommon.startIterationsR
+					&& k < fractal->transformCommon.stopIterationsR)
 			{
 				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
 			}
-			rr = pp.Dot(pp);
+			double d;
 
-			double d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) /aux.DE;
-
+			d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) / aux.DE;
 			aux.DE0 = max(d, aux.DE0);
+
+			if (fractal->transformCommon.functionEnabledEFalse)
+			{
+				d = max(d, (fractal->transformCommon.offset1 - pp.Length())) / aux.DE;
+				aux.DE0 = max(d, aux.DE0);
+			}
+			aux.DE *= fractal->transformCommon.scale3;
+
 		}
-		if (!fractal->transformCommon.functionEnabledAFalse)
-		{
-			aux.dist = aux.DE0;
-		}
+		if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = aux.DE0;
 		else
 		{
-			if (!fractal->transformCommon.functionEnabledBFalse)
-			{
-				// Use this to crop to a sphere:
-				double e = clamp(z.Length() - 1.0, 0.0, 100.0);
-				aux.dist =  max(aux.DE0, e);
-			}
-			else
-			{
-				// Use this to crop to a sphere:
-				double e = clamp(zc.Length() - 1.0, 0.0, 100.0);
-				aux.dist =  max(aux.DE0, e);
-			}
+			// Use this to crop to a sphere:
+			double e;
+			if (!fractal->transformCommon.functionEnabledBFalse) e = z.Length();
+			else e = zc.Length();
+			e = clamp(e - 1.0, 0.0, 100.0);
+			aux.dist =  max(aux.DE0, e);
 		}
 		aux.dist *= fractal->analyticDE.scale1;
 	}
