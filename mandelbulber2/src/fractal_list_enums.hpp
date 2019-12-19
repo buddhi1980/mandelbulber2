@@ -217,6 +217,7 @@ enum enumFractalFormula
 	aboxTetra4d = 188,
 
 
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
@@ -232,7 +233,7 @@ enum enumFractalFormula
 	dIFSMultiV1 = 611,
 	dIFSMengerV2 = 612,
 	dIFSMengerV3 = 613,
-
+	dIFSKoch = 614,
 
 
 

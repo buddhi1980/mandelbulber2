@@ -21973,3 +21973,154 @@ void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 }
 
+/**
+ * DIFSKochIteration
+ * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
+ * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
+ */
+void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
+
+	if(z.y > z.x) swap(z.x, z.y);
+	double YOff = 1.0 / fractal->transformCommon.offset3;
+	z.y = YOff - fabs(z.y - YOff);
+
+	z.x += 1./3.;
+	if(z.z > z.x) swap(z.x, z.z);
+	z.x -= 1./3.;
+
+	z.x -= 1./3.;
+	if(z.z > z.x) swap(z.x, z.z);
+	z.x += 1./3.;
+
+	//z = rot *z;
+	CVector4 Offset = fractal->transformCommon.offset100;
+	z = fractal->transformCommon.scale3 * (z - Offset) + Offset;
+	aux.DE = aux.DE * fractal->transformCommon.scale3;
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+
+
+	//r = dot(z, z);
+	//aux.dist = fabs(z.x - Offset.x) / aux.DE;
+	aux.dist = fabs(z.Length() - Offset.Length()) / aux.DE;
+	//	aux.dist = fabs(z.Length()) / aux.DE;
+	// abs z
+	/*if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
+
+	// scale
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
+
+	// DE
+	CVector4 zc = z;
+
+	if (aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		double rr = 0.0;
+		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
+		swap(zc.y, zc.z);
+		zc += one;
+		double modOff = fractal->transformCommon.offset3;
+		aux.DE += fractal->analyticDE.offset0;
+		int count = fractal->transformCommon.int8X;
+		for (int k = 0; k < count && rr < 10.0; k++)
+		{
+			double pax = fmod(zc.x * aux.DE, modOff) - 0.5 * modOff;
+			double pay = fmod(zc.y * aux.DE, modOff) - 0.5 * modOff;
+			double paz = fmod(zc.z * aux.DE, modOff) - 0.5 * modOff;
+			CVector4 pp = CVector4(pax, pay, paz, 0.0);
+
+			pp += fractal->transformCommon.offsetA000;
+			rr = pp.Dot(pp);
+
+			// rotation
+			if (fractal->transformCommon.functionEnabledRFalse
+					&& k >= fractal->transformCommon.startIterationsR
+					&& k < fractal->transformCommon.stopIterationsR)
+			{
+				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
+			}
+			aux.DE0 = max(aux.DE0, (fractal->transformCommon.offset1 - pp.Length()) / aux.DE);
+			aux.DE *= fractal->transformCommon.scale3;
+		}
+		if (!fractal->transformCommon.functionEnabledAFalse)
+		{
+			// Use this to crop to a sphere:
+			double e;
+			if (!fractal->transformCommon.functionEnabledBFalse) e = z.Length();
+			else e = zc.Length();
+			e = clamp(e - fractal->transformCommon.offset2, 0.0, 100.0);
+			aux.dist =  max(aux.DE0, e);
+		}
+		else
+		{
+			aux.dist = aux.DE0;
+		}
+		aux.dist *= fractal->analyticDE.scale1;
+	}*/
+}
+
