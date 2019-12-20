@@ -540,7 +540,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		DIFSKochIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
-
+	fractalList->append(sFractalDescription("DIFS Koch V2", "difs_koch_v2", dIFSKochV2,
+		DIFSKochV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 
 	// ---- dIFS transforms----
 

@@ -234,7 +234,7 @@ enum enumFractalFormula
 	dIFSMengerV2 = 612,
 	dIFSMengerV3 = 613,
 	dIFSKoch = 614,
-
+	dIFSKochV2 = 615,
 
 
 	mandelbulbEye = 800,

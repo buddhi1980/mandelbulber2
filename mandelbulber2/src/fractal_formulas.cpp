@@ -19834,7 +19834,6 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 //  experimental testing
 /**
  * Hybrid Color Trial
- *
  * bailout may need to be adjusted with some formulas
  */
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -20256,7 +20255,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		dd = 0.5 * dd * log(dd) / aux.DE; // = using linear and increasining detail level
 	}
 
-	//
 	if (aux.i < tempC || dd < aux.colorHybrid)
 	{
 		aux.colorHybrid = dd;
@@ -20966,7 +20964,6 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	CVector4 zCol = z;
 
-
 	// no z fold
 	z += fractal->transformCommon.offsetA000;
 	double rr = z.Dot(z);
@@ -21014,7 +21011,6 @@ void AmazingSurfMod4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		aux.color += colorAdd;
 	}
 }
-
 
 /**
  * TransfDEControlsIteration
@@ -21515,9 +21511,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	{
 		pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
 	}
-
-
-	double d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) /aux.DE; // distance inside the 3 axis aligned square tubes
+	// distance inside the 3 axis aligned square tubes
+	double d = min(max(pp.x, pp.z), min(max(pp.x, pp.y), max(pp.y, pp.z))) /aux.DE;
 
 	aux.DE0 = max(d, aux.DE0);
 
@@ -21732,7 +21727,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}*/
 
 	// aux.color
-/*	if (fractal->foldColor.auxColorEnabled)
+	/*	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -21864,14 +21859,9 @@ void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	zc.z /= fractal->transformCommon.scaleF1;
 
-	/*double f = 0.5 * fractal->transformCommon.offset2;
-	zc.x = fmod(zc.x + f, f * 2.0) - f;
-	zc.y = fmod(zc.y + f, f * 2.0) - f;*/
 	double size = fractal->transformCommon.offset2;
 	zc.x = fabs(zc.x - size * floor(zc.x / size + 0.5));
 	zc.y = fabs(zc.y - size * floor(zc.y / size + 0.5));
-
-
 
 	double torD = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 
@@ -21980,52 +21970,25 @@ void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	if (z.y > z.x) swap(z.x, z.y);
 
-	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
-	// folds
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		// polyfold
-		if (fractal->transformCommon.functionEnabledPFalse)
-		{
-			z.x = fabs(z.x);
-			int poly = fractal->transformCommon.int6;
-			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
-			double len = sqrt(z.x * z.x + z.y * z.y);
-			z.x = cos(psi) * len;
-			z.y = sin(psi) * len;
-		}
-		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse)
-		{
-			double xOffset = fractal->transformCommon.offsetC0;
-			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
-		}
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			double yOffset = fractal->transformCommon.offsetD0;
-			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
-		}
-	}
-
-	if(z.y > z.x) swap(z.x, z.y);
-	double YOff = 1.0 / fractal->transformCommon.offset3;
+	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
 
-	z.x += 1./3.;
-	if(z.z > z.x) swap(z.x, z.z);
-	z.x -= 1./3.;
+	z.x += FRAC_1_3;
+	if (z.z > z.x) swap(z.x, z.z);
+	z.x -= FRAC_1_3;
 
-	z.x -= 1./3.;
-	if(z.z > z.x) swap(z.x, z.z);
-	z.x += 1./3.;
+	z.x -= FRAC_1_3;
+	if (z.z > z.x) swap(z.x, z.z);
+	z.x += FRAC_1_3;
 
-	//z = rot *z;
 	CVector4 Offset = fractal->transformCommon.offset100;
 	z = fractal->transformCommon.scale3 * (z - Offset) + Offset;
 	aux.DE = aux.DE * fractal->transformCommon.scale3;
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
@@ -22033,20 +21996,26 @@ void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
-
-
-	//r = dot(z, z);
-	//aux.dist = fabs(z.x - Offset.x) / aux.DE;
 	aux.dist = fabs(z.Length() - Offset.Length()) / aux.DE;
-	//	aux.dist = fabs(z.Length()) / aux.DE;
-	// abs z
-	/*if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+}
+
+/**
+ * DIFSKochV2Iteration
+ * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
+ * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
+ */
+void DIFSKochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabledCx) if (z.y > z.x) swap(z.x, z.y);
+
 	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
+		// diagonal2
+		if (fractal->transformCommon.functionEnabledCxFalse) if (z.x > z.y) swap(z.x, z.y);
 		// polyfold
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{
@@ -22068,59 +22037,51 @@ void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			double yOffset = fractal->transformCommon.offsetD0;
 			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 		}
+
+		if (fractal->transformCommon.functionEnabledGFalse)
+		{
+			z += fractal->mandelbox.offset;
+			double rr = z.Dot(z);
+
+			if (rr < fractal->transformCommon.minR0)
+			{
+				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+				z *= tglad_factor1;
+				aux.DE *= tglad_factor1;
+			}
+			else if (rr < fractal->transformCommon.maxR2d1)
+			{
+				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+				z *= tglad_factor2;
+				aux.DE *= tglad_factor2;
+			}
+			z -= fractal->mandelbox.offset;
+		}
 	}
 
-	// scale
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fabs(fractal->transformCommon.scale1);
+	double YOff = FRAC_1_3 * fractal->transformCommon.scale1;
+	z.y = YOff - fabs(z.y - YOff);
 
-	// DE
-	CVector4 zc = z;
+	z.x += FRAC_1_3;
+	if (z.z > z.x) swap(z.x, z.z);
+	z.x -= FRAC_1_3;
 
-	if (aux.i >= fractal->transformCommon.startIterations
-				&& aux.i < fractal->transformCommon.stopIterations1)
+	z.x -= FRAC_1_3;
+	if (z.z > z.x) swap(z.x, z.z);
+	z.x += FRAC_1_3;
+
+	CVector4 Offset = fractal->transformCommon.offset100;
+	z = fractal->transformCommon.scale3 * (z - Offset) + Offset;
+	aux.DE = aux.DE * fractal->transformCommon.scale3;
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
-		double rr = 0.0;
-		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
-		swap(zc.y, zc.z);
-		zc += one;
-		double modOff = fractal->transformCommon.offset3;
-		aux.DE += fractal->analyticDE.offset0;
-		int count = fractal->transformCommon.int8X;
-		for (int k = 0; k < count && rr < 10.0; k++)
-		{
-			double pax = fmod(zc.x * aux.DE, modOff) - 0.5 * modOff;
-			double pay = fmod(zc.y * aux.DE, modOff) - 0.5 * modOff;
-			double paz = fmod(zc.z * aux.DE, modOff) - 0.5 * modOff;
-			CVector4 pp = CVector4(pax, pay, paz, 0.0);
-
-			pp += fractal->transformCommon.offsetA000;
-			rr = pp.Dot(pp);
-
-			// rotation
-			if (fractal->transformCommon.functionEnabledRFalse
-					&& k >= fractal->transformCommon.startIterationsR
-					&& k < fractal->transformCommon.stopIterationsR)
-			{
-				pp = fractal->transformCommon.rotationMatrix.RotateVector(pp);
-			}
-			aux.DE0 = max(aux.DE0, (fractal->transformCommon.offset1 - pp.Length()) / aux.DE);
-			aux.DE *= fractal->transformCommon.scale3;
-		}
-		if (!fractal->transformCommon.functionEnabledAFalse)
-		{
-			// Use this to crop to a sphere:
-			double e;
-			if (!fractal->transformCommon.functionEnabledBFalse) e = z.Length();
-			else e = zc.Length();
-			e = clamp(e - fractal->transformCommon.offset2, 0.0, 100.0);
-			aux.dist =  max(aux.DE0, e);
-		}
-		else
-		{
-			aux.dist = aux.DE0;
-		}
-		aux.dist *= fractal->analyticDE.scale1;
-	}*/
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+	aux.dist = fabs(z.Length() - Offset.Length()) / aux.DE;
 }
+
 
