@@ -182,7 +182,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledG_false">
      <property name="title">
-      <string>&amp;limits</string>
+      <string>&amp;repeat limits</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -256,7 +256,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>&amp;Rotation</string>
+      <string>&amp;rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

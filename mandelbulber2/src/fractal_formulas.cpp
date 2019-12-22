@@ -9993,7 +9993,8 @@ void PseudoKleinianStdDEIteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 
 	z += fractal->transformCommon.additionConstant000;
-	// aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
+
+	aux.dist = sqrt(z.x * z.x + z.y * z.y) / aux.DE;
 }
 
 /**
@@ -21624,7 +21625,7 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 /**
  * TransfDIFSTorusGridIteration
- * a
+ * based on http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {

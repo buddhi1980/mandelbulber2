@@ -224,34 +224,25 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
-			case scatorPower2:					// add v2.15
-			case scatorPower2Real:			// add v2.15
+			case scatorPower2: // add v2.15
+			// case scatorPower2Real: // add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
-				// case testingLog:
-				{
-					CVector4 z2 = z * z;
-					r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
-					// initial condition is normal r, becomes aux.r
+			{
+				CVector4 z2 = z * z;
+				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+				// initial condition is normal r, becomes aux.r
+				break;
+			}
 
-					// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
-					break;
-				}
-			// scator magnitudes
-			// magnitude in imaginary scator algebra
-
-			// case pseudoKleinian:
-			// case pseudoKleinianMod1:
-			// case pseudoKleinianMod2:
-			case pseudoKleinianStdDE:
+			/*case pseudoKleinianStdDE:
 			{
 				r = sqrt(z.x * z.x + z.y * z.y);
 				break;
-			}
+			}*/
 
 			default:
 			{
 				r = z.Length();
-				// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z);
 				break;
 			}
 		}

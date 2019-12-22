@@ -451,9 +451,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		MixPinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
+	/*fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
 		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));*/
 
 	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
@@ -543,6 +543,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("DIFS Koch V2", "difs_koch_v2", dIFSKochV2,
 		DIFSKochV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
+		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, dIFSDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
+
 
 	// ---- dIFS transforms----
 
