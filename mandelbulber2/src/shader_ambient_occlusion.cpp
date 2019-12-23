@@ -49,7 +49,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 	int start = 0;
 	int end = AOVectorsCount - 1;
 
-	if (params->DOFEnabled && params->DOFMonteCarlo)
+	if (params->DOFMonteCarlo)
 	{
 		int randomSample = Random(AOVectorsCount - 1);
 		start = randomSample;
