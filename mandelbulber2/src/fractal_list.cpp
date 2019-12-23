@@ -271,9 +271,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		riemannSphereMsltoeV2, RiemannSphereMsltoeV2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2", scatorPower2,
+	/*fractalList->append(sFractalDescription("Scator Power 2", "scator_power2", scatorPower2,
 		ScatorPower2Iteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
+		analyticFunctionLogarithmic, coloringFunctionDefault));*/
+
+	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2", scatorPower2,
+		ScatorPower2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
+
+
+
 	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_std_r",
 		scatorPower2StdR, ScatorPower2StdRIteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));

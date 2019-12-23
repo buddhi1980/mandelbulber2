@@ -222,11 +222,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		// r calculation
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
-		switch (fractal->formula)
-		{
+		/*switch (fractal->formula)
+
 			case scatorPower2: // add v2.15
 			// case scatorPower2Real: // add v2.15
-			case scatorPower2Imaginary: // corrected v2.14
+			// case scatorPower2Imaginary: // corrected v2.14
 			{
 				CVector4 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
@@ -234,18 +234,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				break;
 			}
 
-			/*case pseudoKleinianStdDE:
-			{
-				r = sqrt(z.x * z.x + z.y * z.y);
-				break;
-			}*/
+			// case pseudoKleinianStdDE:
+			// {
+				// r = sqrt(z.x * z.x + z.y * z.y);
+				// break;
+			// }
 
 			default:
 			{
 				r = z.Length();
 				break;
 			}
-		}
+		}*/
+
+		r = z.Length();
 
 		if (z.IsNotANumber())
 		{

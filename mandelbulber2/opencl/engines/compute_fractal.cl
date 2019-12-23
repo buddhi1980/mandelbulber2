@@ -292,7 +292,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		// calculate r
 
-		switch (fractal->formula)
+		/*switch (fractal->formula)
 		{
 			case 101: // pseudoKleinianStdDE
 				aux.r = length(z.xy);
@@ -308,7 +308,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 
 			default: aux.r = length(z); break;
-		}
+		}*/
+
+		aux.r = length(z);
 
 		// escape conditions
 		if (consts->sequence.checkForBailout[sequence])

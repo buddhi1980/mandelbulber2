@@ -10628,6 +10628,9 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 				max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	}
+	CVector4 z2 = z * z;
+	double scatorR = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+	aux.dist = 0.5 * scatorR * log(scatorR) / aux.DE;
 }
 
 /**
@@ -21871,7 +21874,7 @@ void DIFSKochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	//z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offset000;
 
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
