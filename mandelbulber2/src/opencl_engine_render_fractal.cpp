@@ -1115,8 +1115,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		}
 
 		int antiAliasingDepth = 0;
-		bool useAntiAlaising =
-			constantInBuffer->params.antialiasingEnabled && renderEngineMode == clRenderEngineTypeFull;
+		bool useAntiAlaising = constantInBuffer->params.antialiasingEnabled
+													 && renderEngineMode == clRenderEngineTypeFull
+													 && !constantInBuffer->params.DOFMonteCarlo;
 
 		QVector<int> aaSampleNumberTable;
 		if (useAntiAlaising)
