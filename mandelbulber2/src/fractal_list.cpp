@@ -463,6 +463,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));*/
 
+	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
+		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, dIFSDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
@@ -552,9 +556,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		DIFSKochV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
-		pseudoKleinianStdDE, PseudoKleinianStdDEIteration, analyticDEType, dIFSDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
+
 
 
 

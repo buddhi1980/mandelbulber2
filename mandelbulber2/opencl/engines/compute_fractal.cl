@@ -292,24 +292,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		// calculate r
 
-		/*switch (fractal->formula)
-		{
-			case 101: // pseudoKleinianStdDE
-				aux.r = length(z.xy);
-				break;
-			case 2102: // testingLog
-			case 152:	// scatorPower2Imaginary
-			case 173:	// scatorPower2
-			case 156:	// scatorPower2Real
-			{
-				float4 z2 = z * z;
-				aux.r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
-				break;
-			}
-
-			default: aux.r = length(z); break;
-		}*/
-
 		aux.r = length(z);
 
 		// escape conditions

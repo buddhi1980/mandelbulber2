@@ -136,7 +136,7 @@ enum enumFractalFormula
 	mengerCrossKIFS = 98,
 	mengerPrismShape = 99,		 // fix T1 T1M V2.10. DE v2.15
 	benesiMagTransforms = 100, // update addCpixel V2.16, analytic v2.20
-	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
+	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10, change to aux.dist DE v2.21
 	bristorbrot4d = 102,
 	pseudoKleinian = 103,				// fix DE V2.10
 	pseudoKleinianMod1 = 104,		// fix T1 T1M V2.10 & DE
@@ -198,10 +198,10 @@ enum enumFractalFormula
 	ifsXY = 150,
 
 	// 152 to 172 reserved for scator
-	scatorPower2Imaginary = 152, // fixed r calc v2.14
-	scatorPower2Real = 156,			 // added V2.15
-	scatorPower2 = 173,					 // added V2.15
-	scatorPower2StdR = 174,			 // added V2.15
+	scatorPower2Imaginary = 152, // fixed r calc v2.14, change to std r calc v2.21
+	scatorPower2Real = 156, // added V2.15, change to std r calc v2.21
+	scatorPower2 = 173, // added V2.15, change to aux.dist DE v2.21
+	scatorPower2StdR = 174, // added V2.15
 
 	// 2.20
 	riemannSphereHoboldPow4 = 180,
