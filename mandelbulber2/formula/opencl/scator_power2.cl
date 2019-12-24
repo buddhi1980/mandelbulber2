@@ -105,5 +105,8 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				max(r, vecDE) * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 		}
 	}
+	REAL4 z2 = z * z;
+	REAL scatorR = native_sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+	aux->dist = 0.5 * scatorR * native_log(scatorR) / aux->DE;
 	return z;
 }

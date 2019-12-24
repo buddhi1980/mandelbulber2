@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>scator_power2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
+    <width>898</width>
     <height>2350</height>
    </rect>
   </property>
@@ -36,6 +36,13 @@
 3D quaternion in scator algebra.
 default Real scator algebra
 r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_92">
+     <property name="text">
+      <string>Note 1): For Delta DE, force Logarithmic distance estimation function</string>
      </property>
     </widget>
    </item>

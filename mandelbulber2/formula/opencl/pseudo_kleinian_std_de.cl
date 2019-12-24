@@ -209,6 +209,6 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 
 	z += fractal->transformCommon.additionConstant000;
-	// aux->pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
+	aux->dist = sqrt(z.x * z.x + z.y * z.y) / aux->DE;
 	return z;
 }

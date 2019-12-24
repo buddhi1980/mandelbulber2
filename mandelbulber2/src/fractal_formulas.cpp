@@ -20706,7 +20706,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 /**
- * Testing difs DE transform
+ * DIFSMulti
  * http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 void DIFSMultiV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -21662,6 +21662,7 @@ void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtende
 		torD = sqrt(torD * torD + zc.z * zc.z);
 	else
 		torD = max(fabs(torD), fabs(zc.z));
+
 	aux.dist = min(aux.dist, torD - fractal->transformCommon.offset0005 / (aux.DE + 1.0));
 }
 
