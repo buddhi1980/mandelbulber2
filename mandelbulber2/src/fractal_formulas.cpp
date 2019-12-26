@@ -21565,11 +21565,11 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 }
 
 /**
- * DifsMengerV2Iteration
+ * MengerV2Iteration
  * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
  * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
  */
-void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void MengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
@@ -21663,11 +21663,11 @@ void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 }
 
 /**
- * DifsMengerV3Iteration
+ * MengerV3Iteration
  * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
  * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
  */
-void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void MengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
@@ -21754,11 +21754,11 @@ void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 }
 
 /**
- * DIFSKochIteration
+ * KochIteration
  * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
  * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
  */
-void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void KochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);
@@ -21790,11 +21790,11 @@ void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 }
 
 /**
- * DIFSKochV2Iteration
+ * KochV2Iteration
  * Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:
  * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
  */
-void DIFSKochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void KochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy)	z.y = fabs(z.y);

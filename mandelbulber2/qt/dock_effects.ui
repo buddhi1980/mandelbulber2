@@ -152,8 +152,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>567</width>
+            <height>1080</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1114,8 +1114,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>1159</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2061,8 +2061,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>296</width>
+            <height>433</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2730,9 +2730,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>551</width>
-            <height>1885</height>
+            <y>-960</y>
+            <width>553</width>
+            <height>2122</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4331,7 +4331,7 @@ of lights:</string>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_93">
                   <property name="text">
-                   <string>Visibility of glow (volumetric efect):</string>
+                   <string>Visibility of glow (volumetric effect):</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -4698,8 +4698,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1070</height>
+            <width>181</width>
+            <height>123</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

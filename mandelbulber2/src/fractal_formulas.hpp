@@ -359,11 +359,9 @@ void DIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-void DIFSMengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void DIFSMengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void DIFSMultiV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void DIFSKochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void DIFSKochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 
 void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -381,6 +379,11 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfDIFSTorusV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+void KochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void KochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MengerV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MengerV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

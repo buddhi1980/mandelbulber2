@@ -109,8 +109,8 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Linear DE"));
 	insertHeader << QPair<int, QString>(fractal::josKleinian, QObject::tr("JosLeys-Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
-	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("dIFS Formulas"));
-	insertHeader << QPair<int, QString>(fractal::transfDIFSBox, QObject::tr("dIFS Transforms"));
+	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("In Formula DE - dIFS Formulas"));
+	insertHeader << QPair<int, QString>(fractal::transfDIFSBox, QObject::tr("In Formula DE - dIFS Transforms"));
 
 	insertHeader << QPair<int, QString>(
 		fractal::aexionOctopusMod, QObject::tr("*** Formulas with delta-DE ***"));
