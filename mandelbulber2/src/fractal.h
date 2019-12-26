@@ -489,6 +489,7 @@ struct sFractalAnalyticDE
 struct sFractalTransformCommon
 {
 	double angle0;
+	double angle72;
 	double alphaAngleOffset;
 	double betaAngleOffset;
 	double foldingValue;

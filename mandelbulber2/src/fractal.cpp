@@ -265,6 +265,7 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");
+	transformCommon.angle72 = container->Get<double>("transf_angle_72");
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
 	transformCommon.foldingValue = container->Get<double>("transf_folding_value");

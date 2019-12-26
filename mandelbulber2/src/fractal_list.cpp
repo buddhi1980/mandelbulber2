@@ -577,6 +577,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ---- in formula DE - non-dIFS Formulas----
 
+	fractalList->append(sFractalDescription("Baird Delta", "baird_delta", bairdDelta,
+		BairdDeltaIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Koch", "koch", koch,
 		KochIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));

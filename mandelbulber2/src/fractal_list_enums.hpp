@@ -219,6 +219,9 @@ enum enumFractalFormula
 	mengerV3 = 190,
 	koch = 191,
 	kochV2 = 192,
+	bairdDelta = 193,
+
+
 
 
 	// mandelbulber dIFS

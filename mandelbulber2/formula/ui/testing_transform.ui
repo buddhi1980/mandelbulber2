@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing_transform</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -72,7 +72,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
           <property name="text">
            <string notr="true">z.z</string>
           </property>
@@ -95,7 +95,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
           <property name="text">
            <string notr="true">z.x</string>
           </property>
@@ -1038,7 +1038,7 @@
          </widget>
         </item>
         <item>
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_4">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

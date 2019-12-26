@@ -804,6 +804,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("transf_angle_72", 72.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_folding_value", 2.0, morphAkima, paramStandard);
