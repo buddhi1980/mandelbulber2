@@ -215,10 +215,10 @@ enum enumFractalFormula
 	// 2.21
 	aboxSphere4d = 187,
 	aboxTetra4d = 188,
-	MengerV2 = 189,
-	MengerV3 = 190,
-	Koch = 191,
-	KochV2 = 192,
+	mengerV2 = 189,
+	mengerV3 = 190,
+	koch = 191,
+	kochV2 = 192,
 
 
 	// mandelbulber dIFS

@@ -575,18 +575,18 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfDIFSHybridColor, TransfDIFSHybridColorIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	// ---- in formula DE - non-dIFS formulas----
+	// ---- in formula DE - non-dIFS Formulas----
 
-	fractalList->append(sFractalDescription("Koch", "koch", Koch,
+	fractalList->append(sFractalDescription("Koch", "koch", koch,
 		KochIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Koch V2", "koch_v2", KochV2,
+	fractalList->append(sFractalDescription("Koch V2", "koch_v2", kochV2,
 		KochV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger V2", "menger_v2", MengerV2,
+	fractalList->append(sFractalDescription("Menger V2", "menger_v2", mengerV2,
 		MengerV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Menger V3", "menger_v3", MengerV3,
+	fractalList->append(sFractalDescription("Menger V3", "menger_v3", mengerV3,
 		MengerV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
