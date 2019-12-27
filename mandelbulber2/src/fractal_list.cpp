@@ -479,7 +479,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		pseudoKleinianMod2, PseudoKleinianMod2Iteration, analyticDEType, pseudoKleinianDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionDefault));
 
-	// ----- in formula DE - dIFS formulas------
+	// ----- custom DE - dIFS formulas------
 
 	fractalList->append(
 		sFractalDescription("DIFS Box V1", "difs_box_v1", dIFSBoxV1, DIFSBoxV1Iteration, analyticDEType,
@@ -520,7 +520,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			dIFSDEFunction, cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 
 
-	// ---- in formula DE - dIFS transforms----
+	// ---- custom DE - dIFS transforms----
 
 	fractalList->append(sFractalDescription("T>DIFS Box", "transf_difs_box", transfDIFSBox,
 		TransfDIFSBoxIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
@@ -575,7 +575,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfDIFSHybridColor, TransfDIFSHybridColorIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	// ---- in formula DE - non-dIFS Formulas----
+	// ---- custom DE - non-dIFS Formulas----
 
 	fractalList->append(sFractalDescription("Baird Delta", "baird_delta", bairdDelta,
 		BairdDeltaIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
@@ -586,6 +586,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Koch V2", "koch_v2", kochV2,
 		KochV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Koch V3", "koch_v3", kochV3,
+		KochV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Menger V2", "menger_v2", mengerV2,
 		MengerV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
