@@ -22008,7 +22008,92 @@ void KochV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double beta = fractal->transformCommon.angle72 * M_PI / 360.0;
+	/*if (aux.i < 1)
+	{
+		CVector4 z0 =z ;
+
+		z = fabs(z);
+
+		 //z -= (1,1,1);
+
+		if (z.y > z.x) swap(z.x, z.y);
+		if (z.z > z.x) swap(z.x, z.z);
+		if (z.y > z.x) swap(z.x, z.y);
+
+		 aux.dist = 1.0 - z.x;
+
+		 z = z0;
+	}*/
+
+  // Folds.
+
+  //Dodecahedral
+
+//  while (n < Iterations) {
+
+	 // rotation
+	 if (fractal->transformCommon.functionEnabledRFalse
+			 && aux.i >= fractal->transformCommon.startIterationsR
+			 && aux.i < fractal->transformCommon.stopIterationsR)
+	 {
+		 z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	 }
+
+	 z *= fractal->transformCommon.scale4;
+	 aux.DE *= fractal->transformCommon.scale4;
+
+	z = fabs(z);
+
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// diagonal
+		if (fractal->transformCommon.functionEnabledCxFalse) if (z.y > z.x) swap(z.x, z.y);
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x + xOffset) - xOffset;
+		}
+	}
+
+
+
+	 z -= fractal->transformCommon.offset000;
+	if (z.y > z.x) swap(z.x, z.y);
+	if (z.z > z.x) swap(z.x, z.z);
+	if (z.y > z.x) swap(z.x, z.y);
+
+	 z -= fractal->transformCommon.offset100;
+
+	if (z.y > z.x) swap(z.x, z.y);
+	if (z.z > z.x) swap(z.x, z.z);
+	if (z.y > z.x) swap(z.x, z.y);
+
+
+
+	aux.dist = fabs(min(fractal->transformCommon.offset1 / double(aux.i) - aux.dist, (z.x / aux.DE)));
+
+	//DE1 = z.x/scalep;
+
+	//}
+
+	 //DE1 = z.x/scalep;
+
+  //Distance to the plane going through vec3(Size,0.,0.) and which normal is plnormal
+
+  //return DE1;
+/*	double beta = fractal->transformCommon.angle72 * M_PI / 360.0;
 	double tc = tan(beta);
 	double tsq = sqrt(3.0 * tc * tc - 1.0) * 0.25;
 
@@ -22075,7 +22160,7 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	aux.DE *= BDscale;
 	z.x += 1.0;
 
-	aux.dist = (z.Length() - 3.0) / aux.DE;
+	aux.dist = (z.Length() - 3.0) / aux.DE;*/
 }
 
 
