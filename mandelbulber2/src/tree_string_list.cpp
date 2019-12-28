@@ -36,7 +36,7 @@ int cTreeStringList::AddItem(const QString &string)
 	return newId;
 }
 
-int cTreeStringList::AddChilderItem(const QString &string, int parentId)
+int cTreeStringList::AddChildItem(const QString &string, int parentId)
 {
 	int newId = items.size();
 	sItem newItem;
@@ -52,7 +52,7 @@ int cTreeStringList::AddChilderItem(const QString &string, int parentId)
 		newItem.parentItemId = actualItemId;
 	}
 
-	items[actualItemId].chirdrenNodesId.append(newId);
+	items[newItem.parentItemId].chirdrenNodesId.append(newId);
 
 	items.append(newItem);
 

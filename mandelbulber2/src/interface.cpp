@@ -69,6 +69,7 @@
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
 #include "trace_behind.h"
+#include "tree_string_list.h"
 #include "undo.h"
 
 #include "qt/detached_window.h"
@@ -2777,6 +2778,10 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 {
 	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
 
+	cTreeStringList parametersTree;
+	int level = 0;
+	CreateParametersTreeInWidget(&parametersTree, widget, level, 0);
+
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.SetListOfParametersToProcess(listOfParameters);
 
@@ -2898,6 +2903,49 @@ QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
 	}
 	QStringList list(listOfParameters.toList());
 	return list;
+}
+
+void cInterface::CreateParametersTreeInWidget(
+	cTreeStringList *tree, const QWidget *widget, int &level, int parentId)
+{
+	QList<QWidget *> listChildrenWidgets =
+		widget->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+
+	if (listChildrenWidgets.size() > 0)
+	{
+		QSet<QString> listOfParameters;
+
+		foreach (QWidget *w, listChildrenWidgets)
+		{
+			// qDebug() << QString(level, ' ') << "Widget: " << w->objectName();
+
+			int newParentId = -1;
+
+			CommonMyWidgetWrapper *myWidget = dynamic_cast<CommonMyWidgetWrapper *>(w);
+			if (myWidget)
+			{
+				QString parameterName = myWidget->getFullParameterName();
+				QString containerName = myWidget->getParameterContainerName();
+				QString fullParameterName = containerName + "_" + parameterName;
+				listOfParameters.insert(fullParameterName);
+
+				qDebug() << QString(level, ' ') << "ParameterName: " << fullParameterName;
+
+				int newId = tree->AddChildItem(fullParameterName, parentId);
+
+				if (dynamic_cast<MyGroupBox *>(w))
+				{
+					qDebug() << QString(level, ' ') << "GroupBox:" << fullParameterName;
+					newParentId = newId;
+				}
+			}
+
+			// recursion
+			level++;
+			CreateParametersTreeInWidget(tree, w, level, (newParentId >= 0) ? newParentId : parentId);
+		}
+	}
+	level--;
 }
 
 void cInterface::GlobalStopRequest()

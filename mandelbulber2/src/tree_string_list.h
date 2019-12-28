@@ -16,7 +16,7 @@ public:
 	~cTreeStringList() = default;
 
 	int AddItem(const QString &string);
-	int AddChilderItem(const QString &string, int parentId = -1);
+	int AddChildItem(const QString &string, int parentId = -1);
 
 private:
 	struct sItem
@@ -24,6 +24,7 @@ private:
 		QString string;
 		int itemId = -1;
 		int parentItemId = -1;
+		bool enabled = true;
 		QList<int> chirdrenNodesId;
 	};
 
