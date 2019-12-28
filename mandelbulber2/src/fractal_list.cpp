@@ -273,7 +273,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_std_r",
 		scatorPower2StdR, ScatorPower2StdRIteration, analyticDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Xenodreambuie", "xenodreambuie", xenodreambuie,
 		XenodreambuieIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -602,7 +602,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2", scatorPower2,
-		ScatorPower2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		ScatorPower2Iteration, analyticDEType, dIFSDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 
@@ -634,10 +634,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",
 		scatorPower2Real, ScatorPower2RealIteration, deltaDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Scator Power 2 Imaginary", "scator_power2_imaginary",
 		scatorPower2Imaginary, ScatorPower2ImaginaryIteration, deltaDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
 
 	// ----- Linear -----
 

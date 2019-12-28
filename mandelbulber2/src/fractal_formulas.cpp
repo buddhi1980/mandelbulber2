@@ -22008,7 +22008,10 @@ void KochV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	/*if (aux.i < 1)
+
+
+	if (!fractal->transformCommon.functionEnabledDFalse &&
+			aux.i < fractal->transformCommon.stopIterations1)
 	{
 		CVector4 z0 =z ;
 
@@ -22023,7 +22026,7 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		 aux.dist = 1.0 - z.x;
 
 		 z = z0;
-	}*/
+	}
 
   // Folds.
 
@@ -22039,8 +22042,8 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		 z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	 }
 
-	 z *= fractal->transformCommon.scale4;
-	 aux.DE *= fractal->transformCommon.scale4;
+	 z *= fractal->transformCommon.scale015;
+	 aux.DE *= fractal->transformCommon.scale015;
 
 	z = fabs(z);
 
@@ -22065,11 +22068,33 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			double xOffset = fractal->transformCommon.offsetC0;
 			if (z.x < xOffset) z.x = fabs(z.x + xOffset) - xOffset;
 		}
+
+		if (fractal->transformCommon.functionEnabledSFalse)
+		{
+
+			double rr = z.Dot(z);
+			//z += fractal->mandelbox.offset;
+
+			// if (r2 < 1e-21) r2 = 1e-21;
+			if (rr < fractal->transformCommon.minR0)
+			{
+				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+				z *= tglad_factor1;
+				aux.DE *= tglad_factor1;
+			}
+			else if (rr < fractal->transformCommon.maxR2d1)
+			{
+				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+				z *= tglad_factor2;
+				aux.DE *= tglad_factor2;
+			}
+			//z -= fractal->mandelbox.offset;
+		}
 	}
 
 
 
-	 z -= fractal->transformCommon.offset000;
+	 z -= fractal->transformCommon.offset111;
 	if (z.y > z.x) swap(z.x, z.y);
 	if (z.z > z.x) swap(z.x, z.z);
 	if (z.y > z.x) swap(z.x, z.y);
@@ -22081,9 +22106,16 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (z.y > z.x) swap(z.x, z.y);
 
 
+	if (!fractal->transformCommon.functionEnabledDFalse)
+	{
+		aux.dist = fabs(min(fractal->transformCommon.offset05 / double(aux.i) - aux.dist, (z.x / aux.DE)));
+	}
 
-	aux.dist = fabs(min(fractal->transformCommon.offset1 / double(aux.i) - aux.dist, (z.x / aux.DE)));
+	else aux.dist = min(aux.dist, z.x / aux.DE);
 
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	//DE1 = z.x/scalep;
 
 	//}
