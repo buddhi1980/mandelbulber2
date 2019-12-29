@@ -73,6 +73,36 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_254">
+       <property name="text">
+        <string>nint</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_int_A">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-99</number>
+       </property>
+       <property name="maximum">
+        <number>99</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="toolTip">
       <string/>
@@ -1230,12 +1260,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>128</y>
+     <x>40</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
-     <x>283</x>
-     <y>121</y>
+     <x>439</x>
+     <y>108</y>
     </hint>
    </hints>
   </connection>
@@ -1246,12 +1276,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>143</y>
+     <x>59</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>281</x>
-     <y>156</y>
+     <x>437</x>
+     <y>136</y>
     </hint>
    </hints>
   </connection>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>2350</height>
+    <height>2351</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -372,7 +372,8 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
         <item row="2" column="0" rowspan="3">
          <widget class="QLabel" name="label_108">
           <property name="text">
-           <string>Cpixel Multiplier:</string>
+           <string>Cpixel 
+Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -530,9 +531,9 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
         <property name="text">
-         <string notr="true">switch to  r = length(z);</string>
+         <string notr="true">switch to r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / z2.x);</string>
         </property>
        </widget>
       </item>
@@ -544,12 +545,25 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
        </widget>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string notr="true">switch to  r = length(z);</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_28" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -768,11 +782,6 @@ This formula contains aux.DE&lt;br&gt;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -787,6 +796,11 @@ This formula contains aux.DE&lt;br&gt;
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyComboBox</class>
@@ -810,8 +824,8 @@ This formula contains aux.DE&lt;br&gt;
      <y>511</y>
     </hint>
     <hint type="destinationlabel">
-     <x>472</x>
-     <y>540</y>
+     <x>607</x>
+     <y>584</y>
     </hint>
    </hints>
   </connection>
@@ -819,15 +833,15 @@ This formula contains aux.DE&lt;br&gt;
    <sender>checkBox_analyticDE_enabled_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledX_false</receiver>
-   <slot>setDisabled(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>500</y>
+     <x>15</x>
+     <y>515</y>
     </hint>
     <hint type="destinationlabel">
-     <x>73</x>
-     <y>472</y>
+     <x>22</x>
+     <y>544</y>
     </hint>
    </hints>
   </connection>

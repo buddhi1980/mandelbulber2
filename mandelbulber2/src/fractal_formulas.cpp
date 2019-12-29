@@ -10901,16 +10901,18 @@ void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
-
+	double r;
 	// Scator real enabled by default
 	CVector4 zz = z * z;
 	CVector4 newZ = z;
+	// double temp1;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{ // scator imaginary
 		newZ.x = zz.x - zz.y - zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
 		newZ *= fractal->transformCommon.constantMultiplier122;
+				// temp1 = newZ.Length();
 		newZ.x += (zz.y * zz.z) / zz.x;
 		newZ.y *= (1.0 - zz.z / zz.x);
 		newZ.z *= (1.0 - zz.y / zz.x);
@@ -10921,11 +10923,21 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
 		newZ *= fractal->transformCommon.constantMultiplier122;
+				// temp1 = newZ.Length();
 		newZ.x += (zz.y * zz.z) / zz.x;
 		newZ.y *= (1.0 + zz.z / zz.x);
 		newZ.z *= (1.0 + zz.y / zz.x);
 	}
 	z = newZ;
+	// double temp2 = newZ.Length();
+	// temp2 = temp1 / temp2;
+	/* aux.DE = aux.DE * 2.0 * aux.r;
+	double newx = z.x * z.x - z.y * z.y - z.z * z.z;
+	double newy = 2.0 * z.x * z.y;
+	double newz = 2.0 * z.x * z.z;
+	z.x = newx;
+	z.y = newy;
+	z.z = newz; */
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -10967,26 +10979,49 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	if (fractal->analyticDE.enabled)
 	{
-		double r = aux.r; // r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
-		double vecDE = 0.0;
-		if (!fractal->analyticDE.enabledFalse)
+		if (!fractal->transformCommon.functionEnabledYFalse)
 		{
-			if (fractal->transformCommon.functionEnabledXFalse)
-			{
-				r = oldZ.Length();
-			}
-			aux.DE = r * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+			r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
 		}
 		else
 		{
-			vecDE = fractal->transformCommon.scaleA1 * z.Length() / oldZ.Length();
+			r = sqrt(zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x);
+		}
+		double rd;
+
+
+		if (!fractal->analyticDE.enabledFalse)
+		{
+			aux.DE = 2.0 * r * aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+		}
+		else
+		{ // vec3
+			CVector4 zzd = z * z;
+			// double rd;
+			if (fractal->transformCommon.functionEnabledXFalse)
+			{
+				r = oldZ.Length();
+				rd = z.Length();
+			}
+			else
+			{
+				if (!fractal->transformCommon.functionEnabledYFalse)
+				{
+					rd = sqrt(zzd.x + zzd.y + zzd.z + (zzd.y * zzd.z) / zzd.x);
+				}
+				else
+				{
+					rd = sqrt(zzd.x - zzd.y - zzd.z + (zzd.y * zzd.z) / zzd.x);
+				}
+			}
+			double vecDE = fractal->transformCommon.scaleA1 * rd / r;
 			aux.DE =
 				max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
+		aux.dist = 0.5 * r * log(r) / aux.DE;
+		aux.DE0 = rd; // temp for testing
 	}
-	CVector4 z2 = z * z;
-	double scatorR = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
-	aux.dist = 0.5 * scatorR * log(scatorR) / aux.DE;
 }
 
 /**
@@ -22108,7 +22143,9 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		aux.dist = fabs(min(fractal->transformCommon.offset05 / double(aux.i) - aux.dist, (z.x / aux.DE)));
+		aux.dist = fabs(min(fractal->transformCommon.offset05
+						/ double(aux.i + fractal->transformCommon.intA)
+							- aux.dist, (z.x / aux.DE)));
 	}
 
 	else aux.dist = min(aux.dist, z.x / aux.DE);
@@ -22116,83 +22153,7 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	//DE1 = z.x/scalep;
 
-	//}
-
-	 //DE1 = z.x/scalep;
-
-  //Distance to the plane going through vec3(Size,0.,0.) and which normal is plnormal
-
-  //return DE1;
-/*	double beta = fractal->transformCommon.angle72 * M_PI / 360.0;
-	double tc = tan(beta);
-	double tsq = sqrt(3.0 * tc * tc - 1.0) * 0.25;
-
-	CVector4 fl1 = (CVector4(1.0, 0.0, -2.0 * tsq, 0.0));
-	fl1 = fl1 / sqrt(1.0 + 4.0 * tsq * tsq);
-	tc = cos(beta);
-
-	double BDscale = fractal->transformCommon.scale4 * tc * tc;
-
-		//Sierpinski triangle symmetry + fold about xy, plane plus folds inserted
-	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
-
-	// folds
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		// diagonal
-		if (fractal->transformCommon.functionEnabledCxFalse) if (z.y > z.x) swap(z.x, z.y);
-		// polyfold
-		if (fractal->transformCommon.functionEnabledPFalse)
-		{
-			z.x = fabs(z.x);
-			int poly = fractal->transformCommon.int6;
-			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
-			double len = sqrt(z.x * z.x + z.y * z.y);
-			z.x = cos(psi) * len;
-			z.y = sin(psi) * len;
-		}
-		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse)
-		{
-			double xOffset = fractal->transformCommon.offsetC0;
-			if (z.x < xOffset) z.x = fabs(z.x + xOffset) - xOffset;
-		}
-	}
-
-	double Pid6 = M_PI / 6.0;
-	double CPid6 = cos(Pid6);
-	double SPid6 = -sin(Pid6);
-	double t = 2.0 * min(0.0, z.x * CPid6 + z.y * SPid6);
-	z.x -= t * CPid6;
-	z.y -= t * SPid6;
-	z.y = fabs(z.y);
-
-	//Koch curve fold
-	z.x -= 0.5;
-	z.z -= tsq;
-	t = 2.0 * min(0.0, z.Dot(fl1));
-	z -= t * fl1;
-	z.x += 0.5;
-	z.z += tsq;
-
-	//scale
-	z.x -= 1.0;
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-	z *= BDscale;
-	aux.DE *= BDscale;
-	z.x += 1.0;
-
-	aux.dist = (z.Length() - 3.0) / aux.DE;*/
 }
 
 
