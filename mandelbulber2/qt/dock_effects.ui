@@ -50,6 +50,13 @@
       </widget>
      </item>
      <item>
+      <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize">
+       <property name="text">
+        <string>Randomize</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -128,6 +135,13 @@
           </widget>
          </item>
          <item>
+          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_2">
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -152,8 +166,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>567</width>
-            <height>1080</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1090,6 +1104,13 @@ per pixel:</string>
           </widget>
          </item>
          <item>
+          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_3">
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_3">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -1114,8 +1135,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>272</width>
-            <height>1159</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2037,6 +2058,13 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           </widget>
          </item>
          <item>
+          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_4">
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_6">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -2061,8 +2089,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>296</width>
-            <height>433</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2707,6 +2735,13 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           </widget>
          </item>
          <item>
+          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_5">
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_7">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -2730,9 +2765,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-960</y>
-            <width>553</width>
-            <height>2122</height>
+            <y>0</y>
+            <width>551</width>
+            <height>1885</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4674,6 +4709,13 @@ of lights:</string>
           </widget>
          </item>
          <item>
+          <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_6">
+           <property name="text">
+            <string>Randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_8">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -4698,8 +4740,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>181</width>
-            <height>123</height>
+            <width>569</width>
+            <height>1070</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -4920,6 +4962,11 @@ of lights:</string>
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonRandomSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_random_settings_from_widget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

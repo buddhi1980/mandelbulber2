@@ -61,6 +61,7 @@
 #include "post_effect_hdr_blur.h"
 #include "queue.hpp"
 #include "random.hpp"
+#include "randomizer_dialog.h"
 #include "render_data.hpp"
 #include "render_job.hpp"
 #include "render_ssao.h"
@@ -2883,6 +2884,13 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 		}
 	}
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cInterface::RandomizeLocalSettings(const QWidget *widget)
+{
+	qDebug() << widget;
+	cRandomizerDialog *randomizer = new cRandomizerDialog();
+	randomizer->show();
 }
 
 QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)

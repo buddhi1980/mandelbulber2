@@ -119,6 +119,7 @@ public:
 	void SaveLocalSettings(const QWidget *widget);
 	void LoadLocalSettings(const QWidget *widget);
 	void ResetLocalSettings(const QWidget *widget);
+	void RandomizeLocalSettings(const QWidget *widget);
 	QStringList CreateListOfParametersInWidget(const QWidget *widget);
 	void CreateParametersTreeInWidget(
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
