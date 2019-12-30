@@ -53,7 +53,6 @@ class cMaterialEditor;
 class cSystemTray;
 class cImage;
 class cDetachedWindow;
-class cTreeStringList;
 
 class cInterface : public QObject
 {
@@ -121,8 +120,6 @@ public:
 	void ResetLocalSettings(const QWidget *widget);
 	void RandomizeLocalSettings(const QWidget *widget);
 	QStringList CreateListOfParametersInWidget(const QWidget *widget);
-	void CreateParametersTreeInWidget(
-		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
 	bool QuitApplicationDialog();
 	void GlobalStopRequest();
 	void ResetGlobalStopRequest();

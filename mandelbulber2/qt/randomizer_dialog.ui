@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>861</width>
-    <height>833</height>
+    <width>820</width>
+    <height>834</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,7 +95,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_01" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -128,7 +128,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_02" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -161,7 +161,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_06" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -194,7 +194,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_03" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -227,7 +227,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_05" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -250,7 +250,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item>
-         <widget class="QPushButton" name="pushButton_select_6">
+         <widget class="QPushButton" name="pushButton_select_04">
           <property name="text">
            <string>Select</string>
           </property>
@@ -260,7 +260,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_04" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -293,7 +293,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_08" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -326,7 +326,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
@@ -359,7 +359,7 @@
          <widget class="cThumbnailWidget" name="previewwidget_09" native="true">
           <property name="minimumSize">
            <size>
-            <width>128</width>
+            <width>192</width>
             <height>128</height>
            </size>
           </property>
