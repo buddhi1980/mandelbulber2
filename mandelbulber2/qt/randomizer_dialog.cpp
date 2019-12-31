@@ -6,7 +6,6 @@
  */
 
 #include "randomizer_dialog.h"
-
 #include "ui_randomizer_dialog.h"
 
 #include "common_my_widget_wrapper.h"
@@ -82,6 +81,85 @@ void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
 	CreateParametersTreeInWidget(&parametersTree, sourceWidget, level, 0);
 }
 
+void cRandomizerDialog::RandomizeIntegerParameter(double randomScale, cOneParameter &parameter)
+{
+	int min = parameter.Get<int>(valueMin);
+	int max = parameter.Get<int>(valueMax);
+	int value = parameter.Get<int>(valueActual);
+	int sign = randomizer.Random(1);
+	if (sign == 0 || value == min)
+	{
+		int range = max - value - 1;
+		if (range > 0)
+		{
+			int r = randomizer.Random(range) * randomScale + 1;
+			value += r;
+		}
+		else
+		{
+			value++;
+		}
+	}
+	else
+	{
+		int range = value - min - 1;
+		if (range > 0)
+		{
+			int r = randomizer.Random(range) * randomScale + 1;
+			value -= r;
+		}
+		else
+		{
+			value--;
+		}
+	}
+	if (value > max) value = max;
+
+	if (value < min) value = min;
+
+	parameter.Set(value, valueActual);
+}
+
+void cRandomizerDialog::RandomizeDoubleParameter(double randomScale, cOneParameter &parameter)
+{
+	double min = parameter.Get<double>(valueMin);
+	double max = parameter.Get<double>(valueMax);
+	double value = parameter.Get<double>(valueActual);
+	if (value == 0.0)
+	{
+		if (min < 0.0)
+		{
+			value = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+		}
+		else
+		{
+			value = randomizer.Random(0.0, randomScale, randomScale / 1000.0);
+		}
+	}
+	else
+	{
+		if (min < 0.0)
+		{
+			double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+			value += r;
+		}
+		else
+		{
+			double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+			value = value * pow(10, r);
+		}
+		if (value > max) value = max;
+
+		if (value < min) value = min;
+	}
+	parameter.Set(value, valueActual);
+}
+
+void cRandomizerDialog::RandomizeBooleanParameter(cOneParameter &parameter)
+{
+	parameter.Set(!parameter.Get<bool>(valueActual), valueActual);
+}
+
 void cRandomizerDialog::RandomizeParameters(
 	enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal)
 {
@@ -127,116 +205,124 @@ void cRandomizerDialog::RandomizeParameters(
 		QString fullParameterName = parametersTree.GetString(randomIndex);
 		qDebug() << fullParameterName;
 
-		cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
-		int firstDashIndex = fullParameterName.indexOf("_");
-		QString parametername = fullParameterName.mid(firstDashIndex + 1);
-		qDebug() << container->GetContainerName() << parametername;
-
-		cOneParameter parameter = container->GetAsOneParameter(parametername);
-		enumVarType varType = parameter.GetValueType();
-		qDebug() << varType;
-
-		switch (varType)
+		// check is parameter is enabled
+		bool skip = false;
+		int actualParameterIndex = randomIndex;
+		int parentIndex = 0;
+		do
 		{
-			case typeInt:
+			parentIndex = parametersTree.GetParentIndex(actualParameterIndex);
+			if (parentIndex >= 0)
 			{
-				int min = parameter.Get<int>(valueMin);
-				int max = parameter.Get<int>(valueMax);
-				int value = parameter.Get<int>(valueActual);
-				int sign = randomizer.Random(1);
-				if (sign == 0 || value == min)
+				qDebug() << "--Checking parent:" << parametersTree.GetString(parentIndex);
+
+				if (parametersTree.GetString(parentIndex) == "root") break;
+
+				bool hidden = parametersTree.IsEnabled(parentIndex);
+				if (hidden)
 				{
-					int range = max - value - 1;
-					if (range > 0)
-					{
-						int r = randomizer.Random(range) * randomScale + 1;
-						value += r;
-					}
-					else
-					{
-						value++;
-					}
-				}
-				else
-				{
-					int range = value - min - 1;
-					if (range > 0)
-					{
-						int r = randomizer.Random(range) * randomScale + 1;
-						value -= r;
-					}
-					else
-					{
-						value--;
-					}
+					skip = true;
+					break;
 				}
 
-				if (value > max) value = max;
-				if (value < min) value = min;
+				QString fullParameterNameToCheck = parametersTree.GetString(parentIndex);
+				cParameterContainer *container =
+					ContainerSelector(fullParameterNameToCheck, params, fractal);
+				int firstDashIndex = fullParameterNameToCheck.indexOf("_");
+				QString parameterName = fullParameterNameToCheck.mid(firstDashIndex + 1);
+				if (!container->Get<bool>(parameterName))
+				{
+					skip = true;
+					break;
+				}
+				actualParameterIndex = parentIndex;
+			}
+		} while (parentIndex >= 0);
 
-				parameter.Set(value, valueActual);
-				break;
-			}
-			case typeDouble:
-			{
-				double min = parameter.Get<double>(valueMin);
-				double max = parameter.Get<double>(valueMax);
-				double value = parameter.Get<double>(valueActual);
-				if (value == 0.0)
-				{
-					if (min < 0.0)
-					{
-						value = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
-					}
-					else
-					{
-						value = randomizer.Random(0.0, randomScale, randomScale / 1000.0);
-					}
-				}
-				else
-				{
-					if (min < 0.0)
-					{
-						double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
-						value += r;
-					}
-					else
-					{
-						double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
-						value = value * pow(10, r);
-					}
-					if (value > max) value = max;
-					if (value < min) value = min;
-				}
-				parameter.Set(value, valueActual);
-				break;
-			}
-			case typeString:
-			{
-				break;
-			}
-			case typeVector3:
-			{
-				break;
-			}
-			case typeVector4:
-			{
-				break;
-			}
-			case typeRgb:
-			{
-				break;
-			}
-			case typeBool:
-			{
-				parameter.Set(!parameter.Get<bool>(valueActual), valueActual);
-				break;
-			}
-			default: break;
+		if (skip)
+		{
+			i--;
+			continue;
 		}
 
-		container->SetFromOneParameter(parametername, parameter);
+		// if parameter is a group then enable this gruop and randomize deeper parameter
+		if (parametersTree.IsGroup(randomIndex))
+		{
+			QList<int> childrens = parametersTree.GetChildrens(randomIndex);
+
+			int randomChildIndex;
+			if (childrens.size() > 1)
+			{
+				randomChildIndex = randomizer.Random(childrens.size() - 1);
+			}
+			else
+			{
+				randomChildIndex = 0;
+			}
+			int deeperRandomIndex = childrens.at(randomChildIndex);
+
+			// enable group
+			cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
+			int firstDashIndex = fullParameterName.indexOf("_");
+			QString parameterName = fullParameterName.mid(firstDashIndex + 1);
+			container->Set(parameterName, true);
+
+			// and further randomize one of deeper parameters
+			fullParameterName = parametersTree.GetString(deeperRandomIndex);
+		}
+
+		RandomizeOneParameter(fullParameterName, randomScale, params, fractal);
 	}
+}
+
+void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double randomScale,
+	cParameterContainer *params, cFractalContainer *fractal)
+{
+	cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
+	int firstDashIndex = fullParameterName.indexOf("_");
+	QString parameterName = fullParameterName.mid(firstDashIndex + 1);
+	qDebug() << "---Randomizing: " << container->GetContainerName() << parameterName;
+
+	cOneParameter parameter = container->GetAsOneParameter(parameterName);
+	enumVarType varType = parameter.GetValueType();
+
+	switch (varType)
+	{
+		case typeInt:
+		{
+			RandomizeIntegerParameter(randomScale, parameter);
+			break;
+		}
+		case typeDouble:
+		{
+			RandomizeDoubleParameter(randomScale, parameter);
+			break;
+		}
+		case typeString:
+		{
+			break;
+		}
+		case typeVector3:
+		{
+			break;
+		}
+		case typeVector4:
+		{
+			break;
+		}
+		case typeRgb:
+		{
+			break;
+		}
+		case typeBool:
+		{
+			RandomizeBooleanParameter(parameter);
+			break;
+		}
+		default: break;
+	}
+
+	container->SetFromOneParameter(parameterName, parameter);
 }
 
 void cRandomizerDialog::slotClieckedHeavyRandomize()
@@ -270,7 +356,8 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 
 				qDebug() << QString(level, ' ') << "ParameterName: " << fullParameterName;
 
-				int newId = tree->AddChildItem(fullParameterName, parentId);
+				bool hidden = w->isHidden();
+				int newId = tree->AddChildItem(fullParameterName, hidden, parentId);
 
 				if (dynamic_cast<MyGroupBox *>(w))
 				{

@@ -13,18 +13,20 @@ cTreeStringList::cTreeStringList()
 	newItem.string = "root";
 	newItem.itemId = 0;
 	newItem.parentItemId = -1;
+	newItem.enabled = true;
 	actualItemId = 0;
 	actualParentId = 0;
 	items.append(newItem);
 }
 
-int cTreeStringList::AddItem(const QString &string)
+int cTreeStringList::AddItem(const QString &string, bool enabled)
 {
 	int newId = items.size();
 	sItem newItem;
 	newItem.string = string;
 	newItem.itemId = newId;
 	newItem.parentItemId = actualParentId;
+	newItem.enabled = enabled;
 
 	if (newItem.parentItemId >= 0)
 	{
@@ -36,12 +38,13 @@ int cTreeStringList::AddItem(const QString &string)
 	return newId;
 }
 
-int cTreeStringList::AddChildItem(const QString &string, int parentId)
+int cTreeStringList::AddChildItem(const QString &string, bool enabled, int parentId)
 {
 	int newId = items.size();
 	sItem newItem;
 	newItem.string = string;
 	newItem.itemId = newId;
+	newItem.enabled = enabled;
 
 	if (parentId >= 0)
 	{
@@ -71,5 +74,57 @@ QString cTreeStringList::GetString(int index)
 	{
 		qCritical() << "cTreeStringList::GetString(int index): Wrong index: " << index;
 		return QString();
+	}
+}
+
+int cTreeStringList::GetParentIndex(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).parentItemId;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::GetParentIndex(int index): Wrong index: " << index;
+		return -1;
+	}
+}
+
+bool cTreeStringList::IsEnabled(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).enabled;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::IsEnabled(int index): Wrong index: " << index;
+		return false;
+	}
+}
+
+bool cTreeStringList::IsGroup(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).chirdrenNodesId.size() > 0;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::IsGroup(int index): Wrong index: " << index;
+		return false;
+	}
+}
+
+QList<int> cTreeStringList::GetChildrens(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).chirdrenNodesId;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::GetChildrens(int index): Wrong index: " << index;
+		return QList<int>();
 	}
 }

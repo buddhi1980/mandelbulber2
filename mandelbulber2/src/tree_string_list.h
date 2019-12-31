@@ -15,10 +15,14 @@ public:
 	cTreeStringList();
 	~cTreeStringList() = default;
 
-	int AddItem(const QString &string);
-	int AddChildItem(const QString &string, int parentId = -1);
+	int AddItem(const QString &string, bool enabled);
+	int AddChildItem(const QString &string, bool enabled, int parentId = -1);
 	int GetSize() { return items.size(); }
 	QString GetString(int index);
+	int GetParentIndex(int index);
+	bool IsEnabled(int index);
+	bool IsGroup(int index);
+	QList<int> GetChildrens(int index);
 
 private:
 	struct sItem

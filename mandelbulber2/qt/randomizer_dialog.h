@@ -54,6 +54,11 @@ private:
 		QString fullParameterName, cParameterContainer *params, cFractalContainer *fractal);
 	void RandomizeParameters(
 		enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal);
+	void RandomizeOneParameter(QString fullParameterName, double randomScale,
+		cParameterContainer *params, cFractalContainer *fractal);
+	void RandomizeIntegerParameter(double randomScale, cOneParameter &parameter);
+	void RandomizeDoubleParameter(double randomScale, cOneParameter &parameter);
+	void RandomizeBooleanParameter(cOneParameter &parameter);
 
 private slots:
 	void slotClieckedSlightRandomize();
