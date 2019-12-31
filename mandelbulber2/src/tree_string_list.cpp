@@ -60,3 +60,16 @@ int cTreeStringList::AddChildItem(const QString &string, int parentId)
 	actualParentId = newId;
 	return newId;
 }
+
+QString cTreeStringList::GetString(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).string;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::GetString(int index): Wrong index: " << index;
+		return QString();
+	}
+}

@@ -50,6 +50,13 @@
       </widget>
      </item>
      <item>
+      <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize">
+       <property name="text">
+        <string>Randomize</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1059,6 +1066,11 @@ for 4D fractals</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonRandomSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_random_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>

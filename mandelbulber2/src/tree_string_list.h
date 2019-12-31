@@ -17,6 +17,8 @@ public:
 
 	int AddItem(const QString &string);
 	int AddChildItem(const QString &string, int parentId = -1);
+	int GetSize() { return items.size(); }
+	QString GetString(int index);
 
 private:
 	struct sItem

@@ -12,6 +12,7 @@
 
 #include "src/fractal_container.hpp"
 #include "src/parameters.hpp"
+#include "src/random.hpp"
 #include "src/tree_string_list.h"
 
 namespace Ui
@@ -46,9 +47,13 @@ private:
 
 	const int numberOfVersions = 9;
 
-	void Randomize(enimRandomizeStrength sthength);
+	void Randomize(enimRandomizeStrength strength);
 	void CreateParametersTreeInWidget(
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
+	static cParameterContainer *ContainerSelector(
+		QString fullParameterName, cParameterContainer *params, cFractalContainer *fractal);
+	void RandomizeParameters(
+		enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal);
 
 private slots:
 	void slotClieckedSlightRandomize();
@@ -59,6 +64,7 @@ private:
 	Ui::cRandomizerDialog *ui;
 	cTreeStringList parametersTree;
 	QList<sParameterVersion> listOfVersions;
+	cRandom randomizer;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */

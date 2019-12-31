@@ -74,6 +74,11 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
 	newRecord.Set(defaultVal, valueActual);
+	if (enumLookup.size() > 0)
+	{
+		newRecord.Set(0, valueMin);
+		newRecord.Set(enumLookup.size() - 1, valueMax);
+	}
 	newRecord.SetMorphType(morphType);
 	newRecord.SetParameterType(parType);
 	newRecord.SetOriginalContainerName(containerName);

@@ -258,8 +258,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("glow_enabled", true, morphLinear, paramStandard);
 	par->addParam("glow_intensity", 0.2, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("textured_background", false, morphLinear, paramStandard);
-	par->addParam(
-		"textured_background_map_type", int(params::mapEquirectangular), morphNone, paramStandard);
+	par->addParam("textured_background_map_type", int(params::mapEquirectangular), morphNone,
+		paramStandard, QStringList({"equirectangular", "doubleHemisphere", "flat"}));
 	par->addParam("background_brightness", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("background_h_scale", 1.0, 0.001, 1000.0, morphLinear, paramStandard);
 	par->addParam("background_texture_offset_x", 0.0, -1000.0, 1000.0, morphLinear, paramStandard);
