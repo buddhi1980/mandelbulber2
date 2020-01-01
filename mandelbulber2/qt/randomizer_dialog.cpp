@@ -12,6 +12,7 @@
 #include "my_group_box.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
+#include "src/interface.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
@@ -26,6 +27,27 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		&cRandomizerDialog::slotClieckedMediumRandomize);
 	connect(ui->pushButton_slight, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotClieckedSlightRandomize);
+	connect(
+		ui->pushButton_use, &QPushButton::clicked, this, &cRandomizerDialog::slotCkickedUseButton);
+
+	for (int i = 1; i <= numberOfVersions; i++)
+	{
+		QString widgetName = QString("pushButton_select_%1").arg(i + 1, 2, 10, QChar('0'));
+		QPushButton *button = this->findChild<QPushButton *>(widgetName);
+		connect(button, &QPushButton::clicked, this, &cRandomizerDialog::slotCkickedSelectButton);
+	}
+
+	ui->previewwidget_actual->SetSize(240, 160, 2);
+	for (int i = 0; i < numberOfVersions; i++)
+	{
+		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
+		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
+		previewWidget->SetSize(240, 160, 2);
+	}
+
+	// local copy of parameters
+	actualParams = *gPar;
+	actualFractParams = *gParFractal;
 }
 
 cRandomizerDialog::~cRandomizerDialog()
@@ -35,19 +57,18 @@ cRandomizerDialog::~cRandomizerDialog()
 
 void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
-	// local copy of parameters
-	cParameterContainer params = *gPar;
-	cFractalContainer fractParams = *gParFractal;
-
 	// initialize parameter containers
 	listOfVersions.clear();
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		sParameterVersion version;
-		version.params = params;
-		version.fractParams = fractParams;
+		version.params = actualParams;
+		version.fractParams = actualFractParams;
 		listOfVersions.append(version);
 	}
+
+	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	ui->previewwidget_actual->update();
 
 	for (int i = 0; i < numberOfVersions; i++)
 	{
@@ -59,7 +80,6 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		qDebug() << widgetName;
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
 		qDebug() << previewWidget;
-		previewWidget->SetSize(192, 128, 2);
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
 		previewWidget->update();
 	}
@@ -113,14 +133,17 @@ void cRandomizerDialog::RandomizeIntegerParameter(double randomScale, cOneParame
 			value--;
 		}
 	}
-	if (value > max) value = max;
-
-	if (value < min) value = min;
+	if (min != max)
+	{
+		if (value > max) value = max;
+		if (value < min) value = min;
+	}
 
 	parameter.Set(value, valueActual);
 }
 
-void cRandomizerDialog::RandomizeDoubleParameter(double randomScale, cOneParameter &parameter)
+void cRandomizerDialog::RandomizeDoubleParameter(
+	double randomScale, bool isAngle, cOneParameter &parameter)
 {
 	double min = parameter.Get<double>(valueMin);
 	double max = parameter.Get<double>(valueMax);
@@ -129,7 +152,10 @@ void cRandomizerDialog::RandomizeDoubleParameter(double randomScale, cOneParamet
 	{
 		if (min < 0.0)
 		{
-			value = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+			if (isAngle)
+				value = randomizer.Random(-randomScale * 180.0, randomScale * 180.0, randomScale / 10.0);
+			else
+				value = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
 		}
 		else
 		{
@@ -140,18 +166,82 @@ void cRandomizerDialog::RandomizeDoubleParameter(double randomScale, cOneParamet
 	{
 		if (min < 0.0)
 		{
-			double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+			double r = randomizer.Random(-randomScale * 5.0, randomScale * 5.0, randomScale / 1000.0);
 			value += r;
 		}
 		else
 		{
 			double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
-			value = value * pow(10, r);
+			value = value * pow(10.0, r);
 		}
-		if (value > max) value = max;
 
-		if (value < min) value = min;
+		if (min != max)
+		{
+			if (value > max) value = max;
+			if (value < min) value = min;
+		}
 	}
+	parameter.Set(value, valueActual);
+}
+
+double cRandomizerDialog::RandomizeDoubleValue(double value, double randomScale, bool isAngle)
+{
+	if (value == 0)
+	{
+		if (isAngle)
+			value = randomizer.Random(-randomScale * 180.0, randomScale * 180.0, randomScale / 10.0);
+		else
+			value = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+	}
+	else
+	{
+		double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
+		value = value * pow(10.0, r);
+	}
+	return value;
+}
+
+void cRandomizerDialog::RandomizeVector3Parameter(
+	double randomScale, bool isAngle, cOneParameter &parameter)
+{
+	CVector3 value = parameter.Get<CVector3>(valueActual);
+	value.x = RandomizeDoubleValue(value.x, randomScale, isAngle);
+	value.y = RandomizeDoubleValue(value.y, randomScale, isAngle);
+	value.z = RandomizeDoubleValue(value.z, randomScale, isAngle);
+	parameter.Set(value, valueActual);
+}
+
+void cRandomizerDialog::RandomizeVector4Parameter(
+	double randomScale, bool isAngle, cOneParameter &parameter)
+{
+	CVector4 value = parameter.Get<CVector4>(valueActual);
+	value.x = RandomizeDoubleValue(value.x, randomScale, isAngle);
+	value.y = RandomizeDoubleValue(value.y, randomScale, isAngle);
+	value.z = RandomizeDoubleValue(value.z, randomScale, isAngle);
+	value.w = RandomizeDoubleValue(value.w, randomScale, isAngle);
+	parameter.Set(value, valueActual);
+}
+
+int cRandomizerDialog::RandomizeColorComponent(double randomScale, int value)
+{
+	int min = value - randomScale * 65535;
+	if (min < 0) min = 0;
+	int max = value + randomScale * 65535;
+	if (max > 65535) max = 65535;
+	int range = max - min;
+	int r = randomizer.Random(range);
+	value = min + r;
+	if (value < 0) value = 0;
+	if (value > 65536) value = 65535;
+	return value;
+}
+
+void cRandomizerDialog::RandomizeRGBParameter(double randomScale, cOneParameter &parameter)
+{
+	sRGB value = parameter.Get<sRGB>(valueActual);
+	value.R = RandomizeColorComponent(randomScale, value.R);
+	value.G = RandomizeColorComponent(randomScale, value.G);
+	value.B = RandomizeColorComponent(randomScale, value.B);
 	parameter.Set(value, valueActual);
 }
 
@@ -172,13 +262,13 @@ void cRandomizerDialog::RandomizeParameters(
 		case randomizeSlight:
 		{
 			numberOfParametersToChange = 1;
-			randomScale = 0.05;
+			randomScale = 0.01;
 			break;
 		}
 		case randomizeMedium:
 		{
 			numberOfParametersToChange = numberOfParameters / 100 + 2;
-			randomScale = 0.3;
+			randomScale = 0.1;
 			break;
 		}
 		case randomizeHeavy:
@@ -195,11 +285,13 @@ void cRandomizerDialog::RandomizeParameters(
 	for (int i = 0; i < numberOfParametersToChange; i++)
 	{
 		int randomIndex = 0;
+		int trialCounter = numberOfParameters * 10;
 		do
 		{
 			randomIndex =
 				randomizer.Random(numberOfParameters - 2) + 1; // first string in the tree is root
-		} while (listOfIndexes.contains(randomIndex));
+			trialCounter--;
+		} while (listOfIndexes.contains(randomIndex) && trialCounter > 0);
 		listOfIndexes.append(randomIndex);
 
 		QString fullParameterName = parametersTree.GetString(randomIndex);
@@ -207,6 +299,13 @@ void cRandomizerDialog::RandomizeParameters(
 
 		// check is parameter is enabled
 		bool skip = false;
+
+		if (!parametersTree.IsEnabled(randomIndex))
+		{
+			i--;
+			continue;
+		}
+
 		int actualParameterIndex = randomIndex;
 		int parentIndex = 0;
 		do
@@ -218,9 +317,10 @@ void cRandomizerDialog::RandomizeParameters(
 
 				if (parametersTree.GetString(parentIndex) == "root") break;
 
-				bool hidden = parametersTree.IsEnabled(parentIndex);
+				bool hidden = !parametersTree.IsEnabled(parentIndex);
 				if (hidden)
 				{
+					qDebug() << "is hidden";
 					skip = true;
 					break;
 				}
@@ -245,7 +345,7 @@ void cRandomizerDialog::RandomizeParameters(
 			continue;
 		}
 
-		// if parameter is a group then enable this gruop and randomize deeper parameter
+		// if parameter is a group then enable this group and randomize deeper parameter
 		if (parametersTree.IsGroup(randomIndex))
 		{
 			QList<int> childrens = parametersTree.GetChildrens(randomIndex);
@@ -269,6 +369,7 @@ void cRandomizerDialog::RandomizeParameters(
 
 			// and further randomize one of deeper parameters
 			fullParameterName = parametersTree.GetString(deeperRandomIndex);
+			qDebug() << "----Deeper: " << fullParameterName;
 		}
 
 		RandomizeOneParameter(fullParameterName, randomScale, params, fractal);
@@ -285,6 +386,11 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 
 	cOneParameter parameter = container->GetAsOneParameter(parameterName);
 	enumVarType varType = parameter.GetValueType();
+	enumMorphType morphType = parameter.GetMorphType();
+	bool isAngle = false;
+	if (morphType == morphLinearAngle || morphType == morphCatMullRomAngle
+			|| morphType == morphAkimaAngle)
+		isAngle = true;
 
 	switch (varType)
 	{
@@ -295,7 +401,7 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 		}
 		case typeDouble:
 		{
-			RandomizeDoubleParameter(randomScale, parameter);
+			RandomizeDoubleParameter(randomScale, isAngle, parameter);
 			break;
 		}
 		case typeString:
@@ -304,14 +410,17 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 		}
 		case typeVector3:
 		{
+			RandomizeVector3Parameter(randomScale, isAngle, parameter);
 			break;
 		}
 		case typeVector4:
 		{
+			RandomizeVector4Parameter(randomScale, isAngle, parameter);
 			break;
 		}
 		case typeRgb:
 		{
+			RandomizeRGBParameter(randomScale, parameter);
 			break;
 		}
 		case typeBool:
@@ -357,7 +466,9 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				qDebug() << QString(level, ' ') << "ParameterName: " << fullParameterName;
 
 				bool hidden = w->isHidden();
-				int newId = tree->AddChildItem(fullParameterName, hidden, parentId);
+				if (hidden) qDebug() << "hidden";
+
+				int newId = tree->AddChildItem(fullParameterName, !hidden, parentId);
 
 				if (dynamic_cast<MyGroupBox *>(w))
 				{
@@ -405,4 +516,25 @@ cParameterContainer *cRandomizerDialog::ContainerSelector(
 	}
 
 	return container;
+}
+
+void cRandomizerDialog::slotCkickedSelectButton()
+{
+	QString buttonName = this->sender()->objectName();
+	QString numberString = buttonName.right(2);
+	int buttonNumber = numberString.toInt();
+
+	actualParams = listOfVersions.at(buttonNumber - 1).params;
+	actualFractParams = listOfVersions.at(buttonNumber - 1).fractParams;
+
+	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	ui->previewwidget_actual->update();
+}
+
+void cRandomizerDialog::slotCkickedUseButton()
+{
+	*gPar = actualParams;
+	*gParFractal = actualFractParams;
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	close();
 }

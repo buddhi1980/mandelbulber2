@@ -50,7 +50,13 @@
       </widget>
      </item>
      <item>
-      <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize">
+      <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Randomize</string>
        </property>
@@ -309,6 +315,19 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Randomize</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_fractal">
         <property name="spacing">

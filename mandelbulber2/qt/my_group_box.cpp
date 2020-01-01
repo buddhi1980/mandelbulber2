@@ -127,6 +127,7 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
 	QIcon iconLoad = QIcon(":system/icons/document-open.svg");
 	QIcon iconSave = QIcon(":system/icons/document-save.svg");
+	QIcon iconRandomize = QIcon(":gradient/icons/dice_colors.svg");
 
 	actionLoadToThisGroupbox = menu->addAction(tr("Load to this groupbox"));
 	actionLoadToThisGroupbox->setIcon(iconLoad);
@@ -137,9 +138,13 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 	actionResetAllToDefault = menu->addAction(tr("Reset all to default"));
 	actionResetAllToDefault->setIcon(iconReset);
 
+	actionRandomize = menu->addAction(tr("Randomize"));
+	actionRandomize->setIcon(iconRandomize);
+
 	connect(actionLoadToThisGroupbox, SIGNAL(triggered()), this, SLOT(slotLoadToThisGroupbox()));
 	connect(actionSaveFromThisGroupbox, SIGNAL(triggered()), this, SLOT(slotSaveFromThisGroupbox()));
 	connect(actionResetAllToDefault, SIGNAL(triggered()), this, SLOT(slotResetAllToDefault()));
+	connect(actionRandomize, SIGNAL(triggered()), this, SLOT(slotRandomize()));
 
 	CommonMyWidgetWrapper::contextMenuEvent(event, menu);
 }
@@ -165,4 +170,8 @@ void MyGroupBox::slotLoadToThisGroupbox()
 void MyGroupBox::slotSaveFromThisGroupbox()
 {
 	gMainInterface->SaveLocalSettings(this);
+}
+void MyGroupBox::slotRandomize()
+{
+	gMainInterface->RandomizeLocalSettings(this);
 }

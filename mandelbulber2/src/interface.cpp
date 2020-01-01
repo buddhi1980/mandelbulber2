@@ -2885,6 +2885,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 void cInterface::RandomizeLocalSettings(const QWidget *widget)
 {
 	cRandomizerDialog *randomizer = new cRandomizerDialog();
+	randomizer->setAttribute(Qt::WA_DeleteOnClose);
 	randomizer->AssignSourceWidget(widget);
 	randomizer->show();
 }

@@ -101,13 +101,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_01">
-          <property name="text">
-           <string>Changed parameters</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -131,13 +124,6 @@
             <width>192</width>
             <height>128</height>
            </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_02">
-          <property name="text">
-           <string>Changed parameters</string>
           </property>
          </widget>
         </item>
@@ -167,13 +153,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_06">
-          <property name="text">
-           <string>Changed parameters</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -197,13 +176,6 @@
             <width>192</width>
             <height>128</height>
            </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_03">
-          <property name="text">
-           <string>Changed parameters</string>
           </property>
          </widget>
         </item>
@@ -233,13 +205,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_05">
-          <property name="text">
-           <string>Changed parameters</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -263,13 +228,6 @@
             <width>192</width>
             <height>128</height>
            </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_04">
-          <property name="text">
-           <string>Changed parameters</string>
           </property>
          </widget>
         </item>
@@ -299,46 +257,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_08">
-          <property name="text">
-           <string>Changed parameters</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QGroupBox" name="groupBox_version_07">
-       <property name="title">
-        <string>Version 7</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_11">
-        <item>
-         <widget class="QPushButton" name="pushButton_select_07">
-          <property name="text">
-           <string>Select</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>192</width>
-            <height>128</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_parameters_07">
-          <property name="text">
-           <string>Changed parameters</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -365,10 +283,29 @@
           </property>
          </widget>
         </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QGroupBox" name="groupBox_version_07">
+       <property name="title">
+        <string>Version 7</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <widget class="QLabel" name="label_parameters_09">
+         <widget class="QPushButton" name="pushButton_select_07">
           <property name="text">
-           <string>Changed parameters</string>
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>192</width>
+            <height>128</height>
+           </size>
           </property>
          </widget>
         </item>

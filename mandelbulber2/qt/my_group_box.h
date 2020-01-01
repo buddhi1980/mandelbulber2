@@ -61,12 +61,14 @@ private:
 	QAction *actionResetAllToDefault;
 	QAction *actionLoadToThisGroupbox;
 	QAction *actionSaveFromThisGroupbox;
+	QAction *actionRandomize;
 
 private slots:
 	void slotToggled(bool on) const;
 	void slotResetAllToDefault();
 	void slotLoadToThisGroupbox();
 	void slotSaveFromThisGroupbox();
+	void slotRandomize();
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;

@@ -53,6 +53,13 @@
       </widget>
      </item>
      <item>
+      <widget class="cButtonRandomSettingsFromWidget" name="pushButton_local_randomize_7">
+       <property name="text">
+        <string>Randomize</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -120,8 +127,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>472</width>
-        <height>4461</height>
+        <width>466</width>
+        <height>3855</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4829,16 +4836,6 @@ object size)</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_load_settings_from_widget.h</header>
@@ -4854,6 +4851,16 @@ object size)</string>
    <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>my_color_button.h</header>
@@ -4862,6 +4869,11 @@ object size)</string>
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonRandomSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_random_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialWidget</class>
