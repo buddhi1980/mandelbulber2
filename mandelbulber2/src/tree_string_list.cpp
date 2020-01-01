@@ -21,6 +21,8 @@ cTreeStringList::cTreeStringList()
 
 int cTreeStringList::AddItem(const QString &string, bool enabled)
 {
+	if (CheckIfExists(string)) return -1;
+
 	int newId = items.size();
 	sItem newItem;
 	newItem.string = string;
@@ -40,6 +42,8 @@ int cTreeStringList::AddItem(const QString &string, bool enabled)
 
 int cTreeStringList::AddChildItem(const QString &string, bool enabled, int parentId)
 {
+	if (CheckIfExists(string)) return -1;
+
 	int newId = items.size();
 	sItem newItem;
 	newItem.string = string;
@@ -127,4 +131,16 @@ QList<int> cTreeStringList::GetChildrens(int index)
 		qCritical() << "cTreeStringList::GetChildrens(int index): Wrong index: " << index;
 		return QList<int>();
 	}
+}
+
+bool cTreeStringList::CheckIfExists(QString string)
+{
+	bool exists = false;
+
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (items.at(i).string == string) return true;
+	}
+
+	return false;
 }

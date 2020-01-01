@@ -34,6 +34,8 @@ private:
 		QList<int> chirdrenNodesId;
 	};
 
+	bool CheckIfExists(QString string);
+
 	QList<sItem> items;
 	int actualItemId = -1;
 	int actualParentId = -1;

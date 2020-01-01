@@ -61,9 +61,11 @@ private:
 	void RandomizeDoubleParameter(double randomScale, bool isAngle, cOneParameter &parameter);
 	void RandomizeVector3Parameter(double randomScale, bool isAngle, cOneParameter &parameter);
 	void RandomizeVector4Parameter(double randomScale, bool isAngle, cOneParameter &parameter);
-	int RandomizeColorComponent(double randomScale, int value);
+	int RandomizeColor16Component(double randomScale, int value);
+	int RandomizeColor8Component(double randomScale, int value);
 	void RandomizeRGBParameter(double randomScale, cOneParameter &parameter);
 	void RandomizeBooleanParameter(cOneParameter &parameter);
+	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 
 private slots:
 	void slotClieckedSlightRandomize();

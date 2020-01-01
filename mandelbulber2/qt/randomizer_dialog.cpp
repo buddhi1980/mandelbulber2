@@ -6,10 +6,12 @@
  */
 
 #include "randomizer_dialog.h"
+
 #include "ui_randomizer_dialog.h"
 
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
+#include "src/color_gradient.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/interface.hpp"
@@ -18,6 +20,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
 {
 	ui->setupUi(this);
+
+	setModal(true);
 
 	randomizer.Initialize(QTime::currentTime().msec());
 
@@ -32,22 +36,25 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 	for (int i = 1; i <= numberOfVersions; i++)
 	{
-		QString widgetName = QString("pushButton_select_%1").arg(i + 1, 2, 10, QChar('0'));
+		QString widgetName = QString("pushButton_select_%1").arg(i, 2, 10, QChar('0'));
 		QPushButton *button = this->findChild<QPushButton *>(widgetName);
 		connect(button, &QPushButton::clicked, this, &cRandomizerDialog::slotCkickedSelectButton);
 	}
 
+	// local copy of parameters
+	actualParams = *gPar;
+	actualFractParams = *gParFractal;
+
 	ui->previewwidget_actual->SetSize(240, 160, 2);
+	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	ui->previewwidget_actual->update();
+
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
 		previewWidget->SetSize(240, 160, 2);
 	}
-
-	// local copy of parameters
-	actualParams = *gPar;
-	actualFractParams = *gParFractal;
 }
 
 cRandomizerDialog::~cRandomizerDialog()
@@ -222,7 +229,7 @@ void cRandomizerDialog::RandomizeVector4Parameter(
 	parameter.Set(value, valueActual);
 }
 
-int cRandomizerDialog::RandomizeColorComponent(double randomScale, int value)
+int cRandomizerDialog::RandomizeColor16Component(double randomScale, int value)
 {
 	int min = value - randomScale * 65535;
 	if (min < 0) min = 0;
@@ -236,12 +243,26 @@ int cRandomizerDialog::RandomizeColorComponent(double randomScale, int value)
 	return value;
 }
 
+int cRandomizerDialog::RandomizeColor8Component(double randomScale, int value)
+{
+	int min = value - randomScale * 255;
+	if (min < 0) min = 0;
+	int max = value + randomScale * 255;
+	if (max > 255) max = 255;
+	int range = max - min;
+	int r = randomizer.Random(range);
+	value = min + r;
+	if (value < 0) value = 0;
+	if (value > 255) value = 255;
+	return value;
+}
+
 void cRandomizerDialog::RandomizeRGBParameter(double randomScale, cOneParameter &parameter)
 {
 	sRGB value = parameter.Get<sRGB>(valueActual);
-	value.R = RandomizeColorComponent(randomScale, value.R);
-	value.G = RandomizeColorComponent(randomScale, value.G);
-	value.B = RandomizeColorComponent(randomScale, value.B);
+	value.R = RandomizeColor16Component(randomScale, value.R);
+	value.G = RandomizeColor16Component(randomScale, value.G);
+	value.B = RandomizeColor16Component(randomScale, value.B);
 	parameter.Set(value, valueActual);
 }
 
@@ -250,10 +271,73 @@ void cRandomizerDialog::RandomizeBooleanParameter(cOneParameter &parameter)
 	parameter.Set(!parameter.Get<bool>(valueActual), valueActual);
 }
 
+void cRandomizerDialog::RandomizeStringParameter(double randomScale, cOneParameter &parameter)
+{
+	if (parameter.IsGradient())
+	{
+		cColorGradient gradient;
+		gradient.SetColorsFromString(parameter.Get<QString>(valueActual));
+		int numberOfColors = gradient.GetNumberOfColors();
+
+		if (numberOfColors == 2)
+		{
+			int numberOfColors = randomizer.Random(18) + 2;
+			gradient.DeleteAll();
+			for (int i = 0; i < numberOfColors; i++)
+			{
+				sRGB color(randomizer.Random(255), randomizer.Random(255), randomizer.Random(255));
+				float position = randomizer.Random(10000) / 10000.0f;
+				if (i == 0)
+				{
+					gradient.AddColor(color, 0.0f);
+					gradient.AddColor(color, 1.0f);
+				}
+				else
+				{
+					gradient.AddColor(color, position);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < numberOfColors; i++)
+			{
+				sRGB color = gradient.GetColorByIndex(i);
+				color.R = RandomizeColor8Component(randomScale, color.R);
+				color.G = RandomizeColor8Component(randomScale, color.G);
+				color.B = RandomizeColor8Component(randomScale, color.B);
+				gradient.ModifyColor(i, color);
+
+				if (i == 0)
+				{
+					gradient.ModifyColor(1, color);
+					i++;
+				}
+
+				if (i >= 2)
+				{
+					float position = gradient.GetPositionByIndex(i);
+					float delta = 1.0 / numberOfColors * randomScale;
+					float r = randomizer.Random(-delta, delta, delta / 100.0);
+					position += r;
+					if (position < 0.0) position = 0.0;
+					if (position > 1.0) position = 1.0;
+					gradient.ModifyPosition(i, position);
+				}
+			}
+		}
+		QString gradientString = gradient.GetColorsAsString();
+		parameter.Set(gradientString, valueActual);
+	}
+}
+
 void cRandomizerDialog::RandomizeParameters(
 	enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal)
 {
 	int numberOfParameters = parametersTree.GetSize();
+
+	if (numberOfParameters <= 1) return; // no parameters to random (only "root")
+
 	int numberOfParametersToChange = 0;
 	double randomScale = 1.0;
 
@@ -262,13 +346,13 @@ void cRandomizerDialog::RandomizeParameters(
 		case randomizeSlight:
 		{
 			numberOfParametersToChange = 1;
-			randomScale = 0.01;
+			randomScale = 0.1;
 			break;
 		}
 		case randomizeMedium:
 		{
 			numberOfParametersToChange = numberOfParameters / 100 + 2;
-			randomScale = 0.1;
+			randomScale = 0.5;
 			break;
 		}
 		case randomizeHeavy:
@@ -288,8 +372,15 @@ void cRandomizerDialog::RandomizeParameters(
 		int trialCounter = numberOfParameters * 10;
 		do
 		{
-			randomIndex =
-				randomizer.Random(numberOfParameters - 2) + 1; // first string in the tree is root
+			if (numberOfParameters > 2)
+			{
+				randomIndex =
+					randomizer.Random(numberOfParameters - 2) + 1; // first string in the tree is root
+			}
+			else
+			{
+				randomIndex = 1; // there is only parameter #1
+			}
 			trialCounter--;
 		} while (listOfIndexes.contains(randomIndex) && trialCounter > 0);
 		listOfIndexes.append(randomIndex);
@@ -406,6 +497,7 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 		}
 		case typeString:
 		{
+			RandomizeStringParameter(randomScale, parameter);
 			break;
 		}
 		case typeVector3:
@@ -459,6 +551,11 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 			if (myWidget)
 			{
 				QString parameterName = myWidget->getFullParameterName();
+
+				// exceptions
+				if (parameterName.contains("material_id")) continue;
+				if (parameterName == "info") continue;
+
 				QString containerName = myWidget->getParameterContainerName();
 				QString fullParameterName = containerName + "_" + parameterName;
 				listOfParameters.insert(fullParameterName);
