@@ -26,19 +26,19 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	randomizer.Initialize(QTime::currentTime().msec());
 
 	connect(ui->pushButton_heavy, &QPushButton::clicked, this,
-		&cRandomizerDialog::slotClieckedHeavyRandomize);
+		&cRandomizerDialog::slotClickedHeavyRandomize);
 	connect(ui->pushButton_medium, &QPushButton::clicked, this,
-		&cRandomizerDialog::slotClieckedMediumRandomize);
+		&cRandomizerDialog::slotClickedMediumRandomize);
 	connect(ui->pushButton_slight, &QPushButton::clicked, this,
-		&cRandomizerDialog::slotClieckedSlightRandomize);
+		&cRandomizerDialog::slotClickedSlightRandomize);
 	connect(
-		ui->pushButton_use, &QPushButton::clicked, this, &cRandomizerDialog::slotCkickedUseButton);
+		ui->pushButton_use, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedUseButton);
 
 	for (int i = 1; i <= numberOfVersions; i++)
 	{
 		QString widgetName = QString("pushButton_select_%1").arg(i, 2, 10, QChar('0'));
 		QPushButton *button = this->findChild<QPushButton *>(widgetName);
-		connect(button, &QPushButton::clicked, this, &cRandomizerDialog::slotCkickedSelectButton);
+		connect(button, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedSelectButton);
 	}
 
 	// local copy of parameters
@@ -92,14 +92,19 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	}
 }
 
-void cRandomizerDialog::slotClieckedSlightRandomize()
+void cRandomizerDialog::slotClickedSlightRandomize()
 {
 	Randomize(randomizeSlight);
 }
 
-void cRandomizerDialog::slotClieckedMediumRandomize()
+void cRandomizerDialog::slotClickedMediumRandomize()
 {
 	Randomize(randomizeMedium);
+}
+
+void cRandomizerDialog::slotClickedHeavyRandomize()
+{
+	Randomize(randomizeHeavy);
 }
 
 void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
@@ -526,11 +531,6 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 	container->SetFromOneParameter(parameterName, parameter);
 }
 
-void cRandomizerDialog::slotClieckedHeavyRandomize()
-{
-	Randomize(randomizeHeavy);
-}
-
 void cRandomizerDialog::CreateParametersTreeInWidget(
 	cTreeStringList *tree, const QWidget *widget, int &level, int parentId)
 {
@@ -615,7 +615,7 @@ cParameterContainer *cRandomizerDialog::ContainerSelector(
 	return container;
 }
 
-void cRandomizerDialog::slotCkickedSelectButton()
+void cRandomizerDialog::slotClickedSelectButton()
 {
 	QString buttonName = this->sender()->objectName();
 	QString numberString = buttonName.right(2);
@@ -628,7 +628,7 @@ void cRandomizerDialog::slotCkickedSelectButton()
 	ui->previewwidget_actual->update();
 }
 
-void cRandomizerDialog::slotCkickedUseButton()
+void cRandomizerDialog::slotClickedUseButton()
 {
 	*gPar = actualParams;
 	*gParFractal = actualFractParams;

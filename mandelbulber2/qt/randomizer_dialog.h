@@ -68,11 +68,11 @@ private:
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 
 private slots:
-	void slotClieckedSlightRandomize();
-	void slotClieckedMediumRandomize();
-	void slotClieckedHeavyRandomize();
-	void slotCkickedSelectButton();
-	void slotCkickedUseButton();
+	void slotClickedSlightRandomize();
+	void slotClickedMediumRandomize();
+	void slotClickedHeavyRandomize();
+	void slotClickedSelectButton();
+	void slotClickedUseButton();
 
 private:
 	Ui::cRandomizerDialog *ui;

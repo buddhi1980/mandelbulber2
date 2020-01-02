@@ -35,6 +35,7 @@
 #include "buton_random_settings_from_widget.h"
 
 #include "src/interface.hpp"
+#include "src/system.hpp"
 
 cButtonRandomSettingsFromWidget::cButtonRandomSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)
@@ -43,8 +44,11 @@ cButtonRandomSettingsFromWidget::cButtonRandomSettingsFromWidget(QWidget *_paren
 	layout->setContentsMargins(1, 1, 1, 1);
 	setLayout(layout);
 	setIcon(QIcon(":gradient/icons/dice_colors.svg"));
-	setIconSize(QSize(16, 16));
-	setMaximumSize(18, 18);
+
+	int size = int(systemData.GetPreferredThumbnailSize() / 6.0);
+	setIconSize(QSize(size - 2, size - 2));
+	setMaximumSize(size, size);
+
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalSave()));
 
 	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());

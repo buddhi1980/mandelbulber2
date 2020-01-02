@@ -35,6 +35,7 @@
 #include "buton_reset_settings_from_widget.h"
 
 #include "src/interface.hpp"
+#include "src/system.hpp"
 
 cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)
@@ -43,8 +44,9 @@ cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
 	layout->setContentsMargins(1, 1, 1, 1);
 	setLayout(layout);
 	setIcon(QIcon(":system/icons/edit-undo.png"));
-	setIconSize(QSize(16, 16));
-	setMaximumSize(18, 18);
+	int size = int(systemData.GetPreferredThumbnailSize() / 6.0);
+	setIconSize(QSize(size - 2, size - 2));
+	setMaximumSize(size, size);
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalReset()));
 
 	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());

@@ -35,6 +35,7 @@
 #include "buton_load_settings_from_widget.h"
 
 #include "src/interface.hpp"
+#include "src/system.hpp"
 
 cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)
@@ -43,8 +44,11 @@ cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 	layout->setContentsMargins(1, 1, 1, 1);
 	setLayout(layout);
 	setIcon(QIcon(":system/icons/document-open.svg"));
-	setIconSize(QSize(16, 16));
-	setMaximumSize(18, 18);
+
+	int size = int(systemData.GetPreferredThumbnailSize() / 6.0);
+	setIconSize(QSize(size - 2, size - 2));
+	setMaximumSize(size, size);
+
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
 }
 
