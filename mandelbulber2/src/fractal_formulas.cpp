@@ -22041,6 +22041,11 @@ void KochV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+
+
+
+
 	if (!fractal->transformCommon.functionEnabledDFalse &&
 			aux.i < fractal->transformCommon.stopIterations1)
 	{
@@ -22049,20 +22054,22 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		if (zc.z > zc.x) swap(zc.x, zc.z);
 		if (zc.y > zc.x) swap(zc.x, zc.y);
 		 aux.dist = 1.0 - zc.x;
-		 z = zc;
+		/*z = fabs(z);
+		if (z.y > z.x) swap(z.x, z.y);
+		if (z.z > z.x) swap(z.x, z.z);
+		if (z.y > z.x) swap(z.x, z.y);
+		aux.dist = 1.0 - z.x;*/
 	}
-
-  // Folds.
-
-  //Dodecahedral
-
-//  while (n < Iterations) {
-
-
 
 	 z *= fractal->transformCommon.scale015;
 	 aux.DE *= fractal->transformCommon.scale015;
-
+	 // rotation
+	 if (fractal->transformCommon.functionEnabledRFalse
+			 && aux.i >= fractal->transformCommon.startIterationsR
+			 && aux.i < fractal->transformCommon.stopIterationsR)
+	 {
+		 z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	 }
 	z = fabs(z);
 
 	// folds
@@ -22080,19 +22087,10 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			z.x = cos(psi) * len;
 			z.y = sin(psi) * len;
 		}
-		// abs offsets
-		if (fractal->transformCommon.functionEnabledCFalse)
-		{
-			double xOffset = fractal->transformCommon.offsetC0;
-			if (z.x < xOffset) z.x = fabs(z.x + xOffset) - xOffset;
-		}
-
 		if (fractal->transformCommon.functionEnabledSFalse)
 		{
 			double rr = z.Dot(z);
 			//z += fractal->mandelbox.offset;
-
-			// if (r2 < 1e-21) r2 = 1e-21;
 			if (rr < fractal->transformCommon.minR0)
 			{
 				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
@@ -22107,14 +22105,6 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			}
 			//z -= fractal->mandelbox.offset;
 		}
-	}
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
 	 z -= fractal->transformCommon.offset111;
@@ -22143,7 +22133,6 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.dist = aux.dist * fractal->analyticDE.scale1;
-
 }
 
 
