@@ -381,7 +381,7 @@ void TransfDIFSTorusV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void TransfDIFSTorusGridIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 
-void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KochIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KochV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KochV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

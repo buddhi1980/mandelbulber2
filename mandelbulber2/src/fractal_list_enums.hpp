@@ -220,7 +220,7 @@ enum enumFractalFormula
 	koch = 191,
 	kochV2 = 192,
 	kochV3 = 193,
-	bairdDelta = 194,
+	foldCutCube = 194,
 
 
 

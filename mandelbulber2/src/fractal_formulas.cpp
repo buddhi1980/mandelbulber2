@@ -22036,31 +22036,20 @@ void KochV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 
 /**
- * Baird Delta
- * formula coded by Knighty in fragmentarium:
- * based on formula by Eric Baird
- * https://www.researchgate.net/publication/262600735_The_Koch_curve_in_three_dimensions
+ * FoldCutCube
+ * based on formula coded by Darkbeam in fragmentarium:
  */
-void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-
 	if (!fractal->transformCommon.functionEnabledDFalse &&
 			aux.i < fractal->transformCommon.stopIterations1)
 	{
-		CVector4 z0 =z ;
-
-		z = fabs(z);
-
-		 //z -= (1,1,1);
-
-		if (z.y > z.x) swap(z.x, z.y);
-		if (z.z > z.x) swap(z.x, z.z);
-		if (z.y > z.x) swap(z.x, z.y);
-
-		 aux.dist = 1.0 - z.x;
-
-		 z = z0;
+		CVector4 zc = fabs(z);
+		if (zc.y > zc.x) swap(zc.x, zc.y);
+		if (zc.z > zc.x) swap(zc.x, zc.z);
+		if (zc.y > zc.x) swap(zc.x, zc.y);
+		 aux.dist = 1.0 - zc.x;
+		 z = zc;
 	}
 
   // Folds.
@@ -22069,13 +22058,7 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 //  while (n < Iterations) {
 
-	 // rotation
-	 if (fractal->transformCommon.functionEnabledRFalse
-			 && aux.i >= fractal->transformCommon.startIterationsR
-			 && aux.i < fractal->transformCommon.stopIterationsR)
-	 {
-		 z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	 }
+
 
 	 z *= fractal->transformCommon.scale015;
 	 aux.DE *= fractal->transformCommon.scale015;
@@ -22106,7 +22089,6 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 		if (fractal->transformCommon.functionEnabledSFalse)
 		{
-
 			double rr = z.Dot(z);
 			//z += fractal->mandelbox.offset;
 
@@ -22127,7 +22109,13 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		}
 	}
 
-
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
 	 z -= fractal->transformCommon.offset111;
 	if (z.y > z.x) swap(z.x, z.y);
@@ -22144,15 +22132,17 @@ void BairdDeltaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		aux.dist = fabs(min(fractal->transformCommon.offset05
-						/ double(aux.i + fractal->transformCommon.intA)
-							- aux.dist, (z.x / aux.DE)));
+						/ double(aux.i + 1)
+							- aux.dist, z.x / aux.DE));
 	}
-
 	else aux.dist = min(aux.dist, z.x / aux.DE);
+
+	if (fractal->transformCommon.rotation2EnabledFalse)
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.dist = aux.dist * fractal->analyticDE.scale1;
 
 }
 
