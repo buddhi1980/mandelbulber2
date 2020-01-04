@@ -14,6 +14,7 @@
 #include "src/color_gradient.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
+#include "src/fractal_list.hpp"
 #include "src/interface.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
@@ -113,44 +114,68 @@ void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
 	CreateParametersTreeInWidget(&parametersTree, sourceWidget, level, 0);
 }
 
-void cRandomizerDialog::RandomizeIntegerParameter(double randomScale, cOneParameter &parameter)
+void cRandomizerDialog::RandomizeIntegerParameter(
+	double randomScale, cOneParameter &parameter, const QString &parameterName)
 {
 	int min = parameter.Get<int>(valueMin);
 	int max = parameter.Get<int>(valueMax);
 	int value = parameter.Get<int>(valueActual);
-	int sign = randomizer.Random(1);
-	if (sign == 0 || value == min)
+	if (parameterName.contains(QRegularExpression("formula_\\d")))
 	{
-		int range = max - value - 1;
-		if (range > 0)
+		qDebug() << "*********** randomizing fractal *******************";
+		// find fractal on the list
+		int indexOnFractalList = -1;
+		for (int i = 0; i < fractalList.size(); i++)
 		{
-			int r = randomizer.Random(range) * randomScale + 1;
-			value += r;
+			if (fractalList.at(i).internalID == value)
+			{
+				indexOnFractalList = i;
+				break;
+			}
 		}
-		else
-		{
-			value++;
-		}
+		int minIndex = indexOnFractalList - fractalList.size() * randomScale;
+		minIndex = qMax(minIndex, 0);
+		int maxIndex = indexOnFractalList + fractalList.size() * randomScale;
+		maxIndex = qMin(maxIndex, fractalList.size() - 1);
+
+		int r = randomizer.Random(maxIndex - minIndex) + minIndex;
+		value = fractalList.at(r).internalID;
 	}
 	else
 	{
-		int range = value - min - 1;
-		if (range > 0)
+		int sign = randomizer.Random(1);
+		if (sign == 0 || value == min)
 		{
-			int r = randomizer.Random(range) * randomScale + 1;
-			value -= r;
+			int range = max - value - 1;
+			if (range > 0)
+			{
+				int r = randomizer.Random(range) * randomScale + 1;
+				value += r;
+			}
+			else
+			{
+				value++;
+			}
 		}
 		else
 		{
-			value--;
+			int range = value - min - 1;
+			if (range > 0)
+			{
+				int r = randomizer.Random(range) * randomScale + 1;
+				value -= r;
+			}
+			else
+			{
+				value--;
+			}
+		}
+		if (min != max)
+		{
+			if (value > max) value = max;
+			if (value < min) value = min;
 		}
 	}
-	if (min != max)
-	{
-		if (value > max) value = max;
-		if (value < min) value = min;
-	}
-
 	parameter.Set(value, valueActual);
 }
 
@@ -492,7 +517,7 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 	{
 		case typeInt:
 		{
-			RandomizeIntegerParameter(randomScale, parameter);
+			RandomizeIntegerParameter(randomScale, parameter, parameterName);
 			break;
 		}
 		case typeDouble:
@@ -597,7 +622,7 @@ cParameterContainer *cRandomizerDialog::ContainerSelector(
 	else if (containerName.indexOf("fractal") >= 0)
 	{
 		const int index = containerName.rightRef(1).toInt();
-		if (index < 4)
+		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = &fractal->at(index);
 		}

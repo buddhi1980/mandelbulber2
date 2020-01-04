@@ -213,7 +213,7 @@ const cParameterContainer *cAnimationFrames::ContainerSelector(
 	else if (containerName.indexOf("fractal") >= 0)
 	{
 		const int index = containerName.rightRef(1).toInt();
-		if (index < 4)
+		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = &fractal->at(index);
 		}
@@ -247,7 +247,7 @@ cParameterContainer *cAnimationFrames::ContainerSelector(
 	else if (containerName.indexOf("fractal") >= 0)
 	{
 		const int index = containerName.rightRef(1).toInt();
-		if (index < 4)
+		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = &fractal->at(index);
 		}

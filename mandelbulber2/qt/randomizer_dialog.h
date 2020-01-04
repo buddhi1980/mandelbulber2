@@ -56,7 +56,8 @@ private:
 		enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal);
 	void RandomizeOneParameter(QString fullParameterName, double randomScale,
 		cParameterContainer *params, cFractalContainer *fractal);
-	void RandomizeIntegerParameter(double randomScale, cOneParameter &parameter);
+	void RandomizeIntegerParameter(
+		double randomScale, cOneParameter &parameter, const QString &parameterName);
 	double RandomizeDoubleValue(double value, double randomScale, bool isAngle);
 	void RandomizeDoubleParameter(double randomScale, bool isAngle, cOneParameter &parameter);
 	void RandomizeVector3Parameter(double randomScale, bool isAngle, cOneParameter &parameter);
