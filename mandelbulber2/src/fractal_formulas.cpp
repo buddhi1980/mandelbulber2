@@ -9030,7 +9030,7 @@ void MsltoeSym2ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.x = -z.x;
 	}
 
-	CVector4 z2 = z * z;							// squares
+	CVector4 z2 = z * z; // squares
 	double v3 = (z2.x + z2.y + z2.z); // sum of squares
 	// if (v3 < 1e-21 && v3 > -1e-21)
 	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
@@ -9082,9 +9082,9 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z = -z.z;
 	}
 	CVector4 z2 = z * z; // squares
+	// sum of squares
 	double v3 = (z2.x + z2.y + z2.z)
 							+ fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * z2.y * z2.z;
-	; // sum of squares
 	// if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
 	double zr = 1.0 - z2.z / v3;
 	temp.x = (z2.x - z2.y) * zr;
@@ -9526,7 +9526,7 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 
 	th0 *= fractal->transformCommon.pwr8; // default 8
-	ph0 *= fractal->bulb.power;						// default 9 gives 8 symmetry
+	ph0 *= fractal->bulb.power; // default 9 gives 8 symmetry
 
 	double rp = pow(aux.r, fractal->transformCommon.pwr4);
 
@@ -10388,7 +10388,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	double r = aux.r; // z.Length();
+	double r = aux.r;
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 
@@ -10424,7 +10424,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double r = aux.r; // z.Length();
+	double r = aux.r;
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 	double q = 1.0 / (1.0 - z.z);
@@ -10900,24 +10900,25 @@ void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
+	// r calc
 	double r;
-	// Scator real enabled by default
 	CVector4 zz = z * z;
-	CVector4 newZ = z;
-	// double temp1;
-	if (fractal->transformCommon.functionEnabledFalse)
-	{ // scator imaginary
-		newZ.x = zz.x - zz.y - zz.z;
-		newZ.y = z.x * z.y;
-		newZ.z = z.x * z.z;
-		newZ *= fractal->transformCommon.constantMultiplier122;
-				// temp1 = newZ.Length();
-		newZ.x += (zz.y * zz.z) / zz.x;
-		newZ.y *= (1.0 - zz.z / zz.x);
-		newZ.z *= (1.0 - zz.y / zz.x);
+	if (fractal->transformCommon.functionEnabledXFalse)
+	{
+		r = aux.r;
+	}
+	else if (!fractal->transformCommon.functionEnabledYFalse)
+	{
+		r = sqrt(zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x);
 	}
 	else
+	{ // this should be used for imaginary scators
+		r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
+	}
+	// Scator real enabled by default
+	CVector4 newZ = z;
+	// double temp1;
+	if (!fractal->transformCommon.functionEnabledFalse)
 	{ // scator real
 		newZ.x = zz.x + zz.y + zz.z;
 		newZ.y = z.x * z.y;
@@ -10927,6 +10928,19 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		newZ.x += (zz.y * zz.z) / zz.x;
 		newZ.y *= (1.0 + zz.z / zz.x);
 		newZ.z *= (1.0 + zz.y / zz.x);
+		// r = sqrt(zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x);
+	}
+	else
+	{ // scator imaginary
+		newZ.x = zz.x - zz.y - zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+		newZ *= fractal->transformCommon.constantMultiplier122;
+				// temp1 = newZ.Length();
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 - zz.z / zz.x);
+		newZ.z *= (1.0 - zz.y / zz.x);
+		// r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
 	}
 	z = newZ;
 	// double temp2 = newZ.Length();
@@ -10977,51 +10991,44 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
 
+	// analytic DE calc
 	if (fractal->analyticDE.enabled)
 	{
-		if (!fractal->transformCommon.functionEnabledYFalse)
-		{
-			r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
-		}
-		else
-		{
-			r = sqrt(zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x);
-		}
-		double rd;
-
-
 		if (!fractal->analyticDE.enabledFalse)
 		{
-			aux.DE = 2.0 * r * aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
+			aux.DE = 2.0 * r * aux.DE * fractal->analyticDE.scale1
+					+ fractal->analyticDE.offset1;
 		}
 		else
 		{ // vec3
-			CVector4 zzd = z * z;
-			// double rd;
+			// rd calc
+			double rd;
+			zz = z * z;
 			if (fractal->transformCommon.functionEnabledXFalse)
 			{
-				r = oldZ.Length();
 				rd = z.Length();
+			}
+			else if (!fractal->transformCommon.functionEnabledYFalse)
+			{
+				rd = sqrt(zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x);
 			}
 			else
 			{
-				if (!fractal->transformCommon.functionEnabledYFalse)
-				{
-					rd = sqrt(zzd.x + zzd.y + zzd.z + (zzd.y * zzd.z) / zzd.x);
-				}
-				else
-				{
-					rd = sqrt(zzd.x - zzd.y - zzd.z + (zzd.y * zzd.z) / zzd.x);
-				}
+				rd = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
 			}
 			double vecDE = fractal->transformCommon.scaleA1 * rd / r;
 			aux.DE =
-				max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+				max(r * 2.0, vecDE) * aux.DE * fractal->analyticDE.scale1
+					+ fractal->analyticDE.offset1;
 		}
 		aux.dist = 0.5 * r * log(r) / aux.DE;
-		aux.DE0 = rd; // temp for testing
 	}
+	// force bailout
+	// double tp = fractal->transformCommon.scale1;
+	// double tpz = fabs(z.z);
+	// if (tpz < -tp && tpz > tp) tpz = (tpz > 0) ? z.z += 100000.0 : z.z -= 100000.0;
+	if (r > fractal->transformCommon.scale2) z.z += 100000.0;
+	aux.DE0 = r; // temp for testing
 }
 
 /**

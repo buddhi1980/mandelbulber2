@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>2351</height>
+    <height>2376</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,9 +36,7 @@
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Scator Power 2, for analytic DE
-3D quaternion in scator algebra.
-default Real scator algebra
-r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
+3D quaternion in scator algebra.</string>
      </property>
     </widget>
    </item>
@@ -47,11 +48,63 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_95">
+     <property name="text">
+      <string>default Real scator algebra</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
       <string notr="true">enable to switch to Imaginary scator algebra</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_64" columnstretch="0,0">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="3" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+       <property name="text">
+        <string notr="true">switch to r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_94">
+       <property name="text">
+        <string>r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / z2.x); Real</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string notr="true">switch to  r = length(z); </string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,0,1">
@@ -531,26 +584,9 @@ Multiplier:</string>
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
-        <property name="text">
-         <string notr="true">switch to r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / z2.x);</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
         <property name="text">
          <string notr="true">enable vec3 DE influence</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string notr="true">switch to  r = length(z);</string>
         </property>
        </widget>
       </item>
@@ -592,6 +628,9 @@ Multiplier:</string>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_179">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>vec3 DE influence:</string>
           </property>
@@ -601,6 +640,51 @@ Multiplier:</string>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_29" columnstretch="0,0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>999.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_180">
+       <property name="text">
+        <string>force bailout:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -821,7 +905,7 @@ This formula contains aux.DE&lt;br&gt;
    <hints>
     <hint type="sourcelabel">
      <x>74</x>
-     <y>511</y>
+     <y>536</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -830,18 +914,18 @@ This formula contains aux.DE&lt;br&gt;
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_analyticDE_enabled_false</sender>
+   <sender>checkBox_transf_function_enabledX_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledX_false</receiver>
-   <slot>setEnabled(bool)</slot>
+   <receiver>checkBox_transf_function_enabledY_false</receiver>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>15</x>
-     <y>515</y>
+     <x>23</x>
+     <y>522</y>
     </hint>
     <hint type="destinationlabel">
-     <x>22</x>
-     <y>544</y>
+     <x>183</x>
+     <y>497</y>
     </hint>
    </hints>
   </connection>
