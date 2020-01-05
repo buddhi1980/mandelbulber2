@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
@@ -25,8 +25,7 @@ cFractalMandelbulb::cFractalMandelbulb() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalMandelbulb::FormulaCode(
-	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelbulb::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// if (aux.r < 1e-21) aux.r = 1e-21;
 	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;

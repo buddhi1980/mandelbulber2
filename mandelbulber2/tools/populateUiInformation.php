@@ -121,7 +121,7 @@ function getFormulasData()
 			'rawComment' => $rawComment,
 			'id' => $indexIdLookup[$index],
 			'openclFile' => PROJECT_PATH . 'formula/opencl/' . $f['internalName'] . '.cl',
-			'definitionFile' => PROJECT_PATH . 'formula/definition/' . $f['internalName'] . '.h',
+			'definitionFile' => PROJECT_PATH . 'formula/definition/fractal_' . $f['internalName'] . '.cpp',
 			'openclCode' => parseToOpenCL($code),
 			'type' => (strpos($f['internalName'], 'transf_') !== false ? 'transf' : 'formula'),
 		));
@@ -149,36 +149,27 @@ function generateDefinition($index, $formula, &$status)
 	$defineHeaderGuard = 'MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_' . strtoupper($formula['internalName']) . '_H_';
 	$className = 'cFractal' . ucfirst($index);
 
-	$newOpenCLContent .= '#ifndef ' . $defineHeaderGuard . '
-#define ' . $defineHeaderGuard . '
+	$newOpenCLContent .= '
+#include "fractal_definitions.h"
 
-#include "abstract_fractal.h"
-
-namespace fractal
+' . $className . '::' . $className . '() : cAbstractFractal()
 {
+	nameInComboBox = "' . $formula['nameInComboBox'] . '";
+	internalName = "' . $formula['internalName'] . '";
+	internalID = fractal::' . $index . ';
+	DEType = ' . $formula['deType'] . ';
+	DEFunctionType = ' . $formula['deFunctionType'] . ';
+	cpixelAddition = ' . $formula['pixelAddition'] . ';
+	defaultBailout = ' . number_format($formula['defaultBailout'], 1, '.', '') . ';
+	DEAnalyticFunction = ' . $formula['analyticFunction'] . ';
+	coloringFunction = ' . $formula['coloringFunction'] . ';
+}        
 
-class ' . $className . ' : public cAbstractFractal
+void ' . $className . '::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-public:
-        
-        const fractal::enumColoringFunction getColoringFunction() override { return ' . $formula['coloringFunction'] . '; }
-        const fractal::enumCPixelAddition getCpixelAddition() override { return ' . $formula['pixelAddition'] . '; }
-        const fractal::enumDEAnalyticFunction getDeAnalyticFunction() override { return ' . $formula['analyticFunction'] . '; }
-        const double getDefaultBailout() override { return ' . number_format($formula['defaultBailout'], 1) . '; }
-        const fractal::enumDEFunctionType getDeFunctionType() override { return ' . $formula['deFunctionType'] . '; }
-        const fractal::enumDEType getDeType() override { return ' . $formula['deType'] . '; }
-        const QString &getInternalName()  override { return "' . $formula['internalName'] . '"; }
-        const QString &getNameInComboBox() override { return "' . $formula['nameInComboBox'] . '"; }
-
-        const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
-        {
-               ' . trim(substr(trim($formula['code']), strpos($formula['code'], '{') + 1, -1)) . '
-        }
-};
-
-} /* namespace fractal */
-
-#endif /* ' . $defineHeaderGuard . ' */' . PHP_EOL;
+       ' . trim(substr(trim($formula['code']), strpos($formula['code'], '{') + 1, -1)) . '
+}
+' . PHP_EOL;
 
 	// clang-format
 	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
@@ -512,7 +503,7 @@ function getFormulaExampleUsage()
 function getIndexIdLookUp()
 {
 	// get the integer id from fractal_list.hpp for the named index of each formula
-	$fractalListHeaderContent = file_get_contents(PROJECT_PATH . 'src/fractal_list.hpp');
+	$fractalListHeaderContent = file_get_contents(PROJECT_PATH . 'src/fractal_list_enums.hpp');
 	$indexIdLookUp = array();
 	$fractalListHeaderContentLines = explode(PHP_EOL, $fractalListHeaderContent);
 	foreach ($fractalListHeaderContentLines as $line) {
