@@ -11,6 +11,7 @@
 
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
+#include "src/cimage.hpp"
 #include "src/color_gradient.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
@@ -25,6 +26,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	setModal(true);
 
 	randomizer.Initialize(QTime::currentTime().msec());
+
+	actualStrength = randomizeMedium;
 
 	connect(ui->pushButton_heavy, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotClickedHeavyRandomize);
@@ -46,7 +49,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	actualParams = *gPar;
 	actualFractParams = *gParFractal;
 
-	ui->previewwidget_actual->SetSize(240, 160, 2);
+	ui->previewwidget_actual->SetSize(previewWidth, previewHeight, 2);
+	ui->previewwidget_actual->DisableThumbnailCache();
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
 
@@ -54,7 +58,13 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	{
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-		previewWidget->SetSize(240, 160, 2);
+		previewWidget->SetSize(previewWidth, previewHeight, 2);
+		previewWidget->DisableThumbnailCache();
+
+		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
+			&cRandomizerDialog::slotPreviewRendered);
+
+		numbersOfRepeats.append(0);
 	}
 }
 
@@ -65,6 +75,8 @@ cRandomizerDialog::~cRandomizerDialog()
 
 void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
+	actualStrength = strength;
+
 	// initialize parameter containers
 	listOfVersions.clear();
 	for (int i = 0; i < numberOfVersions; i++)
@@ -81,6 +93,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		qDebug() << "Version " << i;
+
+		numbersOfRepeats[i] = 0;
 
 		RandomizeParameters(strength, &listOfVersions[i].params, &listOfVersions[i].fractParams);
 
@@ -659,4 +673,64 @@ void cRandomizerDialog::slotClickedUseButton()
 	*gParFractal = actualFractParams;
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	close();
+}
+
+void cRandomizerDialog::slotPreviewRendered()
+{
+	QString previewName = this->sender()->objectName();
+	QString numberString = previewName.right(2);
+	int previewNumber = numberString.toInt();
+
+	qDebug() << "Preview finished " << previewNumber;
+
+	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
+	widget->update();
+	if (widget)
+	{
+		cImage *image = widget->GetImage();
+		cImage *actualImage = ui->previewwidget_actual->GetImage();
+		bool different = VisualCompare(image, actualImage);
+
+		if (!different)
+		{
+			int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
+			if (numberOfRepeats < 10)
+			{
+				numberOfRepeats++;
+				numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
+				RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
+					&listOfVersions[previewNumber - 1].fractParams);
+				widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
+					listOfVersions.at(previewNumber - 1).fractParams);
+				widget->update();
+			}
+		}
+	}
+}
+
+bool cRandomizerDialog::VisualCompare(cImage *image1, cImage *image2)
+{
+	int w = image1->GetWidth();
+	int h = image2->GetHeight();
+	int numberOfPixels = w * h;
+
+	double totalDiff = 0.0;
+
+	for (int y = 2; y < h - 2; y++)
+	{
+		for (int x = 2; x < w - 2; x++)
+		{
+			sRGBFloat pixel1 = image1->GetPixelImage(x, y);
+			sRGBFloat pixel2 = image2->GetPixelImage(x, y);
+			double rDiffR = double(pixel1.R) - pixel2.R;
+			double rDiffG = double(pixel1.G) - pixel2.G;
+			double rDiffB = double(pixel1.B) - pixel2.B;
+			double diff = rDiffR * rDiffR + rDiffG * rDiffG + rDiffB * rDiffB;
+			totalDiff += diff;
+		}
+	}
+	double diffPerPixel = totalDiff / numberOfPixels;
+	qDebug() << "Difference: " << diffPerPixel;
+
+	return diffPerPixel > 0.01;
 }

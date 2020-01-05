@@ -64,6 +64,7 @@ public:
 	void DisableTimer() { disableTimer = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isRendered; }
+	cImage *GetImage() {return image;};
 	QString GetThumbnailFileName() const;
 
 	static int instanceCount;
