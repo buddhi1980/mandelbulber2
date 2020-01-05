@@ -11,6 +11,7 @@
 
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
+#include "thumbnail_widget.h"
 #include "src/cimage.hpp"
 #include "src/color_gradient.h"
 #include "src/initparameters.hpp"
@@ -28,6 +29,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	randomizer.Initialize(QTime::currentTime().msec());
 
 	actualStrength = randomizeMedium;
+	referenceNoise = 0.0;
 
 	connect(ui->pushButton_heavy, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotClickedHeavyRandomize);
@@ -54,6 +56,16 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
 
+	referenceSkyPreview = new cThumbnailWidget();
+	referenceSkyPreview->SetSize(previewWidth, previewHeight, 2);
+	referenceSkyPreview->DisableThumbnailCache();
+	referenceSkyPreview->DisableTimer();
+
+	referenceNoisePreview = new cThumbnailWidget();
+	referenceNoisePreview->SetSize(previewWidth, previewHeight, 2);
+	referenceNoisePreview->DisableThumbnailCache();
+	referenceNoisePreview->DisableTimer();
+
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
@@ -64,6 +76,9 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
 			&cRandomizerDialog::slotPreviewRendered);
 
+		connect(previewWidget, &cThumbnailWidget::signalZeroDistance, this,
+			&cRandomizerDialog::slotDetectedZeroDistance);
+
 		numbersOfRepeats.append(0);
 	}
 }
@@ -71,6 +86,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 cRandomizerDialog::~cRandomizerDialog()
 {
 	delete ui;
+	delete referenceSkyPreview;
+	delete referenceNoisePreview;
 }
 
 void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
@@ -88,8 +105,54 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	}
 
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	if (!ui->previewwidget_actual->IsRendered())
+	{
+		ui->previewwidget_actual->slotRender();
+		while (!ui->previewwidget_actual->IsRendered())
+		{
+			QApplication::processEvents();
+			Wait(10);
+		}
+	}
 	ui->previewwidget_actual->update();
 
+	cParameterContainer parSky = actualParams;
+	cFractalContainer parFractSky = actualFractParams;
+
+	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		parSky.Set("fractal_enable", i, false);
+	}
+
+	// render reference sky
+	referenceSkyPreview->AssignParameters(parSky, parFractSky);
+	if (!referenceSkyPreview->IsRendered())
+	{
+		referenceSkyPreview->slotRender();
+		while (!referenceSkyPreview->IsRendered())
+		{
+			QApplication::processEvents();
+			Wait(10);
+		}
+	}
+
+	// render the same image as actual to calculate reference noise
+	referenceNoisePreview->AssignParameters(actualParams, actualFractParams);
+	if (!referenceNoisePreview->IsRendered())
+	{
+		referenceNoisePreview->slotRender();
+		while (!referenceNoisePreview->IsRendered())
+		{
+			QApplication::processEvents();
+			Wait(10);
+		}
+	}
+	cImage *actualImage = ui->previewwidget_actual->GetImage();
+	cImage *noiseRefImage = referenceNoisePreview->GetImage();
+	referenceNoise = VisualCompare(noiseRefImage, actualImage);
+	qDebug() << "Reference noise: " << referenceNoise;
+
+	// randomizing
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		qDebug() << "Version " << i;
@@ -689,15 +752,23 @@ void cRandomizerDialog::slotPreviewRendered()
 	{
 		cImage *image = widget->GetImage();
 		cImage *actualImage = ui->previewwidget_actual->GetImage();
-		bool different = VisualCompare(image, actualImage);
+		cImage *skyImage = referenceSkyPreview->GetImage();
+		double difference = VisualCompare(image, actualImage) - referenceNoise;
+		double differenceSky = VisualCompare(image, skyImage) - referenceNoise;
 
-		if (!different)
+		int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
+		qDebug() << "Differences: " << referenceNoise << difference << differenceSky << numberOfRepeats;
+
+		if (difference < referenceNoise * 3 || differenceSky < referenceNoise * 3)
 		{
-			int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
 			if (numberOfRepeats < 10)
 			{
 				numberOfRepeats++;
 				numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
+
+				listOfVersions[previewNumber - 1].params = actualParams;
+				listOfVersions[previewNumber - 1].fractParams = actualFractParams;
+
 				RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
 					&listOfVersions[previewNumber - 1].fractParams);
 				widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
@@ -708,10 +779,41 @@ void cRandomizerDialog::slotPreviewRendered()
 	}
 }
 
-bool cRandomizerDialog::VisualCompare(cImage *image1, cImage *image2)
+void cRandomizerDialog::slotDetectedZeroDistance()
 {
-	int w = image1->GetWidth();
-	int h = image2->GetHeight();
+	qDebug() << "**************** ZERO DISTANCE DETECTED **************";
+	QString previewName = this->sender()->objectName();
+	QString numberString = previewName.right(2);
+	int previewNumber = numberString.toInt();
+	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
+
+	int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
+	if (numberOfRepeats < 10)
+	{
+		numberOfRepeats++;
+		numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
+
+		listOfVersions[previewNumber - 1].params = actualParams;
+		listOfVersions[previewNumber - 1].fractParams = actualFractParams;
+
+		RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
+			&listOfVersions[previewNumber - 1].fractParams);
+		widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
+			listOfVersions.at(previewNumber - 1).fractParams);
+		widget->update();
+	}
+}
+
+double cRandomizerDialog::VisualCompare(cImage *image, cImage *refImage)
+{
+	image->ConvertTo8bit();
+	refImage->ConvertTo8bit();
+
+	int min = 255 * 3;
+	int max = 0;
+
+	int w = image->GetWidth();
+	int h = refImage->GetHeight();
 	int numberOfPixels = w * h;
 
 	double totalDiff = 0.0;
@@ -720,17 +822,25 @@ bool cRandomizerDialog::VisualCompare(cImage *image1, cImage *image2)
 	{
 		for (int x = 2; x < w - 2; x++)
 		{
-			sRGBFloat pixel1 = image1->GetPixelImage(x, y);
-			sRGBFloat pixel2 = image2->GetPixelImage(x, y);
+			sRGB8 pixel1 = image->GetPixelImage8(x, y);
+			sRGB8 pixel2 = refImage->GetPixelImage8(x, y);
 			double rDiffR = double(pixel1.R) - pixel2.R;
 			double rDiffG = double(pixel1.G) - pixel2.G;
 			double rDiffB = double(pixel1.B) - pixel2.B;
 			double diff = rDiffR * rDiffR + rDiffG * rDiffG + rDiffB * rDiffB;
 			totalDiff += diff;
+
+			min = qMin(min, pixel1.R + pixel1.G + pixel1.B);
+			max = qMax(max, pixel1.R + pixel1.G + pixel1.B);
 		}
 	}
 	double diffPerPixel = totalDiff / numberOfPixels;
-	qDebug() << "Difference: " << diffPerPixel;
 
-	return diffPerPixel > 0.01;
+	if (min > 250 * 3 || max < 5)
+	{
+		diffPerPixel = 0;
+		qDebug() << "************* blank image *************";
+	}
+
+	return diffPerPixel;
 }

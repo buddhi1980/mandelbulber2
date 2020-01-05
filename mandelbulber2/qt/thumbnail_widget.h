@@ -54,7 +54,7 @@ class cThumbnailWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	cThumbnailWidget(QWidget *parent);
+	cThumbnailWidget(QWidget *parent = nullptr);
 	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
@@ -64,7 +64,7 @@ public:
 	void DisableTimer() { disableTimer = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isRendered; }
-	cImage *GetImage() {return image;};
+	cImage *GetImage() { return image; };
 	QString GetThumbnailFileName() const;
 
 	static int instanceCount;
@@ -109,6 +109,7 @@ signals:
 	void thumbnailRendered();
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void settingsChanged();
+	void signalZeroDistance();
 };
 
 #endif /* MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_ */

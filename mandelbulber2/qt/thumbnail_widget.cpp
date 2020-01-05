@@ -163,6 +163,13 @@ void cThumbnailWidget::AssignParameters(
 			{
 				params->Set("opencl_mode", 0);
 			}
+
+			if (distance < 1e-12)
+			{
+				emit signalZeroDistance();
+				isRendered = true;
+				return;
+			}
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);

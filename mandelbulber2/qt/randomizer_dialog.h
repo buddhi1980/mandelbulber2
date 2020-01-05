@@ -21,6 +21,7 @@ class cRandomizerDialog;
 }
 
 class cImage;
+class cThumbnailWidget;
 
 class cRandomizerDialog : public QDialog
 {
@@ -71,7 +72,7 @@ private:
 	void RandomizeRGBParameter(double randomScale, cOneParameter &parameter);
 	void RandomizeBooleanParameter(cOneParameter &parameter);
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
-	bool VisualCompare(cImage *image1, cImage *image2);
+	double VisualCompare(cImage *image, cImage *refImage);
 
 private slots:
 	void slotClickedSlightRandomize();
@@ -80,6 +81,7 @@ private slots:
 	void slotClickedSelectButton();
 	void slotClickedUseButton();
 	void slotPreviewRendered();
+	void slotDetectedZeroDistance();
 
 private:
 	Ui::cRandomizerDialog *ui;
@@ -90,6 +92,9 @@ private:
 	cFractalContainer actualFractParams;
 	cRandom randomizer;
 	enimRandomizeStrength actualStrength;
+	cThumbnailWidget *referenceSkyPreview;
+	cThumbnailWidget *referenceNoisePreview;
+	double referenceNoise;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */
