@@ -20,6 +20,8 @@ namespace Ui
 class cRandomizerDialog;
 }
 
+class cImage;
+
 class cRandomizerDialog : public QDialog
 {
 	Q_OBJECT
@@ -46,6 +48,8 @@ private:
 	};
 
 	const int numberOfVersions = 9;
+	const int previewWidth = 240;
+	const int previewHeight = 160;
 
 	void Randomize(enimRandomizeStrength strength);
 	void CreateParametersTreeInWidget(
@@ -67,6 +71,7 @@ private:
 	void RandomizeRGBParameter(double randomScale, cOneParameter &parameter);
 	void RandomizeBooleanParameter(cOneParameter &parameter);
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
+	bool VisualCompare(cImage *image1, cImage *image2);
 
 private slots:
 	void slotClickedSlightRandomize();
@@ -74,14 +79,17 @@ private slots:
 	void slotClickedHeavyRandomize();
 	void slotClickedSelectButton();
 	void slotClickedUseButton();
+	void slotPreviewRendered();
 
 private:
 	Ui::cRandomizerDialog *ui;
 	cTreeStringList parametersTree;
 	QList<sParameterVersion> listOfVersions;
+	QList<int> numbersOfRepeats;
 	cParameterContainer actualParams;
 	cFractalContainer actualFractParams;
 	cRandom randomizer;
+	enimRandomizeStrength actualStrength;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */
