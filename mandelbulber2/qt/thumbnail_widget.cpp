@@ -166,8 +166,12 @@ void cThumbnailWidget::AssignParameters(
 
 			if (distance < 1e-12)
 			{
-				emit signalZeroDistance();
 				isRendered = true;
+				delete params;
+				params = nullptr;
+				delete fractal;
+				fractal = nullptr;
+				emit signalZeroDistance();
 				return;
 			}
 		}

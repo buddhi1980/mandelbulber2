@@ -12,6 +12,7 @@
 
 #include "src/fractal_container.hpp"
 #include "src/parameters.hpp"
+#include "src/progress_text.hpp"
 #include "src/random.hpp"
 #include "src/tree_string_list.h"
 
@@ -73,6 +74,9 @@ private:
 	void RandomizeBooleanParameter(cOneParameter &parameter);
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 	double VisualCompare(cImage *image, cImage *refImage);
+	void UpdateProgressBar(double progress);
+
+	void closeEvent(QCloseEvent *event) override;
 
 private slots:
 	void slotClickedSlightRandomize();
@@ -80,6 +84,7 @@ private slots:
 	void slotClickedHeavyRandomize();
 	void slotClickedSelectButton();
 	void slotClickedUseButton();
+	void slotClickedResetButton();
 	void slotPreviewRendered();
 	void slotDetectedZeroDistance();
 
@@ -88,13 +93,16 @@ private:
 	cTreeStringList parametersTree;
 	QList<sParameterVersion> listOfVersions;
 	QList<int> numbersOfRepeats;
+	QList<bool> versionsDone;
 	cParameterContainer actualParams;
 	cFractalContainer actualFractParams;
 	cRandom randomizer;
 	enimRandomizeStrength actualStrength;
 	cThumbnailWidget *referenceSkyPreview;
 	cThumbnailWidget *referenceNoisePreview;
+	cProgressText progressText;
 	double referenceNoise;
+	bool pressedUse;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */

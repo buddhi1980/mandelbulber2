@@ -30,6 +30,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 	actualStrength = randomizeMedium;
 	referenceNoise = 0.0;
+	pressedUse = false;
 
 	connect(ui->pushButton_heavy, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotClickedHeavyRandomize);
@@ -39,6 +40,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		&cRandomizerDialog::slotClickedSlightRandomize);
 	connect(
 		ui->pushButton_use, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedUseButton);
+	connect(
+		ui->pushButton_reset, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedResetButton);
 
 	for (int i = 1; i <= numberOfVersions; i++)
 	{
@@ -80,6 +83,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 			&cRandomizerDialog::slotDetectedZeroDistance);
 
 		numbersOfRepeats.append(0);
+		versionsDone.append(false);
 	}
 }
 
@@ -94,6 +98,10 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
 	actualStrength = strength;
 
+	QString progressBarText("Initializing Randomizer");
+	ui->progressBar->setFormat(progressBarText);
+	ui->progressBar->setValue(0.0);
+
 	// initialize parameter containers
 	listOfVersions.clear();
 	for (int i = 0; i < numberOfVersions; i++)
@@ -103,6 +111,10 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		version.fractParams = actualFractParams;
 		listOfVersions.append(version);
 	}
+
+	progressText.ResetTimer();
+
+	// refresh actual reference image
 
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	if (!ui->previewwidget_actual->IsRendered())
@@ -116,6 +128,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	}
 	ui->previewwidget_actual->update();
 
+	// render reference sky
+
 	cParameterContainer parSky = actualParams;
 	cFractalContainer parFractSky = actualFractParams;
 
@@ -124,7 +138,6 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		parSky.Set("fractal_enable", i, false);
 	}
 
-	// render reference sky
 	referenceSkyPreview->AssignParameters(parSky, parFractSky);
 	if (!referenceSkyPreview->IsRendered())
 	{
@@ -150,21 +163,22 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	cImage *actualImage = ui->previewwidget_actual->GetImage();
 	cImage *noiseRefImage = referenceNoisePreview->GetImage();
 	referenceNoise = VisualCompare(noiseRefImage, actualImage);
-	qDebug() << "Reference noise: " << referenceNoise;
+	// qDebug() << "Reference noise: " << referenceNoise;
 
 	// randomizing
 	for (int i = 0; i < numberOfVersions; i++)
 	{
-		qDebug() << "Version " << i;
+		// qDebug() << "Version " << i;
 
 		numbersOfRepeats[i] = 0;
+		versionsDone[i] = false;
 
 		RandomizeParameters(strength, &listOfVersions[i].params, &listOfVersions[i].fractParams);
 
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
-		qDebug() << widgetName;
+		// qDebug() << widgetName;
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-		qDebug() << previewWidget;
+		// qDebug() << previewWidget;
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
 		previewWidget->update();
 	}
@@ -188,6 +202,7 @@ void cRandomizerDialog::slotClickedHeavyRandomize()
 void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
 {
 	int level = 0;
+	setWindowTitle(QString("Randomizer (for parameters from %1)").arg(sourceWidget->objectName()));
 	CreateParametersTreeInWidget(&parametersTree, sourceWidget, level, 0);
 }
 
@@ -199,7 +214,7 @@ void cRandomizerDialog::RandomizeIntegerParameter(
 	int value = parameter.Get<int>(valueActual);
 	if (parameterName.contains(QRegularExpression("formula_\\d")))
 	{
-		qDebug() << "*********** randomizing fractal *******************";
+		// qDebug() << "*********** randomizing fractal *******************";
 		// find fractal on the list
 		int indexOnFractalList = -1;
 		for (int i = 0; i < fractalList.size(); i++)
@@ -311,6 +326,10 @@ double cRandomizerDialog::RandomizeDoubleValue(double value, double randomScale,
 	{
 		double r = randomizer.Random(-randomScale, randomScale, randomScale / 1000.0);
 		value = value * pow(10.0, r);
+		if (isAngle)
+		{
+			value = fmod(value + 3 * M_PI, 2 * M_PI) - M_PI;
+		}
 	}
 	return value;
 }
@@ -493,7 +512,7 @@ void cRandomizerDialog::RandomizeParameters(
 		listOfIndexes.append(randomIndex);
 
 		QString fullParameterName = parametersTree.GetString(randomIndex);
-		qDebug() << fullParameterName;
+		// qDebug() << fullParameterName;
 
 		// check is parameter is enabled
 		bool skip = false;
@@ -511,14 +530,14 @@ void cRandomizerDialog::RandomizeParameters(
 			parentIndex = parametersTree.GetParentIndex(actualParameterIndex);
 			if (parentIndex >= 0)
 			{
-				qDebug() << "--Checking parent:" << parametersTree.GetString(parentIndex);
+				// qDebug() << "--Checking parent:" << parametersTree.GetString(parentIndex);
 
 				if (parametersTree.GetString(parentIndex) == "root") break;
 
 				bool hidden = !parametersTree.IsEnabled(parentIndex);
 				if (hidden)
 				{
-					qDebug() << "is hidden";
+					// qDebug() << "is hidden";
 					skip = true;
 					break;
 				}
@@ -567,7 +586,7 @@ void cRandomizerDialog::RandomizeParameters(
 
 			// and further randomize one of deeper parameters
 			fullParameterName = parametersTree.GetString(deeperRandomIndex);
-			qDebug() << "----Deeper: " << fullParameterName;
+			// qDebug() << "----Deeper: " << fullParameterName;
 		}
 
 		RandomizeOneParameter(fullParameterName, randomScale, params, fractal);
@@ -580,7 +599,7 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 	cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
 	int firstDashIndex = fullParameterName.indexOf("_");
 	QString parameterName = fullParameterName.mid(firstDashIndex + 1);
-	qDebug() << "---Randomizing: " << container->GetContainerName() << parameterName;
+	// qDebug() << "---Randomizing: " << container->GetContainerName() << parameterName;
 
 	cOneParameter parameter = container->GetAsOneParameter(parameterName);
 	enumVarType varType = parameter.GetValueType();
@@ -662,16 +681,16 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				QString fullParameterName = containerName + "_" + parameterName;
 				listOfParameters.insert(fullParameterName);
 
-				qDebug() << QString(level, ' ') << "ParameterName: " << fullParameterName;
+				// qDebug() << QString(level, ' ') << "ParameterName: " << fullParameterName;
 
 				bool hidden = w->isHidden();
-				if (hidden) qDebug() << "hidden";
+				// if (hidden) qDebug() << "hidden";
 
 				int newId = tree->AddChildItem(fullParameterName, !hidden, parentId);
 
 				if (dynamic_cast<MyGroupBox *>(w))
 				{
-					qDebug() << QString(level, ' ') << "GroupBox:" << fullParameterName;
+					// qDebug() << QString(level, ' ') << "GroupBox:" << fullParameterName;
 					newParentId = newId;
 				}
 			}
@@ -732,6 +751,7 @@ void cRandomizerDialog::slotClickedSelectButton()
 
 void cRandomizerDialog::slotClickedUseButton()
 {
+	pressedUse = true;
 	*gPar = actualParams;
 	*gParFractal = actualFractParams;
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -775,20 +795,32 @@ void cRandomizerDialog::slotPreviewRendered()
 					listOfVersions.at(previewNumber - 1).fractParams);
 				widget->update();
 			}
+			else
+			{
+				versionsDone[previewNumber - 1] = true;
+			}
+		}
+		else
+		{
+			versionsDone[previewNumber - 1] = true;
 		}
 	}
+
+	int doneCount = versionsDone.count(true);
+	double progress = double(doneCount) / (numberOfVersions);
+	UpdateProgressBar(progress);
 }
 
 void cRandomizerDialog::slotDetectedZeroDistance()
 {
-	qDebug() << "**************** ZERO DISTANCE DETECTED **************";
 	QString previewName = this->sender()->objectName();
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
+	qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
 
 	int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
-	if (numberOfRepeats < 10)
+	if (numberOfRepeats < 100)
 	{
 		numberOfRepeats++;
 		numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
@@ -836,11 +868,53 @@ double cRandomizerDialog::VisualCompare(cImage *image, cImage *refImage)
 	}
 	double diffPerPixel = totalDiff / numberOfPixels;
 
-	if (min > 250 * 3 || max < 5)
+	if (min > 245 * 3 || max < 5 * 10 || max - min < 5)
 	{
 		diffPerPixel = 0;
-		qDebug() << "************* blank image *************";
+		qDebug() << "blank image";
 	}
 
 	return diffPerPixel;
+}
+
+void cRandomizerDialog::closeEvent(QCloseEvent *event)
+{
+	if (pressedUse)
+	{
+		event->accept();
+	}
+	else
+	{
+		event->ignore();
+		if (QMessageBox::Yes
+				== QMessageBox::question(
+					this, "Close Confirmation", "Exit Randomizer?", QMessageBox::Yes | QMessageBox::No))
+		{
+			event->accept();
+		}
+	}
+}
+
+void cRandomizerDialog::UpdateProgressBar(double progress)
+{
+	QString progressBarText = progressText.getText(progress);
+	ui->progressBar->setFormat(progressBarText);
+	ui->progressBar->setValue(progress * 1000);
+}
+
+void cRandomizerDialog::slotClickedResetButton()
+{
+	actualParams = *gPar;
+	actualFractParams = *gParFractal;
+	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	if (!ui->previewwidget_actual->IsRendered())
+	{
+		ui->previewwidget_actual->slotRender();
+		while (!ui->previewwidget_actual->IsRendered())
+		{
+			QApplication::processEvents();
+			Wait(10);
+		}
+	}
+	ui->previewwidget_actual->update();
 }
