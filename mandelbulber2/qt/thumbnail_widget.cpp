@@ -171,6 +171,8 @@ void cThumbnailWidget::AssignParameters(
 				params = nullptr;
 				delete fractal;
 				fractal = nullptr;
+				// alloc image in case if samething wnat read it
+				image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
 				emit signalZeroDistance();
 				return;
 			}

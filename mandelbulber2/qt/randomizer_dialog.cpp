@@ -153,6 +153,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	{
 		parSky.Set("fractal_enable", i, false);
 	}
+	parSky.Set("iteration_threshold_mode", false);
+	// iterThresh mode needs to be disabled to render sky, otherwise DE will be zero.
 
 	referenceSkyPreview->AssignParameters(parSky, parFractSky);
 	if (!referenceSkyPreview->IsRendered())
