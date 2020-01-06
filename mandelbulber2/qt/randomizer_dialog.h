@@ -42,6 +42,20 @@ private:
 		randomizeHeavy
 	};
 
+	enum enumRandomizerPreviewSize
+	{
+		previewSmall,
+		previewMedium,
+		previewBig
+	};
+
+	enum enumRandomizerPreviewQuality
+	{
+		previewQualityLow,
+		previewQualityMedium,
+		previewQualityHigh
+	};
+
 	struct sParameterVersion
 	{
 		cParameterContainer params;
@@ -49,9 +63,7 @@ private:
 		QStringList modifiedParameters;
 	};
 
-	const int numberOfVersions = 9;
-	const int previewWidth = 240;
-	const int previewHeight = 160;
+	const int numberOfVersions = 12;
 
 	void Randomize(enimRandomizeStrength strength);
 	void CreateParametersTreeInWidget(
@@ -101,6 +113,10 @@ private:
 	cThumbnailWidget *referenceSkyPreview;
 	cThumbnailWidget *referenceNoisePreview;
 	cProgressText progressText;
+
+	int previewWidth;
+	int previewHeight;
+
 	double referenceNoise;
 	bool pressedUse;
 };

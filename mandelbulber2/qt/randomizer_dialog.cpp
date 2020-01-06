@@ -32,6 +32,21 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	referenceNoise = 0.0;
 	pressedUse = false;
 
+	int baseSize = int(systemData.GetPreferredThumbnailSize());
+	int sizeSetiing = enumRandomizerPreviewSize(gPar->Get<int>("randomizer_preview_size"));
+	int qualitySetiing = enumRandomizerPreviewQuality(gPar->Get<int>("randomizer_preview_quality"));
+	float sizeMultiply;
+	switch (sizeSetiing)
+	{
+		case previewSmall: sizeMultiply = 1.0; break;
+		case previewMedium: sizeMultiply = 1.5; break;
+		case previewBig: sizeMultiply = 2.0; break;
+	}
+	previewWidth = sizeMultiply * baseSize * 4 / 3;
+	previewHeight = sizeMultiply * baseSize;
+
+	int qualityMultiplier = qualitySetiing + 1;
+
 	connect(ui->pushButton_heavy, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotClickedHeavyRandomize);
 	connect(ui->pushButton_medium, &QPushButton::clicked, this,
@@ -54,18 +69,18 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	actualParams = *gPar;
 	actualFractParams = *gParFractal;
 
-	ui->previewwidget_actual->SetSize(previewWidth, previewHeight, 2);
+	ui->previewwidget_actual->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	ui->previewwidget_actual->DisableThumbnailCache();
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
 
 	referenceSkyPreview = new cThumbnailWidget();
-	referenceSkyPreview->SetSize(previewWidth, previewHeight, 2);
+	referenceSkyPreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceSkyPreview->DisableThumbnailCache();
 	referenceSkyPreview->DisableTimer();
 
 	referenceNoisePreview = new cThumbnailWidget();
-	referenceNoisePreview->SetSize(previewWidth, previewHeight, 2);
+	referenceNoisePreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceNoisePreview->DisableThumbnailCache();
 	referenceNoisePreview->DisableTimer();
 
@@ -73,8 +88,9 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	{
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-		previewWidget->SetSize(previewWidth, previewHeight, 2);
+		previewWidget->SetSize(previewWidth, previewHeight, qualityMultiplier);
 		previewWidget->DisableThumbnailCache();
+		previewWidget->UseOneCPUCore(true);
 
 		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
 			&cRandomizerDialog::slotPreviewRendered);

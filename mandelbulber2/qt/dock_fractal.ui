@@ -14,6 +14,9 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>2</number>
    </property>
@@ -743,8 +746,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>270</width>
-            <height>831</height>
+            <width>380</width>
+            <height>851</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -2252,8 +2255,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>380</width>
-            <height>851</height>
+            <width>228</width>
+            <height>309</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
-    <height>834</height>
+    <width>488</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -105,60 +105,8 @@
          <widget class="cThumbnailWidget" name="previewwidget_01" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QGroupBox" name="groupBox_version_02">
-       <property name="title">
-        <string>Version 2</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <widget class="QPushButton" name="pushButton_select_02">
-          <property name="text">
-           <string>Select</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_02" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>192</width>
-            <height>128</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QGroupBox" name="groupBox_version_06">
-       <property name="title">
-        <string>Version 6</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_9">
-        <item>
-         <widget class="QPushButton" name="pushButton_select_06">
-          <property name="text">
-           <string>Select</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_06" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -183,8 +131,8 @@
          <widget class="cThumbnailWidget" name="previewwidget_03" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -192,25 +140,25 @@
        </layout>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QGroupBox" name="groupBox_version_05">
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="groupBox_version_02">
        <property name="title">
-        <string>Version 5</string>
+        <string>Version 2</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QPushButton" name="pushButton_select_05">
+         <widget class="QPushButton" name="pushButton_select_02">
           <property name="text">
            <string>Select</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="cThumbnailWidget" name="previewwidget_05" native="true">
+         <widget class="cThumbnailWidget" name="previewwidget_02" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -218,7 +166,7 @@
        </layout>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="0" column="3">
       <widget class="QGroupBox" name="groupBox_version_04">
        <property name="title">
         <string>Version 4</string>
@@ -235,8 +183,8 @@
          <widget class="cThumbnailWidget" name="previewwidget_04" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -244,25 +192,25 @@
        </layout>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QGroupBox" name="groupBox_version_08">
+     <item row="1" column="0">
+      <widget class="QGroupBox" name="groupBox_version_05">
        <property name="title">
-        <string>Version 8</string>
+        <string>Version 5</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_10">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="QPushButton" name="pushButton_select_08">
+         <widget class="QPushButton" name="pushButton_select_05">
           <property name="text">
            <string>Select</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="cThumbnailWidget" name="previewwidget_08" native="true">
+         <widget class="cThumbnailWidget" name="previewwidget_05" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -270,25 +218,25 @@
        </layout>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QGroupBox" name="groupBox_version_09">
+     <item row="1" column="1">
+      <widget class="QGroupBox" name="groupBox_version_06">
        <property name="title">
-        <string>Version 9</string>
+        <string>Version 6</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
-         <widget class="QPushButton" name="pushButton_select_09">
+         <widget class="QPushButton" name="pushButton_select_06">
           <property name="text">
            <string>Select</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="cThumbnailWidget" name="previewwidget_09" native="true">
+         <widget class="cThumbnailWidget" name="previewwidget_06" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>
@@ -296,7 +244,7 @@
        </layout>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="1" column="2">
       <widget class="QGroupBox" name="groupBox_version_07">
        <property name="title">
         <string>Version 7</string>
@@ -313,8 +261,138 @@
          <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
           <property name="minimumSize">
            <size>
-            <width>192</width>
-            <height>128</height>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QGroupBox" name="groupBox_version_08">
+       <property name="title">
+        <string>Version 8</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QPushButton" name="pushButton_select_08">
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_08" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QGroupBox" name="groupBox_version_10">
+       <property name="title">
+        <string>Version 10</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QPushButton" name="pushButton_select_10">
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_10" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QGroupBox" name="groupBox_version_09">
+       <property name="title">
+        <string>Version 9</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="QPushButton" name="pushButton_select_09">
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_09" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QGroupBox" name="groupBox_version_11">
+       <property name="title">
+        <string>Version 11</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <widget class="QPushButton" name="pushButton_select_11">
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_11" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QGroupBox" name="groupBox_version_12">
+       <property name="title">
+        <string>Version 12</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <item>
+         <widget class="QPushButton" name="pushButton_select_12">
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_12" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
          </widget>

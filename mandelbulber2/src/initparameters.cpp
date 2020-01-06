@@ -413,19 +413,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
-// OpenCL Support
-#ifdef CLSUPPORT
-	par->addParam("ocl_custom_DE_mode", false, false);
-	par->addParam("ocl_custom_formula_name", QString("example"), false);
-	for (int i = 0; i < 15; ++i)
-	{
-		par->addParam("ocl_custom_par", i, 0.0, true);
-	}
-	par->addParam("ocl_delta_DE_step", 1e-5, 1e-10, 1e10, true);
-	par->addParam("ocl_DOF_method", 0, false);
-	par->addParam("ocl_use_custom_formula", 0, false);
-#endif
-
 	// files
 	par->addParam("file_destination",
 		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"), morphNone,
@@ -441,14 +428,7 @@ void InitParams(cParameterContainer *par)
 		QDir::toNativeSeparators(
 			systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
-	/* unused in Mandelbulber v2
-	par->addParam("file_animation_path",
-		QDir::toNativeSeparators(systemData.dataDirectory + "paths" + QDir::separator() + "path.txt"),
-		morphNone, paramStandard);
-	par->addParam("file_keyframes", QDir::toNativeSeparators(systemData.dataDirectory + "keyframes"
-																													 + QDir::separator() + "keyframe"),
-		morphNone, paramStandard);
-	*/
+
 	par->addParam("description", QString(""), morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
@@ -519,6 +499,11 @@ void InitParams(cParameterContainer *par)
 	par->addParam("display_tooltips", true, morphNone, paramApp);
 
 	par->addParam("limit_CPU_cores", get_cpu_count(), 1, get_cpu_count(), morphNone, paramApp);
+
+	par->addParam(
+		"randomizer_preview_quality", 1, morphNone, paramApp, QStringList({"low", "medium", "high"}));
+	par->addParam(
+		"randomizer_preview_size", 1, morphNone, paramApp, QStringList({"small", "medium", "big"}));
 
 	// image file configuration
 	par->addParam("color_enabled", true, morphNone, paramApp);
