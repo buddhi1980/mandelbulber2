@@ -60,8 +60,7 @@ riemannSphereHoboldPow8,"Riemann - Sphere Hobold Pow8",analyticDEType,logarithmi
 riemannSphereHoboldMulti,"Riemann - Sphere Hobold Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2.5,analyticFunctionLogarithmic,coloringFunctionDefault
 riemannSphereMsltoeV1,"Riemann - Sphere Msltoe V1",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 riemannSphereMsltoeV2,"Riemann - Sphere Msltoe V2",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
-scatorPower2,"Scator Power 2",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
-scatorPower2StdR,"Scator Power 2 StdR",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
+scatorPower2StdR,"Scator Power 2 StdR",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 xenodreambuie,Xenodreambuie,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 aboxMod1,"Abox - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxMod2,"Abox - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
@@ -72,7 +71,9 @@ aboxModKali,"Abox - Mod Kali",analyticDEType,linearDEFunction,cpixelEnabledByDef
 aboxModKaliEiffie,"Abox - Mod Kali-Eiffie",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 aboxModKaliV2,"Abox - Mod Kali-V2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxModKaliV3,"Abox - Mod Kali-V3",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
+aboxSphere4d,"Abox - Sphere 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 aboxSurfBox,"Abox - Surf Box",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
+aboxTetra4d,"Abox - Tetra 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 aboxVSIcen1,"Abox - VS icen1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 abox4d,"Abox 4D",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionAmazingSurf
@@ -110,7 +111,6 @@ mengerSmoothMod1,"Menger - Smooth Mod1",analyticDEType,linearDEFunction,cpixelDi
 menger4d,"Menger 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 menger4dMod1,"Menger 4D Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 mixPinski4d,"Mix Pinski 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
-pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 sierpinski3d,"Sierpinski 3D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 sierpinski4d,"Sierpinski 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 vicsek,Vicsek,analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
@@ -130,6 +130,7 @@ dIFSMsltoeDonut,"DIFS Msltoe Donut",analyticDEType,dIFSDEFunction,cpixelDisabled
 dIFSPrism,"DIFS Prism",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSSphere,"DIFS Sphere",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 dIFSTorus,"DIFS Torus",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSMultiV1,"DIFS Multi V1",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSBox,"T>DIFS Box",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSBoxV2,"T>DIFS Box V2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSBoxV3,"T>DIFS Box V3",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
@@ -145,14 +146,23 @@ transfDIFSSphere,"T>DIFS Sphere",analyticDEType,dIFSDEFunction,cpixelDisabledByD
 transfDIFSTorus,"T>DIFS Torus",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSTorusV2,"T>DIFS Torus V2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSTorusV3,"T>DIFS Torus V3",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+transfDIFSTorusGrid,"T>DIFS Torus Grid",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfDIFSHybridColor,"T>DIFS Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+foldCutCube,"Fold Cut Cube",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+koch,Koch,analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+kochV2,"Koch V2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+kochV3,"Koch V3",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+mengerV2,"Menger V2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+mengerV3,"Menger V3",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+scatorPower2,"Scator Power 2",analyticDEType,dIFSDEFunction,cpixelEnabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 aexionOctopusMod,"Aexion Octopus Mod",deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionNone,coloringFunctionDefault
 ides,Ides,deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 ides2,"Ides 2",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 riemannBulbMsltoeMod2,"Riemann - Bulb Msltoe Mod2",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,1.5,analyticFunctionNone,coloringFunctionDefault
 riemannSphereMsltoe,"Riemann - Sphere Msltoe",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,1.5,analyticFunctionNone,coloringFunctionDefault
-scatorPower2Real,"Scator Power 2 Real",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
-scatorPower2Imaginary,"Scator Power 2 Imaginary",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
+scatorPower2Real,"Scator Power 2 Real",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
+scatorPower2Imaginary,"Scator Power 2 Imaginary",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 boxFoldBulbPow2,"Box Fold Bulb Pow 2",deltaDEType,linearDEFunction,cpixelEnabledByDefault,10000,analyticFunctionNone,coloringFunctionDefault
 msltoeDonut,"Msltoe - Donut",deltaDEType,linearDEFunction,cpixelDisabledByDefault,4,analyticFunctionNone,coloringFunctionDonut
 transfAbsAddConditional,"T>Abs Add Conditional",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
@@ -261,6 +271,7 @@ transfSurfBoxFoldV2,"T>Surf Box_Fold V2",analyticDEType,withoutDEFunction,cpixel
 transfSurfBoxFoldV24d,"T>Surf Box_Fold V2 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfSurfFoldMulti,"T>Surf Fold Multi",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfZvectorAxisSwap,"T>Zvector Axis Swap",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfDEControls,"T>DE Controls",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfHybridColor,"T>Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfHybridColor2,"T>Hybrid Color2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 testing,Testing,analyticDEType,withoutDEFunction,cpixelEnabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
@@ -268,4 +279,4 @@ testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDef
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 testingTransform,"Testing Transform",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
-testingTransform2,"Testing Transform2",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+testingTransform2,"Testing Transform2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault

@@ -361,6 +361,18 @@ typedef struct
 	enumMulti_orderOfTransfCl orderOfTransf5;
 } sFractalMagTransformsCl;
 
+// combo3
+typedef enum
+{
+	multi_combo3Cl_type1,
+	multi_combo3Cl_type2,
+	multi_combo3Cl_type3,
+} enumMulti_combo3Cl;
+typedef struct
+{
+	enumMulti_combo3Cl combo3;
+} sFractalCombo3Cl;
+
 // combo4
 typedef enum
 {
@@ -490,6 +502,7 @@ typedef struct
 typedef struct
 {
 	cl_float angle0;
+	cl_float angle72;
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
 	cl_float foldingValue;
@@ -806,6 +819,7 @@ typedef struct
 	sFractalCparaCl Cpara;
 	sFractalComboCl combo;
 	sFractalASurf3FoldsCl aSurf3Folds;
+	sFractalCombo3Cl combo3;
 	sFractalCombo4Cl combo4;
 	sFractalCombo5Cl combo5;
 	sFractalCombo6Cl combo6;
@@ -1116,6 +1130,13 @@ inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(const sFractalMagTr
 	return target;
 }
 
+inline sFractalCombo3Cl clCopySFractalCombo3Cl(const sFractalCombo3 &source)
+{
+	sFractalCombo3Cl target;
+	target.combo3 = enumMulti_combo3Cl(source.combo3);
+	return target;
+}
+
 inline sFractalCombo4Cl clCopySFractalCombo4Cl(const sFractalCombo4 &source)
 {
 	sFractalCombo4Cl target;
@@ -1217,6 +1238,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 {
 	sFractalTransformCommonCl target;
 	target.angle0 = source.angle0;
+	target.angle72 = source.angle72;
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;
 	target.foldingValue = source.foldingValue;
@@ -1521,6 +1543,7 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.Cpara = clCopySFractalCparaCl(source.Cpara);
 	target.combo = clCopySFractalComboCl(source.combo);
 	target.aSurf3Folds = clCopySFractalASurf3FoldsCl(source.aSurf3Folds);
+	target.combo3 = clCopySFractalCombo3Cl(source.combo3);
 	target.combo4 = clCopySFractalCombo4Cl(source.combo4);
 	target.combo5 = clCopySFractalCombo5Cl(source.combo5);
 	target.combo6 = clCopySFractalCombo6Cl(source.combo6);

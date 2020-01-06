@@ -181,7 +181,6 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			0.5f * dd * native_divide(log(dd), aux->DE); // = using linear and increasining detail level
 	}
 
-	//
 	if (aux->i < tempC || dd < aux->colorHybrid)
 	{
 		aux->colorHybrid = dd;

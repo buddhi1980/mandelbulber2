@@ -40,8 +40,6 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		// z.x -= boxSize.x;
-		// z.y -= boxSize.y;
 		z.x = fabs(z.x + boxFold.x) - fabs(z.x - boxFold.x) - z.x;
 		z.y = fabs(z.y + boxFold.y) - fabs(z.y - boxFold.y) - z.y;
 	}

@@ -18,7 +18,7 @@
 
 REAL4 RiemannSphereMsltoeV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL r = aux->r; // length(z);
+	REAL r = aux->r;
 	// if (r < 1e-21f) r = 1e-21f;
 	z *= native_divide(fractal->transformCommon.scale, r);
 	REAL q = native_recip((1.0f - z.z));

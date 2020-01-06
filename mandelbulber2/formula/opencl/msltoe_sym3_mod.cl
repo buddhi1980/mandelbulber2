@@ -30,9 +30,9 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = -z.z;
 	}
 	REAL4 z2 = z * z; // squares
+	// sum of squares
 	REAL v3 = mad(z2.z, fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * z2.y,
 		(z2.x + z2.y + z2.z));
-	; // sum of squares
 	// if (v3 < 1e-21f && v3 > -1e-21f) v3 = (v3 > 0) ? 1e-21f : -1e-21f;
 	REAL zr = 1.0f - native_divide(z2.z, v3);
 	temp.x = (z2.x - z2.y) * zr;

@@ -8,9 +8,7 @@
  *
  * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by
  * DarkBeam
- *
  * This formula has a c.x c.y SWAP
- *
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
 
@@ -22,6 +20,7 @@
 REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
+	REAL colorAdd = 0.0f;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -36,31 +35,32 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
-
+	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	REAL4 zCol = z;
+
 	// no z fold
 	z += fractal->transformCommon.offsetA000;
 	REAL rr = dot(z, z);
+	REAL rrCol = rr;
 	REAL MinRR = fractal->transformCommon.minR2p25;
 	REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
 
 	// scale
 	REAL useScale = 1.0f;
-	{
-		useScale = native_divide((aux->actualScaleA + fractal->transformCommon.scale2), dividend);
-		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			// update actualScaleA for next iteration
-			REAL vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA -= vary;
-		}
+	useScale = native_divide((aux->actualScaleA + fractal->transformCommon.scale2), dividend);
+	z *= useScale;
+	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+		aux->actualScaleA -= vary;
 	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
@@ -74,5 +74,19 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (zCol.x != oldZ.x)
+			colorAdd += fractal->mandelbox.color.factor.x
+									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+		if (zCol.y != oldZ.y)
+			colorAdd += fractal->mandelbox.color.factor.y
+									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+		if (rrCol > fractal->transformCommon.minR2p25)
+			colorAdd += fractal->mandelbox.color.factorSp2
+									* native_divide((fractal->transformCommon.minR2p25 - rrCol), 100.0f);
+		aux->color += colorAdd;
+	}
 	return z;
 }
