@@ -22073,8 +22073,6 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-
-
 		// diagonal
 		if (fractal->transformCommon.functionEnabledCxFalse) if (z.y > z.x) swap(z.x, z.y);
 		// polyfold
@@ -22118,7 +22116,6 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (z.z > z.x) swap(z.x, z.z);
 	if (z.y > z.x) swap(z.x, z.y);
 
-
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		int x1 = aux.i + 1;
@@ -22130,21 +22127,6 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
-	if (fractal->transformCommon.functionEnabledBFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
-	{
-		CVector4 zc = z;
-		CVector4 boxSize = fractal->transformCommon.additionConstant111;
-		zc = fabs(zc) - boxSize;
-		zc.x = max(zc.x, 0.0);
-		zc.y = max(zc.y, 0.0);
-		zc.z = max(zc.z, 0.0);
-		double zcd = zc.Length();
-
-		aux.dist = min(aux.dist, zcd / (aux.DE + 0.0));
-	}
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
