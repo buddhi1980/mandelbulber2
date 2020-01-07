@@ -100,6 +100,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 		numbersOfRepeats.append(0);
 		versionsDone.append(false);
+		listOfChangedParameters.append(QMap<QString, QString>());
 	}
 }
 
@@ -191,13 +192,14 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		numbersOfRepeats[i] = 0;
 		versionsDone[i] = false;
 
-		RandomizeParameters(strength, &listOfVersions[i].params, &listOfVersions[i].fractParams);
+		RandomizeParameters(strength, &listOfVersions[i].params, &listOfVersions[i].fractParams, i);
 
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
 		// qDebug() << widgetName;
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
 		// qDebug() << previewWidget;
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
+		previewWidget->setToolTip(CreateTooltipText(listOfChangedParameters[i]));
 		previewWidget->update();
 	}
 }
@@ -475,9 +477,11 @@ void cRandomizerDialog::RandomizeStringParameter(double randomScale, cOneParamet
 	}
 }
 
-void cRandomizerDialog::RandomizeParameters(
-	enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal)
+void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
+	cParameterContainer *params, cFractalContainer *fractal, int widgetIndex)
 {
+	listOfChangedParameters[widgetIndex].clear();
+
 	int numberOfParameters = parametersTree.GetSize();
 
 	if (numberOfParameters <= 1) return; // no parameters to random (only "root")
@@ -607,12 +611,12 @@ void cRandomizerDialog::RandomizeParameters(
 			// qDebug() << "----Deeper: " << fullParameterName;
 		}
 
-		RandomizeOneParameter(fullParameterName, randomScale, params, fractal);
+		RandomizeOneParameter(fullParameterName, randomScale, params, fractal, widgetIndex);
 	}
 }
 
 void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double randomScale,
-	cParameterContainer *params, cFractalContainer *fractal)
+	cParameterContainer *params, cFractalContainer *fractal, int widgetIndex)
 {
 	cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
 	int firstDashIndex = fullParameterName.indexOf("_");
@@ -668,6 +672,12 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 	}
 
 	container->SetFromOneParameter(parameterName, parameter);
+
+	if (!listOfChangedParameters[widgetIndex].contains(fullParameterName))
+	{
+		QString parameterValueString = container->Get<QString>(parameterName);
+		listOfChangedParameters[widgetIndex].insert(fullParameterName, parameterValueString);
+	}
 }
 
 void cRandomizerDialog::CreateParametersTreeInWidget(
@@ -808,9 +818,10 @@ void cRandomizerDialog::slotPreviewRendered()
 				listOfVersions[previewNumber - 1].fractParams = actualFractParams;
 
 				RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
-					&listOfVersions[previewNumber - 1].fractParams);
+					&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 				widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 					listOfVersions.at(previewNumber - 1).fractParams);
+				widget->setToolTip(CreateTooltipText(listOfChangedParameters[previewNumber - 1]));
 				widget->update();
 			}
 			else
@@ -847,9 +858,10 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 		listOfVersions[previewNumber - 1].fractParams = actualFractParams;
 
 		RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
-			&listOfVersions[previewNumber - 1].fractParams);
+			&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 		widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 			listOfVersions.at(previewNumber - 1).fractParams);
+		widget->setToolTip(CreateTooltipText(listOfChangedParameters[previewNumber - 1]));
 		widget->update();
 	}
 }
@@ -935,4 +947,16 @@ void cRandomizerDialog::slotClickedResetButton()
 		}
 	}
 	ui->previewwidget_actual->update();
+}
+
+QString cRandomizerDialog::CreateTooltipText(QMap<QString, QString> list)
+{
+	QString text = "List of randomized parameters:\n";
+	QMapIterator<QString, QString> i(list);
+	while (i.hasNext())
+	{
+		i.next();
+		text += QString("%1 = %2\n").arg(i.key()).arg(i.value());
+	}
+	return text;
 }

@@ -70,10 +70,10 @@ private:
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
 	static cParameterContainer *ContainerSelector(
 		QString fullParameterName, cParameterContainer *params, cFractalContainer *fractal);
-	void RandomizeParameters(
-		enimRandomizeStrength strength, cParameterContainer *params, cFractalContainer *fractal);
+	void RandomizeParameters(enimRandomizeStrength strength, cParameterContainer *params,
+		cFractalContainer *fractal, int widgetIndex);
 	void RandomizeOneParameter(QString fullParameterName, double randomScale,
-		cParameterContainer *params, cFractalContainer *fractal);
+		cParameterContainer *params, cFractalContainer *fractal, int widgetIndex);
 	void RandomizeIntegerParameter(
 		double randomScale, cOneParameter &parameter, const QString &parameterName);
 	double RandomizeDoubleValue(double value, double randomScale, bool isAngle);
@@ -87,6 +87,7 @@ private:
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 	double VisualCompare(cImage *image, cImage *refImage);
 	void UpdateProgressBar(double progress);
+	QString CreateTooltipText(QMap<QString, QString> list);
 
 	void closeEvent(QCloseEvent *event) override;
 
@@ -113,6 +114,7 @@ private:
 	cThumbnailWidget *referenceSkyPreview;
 	cThumbnailWidget *referenceNoisePreview;
 	cProgressText progressText;
+	QList<QMap<QString, QString>> listOfChangedParameters;
 
 	int previewWidth;
 	int previewHeight;
