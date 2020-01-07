@@ -58,6 +58,7 @@ REAL4 KochIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-	aux->dist = fabsnative_divide((length(z) - length(Offset)), aux->DE);
+	aux->dist = fabs(length(z) - length(Offset));
+	aux->dist = native_divide(aux->dist, aux->DE);
 	return z;
 }

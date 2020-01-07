@@ -65,7 +65,7 @@ REAL4 MengerV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		zc = mad(zc, 0.5f, ptFive);
 		REAL4 pp = fabs(zc - ptFive) - ptFive;
 		REAL modOff = fractal->transformCommon.offset3;
-		aux->DE += fractal->analyticDE.offset0;
+		aux->DE += fractal->transformCommon.offsetA0;
 		aux->DE0 = max(pp.x, max(pp.y, pp.z));
 		int count = fractal->transformCommon.int8X;
 		for (int k = 0; k < count && rr < 10.0f; k++)
