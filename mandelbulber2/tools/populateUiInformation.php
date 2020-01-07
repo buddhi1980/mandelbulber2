@@ -805,6 +805,14 @@ function writeFractalDefinitionFile($formulas){
 #endif /* MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_MANDELBULB_H_ */
 ';
 	file_put_contents(PROJECT_PATH . 'formula/definition/fractal_definitions.h', $out);
+
+	$out = '//====================== FRACTAL LIST - START ==================' . PHP_EOL;
+	foreach ($formulas as $index => $formula) {
+		$out .= '	newFractalList.append(new cFractal' . ucfirst($index) . '());' . PHP_EOL;
+	}
+	$out .= '	//====================== FRACTAL LIST - END ==================';
+	$regex = '/\/\/=* FRACTAL LIST - START =*[\s\S]*?\/\/=* FRACTAL LIST - END =*/';
+	file_put_contents(PROJECT_PATH . 'src/fractal_list.cpp', preg_replace($regex, $out, file_get_contents(PROJECT_PATH . 'src/fractal_list.cpp')));
 }
 
 ?>

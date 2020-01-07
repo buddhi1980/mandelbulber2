@@ -1071,9 +1071,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		testingTransform2, TestingTransform2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
-	//====================== NEW FRACTAL LIST  - test code - ==================
+	//====================== FRACTAL LIST - START ==================
 	newFractalList.append(new cFractalMandelbulb());
 	newFractalList.append(new cFractalAexion());
+	//====================== FRACTAL LIST - END ==================
 
 	for (cAbstractFractal *fractal : newFractalList)
 	{
