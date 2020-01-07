@@ -22131,7 +22131,7 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (fractal->transformCommon.rotation2EnabledFalse)
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
-	/*if (fractal->transformCommon.functionEnabledBFalse
+	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
@@ -22144,7 +22144,7 @@ void FoldCutCubeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		double zcd = zc.Length();
 
 		aux.dist = min(aux.dist, zcd / (aux.DE + 0.0));
-	}*/
+	}
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
