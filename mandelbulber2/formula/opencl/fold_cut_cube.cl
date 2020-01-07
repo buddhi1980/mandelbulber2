@@ -61,6 +61,20 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			REAL4 zc = z;
+			REAL4 boxSize = fractal->transformCommon.additionConstant111;
+			zc = fabs(zc) - boxSize;
+			zc.x = max(zc.x, 0.0);
+			zc.y = max(zc.y, 0.0);
+			zc.z = max(zc.z, 0.0);
+			REAL zcd = zc.Length();
+
+			aux->dist = min(aux->dist, native_divide(zcd / aux->DE));
+		}
+
+
 		// diagonal
 		if (fractal->transformCommon.functionEnabledCxFalse)
 			if (z.y > z.x)
@@ -146,8 +160,9 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		int x1 = aux->i + 1;
+		REAL divT = native_divide(fractal->transformCommon.offset05, REAL(x1));
 		aux->dist =
-			fabs(min(native_divide(fractal->transformCommon.offset05, REAL(x1)) - aux->dist,
+			fabs(min( divT - aux->dist,
 				native_divide(z.x, aux->DE)));
 	}
 	else

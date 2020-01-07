@@ -122,7 +122,7 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		aux->dist = fabs(length(z) - length(Offset));
-		aux->dist = native_divide(aux.dist, aux->DE);
+		aux->dist = native_divide(aux->dist, aux->DE);
 	}
 	else
 	{
@@ -137,7 +137,7 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			e = clamp(length(aux->c) - e, 0.0f, 100.0f); // circle
 		}
 		aux->dist = fabs(z.z - Offset.z);
-		aux->dist = native_divide(aux.dist, aux->DE);
+		aux->dist = native_divide(aux->dist, aux->DE);
 		aux->dist = max(aux->dist, e);
 	}
 	return z;
