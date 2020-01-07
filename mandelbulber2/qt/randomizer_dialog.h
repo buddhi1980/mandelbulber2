@@ -87,7 +87,7 @@ private:
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 	double VisualCompare(cImage *image, cImage *refImage);
 	void UpdateProgressBar(double progress);
-	QString CreateTooltipText(QMap<QString, QString> list);
+	QString CreateTooltipText(const QMap<QString, QString> &list);
 
 	void closeEvent(QCloseEvent *event) override;
 
@@ -114,7 +114,8 @@ private:
 	cThumbnailWidget *referenceSkyPreview;
 	cThumbnailWidget *referenceNoisePreview;
 	cProgressText progressText;
-	QList<QMap<QString, QString>> listOfChangedParameters;
+	QList<QMap<QString, QString>> listsOfChangedParameters;
+	QMap<QString, QString> actualListOfChangedParameters;
 
 	int previewWidth;
 	int previewHeight;

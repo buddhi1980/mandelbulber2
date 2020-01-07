@@ -100,7 +100,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 		numbersOfRepeats.append(0);
 		versionsDone.append(false);
-		listOfChangedParameters.append(QMap<QString, QString>());
+		listsOfChangedParameters.append(QMap<QString, QString>());
 	}
 }
 
@@ -199,7 +199,7 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
 		// qDebug() << previewWidget;
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
-		previewWidget->setToolTip(CreateTooltipText(listOfChangedParameters[i]));
+		previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
 		previewWidget->update();
 	}
 }
@@ -480,7 +480,7 @@ void cRandomizerDialog::RandomizeStringParameter(double randomScale, cOneParamet
 void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 	cParameterContainer *params, cFractalContainer *fractal, int widgetIndex)
 {
-	listOfChangedParameters[widgetIndex].clear();
+	listsOfChangedParameters[widgetIndex].clear();
 
 	int numberOfParameters = parametersTree.GetSize();
 
@@ -673,10 +673,10 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 
 	container->SetFromOneParameter(parameterName, parameter);
 
-	if (!listOfChangedParameters[widgetIndex].contains(fullParameterName))
+	if (!listsOfChangedParameters[widgetIndex].contains(fullParameterName))
 	{
 		QString parameterValueString = container->Get<QString>(parameterName);
-		listOfChangedParameters[widgetIndex].insert(fullParameterName, parameterValueString);
+		listsOfChangedParameters[widgetIndex].insert(fullParameterName, parameterValueString);
 	}
 }
 
@@ -775,6 +775,18 @@ void cRandomizerDialog::slotClickedSelectButton()
 
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
+
+	// update main list of changed parameters
+	QMapIterator<QString, QString> i(listsOfChangedParameters[buttonNumber - 1]);
+	while (i.hasNext())
+	{
+		i.next();
+		if (!actualListOfChangedParameters.contains(i.key()))
+		{
+			actualListOfChangedParameters.insert(i.key(), i.value());
+		}
+	}
+	ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
 }
 
 void cRandomizerDialog::slotClickedUseButton()
@@ -821,7 +833,7 @@ void cRandomizerDialog::slotPreviewRendered()
 					&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 				widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 					listOfVersions.at(previewNumber - 1).fractParams);
-				widget->setToolTip(CreateTooltipText(listOfChangedParameters[previewNumber - 1]));
+				widget->setToolTip(CreateTooltipText(listsOfChangedParameters[previewNumber - 1]));
 				widget->update();
 			}
 			else
@@ -861,7 +873,7 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 			&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 		widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 			listOfVersions.at(previewNumber - 1).fractParams);
-		widget->setToolTip(CreateTooltipText(listOfChangedParameters[previewNumber - 1]));
+		widget->setToolTip(CreateTooltipText(listsOfChangedParameters[previewNumber - 1]));
 		widget->update();
 	}
 }
@@ -947,9 +959,10 @@ void cRandomizerDialog::slotClickedResetButton()
 		}
 	}
 	ui->previewwidget_actual->update();
+	actualListOfChangedParameters.clear();
 }
 
-QString cRandomizerDialog::CreateTooltipText(QMap<QString, QString> list)
+QString cRandomizerDialog::CreateTooltipText(const QMap<QString, QString> &list)
 {
 	QString text = "List of randomized parameters:\n";
 	QMapIterator<QString, QString> i(list);
