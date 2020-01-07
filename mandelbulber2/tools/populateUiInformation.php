@@ -36,7 +36,8 @@ foreach ($formulas as $index => $formula) {
 	printResultLine($formula['nameInComboBox'], $success, $status, $i / count($formulas));
 }
 printEndGroup();
-writeFormulaCSV($formulas);
+if (!isDryRun()) writeFormulaCSV($formulas);
+if (!isDryRun()) writeFractalDefinitionFile($formulas);
 printFinish();
 exit;
 
@@ -778,6 +779,32 @@ function writeFormulaCSV($formulas){
     	fputcsv($file, $data);
 	}
 	fclose($file);
+}
+
+function writeFractalDefinitionFile($formulas){
+	$out = '/**
+ * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
+ * Copyright (C) ' . date('Y') . ' Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ *                                        \><||i|=>>%)     / /   __/ /___/ /_
+ * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
+ * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
+ * see also COPYING file in this folder.    ~+{i%+++
+ */
+
+#ifndef MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_DEFINITIONS_H_
+#define MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_DEFINITIONS_H_
+
+#include "abstract_fractal.h"
+
+';
+	foreach ($formulas as $index => $formula) {
+	
+		$out .= 'FRACTAL_CLASS(cFractal' . ucfirst($index) . ')' . PHP_EOL;		
+	}
+	$out .= '
+#endif /* MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_MANDELBULB_H_ */
+';
+	file_put_contents(PROJECT_PATH . 'formula/definition/fractal_definitions.h', $out);
 }
 
 ?>
