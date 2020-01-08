@@ -1192,12 +1192,44 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>106</y>
+     <x>48</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
-     <y>108</y>
+     <x>595</x>
+     <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>8</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>436</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offset_05</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>25</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>99</y>
     </hint>
    </hints>
   </connection>
