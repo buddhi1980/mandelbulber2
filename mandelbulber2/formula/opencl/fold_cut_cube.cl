@@ -16,7 +16,6 @@
 
 REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	if (!fractal->transformCommon.functionEnabledDFalse
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
@@ -40,11 +39,6 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			zc.y = temp;
 		}
 		aux->dist = 1.0f - zc.x;
-		/*z = fabs(z);
-		if (z.y > z.x) { REAL temp = z.x; z.x = z.y; z.y = temp; }
-		if (z.z > z.x) { REAL temp = z.x; z.x = z.z; z.z = temp; }
-		if (z.y > z.x) { REAL temp = z.x; z.x = z.y; z.y = temp; }
-		aux->dist = 1.0f - z.x;*/
 	}
 
 	z *= fractal->transformCommon.scale015;
@@ -145,11 +139,9 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL divT = (REAL) aux->i + 1;
+		REAL divT = REAL(aux->i + 1);
 		divT = native_divide(fractal->transformCommon.offset05, divT);
-		aux->dist =
-			fabs(min( divT - aux->dist,
-				native_divide(z.x, aux->DE)));
+		aux->dist = fabs(min(divT - aux->dist, native_divide(z.x, aux->DE)));
 	}
 	else
 		aux->dist = min(aux->dist, native_divide(z.x, aux->DE));

@@ -13,10 +13,46 @@
 #include "src/fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal.h"
+#include "src/common_math.h"
+
+using std::max;
+using std::min;
+using std::swap;
+
+// formula constants
+#define SQRT_1_3 0.57735026918962576450914878050196
+#define SQRT_1_2 0.70710678118654752440084436210485
+#define SQRT_2_3 0.81649658092772603273242802490196
+#define SQRT_3_2 1.22474487139158904909864203735295
+#define SQRT_3_4 0.86602540378443864676372317075294
+#define SQRT_3_4d2 0.43301270189221932338186158537647
+#define SQRT_3 1.73205080756887729352744634150587
+
+#define FRAC_1_3 0.33333333333333333333333333333333
+
+#ifndef M_PI_180
+#define M_PI_180 0.01745329251994329576923690768489
+#endif
+
+#ifndef M_PI_8
+#define M_PI_8 0.39269908169872415480783042290994
+#endif
+
+#ifndef M_PI_4
+#define M_PI_4 0.78539816339744830961566084581988
+#endif
+
+#ifndef M_PI_2
+#define M_PI_2 1.57079632679489661923132169163975
+#endif
+
+#ifndef M_PI_2x
+#define M_PI_2x 6.283185307179586476925286766559
+#endif
 
 using namespace fractal;
 
-#define FRACTAL_CLASS(fractalName)                                                         \
+#define FRACTAL_CLASS(fractalName)                                                      \
 	class fractalName : public cAbstractFractal                                           \
 	{                                                                                     \
 	public:                                                                               \

@@ -19,10 +19,10 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	REAL colorAdd = 0.0f;
 
-	REAL4 CT = (REAL4) {aux->const_c.x + aux->const_c.y + aux->const_c.z,
-								-aux->const_c.x - aux->const_c.y + aux->const_c.z,
-								-aux->const_c.x + aux->const_c.y - aux->const_c.z,
-								aux->const_c.x - aux->const_c.y - aux->const_c.z};
+	REAL4 CT = (REAL4){aux->const_c.x + aux->const_c.y + aux->const_c.z,
+		-aux->const_c.x - aux->const_c.y + aux->const_c.z,
+		-aux->const_c.x + aux->const_c.y - aux->const_c.z,
+		aux->const_c.x - aux->const_c.y - aux->const_c.z};
 	CT = fabs(CT);
 	CT = fabs(CT - fractal->transformCommon.offsetA0000);
 	if (aux->i == 0)
@@ -149,5 +149,5 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
-return z;
+	return z;
 }
