@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Define list of fractal formulas
-	DefineFractalList(&fractalList);
+	DefineFractalList(&newFractalList);
 
 	// Netrender
 	gNetRender = new cNetRender();
