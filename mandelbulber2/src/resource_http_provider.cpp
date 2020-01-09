@@ -38,6 +38,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QSslConfiguration>
+#include <QDir>
 
 #include "global_data.hpp"
 #include "system.hpp"

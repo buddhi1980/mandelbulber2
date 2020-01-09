@@ -435,7 +435,7 @@ void SynchronizeInterfaceQComboBox(
 					int selection = comboBox->currentIndex();
 					if (props.paramName.left(7) == QString("formula"))
 					{
-						selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
+						selection = newFractalList[comboBox->itemData(selection).toInt()]->getInternalId();
 					}
 					par->Set(props.paramName, selection);
 				}
@@ -449,9 +449,9 @@ void SynchronizeInterfaceQComboBox(
 						{
 							formulaComboBox->AssignParameterContainer(par);
 							formulaComboBox->AssignParameterName(props.paramName);
-							for (int i = 0; i < fractalList.size(); i++)
+							for (int i = 0; i < newFractalList.size(); i++)
 							{
-								if (fractalList[i].internalID == selection)
+								if (newFractalList[i]->getInternalId() == selection)
 								{
 									selection = comboBox->findData(i);
 									break;

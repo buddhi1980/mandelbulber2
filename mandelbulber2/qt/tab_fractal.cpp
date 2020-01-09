@@ -110,8 +110,10 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::josKleinian, QObject::tr("JosLeys-Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("Custom DE - dIFS Formulas"));
-	insertHeader << QPair<int, QString>(fractal::transfDIFSBox, QObject::tr("Custom DE - dIFS Transforms"));
-	insertHeader << QPair<int, QString>(fractal::foldCutCube, QObject::tr("Custom DE - non-dIFS formulas"));
+	insertHeader << QPair<int, QString>(
+		fractal::transfDIFSBox, QObject::tr("Custom DE - dIFS Transforms"));
+	insertHeader << QPair<int, QString>(
+		fractal::foldCutCube, QObject::tr("Custom DE - non-dIFS formulas"));
 
 	insertHeader << QPair<int, QString>(
 		fractal::aexionOctopusMod, QObject::tr("*** Formulas with delta-DE ***"));
@@ -127,7 +129,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::testing, QObject::tr("*** Experimental ***"));
 
 	ui->comboBox_formula->populateItemsFromFractalList(
-		fractalList, insertHeader, gPar->Get<int>("ui_colorize_random_seed"));
+		newFractalList, insertHeader, gPar->Get<int>("ui_colorize_random_seed"));
 
 	connect(ui->comboBox_formula, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboFractal(int)));
@@ -153,11 +155,11 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 	QString comboName = sender()->objectName();
 	int index = qobject_cast<QComboBox *>(sender())->itemData(indexInComboBox).toInt();
 
-	QString fullFormulaName = fractalList[index].nameInComboBox;
-	if (fractalList[index].internalID > 0)
+	QString fullFormulaName = newFractalList[index]->getNameInComboBox();
+	if (newFractalList[index]->getInternalName() > 0)
 	{
-		QString formulaName = fractalList[index].internalName;
-		QString uiFilename = fractalList[index].getUiFilename();
+		QString formulaName = newFractalList[index]->getInternalName();
+		QString uiFilename = newFractalList[index]->getUiFilename();
 
 		if (fractalWidget) delete fractalWidget;
 		fractalWidget = nullptr;
@@ -180,7 +182,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget);
 			SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
 
-			switch (fractalList[index].cpixelAddition)
+			switch (newFractalList[index]->getCpixelAddition())
 			{
 				case fractal::cpixelEnabledByDefault:
 					ui->checkBox_dont_add_c_constant->setText(QObject::tr("Don't add global C constant"));
@@ -209,7 +211,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 				}
 			};
 
-			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;
+			fractal::enumCPixelAddition cPixelAddition = newFractalList[index]->getCpixelAddition();
 			bool booleanState =
 				gMainInterface->mainWindow->GetWidgetDockFractal()->AreBooleanFractalsEnabled();
 
@@ -218,7 +220,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			else
 				CConstantAdditionSetVisible(booleanState);
 
-			if (fractalList[index].internalID == fractal::kaleidoscopicIfs)
+			if (newFractalList[index]->getInternalId() == fractal::kaleidoscopicIfs)
 			{
 				QWidget *pushButton_preset_dodecahedron =
 					fractalWidget->findChild<QWidget *>("pushButton_preset_dodecahedron");

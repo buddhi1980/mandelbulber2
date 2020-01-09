@@ -5,6 +5,7 @@
  *      Author: krzysztof
  */
 
+#include <QDebug>
 #include "abstract_fractal.h"
 
 cAbstractFractal::cAbstractFractal()

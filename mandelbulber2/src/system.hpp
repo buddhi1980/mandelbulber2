@@ -72,13 +72,14 @@
 #endif
 #endif
 
-#include <qapplication.h>
+#include <QApplication>
+#include <QElapsedTimer>
+#include <QThread>
+#include <QFileInfo>
 
 #include <cstdio>
 #include <cstdlib>
 #include <utility>
-
-#include <QtCore>
 
 // compatibility with qt version < 5.5
 #ifndef qInfo

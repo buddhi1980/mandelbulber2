@@ -237,21 +237,21 @@ void cRandomizerDialog::RandomizeIntegerParameter(
 		// qDebug() << "*********** randomizing fractal *******************";
 		// find fractal on the list
 		int indexOnFractalList = -1;
-		for (int i = 0; i < fractalList.size(); i++)
+		for (int i = 0; i < newFractalList.size(); i++)
 		{
-			if (fractalList.at(i).internalID == value)
+			if (newFractalList.at(i)->getInternalId() == value)
 			{
 				indexOnFractalList = i;
 				break;
 			}
 		}
-		int minIndex = indexOnFractalList - fractalList.size() * randomScale;
+		int minIndex = indexOnFractalList - newFractalList.size() * randomScale;
 		minIndex = qMax(minIndex, 0);
-		int maxIndex = indexOnFractalList + fractalList.size() * randomScale;
-		maxIndex = qMin(maxIndex, fractalList.size() - 1);
+		int maxIndex = indexOnFractalList + newFractalList.size() * randomScale;
+		maxIndex = qMin(maxIndex, newFractalList.size() - 1);
 
 		int r = randomizer.Random(maxIndex - minIndex) + minIndex;
-		value = fractalList.at(r).internalID;
+		value = newFractalList.at(r)->getInternalId();
 	}
 	else
 	{

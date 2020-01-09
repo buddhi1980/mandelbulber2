@@ -429,7 +429,7 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractal
 	{
 		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
 		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
-		QString formulaName = fractalList.at(listIndex).internalName;
+		QString formulaName = newFractalList.at(listIndex)->getInternalName();
 		listOfUsedFormulas.append(formulaName);
 	}
 	// adding #defines to the list

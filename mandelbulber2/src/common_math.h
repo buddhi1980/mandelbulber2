@@ -39,8 +39,6 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <QtCore>
-
 #include "algebra.hpp"
 
 extern unsigned int gRandomSeed;

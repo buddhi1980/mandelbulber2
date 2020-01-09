@@ -293,7 +293,7 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
 		fractalTabs[i]->FormulaTransformSetVisible(state);
 
 		const fractal::enumCPixelAddition cPixelAddition =
-			fractalList[fractalTabs[i]->GetCurrentFractalIndexOnList()].cpixelAddition;
+			newFractalList[fractalTabs[i]->GetCurrentFractalIndexOnList()]->getCpixelAddition();
 
 		if (cPixelAddition == fractal::cpixelAlreadyHas)
 			fractalTabs[i]->CConstantAdditionSetVisible(false);

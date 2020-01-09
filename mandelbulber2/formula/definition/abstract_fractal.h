@@ -8,12 +8,13 @@
 #ifndef MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_
 #define MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_
 
-#include <QtCore>
+#include <QDir>
 #include "src/fractal_enums.h"
 #include "src/fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal.h"
 #include "src/common_math.h"
+#include "src/system.hpp"
 
 using std::max;
 using std::min;
@@ -68,9 +69,9 @@ public:
 
 public:
 	bool CheckForErrors() const; // this method will be used in NineFractals class
+	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
 
 protected:
-	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &) = 0;
 	QString nameInComboBox;
 	QString internalName;
 	fractal::enumFractalFormula internalID;
@@ -88,8 +89,29 @@ public:
 	double getDefaultBailout() const { return defaultBailout; }
 	fractal::enumDEFunctionType getDeFunctionType() const { return DEFunctionType; }
 	fractal::enumDEType getDeType() const { return DEType; }
+	fractal::enumFractalFormula getInternalId() const { return internalID; }
 	const QString &getInternalName() const { return internalName; }
 	const QString &getNameInComboBox() const { return nameInComboBox; }
+
+	QString getIconName() const
+	{
+		if (internalID == fractal::none)
+		{
+			return QString(":system/icons/list-remove.svg");
+		}
+		return systemData.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
+					 + internalName + ".png";
+	}
+	QString getUiFilename() const
+	{
+		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
+					 + internalName + ".ui";
+	}
+	QString getOpenCLFilename() const
+	{
+		return systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					 + internalName + ".cl";
+	}
 };
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_ */

@@ -46,7 +46,7 @@ using namespace fractal;
 template <fractal::enumCalculationMode Mode>
 void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out)
 {
-	fractalFormulaFcn fractalFormulaFunction;
+	cAbstractFractal *fractalFormulaFunction;
 
 	// repeat, move and rotate
 	CVector3 pointTransformed = (in.point - in.common->fractalPosition).mod(in.common->repeat);
@@ -161,7 +161,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// -------------- call for fractal formulas by function pointers ---------------
 			if (fractalFormulaFunction)
 			{
-				fractalFormulaFunction(z, fractal, extendedAux);
+				fractalFormulaFunction->FormulaCode(z, fractal, extendedAux);
 			}
 			else
 			{

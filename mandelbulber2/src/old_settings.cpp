@@ -1341,9 +1341,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 				oldSettings::enumOldFractalFormula formula =
 					oldData->fractal.hybridFormula[fractalsListTemp.at(i)];
 				bool found = false;
-				for (const auto &fractalDescription : fractalList)
+				for (const auto &fractalDescription : newFractalList)
 				{
-					if (formula == oldSettings::enumOldFractalFormula(fractalDescription.internalID))
+					if (formula == oldSettings::enumOldFractalFormula(fractalDescription->getInternalId()))
 					{
 						found = true;
 						break;

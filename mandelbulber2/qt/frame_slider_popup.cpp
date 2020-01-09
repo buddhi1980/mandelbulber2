@@ -34,6 +34,7 @@
  * contains a slider and different buttons to edit the field
  */
 
+#include <QTimer>
 #include "frame_slider_popup.h"
 
 #include "ui_slider_popup.h"

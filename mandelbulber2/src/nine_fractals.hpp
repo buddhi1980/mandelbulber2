@@ -51,6 +51,7 @@
 class cParameterContainer;
 class cFractalContainer;
 struct sFractal;
+class cAbstractFractal;
 
 class cNineFractals
 {
@@ -81,7 +82,7 @@ public:
 	{
 		return useAdditionalBailoutCond[formulaIndex];
 	};
-	inline fractalFormulaFcn GetFractalFormulaFunction(int formulaIndex) const
+	inline cAbstractFractal *GetFractalFormulaFunction(int formulaIndex) const
 	{
 		return fractalFormulaFunctions[formulaIndex];
 	}
@@ -128,7 +129,7 @@ private:
 	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
 	double initialWAxis[NUMBER_OF_FRACTALS];
 	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
-	fractalFormulaFcn fractalFormulaFunctions[NUMBER_OF_FRACTALS];
+	cAbstractFractal *fractalFormulaFunctions[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
 };
