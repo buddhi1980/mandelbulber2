@@ -9,6 +9,7 @@
 #define MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_
 
 #include <QDir>
+#include <math.h>
 #include "src/fractal_enums.h"
 #include "src/fractal_list_enums.hpp"
 #include "src/algebra.hpp"
@@ -21,6 +22,7 @@ using std::min;
 using std::swap;
 
 // formula constants
+#ifndef SQRT_1_3
 #define SQRT_1_3 0.57735026918962576450914878050196
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
@@ -28,8 +30,8 @@ using std::swap;
 #define SQRT_3_4 0.86602540378443864676372317075294
 #define SQRT_3_4d2 0.43301270189221932338186158537647
 #define SQRT_3 1.73205080756887729352744634150587
-
 #define FRAC_1_3 0.33333333333333333333333333333333
+#endif
 
 #ifndef M_PI_180
 #define M_PI_180 0.01745329251994329576923690768489
