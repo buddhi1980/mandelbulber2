@@ -8,8 +8,11 @@
 #ifndef MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_
 #define MANDELBULBER2_FORMULA_DEFINITIONS_ABSTRACT_FRACTAL_H_
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+#include <cmath>
 #include <QDir>
-#include <math.h>
 #include "src/fractal_enums.h"
 #include "src/fractal_list_enums.hpp"
 #include "src/algebra.hpp"
