@@ -11,7 +11,7 @@
  * riemann-fractals/msg33500/#msg33500
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalRiemannSphereMsltoe::cFractalRiemannSphereMsltoe() : cAbstractFractal()
 {

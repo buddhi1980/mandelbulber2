@@ -10,7 +10,7 @@
  *
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSBoxDiagonalV3::cFractalDIFSBoxDiagonalV3() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalDIFSBoxDiagonalV3::cFractalDIFSBoxDiagonalV3() : cAbstractFractal()
 	internalName = "difs_box_diagonal_v3";
 	internalID = fractal::dIFSBoxDiagonalV3;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

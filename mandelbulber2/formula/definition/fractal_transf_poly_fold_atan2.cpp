@@ -11,7 +11,7 @@
  * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfPolyFoldAtan2::cFractalTransfPolyFoldAtan2() : cAbstractFractal()
 {

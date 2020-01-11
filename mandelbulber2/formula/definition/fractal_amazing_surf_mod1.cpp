@@ -13,7 +13,7 @@
  * This formula contains aux.color and aux.actualScale
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalAmazingSurfMod1::cFractalAmazingSurfMod1() : cAbstractFractal()
 {

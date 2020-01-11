@@ -9,7 +9,7 @@
  * Menger Middle Mod
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMengerMiddleMod::cFractalMengerMiddleMod() : cAbstractFractal()
 {

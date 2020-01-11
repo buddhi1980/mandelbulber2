@@ -38,9 +38,9 @@
 
 #include <QtCore>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
 #include "fractal_enums.h"
-#include "fractal_list.hpp"
 
 // custom includes
 #ifdef USE_OPENCL

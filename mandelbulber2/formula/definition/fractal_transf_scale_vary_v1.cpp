@@ -9,7 +9,7 @@
  * scale variation v1. Scale varies based on iteration parameters.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfScaleVaryV1::cFractalTransfScaleVaryV1() : cAbstractFractal()
 {

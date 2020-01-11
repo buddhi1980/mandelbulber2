@@ -9,7 +9,7 @@
  * scale 3d. Scale each axis individually
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfScale3d::cFractalTransfScale3d() : cAbstractFractal()
 {

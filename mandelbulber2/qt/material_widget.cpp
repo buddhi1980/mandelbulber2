@@ -40,8 +40,8 @@
 
 #include <QMouseEvent>
 
+#include "../src/fractal_enums.h"
 #include "src/fractal_container.hpp"
-#include "src/fractal_enums.h"
 #include "src/fractparams.hpp"
 #include "src/global_data.hpp"
 #include "src/initparameters.hpp"
@@ -52,7 +52,7 @@
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(
-				systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
+			systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
 {
 	Init();
 }

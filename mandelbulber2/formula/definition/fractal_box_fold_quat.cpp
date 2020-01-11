@@ -11,7 +11,7 @@
  * Sometimes Delta DE Linear works best.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalBoxFoldQuat::cFractalBoxFoldQuat() : cAbstractFractal()
 {

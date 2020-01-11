@@ -9,7 +9,7 @@
  * abs Multi - Multiple parameters for abs functions
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAbsAddMulti4d::cFractalTransfAbsAddMulti4d() : cAbstractFractal()
 {

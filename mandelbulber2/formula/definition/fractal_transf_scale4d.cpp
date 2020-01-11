@@ -10,7 +10,7 @@
  * This formula contains aux.actualScaleA
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfScale4d::cFractalTransfScale4d() : cAbstractFractal()
 {

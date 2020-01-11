@@ -14,7 +14,7 @@
  * This formula contains aux.color and aux.actualScaleA
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelboxVariable::cFractalMandelboxVariable() : cAbstractFractal()
 {

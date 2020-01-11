@@ -10,7 +10,7 @@
  * based on formula coded by Darkbeam in fragmentarium:
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalFoldCutCube::cFractalFoldCutCube() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalFoldCutCube::cFractalFoldCutCube() : cAbstractFractal()
 	internalName = "fold_cut_cube";
 	internalID = fractal::foldCutCube;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

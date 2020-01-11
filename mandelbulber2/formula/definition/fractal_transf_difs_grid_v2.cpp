@@ -10,7 +10,7 @@
  * and Buddhi
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfDIFSGridV2::cFractalTransfDIFSGridV2() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalTransfDIFSGridV2::cFractalTransfDIFSGridV2() : cAbstractFractal()
 	internalName = "transf_difs_grid_v2";
 	internalID = fractal::transfDIFSGridV2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

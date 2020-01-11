@@ -32,9 +32,9 @@
  * list of fractal formulas
  */
 
-#include "fractal_list.hpp"
+#include "all_fractal_list.hpp"
 
-#include "fractal_formulas.hpp"
+#include "legacy_fractal_transforms.hpp"
 
 QList<cAbstractFractal *> newFractalList;
 

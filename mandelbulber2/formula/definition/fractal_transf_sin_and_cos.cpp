@@ -9,7 +9,7 @@
  * sin and cos
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfSinAndCos::cFractalTransfSinAndCos() : cAbstractFractal()
 {

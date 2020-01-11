@@ -9,7 +9,7 @@
  * abs add conditional2.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAbsAddConditional2::cFractalTransfAbsAddConditional2() : cAbstractFractal()
 {

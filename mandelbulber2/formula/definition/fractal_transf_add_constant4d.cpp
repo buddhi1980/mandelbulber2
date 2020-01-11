@@ -9,7 +9,7 @@
  * Adds c constant to z vector 4D
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddConstant4d::cFractalTransfAddConstant4d() : cAbstractFractal()
 {

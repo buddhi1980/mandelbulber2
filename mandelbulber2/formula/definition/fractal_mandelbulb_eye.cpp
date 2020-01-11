@@ -9,7 +9,7 @@
  * 3D Version of the 2D Eye Fractal created by biberino, modified mclarekin
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbEye::cFractalMandelbulbEye() : cAbstractFractal()
 {

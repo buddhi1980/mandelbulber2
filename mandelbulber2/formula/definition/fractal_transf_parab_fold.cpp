@@ -9,7 +9,7 @@
  * Parabolic Fold by mclarekin
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfParabFold::cFractalTransfParabFold() : cAbstractFractal()
 {

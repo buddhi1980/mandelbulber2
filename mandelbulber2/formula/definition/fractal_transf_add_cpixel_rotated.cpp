@@ -9,7 +9,7 @@
  * Adds rotated Cpixel constant to z vector. Possible to swap Cpixel vector axes.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddCpixelRotated::cFractalTransfAddCpixelRotated() : cAbstractFractal()
 {

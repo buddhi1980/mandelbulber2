@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBenesiMagForward::cFractalTransfBenesiMagForward() : cAbstractFractal()
 {

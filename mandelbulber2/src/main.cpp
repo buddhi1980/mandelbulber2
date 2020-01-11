@@ -36,12 +36,12 @@
 
 #include <qapplication.h>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
 #include "command_line_interface.hpp"
 #include "error_message.hpp"
-#include "fractal_list.hpp"
 #include "global_data.hpp"
 #include "headless.h"
 #include "initparameters.hpp"

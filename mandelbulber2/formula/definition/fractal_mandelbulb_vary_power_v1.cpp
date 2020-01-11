@@ -9,7 +9,7 @@
  * mandelbulb vary scaleV1
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbVaryPowerV1::cFractalMandelbulbVaryPowerV1() : cAbstractFractal()
 {

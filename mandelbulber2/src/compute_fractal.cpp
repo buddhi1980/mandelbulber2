@@ -34,9 +34,9 @@
 
 #include "compute_fractal.hpp"
 
+#include "formula/definition/legacy_fractal_transforms.hpp"
 #include "common_math.h"
 #include "fractal.h"
-#include "fractal_formulas.hpp"
 #include "material.h"
 #include "nine_fractals.hpp"
 #include "orbit_trap_shape.hpp"
@@ -415,7 +415,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->distance = min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 													/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
-				else if (fractals.GetDEFunctionType(0) == fractal::dIFSDEFunction)
+				else if (fractals.GetDEFunctionType(0) == fractal::customDEFunction)
 				{
 					out->distance = extendedAux.dist;
 				}
@@ -456,7 +456,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							/ max(extendedAux.DE, fractals.GetFractal(sequence)->analyticDE.offset1);
 						break;
 					}
-					case analyticFunctionDIFS:
+					case analyticFunctionCustomDE:
 					{
 						out->distance = extendedAux.dist;
 						break;

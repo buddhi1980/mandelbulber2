@@ -9,7 +9,7 @@
  * mix integer powers 1234
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbPower1234::cFractalMandelbulbPower1234() : cAbstractFractal()
 {

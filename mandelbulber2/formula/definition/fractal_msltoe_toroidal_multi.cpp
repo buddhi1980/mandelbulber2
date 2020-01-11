@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/theory/toroidal-coordinates/msg9428/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMsltoeToroidalMulti::cFractalMsltoeToroidalMulti() : cAbstractFractal()
 {

@@ -16,7 +16,7 @@
  * http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalKalisets1::cFractalKalisets1() : cAbstractFractal()
 {

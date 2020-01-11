@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/mandeldonuts/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandeltorus::cFractalMandeltorus() : cAbstractFractal()
 {

@@ -9,7 +9,7 @@
  * Adds Cpixel constant sin or cos
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddCpixelSinOrCos::cFractalTransfAddCpixelSinOrCos() : cAbstractFractal()
 {

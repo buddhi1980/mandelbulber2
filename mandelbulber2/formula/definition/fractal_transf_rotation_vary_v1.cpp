@@ -10,7 +10,7 @@
  * After the stop iteration, alpha = alpha + variable alpha.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfRotationVaryV1::cFractalTransfRotationVaryV1() : cAbstractFractal()
 {

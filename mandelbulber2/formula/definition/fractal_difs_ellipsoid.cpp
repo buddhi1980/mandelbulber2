@@ -10,7 +10,7 @@
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSEllipsoid::cFractalDIFSEllipsoid() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalDIFSEllipsoid::cFractalDIFSEllipsoid() : cAbstractFractal()
 	internalName = "difs_ellipsoid";
 	internalID = fractal::dIFSEllipsoid;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

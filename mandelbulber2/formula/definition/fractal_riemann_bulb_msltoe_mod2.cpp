@@ -12,7 +12,7 @@
  * another-way-to-make-my-riemann-sphere-'bulb'-using-a-conformal-transformation/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalRiemannBulbMsltoeMod2::cFractalRiemannBulbMsltoeMod2() : cAbstractFractal()
 {

@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/index.php?action=profile;u=1170
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalBenesi::cFractalBenesi() : cAbstractFractal()
 {

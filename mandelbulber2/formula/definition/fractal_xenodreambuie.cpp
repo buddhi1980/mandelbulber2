@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/273/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalXenodreambuie::cFractalXenodreambuie() : cAbstractFractal()
 {

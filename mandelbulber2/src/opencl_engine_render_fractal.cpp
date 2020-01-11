@@ -39,13 +39,13 @@
 
 #include <QtAlgorithms>
 
+#include "formula/definition/all_fractal_list.hpp"
+#include "formula/definition/legacy_fractal_transforms.hpp"
 #include "camera_target.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
 #include "files.h"
 #include "fractal.h"
-#include "fractal_formulas.hpp"
-#include "fractal_list.hpp"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "material.h"
@@ -363,7 +363,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				case fractal::josKleinianDEFunction:
 					definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
 					break;
-				case fractal::dIFSDEFunction: definesCollector += " -DANALYTIC_DIFS_DE"; break;
+				case fractal::customDEFunction: definesCollector += " -DANALYTIC_CUSTOM_DE"; break;
 				default: break;
 			}
 		}
@@ -376,7 +376,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-				case fractal::dIFSDEFunction: useDIFSDEFunction = true; break;
+				case fractal::customDEFunction: useDIFSDEFunction = true; break;
 				default: break;
 			}
 		}
@@ -400,7 +400,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 					case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-					case fractal::dIFSDEFunction: useDIFSDEFunction = true; break;
+					case fractal::customDEFunction: useDIFSDEFunction = true; break;
 					default: break;
 				}
 			}

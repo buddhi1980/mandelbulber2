@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/theory/alternate-co-ordinate-systems/msg11688/#msg11688
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalRiemannSphereMsltoeV2::cFractalRiemannSphereMsltoeV2() : cAbstractFractal()
 {

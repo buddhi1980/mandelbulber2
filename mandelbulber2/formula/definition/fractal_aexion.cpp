@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalAexion::cFractalAexion() : cAbstractFractal()
 {

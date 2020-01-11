@@ -12,7 +12,7 @@
  * z=c(z-z^p)
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbLambda::cFractalMandelbulbLambda() : cAbstractFractal()
 {

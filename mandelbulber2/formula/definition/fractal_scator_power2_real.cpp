@@ -13,7 +13,7 @@
  * @author Manuel Fernandez-Guasti
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalScatorPower2Real::cFractalScatorPower2Real() : cAbstractFractal()
 {

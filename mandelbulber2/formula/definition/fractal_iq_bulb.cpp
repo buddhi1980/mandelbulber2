@@ -10,7 +10,7 @@
  * @reference http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalIqBulb::cFractalIqBulb() : cAbstractFractal()
 {

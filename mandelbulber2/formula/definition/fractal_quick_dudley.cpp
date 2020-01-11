@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalQuickDudley::cFractalQuickDudley() : cAbstractFractal()
 {

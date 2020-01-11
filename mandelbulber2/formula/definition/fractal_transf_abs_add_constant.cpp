@@ -9,7 +9,7 @@
  * abs add  constant,  z = fabs( z + pre-offset) + post-offset
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAbsAddConstant::cFractalTransfAbsAddConstant() : cAbstractFractal()
 {

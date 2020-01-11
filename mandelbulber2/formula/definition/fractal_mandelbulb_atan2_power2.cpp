@@ -9,7 +9,7 @@
  * MandelbulbAtan22Iteration
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbAtan2Power2::cFractalMandelbulbAtan2Power2() : cAbstractFractal()
 {

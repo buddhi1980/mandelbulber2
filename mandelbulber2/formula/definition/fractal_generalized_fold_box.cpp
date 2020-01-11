@@ -11,7 +11,7 @@
  * This formula contains aux.color
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalGeneralizedFoldBox::cFractalGeneralizedFoldBox() : cAbstractFractal()
 {

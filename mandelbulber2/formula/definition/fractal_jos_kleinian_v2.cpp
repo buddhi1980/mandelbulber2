@@ -12,7 +12,7 @@
  * This formula contains aux.color and aux.DE
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalJosKleinianV2::cFractalJosKleinianV2() : cAbstractFractal()
 {

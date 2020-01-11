@@ -10,7 +10,7 @@
  * DIFS = direct distance iterated function (primitives) system
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSBoxV1::cFractalDIFSBoxV1() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalDIFSBoxV1::cFractalDIFSBoxV1() : cAbstractFractal()
 	internalName = "difs_box_v1";
 	internalID = fractal::dIFSBoxV1;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

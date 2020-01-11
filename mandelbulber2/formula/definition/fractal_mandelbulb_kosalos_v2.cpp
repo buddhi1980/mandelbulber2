@@ -12,7 +12,7 @@
  * This formula contains aux.const_c, and uses aux.c for oldZ
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbKosalosV2::cFractalMandelbulbKosalosV2() : cAbstractFractal()
 {

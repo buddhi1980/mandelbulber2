@@ -466,7 +466,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
 	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
 				 / max(fabs(aux.DE), consts->fractal[0].analyticDE.offset1);
-#elif ANALYTIC_DIFS_DE
+#elif ANALYTIC_CUSTOM_DE
 	dist = aux.dist;
 #else
 	dist = length(z);
@@ -505,7 +505,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				dist = min(z.y, fractal->analyticDE.tweak005) / max(aux.DE, fractal->analyticDE.offset1);
 				break;
 			}
-			case clAnalyticFunctionDIFS:
+			case clAnalyticFunctionCustomDE:
 			{
 				dist = aux.dist;
 				break;

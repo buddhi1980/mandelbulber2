@@ -10,7 +10,7 @@
  * This formula contains aux.color and aux.actualScaleA
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalBoxFoldBulbPow2V3::cFractalBoxFoldBulbPow2V3() : cAbstractFractal()
 {

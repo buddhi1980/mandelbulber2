@@ -12,7 +12,7 @@
  * Based upon: https://www.shadertoy.com/view/XdlSD4
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTesting::cFractalTesting() : cAbstractFractal()
 {

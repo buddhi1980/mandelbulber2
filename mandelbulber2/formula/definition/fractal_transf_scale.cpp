@@ -9,7 +9,7 @@
  * scale - simple scale
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfScale::cFractalTransfScale() : cAbstractFractal()
 {

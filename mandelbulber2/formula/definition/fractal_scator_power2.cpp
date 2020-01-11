@@ -15,7 +15,7 @@
  * This formula contains aux.DE
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalScatorPower2::cFractalScatorPower2() : cAbstractFractal()
 {
@@ -23,10 +23,10 @@ cFractalScatorPower2::cFractalScatorPower2() : cAbstractFractal()
 	internalName = "scator_power2";
 	internalID = fractal::scatorPower2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

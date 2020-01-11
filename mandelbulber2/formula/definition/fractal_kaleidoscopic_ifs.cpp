@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalKaleidoscopicIfs::cFractalKaleidoscopicIfs() : cAbstractFractal()
 {

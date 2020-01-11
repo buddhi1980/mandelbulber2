@@ -10,7 +10,7 @@
  * disable swap for normal mode
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddCpixelCxCyAxisSwap::cFractalTransfAddCpixelCxCyAxisSwap() : cAbstractFractal()
 {

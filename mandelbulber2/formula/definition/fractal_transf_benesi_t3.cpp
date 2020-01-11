@@ -12,7 +12,7 @@
  * do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBenesiT3::cFractalTransfBenesiT3() : cAbstractFractal()
 {

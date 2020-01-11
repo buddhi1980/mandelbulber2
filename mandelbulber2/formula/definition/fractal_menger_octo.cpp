@@ -10,7 +10,7 @@
  * from code by Knighty
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMengerOcto::cFractalMengerOcto() : cAbstractFractal()
 {

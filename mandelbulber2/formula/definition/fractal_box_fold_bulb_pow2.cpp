@@ -9,7 +9,7 @@
  * Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalBoxFoldBulbPow2::cFractalBoxFoldBulbPow2() : cAbstractFractal()
 {

@@ -10,7 +10,7 @@
  * bailout may need to be adjusted with some formulas
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfHybridColor::cFractalTransfHybridColor() : cAbstractFractal()
 {

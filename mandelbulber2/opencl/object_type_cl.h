@@ -53,8 +53,8 @@
 
 #include "src/common_params.hpp"
 #include "src/fractal.h"
-#include "src/fractal_enums.h"
 #include "src/fractparams.hpp"
+#include "src/fractal_enums.h"
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 

@@ -9,7 +9,7 @@
  * rotate about vec3
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfRotateAboutVec3::cFractalTransfRotateAboutVec3() : cAbstractFractal()
 {

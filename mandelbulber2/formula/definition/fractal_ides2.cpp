@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalIdes2::cFractalIdes2() : cAbstractFractal()
 {

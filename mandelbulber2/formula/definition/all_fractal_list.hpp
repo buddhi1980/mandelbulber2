@@ -32,20 +32,19 @@
  * list of fractal formulas
  */
 
-#ifndef MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
-#define MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
+#ifndef MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_LIST_HPP_
+#define MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_LIST_HPP_
 
 #include <utility>
 
 #include <QtCore>
 
-#include "algebra.hpp"
-#include "fractal_enums.h"
-#include "fractal_list_enums.hpp"
-#include "system.hpp"
-
+#include "formula/definition/all_fractal_definitions.h"
 #include "formula/definition/abstract_fractal.h"
-#include "formula/definition/fractal_definitions.h"
+#include "all_fractal_list_enums.hpp"
+#include "src/algebra.hpp"
+#include "src/fractal_enums.h"
+#include "src/system.hpp"
 
 struct sFractal;
 struct sExtendedAux;
@@ -110,4 +109,4 @@ extern QList<cAbstractFractal *> newFractalList;
 
 void DefineFractalList(QList<cAbstractFractal *> *fractalList);
 
-#endif /* MANDELBULBER2_SRC_FRACTAL_LIST_HPP_ */
+#endif /* MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_LIST_HPP_ */

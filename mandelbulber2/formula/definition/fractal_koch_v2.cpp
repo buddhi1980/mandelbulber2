@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalKochV2::cFractalKochV2() : cAbstractFractal()
 {
@@ -19,10 +19,10 @@ cFractalKochV2::cFractalKochV2() : cAbstractFractal()
 	internalName = "koch_v2";
 	internalID = fractal::kochV2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

@@ -11,7 +11,7 @@
  * /true-3d-mandlebrot-type-fractal/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalQuaternion3d::cFractalQuaternion3d() : cAbstractFractal()
 {

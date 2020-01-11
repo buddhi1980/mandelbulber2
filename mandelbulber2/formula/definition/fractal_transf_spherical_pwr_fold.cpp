@@ -10,7 +10,7 @@
  * This formula contains aux.color and analytic aux.DE
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfSphericalPwrFold::cFractalTransfSphericalPwrFold() : cAbstractFractal()
 {

@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/fragmentarium/cross-menger!-can-anyone-do-this/msg93972/#new
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMengerPrismShape::cFractalMengerPrismShape() : cAbstractFractal()
 {

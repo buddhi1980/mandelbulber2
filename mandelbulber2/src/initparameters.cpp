@@ -34,10 +34,10 @@
 
 #include <QtCore>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "file_mesh.hpp"
 #include "files.h"
 #include "fractal.h"
-#include "fractal_list.hpp"
 #include "fractparams.hpp"
 #include "material.h"
 #include "netrender.hpp"

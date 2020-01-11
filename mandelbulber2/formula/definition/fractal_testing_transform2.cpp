@@ -10,7 +10,7 @@
  *https://fractalforums.org/fractal-mathematics-and-new-theories/28/fake-3d-mandelbrot-set/1787/msg17940#msg17940
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTestingTransform2::cFractalTestingTransform2() : cAbstractFractal()
 {

@@ -9,7 +9,7 @@
  * multiple angle
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfMultipleAngle::cFractalTransfMultipleAngle() : cAbstractFractal()
 {

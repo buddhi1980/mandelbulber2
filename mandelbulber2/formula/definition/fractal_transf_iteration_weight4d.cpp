@@ -9,7 +9,7 @@
  * iteration weight 4D
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfIterationWeight4d::cFractalTransfIterationWeight4d() : cAbstractFractal()
 {

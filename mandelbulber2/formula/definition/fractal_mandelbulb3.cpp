@@ -9,7 +9,7 @@
  * Fractal formula created by Buddhi
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulb3::cFractalMandelbulb3() : cAbstractFractal()
 {

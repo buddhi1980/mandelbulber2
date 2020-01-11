@@ -9,7 +9,7 @@
  * abs Negative abs constant,  z = - abs( z + constant)
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfNegAbsAddConstant::cFractalTransfNegAbsAddConstant() : cAbstractFractal()
 {

@@ -12,7 +12,7 @@
  * https://www.researchgate.net/publication/262600735_The_Koch_curve_in_three_dimensions
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalKochV3::cFractalKochV3() : cAbstractFractal()
 {
@@ -20,10 +20,10 @@ cFractalKochV3::cFractalKochV3() : cAbstractFractal()
 	internalName = "koch_v3";
 	internalID = fractal::kochV3;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

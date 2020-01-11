@@ -9,7 +9,7 @@
  * Dummy fractal used when selected "none"
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalNone::cFractalNone() : cAbstractFractal()
 {

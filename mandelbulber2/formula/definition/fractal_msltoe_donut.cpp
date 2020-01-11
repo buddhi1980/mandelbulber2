@@ -12,7 +12,7 @@
  * low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMsltoeDonut::cFractalMsltoeDonut() : cAbstractFractal()
 {

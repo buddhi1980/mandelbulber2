@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/3d-fractal-generation/platonic-dimensions/msg36528/#msg36528
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfPlatonicSolid::cFractalTransfPlatonicSolid() : cAbstractFractal()
 {

@@ -11,7 +11,7 @@
  *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalCollatzMod::cFractalCollatzMod() : cAbstractFractal()
 {

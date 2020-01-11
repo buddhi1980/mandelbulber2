@@ -9,7 +9,7 @@
  * Adds Cpixel constant to z, Cpixel scaled  based on variable iteration parameters.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddCpixelVaryV1::cFractalTransfAddCpixelVaryV1() : cAbstractFractal()
 {

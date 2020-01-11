@@ -10,7 +10,7 @@
  * This formula contains analytic aux.DE and aux.r-dz
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfSphericalOffsetVCL::cFractalTransfSphericalOffsetVCL() : cAbstractFractal()
 {

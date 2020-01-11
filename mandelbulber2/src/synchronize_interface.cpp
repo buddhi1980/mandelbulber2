@@ -37,11 +37,10 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
-#include "fractal_list.hpp"
 #include "global_data.hpp"
 #include "parameters.hpp"
-
 #include "qt/file_select_widget.h"
 #include "qt/formula_combo_box.h"
 #include "qt/gradient_edit_widget.h"

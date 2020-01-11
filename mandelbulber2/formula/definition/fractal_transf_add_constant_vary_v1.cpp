@@ -9,7 +9,7 @@
  * Adds c constant to z vector. C addition constant varies based on iteration parameters.
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddConstantVaryV1::cFractalTransfAddConstantVaryV1() : cAbstractFractal()
 {

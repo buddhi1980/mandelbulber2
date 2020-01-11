@@ -11,7 +11,7 @@
  * by Doug Bristor
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalBristorbrot::cFractalBristorbrot() : cAbstractFractal()
 {

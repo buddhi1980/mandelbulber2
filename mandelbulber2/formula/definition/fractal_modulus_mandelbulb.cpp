@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalModulusMandelbulb::cFractalModulusMandelbulb() : cAbstractFractal()
 {

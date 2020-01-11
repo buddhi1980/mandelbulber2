@@ -9,7 +9,7 @@
  * TransfDifsBoxIteration  fragmentarium code, mdifs by knighty (jan 2012)
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfDIFSBox::cFractalTransfDIFSBox() : cAbstractFractal()
 {
@@ -17,10 +17,10 @@ cFractalTransfDIFSBox::cFractalTransfDIFSBox() : cAbstractFractal()
 	internalName = "transf_difs_box";
 	internalID = fractal::transfDIFSBox;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

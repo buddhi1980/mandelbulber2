@@ -9,7 +9,7 @@
  * box wrap 4d
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBoxWrap4d::cFractalTransfBoxWrap4d() : cAbstractFractal()
 {

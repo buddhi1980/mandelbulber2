@@ -9,7 +9,7 @@
  * Box Tiling 4d
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBoxTiling4d::cFractalTransfBoxTiling4d() : cAbstractFractal()
 {

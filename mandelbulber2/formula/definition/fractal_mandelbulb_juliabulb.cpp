@@ -11,7 +11,7 @@
  * note: an Offset Radius of 0.1 can sometimes improve the DE statistic
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbJuliabulb::cFractalMandelbulbJuliabulb() : cAbstractFractal()
 {

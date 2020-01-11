@@ -9,7 +9,7 @@
  * clamp 4d
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfClamp4d::cFractalTransfClamp4d() : cAbstractFractal()
 {

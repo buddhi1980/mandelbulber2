@@ -10,7 +10,7 @@
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfDIFSCylinder::cFractalTransfDIFSCylinder() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalTransfDIFSCylinder::cFractalTransfDIFSCylinder() : cAbstractFractal()
 	internalName = "transf_difs_cylinder";
 	internalID = fractal::transfDIFSCylinder;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

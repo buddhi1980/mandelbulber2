@@ -10,7 +10,7 @@
  * z vector version  and the xyz axis version can be used together
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddExp2Z::cFractalTransfAddExp2Z() : cAbstractFractal()
 {

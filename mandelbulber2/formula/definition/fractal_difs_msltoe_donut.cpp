@@ -12,7 +12,7 @@
  * low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSMsltoeDonut::cFractalDIFSMsltoeDonut() : cAbstractFractal()
 {
@@ -20,10 +20,10 @@ cFractalDIFSMsltoeDonut::cFractalDIFSMsltoeDonut() : cAbstractFractal()
 	internalName = "difs_msltoe_donut";
 	internalID = fractal::dIFSMsltoeDonut;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

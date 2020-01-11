@@ -34,11 +34,11 @@
 
 #include "old_settings.hpp"
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "camera_target.hpp"
 #include "color_gradient.h"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
-#include "fractal_list.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
 #include "system.hpp"

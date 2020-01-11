@@ -10,7 +10,7 @@
  * @reference /http://www.fractalforums.com/gallery-b177/buffalo-fractals
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbAbsPower2::cFractalMandelbulbAbsPower2() : cAbstractFractal()
 {

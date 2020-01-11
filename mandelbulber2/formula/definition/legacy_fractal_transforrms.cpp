@@ -33,17 +33,65 @@
  * functions for calculation single fractal iterations
  */
 
-#ifndef MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_
-#define MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_
+#include "legacy_fractal_transforms.hpp"
+#include "src/common_math.h"
+#include "src/common_params.hpp"
+#include "src/fractal.h"
 
-#include "algebra.hpp"
+using namespace fractal;
 
-// forward declarations
-struct sFractal;
-struct sExtendedAux;
-struct sFractalFoldings;
+void BoxFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAux &aux)
+{
+	if (z.x > foldings->boxLimit)
+	{
+		z.x = foldings->boxValue - z.x;
+		aux.color *= 0.9;
+	}
+	else if (z.x < -foldings->boxLimit)
+	{
+		z.x = -foldings->boxValue - z.x;
+		aux.color *= 0.9;
+	}
+	if (z.y > foldings->boxLimit)
+	{
+		z.y = foldings->boxValue - z.y;
+		aux.color *= 0.9;
+	}
+	else if (z.y < -foldings->boxLimit)
+	{
+		z.y = -foldings->boxValue - z.y;
+		aux.color *= 0.9;
+	}
+	if (z.z > foldings->boxLimit)
+	{
+		z.z = foldings->boxValue - z.z;
+		aux.color *= 0.9;
+	}
+	else if (z.z < -foldings->boxLimit)
+	{
+		z.z = -foldings->boxValue - z.z;
+		aux.color *= 0.9;
+	}
+}
 
-void BoxFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
-void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
+void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAux &aux)
+{
+	double fR2_2 = foldings->sphericalOuter * foldings->sphericalOuter;
+	double mR2_2 = foldings->sphericalInner * foldings->sphericalInner;
+	double r2_2 = aux.r * aux.r;
+	double fold_factor1_2 = fR2_2 / mR2_2;
 
-#endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */
+	if (r2_2 < mR2_2)
+	{
+		z = z * fold_factor1_2;
+		aux.DE *= fold_factor1_2;
+		aux.color *= 0.9;
+	}
+	else if (r2_2 < fR2_2)
+	{
+		double fold_factor2_2 = fR2_2 / r2_2;
+		z = z * fold_factor2_2;
+		aux.DE *= fold_factor2_2;
+		aux.color *= 0.9;
+	}
+}

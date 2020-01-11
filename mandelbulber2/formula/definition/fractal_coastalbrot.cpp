@@ -9,7 +9,7 @@
  * Fractal formula created by Robert Pancoast
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalCoastalbrot::cFractalCoastalbrot() : cAbstractFractal()
 {

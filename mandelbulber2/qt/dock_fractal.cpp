@@ -39,10 +39,10 @@
 #include "dock_rendering_engine.h"
 #include "my_tab_bar.h"
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"
 #include "src/fractal_enums.h"
-#include "src/fractal_list.hpp"
 #include "src/global_data.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"

@@ -10,7 +10,7 @@
  * http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSMultiV1::cFractalDIFSMultiV1() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalDIFSMultiV1::cFractalDIFSMultiV1() : cAbstractFractal()
 	internalName = "difs_multi_v1";
 	internalID = fractal::dIFSMultiV1;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

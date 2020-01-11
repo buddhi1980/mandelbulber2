@@ -12,7 +12,7 @@
  * @reference http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbBermarte::cFractalMandelbulbBermarte() : cAbstractFractal()
 {

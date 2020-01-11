@@ -11,7 +11,7 @@
  * and http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbPow2V2::cFractalMandelbulbPow2V2() : cAbstractFractal()
 {

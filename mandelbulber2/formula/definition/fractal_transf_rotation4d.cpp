@@ -9,7 +9,7 @@
  * rotation 4D
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfRotation4d::cFractalTransfRotation4d() : cAbstractFractal()
 {

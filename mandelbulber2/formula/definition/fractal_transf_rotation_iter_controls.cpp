@@ -9,7 +9,7 @@
  * rotate angles with iteration start/stop controls
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfRotationIterControls::cFractalTransfRotationIterControls() : cAbstractFractal()
 {

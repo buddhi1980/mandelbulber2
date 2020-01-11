@@ -14,7 +14,7 @@
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfFoldingTetra3d::cFractalTransfFoldingTetra3d() : cAbstractFractal()
 {

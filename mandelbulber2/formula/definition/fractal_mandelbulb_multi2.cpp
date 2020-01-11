@@ -9,7 +9,7 @@
  * mandelbulbMulti2 3D
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMandelbulbMulti2::cFractalMandelbulbMulti2() : cAbstractFractal()
 {

@@ -12,7 +12,7 @@
  * revisiting-the-riemann-sphere-%28again%29/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalRiemannSphereMsltoeV1::cFractalRiemannSphereMsltoeV1() : cAbstractFractal()
 {

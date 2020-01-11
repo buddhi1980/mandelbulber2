@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMsltoeSym3Mod::cFractalMsltoeSym3Mod() : cAbstractFractal()
 {

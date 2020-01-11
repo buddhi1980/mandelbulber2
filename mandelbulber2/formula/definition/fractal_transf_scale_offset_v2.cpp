@@ -9,7 +9,7 @@
  * scale - offsetV2  abs
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfScaleOffsetV2::cFractalTransfScaleOffsetV2() : cAbstractFractal()
 {

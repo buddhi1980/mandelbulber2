@@ -10,7 +10,7 @@
  * will cause cuts along axis
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBoxOffset::cFractalTransfBoxOffset() : cAbstractFractal()
 {

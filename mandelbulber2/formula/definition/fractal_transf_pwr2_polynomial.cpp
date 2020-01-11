@@ -9,7 +9,7 @@
  * z = (Az^2 + Bz + C ) / D; ((VectA +ScaleA * z) * fn(z) + scaleB * z + VectC ) * ScaleD
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfPwr2Polynomial::cFractalTransfPwr2Polynomial() : cAbstractFractal()
 {

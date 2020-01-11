@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14198/#msg14198
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMsltoeSym3Mod2::cFractalMsltoeSym3Mod2() : cAbstractFractal()
 {

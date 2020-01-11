@@ -34,11 +34,11 @@
 
 #include "mandelbulb3d_settings.hpp"
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "camera_target.hpp"
 #include "error_message.hpp"
 #include "files.h"
 #include "fractal_container.hpp"
-#include "fractal_list.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
 #include "system.hpp"

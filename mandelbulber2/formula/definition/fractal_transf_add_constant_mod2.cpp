@@ -10,7 +10,7 @@
  * This formula contains aux.pos_neg
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddConstantMod2::cFractalTransfAddConstantMod2() : cAbstractFractal()
 {

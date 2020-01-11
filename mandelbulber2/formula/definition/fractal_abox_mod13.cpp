@@ -15,7 +15,7 @@
  * This formula contains aux.color, aux.pos_neg and aux.actualScaleA
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalAboxMod13::cFractalAboxMod13() : cAbstractFractal()
 {

@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalQuaternion::cFractalQuaternion() : cAbstractFractal()
 {

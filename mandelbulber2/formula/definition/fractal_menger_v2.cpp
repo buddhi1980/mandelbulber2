@@ -11,7 +11,7 @@
  * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalMengerV2::cFractalMengerV2() : cAbstractFractal()
 {
@@ -19,10 +19,10 @@ cFractalMengerV2::cFractalMengerV2() : cAbstractFractal()
 	internalName = "menger_v2";
 	internalID = fractal::mengerV2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

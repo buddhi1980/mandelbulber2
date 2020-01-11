@@ -12,7 +12,7 @@
  * @reference http://www.fractalforums.com/mathematics/circle2square/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfBenesiSphereCube::cFractalTransfBenesiSphereCube() : cAbstractFractal()
 {

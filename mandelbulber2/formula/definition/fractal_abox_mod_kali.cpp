@@ -10,7 +10,7 @@
  * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalAboxModKali::cFractalAboxModKali() : cAbstractFractal()
 {

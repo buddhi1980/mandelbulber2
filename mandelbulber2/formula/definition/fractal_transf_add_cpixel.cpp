@@ -9,7 +9,7 @@
  * Adds Cpixel constant to z vector
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfAddCpixel::cFractalTransfAddCpixel() : cAbstractFractal()
 {

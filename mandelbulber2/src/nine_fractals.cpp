@@ -236,9 +236,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			}
 
 			// checking if used dIFS formula
-			if (DEFunctionCount[fractal::dIFSDEFunction] > 0)
+			if (DEFunctionCount[fractal::customDEFunction] > 0)
 			{
-				DEFunctionType[0] = fractal::dIFSDEFunction;
+				DEFunctionType[0] = fractal::customDEFunction;
 			}
 			else // use method which used in the highest iteration count
 			{
@@ -303,8 +303,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					case fractal::josKleinianDEFunction:
 						DEAnalyticFunction[f] = fractal::analyticFunctionJosKleinian;
 						break;
-					case fractal::dIFSDEFunction:
-						DEAnalyticFunction[f] = fractal::analyticFunctionDIFS;
+					case fractal::customDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionCustomDE;
 						break;
 					default: DEAnalyticFunction[f] = fractal::analyticFunctionLinear; break;
 				}
@@ -448,7 +448,7 @@ QString cNineFractals::GetDETypeString() const
 			case fractal::linearDEFunction: text += " linear"; break;
 			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
 			case fractal::josKleinianDEFunction: text += " jos kleinian"; break;
-			case fractal::dIFSDEFunction: text += " dIFS"; break;
+			case fractal::customDEFunction: text += " dIFS"; break;
 			// case fractal::testingDEFunction: text += " testing DE"; break;
 			default: text += "unknown"; break;
 		}

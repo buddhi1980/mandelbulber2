@@ -13,7 +13,7 @@
  * Taken from K3DSurf forum, posted by user abdelhamid belaid."
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSHextgrid2::cFractalDIFSHextgrid2() : cAbstractFractal()
 {
@@ -21,10 +21,10 @@ cFractalDIFSHextgrid2::cFractalDIFSHextgrid2() : cAbstractFractal()
 	internalName = "difs_hextgrid2";
 	internalID = fractal::dIFSHextgrid2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

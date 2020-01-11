@@ -9,6 +9,7 @@
 
 #include "ui_randomizer_dialog.h"
 
+#include "formula/definition/all_fractal_list.hpp"
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
 #include "thumbnail_widget.h"
@@ -16,7 +17,6 @@
 #include "src/color_gradient.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
-#include "src/fractal_list.hpp"
 #include "src/interface.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)

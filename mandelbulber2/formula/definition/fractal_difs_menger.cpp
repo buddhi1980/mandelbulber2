@@ -9,7 +9,7 @@
  * DifsMengerIteration  fragmentarium code, mdifs by knighty (jan 2012)
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalDIFSMenger::cFractalDIFSMenger() : cAbstractFractal()
 {
@@ -17,10 +17,10 @@ cFractalDIFSMenger::cFractalDIFSMenger() : cAbstractFractal()
 	internalName = "difs_menger";
 	internalID = fractal::dIFSMenger;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

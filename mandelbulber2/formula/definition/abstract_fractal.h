@@ -13,10 +13,10 @@
 #endif
 #include <cmath>
 #include <QDir>
-#include "src/fractal_enums.h"
-#include "src/fractal_list_enums.hpp"
+#include "all_fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal.h"
+#include "src/fractal_enums.h"
 #include "src/common_math.h"
 #include "src/system.hpp"
 

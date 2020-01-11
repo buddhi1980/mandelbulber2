@@ -10,7 +10,7 @@
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfDIFSTorusV2::cFractalTransfDIFSTorusV2() : cAbstractFractal()
 {
@@ -18,10 +18,10 @@ cFractalTransfDIFSTorusV2::cFractalTransfDIFSTorusV2() : cAbstractFractal()
 	internalName = "transf_difs_torus_v2";
 	internalID = fractal::transfDIFSTorusV2;
 	DEType = analyticDEType;
-	DEFunctionType = dIFSDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionDIFS;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 

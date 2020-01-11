@@ -11,7 +11,7 @@
  * riemandelettuce-without-trigonometry/2996/msg16097#msg16097
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalRiemannSphereHoboldMulti::cFractalRiemannSphereHoboldMulti() : cAbstractFractal()
 {

@@ -16,7 +16,7 @@
  * This formula contains aux.DE
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalScatorPower2StdR::cFractalScatorPower2StdR() : cAbstractFractal()
 {

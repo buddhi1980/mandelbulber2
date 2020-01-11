@@ -11,7 +11,7 @@
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalPseudoKleinianMod2::cFractalPseudoKleinianMod2() : cAbstractFractal()
 {

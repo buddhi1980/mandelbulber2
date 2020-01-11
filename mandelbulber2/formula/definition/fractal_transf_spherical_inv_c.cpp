@@ -12,7 +12,7 @@
  * updated v2.12
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfSphericalInvC::cFractalTransfSphericalInvC() : cAbstractFractal()
 {

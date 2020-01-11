@@ -12,7 +12,7 @@
  * _polyfold_sym-and-polyfoldsymifs-in-mandelbulber-2/msg98162/#msg98162
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfPolyFoldSymXY::cFractalTransfPolyFoldSymXY() : cAbstractFractal()
 {

@@ -11,7 +11,7 @@
  * This formula contains aux.color and aux.actualScale
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTesting4d::cFractalTesting4d() : cAbstractFractal()
 {

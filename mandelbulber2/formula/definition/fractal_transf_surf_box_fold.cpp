@@ -13,7 +13,7 @@
  * This formula contains aux.color, analytic aux.DE and aux.r-dz
  */
 
-#include "fractal_definitions.h"
+#include "all_fractal_definitions.h"
 
 cFractalTransfSurfBoxFold::cFractalTransfSurfBoxFold() : cAbstractFractal()
 {
