@@ -159,7 +159,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
 		{
 			// -------------- call for fractal formulas by function pointers ---------------
-			if (fractalFormulaFunction)
+			if (fractalFormulaFunction && formula != none)
 			{
 				fractalFormulaFunction->FormulaCode(z, fractal, extendedAux);
 			}

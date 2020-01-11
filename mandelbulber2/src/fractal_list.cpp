@@ -42,7 +42,7 @@ using namespace fractal;
 void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 {
 	//====================== FRACTAL LIST - START ==================
-
+	fractalList->append(new cFractalNone());
 	//------------------------ ANALYTIC DE FORMULAS ----------------------
 	// ----- Logarithmic -------
 	fractalList->append(new cFractalAexion());

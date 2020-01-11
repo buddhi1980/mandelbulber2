@@ -12,6 +12,7 @@
 
 #include "abstract_fractal.h"
 
+FRACTAL_CLASS(cFractalNone)
 FRACTAL_CLASS(cFractalAexion)
 FRACTAL_CLASS(cFractalBenesiPineTree)
 FRACTAL_CLASS(cFractalBenesi)

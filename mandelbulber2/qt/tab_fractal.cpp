@@ -156,7 +156,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 	int index = qobject_cast<QComboBox *>(sender())->itemData(indexInComboBox).toInt();
 
 	QString fullFormulaName = newFractalList[index]->getNameInComboBox();
-	if (newFractalList[index]->getInternalName() > 0)
+	if (newFractalList[index]->getInternalId() > 0)
 	{
 		QString formulaName = newFractalList[index]->getInternalName();
 		QString uiFilename = newFractalList[index]->getUiFilename();
