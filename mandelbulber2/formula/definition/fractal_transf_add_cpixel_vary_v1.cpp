@@ -18,7 +18,7 @@ cFractalTransfAddCpixelVaryV1::cFractalTransfAddCpixelVaryV1() : cAbstractFracta
 	internalID = fractal::transfAddCpixelVaryV1;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
-	cpixelAddition = cpixelAlreadyHas;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionNone;
 	coloringFunction = coloringFunctionDefault;

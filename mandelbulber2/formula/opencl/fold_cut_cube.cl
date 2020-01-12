@@ -139,7 +139,7 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL divT = REAL(aux->i + 1);
+		REAL divT = (REAL)aux->i + 1;
 		divT = native_divide(fractal->transformCommon.offset05, divT);
 		aux->dist = fabs(min(divT - aux->dist, native_divide(z.x, aux->DE)));
 	}

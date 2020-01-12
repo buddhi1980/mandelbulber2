@@ -18,7 +18,7 @@ cFractalTransfAddCpixelSinOrCos::cFractalTransfAddCpixelSinOrCos() : cAbstractFr
 	internalID = fractal::transfAddCpixelSinOrCos;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
-	cpixelAddition = cpixelAlreadyHas;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionNone;
 	coloringFunction = coloringFunctionDefault;
