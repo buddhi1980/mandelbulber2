@@ -28,58 +28,36 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double Pid6 = M_PI / 6.0;
-	CVector4 VPi6 = CVector4(cos(Pid6), -sin(Pid6), 0.0, 0.0);
-	double beta = 72.0 * M_PI / 360.0; // ''''''''''''''''''''''''''''''''''''''
-	double tc = tan(beta);
-	CVector4 fp1 = CVector4(0.5, 0.0, sqrt(3.0 * tc * tc - 1.0) * 0.25, 0.0);
-	// CVector4 fl1 = normalize(CVector4(1.0, 0.0, -0.5 * sqrt(3.0 * tc * tc - 1.0), 0.0));
-	CVector4 fl1 = (CVector4(1.0, 0.0, -0.5 * sqrt(3.0 * tc * tc - 1.0), 0.0));
-	fl1 = fl1 / fl1.Length();
-	tc = cos(beta);
+	double a = fractal->transformCommon.offset1;
+	double b = fractal->transformCommon.offsetA1;
+	double polyfoldOrder = fractal->transformCommon.offset2;
 
-	double scl = fractal->transformCommon.scale4 * tc * tc;
+	double mobius = ((a + b) / polyfoldOrder) * atan2(z.y, z.x);
 
-	double rr = z.Dot(z);
+	z.x = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.offsetA2;
+	double temp = z.x;
+	double c = cos(mobius);
+	double s = sin(mobius);
+	z.x = c * z.x + s * z.z;
+	z.z = -s * temp + c * z.z;
 
-	// Sierpinski triangle symmetry + fold about xy plane
-	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
-	//	z.y = fabs(z.y);
-	//	z.z = fabs(z.z);
+	double m = polyfoldOrder / M_PI_2x;
 
-	double t = 2.0 * min(0.0, z.Dot(VPi6));
-	z -= t * VPi6;
+	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(z.x, z.z))) / m;
 
-	z.y = fabs(z.y);
+	temp = z.y;
+	c = cos(fractal->transformCommon.offsetT1);
+	s = sin(fractal->transformCommon.offsetT1);
+	z.y = c * z.y + s * z.z;
+	z.z = -s * temp + c * z.z;
 
-	// Koch curve fold
+	temp = z.x;
+	c = cos(angle1);
+	s = sin(angle1);
+	z.x = c * z.x + s * z.z;
+	z.z = -s * temp + c * z.z;
 
-	z -= fp1;
+	z.x -= fractal->transformCommon.offsetR1;
 
-	t = 2.0 * min(0.0, z.Dot(fl1));
-	z -= t * fl1;
-
-	z += fp1;
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
-	// scale
-
-	z.x -= 1.0;
-	// z *= rot;
-	z *= scl;
-	z.x += 1.0;
-	aux.DE *= scl;
-
-	rr = z.Dot(z);
-
-	aux.dist = (sqrt(rr) - 3.0) / aux.DE;
+	aux.dist = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset05;
 }
