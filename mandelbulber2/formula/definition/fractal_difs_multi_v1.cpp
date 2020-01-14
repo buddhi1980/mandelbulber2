@@ -236,10 +236,10 @@ void cFractalDIFSMultiV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		// swap axis
 		if (fractal->transformCommon.functionEnabledEFalse) swap(zc.x, zc.z);
 
-		double priD = max(fabs(zc.x) - fractal->transformCommon.offset2,
+		aux.DE0 = max(fabs(zc.x) - fractal->transformCommon.offset2,
 			max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - fractal->transformCommon.offsetA05);
 
-		aux.dist = min(aux.dist, priD / aux.DE);
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 	}
 
 	// aux.dist tweaks

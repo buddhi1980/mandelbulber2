@@ -32,6 +32,12 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double b = fractal->transformCommon.offsetA1;
 	double polyfoldOrder = fractal->transformCommon.offset2;
 
+	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+
+
+	z.z *= fractal->transformCommon.scale1;
 	double mobius = ((a + b) / polyfoldOrder) * atan2(z.y, z.x);
 
 	z.x = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.offsetA2;
@@ -59,5 +65,11 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	z.x -= fractal->transformCommon.offsetR1;
 
-	aux.dist = sqrt(z.x * z.x + z.z * z.z) - fractal->transformCommon.offset05;
+	double len = sqrt(z.x * z.x + z.z * z.z);
+
+	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(z.x), abs(z.z)));
+	if (!fractal->transformCommon.functionEnabledDFalse)
+		aux.dist =  len - fractal->transformCommon.offset05;
+	else
+		aux.dist = min(aux.dist, len - fractal->transformCommon.offset05);
 }
