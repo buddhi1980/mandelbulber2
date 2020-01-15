@@ -43,7 +43,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	CVector4 zc = z;
 
-	z.z *= fractal->transformCommon.scaleA1;
+	zc.z *= fractal->transformCommon.scaleA1;
 	double mobius = double(a + b / polyfoldOrder) * atan2(zc.y, zc.x);
 
 	zc.x = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetA2;
@@ -53,12 +53,12 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	double m = polyfoldOrder / M_PI_2x;
+	double m = float(polyfoldOrder) / M_PI_2x;
 	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
 
 	temp = zc.y;
-	c = cos(fractal->transformCommon.offsetT1);
-	s = sin(fractal->transformCommon.offsetT1);
+	c = cos(fractal->transformCommon.offset0);
+	s = sin(fractal->transformCommon.offset0);
 	zc.y = c * zc.y + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
@@ -74,40 +74,10 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
 
-	/*z.z *= fractal->transformCommon.scaleA1;
-	double mobius = double(a + b / polyfoldOrder) * atan2(z.y, z.x);
-
-	z.x = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.offsetA2;
-	double temp = z.x;
-	double c = cos(mobius);
-	double s = sin(mobius);
-	z.x = c * z.x + s * z.z;
-	z.z = -s * temp + c * z.z;
-
-	double m = polyfoldOrder / M_PI_2x;
-	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(z.x, z.z))) / m;
-
-	temp = z.y;
-	c = cos(fractal->transformCommon.offsetT1);
-	s = sin(fractal->transformCommon.offsetT1);
-	z.y = c * z.y + s * z.z;
-	z.z = -s * temp + c * z.z;
-
-	temp = z.x;
-	c = cos(angle1);
-	s = sin(angle1);
-	z.x = c * z.x + s * z.z;
-	z.z = -s * temp + c * z.z;
-
-	z.x -= fractal->transformCommon.offsetR1;
-
-	double len = sqrt(z.x * z.x + z.z * z.z);
-
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(z.x), abs(z.z)));*/
-
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	if (!fractal->transformCommon.functionEnabledDFalse)
-		aux.dist =  len - fractal->transformCommon.offset05;
+		aux.DE0 = len - fractal->transformCommon.offset05;
 	else
-		aux.dist = min(aux.dist, len - fractal->transformCommon.offset05) / aux.DE;
+		aux.DE0 = min(aux.dist, len - fractal->transformCommon.offset05);
+	aux.dist = aux.DE0 / aux.DE;
 }
