@@ -6,9 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Testing
- * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
- * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
+ * knotv1
+ * Based on DarkBeam formula from this thread:
+ * http://www.fractalforums.com/new-theories-and-research/not-fractal-but-funny-trefoil-knot-routine
  */
 
 #include "all_fractal_definitions.h"
@@ -28,17 +28,54 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double a = fractal->transformCommon.offset1;
-	double b = fractal->transformCommon.offsetA1;
-	double polyfoldOrder = fractal->transformCommon.offset2;
+	double a = fractal->transformCommon.intA1;
+	double b = fractal->transformCommon.intB1;
+	double polyfoldOrder = fractal->transformCommon.int2;
 
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	z += fractal->transformCommon.offset000;
+	//z *= fractal->transformCommon.scale1;
+	//z += fractal->transformCommon.offset000;
 
+	//aux.DE *= fractal->transformCommon.scale1;
 
-	z.z *= fractal->transformCommon.scale1;
-	double mobius = ((a + b) / polyfoldOrder) * atan2(z.y, z.x);
+	CVector4 zc = z;
+
+	z.z *= fractal->transformCommon.scaleA1;
+	double mobius = double(a + b / polyfoldOrder) * atan2(zc.y, zc.x);
+
+	zc.x = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetA2;
+	double temp = zc.x;
+	double c = cos(mobius);
+	double s = sin(mobius);
+	zc.x = c * zc.x + s * zc.z;
+	zc.z = -s * temp + c * zc.z;
+
+	double m = polyfoldOrder / M_PI_2x;
+	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
+
+	temp = zc.y;
+	c = cos(fractal->transformCommon.offsetT1);
+	s = sin(fractal->transformCommon.offsetT1);
+	zc.y = c * zc.y + s * zc.z;
+	zc.z = -s * temp + c * zc.z;
+
+	temp = zc.x;
+	c = cos(angle1);
+	s = sin(angle1);
+	zc.x = c * zc.x + s * zc.z;
+	zc.z = -s * temp + c * zc.z;
+
+	zc.x -= fractal->transformCommon.offsetR1;
+
+	double len = sqrt(zc.x * zc.x + zc.z * zc.z);
+
+	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
+
+	/*z.z *= fractal->transformCommon.scaleA1;
+	double mobius = double(a + b / polyfoldOrder) * atan2(z.y, z.x);
 
 	z.x = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.offsetA2;
 	double temp = z.x;
@@ -48,7 +85,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	z.z = -s * temp + c * z.z;
 
 	double m = polyfoldOrder / M_PI_2x;
-
 	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(z.x, z.z))) / m;
 
 	temp = z.y;
@@ -67,9 +103,11 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double len = sqrt(z.x * z.x + z.z * z.z);
 
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(z.x), abs(z.z)));
+	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(z.x), abs(z.z)));*/
+
+	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	if (!fractal->transformCommon.functionEnabledDFalse)
 		aux.dist =  len - fractal->transformCommon.offset05;
 	else
-		aux.dist = min(aux.dist, len - fractal->transformCommon.offset05);
+		aux.dist = min(aux.dist, len - fractal->transformCommon.offset05) / aux.DE;
 }
