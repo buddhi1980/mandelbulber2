@@ -14,7 +14,7 @@
 cFractalNone::cFractalNone() : cAbstractFractal()
 {
 	nameInComboBox = "None";
-	internalName = "";
+	internalName = "none";
 	internalID = fractal::none;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
@@ -26,4 +26,7 @@ cFractalNone::cFractalNone() : cAbstractFractal()
 
 void cFractalNone::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	Q_UNUSED(z);
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
 }

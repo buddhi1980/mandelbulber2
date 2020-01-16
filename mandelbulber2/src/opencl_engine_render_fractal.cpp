@@ -156,7 +156,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		QString formulaName = listOfUsedFormulas.at(i);
-		if (formulaName != "")
+		if (formulaName != "" && formulaName != "none")
 		{
 			programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 													 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
@@ -436,7 +436,7 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractal
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
-		if (internalID != "")
+		if (internalID != "" && internalID != "None")
 		{
 			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
 			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;

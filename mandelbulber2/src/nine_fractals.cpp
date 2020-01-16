@@ -448,7 +448,7 @@ QString cNineFractals::GetDETypeString() const
 			case fractal::linearDEFunction: text += " linear"; break;
 			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
 			case fractal::josKleinianDEFunction: text += " jos kleinian"; break;
-			case fractal::customDEFunction: text += " dIFS"; break;
+			case fractal::customDEFunction: text += " custom"; break;
 			// case fractal::testingDEFunction: text += " testing DE"; break;
 			default: text += "unknown"; break;
 		}
