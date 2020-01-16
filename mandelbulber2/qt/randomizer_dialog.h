@@ -100,6 +100,7 @@ private slots:
 	void slotClickedResetButton();
 	void slotPreviewRendered();
 	void slotDetectedZeroDistance();
+	void slotRenderTime(double time);
 
 private:
 	Ui::cRandomizerDialog *ui;

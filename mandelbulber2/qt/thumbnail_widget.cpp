@@ -284,6 +284,8 @@ void cThumbnailWidget::slotRender()
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));
+		connect(renderJob, &cRenderJob::signalTotalRenderTime, this,
+			&cThumbnailWidget::signalTotalRenderTime);
 
 		renderingTimeTimer.start();
 		renderJob->UseSizeFromImage(true);

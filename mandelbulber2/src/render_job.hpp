@@ -144,6 +144,7 @@ signals:
 		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
+	void signalTotalRenderTime(double seconds);
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_JOB_HPP_ */

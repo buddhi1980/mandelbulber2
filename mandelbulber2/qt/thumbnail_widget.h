@@ -110,6 +110,7 @@ signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void settingsChanged();
 	void signalZeroDistance();
+	void signalTotalRenderTime(double seconds);
 };
 
 #endif /* MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_ */

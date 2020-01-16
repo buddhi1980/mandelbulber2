@@ -302,10 +302,10 @@ void cRenderJob::PrepareData()
 	bool loadTextures = !(
 		paramsContainer->Get<bool>("opencl_enabled")
 		&& (cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
-					 == cOpenClEngineRenderFractal::clRenderEngineTypeFast
-				 || cOpenClEngineRenderFractal::enumClRenderEngineMode(
-							paramsContainer->Get<int>("opencl_mode"))
-							== cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
+					== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+				|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 == cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
 
 	if (loadTextures)
 	{
@@ -439,7 +439,7 @@ bool cRenderJob::Execute()
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				// stereoscopic rendering of SSAO (separate for each half of image)
 				cRegion<int> region;
@@ -486,6 +486,7 @@ bool cRenderJob::Execute()
 		gApplication->processEvents();
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
+		emit signalTotalRenderTime(progressText.getTime());
 	}
 
 #endif
@@ -528,8 +529,8 @@ int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
 			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
 			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
 						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
-					 || (paramsContainer->Get<bool>("DOF_enabled")
-								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
+					|| (paramsContainer->Get<bool>("DOF_enabled")
+							&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
 	{
 		noOfRepeats = 2;
 		*twoPassStereo = true;
@@ -647,6 +648,7 @@ bool cRenderJob::RenderFractalWithOpenCl(
 		Qt::UniqueConnection);
 
 	gOpenCl->openClEngineRenderFractal->Lock();
+	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
 	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
@@ -750,7 +752,7 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				cRegion<int> region;
 				region = renderData->stereo.GetRegion(
@@ -781,6 +783,7 @@ void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
 	connect(
 		renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 	connect(renderer, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+	connect(renderer, &cRenderer::signalTotalRenderTime, this, &cRenderJob::signalTotalRenderTime);
 }
 
 void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)

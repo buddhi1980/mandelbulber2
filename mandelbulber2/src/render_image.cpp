@@ -285,7 +285,7 @@ void cRenderer::RenderSSAO()
 	connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 	if (data->stereo.isEnabled()
 			&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-					 || data->stereo.GetMode() == cStereo::stereoTopBottom))
+					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 	{
 		cRegion<int> region;
 		region = data->stereo.GetRegion(
@@ -311,7 +311,7 @@ void cRenderer::RenderDOF()
 	connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 	if (data->stereo.isEnabled()
 			&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-					 || data->stereo.GetMode() == cStereo::stereoTopBottom))
+					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 	{
 		cRegion<int> region;
 		region = data->stereo.GetRegion(
@@ -520,6 +520,7 @@ bool cRenderer::RenderImage()
 		data->statistics.time = progressText.getTime();
 		emit updateStatistics(data->statistics);
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+		emit signalTotalRenderTime(progressText.getTime());
 
 		if (data->configuration.UseNetRender())
 		{

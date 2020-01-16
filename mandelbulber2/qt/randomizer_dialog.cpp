@@ -94,9 +94,10 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
 			&cRandomizerDialog::slotPreviewRendered);
-
 		connect(previewWidget, &cThumbnailWidget::signalZeroDistance, this,
 			&cRandomizerDialog::slotDetectedZeroDistance);
+		connect(previewWidget, &cThumbnailWidget::signalTotalRenderTime, this,
+			&cRandomizerDialog::slotRenderTime);
 
 		numbersOfRepeats.append(0);
 		versionsDone.append(false);
@@ -972,4 +973,19 @@ QString cRandomizerDialog::CreateTooltipText(const QMap<QString, QString> &list)
 		text += QString("%1 = %2\n").arg(i.key()).arg(i.value());
 	}
 	return text;
+}
+
+void cRandomizerDialog::slotRenderTime(double time)
+{
+	QString previewName = this->sender()->objectName();
+	QString numberString = previewName.right(2);
+	int previewNumber = numberString.toInt();
+
+	QString widgetName = QString("groupBox_version_%1").arg(previewNumber, 2, 10, QChar('0'));
+	QGroupBox *groupboxWidget = this->findChild<QGroupBox *>(widgetName);
+
+	QString versionTimeString;
+	versionTimeString = tr("Version %1, time %2s").arg(previewNumber).arg(time, 0, 'f', 1);
+
+	groupboxWidget->setTitle(versionTimeString);
 }

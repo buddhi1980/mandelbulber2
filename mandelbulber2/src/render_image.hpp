@@ -95,6 +95,7 @@ signals:
 	void StopAllClients();
 	void NotifyClientStatus();
 	void updateImage();
+	void signalTotalRenderTime(double seconds);
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_IMAGE_HPP_ */
