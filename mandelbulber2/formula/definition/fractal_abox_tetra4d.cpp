@@ -35,6 +35,7 @@ void cFractalAboxTetra4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		aux.const_c.x - aux.const_c.y - aux.const_c.z);
 	CT = fabs(CT);
 	CT = fabs(CT - fractal->transformCommon.offsetA0000);
+
 	if (aux.i == 0)
 	{
 		z = CT;

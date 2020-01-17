@@ -13,11 +13,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
+cFractalKnotV1::cFractalKnotV1() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Transform";
-	internalName = "testing_transform";
-	internalID = fractal::testingTransform;
+	nameInComboBox = "Knot V1";
+	internalName = "knot_v1";
+	internalID = fractal::knotV1;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double a = fractal->transformCommon.intA1;
 	double b = fractal->transformCommon.intB1;
@@ -68,7 +68,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	zc.x -= fractal->transformCommon.offsetR1;
+	zc.x -= fractal->transformCommon.offset05;
 
 	double len = sqrt(zc.x * zc.x + zc.z * zc.z);
 
@@ -76,14 +76,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	if (!fractal->transformCommon.functionEnabledDFalse)
-		aux.DE0 = len - fractal->transformCommon.offset05;
+		aux.DE0 = len - fractal->transformCommon.offset01;
 	else
-		aux.DE0 = min(aux.dist, len - fractal->transformCommon.offset05);
+		aux.DE0 = min(aux.dist, len - fractal->transformCommon.offset01);
 	aux.dist = aux.DE0 / aux.DE;
-
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		aux.dist = len - fractal->transformCommon.offset05;
-	else
-		aux.dist = min(aux.dist, len - fractal->transformCommon.offset05);
-	aux.dist = aux.dist / aux.DE;
 }

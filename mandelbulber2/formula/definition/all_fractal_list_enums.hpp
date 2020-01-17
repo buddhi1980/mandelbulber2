@@ -221,7 +221,7 @@ enum enumFractalFormula
 	kochV2 = 192,
 	kochV3 = 193,
 	foldCutCube = 194,
-
+	knotV1 = 195,
 
 
 	// mandelbulber dIFS
