@@ -28,23 +28,18 @@ cFractalKnotV1::cFractalKnotV1() : cAbstractFractal()
 
 void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double a = fractal->transformCommon.intA1;
-	double b = fractal->transformCommon.intB1;
 	double polyfoldOrder = fractal->transformCommon.int2;
 
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	z += fractal->transformCommon.offset000;
-	//z *= fractal->transformCommon.scale1;
-	//z += fractal->transformCommon.offset000;
-
-	//aux.DE *= fractal->transformCommon.scale1;
 
 	CVector4 zc = z;
-
 	zc.z *= fractal->transformCommon.scaleA1;
-	double mobius = double(a + b / polyfoldOrder) * atan2(zc.y, zc.x);
+	double mobius = double(fractal->transformCommon.intA1 + fractal->transformCommon.intB1
+						/ polyfoldOrder)
+							* atan2(zc.y, zc.x);
 
 	zc.x = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetA2;
 	double temp = zc.x;
@@ -55,12 +50,6 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	double m = float(polyfoldOrder) / M_PI_2x;
 	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
-
-	temp = zc.y;
-	c = cos(fractal->transformCommon.offset0);
-	s = sin(fractal->transformCommon.offset0);
-	zc.y = c * zc.y + s * zc.z;
-	zc.z = -s * temp + c * zc.z;
 
 	temp = zc.x;
 	c = cos(angle1);
@@ -75,9 +64,37 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
 
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
+	double colorDist = aux.dist;
 	if (!fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = len - fractal->transformCommon.offset01;
 	else
 		aux.DE0 = min(aux.dist, len - fractal->transformCommon.offset01);
 	aux.dist = aux.DE0 / aux.DE;
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		double colorAdd = 0.0;
+		double ang = (M_PI - 2.0 * fabs(atan(zc.x / zc.z))) * 2.0 / M_PI;
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+
+			if (fmod(ang, 2.0) < 1.0) colorAdd += fractal->foldColor.difs0000.x;
+			colorAdd += fractal->foldColor.difs0000.y * fabs(ang);
+			colorAdd += fractal->foldColor.difs0000.z * fabs(ang * zc.x);
+			colorAdd += fractal->foldColor.difs0000.w * angle1;
+
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist) aux.color += colorAdd;
+		}
+		else
+			aux.color += colorAdd;
+	}
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse) aux.dist = aux.dist * fractal->analyticDE.scale1;
 }
