@@ -66,6 +66,11 @@ private:
 	const int numberOfVersions = 12;
 
 	void Randomize(enimRandomizeStrength strength);
+	void InitParameterContainers();
+	void RefreshReferenceImage();
+	void RefreshReferenceSkyImage();
+	void CalcReferenceNoise();
+
 	void CreateParametersTreeInWidget(
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
 	static cParameterContainer *ContainerSelector(
@@ -85,10 +90,11 @@ private:
 	void RandomizeRGBParameter(double randomScale, cOneParameter &parameter);
 	void RandomizeBooleanParameter(cOneParameter &parameter);
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
-	double VisualCompare(cImage *image, cImage *refImage);
+	double VisualCompare(cImage *image, cImage *refImage, bool checkIfBlank);
 	void UpdateProgressBar(double progress);
 	QString CreateTooltipText(const QMap<QString, QString> &list);
 
+	// events
 	void closeEvent(QCloseEvent *event) override;
 
 private slots:
@@ -101,6 +107,7 @@ private slots:
 	void slotPreviewRendered();
 	void slotDetectedZeroDistance();
 	void slotRenderTime(double time);
+	void slotCleanUp();
 
 private:
 	Ui::cRandomizerDialog *ui;
@@ -120,6 +127,7 @@ private:
 
 	int previewWidth;
 	int previewHeight;
+	int qualityMultiplier;
 
 	double referenceNoise;
 	bool pressedUse;

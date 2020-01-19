@@ -47,6 +47,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_clean_up">
+         <property name="text">
+          <string>Reset negligible parameters</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_use">
          <property name="text">
           <string>Use</string>
