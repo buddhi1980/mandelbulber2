@@ -705,6 +705,13 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				// exceptions
 				if (parameterName.contains("material_id")) continue;
 				if (parameterName == "info") continue;
+				if (parameterName == "analyticDE_enabled") continue;
+				if (parameterName == "analyticDE_enabled_false") continue;
+				if (parameterName == "analyticDE_scale_1") continue;
+				if (parameterName == "analyticDE_tweak_005") continue;
+				if (parameterName == "analyticDE_offset_0") continue;
+				if (parameterName == "analyticDE_offset_1") continue;
+				if (parameterName == "analyticDE_offset_2") continue;
 
 				QString containerName = myWidget->getParameterContainerName();
 				QString fullParameterName = containerName + "_" + parameterName;
