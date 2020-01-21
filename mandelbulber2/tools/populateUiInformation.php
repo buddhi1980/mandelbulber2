@@ -90,7 +90,7 @@ function getFormulasData()
 			$rawComment = $matchFunctionContent[1];
 			$comment = parseComment(trim($matchFunctionContent[1]));
 			$code = $matchFunctionContent[2];
-			$code = str_replace('FormulaCode', 'void ' . ucfirst($index) . 'Iteration', $code);
+			$code = trim(str_replace('FormulaCode', 'void ' . ucfirst($index) . 'Iteration', $code));
 		}
 	
 		if (!$functionContentFound) {
@@ -692,13 +692,14 @@ function writeFormulaCSV($formulas){
 			$formula['nameInComboBox'],
 			// $formula['internalName'],
 			// $formula['functionName'],
-			$formula['deType'],
-			$formula['deFunctionType'],
-			$formula['pixelAddition'],
+			$formula['DEType'],
+			$formula['DEFunctionType'],
+			$formula['cpixelAddition'],
 			$formula['defaultBailout'],
-			$formula['analyticFunction'],
+			$formula['DEAnalyticFunction'],
 			$formula['coloringFunction'],
         );
+
     	fputcsv($file, $data);
 	}
 	fclose($file);
