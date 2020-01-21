@@ -1,10 +1,11 @@
 #!/usr/bin/env php
 #
-# this file takes the formulas in src/fractal_formulas.cpp and does a couple of things:
+# this file takes the formulas in formula/definition and does a couple of things:
 # - generates the information boxes in the ui from the source code
 # - generates opencl formulas
-# - generates formula thumbnails
-#
+# - generates formula thumbnails and configs
+# - write a csv file which contains a table of all formulas 
+# 
 # requires packages: highlight, clang-format, git and php (apt-get install highlight clang-format git php5-cli)
 # clang-format is required in version 3.8.1, get executable from here: http://releases.llvm.org/download.html
 #
@@ -12,7 +13,7 @@
 # it will try to parse all formulas and show which ui files would be modified
 # this should always be run first, to see if any issues occur
 # if you invoke this script with "nondry" as cli argument it will write changes to ui files
-# if you invoke this script with "checkCl" as cli argument it will also check formula cl file compilability (slow)
+# if you invoke this script with "checkCl" as cli argument it will also check formula opencl file compilability (slow)
 #
 
 <?php
@@ -31,7 +32,6 @@ foreach ($formulas as $index => $formula) {
 	if ($success) $success = updateInfoBoxes($index, $formula, $status);
 	if ($success) $success = generateFormulaOpenCLFiles($formula, $status);
 	if ($success) $success = generateFormulaIcons($formula, $status);
-	if ($success) $success = generateDefinition($index, $formula, $status);
 	if ($success && argumentContains('checkCl')) $success = checkOpenCLCompile($formula, $status);
 	printResultLine($formula['nameInComboBox'], $success, $status, $i / count($formulas));
 }
@@ -45,38 +45,29 @@ exit;
 function getFormulasData()
 {
 	$formulas = array();
-	$fractalListContent = file_get_contents(PROJECT_PATH . 'src/fractal_list.cpp');
-	$fractalFunctionContent = file_get_contents(PROJECT_PATH . 'src/fractal_formulas.cpp');
-	$fractalFunctionContentFormulasOnly = substr($fractalFunctionContent,
-		strpos($fractalFunctionContent, 'using namespace fractal;') + strlen('using namespace fractal;'));
-	$fractalFunctionContentExploded = explode(PHP_EOL . '}' . PHP_EOL, $fractalFunctionContentFormulasOnly);
 	$indexIdLookup = getIndexIdLookUp();
 
-	// parse fractal_list data
-	$regexFormulas = '/sFractalDescription\(([\s\S]*?)\)\);/';
-	preg_match_all($regexFormulas, $fractalListContent, $formula_matches);
-
-	foreach ($formula_matches[0] as $key => $formulaMatch) {
-		if ($key == 0) continue; // skip formula "none"
+	foreach (glob(PROJECT_PATH . 'formula/definition/*.cpp') as $key => $file) {
+		if(strpos($file, 'abstract_fractal.cpp') !== false) continue;
+		if(strpos($file, 'all_fractal_list.cpp') !== false) continue;
+		if(strpos($file, 'legacy_fractal_transforrms.cpp') !== false) continue;
+		if(strpos($file, 'fractal_none.cpp') !== false) continue;
+	
+		$fractalCppFile = file_get_contents($file);
 		// read index and name from fractal_list
-		preg_match('/sFractalDescription\(([\s\S]*?)\)\);/', $formulaMatch, $matches);
-		$elements = explode(',', $matches[1]);
-		if (count($elements) != 10) die('could not read index for formula : ' . $formulaMatch);
+		preg_match('/cAbstractFractal\(\)\n{([\s\S]*?)\n}/', $fractalCppFile, $match);
+		$definitionPart = @$match[1];
+		$definitionPartLines = explode(PHP_EOL, trim($definitionPart));
+		if (count($definitionPartLines) != 9) die('could not read index for formula : ' . $file . ' --> ' . print_r($definitionPartLines, true));
 		$f = array();
-		$f['nameInComboBox'] = trim(str_replace('"', '', $elements[0]));
-		$f['internalName'] = trim(str_replace('"', '', $elements[1]));
-		$index = trim(str_replace('"', '', $elements[2]));
-		$f['functionName'] = trim(str_replace('"', '', $elements[3]));
-		$f['deType'] = trim(str_replace('"', '', $elements[4]));
-		$f['deFunctionType'] = trim(str_replace('"', '', $elements[5]));
-		$f['pixelAddition'] = trim(str_replace('"', '', $elements[6]));
-		$f['defaultBailout'] = trim(str_replace('"', '', $elements[7]));
-		$f['analyticFunction'] = trim(str_replace('"', '', $elements[8]));
-		$f['coloringFunction'] = trim(str_replace('"', '', $elements[9]));
-
+		foreach($definitionPartLines as $definitionPartLine){
+			if(!preg_match('/([a-zA-Z]+)\s*=\s*"?([\da-zA-Z\.: -_]*?)"?;/', $definitionPartLine, $matchLine)) 
+				die('Line wrong for ' . $file . ' --> ' . $definitionPartLine);
+			$f[$matchLine[1]] = $matchLine[2];
+		}
+		$index = str_replace('fractal::', '', $f['internalID']);
 		$internalNameNew = from_camel_case($index);
-		$functionNameNew = ucfirst($index) . 'Iteration';
-
+		
 		// check for automatic renaming to fit naming convention
 		if ($internalNameNew != $f['internalName']) {
 			if (!isDryRun()) {
@@ -86,29 +77,22 @@ function getFormulasData()
 			$f['internalName'] = $internalNameNew;
 			if (!isDryRun()) die('Changes have been written, check changes and run script again for more changes.');
 		}
-		if ($f['functionName'] != $functionNameNew) {
-			if (!isDryRun()) {
-				upgradeFunctionName($f['functionName'], $functionNameNew);
-			}
-			echo noticeString('function name upgrade from ' . $f['functionName'] . ' to ' . $functionNameNew) . PHP_EOL;
-			if (!isDryRun()) die('Changes have been written, check changes and run script again for more changes.');
-		}
 
 		// read function contents
-		$functionContentMatchString = '/(\/\*\*[\s\S]+?\*\/)[\s\S]*(void ' . $f['functionName'] . '\([\s\S]*)/';
+		$functionContentMatchString = '/\+\+\+\n\s\*(\n[\s\S]+?\*\/)[\S\s]*(FormulaCode\([\s\S]*})/';
 		$functionContentFound = false;
 		$code = false;
 		$comment = false;
 		$rawComment = false;
-		foreach ($fractalFunctionContentExploded as $functionKey => $functionValue) {
-			if (preg_match($functionContentMatchString, $functionValue, $matchFunctionContent)) {
-				$functionContentFound = true;
-				$rawComment = $matchFunctionContent[1];
-				$comment = parseComment($matchFunctionContent[1]);
-				$code = $matchFunctionContent[2] . PHP_EOL . '}';
-			}
+		
+		if (preg_match($functionContentMatchString, $fractalCppFile, $matchFunctionContent)) {
+			$functionContentFound = true;
+			$rawComment = $matchFunctionContent[1];
+			$comment = parseComment(trim($matchFunctionContent[1]));
+			$code = $matchFunctionContent[2];
+			$code = str_replace('FormulaCode', 'void ' . ucfirst($index) . 'Iteration', $code);
 		}
-
+	
 		if (!$functionContentFound) {
 			echo errorString('Warning, could not read code for index: ' . $index) . PHP_EOL;
 			continue;
@@ -117,6 +101,7 @@ function getFormulasData()
 
 		$formulas[$index] = array_merge($f, array(
 			'uiFile' => PROJECT_PATH . 'formula/ui/' . $f['internalName'] . '.ui',
+			'definitionFileName' => basename($file),
 			'code' => $code,
 			'comment' => $comment,
 			'rawComment' => $rawComment,
@@ -129,68 +114,6 @@ function getFormulasData()
 		// print_r($formulas);
 	}
 	return $formulas;
-}
-
-function generateDefinition($index, $formula, &$status)
-{
-	$modInterval = getModificationInterval($formula['definitionFile'], true);
-	$fileHeader = '/**
- * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) ' . $modInterval . ' Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
- *                                        \><||i|=>>%)     / /   __/ /___/ /_
- * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
- * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
- * see also COPYING file in this folder.    ~+{i%+++
- *
- ' . trim(str_replace(array('/**', '*/'), '', $formula['rawComment'])) . '
- */' . PHP_EOL;
-
-	$openclContent = @file_get_contents($formula['definitionFile']);
-	$newOpenCLContent = $fileHeader . PHP_EOL;
-	$defineHeaderGuard = 'MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_' . strtoupper($formula['internalName']) . '_H_';
-	$className = 'cFractal' . ucfirst($index);
-
-	$newOpenCLContent .= '
-#include "fractal_definitions.h"
-
-' . $className . '::' . $className . '() : cAbstractFractal()
-{
-	nameInComboBox = "' . $formula['nameInComboBox'] . '";
-	internalName = "' . $formula['internalName'] . '";
-	internalID = fractal::' . $index . ';
-	DEType = ' . $formula['deType'] . ';
-	DEFunctionType = ' . $formula['deFunctionType'] . ';
-	cpixelAddition = ' . $formula['pixelAddition'] . ';
-	defaultBailout = ' . number_format($formula['defaultBailout'], 1, '.', '') . ';
-	DEAnalyticFunction = ' . $formula['analyticFunction'] . ';
-	coloringFunction = ' . $formula['coloringFunction'] . ';
-}        
-
-void ' . $className . '::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-       ' . trim(substr(trim($formula['code']), strpos($formula['code'], '{') + 1, -1)) . '
-}
-' . PHP_EOL;
-
-	// clang-format
-	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
-	file_put_contents($filepathTemp, $newOpenCLContent);
-	shell_exec(CLANG_FORMAT_EXEC_PATH . ' -i --style=file ' . escapeshellarg($filepathTemp));
-	$newOpenCLContent = file_get_contents($filepathTemp);
-	unlink($filepathTemp); // nothing to see here :)
-
-	$newOpenCLContentWithoutDateLine = preg_replace('/Copyright\s\(C\)\s\d+/', '', $newOpenCLContent);
-	$openclContentWithoutDateLine = preg_replace('/Copyright\s\(C\)\s\d+/', '', $openclContent);
-
-	if ($newOpenCLContentWithoutDateLine == $openclContentWithoutDateLine) {
-		return true;
-	}
-	if (!isDryRun()) {
-		file_put_contents($formula['definitionFile'], $newOpenCLContent);
-		// file_put_contents($formula['definitionFile'] . '.orig', $formula['code']);
-	}
-	$status[] = noticeString('definition file changed'); // (' . basename($formula['definitionFile']) . ')
-	return true;
 }
 
 // update information boxes in the ui
@@ -374,7 +297,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
  * see also COPYING file in this folder.    ~+{i%+++
  * ' . str_replace(array('/**', '*/'), '', $formula['rawComment']) . '
  * This file has been autogenerated by tools/populateUiInformation.php
- * from the function "' . $formula['functionName'] . '" in the file fractal_formulas.cpp
+ * from the file "' . $formula['definitionFileName'] . '" in the folder formula/definition
  * D O    N O T    E D I T    T H I S    F I L E !
  */' . PHP_EOL;
 
@@ -504,7 +427,7 @@ function getFormulaExampleUsage()
 function getIndexIdLookUp()
 {
 	// get the integer id from fractal_list.hpp for the named index of each formula
-	$fractalListHeaderContent = file_get_contents(PROJECT_PATH . 'src/fractal_list_enums.hpp');
+	$fractalListHeaderContent = file_get_contents(PROJECT_PATH . 'formula/definition/all_fractal_list_enums.hpp');
 	$indexIdLookUp = array();
 	$fractalListHeaderContentLines = explode(PHP_EOL, $fractalListHeaderContent);
 	foreach ($fractalListHeaderContentLines as $line) {
