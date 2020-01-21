@@ -1,0 +1,66 @@
+# Mandelbulber settings file
+# version 2.21
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+aux_light_intensity_2 2.532342063694641e-10;
+aux_light_position_1 -0.2821072672792271 0.09848164652093067 0.4794453703662151;
+aux_light_position_2 -0.2818449748905567 0.09666397466128231 0.4793947037757594;
+camera -0.28152671514447 0.0962856263214423 0.4791092702388147;
+camera_distance_to_target 0.0009287013606966962;
+camera_rotation 44.1518369427336 25.10230041535133 -1.187368783585422;
+camera_top 0.3195206440085818 -0.3587824304657542 0.8758570149538411;
+detail_level 1.253818347422369;
+fake_lights_color ff00 aa00 7f00;
+fake_lights_enabled true;
+fake_lights_max_iter 9;
+flight_last_to_render 0;
+formula_1 142;
+formula_2 131;
+formula_3 1072;
+formula_start_iteration_2 8;
+fractal_enable_3 false;
+hdr true;
+hybrid_fractal_enable true;
+image_height 4320;
+image_proportion 6;
+image_width 8640;
+keyframe_last_to_render 0;
+mat1_fresnel_reflectance true;
+mat1_iridescence_enabled true;
+mat1_iridescence_intensity 3;
+mat1_is_defined true;
+mat1_luminosity_gradient_enable true;
+mat1_roughness_gradient 0 d4d4d4;
+mat1_roughness_gradient_enable true;
+mat1_specular 4;
+mat1_specular_width 0.063;
+mat1_surface_color_gradient 0 ff5500 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 ab5127;
+mat1_transparency_gradient 0 00aa00;
+mat1_transparency_index_of_refraction 1.4;
+raytraced_reflections true;
+target -0.2821125150251516 0.09688903157469285 0.4795032585857273;
+view_distance_max 7.280843849848955;
+volumetric_fog_colour_1_distance 0.0006203105611933204;
+volumetric_fog_enabled true;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 2.62 1 -1.62;
+IFS_direction_1 -1.62 2.62 1;
+IFS_direction_2 1 -1.62 2.62;
+IFS_enabled_0 true;
+IFS_enabled_1 true;
+IFS_enabled_2 true;
+IFS_offset 1 1 1;
+IFS_rotation_enabled true;
+IFS_scale 2.62;
+[fractal_2]
+transf_rotation 12 6 0;
+[keyframes]
+frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z
+0;-0.2815906449799414;0.09635881386578697;0.4791653657535632;-0.281860489462545;0.0966667681063052;0.4794015247689382;0.3283910604514213;-0.3765387557023264;0.866243543623694
+1;-0.280775685828801;0.09542598046778716;0.4784503351724858;-0.2831779533018652;0.09782865057320284;0.4799333383812937;0.2820209510772606;-0.2837175506767526;0.9164979730427459
+2;1.742837896819878;-1.743130005391706;-1.075914411028976;0;0;0;0.2820209510772606;-0.2837175506767526;0.9164979730427459
+interpolation;morphAkima;morphAkima;morphAkima
