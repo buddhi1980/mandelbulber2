@@ -53,6 +53,7 @@ MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapp
 	actionResetAllToDefault = nullptr;
 	actionLoadToThisGroupbox = nullptr;
 	actionSaveFromThisGroupbox = nullptr;
+	actionRandomize = nullptr;
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
 }
 

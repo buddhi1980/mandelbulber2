@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -52,8 +52,8 @@
 
 #include "src/common_params.hpp"
 #include "src/fractal.h"
-#include "src/fractparams.hpp"
 #include "src/fractal_enums.h"
+#include "src/fractparams.hpp"
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
@@ -517,6 +517,7 @@ typedef struct
 	cl_float offsetF0;
 	cl_float offsetR0;
 	cl_float offset0005;
+	cl_float offset01;
 	cl_float offset05;
 	cl_float offsetA05;
 	cl_float offset1;
@@ -638,6 +639,8 @@ typedef struct
 	cl_int intA;
 	cl_int intB;
 	cl_int int1;
+	cl_int intA1;
+	cl_int intB1;
 	cl_int int2;
 	cl_int int3;
 	cl_int int3X;
@@ -1253,6 +1256,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offsetF0 = source.offsetF0;
 	target.offsetR0 = source.offsetR0;
 	target.offset0005 = source.offset0005;
+	target.offset01 = source.offset01;
 	target.offset05 = source.offset05;
 	target.offsetA05 = source.offsetA05;
 	target.offset1 = source.offset1;
@@ -1370,6 +1374,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.intA = source.intA;
 	target.intB = source.intB;
 	target.int1 = source.int1;
+	target.intA1 = source.intA1;
+	target.intB1 = source.intB1;
 	target.int2 = source.int2;
 	target.int3 = source.int3;
 	target.int3X = source.int3X;
