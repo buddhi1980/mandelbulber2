@@ -69,7 +69,6 @@
          <string notr="true">&lt;p&gt;3D Mandelbrot formula invented by David Makin&lt;br&gt;http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;&quot;&gt;&lt;br&gt;
 &lt;a href=&quot;&quot;&gt;&lt;br&gt;
-&lt;a href=&quot;&quot;&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;benchmark-GPU.fract&lt;br&gt;hybrid001.fract&lt;br&gt;hypercomplex001.fract&lt;br&gt;stereoscopic 004.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hypercomplex 01.fract&lt;br&gt;...&lt;h3&gt;Code&lt;/h3&gt;</string>
