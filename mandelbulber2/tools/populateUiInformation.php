@@ -721,6 +721,7 @@ function writeFractalDefinitionFile($formulas){
 #include "abstract_fractal.h"
 
 ';
+	$out .= 'FRACTAL_CLASS(cFractalNone)' . PHP_EOL;		
 	foreach ($formulas as $index => $formula) {
 	
 		$out .= 'FRACTAL_CLASS(cFractal' . ucfirst($index) . ')' . PHP_EOL;		

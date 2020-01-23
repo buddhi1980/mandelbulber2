@@ -12,6 +12,7 @@
 
 #include "abstract_fractal.h"
 
+FRACTAL_CLASS(cFractalNone)
 FRACTAL_CLASS(cFractalAbox4d)
 FRACTAL_CLASS(cFractalAboxMod1)
 FRACTAL_CLASS(cFractalAboxMod11)
