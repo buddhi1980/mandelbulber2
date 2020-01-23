@@ -715,8 +715,8 @@ function writeFractalDefinitionFile($formulas){
  * see also COPYING file in this folder.    ~+{i%+++
  */
 
-#ifndef MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_DEFINITIONS_H_
-#define MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_DEFINITIONS_H_
+#ifndef MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_DEFINITIONS_H_
+#define MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_DEFINITIONS_H_
 
 #include "abstract_fractal.h"
 
@@ -726,9 +726,9 @@ function writeFractalDefinitionFile($formulas){
 		$out .= 'FRACTAL_CLASS(cFractal' . ucfirst($index) . ')' . PHP_EOL;		
 	}
 	$out .= '
-#endif /* MANDELBULBER2_FORMULA_DEFINITION_FRACTAL_MANDELBULB_H_ */
+#endif /* MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_DEFINITIONS_H_ */
 ';
-	file_put_contents(PROJECT_PATH . 'formula/definition/fractal_definitions.h', $out);
+	file_put_contents(PROJECT_PATH . 'formula/definition/all_fractal_definitions.h', $out);
 
 	$out = '//====================== FRACTAL LIST - START ==================' . PHP_EOL;
 	foreach ($formulas as $index => $formula) {
