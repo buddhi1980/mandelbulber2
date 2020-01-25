@@ -6,18 +6,18 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * knotv1
- * Based on DarkBeam formula from this thread:
- * http://www.fractalforums.com/new-theories-and-research/not-fractal-but-funny-trefoil-knot-routine
+ * knotv2
+ * knot thingy by knighty (2012). Based on an idea by DarkBeam from fractalforums
+ *(http://www.fractalforums.com/new-theories-and-research/not-fractal-but-funny-trefoil-knot-routine/30/)
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalKnotV1::cFractalKnotV1() : cAbstractFractal()
+cFractalKnotV2::cFractalKnotV2() : cAbstractFractal()
 {
-	nameInComboBox = "Knot V1";
-	internalName = "knot_v1";
-	internalID = fractal::knotV1;
+	nameInComboBox = "Knot V2";
+	internalName = "knot_v2";
+	internalID = fractal::knotV2;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalKnotV1::cFractalKnotV1() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalKnotV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double polyfoldOrder = fractal->transformCommon.int2;
 

@@ -241,6 +241,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKochV2());
 	fractalList->append(new cFractalKochV3());
 	fractalList->append(new cFractalKnotV1());
+	fractalList->append(new cFractalKnotV2());
 	fractalList->append(new cFractalMengerV2());
 	fractalList->append(new cFractalMengerV3());
 	fractalList->append(new cFractalPseudoKleinianStdDE());
