@@ -180,7 +180,7 @@ void cRandomizerDialog::CalcReferenceNoise()
 	}
 	cImage *actualImage = ui->previewwidget_actual->GetImage();
 	cImage *noiseRefImage = referenceNoisePreview->GetImage();
-	referenceNoise = VisualCompare(noiseRefImage, actualImage, true);
+	referenceNoise = noiseRefImage->VisualCompare(actualImage, true);
 	// qDebug() << "Reference noise: " << referenceNoise;
 }
 
@@ -842,8 +842,25 @@ void cRandomizerDialog::slotPreviewRendered()
 		cImage *image = widget->GetImage();
 		cImage *actualImage = ui->previewwidget_actual->GetImage();
 		cImage *skyImage = referenceSkyPreview->GetImage();
-		double difference = VisualCompare(image, actualImage, true) - referenceNoise;
-		double differenceSky = VisualCompare(image, skyImage, true) - referenceNoise;
+		double difference = image->VisualCompare(actualImage, true) - referenceNoise;
+		double differenceSky = image->VisualCompare(skyImage, true) - referenceNoise;
+
+		// compare with all another versions
+		for (int i = 1; i <= numberOfVersions; i++)
+		{
+			if (i == previewNumber) continue; // do not compare with the same image
+			if (versionsDone.at(i - 1))
+			{
+				QString widgetName = QString("previewwidget_%1").arg(i, 2, 10, QChar('0'));
+				cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
+				cImage *imageFromOtherVersion = previewWidget->GetImage();
+				double diffOther =
+					(image->VisualCompare(imageFromOtherVersion, false) - referenceNoise) / 3.0;
+				// divided by 3 to make bigger differences between versions
+				difference = min(difference, diffOther);
+				qDebug() << i << diffOther << difference;
+			}
+		}
 
 		int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
 		qDebug() << "Differences: " << referenceNoise << difference << differenceSky << numberOfRepeats;
@@ -905,50 +922,6 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 		widget->setToolTip(CreateTooltipText(listsOfChangedParameters[previewNumber - 1]));
 		widget->update();
 	}
-}
-
-double cRandomizerDialog::VisualCompare(cImage *image, cImage *refImage, bool checkIfBlank)
-{
-	image->ConvertTo8bit();
-	refImage->ConvertTo8bit();
-
-	int min = 255 * 3;
-	int max = 0;
-
-	int w = image->GetWidth();
-	int h = refImage->GetHeight();
-	int numberOfPixels = w * h;
-
-	double totalDiff = 0.0;
-
-	for (int y = 2; y < h - 2; y++)
-	{
-		for (int x = 2; x < w - 2; x++)
-		{
-			sRGB8 pixel1 = image->GetPixelImage8(x, y);
-			sRGB8 pixel2 = refImage->GetPixelImage8(x, y);
-			double rDiffR = double(pixel1.R) - pixel2.R;
-			double rDiffG = double(pixel1.G) - pixel2.G;
-			double rDiffB = double(pixel1.B) - pixel2.B;
-			double diff = rDiffR * rDiffR + rDiffG * rDiffG + rDiffB * rDiffB;
-			totalDiff += diff;
-
-			min = qMin(min, pixel1.R + pixel1.G + pixel1.B);
-			max = qMax(max, pixel1.R + pixel1.G + pixel1.B);
-		}
-	}
-	double diffPerPixel = totalDiff / numberOfPixels;
-
-	if (checkIfBlank)
-	{
-		if (min > 245 * 3 || max < 5 * 10 || max - min < 5)
-		{
-			diffPerPixel = 0;
-			qDebug() << "blank image";
-		}
-	}
-
-	return diffPerPixel;
 }
 
 void cRandomizerDialog::closeEvent(QCloseEvent *event)
@@ -1075,7 +1048,7 @@ void cRandomizerDialog::slotCleanUp()
 		}
 		cImage *actualImage = ui->previewwidget_actual->GetImage();
 		cImage *cleanedImage = cleanedPreview->GetImage();
-		double diff = VisualCompare(cleanedImage, actualImage, false);
+		double diff = cleanedImage->VisualCompare(actualImage, false);
 
 		// retrieve randomized parameter because change was significant
 		if (diff > referenceNoise * 3)

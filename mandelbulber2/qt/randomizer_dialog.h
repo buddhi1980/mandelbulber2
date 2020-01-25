@@ -90,7 +90,6 @@ private:
 	void RandomizeRGBParameter(double randomScale, cOneParameter &parameter);
 	void RandomizeBooleanParameter(cOneParameter &parameter);
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
-	double VisualCompare(cImage *image, cImage *refImage, bool checkIfBlank);
 	void UpdateProgressBar(double progress);
 	QString CreateTooltipText(const QMap<QString, QString> &list);
 

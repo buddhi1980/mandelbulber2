@@ -1129,3 +1129,53 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 		}
 	}
 }
+
+double cImage::VisualCompare(cImage *refImage, bool checkIfBlank)
+{
+	ConvertTo8bit();
+	refImage->ConvertTo8bit();
+
+	int min = 255 * 3;
+	int max = 0;
+
+	int w = GetWidth();
+	int h = GetHeight();
+	int numberOfPixels = w * h;
+
+	if (w != refImage->GetWidth() || h != refImage->GetHeight())
+	{
+		qCritical() << "cImage::VisualCompare(): images have different rosolutions!";
+		return 0.0;
+	}
+
+	double totalDiff = 0.0;
+
+	for (int y = 2; y < h - 2; y++)
+	{
+		for (int x = 2; x < w - 2; x++)
+		{
+			sRGB8 pixel1 = GetPixelImage8(x, y);
+			sRGB8 pixel2 = refImage->GetPixelImage8(x, y);
+			double rDiffR = double(pixel1.R) - pixel2.R;
+			double rDiffG = double(pixel1.G) - pixel2.G;
+			double rDiffB = double(pixel1.B) - pixel2.B;
+			double diff = rDiffR * rDiffR + rDiffG * rDiffG + rDiffB * rDiffB;
+			totalDiff += diff;
+
+			min = qMin(min, pixel1.R + pixel1.G + pixel1.B);
+			max = qMax(max, pixel1.R + pixel1.G + pixel1.B);
+		}
+	}
+	double diffPerPixel = totalDiff / numberOfPixels;
+
+	if (checkIfBlank)
+	{
+		if (min > 245 * 3 || max < 5 * 10 || max - min < 5)
+		{
+			diffPerPixel = 0;
+			qDebug() << "blank image";
+		}
+	}
+
+	return diffPerPixel;
+}

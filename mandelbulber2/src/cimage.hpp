@@ -320,6 +320,7 @@ public:
 	void setMeta(QMap<QString, QString> meta) { this->meta = meta; }
 	QMap<QString, QString> &getMeta() { return meta; }
 	int progressiveFactor;
+	double VisualCompare(cImage *refImage, bool checkIfBlank);
 
 private:
 	bool isAllocated;
