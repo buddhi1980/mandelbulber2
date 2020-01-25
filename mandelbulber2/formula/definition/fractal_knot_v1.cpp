@@ -37,9 +37,9 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	CVector4 zc = z;
 	zc.z *= fractal->transformCommon.scaleA1;
-	double mobius = double(fractal->transformCommon.intA1 + fractal->transformCommon.intB1
-						/ polyfoldOrder)
-							* atan2(zc.y, zc.x);
+	double mobius =
+		(1.0 * fractal->transformCommon.intA1 + fractal->transformCommon.intB1 / polyfoldOrder)
+		* atan2(zc.y, zc.x);
 
 	zc.x = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offsetA2;
 	double temp = zc.x;
@@ -48,7 +48,7 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	double m = float(polyfoldOrder) / M_PI_2x;
+	double m = 1.0 * polyfoldOrder / M_PI_2x;
 	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
 
 	temp = zc.x;
@@ -61,7 +61,7 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	double len = sqrt(zc.x * zc.x + zc.z * zc.z);
 
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
+	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(fabs(zc.x), fabs(zc.z)));
 
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	double colorDist = aux.dist;

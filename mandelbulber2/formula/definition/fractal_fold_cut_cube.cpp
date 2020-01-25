@@ -97,7 +97,7 @@ void cFractalFoldCutCube::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		double divT = double(aux.i + 1);
+		double divT = 1.0 + aux.i;
 		divT = fractal->transformCommon.offset05 / divT;
 		aux.dist = fabs(min(divT - aux.dist, z.x / aux.DE));
 	}

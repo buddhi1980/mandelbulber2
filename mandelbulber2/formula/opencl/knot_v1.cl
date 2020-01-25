@@ -26,8 +26,8 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	REAL4 zc = z;
 	zc.z *= fractal->transformCommon.scaleA1;
-	REAL mobius = REAL(fractal->transformCommon.intA1
-										 + native_divide(fractal->transformCommon.intB1, polyfoldOrder))
+	REAL mobius = (mad(1.0f, fractal->transformCommon.intA1,
+									native_divide(fractal->transformCommon.intB1, polyfoldOrder)))
 								* atan2(zc.y, zc.x);
 
 	zc.x = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.offsetA2;
@@ -37,7 +37,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x = mad(c, zc.x, s * zc.z);
 	zc.z = mad(-s, temp, c * zc.z);
 
-	REAL m = native_divide(float(polyfoldOrder), M_PI_2x);
+	REAL m = 1.0f * native_divide(polyfoldOrder, M_PI_2x);
 	REAL angle1 = floor(mad(m, (M_PI_2 - atan2(zc.x, zc.z)), 0.5f)) / m;
 
 	temp = zc.x;
@@ -50,7 +50,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	REAL len = native_sqrt(mad(zc.x, zc.x, zc.z * zc.z));
 
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
+	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(fabs(zc.x), fabs(zc.z)));
 
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	REAL colorDist = aux->dist;
@@ -67,14 +67,11 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		REAL ang =
 			(M_PI_F - 2.0f * fabs(atan(native_divide(zc.x, zc.z)))) * native_divide(2.0f, M_PI_F);
 
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
+		if (fmod(ang, 2.0f) < 1.0f) colorAdd += fractal->foldColor.difs0000.x;
+		colorAdd += fractal->foldColor.difs0000.y * fabs(ang);
+		colorAdd += fractal->foldColor.difs0000.z * fabs(ang * zc.x);
+		colorAdd += fractal->foldColor.difs0000.w * angle1;
 
-			if (fmod(ang, 2.0f) < 1.0f) colorAdd += fractal->foldColor.difs0000.x;
-			colorAdd += fractal->foldColor.difs0000.y * fabs(ang);
-			colorAdd += fractal->foldColor.difs0000.z * fabs(ang * zc.x);
-			colorAdd += fractal->foldColor.difs0000.w * angle1;
-		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)
 		{

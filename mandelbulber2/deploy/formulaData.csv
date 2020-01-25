@@ -65,6 +65,7 @@ josKleinianV2,"JosLeys-Kleinian V2",analyticDEType,josKleinianDEFunction,cpixelD
 kaleidoscopicIfs,"Kaleidoscopic IFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionIFS,coloringFunctionIFS
 kalisets1,"Kalisets1 Mod",analyticDEType,linearDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLinear,coloringFunctionDefault
 knotV1,"Knot V1",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+knotV2,"Knot V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 koch,Koch,analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV2,"Koch V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV3,"Koch V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
