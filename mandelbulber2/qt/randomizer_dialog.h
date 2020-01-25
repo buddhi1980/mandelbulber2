@@ -101,6 +101,7 @@ private slots:
 	void slotClickedMediumRandomize();
 	void slotClickedHeavyRandomize();
 	void slotClickedSelectButton();
+	void slotClickedSaveButton();
 	void slotClickedUseButton();
 	void slotClickedResetButton();
 	void slotPreviewRendered();

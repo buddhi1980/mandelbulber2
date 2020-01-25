@@ -18,6 +18,7 @@
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/interface.hpp"
+#include "src/settings.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
@@ -64,6 +65,13 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		QString widgetName = QString("pushButton_select_%1").arg(i, 2, 10, QChar('0'));
 		QPushButton *button = this->findChild<QPushButton *>(widgetName);
 		connect(button, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedSelectButton);
+	}
+
+	for (int i = 1; i <= numberOfVersions; i++)
+	{
+		QString widgetName = QString("toolButton_save_%1").arg(i, 2, 10, QChar('0'));
+		QToolButton *button = this->findChild<QToolButton *>(widgetName);
+		connect(button, &QToolButton::clicked, this, &cRandomizerDialog::slotClickedSaveButton);
 	}
 
 	// local copy of parameters
@@ -818,6 +826,37 @@ void cRandomizerDialog::slotClickedSelectButton()
 	ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
 }
 
+void cRandomizerDialog::slotClickedSaveButton()
+{
+	QString buttonName = this->sender()->objectName();
+	QString numberString = buttonName.right(2);
+	int buttonNumber = numberString.toInt();
+
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(
+		&listOfVersions.at(buttonNumber - 1).params, &listOfVersions.at(buttonNumber - 1).fractParams);
+
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
+	dialog.selectFile(
+		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).completeBaseName()));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save settings..."));
+	dialog.setDefaultSuffix("fract");
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		parSettings.SaveToFile(filename);
+		systemData.lastSettingsFile = filename;
+	}
+}
+
 void cRandomizerDialog::slotClickedUseButton()
 {
 	pressedUse = true;
@@ -833,7 +872,7 @@ void cRandomizerDialog::slotPreviewRendered()
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
 
-	qDebug() << "Preview finished " << previewNumber;
+	//qDebug() << "Preview finished " << previewNumber;
 
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
 	widget->update();
@@ -858,12 +897,12 @@ void cRandomizerDialog::slotPreviewRendered()
 					(image->VisualCompare(imageFromOtherVersion, false) - referenceNoise) / 3.0;
 				// divided by 3 to make bigger differences between versions
 				difference = min(difference, diffOther);
-				qDebug() << i << diffOther << difference;
+				//qDebug() << i << diffOther << difference;
 			}
 		}
 
 		int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
-		qDebug() << "Differences: " << referenceNoise << difference << differenceSky << numberOfRepeats;
+		//qDebug() << "Differences: " << referenceNoise << difference << differenceSky << numberOfRepeats;
 
 		if (difference < referenceNoise * 3 || differenceSky < referenceNoise * 3)
 		{
@@ -904,7 +943,7 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
-	qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
+	//qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
 
 	int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
 	if (numberOfRepeats < 100)
