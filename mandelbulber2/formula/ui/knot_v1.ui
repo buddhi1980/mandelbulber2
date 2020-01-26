@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>knot_v1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -459,10 +459,17 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_29" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_29" columnstretch="0,0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="0" column="4" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
+          <property name="text">
+           <string notr="true">aux.dist/aux.DE</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
           <property name="text">
@@ -470,7 +477,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="0" column="3">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
           <property name="text">
            <string notr="true">z = zc</string>
@@ -511,13 +518,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_179">
-          <property name="text">
-           <string>scale1:</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
@@ -543,6 +543,13 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_179">
+          <property name="text">
+           <string>scale1:</string>
           </property>
          </widget>
         </item>
