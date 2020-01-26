@@ -12,9 +12,6 @@ os:
   - linux
   - osx
 
-arch:
-  - arm64
-
 env:
   matrix:
     - CONFIG=release
