@@ -223,6 +223,7 @@ enum enumFractalFormula
 	foldCutCube = 194,
 	knotV1 = 195,
 	knotV2 = 196,
+	pseudoKleinianMod3 = 197,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
