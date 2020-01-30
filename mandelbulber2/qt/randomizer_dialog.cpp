@@ -13,11 +13,13 @@
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
 #include "thumbnail_widget.h"
+#include "src/animation_keyframes.hpp"
 #include "src/cimage.hpp"
 #include "src/color_gradient.h"
 #include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/interface.hpp"
+#include "src/keyframes.hpp"
 #include "src/settings.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
@@ -59,6 +61,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	connect(
 		ui->pushButton_reset, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedResetButton);
 	connect(ui->pushButton_clean_up, &QPushButton::clicked, this, &cRandomizerDialog::slotCleanUp);
+	connect(ui->pushButton_add_to_keyframes, &QPushButton::clicked, this,
+		&cRandomizerDialog::slotAddToKeyframes);
 
 	for (int i = 1; i <= numberOfVersions; i++)
 	{
@@ -872,7 +876,7 @@ void cRandomizerDialog::slotPreviewRendered()
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
 
-	//qDebug() << "Preview finished " << previewNumber;
+	// qDebug() << "Preview finished " << previewNumber;
 
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
 	widget->update();
@@ -897,12 +901,13 @@ void cRandomizerDialog::slotPreviewRendered()
 					(image->VisualCompare(imageFromOtherVersion, false) - referenceNoise) / 3.0;
 				// divided by 3 to make bigger differences between versions
 				difference = min(difference, diffOther);
-				//qDebug() << i << diffOther << difference;
+				// qDebug() << i << diffOther << difference;
 			}
 		}
 
 		int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
-		//qDebug() << "Differences: " << referenceNoise << difference << differenceSky << numberOfRepeats;
+		// qDebug() << "Differences: " << referenceNoise << difference << differenceSky <<
+		// numberOfRepeats;
 
 		if (difference < referenceNoise * 3 || differenceSky < referenceNoise * 3)
 		{
@@ -943,7 +948,7 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
 	cThumbnailWidget *widget = qobject_cast<cThumbnailWidget *>(this->sender());
-	//qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
+	// qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
 
 	int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
 	if (numberOfRepeats < 100)
@@ -1113,4 +1118,47 @@ void cRandomizerDialog::slotCleanUp()
 	ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
 
 	delete cleanedPreview;
+}
+
+void cRandomizerDialog::slotAddToKeyframes()
+{
+	pressedUse = true;
+
+	QList<QString> list = actualListOfChangedParameters.keys();
+
+	for (int i = 0; i < list.size(); i++)
+	{
+		QString fullParameterName = list.at(i);
+		int firstDashIndex = fullParameterName.indexOf("_");
+		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
+
+		cParameterContainer *container = ContainerSelector(fullParameterName, gPar, gParFractal);
+
+		if (gKeyframes->IndexOnList(parameterName, container->GetContainerName()) == -1)
+		{
+			gKeyframes->AddAnimatedParameter(parameterName, container->GetAsOneParameter(parameterName));
+		}
+	}
+
+	// copy parameters one by one to not loose new animBySoundParameters
+	QList<QString> listOfParameters = actualParams.GetListOfParameters();
+	for (QString parameterName : listOfParameters)
+	{
+		gPar->Copy(parameterName, &actualParams);
+	}
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		QList<QString> listOfFractalParameters = actualFractParams[i].GetListOfParameters();
+		for (QString parameterName : listOfFractalParameters)
+		{
+			gParFractal->at(i).Copy(parameterName, &actualFractParams[i]);
+		}
+	}
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+
+	gKeyframeAnimation->RefreshTable();
+	gKeyframeAnimation->slotAddKeyframe();
+
+	close();
 }

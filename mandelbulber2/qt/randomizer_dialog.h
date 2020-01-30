@@ -108,6 +108,7 @@ private slots:
 	void slotDetectedZeroDistance();
 	void slotRenderTime(double time);
 	void slotCleanUp();
+	void slotAddToKeyframes();
 
 private:
 	Ui::cRandomizerDialog *ui;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
+    <width>560</width>
     <height>693</height>
    </rect>
   </property>
@@ -19,25 +19,29 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton_slight">
-         <property name="text">
-          <string>Slight randomize</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_medium">
-         <property name="text">
-          <string>Medium randomize</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_heavy">
-         <property name="text">
-          <string>Heavy randomize</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QPushButton" name="pushButton_slight">
+           <property name="text">
+            <string>Slight randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_medium">
+           <property name="text">
+            <string>Medium randomize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_heavy">
+           <property name="text">
+            <string>Heavy randomize</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_reset">
@@ -50,6 +54,13 @@
         <widget class="QPushButton" name="pushButton_clean_up">
          <property name="text">
           <string>Reset negligible parameters</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_add_to_keyframes">
+         <property name="text">
+          <string>Use and add to keyframe animation</string>
          </property>
         </widget>
        </item>
