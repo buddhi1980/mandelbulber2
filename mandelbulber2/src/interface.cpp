@@ -326,84 +326,88 @@ void cInterface::ConnectSignals() const
 		SLOT(appendMessage(const QString &)));
 
 	// menu actions
-	connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
-	connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveDocksPositions()));
-	connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuResetDocksPositions()));
-	connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuAnimationDocksPositions()));
-	connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
-		SLOT(slotStackAllDocks()));
-	connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveSettings()));
-	connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveSettingsToClipboard()));
-	connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuLoadSettings()));
-	connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuLoadSettingsFromClipboard()));
-	connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuLoadExample()));
-	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()),
-		mainWindow, SLOT(slotImportOldSettings()));
-	connect(mainWindow->ui->actionImport_settings_from_Mandelbulb3d, SIGNAL(triggered()), mainWindow,
-		SLOT(slotImportMandelbulb3dSettings()));
-	connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
-		SLOT(slotExportVoxelLayers()));
-	connect(
-		mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow, SLOT(slotExportMesh()));
-	connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImageJPEG()));
-	connect(mainWindow->ui->actionSave_as_IMAGE, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImageAll()));
-	connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImagePNG()));
-	connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImagePNG16()));
-	connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
+	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);
+	connect(mainWindow->ui->actionSave_docks_positions, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveDocksPositions);
+	connect(mainWindow->ui->actionDefault_docks_positions, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuResetDocksPositions);
+	connect(mainWindow->ui->actionAnimation_docks_positions, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAnimationDocksPositions);
+	connect(mainWindow->ui->actionStack_all_docks, &QAction::triggered, mainWindow,
+		&RenderWindow::slotStackAllDocks);
+	connect(mainWindow->ui->actionShow_animation_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_toolbar, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_info_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_statistics_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_gamepad_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_queue_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionShow_measurement_dock, &QAction::triggered, mainWindow,
+		&RenderWindow::slotUpdateDocksAndToolbarByAction);
+	connect(mainWindow->ui->actionSave_settings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveSettings);
+	connect(mainWindow->ui->actionSave_settings_to_clipboard, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveSettingsToClipboard);
+	connect(mainWindow->ui->actionLoad_settings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuLoadSettings);
+	connect(mainWindow->ui->actionLoad_settings_from_clipboard, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuLoadSettingsFromClipboard);
+	connect(mainWindow->ui->actionLoad_example, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuLoadExample);
+	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, &QAction::triggered,
+		mainWindow, &RenderWindow::slotImportOldSettings);
+	connect(mainWindow->ui->actionImport_settings_from_Mandelbulb3d, &QAction::triggered, mainWindow,
+		&RenderWindow::slotImportMandelbulb3dSettings);
+	connect(mainWindow->ui->actionExportVoxelLayers, &QAction::triggered, mainWindow,
+		&RenderWindow::slotExportVoxelLayers);
+	connect(mainWindow->ui->actionExport_Mesh, &QAction::triggered, mainWindow,
+		&RenderWindow::slotExportMesh);
+	connect(mainWindow->ui->actionSave_as_JPG, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageJPEG);
+	connect(mainWindow->ui->actionSave_as_IMAGE, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageAll);
+	connect(mainWindow->ui->actionSave_as_PNG, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImagePNG);
+	connect(mainWindow->ui->actionSave_as_PNG_16_bit, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImagePNG16);
+	connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, &QAction::triggered,
+		mainWindow, &RenderWindow::slotMenuSaveImagePNG16Alpha);
 #ifdef USE_EXR
-	connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImageEXR()));
+	connect(mainWindow->ui->actionSave_as_EXR, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageEXR);
 #endif // USE_EXR
 
 #ifdef USE_TIFF
-	connect(mainWindow->ui->actionSave_as_TIFF, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuSaveImageTIFF()));
+	connect(mainWindow->ui->actionSave_as_TIFF, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSaveImageTIFF);
 #endif // USE_TIFF
 
-	connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
-	connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuAboutManual()));
-	connect(
-		mainWindow->ui->actionUser_News, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutNews()));
-	connect(mainWindow->ui->actionUser_HotKeys, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuAboutHotKeys()));
-	connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuAboutMandelbulber()));
-	connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuAboutThirdParty()));
-	connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
-	connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
-	connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuProgramPreferences()));
-	connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()), mainWindow,
-		SLOT(slotDetachMainImage()));
+	connect(mainWindow->ui->actionAbout_Qt, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutQt);
+	connect(mainWindow->ui->actionUser_Manual, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutManual);
+	connect(mainWindow->ui->actionUser_News, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutNews);
+	connect(mainWindow->ui->actionUser_HotKeys, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutHotKeys);
+	connect(mainWindow->ui->actionAbout_Mandelbulber, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutMandelbulber);
+	connect(mainWindow->ui->actionAbout_ThirdParty, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuAboutThirdParty);
+	connect(mainWindow->ui->actionUndo, &QAction::triggered, mainWindow, &RenderWindow::slotMenuUndo);
+	connect(mainWindow->ui->actionRedo, &QAction::triggered, mainWindow, &RenderWindow::slotMenuRedo);
+	connect(mainWindow->ui->actionRandomizeAll, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuRandomizeAll);
+
+	connect(mainWindow->ui->actionProgramPreferences, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuProgramPreferences);
+	connect(mainWindow->ui->actionDetach_image_from_main_window, &QAction::triggered, mainWindow,
+		&RenderWindow::slotDetachMainImage);
 
 	connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
@@ -449,12 +453,12 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByView()));
 
-	connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()), mainWindow,
-		SLOT(slotPresetAddToToolbar()));
-	connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()), mainWindow,
-		SLOT(slotCustomWindowStateAddToMenu()));
-	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()), mainWindow,
-		SLOT(slotCustomWindowRemovePopup()));
+	connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, &QAction::triggered, mainWindow,
+		&RenderWindow::slotPresetAddToToolbar);
+	connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, &QAction::triggered, mainWindow,
+		&RenderWindow::slotCustomWindowStateAddToMenu);
+	connect(mainWindow->ui->actionRemove_Window_settings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotCustomWindowRemovePopup);
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();

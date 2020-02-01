@@ -382,6 +382,8 @@
     </property>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionRandomizeAll"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1545,6 +1547,15 @@
    </property>
    <property name="text">
     <string>Detach image &amp;from main window</string>
+   </property>
+  </action>
+  <action name="actionRandomizeAll">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/gradient/icons/dice_colors.svg</normaloff>:/gradient/icons/dice_colors.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Randomize all...</string>
    </property>
   </action>
  </widget>

@@ -887,3 +887,8 @@ void RenderWindow::slotDetachMainImage()
 		gMainInterface->AttachMainImageWidget();
 	}
 }
+
+void RenderWindow::slotMenuRandomizeAll()
+{
+	gMainInterface->RandomizeLocalSettings(this);
+}

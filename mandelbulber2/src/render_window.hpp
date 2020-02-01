@@ -171,6 +171,7 @@ private slots:
 	void slotMenuSaveSettings();
 	static void slotMenuSaveSettingsToClipboard();
 	static void slotMenuUndo();
+	void slotMenuRandomizeAll();
 	void slotUpdateDocksAndToolbarByAction();
 	void slotUpdateDocksAndToolbarByView() const;
 	void slotStackAllDocks();
