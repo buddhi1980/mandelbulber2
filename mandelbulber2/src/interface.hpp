@@ -123,6 +123,7 @@ public:
 	bool QuitApplicationDialog();
 	void GlobalStopRequest();
 	void ResetGlobalStopRequest();
+	void CleanSettings();
 
 	QSettings settings;
 

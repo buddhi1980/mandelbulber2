@@ -63,7 +63,7 @@ public:
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void DisableTimer() { disableTimer = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
-	bool IsRendered() const { return isRendered; }
+	bool IsRendered() const { return isFullyRendered; }
 	cImage *GetImage() { return image; };
 	QString GetThumbnailFileName() const;
 
@@ -93,6 +93,7 @@ private:
 	QProgressBar *progressBar;
 	bool stopRequest;
 	bool isRendered;
+	bool isFullyRendered;
 	bool hasParameters;
 	bool useOneCPUCore;
 	bool disableTimer;

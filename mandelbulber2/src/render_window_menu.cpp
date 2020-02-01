@@ -892,3 +892,8 @@ void RenderWindow::slotMenuRandomizeAll()
 {
 	gMainInterface->RandomizeLocalSettings(this);
 }
+
+void RenderWindow::slotCleanSettings()
+{
+	gMainInterface->CleanSettings();
+}

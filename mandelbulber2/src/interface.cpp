@@ -79,6 +79,7 @@
 #include "qt/my_progress_bar.h"
 #include "qt/player_widget.hpp"
 #include "qt/preview_file_dialog.h"
+#include "qt/settings_cleaner.h"
 #include "qt/system_tray.hpp"
 
 // custom includes
@@ -403,6 +404,8 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->actionRedo, &QAction::triggered, mainWindow, &RenderWindow::slotMenuRedo);
 	connect(mainWindow->ui->actionRandomizeAll, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuRandomizeAll);
+	connect(mainWindow->ui->actionCleanSettings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotCleanSettings);
 
 	connect(mainWindow->ui->actionProgramPreferences, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuProgramPreferences);
@@ -2935,4 +2938,21 @@ void cInterface::ResetGlobalStopRequest()
 	}
 
 	systemData.globalStopRequest = false;
+}
+
+void cInterface::CleanSettings()
+{
+	if (QMessageBox::Yes
+			== QMessageBox::question(mainWindow, tr("Cleaning up"),
+				tr("Do you want to clean up settings?\nIt will take a while"),
+				QMessageBox::Yes | QMessageBox::No))
+	{
+		SynchronizeInterface(gPar, gParFractal, qInterface::read);
+		cSettingsCleaner *cleaner = new cSettingsCleaner(mainWindow);
+		cleaner->show();
+		cleaner->runCleaner();
+		cleaner->exec();
+		delete cleaner;
+		SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	}
 }

@@ -384,6 +384,7 @@
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
     <addaction name="actionRandomizeAll"/>
+    <addaction name="actionCleanSettings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1556,6 +1557,11 @@
    </property>
    <property name="text">
     <string>Randomize all...</string>
+   </property>
+  </action>
+  <action name="actionCleanSettings">
+   <property name="text">
+    <string>Clean settings...</string>
    </property>
   </action>
  </widget>

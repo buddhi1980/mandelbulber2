@@ -73,6 +73,7 @@ void cThumbnailWidget::Init(QWidget *parent)
 	progressBar = nullptr;
 	stopRequest = false;
 	isRendered = false;
+	isFullyRendered = false;
 	hasParameters = false;
 	disableTimer = false;
 	disableThumbnailCache = false;
@@ -133,7 +134,10 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 			{
 				isRendered = true;
 				timer->stop();
-				emit renderRequest();
+				if (!disableTimer)
+				{
+					emit renderRequest();
+				}
 			}
 		}
 		image->RedrawInWidget(this);
@@ -143,6 +147,8 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 void cThumbnailWidget::AssignParameters(
 	const cParameterContainer &_params, const cFractalContainer &_fractal)
 {
+	isFullyRendered = false;
+	qDebug() << "AssignParameters";
 	if (image)
 	{
 		if (!params) params = new cParameterContainer;
@@ -167,12 +173,14 @@ void cThumbnailWidget::AssignParameters(
 			if (distance < 1e-12)
 			{
 				isRendered = true;
+				isFullyRendered = true;
 				delete params;
 				params = nullptr;
 				delete fractal;
 				fractal = nullptr;
 				// alloc image in case if samething wnat read it
 				image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
+				image->ClearImage();
 				emit signalZeroDistance();
 				return;
 			}
@@ -201,6 +209,7 @@ void cThumbnailWidget::AssignParameters(
 			{
 				stopRequest = true;
 				isRendered = true;
+				isFullyRendered = true;
 				while (image->IsUsed())
 				{
 					// just wait and pray
@@ -258,6 +267,7 @@ void cThumbnailWidget::AssignParameters(
 
 void cThumbnailWidget::slotRender()
 {
+	qDebug() << "slotRender";
 	if (image && params)
 	{
 		stopRequest = true;
@@ -270,7 +280,7 @@ void cThumbnailWidget::slotRender()
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
 
-		if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+		if (!disableTimer && cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
 		{
 			// try again after some random time
 			timer->start(Random(5000) + 1);
@@ -335,6 +345,8 @@ void cThumbnailWidget::slotFullyRendered()
 	delete fractal;
 	fractal = nullptr;
 	emit thumbnailRendered();
+	isFullyRendered = true;
+	qDebug() << "fullyRendered";
 }
 
 void cThumbnailWidget::slotRandomRender()
@@ -346,8 +358,11 @@ void cThumbnailWidget::slotRandomRender()
 	}
 	else
 	{
-		isRendered = true;
-		slotRender();
+		if (!disableTimer)
+		{
+			isRendered = true;
+			slotRender();
+		}
 	}
 }
 
