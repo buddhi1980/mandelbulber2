@@ -62,6 +62,7 @@ public:
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void DisableTimer() { disableTimer = true; }
+	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isFullyRendered; }
 	cImage *GetImage() { return image; };
@@ -97,6 +98,7 @@ private:
 	bool hasParameters;
 	bool useOneCPUCore;
 	bool disableTimer;
+	bool disableRenderOnPaint = false;
 	bool disableThumbnailCache;
 	// timer for random trigger for rendering (renders thumbnail even when is not visible)
 	QTimer *timer;

@@ -134,7 +134,7 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 			{
 				isRendered = true;
 				timer->stop();
-				if (!disableTimer)
+				if (!disableRenderOnPaint)
 				{
 					emit renderRequest();
 				}
@@ -148,7 +148,7 @@ void cThumbnailWidget::AssignParameters(
 	const cParameterContainer &_params, const cFractalContainer &_fractal)
 {
 	isFullyRendered = false;
-	qDebug() << "AssignParameters";
+	// qDebug() << "AssignParameters";
 	if (image)
 	{
 		if (!params) params = new cParameterContainer;
@@ -267,7 +267,7 @@ void cThumbnailWidget::AssignParameters(
 
 void cThumbnailWidget::slotRender()
 {
-	qDebug() << "slotRender";
+	// qDebug() << "slotRender";
 	if (image && params)
 	{
 		stopRequest = true;
@@ -346,7 +346,7 @@ void cThumbnailWidget::slotFullyRendered()
 	fractal = nullptr;
 	emit thumbnailRendered();
 	isFullyRendered = true;
-	qDebug() << "fullyRendered";
+	// qDebug() << "fullyRendered";
 }
 
 void cThumbnailWidget::slotRandomRender()

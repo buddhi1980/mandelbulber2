@@ -2948,6 +2948,8 @@ void cInterface::CleanSettings()
 				QMessageBox::Yes | QMessageBox::No))
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
+		gUndo.Store(gPar, gParFractal);
+		gUndo.Store(gPar, gParFractal);
 		cSettingsCleaner *cleaner = new cSettingsCleaner(mainWindow);
 		cleaner->show();
 		cleaner->runCleaner();
