@@ -40,6 +40,9 @@ cSettingsCleaner::cSettingsCleaner(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->previewwidget_cleaned->DisableRenderOnPaint();
 
 	connect(ui->pushButton_stop, &QPushButton::clicked, this, &cSettingsCleaner::slotPressedStop);
+	connect(ui->pushButton_ok, &QPushButton::clicked, this, &cSettingsCleaner::slotPressedOK);
+	connect(ui->pushButton_cancel, &QPushButton::clicked, this, &cSettingsCleaner::slotPressedCancel);
+	connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &cSettingsCleaner::slotRemoveItem);
 }
 
 cSettingsCleaner::~cSettingsCleaner()
@@ -55,8 +58,11 @@ void cSettingsCleaner::runCleaner()
 	ui->progressBar->setFormat(tr("Initializing"));
 	ui->progressBar->setValue(0.0);
 
+	actualParams = *gPar;
+	actualFractalParams = *gParFractal;
+
 	// render reference image
-	ui->previewwidget_actual->AssignParameters(*gPar, *gParFractal);
+	ui->previewwidget_actual->AssignParameters(actualParams, actualFractalParams);
 	ui->previewwidget_actual->update();
 
 	if (!ui->previewwidget_actual->IsRendered())
@@ -70,7 +76,7 @@ void cSettingsCleaner::runCleaner()
 	}
 
 	// render the same settings to check noise level
-	ui->previewwidget_cleaned->AssignParameters(*gPar, *gParFractal);
+	ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
 	ui->previewwidget_cleaned->update();
 	if (!ui->previewwidget_cleaned->IsRendered())
 	{
@@ -84,29 +90,32 @@ void cSettingsCleaner::runCleaner()
 	cImage *actualImage = ui->previewwidget_actual->GetImage();
 	cImage *cleanedImage = ui->previewwidget_cleaned->GetImage();
 	double referenceNoise = cleanedImage->VisualCompare(actualImage, false);
-	double referenceDistane = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	double referenceDistane =
+		gMainInterface->GetDistanceForPoint(actualParams.Get<CVector3>("camera"));
 
 	QApplication::processEvents();
 
 	// Creating list of all non default parameters
 
-	QList<QPair<QString, cParameterContainer *>> listOfAllModifiedParameters;
+	QList<sDefaultedParameter> listOfAllModifiedParameters;
 
-	QList<QString> listOfMainParameters = gPar->GetListOfParameters();
+	QList<QString> listOfMainParameters = actualParams.GetListOfParameters();
 	for (QString parameterName : listOfMainParameters)
 	{
-		if (!gPar->isDefaultValue(parameterName)
-				&& gPar->GetParameterType(parameterName) == paramStandard)
+		if (!actualParams.isDefaultValue(parameterName)
+				&& actualParams.GetParameterType(parameterName) == paramStandard)
 		{
 			// exceptions
 			if (parameterName == "image_width") continue;
 			if (parameterName == "image_height") continue;
 			if (parameterName == "N") continue;
+			if (parameterName == "reflections_max") continue;
 			if (parameterName == "DOF_samples") continue;
 			if (parameterName == "DOF_min_samples") continue;
 			if (parameterName == "DOF_max_noise") continue;
 			if (parameterName == "DOF_monte_carlo") continue;
 			if (parameterName == "image_proportion") continue;
+			if (parameterName == "MC_soft_shadows_enable") continue;
 			if (parameterName == "antialiasing_enabled") continue;
 			if (parameterName == "antialiasing_size") continue;
 			if (parameterName == "antialiasing_ocl_depth") continue;
@@ -120,21 +129,28 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName.contains("voxel_")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("is_defined")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("name")) continue;
+			if (parameterName.contains("mat") && parameterName.contains("rough_surface")) continue;
 
-			listOfAllModifiedParameters.append(
-				QPair<QString, cParameterContainer *>(parameterName, gPar));
+			sDefaultedParameter par;
+			par.parameterName = parameterName;
+			par.actualContainer = &actualParams;
+			par.originalContainer = gPar;
+			listOfAllModifiedParameters.append(par);
 		}
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		QList<QString> listOfFractalParameters = gParFractal->at(i).GetListOfParameters();
+		QList<QString> listOfFractalParameters = actualFractalParams[i].GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)
 		{
-			if (!gParFractal->at(i).isDefaultValue(parameterName)
-					&& gParFractal->at(i).GetParameterType(parameterName) == paramStandard)
+			if (!actualFractalParams[i].isDefaultValue(parameterName)
+					&& actualFractalParams[i].GetParameterType(parameterName) == paramStandard)
 			{
-				listOfAllModifiedParameters.append(
-					QPair<QString, cParameterContainer *>(parameterName, &gParFractal->at(i)));
+				sDefaultedParameter par;
+				par.parameterName = parameterName;
+				par.actualContainer = &actualFractalParams[i];
+				par.originalContainer = &gParFractal->at(i);
+				listOfAllModifiedParameters.append(par);
 			}
 		}
 	}
@@ -145,12 +161,12 @@ void cSettingsCleaner::runCleaner()
 	progressText.ResetTimer();
 	int count = 0;
 
-	for (QPair<QString, cParameterContainer *> par : listOfAllModifiedParameters)
+	for (sDefaultedParameter par : listOfAllModifiedParameters)
 	{
 		if (stopRequest) break;
 
-		cParameterContainer *container = par.second;
-		QString parameterName = par.first;
+		cParameterContainer *container = par.actualContainer;
+		QString parameterName = par.parameterName;
 
 		//	qDebug() << container->GetContainerName() << parameterName;
 
@@ -163,8 +179,8 @@ void cSettingsCleaner::runCleaner()
 		ui->label_parameterName->setText(
 			tr("Trying parameter: %1:%2").arg(container->GetContainerName()).arg(parameterName));
 
-		double distanceAfterCleaning =
-			gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+		double distanceAfterCleaning = gMainInterface->GetDistanceForPoint(
+			actualParams.Get<CVector3>("camera"), &actualParams, &actualFractalParams);
 		bool changedDistance = false;
 		if (distanceAfterCleaning < referenceDistane * 0.9
 				|| distanceAfterCleaning > referenceDistane * 1.1)
@@ -175,7 +191,7 @@ void cSettingsCleaner::runCleaner()
 
 		if (!changedDistance)
 		{
-			ui->previewwidget_cleaned->AssignParameters(*gPar, *gParFractal);
+			ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
 			QApplication::processEvents();
 			ui->previewwidget_cleaned->slotRender();
 			QApplication::processEvents();
@@ -200,6 +216,7 @@ void cSettingsCleaner::runCleaner()
 													 .arg(settingBeforeClean.Get<QString>(valueActual))
 													 .arg(settingCleaned.Get<QString>(valueActual));
 			ui->listWidget->addItem(itemText);
+			listOfAllDefaultedParameters.append(par);
 		}
 
 		count++;
@@ -212,7 +229,7 @@ void cSettingsCleaner::runCleaner()
 	}
 
 	// render last version of image
-	ui->previewwidget_cleaned->AssignParameters(*gPar, *gParFractal);
+	ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
 	ui->previewwidget_cleaned->update();
 	if (!ui->previewwidget_cleaned->IsRendered())
 	{
@@ -223,6 +240,8 @@ void cSettingsCleaner::runCleaner()
 			Wait(10);
 		}
 	}
+
+	ui->pushButton_stop->setDisabled(true);
 }
 
 void cSettingsCleaner::closeEvent(QCloseEvent *event)
@@ -234,4 +253,40 @@ void cSettingsCleaner::closeEvent(QCloseEvent *event)
 void cSettingsCleaner::slotPressedStop()
 {
 	stopRequest = true;
+}
+
+void cSettingsCleaner::slotPressedOK()
+{
+	*gPar = actualParams;
+	*gParFractal = actualFractalParams;
+	close();
+}
+void cSettingsCleaner::slotPressedCancel()
+{
+	close();
+}
+
+void cSettingsCleaner::slotRemoveItem(QListWidgetItem *item)
+{
+	int row = ui->listWidget->row(item);
+	delete item;
+
+	sDefaultedParameter defaultedParameter = listOfAllDefaultedParameters.at(row);
+
+	defaultedParameter.actualContainer->SetFromOneParameter(defaultedParameter.parameterName,
+		defaultedParameter.originalContainer->GetAsOneParameter(defaultedParameter.parameterName));
+
+	listOfAllDefaultedParameters.removeAt(row);
+
+	ui->previewwidget_cleaned->AssignParameters(actualParams, actualFractalParams);
+	ui->previewwidget_cleaned->update();
+	if (!ui->previewwidget_cleaned->IsRendered())
+	{
+		ui->previewwidget_cleaned->slotRender();
+		while (!ui->previewwidget_cleaned->IsRendered())
+		{
+			QApplication::processEvents();
+			Wait(10);
+		}
+	}
 }

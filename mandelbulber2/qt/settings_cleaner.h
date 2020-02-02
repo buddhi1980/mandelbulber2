@@ -9,6 +9,10 @@
 #define MANDELBULBER2_QT_SETTINGS_CLEANER_H_
 
 #include <QDialog>
+#include <QListWidgetItem>
+
+#include "src/fractal_container.hpp"
+#include "src/parameters.hpp"
 
 namespace Ui
 {
@@ -32,11 +36,24 @@ private:
 
 private slots:
 	void slotPressedStop();
+	void slotPressedOK();
+	void slotPressedCancel();
+	void slotRemoveItem(QListWidgetItem *item);
 
 private:
 	Ui::cSettingsCleaner *ui;
 
+	struct sDefaultedParameter
+	{
+		QString parameterName;
+		cParameterContainer *actualContainer;
+		cParameterContainer *originalContainer;
+	};
+
 	bool stopRequest = false;
+	cParameterContainer actualParams;
+	cFractalContainer actualFractalParams;
+	QList<sDefaultedParameter> listOfAllDefaultedParameters;
 };
 
 #endif /* MANDELBULBER2_QT_SETTINGS_CLEANER_H_ */
