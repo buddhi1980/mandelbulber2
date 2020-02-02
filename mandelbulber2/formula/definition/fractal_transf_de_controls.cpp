@@ -59,7 +59,7 @@ void cFractalTransfDEControls::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double pkD = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+		double pkD = max(rxy -fractal->transformCommon.offsetA0, fabs(rxy * z.z) / rd);
 		rd = pkD / aux.DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
@@ -81,13 +81,13 @@ void cFractalTransfDEControls::FormulaCode(CVector4 &z, const sFractal *fractal,
 				break;
 			case multi_combo3_type2:
 				rxy = sqrt(z.x * z.x + z.y * z.y);
-				mixA = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+				mixA = max(rxy - fractal->transformCommon.offsetA0, fabs(rxy * z.z) / rd);
 				mixB = rd;
 				break;
 			case multi_combo3_type3:
 				mixA = 0.5 * rd * log(rd);
 				rxy = sqrt(z.x * z.x + z.y * z.y);
-				mixB = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / rd);
+				mixB = max(rxy - fractal->transformCommon.offsetA0, fabs(rxy * z.z) / rd);
 				break;
 		}
 		rd = (mixA + (mixB - mixA) * fractal->transformCommon.scale1) / aux.DE;

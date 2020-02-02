@@ -5,12 +5,14 @@ v2.21 (??? 2020)
 
    aboxSphere4d
    aboxTetra4d
-   mengerV2
-   mengerV3
+   foldCutCube
    koch
    kochV2
    kochV3
-   foldCutCube
+   knotV1
+   knotV2
+   mengerV2
+   mengerV3
    transfDIFSTorusGrid
 
 
