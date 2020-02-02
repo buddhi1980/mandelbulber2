@@ -111,6 +111,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName == "antialiasing_size") continue;
 			if (parameterName == "antialiasing_ocl_depth") continue;
 			if (parameterName == "antialiasing_adaptive") continue;
+			if (parameterName == "description") continue;
 			if (parameterName.contains("animSound")) continue;
 			if (parameterName == "camera_distance_to_target") continue;
 			if (parameterName == "camera_rotation") continue;

@@ -151,7 +151,8 @@ private:
 	cThumbnailWidget *referenceNoisePreview;
 	cProgressText progressText;
 	QList<QMap<QString, QString>> listsOfChangedParameters;
-	QMap<QString, QString> actualListOfChangedParameters;
+	QMap<QString, QString> actualListOfChangedParameters;		// updated after selection
+	QMap<QString, QString> previousListOfChangedParameters; // updated after every randomize
 
 	int previewWidth;
 	int previewHeight;
@@ -159,6 +160,7 @@ private:
 
 	double referenceNoise;
 	bool pressedUse;
+	bool blockClose;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */

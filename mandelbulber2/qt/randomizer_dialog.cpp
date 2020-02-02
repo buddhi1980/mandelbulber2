@@ -61,6 +61,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	actualStrength = randomizeMedium;
 	referenceNoise = 0.0;
 	pressedUse = false;
+	blockClose = false;
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
 	int sizeSetiing = enumRandomizerPreviewSize(gPar->Get<int>("randomizer_preview_size"));
@@ -168,6 +169,7 @@ void cRandomizerDialog::InitParameterContainers()
 void cRandomizerDialog::RefreshReferenceImage()
 {
 	// refresh actual reference image
+	blockClose = true;
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	if (!ui->previewwidget_actual->IsRendered())
 	{
@@ -179,6 +181,7 @@ void cRandomizerDialog::RefreshReferenceImage()
 		}
 	}
 	ui->previewwidget_actual->update();
+	blockClose = false;
 }
 
 void cRandomizerDialog::RefreshReferenceSkyImage()
@@ -192,6 +195,7 @@ void cRandomizerDialog::RefreshReferenceSkyImage()
 	}
 	parSky.Set("iteration_threshold_mode", false);
 	// iterThresh mode needs to be disabled to render sky, otherwise DE will be zero.
+	blockClose = true;
 	referenceSkyPreview->AssignParameters(parSky, parFractSky);
 	if (!referenceSkyPreview->IsRendered())
 	{
@@ -202,11 +206,13 @@ void cRandomizerDialog::RefreshReferenceSkyImage()
 			Wait(10);
 		}
 	}
+	blockClose = false;
 }
 
 void cRandomizerDialog::CalcReferenceNoise()
 {
 	// render the same image as actual to calculate reference noise
+	blockClose = true;
 	referenceNoisePreview->AssignParameters(actualParams, actualFractParams);
 	if (!referenceNoisePreview->IsRendered())
 	{
@@ -217,6 +223,7 @@ void cRandomizerDialog::CalcReferenceNoise()
 			Wait(10);
 		}
 	}
+	blockClose = false;
 	cImage *actualImage = ui->previewwidget_actual->GetImage();
 	cImage *noiseRefImage = referenceNoisePreview->GetImage();
 	referenceNoise = noiseRefImage->VisualCompare(actualImage, true);
@@ -226,6 +233,7 @@ void cRandomizerDialog::CalcReferenceNoise()
 void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
 	actualStrength = strength;
+	previousListOfChangedParameters = actualListOfChangedParameters;
 
 	QString progressBarText("Initializing Randomizer");
 	ui->progressBar->setFormat(progressBarText);
@@ -851,6 +859,8 @@ void cRandomizerDialog::slotClickedSelectButton()
 	ui->previewwidget_actual->update();
 
 	// update main list of changed parameters
+	actualListOfChangedParameters = previousListOfChangedParameters; // to prevent adding more setting
+																																	 // in case of multiple selections
 	QMapIterator<QString, QString> i(listsOfChangedParameters[buttonNumber - 1]);
 	while (i.hasNext())
 	{
@@ -897,8 +907,20 @@ void cRandomizerDialog::slotClickedSaveButton()
 void cRandomizerDialog::slotClickedUseButton()
 {
 	pressedUse = true;
-	*gPar = actualParams;
-	*gParFractal = actualFractParams;
+	// copy parameters one by one to not loose new animBySoundParameters
+	QList<QString> listOfParameters = actualParams.GetListOfParameters();
+	for (QString parameterName : listOfParameters)
+	{
+		gPar->Copy(parameterName, &actualParams);
+	}
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		QList<QString> listOfFractalParameters = actualFractParams[i].GetListOfParameters();
+		for (QString parameterName : listOfFractalParameters)
+		{
+			gParFractal->at(i).Copy(parameterName, &actualFractParams[i]);
+		}
+	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	close();
 }
@@ -1003,6 +1025,12 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 
 void cRandomizerDialog::closeEvent(QCloseEvent *event)
 {
+	if (blockClose)
+	{
+		event->ignore();
+		return;
+	}
+
 	if (pressedUse)
 	{
 		event->accept();
@@ -1011,8 +1039,9 @@ void cRandomizerDialog::closeEvent(QCloseEvent *event)
 	{
 		event->ignore();
 		if (QMessageBox::Yes
-				== QMessageBox::question(this, tr("Close Confirmation"), tr("Exit Randomizer?"),
-					QMessageBox::Yes | QMessageBox::No))
+					== QMessageBox::question(this, tr("Close Confirmation"), tr("Exit Randomizer?"),
+						QMessageBox::Yes | QMessageBox::No)
+				&& !blockClose)
 		{
 			event->accept();
 		}
@@ -1030,6 +1059,7 @@ void cRandomizerDialog::slotClickedResetButton()
 {
 	actualParams = *gPar;
 	actualFractParams = *gParFractal;
+	blockClose = true;
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	if (!ui->previewwidget_actual->IsRendered())
 	{
@@ -1041,6 +1071,7 @@ void cRandomizerDialog::slotClickedResetButton()
 		}
 	}
 	ui->previewwidget_actual->update();
+	blockClose = false;
 	actualListOfChangedParameters.clear();
 }
 
@@ -1113,6 +1144,7 @@ void cRandomizerDialog::slotCleanUp()
 		containerCleaned->SetFromOneParameter(parameterName, parameterOrigin);
 
 		// render cleaned settings
+		blockClose = true;
 		cleanedPreview->AssignParameters(actualParamsCleaned, actualFractParamsCleaned);
 		if (!cleanedPreview->IsRendered())
 		{
@@ -1126,6 +1158,7 @@ void cRandomizerDialog::slotCleanUp()
 		cImage *actualImage = ui->previewwidget_actual->GetImage();
 		cImage *cleanedImage = cleanedPreview->GetImage();
 		double diff = cleanedImage->VisualCompare(actualImage, false);
+		blockClose = false;
 
 		// retrieve randomized parameter because change was significant
 		if (diff > referenceNoise * 3)
@@ -1192,6 +1225,4 @@ void cRandomizerDialog::slotAddToKeyframes()
 
 	gKeyframeAnimation->RefreshTable();
 	gKeyframeAnimation->slotAddKeyframe();
-
-	close();
 }
