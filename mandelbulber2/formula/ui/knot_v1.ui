@@ -459,11 +459,18 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_29" columnstretch="0,0,0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout_30" columnstretch="0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="4" colspan="2">
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+          <property name="text">
+           <string notr="true">aux.dist min</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
           <property name="text">
            <string notr="true">aux.dist/aux.DE</string>
@@ -471,13 +478,6 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-          <property name="text">
-           <string notr="true">aux.dist min</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
           <property name="text">
            <string notr="true">z = zc</string>

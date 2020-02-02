@@ -52,13 +52,17 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(fabs(zc.x), fabs(zc.z)));
 
-	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
+	aux->DE0 = len - fractal->transformCommon.offset01;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		if (fractal->transformCommon.functionEnabledDFalse)
+			aux->DE0 = min(aux->dist, aux->DE0);
+		if (fractal->transformCommon.functionEnabledKFalse) aux->DE0 /= aux->DE;
+		if (fractal->transformCommon.functionEnabledEFalse) z = zc;
+	}
 	REAL colorDist = aux->dist;
-	if (!fractal->transformCommon.functionEnabledDFalse)
-		aux->DE0 = len - fractal->transformCommon.offset01;
-	else
-		aux->DE0 = min(aux->dist, len - fractal->transformCommon.offset01);
-	aux->dist = native_divide(aux->DE0, aux->DE);
+	aux->dist = aux->DE0;
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)

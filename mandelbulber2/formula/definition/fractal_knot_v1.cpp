@@ -68,7 +68,7 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledJFalse)
 	{
 		if (fractal->transformCommon.functionEnabledDFalse)
-			aux.DE0 = min(aux.dist, len - fractal->transformCommon.offset01);
+			aux.DE0 = min(aux.dist, aux.DE0);
 		if (fractal->transformCommon.functionEnabledKFalse) aux.DE0 /= aux.DE;
 		if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	}
