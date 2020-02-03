@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.15
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,1;
@@ -24,7 +24,6 @@ boolean_operators true;
 camera 3,257915954580247 -4,240697455628045 1,657023142334135;
 camera_rotation 26,56505117707794 -46,60154959902022 0;
 camera_top -0,3249423813202112 0,6498847626404239 0,6870678599015896;
-delta_DE_function 2;
 detail_level 2;
 DOF_max_noise 1e-05;
 DOF_min_samples 0;
@@ -36,29 +35,25 @@ formula_position_2 2,5 2,5 2,5;
 formula_repeat_1 5 5 5;
 formula_repeat_2 5 5 5;
 formula_scale_1 2;
-fov 0,5600000000000001;
+fov 100,8;
 gamma 0,77;
 image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
 main_light_intensity 0,26;
-mat1_coloring_palette_size 1;
 mat1_is_defined true;
-mat1_surface_color_palette ffffff;
+mat1_surface_color_gradient 0 ffffff;
 mat2_fresnel_reflectance true;
 mat2_is_defined true;
-mat2_metallic true;
 mat2_name primitive_cylinder_1;
 mat2_reflectance 1;
-mat2_specular 8;
 mat2_specular_width 0,25;
 mat2_surface_color ff00 0a00 3f00;
 mat2_transparency_index_of_refraction 6;
 mat2_use_colors_from_palette false;
 mat3_fresnel_reflectance true;
 mat3_is_defined true;
-mat3_metallic true;
 mat3_name primitive_cylinder_2;
 mat3_reflectance 1;
 mat3_specular 8;
@@ -68,7 +63,6 @@ mat3_transparency_index_of_refraction 6;
 mat3_use_colors_from_palette false;
 mat4_fresnel_reflectance true;
 mat4_is_defined true;
-mat4_metallic true;
 mat4_name primitive_cylinder_3;
 mat4_reflectance 1;
 mat4_specular 8;
@@ -77,27 +71,21 @@ mat4_surface_color 0e00 3200 ff00;
 mat4_transparency_index_of_refraction 6;
 mat4_use_colors_from_palette false;
 perspective_type fish_eye;
-primitive_cylinder_1_color ff00 0 400;
 primitive_cylinder_1_enabled true;
 primitive_cylinder_1_height 1000;
 primitive_cylinder_1_material_id 2;
 primitive_cylinder_1_radius 0,1;
-primitive_cylinder_1_reflection 0,5;
 primitive_cylinder_1_repeat 2,5 2,5 0;
-primitive_cylinder_2_color 5500 ff00 0;
 primitive_cylinder_2_enabled true;
 primitive_cylinder_2_height 1000;
 primitive_cylinder_2_material_id 3;
 primitive_cylinder_2_radius 0,1;
-primitive_cylinder_2_reflection 0,49;
 primitive_cylinder_2_repeat 2,5 2,5 0;
 primitive_cylinder_2_rotation 90 0 0;
-primitive_cylinder_3_color 0 0 ff00;
 primitive_cylinder_3_enabled true;
 primitive_cylinder_3_height 1000;
 primitive_cylinder_3_material_id 4;
 primitive_cylinder_3_radius 0,1;
-primitive_cylinder_3_reflection 0,48;
 primitive_cylinder_3_repeat 2,5 2,5 0;
 primitive_cylinder_3_rotation 0 90 0;
 raytraced_reflections true;
@@ -110,14 +98,5 @@ IFS_abs_y true;
 IFS_abs_z true;
 IFS_direction_5 1 -1 0;
 IFS_direction_6 1 0 -1;
-IFS_direction_7 0 1 -1;
 IFS_enabled_5 true;
 IFS_enabled_6 true;
-IFS_enabled_7 true;
-IFS_rotation_enabled true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.12
+# version 2.21
 # only modified parameters
 [description]
 This settings file uses Monte Carlo Depth Of Field effect.
@@ -28,18 +28,8 @@ keyframe_last_to_render 0;
 main_light_alpha -122,01;
 main_light_beta 17,35;
 main_light_intensity 2;
-main_light_volumetric_intensity 14,1254;
-mat1_coloring_palette_offset 8,210000000000001;
 mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
 penetrating_lights false;
-raytraced_reflections true;
 target -0,386038698827877 -0,6168890109698603 -0,09696590069359524;
-[fractal_1]
-IFS_rotation_enabled true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

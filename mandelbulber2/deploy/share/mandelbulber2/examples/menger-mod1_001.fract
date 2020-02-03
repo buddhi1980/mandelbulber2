@@ -1,40 +1,31 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-basic_fog_color e800 ef00 ff00;
 basic_fog_enabled true;
 basic_fog_visibility 0,005232270807027817;
 camera -0,4387872624313242 -0,6796858406520777 -0,1785621757744192;
 camera_distance_to_target 0,001142626501632142;
 camera_rotation 49,04359879691361 -32,59996191796755 6,106664988409952e-13;
 camera_top -0,4068838992618599 0,3531555577051565 0,8424527551046554;
-coloring_palette_size 4;
-coloring_random_seed 736836;
-coloring_speed 3,4599;
 DE_factor 0,90625;
 DOF_enabled true;
 DOF_focus 0,001140967360697687;
 DOF_radius 5,82;
+flight_last_to_render 0;
 formula_1 61;
-fov 1,2;
-fractal_coloring_algorithm 4;
-fractal_coloring_line_direction 1 1 1;
+fov 61,93;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-surface_color_palette a7a7a7 000000 ff0000 f8ffff;
+mat1_coloring_speed 8,649800000000001;
+mat1_fractal_coloring_algorithm 4;
+mat1_fractal_coloring_line_direction 1 1 1 0;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_surface_color_gradient 0 a7a7a7 2500 000000 5000 ff0000 7500 f8ffff;
 target -0,4395142328944899 -0,6790548654283832 -0,1791777889118687;
 view_distance_max 13,81473177672692;
 [fractal_1]
-mandelbox_scale -2;
 transf_addition_constant 0,13369 -0,2 0;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

@@ -1,42 +1,45 @@
 # Mandelbulber settings file
-# version 2.02
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion 0.95;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 0;
-ambient_occlusion_quality 6;
 aux_light_colour_1 e800 3c00 1a00;
 aux_light_enabled_1 true;
-aux_light_intensity_1 5.12861e-09;
-aux_light_position_1 -1.726007692582906 -0.0001063106007876423 3.459462889334013e-05;
-aux_light_visibility 4.46684;
-aux_light_visibility_size 0.794328;
-camera -1.727860907100944 -0.0002475706945725832 0.0001033960637179173;
-camera_distance_to_target 0.001880344003010582;
-camera_rotation -69.82089610984364 -6.113220350746874 -15.0537005292956;
-camera_top 0.006933164495631888 0.2792569852913186 0.9601913701945466;
-detail_level 0.501187;
+aux_light_intensity_1 5,12861e-09;
+aux_light_position_1 -1,726007692582906 -0,0001063106007876423 3,459462889334013e-05;
+aux_light_visibility 4,46684;
+aux_light_visibility_size 0,794328;
+camera -1,727860907100944 -0,0002475706945725832 0,0001033960637179173;
+camera_distance_to_target 0,001880344003010582;
+camera_rotation -69,82089610984364 -6,113220350746874 -15,0537005292956;
+camera_top 0,006933164495631888 0,2792569852913186 0,9601913701945466;
+detail_level 0,501187;
+flight_last_to_render 0;
 formula_1 21;
-gamma 0.91;
+gamma 0,91;
 image_height 1080;
 image_width 1920;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 9dd34a 999 ffffb9 1999 b85a3d 2999 6f7a12 3999 631a1c 5000 7b9550 5999 386514 7000 7e5439 7999 9eef34 9000 f3737d;
+mat2_is_defined true;
+mat2_name primitive_cylinder_1;
+mat2_reflectance 0,72;
+mat2_surface_color 7600 5800 0d00;
 primitive_cylinder_1_caps false;
-primitive_cylinder_1_color 7600 5800 d00;
 primitive_cylinder_1_enabled true;
-primitive_cylinder_1_position -1.73 0 0;
-primitive_cylinder_1_radius 0.000331131;
-primitive_cylinder_1_reflection 0.72;
+primitive_cylinder_1_material_id 2;
+primitive_cylinder_1_position -1,73 0 0;
+primitive_cylinder_1_radius 0,000331131;
 primitive_cylinder_1_rotation 0 90 0;
 raytraced_reflections true;
-surface_color_palette 9dd34a ffffb9 b85a3d 6f7a12 631a1c 7b9550 386514 7e5439 9eef34 f3737d ;
-target -1.726106017128319 0.0003973765340745845 -9.684835168126043e-05;
-volumetric_fog_colour_1_distance 5.921171289757893e-05;
-volumetric_fog_colour_2_distance 0.0001184234257951579;
-volumetric_fog_density 0.1;
-volumetric_fog_distance_factor 0.0001184234257951579;
+target -1,726106017128319 0,0003973765340745845 -9,684835168126043e-05;
+volumetric_fog_colour_1_distance 5,921171289757893e-05;
+volumetric_fog_colour_2_distance 0,0001184234257951579;
+volumetric_fog_density 0,1;
+volumetric_fog_distance_factor 0,0001184234257951579;
 volumetric_fog_enabled true;
-[fractal_1]
-[fractal_2]
-[fractal_3]
-[fractal_4]

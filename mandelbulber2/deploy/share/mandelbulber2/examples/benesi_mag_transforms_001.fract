@@ -1,10 +1,9 @@
 # Mandelbulber settings file
-# version 2.20
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 0;
-ambient_occlusion_quality 6;
 aux_light_colour_1 e800 ce00 9800;
 aux_light_enabled_1 true;
 aux_light_intensity_1 0,000186209;
@@ -13,20 +12,16 @@ camera -1,319598677216542 0,007603416892252267 0,003691796018297635;
 camera_distance_to_target 0,03231329098343849;
 camera_rotation 107,6083680294299 -4,164195654845236 3,053332494204976e-12;
 camera_top -0,06921269220119096 -0,02196668544609008 0,9973600493145774;
-delta_DE_function 1;
 delta_DE_method 1;
 DOF_enabled true;
 DOF_focus 0,03241164982318878;
 DOF_radius 5,23;
 flight_last_to_render 0;
-fog_color_1 7400 7500 2400;
 fog_color_2 ff00 a600 5d00;
 fog_color_3 ff00 d300 6c00;
 formula_1 100;
 gamma 0,45;
 glow_color_1 ff00 2f00 7f00;
-glow_color_2 e400 f300 5b00;
-glow_intensity 1,54882;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
@@ -38,13 +33,10 @@ mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
 mat1_surface_color_gradient 0 d480ff 3333 aa2e24 6666 af704f;
-mat1_transparency_index_of_refraction 3,25;
-raytraced_reflections true;
 reflections_max 2;
 target -1,350316668677811 -0,002145842015429298 0,001345367771634467;
 view_distance_max 16,59455560375056;
 volumetric_fog_colour_1_distance 0,004872668956257917;
-volumetric_fog_colour_2_distance 0,009745337912515833;
 volumetric_fog_density 0,151356;
 volumetric_fog_distance_factor 0,009745337912515833;
 volumetric_fog_enabled true;
@@ -56,18 +48,10 @@ magTransf_order_of_transf_4 typeT3;
 magTransf_order_of_transf_5 typeT4;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 2,79 -4,45 1,19;
-mandelbox_scale -1,178862;
-surfFolds_order_of_folds_2 type2;
-surfFolds_order_of_folds_3 type3;
-surfFolds_order_of_folds_4 type5;
 transf_function_enabledAx_false true;
 transf_function_enabledAy_false true;
 transf_function_enabledAz_false true;
 transf_function_enabledBx_false true;
 transf_function_enabledBy_false true;
-[fractal_2]
-IFS_rotation_enabled true;
 [fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
 IFS_rotation_enabled true;

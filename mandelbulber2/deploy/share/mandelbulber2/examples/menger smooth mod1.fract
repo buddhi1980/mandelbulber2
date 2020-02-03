@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 e800 9b00 4300;
@@ -8,12 +8,10 @@ aux_light_intensity_1 1,07152e-05;
 aux_light_position_1 0,7333117880819433 -0,519976884967596 -0,003154606520770525;
 background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
-background_color_3 0000 0000 0000;
 camera 0,7326410849715067 -0,5216492012769236 -0,01716903459085073;
 camera_distance_to_target 0,000456173584097981;
 camera_rotation 32,00827490524941 59,62344783914276 103,3684781222278;
 camera_top 0,7192657955634528 0,6848258720177247 -0,1169198030602011;
-delta_DE_function 2;
 flight_last_to_render 0;
 formula_1 114;
 image_height 1080;
@@ -25,20 +23,12 @@ mat1_is_defined true;
 mat1_reflectance 1;
 mat1_specular 2,35;
 mat1_specular_width 0,397;
-mat1_surface_color_palette fd6029 698403 fff59c f5bd22 0b5e87 000000 c50003 3b9fee d4ffd4 aba53c;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59c 2999 f5bd22 3999 0b5e87 5000 000000 5999 c50003 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_transparency_index_of_refraction 3,86;
 raytraced_reflections true;
 reflections_max 2;
 target 0,7325188158987274 -0,5214535927270202 -0,01677548420287587;
 view_distance_max 10,68081958417289;
 [fractal_1]
-IFS_rotation_enabled true;
 transf_addition_constantA_000 0,44586 0 0;
 transf_function_enabledx_false true;
-transf_rotation_enabled true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

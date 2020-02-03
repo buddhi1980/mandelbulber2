@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.20
+# version 2.21
 # only modified parameters
 [main_parameters]
 background_color_1 3700 a800 ff00;
@@ -24,19 +24,10 @@ image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
 mat1_is_defined true;
-mat1_specular 0,5;
 mat1_surface_color_gradient 0 bdbfb8 164 66615b 431 727270 1952 4b4743 6236 999795 8898 9c9b93;
 MC_soft_shadows_enable true;
 penetrating_lights false;
-raytraced_reflections true;
 target -1,751526367812672 -0,06188519794816152 0,02946523966819282;
 view_distance_max 16,74936867076458;
-[fractal_1]
-alpha_angle_offset 90;
-beta_angle_offset 90;
-power 2;
 [fractal_2]
-transf_offset_0005 0,01;
-transf_offset_001 0 0 0;
 transf_scale_1 0,5;
-transf_scale_2 1;

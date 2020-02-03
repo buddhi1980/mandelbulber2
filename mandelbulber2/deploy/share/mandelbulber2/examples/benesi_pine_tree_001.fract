@@ -1,10 +1,8 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
-background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
-background_color_3 0000 0000 0000;
 camera -1,716503760422096 -0,0153382310312616 0,01119053055212718;
 camera_distance_to_target 0,0216392485264689;
 camera_rotation 67,42810878425983 -7,020066353007044 13,73993013089997;
@@ -20,16 +18,9 @@ glow_intensity 6,0256;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 target -1,736335618760868 -0,007094437986578333 0,008545847611281906;
 view_distance_max 13,81473177672692;
 [fractal_1]
-mandelbox_scale -2;
 transf_constant_multiplier_100 1 0,526316 0,745614;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

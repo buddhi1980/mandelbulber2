@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 9800 e800 5500;
@@ -15,7 +15,6 @@ DE_factor 0,457088;
 detail_level 0,269153;
 flight_last_to_render 0;
 formula_1 17;
-fresnel_reflectance true;
 gamma 0,72;
 glow_color_1 ff00 0000 0000;
 glow_color_2 ff00 ff00 7f00;
@@ -25,17 +24,13 @@ image_height 1200;
 image_width 1200;
 keyframe_last_to_render 0;
 main_light_enable false;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 1;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_transparency_index_of_refraction 3;
 raytraced_reflections true;
-reflect 1;
 target -4,407529574854142 0,2616256026371969 5,656779646277126;
-transparency_index_of_refraction 3;
-view_distance_max 76,86769306784714;
-[fractal_1]
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

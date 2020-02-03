@@ -1,44 +1,33 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 1,56;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
-aux_light_colour_1 e800 6200 2c00;
-aux_light_enabled_1 true;
-aux_light_intensity_1 2,795085798460855e-06;
-aux_light_position_1 -0,68814533246238 -0,6463913628768724 -0,5165870179076424;
-aux_light_visibility 1,94984e-07;
-aux_light_visibility_size 0,371535;
-aux_light_volumetric_enabled_1 true;
-aux_light_volumetric_intensity_1 0,0331131;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
-background_color_3 0 0 6300;
 brightness 1,28;
 camera -0,7183815800616989 -0,7786233340396237 -0,3893687002586972;
 camera_distance_to_target 0,06163757478098904;
 camera_rotation -23,17169677283787 -48,24415988609147 22,62235565389008;
 camera_top 0,6245783312425165 0,4816870246838655 0,6147190564750039;
 DE_factor 0,457088;
-DOF_focus 0,1604096442461014;
-DOF_radius 5,21;
 flight_last_to_render 0;
 formula_1 41;
-fractal_color false;
 gamma 0,8;
-glow_color_1 0 aa00 ff00;
-glow_color_2 bd00 f400 ff00;
+glow_color_1 0000 aa00 ff00;
 glow_intensity 2,04174;
 hdr true;
 image_height 720;
 image_width 1280;
 keyframe_last_to_render 0;
-main_light_visibility 1,19;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
 penetrating_lights false;
 target -0,7022296848223674 -0,7408866666974814 -0,43534968375153;
-view_distance_max 6,111360522103771;
 volumetric_fog_colour_1_distance 0,005764897988071186;
 volumetric_fog_colour_2_distance 0,01152979597614237;
 volumetric_fog_density 0,0977237;
@@ -47,5 +36,4 @@ volumetric_fog_enabled true;
 [fractal_1]
 buffalo_abs_z true;
 [fractal_2]
-[fractal_3]
-[fractal_4]
+IFS_rotation_enabled true;

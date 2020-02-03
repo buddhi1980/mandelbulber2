@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,64;
@@ -11,7 +11,6 @@ aux_light_intensity_1 6,45654e-10;
 aux_light_position_1 0,1628536359789992 -0,2518680590941453 -0,4270924723668907;
 aux_light_visibility 10,4713;
 aux_light_visibility_size 0,120226;
-aux_light_volumetric_intensity_1 1,51356e-07;
 camera 0,1629036224823613 -0,251887738813627 -0,427082024488222;
 camera_distance_to_target 6,416524941781901e-05;
 camera_rotation 53,90056638121136 -10,12730381346719 1,353644072430873e-11;
@@ -22,7 +21,6 @@ DOF_focus 5,204795525060035e-05;
 DOF_radius 5,07;
 flight_last_to_render 0;
 formula_1 77;
-fresnel_reflectance true;
 hdr true;
 image_height 1080;
 image_width 1920;
@@ -30,19 +28,29 @@ julia_c 0,162685974081038 -0,2517140088088706 -0,4270112222962116;
 julia_mode true;
 keyframe_last_to_render 0;
 main_light_intensity 0,75;
-primitive_water_1_amplitude 3,54813e-08;
-primitive_water_1_color 2300 3200 7300;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_name primitive_water_1;
+mat2_reflectance 1;
+mat2_surface_color 2300 3200 7300;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_transparency_index_of_refraction 5,92;
+mat2_use_colors_from_palette false;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 6;
 primitive_water_1_length 1,90546e-06;
+primitive_water_1_material_id 2;
 primitive_water_1_position 0,1628730499515882 -0,2518698604092797 -0,4270988950681599;
-primitive_water_1_reflection 1;
+primitive_water_1_relative_amplitude 0,01862085795555929;
 raytraced_reflections true;
 reflections_max 2;
 SSAO_random_mode true;
 target 0,1628525850111426 -0,2518505224222775 -0,4270933070402105;
-transparency_index_of_refraction 5,92;
-view_distance_max 43,04385028344893;
 volumetric_fog_colour_1_distance 8,435289968938831e-06;
 volumetric_fog_colour_2_distance 1,687057993787766e-05;
 volumetric_fog_distance_factor 1,687057993787766e-05;
@@ -53,11 +61,3 @@ transf_addition_constant 0 0 0,4;
 transf_addition_constant_111 1,2 1,5 1;
 transf_minimum_radius_05 0;
 transf_rotation -5 -3 2;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

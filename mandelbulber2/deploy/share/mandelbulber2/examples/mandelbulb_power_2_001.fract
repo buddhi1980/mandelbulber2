@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,5;
@@ -17,11 +17,10 @@ image_width 1600;
 keyframe_last_to_render 0;
 limit_max 10 10 0;
 limits_enabled true;
-mat1_coloring_palette_offset 5,36;
-mat1_coloring_random_seed 96584;
+mat1_coloring_palette_offset 0,536;
 mat1_coloring_speed 2,616;
 mat1_is_defined true;
-mat1_surface_color_palette cd00a3 0f294e b7c6c8 2fca34 ea8838 295963 06cf90 0b5f93 a417de c80000;
+mat1_surface_color_gradient 0 cd00a3 999 0f294e 1999 b7c6c8 2999 2fca34 3999 ea8838 5000 295963 5999 06cf90 7000 0b5f93 7999 a417de 9000 c80000;
 target -0,7584914343128673 -0,07312365349439978 -0,0001585618094506168;
 view_distance_max 13,81473177672692;
 volumetric_fog_colour_1_distance 0,0002849017604407933;
@@ -29,5 +28,3 @@ volumetric_fog_colour_2_distance 0,0005698035208815867;
 volumetric_fog_density 0,25;
 volumetric_fog_distance_factor 0,0005698035208815867;
 volumetric_fog_enabled true;
-[fractal_1]
-mandelbox_scale -2;

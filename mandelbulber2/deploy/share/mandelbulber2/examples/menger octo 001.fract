@@ -1,8 +1,7 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion_mode 0;
 aux_light_visibility 28,8403;
 aux_light_visibility_size 0,0691831;
 brightness 1,35;
@@ -10,10 +9,8 @@ camera 0,4672134807290693 -0,2934014383143324 0,3546035847239853;
 camera_distance_to_target 0,01118271052837371;
 camera_rotation 53,27006471782529 -63,06927935580801 19,60785945947836;
 camera_top -0,4724207474534547 0,7712258004075151 0,426649038626957;
-delta_DE_function 2;
 DOF_enabled true;
 DOF_focus 0,01093564089387655;
-DOF_HDR true;
 DOF_radius 20;
 flight_last_to_render 0;
 formula_1 115;
@@ -23,18 +20,19 @@ image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
 main_light_enable false;
-mat1_coloring_palette_size 5;
-mat1_coloring_random_seed 497806;
+mat1_coloring_speed 2;
 mat1_fractal_coloring_algorithm 2;
 mat1_is_defined true;
-mat1_surface_color_palette c0e41d b71b61 6051a5 c65100 2fa900;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 c0e41d 1999 b71b61 3999 6051a5 5999 c65100 7999 2fa900;
 random_lights_distribution_center 0,4635720920888607 -0,2905482975460152 0,3445885521690702;
 random_lights_distribution_radius 0,00588844;
 random_lights_group true;
 random_lights_intensity 12,3027;
 random_lights_max_distance_from_fractal 0,001103181764483452;
 random_lights_number 100;
-raytraced_reflections true;
 target 0,4631542352131662 -0,2903724695326165 0,3446335852895615;
 view_distance_max 9,411791424671151;
 volumetric_fog_colour_1_distance 0,001716910475955074;
@@ -43,9 +41,3 @@ volumetric_fog_distance_factor 0,003433820951910147;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_offset_100 2,017544 0 0;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

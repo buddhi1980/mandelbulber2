@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 camera -0,09016063118622938 -0,7040403969915736 -0,01101545936842085;
@@ -15,16 +15,14 @@ julia_c -0,9 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
 main_light_intensity 0,72;
-mat1_coloring_random_seed 442569;
-mat1_coloring_saturation 2;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1;
-mat1_reflections_color_thesame true;
+mat1_reflectance_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40bc1 5000 36ff22 5999 bc8744 7000 f6b793 7999 f6fe09 9000 b6dc5f;
+mat1_reflectance_gradient_enable true;
 mat1_specular_metallic 4;
-mat1_surface_color_palette 71d316 ffaa00 ff2c75 cd481d a40bc1 36ff22 bc8744 f6b793 f6fe09 b6dc5f;
+mat1_surface_color_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40bc1 5000 36ff22 5999 bc8744 7000 f6b793 7999 f6fe09 9000 b6dc5f;
 mat1_transparency_index_of_refraction 6;
-mat1_transparency_interior_color 1800 3400 0e00;
 raytraced_reflections true;
 reflections_max 2;
 target -0,08982843481501171 -0,7035941122761717 -0,01063115539986171;

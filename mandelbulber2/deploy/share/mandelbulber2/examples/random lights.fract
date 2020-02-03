@@ -1,12 +1,9 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_visibility 2;
 aux_light_visibility_size 0,102329;
-background_color_1 2400 0000 6d00;
-background_color_2 0000 0000 0000;
-background_color_3 2700 0500 2700;
 camera 0,001168511750293903 -0,4006692463252082 -0,3747555955432756;
 camera_distance_to_target 0,01283415321573616;
 camera_rotation 4,801379866775946 -38,34479722175934 -11,88887419530122;
@@ -17,7 +14,8 @@ image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
 main_light_intensity 0;
-main_light_visibility 4;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 random_lights_distribution_center 0,00132985117223969 -0,3854850047360689 -0,384397506101312;
 random_lights_distribution_radius 0,015;
 random_lights_group true;
@@ -26,12 +24,3 @@ random_lights_max_distance_from_fractal 0,000933254;
 random_lights_number 500;
 target 0,0003259926178686869 -0,3906388505724696 -0,3827178070024075;
 view_distance_max 7,47628355861833;
-[fractal_1]
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

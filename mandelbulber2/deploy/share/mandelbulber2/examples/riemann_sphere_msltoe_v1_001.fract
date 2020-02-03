@@ -1,11 +1,8 @@
 # Mandelbulber settings file
-# version 2.20
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion 1,41;
 ambient_occlusion_enabled true;
-ambient_occlusion_quality 6;
-bailout 8;
 camera -0,558961215540056 -1,553372278130653 0,3815652123770461;
 camera_distance_to_target 0,2049765758343642;
 camera_rotation 11,1372069511195 6,814541869581512 -0,5845586042877027;
@@ -16,18 +13,13 @@ detail_level 0,5;
 DOF_enabled true;
 DOF_focus 0,1957699656486511;
 DOF_radius 6,74;
-dont_add_c_constant_2 true;
 flight_last_to_render 0;
-fog_color_1 7500 5600 3b00;
 fog_color_2 3000 c100 ff00;
 fog_color_3 ff00 fb00 e400;
 formula_1 71;
-formula_start_iteration_2 2;
 gamma 0,75;
 image_height 1200;
 image_width 1600;
-iteration_fog_opacity 26302,7;
-iteration_fog_opacity_trim 1;
 keyframe_last_to_render 0;
 mat1_is_defined true;
 mat1_metallic false;
@@ -40,7 +32,3 @@ volumetric_fog_colour_1_distance 0,02281892878223541;
 volumetric_fog_colour_2_distance 0,04563785756447082;
 volumetric_fog_distance_factor 0,04563785756447082;
 volumetric_fog_enabled true;
-[fractal_1]
-analyticDE_enabled false;
-transf_constant_multiplier_111 4 4 1;
-transf_rotation 5,27 13,3 -1,76;

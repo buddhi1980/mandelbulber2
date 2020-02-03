@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,5;
@@ -10,7 +10,6 @@ camera_distance_to_target 0,09033295113518836;
 camera_rotation -4,674079905151091 -35,11816111098414 6,106664988409952e-13;
 camera_top 0,04687694532561458 0,5733514262452687 0,8179674162333458;
 DE_factor 0,213796;
-delta_DE_function 0;
 dont_add_c_constant_1 true;
 flight_last_to_render 0;
 formula_1 74;
@@ -20,31 +19,13 @@ keyframe_last_to_render 0;
 limit_max 10 10 0;
 limits_enabled true;
 main_light_intensity 1,1;
-penetrating_lights false;
-shading 0,39;
+mat1_is_defined true;
+mat1_shading 0,39;
+mat1_specular 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 target -0,7951132427597557 0,1018857668851256 0,0004780315921449127;
 use_default_bailout false;
-view_distance_max 130,6245251889995;
 [fractal_1]
-IFS_abs_x true;
-IFS_abs_y true;
-IFS_abs_z true;
-IFS_direction_0 2,618 1 -1,618;
-IFS_direction_1 -1,618 2,618 1;
-IFS_direction_2 1 -1,618 2,618;
-IFS_enabled_0 true;
-IFS_enabled_1 true;
-IFS_enabled_2 true;
-IFS_offset 1 1 1;
-IFS_scale 2,618;
 transf_addCpixel_enabled_false true;
 transf_constant_julia_c 0,3 -0,4 0;
 transf_constant_julia_mode true;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

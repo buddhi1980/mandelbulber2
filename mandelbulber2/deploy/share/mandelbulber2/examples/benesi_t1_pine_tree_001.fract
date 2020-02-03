@@ -1,8 +1,7 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion_mode 0;
 aux_light_colour_1 6600 bf00 e800;
 aux_light_enabled_1 true;
 aux_light_intensity_1 2,69153e-08;
@@ -13,9 +12,6 @@ camera 0,1892342505770582 -1,242925056261947 0,5494768634420503;
 camera_distance_to_target 0,0003795143825782064;
 camera_rotation 20,14883796225741 -48,0976791735518 -7,933079251459286;
 camera_top -0,3834926485962063 0,6445069521302884 0,6614712216932742;
-coloring_palette_size 5;
-coloring_random_seed 102454;
-coloring_saturation 0,13;
 DOF_enabled true;
 DOF_focus 0,0003930834354832768;
 DOF_HDR true;
@@ -27,16 +23,9 @@ image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
 main_light_enable false;
-surface_color_palette 8e998a a8c3a2 796f70 cddbdc 44383d;
+mat1_coloring_speed 2;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_surface_color_gradient 0 8e998a 1999 a8c3a2 3999 796f70 5999 cddbdc 7999 44383d;
 target 0,1891469425296436 -1,242687104477778 0,5491943967717133;
 view_distance_max 13,81473177672692;
-[fractal_1]
-mandelbox_scale -2;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

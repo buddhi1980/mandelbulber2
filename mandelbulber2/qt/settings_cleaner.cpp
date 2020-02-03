@@ -124,12 +124,15 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName.contains("animSound")) continue;
 			if (parameterName == "camera_distance_to_target") continue;
 			if (parameterName == "camera_rotation") continue;
+			if (parameterName == "stereo_mode") continue;
 			if (parameterName.contains("flight_")) continue;
 			if (parameterName.contains("keyframe_")) continue;
 			if (parameterName.contains("voxel_")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("is_defined")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("name")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("rough_surface")) continue;
+			if (parameterName.contains("mat") && parameterName.contains("use_colors_from_palette"))
+				continue;
 
 			sDefaultedParameter par;
 			par.parameterName = parameterName;
@@ -211,7 +214,8 @@ void cSettingsCleaner::runCleaner()
 		}
 		else
 		{
-			QString itemText = QString("%1: %2 -> %3")
+			QString itemText = QString("%1_%2: %3 -> %4")
+													 .arg(container->GetContainerName())
 													 .arg(parameterName)
 													 .arg(settingBeforeClean.Get<QString>(valueActual))
 													 .arg(settingCleaned.Get<QString>(valueActual));

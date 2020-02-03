@@ -1,16 +1,14 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 camera -0,09016063118622938 -0,7040403969915736 -0,01101545936842085;
 camera_distance_to_target 0,0006761760247907505;
 camera_rotation -36,66251242139207 34,63517667218488 4,681776491114296e-12;
 camera_top -0,3393614343408063 -0,4559105224059231 0,8227875864654917;
-coloring_random_seed 442569;
-coloring_saturation 2;
 detail_level 3;
+flight_last_to_render 0;
 formula_1 51;
-fresnel_reflectance true;
 glow_intensity 1,65959;
 image_height 1200;
 image_width 1600;
@@ -18,21 +16,15 @@ julia_c -0,9 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
 main_light_intensity 1,45;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 1;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40bc1 5000 36ff22 5999 bc8744 7000 f6b793 7999 f6fe09 9000 b6dc5f;
+mat1_transparency_index_of_refraction 3;
 raytraced_reflections true;
-reflect 1;
 reflections_max 2;
-surface_color_palette 71d316 ffaa00 ff2c75 cd481d a40bc1 36ff22 bc8744 f6b793 f6fe09 b6dc5f;
 target -0,08982843481501171 -0,7035941122761717 -0,01063115539986171;
-transparency_index_of_refraction 3;
-transparency_interior_color 1800 3400 0e00;
 view_distance_max 11,3046568828281;
-[fractal_1]
-info true;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

@@ -1,15 +1,7 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion_enabled true;
-ambient_occlusion_fast_tune 0,1;
-ambient_occlusion_mode 0;
-ambient_occlusion_quality 8;
-background_color_1 0000 0000 0000;
-background_color_2 0000 0000 0000;
-background_color_3 0000 0000 0000;
-bailout 10000000000;
 brightness 1,32;
 camera -1,761966414164439 -0,1835807371025109 0,0238661454337756;
 camera_distance_to_target 0,08741791850932167;
@@ -18,20 +10,15 @@ camera_top 0,09219481231645821 0,03521616391370504 0,9951180524847976;
 constant_DE_threshold true;
 DE_factor 0,074131;
 DE_thresh 0,000851138;
-delta_DE_function 2;
 DOF_enabled true;
 DOF_focus 0,074131;
 DOF_radius 3,89;
 flight_last_to_render 0;
-fog_color_1 8200 5300 4400;
-fog_color_2 c500 ac00 6b00;
-fog_color_3 c500 c500 c500;
 formula_1 8;
 formula_2 16;
 formula_iterations_1 4;
-fov 1,02;
+fov 54,04;
 gamma 0,47;
-glow_color_1 ef00 0500 0500;
 glow_color_2 f300 df00 6e00;
 glow_intensity 16,5959;
 hdr true;
@@ -42,27 +29,17 @@ keyframe_last_to_render 0;
 main_light_alpha -86,73;
 main_light_beta 10,83;
 main_light_intensity 2;
-mat1_coloring_palette_size 4;
-mat1_coloring_random_seed 826813;
-mat1_coloring_speed 0,0982;
+mat1_coloring_speed 0,2455;
 mat1_is_defined true;
-mat1_reflectance 0,6699999999999999;
-mat1_reflections_color_thesame true;
-mat1_surface_color_palette ffa776 ff0000 000000 d67749;
+mat1_reflectance 0,67;
+mat1_reflectance_gradient 0 ffa776 2500 ff0000 5000 000000 7500 d67749;
+mat1_reflectance_gradient_enable true;
+mat1_surface_color_gradient 0 ffa776 2500 ff0000 5000 000000 7500 d67749;
 raytraced_reflections true;
 reflections_max 2;
 shadows_cone_angle 3;
 target -1,84323088254285 -0,2146217769058244 0,03249357283746126;
-volumetric_fog_colour_1_distance 0,02412792855960942;
-volumetric_fog_colour_2_distance 0,04825585711921885;
 volumetric_fog_distance_factor 0,04825585711921885;
 volumetric_fog_enabled true;
-[fractal_1]
-IFS_rotation_enabled true;
 [fractal_2]
 boxfold_bulbpow2_z_factor 10,74;
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

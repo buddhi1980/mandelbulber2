@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
@@ -14,19 +14,18 @@ camera 3,397727659621828 -1,287491675661408 8,531807252313039;
 camera_distance_to_target 3,391589357645513;
 camera_rotation 76,26110841725941 -19,95530286485783 -0,02124563012061399;
 camera_top -0,331610159199178 0,08069462310064687 0,93995908427896;
-coloring_palette_size 4;
 constant_DE_threshold true;
 DE_factor 0,281838;
-detail_level 0,199526;
 flight_last_to_render 0;
 formula_1 73;
 gamma 0,64;
 keyframe_last_to_render 0;
+mat1_coloring_speed 2,5;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 ffffff 2500 797979 5000 717171 7500 ffffff;
 N 255;
-reflect 0,52;
 shadows_cone_angle 0;
 slow_shading true;
-surface_color_palette ffffff 797979 717171 ffffff;
 target 0,3009855684851013 -0,5303600181168344 7,374301984497706;
 use_default_bailout false;
 volumetric_fog_colour_1_distance 0,03730503311330658;
@@ -38,11 +37,3 @@ volumetric_fog_enabled true;
 transf_addition_constant_111 1,781609 1,637931 1;
 transf_function_enabled_false true;
 transf_scale_1 0;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

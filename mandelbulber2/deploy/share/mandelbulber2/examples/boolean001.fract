@@ -1,65 +1,49 @@
 # Mandelbulber settings file
-# version 2.04
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion 0.6899999999999999;
+ambient_occlusion 0,6899999999999999;
 ambient_occlusion_enabled true;
-ambient_occlusion_quality 7;
-aux_light_intensity_1 0.00194984;
-aux_light_position_1 0 0 0;
-basic_fog_visibility 2.181884765625;
 boolean_operator_1 2;
 boolean_operators true;
-camera 0.7516598844776603 -0.867779568768184 0.7749244613378209;
-camera_distance_to_target 0.8160617553075938;
-camera_rotation 40.05530535453057 -43.95351594311492 -2.035554996136651e-13;
-camera_top -0.446655528894436 0.5312610543445504 0.7199031397658634;
-coloring_palette_size 5;
-coloring_random_seed 791140;
-coloring_speed 0.39;
+camera 0,7516598844776603 -0,867779568768184 0,7749244613378209;
+camera_distance_to_target 0,8160617553075938;
+camera_rotation 40,05530535453057 -43,95351594311492 -2,035554996136651e-13;
+camera_top -0,446655528894436 0,5312610543445504 0,7199031397658634;
+flight_last_to_render 0;
 formula_1 10;
 formula_2 2;
 formula_3 7;
-gamma 1.01;
-glow_color_1 ff00 0 0;
-glow_color_2 ff00 dc00 5e00;
-glow_intensity 0.74131;
+glow_color_1 ff00 0000 0000;
 image_height 1440;
 image_width 2560;
+keyframe_last_to_render 0;
 limit_max 10 10 0;
 limits_enabled true;
-main_light_alpha -32.01;
-main_light_beta 32.74;
+main_light_alpha -32,01;
+main_light_beta 32,74;
+mat1_coloring_speed 0,78;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 d3add3 1999 ffee2d 3999 ff0000 5999 f880ff 7999 ffaa00;
 N 20;
 shadows_cone_angle 0;
-surface_color_palette d3add3 ffee2d ff0000 f880ff ffaa00 ;
-target 0.3735973059000141 -0.4181043467900153 0.2085167725713132;
-view_distance_max 6.638709353900758;
+target 0,3735973059000141 -0,4181043467900153 0,2085167725713132;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_0 2.62 1 -1.62;
-IFS_direction_1 -1.62 2.62 1;
-IFS_direction_2 1 -1.62 2.62;
-IFS_direction_3 -2.62 1 1.62;
-IFS_direction_4 1.62 -2.62 1;
+IFS_direction_0 2,62 1 -1,62;
+IFS_direction_1 -1,62 2,62 1;
+IFS_direction_2 1 -1,62 2,62;
+IFS_direction_3 -2,62 1 1,62;
+IFS_direction_4 1,62 -2,62 1;
 IFS_enabled_0 true;
 IFS_enabled_1 true;
 IFS_enabled_2 true;
 IFS_enabled_3 true;
 IFS_enabled_4 true;
 IFS_offset 1 1 1;
-IFS_scale 2.35;
-[fractal_2]
-IFS_abs_x true;
-IFS_abs_y true;
-IFS_abs_z true;
-IFS_direction_3 -2.62 1 1.62;
-IFS_direction_4 1.62 -2.62 1;
-IFS_enabled_3 true;
-IFS_enabled_4 true;
-IFS_offset 1 0 1.62;
-mandelbox_scale -2;
-[fractal_3]
-[fractal_4]
+IFS_scale 2,35;

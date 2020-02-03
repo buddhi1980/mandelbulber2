@@ -1,9 +1,8 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-ambient_occlusion_quality 6;
 aux_light_visibility 9,54993;
 aux_light_visibility_size 0,0346737;
 camera 0,9114886311786261 -0,5668578415162826 -0,2330479561654706;
@@ -11,45 +10,28 @@ camera_distance_to_target 0,02245958894491193;
 camera_rotation 22,58587564393018 -30,51756154794946 49,53955301616425;
 camera_top 0,5759405675387448 0,5964712509284448 0,5590299718968607;
 DE_factor 0,177828;
-delta_DE_function 2;
 flight_last_to_render 0;
-fog_color_1 7500 5200 2a00;
 fog_color_3 ff00 db00 5500;
 formula_1 94;
-glow_color_1 c100 6600 2400;
-glow_color_2 f300 e800 6500;
-glow_intensity 0,467735;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
 main_light_alpha -80,54000000000001;
-mat1_coloring_palette_size 5;
-mat1_coloring_random_seed 343719;
+mat1_coloring_speed 2;
 mat1_is_defined true;
-mat1_specular 0,13;
 mat1_specular_plastic_enable false;
-mat1_specular_width 2,155;
-mat1_surface_color_palette b79839 006c40 b4c581 1e150d 4e8133;
+mat1_surface_color_gradient 0 b79839 1999 006c40 3999 b4c581 5999 1e150d 7999 4e8133;
 random_lights_distribution_center 0,8937183464932488 -0,5357990642539026 -0,2456067733219439;
 random_lights_distribution_radius 0,01896150410175323;
 random_lights_group true;
 random_lights_intensity 25,704;
 random_lights_max_distance_from_fractal 0,003792300820350647;
 random_lights_number 40;
-raytraced_reflections true;
 target 0,9040575575129057 -0,5489934221144576 -0,2444529901060051;
-view_distance_max 10,24224086409581;
 volumetric_fog_colour_1_distance 3,767046083138249e-05;
 volumetric_fog_colour_2_distance 7,534092166276498e-05;
 volumetric_fog_distance_factor 7,534092166276498e-05;
 volumetric_fog_enabled true;
 [fractal_1]
-IFS_rotation_enabled true;
 transf_pwr_8 5;
 transf_scaleA_1 2;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

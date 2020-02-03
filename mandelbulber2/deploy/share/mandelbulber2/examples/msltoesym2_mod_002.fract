@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -11,7 +11,6 @@ camera 0,1547502052742267 0,003337144028854451 0,5642082824447613;
 camera_distance_to_target 0,0233823653771356;
 camera_rotation 98,91769154460552 35,41856118153947 -93,37796495910017;
 camera_top 0,1210106590201903 -0,9914891151709594 -0,04801827673925099;
-DE_factor 0,562341;
 detail_level 2;
 DOF_enabled true;
 DOF_focus 0,08100287616252899;
@@ -19,32 +18,28 @@ DOF_radius 0,59;
 dont_add_c_constant_1 true;
 flight_last_to_render 0;
 formula_1 51;
-gamma 0,7000000000000001;
+gamma 0,7;
 glow_color_1 7d00 c100 3c00;
 glow_color_2 ec00 f300 6200;
 glow_intensity 1,65959;
 image_height 1200;
 image_width 1600;
-julia_c -0,2311008798585598 0,001915646254289555 -0,5564899598455976;
 keyframe_last_to_render 0;
 main_light_intensity 1,45;
-mat1_coloring_palette_offset 3,92;
-mat1_coloring_random_seed 442569;
-mat1_coloring_saturation 2;
+mat1_coloring_palette_offset 0,392;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_reflectance 1;
-mat1_reflections_color_thesame true;
+mat1_reflectance_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40bc1 5000 36ff22 5999 bc8744 7000 f6b793 7999 f6fe09 9000 b6dc5f;
+mat1_reflectance_gradient_enable true;
 mat1_specular 1;
 mat1_specular_width 1;
-mat1_surface_color_palette 71d316 ffaa00 ff2c75 cd481d a40bc1 36ff22 bc8744 f6b793 f6fe09 b6dc5f;
+mat1_surface_color_gradient 0 71d316 999 ffaa00 1999 ff2c75 2999 cd481d 3999 a40bc1 5000 36ff22 5999 bc8744 7000 f6b793 7999 f6fe09 9000 b6dc5f;
 mat1_transparency_index_of_refraction 6;
-mat1_transparency_interior_color 1800 3400 0e00;
 raytraced_reflections true;
 reflections_max 2;
 target 0,1359253169391046 0,0003832896887063853 0,5777594201954168;
 view_distance_max 12,97572466062588;
 [fractal_1]
-info true;
 transf_addition_constant 0 0,409836 0;

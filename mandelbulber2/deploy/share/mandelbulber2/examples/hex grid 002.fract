@@ -1,8 +1,7 @@
 # Mandelbulber settings file
-# version 2.20
+# version 2.21
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 8a00 d400 e800;
 aux_light_enabled_1 true;
 aux_light_intensity_1 0,002780994552720528;
 aux_light_position_1 2,486849451026691 1,994656830213748 -1,934378229377648;
@@ -46,10 +45,6 @@ target 2,451010484280276 1,970709253995638 -1,915062124406405;
 view_distance_max 7,656854249492381;
 [fractal_2]
 transf_offset_0005 0,01;
-transf_offset_001 0 0 0;
 transf_scale_1 0,25;
 [fractal_3]
 transf_addition_constant_111 0,0625 0,5 4;
-transf_offset_001 0 0 0;
-transf_offset_05 0,0625;
-transf_offsetR_1 0,5;

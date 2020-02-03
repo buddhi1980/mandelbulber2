@@ -1,15 +1,14 @@
 # Mandelbulber settings file
-# version 2.04
+# version 2.21
 # only modified parameters
 [main_parameters]
-background_color_1 0 0 0;
-background_color_2 0 0 0;
-background_color_3 0 0 0;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
+background_color_3 0000 0000 0000;
 camera 1,536385357964839 -2,661097500000001 1,774064999999999;
 camera_distance_to_target 3,46737;
 camera_rotation 29,99999999999996 -30 0;
 camera_top -0,2499999999999994 0,433012701892219 0,8660254037844389;
-coloring_palette_offset 8,210000000000001;
 DE_factor 0,0977237;
 fake_lights_enabled true;
 fake_lights_intensity 0,776247;
@@ -18,13 +17,13 @@ fake_lights_min_iter 0;
 fake_lights_orbit_trap 2,5 0 0;
 fake_lights_visibility 2,95121;
 fake_lights_visibility_size 7,5;
+flight_last_to_render 0;
 formula_1 7;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 0,821;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 view_distance_max 6,633346777152619;
-[fractal_1]
-alpha_angle_offset 90;
-beta_angle_offset 90;
-mandelbox_scale -2;
-power 2;
-[fractal_2]
-[fractal_3]
-[fractal_4]

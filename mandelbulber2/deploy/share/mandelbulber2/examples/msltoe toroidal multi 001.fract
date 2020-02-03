@@ -1,12 +1,11 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 ff00 dd00 2f00;
 aux_light_enabled_1 true;
 aux_light_intensity_1 8,912509999999999;
 aux_light_position_1 0 0 1,1;
-aux_light_visibility 0,074131;
 aux_light_visibility_size 0,040738;
 background_color_2 ff00 c500 7300;
 camera 2,354410164273414 -1,710048383442679 2,474681550467864;
@@ -14,41 +13,45 @@ camera_distance_to_target 2,215640051035881;
 camera_rotation 53,53940462582774 -35,65646648619072 -2,689574025973255;
 camera_top -0,4961953045637146 0,3082926251261127 0,8116316141093647;
 DE_factor 0,177828;
-delta_DE_function 2;
 delta_DE_method 1;
+flight_last_to_render 0;
 formula_1 96;
 hdr true;
 image_height 1600;
 image_width 1600;
+iteration_fog_brightness_boost 100;
 iteration_fog_enable true;
 iteration_fog_opacity 8,317640000000001;
 iteration_fog_opacity_trim 0;
 keyframe_last_to_render 0;
 main_light_intensity 0,38;
-mat1_coloring_palette_size 3;
-mat1_coloring_random_seed 579367;
+mat1_coloring_speed 3,3333;
 mat1_is_defined true;
-mat1_surface_color_palette ff31fc ff5500 8a40b8;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 ff31fc 3333 ff5500 6666 8a40b8;
 mat2_fresnel_reflectance true;
 mat2_is_defined true;
+mat2_metallic false;
 mat2_name water;
 mat2_reflectance 1;
-mat2_specular_width 0,161;
+mat2_specular 1;
 mat2_surface_color 2300 4800 6800;
 mat2_use_colors_from_palette false;
 penetrating_lights false;
-primitive_water_1_amplitude 0,05;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 8;
 primitive_water_1_length 1;
 primitive_water_1_material_id 2;
+primitive_water_1_relative_amplitude 0,05;
 primitive_water_1_rotation 0 0 36,25;
 raytraced_reflections true;
 target 0,9065173652729118 -0,6402042909839238 1,183131746477373;
 view_distance_max 20,893;
 [fractal_1]
 power 6,460674;
-sinTan2Trig_asin_or_acos 1;
+sinTan2Trig_asin_or_acos acos;
 transf_function_enabledAx_false true;
 transf_function_enabledAy false;
 transf_function_enabledz_false true;

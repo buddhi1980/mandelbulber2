@@ -1,12 +1,11 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 camera 0,8801989754450469 -0,5669443489346573 0,4742598397242839;
 camera_distance_to_target 0,236547483153999;
 camera_rotation 5,779796309881549 -14,7380667736462 -7,801491189268693;
 camera_top -0,1604336869237255 0,2370946508770212 0,9581477749416129;
-DE_factor 0,390625;
 DOF_enabled true;
 DOF_focus 0,2456976622343063;
 flight_last_to_render 0;
@@ -19,10 +18,9 @@ image_width 1600;
 julia_c 0,8498331045366192 -0,3411478819796918 0,4088378571789146;
 julia_mode true;
 keyframe_last_to_render 0;
-mat1_coloring_palette_size 2;
-mat1_coloring_random_seed 463992;
+mat1_coloring_speed 5;
 mat1_is_defined true;
-mat1_surface_color_palette 9d0000 5f2b01;
+mat1_surface_color_gradient 0 9d0000 5000 5f2b01;
 target 0,8571611054070268 -0,3393425034965605 0,4140820341496749;
 view_distance_max 13,81473177672692;
 [fractal_1]

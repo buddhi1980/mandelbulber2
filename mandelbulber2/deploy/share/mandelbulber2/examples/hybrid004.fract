@@ -1,8 +1,7 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion 0,72;
 basic_fog_color 9a00 8a00 6100;
 basic_fog_enabled true;
 basic_fog_visibility 1,531989097595215;
@@ -10,8 +9,6 @@ camera 0 1,709891476655309 0;
 camera_distance_to_target 0,1285290566751475;
 camera_rotation -175,0406426397836 -0,5877199647792563 4,071109992273301e-13;
 camera_top 0,0008867486428810528 -0,0102190674016308 0,9999473907852779;
-DE_factor 0,239883;
-delta_DE_function 2;
 flight_last_to_render 0;
 formula_1 8;
 formula_2 7;
@@ -26,13 +23,7 @@ mat1_coloring_speed 3,3;
 mat1_is_defined true;
 mat1_specular_metallic 4;
 mat1_specular_metallic_roughness 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 target 0,01111063315835335 1,581850334409857 -0,001318382760744572;
 [fractal_1]
-IFS_rotation_enabled true;
 mandelbox_scale -0,6;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

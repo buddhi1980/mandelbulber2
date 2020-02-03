@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -10,12 +10,9 @@ camera -0,07970913902076304 -0,2286741401575292 0,7858908219811179;
 camera_distance_to_target 0,1036482753438502;
 camera_rotation 30,94982193945203 47,78339067095781 1,017777498068325e-13;
 camera_top 0,3808861574177532 -0,6351603520541667 0,6719353110724021;
-coloring_random_seed 196784;
-coloring_saturation 0;
 DE_factor 0,239883;
 flight_last_to_render 0;
 formula_1 50;
-fractal_coloring_algorithm 2;
 glow_color_1 ff00 0f00 d300;
 glow_color_2 f300 e600 2700;
 glow_intensity 6,0256;
@@ -25,18 +22,13 @@ iteration_threshold_mode true;
 julia_c -0,4402413843149814 -0,4201318238913642 1,239910038107747;
 julia_mode true;
 keyframe_last_to_render 0;
+mat1_fractal_coloring_algorithm 2;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 404040 999 adadad 1999 e3e3e3 2999 424242 3999 aaaaaa 5000 5d5d5d 5999 dbdbdb 7000 dedede 7999 cdcdcd 9000 707070;
 N 13;
-surface_color_palette 404040 adadad e3e3e3 424242 aaaaaa 5d5d5d dbdbdb dedede cdcdcd 707070;
 target -0,115526637806085 -0,1689453873658308 0,8626537547837815;
 use_default_bailout false;
 view_distance_max 11,36226504302695;
-[fractal_1]
-mandelbox_scale -2;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -9,7 +9,6 @@ camera_distance_to_target 0,000169384430618163;
 camera_rotation 154,8719736785752 -33,17102482159967 103,9431204802009;
 camera_top -0,8227010824494315 0,531491473715739 -0,2016921969338568;
 DE_factor 0,301995;
-delta_DE_function 2;
 DOF_enabled true;
 DOF_focus 0,0001589593302924186;
 DOF_radius 2,13;
@@ -18,20 +17,13 @@ formula_1 85;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-mat1_coloring_palette_size 4;
-mat1_coloring_random_seed 221499;
-mat1_coloring_speed 8,7859;
+mat1_coloring_speed 21,9647;
 mat1_is_defined true;
-mat1_surface_color_palette 000000 ffffff 000000 ff0000;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 000000 2500 ffffff 5000 000000 7500 ff0000;
 raytraced_reflections true;
 SSAO_random_mode true;
 target 0,2816335002614194 -0,6563520439851734 0,3016597541205985;
 view_distance_max 5,940597122463708;
-[fractal_1]
-IFS_rotation_enabled true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

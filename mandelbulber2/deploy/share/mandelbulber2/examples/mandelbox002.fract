@@ -1,38 +1,36 @@
 # Mandelbulber settings file
-# version 2.02
+# version 2.21
 # only modified parameters
 [main_parameters]
-ambient_occlusion 0.78;
 ambient_occlusion_enabled true;
-ambient_occlusion_quality 6;
-camera 1.880751554896809 -1.871203893913995 0.006245436288747253;
-camera_distance_to_target 0.008950689795834955;
-camera_rotation 121.6517639111182 -43.90031260767599 -8.142219984546603e-13;
-camera_top -0.5902638656582877 -0.363868267876134 0.7205473284462005;
-DE_factor 0.851138;
-detail_level 0.331131;
+camera 1,880751554896809 -1,871203893913995 0,006245436288747253;
+camera_distance_to_target 0,008950689795834955;
+camera_rotation 121,6517639111182 -43,90031260767599 -8,142219984546603e-13;
+camera_top -0,5902638656582877 -0,363868267876134 0,7205473284462005;
+DE_factor 0,851138;
+detail_level 0,331131;
 DOF_enabled true;
-DOF_focus 0.009326276369392872;
-env_mapping_enable true;
+DOF_focus 0,009326276369392872;
+flight_last_to_render 0;
 formula_1 8;
-gamma 0.89;
-glow_color_1 0 ff00 7f00;
-glow_color_2 ed00 ff00 4a00;
-glow_intensity 1;
+gamma 0,89;
+glow_color_1 0000 ff00 7f00;
 image_height 1080;
 image_width 1920;
 interior_mode true;
+keyframe_last_to_render 0;
 limit_max 10 10 0;
 limits_enabled true;
-reflect 0.32;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 reflections_max 2;
-target 1.875261486293961 -1.874588247707719 3.897643177655161e-05;
-volumetric_fog_colour_1_distance 0.003122718144373626;
-volumetric_fog_colour_2_distance 0.006245436288747253;
-volumetric_fog_distance_factor 0.006245436288747253;
+target 1,875261486293961 -1,874588247707719 3,897643177655161e-05;
+volumetric_fog_colour_1_distance 0,003122718144373626;
+volumetric_fog_colour_2_distance 0,006245436288747253;
+volumetric_fog_distance_factor 0,006245436288747253;
 volumetric_fog_enabled true;
 [fractal_1]
-mandelbox_scale -1.78;
-[fractal_2]
-[fractal_3]
-[fractal_4]
+mandelbox_scale -1,78;

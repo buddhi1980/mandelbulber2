@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -10,11 +10,6 @@ camera 2,031057754781234 -2,009776725614449 2,003417977709802;
 camera_distance_to_target 0,03842917497654676;
 camera_rotation 51,04011022088068 -28,05544415622242 -3,053332494204976e-13;
 camera_top -0,3657188788013564 0,2957296378709215 0,8824928798426719;
-coloring_palette_size 5;
-coloring_random_seed 446937;
-coloring_speed 0,4;
-DOF_focus 0,04435643553733826;
-DOF_radius 2,92;
 flight_last_to_render 0;
 formula_1 8;
 formula_2 7;
@@ -25,10 +20,14 @@ keyframe_last_to_render 0;
 main_light_alpha 22,62;
 main_light_beta 16,7;
 main_light_position_relative false;
+mat1_coloring_speed 0,8;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 5e1656 1999 1f2f0e 3999 49c300 5999 acbfdf 7999 adf63c;
 N 50;
-penetrating_lights false;
 shadows_cone_angle 3,51;
-surface_color_palette 5e1656 1f2f0e 49c300 acbfdf adf63c ;
 target 2,004687101539465 -1,98845274103053 1,98534374692547;
 volumetric_fog_colour_1_distance 0,01575585718618803;
 volumetric_fog_colour_2_distance 0,03151171437237606;
@@ -37,6 +36,3 @@ volumetric_fog_distance_factor 0,03151171437237606;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_scale -1,5;
-[fractal_2]
-[fractal_3]
-[fractal_4]

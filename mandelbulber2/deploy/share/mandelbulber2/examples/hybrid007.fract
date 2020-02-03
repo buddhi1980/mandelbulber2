@@ -1,16 +1,12 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
-background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
-background_color_3 0000 0000 0000;
 camera -0,5004553391537363 -1,006773164856377 -1,659116975099184;
 camera_distance_to_target 1,760472283515453;
 camera_rotation -28,82847758687793 -49,57008244747951 -3,524612590877446;
 camera_top 0,3124897739569782 0,695244413240734 0,6472907747140108;
-coloring_palette_size 2;
-coloring_random_seed 205848;
 DOF_enabled true;
 DOF_focus 1,729008197784424;
 flight_last_to_render 0;
@@ -19,23 +15,18 @@ formula_2 82;
 formula_iterations_1 2;
 formula_iterations_2 100;
 glow_color_1 ff00 0000 0000;
-glow_color_2 ff00 ff00 7f00;
 glow_intensity 3,46737;
 hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-surface_color_palette e5bdd2 4800bd;
+mat1_coloring_speed 5;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 e5bdd2 5000 4800bd;
 target 0,05005858632262081 -0,006569946296856227 -2,999188092788802;
 view_distance_max 23,0657324785897;
-[fractal_1]
-mandelbox_scale -2;
 [fractal_2]
 donut_number 6;
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

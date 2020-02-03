@@ -1,36 +1,35 @@
 # Mandelbulber settings file
-# version 2.02
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_enabled_1 true;
-aux_light_intensity_1 0.00239883;
-aux_light_intensity_3 1;
-aux_light_position_1 0.6000000000000001 -0.6000000000000001 0.6000000000000001;
-aux_light_visibility 3.46737;
-aux_light_visibility_size 0.288403;
-background_color_2 0 0 0;
+aux_light_intensity_1 0,00239883;
+aux_light_position_1 0,6000000000000001 -0,6000000000000001 0,6000000000000001;
+aux_light_visibility 3,46737;
+aux_light_visibility_size 0,288403;
 basic_fog_color 6900 6d00 7400;
 basic_fog_enabled true;
-basic_fog_visibility 0.199526;
-camera 0.5202449250931006 -0.8197000000000001 0.5572006867123256;
-camera_distance_to_target 1.8197;
+basic_fog_visibility 0,199526;
+camera 0,5202449250931006 -0,8197000000000001 0,5572006867123256;
+camera_distance_to_target 1,8197;
 detail_level 5;
+flight_last_to_render 0;
 fog_color_3 5500 4500 3b00;
-fov 1.01;
-glow_color_1 ff00 0 0;
-glow_color_2 ff00 ff00 7f00;
-glow_intensity 0.457088;
+fov 53,59;
+glow_color_1 ff00 0000 0000;
+glow_intensity 0,457088;
 image_height 1080;
 image_width 1920;
+keyframe_last_to_render 0;
 main_light_enable false;
-surface_color_palette 264825 20901 668452 20d07 e0f09 e5626 50c04 c2d373 14200c b9cb68 ;
-target 0.5202449250931006 1 0.5572006867123256;
-view_distance_max 16.5959;
-volumetric_fog_colour_1_distance 0.02289543707823842;
-volumetric_fog_colour_2_distance 0.04579087415647684;
-volumetric_fog_distance_factor 0.04579087415647684;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 264825 999 020901 1999 668452 2999 020d07 3999 0e0f09 5000 0e5626 5999 050c04 7000 c2d373 7999 14200c 9000 b9cb68;
+target 0,5202449250931006 1 0,5572006867123256;
+view_distance_max 16,5959;
+volumetric_fog_colour_1_distance 0,02289543707823842;
+volumetric_fog_colour_2_distance 0,04579087415647684;
+volumetric_fog_distance_factor 0,04579087415647684;
 volumetric_fog_enabled true;
-[fractal_1]
-[fractal_2]
-[fractal_3]
-[fractal_4]

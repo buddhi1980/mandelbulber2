@@ -1,16 +1,14 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 0;
-ambient_occlusion_quality 6;
 brightness 2,4;
 camera 4,765865668851301 7,313387660386951 0,1245925033529791;
 camera_distance_to_target 0,09013075567781929;
 camera_rotation 171,5710895849181 -30,79548509056139 3,053332494204976e-12;
 camera_top -0,07504643701269481 -0,5064450753751732 0,8590002432595319;
-delta_DE_function 2;
 flight_last_to_render 0;
 formula_1 97;
 gamma 0,18;
@@ -21,41 +19,32 @@ hdr true;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
-mat1_coloring_random_seed 994541;
 mat1_coloring_speed 1,1778;
 mat1_fractal_coloring_algorithm 2;
 mat1_fractal_coloring_sphere_radius 1,8667;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1,05;
-mat1_reflections_color_thesame true;
+mat1_reflectance_gradient 0 6a7088 999 dfffff 1999 367a64 2999 870a18 3999 bb008d 5000 4fd746 5999 570448 7000 0ced81 7999 705990 9000 4d2071;
+mat1_reflectance_gradient_enable true;
 mat1_specular_metallic_roughness 0,4;
-mat1_surface_color_palette 6a7088 dfffff 367a64 870a18 bb008d 4fd746 570448 0ced81 705990 4d2071;
+mat1_surface_color_gradient 0 6a7088 999 dfffff 1999 367a64 2999 870a18 3999 bb008d 5000 4fd746 5999 570448 7000 0ced81 7999 705990 9000 4d2071;
 mat1_transparency_index_of_refraction 3,25;
 raytraced_reflections true;
 reflections_max 2;
 target 4,754516933405152 7,236801597047664 0,07844779374268111;
-view_distance_max 95,9059408225468;
 volumetric_fog_colour_1_distance 0,01049013216227133;
 volumetric_fog_colour_2_distance 0,02098026432454266;
 volumetric_fog_density 0,102329;
 volumetric_fog_distance_factor 0,02098026432454266;
 volumetric_fog_enabled true;
 [fractal_1]
-IFS_rotation_enabled true;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 2,79 -4,45 1,19;
 mandelbox_scale -1,178862;
 surfFolds_order_of_folds_2 type2;
 surfFolds_order_of_folds_3 type3;
-surfFolds_order_of_folds_4 type5;
 transf_function_enabledAy_false true;
 transf_function_enabledAz_false true;
 transf_function_enabledBx_false true;
 transf_function_enabledBy_false true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

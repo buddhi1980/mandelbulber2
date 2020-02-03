@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.04
+# version 2.21
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 ff00 d000 5700;
@@ -14,29 +14,27 @@ aux_light_intensity_3 0,2;
 aux_light_position_1 0 0 0;
 aux_light_position_2 0,68 0,68 0,68;
 aux_light_position_3 -0,68 -0,68 0,68;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
-background_color_3 0 0 0;
+background_color_2 0000 0000 0000;
+background_color_3 0000 0000 0000;
 camera 2,459708585093147 -4,260340241194689 2,840226827463123;
 camera_distance_to_target 3,548129999999999;
 camera_rotation 29,99999999999996 -29,99999999999996 0;
 camera_top -0,2499999999999994 0,433012701892219 0,8660254037844389;
-coloring_palette_offset 8,210000000000001;
 DE_factor 0,0524807;
+flight_last_to_render 0;
 formula_1 7;
 hdr true;
 image_width 600;
+iteration_fog_brightness_boost 100;
 iteration_fog_enable true;
 iteration_fog_opacity 1230,27;
 iteration_fog_opacity_trim 3;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 0,821;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 penetrating_lights false;
-target 0,9233232271283079 -1,599242741194689 1,066161827463125;
 view_distance_max 6,633346777152619;
-[fractal_1]
-alpha_angle_offset 90;
-beta_angle_offset 90;
-mandelbox_scale -2;
-power 2;
-[fractal_2]
-[fractal_3]
-[fractal_4]

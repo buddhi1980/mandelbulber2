@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [description]
 Collatz Fractal works best modifying a Mandelbox or Menger Sponge type
@@ -13,7 +13,6 @@ and you will see the subtle differences this tweak makes.
 ambient_occlusion 0,7;
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 6;
-basic_fog_enabled true;
 camera 6,221524384665658 -9,747943921676985 7,680537981868451;
 camera_distance_to_target 0,004277254454791226;
 camera_rotation -88,99202982189112 -0,6939702726015058 55,58357186110734;
@@ -30,16 +29,15 @@ formula_stop_iteration_2 26;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-julia_c -1 0 0;
 keyframe_last_to_render 0;
 main_light_alpha -59,6;
-main_light_beta 45,78;
-mat1_coloring_palette_offset 7,92;
-mat1_coloring_random_seed 869227;
+mat1_coloring_palette_offset 1,13143;
+mat1_coloring_speed 1,4286;
 mat1_is_defined true;
+mat1_metallic false;
 mat1_specular 0,4;
-mat1_surface_color_palette 79547a c96617 8d9958 466900 96682b d4b169 ac4a3b;
-SSAO_random_mode true;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 79547a 1428 c96617 2857 8d9958 4285 466900 5714 96682b 7141 d4b169 8570 ac4a3b;
 target 6,225800663559653 -9,74786868391314 7,680486176746153;
 volumetric_fog_colour_1_distance 0,0001397822576954273;
 volumetric_fog_colour_2_distance 0,0002795645153908545;
@@ -51,5 +49,3 @@ mandelbox_folding_min_radius 0,1;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main -10,44 4,33 14,04;
 mandelbox_scale -1,3;
-[fractal_2]
-transf_scale_1 0;

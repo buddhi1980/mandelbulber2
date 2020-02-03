@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.19
+# version 2.21
 # only modified parameters
 [main_parameters]
 background_brightness 1,3;
@@ -10,7 +10,7 @@ camera_distance_to_target 1,382875154922035;
 camera_rotation 24,76357778549804 -17,63822567570686 0;
 camera_top -0,1269215170725015 0,2751425408253233 0,9529887253961612;
 file_background $SHARED_DIR/textures/background3.jpg;
-flight_last_to_render 99999;
+flight_last_to_render 0;
 formula_1 113;
 image_height 1080;
 image_proportion 4;
@@ -23,7 +23,7 @@ mat1_diffuse_gradient 0 000000 1090 ffffff 8551 ffffff;
 mat1_diffuse_gradient_enable true;
 mat1_fractal_coloring_algorithm 1;
 mat1_is_defined true;
-mat1_specular_gradient 0 8c8c8c 2037 848484 2731 ffff00 5011 ffff00 5914 848484;
+mat1_specular_gradient 0 8c8c8c 2035 848484 2731 ffff00 5011 ffff00 5913 848484;
 mat1_specular_gradient_enable true;
 mat1_specular_metallic_roughness 0,8;
 mat1_specular_width 0,2;

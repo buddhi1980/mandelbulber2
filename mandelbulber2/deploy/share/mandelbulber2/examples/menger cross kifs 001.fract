@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.21
 # only modified parameters
 [main_parameters]
 camera -0,3133200577267435 0,3378177673921468 -0,59168486321209;
@@ -7,7 +7,6 @@ camera_distance_to_target 0,0009783144341782904;
 camera_rotation -80,65857032328366 21,15724875598529 -55,09939927489857;
 camera_top -0,3368923774923476 0,7757499221786072 0,5335874663327826;
 DE_factor 0,263027;
-delta_DE_function 2;
 fake_lights_enabled true;
 fake_lights_intensity 14,7911;
 fake_lights_max_iter 9;
@@ -25,7 +24,7 @@ image_width 1920;
 keyframe_last_to_render 0;
 main_light_intensity 0,17;
 mat1_is_defined true;
-raytraced_reflections true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 target -0,3124197874665876 0,3379658608080828 -0,5913317613415813;
 volumetric_fog_colour_1_distance 0,0001561666045433513;
 volumetric_fog_colour_2_distance 0,0003123332090867026;
@@ -33,11 +32,4 @@ volumetric_fog_density 1,12202;
 volumetric_fog_distance_factor 0,0003123332090867026;
 volumetric_fog_enabled true;
 [fractal_1]
-IFS_rotation_enabled true;
 transf_function_enabledP_false true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;

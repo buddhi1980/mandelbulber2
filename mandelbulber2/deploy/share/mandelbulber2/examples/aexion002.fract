@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.20
+# version 2.21
 # only modified parameters
 [main_parameters]
 abs_min_marching_step 1e-06;
@@ -58,10 +58,3 @@ volumetric_fog_distance_factor 2,269661078916044e-05;
 volumetric_fog_enabled true;
 [fractal_1]
 analyticDE_offset_1 0,2;
-IFS_rotation_enabled true;
-[fractal_2]
-IFS_rotation_enabled true;
-[fractal_3]
-IFS_rotation_enabled true;
-[fractal_4]
-IFS_rotation_enabled true;
