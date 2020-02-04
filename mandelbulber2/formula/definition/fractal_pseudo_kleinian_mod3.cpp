@@ -30,9 +30,6 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	CVector4 oldZ = z;
-	CVector4 zCol = z;
-	double rrCol = 0.0;
 	double colorAdd = 0.0;
 
 
@@ -44,67 +41,7 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 		z.z -= sign(z.z) * fractal->transformCommon.constantMultiplier000.z;
 	}
 
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
-	if (fractal->transformCommon.benesiT1EnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT1)
-	{
-		double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
-		z = CVector4(
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, 0.0);
-
-		CVector4 tempZ = z;
-		double tempL = tempZ.Length();
-		z = fabs(z) * fractal->transformCommon.scale3D222;
-		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = z.Length() / tempL;
-		aux.DE = aux.DE * avgScale + 1.0;
-
-		tempXZ = (z.y + z.x) * SQRT_1_2;
-
-		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, 0.0);
-		z = z - fractal->transformCommon.offset200;
-	}
-
-	if (fractal->transformCommon.functionEnabledxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsTM1)
-	{
-		double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
-		z = CVector4(
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, 0.0);
-
-		CVector4 temp = z;
-		double tempL = temp.Length();
-		z = fabs(z) * fractal->transformCommon.scale3D333;
-		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = z.Length() / tempL;
-		aux.DE = aux.DE * avgScale + 1.0;
-
-		oldZ = z;
-		z = (fabs(z + fractal->transformCommon.additionConstant111)
-				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
-		zCol = z;
-		/*if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
-		}*/
-		tempXZ = (z.y + z.x) * SQRT_1_2;
-
-		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, 0.0);
-	}
-
-	double k;
+	double k = 0.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -125,16 +62,26 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 		aux.DE *= k + fractal->analyticDE.tweak005;
 	}
 
-	z += fractal->transformCommon.additionConstant000;
+	z += fractal->transformCommon.additionConstant000;//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
+	if (fractal->transformCommon.functionEnabledGFalse
+			&& aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		z.x += aux.pos_neg * fractal->transformCommon.additionConstantA000.x;
+		z.y += aux.pos_neg * fractal->transformCommon.additionConstantA000.y;
+		z.z += aux.pos_neg * fractal->transformCommon.additionConstantA000.z;
+
+		aux.pos_neg *= fractal->transformCommon.scaleNeg1;
+	}
+
 
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
-		oldZ = z;
 		z = fabs(z + fractal->transformCommon.offsetA000)
 				- fabs(z - fractal->transformCommon.offsetA000) - z;
-		zCol = z;
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
 	{
@@ -149,9 +96,6 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 		z.z -= sign(z.z) * tempFAB.z;
 	}
 
-
-
-	double colorDist = aux.dist;
 	CVector4 zz = z * z;
 	double d1 = sqrt(min(min( zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
 	if (fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y);
@@ -180,47 +124,11 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		zCol = fabs(zCol);
-		oldZ = fabs(oldZ);
-		if (!fractal->transformCommon.functionEnabledCxFalse)
-		{
-			if (zCol.x != oldZ.x)
-				colorAdd += fractal->mandelbox.color.factor.x
-										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-			if (zCol.y != oldZ.y)
-				colorAdd += fractal->mandelbox.color.factor.y
-										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-			if (zCol.z != oldZ.z)
-				colorAdd += fractal->mandelbox.color.factor.z
-										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
+		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
+		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
+		colorAdd += fractal->foldColor.difs0000.w * k;
 
-			/*if (rrCol < fractal->transformCommon.maxR2d1)
-			{
-				if (rrCol < fractal->transformCommon.minR2p25)
-					colorAdd +=
-						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
-						+ fractal->mandelbox.color.factorSp2
-								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
-				else
-					colorAdd +=
-						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
-			}*/
-		}
-		else
-		{
-			colorAdd += fractal->mandelbox.color.factor.x * fabs(z.x);
-			colorAdd += fractal->mandelbox.color.factor.y * fabs(z.y);
-			colorAdd += fractal->mandelbox.color.factor.z * fabs(z.z);
-
-
-			/*if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (zCol.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (zCol.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;*/
-			/*if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd += fractal->mandelbox.color.factorSp1;
-			else if (rrCol < fractal->transformCommon.maxR2d1)
-				colorAdd += fractal->mandelbox.color.factorSp2;*/
-		}
 		aux.color += colorAdd;
 	}
 }
