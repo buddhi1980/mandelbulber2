@@ -1,58 +1,32 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
 ambient_occlusion_enabled true;
-ambient_occlusion_quality 5;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-background_color_2 0 95a2 ffff;
-background_color_3 0 95a2 ffff;
-basic_fog_visibility 1,047128548050898e-14;
 camera -1,508137160755675 -1,539291366260577 -1,45529027874408;
 camera_distance_to_target 4,266666666664034e-05;
 camera_rotation -39,99999999992097 20,00000000007214 0;
 camera_top -0,2198463103933533 -0,2620026302305945 0,9396926207854778;
-coloring_palette_offset 108,2;
-coloring_palette_size 11;
-coloring_random_seed 943052;
-coloring_speed 3;
 DE_factor 0,5;
-DE_thresh 4;
-detail_level 4;
-DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
 formula_1 8;
-fov 1,2;
+fov 61,93;
 glow_color_1 e8bc 5589 1ad9;
 glow_color_2 ffff f8b3 5fef;
 glow_intensity 3,46737;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 7;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 15;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_alpha 45;
 main_light_beta -45;
-main_light_volumetric_intensity 100;
+mat1_coloring_palette_offset 9,836360000000001;
+mat1_coloring_speed 2,7273;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 5a8258 907 60ff57 1816 d1676a 2726 d8c394 3635 ffdb40 4545 2c36de 5453 5e35fb 6362 ffa48a 7270 cc8700 8181 610c00 9090 3a1d00;
 N 21;
-stereo_eye_distance 0,1;
-surface_color_palette 5a8258 60ff57 d1676a d8c394 ffdb40 2c36de 5e35fb ffa48a cc8700 610c00 3a1d00 ;
 target -1,508111389117337 -1,539260652818 -1,455275685884631;
-volumetric_fog_density 0;
 [fractal_1]
 mandelbox_scale -1,7;
-power -1,7;
-[fractal_2]
-[fractal_3]
-[fractal_4]

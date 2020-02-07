@@ -19,7 +19,7 @@ cTreeStringList::cTreeStringList()
 	items.append(newItem);
 }
 
-int cTreeStringList::AddItem(const QString &string, bool enabled)
+int cTreeStringList::AddItem(const QString &string, bool enabled, bool isFloat)
 {
 	if (CheckIfExists(string)) return -1;
 
@@ -29,6 +29,7 @@ int cTreeStringList::AddItem(const QString &string, bool enabled)
 	newItem.itemId = newId;
 	newItem.parentItemId = actualParentId;
 	newItem.enabled = enabled;
+	newItem.isFloat = isFloat;
 
 	if (newItem.parentItemId >= 0)
 	{
@@ -40,7 +41,7 @@ int cTreeStringList::AddItem(const QString &string, bool enabled)
 	return newId;
 }
 
-int cTreeStringList::AddChildItem(const QString &string, bool enabled, int parentId)
+int cTreeStringList::AddChildItem(const QString &string, bool enabled, bool isFloat, int parentId)
 {
 	if (CheckIfExists(string)) return -1;
 
@@ -49,6 +50,7 @@ int cTreeStringList::AddChildItem(const QString &string, bool enabled, int paren
 	newItem.string = string;
 	newItem.itemId = newId;
 	newItem.enabled = enabled;
+	newItem.isFloat = isFloat;
 
 	if (parentId >= 0)
 	{
@@ -116,6 +118,19 @@ bool cTreeStringList::IsGroup(int index)
 	else
 	{
 		qCritical() << "cTreeStringList::IsGroup(int index): Wrong index: " << index;
+		return false;
+	}
+}
+
+bool cTreeStringList::IsFloat(int index)
+{
+	if (index >= 0 && index < items.size())
+	{
+		return items.at(index).isFloat;
+	}
+	else
+	{
+		qCritical() << "cTreeStringList::IsFloat(int index): Wrong index: " << index;
 		return false;
 	}
 }

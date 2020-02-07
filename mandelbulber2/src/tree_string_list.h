@@ -15,13 +15,14 @@ public:
 	cTreeStringList();
 	~cTreeStringList() = default;
 
-	int AddItem(const QString &string, bool enabled);
-	int AddChildItem(const QString &string, bool enabled, int parentId = -1);
+	int AddItem(const QString &string, bool enabled, bool isFloat);
+	int AddChildItem(const QString &string, bool enabled, bool isFloat, int parentId = -1);
 	int GetSize() { return items.size(); }
 	QString GetString(int index);
 	int GetParentIndex(int index);
 	bool IsEnabled(int index);
 	bool IsGroup(int index);
+	bool IsFloat(int index);
 	QList<int> GetChildrens(int index);
 
 private:
@@ -31,6 +32,7 @@ private:
 		int itemId = -1;
 		int parentItemId = -1;
 		bool enabled = true;
+		bool isFloat = false;
 		QList<int> chirdrenNodesId;
 	};
 

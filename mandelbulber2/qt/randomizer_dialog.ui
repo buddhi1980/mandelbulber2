@@ -44,6 +44,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkBox_dont_randomize_booleans">
+         <property name="text">
+          <string>Do not randomize integers and booleans</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_reset">
          <property name="text">
           <string>Reset</string>

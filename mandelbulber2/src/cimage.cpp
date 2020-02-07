@@ -1173,7 +1173,7 @@ double cImage::VisualCompare(cImage *refImage, bool checkIfBlank)
 		if (min > 245 * 3 || max < 5 * 10 || max - min < 5)
 		{
 			diffPerPixel = 0;
-			qDebug() << "blank image";
+			// qDebug() << "blank image";
 		}
 	}
 

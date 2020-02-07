@@ -552,6 +552,7 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 	listsOfChangedParameters[widgetIndex].clear();
 
 	int numberOfParameters = parametersTree.GetSize();
+	bool onlyFloats = ui->checkBox_dont_randomize_booleans->isChecked();
 
 	if (numberOfParameters <= 1) return; // no parameters to random (only "root")
 
@@ -608,7 +609,8 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 		// check is parameter is enabled
 		bool skip = false;
 
-		if (!parametersTree.IsEnabled(randomIndex))
+		if (!parametersTree.IsEnabled(randomIndex)
+				|| (onlyFloats && !parametersTree.IsFloat(randomIndex)))
 		{
 			i--;
 			continue;
@@ -796,7 +798,11 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				bool hidden = w->isHidden();
 				// if (hidden) qDebug() << "hidden";
 
-				int newId = tree->AddChildItem(fullParameterName, !hidden, parentId);
+				enumVarType varType = container->GetVarType(parameterName);
+				bool isFloat = (varType == typeDouble || varType == typeVector3 || varType == typeVector4
+												|| varType == typeRgb);
+
+				int newId = tree->AddChildItem(fullParameterName, !hidden, isFloat, parentId);
 
 				if (dynamic_cast<MyGroupBox *>(w))
 				{

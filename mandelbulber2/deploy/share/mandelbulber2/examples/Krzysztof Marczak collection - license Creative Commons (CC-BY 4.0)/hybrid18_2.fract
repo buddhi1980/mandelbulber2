@@ -1,80 +1,43 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.21
 # only modified parameters
 [main_parameters]
 ambient_occlusion 1,5;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 3;
-analityc_DE_mode false;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-background_color_1 1ed3 9101 e22a;
-basic_fog_color fc15 ffff 9406;
-basic_fog_visibility 1,17489755493953e-12;
 camera 0,06396390457183737 -1,868475524723543 0,002045893075306425;
 camera_distance_to_target 2,894886804853996e-05;
 camera_rotation 54,85899517195225 12,92151429179309 33,56558623947938;
 camera_top 0,4706072034722965 0,344870942329479 0,8121532448847089;
-coloring_palette_offset 165,9;
-coloring_palette_size 255;
-coloring_random_seed 291932;
-coloring_speed 2;
 DE_factor 0,765625;
-DE_thresh 0,5;
 detail_level 0,5;
-DOF_focus 1,288249551693132e-13;
-DOF_radius 13,7;
 flight_last_to_render 0;
-fog_color_1 0000 0000 0000;
 formula_1 8;
 formula_2 10;
 formula_3 7;
 formula_iterations_1 2;
 formula_iterations_2 3;
 formula_iterations_3 3;
-fov 1,3;
-fractal_color false;
-glow_enabled false;
-glow_intensity 0;
+fov 66,05;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 0000 0000 0000;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0000 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_alpha 70;
 main_light_beta 0;
 main_light_intensity 0,5;
-main_light_volumetric_intensity 100;
-stereo_eye_distance 0,1;
-surface_color_palette e8459d dad886 6cdf50 41bba1 008247 ffb11e abaf02 5200cd 29539b 221800 fe2b4a 959a0e b0e9cd 44957c 58933b ff9174 9bc61f 02176f 49c025 8f6800 1a9074 602bc6 ff4efd 9527fd dd0c36 53d53d ffe656 484ad1 f86211 6db711 e3ec12 00009f 000000 ffaca3 79e0a4 f43f0c d14d6c ba3459 88d36f 99df53 ffc2a5 6740ff ba3d02 9022ab 009906 0089ae 6f30f3 0018af ac25b6 398963 cf6fa9 a26588 5dedff 7db5e7 ffff3d 00ad00 18ca00 d7e4fd 7ed147 007e9c 6c9eab 3877c2 820054 ff90f9 4b00cf a7a8b5 65001b da2c17 aca432 522b7b 11008a 4d7d50 d99437 38e7b1 ffff8e 268cff 5a7739 adbfbc e1a557 0066cc ff2357 c9c6d3 ff97cd ffcfef ad9070 7b596f 9b6417 556ec3 19a12c 952d00 c4bf8c 55439d 001e98 992aa7 acdd2d 5eff38 9b5ba3 a2afe2 6a6af1 d1b2ff efd355 d8d8c6 db198d ffc4ac e717d8 e7db17 290000 ce45e4 b7d8c9 d7b653 b8ca96 4eff10 00bca5 e8ff73 ff86ff 5189cf 437b8f 2f00ab 851b4e 1c5e02 72004f b66c00 fe2344 760035 74000f 5b55ff a0bdff 484b55 429bde 00b894 b7b400 fa9ba3 bdf4af ffc2cd 218b28 a64cd9 fff839 779400 d36147 fbe96d bdfb61 a81a31 b66a2b 9bea31 ce57bd 0bb60b 3773b2 51ffb8 f6ffa5 cc880d e026c6 341c3f 8eff8b 9a633a cde3b8 ce47c4 f516d1 deff76 2b233a 0e4817 478af2 ff68ce ff4f8e 6e292f 1cde16 ffa9af 516e12 299c55 001528 20986a 021300 3019b9 0ae344 a3ff40 b08ae3 d4e6db 3d45ff e77fc7 6c9630 ff6481 006500 6c0e7a 8d5296 001700 22b550 54372b 008600 ba2000 b30054 2f0025 39afe0 b6b51c a2a457 00a132 5f394a 998763 d5fff6 000076 9c5736 6eb4e9 3e262f 1eb8d5 1341ff e4845c 773cb1 4f4e9b a2008c 7c6f2f b37b62 282c5b 9a8d18 005b00 8ca2d7 36b83d adef30 2e2f09 00b32d 36dfe1 a73479 694ee7 bc8aac 8affff dfffff 000024 df879d 657d00 69213f 7a3100 4716bf f2794c 6859d6 731dce b67d9c 0c9e2f 42f1ff 55ff9c e711d1 cf62cb a78caa a06f7e 9ecb50 e4faf5 afc4b4 b5263d 2fff7f 4d2fd1 72328c 8df62e 945200 36cb29 9cebb0 947063 e34ff4 4c939c 90f35d ffffff;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
 target 0,06394083143650928 -1,868459283970911 0,002052366508812685;
-volumetric_fog_density 0;
 [fractal_1]
-IFS_abs_x true;
-IFS_abs_y true;
-IFS_abs_z true;
-IFS_direction_0 0,8090169943744748 0,3090169943717093 -0,5000000000027657;
-IFS_direction_1 -0,5000000000027658 0,8090169943744751 0,3090169943717094;
-IFS_direction_2 0,3090169943717094 -0,5000000000027658 0,8090169943744749;
-IFS_direction_3 -0,8090169943744748 0,3090169943717093 0,5000000000027657;
-IFS_direction_4 0,5000000000027658 -0,8090169943744751 0,3090169943717094;
-IFS_enabled_0 true;
-IFS_enabled_1 true;
-IFS_enabled_2 true;
-IFS_offset 1 1 1;
-IFS_scale 2,618;
 mandelbox_folding_min_radius 0,1;
 mandelbox_scale -1;
-power 8;
 [fractal_2]
 IFS_abs_x true;
 IFS_abs_y true;
@@ -82,49 +45,8 @@ IFS_abs_z true;
 IFS_direction_0 0,8100000000000001 0,31 -0,5;
 IFS_direction_1 -0,5 0,8100000000000001 0,31;
 IFS_direction_2 0,31 -0,5 0,8100000000000001;
-IFS_direction_3 -0,8100000000000001 0,31 0,5;
-IFS_direction_4 0,5 -0,8100000000000001 0,31;
 IFS_enabled_0 true;
 IFS_enabled_1 true;
 IFS_enabled_2 true;
 IFS_offset 1 1 1;
 IFS_scale 2,62;
-mandelbox_folding_min_radius 0,1;
-power 8;
-[fractal_3]
-IFS_abs_x true;
-IFS_abs_y true;
-IFS_abs_z true;
-IFS_direction_0 0,8090169943744748 0,3090169943717093 -0,5000000000027657;
-IFS_direction_1 -0,5000000000027658 0,8090169943744751 0,3090169943717094;
-IFS_direction_2 0,3090169943717094 -0,5000000000027658 0,8090169943744749;
-IFS_direction_3 -0,8090169943744748 0,3090169943717093 0,5000000000027657;
-IFS_direction_4 0,5000000000027658 -0,8090169943744751 0,3090169943717094;
-IFS_enabled_0 true;
-IFS_enabled_1 true;
-IFS_enabled_2 true;
-IFS_offset 1 1 1;
-IFS_scale 2,618;
-mandelbox_folding_min_radius 0,1;
-power 8;
-[fractal_4]
-IFS_abs_x true;
-IFS_abs_y true;
-IFS_abs_z true;
-IFS_direction_0 0,8090169943744748 0,3090169943717093 -0,5000000000027657;
-IFS_direction_1 -0,5000000000027658 0,8090169943744751 0,3090169943717094;
-IFS_direction_2 0,3090169943717094 -0,5000000000027658 0,8090169943744749;
-IFS_direction_3 -0,8090169943744748 0,3090169943717093 0,5000000000027657;
-IFS_direction_4 0,5000000000027658 -0,8090169943744751 0,3090169943717094;
-IFS_enabled_0 true;
-IFS_enabled_1 true;
-IFS_enabled_2 true;
-IFS_offset 1 1 1;
-IFS_scale 2,618;
-mandelbox_folding_min_radius 0,1;
-power 8;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
