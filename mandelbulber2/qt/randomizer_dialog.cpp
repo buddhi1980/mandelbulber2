@@ -144,6 +144,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		versionsDone.append(false);
 		listsOfChangedParameters.append(QMap<QString, QString>());
 	}
+
+	ui->checkBox_dont_randomize_booleans->setChecked(gPar->Get<bool>("randomizer_only_floats"));
 }
 
 cRandomizerDialog::~cRandomizerDialog()
@@ -234,6 +236,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
 	actualStrength = strength;
 	previousListOfChangedParameters = actualListOfChangedParameters;
+
+	gPar->Set("randomizer_only_floats", ui->checkBox_dont_randomize_booleans->isChecked());
 
 	QString progressBarText("Initializing Randomizer");
 	ui->progressBar->setFormat(progressBarText);
@@ -928,6 +932,8 @@ void cRandomizerDialog::slotClickedUseButton()
 		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	gPar->Set("randomizer_only_floats", ui->checkBox_dont_randomize_booleans->isChecked());
+
 	close();
 }
 
