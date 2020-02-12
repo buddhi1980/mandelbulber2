@@ -37,7 +37,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x = mad(c, zc.x, s * zc.z);
 	zc.z = mad(-s, temp, c * zc.z);
 
-	REAL m = 1.0f * native_divide(polyfoldOrder, M_PI_2x);
+	REAL m = 1.0f * native_divide(polyfoldOrder, M_PI_2x_F);
 	REAL angle1 = floor(mad(m, (M_PI_2 - atan2(zc.x, zc.z)), 0.5f)) / m;
 
 	temp = zc.x;
@@ -56,8 +56,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	if (fractal->transformCommon.functionEnabledJFalse)
 	{
-		if (fractal->transformCommon.functionEnabledDFalse)
-			aux->DE0 = min(aux->dist, aux->DE0);
+		if (fractal->transformCommon.functionEnabledDFalse) aux->DE0 = min(aux->dist, aux->DE0);
 		if (fractal->transformCommon.functionEnabledKFalse) aux->DE0 /= aux->DE;
 		if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 	}

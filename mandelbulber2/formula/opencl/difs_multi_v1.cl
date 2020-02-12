@@ -254,7 +254,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		}
 
 		aux->DE0 = max(fabs(zc.x) - fractal->transformCommon.offset2,
-			max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5f, -zc.z) - fractal->transformCommon.offsetA05);
+			max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - fractal->transformCommon.offsetA05);
 
 		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
 	}

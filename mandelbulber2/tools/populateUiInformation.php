@@ -528,6 +528,21 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/== ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+)\)/", 'replace' => '== $1Cl$2)'), // replace enum if comparison with cl version
 		array('find' => "/($s)(enum[a-zA-Z0-9_]+?[^l])($s)/", 'replace' => '$1$2Cl$3'), // replace enum definitions with cl version
 		array('find' => "/M_PI([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_F$1' : 'M_PI$1')), // replace Math constant
+		array('find' => "/M_PI_180([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_180_F$1' : 'M_PI_180$1')), // replace Math constant
+		array('find' => "/M_PI_8([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_8_F$1' : 'M_PI_8$1')), // replace Math constant
+		array('find' => "/M_PI_4([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_4_F$1' : 'M_PI_4$1')), // replace Math constant
+		array('find' => "/M_PI_2x([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_2x_F$1' : 'M_PI_2x$1')), // replace Math constant
+		array('find' => "/SQRT_1_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_1_3_F$1' : 'SQRT_1_3$1')), // replace Math constant
+		array('find' => "/SQRT_1_2([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_1_2_F$1' : 'SQRT_1_2$1')), // replace Math constant
+		array('find' => "/SQRT_2_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_2_3_F$1' : 'SQRT_2_3$1')), // replace Math constant
+		array('find' => "/SQRT_3_2([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_3_2_F$1' : 'SQRT_3_2$1')), // replace Math constant
+		array('find' => "/SQRT_3_4([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_3_4_F$1' : 'SQRT_3_4$1')), // replace Math constant
+		array('find' => "/SQRT_3_4d2([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_3_4d2_F$1' : 'SQRT_3_4d2$1')), // replace Math constant
+		array('find' => "/SQRT_3_4d2([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_3_4d2_F$1' : 'SQRT_3_4d2$1')), // replace Math constant
+		array('find' => "/SQRT_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_3_F$1' : 'SQRT_3$1')), // replace Math constant
+		array('find' => "/FRAC_1_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'FRAC_1_3_F$1' : 'FRAC_1_3$1')), // replace Math constant
+		
+		
 		array('find' => "/1e-061f/", 'replace' => ($mode == 'single' ? '1e-030f' : '1e-061')), // replace minimal double constant
 		array('find' => "/reinterpret_cast<(.*?)>\((.*?)\)/", 'replace' => '($1)$2'), // replace reinterpret_cast with simple cast
 		// TODO more replacements
@@ -642,7 +657,7 @@ function upgradeInternalName($internalName, $internalNameNew)
 			. ' \'' . PROJECT_PATH . 'formula/img/' . $internalNameNew . '.fract\''
 		);
 	}
-	$fractal_list_content = file_get_contents(PROJECT_PATH . 'src/fractal_list.cpp');
+	$fractal_list_content = file_get_contents(PROJECT_PATH . 'formula/definition/all_fractal_list.cpp');
 	$fractal_list_content = str_replace('"' . $internalName . '"', '"' . $internalNameNew . '"', $fractal_list_content);
 	file_put_contents(PROJECT_PATH . 'src/fractal_list.cpp', $fractal_list_content);
 }

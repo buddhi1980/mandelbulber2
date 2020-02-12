@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,7 +23,7 @@ REAL4 TransfRotationIterControlsIteration(
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		tp = z;
-		REAL alpha = fractal->transformCommon.rotation44a.y * -M_PI_180;
+		REAL alpha = fractal->transformCommon.rotation44a.y * -M_PI_180_F;
 		z.y = mad(tp.y, native_cos(alpha), tp.z * native_sin(alpha));
 		z.z = mad(tp.y, -native_sin(alpha), tp.z * native_cos(alpha));
 	}
@@ -33,7 +33,7 @@ REAL4 TransfRotationIterControlsIteration(
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		tp = z;
-		REAL beta = fractal->transformCommon.rotation44a.z * M_PI_180;
+		REAL beta = fractal->transformCommon.rotation44a.z * M_PI_180_F;
 		z.x = mad(tp.x, native_cos(beta), tp.z * native_sin(beta));
 		z.z = mad(tp.x, -native_sin(beta), tp.z * native_cos(beta));
 	}
@@ -43,7 +43,7 @@ REAL4 TransfRotationIterControlsIteration(
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		tp = z;
-		REAL gamma = fractal->transformCommon.rotation44a.x * -M_PI_180;
+		REAL gamma = fractal->transformCommon.rotation44a.x * -M_PI_180_F;
 		z.x = mad(tp.x, native_cos(gamma), tp.y * native_sin(gamma));
 		z.y = mad(tp.x, -native_sin(gamma), tp.y * native_cos(gamma));
 	}

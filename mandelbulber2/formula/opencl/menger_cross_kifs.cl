@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,9 +29,9 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 
-		dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
-		z.x -= (t * -SQRT_3) - 0.5f;
+		z.x -= (t * -SQRT_3_F) - 0.5f;
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
@@ -41,7 +41,7 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			z.z = temp;
 		}
 		z.y -= 0.75f;
-		z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
+		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
@@ -74,10 +74,10 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-		lengthL = mad(z.x, SQRT_3_4, -z.y * 0.5f);
+		lengthL = mad(z.x, SQRT_3_4_F, -z.y * 0.5f);
 		if (lengthL < 0.0f)
 		{
-			z.x -= SQRT_3_4 * (2.0f * lengthL);
+			z.x -= SQRT_3_4_F * (2.0f * lengthL);
 			z.y -= -lengthL;
 		}
 		lengthL = z.y;
@@ -85,11 +85,11 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			z.y -= 2.0f * lengthL;
 		}
-		lengthL = (-z.y + z.z) * SQRT_1_2;
+		lengthL = (-z.y + z.z) * SQRT_1_2_F;
 		if (lengthL < 0.0f)
 		{
-			z.y -= -SQRT_1_2 * (2.0f * lengthL);
-			z.z -= SQRT_1_2 * (2.0f * lengthL);
+			z.y -= -SQRT_1_2_F * (2.0f * lengthL);
+			z.z -= SQRT_1_2_F * (2.0f * lengthL);
 		}
 		lengthL = z.y;
 		if (lengthL < 0.5f)
@@ -105,7 +105,7 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 
 		z *= fractal->transformCommon.scale3;
-		z -= (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f} * (fractal->transformCommon.scale3 - 1.0f);
+		z -= (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f} * (fractal->transformCommon.scale3 - 1.0f);
 		aux->DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.offset000; // post offset

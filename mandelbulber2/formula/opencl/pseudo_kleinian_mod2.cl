@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -121,9 +121,9 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL4 gap = fractal->transformCommon.constantMultiplier000;
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		REAL dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
 		REAL t = max(0.0f, dot1);
-		z.x -= t * -SQRT_3;
+		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
@@ -132,7 +132,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			z.y = z.z;
 			z.z = temp;
 		}
-		z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
+		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 		// z was pos, now some points neg (ie neg shift)
 		if (z.z > z.x)
 		{
@@ -156,9 +156,9 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, 0.0f};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, 0.0f};
 
 		REAL4 tempZ = z;
 		REAL tempL = length(tempZ);
@@ -167,10 +167,10 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL avgScale = native_divide(length(z), tempL);
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
-		tempXZ = (z.y + z.x) * SQRT_1_2;
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, 0.0f};
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, 0.0f};
 		z = z - fractal->transformCommon.offset200;
 	}
 
@@ -178,9 +178,9 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, 0.0f};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, 0.0f};
 
 		REAL4 temp = z;
 		REAL tempL = length(temp);
@@ -199,10 +199,10 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}*/
-		tempXZ = (z.y + z.x) * SQRT_1_2;
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, 0.0f};
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, 0.0f};
 	}
 
 	REAL k;

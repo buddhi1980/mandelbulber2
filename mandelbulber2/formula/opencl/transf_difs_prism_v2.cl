@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -58,7 +58,7 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		face += tp * fractal->transformCommon.scaleB0;
 	}
 
-	REAL priD = max(fabs(zc.x) - len, max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5f, -zc.z) - face);
+	REAL priD = max(fabs(zc.x) - len, max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - face);
 
 	aux->dist = min(aux->dist, native_divide(priD, (aux->DE + 1.0f)));
 	return z;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -39,7 +39,7 @@ REAL4 TransfBenesiSphereCubeIteration(REAL4 z, __constant sFractalCl *fractal, s
 	else
 		rCxyz = native_rsqrt(native_recip(rCxyz) + 1.0f);
 
-	z *= rCxyz * SQRT_3_2;
+	z *= rCxyz * SQRT_3_2_F;
 	// aux->DE *= native_divide(length(z), length(oldZ));
 	if (fractal->analyticDE.enabled)
 	{

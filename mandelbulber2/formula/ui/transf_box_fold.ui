@@ -324,7 +324,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Box Fold&lt;br&gt;This formula contains aux.color&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;EXR example.fract&lt;br&gt;pseudo kleinian 001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

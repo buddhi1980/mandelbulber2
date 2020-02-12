@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -38,7 +38,7 @@ REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (fractal->transformCommon.angle0 != 0)
 	{
 		REAL tempY = z.y;
-		REAL beta = fractal->transformCommon.angle0 * M_PI_180;
+		REAL beta = fractal->transformCommon.angle0 * M_PI_180_F;
 		z.y = mad(z.y, native_cos(beta), z.z * native_sin(beta));
 		z.z = mad(tempY, -native_sin(beta), z.z * native_cos(beta));
 	}

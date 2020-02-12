@@ -2498,7 +2498,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Menger Prism Shape&lt;br&gt;from code by Knighty&lt;br&gt;http://www.fractalforums.com/fragmentarium/cross-menger!-can-anyone-do-this/msg93972/#new&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;pseudo kleinian mod 001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

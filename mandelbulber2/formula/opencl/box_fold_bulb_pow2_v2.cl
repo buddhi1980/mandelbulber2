@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -90,7 +90,7 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
 				* native_divide(native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
 																		+ 2.0f + fractal->analyticDE.offset2),
-					SQRT_3)
+					SQRT_3_F)
 			+ fractal->analyticDE.offset1;
 
 		z *= 2.0f;

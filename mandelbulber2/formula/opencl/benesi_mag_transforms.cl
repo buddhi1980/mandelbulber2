@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,9 +23,9 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.benesiT1Enabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 		REAL tempL = length(z);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
@@ -33,9 +33,9 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL avgScale = native_divide(length(z), tempL);
 		aux->DE = aux->DE * avgScale;
 
-		tempXZ = (z.y + z.x) * SQRT_1_2;
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 		z = z - fractal->transformCommon.offset200;
 	}
 	// rotation
@@ -112,24 +112,24 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			{
 				case multi_orderOfTransfCl_typeT1:
 				default:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 					z = fabs(z) * fractal->transformCommon.scale3Da222;
 					tempL = length(temp);
 					// if (tempL < 1e-21f) tempL = 1e-21f;
 					avgScale = native_divide(length(z), tempL);
 					aux->DE = aux->DE * avgScale;
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					z = z - fractal->transformCommon.offsetA200;
 					break;
 
 				case multi_orderOfTransfCl_typeT1Mod:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 					z = fabs(z) * fractal->transformCommon.scale3D333;
 					tempL = length(temp);
 					// if (tempL < 1e-21f) tempL = 1e-21f;
@@ -137,15 +137,15 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 					aux->DE = aux->DE * avgScale;
 					z = (fabs(z + fractal->transformCommon.offset111)
 							 - fabs(z - fractal->transformCommon.offset111) - z);
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					break;
 
 				case multi_orderOfTransfCl_typeT2:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 					tempV2 = z;
 					tempV2.x = native_sqrt(mad(z.y, z.y, z.z * z.z));
 					tempV2.y = native_sqrt(mad(z.x, z.x, z.z * z.z)); // switching, squared, sqrt
@@ -157,15 +157,15 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 					// if (tempL < 1e-21f) tempL = 1e-21f;
 					avgScale = native_divide(length(z), tempL);
 					aux->DE = aux->DE * avgScale;
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					break;
 
 				case multi_orderOfTransfCl_typeT3:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 					tempV2 = z;
 					tempV2.x = (z.y + z.z);
@@ -175,15 +175,15 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 							* fractal->transformCommon.scale3Db222;
 					aux->DE *= native_divide(length(z), length(tempV2));
 
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					break;
 
 				case multi_orderOfTransfCl_typeT4:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 					tempV2 = z;
 					tempV2.x = (mad(z.y, z.y, z.z * z.z));
@@ -193,15 +193,15 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 							* fractal->transformCommon.scale3Dc222;
 					aux->DE *= native_divide(length(z), length(tempV2));
 
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					break;
 
 				case multi_orderOfTransfCl_typeT5b:
-					tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-					z = (REAL4){(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2,
-						z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+					tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+					z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+						z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 					// if (z.x > -1e-21f && z.x < 1e-21f)
 					//	z.x = (z.x > 0) ? 1e-21f : -1e-21f;
 					// if (z.y > -1e-21f && z.y < 1e-21f)
@@ -222,9 +222,9 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 							* fractal->transformCommon.scale3Dd222;
 					aux->DE *= native_divide(length(z), length(tempV2));
 
-					tempXZ = (z.y + z.x) * SQRT_1_2;
-					z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-						z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+					tempXZ = (z.y + z.x) * SQRT_1_2_F;
+					z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+						z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 					break;
 			}
 		}

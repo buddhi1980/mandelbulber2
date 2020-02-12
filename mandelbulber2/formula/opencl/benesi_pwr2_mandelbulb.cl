@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,9 +29,9 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		REAL dot1;
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
-		z.x -= t * -SQRT_3;
+		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
@@ -40,7 +40,7 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			z.y = z.z;
 			z.z = temp;
 		}
-		z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
+		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
@@ -58,9 +58,9 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.benesiT1Enabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 		REAL tempL = length(z);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
@@ -73,10 +73,10 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
 
-		tempXZ = (z.y + z.x) * SQRT_1_2;
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 		z = z - fractal->transformCommon.offset200;
 	}
 

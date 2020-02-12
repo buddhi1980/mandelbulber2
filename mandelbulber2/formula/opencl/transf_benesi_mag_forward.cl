@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,8 +20,8 @@ REAL4 TransfBenesiMagForwardIteration(REAL4 z, __constant sFractalCl *fractal, s
 	Q_UNUSED(fractal);
 	Q_UNUSED(aux);
 
-	REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-	z = (REAL4){
-		(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 	return z;
 }

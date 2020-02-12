@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,7 +20,7 @@ REAL4 DIFSMsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	REAL4 zt = z;
 	REAL radius2 = fractal->donut.ringThickness;
-	REAL nSect = native_divide(M_PI_2x, fractal->donut.number);
+	REAL nSect = native_divide(M_PI_2x_F, fractal->donut.number);
 
 	REAL R2 = fractal->donut.ringRadius - native_sqrt(mad(z.x, z.x, z.y * z.y));
 	R2 *= R2;

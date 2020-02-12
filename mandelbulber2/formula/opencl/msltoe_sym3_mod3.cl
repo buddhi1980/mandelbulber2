@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -22,10 +22,10 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 z1 = z;
 	REAL psi = mad(2.0f, M_PI_F, atan2(z.z, z.y));
 	REAL psi2 = 0;
-	while (psi > M_PI_8)
+	while (psi > M_PI_8_F)
 	{
-		psi -= M_PI_4;
-		psi2 -= M_PI_4; // M_PI_4 = pi/4
+		psi -= M_PI_4_F;
+		psi2 -= M_PI_4_F; // M_PI_4_F = pi/4
 	}
 	REAL cs = native_cos(psi2);
 	REAL sn = native_sin(psi2);

@@ -42,7 +42,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	zc.x = mad(c, zc.x, s * zc.z);
 	zc.z = mad(-s, temp, c * zc.z);
 
-	REAL m = native_divide(float(polyfoldOrder), M_PI_2x);
+	REAL m = native_divide(float(polyfoldOrder), M_PI_2x_F);
 	REAL angle1 = floor(mad(m, (M_PI_2 - atan2(zc.x, zc.z)), 0.5f)) / m;
 
 	temp = zc.y;

@@ -128,6 +128,7 @@ msltoeToroidalMulti,"Msltoe - Toroidal Multi",analyticDEType,logarithmicDEFuncti
 pseudoKleinian,"Pseudo Kleinian",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod1,"Pseudo Kleinian - Mod 1",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod2,"Pseudo Kleinian - Mod 2",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
+pseudoKleinianMod3,"Pseudo Kleinian - Mod 3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 quaternion,Quaternion,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 quaternion3d,Quaternion3D,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault

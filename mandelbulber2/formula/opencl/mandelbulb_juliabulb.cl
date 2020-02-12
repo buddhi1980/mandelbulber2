@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -136,7 +136,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
 		aux->r = length(z);
-		REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8, M_PI_4) - M_PI_8);
+		REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8_F, M_PI_4_F) - M_PI_8_F);
 		REAL lengthYZ = native_sqrt(mad(z.y, z.y, z.z * z.z));
 
 		z.y = native_cos(psi) * lengthYZ;

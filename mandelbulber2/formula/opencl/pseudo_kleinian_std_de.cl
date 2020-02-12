@@ -27,9 +27,9 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
-		z.x -= t * -SQRT_3;
+		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
 
 		if (z.y > z.z)
@@ -38,7 +38,7 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			z.y = z.z;
 			z.z = temp;
 		}
-		z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
+		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 		// z was pos, now some points neg (ie neg shift)
 		if (z.z > z.x)
 		{
@@ -62,9 +62,9 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 		REAL4 tempZ = z;
 		REAL tempL = length(tempZ);
@@ -73,10 +73,10 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL avgScale = native_divide(length(z), tempL);
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
-		tempXZ = (z.y + z.x) * SQRT_1_2;
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 		z = z - fractal->transformCommon.offset200;
 	}
 
@@ -84,9 +84,9 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 		REAL4 temp = z;
 		REAL tempL = length(temp);
@@ -98,10 +98,10 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z = (fabs(z + fractal->transformCommon.additionConstant111)
 				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
 
-		tempXZ = (z.y + z.x) * SQRT_1_2;
+		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 	}
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux->i >= fractal->transformCommon.startIterationsF

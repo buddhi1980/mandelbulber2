@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -111,8 +111,8 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL xTemp = SQRT_1_2 * (z.x - z.y);
-		z.y = SQRT_1_2 * (z.y + z.x);
+		REAL xTemp = SQRT_1_2_F * (z.x - z.y);
+		z.y = SQRT_1_2_F * (z.y + z.x);
 		z.x = xTemp;
 	}
 

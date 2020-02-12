@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,7 +25,7 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 
 	int order = fractal->transformCommon.int6;
-	REAL div2PI = (REAL)native_divide(order, M_PI_2x);
+	REAL div2PI = (REAL)native_divide(order, M_PI_2x_F);
 	REAL temp = 0.0f;
 	int sector;
 	if (fractal->transformCommon.functionEnabledCx)

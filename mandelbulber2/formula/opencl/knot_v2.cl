@@ -17,60 +17,63 @@
 
 REAL4 KnotV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL polyfoldOrder = fractal->transformCommon.int2;
-
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	z += fractal->transformCommon.offset000;
 
 	REAL4 zc = z;
+	REAL tempA = zc.y;
+	REAL tempB = zc.z;
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		REAL temp = tempA;
+		tempA = tempB;
+		tempB = temp;
+	}
+
 	zc.z *= fractal->transformCommon.scaleA1;
-	REAL mobius = (mad(1.0f, fractal->transformCommon.intA1,
-									native_divide(fractal->transformCommon.intB1, polyfoldOrder)))
-								* atan2(zc.y, zc.x);
+	REAL rxz = native_sqrt(mad(zc.x, zc.x, tempA * tempA));
+	REAL ang = atan2(tempA, zc.x);
+	REAL t = tempB;
 
-	zc.x = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.offsetA2;
-	REAL temp = zc.x;
-	REAL c = native_cos(mobius);
-	REAL s = native_sin(mobius);
-	zc.x = mad(c, zc.x, s * zc.z);
-	zc.z = mad(-s, temp, c * zc.z);
+	REAL colorDist = 0.0f;
+	for (int n = 0; n < fractal->transformCommon.int3; n++)
+	{
+		zc = (REAL4){rxz, t, ang + M_PI_2x_F * n, 0.0f};
 
-	REAL m = 1.0f * native_divide(polyfoldOrder, M_PI_2x);
-	REAL angle1 = floor(mad(m, (M_PI_2 - atan2(zc.x, zc.z)), 0.5f)) / m;
+		zc.x -= fractal->transformCommon.offsetA2;
 
-	temp = zc.x;
-	c = native_cos(angle1);
-	s = native_sin(angle1);
-	zc.x = mad(c, zc.x, s * zc.z);
-	zc.z = mad(-s, temp, c * zc.z);
+		REAL ra = zc.z * native_divide(fractal->transformCommon.int3X, fractal->transformCommon.int3Z);
+		REAL raz = zc.z * native_divide(fractal->transformCommon.int8Y, fractal->transformCommon.int3Z);
 
-	zc.x -= fractal->transformCommon.offset05;
+		zc.x =
+			zc.x
+			- (mad(fractal->transformCommon.offset1, native_cos(ra), fractal->transformCommon.offsetA2));
+		zc.y =
+			zc.y
+			- (mad(fractal->transformCommon.offset1, native_sin(raz), fractal->transformCommon.offsetA2));
 
-	REAL len = native_sqrt(mad(zc.x, zc.x, zc.z * zc.z));
+		aux->DE0 = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.offset01;
 
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(fabs(zc.x), fabs(zc.z)));
+		if (fractal->transformCommon.functionEnabledKFalse) aux->DE0 /= aux->DE;
 
+		if (!fractal->transformCommon.functionEnabledDFalse)
+			aux->dist = min(aux->dist, aux->DE0);
+		else
+			aux->dist = aux->DE0;
+	}
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
-	REAL colorDist = aux->dist;
-	if (!fractal->transformCommon.functionEnabledDFalse)
-		aux->DE0 = len - fractal->transformCommon.offset01;
-	else
-		aux->DE0 = min(aux->dist, len - fractal->transformCommon.offset01);
-	aux->dist = native_divide(aux->DE0, aux->DE);
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		REAL colorAdd = 0.0f;
-		REAL ang =
-			(M_PI_F - 2.0f * fabs(atan(native_divide(zc.x, zc.z)))) * native_divide(2.0f, M_PI_F);
 
 		if (fmod(ang, 2.0f) < 1.0f) colorAdd += fractal->foldColor.difs0000.x;
-		colorAdd += fractal->foldColor.difs0000.y * fabs(ang);
-		colorAdd += fractal->foldColor.difs0000.z * fabs(ang * zc.x);
-		colorAdd += fractal->foldColor.difs0000.w * angle1;
+		colorAdd += fractal->foldColor.difs0000.y * (zc.x);
+		colorAdd += fractal->foldColor.difs0000.z * (zc.y);
+		colorAdd += fractal->foldColor.difs0000.w * (zc.z);
 
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)

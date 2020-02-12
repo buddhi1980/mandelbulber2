@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.20.0
+#define MANDELBULBER_VERSION 2.21dev000
 
 int GetInteger(int byte, __global char *array)
 {

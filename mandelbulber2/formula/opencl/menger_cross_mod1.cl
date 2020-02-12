@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,9 +27,9 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
-		REAL dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
 		REAL t = max(0.0f, dot1);
-		z.x -= mad(t, -SQRT_3, -(0.5f * SQRT_3_4));
+		z.x -= mad(t, -SQRT_3_F, -(0.5f * SQRT_3_4_F));
 
 		z.y = fabs(z.y - t);
 
@@ -40,7 +40,7 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			z.z = temp;
 		}
 		z.y -= 1.5f;
-		z -= gap * (REAL4){SQRT_3_4, -1.5f, 1.5f, 0.0f};
+		z -= gap * (REAL4){SQRT_3_4_F, -1.5f, 1.5f, 0.0f};
 
 		if (z.z > z.x)
 		{
@@ -68,16 +68,16 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-		REAL dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f));
+		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f));
 		REAL t = 1.0f * max(0.0f, dot1);
-		z.x -= t * -SQRT_3;
+		z.x -= t * -SQRT_3_F;
 		if (fractal->transformCommon.functionEnabledXFalse)
 			z.y = fabs(z.y) - t;
 		else
 		{
 			z.y = fabs(z.y - t);
 		}
-		z.x -= SQRT_3_4;
+		z.x -= SQRT_3_4_F;
 
 		// Choose nearest corner/edge to get translation symmetry (all y & z code)
 		REAL dy = 0.0f;
@@ -101,7 +101,7 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.y += dy;
 		z.z += dz;
 
-		z.x += SQRT_3_4;
+		z.x += SQRT_3_4_F;
 
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{

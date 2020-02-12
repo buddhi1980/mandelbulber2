@@ -85,26 +85,26 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 	}
 
-	REAL YOff = FRAC_1_3 * fractal->transformCommon.scale1;
+	REAL YOff = FRAC_1_3_F * fractal->transformCommon.scale1;
 	z.y = YOff - fabs(z.y - YOff);
 
-	z.x += FRAC_1_3;
+	z.x += FRAC_1_3_F;
 	if (z.z > z.x)
 	{
 		REAL temp = z.x;
 		z.x = z.z;
 		z.z = temp;
 	}
-	z.x -= FRAC_1_3;
+	z.x -= FRAC_1_3_F;
 
-	z.x -= FRAC_1_3;
+	z.x -= FRAC_1_3_F;
 	if (z.z > z.x)
 	{
 		REAL temp = z.x;
 		z.x = z.z;
 		z.z = temp;
 	}
-	z.x += FRAC_1_3;
+	z.x += FRAC_1_3_F;
 
 	REAL4 Offset = fractal->transformCommon.offset100;
 	z = mad(fractal->transformCommon.scale3, (z - Offset), Offset);

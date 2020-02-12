@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,9 +18,9 @@
 
 REAL4 TransfBenesiT1ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-	z = (REAL4){
-		(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
+		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 	REAL4 temp = z;
 	REAL tempL = length(temp);
@@ -37,9 +37,9 @@ REAL4 TransfBenesiT1ModIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	tempXZ = (z.y + z.x) * SQRT_1_2;
+	tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
-	z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-		z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+	z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
+		z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 	return z;
 }
