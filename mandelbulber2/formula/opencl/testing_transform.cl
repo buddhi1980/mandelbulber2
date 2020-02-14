@@ -17,63 +17,156 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL a = fractal->transformCommon.intA1;
-	REAL b = fractal->transformCommon.intB1;
-	REAL polyfoldOrder = fractal->transformCommon.int2;
+	REAL colorAdd = 0.0f;
 
-	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
-	z += fractal->transformCommon.offset000;
-	// z *= fractal->transformCommon.scale1;
-	// z += fractal->transformCommon.offset000;
+	// tglad fold
+	REAL4 oldZ = z;
+	if (aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+		}
+	}
 
-	// aux->DE *= fractal->transformCommon.scale1;
+	REAL signX = sign(z.x);
+	REAL signY = sign(z.y);
+	REAL signZ = sign(z.z);
 
-	REAL4 zc = z;
-
-	zc.z *= fractal->transformCommon.scaleA1;
-	REAL mobius = REAL(a + native_divide(b, polyfoldOrder)) * atan2(zc.y, zc.x);
-
-	zc.x = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.offsetA2;
-	REAL temp = zc.x;
-	REAL c = native_cos(mobius);
-	REAL s = native_sin(mobius);
-	zc.x = mad(c, zc.x, s * zc.z);
-	zc.z = mad(-s, temp, c * zc.z);
-
-	REAL m = native_divide(float(polyfoldOrder), M_PI_2x_F);
-	REAL angle1 = floor(mad(m, (M_PI_2 - atan2(zc.x, zc.z)), 0.5f)) / m;
-
-	temp = zc.y;
-	c = native_cos(fractal->transformCommon.offset0);
-	s = native_sin(fractal->transformCommon.offset0);
-	zc.y = mad(c, zc.y, s * zc.z);
-	zc.z = mad(-s, temp, c * zc.z);
-
-	temp = zc.x;
-	c = native_cos(angle1);
-	s = native_sin(angle1);
-	zc.x = mad(c, zc.x, s * zc.z);
-	zc.z = mad(-s, temp, c * zc.z);
-
-	zc.x -= fractal->transformCommon.offsetR1;
-
-	REAL len = native_sqrt(mad(zc.x, zc.x, zc.z * zc.z));
-
-	if (fractal->transformCommon.functionEnabledCFalse) len = min(len, max(abs(zc.x), abs(zc.z)));
-
-	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
-	if (!fractal->transformCommon.functionEnabledDFalse)
-		aux->DE0 = len - fractal->transformCommon.offset05;
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+	{
+		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
+	}
 	else
-		aux->DE0 = min(aux->dist, len - fractal->transformCommon.offset05);
-	aux->dist = native_divide(aux->DE0, aux->DE);
+	{
+		z = fabs(z);
+	}
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		aux->dist = len - fractal->transformCommon.offset05;
-	else
-		aux->dist = min(aux->dist, len - fractal->transformCommon.offset05);
-	aux->dist = native_divide(aux->dist, aux->DE);
+	REAL4 fo = fractal->transformCommon.additionConstant0555;
+	REAL4 g = fractal->transformCommon.offsetA000;
+	REAL4 p = z;
+	REAL4 q = z;
+
+	REAL t1, t2, v, v1;
+
+	/*if(p.y > p.x) { REAL temp = p.x; p.x = p.y; p.y = temp; }
+	t1 = mad(-fo.z, 2.0f, p.z);
+	t2 = mad(-fo.z, 4.0f, p.x);
+	v = max(fabs(t1 + fo.z) - fo.z, t2);
+	v1 = max(t1 - g.z, p.x);
+	v = min(v, v1);
+	z.z = min(v, p.z);*/
+
+	if (p.z > p.y)
+	{
+		REAL temp = p.y;
+		p.y = p.z;
+		p.z = temp;
+	}
+	t1 = mad(-fo.x, 2.0f, p.x);
+	t2 = mad(-fo.x, 4.0f, p.y);
+	v = max(fabs(t1 + fo.x) - fo.x, t2);
+	v1 = max(t1 - g.x, p.y);
+	v = min(v, v1);
+	q.x = min(v, p.x);
+
+	p = z;
+
+	if (p.x > p.z)
+	{
+		REAL temp = p.z;
+		p.z = p.x;
+		p.x = temp;
+	}
+	t1 = mad(-fo.y, 2.0f, p.y);
+	t2 = mad(-fo.y, 4.0f, p.z);
+	v = max(fabs(t1 + fo.y) - fo.y, t2);
+	v1 = max(t1 - g.y, p.z);
+	v = min(v, v1);
+	q.y = min(v, p.y);
+
+	p = z;
+
+	if (p.y > p.x)
+	{
+		REAL temp = p.x;
+		p.x = p.y;
+		p.y = temp;
+	}
+	t1 = mad(-fo.z, 2.0f, p.z);
+	t2 = mad(-fo.z, 4.0f, p.x);
+	v = max(fabs(t1 + fo.z) - fo.z, t2);
+	v1 = max(t1 - g.z, p.x);
+	v = min(v, v1);
+	q.z = min(v, p.z);
+
+	z = q;
+
+	z.x *= signX;
+	z.y *= signY;
+	z.z *= signZ;
+
+	// spherical fold
+	if (aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		REAL rr = dot(z, z);
+
+		z += fractal->mandelbox.offset;
+
+		// if (r2 < 1e-21f) r2 = 1e-21f;
+		if (rr < fractal->transformCommon.minR2p25)
+		{
+			REAL tglad_factor1 =
+				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+			z *= tglad_factor1;
+			aux->DE *= tglad_factor1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			z *= tglad_factor2;
+			aux->DE *= tglad_factor2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
+		}
+		z -= fractal->mandelbox.offset;
+	}
+
+	z *= fractal->transformCommon.scale2;
+	aux->DE *= fractal->transformCommon.scale2 + 1.0f;
+
+	// rotation
+	if (fractal->transformCommon.rotationEnabled
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux->color += colorAdd;
+	}
+
+	p = fabs(z);
+	aux->dist = maxnative_divide((p.x, max(p.y, p.z)), aux->DE);
+
 	return z;
 }

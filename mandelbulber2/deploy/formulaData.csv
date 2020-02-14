@@ -72,6 +72,7 @@ kochV3,"Koch V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,a
 lkmitch,Lkmitch,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 makin3d2,Makin3D-2,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbox,Mandelbox,analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
+mandelboxFast,"Mandelbox Fast",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 mandelboxMenger,"Mandelbox - Menger",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 mandelboxSmooth,"Mandelbox - Smooth",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 mandelboxVariable,"Mandelbox - Variable",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox

@@ -49,6 +49,7 @@ enum enumFractalFormula
 	minusFastTrig = 6,
 	mengerSponge = 7,
 	mandelbox = 8,
+	mandelboxFast = 9,
 	kaleidoscopicIfs = 10,
 	xenodreambuie = 11,
 	hybrid = 12,
@@ -199,9 +200,9 @@ enum enumFractalFormula
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14, change to std r calc v2.21
-	scatorPower2Real = 156, // added V2.15, change to std r calc v2.21
-	scatorPower2 = 173, // added V2.15, change to aux.dist DE v2.21
-	scatorPower2StdR = 174, // added V2.15
+	scatorPower2Real = 156,			 // added V2.15, change to std r calc v2.21
+	scatorPower2 = 173,					 // added V2.15, change to aux.dist DE v2.21
+	scatorPower2StdR = 174,			 // added V2.15
 
 	// 2.20
 	riemannSphereHoboldPow4 = 180,
@@ -364,8 +365,6 @@ enum enumFractalFormula
 	// 2.21
 	transfDEControls = 1107,
 
-
-
 	// mandelbulber transfdIFS
 	// 2.20
 	transfDIFSBox = 1600,
@@ -384,8 +383,6 @@ enum enumFractalFormula
 	transfDIFSGrid = 1613,
 	transfDIFSGridV2 = 1614,
 	transfDIFSTorusGrid = 1615,
-
-
 
 	// hybrid color trial
 	transfHybridColor = 2000,
