@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -254,7 +254,7 @@
         </font>
        </property>
        <property name="text">
-        <string>sign()
+        <string>box
 offset:</string>
        </property>
       </widget>
@@ -498,7 +498,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Size R2:</string>
+           <string>Size RR:</string>
           </property>
          </widget>
         </item>
