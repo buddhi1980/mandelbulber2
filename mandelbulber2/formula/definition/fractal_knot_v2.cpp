@@ -44,24 +44,28 @@ void cFractalKnotV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	double t = tempB;
 
 	double colorDist = 0.0;
-	for(int n = 0; n < fractal->transformCommon.int3; n++)
+	for (int n = 0; n < fractal->transformCommon.int3; n++)
 	{
 		zc = CVector4(rxz, t, ang + M_PI_2x * n, 0.0);
 
 		zc.x -= fractal->transformCommon.offsetA2;
 
-		double ra = 1.0 * zc.z * fractal->transformCommon.int3X / fractal->transformCommon.int3Z;
-		double raz = 1.0 * zc.z *fractal->transformCommon.int8Y / fractal->transformCommon.int3Z;
+		double ra =
+			zc.z * ((double)fractal->transformCommon.int3X) / ((double)fractal->transformCommon.int3Z);
+		double raz =
+			zc.z * ((double)fractal->transformCommon.int8Y) / ((double)fractal->transformCommon.int3Z);
 
 		zc.x = zc.x - (fractal->transformCommon.offset1 * cos(ra) + fractal->transformCommon.offsetA2);
 		zc.y = zc.y - (fractal->transformCommon.offset1 * sin(raz) + fractal->transformCommon.offsetA2);
 
-		aux.DE0 = sqrt(zc.x * zc.x +  zc.y * zc.y) - fractal->transformCommon.offset01;
+		aux.DE0 = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offset01;
 
 		if (fractal->transformCommon.functionEnabledKFalse) aux.DE0 /= aux.DE;
 
-		if (!fractal->transformCommon.functionEnabledDFalse) aux.dist = min(aux.dist, aux.DE0);
-		else aux.dist = aux.DE0;
+		if (!fractal->transformCommon.functionEnabledDFalse)
+			aux.dist = min(aux.dist, aux.DE0);
+		else
+			aux.dist = aux.DE0;
 	}
 	if (fractal->transformCommon.functionEnabledEFalse) z = zc;
 

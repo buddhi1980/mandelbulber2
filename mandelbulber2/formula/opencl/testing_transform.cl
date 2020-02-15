@@ -130,7 +130,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		z += fractal->mandelbox.offset;
 
-		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			REAL tglad_factor1 =
@@ -165,6 +164,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->color += colorAdd;
 	}
 
+	// temp code
 	p = fabs(z);
 	aux->dist = max(p.x, max(p.y, p.z));
 	aux->dist = native_divide(aux->dist, aux->DE);
