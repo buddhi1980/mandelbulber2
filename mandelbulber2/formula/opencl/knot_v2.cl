@@ -44,8 +44,8 @@ REAL4 KnotV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 		zc.x -= fractal->transformCommon.offsetA2;
 
-		REAL ra = zc.z * native_divide(fractal->transformCommon.int3X, fractal->transformCommon.int3Z);
-		REAL raz = zc.z * native_divide(fractal->transformCommon.int8Y, fractal->transformCommon.int3Z);
+		REAL ra = 1.0f * zc.z * native_divide(fractal->transformCommon.int3X, fractal->transformCommon.int3Z);
+		REAL raz = 1.0f * zc.z * native_divide(fractal->transformCommon.int8Y, fractal->transformCommon.int3Z);
 
 		zc.x =
 			zc.x

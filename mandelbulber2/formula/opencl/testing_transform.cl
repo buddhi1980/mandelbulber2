@@ -166,7 +166,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	p = fabs(z);
-	aux->dist = maxnative_divide((p.x, max(p.y, p.z)), aux->DE);
+	aux->dist = max(p.x, max(p.y, p.z));
+	aux->dist = native_divide(aux->dist, aux->DE);
 
 	return z;
 }

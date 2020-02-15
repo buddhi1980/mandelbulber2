@@ -126,7 +126,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 		z += fractal->mandelbox.offset;
 
-		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
@@ -159,8 +158,10 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.color += colorAdd;
 	}
 
-	p = fabs(z);
-	aux.dist = max(p.x, max(p.y, p.z)) / aux.DE;
 
+	 // temp code
+	p = fabs(z);
+	aux.dist = max(p.x, max(p.y, p.z));
+	aux.dist = aux.dist / aux.DE;
 
 }

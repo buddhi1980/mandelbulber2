@@ -50,8 +50,8 @@ void cFractalKnotV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 		zc.x -= fractal->transformCommon.offsetA2;
 
-		double ra = zc.z * fractal->transformCommon.int3X / fractal->transformCommon.int3Z;
-		double raz = zc.z *fractal->transformCommon.int8Y / fractal->transformCommon.int3Z;
+		double ra = 1.0 * zc.z * fractal->transformCommon.int3X / fractal->transformCommon.int3Z;
+		double raz = 1.0 * zc.z *fractal->transformCommon.int8Y / fractal->transformCommon.int3Z;
 
 		zc.x = zc.x - (fractal->transformCommon.offset1 * cos(ra) + fractal->transformCommon.offsetA2);
 		zc.y = zc.y - (fractal->transformCommon.offset1 * sin(raz) + fractal->transformCommon.offsetA2);
