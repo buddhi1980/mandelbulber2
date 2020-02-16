@@ -295,8 +295,25 @@ void cRandomizerDialog::slotClickedHeavyRandomize()
 void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
 {
 	int level = 0;
-	setWindowTitle(QString("Randomizer (for parameters from %1)").arg(sourceWidget->objectName()));
+	setWindowTitle(tr("Randomizer (for parameters from %1)").arg(sourceWidget->objectName()));
 	CreateParametersTreeInWidget(&parametersTree, sourceWidget, level, 0);
+}
+
+void cRandomizerDialog::AssignParameters(const QStringList &list)
+{
+	int level = 0;
+	setWindowTitle(tr("Randomizer (for parameters from keyframe animation)"));
+
+	for (const QString &parameter : list)
+	{
+		cParameterContainer *container = ContainerSelector(parameter, gPar, gParFractal);
+		int firstDashIndex = parameter.indexOf("_");
+		QString parameterName = parameter.mid(firstDashIndex + 1);
+		enumVarType varType = container->GetVarType(parameterName);
+		bool isFloat = (varType == typeDouble || varType == typeVector3 || varType == typeVector4
+										|| varType == typeRgb);
+		parametersTree.AddChildItem(parameter, true, isFloat, 0);
+	}
 }
 
 void cRandomizerDialog::RandomizeIntegerParameter(

@@ -100,6 +100,9 @@ public slots:
 		cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE) const;
 	void slotPopulateToolbar(bool completeRefresh = false);
 	void slotPopulateCustomWindowStates(bool completeRefresh = false);
+	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
+		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply) const;
+
 private slots:
 	static void slotQuit();
 
@@ -125,8 +128,6 @@ private slots:
 	void slotMenuProgramPreferences();
 	void slotExportVoxelLayers();
 	void slotExportMesh();
-	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
-		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply) const;
 	static void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex) const;
 	static void slotMaterialEdited();

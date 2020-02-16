@@ -65,6 +65,7 @@
 #include "qt/my_table_widget_keyframes.hpp"
 #include "qt/player_widget.hpp"
 #include "qt/pushbutton_anim_sound.h"
+#include "qt/randomizer_dialog.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
 
@@ -87,63 +88,66 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		previewSize.setHeight(previewSize.width() * 3 / 4);
 
 		// connect keyframe control buttons
-		connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
-		connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
-		connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
-		connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
-		connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this,
-			SLOT(slotRenderKeyframes()));
-		connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this,
-			SLOT(slotDeleteAllImages()));
+		connect(ui->pushButton_add_keyframe, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotAddKeyframe);
+		connect(ui->pushButton_insert_keyframe, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotInsertKeyframe);
+		connect(ui->pushButton_delete_keyframe, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotDeleteKeyframe);
+		connect(ui->pushButton_modify_keyframe, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotModifyKeyframe);
+		connect(ui->pushButton_render_keyframe_animation, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotRenderKeyframes);
+		connect(ui->pushButton_delete_all_keyframe_images, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotDeleteAllImages);
+		connect(ui->pushButton_show_keyframe_animation, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotShowAnimation);
+		connect(ui->pushButton_refresh_keyframe_table, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotRefreshTable);
+		connect(ui->pushButton_keyframe_to_flight_export, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotExportKeyframesToFlight);
+		connect(ui->pushButton_check_for_collisions, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotValidate);
+		connect(ui->pushButton_set_constant_target_distance, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotSetConstantTargetDistance);
+		connect(ui->button_selectAnimKeyframeImageDir, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotSelectKeyframeAnimImageDir);
 		connect(
-			ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
-		connect(
-			ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
-		connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this,
-			SLOT(slotExportKeyframesToFlight()));
-		connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
-		connect(ui->pushButton_set_constant_target_distance, SIGNAL(clicked()), this,
-			SLOT(slotSetConstantTargetDistance()));
-		connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this,
-			SLOT(slotSelectKeyframeAnimImageDir()));
-		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this,
-			SLOT(slotTableCellChanged(int, int)));
-		connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this,
-			SLOT(slotMovedSliderFirstFrame(int)));
-		connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this,
-			SLOT(slotMovedSliderLastFrame(int)));
-		connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this,
-			SLOT(UpdateLimitsForFrameRange()));
-		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this,
-			SLOT(slotCellDoubleClicked(int, int)));
-		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellClicked(int, int)), this,
-			SLOT(slotCellClicked(int, int)));
+			ui->pushButton_randomize, &QPushButton::clicked, this, &cKeyframeAnimation::slotRandomize);
+		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellChanged, this,
+			&cKeyframeAnimation::slotTableCellChanged);
+		connect(ui->spinboxInt_keyframe_first_to_render, QOverload<int>::of(&QSpinBox::valueChanged),
+			this, &cKeyframeAnimation::slotMovedSliderFirstFrame);
+		connect(ui->spinboxInt_keyframe_last_to_render, QOverload<int>::of(&QSpinBox::valueChanged),
+			this, &cKeyframeAnimation::slotMovedSliderLastFrame);
+		connect(ui->spinboxInt_frames_per_keyframe, QOverload<int>::of(&QSpinBox::valueChanged), this,
+			&cKeyframeAnimation::UpdateLimitsForFrameRange);
+		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellDoubleClicked, this,
+			&cKeyframeAnimation::slotCellDoubleClicked);
+		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellClicked, this,
+			&cKeyframeAnimation::slotCellClicked);
 
 		// connect system tray
-		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this,
-			SLOT(slotRenderKeyframes()));
-		connect(this, SIGNAL(notifyRenderKeyframeRenderStatus(QString, QString)),
-			mainInterface->systemTray, SLOT(showMessage(QString, QString)));
+		connect(mainInterface->systemTray, &cSystemTray::notifyRenderKeyframes, this,
+			&cKeyframeAnimation::slotRenderKeyframes);
+		connect(this, &cKeyframeAnimation::notifyRenderKeyframeRenderStatus, mainInterface->systemTray,
+			&cSystemTray::showMessage);
 
-		connect(this,
-			SIGNAL(QuestionMessage(
-				const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
-			mainInterface->mainWindow,
-			SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
-				QMessageBox::StandardButton *)));
+		connect(this, &cKeyframeAnimation::QuestionMessage, mainInterface->mainWindow,
+			&RenderWindow::slotQuestionMessage);
 
-		connect(ui->checkBox_show_camera_path, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
-		connect(ui->checkBox_show_target_path, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
-		connect(ui->checkBox_show_light_path_1, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
-		connect(ui->checkBox_show_light_path_2, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
-		connect(ui->checkBox_show_light_path_3, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
-		connect(ui->checkBox_show_light_path_4, SIGNAL(stateChanged(int)), this,
-			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_camera_path, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+		connect(ui->checkBox_show_target_path, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+		connect(ui->checkBox_show_light_path_1, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+		connect(ui->checkBox_show_light_path_2, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+		connect(ui->checkBox_show_light_path_3, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+		connect(ui->checkBox_show_light_path_4, &QCheckBox::stateChanged, this,
+			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -1389,7 +1393,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-									params->Get<int>("keyframe_animation_image_type")));
+								params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 
@@ -1748,6 +1752,22 @@ void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 		netRenderListOfFramesToRender.append(listOfFrames);
 		// qDebug() << "Client: got frames toDo:" << listOfFrames;
 	}
+}
+
+void cKeyframeAnimation::slotRandomize()
+{
+	cRandomizerDialog *randomizer = new cRandomizerDialog();
+	randomizer->setAttribute(Qt::WA_DeleteOnClose);
+	QStringList listOfParameterNames;
+	QList<cKeyframes::sParameterDescription> list = keyframes->GetListOfParameters();
+	for (const cKeyframes::sParameterDescription &parameter : list)
+	{
+		QString fullParameterName = parameter.containerName + "_" + parameter.parameterName;
+		listOfParameterNames.append(fullParameterName);
+	}
+
+	randomizer->AssignParameters(listOfParameterNames);
+	randomizer->show();
 }
 
 void cKeyframeAnimation::slotAnimationStopRequest()

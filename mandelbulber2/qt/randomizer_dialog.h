@@ -60,6 +60,7 @@ public:
 	~cRandomizerDialog();
 
 	void AssignSourceWidget(const QWidget *sourceWidget);
+	void AssignParameters(const QStringList &list);
 
 private:
 	enum enimRandomizeStrength

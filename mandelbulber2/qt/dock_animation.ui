@@ -29,7 +29,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_flight_animation">
       <property name="toolTip">
@@ -644,7 +644,7 @@
             </sizepolicy>
            </property>
            <attribute name="verticalHeaderDefaultSectionSize">
-            <number>20</number>
+            <number>22</number>
            </attribute>
           </widget>
          </item>
@@ -890,6 +890,26 @@
              <property name="icon">
               <iconset theme="dialog-ok-apply" resource="icons.qrc">
                <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="pushButton_randomize">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Modify selected keyframe</string>
+             </property>
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/gradient/icons/dice_colors.svg</normaloff>:/gradient/icons/dice_colors.svg</iconset>
              </property>
             </widget>
            </item>
@@ -1409,7 +1429,7 @@ keyframes</string>
           </sizepolicy>
          </property>
          <attribute name="verticalHeaderDefaultSectionSize">
-          <number>20</number>
+          <number>22</number>
          </attribute>
         </widget>
        </item>

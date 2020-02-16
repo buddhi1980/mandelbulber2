@@ -124,6 +124,7 @@ private slots:
 	void slotSetConstantTargetDistance();
 	void slotUpdateAnimationPathSelection();
 	void slotAnimationStopRequest();
+	void slotRandomize();
 
 private:
 	void PrepareTable();
