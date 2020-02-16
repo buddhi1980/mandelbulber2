@@ -28,9 +28,9 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
+	double rrCol = 0.0;
 
 	// tglad fold
-	CVector4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -43,12 +43,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		}
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
 
@@ -68,7 +62,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		z = fabs(z);
 	}
-
 
 	CVector4 fo = fractal->transformCommon.additionConstant0555;
 	CVector4 g = fractal->transformCommon.offsetA000;
@@ -114,49 +107,42 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	z.z *= signZ;
 
 	// spherical fold
+	double useScale = 1.0;
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
+
 		double rr = z.Dot(z);
-
-		z += fractal->mandelbox.offset;
-
+		rrCol = rr;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
-			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
-		z -= fractal->mandelbox.offset;
 	}
 
 	// scale
-	double useScale = 1.0;
-	if (aux.i >= fractal->transformCommon.startIterationsS
-			&& aux.i < fractal->transformCommon.stopIterationsS)
-	{
-		useScale = aux.actualScaleA + fractal->transformCommon.scale2;
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+	useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+	z *= useScale;
+	aux.DE = aux.DE * fabs(useScale) + 1.0;
 
-		if (fractal->transformCommon.functionEnabledKFalse
-				&& aux.i >= fractal->transformCommon.startIterationsK
-				&& aux.i < fractal->transformCommon.stopIterationsK)
-		{
-			// update actualScaleA for next iteration
-			double vary = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			aux.actualScaleA -= vary;
-		}
+	if (fractal->transformCommon.functionEnabledKFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA -= vary;
 	}
+
 
 	// rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
@@ -172,6 +158,20 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (rrCol < fractal->transformCommon.maxR2d1)
+		{
+			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+		}
+		aux.color += colorAdd;
+	}
+
 
 	 // temp code
 	p = fabs(z);

@@ -364,6 +364,7 @@ enum enumFractalFormula
 	transfScaleOffsetV2 = 1106,
 	// 2.21
 	transfDEControls = 1107,
+	transfDarkbeamFoldV1 = 1108,
 
 	// mandelbulber transfdIFS
 	// 2.20

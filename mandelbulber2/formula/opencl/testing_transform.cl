@@ -18,7 +18,7 @@
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
-
+	REAL rrCol = 0.0f;
 	// tglad fold
 	REAL4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledAFalse
@@ -34,14 +34,9 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
-		}
 	}
 
+	// darkbeam fold
 	REAL signX = sign(z.x);
 	REAL signY = sign(z.y);
 	REAL signZ = sign(z.z);
@@ -112,7 +107,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	q.z = min(v, p.z);
 
 	z = q;
-
 	z.x *= signX;
 	z.y *= signY;
 	z.z *= signZ;
@@ -122,45 +116,36 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		REAL rr = dot(z, z);
-
-		z += fractal->mandelbox.offset;
-
+		rrCol = rr;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			REAL tglad_factor1 =
 				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
-			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
-		z -= fractal->mandelbox.offset;
 	}
 
 	// scale
 	REAL useScale = 1.0f;
-	if (aux->i >= fractal->transformCommon.startIterationsS
-			&& aux->i < fractal->transformCommon.stopIterationsS)
-	{
-		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
-		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	useScale = aux->actualScaleA + fractal->transformCommon.scale2;
+	z *= useScale;
+	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 
-		if (fractal->transformCommon.functionEnabledKFalse
-				&& aux->i >= fractal->transformCommon.startIterationsK
-				&& aux->i < fractal->transformCommon.stopIterationsK)
-		{
-			// update actualScaleA for next iteration
-			REAL vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA -= vary;
-		}
+	if (fractal->transformCommon.functionEnabledKFalse
+			&& aux->i >= fractal->transformCommon.startIterationsK
+			&& aux->i < fractal->transformCommon.stopIterationsK)
+	{
+		// update actualScaleA for next iteration
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+		aux->actualScaleA -= vary;
 	}
 
 	// rotation
@@ -171,13 +156,21 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		aux->color += colorAdd;
-	}
-
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE =  aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (rrCol < fractal->transformCommon.maxR2d1)
+		{
+			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+		}
+		aux->color += colorAdd;
+	}
 
 	// temp code
 	p = fabs(z);
