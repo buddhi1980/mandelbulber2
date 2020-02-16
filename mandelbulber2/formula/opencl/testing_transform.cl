@@ -21,7 +21,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	// tglad fold
 	REAL4 oldZ = z;
-	if (aux->i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -65,14 +66,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL t1, t2, v, v1;
 
-	/*if(p.y > p.x) { REAL temp = p.x; p.x = p.y; p.y = temp; }
-	t1 = mad(-fo.z, 2.0f, p.z);
-	t2 = mad(-fo.z, 4.0f, p.x);
-	v = max(fabs(t1 + fo.z) - fo.z, t2);
-	v1 = max(t1 - g.z, p.x);
-	v = min(v, v1);
-	z.z = min(v, p.z);*/
-
 	if (p.z > p.y)
 	{
 		REAL temp = p.y;
@@ -86,7 +79,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	v = min(v, v1);
 	q.x = min(v, p.x);
 
-	p = z;
+	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
+	else p = q;
 
 	if (p.x > p.z)
 	{
@@ -101,7 +95,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	v = min(v, v1);
 	q.y = min(v, p.y);
 
-	p = z;
+	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
+	else p = q;
 
 	if (p.y > p.x)
 	{
@@ -148,8 +143,25 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z -= fractal->mandelbox.offset;
 	}
 
-	z *= fractal->transformCommon.scale2;
-	aux->DE *= fractal->transformCommon.scale2 + 1.0f;
+	// scale
+	REAL useScale = 1.0f;
+	if (aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux->i >= fractal->transformCommon.startIterationsK
+				&& aux->i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA -= vary;
+		}
+	}
 
 	// rotation
 	if (fractal->transformCommon.rotationEnabled
@@ -163,6 +175,9 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		aux->color += colorAdd;
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE =  aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// temp code
 	p = fabs(z);

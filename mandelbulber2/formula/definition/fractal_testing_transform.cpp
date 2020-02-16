@@ -6,9 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * knotv1
- * Based on DarkBeam formula from this thread:
- * http://www.fractalforums.com/new-theories-and-research/not-fractal-but-funny-trefoil-knot-routine
+ * Based on a DarkBeam fold formula adapted by Knighty
+ * MandalayBox  Fragmentarium /Examples/ Knighty Collection
  */
 
 #include "all_fractal_definitions.h"
@@ -19,10 +18,10 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 	internalName = "testing_transform";
 	internalID = fractal::testingTransform;
 	DEType = analyticDEType;
-	DEFunctionType = customDEFunction;
-	cpixelAddition = cpixelDisabledByDefault;
+	DEFunctionType = linearDEFunction;
+	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionCustomDE;
+	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionDefault;
 }
 
@@ -32,7 +31,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	// tglad fold
 	CVector4 oldZ = z;
-	if (aux.i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -56,7 +56,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double signY = sign(z.y);
 	double signZ = sign(z.z);
 
-	if (fractal->transformCommon.functionEnabledPFalse && aux.i >= fractal->transformCommon.startIterationsP
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
 	{
 		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
@@ -76,14 +77,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double t1, t2, v, v1;
 
-	/*if(p.y > p.x) swap(p.x, p.y);
-	t1 = p.z - 2.0 * fo.z;
-	t2 = p.x - 4.0 * fo.z;
-	v = max(fabs(t1 + fo.z) - fo.z, t2);
-	v1 = max(t1 - g.z, p.x);
-	v = min(v, v1);
-	z.z = min(v, p.z);*/
-
 	if(p.z > p.y) swap(p.y, p.z);
 	t1 = p.x - 2.0 * fo.x;
 	t2 = p.y - 4.0 * fo.x;
@@ -92,7 +85,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	v = min(v, v1);
 	q.x = min(v, p.x);
 
-	p = z;
+	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
+	else p = q;
 
 	if(p.x > p.z) swap(p.z, p.x);
 	t1 = p.y - 2.0 * fo.y;
@@ -102,7 +96,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	v = min(v, v1);
 	q.y = min(v, p.y);
 
-	p = z;
+	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
+	else p = q;
 
 	if(p.y > p.x) swap(p.x, p.y);
 	t1 = p.z - 2.0 * fo.z;
@@ -143,8 +138,25 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z -= fractal->mandelbox.offset;
 	}
 
-	z *= fractal->transformCommon.scale2;
-	aux.DE *= fractal->transformCommon.scale2 + 1.0;
+	// scale
+	double useScale = 1.0;
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			aux.actualScaleA -= vary;
+		}
+	}
 
 	// rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
@@ -158,6 +170,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.color += colorAdd;
 	}
 
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	 // temp code
 	p = fabs(z);
