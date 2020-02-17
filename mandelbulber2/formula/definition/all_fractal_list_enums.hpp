@@ -225,6 +225,8 @@ enum enumFractalFormula
 	knotV1 = 195,
 	knotV2 = 196,
 	pseudoKleinianMod3 = 197,
+	mandalayBoxV1 = 198,
+	mandalayBoxV2 = 199,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
