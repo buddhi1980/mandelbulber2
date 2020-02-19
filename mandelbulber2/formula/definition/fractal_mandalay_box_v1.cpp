@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * Based on a DarkBeam fold formula adapted by Knighty
- * MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/'new'-fractal-type-mandalay/msg81348/#msg81348
  */
 
 #include "all_fractal_definitions.h"

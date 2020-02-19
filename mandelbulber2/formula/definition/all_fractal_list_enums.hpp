@@ -227,6 +227,7 @@ enum enumFractalFormula
 	pseudoKleinianMod3 = 197,
 	mandalayBoxV1 = 198,
 	mandalayBoxV2 = 199,
+	mandalayKifs = 200,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -366,8 +367,8 @@ enum enumFractalFormula
 	transfScaleOffsetV2 = 1106,
 	// 2.21
 	transfDEControls = 1107,
-	transfDarkbeamFoldV1 = 1108,
-	transfDarkbeamFoldV2 = 1109,
+	transfMandalayFoldV1 = 1108,
+	transfMandalayFoldV2 = 1109,
 
 	// mandelbulber transfdIFS
 	// 2.20

@@ -6,17 +6,17 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Based on a DarkBeam fold formula adapted by Knighty
- * MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * Based on a DarkBeam fold formula
+ * http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/'new'-fractal-type-mandalay/msg81349/#msg81349
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
+cFractalMandalayKifs::cFractalMandalayKifs() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Transform";
-	internalName = "testing_transform";
-	internalID = fractal::testingTransform;
+	nameInComboBox = "Mandalay KIFS";
+	internalName = "mandalay_kifs";
+	internalID = fractal::mandalayKifs;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -25,7 +25,7 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
@@ -46,10 +46,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}
 	}
 
-	double signX = sign(z.x);
-	double signY = sign(z.y);
-	double signZ = sign(z.z);
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
@@ -66,9 +62,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 fo = fractal->transformCommon.additionConstant0555;
 	CVector4 g = fractal->transformCommon.offsetA000;
 	CVector4 p = z;
-	CVector4 q = z;
 
-	p = fabs(p);
 	// Kifs Octahedral fold:
 	if(p.y > p.x) swap(p.x, p.y);
 	if(p.z > p.y) swap(p.y, p.z);
@@ -97,46 +91,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}
 	}
 	z.x = xf; z.y =yf; z.z = zf;
-
-
-
-	double t1, t2, v, v1;
-
-	/*if(p.z > p.y) swap(p.y, p.z);
-	t1 = p.x - 2.0 * fo.x;
-	t2 = p.y - 4.0 * fo.x;
-	v = max(fabs(t1 + fo.x) - fo.x, t2);
-	v1 = max(t1 - g.x, p.y);
-	v = min(v, v1);
-	q.x = min(v, p.x);
-
-	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
-	else p = q;
-
-	if(p.x > p.z) swap(p.z, p.x);
-	t1 = p.y - 2.0 * fo.y;
-	t2 = p.z - 4.0 * fo.y;
-	v = max(fabs(t1 + fo.y) - fo.y, t2);
-	v1 = max(t1 - g.y, p.z);
-	v = min(v, v1);
-	q.y = min(v, p.y);
-
-	if (!fractal->transformCommon.functionEnabledSwFalse) p = z;
-	else p = q;
-
-	if(p.y > p.x) swap(p.x, p.y);
-	t1 = p.z - 2.0 * fo.z;
-	t2 = p.x - 4.0 * fo.z;
-	v = max(fabs(t1 + fo.z) - fo.z, t2);
-	v1 = max(t1 - g.z, p.x);
-	v = min(v, v1);
-	q.z = min(v, p.z);
-
-	z = q;*/
-
-	//z.x *= signX;
-	//z.y *= signY;
-	//z.z *= signZ;
 
 	// spherical fold
 	double useScale = 1.0;

@@ -7,16 +7,16 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * Based on a DarkBeam fold formula adapted by Knighty
- * refer MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * refer http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/'new'-fractal-type-mandalay/msg81375/#msg81375
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfDarkbeamFoldV1::cFractalTransfDarkbeamFoldV1() : cAbstractFractal()
+cFractalTransfMandalayFoldV2::cFractalTransfMandalayFoldV2() : cAbstractFractal()
 {
-	nameInComboBox = "T>DarkbeamFoldV1";
-	internalName = "transf_darkbeam_fold_v1";
-	internalID = fractal::transfDarkbeamFoldV1;
+	nameInComboBox = "T>Mandalay Fold V2";
+	internalName = "transf_mandalay_fold_v2";
+	internalID = fractal::transfMandalayFoldV2;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalTransfDarkbeamFoldV1::cFractalTransfDarkbeamFoldV1() : cAbstractFractal(
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDarkbeamFoldV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfMandalayFoldV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -34,10 +34,22 @@ void cFractalTransfDarkbeamFoldV1::FormulaCode(CVector4 &z, const sFractal *frac
 	double signY = sign(z.y);
 	double signZ = sign(z.z);
 
-	z = fabs(z);
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
+	{
+		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
+	}
+	else
+	{
+		z = fabs(z);
+	}
 
 	CVector4 fo = fractal->transformCommon.additionConstant0555;
 	CVector4 g = fractal->transformCommon.offsetA000;
+	CVector4 h = fractal->transformCommon.offsetF000;
 	CVector4 p = z;
 	CVector4 q = z;
 
@@ -47,7 +59,8 @@ void cFractalTransfDarkbeamFoldV1::FormulaCode(CVector4 &z, const sFractal *frac
 	t1 = p.x - 2.0 * fo.x;
 	t2 = p.y - 4.0 * fo.x;
 	v = max(fabs(t1 + fo.x) - fo.x, t2);
-	v1 = max(t1 - g.x, p.y);
+	v1 = max(t1 - g.x, p.y - h.y);
+	v1 = max(v1, -fabs(p.x));
 	v = min(v, v1);
 	q.x = min(v, p.x);
 
@@ -58,7 +71,8 @@ void cFractalTransfDarkbeamFoldV1::FormulaCode(CVector4 &z, const sFractal *frac
 	t1 = p.y - 2.0 * fo.y;
 	t2 = p.z - 4.0 * fo.y;
 	v = max(fabs(t1 + fo.y) - fo.y, t2);
-	v1 = max(t1 - g.y, p.z);
+	v1 = max(t1 - g.y, p.z - h.z);
+	v1 = max(v1, -fabs(p.y));
 	v = min(v, v1);
 	q.y = min(v, p.y);
 
@@ -69,7 +83,8 @@ void cFractalTransfDarkbeamFoldV1::FormulaCode(CVector4 &z, const sFractal *frac
 	t1 = p.z - 2.0 * fo.z;
 	t2 = p.x - 4.0 * fo.z;
 	v = max(fabs(t1 + fo.z) - fo.z, t2);
-	v1 = max(t1 - g.z, p.x);
+	v1 = max(t1 - g.z, p.x - h.x);
+	v1 = max(v1, -fabs(p.z));
 	v = min(v, v1);
 	q.z = min(v, p.z);
 

@@ -166,6 +166,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKalisets1());
 	fractalList->append(new cFractalMandalayBoxV1());
 	fractalList->append(new cFractalMandalayBoxV2());
+	fractalList->append(new cFractalMandalayKifs());
 
 	// Mandelbox formulas
 	fractalList->append(new cFractalMandelbox());
@@ -331,8 +332,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfBoxTiling4d());
 	fractalList->append(new cFractalTransfBoxWrap4d());
 	fractalList->append(new cFractalTransfClamp4d());
-	fractalList->append(new cFractalTransfDarkbeamFoldV1());
-	fractalList->append(new cFractalTransfDarkbeamFoldV2());
+	fractalList->append(new cFractalTransfMandalayFoldV1());
+	fractalList->append(new cFractalTransfMandalayFoldV2());
 	fractalList->append(new cFractalTransfDiagonalFold());
 	fractalList->append(new cFractalTransfFoldingTetra3d());
 	fractalList->append(new cFractalTransfGnarl());
