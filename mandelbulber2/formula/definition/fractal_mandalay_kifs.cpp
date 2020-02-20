@@ -30,6 +30,8 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
 
+
+
 	// tglad fold
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
@@ -59,35 +61,36 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		z = fabs(z);
 	}
 
-	CVector4 fo = fractal->transformCommon.additionConstant0555;
-	CVector4 g = fractal->transformCommon.offsetA000;
+	double fo = fractal->transformCommon.offsetA1;
+	double g = fractal->transformCommon.offset1;
+	double zT = fractal->transformCommon.offset0;
 	CVector4 p = z;
 
 	// Kifs Octahedral fold:
-	if(p.y > p.x) swap(p.x, p.y);
-	if(p.z > p.y) swap(p.y, p.z);
-	if(p.y > p.x) swap(p.x, p.y);
+	if(p.y > p.x) swap(p.x, p.y); //X
+	if(p.z > p.y) swap(p.y, p.z); //Y
+	if(p.y > p.x) swap(p.x, p.y); //xyz
 
 	// ABoxKali-like abs folding:
-	double fx = -2.0 * fo.x + p.x;
+	double fx = -2.0 * fo + p.x;
 	// Edges:
-	double xf = (fo.x - fabs(-fo.x + p.x));
-	double yf = (fo.y - fabs(-fo.y + p.y));
-	double zf = g.z + p.z;
-	double gy = g.x + p.y;
+	double xf = (fo - fabs(-fo + p.x));
+	double yf = (fo - fabs(-fo + p.y));
+	double zf = zT + p.z;
+	double gy = g + p.y;
 	if (fx > 0.0 && fx > p.y )
 	{
 		if (fx > gy )
 		{
 			// top:
-			xf += g.x;
-			yf = (fo.x - fabs(g.y  -fo.x + p.y));
+			xf += g;
+			yf = (fo - fabs(g  -fo + p.y));
 		}
 		else
 		{
 		// edges:
 			xf = -p.y;
-			yf = (fo.y - fabs(-3.0 * fo.y + p.x));
+			yf = (fo - fabs(-3.0 * fo + p.x));
 		}
 	}
 	z.x = xf; z.y =yf; z.z = zf;
@@ -100,9 +103,10 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 		double rr = z.Dot(z);
 		rrCol = rr;
-		if (rr < fractal->transformCommon.minR2p25)
+		if (rr < fractal->transformCommon.minR0)
 		{
-			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+			double tglad_factor1 =
+					fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 		}
@@ -129,17 +133,11 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.actualScaleA -= vary;
 	}
 
-
 	// rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		aux.color += colorAdd;
 	}
 
 	if (fractal->analyticDE.enabledFalse)
