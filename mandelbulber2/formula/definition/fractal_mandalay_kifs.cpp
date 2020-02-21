@@ -30,21 +30,19 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
 
-
-
 	// tglad fold
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		z.x = fabs(z.x + fractal->transformCommon.additionConstantA000.x)
+					- fabs(z.x - fractal->transformCommon.additionConstantA000.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstantA000.y)
+					- fabs(z.y - fractal->transformCommon.additionConstantA000.y) - z.y;
 		if (fractal->transformCommon.functionEnabled)
 		{
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+			z.z = fabs(z.z + fractal->transformCommon.additionConstantA000.z)
+						- fabs(z.z - fractal->transformCommon.additionConstantA000.z) - z.z;
 		}
 	}
 
@@ -67,40 +65,39 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 p = z;
 
 	// Kifs Octahedral fold:
-	if(p.y > p.x) swap(p.x, p.y); //X
-	if(p.z > p.y) swap(p.y, p.z); //Y
-	if(p.y > p.x) swap(p.x, p.y); //xyz
+	if(z.y > z.x) swap(z.x, z.y);
+	if(z.z > z.y) swap(z.y, z.z);
+	if(z.y > z.x) swap(z.x, z.y);
 
 	// ABoxKali-like abs folding:
-	double fx = -2.0 * fo + p.x;
+	double fx = -2.0 * fo + z.x;
 	// Edges:
-	double xf = (fo - fabs(-fo + p.x));
-	double yf = (fo - fabs(-fo + p.y));
-	double zf = zT + p.z;
-	double gy = g + p.y;
-	if (fx > 0.0 && fx > p.y )
+	p.x = (fo - fabs(-fo + z.x));
+	p.y = (fo - fabs(-fo + z.y));
+	p.z = zT + z.z;
+	double gy = g + z.y;
+	if (fx > 0.0 && fx > z.y )
 	{
 		if (fx > gy )
 		{
 			// top:
-			xf += g;
-			yf = (fo - fabs(g  -fo + p.y));
+			p.x += g;
+			p.y = (fo - fabs(g - fo + z.y));
 		}
 		else
 		{
 		// edges:
-			xf = -p.y;
-			yf = (fo - fabs(-3.0 * fo + p.x));
+			p.x = -z.y;
+			p.y = (fo - fabs(-3.0 * fo + z.x));
 		}
 	}
-	z.x = xf; z.y =yf; z.z = zf;
+	z = p;
 
 	// spherical fold
 	double useScale = 1.0;
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-
 		double rr = z.Dot(z);
 		rrCol = rr;
 		if (rr < fractal->transformCommon.minR0)
@@ -156,10 +153,8 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.color += colorAdd;
 	}
 
-
 	 // temp code
 	p = fabs(z);
 	aux.dist = max(p.x, max(p.y, p.z));
 	aux.dist = aux.dist / aux.DE;
-
 }

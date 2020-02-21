@@ -133,7 +133,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -155,7 +155,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -184,7 +184,7 @@
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -541,7 +541,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_31">
           <property name="text">
-           <string>MinimumR2:</string>
+           <string>minimumR2:</string>
           </property>
          </widget>
         </item>
@@ -576,7 +576,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_22">
           <property name="text">
-           <string>MaximumR2:</string>
+           <string>maximumR2:</string>
           </property>
          </widget>
         </item>
@@ -614,7 +614,7 @@
         <item>
          <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -1430,9 +1430,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -1446,9 +1446,9 @@
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
