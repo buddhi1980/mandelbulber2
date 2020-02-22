@@ -381,6 +381,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfScale4d());
 
 	// Sin Cos Transforms
+	fractalList->append(new cFractalTransfSinAdd());
 	fractalList->append(new cFractalTransfSinOrCos());
 	fractalList->append(new cFractalTransfSinAndCos());
 	fractalList->append(new cFractalTransfSinAndCosMax());
