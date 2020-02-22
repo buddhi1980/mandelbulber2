@@ -307,6 +307,7 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		const double r = fractOut.z.Length();
+		CVector3 zFromIters = fractOut.z;
 		out->maxiter = fractOut.maxiter;
 		bool maxiter = fractOut.maxiter;
 		out->iters = fractOut.iters;
@@ -369,6 +370,13 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::customDEFunction)
 			{
 				distance = r; // FIXME: Can we calculate dIFS in deltaDE mode ???
+			}
+			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::maxAxisDEFunction)
+			{
+				CVector3 absZ = fabs(zFromIters);
+				double maxZ = dMax(absZ.x, absZ.y, absZ.z);
+				double maxDr = dMax(fabs(dr1), fabs(dr2), fabs(dr3));
+				distance = 0.5 * maxZ / maxDr;
 			}
 		}
 		else

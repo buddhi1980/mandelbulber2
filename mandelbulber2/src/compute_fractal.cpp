@@ -419,6 +419,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					out->distance = extendedAux.dist;
 				}
+				else if (fractals.GetDEFunctionType(0) == fractal::maxAxisDEFunction)
+				{
+					CVector4 absZ = fabs(z);
+					double rd = max(absZ.x, max(absZ.y, absZ.z));
+					out->distance = rd / extendedAux.DE;
+				}
 			}
 			else
 			{
@@ -459,6 +465,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					case analyticFunctionCustomDE:
 					{
 						out->distance = extendedAux.dist;
+						break;
+					}
+					case analyticFunctionMaxAxis:
+					{
+						CVector4 absZ = fabs(z);
+						double rd = max(absZ.x, max(absZ.y, absZ.z));
+						out->distance = rd / extendedAux.DE;
 						break;
 					}
 

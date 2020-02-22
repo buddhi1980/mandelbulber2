@@ -55,9 +55,9 @@ enum enumDEFunctionType
 	pseudoKleinianDEFunction = 3,
 	josKleinianDEFunction = 4,
 	customDEFunction = 5,
+	maxAxisDEFunction = 6,
 	// testingDEFunction = 6,
-	numberOfDEFunctions = 5, // used to prepare array
-	// numberOfDEFunctions = 5, // used to prepare array
+	numberOfDEFunctions = 6, // used to prepare array
 	withoutDEFunction = 99
 };
 
@@ -86,6 +86,7 @@ enum enumDEAnalyticFunction // DE function for non hybrid fractals
 	analyticFunctionPseudoKleinian = 4,
 	analyticFunctionJosKleinian = 5,
 	analyticFunctionCustomDE = 6,
+	analyticFunctionMaxAxis = 7,
 };
 
 enum enumColoringFunction

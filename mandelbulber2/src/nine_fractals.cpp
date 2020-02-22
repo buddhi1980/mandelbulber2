@@ -449,6 +449,7 @@ QString cNineFractals::GetDETypeString() const
 			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
 			case fractal::josKleinianDEFunction: text += " jos kleinian"; break;
 			case fractal::customDEFunction: text += " custom"; break;
+			case fractal::maxAxisDEFunction: text += " maxAxis"; break;
 			// case fractal::testingDEFunction: text += " testing DE"; break;
 			default: text += "unknown"; break;
 		}
