@@ -388,6 +388,7 @@ enum enumFractalFormula
 	transfDIFSPrismV2 = 1612,
 	transfDIFSGrid = 1613,
 	transfDIFSGridV2 = 1614,
+	// 2.21
 	transfDIFSTorusGrid = 1615,
 
 	// hybrid color trial

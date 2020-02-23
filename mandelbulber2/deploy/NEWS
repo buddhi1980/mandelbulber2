@@ -11,13 +11,17 @@ v2.21 (??? 2020)
    kochV3
    knotV1
    knotV2
+   mandalayBoxV1
+   mandalayBoxV2
+   mandalayKifs
    mengerV2
    mengerV3
    pseudoKleinianMod3
+   transfMandalayFoldV1
+   transfMandalayFoldV2
+   transfSinAdd
    transfDIFSTorusGrid
-
-
-
+   transfDEControls BETA
 
 - modified fractal formulas
    pseudoKleinianStdDE change to std r bailout & aux.dist DE
