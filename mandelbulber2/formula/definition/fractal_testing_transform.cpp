@@ -46,9 +46,9 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}
 	}
 
-	double signX = sign(z.x);
-	double signY = sign(z.y);
-	double signZ = sign(z.z);
+	//double signX = sign(z.x);
+	//double signY = sign(z.y);
+	//double signZ = sign(z.z);
 
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -66,7 +66,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 fo = fractal->transformCommon.additionConstant0555;
 	CVector4 g = fractal->transformCommon.offsetA000;
 	CVector4 p = z;
-	CVector4 q = z;
+	//CVector4 q = z;
 
 	p = fabs(p);
 	// Kifs Octahedral fold:
@@ -100,9 +100,9 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 
 
-	double t1, t2, v, v1;
+	/*double t1, t2, v, v1;
 
-	/*if(p.z > p.y) swap(p.y, p.z);
+	if(p.z > p.y) swap(p.y, p.z);
 	t1 = p.x - 2.0 * fo.x;
 	t2 = p.y - 4.0 * fo.x;
 	v = max(fabs(t1 + fo.x) - fo.x, t2);
@@ -132,11 +132,11 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	v = min(v, v1);
 	q.z = min(v, p.z);
 
-	z = q;*/
+	z = q;
 
-	//z.x *= signX;
-	//z.y *= signY;
-	//z.z *= signZ;
+	z.x *= signX;
+	z.y *= signY;
+	z.z *= signZ;*/
 
 	// spherical fold
 	double useScale = 1.0;
