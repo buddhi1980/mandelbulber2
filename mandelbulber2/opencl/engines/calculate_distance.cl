@@ -188,6 +188,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
 		calcParam->deltaDEMaxN = out.iters - 1;
 		float r = length(out.z);
+		float4 zFromIters = out.z;
 
 		bool maxiter = out.maxiter;
 
@@ -238,6 +239,11 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			float rxy = native_sqrt(z.x * z.x + z.z * z.z);
 			out.distance = (fabs(rxy * z.y) / r) / d;
 			out.maxiter = false;
+#elif DELTA_MAXAXIS_DE
+			float4 absZ = fabs(zFromIters);
+			float maxZ = max(max(absZ.x, absZ.y), absZ.z);
+			float maxDr = max(max(fabs(dr.x), fabs(dr.y)), fabs(dr.z));
+			out.distance = 0.5f * maxZ / maxDr;
 #endif
 		}
 

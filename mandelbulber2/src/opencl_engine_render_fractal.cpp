@@ -347,7 +347,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	bool useLogarithmicDEFunction = false;
 	bool usePseudoKleinianDEFunction = false;
 	bool useJosKleinianDEFunction = false;
-	bool useDIFSDEFunction = false;
+	bool useCustomDEFunction = false;
+	bool useMaxAxisDEFunction = false;
 	if (fractals->IsHybrid())
 	{
 		if (deType == fractal::analyticDEType)
@@ -364,6 +365,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 					definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
 					break;
 				case fractal::customDEFunction: definesCollector += " -DANALYTIC_CUSTOM_DE"; break;
+				case fractal::maxAxisDEFunction: definesCollector += " -DANALYTIC_MAXAXIS_DE"; break;
 				default: break;
 			}
 		}
@@ -376,7 +378,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-				case fractal::customDEFunction: useDIFSDEFunction = true; break;
+				case fractal::customDEFunction: useCustomDEFunction = true; break;
+				case fractal::maxAxisDEFunction: useMaxAxisDEFunction = true; break;
 				default: break;
 			}
 		}
@@ -400,7 +403,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 					case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
-					case fractal::customDEFunction: useDIFSDEFunction = true; break;
+					case fractal::customDEFunction: useCustomDEFunction = true; break;
+					case fractal::maxAxisDEFunction: useMaxAxisDEFunction = true; break;
 					default: break;
 				}
 			}
@@ -418,7 +422,9 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 
 	if (useJosKleinianDEFunction) definesCollector += " -DDELTA_JOS_KLEINIAN_DE";
 
-	if (useDIFSDEFunction) definesCollector += " -DDELTA_DIFS_DE";
+	if (useCustomDEFunction) definesCollector += " -DDELTA_DIFS_DE";
+
+	if (useMaxAxisDEFunction) definesCollector += " -DDELTA_MAXAXIS_DE";
 }
 
 void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractals)

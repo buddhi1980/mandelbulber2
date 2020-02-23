@@ -468,6 +468,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				 / max(fabs(aux.DE), consts->fractal[0].analyticDE.offset1);
 #elif ANALYTIC_CUSTOM_DE
 	dist = aux.dist;
+#elif ANALYTIC_MAXAXIS_DE
+	float4 absZ = fabs(z);
+	float rd = max(absZ.x, max(absZ.y, absZ.z));
+	dist = rd / aux.DE;
 #else
 	dist = length(z);
 #endif
@@ -508,6 +512,13 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			case clAnalyticFunctionCustomDE:
 			{
 				dist = aux.dist;
+				break;
+			}
+			case clAnalyticFunctionMaxAxis:
+			{
+				float4 absZ = fabs(z);
+				float rd = max(absZ.x, max(absZ.y, absZ.z));
+				dist = rd / aux.DE;
 				break;
 			}
 			case clAnalyticFunctionNone: dist = -1.0; break;

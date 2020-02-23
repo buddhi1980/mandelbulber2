@@ -306,6 +306,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					case fractal::customDEFunction:
 						DEAnalyticFunction[f] = fractal::analyticFunctionCustomDE;
 						break;
+					case fractal::maxAxisDEFunction:
+						DEAnalyticFunction[f] = fractal::analyticFunctionMaxAxis;
+						break;
 					default: DEAnalyticFunction[f] = fractal::analyticFunctionLinear; break;
 				}
 			}

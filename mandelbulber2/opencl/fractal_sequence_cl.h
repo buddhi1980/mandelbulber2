@@ -63,7 +63,8 @@ typedef enum
 	clAnalyticFunctionIFS = 3,
 	clAnalyticFunctionPseudoKleinian = 4,
 	clAnalyticFunctionJosKleinian = 5,
-	clAnalyticFunctionCustomDE = 6
+	clAnalyticFunctionCustomDE = 6,
+	clAnalyticFunctionMaxAxis = 7,
 } enumDEAnalyticFunctionCl;
 
 typedef enum
