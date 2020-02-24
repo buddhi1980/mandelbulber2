@@ -22,7 +22,7 @@ packagesExist(IlmBase){
 packagesExist(libtiff-4){
 	PKGCONFIG += libtiff-4
 }
-win32|packagesExist(libtiff-4) {
+macx|win32|packagesExist(libtiff-4) {
 	LIBS += -ltiff
 	DEFINES += USE_TIFF
 	message("Use tiff library for TIFF files")
@@ -31,7 +31,7 @@ win32|packagesExist(libtiff-4) {
 packagesExist(sndfile){
 	PKGCONFIG += sndfile
 }
-win32|packagesExist(sndfile) {
+macx|win32|packagesExist(sndfile) {
 	LIBS += -lsndfile
 	DEFINES += USE_SNDFILE
 	message("Use sndfile library for WAV files")
