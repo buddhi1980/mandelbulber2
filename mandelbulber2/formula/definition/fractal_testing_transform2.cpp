@@ -27,26 +27,26 @@ cFractalTestingTransform2::cFractalTestingTransform2() : cAbstractFractal()
 
 void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 v;
-	switch (fractal->mandelbulbMulti.orderOfXYZ)
+	// if (!fractal->transformCommon.functionEnabledJFalse) // temp
 	{
-		case multi_OrderOfXYZ_xyz:
-		default: v = CVector4(z.x, z.y, z.z, z.w); break;
-		case multi_OrderOfXYZ_xzy: v = CVector4(z.x, z.z, z.y, z.w); break;
-		case multi_OrderOfXYZ_yxz: v = CVector4(z.y, z.x, z.z, z.w); break;
-		case multi_OrderOfXYZ_yzx: v = CVector4(z.y, z.z, z.x, z.w); break;
-		case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
-		case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
+		CVector4 signs = z;
+		signs.x = sign(z.x);
+		signs.y = sign(z.y);
+		signs.z = sign(z.z);
+		signs.w = sign(z.w);
+
+		z = fabs(z);
+		CVector4 tt = fractal->mandelbox.offset;
+		z -= tt;
+
+		double trr = z.Dot(z);
+		double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+
+		z += tt;
+		z *= tp;
+		aux.DE *= tp;
+		z *= signs;
 	}
-	if (fractal->transformCommon.functionEnabledAx)
-		z.x += (sin((v.x - fractal->transformCommon.offset000.x) * fractal->transformCommon.constantMultiplierA111.x)
-				* fractal->transformCommon.constantMultiplierB111.x);
-	if (fractal->transformCommon.functionEnabledAyFalse)
-		z.y += (sin((v.y - fractal->transformCommon.offset000.y) * fractal->transformCommon.constantMultiplierA111.y)
-				* fractal->transformCommon.constantMultiplierB111.y);
-	if (fractal->transformCommon.functionEnabledAzFalse)
-		z.z += (sin((v.z - fractal->transformCommon.offset000.z) * fractal->transformCommon.constantMultiplierA111.z)
-				* fractal->transformCommon.constantMultiplierB111.z);
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
