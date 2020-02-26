@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalMandalayKifs::cFractalMandalayKifs() : cAbstractFractal()
+cFractalMandalayKIFS::cFractalMandalayKIFS() : cAbstractFractal()
 {
 	nameInComboBox = "Mandalay KIFS";
 	internalName = "mandalay_kifs";
-	internalID = fractal::mandalayKifs;
+	internalID = fractal::mandalayKIFS;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -25,7 +25,7 @@ cFractalMandalayKifs::cFractalMandalayKifs() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandalayKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
@@ -65,9 +65,9 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 p = z;
 
 	// Kifs Octahedral fold:
-	if(z.y > z.x) swap(z.x, z.y);
-	if(z.z > z.y) swap(z.y, z.z);
-	if(z.y > z.x) swap(z.x, z.y);
+	if (z.y > z.x) swap(z.x, z.y);
+	if (z.z > z.y) swap(z.y, z.z);
+	if (z.y > z.x) swap(z.x, z.y);
 
 	// ABoxKali-like abs folding:
 	double fx = -2.0 * fo + z.x;
@@ -76,9 +76,9 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	p.y = (fo - fabs(-fo + z.y));
 	p.z = zT + z.z;
 	double gy = g + z.y;
-	if (fx > 0.0 && fx > z.y )
+	if (fx > 0.0 && fx > z.y)
 	{
-		if (fx > gy )
+		if (fx > gy)
 		{
 			// top:
 			p.x += g;
@@ -86,7 +86,7 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		}
 		else
 		{
-		// edges:
+			// edges:
 			p.x = -z.y;
 			p.y = (fo - fabs(-3.0 * fo + z.x));
 		}
@@ -102,8 +102,7 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		rrCol = rr;
 		if (rr < fractal->transformCommon.minR0)
 		{
-			double tglad_factor1 =
-					fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 		}
@@ -138,7 +137,7 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -153,7 +152,7 @@ void cFractalMandalayKifs::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.color += colorAdd;
 	}
 
-	 // temp code
+	// temp code
 	p = fabs(z);
 	aux.dist = max(p.x, max(p.y, p.z));
 	aux.dist = aux.dist / aux.DE;

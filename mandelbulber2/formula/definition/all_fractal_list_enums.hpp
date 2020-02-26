@@ -227,7 +227,7 @@ enum enumFractalFormula
 	pseudoKleinianMod3 = 197,
 	mandalayBoxV1 = 198,
 	mandalayBoxV2 = 199,
-	mandalayKifs = 200,
+	mandalayKIFS = 200,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

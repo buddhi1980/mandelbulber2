@@ -166,7 +166,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKalisets1());
 	fractalList->append(new cFractalMandalayBoxV1());
 	fractalList->append(new cFractalMandalayBoxV2());
-	fractalList->append(new cFractalMandalayKifs());
+	fractalList->append(new cFractalMandalayKIFS());
 
 	// Mandelbox formulas
 	fractalList->append(new cFractalMandelbox());

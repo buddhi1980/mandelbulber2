@@ -71,6 +71,9 @@ kochV2,"Koch V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,a
 kochV3,"Koch V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 lkmitch,Lkmitch,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 makin3d2,Makin3D-2,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandalayBoxV1,"Mandalay Box V1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
+mandalayBoxV2,"Mandalay Box V2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
+mandalayKIFS,"Mandalay KIFS",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 mandelbox,Mandelbox,analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 mandelboxFast,"Mandelbox Fast",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 mandelboxMenger,"Mandelbox - Menger",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
@@ -153,8 +156,8 @@ sierpinski4d,"Sierpinski 4D",analyticDEType,linearDEFunction,cpixelDisabledByDef
 testing,Testing,analyticDEType,withoutDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
 testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
-testingTransform,"Testing Transform",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
-testingTransform2,"Testing Transform2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
+testingTransform,"Testing Transform",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
+testingTransform2,"Testing Transform2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional,"T>Abs Add Conditional",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional2,"T>Abs Add Conditional2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional4d,"T>Abs Add Conditional 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -226,6 +229,8 @@ transfInvCylindrical,"T>Inverse Cylindrical",analyticDEType,withoutDEFunction,cp
 transfIterationWeight,"T>Iteration Weight",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfIterationWeight4d,"T>Iteration Weight 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfLinCombineCXYZ,"T>Linear Combine CXYZ",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100.0,analyticFunctionNone,coloringFunctionDefault
+transfMandalayFoldV1,"T>Mandalay Fold V1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfMandalayFoldV2,"T>Mandalay Fold V2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfMengerFold,"T>Menger Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfMultipleAngle,"T>Multiple angle",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfNegAbsAddConstant,"T>Abs Add Neg",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -259,6 +264,7 @@ transfScaleVaryMulti,"T>Scale Vary Multi",analyticDEType,withoutDEFunction,cpixe
 transfScaleVaryV1,"T>Scale VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfScaleVaryV212,"T>Scale Vary V2.12",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfScaleVaryVCL,"T>Scale VaryVCL",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfSinAdd,"T>Sin Add",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSinAndCos,"T>Sin And Cos",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSinAndCosMax,"T>Sin And Cos - Max",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSinOrCos,"T>Sin Or Cos",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -268,6 +274,7 @@ transfSphericalFoldAbox,"T>Spherical Fold ABox",analyticDEType,withoutDEFunction
 transfSphericalFoldCHS,"T>Spherical Fold CHS",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFoldCuboid,"T>Spherical Fold Cuboid",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFoldParab,"T>Spherical Fold Parab",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfSphericalFoldV1,"T>Spherical Fold V1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFoldVaryV1,"T>Spherical Fold VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFoldVaryVCL,"T>Spherical Fold VaryVCL",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFoldXYZBias,"T>Spherical Fold XYZ Bias",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
