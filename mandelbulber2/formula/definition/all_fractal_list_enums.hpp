@@ -370,6 +370,7 @@ enum enumFractalFormula
 	transfMandalayFoldV1 = 1108,
 	transfMandalayFoldV2 = 1109,
 	transfSinAdd = 1110,
+	transfSphericalFoldV1 = 1111,
 
 	// mandelbulber transfdIFS
 	// 2.20
