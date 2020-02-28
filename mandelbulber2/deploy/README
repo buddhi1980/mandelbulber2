@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.20
+                              MANDELBULBER 2.21
 
 1. What is Mandelbulber
 -----------------------
@@ -147,7 +147,7 @@ make install
 - Ubuntu 19.04
 
 - gcc 9.2.1
-- clang 7.0
+- clang 9.0.1
 - msvc17
 
 - Qt 5.12.5

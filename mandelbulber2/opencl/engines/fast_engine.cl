@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.21dev000
+#define MANDELBULBER_VERSION 2.21
 
 int GetInteger(int byte, __global char *array)
 {
@@ -301,7 +301,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 											 * sin(10.0f * sin(atan2(viewVector.z, length(viewVector.xy)) * 10.0f));
 			grid *= grid;
 			colour = grid;
-#else	// not STEREOSCOPIC
+#else	 // not STEREOSCOPIC
 		colour = (float3){0.0f, 0.0f, screenPoint.y / height};
 		alpha = 0.0f;
 #endif // STEREOSCOPIC
@@ -337,7 +337,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		}
 	} // next exe
 
-#else	// no STEREO_REYCYAN
+#else	 // no STEREO_REYCYAN
 
 	pixel.R = colour.s0 + glow;
 	pixel.G = colour.s1 * glow * 10.0f;

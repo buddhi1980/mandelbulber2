@@ -1,10 +1,10 @@
 Version history
 
-v2.21 (??? 2020)
+v2.21 (March 2020)
 - Added new fractal formulas
-
    aboxSphere4d
    aboxTetra4d
+   fastMandelbox
    foldCutCube
    koch
    kochV2
@@ -23,20 +23,34 @@ v2.21 (??? 2020)
    transfSphericalFoldV1
    transfDIFSTorusGrid
    transfDEControls BETA
-
+   
 - modified fractal formulas
    pseudoKleinianStdDE change to std r bailout & aux.dist DE
    scatorPower2 change to std r bailout & aux.dist DE
    scatorPower2Imaginary change to std r bailout
    scatorPower2Real change to std r bailout
 
-
-
-
-
-
-
-
+Randomizer: Added Randomizer tool for interactive-random modifying of settings
+  - randomizing algorithm which considers parameters hierarchy
+  - visual comparison of results with threshold based on noise level
+  - repeating randomizing of results similar to base image
+  - repeating randomizing of results similar to any other version
+  - repeating randomizing of blank images
+  - 3 different randomizimg levels
+  - saving settings of particular variant to .fract file
+  - displaying of randomized parameters in tooltips
+  - option to reset negligible parameters
+  - option to add randomized parameters to keyframe animation
+  - checkbox to disable randomizing of integers and booleans
+  - options in preferences to customize size and quality of previews
+  - tool can be launched from any dock, group-box, globally or from keyframes editor.
+OpenCL: implemented adaptive anti-aliasing algorithm
+UI: Added tool for global cleaning up of settings
+UI: Changed FOV to be in degrees 
+Shaders: Fixed problem with very high brightness of multi ray AO when OpenCL was disabled
+Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived form cAbstractFractal class.
+Fixed bug: in many OpenCL formulas were used double precision constants. Compilation of OpenCL kernels failed on MacOS.
+Fixed bug: added missing libsndfile for MacOS builds
 
 v2.20 (December 2019)
 - Added new fractal formulas
