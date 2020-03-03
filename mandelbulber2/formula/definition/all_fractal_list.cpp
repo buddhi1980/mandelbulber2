@@ -194,6 +194,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMenger4dMod1());
 	fractalList->append(new cFractalMixPinski4d());
 	fractalList->append(new cFractalSierpinski3d());
+	fractalList->append(new cFractalSierpinski3dV2());
 	fractalList->append(new cFractalSierpinski4d());
 	fractalList->append(new cFractalVicsek());
 
@@ -332,8 +333,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfBoxTiling4d());
 	fractalList->append(new cFractalTransfBoxWrap4d());
 	fractalList->append(new cFractalTransfClamp4d());
-	fractalList->append(new cFractalTransfMandalayFoldV1());
-	fractalList->append(new cFractalTransfMandalayFoldV2());
 	fractalList->append(new cFractalTransfDiagonalFold());
 	fractalList->append(new cFractalTransfFoldingTetra3d());
 	fractalList->append(new cFractalTransfGnarl());
@@ -341,6 +340,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfIterationWeight4d());
 	fractalList->append(new cFractalTransfInvCylindrical());
 	fractalList->append(new cFractalTransfLinCombineCXYZ());
+	fractalList->append(new cFractalTransfMandalayFoldV1());
+	fractalList->append(new cFractalTransfMandalayFoldV2());
 	fractalList->append(new cFractalTransfMengerFold());
 	fractalList->append(new cFractalTransfMultipleAngle());
 	fractalList->append(new cFractalTransfOctoFold());

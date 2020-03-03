@@ -13,11 +13,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalSierpinski3d::cFractalSierpinski3d() : cAbstractFractal()
+cFractalSierpinski3dV2::cFractalSierpinski3dV2() : cAbstractFractal()
 {
-	nameInComboBox = "Sierpinski 3D";
-	internalName = "sierpinski3d";
-	internalID = fractal::sierpinski3d;
+	nameInComboBox = "Sierpinski 3D V2";
+	internalName = "sierpinski3d_v2";
+	internalID = fractal::sierpinski3dV2;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalSierpinski3d::cFractalSierpinski3d() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalSierpinski3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 temp = z;
 
@@ -49,27 +49,32 @@ void cFractalSierpinski3d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		z.y = temp.y;
 	}
 
-	// Reversed full tetra-fold Series;
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
-	}
-
 	z *= fractal->transformCommon.scaleA2;
+	z -= fractal->transformCommon.offset111; // neg offset
 
-	if (aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{
-		z -= fractal->transformCommon.offset111; // neg offset
-	}
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	// Reversed full tetra-fold;
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
+
+		z *= fractal->transformCommon.scale1;
+		aux.DE *= fractal->transformCommon.scale1;
+		z -= fractal->transformCommon.offset000;
+
+		if (fractal->transformCommon.rotation2EnabledFalse)
+			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
