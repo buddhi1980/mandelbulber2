@@ -30,7 +30,7 @@ v2.21 (March 2020)
    scatorPower2Imaginary change to std r bailout
    scatorPower2Real change to std r bailout
 
-Randomizer: Added Randomizer tool for interactive-random modifying of settings
+- Randomizer: Added Randomizer tool for interactive-random modifying of settings
   - randomizing algorithm which considers parameters hierarchy
   - visual comparison of results with threshold based on noise level
   - repeating randomizing of results similar to base image
@@ -44,13 +44,13 @@ Randomizer: Added Randomizer tool for interactive-random modifying of settings
   - checkbox to disable randomizing of integers and booleans
   - options in preferences to customize size and quality of previews
   - tool can be launched from any dock, group-box, globally or from keyframes editor.
-OpenCL: implemented adaptive anti-aliasing algorithm
-UI: Added tool for global cleaning up of settings
-UI: Changed FOV to be in degrees 
-Shaders: Fixed problem with very high brightness of multi ray AO when OpenCL was disabled
-Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived form cAbstractFractal class.
-Fixed bug: in many OpenCL formulas were used double precision constants. Compilation of OpenCL kernels failed on MacOS.
-Fixed bug: added missing libsndfile for MacOS builds
+- OpenCL: implemented adaptive anti-aliasing algorithm
+- UI: Added tool for global cleaning up of settings
+- UI: Changed FOV to be in degrees 
+- Shaders: Fixed problem with very high brightness of multi ray AO when OpenCL was disabled
+- Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived form cAbstractFractal class.
+- Fixed bug: in many OpenCL formulas were used double precision constants. Compilation of OpenCL kernels failed on MacOS.
+- Fixed bug: added missing libsndfile for MacOS builds
 
 v2.20 (December 2019)
 - Added new fractal formulas

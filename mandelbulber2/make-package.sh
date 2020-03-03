@@ -76,6 +76,10 @@ then
 	cp -vurL "$sourceDir/formula"* "$destNameWin/"
 	cp -vurL "$sourceDir/formula"* "$destNameWin64/"
 	
+	#moving formulas source code to formula directory
+	mkdir -vp "$destNameLinux/formula/"
+	mv -v "$destNameLinux/usr/share/mandelbulber2/formula/definition" "$destNameLinux/formula/"
+	
 	#copying language files
 	cp -vurL "$sourceDir/language" "$destNameLinux/usr/share/mandelbulber2/"
 	cp -vurL "$sourceDir/language"* "$destNameWin/"
