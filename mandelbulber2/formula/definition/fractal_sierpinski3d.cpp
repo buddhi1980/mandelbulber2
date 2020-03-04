@@ -28,28 +28,31 @@ cFractalSierpinski3d::cFractalSierpinski3d() : cAbstractFractal()
 
 void cFractalSierpinski3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 temp = z;
+	// Normal full tetra-fold
+	if (fractal->transformCommon.functionEnabled)
+	{
+		double temp = 0.0;
+		if (z.x + z.y < 0.0)
+		{
+			temp = -z.y;
+			z.y = -z.x;
+			z.x = temp;
+		}
+		if (z.x + z.z < 0.0)
+		{
+			temp = -z.z;
+			z.z = -z.x;
+			z.x = temp;
+		}
+		if (z.y + z.z < 0.0)
+		{
+			temp = -z.z;
+			z.z = -z.y;
+			z.y = temp;
+		}
+	}
 
-	if (z.x + z.y < 0.0)
-	{
-		temp.x = -z.y;
-		z.y = -z.x;
-		z.x = temp.x;
-	}
-	if (z.x + z.z < 0.0)
-	{
-		temp.x = -z.z;
-		z.z = -z.x;
-		z.x = temp.x;
-	}
-	if (z.y + z.z < 0.0)
-	{
-		temp.y = -z.z;
-		z.z = -z.y;
-		z.y = temp.y;
-	}
-
-	// Reversed full tetra-fold Series;
+	// Reversed full tetra-fold
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (z.x - z.y < 0.0) swap(z.y, z.x);

@@ -147,7 +147,7 @@ enum enumFractalFormula
 	mengerPrismShape2 = 107, // DE v2.15
 	mixPinski4d = 108,			 // fixed V2.11
 	sierpinski4d = 109,			 // update DE v2.15
-	sierpinski3d = 110,			 // update DE v2.15, fixDE v2.20. fix 2.21
+	sierpinski3d = 110,			 // update DE v2.15, fixDE v2.20. fix 2.22
 	menger4d = 111,					 // fixed V2.11
 	menger4dMod1 = 112,			 // fixed V2.11
 	mengerSmooth = 113,
@@ -231,6 +231,7 @@ enum enumFractalFormula
 
 	// 2.22
 	sierpinski3dV2 = 201,
+	sierpinski3dV3 = 202,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

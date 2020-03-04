@@ -1,5 +1,12 @@
 Version history
 
+v2.22 (??? 2020)
+- Added new fractal formulas
+   sierpinski3dV2
+
+- modified fractal formulas
+   sierpinski3d, fixed add reverse
+
 v2.21 (March 2020)
 - Added new fractal formulas
    aboxSphere4d
@@ -48,7 +55,7 @@ v2.21 (March 2020)
 - UI: Added tool for global cleaning up of settings
 - UI: Changed FOV to be in degrees 
 - Shaders: Fixed problem with very high brightness of multi ray AO when OpenCL was disabled
-- Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived form cAbstractFractal class.
+- Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived from cAbstractFractal class.
 - Fixed bug: in many OpenCL formulas were used double precision constants. Compilation of OpenCL kernels failed on MacOS.
 - Fixed bug: added missing libsndfile for MacOS builds
 
