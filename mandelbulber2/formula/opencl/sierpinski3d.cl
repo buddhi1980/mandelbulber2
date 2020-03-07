@@ -22,25 +22,6 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// Normal full tetra-fold;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		if (z.x - z.y < 0.0f)
-		{
-			REAL temp = z.x;
-			z.x = z.y;
-			z.y = temp;
-		}
-		if (z.x - z.z < 0.0f)
-		{
-			REAL temp = z.x;
-			z.x = z.z;
-			z.z = temp;
-		}
-		if (z.y - z.z < 0.0f)
-		{
-			REAL temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
-
 		if (z.x + z.y < 0.0f)
 		{
 			temp.x = -z.y;
@@ -81,24 +62,6 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			temp.y = -z.z;
 			z.z = -z.y;
 			z.y = temp.y;
-		}
-		if (z.x - z.y < 0.0f)
-		{
-			REAL temp = z.y;
-			z.y = z.x;
-			z.x = temp;
-		}
-		if (z.x - z.z < 0.0f)
-		{
-			REAL temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
-		if (z.y - z.z < 0.0f)
-		{
-			REAL temp = z.z;
-			z.z = z.y;
-			z.y = temp;
 		}
 	}
 
