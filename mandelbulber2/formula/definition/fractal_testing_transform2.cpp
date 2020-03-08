@@ -27,7 +27,9 @@ cFractalTestingTransform2::cFractalTestingTransform2() : cAbstractFractal()
 
 void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// if (!fractal->transformCommon.functionEnabledJFalse) // temp
+	CVector4 p = z;
+	double dd = aux.DE;
+	//if (!fractal->transformCommon.functionEnabledJFalse) // temp
 	{
 		CVector4 signs = z;
 		signs.x = sign(z.x);
@@ -47,6 +49,36 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 		aux.DE *= tp;
 		z *= signs;
 	}
+	//else
+	{
+		double r2 = p.Dot(p);
+		p += fractal->mandelbox.offset;
+		double R = fractal->transformCommon.sqtR;
+		if (fractal->transformCommon.functionEnabledAFalse) R *= R * R * R;
+
+		if (r2 < R)
+		{
+			p *= fractal->transformCommon.mboxFactor1;
+			dd *= fractal->transformCommon.mboxFactor1;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
+		}
+		else if (r2 < 1.0)
+		{
+			p *= 1.0 / r2;
+			dd *= 1.0 / r2;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
+		}
+		p -= fractal->mandelbox.offset;
+	}
+
+	z = p + (z - p) * fractal->transformCommon.scale1;
+	aux.DE = dd + (aux.DE  - dd) * fractal->transformCommon.scale1;
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
