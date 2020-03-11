@@ -16,25 +16,39 @@
 
 REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// if (!fractal->transformCommon.functionEnabledJFalse) // temp
+	REAL4 p = z;
+	REAL dd = aux->DE;
+	REAL m = 0.0;
+	REAL4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	signs.w = sign(z.w);
+	z = fabs(z);
+	z -= fractal->transformCommon.offset000;
+	REAL trr = dot(z, z);
+	REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
+	z += fractal->transformCommon.offset000;
+	z *= tp;
+	aux->DE *= tp;
+	z *= signs;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
 	{
-		REAL4 signs = z;
-		signs.x = sign(z.x);
-		signs.y = sign(z.y);
-		signs.z = sign(z.z);
-		signs.w = sign(z.w);
+		REAL rr = dot(p, p);
+		p += fractal->mandelbox.offset;
+		m = min(max(native_recip(rr), 1.0f), native_recip(fractal->transformCommon.scale025));
+		p *= m;
+		dd *= m;
+		p -= fractal->mandelbox.offset;
+		z = p + (z - p) * fractal->transformCommon.scale1;
+		aux->DE = dd + (aux->DE - dd) * fractal->transformCommon.scale1;
+	}
 
-		z = fabs(z);
-		REAL4 tt = fractal->mandelbox.offset;
-		z -= tt;
-
-		REAL trr = dot(z, z);
-		REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
-
-		z += tt;
-		z *= tp;
-		aux->DE *= tp;
-		z *= signs;
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux->color += tp * fractal->mandelbox.color.factorSp1;
+		aux->color += m * fractal->mandelbox.color.factorSp2;
 	}
 
 	// DE tweak

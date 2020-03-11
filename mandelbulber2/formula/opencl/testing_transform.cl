@@ -33,46 +33,33 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	z += fractal->transformCommon.additionConstant000;
 
 	// spherical fold
+	REAL4 p = z;
+	REAL dd = aux->DE;
+	REAL m = 0.0;
+	REAL4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	signs.w = sign(z.w);
+	z = fabs(z);
+	z -= fractal->transformCommon.offset000;
+	REAL trr = dot(z, z);
+	REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
+	z += fractal->transformCommon.offset000;
+	z *= tp;
+	aux->DE *= tp;
+	z *= signs;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
 	{
-
-		if (!fractal->transformCommon.functionEnabledJFalse) // temp
-		{
-			REAL4 signs = z;
-			signs.x = sign(z.x);
-			signs.y = sign(z.y);
-			signs.z = sign(z.z);
-
-			z = fabs(z);
-			REAL4 tt = fractal->mandelbox.offset;
-			z -= tt;
-
-			REAL trr = dot(z, z);
-			REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
-
-			z += tt;
-			z *= tp;
-			aux->DE *= tp;
-			z *= signs;
-		}
-		else // temp
-		{
-			REAL rr = dot(z, z);
-			// z -= fractal->mandelbox.offset;
-			if (rr < fractal->transformCommon.minR2p25)
-			{
-				REAL tglad_factor1 =
-					native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
-				z *= tglad_factor1;
-				aux->DE *= tglad_factor1;
-			}
-			else if (rr < fractal->transformCommon.maxR2d1)
-			{
-				REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
-				z *= tglad_factor2;
-				aux->DE *= tglad_factor2;
-			}
-			// z += fractal->mandelbox.offset;
-		}
+		REAL rr = dot(p, p);
+		p += fractal->mandelbox.offset;
+		m = min(max(native_recip(rr), 1.0f), native_recip(fractal->transformCommon.scale025));
+		p *= m;
+		dd *= m;
+		p -= fractal->mandelbox.offset;
+		z = p + (z - p) * fractal->transformCommon.scale1;
+		aux->DE = dd + (aux->DE - dd) * fractal->transformCommon.scale1;
 	}
 
 	// scale
@@ -97,9 +84,16 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux->color += tp * fractal->mandelbox.color.factorSp1;
+		aux->color += m * fractal->mandelbox.color.factorSp2;
+	}
+
 	// temp code
-	REAL4 p = fabs(z);
-	aux->dist = max(p.x, max(p.y, p.z));
+	REAL4 q = fabs(z);
+	aux->dist = max(q.x, max(q.y, q.z));
 	aux->dist = native_divide(aux->dist, aux->DE);
 
 	return z;

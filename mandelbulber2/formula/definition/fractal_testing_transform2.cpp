@@ -29,40 +29,35 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 {
 	CVector4 p = z;
 	double dd = aux.DE;
-	//if (!fractal->transformCommon.functionEnabledJFalse) // temp
+	double m = 0.0;
+	CVector4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	// signs.w = sign(z.w);
+	z = fabs(z);
+	z -= fractal->transformCommon.offset000;
+	double trr = z.Dot(z);
+	double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+	z += fractal->transformCommon.offset000;
+	z *= tp;
+	aux.DE *= tp;
+	z *= signs;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
 	{
-		CVector4 signs = z;
-		signs.x = sign(z.x);
-		signs.y = sign(z.y);
-		signs.z = sign(z.z);
-		signs.w = sign(z.w);
-
-		z = fabs(z);
-		CVector4 tt = fractal->mandelbox.offset;
-		z -= tt;
-
-		double trr = z.Dot(z);
-		double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
-
-		z += tt;
-		z *= tp;
-		aux.DE *= tp;
-		z *= signs;
-	}
-	//else
-	{
-		double r2 = p.Dot(p);
+		double rr = p.Dot(p);
 		p += fractal->mandelbox.offset;
-		double R = fractal->transformCommon.sqtR;
-		if (fractal->transformCommon.functionEnabledAFalse) R *= R * R * R;
-
-		if (r2 < R)
+		m = min(max(1.0 / rr, 1.0), 1.0 / fractal->transformCommon.scale025);
+		p *= m;
+		dd *= m;
+		/*if (r2 < minR)
 		{
-			p *= fractal->transformCommon.mboxFactor1;
-			dd *= fractal->transformCommon.mboxFactor1;
+			p *= 1.0 / minR;
+			dd *= 1.0 / minR;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
-				aux.color += fractal->mandelbox.color.factorSp1;
+			//	aux.color += fractal->mandelbox.color.factorSp1;
 			}
 		}
 		else if (r2 < 1.0)
@@ -71,14 +66,21 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 			dd *= 1.0 / r2;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
-				aux.color += fractal->mandelbox.color.factorSp2;
+			//	aux.color += fractal->mandelbox.color.factorSp2;
 			}
-		}
+		}*/
 		p -= fractal->mandelbox.offset;
+
+		z = p + (z - p) * fractal->transformCommon.scale1;
+		aux.DE = dd + (aux.DE - dd) * fractal->transformCommon.scale1;
+
+	}
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux.color += tp * fractal->mandelbox.color.factorSp1;
+		aux.color += m * fractal->mandelbox.color.factorSp2;
 	}
 
-	z = p + (z - p) * fractal->transformCommon.scale1;
-	aux.DE = dd + (aux.DE  - dd) * fractal->transformCommon.scale1;
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
