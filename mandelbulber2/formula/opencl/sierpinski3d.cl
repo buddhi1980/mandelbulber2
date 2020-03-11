@@ -45,24 +45,9 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// Reversed full tetra-fold;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		if (z.x + z.y < 0.0f)
-		{
-			temp.x = -z.y;
-			z.y = -z.x;
-			z.x = temp.x;
-		}
-		if (z.x + z.z < 0.0f)
-		{
-			temp.x = -z.z;
-			z.z = -z.x;
-			z.x = temp.x;
-		}
-		if (z.y + z.z < 0.0f)
-		{
-			temp.y = -z.z;
-			z.z = -z.y;
-			z.y = temp.y;
-		}
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
 	}
 
 	z *= fractal->transformCommon.scaleA2;

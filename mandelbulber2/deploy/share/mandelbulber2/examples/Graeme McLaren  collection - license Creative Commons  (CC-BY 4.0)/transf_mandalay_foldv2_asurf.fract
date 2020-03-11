@@ -1,0 +1,45 @@
+# Mandelbulber settings file
+# version 2.21
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 7300 ad00 ad00;
+camera -0.06590583096465349 -3.639563900533818 -0.6061052570730033;
+camera_distance_to_target 1.749894380569458;
+camera_rotation 0 -25.30197953519399 0;
+camera_top 0 0.4273890986479096 0.9040677841605281;
+constant_DE_threshold true;
+DE_factor 0.7571623392937008;
+DE_thresh 0.002122725422599769;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 1109;
+formula_2 186;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+keyframe_last_to_render 0;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_weight 2;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 1000 748450 2000 d9dd84 3000 aa0000 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+N 50;
+target -0.06590583096465349 -2.057540765377428 -1.353991039113626;
+[fractal_1]
+transf_addition_constant_0555 0.4 1 0.4;
+transf_function_enabledAy false;
+transf_function_enabledP_false true;
+transf_function_enabledSw_false true;
+transf_minR2_p25 0.05;
+transf_offsetA_000 0.9 -0.4 -0.2;
+transf_offsetF_000 0.5 3.1 0;
+transf_scale_2 1.5;
+[fractal_2]
+transf_addition_constant_0555 0.4 1 0.4;
+transf_function_enabledSw_false true;
+transf_minR2_p25 0.05;
+transf_offsetA_000 0 0 0.7;
+transf_rotation2 5 4 21;
+transf_scale_2 1.5;
