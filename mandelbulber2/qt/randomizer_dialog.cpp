@@ -62,6 +62,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	referenceNoise = 0.0;
 	pressedUse = false;
 	blockClose = false;
+	keyframeMode = false;
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
 	int sizeSetiing = enumRandomizerPreviewSize(gPar->Get<int>("randomizer_preview_size"));
@@ -146,6 +147,9 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	}
 
 	ui->checkBox_dont_randomize_booleans->setChecked(gPar->Get<bool>("randomizer_only_floats"));
+	ui->checkBox_dont_randomize_camera->setChecked(
+		gPar->Get<bool>("randomizer_dont_randomize_camera"));
+	ui->checkBox_dont_randomize_camera->hide();
 }
 
 cRandomizerDialog::~cRandomizerDialog()
@@ -238,6 +242,7 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	previousListOfChangedParameters = actualListOfChangedParameters;
 
 	gPar->Set("randomizer_only_floats", ui->checkBox_dont_randomize_booleans->isChecked());
+	gPar->Set("randomizer_dont_randomize_camera", ui->checkBox_dont_randomize_camera->isChecked());
 
 	QString progressBarText("Initializing Randomizer");
 	ui->progressBar->setFormat(progressBarText);
@@ -314,6 +319,8 @@ void cRandomizerDialog::AssignParameters(const QStringList &list)
 										|| varType == typeRgb);
 		parametersTree.AddChildItem(parameter, true, isFloat, 0);
 	}
+	keyframeMode = true;
+	ui->checkBox_dont_randomize_camera->show();
 }
 
 void cRandomizerDialog::RandomizeIntegerParameter(
@@ -573,7 +580,8 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 	listsOfChangedParameters[widgetIndex].clear();
 
 	int numberOfParameters = parametersTree.GetSize();
-	bool onlyFloats = ui->checkBox_dont_randomize_booleans->isChecked();
+	bool onlyFloatsOption = ui->checkBox_dont_randomize_booleans->isChecked();
+	bool skipCameraOption = ui->checkBox_dont_randomize_camera->isChecked();
 
 	if (numberOfParameters <= 1) return; // no parameters to random (only "root")
 
@@ -604,9 +612,13 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 	numberOfParametersToChange = qMin(numberOfParametersToChange, numberOfParameters);
 
 	QVector<int> listOfIndexes;
+	int globalTrialCounter = numberOfParametersToChange * 100;
 
 	for (int i = 0; i < numberOfParametersToChange; i++)
 	{
+		globalTrialCounter--;
+		if (globalTrialCounter <= 0) break;
+
 		int randomIndex = 0;
 		int trialCounter = numberOfParameters * 10;
 		do
@@ -627,11 +639,16 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 		QString fullParameterName = parametersTree.GetString(randomIndex);
 		// qDebug() << fullParameterName;
 
+		// check if camera parameter
+		bool skipCamera =
+			(skipCameraOption
+				&& (fullParameterName.contains("camera") || fullParameterName.contains("target")));
+
 		// check is parameter is enabled
 		bool skip = false;
 
 		if (!parametersTree.IsEnabled(randomIndex)
-				|| (onlyFloats && !parametersTree.IsFloat(randomIndex)))
+				|| (onlyFloatsOption && !parametersTree.IsFloat(randomIndex)) || skipCamera)
 		{
 			i--;
 			continue;
@@ -950,6 +967,7 @@ void cRandomizerDialog::slotClickedUseButton()
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	gPar->Set("randomizer_only_floats", ui->checkBox_dont_randomize_booleans->isChecked());
+	gPar->Set("randomizer_dont_randomize_camera", ui->checkBox_dont_randomize_camera->isChecked());
 
 	close();
 }

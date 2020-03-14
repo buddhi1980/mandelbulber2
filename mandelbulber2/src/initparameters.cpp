@@ -489,6 +489,7 @@ void InitParams(cParameterContainer *par)
 
 	// randomizer
 	par->addParam("randomizer_only_floats", false, morphNone, paramApp);
+	par->addParam("randomizer_dont_randomize_camera", false, morphNone, paramApp);
 
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);

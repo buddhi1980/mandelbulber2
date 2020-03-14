@@ -162,6 +162,7 @@ private:
 	double referenceNoise;
 	bool pressedUse;
 	bool blockClose;
+	bool keyframeMode;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */

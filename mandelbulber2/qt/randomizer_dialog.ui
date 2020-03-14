@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
+    <width>698</width>
     <height>693</height>
    </rect>
   </property>
@@ -18,6 +18,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>2</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
@@ -47,6 +50,13 @@
         <widget class="QCheckBox" name="checkBox_dont_randomize_booleans">
          <property name="text">
           <string>Do not randomize integers and booleans</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_dont_randomize_camera">
+         <property name="text">
+          <string>Do not randomize camera</string>
          </property>
         </widget>
        </item>
