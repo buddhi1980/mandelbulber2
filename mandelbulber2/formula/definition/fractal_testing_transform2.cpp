@@ -30,6 +30,7 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	CVector4 p = z;
 	double dd = aux.DE;
 	double m = 0.0;
+		double tp = 1.0;
 	CVector4 signs = z;
 	signs.x = sign(z.x);
 	signs.y = sign(z.y);
@@ -38,7 +39,24 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	z = fabs(z);
 	z -= fractal->transformCommon.offset000;
 	double trr = z.Dot(z);
-	double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+	}
+	else
+	{
+
+		if (trr < fractal->transformCommon.minR2p25)
+		{
+			tp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		}
+		else if (trr < fractal->transformCommon.maxR2d1)
+		{
+			tp = fractal->transformCommon.maxR2d1 / trr;
+		}
+	}
+
+	//double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
 	z += fractal->transformCommon.offset000;
 	z *= tp;
 	aux.DE *= tp;
@@ -69,6 +87,12 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 			//	aux.color += fractal->mandelbox.color.factorSp2;
 			}
 		}*/
+
+
+
+
+
+
 		p -= fractal->mandelbox.offset;
 
 		z = p + (z - p) * fractal->transformCommon.scale1;
