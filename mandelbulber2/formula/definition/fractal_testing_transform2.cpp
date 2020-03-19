@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * Testing transform2
- *https://fractalforums.org/fractal-mathematics-and-new-theories/28/fake-3d-mandelbrot-set/1787/msg17940#msg17940
+ *
  */
 
 #include "all_fractal_definitions.h"
@@ -35,17 +35,17 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	signs.x = sign(z.x);
 	signs.y = sign(z.y);
 	signs.z = sign(z.z);
-	// signs.w = sign(z.w);
+
 	z = fabs(z);
 	z -= fractal->transformCommon.offset000;
 	double trr = z.Dot(z);
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
 		tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+		if (fractal->transformCommon.functionEnabledJFalse)tp = min(max(1.0 / trr, 1.0 / fractal->transformCommon.maxR2d1), fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25);
 	}
 	else
 	{
-
 		if (trr < fractal->transformCommon.minR2p25)
 		{
 			tp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
@@ -56,13 +56,14 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-	//double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
 	z += fractal->transformCommon.offset000;
 	z *= tp;
 	aux.DE *= tp;
 	z *= signs;
 
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		double rr = p.Dot(p);
 		p += fractal->mandelbox.offset;
@@ -87,11 +88,6 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 			//	aux.color += fractal->mandelbox.color.factorSp2;
 			}
 		}*/
-
-
-
-
-
 
 		p -= fractal->mandelbox.offset;
 
