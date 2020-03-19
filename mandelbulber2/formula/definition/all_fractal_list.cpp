@@ -43,6 +43,9 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 {
 	//====================== FRACTAL LIST - START ==================
 	fractalList->append(new cFractalNone());
+#ifdef USE_OPENCL
+	fractalList->append(new cFractalCustom());
+#endif
 	//------------------------ ANALYTIC DE FORMULAS ----------------------
 	// ----- Logarithmic -------
 	fractalList->append(new cFractalAexion());

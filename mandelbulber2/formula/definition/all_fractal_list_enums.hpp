@@ -99,7 +99,7 @@ enum enumFractalFormula
 	quaternion3d = 62,
 	aexionOctopusMod = 63,
 	aboxMod1 = 64,				 // fix scale v2.11 v2.12
-	mandelbulbMulti = 65,	// updated V2.08
+	mandelbulbMulti = 65,	 // updated V2.08
 	benesiPineTree = 66,	 // updated addCpixel V2.16
 	benesiT1PineTree = 67, // updated V2.09, rot2 v2.14
 	msltoeSym3Mod = 68,
@@ -407,6 +407,7 @@ enum enumFractalFormula
 	testingTransform = 2104,
 	testingTransform2 = 2105,
 
+	custom = 10000,
 };
 }
 
