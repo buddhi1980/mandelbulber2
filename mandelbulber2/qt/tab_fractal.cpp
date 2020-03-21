@@ -39,6 +39,7 @@
 
 #include "ui_tab_fractal.h"
 
+#include "custom_formula_editor.h"
 #include "dock_fractal.h"
 
 #include "formula/definition/all_fractal_list.hpp"
@@ -164,16 +165,32 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		if (fractalWidget) delete fractalWidget;
 		fractalWidget = nullptr;
 
-		MyUiLoader loader;
-		QFile uiFile(uiFilename);
+		bool widgetLoaded = false;
 
-		if (uiFile.exists())
+		if (formulaName == "custom")
 		{
-			uiFile.open(QFile::ReadOnly);
-			fractalWidget = loader.load(&uiFile);
+			fractalWidget = new cCustomFormulaEditor();
+			widgetLoaded = true;
+		}
+		else
+		{
+			MyUiLoader loader;
+			QFile uiFile(uiFilename);
+
+			if (uiFile.exists())
+			{
+				uiFile.open(QFile::ReadOnly);
+				fractalWidget = loader.load(&uiFile);
+
+				uiFile.close();
+				widgetLoaded = true;
+			}
+		}
+
+		if (widgetLoaded)
+		{
 			QVBoxLayout *layout = ui->verticalLayout_fractal;
 			layout->addWidget(fractalWidget);
-			uiFile.close();
 
 			if (gPar->Get<bool>("ui_colorize"))
 				cInterface::ColorizeGroupBoxes(fractalWidget, gPar->Get<int>("ui_colorize_random_seed"));

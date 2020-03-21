@@ -1123,6 +1123,9 @@ void InitFractalParams(cParameterContainer *par)
 	// dummy parameter for information group box
 	par->addParam("info", false, morphNone, paramStandard);
 
+	// parameters for coustom formulas
+	par->addParam("custom_formula_name", QString(), morphAkima, paramStandard);
+
 	WriteLog("Fractal parameters initialization finished", 3);
 }
 

@@ -10,9 +10,6 @@
     <height>932</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string notr="true">mandelbox</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>2</number>
@@ -30,7 +27,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QComboBox" name="comboBox_custom_formula_list"/>
+    <widget class="QComboBox" name="comboBox_custom_formula_name"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
