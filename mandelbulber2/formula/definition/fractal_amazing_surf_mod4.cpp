@@ -51,6 +51,9 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	if (fractal->transformCommon.functionEnabledJFalse)
+		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	CVector4 zCol = z;
 
 	// no z fold
@@ -94,6 +97,9 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (zCol.y != oldZ.y)
 			colorAdd += fractal->mandelbox.color.factor.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+		if (zCol.z != oldZ.z)
+			colorAdd += fractal->mandelbox.color.factor.z
+									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
 				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;

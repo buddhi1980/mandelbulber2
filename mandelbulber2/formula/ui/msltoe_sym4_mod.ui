@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>msltoe_sym4_mod</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -700,7 +700,7 @@
         <item row="2" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
-           <string notr="true">fabs</string>
+           <string notr="true">abs</string>
           </property>
          </widget>
         </item>
@@ -735,7 +735,7 @@
         <item row="1" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
-           <string notr="true">fabs</string>
+           <string notr="true">abs</string>
           </property>
          </widget>
         </item>
@@ -791,7 +791,7 @@
         <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
-           <string notr="true">fabs</string>
+           <string notr="true">abs</string>
           </property>
          </widget>
         </item>
@@ -1062,6 +1062,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1071,11 +1076,6 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

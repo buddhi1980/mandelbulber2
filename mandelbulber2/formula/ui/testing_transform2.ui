@@ -66,12 +66,12 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_31">
           <property name="text">
-           <string>minimumR2:</string>
+           <string>1 / minR2:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_minR2_p25">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_4">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -101,14 +101,14 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_33">
           <property name="text">
-           <string>maximumR2:</string>
+           <string>1 / maxR2:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_maxR2_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -561,7 +561,7 @@ offset:</string>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -936,22 +936,5 @@ offset:</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>checkBox_transf_function_enabledA_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_transf_maxR2_1</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>31</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>210</x>
-     <y>104</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
