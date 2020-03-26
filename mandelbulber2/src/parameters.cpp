@@ -656,6 +656,11 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 	map.insert(QString("target.y"), QString::number(target.y, 'g', 16));
 	map.insert(QString("target.z"), QString::number(target.z, 'g', 16));
 
+	CVector3 top = Get<CVector3>("camera_top");
+	map.insert(QString("top.x"), QString::number(top.x, 'g', 16));
+	map.insert(QString("top.y"), QString::number(top.y, 'g', 16));
+	map.insert(QString("top.z"), QString::number(top.z, 'g', 16));
+
 	CVector3 rotation = Get<CVector3>("camera_rotation");
 	map.insert(QString("camera_rotation.z"), QString::number(rotation.x));							// yaw
 	map.insert(QString("camera_rotation.x"), QString::number(0.5 - M_PI - rotation.y)); // pitch
