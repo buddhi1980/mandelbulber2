@@ -61,10 +61,14 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
 			REAL4 PtOne = z - fractal->transformCommon.offset000;
-			REAL4 PtTwo = z - fractal->transformCommon.offsetA000;
 			REAL distOne = length(PtOne); // * weight
-			REAL distTwo = length(PtTwo);
-			orbitPoints = min(distOne, distTwo);
+			orbitPoints = distOne;
+			if (fractal->transformCommon.functionEnabledAzFalse)
+			{
+				REAL4 PtTwo = z - fractal->transformCommon.offsetA000;
+				REAL distTwo = length(PtTwo);
+				orbitPoints = min(orbitPoints, distTwo);
+			}
 			if (fractal->transformCommon.functionEnabledAxFalse)
 			{
 				REAL4 PtThree = z - fractal->transformCommon.offsetF000;

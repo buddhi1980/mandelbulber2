@@ -73,10 +73,14 @@ void cFractalTransfHybridColor2::FormulaCode(
 		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
 			CVector4 PtOne = z - fractal->transformCommon.offset000;
-			CVector4 PtTwo = z - fractal->transformCommon.offsetA000;
 			double distOne = PtOne.Length(); // * weight
-			double distTwo = PtTwo.Length();
-			orbitPoints = min(distOne, distTwo);
+			orbitPoints = distOne;
+			if (fractal->transformCommon.functionEnabledAzFalse)
+			{
+				CVector4 PtTwo = z - fractal->transformCommon.offsetA000;
+				double distTwo = PtTwo.Length();
+				orbitPoints = min(orbitPoints, distTwo);
+			}
 			if (fractal->transformCommon.functionEnabledAxFalse)
 			{
 				CVector4 PtThree = z - fractal->transformCommon.offsetF000;

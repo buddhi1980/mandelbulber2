@@ -37,9 +37,9 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	signs.z = sign(z.z);
 
 	z = fabs(z);
-	// z -= fractal->transformCommon.offset000;
+	z -= fractal->transformCommon.offset000;
 	double trr = z.Dot(z);
-	if (!fractal->transformCommon.functionEnabledAFalse)
+	// if (!fractal->transformCommon.functionEnabledAFalse)
 	{
 		tp = min(max(1.0 / trr, fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 	}

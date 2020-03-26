@@ -20,6 +20,20 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
+		z += fractal->transformCommon.offset000;
+		REAL rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.scaleG1, rr);
+		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= fractal->transformCommon.scaleA1;
+	}
+
 	// box offset
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
