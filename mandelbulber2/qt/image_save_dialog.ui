@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>545</height>
+    <width>556</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,8 +33,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>465</width>
-          <height>527</height>
+          <width>538</width>
+          <height>681</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -219,13 +219,98 @@
           </widget>
          </item>
          <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Z-buffer options</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="MyCheckBox" name="checkBox_zbuffer_invert">
+              <property name="text">
+               <string>Invert z-buffer</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="MyCheckBox" name="checkBox_zbuffer_logarithmic">
+              <property name="text">
+               <string>Logarithmic scale</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="MyGroupBox" name="groupCheck_zbuffer_constant_range">
+              <property name="title">
+               <string>Use contant depth range</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_5">
+               <property name="leftMargin">
+                <number>2</number>
+               </property>
+               <property name="topMargin">
+                <number>2</number>
+               </property>
+               <property name="rightMargin">
+                <number>2</number>
+               </property>
+               <property name="bottomMargin">
+                <number>2</number>
+               </property>
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>maximum z-depth</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>minimum z-depth</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="MyLineEdit" name="logedit_zbuffer_min_depth"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="MyLineEdit" name="logedit_zbuffer_max_depth"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayout_10">
            <item>
-            <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled" native="true">
-             <property name="title" stdset="0">
+            <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled">
+             <property name="title">
               <string>Optional Image Channels</string>
              </property>
-             <property name="checkable" stdset="0">
+             <property name="checkable">
               <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_optional_image_channels">
@@ -393,7 +478,7 @@ and will only be present after enabling and re-render.</string>
                 </property>
                </widget>
               </item>
-			  <item row="6" column="0">
+              <item row="6" column="0">
                <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
                 <property name="text">
                  <string>World Normal</string>
@@ -552,8 +637,9 @@ and will only be present after enabling and re-render.</string>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
-   <extends>QWidget</extends>
+   <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

@@ -300,15 +300,30 @@ QStringList ImageFileSaveJPG::SaveImage()
 			{
 				float *zbuffer = image->GetZBufferPtr();
 				quint64 size = image->GetWidth() * image->GetHeight();
+
+				bool invertZ = gPar->Get<bool>("zbuffer_invert");
+				bool logarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
+				bool constRange = gPar->Get<bool>("zbuffer_constant_range");
+
 				unsigned char *zBuffer8Bit = new unsigned char[size];
 				float minZ = float(1.0e50);
 				float maxZ = 0.0;
-				for (quint64 i = 0; i < size; i++)
+
+				if (constRange)
 				{
-					float z = zbuffer[i];
-					if (z > maxZ && z < 1e19f) maxZ = z;
-					if (z < minZ) minZ = z;
+					minZ = gPar->Get<double>("zbuffer_min_depth");
+					maxZ = gPar->Get<double>("zbuffer_max_depth");
 				}
+				else
+				{
+					for (quint64 i = 0; i < size; i++)
+					{
+						float z = zbuffer[i];
+						if (z > maxZ && z < 1e19f) maxZ = z;
+						if (z < minZ) minZ = z;
+					}
+				}
+
 				float kZ = log(maxZ / minZ);
 
 				for (quint64 y = 0; y < image->GetHeight(); y++)
@@ -317,10 +332,20 @@ QStringList ImageFileSaveJPG::SaveImage()
 					{
 						quint64 ptr = (x + y * image->GetWidth());
 						float z = image->GetPixelZBuffer(x, y);
-						float z1 = log(z / minZ) / kZ;
-						int intZ = int(z1 * 240);
+						float z1;
+						if (logarithmicScale)
+						{
+							z1 = log(z / minZ) / kZ;
+						}
+						else
+						{
+							z1 = (z - minZ) / (maxZ - minZ);
+						}
+						if (z1 < 0) z1 = 0.0;
+						if (z1 > 1.0) z1 = 1.0;
+						int intZ = int(z1 * 254);
 						if (z > 1e19f) intZ = 255;
-						zBuffer8Bit[ptr] = uchar(intZ);
+						zBuffer8Bit[ptr] = (invertZ) ? uchar(255 - intZ) : uchar(intZ);
 					}
 				}
 				SaveJPEGQtGreyscale(fullFilename, zBuffer8Bit, image->GetWidth(), image->GetHeight(),
@@ -558,14 +583,27 @@ void ImageFileSavePNG::SavePNG(
 			{
 				float *zbuffer = image->GetZBufferPtr();
 				uint64_t size = width * height;
-				for (uint64_t i = 0; i < size; i++)
+
+				bool constRange = gPar->Get<bool>("zbuffer_constant_range");
+
+				if (constRange)
 				{
-					float z = zbuffer[i];
-					if (z > maxZ && z < 1e19) maxZ = z;
-					if (z < minZ) minZ = z;
+					minZ = gPar->Get<double>("zbuffer_min_depth");
+					maxZ = gPar->Get<double>("zbuffer_max_depth");
+				}
+				else
+				{
+					for (uint64_t i = 0; i < size; i++)
+					{
+						float z = zbuffer[i];
+						if (z > maxZ && z < 1e19) maxZ = z;
+						if (z < minZ) minZ = z;
+					}
 				}
 			}
 			float kZ = log(maxZ / minZ);
+			bool zLogarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
+			bool invertZ = gPar->Get<bool>("zbuffer_invert");
 
 			for (uint64_t y = 0; y < height; y++)
 			{
@@ -609,9 +647,21 @@ void ImageFileSavePNG::SavePNG(
 							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 							{
 								float z = image->GetPixelZBuffer(x, y);
-								float z1 = log(z / minZ) / kZ;
-								int intZ = int(z1 * 60000);
+								float z1;
+								if (zLogarithmicScale)
+								{
+									z1 = log(z / minZ) / kZ;
+								}
+								else
+								{
+									z1 = (z - minZ) / (maxZ - minZ);
+								}
+								if (z1 < 0) z1 = 0.0;
+								if (z1 > 1.0) z1 = 1.0;
+								int intZ = int(z1 * 65534);
 								if (z > 1e19f) intZ = 65535;
+
+								if (invertZ) intZ = 65535 - intZ;
 
 								unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
 								*typedColorPtr = static_cast<unsigned short>(intZ);
@@ -619,9 +669,21 @@ void ImageFileSavePNG::SavePNG(
 							else
 							{
 								float z = image->GetPixelZBuffer(x, y);
-								float z1 = log(z / minZ) / kZ;
-								int intZ = int(z1 * 240);
+								float z1;
+								if (zLogarithmicScale)
+								{
+									z1 = log(z / minZ) / kZ;
+								}
+								else
+								{
+									z1 = (z - minZ) / (maxZ - minZ);
+								}
+								if (z1 < 0) z1 = 0.0;
+								if (z1 > 1.0) z1 = 1.0;
+								int intZ = int(z1 * 254);
 								if (z > 1e19) intZ = 255;
+
+								if (invertZ) intZ = 255 - intZ;
 
 								unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
 								*typedColorPtr = static_cast<unsigned char>(intZ);
@@ -1425,14 +1487,30 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	{
 		float *zbuffer = image->GetZBufferPtr();
 		uint64_t size = width * height;
-		for (uint64_t i = 0; i < size; i++)
+
+		bool constRange = gPar->Get<bool>("zbuffer_constant_range");
+
+		if (constRange)
 		{
-			float z = zbuffer[i];
-			if (z > maxZ && z < 1e19) maxZ = z;
-			if (z < minZ) minZ = z;
+			minZ = gPar->Get<double>("zbuffer_min_depth");
+			maxZ = gPar->Get<double>("zbuffer_max_depth");
+		}
+		else
+		{
+			for (uint64_t i = 0; i < size; i++)
+			{
+				float z = zbuffer[i];
+				if (z > maxZ && z < 1e19) maxZ = z;
+				if (z < minZ) minZ = z;
+			}
 		}
 		rangeZ = maxZ - minZ;
 	}
+
+	bool zLogarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
+	bool invertZ = gPar->Get<bool>("zbuffer_invert");
+	float kZ = log(maxZ / minZ);
+
 	for (uint64_t y = 0; y < height; y++)
 	{
 		for (uint64_t x = 0; x < width; x++)
@@ -1533,15 +1611,47 @@ bool ImageFileSaveTIFF::SaveTIFF(
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
+						float z = image->GetPixelZBuffer(x, y);
+						float z1;
+						if (zLogarithmicScale)
+						{
+							z1 = log(z / minZ) / kZ;
+						}
+						else
+						{
+							z1 = (z - minZ) / (maxZ - minZ);
+						}
+						if (z1 < 0) z1 = 0.0;
+						if (z1 > 1.0) z1 = 1.0;
+						int intZ = int(z1 * 65534);
+						if (z > 1e19f) intZ = 65535;
+
+						if (invertZ) intZ = 65535 - intZ;
+
 						unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
-						*typedColorPtr =
-							static_cast<unsigned short>(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 65535);
+						*typedColorPtr = static_cast<unsigned short>(intZ);
 					}
 					else
 					{
+						float z = image->GetPixelZBuffer(x, y);
+						float z1;
+						if (zLogarithmicScale)
+						{
+							z1 = log(z / minZ) / kZ;
+						}
+						else
+						{
+							z1 = (z - minZ) / (maxZ - minZ);
+						}
+						if (z1 < 0) z1 = 0.0;
+						if (z1 > 1.0) z1 = 1.0;
+						int intZ = int(z1 * 254);
+						if (z > 1e19) intZ = 255;
+
+						if (invertZ) intZ = 255 - intZ;
+
 						unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
-						*typedColorPtr =
-							static_cast<unsigned char>(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 255);
+						*typedColorPtr = static_cast<unsigned char>(intZ);
 					}
 				}
 				break;

@@ -549,6 +549,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("save_channels_in_separate_folders", false, morphNone, paramApp);
 	par->addParam("optional_image_channels_enabled", false, morphNone, paramApp);
 
+	par->addParam("zbuffer_invert", false, morphNone, paramApp);
+	par->addParam("zbuffer_logarithmic", true, morphNone, paramApp);
+	par->addParam("zbuffer_constant_range", false, morphNone, paramApp);
+	par->addParam("zbuffer_max_depth", 10.0, morphNone, paramApp);
+	par->addParam("zbuffer_min_depth", 1e-4, morphNone, paramApp);
+
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
