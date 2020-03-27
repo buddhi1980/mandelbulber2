@@ -10,101 +10,12 @@
     <memberTool name="import_anim"/>
     <memberTool name="export_anim"/>
     <memberTool name="create_render_dir"/>
+    <memberTool name="create_mdb_cam0"/>
   </toolshelf>
 
   <tool name="reload_som_mandelbulber" label="Reload Module" icon="SOP_python">
     <script scriptType="python"><![CDATA[import hou_mandelbulber
 reload(hou_mandelbulber)]]></script>
-  </tool>
-
-  <tool name="sim_import_nukecam" label="Import Nuke Cam" icon="SOP_alembicarchive">
-    <script scriptType="python"><![CDATA[#abc
-abc_file = hou.ui.selectFile(start_directory=None, title="Choose Cam Alembic File", file_type=hou.fileType.Geometry, pattern="*.abc", chooser_mode=hou.fileChooserMode.Read, width=800, height=600)
-
-abc_archive = hou.node("obj/").createNode("alembicarchive", "nukecam_alembic")
-
-abc_archive.parm("channelRef").set(1)
-abc_archive.parm("fileName").set(abc_file)
-
-abc_archive.parm("buildHierarchy").pressButton()
-abc_archive.setDisplayFlag(0)
-
-
-#fetch
-fetch = hou.node("obj/").createNode("fetch", "fetch_nukecam")
-fetch.parm("useinputoffetched").set(1)
-fetch.setInput(0, abc_archive)
-fetch.moveToGoodPosition()
-fetch.setDisplayFlag(0)
-
-cam_center = None
-stereo = False
-
-cam_node = hou.node(abc_archive.path()+"/Cameras")
-
-try:
-    for child in cam_node.children():
-        if "cam_center" in child.name():
-            cam_center = child
-            stereo = True
-    
-    cam_center_path = cam_center.path()
-    fetch.parm("fetchobjpath").set(cam_center_path)
-    
-    
-    #create som camrig
-    camrig = hou.node("obj/").createNode("som_camrig_vr")
-    camrig.setInput(0, fetch)
-    camrig.moveToGoodPosition()
-    
-    
-    #set stereo width expression
-    
-    expr = '''
-self = hou.pwd()
-
-stereo_width = 0
-stereo = False
-cam_left = None
-
-try:
-    fetch = self.inputAncestors()[0]
-    fetchobjpath = fetch.parm("fetchobjpath").eval()
-    camobjpath = fetchobjpath.split("/")[0:-1]
-    camobjpath = "/".join(camobjpath)
-    
-    cam_alembic = hou.node(camobjpath)
-    
-    for child in cam_alembic.children():
-        if "cam_left" in child.name():
-            cam_left = child
-            stereo = True
-    
-            
-    if stereo:
-        cam_left_m = cam_left.worldTransformAtTime(hou.time())
-        cam_left_x = cam_left_m.extractTranslates()[0]
-        
-        stereo_width = -cam_left_x*2
-    
-    
-except:
-    print "Exception"
-
-    
-
-return stereo_width'''
-    
-    
-    stereoparm = camrig.parm("interaxial")
-    stereoparm.setExpression(expr, hou.exprLanguage.Python)
-    
-    
-except:
-    print "No Camera containg 'cam_center' in Name. Aborting."
-    
-        
-]]></script>
   </tool>
 
   <tool name="import_anim" label="Import Animation" icon="ROP_channel">
@@ -126,5 +37,12 @@ hou_mandelbulber.export_animation()]]></script>
     <script scriptType="python"><![CDATA[import hou_mandelbulber
 
 hou_mandelbulber.create_render_dir()]]></script>
+  </tool>
+
+  <tool name="create_mdb_cam0" label="Create MDB Cam" icon="OBJ_camera">
+    <helpText><![CDATA["""Recreates Houdini Camera from rendered Mandelbulber .exr Sequence using .exr Metadata. Sets up Scene Animation Range based on Sequence. Supports Perspective, Stereo, Equirectangular and Stereo Equirectangular Cameras."""]]></helpText>
+    <script scriptType="python"><![CDATA[import hou_mandelbulber
+
+hou_mandelbulber.create_cam()]]></script>
   </tool>
 </shelfDocument>

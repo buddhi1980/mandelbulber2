@@ -6,8 +6,8 @@ Mandelbulber VFX Tools
 <br>
 
 ## About
-**Mandelbulber VFX Tools** is a work in progress collection of little Tools and helper Scripts to integrate *Mandelbulber* Frcatals into a VFX Pipeline developed by [Adrian Meyer](https://github.com/MeyerAdrian).
-Mainly for *©SideFX Houdini* and *©The Foundry's Nuke*.
+**Mandelbulber VFX Tools** is a work in progress collection of little Tools and helper Scripts to integrate *Mandelbulber* Fractals into a VFX Pipeline.
+Mainly *©SideFX Houdini* and *©The Foundry's Nuke*.
 All the code is developed during my studies at Animationsinstitut at Filmakademie Baden-Württemberg in the course Animation & Visual Effects.
 
 <br>
@@ -16,19 +16,27 @@ All the code is developed during my studies at Animationsinstitut at Filmakademi
 **Mandelbulber VFX Tools** is in a work in progress, prototype stage and for experimental use.
 It may contain bugs and the code is not fully cleaned up. Feel free to customize and enhance to your needs.
 
-*Compatible with **Houdini 17.+ | Tested with 17.5.294***
-*Compatible with **Mandelbulber 2.18+ | Tested with 2.18-1***
+*Compatible with **Houdini 17.+ | Tested with 17.5.425***
+*Compatible with **Mandelbulber 2.22+ | Tested with 2.22***
 
 <br>
 
 ## Installation
-* Clone or copy repository. Add path to repository into **HOUDINI_PATH** environment variable (e.g. in *houdini.env* file)
+* Clone or copy repository.
+Add path to repository into **HOUDINI_PATH** environment variable (e.g. in *houdini.env* file)
     ```
     HOUDINI_PATH = &;C:/Users/ameyer/Documents/git/mandelbulber_vfx_tools/houdini
     ```
 * Add **HOU Mandelbulber** shelf to Houdini shelfes
 
 * Nuke Tools not yet released...
+
+* Optional: Git SVN
+Download SVN
+Run the following command:
+	```
+	svn export https://github.com/buddhi1980/mandelbulber2.git/trunk/contrib/vfx_tools
+	```
 
 <br>
 
@@ -38,6 +46,13 @@ It may contain bugs and the code is not fully cleaned up. Feel free to customize
 * Click on *Import Animation* Shelf Tool and select .fract File
 * Edit Keyframes in Houdini Animation Editor Pane
 * Export back to Mandelbulber .fract File with *Export Animation* Shelf Tool
+
+#### Import Mandelbulber Camera to Houdini
+* Open Houdini / Open Python Shell / Open *HOU Mandelbulber Shelf*
+* Click on *Create MDB Cam* Shelf Tool and select first Frame of Mandelbulber .exr Sequence
+* A animated Houdini Camera matching the Mandelbulber Camera will be created based on .exr Metadata
+* Can be used within Houdini or exported as Alembic
+* Supports Perspective, Stereo, Equirectangular and Stereo Equirectangular Cameras
 
 <br>
 
