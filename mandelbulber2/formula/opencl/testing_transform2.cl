@@ -27,11 +27,11 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	z = fabs(z);
 	z -= fractal->transformCommon.offset000;
 	REAL trr = dot(z, z);
-	// if (!fractal->transformCommon.functionEnabledAFalse)
+	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
 		tp = min(max(native_recip(trr), fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 	}
-	/*else
+	else
 	{
 		if (trr < fractal->transformCommon.minR2p25)
 		{
@@ -41,7 +41,23 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			tp = native_divide(fractal->transformCommon.maxR2d1 , trr);
 		}
-	}*/
+	}
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		if (trr < fractal->transformCommon.scale1)
+		{
+
+			tp = native_recip(trr)
+			tp max(tp, fractal->transformCommon.scale4);
+		}
+		else
+		{
+			tp = fractal->transformCommon.scale1;
+		}
+
+	}
+
+
 
 	z += fractal->transformCommon.offset000;
 	z *= tp;
@@ -53,11 +69,26 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		REAL rr = dot(p, p);
-		p += fractal->mandelbox.offset;
+		if (rr < 1.0)
+		{
+			p += fractal->mandelbox.offset;
+			if (rr < fractal->transformCommon.scale025)
+				m = fractal->transformCommon.scale025;
+			else m = rr;
+			m = native_recip(m);
+			p *= m;
+			dd *= m;
+			p -= fractal->mandelbox.offset;
+		}
+
+
+
+
+		/*p += fractal->mandelbox.offset;
 		m = min(max(native_recip(rr), 1.0f), native_recip(fractal->transformCommon.scale025));
 		p *= m;
 		dd *= m;
-		p -= fractal->mandelbox.offset;
+		p -= fractal->mandelbox.offset;*/
 
 		z = p + (z - p) * fractal->transformCommon.scale1;
 		aux->DE = dd + (aux->DE - dd) * fractal->transformCommon.scale1;

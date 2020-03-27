@@ -39,11 +39,11 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	z = fabs(z);
 	z -= fractal->transformCommon.offset000;
 	double trr = z.Dot(z);
-	// if (!fractal->transformCommon.functionEnabledAFalse)
+	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
 		tp = min(max(1.0 / trr, fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 	}
-	/* else
+	else
 	{
 		if (trr < fractal->transformCommon.scale4)
 		{
@@ -53,7 +53,24 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 		{
 			tp = 1.0 / fractal->transformCommon.scale1 / trr;
 		}
-	}*/
+	}
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		if (trr < fractal->transformCommon.scale1)
+		{
+
+			tp = 1.0 / trr;
+			tp = max(tp, fractal->transformCommon.scale4);
+		}
+		else
+		{
+			tp = fractal->transformCommon.scale1;
+		}
+
+	}
+
+
 
 	z += fractal->transformCommon.offset000;
 	z *= tp;
@@ -65,30 +82,29 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		double rr = p.Dot(p);
-		p += fractal->mandelbox.offset;
-		m = min(max(1.0 / rr, 1.0), 1.0 / fractal->transformCommon.scale025);
-		p *= m;
-		dd *= m;
-		/*if (r2 < minR)
+		/*if (rr < 1.0)
 		{
-			p *= 1.0 / minR;
-			dd *= 1.0 / minR;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-			//	aux.color += fractal->mandelbox.color.factorSp1;
-			}
-		}
-		else if (r2 < 1.0)
-		{
-			p *= 1.0 / r2;
-			dd *= 1.0 / r2;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-			//	aux.color += fractal->mandelbox.color.factorSp2;
-			}
+			p += fractal->mandelbox.offset;
+			m = max(rr, fractal->transformCommon.scale025);
+			m = 1.0 / m;
+			p *= m;
+			dd *= m;
+			p -= fractal->mandelbox.offset;
 		}*/
 
-		p -= fractal->mandelbox.offset;
+
+		if (rr < 1.0)
+		{
+			p += fractal->mandelbox.offset;
+			if (rr < fractal->transformCommon.scale025)
+				m = fractal->transformCommon.scale025;
+			else m = rr;
+			m = 1.0 / m;
+			p *= m;
+			dd *= m;
+			p -= fractal->mandelbox.offset;
+		}
+
 
 		z = p + (z - p) * fractal->transformCommon.scaleA1;
 		aux.DE = dd + (aux.DE - dd) * fractal->transformCommon.scaleA1;
