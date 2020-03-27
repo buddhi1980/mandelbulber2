@@ -31,24 +31,26 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		tp = min(max(native_recip(trr), fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 	}
-	else
+	/*else
 	{
-		if (trr < fractal->transformCommon.minR2p25)
+		if (trr < fractal->transformCommon.scale4)
 		{
-			tp = native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+			tp = native_divide(fractal->transformCommon.scale4, fractal->transformCommon.scale1);
 		}
-		else if (trr < fractal->transformCommon.maxR2d1)
+		else if (trr < fractal->transformCommon.scale1)
 		{
-			tp = native_divide(fractal->transformCommon.maxR2d1 , trr);
+			tp = native_divide(fractal->transformCommon.scale1, trr);
+			tp = native_recip(tp);
 		}
-	}
+	}*/
+
 	if (fractal->transformCommon.functionEnabledJFalse)
 	{
 		if (trr < fractal->transformCommon.scale1)
 		{
 
 			tp = native_recip(trr)
-			tp max(tp, fractal->transformCommon.scale4);
+			tp = min(tp, fractal->transformCommon.scale4);
 		}
 		else
 		{
