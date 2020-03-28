@@ -18,7 +18,7 @@
 
 REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledMFalse)
+	if (fractal->transformCommon.functionEnabledM)
 	{
 
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -87,13 +87,13 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			z.z = temp;
 		}
 
-		z *= fractal->transformCommon.scale2; // 3
+		z *= fractal->transformCommon.scale3;
 
 		z.x -= 2.0f;
 		z.y -= 2.0f;
 		if (z.z > 1.0f) z.z -= 2.0f;
 
-		aux->DE *= fractal->transformCommon.scale2; // 3
+		aux->DE *= fractal->transformCommon.scale2;
 	}
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
@@ -110,16 +110,16 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		z.y = cth * native_sin(ph) * rp;
 		z.z = native_sin(th) * rp;
 	}
-
-	z += fractal->transformCommon.offset000;
-
-	z += aux->c * fractal->transformCommon.constantMultiplier111;
-
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+	z += fractal->transformCommon.offset000;
+
+	z += aux->c * fractal->transformCommon.constantMultiplier111;
+
+
 
 	// THE FOLLOWING CAN BE A TRANSFORM
 
@@ -188,7 +188,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL m = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), dd));
+		REAL m = max(rxy - fractal->transformCommon.offsetT1, native_divide(fabs(rxy * z.z), dd));
 		dd = native_divide(m, aux->DE);
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)

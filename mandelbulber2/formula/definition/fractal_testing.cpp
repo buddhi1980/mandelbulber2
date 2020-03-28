@@ -29,7 +29,7 @@ cFractalTesting::cFractalTesting() : cAbstractFractal()
 
 void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledMFalse)
+	if (fractal->transformCommon.functionEnabledM)
 	{
 
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -86,13 +86,13 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 		if (z.x - z.z < 0.0) swap(z.x, z.z);
 		if (z.y - z.z < 0.0) swap(z.y, z.z);
 
-		z *= fractal->transformCommon.scale2; // 3
+		z *= fractal->transformCommon.scale3; // 3
 
 		z.x -= 2.0;
 		z.y -= 2.0;
 		if (z.z > 1.0) z.z -= 2.0;
 
-		aux.DE *= fractal->transformCommon.scale2; // 3
+		aux.DE *= fractal->transformCommon.scale3; // 3
 	}
 
 	// bulb
@@ -111,16 +111,16 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 		z.y = cth * sin(ph) * rp;
 		z.z = sin(th) * rp;
 	}
-
-	z += fractal->transformCommon.offset000;
-
-	z += aux.c * fractal->transformCommon.constantMultiplier111;
-
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	z += fractal->transformCommon.offset000;
+
+	z += aux.c * fractal->transformCommon.constantMultiplier111;
+
+
 
 	// THE FOLLOWING CAN BE A TRANSFORM
 
@@ -189,7 +189,7 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double m = max(rxy - fractal->transformCommon.offsetA1, fabs(rxy * z.z) / dd);
+		double m = max(rxy - fractal->transformCommon.offsetT1, fabs(rxy * z.z) / dd);
 		dd = m / aux.DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
