@@ -6,6 +6,7 @@ v2.22 (??? 2020)
 
 - modified fractal formulas
    sierpinski3d, fixed add reverse
+   transfDEControls pk offset default = 1
 
 v2.21 (March 2020)
 - Added new fractal formulas

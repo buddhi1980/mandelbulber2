@@ -42,9 +42,25 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
 			aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
 		}
+		// scale
+		REAL useScale = 1.0f;
+		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 
-		z *= fractal->transformCommon.scale2;
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale2), 1.0f);
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux->i >= fractal->transformCommon.startIterationsK
+				&& aux->i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA -= vary;
+		}
+
+
+		// z *= fractal->transformCommon.scale2;
+		// aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale2), 1.0f);
 	}
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
@@ -172,7 +188,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL m = max(rxy - aux->pseudoKleinianDE, native_divide(fabs(rxy * z.z), dd));
+		REAL m = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), dd));
 		dd = native_divide(m, aux->DE);
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)

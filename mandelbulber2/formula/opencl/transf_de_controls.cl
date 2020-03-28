@@ -48,7 +48,7 @@ REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL pkD = max(rxy - fractal->transformCommon.offsetA0, native_divide(fabs(rxy * z.z), rd));
+		REAL pkD = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
 		rd = native_divide(pkD, aux->DE);
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
@@ -70,13 +70,13 @@ REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				break;
 			case multi_combo3Cl_type2:
 				rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-				mixA = max(rxy - fractal->transformCommon.offsetA0, native_divide(fabs(rxy * z.z), rd));
+				mixA = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
 				mixB = rd;
 				break;
 			case multi_combo3Cl_type3:
 				mixA = 0.5f * rd * log(rd);
 				rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-				mixB = max(rxy - fractal->transformCommon.offsetA0, native_divide(fabs(rxy * z.z), rd));
+				mixB = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
 				break;
 		}
 		rd = native_divide((mad((mixB - mixA), fractal->transformCommon.scale1, mixA)), aux->DE);

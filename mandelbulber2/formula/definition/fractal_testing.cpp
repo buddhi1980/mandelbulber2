@@ -54,9 +54,28 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 			aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 		}
 
-		z *= fractal->transformCommon.scale2;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
+		// scale
+		double useScale = 1.0;
+		useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			aux.actualScaleA -= vary;
+		}
+
+
+		//z *= fractal->transformCommon.scale2;
+		//aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) + 1.0;
 	}
+
+	// menger
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		z.x = fabs(z.x);
@@ -75,6 +94,8 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 
 		aux.DE *= fractal->transformCommon.scale2; // 3
 	}
+
+	// bulb
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		// if (aux.r < 1e-21) aux.r = 1e-21;
@@ -168,7 +189,7 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		double rxy = sqrt(z.x * z.x + z.y * z.y);
-		double m = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / dd);
+		double m = max(rxy - fractal->transformCommon.offsetA1, fabs(rxy * z.z) / dd);
 		dd = m / aux.DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)

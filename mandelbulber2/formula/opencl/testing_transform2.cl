@@ -31,6 +31,13 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		tp = min(max(native_recip(trr), fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 	}
+	else
+	{
+		tp = trr + sin(trr * M_PI * fractal->transformCommon.scale2) * fractal->transformCommon.scaleC1 + fractal->transformCommon.scaleC1;
+		tp = min(max(1.0 / tp, fractal->transformCommon.scale1), fractal->transformCommon.scale4);
+
+	}
+
 	/*else
 	{
 		if (trr < fractal->transformCommon.scale4)
@@ -49,7 +56,7 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (trr < fractal->transformCommon.scale1)
 		{
 
-			tp = native_recip(trr)
+			tp = native_recip(trr);
 			tp = min(tp, fractal->transformCommon.scale4);
 		}
 		else
