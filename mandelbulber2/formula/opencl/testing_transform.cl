@@ -17,20 +17,34 @@
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
-	// tglad fold
+	REAL4 c = aux->const_c;
+	// REAL colorAdd = 0.0f;
 
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
+		z += fractal->transformCommon.offset000;
+		REAL rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.scaleG1, rr);
+		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= fractal->transformCommon.scaleA1;
+	}
+	// REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	if (fractal->transformCommon.functionEnabled)
-	{
+	if (fractal->transformCommon.functionEnabledJFalse)
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-	}
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	// REAL4 zCol = z;
 
 	// offset
-	z += fractal->transformCommon.additionConstant000;
+	z += fractal->transformCommon.offsetF000;
 
 	// spherical fold
 	REAL4 p = z;
@@ -42,15 +56,15 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	signs.z = sign(z.z);
 	signs.w = sign(z.w);
 	z = fabs(z);
-	z -= fractal->transformCommon.offset000;
+	z -= fractal->transformCommon.offsetA000;
 	REAL trr = dot(z, z);
 	REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
-	z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offsetA000;
 	z *= tp;
 	aux->DE *= tp;
 	z *= signs;
 
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		REAL rr = dot(p, p);
 		p += fractal->mandelbox.offset;

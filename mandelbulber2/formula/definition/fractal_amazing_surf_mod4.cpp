@@ -56,7 +56,6 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	CVector4 zCol = z;
 
-	// no z fold
 	z += fractal->transformCommon.offsetA000;
 	double rr = z.Dot(z);
 	double rrCol = rr;

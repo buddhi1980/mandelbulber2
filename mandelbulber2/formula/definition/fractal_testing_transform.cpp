@@ -28,21 +28,34 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-	// tglad fold
+	// CVector4 c = aux.const_c;
+	// double colorAdd = 0.0;
 
-
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		z += fractal->transformCommon.offset000;
+		double rr = z.Dot(z);
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= fractal->transformCommon.scaleA1;
+	}
+	// CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	if (fractal->transformCommon.functionEnabled)
-	{
+	if (fractal->transformCommon.functionEnabledJFalse)
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-	}
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	// CVector4 zCol = z;
 
 	// offset
-	z += fractal->transformCommon.additionConstant000;
+	z += fractal->transformCommon.offsetF000;
 
 	CVector4 p = z;
 	double dd = aux.DE;
@@ -53,15 +66,15 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	signs.z = sign(z.z);
 	// signs.w = sign(z.w);
 	z = fabs(z);
-	z -= fractal->transformCommon.offset000;
+	z -= fractal->transformCommon.offsetA000;
 	double trr = z.Dot(z);
 	double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
-	z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offsetA000;
 	z *= tp;
 	aux.DE *= tp;
 	z *= signs;
 
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		double rr = p.Dot(p);
 		p += fractal->mandelbox.offset;

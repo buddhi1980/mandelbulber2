@@ -45,7 +45,6 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	REAL4 zCol = z;
 
-	// no z fold
 	z += fractal->transformCommon.offsetA000;
 	REAL rr = dot(z, z);
 	REAL rrCol = rr;
