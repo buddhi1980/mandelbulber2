@@ -279,6 +279,16 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 	}
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+	//adding hash code for custom formulas to the end of code to force recompile
+	QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
+	for(QString code : customFormulaCodes)
+	{
+		hashCryptProgram.addData(code.toUtf8());
+	}
+	QByteArray hashCustomPrograms = hashCryptProgram.result();
+	QString hashText = QString("//%1").arg(QString(hashCustomPrograms.toHex()));
+	programEngine.append(hashText.toUtf8());
 }
 
 bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
