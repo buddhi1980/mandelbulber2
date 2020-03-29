@@ -23,6 +23,9 @@ public:
 	explicit cCustomFormulaEditor(QWidget *parent = nullptr);
 	~cCustomFormulaEditor();
 
+private slots:
+	void slotNewFormula();
+
 private:
 	Ui::cCustomFormulaEditor *ui;
 };

@@ -308,10 +308,30 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) c
 					value = par->Get<QString>(name);
 				}
 			}
+
+			if (name == "formula_code")
+			{
+				value = CompressAndCode(value);
+			}
+
 			text = name + " " + value + ";\n";
 		}
 	}
 	return text;
+}
+
+QString cSettings::CompressAndCode(const QString &text) const
+{
+	QByteArray blob = text.toUtf8();
+	QByteArray compressedBlob = qCompress(blob, 9);
+	return compressedBlob.toBase64();
+}
+
+QString cSettings::DecodeAndDecompress(const QString &text) const
+{
+	QByteArray compressedBlob = QByteArray::fromBase64(text.toUtf8());
+	QByteArray blob = qUncompress(compressedBlob);
+	return QString(blob);
 }
 
 bool cSettings::SaveToFile(QString filename) const
@@ -839,6 +859,11 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		else if (varType == typeDouble || varType == typeVector3 || varType == typeVector4)
 		{
 			value = everyLocaleDouble(value);
+		}
+
+		if (parameterName == "formula_code")
+		{
+			value = DecodeAndDecompress(value);
 		}
 
 		if (par->GetAsOneParameter(parameterName).IsEnumeration())

@@ -35,12 +35,83 @@
  * based on https://github.com/tex/fusecompress/blob/master/src/boost/iostreams/filter/lzo.hpp
  */
 
-#ifndef MANDELBULBER2_SRC_LZO_COMPRESSION_H_
-#define MANDELBULBER2_SRC_LZO_COMPRESSION_H_
+#include <lzo/lzo1x.h>
+#include <lzo/lzoconf.h>
+
+#include <cassert>
 
 #include <QByteArray>
+#include <QElapsedTimer>
+#include <QDebug>
 
-QByteArray lzoCompress(QByteArray data);
-QByteArray lzoUncompress(QByteArray data);
+#include "cast.hpp"
+#include "system.hpp"
 
-#endif /* MANDELBULBER2_SRC_LZO_COMPRESSION_H_ */
+QByteArray lzoCompress(QByteArray data)
+{
+	QElapsedTimer time;
+	time.start();
+	char *wrkmem = new char[LZO1X_1_MEM_COMPRESS];
+	size_t len = data.size() + data.size() / 16 + 64 + 3;
+	char *out = new char[len];
+
+	int ret = lzo1x_1_compress((lzo_bytep)data.data(), (lzo_uint)data.size(), (lzo_bytep)out,
+		(lzo_uintp)&len, (lzo_voidp)wrkmem);
+
+	assert(ret == LZO_E_OK);
+
+	WriteLog(
+		QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 mBps")
+			.arg(data.size())
+			.arg((unsigned long)len)
+			.arg(1.0 * len / data.size())
+			.arg(time.nsecsElapsed() / 1000.0)
+			.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)),
+		3);
+
+	qDebug() << data.size() << len;
+
+	QByteArray arr;
+	arr.append(out, CastSizeToInt(len));
+	delete[] wrkmem;
+	delete[] out;
+	return arr;
+}
+
+QByteArray lzoUncompress(QByteArray data)
+{
+	QElapsedTimer time;
+	time.start();
+	lzo_uint len;
+	char *tmp = nullptr;
+	int decompressionFactor = 10;
+
+	while (true)
+	{
+		len = data.size() * decompressionFactor;
+		if (tmp) delete[] tmp;
+		tmp = new char[len];
+
+		if (lzo1x_decompress_safe((lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp, &len, nullptr)
+				== LZO_E_OUTPUT_OVERRUN)
+		{
+			decompressionFactor *= 2;
+			continue;
+		}
+		break;
+	}
+
+	WriteLog(
+		QString("lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 MBps")
+			.arg(data.size())
+			.arg((unsigned long)len)
+			.arg(1.0 * len / data.size())
+			.arg(time.nsecsElapsed() / 1000.0)
+			.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)),
+		3);
+
+	QByteArray arr;
+	arr.append(tmp, len);
+	delete[] tmp;
+	return arr;
+}

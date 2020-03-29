@@ -94,6 +94,9 @@ private:
 
 	static bool CheckIfMaterialsAreDefined(cParameterContainer *par);
 
+	QString CompressAndCode(const QString &text) const;
+	QString DecodeAndDecompress(const QString &text) const;
+
 	enumFormat format;
 	QString settingsText;
 

@@ -13,18 +13,21 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	QString code =
-		"REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)\n"
-		"{\n"
-		"\n"
-		"}\n";
-
-	ui->textEdit_formula_code->setText(code);
-
-	// TODO saving formula code to temporary file for OpenCL compiler
+	connect(ui->pushButton_new, &QPushButton::pressed, this, &cCustomFormulaEditor::slotNewFormula);
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
 {
 	delete ui;
+}
+
+void cCustomFormulaEditor::slotNewFormula()
+{
+	QString code =
+		"REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)\n"
+		"{\n"
+		"\treturn z;\n"
+		"}\n";
+
+	ui->textEdit_formula_code->setText(code);
 }

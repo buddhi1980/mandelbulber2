@@ -104,7 +104,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QTextEdit" name="textEdit_formula_code"/>
+    <widget class="QTextEdit" name="textEdit_formula_code">
+     <property name="tabStopWidth">
+      <number>20</number>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
