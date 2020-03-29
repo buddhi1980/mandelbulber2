@@ -104,7 +104,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTextEdit" name="textEdit_code"/>
+    <widget class="QTextEdit" name="textEdit_formula_code"/>
    </item>
   </layout>
  </widget>

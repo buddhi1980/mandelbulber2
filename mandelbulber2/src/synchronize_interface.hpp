@@ -53,6 +53,7 @@ class QComboBox;
 class cMaterialSelector;
 class QPlainTextEdit;
 class cGradientEditWidget;
+class QTextEdit;
 
 namespace qInterface
 {
@@ -99,6 +100,8 @@ void SynchronizeInterfaceMaterialSelector(
 	QList<cMaterialSelector *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQPlainTextEdit(
 	QList<QPlainTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQTextEdit(
+	QList<QTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 
 // utility functions
 void GetNameAndType(QString name, QString *parameterName, QString *type);

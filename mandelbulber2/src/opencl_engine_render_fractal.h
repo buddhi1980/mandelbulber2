@@ -119,7 +119,7 @@ private:
 		const cParameterContainer *params, const QString &openclEnginePath, QByteArray &programEngine);
 	void LoadSourceWithMainEngine(const QString &openclEnginePath, QByteArray &programEngine);
 	void SetParametersForDistanceEstimationMethod(cNineFractals *fractals, sParamRender *paramRender);
-	void CreateListOfUsedFormulas(cNineFractals *fractals);
+	void CreateListOfUsedFormulas(cNineFractals *fractals, const cFractalContainer *fractalContainer);
 	void SetParametersForPerspectiveProjection(sParamRender *paramRender);
 	void SetParametersForShaders(sParamRender *paramRender, sRenderData *renderData);
 	void SetParametersForStereoscopic(sRenderData *renderData);
@@ -164,6 +164,7 @@ private:
 	QScopedPointer<cOpenClTexturesData> texturesData;
 
 	QStringList listOfUsedFormulas;
+	QStringList customFormulaCodes;
 
 	enumClRenderEngineMode renderEngineMode;
 

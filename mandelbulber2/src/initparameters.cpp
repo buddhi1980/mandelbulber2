@@ -1130,7 +1130,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("info", false, morphNone, paramStandard);
 
 	// parameters for coustom formulas
-	par->addParam("custom_formula_name", QString(), morphAkima, paramStandard);
+	par->addParam("custom_formula_name", QString(), morphNone, paramStandard);
+	par->addParam("formula_code", QString(), morphNone, paramStandard);
 
 	WriteLog("Fractal parameters initialization finished", 3);
 }

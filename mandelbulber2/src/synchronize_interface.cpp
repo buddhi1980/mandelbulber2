@@ -93,6 +93,9 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 	WriteLog("cInterface::SynchronizeInterface: QPlainTextEdit", 3);
 	SynchronizeInterfaceQPlainTextEdit(window->findChildren<QPlainTextEdit *>(), par, mode);
 
+	WriteLog("cInterface::SynchronizeInterface: QTextEdit", 3);
+	SynchronizeInterfaceQTextEdit(window->findChildren<QTextEdit *>(), par, mode);
+
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
 
@@ -506,6 +509,35 @@ void SynchronizeInterfaceQPlainTextEdit(
 
 			//----------- get texts ------------
 			if (props.typeName == QString("text"))
+			{
+				if (mode == qInterface::read)
+				{
+					QString value = textEdit->toPlainText();
+					par->Set(props.paramName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					QString value = par->Get<QString>(props.paramName);
+					textEdit->setPlainText(value);
+				}
+			}
+		}
+	} // end foreach
+}
+
+void SynchronizeInterfaceQTextEdit(
+	QList<QTextEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QTextEdit *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		widgetProperties props = parseWidgetProperties((*it), {"QTextEdit"});
+		if (props.allowed)
+		{
+			QTextEdit *textEdit = *it;
+
+			//----------- get texts ------------
+			if (props.typeName == QString("textEdit"))
 			{
 				if (mode == qInterface::read)
 				{

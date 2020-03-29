@@ -83,6 +83,12 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	meshExportMode = false;
 	reservedGpuTime = 0.0;
 
+	// create empty list of custom formulas
+	customFormulaCodes.reserve(NUMBER_OF_FRACTALS);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		customFormulaCodes.append(QString());
+	}
 #endif
 }
 
@@ -158,8 +164,16 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		QString formulaName = listOfUsedFormulas.at(i);
 		if (formulaName != "" && formulaName != "none")
 		{
-			programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-													 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+			if (formulaName.startsWith("custom"))
+			{
+				programEngine.append("\n#include \"" + systemData.GetOpenCLTempFolder() + QDir::separator()
+														 + formulaName + ".cl\"\n");
+			}
+			else
+			{
+				programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+														 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+			}
 		}
 	}
 	if (renderEngineMode != clRenderEngineTypeFast)
@@ -427,7 +441,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	if (useMaxAxisDEFunction) definesCollector += " -DDELTA_MAXAXIS_DE";
 }
 
-void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractals)
+void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
+	cNineFractals *fractals, const cFractalContainer *fractalContainer)
 {
 	listOfUsedFormulas.clear();
 	// creating list of used formulas
@@ -436,6 +451,33 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractal
 		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
 		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
 		QString formulaName = newFractalList.at(listIndex)->getInternalName();
+		if (formulaName == "custom")
+		{
+			formulaName += QString::number(i);
+			QString formulaCode = fractalContainer->at(i).Get<QString>("formula_code");
+
+			if (formulaCode.contains("CustomIteration("))
+			{
+				formulaCode = formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(i));
+				QFile qFile(systemData.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+				if (qFile.open(QIODevice::WriteOnly))
+				{
+					qFile.write(formulaCode.toUtf8());
+					qFile.close();
+				}
+			}
+			else
+			{
+				emit showErrorMessage(
+					QObject::tr("Custom formula %1 has missing function name CustomIteration()!").arg(i),
+					cErrorMessage::errorMessage, nullptr);
+			}
+			customFormulaCodes[i] = formulaCode;
+		}
+		else
+		{
+			customFormulaCodes[i] = QString();
+		}
 		listOfUsedFormulas.append(formulaName);
 	}
 	// adding #defines to the list
@@ -763,7 +805,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	// define distance estimation method
 	SetParametersForDistanceEstimationMethod(fractals, paramRender);
 
-	CreateListOfUsedFormulas(fractals);
+	CreateListOfUsedFormulas(fractals, fractalContainer);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";

@@ -19,7 +19,7 @@ cFractalCustom::cFractalCustom() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionDefault;
 }
