@@ -104,14 +104,21 @@
     </layout>
    </item>
    <item>
-    <widget class="QTextEdit" name="textEdit_formula_code">
-     <property name="tabStopWidth">
-      <number>20</number>
+    <widget class="cMyTextEdit" name="textEdit_formula_code">
+     <property name="lineWrapMode">
+      <enum>QTextEdit::NoWrap</enum>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>cMyTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>my_text_edit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
