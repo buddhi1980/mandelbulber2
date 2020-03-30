@@ -64,9 +64,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	}
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
+		z = fabs(z + fractal->transformCommon.offsetA000);
 
 		if (z.x - z.y < 0.0f)
 		{
@@ -181,7 +179,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	aux->DE = aux->DE + fractal->analyticDE.offset0;
 
 	REAL dd = r;
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAx)
 	{
 		dd = native_divide(dd, aux->DE); // same as an uncondtional aux->dist
 	}

@@ -20,10 +20,10 @@ cFractalTesting::cFractalTesting() : cAbstractFractal()
 	internalName = "testing";
 	internalID = fractal::testing;
 	DEType = analyticDEType;
-	DEFunctionType = withoutDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 
@@ -78,9 +78,7 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	// menger
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
+		z = fabs(z + fractal->transformCommon.offsetA000);
 
 		if (z.x - z.y < 0.0) swap(z.x, z.y);
 		if (z.x - z.z < 0.0) swap(z.x, z.z);
@@ -182,7 +180,7 @@ void cFractalTesting::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	aux.DE = aux.DE + fractal->analyticDE.offset0;
 
 	double dd = r;
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAx)
 	{
 		dd = dd / aux.DE; // same as an uncondtional aux.dist
 	}
