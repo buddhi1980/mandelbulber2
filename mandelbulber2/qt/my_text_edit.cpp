@@ -9,17 +9,24 @@
 #include <QDebug>
 #include "highlighter.h"
 
+#include <QtGlobal>
+
 cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	QFont usedFont = this->font();
-	double fontSize = usedFont.pointSizeF();
 	usedFont.setFamily("Courier");
 	usedFont.setFixedPitch(true);
-	QFontMetricsF fm(usedFont);
 	setFont(usedFont);
-	setTabStopDistance(fm.horizontalAdvance(' ') * 2.0);
 
-  highlighter = new Highlighter(document());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+	QFontMetricsF fm(usedFont);
+	setTabStopDistance(fm.horizontalAdvance(' ') * 2.0);
+#else
+	QFontMetrics fm(usedFont);
+	setTabStopWidth(fm.horizontalAdvance(' ') * 2);
+#endif
+
+	highlighter = new Highlighter(document());
 }
 
 cMyTextEdit::~cMyTextEdit()
