@@ -18,12 +18,12 @@ cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 	usedFont.setFixedPitch(true);
 	setFont(usedFont);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 	QFontMetricsF fm(usedFont);
 	setTabStopDistance(fm.horizontalAdvance(' ') * 2.0);
 #else
 	QFontMetrics fm(usedFont);
-	setTabStopWidth(fm.horizontalAdvance(' ') * 2);
+	setTabStopWidth(fm.width(' ') * 2);
 #endif
 
 	highlighter = new Highlighter(document());
@@ -31,5 +31,5 @@ cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 
 cMyTextEdit::~cMyTextEdit()
 {
-	// TODO Auto-generated destructor stub
+	delete highlighter;
 }
