@@ -57,6 +57,19 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// offset
 	z += fractal->transformCommon.offsetF000;
 
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
+	{
+		double temp = fractal->transformCommon.offset0;
+		double temp2 = temp * temp;
+		double z2 = z.z * z.z * fractal->transformCommon.scaleE1;
+		z.z -= ((temp * temp2) / (z2 + temp2) - 2.0 * temp) * fractal->transformCommon.scaleF1;
+	}
+
+
+
+
 	CVector4 p = z;
 	double dd = aux.DE;
 	double m = 0.0;

@@ -33,14 +33,14 @@ REAL4 TestingTransform2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		if (trr < fractal->transformCommon.scale1)
 		{
-			tp = native_divide(fractal->transformCommon.scale1, trr);
-			tp = native_recip(tp);
-			}
-		else if (trr < fractal->transformCommon.scale4)
-		{
-			tp = native_divide(fractal->transformCommon.scale4, fractal->transformCommon.scale1);
-		}
+			tp = native_recip(trr);
+			tp = min(tp, fractal->transformCommon.scale4);
 
+			}
+		else
+		{
+			tp = fractal->transformCommon.scale1;
+		}
 	}
 	else
 	{

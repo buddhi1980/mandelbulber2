@@ -46,6 +46,17 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// offset
 	z += fractal->transformCommon.offsetF000;
 
+
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+	{
+		REAL temp = fractal->transformCommon.offset0;
+		REAL temp2 = temp * temp;
+		REAL z2 = z.z * z.z * fractal->transformCommon.scaleE1;
+		z.z -= ((temp * temp2) / (z2 + temp2) - 2.0 * temp) * fractal->transformCommon.scaleF1;
+	}
+
 	// spherical fold
 	REAL4 p = z;
 	REAL dd = aux->DE;
