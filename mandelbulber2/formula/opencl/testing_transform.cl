@@ -83,8 +83,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		p *= m;
 		dd *= m;
 		p -= fractal->mandelbox.offset;
-		z = p + (z - p) * fractal->transformCommon.scale1;
-		aux->DE = dd + (aux->DE - dd) * fractal->transformCommon.scale1;
+		z = z + (p - z) * fractal->transformCommon.scale1;
+		aux->DE = aux->DE + (dd - aux->DE) * fractal->transformCommon.scale1;
 	}
 
 	// scale

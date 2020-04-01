@@ -28,6 +28,23 @@ cFractalSierpinski3dV2::cFractalSierpinski3dV2() : cAbstractFractal()
 
 void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
+	{
+		double xTemp = SQRT_1_2 * (z.y + z.x);
+		z.y = SQRT_1_2 * (z.y - z.x);
+		z.x = xTemp;
+	}
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	CVector4 temp = z;
 
 	if (z.x + z.y < 0.0)
@@ -52,13 +69,7 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	z *= fractal->transformCommon.scaleA2;
 	z -= fractal->transformCommon.offset111; // neg offset
 
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+
 
 	// Reversed full tetra-fold;
 	if (fractal->transformCommon.functionEnabledFalse

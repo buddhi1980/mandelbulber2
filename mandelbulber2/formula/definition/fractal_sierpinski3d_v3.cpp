@@ -35,7 +35,7 @@ void cFractalSierpinski3dV3::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.x += fractal->transformCommon.offset000.x;
 		z.y += SQRT_1_3 + fractal->transformCommon.offset000.y;
 		z.z += SQRT_3_4d2 / 2.0 + fractal->transformCommon.offset000.z - 0.0123;
-				;
+
 
 		//z.z += SQRT_3_4d2 / 2; // - 0.0123;
 

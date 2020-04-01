@@ -114,8 +114,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}*/
 		p -= fractal->mandelbox.offset;
 
-		z = p + (z - p) * fractal->transformCommon.scale1;
-		aux.DE = dd + (aux.DE - dd) * fractal->transformCommon.scale1;
+		z = z + (p - z) * fractal->transformCommon.scale1;
+		aux.DE = aux.DE + (dd - aux.DE) * fractal->transformCommon.scale1;
 
 	}
 	if (fractal->foldColor.auxColorEnabledFalse)
