@@ -31,19 +31,28 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
+
+
 	{
-		double xTemp = SQRT_1_2 * (z.y + z.x);
+		double temp = z.x;
+		z.x = z.z;
+		z.z = temp;
+		temp = SQRT_1_2 * (z.y + z.x);
 		z.y = SQRT_1_2 * (z.y - z.x);
-		z.x = xTemp;
+		z.x = temp;
+
+
+		double an = (60.) * M_PI / 180;
+
+		double cosa = cos(an);
+		double sina = sin(an);
+
+		temp = cosa * z.y + z.z * sina;
+		z.y = cosa * z.y - z.z * sina;
+		z.z = temp;
 	}
 
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+
 
 	CVector4 temp = z;
 
@@ -86,6 +95,31 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 		if (fractal->transformCommon.rotation2EnabledFalse)
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+	}
+
+	if (fractal->transformCommon.functionEnabledNFalse)
+	{
+		double rr = z.Dot(z);
+		if (rr < 1.0)
+		{
+			double m = 1.0;
+			z += fractal->mandelbox.offset;
+			if (rr < fractal->transformCommon.scale025)
+			m = fractal->transformCommon.scale025;
+			else m = rr;
+			m = 1.0 / m;
+			z *= m;
+			aux.DE *= m;
+			z -= fractal->mandelbox.offset;
+		}
+	}
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
 	if (!fractal->analyticDE.enabledFalse)

@@ -89,17 +89,6 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		double rr = p.Dot(p);
-		/*if (rr < 1.0)
-		{
-			p += fractal->mandelbox.offset;
-			m = max(rr, fractal->transformCommon.scale025);
-			m = 1.0 / m;
-			p *= m;
-			dd *= m;
-			p -= fractal->mandelbox.offset;
-		}*/
-
-
 		if (rr < 1.0)
 		{
 			p += fractal->mandelbox.offset;
