@@ -1173,6 +1173,9 @@ void cRandomizerDialog::slotRenderTime(double time)
 
 void cRandomizerDialog::slotCleanUp()
 {
+	if (numberOfRunningJobs > 0) return;
+	stopRequest = false;
+
 	QString progressBarText("Initializing cleaning up");
 	ui->progressBar->setFormat(progressBarText);
 	ui->progressBar->setValue(0.0);
