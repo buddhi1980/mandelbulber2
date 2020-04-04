@@ -67,6 +67,7 @@ public:
 	bool IsRendered() const { return isFullyRendered; }
 	cImage *GetImage() { return image; };
 	QString GetThumbnailFileName() const;
+	void StopRequest() { stopRequest = true; }
 
 	static int instanceCount;
 	int instanceIndex;
@@ -114,6 +115,7 @@ signals:
 	void settingsChanged();
 	void signalZeroDistance();
 	void signalTotalRenderTime(double seconds);
+	void signalFinished();
 };
 
 #endif /* MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_ */

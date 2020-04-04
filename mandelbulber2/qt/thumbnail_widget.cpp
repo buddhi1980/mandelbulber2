@@ -182,6 +182,7 @@ void cThumbnailWidget::AssignParameters(
 				image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
 				image->ClearImage();
 				emit signalZeroDistance();
+				emit signalFinished();
 				return;
 			}
 		}
@@ -246,6 +247,7 @@ void cThumbnailWidget::AssignParameters(
 				delete fractal;
 				fractal = nullptr;
 				emit thumbnailRendered();
+				emit signalFinished();
 			}
 			else
 			{
@@ -319,6 +321,7 @@ void cThumbnailWidget::slotRender()
 		QObject::connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), this,
 			SLOT(slotFullyRendered()));
 		QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+		connect(thread, &QThread::finished, this, &cThumbnailWidget::signalFinished);
 	}
 	else
 	{

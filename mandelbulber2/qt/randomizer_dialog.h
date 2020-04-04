@@ -132,11 +132,13 @@ private slots:
 	void slotClickedSaveButton();
 	void slotClickedUseButton();
 	void slotClickedResetButton();
+	void slotClickedStopButton();
 	void slotPreviewRendered();
 	void slotDetectedZeroDistance();
 	void slotRenderTime(double time);
 	void slotCleanUp();
 	void slotAddToKeyframes();
+	void slotPreviewFinished();
 
 private:
 	Ui::cRandomizerDialog *ui;
@@ -163,6 +165,8 @@ private:
 	bool pressedUse;
 	bool blockClose;
 	bool keyframeMode;
+	bool stopRequest;
+	int numberOfRunningJobs;
 };
 
 #endif /* MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_ */

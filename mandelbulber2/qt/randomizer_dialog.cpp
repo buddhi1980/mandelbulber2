@@ -63,19 +63,21 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	pressedUse = false;
 	blockClose = false;
 	keyframeMode = false;
+	stopRequest = false;
+	numberOfRunningJobs = 0;
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
 	int sizeSetiing = enumRandomizerPreviewSize(gPar->Get<int>("randomizer_preview_size"));
 	int qualitySetiing = enumRandomizerPreviewQuality(gPar->Get<int>("randomizer_preview_quality"));
-	float sizeMultiply;
+	float sizeMultiply = 1.0f;
 	switch (sizeSetiing)
 	{
 		case previewSmall: sizeMultiply = 1.0; break;
 		case previewMedium: sizeMultiply = 1.5; break;
 		case previewBig: sizeMultiply = 2.0; break;
 	}
-	previewWidth = sizeMultiply * baseSize * 4 / 3;
-	previewHeight = sizeMultiply * baseSize;
+	previewWidth = int(sizeMultiply * baseSize * 4.0 / 3.0);
+	previewHeight = int(sizeMultiply * baseSize);
 
 	qualityMultiplier = qualitySetiing + 1;
 
@@ -92,6 +94,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	connect(ui->pushButton_clean_up, &QPushButton::clicked, this, &cRandomizerDialog::slotCleanUp);
 	connect(ui->pushButton_add_to_keyframes, &QPushButton::clicked, this,
 		&cRandomizerDialog::slotAddToKeyframes);
+	connect(
+		ui->pushButton_stop, &QPushButton::clicked, this, &cRandomizerDialog::slotClickedStopButton);
 
 	for (int i = 1; i <= numberOfVersions; i++)
 	{
@@ -136,6 +140,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
 			&cRandomizerDialog::slotPreviewRendered);
+		connect(previewWidget, &cThumbnailWidget::signalFinished, this,
+			&cRandomizerDialog::slotPreviewFinished);
 		connect(previewWidget, &cThumbnailWidget::signalZeroDistance, this,
 			&cRandomizerDialog::slotDetectedZeroDistance);
 		connect(previewWidget, &cThumbnailWidget::signalTotalRenderTime, this,
@@ -238,6 +244,9 @@ void cRandomizerDialog::CalcReferenceNoise()
 
 void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 {
+	if (stopRequest) return;
+	if (numberOfRunningJobs > 0) return;
+
 	actualStrength = strength;
 	previousListOfChangedParameters = actualListOfChangedParameters;
 
@@ -247,6 +256,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	QString progressBarText("Initializing Randomizer");
 	ui->progressBar->setFormat(progressBarText);
 	ui->progressBar->setValue(0.0);
+
+	stopRequest = false;
 
 	// initialize parameter containers
 	InitParameterContainers();
@@ -276,6 +287,9 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		// qDebug() << widgetName;
 		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
 		// qDebug() << previewWidget;
+
+		numberOfRunningJobs++;
+		qDebug() << numberOfRunningJobs;
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
 		previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
 		previewWidget->update();
@@ -974,6 +988,8 @@ void cRandomizerDialog::slotClickedUseButton()
 
 void cRandomizerDialog::slotPreviewRendered()
 {
+	if (stopRequest) return;
+
 	QString previewName = this->sender()->objectName();
 	QString numberString = previewName.right(2);
 	int previewNumber = numberString.toInt();
@@ -1023,6 +1039,9 @@ void cRandomizerDialog::slotPreviewRendered()
 
 				RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
 					&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
+
+				numberOfRunningJobs++;
+
 				widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 					listOfVersions.at(previewNumber - 1).fractParams);
 				widget->setToolTip(CreateTooltipText(listsOfChangedParameters[previewNumber - 1]));
@@ -1053,7 +1072,7 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 	// qDebug() << "ZERO DISTANCE DETECTED " << previewNumber;
 
 	int numberOfRepeats = numbersOfRepeats.at(previewNumber - 1);
-	if (numberOfRepeats < 100)
+	if (numberOfRepeats < 100 && !stopRequest)
 	{
 		numberOfRepeats++;
 		numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
@@ -1063,6 +1082,9 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 
 		RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
 			&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
+
+		numberOfRunningJobs++;
+
 		widget->AssignParameters(listOfVersions.at(previewNumber - 1).params,
 			listOfVersions.at(previewNumber - 1).fractParams);
 		widget->setToolTip(CreateTooltipText(listsOfChangedParameters[previewNumber - 1]));
@@ -1175,6 +1197,8 @@ void cRandomizerDialog::slotCleanUp()
 
 	for (int i = 0; i < list.size(); i++)
 	{
+		if (stopRequest) break;
+
 		QString fullParameterName = list.at(i);
 		int firstDashIndex = fullParameterName.indexOf("_");
 		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
@@ -1272,4 +1296,34 @@ void cRandomizerDialog::slotAddToKeyframes()
 
 	gKeyframeAnimation->RefreshTable();
 	gKeyframeAnimation->slotAddKeyframe();
+}
+
+void cRandomizerDialog::slotClickedStopButton()
+{
+	stopRequest = true;
+
+	ui->progressBar->setFormat("Stopping");
+
+	referenceSkyPreview->StopRequest();
+	referenceNoisePreview->StopRequest();
+	for (int i = 0; i < numberOfVersions; i++)
+	{
+		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
+		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
+		previewWidget->StopRequest();
+	}
+	ui->previewwidget_actual->StopRequest();
+}
+
+void cRandomizerDialog::slotPreviewFinished()
+{
+	numberOfRunningJobs--;
+	if (numberOfRunningJobs == 0)
+	{
+		if (stopRequest)
+		{
+			ui->progressBar->setFormat("Stopped");
+		}
+		stopRequest = false;
+	}
 }
