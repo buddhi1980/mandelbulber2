@@ -531,7 +531,7 @@ void SynchronizeInterfaceQTextEdit(
 	QList<QTextEdit *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProperties((*it), {"QTextEdit"});
+		widgetProperties props = parseWidgetProperties((*it), {"QTextEdit", "cMyTextEdit"});
 		if (props.allowed)
 		{
 			QTextEdit *textEdit = *it;

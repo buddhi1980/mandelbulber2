@@ -105,6 +105,9 @@
    </item>
    <item>
     <widget class="cMyTextEdit" name="textEdit_formula_code">
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustToContents</enum>
+     </property>
      <property name="lineWrapMode">
       <enum>QTextEdit::NoWrap</enum>
      </property>

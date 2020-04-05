@@ -14,6 +14,8 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 	ui->setupUi(this);
 
 	connect(ui->pushButton_new, &QPushButton::pressed, this, &cCustomFormulaEditor::slotNewFormula);
+	connect(ui->textEdit_formula_code, &QTextEdit::textChanged, this,
+		&cCustomFormulaEditor::slotTextChanged);
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -30,4 +32,9 @@ void cCustomFormulaEditor::slotNewFormula()
 		"}\n";
 
 	ui->textEdit_formula_code->setText(code);
+}
+
+void cCustomFormulaEditor::slotTextChanged()
+{
+	ui->textEdit_formula_code->setMinimumHeight(ui->textEdit_formula_code->document()->size().height());
 }

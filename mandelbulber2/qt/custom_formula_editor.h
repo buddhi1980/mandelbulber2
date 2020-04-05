@@ -25,6 +25,7 @@ public:
 
 private slots:
 	void slotNewFormula();
+	void slotTextChanged();
 
 private:
 	Ui::cCustomFormulaEditor *ui;
