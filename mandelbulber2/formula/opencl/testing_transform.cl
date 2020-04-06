@@ -47,15 +47,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	z += fractal->transformCommon.offsetF000;
 
 
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP)
-	{
-		REAL temp = fractal->transformCommon.offset0;
-		REAL temp2 = temp * temp;
-		REAL z2 = z.z * z.z * fractal->transformCommon.scaleE1;
-		z.z -= ((temp * temp2) / (z2 + temp2) - 2.0 * temp) * fractal->transformCommon.scaleF1;
-	}
+
 
 	// spherical fold
 	REAL4 p = z;
@@ -106,9 +98,20 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// rotation
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+	{
+		REAL4 temp = fractal->transformCommon.additionConstantP000;
+		REAL4 temp2 = temp * temp;
+		REAL4 z2 = z * z;
+		z.x -= ((temp.x * temp2.x) / (z2.x + temp2.x) - 2.0 * temp.x) * fractal->transformCommon.scaleD1;
+		z.y -= ((temp.y * temp2.y) / (z2.y + temp2.y) - 2.0 * temp.y) * fractal->transformCommon.scaleE1;
+		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
+	}
+
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
-
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

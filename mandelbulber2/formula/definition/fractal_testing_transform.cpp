@@ -57,15 +57,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// offset
 	z += fractal->transformCommon.offsetF000;
 
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux.i >= fractal->transformCommon.startIterationsP
-			&& aux.i < fractal->transformCommon.stopIterationsP)
-	{
-		double temp = fractal->transformCommon.offset0;
-		double temp2 = temp * temp;
-		double z2 = z.z * z.z * fractal->transformCommon.scaleE1;
-		z.z -= ((temp * temp2) / (z2 + temp2) - 2.0 * temp) * fractal->transformCommon.scaleF1;
-	}
+
 
 
 
@@ -141,6 +133,22 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	// rotation
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+	// polynomial
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
+	{
+		CVector4 temp = fractal->transformCommon.additionConstantP000;
+		CVector4 temp2 = temp * temp;
+		CVector4 z2 = z * z;
+		z.x -= ((temp.x * temp2.x) / (z2.x + temp2.x) - 2.0 * temp.x) * fractal->transformCommon.scaleD1;
+		z.y -= ((temp.y * temp2.y) / (z2.y + temp2.y) - 2.0 * temp.y) * fractal->transformCommon.scaleE1;
+		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
+	}
+
+
+
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

@@ -31,9 +31,15 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
-
-
 	{
+		z.x += fractal->transformCommon.offset000.x;
+		z.y += SQRT_1_3 + fractal->transformCommon.offset000.y;
+		z.z += SQRT_3_4d2 / 2.0 + fractal->transformCommon.offset000.z - 0.0123;
+
+
+
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
 		double temp = z.x;
 		z.x = z.z;
 		z.z = temp;
@@ -42,14 +48,14 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.x = temp;
 
 
-		double an = (60.) * M_PI / 180;
+		/*double an = (60.) * M_PI / 180;
 
 		double cosa = cos(an);
 		double sina = sin(an);
 
 		temp = cosa * z.y + z.z * sina;
 		z.y = cosa * z.y - z.z * sina;
-		z.z = temp;
+		z.z = temp;*/
 	}
 
 
@@ -91,10 +97,7 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 		z *= fractal->transformCommon.scale1;
 		aux.DE *= fractal->transformCommon.scale1;
-		z -= fractal->transformCommon.offset000;
-
-		if (fractal->transformCommon.rotation2EnabledFalse)
-			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		z -= fractal->transformCommon.offsetF000;
 	}
 
 	if (fractal->transformCommon.functionEnabledNFalse)
