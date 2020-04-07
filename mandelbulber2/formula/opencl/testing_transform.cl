@@ -95,9 +95,12 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->actualScaleA -= vary;
 	}
 
+
+
 	// rotation
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
+	// offset
+	z += fractal->transformCommon.additionConstantA000;
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP)
