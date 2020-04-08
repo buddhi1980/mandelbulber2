@@ -14,13 +14,14 @@
 cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	QFont usedFont = this->font();
-	usedFont.setFamily("Courier");
+	usedFont.setFamily("Condensed");
+	usedFont.setStretch(QFont::Condensed);
 	usedFont.setFixedPitch(true);
 	setFont(usedFont);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 	QFontMetricsF fm(usedFont);
-	setTabStopDistance(fm.horizontalAdvance(' ') * 2.0);
+	setTabStopDistance(fm.horizontalAdvance(' ') * 4.0);
 #else
 	QFontMetrics fm(usedFont);
 	setTabStopWidth(fm.width(' ') * 2);
