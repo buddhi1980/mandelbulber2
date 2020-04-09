@@ -46,9 +46,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// offset
 	z += fractal->transformCommon.offsetF000;
 
-
-
-
 	// spherical fold
 	REAL4 p = z;
 	REAL dd = aux->DE;
@@ -67,7 +64,9 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	aux->DE *= tp;
 	z *= signs;
 
-	if (fractal->transformCommon.functionEnabledNFalse)
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux->i >= fractal->transformCommon.startIterationsN
+			&& aux->i < fractal->transformCommon.stopIterationsN)
 	{
 		REAL rr = dot(p, p);
 		p += fractal->mandelbox.offset;
@@ -75,8 +74,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		p *= m;
 		dd *= m;
 		p -= fractal->mandelbox.offset;
-		z = z + (p - z) * fractal->transformCommon.scale1;
-		aux->DE = aux->DE + (dd - aux->DE) * fractal->transformCommon.scale1;
+		z = z + (p - z) * fractal->transformCommon.scale0;
+		aux->DE = aux->DE + (dd - aux->DE) * fractal->transformCommon.scale0;
 	}
 
 	// scale
@@ -95,12 +94,16 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->actualScaleA -= vary;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
-
-	// rotation
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	// offset
-	z += fractal->transformCommon.additionConstantA000;
+	if (aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
+		z += fractal->transformCommon.additionConstantA000;
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP)
@@ -112,6 +115,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.y -= ((temp.y * temp2.y) / (z2.y + temp2.y) - 2.0 * temp.y) * fractal->transformCommon.scaleE1;
 		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
 	}
+
+	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);

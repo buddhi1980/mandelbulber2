@@ -60,7 +60,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 p = z;
 	double dd = aux.DE;
 	double m = 0.0;
-
+	//sphere fold v1
 	CVector4 signs = z;
 	signs.x = sign(z.x);
 	signs.y = sign(z.y);
@@ -74,32 +74,24 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	z += fractal->transformCommon.offsetA000;
 	z *= tp;
 	aux.DE *= tp;
-
 	z *= signs;
 
-
-	if (fractal->transformCommon.functionEnabledNFalse)
+	//sphere fold std
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
 	{
-
-
-
 		double rr = p.Dot(p);
 		p += fractal->mandelbox.offset;
 		m = min(max(1.0 / rr, 1.0), 1.0 / fractal->transformCommon.scale025);
 		p *= m;
 		dd *= m;
-
 		p -= fractal->mandelbox.offset;
-
-		z = z + (p - z) * fractal->transformCommon.scale1;
-		aux.DE = aux.DE + (dd - aux.DE) * fractal->transformCommon.scale1;
-
+		// mix
+		z = z + (p - z) * fractal->transformCommon.scale0;
+		aux.DE = aux.DE + (dd - aux.DE) * fractal->transformCommon.scale0;
 	}
-	if (fractal->foldColor.auxColorEnabledFalse)
-	{
-		aux.color += tp * fractal->mandelbox.color.factorSp1;
-		aux.color += m * fractal->mandelbox.color.factorSp2;
-	}
+
 	// scale
 	double useScale = 1.0;
 	useScale = aux.actualScaleA + fractal->transformCommon.scale2;
@@ -116,12 +108,17 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.actualScaleA -= vary;
 	}
 
+	// rotation1
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
+	// offset2
+	if (aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
+		z += fractal->transformCommon.additionConstantA000;
 
-	// rotation
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	// offset
-	z += fractal->transformCommon.additionConstantA000;
 	// polynomial
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -135,8 +132,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
 	}
 
-
-
+	// rotation2
+	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
