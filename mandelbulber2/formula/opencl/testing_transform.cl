@@ -96,8 +96,10 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+
+
 
 	// offset
 	if (aux->i >= fractal->transformCommon.startIterationsO
@@ -116,7 +118,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
 	}
 
-	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
