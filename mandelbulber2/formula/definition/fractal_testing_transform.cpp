@@ -119,6 +119,12 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsO)
 		z += fractal->transformCommon.additionConstantA000;
 
+	// rotation2
+	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	// polynomial
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -131,12 +137,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.y -= ((temp.y * temp2.y) / (z2.y + temp2.y) - 2.0 * temp.y) * fractal->transformCommon.scaleE1;
 		z.z -= ((temp.z * temp2.z) / (z2.z + temp2.z) - 2.0 * temp.z) * fractal->transformCommon.scaleF1;
 	}
-
-	// rotation2
-	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE =  aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
