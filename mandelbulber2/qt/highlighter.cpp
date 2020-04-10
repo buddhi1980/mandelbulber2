@@ -113,12 +113,12 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 	//! [2]
 
 	//! [3]
-	singleLineCommentFormat.setForeground(Qt::red);
+	singleLineCommentFormat.setForeground(Qt::gray);
 	rule.pattern = QRegularExpression("//[^\n]*");
 	rule.format = singleLineCommentFormat;
 	highlightingRules.append(rule);
 
-	multiLineCommentFormat.setForeground(Qt::red);
+	multiLineCommentFormat.setForeground(Qt::gray);
 	//! [3]
 
 	//! [4]
@@ -136,6 +136,12 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 	highlightingRules.append(rule);
 	//! [5]
 
+	parameterFormat.setFontWeight(QFont::Bold);
+	parameterFormat.setForeground(Qt::darkGreen);
+	rule.pattern = QRegularExpression("fractal->(.*?)[^a-zA-Z0-9_.]");
+	rule.format = parameterFormat;
+	highlightingRules.append(rule);
+
 	//! [6]
 	commentStartExpression = QRegularExpression("/\\*");
 	commentEndExpression = QRegularExpression("\\*/");
@@ -151,7 +157,8 @@ void Highlighter::highlightBlock(const QString &text)
 		while (matchIterator.hasNext())
 		{
 			QRegularExpressionMatch match = matchIterator.next();
-			setFormat(match.capturedStart(), match.capturedLength(), rule.format);
+			setFormat(match.capturedStart(match.lastCapturedIndex()),
+				match.capturedLength(match.lastCapturedIndex()), rule.format);
 		}
 	}
 	//! [7] //! [8]

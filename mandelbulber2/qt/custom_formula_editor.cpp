@@ -23,6 +23,8 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		&cCustomFormulaEditor::slotTextChanged);
 	connect(ui->pushButton_load_builtin, &QPushButton::pressed, this,
 		&cCustomFormulaEditor::slotLoadBuiltIn);
+	connect(ui->pushButton_check_syntax, &QPushButton::pressed, this,
+		&cCustomFormulaEditor::slotCheckSyntax);
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -75,4 +77,29 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 			file.close();
 		}
 	}
+}
+
+void cCustomFormulaEditor::slotCheckSyntax()
+{
+	// create list of parameters used in the code
+	QString code = ui->textEdit_formula_code->toPlainText();
+	QRegularExpression regex("fractal->(.*?)[^a-zA-Z0-9_.]");
+
+	QStringList listOfFoundParameters;
+
+	bool found = false;
+	int lastPosition = 0;
+	do
+	{
+		QRegularExpressionMatch match = regex.match(code, lastPosition);
+		found = match.hasMatch();
+		if (found)
+		{
+			lastPosition = match.capturedEnd();
+			listOfFoundParameters.append(match.captured(1));
+		}
+	} while (found);
+
+	listOfFoundParameters.removeDuplicates();
+	qDebug() << listOfFoundParameters;
 }
