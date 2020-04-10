@@ -70,8 +70,6 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 			code.replace(" * D O    N O T    E D I T    T H I S    F I L E !",
 				" * F E E L   F R E E    T O    E D I T    T H I S    F I L E !");
 			QRegularExpression regex("REAL4\\ (.*?)\\(REAL4\\ z");
-			QRegularExpressionMatch match = regex.match(code);
-
 			code.replace(regex, "REAL4 CustomIteration(REAL4 z");
 			ui->textEdit_formula_code->setText(code);
 			file.close();
