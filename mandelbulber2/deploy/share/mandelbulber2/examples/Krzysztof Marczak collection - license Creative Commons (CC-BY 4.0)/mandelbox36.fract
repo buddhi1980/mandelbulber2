@@ -1,58 +1,34 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 6;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-basic_fog_visibility 1,047128548050898e-14;
 camera -1,288588669224109 -1,963350056020076 -1,288620788051363;
 camera_distance_to_target 1,270122715521443e-11;
 camera_rotation -23,6984754549067 32,06139192190089 48,67623948075467;
 camera_top 0,5467826490102632 -0,622795520029878 0,559602068412933;
-coloring_random_seed 132058;
-coloring_speed 2;
 constant_DE_threshold true;
-DE_factor 0,70625;
 DE_thresh 1e-07;
 detail_level 1e-07;
-DOF_focus 5,181450883333325e-07;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
 formula_1 8;
-fov 1,2;
+fov 61,93;
 glow_intensity 2;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_alpha -70;
 main_light_beta -10;
 main_light_intensity 0,7;
-main_light_volumetric_intensity 100;
-stereo_eye_distance 0,1;
-surface_color_palette a15b3b dbbd6d a1762d 9f0096 937864 873610 d8cec5 570000 bfae57 d17156 ;
+mat1_coloring_speed 2;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 a15b3b 999 dbbd6d 1999 a1762d 2999 9f0096 3999 937864 5000 873610 5999 d8cec5 7000 570000 7999 bfae57 9000 d17156;
 target -1,288588669219783 -1,96335005601022 -1,288620788044621;
 view_distance_max 11,15192539375105;
-volumetric_fog_density 0;
 [fractal_1]
-mandelbox_generalized_fold_type 1;
-mandelbox_scale -1,73;
-[fractal_2]
-mandelbox_generalized_fold_type 1;
-mandelbox_scale -1,73;
-[fractal_3]
-mandelbox_generalized_fold_type 1;
-mandelbox_scale -1,73;
-[fractal_4]
-mandelbox_generalized_fold_type 1;
 mandelbox_scale -1,73;

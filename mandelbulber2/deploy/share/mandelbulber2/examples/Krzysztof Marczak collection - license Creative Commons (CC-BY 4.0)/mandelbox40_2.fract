@@ -1,70 +1,41 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
-ambient_occlusion_mode 1;
-ambient_occlusion_quality 2;
 aux_light_colour_1 ffff afc5 4be2;
 aux_light_enabled_1 true;
-aux_light_intensity 0,2;
 aux_light_intensity_1 0,0003066529397355547;
 aux_light_position_1 -3,927285956322817 -0,6901224905027888 -5,958555173688161;
-aux_light_position_4 0 -1 3;
 aux_light_visibility 2;
 aux_light_visibility_size 0,3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-basic_fog_visibility 0,000549540873857627;
 camera -4,03247071956652 -0,7009290429588075 -5,952291813854384;
 camera_distance_to_target 6,666638862408728e-11;
 camera_rotation -69,99993726014733 0 0;
 camera_top 0 0 1;
-coloring_palette_size 255;
-coloring_random_seed 593931;
-coloring_speed 2;
 constant_DE_threshold true;
 DE_thresh 0,0001;
-DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
 formula_1 8;
-fov 1,2;
-fractal_color false;
-fresnel_reflectance true;
+fov 61,93;
 glow_intensity 0,5;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_beta -45;
 main_light_colour f2f8 4ed3 28b2;
 main_light_intensity 0,3;
-main_light_volumetric_intensity 100;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 0,6;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_transparency_index_of_refraction 6;
+mat1_use_colors_from_palette false;
 raytraced_reflections true;
-reflect 0,6;
 reflections_max 4;
-stereo_eye_distance 0,1;
-surface_color_palette b4ca6c 8ad14e c3acff d40d07 c1962a f4023 a15353 f1a57a de549a cb8ebd 57d9f3 d10080 caf87f 1f89a9 8fafdc 6c6d7a 51a40e 8c2514 ffff3f 38e9da a61d71 86fa1c 68b765 190000 ff8a87 816e52 686258 17001b 21925c 6c5895 c0000 503589 5aaa80 6c140 7df23b e04631 f6aba4 a2000c 1179 6a259f ff87ff 2d56d3 682d4d 323d00 aa5614 9f90cf e48b56 6fb500 3226de 8ec221 ff8c43 9c062c c1a553 df 976035 56 2a478b 61fff3 9c0a 38ccc6 44edff b4d000 80123 2cb34d 4f2d8b ed3978 9500 217093 79bbc0 93bd76 fffa34 8c5fc6 d09592 a8e4bd b9e5e4 aacdb1 826b6b 4affff 5a9b0c 360e0c c6c0b8 3c0cbb 70bb 3a6954 ae9991 7372d2 693a6a 326079 ffffff 12b635 551f76 d9ff6f 7cc905 63ffff c000d9 a59efb 3c8e7d 79e7b1 698af1 7c397b ff87e5 5a3c d698ff 7b730c 24ac5c f26cf3 cdbbff b354de 775f6a ffffbe 51a9a2 13a400 dcbc97 f0528e c96455 7600a1 3d0088 125f02 9151 6f5f00 6bc0 922341 d4e4fa c98f4f be0eb0 c1ff85 77b6ec 5dff7a 4d0020 5b9fb9 79a97a 69f9c7 37210 769351 5549ee 76 1dccb4 9d9fee 2d4c72 988c2a ff424f a16c18 d0ff62 ffd539 5ba780 3c6314 2fffaf 4d941a ad4084 ddcc60 bd9127 6c66e7 58b230 204f65 b977 75b9b7 40a7 6560b2 ead2d0 b02fb0 b6b572 0 d7b8bc 7c7e9d fa80b0 5b00c2 997b38 f4dc2 5f91ff 4c03a0 c66793 24d05 ffe840 b0ec8f 91f113 3ed58e 1361a4 8b6bd0 e071c9 ffffff a0ffff de82b9 90e922 cfc13c 3efc83 493515 76af00 bc0710 e90094 d8b1b3 336fc2 a6 c321d4 2bbf08 921d3e 6f98ec 8c814b ae40 5d4261 6c62ff 63bb24 ffbbff f57c48 df0095 b111d5 f14728 6463cf fcff3b ae442e ec3b49 ba942e 97c731 a0cebe 33fff4 86e391 946f7e e0d908 306caa d1a84e 384967 223083 56991c 94c437 7e65 556b9f fa6c4f ff92ff c45b42 b8008d 8dac00 3f0010 cfe3b9 5f69d0 d41e03 d33248 827fc4 7e5e7c 247445 bfbc66 6dedaa b4d890 b95722 694af6 fff27e 1bc58d 61001a 6e373f 380000 fe9a71 dd7f17 a3000d ca7cf2 85c398 a89de1 cb172d ffffff ;
 target -4,032470719503874 -0,7009290429360062 -5,952291813854384;
 textured_background true;
-transparency_index_of_refraction 6;
 view_distance_max 32,79159937526111;
-volumetric_fog_density 0;
-[fractal_1]
-mandelbox_color_R 0,1;
-mandelbox_generalized_fold_type 1;
-[fractal_2]
-mandelbox_color_R 0,1;
-mandelbox_generalized_fold_type 1;
-[fractal_3]
-mandelbox_color_R 0,1;
-mandelbox_generalized_fold_type 1;
-[fractal_4]
-mandelbox_color_R 0,1;
-mandelbox_generalized_fold_type 1;

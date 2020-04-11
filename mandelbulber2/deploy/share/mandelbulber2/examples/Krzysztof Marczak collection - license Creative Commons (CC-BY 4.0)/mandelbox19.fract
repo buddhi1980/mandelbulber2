@@ -1,18 +1,10 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 6;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
 basic_fog_color d00a c0bc 90ad;
 basic_fog_enabled true;
 basic_fog_visibility 9,33254e-06;
@@ -21,60 +13,30 @@ camera 0,7198966232664067 -0,9310938565060822 -5,082802699379379;
 camera_distance_to_target 1,666666666470291e-07;
 camera_rotation 39,99999999393899 -10,00000004983679 0;
 camera_top -0,1116188975854908 0,1330222222274914 0,9848077528611661;
-coloring_palette_offset 136,7;
-coloring_palette_size 255;
-coloring_random_seed 23423;
-coloring_speed 4;
 DE_factor 0,5;
-DE_thresh 1;
-DOF_focus 4,466835921509635e-14;
-DOF_radius 3,9;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
 formula_1 8;
-fov 1,2;
+fov 61,93;
 fractal_constant_factor 1,8 1,8 1,8;
 gamma 0,6;
 glow_color_1 9e96 87d8 344b;
-glow_color_2 c2d5 b1d5 9876;
 glow_intensity 1;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 84;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 168;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_beta -45;
 main_light_intensity 0,7;
-main_light_volumetric_intensity 100;
+mat1_coloring_palette_offset 0,53398;
+mat1_coloring_speed 0,1563;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 a1ae4e 39 5e612d 78 507c9d 117 00704e 156 74e545 195 812ed1 234 cc0000 273 5bb967 312 6dbb86 350 7effff 390 0e3984 429 bc00b6 468 c10076 506 527ac9 546 69b020 585 98b61f 625 baef43 664 a30033 703 c03f74 740 000097 780 536f95 819 b429a8 859 00d44b 898 fbdb4e 937 c58cc0 976 bd2393 1015 009e76 1054 a61500 1093 b4a89f 1132 7a0056 1171 17f47d 1210 c7c4ac 1250 0016c7 1287 6c8e23 1328 218e82 1366 ffdcff 1406 004478 1445 831d65 1482 e4b54b 1523 53d1d5 1560 efa41d 1601 000e90 1639 ac2130 1679 e94bff 1718 c7b8c7 1757 4ea436 1796 9ac2f7 1833 cdff8c 1875 8a88e2 1912 ba95f8 1953 bb2d0b 1990 7c188f 2031 530000 2069 c84964 2109 4c9c92 2148 8aff94 2187 8b72af 2226 8b2b3a 2265 a18e2a 2304 5b6d00 2342 900017 2382 aaf469 2421 92fdce 2460 d634cf 2500 170000 2539 5f5671 2577 00a111 2617 845de0 2656 3600bd 2694 ff69f3 2733 004f0a 2773 90e7e3 2812 fffaff 2850 6385b6 2890 47e815 2929 57ffff 2967 ffde8f 3006 39746c 3046 6e2292 3085 005dab 3125 348969 3164 657560 3202 465e54 3242 3c370b 3281 007000 3319 a02400 3358 b1ee93 3398 ab9eff 3437 65c0e5 3475 d6e600 3515 131c62 3554 8ba5c1 3592 43eaba 3631 009a4e 3671 f952f7 3710 72930e 3750 5dfd53 3789 980104 3827 4a935d 3867 351a6a 3906 4565c5 3944 1c2f49 3983 8c4c65 4023 fc90dd 4062 00a000 4101 001a00 4139 2cb3a7 4179 ff4b41 4218 6dc271 4257 43ffc5 4296 03d562 4335 5a34f9 4375 e2eb6a 4414 89c6cd 4453 292400 4491 481038 4531 00bc84 4570 cb4ca8 4609 765ff0 4648 3187dc 4687 522600 4726 ffd361 4764 a20407 4804 598434 4843 a31bea 4882 79a46c 4921 e94249 4960 760000 5000 3f1f00 5039 d21f31 5078 9fb43b 5115 659cbd 5155 998869 5194 40eadf 5234 ffffff 5273 ea06c9 5312 28a96d 5351 00b400 5388 67166b 5428 87fd67 5467 90dcff 5507 477a28 5546 360095 5585 00616b 5625 310078 5664 d172ab 5703 8e1cd4 5740 001800 5780 e8f3db 5819 5e004f 5859 545a4d 5898 89876d 5937 f65574 5976 bf16ff 6013 1bd056 6053 1c6fc0 6092 457e27 6132 ffffff 6171 ffff5b 6210 aec6a5 6250 bfbc00 6289 cf01c8 6328 af0020 6365 8b0004 6405 be6b06 6444 6dffaa 6484 daa3da 6523 788df0 6562 38d0a1 6601 c55d00 6638 f1b7ff 6678 bb2fb5 6717 cef057 6757 acaa34 6796 c3838a 6835 a61014 6875 130038 6914 6b5e00 6953 00ecc7 6990 55b794 7030 a7ec3c 7069 7d570c 7109 9f5b10 7148 e29bf3 7187 580000 7226 9c0d5b 7263 628bd3 7303 e20845 7342 bb48a1 7382 b6c47e 7421 5fce3e 7460 230002 7500 838f3f 7539 615fbd 7578 ffbf57 7615 dfb474 7655 d9f1d5 7694 da7742 7734 003919 7773 7d755f 7812 fd97ff 7851 00cf2b 7888 ada1ff 7928 bc006b 7967 32968c 8007 ffc6ff 8046 000648 8085 b9e551 8125 5b41ff 8164 001a37 8203 9a28ad 8242 3f4448 8281 9e990e 8320 5429a0 8359 4b04b7 8398 000078 8437 458e97 8476 caf0ef 8515 1094de 8554 d22097 8593 f1dd39 8631 ca9d59 8671 cb3a5c 8710 a14d68 8750 e4ff5e 8789 e338ff 8828 ffff8d 8867 30ff6b 8906 ffba68 8945 60ca32 8983 cc5500 9023 96312b 9062 0e5fe0 9101 dcffff 9140 c53c1e 9179 71a8ff 9218 ba0090 9256 90b831 9296 7a7233 9335 561123 9375 d86bc6 9414 2c8fbf 9453 a8bab2 9492 3e9d01 9531 c5ea85 9570 dcf13f 9608 233219 9648 d2cbbb 9687 e32fb7 9726 b26a0e 9765 a843ff 9804 ff4a90 9843 2cff71 9881 ffba4c 9921 ad26c7 9960 ffffff;
 N 255;
-stereo_eye_distance 0,1;
-surface_color_palette a1ae4e 5e612d 507c9d 704e 74e545 812ed1 cc0000 5bb967 6dbb86 7effff e3984 bc00b6 c10076 527ac9 69b020 98b61f baef43 a30033 c03f74 97 536f95 b429a8 d44b fbdb4e c58cc0 bd2393 9e76 a61500 b4a89f 7a0056 17f47d c7c4ac 16c7 6c8e23 218e82 ffdcff 4478 831d65 e4b54b 53d1d5 efa41d e90 ac2130 e94bff c7b8c7 4ea436 9ac2f7 cdff8c 8a88e2 ba95f8 bb2d0b 7c188f 530000 c84964 4c9c92 8aff94 8b72af 8b2b3a a18e2a 5b6d00 900017 aaf469 92fdce d634cf 170000 5f5671 a111 845de0 3600bd ff69f3 4f0a 90e7e3 fffaff 6385b6 47e815 57ffff ffde8f 39746c 6e2292 5dab 348969 657560 465e54 3c370b 7000 a02400 b1ee93 ab9eff 65c0e5 d6e600 131c62 8ba5c1 43eaba 9a4e f952f7 72930e 5dfd53 980104 4a935d 351a6a 4565c5 1c2f49 8c4c65 fc90dd a000 1a00 2cb3a7 ff4b41 6dc271 43ffc5 3d562 5a34f9 e2eb6a 89c6cd 292400 481038 bc84 cb4ca8 765ff0 3187dc 522600 ffd361 a20407 598434 a31bea 79a46c e94249 760000 3f1f00 d21f31 9fb43b 659cbd 998869 40eadf ffffff ea06c9 28a96d b400 67166b 87fd67 90dcff 477a28 360095 616b 310078 d172ab 8e1cd4 1800 e8f3db 5e004f 545a4d 89876d f65574 bf16ff 1bd056 1c6fc0 457e27 ffffff ffff5b aec6a5 bfbc00 cf01c8 af0020 8b0004 be6b06 6dffaa daa3da 788df0 38d0a1 c55d00 f1b7ff bb2fb5 cef057 acaa34 c3838a a61014 130038 6b5e00 ecc7 55b794 a7ec3c 7d570c 9f5b10 e29bf3 580000 9c0d5b 628bd3 e20845 bb48a1 b6c47e 5fce3e 230002 838f3f 615fbd ffbf57 dfb474 d9f1d5 da7742 3919 7d755f fd97ff cf2b ada1ff bc006b 32968c ffc6ff 648 b9e551 5b41ff 1a37 9a28ad 3f4448 9e990e 5429a0 4b04b7 78 458e97 caf0ef 1094de d22097 f1dd39 ca9d59 cb3a5c a14d68 e4ff5e e338ff ffff8d 30ff6b ffba68 60ca32 cc5500 96312b e5fe0 dcffff c53c1e 71a8ff ba0090 90b831 7a7233 561123 d86bc6 2c8fbf a8bab2 3e9d01 c5ea85 dcf13f 233219 d2cbbb e32fb7 b26a0e a843ff ff4a90 2cff71 ffba4c ad26c7 ffffff ;
 target 0,7198965177627031 -0,9310937307716645 -5,082802728320742;
-volumetric_fog_density 0;
 [fractal_1]
 mandelbox_color_Sp1 0,5;
-mandelbox_generalized_fold_type 1;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main -1 -2 -3;
-power 2;
-[fractal_2]
-mandelbox_color_Sp1 0,5;
-mandelbox_generalized_fold_type 1;
-mandelbox_main_rotation_enabled true;
-mandelbox_rotation_main -1 -2 -3;
-power 2;
-[fractal_3]
-mandelbox_color_Sp1 0,5;
-mandelbox_generalized_fold_type 1;
-mandelbox_main_rotation_enabled true;
-mandelbox_rotation_main -1 -2 -3;
-power 2;
-[fractal_4]
-mandelbox_color_Sp1 0,5;
-mandelbox_generalized_fold_type 1;
-mandelbox_main_rotation_enabled true;
-mandelbox_rotation_main -1 -2 -3;
-power 2;

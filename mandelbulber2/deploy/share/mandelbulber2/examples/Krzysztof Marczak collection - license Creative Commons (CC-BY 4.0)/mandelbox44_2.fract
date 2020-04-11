@@ -1,10 +1,9 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 1;
-analityc_DE_mode false;
 aux_light_colour_1 fc48 ffff bf23;
 aux_light_enabled_1 true;
 aux_light_enabled_2 true;
@@ -29,9 +28,6 @@ camera 4,00799374841107 -7,709322548108518 3,626159059796396;
 camera_distance_to_target 1,333331922472881e-10;
 camera_rotation -9,372558660323216 19,68350840459742 90;
 camera_top 0,9866502720701328 -0,1628534329510218 5,765438326301241e-17;
-coloring_palette_size 5;
-coloring_random_seed 8185;
-coloring_speed 0,5;
 DE_factor 0,7;
 DE_thresh 1;
 DOF_focus 1,479108388168207e-14;
@@ -40,8 +36,7 @@ fog_color_1 0000 0000 0000;
 formula_1 8;
 formula_2 7;
 formula_iterations_1 10;
-fov 1,2;
-fresnel_reflectance true;
+fov 61,93;
 gamma 1,27;
 glow_color_1 ffff 2ddf 0000;
 glow_color_2 ffff e684 0000;
@@ -63,13 +58,17 @@ main_light_alpha 45;
 main_light_beta -45;
 main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 0,99;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 8eba06 1999 b10000 3999 d2a964 5999 9e4659 7999 8e009b;
+mat1_transparency_index_of_refraction 6;
 raytraced_reflections true;
-reflect 0,99;
 reflections_max 2;
-stereo_eye_distance 0,1;
-surface_color_palette 8eba06 b10000 d2a964 9e4659 8e009b;
 target 4,007993748431515 -7,709322547984652 3,626159059841306;
-transparency_index_of_refraction 6;
 view_distance_max 9,54993;
 view_distance_min 1e-12;
 volumetric_fog_density 0;
@@ -78,44 +77,3 @@ mandelbox_color 0 0 0;
 mandelbox_color_R 0,1;
 mandelbox_folding_min_radius 0;
 mandelbox_scale 1,05;
-[fractal_2]
-mandelbox_color 0 0 0;
-mandelbox_color_R 0,1;
-mandelbox_folding_min_radius 0;
-mandelbox_rotation_main 5,826811731237789e-315 0 0;
-mandelbox_rotation_neg_1 6,443302926177924e-315 0 0;
-mandelbox_rotation_neg_2 5,843592641254848e-315 0 0;
-mandelbox_rotation_neg_3 5,865564081430704e-315 0 0;
-mandelbox_rotation_pos_1 5,673387574675405e-315 0 0;
-mandelbox_rotation_pos_2 5,877100109127267e-315 0 0;
-mandelbox_rotation_pos_3 6,695156970127735e-315 0 0;
-mandelbox_scale 1,2;
-[fractal_3]
-mandelbox_color 0 0 0;
-mandelbox_color_R 0,1;
-mandelbox_folding_min_radius 0;
-mandelbox_rotation_main 5,826811731237789e-315 0 0;
-mandelbox_rotation_neg_1 6,443302926177924e-315 0 0;
-mandelbox_rotation_neg_2 5,843592641254848e-315 0 0;
-mandelbox_rotation_neg_3 5,865564081430704e-315 0 0;
-mandelbox_rotation_pos_1 5,673387574675405e-315 0 0;
-mandelbox_rotation_pos_2 5,877100109127267e-315 0 0;
-mandelbox_rotation_pos_3 6,695156970127735e-315 0 0;
-mandelbox_scale 1,2;
-[fractal_4]
-mandelbox_color 0 0 0;
-mandelbox_color_R 0,1;
-mandelbox_folding_min_radius 0;
-mandelbox_rotation_main 5,826811731237789e-315 0 0;
-mandelbox_rotation_neg_1 6,443302926177924e-315 0 0;
-mandelbox_rotation_neg_2 5,843592641254848e-315 0 0;
-mandelbox_rotation_neg_3 5,865564081430704e-315 0 0;
-mandelbox_rotation_pos_1 5,673387574675405e-315 0 0;
-mandelbox_rotation_pos_2 5,877100109127267e-315 0 0;
-mandelbox_rotation_pos_3 6,695156970127735e-315 0 0;
-mandelbox_scale 1,2;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

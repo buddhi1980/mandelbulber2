@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,2;
@@ -18,81 +18,41 @@ aux_light_position_2 -1,689603815150941 2,140032839207708 -1,588758683166922;
 aux_light_position_3 -1,688661320021551 2,139935538857176 -1,58862993796987;
 aux_light_position_4 -1,689319255987243 2,140437880557561 -1,588448758143648;
 aux_light_visibility 1,23027;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-basic_fog_visibility 1,047128548050898e-14;
 camera -1,688932139658364 2,140476353213968 -1,589757970756898;
 camera_distance_to_target 5,825507060776269e-12;
 camera_rotation 154,0028754703629 62,99891436062969 0;
 camera_top 0,390547589809955 0,8008432285970841 0,4540073824331863;
-coloring_random_seed 126601;
-DE_thresh 1;
-DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
 formula_1 8;
-fov 1,2;
+fov 61,93;
 glow_intensity 1;
 hdr true;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_beta -45;
 main_light_intensity 0,07000000000000001;
 main_light_volumetric_intensity 100;
-stereo_eye_distance 0,1;
-surface_color_palette ff6288 9bffff 944ad4 aa89e9 21b013 675184 56ac33 627b 173c44 68d65 ;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 ff6288 999 9bffff 1999 944ad4 2999 aa89e9 3999 21b013 5000 675184 5999 56ac33 7000 00627b 7999 173c44 9000 068d65;
 target -1,688932139659523 2,140476353211591 -1,589757970751707;
 view_distance_max 27,87714677447684;
-volumetric_fog_density 0;
 [fractal_1]
 mandelbox_folding_min_radius 0,1;
-mandelbox_generalized_fold_type 1;
 mandelbox_rotation_neg_1 5 5 3;
 mandelbox_rotation_neg_2 -5 0 -3;
 mandelbox_rotation_neg_3 0 -5 6;
 mandelbox_rotation_pos_1 2 0 0;
-mandelbox_rotation_pos_2 -2 6 8;
 mandelbox_rotation_pos_3 0 -6 10;
 mandelbox_rotations_enabled true;
 mandelbox_scale -1,15;
 [fractal_2]
-mandelbox_folding_min_radius 0,1;
-mandelbox_generalized_fold_type 1;
-mandelbox_rotation_neg_1 5 5 3;
-mandelbox_rotation_neg_2 -5 0 -3;
-mandelbox_rotation_neg_3 0 -5 6,000000000000001;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_rotation_pos_1 2 0 0;
-mandelbox_rotation_pos_2 -2 6,000000000000001 8;
-mandelbox_rotation_pos_3 0 -6,000000000000001 10;
-mandelbox_rotations_enabled true;
-mandelbox_scale -1,15;
-[fractal_3]
-mandelbox_folding_min_radius 0,1;
-mandelbox_generalized_fold_type 1;
-mandelbox_rotation_neg_1 5 5 3;
-mandelbox_rotation_neg_2 -5 0 -3;
-mandelbox_rotation_neg_3 0 -5 6,000000000000001;
-mandelbox_rotation_pos_1 2 0 0;
-mandelbox_rotation_pos_2 -2 6,000000000000001 8;
-mandelbox_rotation_pos_3 0 -6,000000000000001 10;
-mandelbox_rotations_enabled true;
-mandelbox_scale -1,15;
 [fractal_4]
 mandelbox_folding_min_radius 0,1;
-mandelbox_generalized_fold_type 1;
-mandelbox_rotation_neg_1 5 5 3;
-mandelbox_rotation_neg_2 -5 0 -3;
-mandelbox_rotation_neg_3 0 -5 6,000000000000001;
-mandelbox_rotation_pos_1 2 0 0;
 mandelbox_rotation_pos_2 -2 6,000000000000001 8;
-mandelbox_rotation_pos_3 0 -6,000000000000001 10;
-mandelbox_rotations_enabled true;
-mandelbox_scale -1,15;
