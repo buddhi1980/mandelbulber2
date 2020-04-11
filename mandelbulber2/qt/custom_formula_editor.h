@@ -23,6 +23,7 @@ class cCustomFormulaEditor : public QWidget
 public:
 	explicit cCustomFormulaEditor(QWidget *parent = nullptr);
 	~cCustomFormulaEditor();
+	void AssignSlot(int slot) { slotIndex = slot; }
 
 private slots:
 	void slotNewFormula();
@@ -40,8 +41,10 @@ private:
 private:
 	QStringList CreateListOfParametersInCode();
 	QList<sParameterDesctiption> ConvertListOfParameters(const QStringList &list);
+	void BuildUI(const QList<sParameterDesctiption> &listOfParameters);
 
 	Ui::cCustomFormulaEditor *ui;
+	int slotIndex = 0;
 };
 
 #endif /* MANDELBULBER2_QT_CUSTOM_FORMULA_EDITOR_H_ */

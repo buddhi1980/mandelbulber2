@@ -8,6 +8,11 @@
 #include "custom_formula_editor.h"
 #include "ui_custom_formula_editor.h"
 #include "src/system.hpp"
+#include "src/fractal_container.hpp"
+#include "src/interface.hpp"
+
+#include "my_line_edit.h"
+#include "my_check_box.h"
 
 #include <QFileDialog>
 #include <QTextStream>
@@ -77,14 +82,18 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 			file.close();
 		}
 	}
+
+	QStringList parametersInCode = CreateListOfParametersInCode();
+	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	BuildUI(list);
 }
 
 void cCustomFormulaEditor::slotCheckSyntax()
 {
 	// create list of parameters used in the code
 	QStringList parametersInCode = CreateListOfParametersInCode();
-
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	BuildUI(list);
 }
 
 QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
@@ -142,7 +151,16 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 				QStringList split = conversionList[i].split(" ");
 				if (split.length() == 3)
 				{
-					conversionTable.insert(split[0], split[2]);
+					QString parameterInCode = split[0];
+					if (parameterInCode.endsWith(".x") || parameterInCode.endsWith(".y")
+							|| parameterInCode.endsWith(".z") || parameterInCode.endsWith(".w"))
+					{
+						parameterInCode = parameterInCode.left(parameterInCode.length() - 2);
+					}
+					if (!conversionTable.contains(parameterInCode))
+					{
+						conversionTable.insert(parameterInCode, split[2]);
+					}
 				}
 				else
 				{
@@ -159,16 +177,16 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 	for (int i = 0; i < inputList.size(); i++)
 	{
 		QString sourceName = inputList[i];
-		if (sourceName.endsWith(".x") || sourceName.endsWith(".y") || sourceName.endsWith(".z")
-				|| sourceName.endsWith(".w"))
-		{
-			sourceName = sourceName.left(sourceName.length() - 2);
-		}
 
 		if (conversionTable.contains(sourceName))
 		{
 			QString parameterName = conversionTable[sourceName];
+			cOneParameter parameter = gParFractal->at(0).GetAsOneParameter(parameterName);
 			qDebug() << inputList[i] << parameterName;
+			sParameterDesctiption parDesc;
+			parDesc.parameterName = parameterName;
+			parDesc.parameter = parameter;
+			list.append(parDesc);
 		}
 		else
 		{
@@ -178,4 +196,77 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 	}
 
 	return list;
+}
+
+void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfParameters)
+{
+	// delete all existing widgets
+	QLayoutItem *item;
+	while ((item = ui->formLayoutParameters->takeAt(0)) != NULL)
+	{
+		delete item->widget();
+		delete item;
+	}
+
+	for (int i = 0; i < listOfParameters.size(); i++)
+	{
+		cOneParameter parameter = listOfParameters[i].parameter;
+		enumVarType varType = parameter.GetValueType();
+		if (varType == typeVector3)
+		{
+			for (int axis = 0; axis < 3; axis++)
+			{
+				QWidget *newWidget = new MyLineEdit(this);
+				QString sAxis;
+				switch (axis)
+				{
+					case 0: sAxis = "x"; break;
+					case 1: sAxis = "y"; break;
+					case 2: sAxis = "z"; break;
+				}
+				newWidget->setObjectName(
+					QString("vect3_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
+				ui->formLayoutParameters->addRow(
+					listOfParameters[i].parameterName + " " + sAxis, newWidget);
+			}
+		}
+		else if (varType == typeVector4)
+		{
+			for (int axis = 0; axis < 4; axis++)
+			{
+				QWidget *newWidget = new MyLineEdit(this);
+				QString sAxis;
+				switch (axis)
+				{
+					case 0: sAxis = "x"; break;
+					case 1: sAxis = "y"; break;
+					case 2: sAxis = "z"; break;
+					case 3: sAxis = "w"; break;
+				}
+				newWidget->setObjectName(
+					QString("vect4_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
+				ui->formLayoutParameters->addRow(
+					listOfParameters[i].parameterName + " " + sAxis, newWidget);
+			}
+		}
+		else if (varType == typeBool)
+		{
+			MyCheckBox *newWidget = new MyCheckBox(this);
+			newWidget->setObjectName(QString("checkBox_%1").arg(listOfParameters[i].parameterName));
+			newWidget->setText(listOfParameters[i].parameterName);
+			ui->formLayoutParameters->addRow(newWidget);
+		}
+		else
+		{
+			QWidget *newWidget = new MyLineEdit(this);
+			newWidget->setObjectName(QString("edit_%1").arg(listOfParameters[i].parameterName));
+			ui->formLayoutParameters->addRow(listOfParameters[i].parameterName, newWidget);
+		}
+		QFrame *line = new QFrame();
+		line->setFrameShape(QFrame::HLine);
+		line->setFrameShadow(QFrame::Sunken);
+		ui->formLayoutParameters->addRow(line);
+	}
+	SynchronizeInterfaceWindow(
+		ui->groupBox_parameters, &gParFractal->at(slotIndex), qInterface::write);
 }

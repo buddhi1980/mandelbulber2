@@ -124,6 +124,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName.contains("animSound")) continue;
 			if (parameterName == "camera_distance_to_target") continue;
 			if (parameterName == "camera_rotation") continue;
+			if (parameterName == "view_distance_max") continue;
 			if (parameterName == "stereo_mode") continue;
 			if (parameterName.contains("flight_")) continue;
 			if (parameterName.contains("keyframe_")) continue;

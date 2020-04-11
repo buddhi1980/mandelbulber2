@@ -64,10 +64,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox_parameters">
      <property name="title">
-      <string>Main parameters</string>
+      <string>Formula parameters</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="spacing">
+     <layout class="QFormLayout" name="formLayoutParameters">
+      <property name="horizontalSpacing">
+       <number>2</number>
+      </property>
+      <property name="verticalSpacing">
        <number>2</number>
       </property>
       <property name="leftMargin">
