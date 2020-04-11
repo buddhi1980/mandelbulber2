@@ -162,7 +162,7 @@ bool InitSystem()
 
 		if (shareDir.cd("/usr/share/doc/mandelbulber2"))
 		{
-			systemData.docDir = QDir::cleanPath(shareDir.absolutePath() + QDir::separator());
+			systemData.docDir = QDir::cleanPath(shareDir.absolutePath()) + QDir::separator();
 		}
 		else
 		{

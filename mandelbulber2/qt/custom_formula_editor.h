@@ -9,6 +9,7 @@
 #define MANDELBULBER2_QT_CUSTOM_FORMULA_EDITOR_H_
 
 #include <QWidget>
+#include "src/one_parameter.hpp"
 
 namespace Ui
 {
@@ -30,6 +31,16 @@ private slots:
 	void slotCheckSyntax();
 
 private:
+	struct sParameterDesctiption
+	{
+		QString parameterName;
+		cOneParameter parameter;
+	};
+
+private:
+	QStringList CreateListOfParametersInCode();
+	QList<sParameterDesctiption> ConvertListOfParameters(const QStringList &list);
+
 	Ui::cCustomFormulaEditor *ui;
 };
 

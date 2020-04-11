@@ -82,6 +82,13 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 void cCustomFormulaEditor::slotCheckSyntax()
 {
 	// create list of parameters used in the code
+	QStringList parametersInCode = CreateListOfParametersInCode();
+
+	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+}
+
+QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
+{
 	QString code = ui->textEdit_formula_code->toPlainText();
 	QRegularExpression regex("fractal->(.*?)[^a-zA-Z0-9_.]");
 
@@ -101,5 +108,74 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	} while (found);
 
 	listOfFoundParameters.removeDuplicates();
-	qDebug() << listOfFoundParameters;
+	return listOfFoundParameters;
+}
+
+QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::ConvertListOfParameters(
+	const QStringList &inputList)
+{
+	QString fileName(systemData.sharedDir + "data/parameterNames.txt");
+	QFile file(fileName);
+	QStringList conversionList;
+	if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+
+		QTextStream textStream(&file);
+
+		while (!textStream.atEnd())
+			conversionList << textStream.readLine();
+
+		file.close();
+	}
+	else
+	{
+		qCritical()
+			<< "cCustomFormulaEditor::ConvertListOfParameters(): cannot open file with parameter names!";
+	}
+
+	QMap<QString, QString> conversionTable;
+	{
+		for (int i = 0; i < conversionList.size(); i++)
+		{
+			if (conversionList[i].length() > 0)
+			{
+				QStringList split = conversionList[i].split(" ");
+				if (split.length() == 3)
+				{
+					conversionTable.insert(split[0], split[2]);
+				}
+				else
+				{
+					qCritical()
+						<< "cCustomFormulaEditor::ConvertListOfParameters(): error in conversion list: "
+						<< conversionList[i];
+				}
+			}
+		}
+	}
+
+	QList<sParameterDesctiption> list;
+
+	for (int i = 0; i < inputList.size(); i++)
+	{
+		QString sourceName = inputList[i];
+		if (sourceName.endsWith(".x") || sourceName.endsWith(".y") || sourceName.endsWith(".z")
+				|| sourceName.endsWith(".w"))
+		{
+			sourceName = sourceName.left(sourceName.length() - 2);
+		}
+
+		if (conversionTable.contains(sourceName))
+		{
+			QString parameterName = conversionTable[sourceName];
+			qDebug() << inputList[i] << parameterName;
+		}
+		else
+		{
+			qWarning() << "cCustomFormulaEditor::ConvertListOfParameters(): Unknown parameter: "
+								 << sourceName;
+		}
+	}
+
+	return list;
 }
