@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
@@ -7,11 +7,6 @@ ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 3;
 aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
 basic_fog_color ffff ebda 9897;
 basic_fog_enabled true;
 basic_fog_visibility 0,3630780547701017;
@@ -19,52 +14,35 @@ camera -0,4171369207578404 -0,5284289663529528 -0,3155056853963703;
 camera_distance_to_target 0,002604166666666655;
 camera_rotation -29,99999999999986 29,99999999999966 0;
 camera_top -0,2499999999999964 -0,4330127018922154 0,8660254037844416;
-coloring_palette_offset 2,9;
-coloring_palette_size 255;
-coloring_random_seed 312317;
 DE_factor 0,5;
-DE_thresh 1;
-DOF_focus 1,479108388168207e-14;
+detail_level 2;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
-fov 1,2;
-fractal_color false;
-glow_color_1 ffff 305 0;
-glow_color_2 ffff f897 4c2c;
+fov 61,93;
+glow_color_1 ffff 0305 0000;
 glow_intensity 1;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_alpha -20;
 main_light_beta -100;
 main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
-stereo_eye_distance 0,1;
-surface_color_palette 1955e0 49ecda 5600 4dc70c 3f1422 dab0bb b25b38 94b683 ee452e c70e 5c4755 89dc70 e88a1c 57f343 77a5ff ed4128 9e6eff 4836dd b266c6 ffffc6 78baa0 77ad90 248e54 ea97f8 7b8394 ffc2cf d2404e 4fffad 850a15 e7d5d7 33fcce 5f92ff 4edff6 7a9ea1 788aae d19585 494300 8db1 6a60b6 ffffe3 524b00 ff9bfe 3dc468 58eb37 3834cd bc792e 2d3850 22 906860 cd28e7 bb1fb8 c586 5750 56ffba e3b159 9f886a ee8b5 69f546 c90b c1c530 339700 978acb 604aae 1e63 102200 31a85 970b 836200 420082 73395a 7b0100 a0def4 36ff54 900c 625114 3b55 801f87 6d000f 425400 5effd3 b0b846 c8d143 1f39 7db18a c90a26 5d92e0 fff8ab 900a3f 11d471 808fd5 d031bc 648f e2ffca b4a2ea 3c3790 35004a d3f625 55caac 6492 be1800 3daf96 204f30 619b37 edffa6 d398d0 607965 2540bb 449162 8b4377 6378cb 5a49f9 ff6b9d f05927 b671c8 f5c8ff 3f72d2 e57978 9900cd 71ffff 19c5 a4ff48 66001c 730b5f f7aafe be1198 359d84 554a88 8c7528 44202b 91d275 f6ecff 29a1fa eacaa9 61ff81 51e9fa 975bff ad89ff ff3be5 e3b14b 7367ff f98aff 7e5bb7 d7a7c 90633e 9500ba 50c587 81dcff c8cf68 2a4583 57f2f0 6363c6 a30000 4f2370 b4c269 a4a0b6 cbc97 e27ae 3abfee 40d2c7 9f9c74 b50055 e8ffb3 3a004d ff33ed 377874 75a058 58ffa5 a72015 76e67c 9a0044 a97c 5e00 33d005 7a6643 6debfe b1 e6389d 5627e3 d7665c 45dd97 6352cf f752d5 b74d01 6a0040 5e2949 3a17f7 532900 a73e5 d7c768 f217bb b6ffff d6319f 6000ce 26e5d5 3bd939 100088 980072 3d72a2 567bfc 98876a 884bb2 65bc7d 63839e a264c0 5f4c0a bba849 3b5d64 edd8ff 2ac83f 5d94db 4cae96 f73b37 5f18be ab0000 6a76c0 4c53 27a476 839b9c ff84d 42935f 9a0bbc 16cb35 11c65e 2ecd27 dcff73 4cb896 cf035e 97be9d d161a1 ffbf2f 49520e a9bfac 69c258 fd71b4 41df7b 74efaa 40ffea e3ff58 1729c6 ff9a2e 507b68 80b073 f352c4 cc0000 67ffff b23cff 98ffc2 4793be 3d55dd 509bf6 b88530 811d86 f79586 90573b 5a128 ffffff ;
+mat1_coloring_speed 0,0391;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
 target -0,4160092835133294 -0,5264758413529528 -0,314203602063037;
-volumetric_fog_density 0;
 [fractal_1]
 alpha_angle_offset 22,5;
 beta_angle_offset 22,5;
-mandelbox_generalized_fold_type 1;
 power 8;
 [fractal_2]
-alpha_angle_offset 22,5;
-beta_angle_offset 22,5;
-mandelbox_generalized_fold_type 1;
-power 8;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_3]
-alpha_angle_offset 22,5;
 beta_angle_offset 22,5;
-mandelbox_generalized_fold_type 1;
-power 8;
 [fractal_4]
 alpha_angle_offset 22,5;
-beta_angle_offset 22,5;
-mandelbox_generalized_fold_type 1;
-power 8;

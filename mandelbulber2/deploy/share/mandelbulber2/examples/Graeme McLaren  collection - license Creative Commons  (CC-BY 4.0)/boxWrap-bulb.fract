@@ -1,15 +1,14 @@
 # Mandelbulber settings file
-# version 2.18
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 background_3_colors_enable false;
-camera -0.2499999999999998 -3.278772619987453 -4.068797338282663;
-camera_distance_to_target 2.102515079991635;
-camera_rotation -5.75499024858822 62.53524115307064 50.04861922937565;
-camera_top 0.7055928112895233 -0.6437628639194778 0.2961556342444607;
-DE_factor 0.25;
-DE_thresh 0.0003125;
+camera -0,2499999999999998 -3,278772619987453 -4,068797338282663;
+camera_distance_to_target 2,102515079991635;
+camera_rotation -5,75499024858822 62,53524115307064 50,04861922937565;
+camera_top 0,7055928112895233 -0,6437628639194778 0,2961556342444607;
+DE_factor 0,25;
 flight_last_to_render 0;
 fog_color_1 ff00 ff00 ff00;
 fog_color_2 5500 0000 0000;
@@ -28,24 +27,15 @@ mat1_is_defined true;
 mat1_specular 1;
 mat1_specular_plastic_enable false;
 mat1_specular_width 1;
-mat1_surface_color_palette 000000 698403 fff59c f5bd22 0000ff 55ffff 0000ff 3b9fee 000000 aba53c;
+mat1_surface_color_gradient 0 000000 999 698403 1999 fff59c 2999 f5bd22 3999 0000ff 5000 55ffff 5999 0000ff 7000 3b9fee 7999 000000 9000 aba53c;
 mat2_is_defined true;
-mat2_metallic false;
-mat2_specular 0;
-mat2_specular_width 0.001;
-mat2_surface_color c300 b300 3400;
-mat2_surface_color_palette fd6029 698403 fff59c f5bd22 871d0b c68876 a51c64 3b9fee d4ffd4 aba53c;
-raytraced_reflections true;
-target -0.1527649931073564 -2.313973889186947 -2.203246903672933;
-view_distance_max 182.1354505789545;
-volumetric_fog_colour_1_distance 0.8164668682617615;
-volumetric_fog_colour_2_distance 0.8164668682617605;
-volumetric_fog_distance_factor 1.632933736523521;
+target -0,1527649931073564 -2,313973889186947 -2,203246903672933;
+view_distance_max 182,1354505789545;
+volumetric_fog_colour_1_distance 0,8164668682617615;
+volumetric_fog_colour_2_distance 0,8164668682617605;
+volumetric_fog_distance_factor 1,632933736523521;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_function_enabledBz_false true;
-transf_function_enabledw false;
 transf_function_enabledx false;
-transf_function_enabledy false;
-transf_offset_1111 1 1 0.8 1;
-transf_scale_1 0.6;
+transf_offset_1111 1 1 0,8 1;

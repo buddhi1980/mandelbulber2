@@ -1,52 +1,31 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
-ambient_occlusion_mode 1;
-ambient_occlusion_quality 1;
-analityc_DE_mode false;
 aux_light_colour_1 ace7 45f6 2baf;
 aux_light_enabled_1 true;
 aux_light_intensity_1 1e-06;
 aux_light_position_1 -1,732870293648483 -0,0003 3,602139001884991e-06;
-aux_light_position_4 0 -1 3;
 aux_light_visibility 1e-06;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-background_color_1 224 0 4955;
-background_color_2 0 0 0;
-background_color_3 35bb 0 284d;
-basic_fog_visibility 1e-14;
+background_color_1 0224 0000 4955;
+background_color_2 0000 0000 0000;
+background_color_3 35bb 0000 284d;
 brightness 0,1;
 camera -1,730116452864698 -0,001850130562504801 0,0007500261170268285;
 camera_distance_to_target 5,346287285712816e-05;
 camera_rotation 49,27218341420933 -14,94611099728554 27,82692256743665;
 camera_top 0,1317250856544618 0,5025695114746436 0,8544427353225392;
-coloring_palette_size 255;
-coloring_random_seed 123456;
 DE_factor 0,4;
-DE_thresh 100;
-detail_level 100;
-DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 9dcc e457 ffff;
-fog_color_2 ffff ff50 0;
-fog_color_3 5dc0 ffff 0;
 formula_1 4;
-fractal_color false;
 gamma 2,5;
-glow_color_1 ffff 0 0;
-glow_color_2 ffff c884 1a51;
+glow_color_1 ffff 0000 0000;
 glow_intensity 0,5;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 9dcc e457 ffff;
-iteration_fog_color_1_maxiter 11;
-iteration_fog_color_2 ffff ff50 0;
+iteration_fog_brightness_boost 100;
 iteration_fog_color_2_maxiter 23;
-iteration_fog_color_3 5dc0 ffff 0;
+iteration_fog_color_3 5dc0 ffff 0000;
 iteration_fog_enable true;
 iteration_fog_opacity 30000;
 iteration_fog_opacity_trim 19;
@@ -55,24 +34,15 @@ keyframe_last_to_render 0;
 legacy_coordinate_system true;
 main_light_beta -45;
 main_light_intensity 0,5;
-main_light_volumetric_intensity 100;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 0;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
 N 36;
 penetrating_lights false;
 reflections_max 1;
-shadows_cone_angle 0;
 slow_shading true;
 smoothness 100;
-specular 0;
-stereo_eye_distance 0,1;
-surface_color_palette 6ed3b1 ffffb9 b85a3d 6f7a12 631a1c 5c9567 386514 7e5439 2cefec f3737d ab97aa 21cb59 4fdfa0 2ec1e0 2af8d6 7a3ca0 dd3e3b a4ab49 4b557 b7e624 e4e393 a97787 584676 64f718 112fc9 ff3dff bf393d 81c3c6 1c00bf 6f7197 85db38 e36037 beffe3 e9a73 ba92 957088 adb7ea ef4971 e26704 d548bf 73291 d30b2b 48 a429bd 511884 6e039a 93c731 dec07a 1028 3d7500 c3b048 9cc72b 21008d 3c7054 36851e c5f00 ce7e80 1295b5 924b68 c4452a 6100cc 6c3a6c 8e5a83 ffe16e 66f43b 76de51 ffbaff 418a65 5d2238 5ca53f ffdbda 96ffdf d1d625 8a4c00 ff1faf 1c874d fdda7f 216100 198b00 b1db58 7e4a8d a495bd e49ce1 141fa4 e23 b53d83 c07168 88fcff c5e04 1a0098 685d02 ff3b38 7d9084 6da700 a2c855 680500 ff87ff 49a21b 2543b8 65d80d 77a0fe 97ffda d4ffff 3000e 976668 ff94ff d2b579 bdb634 40000 ffb68a 9b83ea 9623c5 5effce 1a534d 230077 8fa300 b00055 ff4bbe 845e17 3691a6 b597de 38794d 36a047 5f5000 bbad73 cdff16 450e3c ff609d c94d8d a6ba30 7d99ff ffff9e c0f25e cb47ad 550000 3d7100 7d4a86 3b500 3efa57 daa3c0 b74028 7bc8ab ffefa2 3d00 ffff5f 860c59 7dff72 9000c6 2fe5b7 e79cdc 3f32cf 7ed135 ca739d b32981 4aed67 ef3738 afa1 8cbea4 bb3ef3 15a9 d59496 76d033 a8856e 826c70 6c6286 ffff6b 3446ea 4c8502 5030 76b83a 5534 23ff6e 32bf17 8d4390 dbcd54 d1100 b274c1 1c001e 92a40e b18323 69612f dffaff 42e34c 509bf3 8a11 bd78b0 33d40e 7852e2 5dbb83 b49689 7eda97 495fb1 4dda5 abab86 7085a9 a2563c ffdfff 2b3d cf9fda 654e 520400 ec94f0 84046b 6fbc25 7e24f6 5639d7 c9a238 93ff49 3c41ff 87abdf a43f53 27a5c2 f9e855 47 ffffff 79ce00 20fe83 6e2798 79007a fe98b6 55dfff b73415 312ff0 2fff8b 9ca65a d69 552d7f 5ccc9d e9db31 164e52 2e00b6 467d 554048 187ba5 c541a6 245b03 5a 41b831 225d52 4f7ba4 e6fffd 657659 df27a3 7ea200 ffed2e 934c10 aa63be 5fa9 b3e4ff 40495f 972971 9810 b26a9a 544887 9d3713 ffffff ;
 target -1,730155597300254 -0,001816427958157499 0,0007362374840516187;
 view_distance_max 5,547053261814028;
-volumetric_fog_density 0;
-[fractal_1]
-mandelbox_generalized_fold_type 1;
-[fractal_2]
-mandelbox_generalized_fold_type 1;
-[fractal_3]
-mandelbox_generalized_fold_type 1;
-[fractal_4]
-mandelbox_generalized_fold_type 1;

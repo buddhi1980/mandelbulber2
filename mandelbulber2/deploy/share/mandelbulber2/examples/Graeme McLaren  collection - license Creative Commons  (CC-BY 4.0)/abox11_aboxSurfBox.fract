@@ -1,39 +1,38 @@
 # Mandelbulber settings file
-# version 2.16
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-camera 2.087046105631141 -1.617252517233855 -2.084703526584875;
-camera_distance_to_target 0.04101468995213604;
-camera_rotation 100.5503486108873 35.88472972271724 -97.20293691879769;
-camera_top 0.1094022997802228 -0.9887929191355213 -0.1015859235832015;
-DE_factor 0.8;
-detail_level 0.5;
+camera 2,087046105631141 -1,617252517233855 -2,084703526584875;
+camera_distance_to_target 0,04101468995213604;
+camera_rotation 100,5503486108873 35,88472972271724 -97,20293691879769;
+camera_top 0,1094022997802228 -0,9887929191355213 -0,1015859235832015;
+DE_factor 0,8;
+detail_level 0,5;
 flight_last_to_render 0;
 formula_1 119;
 formula_2 140;
-fractal_constant_factor 0.9 0.9 0.9;
+fractal_constant_factor 0,9 0,9 0,9;
 hybrid_fractal_enable true;
 image_height 1200;
-image_width 1600;
-julia_c -1.897717020847077 0.06141553145670375 0.344128780365649;
+image_width 1800;
 keyframe_last_to_render 0;
 mat1_is_defined true;
-raytraced_reflections true;
-target 2.054377864109822 -1.623336916055107 -2.06066250167414;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+target 2,054377864109822 -1,623336916055107 -2,06066250167414;
 view_distance_max 22;
-volumetric_fog_colour_1_distance 0.007921393830596835;
-volumetric_fog_colour_2_distance 0.01584278766119367;
-volumetric_fog_density 0.25;
-volumetric_fog_distance_factor 0.01584278766119367;
+volumetric_fog_colour_1_distance 0,007921393830596835;
+volumetric_fog_colour_2_distance 0,01584278766119367;
+volumetric_fog_density 0,25;
+volumetric_fog_distance_factor 0,01584278766119367;
 volumetric_fog_enabled true;
 [fractal_1]
-mandelbox_scale -1.5;
+mandelbox_scale -1,5;
 [fractal_2]
-mandelbox_scale -1.7;
-transf_addition_constant 0 -0.8 0;
+mandelbox_scale -1,7;
+transf_addition_constant 0 -0,8 0;
 transf_function_enabledSw_false true;
-transf_maxR2_1 0.4;
+transf_maxR2_1 0,4;
 transf_minR2_p25 0;
 transf_rotation -3 4 -3;
 transf_rotation_enabled true;

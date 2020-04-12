@@ -49,6 +49,7 @@ IFS_direction_5 0,71 -0,71 0;
 IFS_direction_6 0,71 0 -0,71;
 IFS_direction_7 0 0,71 -0,71;
 IFS_edge 1 0,5 0;
+IFS_edge_enabled true;
 IFS_enabled_5 true;
 IFS_enabled_6 true;
 IFS_enabled_7 true;

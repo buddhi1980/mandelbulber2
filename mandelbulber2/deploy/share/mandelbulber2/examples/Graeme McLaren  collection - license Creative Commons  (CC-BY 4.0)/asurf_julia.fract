@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.22
 # only modified parameters
 [description]
 original settings, Graeme McLaren collection – license Creative Commons (CC-BY 4.0)
@@ -7,46 +7,35 @@ original settings, Graeme McLaren collection – license Creative Commons (CC-BY
 ambient_occlusion_enabled true;
 background_3_colors_enable false;
 background_color_1 0000 0000 0000;
-background_texture_offset_y 0.07000000000000001;
-basic_fog_visibility 321;
-camera -0.125 -26.98625202830971 15.08900091672264;
-camera_distance_to_target 30.91528026780686;
-camera_rotation 0 -29.99999999999996 0;
-camera_top 0 0.4999999999999994 0.8660254037844389;
+camera -0,125 -26,98625202830971 15,08900091672264;
+camera_distance_to_target 30,91528026780686;
+camera_rotation 0 -29,99999999999996 0;
+camera_top 0 0,4999999999999994 0,8660254037844389;
 detail_level 4;
 flight_last_to_render 0;
-fog_color_2 a900 c700 ff00;
 formula_1 132;
-fov 0.4;
+fov 22,62;
 hdr true;
 image_height 1200;
 image_proportion 2;
 image_width 1600;
-julia_c -1.1 0.2 0;
+julia_c -1,1 0,2 0;
 julia_mode true;
 keyframe_last_to_render 0;
 main_light_alpha -80;
 main_light_beta 16;
 main_light_colour d500 cd00 cc00;
-main_light_volumetric_intensity 0.25;
 mat1_fractal_coloring_extra_color_enabled_false true;
 mat1_fractal_coloring_orbit_trap_weight 4;
-mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_name fractal;
-mat1_reflectance 1;
 mat1_specular 1;
-mat1_specular_width 0.161;
-mat1_surface_color 2300 4800 6800;
-mat1_surface_color_palette 55ffff 000000 cb0000 2d5535 2d5532 ffff00 000000 3b9fee d4ffd4 aba53c;
-target -0.125 -0.2128339512731776 -0.3686392171807828;
-view_distance_max 141.1494445269466;
+mat1_surface_color_gradient 0 55ffff 999 000000 1999 cb0000 2999 2d5535 3999 2d5532 5000 ffff00 5999 000000 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+target -0,125 -0,2128339512731776 -0,3686392171807828;
+view_distance_max 141,1494445269466;
 [fractal_1]
-mandelbox_color 0.6 0.6 0;
-mandelbox_color_Sp1 0;
-mandelbox_color_Sp2 0;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 0 0 -30;
-mandelbox_scale 1.1;
-transf_addition_constant_111 0.008 0.5 1;
+mandelbox_scale 1,1;
+transf_addition_constant_111 0,008 0,5 1;

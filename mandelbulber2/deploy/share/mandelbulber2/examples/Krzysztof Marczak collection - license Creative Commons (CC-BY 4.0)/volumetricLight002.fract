@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,2;
@@ -16,50 +16,47 @@ aux_light_volumetric_intensity_1 0,03;
 aux_light_volumetric_intensity_2 100;
 aux_light_volumetric_intensity_3 100;
 aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
 basic_fog_visibility 1,096478196143187e-06;
 camera -0,4599595099546637 -0,8873593000869133 -0,4109246139367649;
 camera_distance_to_target 1,302083360216339e-09;
 camera_rotation 6,999999524035714 29,99999923351265 0;
 camera_top 0,0609346661680505 -0,496273064827758 0,8660254104733026;
-coloring_palette_size 255;
-coloring_random_seed 92145;
 DE_factor 0,2;
 DE_thresh 1;
 DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
-fov 1,2;
+fov 61,93;
 glow_enabled false;
 glow_intensity 0;
 hdr true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 0 0 0;
+iteration_fog_color_1 0000 0000 0000;
 iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2 0000 7530 ffff;
 iteration_fog_color_2_maxiter 165;
 julia_c 0,8 0,2 -0,3;
 julia_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-limit_min -10 -10 -0,405;
 main_light_beta -45;
-main_light_enable false;
 main_light_intensity 0;
-main_light_volumetric_intensity 100;
+mat1_coloring_speed 0,0391;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 e8a1a4 96 fcdcaf 131 6a36d3 559 9a3ed9 1932 b7a3d4 3421 2b9840 4402 5c235c 5736 1ddd4a 6383 bd88a8 8830 97cd49 8921 e025b0;
 penetrating_lights false;
-stereo_eye_distance 0,1;
-surface_color_palette a8bcc6 fb9e85 a7bc08 e6bd54 ffb3c4 76ef7e 9b7400 bcbfbd 60ea3 8e0a70 e79802 7071dc ae2ae5 3520 329bf4 fe55b1 66561f a5d39c aadd90 426059 a2562d 945574 c23b24 9be0fb d0029 75 eb3d97 92e5fe fff087 9c0e9 283aac da6794 5ec300 1ae659 32feff 6c871e 4b79a7 57ae44 b2bacc 407fc9 85fc84 a9a347 933929 f37a88 9a005b 90ac5a a3631c feffc0 91d784 9aea0c 0 908cff 4a533c 24ba7d 81fdff 692c23 41e49d b48e00 be00a1 8fb489 be00 e2e180 741716 80766a d27eff 142098 19332d 6b3aff f02bed 3c9dff cf5aff c66841 b347ee 92b2fa ff5ed6 158c72 c56d00 414aea 6bb930 3c6a e2b8ca 47b8 7d670e 89ff61 4d1512 40dd28 894cc6 b55e76 d20077 bdaa4d 2e00 1f3a81 96db27 d26a85 5d0099 48076c 220133 a379ff b718f0 8fafb6 7acde1 ff495b 20d98c 2038f9 2c1e00 b8ff80 2608 b59e3c bbec4 62 1aa 1f8934 fe7a6e 67c1cd e6c7 bd3cf1 44ff3a be651e f95b4a a53f71 ff337f ae069a 38acb7 b776a5 49b2ea 0 785cff 6a77bd b345cb 657f48 3d622 4ec970 43227e 4d9e6b cb73b4 48bd0 ffce67 1071a3 41bfb5 ac481d 98c99b 4dec5b 7bff94 752205 da55a8 b53a0b 4108e0 8e3bff b55f89 3cd4eb 890894 2a9969 2426 81542d 722300 1e9e7a 5c61fd b16368 9e2f96 ff6d70 464c00 6a19 ff5ece 85428 76005c 8100d1 145002 84392e ab5021 45c4ca 970d0e f6cb78 7b9ea0 8d6520 4ab76d f39ef2 1c41b1 850000 856c90 cfa062 7e42a9 b0d20e a192c8 ca54e2 cbc9ff ae00ca 5c4a5b 2600ee 53b0f5 5d00bf 384f0f ea3833 e84ded 6dd7f9 598c71 502a00 e8f7c5 f1a065 30b6c6 a0 8addbf 888ca2 e3ddff dbb4 ffbf81 67ef83 731798 34686b 16fb41 6ac61e 750056 275e95 ffffff 5d004c 1b005b 8eff13 ff5a2b 12a8c 67275d 56c35d 812730 55ae20 fffe79 d6631e d5604d 97e68b fcd757 5e7954 b69a2c 8a8e1b 80871b ca1800 75495e 36f1dc a1ff44 b4c753 4462ac 4affba 6d9add acd6c4 90d00 cf9a00 911d50 824142 ae00c2 59bbc2 1560d2 7adb37 e31fb4 fff269 ee9992 231dc5 7aebff 1a66cc b89100 ffffff ;
 target -0,4599595100920881 -0,8873592989676813 -0,4109246132857232;
 view_distance_max 3,576219227440099;
-volumetric_fog_density 0;
 [fractal_1]
-mandelbox_generalized_fold_type 1;
-[fractal_2]
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_3]
-mandelbox_generalized_fold_type 1;
+IFS_rotation_enabled true;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_4]
-mandelbox_generalized_fold_type 1;
+IFS_rotation_enabled true;
+mandelbox_generalized_fold_type fold_cube;

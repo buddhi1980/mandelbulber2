@@ -1,14 +1,13 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-background_texture_offset_y 0.352;
-brightness 1.2;
-camera -1.013533252177245 -0.8335436992755025 -4.273266991845994;
-camera_distance_to_target 3.690139532089233;
-camera_rotation -5.260903417063756 16.32108754736588 -180;
-camera_top 0.02576703313840042 0.2798361460602708 -0.9597019283930711;
+brightness 1,2;
+camera -1,013533252177245 -0,8335436992755025 -4,273266991845994;
+camera_distance_to_target 3,690139532089233;
+camera_rotation -5,260903417063756 16,32108754736588 -180;
+camera_top 0,02576703313840042 0,2798361460602708 -0,9597019283930711;
 delta_DE_function 2;
 detail_level 3;
 dont_add_c_constant_1 true;
@@ -37,19 +36,18 @@ primitive_water_1_enabled true;
 primitive_water_1_material_id 2;
 primitive_water_1_position 0 0 -3;
 primitive_water_1_relative_amplitude 0;
-target -0.6888152028235717 2.692972023325099 -3.236264189071361;
-textured_background_map_type flat;
-volumetric_fog_colour_1_distance 0.03574001527944958;
-volumetric_fog_colour_2_distance 0.07148003055889916;
-volumetric_fog_density 0.03125;
-volumetric_fog_distance_factor 0.07148003055889916;
+target -0,6888152028235717 2,692972023325099 -3,236264189071361;
+volumetric_fog_colour_1_distance 0,03574001527944958;
+volumetric_fog_colour_2_distance 0,07148003055889916;
+volumetric_fog_density 0,03125;
+volumetric_fog_distance_factor 0,07148003055889916;
 volumetric_fog_enabled true;
 [fractal_1]
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 0 0 34;
-mandelbox_scale 1.1;
-transf_addition_constant 0 0 0.5;
-transf_addition_constant_111 1.2 1.2 1;
+mandelbox_scale 1,1;
+transf_addition_constant 0 0 0,5;
+transf_addition_constant_111 1,2 1,2 1;
 transf_start_iterations_A 5;
 [fractal_2]
-alpha_angle_offset 3.410847;
+alpha_angle_offset 3,410847;

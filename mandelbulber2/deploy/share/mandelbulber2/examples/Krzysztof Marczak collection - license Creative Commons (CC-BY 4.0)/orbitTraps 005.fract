@@ -1,56 +1,33 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.22
 # only modified parameters
 [main_parameters]
-ambient_occlusion_mode 1;
-aux_light_position_1 3 -3 -3;
-aux_light_position_4 0 -1 3;
-aux_light_volumetric_intensity_1 100;
-aux_light_volumetric_intensity_2 100;
-aux_light_volumetric_intensity_3 100;
-aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
-background_color_3 0 0 0;
-basic_fog_visibility 1e-14;
 camera -1,195424647833701 -1,073925616929807 -4,503084406104093;
 camera_distance_to_target 5,64488963748053e-13;
 camera_rotation -19,99092660299426 -9,966726439455735 0;
 camera_top 0,05916980340870493 0,1626478357718253 0,984908430202177;
-coloring_palette_offset 112,3;
-coloring_palette_size 3;
-coloring_random_seed 90992;
-coloring_speed 6;
-DE_factor 0,7;
-DE_thresh 1;
-DOF_focus 1,479108388168207e-14;
 fake_lights_enabled true;
 fake_lights_intensity 3;
 fake_lights_max_iter 200;
-fake_lights_min_iter 0;
 fake_lights_orbit_trap 0 0 4;
 fake_lights_visibility 10000000;
 fake_lights_visibility_size 2;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
+fog_color_1 0000 0000 0000;
 formula_1 8;
 fractal_constant_factor 2 2 2;
-glow_enabled false;
-glow_intensity 0;
 hdr true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 0 0 0;
-iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
-iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0;
-main_light_volumetric_intensity 100;
-stereo_eye_distance 0,1;
-surface_color_palette 6c0000 aacfff 120b70 ;
+mat1_coloring_palette_offset 37,43333;
+mat1_coloring_speed 20;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 6c0000 3333 aacfff 6666 120b70;
 target -1,195424647833511 -1,073925616929285 -4,503084406104191;
 view_distance_max 25,55624892968246;
 volumetric_fog_colour_1_distance 0,0009657695794425467;
@@ -58,11 +35,3 @@ volumetric_fog_colour_2_distance 0,001931539158885093;
 volumetric_fog_density 0,2;
 volumetric_fog_distance_factor 0,001931539158885093;
 volumetric_fog_enabled true;
-[fractal_1]
-mandelbox_generalized_fold_type 1;
-[fractal_2]
-mandelbox_generalized_fold_type 1;
-[fractal_3]
-mandelbox_generalized_fold_type 1;
-[fractal_4]
-mandelbox_generalized_fold_type 1;

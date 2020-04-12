@@ -1,51 +1,48 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.22
 # only modified parameters
 [main_parameters]
-ambient_occlusion 1.1;
+ambient_occlusion 1,1;
 ambient_occlusion_enabled true;
 aux_light_colour_1 5800 6000 ff00;
 aux_light_enabled_1 true;
 aux_light_position_1 0 0 0;
-aux_light_visibility 0.5547572670659736;
+aux_light_visibility 0,5547572670659736;
 background_3_colors_enable false;
 background_color_1 0000 0000 0000;
-camera 0 -3.925386114593725 0;
-camera_distance_to_target 3.925386114593725;
+camera 0 -3,925386114593725 0;
+camera_distance_to_target 3,925386114593725;
 camera_rotation 0 0 0;
 camera_top 0 0 1;
-detail_level 0.3;
+detail_level 0,3;
 dont_add_c_constant_1 true;
 flight_last_to_render 0;
-fog_color_3 0000 1700 4700;
 formula_1 145;
-fov 0.9;
-frames_per_keyframe 120;
+fov 48,46;
 glow_enabled false;
-glow_intensity 0.4;
+glow_intensity 0,4;
 image_height 1200;
 image_proportion 2;
 image_width 1600;
 keyframe_last_to_render 0;
 main_light_alpha 0;
 main_light_beta 0;
-main_light_colour ff00 ff00 7f00;
-main_light_intensity 0.5;
-mat1_coloring_palette_offset 8.210000000000001;
+main_light_intensity 0,5;
+mat1_coloring_palette_offset 0,821;
 mat1_is_defined true;
 mat1_specular 4;
 mat1_specular_color ff00 5500 7f00;
 mat1_specular_plastic_enable false;
-mat1_specular_width 0.063;
-mat1_surface_color_palette 550000 550000 fff59c f5bd22 cebe42 000000 550000 550000 550000 550000;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 550000 999 550000 1999 fff59c 2999 f5bd22 3999 cebe42 5000 000000 5999 550000 7000 550000 7999 550000 9000 550000;
 raytraced_reflections true;
-view_distance_max 10.62643936959219;
+view_distance_max 10,62643936959219;
 [fractal_1]
 analyticDE_enabled_false true;
 buffalo_abs_x true;
 buffalo_abs_y true;
 buffalo_abs_z true;
-transf_addition_constantA_000 -0.6 -1.3 -0.1;
+transf_addition_constantA_000 -0,6 -1,3 -0,1;
 transf_function_enabledx_false true;
 transf_function_enabledy_false true;
-transf_scaleB_1 0.3;
+transf_scaleB_1 0,3;

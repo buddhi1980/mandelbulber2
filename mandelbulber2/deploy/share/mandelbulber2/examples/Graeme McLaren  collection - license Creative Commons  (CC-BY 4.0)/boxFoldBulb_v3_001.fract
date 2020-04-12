@@ -1,63 +1,38 @@
 # Mandelbulber settings file
-# version 2.15
+# version 2.22
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-aux_light_colour_1 0000 0000 7f00;
-aux_light_colour_2 aa00 0000 0000;
-aux_light_intensity_1 0.002864940053748737;
-aux_light_intensity_2 0.0001;
-aux_light_position_1 2.002 1.902 -1.625;
-aux_light_position_2 1.9996 1.9435 -1.6244;
-aux_light_visibility 8;
-aux_light_visibility_size 0.07099999999999999;
-background_brightness 0.64;
+background_brightness 0,64;
 background_color_1 0300 0d00 0000;
 background_color_2 0000 2700 0100;
 background_color_3 0000 2700 0100;
-camera 1.921207298707495 1.952205276774386 -1.630838170543687;
-camera_distance_to_target 1.128158165996428;
-camera_rotation 86.37280794045481 -0.9847376572809302 -4.938404890030746;
-camera_top -0.02253405113120649 -0.08482907621839578 0.9961406749890046;
-DE_factor 0.4;
-DE_thresh 0.001;
+camera 1,921207298707495 1,952205276774386 -1,630838170543687;
+camera_distance_to_target 1,128158165996428;
+camera_rotation 86,37280794045481 -0,9847376572809302 -4,938404890030746;
+camera_top -0,02253405113120649 -0,08482907621839578 0,9961406749890046;
+DE_factor 0,4;
 dont_add_c_constant_1 true;
 flight_last_to_render 0;
-fog_color_2 c300 d000 4b00;
-fog_color_3 0000 0000 7f00;
 formula_1 126;
 formula_2 66;
 formula_start_iteration_2 5;
-fractal_constant_factor 0 1 0;
 hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
-main_light_alpha -7.13;
+main_light_alpha -7,13;
 main_light_beta 0;
-mat1_coloring_palette_size 32;
-mat1_coloring_random_seed 441568;
+mat1_coloring_speed 0,3125;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
-mat1_surface_color 8600 9500 2600;
-mat1_surface_color_palette ae1166 00007f bfc541 c43020 00007f ff925c 51ffce 89b69c 298412 3c6255 ff60e4 3a2f3d 005d03 77d49c ff9cf6 54d79e ff97a9 53593e 5582ff 67936a b124e0 24813a 00007f 00007f 04000a aaa73e 00007f 00007f 00007f 7836ac 7453a2 5a407e;
-target 0.7954753263153191 2.023566722264979 -1.650226773792477;
-textured_background_map_type 2;
-use_default_bailout false;
-view_distance_max 67.61549398031559;
-volumetric_fog_colour_1_distance 0.005014351257922754;
-volumetric_fog_colour_2_distance 0.01002870251584551;
-volumetric_fog_density 0.1;
-volumetric_fog_distance_factor 0.01002870251584551;
+mat1_surface_color_gradient 0 ae1166 312 00007f 625 bfc541 937 c43020 1250 00007f 1560 ff925c 1875 51ffce 2187 89b69c 2500 298412 2812 3c6255 3125 ff60e4 3437 3a2f3d 3750 005d03 4062 77d49c 4375 ff9cf6 4687 54d79e 5000 ff97a9 5312 53593e 5625 5582ff 5937 67936a 6250 b124e0 6562 24813a 6875 00007f 7187 00007f 7500 04000a 7812 aaa73e 8125 00007f 8437 00007f 8750 00007f 9062 7836ac 9375 7453a2 9687 5a407e;
+target 0,7954753263153191 2,023566722264979 -1,650226773792477;
+view_distance_max 67,61549398031559;
 [fractal_1]
-mandelbox_color 0 0 0;
-mandelbox_color_Sp1 0;
-mandelbox_color_Sp2 2.06;
-transf_minR2_p25 0.15;
-transf_scaleA_2 1.5;
+transf_minR2_p25 0,15;
 transf_start_iterations_A 11;
 transf_stop_iterations_B 6;
-transf_stop_iterations_D 5;
 transf_stop_iterations_S 3;
