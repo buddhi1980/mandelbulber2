@@ -39,9 +39,12 @@ REAL4 KaleidoscopicIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->IFS.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->IFS.mainRot, z - fractal->IFS.offset) + fractal->IFS.offset;
 
-	if (fractal->IFS.edge.x > 0.0f) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
-	if (fractal->IFS.edge.y > 0.0f) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
-	if (fractal->IFS.edge.z > 0.0f) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
+	if (fractal->IFS.edgeEnabled)
+	{
+		if (fractal->IFS.edge.x > 0.0f) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
+		if (fractal->IFS.edge.y > 0.0f) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
+		if (fractal->IFS.edge.z > 0.0f) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
+	}
 
 	z *= fractal->IFS.scale;
 	if (fractal->IFS.mengerSpongeMode)

@@ -1188,6 +1188,20 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 		}
 		par->Set("fov", fovDegrees);
 	}
+
+	if (fileVersion < 2.22)
+	{
+		if (fract)
+		{
+			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			{
+				if (fract->at(i).Get<CVector3>("IFS_edge").Length() > 0)
+				{
+					fract->at(i).Set("IFS_edge_enabled", true);
+				}
+			}
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(
