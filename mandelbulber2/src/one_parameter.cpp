@@ -35,6 +35,7 @@
 #include "one_parameter.hpp"
 
 #include "nine_fractals.hpp"
+#include "write_log.hpp"
 
 using namespace parameterContainer;
 

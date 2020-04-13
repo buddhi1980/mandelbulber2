@@ -41,7 +41,7 @@
 #include "error_message.hpp"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
-#include "system.hpp"
+#include "write_log.hpp"
 
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {
@@ -271,9 +271,9 @@ bool cOpenClEngine::CreateKernels()
 			}
 			else
 			{
-				optimalJob.workGroupSize = min(quint64(workGroupSize), optimalJob.workGroupSize);
+				optimalJob.workGroupSize = qMin(quint64(workGroupSize), optimalJob.workGroupSize);
 				optimalJob.workGroupSizeOptimalMultiplier =
-					max(workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier,
+					qMax(workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier,
 						optimalJob.workGroupSizeOptimalMultiplier);
 				;
 			}

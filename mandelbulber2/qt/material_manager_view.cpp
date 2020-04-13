@@ -53,7 +53,7 @@
 #include "src/material_item_view.h"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
-#include "src/system.hpp"
+#include "src/system_directories.hpp"
 
 cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cMaterialManagerView)
@@ -121,7 +121,7 @@ void cMaterialManagerView::slotLoadMaterial()
 	dialog.setFileMode(QFileDialog::ExistingFiles);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(QDir::toNativeSeparators(
-		QFileInfo(systemData.GetMaterialsFolder() + QDir::separator()).absolutePath()));
+		QFileInfo(systemDirectories.GetMaterialsFolder() + QDir::separator()).absolutePath()));
 	// dialog.selectFile(QDir::toNativeSeparators("");
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load material..."));
@@ -176,7 +176,7 @@ void cMaterialManagerView::slotSaveMaterial()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(QDir::toNativeSeparators(
-		QFileInfo(systemData.GetMaterialsFolder() + QDir::separator()).absolutePath()));
+		QFileInfo(systemDirectories.GetMaterialsFolder() + QDir::separator()).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(suggestedFilename));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save material..."));

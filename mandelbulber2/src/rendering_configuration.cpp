@@ -35,7 +35,7 @@
 #include "rendering_configuration.hpp"
 
 #include "netrender.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 
 cRenderingConfiguration::cRenderingConfiguration()
 {

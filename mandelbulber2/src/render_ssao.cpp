@@ -40,7 +40,9 @@
 #include "progress_text.hpp"
 #include "render_data.hpp"
 #include "ssao_worker.h"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 cRenderSSAO::cRenderSSAO(
 	const sParamRender *_params, const sRenderData *_renderData, cImage *_image)
@@ -54,7 +56,7 @@ cRenderSSAO::cRenderSSAO(
 	startLine = data->screenRegion.y1;
 	endLine = data->screenRegion.y2;
 	height = data->screenRegion.height;
-	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
+	numberOfThreads = qMin(data->configuration.GetNumberOfThreads(), height);
 	region = data->screenRegion;
 }
 
@@ -69,7 +71,7 @@ void cRenderSSAO::SetRegion(const cRegion<int> &_region)
 	startLine = region.y1;
 	endLine = region.y2;
 	height = region.height;
-	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
+	numberOfThreads = qMin(data->configuration.GetNumberOfThreads(), height);
 }
 
 void cRenderSSAO::RenderSSAO(QList<int> *list)
@@ -142,7 +144,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 		thread[i]->setObjectName("SSAOWorker #" + QString::number(i));
 		thread[i]->start();
-		thread[i]->setPriority(GetQThreadPriority(systemData.threadsPriority));
+		thread[i]->setPriority(systemData.GetQThreadPriority(systemData.threadsPriority));
 		WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 	}
 

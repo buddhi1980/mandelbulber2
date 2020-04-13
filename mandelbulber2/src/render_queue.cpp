@@ -54,6 +54,8 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 {

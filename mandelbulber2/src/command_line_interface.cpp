@@ -52,7 +52,9 @@
 #include "opencl_hardware.h"
 #include "queue.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 #include "test.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
@@ -451,51 +453,51 @@ void cCommandLineInterface::printExampleHelpAndExit()
 	out << QObject::tr("Renders the file on the cli (no window required).") << "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Animation render"), cHeadless::ansiBlue) << "\n";
-	out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract",
-					 cHeadless::ansiYellow)
+	out << cHeadless::colorize(
+		"mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract", cHeadless::ansiYellow)
 			<< "\n";
 	out << QObject::tr(
-					 "Renders the keyframe animation of the file keyframe_fractal.fract "
-					 "within frames 200 till 300.")
+		"Renders the keyframe animation of the file keyframe_fractal.fract "
+		"within frames 200 till 300.")
 			<< "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow)
 			<< cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
 	out << cHeadless::colorize(
-					 "mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow)
+		"mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow)
 			<< cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
 	out << QObject::tr(
-					 "In a network you can render on multiple machines. One is a server (2) and multiple "
-					 "clients (1) can connect to help rendering.\n"
-					 "On each client run (1), 192.168.100.1 should be substituted with the IP address of "
-					 "the server.\nOn the server run (2) with the settings required for the render and "
-					 "additionally '--server'.\nThe server will start and wait a short time for the "
-					 "clients to connect. Then the whole system will start rendering.")
+		"In a network you can render on multiple machines. One is a server (2) and multiple "
+		"clients (1) can connect to help rendering.\n"
+		"On each client run (1), 192.168.100.1 should be substituted with the IP address of "
+		"the server.\nOn the server run (2) with the settings required for the render and "
+		"additionally '--server'.\nThe server will start and wait a short time for the "
+		"clients to connect. Then the whole system will start rendering.")
 			<< "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-					 "mandelbulber2 --voxel ply -n path/to/voxel_fractal.fract"
-					 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
-					 "1#voxel_samples_x=200'",
-					 cHeadless::ansiYellow)
+		"mandelbulber2 --voxel ply -n path/to/voxel_fractal.fract"
+		" -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
+		"1#voxel_samples_x=200'",
+		cHeadless::ansiYellow)
 			<< "\n";
 	out << QObject::tr(
-					 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
-					 "with a resolution of 200x200x200 in the ply format "
-					 "and saves as working folder/slices/output.ply.")
+		"Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
+		"with a resolution of 200x200x200 in the ply format "
+		"and saves as working folder/slices/output.ply.")
 			<< "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-					 "nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow)
+		"nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow)
 			<< "\n";
 	out << QObject::tr(
-					 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
-					 "Mandelbulber runs in background and waits for jobs.\n"
-					 "The output will be written to /tmp/queue.log.\n"
-					 "(will not work under Windows)")
+		"Runs the mandelbulber instance in queue mode and daemonizes it.\n"
+		"Mandelbulber runs in background and waits for jobs.\n"
+		"The output will be written to /tmp/queue.log.\n"
+		"(will not work under Windows)")
 			<< "\n\n";
 
 	out.flush();
@@ -527,11 +529,11 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	gOpenCl->InitPlatfromAndDevices();
 
 	out << QObject::tr(
-					 "Mandelbulber can utilize OpenCL to accelerate rendering.\n"
-					 "When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
-					 "commandline by default.\nThe configuration can also be done directly from this "
-					 "commandline by setting the optional settings directly.\nThese can be given by the "
-					 "default --override option, available opencl specific options are:")
+		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
+		"When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
+		"commandline by default.\nThe configuration can also be done directly from this "
+		"commandline by setting the optional settings directly.\nThese can be given by the "
+		"default --override option, available opencl specific options are:")
 			<< "\n";
 	out << " * opencl_enabled      - " << QObject::tr("boolean to enable OpenCL") << "\n";
 	out << " * opencl_platform     - "
@@ -593,9 +595,9 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	out << "\n"
 			<< cHeadless::colorize(QObject::tr("Example invocation:"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-					 "mandelbulber2	 -n path/to/fractal.fract"
-					 " -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
-					 cHeadless::ansiYellow)
+		"mandelbulber2	 -n path/to/fractal.fract"
+		" -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
+		cHeadless::ansiYellow)
 			<< "\n";
 #else
 	out << "not supported, this version is not compiled with OpenCL support.";
@@ -812,8 +814,8 @@ void cCommandLineInterface::handleQueue()
 	systemData.noGui = true;
 	try
 	{
-		gQueue = new cQueue(
-			gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), nullptr);
+		gQueue = new cQueue(gMainInterface, systemDirectories.GetQueueFractlistFile(),
+			systemDirectories.GetQueueFolder(), nullptr);
 	}
 	catch (QString &ex)
 	{
@@ -836,7 +838,7 @@ void cCommandLineInterface::handleArgs()
 			if (!QFile::exists(filename))
 			{
 				// try to find settings in default settings path
-				filename = systemData.GetSettingsFolder() + QDir::separator() + filename;
+				filename = systemDirectories.GetSettingsFolder() + QDir::separator() + filename;
 			}
 			if (QFile::exists(filename))
 			{
@@ -877,8 +879,8 @@ void cCommandLineInterface::handleArgs()
 			systemData.noGui = true;
 			try
 			{
-				gQueue = new cQueue(
-					gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), nullptr);
+				gQueue = new cQueue(gMainInterface, systemDirectories.GetQueueFractlistFile(),
+					systemDirectories.GetQueueFolder(), nullptr);
 			}
 			catch (QString &ex)
 			{

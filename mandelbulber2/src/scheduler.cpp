@@ -40,7 +40,8 @@
 
 #include <QtCore>
 
-#include "system.hpp"
+#include "system_data.hpp"
+
 #define LINE_DONE_BY_SERVER 9999
 
 cScheduler::cScheduler(cRegion<int> screenRegion, int progressive)

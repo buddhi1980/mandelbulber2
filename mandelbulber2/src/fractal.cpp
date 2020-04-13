@@ -36,7 +36,7 @@
 
 #include "algebra.hpp"
 #include "parameters.hpp"
-#include "system.hpp"
+#include "write_log.hpp"
 
 sFractal::sFractal(const cParameterContainer *container)
 {

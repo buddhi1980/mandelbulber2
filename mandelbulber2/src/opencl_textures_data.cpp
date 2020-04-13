@@ -39,6 +39,7 @@
 #include "opencl_textures_data.h"
 #include "material.h"
 #include "render_data.hpp"
+#include "write_log.hpp"
 
 cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 		: cOpenClAbstractDynamicData(_numberOfTextures)

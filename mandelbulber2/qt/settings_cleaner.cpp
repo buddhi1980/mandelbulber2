@@ -17,7 +17,8 @@
 #include "src/interface.hpp"
 #include "src/parameters.hpp"
 #include "src/progress_text.hpp"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
+#include "src/wait.hpp"
 
 cSettingsCleaner::cSettingsCleaner(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsCleaner)
 {

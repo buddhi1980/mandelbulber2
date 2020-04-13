@@ -48,7 +48,9 @@
 #include "material.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
+#include "system_data.hpp"
 #include "system.hpp"
+#include "write_log.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {

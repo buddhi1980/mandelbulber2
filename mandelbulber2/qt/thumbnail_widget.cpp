@@ -50,7 +50,9 @@
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
 #include "src/stereo.h"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
+#include "src/system_directories.hpp"
+#include "src/wait.hpp"
 
 cThumbnailWidget::cThumbnailWidget(QWidget *parent) : QWidget(parent)
 {
@@ -376,7 +378,7 @@ void cThumbnailWidget::slotSetMinimumSize(int width, int height)
 
 QString cThumbnailWidget::GetThumbnailFileName() const
 {
-	return systemData.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
+	return systemDirectories.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
 }
 
 int cThumbnailWidget::instanceCount = 0;

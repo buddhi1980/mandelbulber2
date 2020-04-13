@@ -40,6 +40,7 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include "src/fractal_enums.h"
+#include "src/include_header_wrapper.hpp"
 #endif
 
 typedef enum

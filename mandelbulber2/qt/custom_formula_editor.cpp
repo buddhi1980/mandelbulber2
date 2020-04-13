@@ -10,9 +10,11 @@
 #include "src/system.hpp"
 #include "src/fractal_container.hpp"
 #include "src/interface.hpp"
+#include "src/system_directories.hpp"
 
 #include "my_line_edit.h"
 #include "my_check_box.h"
+#include "my_spin_box.h"
 
 #include <QFileDialog>
 #include <QTextStream>
@@ -60,8 +62,8 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("OpenCL programs (*.cl)"));
-	dialog.setDirectory(
-		QDir::toNativeSeparators(systemData.sharedDir + "formula" + QDir::separator() + "opencl"));
+	dialog.setDirectory(QDir::toNativeSeparators(
+		systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load existing fractal formula code..."));
 	QStringList filenames;
@@ -123,7 +125,7 @@ QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
 QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::ConvertListOfParameters(
 	const QStringList &inputList)
 {
-	QString fileName(systemData.sharedDir + "data/parameterNames.txt");
+	QString fileName(systemDirectories.sharedDir + "data/parameterNames.txt");
 	QFile file(fileName);
 	QStringList conversionList;
 	if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -223,6 +225,7 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 					case 0: sAxis = "x"; break;
 					case 1: sAxis = "y"; break;
 					case 2: sAxis = "z"; break;
+					default: break;
 				}
 				newWidget->setObjectName(
 					QString("vect3_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
@@ -242,12 +245,19 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 					case 1: sAxis = "y"; break;
 					case 2: sAxis = "z"; break;
 					case 3: sAxis = "w"; break;
+					default: break;
 				}
 				newWidget->setObjectName(
 					QString("vect4_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
 				ui->formLayoutParameters->addRow(
 					listOfParameters[i].parameterName + " " + sAxis, newWidget);
 			}
+		}
+		else if (varType == typeInt)
+		{
+			MySpinBox *newWidget = new MySpinBox(this);
+			newWidget->setObjectName(QString("edit_%1").arg(listOfParameters[i].parameterName));
+			ui->formLayoutParameters->addRow(listOfParameters[i].parameterName, newWidget);
 		}
 		else if (varType == typeBool)
 		{

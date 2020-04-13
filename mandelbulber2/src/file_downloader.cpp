@@ -37,7 +37,7 @@
 #include <QNetworkRequest>
 
 #include "global_data.hpp"
-#include "system.hpp"
+#include "wait.hpp"
 
 cFileDownloader::cFileDownloader(QString sourceBaseURL, QString targetDir) : QObject()
 {

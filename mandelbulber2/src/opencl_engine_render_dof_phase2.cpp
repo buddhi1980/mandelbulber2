@@ -42,6 +42,9 @@
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
+#include "system_directories.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -95,7 +98,7 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 	emit updateProgressAndStatus(
 		tr("OpenCL DOF - initializing"), tr("Compiling sources for DOF phase 2"), 0.0);
 
-	QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
+	QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
 	QByteArray programEngine;

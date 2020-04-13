@@ -34,6 +34,8 @@
 
 #include "mesh_export.hpp"
 
+#include <vector>
+
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "compute_fractal.hpp"
@@ -47,6 +49,8 @@
 #include "material.h"
 #include "nine_fractals.hpp"
 #include "render_data.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax,
 	QString outputFileName, int maxIter, MeshFileSave::structSaveMeshConfig meshConfig)
@@ -122,9 +126,9 @@ void cMeshExport::ProcessVolume()
 
 	progressText.ResetTimer();
 
-	vector<double> vertices;
-	vector<long long> polygons;
-	vector<double> colorIndices;
+	std::vector<double> vertices;
+	std::vector<long long> polygons;
+	std::vector<double> colorIndices;
 
 	WriteLog("Starting marching cubes...", 2);
 	MarchingCubes *marchingCube;

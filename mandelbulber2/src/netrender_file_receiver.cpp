@@ -35,7 +35,7 @@
 #include "netrender_file_receiver.hpp"
 
 #include "initparameters.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
 
 cNetRenderFileReceiver::cNetRenderFileReceiver(QObject *parent) : QObject(parent) {}
 
@@ -59,7 +59,8 @@ void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, qint64 _size, QStrin
 	int firstDash = receivedFileName.indexOf('_');
 	QString fileName = receivedFileName.mid(firstDash + 1);
 
-	QString fullFilePath = systemData.GetNetrenderFolder() + QDir::separator() + dirName + fileName;
+	QString fullFilePath =
+		systemDirectories.GetNetrenderFolder() + QDir::separator() + dirName + fileName;
 
 	QFile file(fullFilePath);
 	if (file.open(QIODevice::WriteOnly))

@@ -43,8 +43,10 @@
 #include "netrender.hpp"
 #include "parameters.hpp"
 #include "stereo.h"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "texture_enums.hpp"
+#include "write_log.hpp"
 
 cParameterContainer *gPar = nullptr;
 
@@ -85,8 +87,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
 	par->addParam("flight_animation_image_type", 0, morphNone, paramApp, qslImageType);
-	par->addParam("anim_flight_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
-		paramStandard);
+	par->addParam("anim_flight_dir", systemDirectories.GetAnimationFolder() + QDir::separator(),
+		morphNone, paramStandard);
 
 	// keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
@@ -95,8 +97,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("keyframe_last_to_render", 9999999, 0, 9999999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp, qslImageType);
-	par->addParam("anim_keyframe_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
-		paramStandard);
+	par->addParam("anim_keyframe_dir", systemDirectories.GetAnimationFolder() + QDir::separator(),
+		morphNone, paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
 	par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
 	par->addParam("keyframe_constant_target_distance", 0.1, 1e-10, 1.0e2, morphNone, paramStandard);
@@ -222,13 +224,14 @@ void InitParams(cParameterContainer *par)
 	par->addParam("voxel_samples_z", 100, 2, 65535, morphLinear, paramStandard);
 	par->addParam("voxel_max_iter", 30, 1, 10000, morphLinear, paramStandard);
 	par->addParam("voxel_image_path",
-		QDir::toNativeSeparators(systemData.GetSlicesFolder() + QDir::separator()), morphNone,
+		QDir::toNativeSeparators(systemDirectories.GetSlicesFolder() + QDir::separator()), morphNone,
 		paramStandard);
 	par->addParam("voxel_show_information", true, morphLinear, paramApp);
 
 	// mesh export
 	par->addParam("mesh_output_filename",
-		systemData.GetSlicesFolder() + QDir::separator() + "output.ply", morphNone, paramStandard);
+		systemDirectories.GetSlicesFolder() + QDir::separator() + "output.ply", morphNone,
+		paramStandard);
 	par->addParam("mesh_color", true, morphNone, paramApp);
 	par->addParam("mesh_file_mode", int(MeshFileSave::MESH_BINARY), morphNone, paramApp);
 
@@ -415,18 +418,19 @@ void InitParams(cParameterContainer *par)
 
 	// files
 	par->addParam("file_destination",
-		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"), morphNone,
-		paramStandard);
+		QDir::toNativeSeparators(systemDirectories.GetImagesFolder() + QDir::separator() + "image"),
+		morphNone, paramStandard);
 	par->addParam("file_background",
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "background.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "background.jpg"),
 		morphNone, paramStandard);
 	par->addParam("file_envmap",
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg"),
+		QDir::toNativeSeparators(
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "envmap.jpg"),
 		morphNone, paramStandard);
 	par->addParam("file_lightmap",
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam("description", QString(""), morphNone, paramStandard);
@@ -458,9 +462,11 @@ void InitParams(cParameterContainer *par)
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
 
-	par->addParam("default_image_path", systemData.GetImagesFolder(), morphNone, paramApp);
-	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
-	par->addParam("default_settings_path", systemData.GetSettingsFolder(), morphNone, paramApp);
+	par->addParam("default_image_path", systemDirectories.GetImagesFolder(), morphNone, paramApp);
+	par->addParam(
+		"default_textures_path", systemDirectories.sharedDir + "textures", morphNone, paramApp);
+	par->addParam(
+		"default_settings_path", systemDirectories.GetSettingsFolder(), morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
 	par->addParam("queue_image_format", 0, morphNone, paramApp, qslImageType);
@@ -1251,35 +1257,35 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_reflectance_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "reflectance_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "reflectance_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_transparency_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "transparency_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "transparency_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_roughness_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "roughness_texture.jpg"),
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "roughness_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,
 		paramStandard);

@@ -39,7 +39,7 @@
 #include "common_math.h"
 #include "global_data.hpp"
 #include "progress_text.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 
 using std::max;
 using std::min;

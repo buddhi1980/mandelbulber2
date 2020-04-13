@@ -69,9 +69,11 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system_data.hpp"
 #include "trace_behind.h"
 #include "tree_string_list.h"
 #include "undo.h"
+#include "write_log.hpp"
 
 #include "qt/detached_window.h"
 #include "qt/material_editor.h"
@@ -1940,7 +1942,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 void cInterface::NewPrimitive(const QString &primitiveType, int index)
 {
 	QString primitiveName = QString("primitive_") + primitiveType;
-	QString uiFileName = systemData.sharedDir + "formula" + QDir::separator() + "ui"
+	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + primitiveName + ".ui";
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
 
@@ -2268,7 +2270,7 @@ bool cInterface::QuitApplicationDialog()
 				gApplication->processEvents();
 			}
 
-			QFile::remove(systemData.GetAutosaveFile());
+			QFile::remove(systemDirectories.GetAutosaveFile());
 
 			if (detachedWindow)
 			{
@@ -2288,7 +2290,7 @@ bool cInterface::QuitApplicationDialog()
 
 void cInterface::AutoRecovery() const
 {
-	if (QFile::exists(systemData.GetAutosaveFile()))
+	if (QFile::exists(systemDirectories.GetAutosaveFile()))
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
@@ -2301,7 +2303,7 @@ void cInterface::AutoRecovery() const
 		{
 			cSettings parSettings(cSettings::formatFullText);
 			gInterfaceReadyForSynchronization = false;
-			parSettings.LoadFromFile(systemData.GetAutosaveFile());
+			parSettings.LoadFromFile(systemDirectories.GetAutosaveFile());
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
 			materialListModel->Regenerate();

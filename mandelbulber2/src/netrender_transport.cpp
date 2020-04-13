@@ -34,8 +34,8 @@
  */
 
 #include "netrender_transport.hpp"
-
 #include "lzo_compression.h"
+#include "write_log.hpp"
 
 bool cNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
 {

@@ -37,7 +37,7 @@
 #include "headless.h"
 #include "interface.hpp"
 #include "render_window.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 
 cProgressText::cProgressText()
 {

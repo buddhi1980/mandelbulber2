@@ -44,7 +44,7 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
 
 cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
 	int _width, int _height, QString _hash = QString())
@@ -73,7 +73,7 @@ QPixmap cThumbnail::Render()
 	}
 
 	QString thumbnailFileName =
-		systemData.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
+		systemDirectories.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
 	if (QFileInfo::exists(thumbnailFileName))
 	{
 		pixmap.load(thumbnailFileName);

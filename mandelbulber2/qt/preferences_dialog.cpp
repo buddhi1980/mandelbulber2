@@ -59,6 +59,9 @@
 #include "src/render_window.hpp"
 #include "src/settings.hpp"
 #include "src/system.hpp"
+#include "src/system_data.hpp"
+#include "src/system_directories.hpp"
+#include "src/wait.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cPreferencesDialog)
@@ -100,7 +103,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 #ifdef USE_OPENCL
 	UpdateOpenCLListBoxes();
 	UpdateOpenCLMemoryLimits();
-#else	// USE_OPENCL
+#else	 // USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
 
@@ -189,7 +192,7 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 
 void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 {
-	QDir thumbnailDir(systemData.GetThumbnailsFolder());
+	QDir thumbnailDir(systemDirectories.GetThumbnailsFolder());
 	thumbnailDir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
 	uint thumbnailDirCount = thumbnailDir.count();
 
@@ -205,7 +208,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 	{
 		// match exact 32 char hash images, example filename: c0ad626d8c25ab6a25c8d19a53960c8a.png
 		DeleteAllFilesFromDirectory(
-			systemData.GetThumbnailsFolder(), "????????????????????????????????.*");
+			systemDirectories.GetThumbnailsFolder(), "????????????????????????????????.*");
 	}
 	else
 	{
@@ -225,7 +228,7 @@ void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked() const
 	{
 		cFileDownloader fileDownloader(
 			QString("http://cdn.mandelbulber.org/thumbnail/%1").arg(MANDELBULBER_VERSION_STRING),
-			systemData.GetThumbnailsFolder());
+			systemDirectories.GetThumbnailsFolder());
 		QObject::connect(&fileDownloader,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,
@@ -260,7 +263,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 		QStringList listOfFiles;
 
 		{
-			QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + "examples");
+			QString examplePath = QDir::toNativeSeparators(systemDirectories.sharedDir + "examples");
 			QDirIterator it(
 				examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
 			QStringList exampleFiles;
@@ -268,8 +271,8 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 				listOfFiles << it.next();
 		}
 		{
-			QDirIterator it(systemData.GetSettingsFolder(), QStringList() << "*.fract", QDir::Files,
-				QDirIterator::Subdirectories);
+			QDirIterator it(systemDirectories.GetSettingsFolder(), QStringList() << "*.fract",
+				QDir::Files, QDirIterator::Subdirectories);
 			QStringList settingsFiles;
 			while (it.hasNext())
 				listOfFiles << it.next();

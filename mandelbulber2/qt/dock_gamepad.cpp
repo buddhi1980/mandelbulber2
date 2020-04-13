@@ -39,7 +39,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/interface.hpp"
 #include "src/rendered_image_widget.hpp"
-#include "src/system.hpp"
+#include "src/write_log.hpp"
 
 cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockGamepad)
 {

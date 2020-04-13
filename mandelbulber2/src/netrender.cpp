@@ -45,8 +45,10 @@
 #include "interface.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
+#include "system_data.hpp"
 #include "texture.hpp"
+#include "write_log.hpp"
 
 cNetRender *gNetRender = nullptr;
 
@@ -294,7 +296,7 @@ QString cNetRender::GetFileFromNetRender(QString requiredFileName, int frameInde
 
 	QByteArray hash = hashCrypt.result();
 	QString hashString = hash.toHex();
-	QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
+	QString fileInCache = systemDirectories.GetNetrenderFolder() + QDir::separator() + hashString + "."
 												+ QFileInfo(requiredFileName).suffix();
 	if (QFile::exists(fileInCache))
 	{

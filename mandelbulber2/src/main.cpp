@@ -55,6 +55,9 @@
 #include "rendered_image_widget.hpp"
 #include "settings.hpp"
 #include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -187,8 +190,8 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			gQueue = new cQueue(gMainInterface, systemData.GetQueueFractlistFile(),
-				systemData.GetQueueFolder(), gMainInterface->mainWindow);
+			gQueue = new cQueue(gMainInterface, systemDirectories.GetQueueFractlistFile(),
+				systemDirectories.GetQueueFolder(), gMainInterface->mainWindow);
 		}
 		catch (QString &ex)
 		{

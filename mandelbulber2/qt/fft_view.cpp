@@ -36,10 +36,11 @@
 
 #include <QPainter>
 #include <QtGui>
+#include <QApplication>
 
 #include "src/audio_fft_data.h"
 #include "src/audio_track.h"
-#include "src/system.hpp"
+#include "src/write_log.hpp"
 
 cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 {

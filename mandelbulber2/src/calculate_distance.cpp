@@ -49,6 +49,7 @@
 #include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
+#include "write_log.hpp"
 
 using namespace std;
 

@@ -46,6 +46,7 @@
 #include "netrender.hpp"
 #include "qimage.h"
 #include "resource_http_provider.hpp"
+#include "write_log.hpp"
 
 // constructor
 cTexture::cTexture(

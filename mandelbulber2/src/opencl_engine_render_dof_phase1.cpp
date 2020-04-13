@@ -41,6 +41,9 @@
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
+#include "system_directories.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -93,7 +96,7 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContain
 	emit updateProgressAndStatus(
 		tr("OpenCL DOF - initializing"), tr("Compiling sources for DOF phase 1"), 0.0);
 
-	QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
+	QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
 	QByteArray programEngine;
@@ -230,8 +233,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 				quint64 jobY = gridY * optimalJob.stepSizeY;
 				quint64 pixelsLeftX = width - jobX;
 				quint64 pixelsLeftY = height - jobY;
-				quint64 jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				quint64 jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				quint64 jobWidth2 = qMin(optimalJob.stepSizeX, pixelsLeftX);
+				quint64 jobHeight2 = qMin(optimalJob.stepSizeY, pixelsLeftY);
 				if (jobHeight2 <= 0) continue;
 				if (jobWidth2 <= 0) continue;
 

@@ -35,7 +35,7 @@
 
 #include "netrender_file_sender.hpp"
 
-#include "system.hpp"
+#include "system_directories.hpp"
 
 cNetRenderFileSender::cNetRenderFileSender(QObject *parent) : QObject(parent)
 {
@@ -116,7 +116,7 @@ void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 
 			// extract name of folder for image layers
 			QString nameWithoutNetRenderFolder = fileName;
-			nameWithoutNetRenderFolder.remove(systemData.GetNetrenderFolder() + QDir::separator());
+			nameWithoutNetRenderFolder.remove(systemDirectories.GetNetrenderFolder() + QDir::separator());
 			//			qDebug() << "systemData.GetNetrenderFolder() + QDir::separator()"
 			//							 << systemData.GetNetrenderFolder() + QDir::separator();
 			//			qDebug() << "nameWithoutNetRenderFolder" << nameWithoutNetRenderFolder;

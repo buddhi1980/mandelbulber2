@@ -45,7 +45,7 @@
 #include <QDebug>
 
 #include "cast.hpp"
-#include "system.hpp"
+#include "write_log.hpp"
 
 QByteArray lzoCompress(QByteArray data)
 {

@@ -42,7 +42,8 @@
 #include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "random.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cLights::cLights() : QObject()
 {

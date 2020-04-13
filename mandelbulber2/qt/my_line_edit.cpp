@@ -46,7 +46,7 @@
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 #include "src/common_math.h"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
 
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {
@@ -304,7 +304,7 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		int hOffset = height();
 
 		QSize minimumSize = slider->minimumSizeHint();
-		width = max(width, int(minimumSize.width() * 0.6));
+		width = std::max(width, int(minimumSize.width() * 0.6));
 
 		slider->adjustSize();
 		slider->setFixedWidth(width);

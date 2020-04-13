@@ -43,7 +43,7 @@
 #include "src/queue.hpp"
 #include "src/render_window.hpp"
 #include "src/settings.hpp"
-#include "src/system.hpp"
+#include "src/system_directories.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
@@ -116,8 +116,8 @@ PreviewFileDialog::~PreviewFileDialog()
 
 void PreviewFileDialog::OnPresetAdd() const
 {
-	fcopy(
-		filename, systemData.GetToolbarFolder() + QDir::separator() + QFileInfo(filename).fileName());
+	fcopy(filename,
+		systemDirectories.GetToolbarFolder() + QDir::separator() + QFileInfo(filename).fileName());
 	gMainInterface->mainWindow->slotPopulateToolbar();
 }
 

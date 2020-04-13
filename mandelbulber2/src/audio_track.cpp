@@ -46,7 +46,7 @@
 #include "audio_fft_data.h"
 #include "files.h"
 #include "netrender.hpp"
-#include "system.hpp"
+#include "write_log.hpp"
 
 // custom includes
 #ifdef USE_SNDFILE
@@ -411,7 +411,7 @@ void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitc
 		else
 			value = 0.5f
 							* (getBand(i, midFreq, bandwidth, pitchMode)
-									+ getBand(i - 1, midFreq, bandwidth, pitchMode));
+								 + getBand(i - 1, midFreq, bandwidth, pitchMode));
 
 		animation.append(value);
 	}

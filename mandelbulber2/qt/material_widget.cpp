@@ -48,7 +48,8 @@
 #include "src/material.h"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
+#include "src/system_directories.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(
@@ -145,8 +146,9 @@ void cMaterialWidget::InitializeData()
 			fractal.at(0).Set("power", 5);
 			params.Set("julia_mode", true);
 			params.Set("textured_background", true);
-			params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
-																														 + QDir::separator() + "grid.png"));
+			params.Set("file_background",
+				QDir::toNativeSeparators(
+					systemDirectories.sharedDir + "textures" + QDir::separator() + "grid.png"));
 			params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
 			params.Set("mat1_displacement_texture_height", 0.01);
 			params.Set("main_light_intensity", 1.2);
@@ -158,8 +160,8 @@ void cMaterialWidget::InitializeData()
 			params.Set("fractal_enable_1", false);
 			params.Set("textured_background", true);
 			params.Set("file_background",
-				QDir::toNativeSeparators(
-					systemData.sharedDir + "textures" + QDir::separator() + "material is not defined.png"));
+				QDir::toNativeSeparators(systemDirectories.sharedDir + "textures" + QDir::separator()
+																 + "material is not defined.png"));
 			params.Set("textured_background_map_type", int(params::mapFlat));
 		}
 

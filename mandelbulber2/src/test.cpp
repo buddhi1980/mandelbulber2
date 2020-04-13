@@ -49,11 +49,12 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 QString Test::testFolder()
 {
-	return systemData.GetDataDirectoryHidden() + ".temporaryTestFolder";
+	return systemDirectories.GetDataDirectoryHidden() + ".temporaryTestFolder";
 }
 
 void Test::init()
@@ -85,7 +86,7 @@ void Test::renderExamples() const
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
 	const QString examplePath =
-		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
+		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples");
 	QDirIterator it(
 		examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
 
@@ -276,7 +277,7 @@ void Test::testFlightWrapper() const
 void Test::testFlight() const
 {
 	const QString exampleFlightFile =
-		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "flight_anim_menger sponge_3.fract");
 
 	cParameterContainer *testPar = new cParameterContainer;
@@ -341,7 +342,7 @@ void Test::testKeyframeWrapper() const
 void Test::testKeyframe() const
 {
 	const QString exampleKeyframeFile =
-		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "keyframe_anim_mandelbulb.fract");
 
 	cParameterContainer *testPar = new cParameterContainer;
@@ -408,7 +409,7 @@ void Test::renderSimple() const
 	// this renders an example file in an "usual" resolution of 100x100 px
 	// and benchmarks the runtime
 	const QString simpleExampleFileName =
-		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbox001.fract");
 
 	cParameterContainer *testPar = new cParameterContainer;
@@ -473,7 +474,7 @@ void Test::renderImageSave() const
 	// this renders an example file in an "usual" resolution of 100x100 px
 	// and benchmarks the runtime, then saves each image type
 	const QString simpleExampleFileName =
-		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbulb001.fract");
 
 	cParameterContainer *testPar = new cParameterContainer;
@@ -567,11 +568,11 @@ void Test::renderImageSave() const
 					{
 						if ((imageChannelName == "zbuffer" && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG)
 								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_8
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_EXR)
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_EXR)
 								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_32
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG)
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG)
 								|| (qualityTypeValue != ImageFileSave::IMAGE_CHANNEL_QUALITY_8
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG))
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG))
 						{
 							// jpg cannot save zbuffer, jpg can only save 8bit
 							// exr cannot save 8 bit

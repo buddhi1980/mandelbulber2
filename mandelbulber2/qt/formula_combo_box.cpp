@@ -46,6 +46,7 @@
 #include "src/common_math.h"
 #include "src/parameters.hpp"
 #include "src/random.hpp"
+#include "src/write_log.hpp"
 
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 

@@ -50,6 +50,9 @@
 #include "old_settings.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
+#include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 
 #include "qt/image_save_dialog.h"
 #include "qt/preview_file_dialog.h"
@@ -142,14 +145,14 @@ void RenderWindow::slotMenuAboutQt()
 
 void RenderWindow::slotMenuAboutManual()
 {
-	qDebug() << systemData.docDir;
-	QString filename = systemData.docDir + "Mandelbulber_Manual.pdf";
+	qDebug() << systemDirectories.docDir;
+	QString filename = systemDirectories.docDir + "Mandelbulber_Manual.pdf";
 	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
 }
 
 void RenderWindow::slotMenuAboutNews()
 {
-	QString filename = systemData.docDir + "NEWS";
+	QString filename = systemDirectories.docDir + "NEWS";
 
 	QFile f(filename);
 	QString text = "";
@@ -353,7 +356,7 @@ void RenderWindow::showDescriptionPopup()
 
 void RenderWindow::SaveSettingsToRecent(QString fileName)
 {
-	QFile recentFilesFile(systemData.GetRecentFilesListFile());
+	QFile recentFilesFile(systemDirectories.GetRecentFilesListFile());
 	QStringList recentFiles;
 	if (recentFilesFile.open(QFile::ReadOnly | QFile::Text))
 	{
@@ -383,7 +386,7 @@ void RenderWindow::slotMenuLoadExample()
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(QDir::toNativeSeparators(
-		systemData.sharedDir + QDir::separator() + "examples" + QDir::separator()));
+		systemDirectories.sharedDir + QDir::separator() + "examples" + QDir::separator()));
 	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).fileName()));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load example settings..."));

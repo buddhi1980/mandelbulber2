@@ -37,7 +37,7 @@
 #include <QPainter>
 
 #include "src/audio_track.h"
-#include "src/system.hpp"
+#include "src/write_log.hpp"
 
 cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {

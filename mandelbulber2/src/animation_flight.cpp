@@ -60,7 +60,11 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "undo.h"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 #include "qt/dock_animation.h"
 #include "qt/dock_navigation.h"
@@ -1541,7 +1545,7 @@ QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) cons
 	QString dir;
 	if (netRenderCache)
 	{
-		dir = systemData.GetNetrenderFolder() + QDir::separator()
+		dir = systemDirectories.GetNetrenderFolder() + QDir::separator()
 					+ QString("pid%1_").arg(QCoreApplication::applicationPid());
 	}
 	else
@@ -1551,8 +1555,8 @@ QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) cons
 
 	QString filename = dir + "frame_" + QString("%1").arg(index, 7, 10, QChar('0'));
 	filename += "."
-							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-									params->Get<int>("flight_animation_image_type")));
+							+ ImageFileSave::ImageFileExtension(
+								ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type")));
 	return filename;
 }
 

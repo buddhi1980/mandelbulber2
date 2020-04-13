@@ -38,7 +38,7 @@
 
 #include "global_data.hpp"
 #include "headless.h"
-#include "system.hpp"
+#include "write_log.hpp"
 
 cErrorMessage *gErrorMessage = nullptr;
 

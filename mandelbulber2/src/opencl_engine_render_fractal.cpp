@@ -62,7 +62,11 @@
 #include "rectangle.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "texture.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -166,13 +170,14 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		{
 			if (formulaName.startsWith("custom"))
 			{
-				programEngine.append("\n#include \"" + systemData.GetOpenCLTempFolder() + QDir::separator()
-														 + formulaName + ".cl\"\n");
+				programEngine.append("\n#include \"" + systemDirectories.GetOpenCLTempFolder()
+														 + QDir::separator() + formulaName + ".cl\"\n");
 			}
 			else
 			{
-				programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-														 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+				programEngine.append("\n#include \"" + systemDirectories.sharedDir + "formula"
+														 + QDir::separator() + "opencl" + QDir::separator() + formulaName
+														 + ".cl\"\n");
 			}
 		}
 	}
@@ -280,9 +285,9 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
-	//adding hash code for custom formulas to the end of code to force recompile
+	// adding hash code for custom formulas to the end of code to force recompile
 	QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
-	for(QString code : customFormulaCodes)
+	for (QString code : customFormulaCodes)
 	{
 		hashCryptProgram.addData(code.toUtf8());
 	}
@@ -301,7 +306,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	QByteArray programEngine;
 	try
 	{
-		QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
+		QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 		QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
 		QStringList clHeaderFiles;
@@ -469,7 +474,8 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 			if (formulaCode.contains("CustomIteration("))
 			{
 				formulaCode = formulaCode.replace("CustomIteration", QString("Custom%1Iteration").arg(i));
-				QFile qFile(systemData.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
+				QFile qFile(
+					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
 				if (qFile.open(QIODevice::WriteOnly))
 				{
 					qFile.write(formulaCode.toUtf8());
@@ -1040,7 +1046,7 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 			SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 		threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
 		threads[d]->start();
-		threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
+		threads[d]->setPriority(systemData.GetQThreadPriority(systemData.threadsPriority));
 		WriteLog(QString("Thread ") + QString::number(d) + " started", 3);
 	}
 }

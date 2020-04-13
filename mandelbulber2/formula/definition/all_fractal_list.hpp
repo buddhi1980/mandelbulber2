@@ -44,7 +44,7 @@
 #include "all_fractal_list_enums.hpp"
 #include "src/algebra.hpp"
 #include "src/fractal_enums.h"
-#include "src/system.hpp"
+#include "src/system_directories.hpp"
 
 struct sFractal;
 struct sExtendedAux;
@@ -88,18 +88,18 @@ struct sFractalDescription
 		{
 			return QString(":system/icons/list-remove.svg");
 		}
-		return systemData.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
+		return systemDirectories.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
 					 + internalName + ".png";
 	}
 	QString getUiFilename() const
 	{
-		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
+		return systemDirectories.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
 					 + internalName + ".ui";
 	}
 	QString getOpenCLFilename() const
 	{
-		return systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
-					 + internalName + ".cl";
+		return systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl"
+					 + QDir::separator() + internalName + ".cl";
 	}
 };
 

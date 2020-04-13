@@ -47,6 +47,8 @@
 #include "src/projection_3d.hpp"
 #include "src/render_window.hpp"
 #include "src/settings.hpp"
+#include "src/system_data.hpp"
+#include "src/system_directories.hpp"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
@@ -219,8 +221,7 @@ void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 	}
 	else if (perspType == params::perspThreePoint)
 	{
-		if(gPar->Get<double>("fov") > 179.0)
-		ui->spinbox_fov->setValue(53.13);
+		if (gPar->Get<double>("fov") > 179.0) ui->spinbox_fov->setValue(53.13);
 	}
 }
 
@@ -351,7 +352,7 @@ void cDockImageAdjustments::InitResolutionPresets()
 	resolutionPresets->addParam("resolution_preset", 8, QString("800x600"), morphNone, paramApp);
 	resolutionPresets->addParam("resolution_preset", 9, QString("1600x1200"), morphNone, paramApp);
 
-	QString presetsFile = systemData.GetResolutionPresetsFile();
+	QString presetsFile = systemDirectories.GetResolutionPresetsFile();
 	if (QFileInfo::exists(presetsFile))
 	{
 		cSettings settings(cSettings::formatAppSettings);
@@ -398,8 +399,8 @@ void cDockImageAdjustments::slotChangeResolutionPreset()
 	int xPosition = newPreset.indexOf('x');
 	int width = newPreset.left(xPosition).toInt();
 	int height = newPreset.mid(xPosition + 1).toInt();
-	width = max(32, width);
-	height = max(32, height);
+	width = std::max(32, width);
+	height = std::max(32, height);
 	QString newPresetCorrected = QString("%1x%2").arg(width).arg(height);
 
 	QToolButton *button = ui->groupBox_presets->findChild<QToolButton *>(
@@ -408,7 +409,7 @@ void cDockImageAdjustments::slotChangeResolutionPreset()
 	resolutionPresets->Set("resolution_preset", index, newPresetCorrected);
 	button->setText(newPresetCorrected);
 
-	QString presetsFile = systemData.GetResolutionPresetsFile();
+	QString presetsFile = systemDirectories.GetResolutionPresetsFile();
 	cSettings settings(cSettings::formatAppSettings);
 	settings.CreateText(resolutionPresets, nullptr);
 	settings.SaveToFile(presetsFile);

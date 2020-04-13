@@ -41,7 +41,8 @@
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 namespace oldSettings
 {
@@ -63,7 +64,7 @@ cOldSettings::~cOldSettings()
 bool cOldSettings::LoadSettings(const QString &filename)
 {
 	QString defaultsFilename =
-		systemData.sharedDir + "data" + QDir::separator() + "mandelbulber_1.21_defaults.fract";
+		systemDirectories.sharedDir + "data" + QDir::separator() + "mandelbulber_1.21_defaults.fract";
 
 	if (QFileInfo::exists(defaultsFilename))
 	{

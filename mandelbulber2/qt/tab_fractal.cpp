@@ -50,6 +50,7 @@
 #include "src/interface.hpp"
 #include "src/my_ui_loader.h"
 #include "src/render_window.hpp"
+#include "src/write_log.hpp"
 
 cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFractal)
 {

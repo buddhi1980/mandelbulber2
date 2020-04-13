@@ -50,7 +50,9 @@
 #include "material_item_model.h"
 #include "render_window.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 #include "qt/detached_window.h"
 #include "qt/material_editor.h"
@@ -387,7 +389,7 @@ void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 {
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started", 2);
-	QDir toolbarDir = QDir(systemData.GetToolbarFolder());
+	QDir toolbarDir = QDir(systemDirectories.GetToolbarFolder());
 	toolbarDir.setSorting(QDir::Time);
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamplesLoad = new QSignalMapper(this);
@@ -424,7 +426,8 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			// already present
 			continue;
 		}
-		QString filename = systemData.GetToolbarFolder() + QDir::separator() + toolbarFiles.at(i);
+		QString filename =
+			systemDirectories.GetToolbarFolder() + QDir::separator() + toolbarFiles.at(i);
 		cThumbnailWidget *thumbWidget = nullptr;
 
 		if (QFileInfo(filename).suffix() == QString("fract"))
@@ -500,7 +503,7 @@ void RenderWindow::slotPresetAddToToolbar()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	QString filename =
-		systemData.GetToolbarFolder() + QDir::separator() + parSettings.GetHashCode() + ".fract";
+		systemDirectories.GetToolbarFolder() + QDir::separator() + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(filename);
 	slotPopulateToolbar();
 }
@@ -536,7 +539,7 @@ void RenderWindow::slotMenuRemovePreset(QString filename)
 void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 {
 	WriteLog("cInterface::slotPopulateCustomWindowStates() started", 2);
-	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
+	QDir customWindowStateDir = QDir(systemDirectories.GetCustomWindowStateFolder());
 	customWindowStateDir.setSorting(QDir::Time);
 	QStringList geometryFileExtension("*.geometry");
 	customWindowStateDir.setNameFilters(geometryFileExtension);
@@ -571,7 +574,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 			continue;
 		}
 		QString filename =
-			systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFile;
+			systemDirectories.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFile;
 
 		/*
 		QWidgetAction *action = new QWidgetAction(this);
@@ -623,7 +626,7 @@ void RenderWindow::slotCustomWindowStateAddToMenu()
 		return;
 	}
 	QString textEncoded = QByteArray().append(text).toBase64();
-	QString basePath = systemData.GetCustomWindowStateFolder() + QDir::separator();
+	QString basePath = systemDirectories.GetCustomWindowStateFolder() + QDir::separator();
 	QString filename = basePath + textEncoded;
 	QString filenameGeometry = filename + ".geometry";
 	QString filenameState = filename + ".state";
@@ -657,7 +660,7 @@ void RenderWindow::slotMenuLoadCustomWindowState(QString filename)
 
 void RenderWindow::slotCustomWindowRemovePopup()
 {
-	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
+	QDir customWindowStateDir = QDir(systemDirectories.GetCustomWindowStateFolder());
 	customWindowStateDir.setSorting(QDir::Time);
 	QStringList geometryFileExtension("*.geometry");
 	customWindowStateDir.setNameFilters(geometryFileExtension);
@@ -684,8 +687,8 @@ void RenderWindow::slotCustomWindowRemovePopup()
 		return;
 	}
 	int index = itemsEscaped.indexOf(itemEscaped);
-	QString filename =
-		systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFiles.at(index);
+	QString filename = systemDirectories.GetCustomWindowStateFolder() + QDir::separator()
+										 + customWindowStateFiles.at(index);
 	slotMenuRemoveCustomWindowState(filename.replace(".geometry", ""));
 }
 
@@ -699,7 +702,7 @@ void RenderWindow::slotMenuRemoveCustomWindowState(QString filename)
 void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 {
 	WriteLog("cInterface::slotPopulateRecentSettings() started", 2);
-	QFile recentFilesFile(systemData.GetRecentFilesListFile());
+	QFile recentFilesFile(systemDirectories.GetRecentFilesListFile());
 	if (!recentFilesFile.open(QFile::ReadOnly | QFile::Text))
 	{
 		// qDebug() << "cannot open recent file";

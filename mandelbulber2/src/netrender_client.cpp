@@ -49,8 +49,11 @@
 #include "netrender_file_sender.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "texture.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 CNetRenderClient::CNetRenderClient()
 {
@@ -649,8 +652,8 @@ void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
 			}
 			QByteArray hash = hashCrypt.result();
 			QString hashString = hash.toHex();
-			QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
-														+ QFileInfo(requestedFileName).suffix();
+			QString fileInCache = systemDirectories.GetNetrenderFolder() + QDir::separator() + hashString
+														+ "." + QFileInfo(requestedFileName).suffix();
 
 			QFile file(fileInCache);
 			if (file.open(QIODevice::WriteOnly))

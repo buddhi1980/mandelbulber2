@@ -45,7 +45,7 @@
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
 #include "src/synchronize_interface.hpp"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
 
 cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
 {

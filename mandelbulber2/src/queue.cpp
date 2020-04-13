@@ -52,6 +52,8 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "settings.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "system.hpp"
 
 #include "qt/dock_queue.h"
@@ -599,7 +601,7 @@ void cQueue::slotQueueAddFromFile()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.GetSettingsFolder() + QDir::separator());
+	dialog.setDirectory(systemDirectories.GetSettingsFolder() + QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Add file to queue..."));

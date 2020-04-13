@@ -40,7 +40,6 @@
 #include <QtCore>
 
 #include "file_image.hpp"
-#include "system.hpp"
 
 // forward declarations
 class cImage;
@@ -50,6 +49,7 @@ extern std::string logfileName;
 std::string IndexFilename(const char *filename, const char *extension, int number);
 bool FileIfExists(const char *filename);
 int fcopy(const char *source, const char *dest);
+int fcopy(const QString &source, const QString &dest);
 std::string removeFileExtension(const std::string &filename);
 void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // void SaveAllImageLayers(const char *filename, cImage *image);

@@ -41,6 +41,8 @@
 #include "algebra.hpp"
 #include "global_data.hpp"
 #include "parameters.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 #include "qt/file_select_widget.h"
 #include "qt/formula_combo_box.h"
 #include "qt/gradient_edit_widget.h"

@@ -41,6 +41,9 @@
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
+#include "system_directories.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -97,7 +100,7 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 	emit updateProgressAndStatus(
 		tr("OpenCl SSAO - initializing"), tr("Compiling sources for SSAO"), 0.0);
 
-	QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
+	QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
 	QByteArray programEngine;
@@ -107,7 +110,7 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 	QStringList clHeaderFiles;
 	clHeaderFiles.append("opencl_typedefs.h"); // definitions of common opencl types
 	clHeaderFiles.append("ssao_cl.h");				 // main data structures
-	clHeaderFiles.append("opencl_algebra.h");	// definitions of common math functions
+	clHeaderFiles.append("opencl_algebra.h");	 // definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");

@@ -47,7 +47,8 @@
 #include "src/error_message.hpp"
 #include "src/parameters.hpp"
 #include "src/random.hpp"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
+#include "src/system_directories.hpp"
 
 cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)
@@ -372,7 +373,8 @@ void cGradientEditWidget::GrabColors()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator()));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(systemDirectories.GetImagesFolder() + QDir::separator()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.lastImagePaletteFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select image to grab colors..."));

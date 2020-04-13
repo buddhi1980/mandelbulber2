@@ -48,7 +48,7 @@
 #include "src/interface.hpp"
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
-#include "src/system.hpp"
+#include "src/write_log.hpp"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
 {

@@ -41,7 +41,7 @@
 #include <QtWidgets/QtWidgets>
 
 #include "synchronize_interface.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 
 cAutomatedWidgets::cAutomatedWidgets(QObject *parent) : QObject(parent) {}
 

@@ -35,6 +35,8 @@
  * method to store the image data with the corresponding file format
  */
 
+#include <string>
+
 #include "file_image.hpp"
 
 #include "cimage.hpp"
@@ -42,6 +44,7 @@
 #include "files.h"
 #include "initparameters.hpp"
 #include "parameters.hpp"
+#include "write_log.hpp"
 
 // custom includes
 #ifdef USE_TIFF
@@ -714,7 +717,7 @@ void ImageFileSavePNG::SavePNG(
 		// png_write_image(png_ptr, row_pointers);
 		for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
 		{
-			uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+			uint64_t currentChunkSize = std::min(height - r, SAVE_CHUNK_SIZE);
 			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), currentChunkSize);
 			updateProgressAndStatusChannel(1.0 * r / height);
 		}
@@ -827,7 +830,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
 {
 	/* create file */
-	string filenamePNG(filename);
+	std::string filenamePNG(filename);
 	filenamePNG += "_fromTiles.png";
 	FILE *fp = fopen(filenamePNG.c_str(), "wb");
 	if (!fp)
@@ -895,7 +898,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 		for (int tile = 0; tile < tiles; tile++)
 		{
 			int fileNumber = tile + tileRow * tiles;
-			string filename2 = IndexFilename(filename, "tile", fileNumber);
+			std::string filename2 = IndexFilename(filename, "tile", fileNumber);
 			files[tile] = fopen(filename2.c_str(), "rb");
 		}
 
@@ -921,7 +924,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 		{
 			fclose(files[tile]);
 			int fileNumber = tile + tileRow * tiles;
-			string filename2 = IndexFilename(filename, "tile", fileNumber);
+			std::string filename2 = IndexFilename(filename, "tile", fileNumber);
 			remove(filename2.c_str());
 		}
 	}
@@ -1335,7 +1338,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 	for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
 	{
-		uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+		uint64_t currentChunkSize = std::min(height - r, SAVE_CHUNK_SIZE);
 		file.writePixels(currentChunkSize);
 		emit updateProgressAndStatus(getJobName(), QString("Saving all channels"), 1.0 * r / height);
 	}
@@ -1678,7 +1681,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	//	tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
 	for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
 	{
-		uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+		uint64_t currentChunkSize = std::min(height - r, SAVE_CHUNK_SIZE);
 		// needs buffer with offset position
 		char *buf = static_cast<char *>(colorPtr) + r * pixelSize * width;
 		tsize_t size = tsize_t(currentChunkSize * pixelSize * width);

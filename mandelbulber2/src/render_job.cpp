@@ -55,7 +55,8 @@
 #include "render_ssao.h"
 #include "rendering_configuration.hpp"
 #include "stereo.h"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
 	cImage *_image, bool *_stopRequest, QWidget *_qWidget)

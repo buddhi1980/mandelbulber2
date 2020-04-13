@@ -51,6 +51,8 @@
 #include "queue.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
+#include "system_data.hpp"
+#include "wait.hpp"
 #include "voxel_export.hpp"
 
 cHeadless::cHeadless() : QObject() {}

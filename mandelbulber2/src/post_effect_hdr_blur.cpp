@@ -39,7 +39,7 @@
 #include "cimage.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 
 cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
 {

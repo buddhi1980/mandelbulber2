@@ -56,7 +56,10 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
 #include "undo.h"
+#include "write_log.hpp"
 
 #include "qt/dock_animation.h"
 #include "qt/dock_navigation.h"
@@ -1382,7 +1385,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 	QString dir;
 	if (netRenderCache)
 	{
-		dir = systemData.GetNetrenderFolder() + QDir::separator()
+		dir = systemDirectories.GetNetrenderFolder() + QDir::separator()
 					+ QString("pid%1_").arg(QCoreApplication::applicationPid());
 	}
 	else

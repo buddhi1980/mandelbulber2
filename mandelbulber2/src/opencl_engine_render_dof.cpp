@@ -45,7 +45,7 @@
 #include "parameters.hpp"
 #include "progress_text.hpp"
 #include "render_data.hpp"
-#include "system.hpp"
+#include "write_log.hpp"
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
 {

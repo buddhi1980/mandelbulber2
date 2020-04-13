@@ -48,6 +48,8 @@
 #include "src/interface.hpp"
 #include "src/keyframes.hpp"
 #include "src/settings.hpp"
+#include "src/system_data.hpp"
+#include "src/wait.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)
@@ -75,6 +77,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		case previewSmall: sizeMultiply = 1.0; break;
 		case previewMedium: sizeMultiply = 1.5; break;
 		case previewBig: sizeMultiply = 2.0; break;
+		default: sizeMultiply = 1.0; break;
 	}
 	previewWidth = int(sizeMultiply * baseSize * 4.0 / 3.0);
 	previewHeight = int(sizeMultiply * baseSize);

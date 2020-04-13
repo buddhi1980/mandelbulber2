@@ -37,11 +37,12 @@
 
 #include "material_item_view.h"
 
-#include <qpainter.h>
-#include <qpushbutton.h>
-#include <qscrollbar.h>
+#include <QPainter>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QApplication>
 
-#include "system.hpp"
+#include "system_data.hpp"
 
 #include "qt/material_widget.h"
 
@@ -244,5 +245,5 @@ void cMaterialItemView::setModel(QAbstractItemModel *model)
 void cMaterialItemView::updateNameHeight()
 {
 	QFont f = font();
-	maxNameHeight = max(f.pixelSize(), int(f.pointSizeF())) * 3;
+	maxNameHeight = qMax(f.pixelSize(), int(f.pointSizeF())) * 3;
 }

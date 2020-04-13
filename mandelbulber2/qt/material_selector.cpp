@@ -40,7 +40,7 @@
 #include "src/interface.hpp"
 #include "src/material.h"
 #include "src/material_item_model.h"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
 
 cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {

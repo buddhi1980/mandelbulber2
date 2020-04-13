@@ -35,7 +35,7 @@
 #include "buton_save_settings_from_widget.h"
 
 #include "src/interface.hpp"
-#include "src/system.hpp"
+#include "src/system_data.hpp"
 
 cButtonSaveSettingsFromWidget::cButtonSaveSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)

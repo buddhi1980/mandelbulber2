@@ -55,6 +55,7 @@
 #include "opencl_global.h"
 #include "progress_text.hpp"
 #include "render_data.hpp"
+#include "write_log.hpp"
 
 cVoxelExport::cVoxelExport(
 	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter)

@@ -50,7 +50,7 @@
 #include "render_data.hpp"
 #include "scheduler.hpp"
 #include "stereo.h"
-#include "system.hpp"
+#include "system_data.hpp"
 #include "texture.hpp"
 
 cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,

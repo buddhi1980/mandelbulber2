@@ -44,7 +44,8 @@
 #include "opencl_engine.h"
 #include "opencl_scheduler.h"
 #include "opencl_worker_output_queue.h"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "wait.hpp"
 
 using std::min;
 

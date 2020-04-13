@@ -42,7 +42,7 @@
 #include "src/error_message.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
-#include "src/system.hpp"
+#include "src/write_log.hpp"
 #include "src/voxel_export.hpp"
 
 cVoxelExportDialog::cVoxelExportDialog(QWidget *parent)

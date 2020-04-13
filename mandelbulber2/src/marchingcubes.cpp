@@ -49,6 +49,8 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
 #include "render_data.hpp"
+#include "system_data.hpp"
+#include "write_log.hpp"
 
 // custom includes
 #ifdef USE_OPENCL

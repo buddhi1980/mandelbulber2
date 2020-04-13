@@ -51,7 +51,9 @@
 #include "render_worker.hpp"
 #include "scheduler.hpp"
 #include "stereo.h"
-#include "system.hpp"
+#include "system_data.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 cRenderer::cRenderer(const sParamRender *_params, const cNineFractals *_fractal,
 	sRenderData *_renderData, cImage *_image)
@@ -129,7 +131,7 @@ void cRenderer::LaunchThreads(
 		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 		thread[i]->setObjectName("RenderWorker #" + QString::number(i));
 		thread[i]->start();
-		thread[i]->setPriority(GetQThreadPriority(systemData.threadsPriority));
+		thread[i]->setPriority(systemData.GetQThreadPriority(systemData.threadsPriority));
 		WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 	}
 }

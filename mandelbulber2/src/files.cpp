@@ -40,6 +40,9 @@
 #include "cimage.hpp"
 #include "error_message.hpp"
 #include "initparameters.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 // custom includes
 extern "C"
@@ -134,6 +137,67 @@ int fcopy(const char *source, const char *dest)
 	fclose(pFile);
 
 	delete[] buffer;
+	return 0;
+}
+
+int fcopy(const QString &source, const QString &dest)
+{
+	// ------ file reading
+
+	char *buffer;
+
+	FILE *pFile = fopen(source.toLocal8Bit().constData(), "rb");
+	if (pFile == nullptr)
+	{
+		qCritical() << "Can't open source file for copying: " << source << endl;
+		WriteLogString("Can't open source file for copying", source, 1);
+		return 1;
+	}
+
+	// obtain file size:
+	fseek(pFile, 0, SEEK_END);
+	const long int lSize = ftell(pFile);
+	rewind(pFile);
+
+	// allocate memory to contain the whole file:
+	if (lSize > 0)
+	{
+		buffer = new char[lSize];
+
+		// copy the file into the buffer:
+		const size_t result = fread(buffer, 1, lSize, pFile);
+		if (result != size_t(lSize))
+		{
+			qCritical() << "Can't read source file for copying: " << source << endl;
+			WriteLogString("Can't read source file for copying", source, 1);
+			delete[] buffer;
+			fclose(pFile);
+			return 2;
+		}
+	}
+	else
+	{
+		qCritical() << "Can't obtain file size: " << source;
+		fclose(pFile);
+		return 4;
+	}
+	fclose(pFile);
+
+	// ----- file writing
+
+	pFile = fopen(dest.toLocal8Bit().constData(), "wb");
+	if (pFile == nullptr)
+	{
+		qCritical() << "Can't open destination file for copying: " << dest << endl;
+		WriteLogString("Can't open destination file for copying", dest, 1);
+		delete[] buffer;
+		return 3;
+	}
+	fwrite(buffer, 1, lSize, pFile);
+	fclose(pFile);
+
+	delete[] buffer;
+	WriteLogString("File copied", dest, 2);
 	return 0;
 }
 
@@ -441,7 +505,7 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 	// examples don't depend on the launch directory
 	// For a relative path starting with "$SHARED_DIR", use "./$SHARED_DIR"
 	QString newPath = path;
-	newPath.replace(QRegExp("^\\$SHARED_DIR"), systemData.sharedDir);
+	newPath.replace(QRegExp("^\\$SHARED_DIR"), systemDirectories.sharedDir);
 
 	// original file was found
 	if (FileExists(newPath)) return newPath;
@@ -470,14 +534,15 @@ QString FilePathHelperTextures(const QString &path)
 	QFileInfo fi(nativePath);
 	QString fileName = fi.fileName();
 
-	QStringList pathList = {fileName, systemData.homeDir + "textures" + QDir::separator() + fileName,
-		systemData.sharedDir + "textures" + QDir::separator() + fileName,
-		systemData.homeDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator()
+	QStringList pathList = {fileName,
+		systemDirectories.homeDir + "textures" + QDir::separator() + fileName,
+		systemDirectories.sharedDir + "textures" + QDir::separator() + fileName,
+		systemDirectories.homeDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator()
 			+ fileName,
-		systemData.sharedDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator()
-			+ fileName,
-		systemData.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
-		systemData.GetDataDirectoryUsed() + fileName,
+		systemDirectories.sharedDir + "mandelbulber2" + QDir::separator() + "textures"
+			+ QDir::separator() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + fileName,
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
 
 	return FilePathHelper(nativePath, pathList);
@@ -491,14 +556,15 @@ QString FilePathHelperSounds(const QString &path)
 	QFileInfo fi(nativePath);
 	QString fileName = fi.fileName();
 
-	QStringList pathList = {fileName, systemData.homeDir + "sounds" + QDir::separator() + fileName,
-		systemData.sharedDir + "sounds" + QDir::separator() + fileName,
-		systemData.homeDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator()
+	QStringList pathList = {fileName,
+		systemDirectories.homeDir + "sounds" + QDir::separator() + fileName,
+		systemDirectories.sharedDir + "sounds" + QDir::separator() + fileName,
+		systemDirectories.homeDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator()
 			+ fileName,
-		systemData.sharedDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator()
+		systemDirectories.sharedDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator()
 			+ fileName,
-		systemData.GetDataDirectoryUsed() + "sounds" + QDir::separator() + fileName,
-		systemData.GetDataDirectoryUsed() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + "sounds" + QDir::separator() + fileName,
+		systemDirectories.GetDataDirectoryUsed() + fileName,
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
 
 	return FilePathHelper(nativePath, pathList);

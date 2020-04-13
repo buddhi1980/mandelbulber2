@@ -47,8 +47,10 @@
 #include "netrender_file_receiver.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_data.hpp"
 #include "texture.hpp"
+#include "wait.hpp"
+#include "write_log.hpp"
 
 cNetRenderServer::cNetRenderServer()
 {

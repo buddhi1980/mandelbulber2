@@ -43,7 +43,8 @@
 #include "error_message.hpp"
 #include "initparameters.hpp"
 #include "settings.hpp"
-#include "system.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
 
 cUndo gUndo;
 
@@ -63,7 +64,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	WriteLog("Autosave started", 2);
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-	parSettings.SaveToFile(systemData.GetAutosaveFile());
+	parSettings.SaveToFile(systemDirectories.GetAutosaveFile());
 	WriteLog("Autosave finished", 2);
 
 	WriteLog("cUndo::Store() started", 2);
