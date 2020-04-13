@@ -60,21 +60,26 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 p = z;
 	double dd = aux.DE;
 	double m = 0.0;
+	double tp = 0.0;
 	//sphere fold v1
-	CVector4 signs = z;
-	signs.x = sign(z.x);
-	signs.y = sign(z.y);
-	signs.z = sign(z.z);
-	// signs.w = sign(z.w);
-	z = fabs(z);
-	z -= fractal->transformCommon.offsetA000;
-	double trr = z.Dot(z);
+	if ( aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		CVector4 signs = z;
+		signs.x = sign(z.x);
+		signs.y = sign(z.y);
+		signs.z = sign(z.z);
+		// signs.w = sign(z.w);
+		z = fabs(z);
+		z -= fractal->transformCommon.offsetA000;
+		double trr = z.Dot(z);
 
-	double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
-	z += fractal->transformCommon.offsetA000;
-	z *= tp;
-	aux.DE *= tp;
-	z *= signs;
+		tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
+		z += fractal->transformCommon.offsetA000;
+		z *= tp;
+		aux.DE *= tp;
+		z *= signs;
+	}
 
 	//sphere fold std
 	if (fractal->transformCommon.functionEnabledNFalse
@@ -109,7 +114,9 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	// rotation1
-	if (fractal->transformCommon.rotation2EnabledFalse)
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}

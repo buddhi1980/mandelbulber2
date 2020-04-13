@@ -50,19 +50,25 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL4 p = z;
 	REAL dd = aux->DE;
 	REAL m = 0.0;
-	REAL4 signs = z;
-	signs.x = sign(z.x);
-	signs.y = sign(z.y);
-	signs.z = sign(z.z);
-	signs.w = sign(z.w);
-	z = fabs(z);
-	z -= fractal->transformCommon.offsetA000;
-	REAL trr = dot(z, z);
-	REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
-	z += fractal->transformCommon.offsetA000;
-	z *= tp;
-	aux->DE *= tp;
-	z *= signs;
+	REAL tp = 0.0;
+	if (aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
+	{
+		REAL4 signs = z;
+		signs.x = sign(z.x);
+		signs.y = sign(z.y);
+		signs.z = sign(z.z);
+		signs.w = sign(z.w);
+		z = fabs(z);
+		z -= fractal->transformCommon.offsetA000;
+		REAL trr = dot(z, z);
+		tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
+		z += fractal->transformCommon.offsetA000;
+		z *= tp;
+		aux->DE *= tp;
+		z *= signs;
+	}
+
 
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
@@ -94,7 +100,9 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->actualScaleA -= vary;
 	}
 
-	if (fractal->transformCommon.rotation2EnabledFalse)
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
