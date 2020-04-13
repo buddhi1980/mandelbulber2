@@ -79,8 +79,8 @@ bool InitSystem()
 
 	systemDirectories.homeDir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 #ifdef _WIN32 /* WINDOWS */
-	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
-	systemData.docDir =
+	systemDirectories.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
+	systemDirectories.docDir =
 		QDir::toNativeSeparators(QDir::currentPath() + QDir::separator() + "doc" + QDir::separator());
 #elif SHARED_DIR_IS_APP_DIR
 	/* used for AppImage, which requires fixed data bundled at same location, as the application */
@@ -96,8 +96,8 @@ bool InitSystem()
 #endif
 	out << "sharePath directory: " << sharePath << endl;
 
-	systemData.sharedDir = QDir::toNativeSeparators(sharePath + QDir::separator());
-	systemData.docDir =
+	systemDirectories.sharedDir = QDir::toNativeSeparators(sharePath + QDir::separator());
+	systemDirectories.docDir =
 		QDir::toNativeSeparators(sharePath + QDir::separator() + "doc" + QDir::separator());
 #else //_WIN32
 // if SHARED_DIR is not defined under Linux then use path relative to main executable directory
@@ -172,14 +172,14 @@ bool InitSystem()
 	}
 
 #else	 // SHARED_DIR
-	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
-	systemData.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
+	systemDirectories.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
+	systemDirectories.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
 #endif // else SHARED_DIR
 #endif // else _WIN32
 
 // logfile
 #ifdef _WIN32 /* WINDOWS */
-	systemData.logfileName = systemData.homeDir + "mandelbulber_log.txt";
+	systemData.logfileName = systemDirectories.homeDir + "mandelbulber_log.txt";
 #else
 	systemData.logfileName = systemDirectories.homeDir + ".mandelbulber_log.txt";
 #endif
@@ -205,8 +205,10 @@ bool InitSystem()
 
 // data directory location
 #ifdef _WIN32 /* WINDOWS */
-	systemData.SetDataDirectoryHidden(systemData.homeDir + "mandelbulber" + QDir::separator());
-	systemData.SetDataDirectoryPublic(systemData.homeDir + "mandelbulber" + QDir::separator());
+	systemDirectories.SetDataDirectoryHidden(
+		systemDirectories.homeDir + "mandelbulber" + QDir::separator());
+	systemDirectories.SetDataDirectoryPublic(
+		systemDirectories.homeDir + "mandelbulber" + QDir::separator());
 #else
 	systemDirectories.SetDataDirectoryHidden(
 		QDir::toNativeSeparators(systemDirectories.homeDir + ".mandelbulber" + QDir::separator()));
@@ -398,7 +400,6 @@ void DeleteAllFilesFromDirectory(
 		WriteLogString("Directory does not exist", folder, 2);
 	}
 }
-
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
