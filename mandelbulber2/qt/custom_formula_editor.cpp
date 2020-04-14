@@ -256,7 +256,16 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 		else if (varType == typeInt)
 		{
 			MySpinBox *newWidget = new MySpinBox(this);
-			newWidget->setObjectName(QString("edit_%1").arg(listOfParameters[i].parameterName));
+			newWidget->setObjectName(QString("spinboxInt_%1").arg(listOfParameters[i].parameterName));
+			int min = parameter.Get<int>(parameterContainer::valueMin);
+			int max = parameter.Get<int>(parameterContainer::valueMax);
+			if (min == max)
+			{
+				min = 0;
+				max = 1000;
+			}
+			newWidget->setMinimum(min);
+			newWidget->setMaximum(max);
 			ui->formLayoutParameters->addRow(listOfParameters[i].parameterName, newWidget);
 		}
 		else if (varType == typeBool)
