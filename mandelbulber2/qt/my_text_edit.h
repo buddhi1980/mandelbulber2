@@ -17,7 +17,8 @@ class cMyTextEdit : public QTextEdit
 
 public:
 	explicit cMyTextEdit(QWidget *parent = nullptr);
-	;
+	void keyPressEvent ( QKeyEvent * e );
+
 	~cMyTextEdit();
 
 private:
