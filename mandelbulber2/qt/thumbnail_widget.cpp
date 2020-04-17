@@ -46,6 +46,7 @@
 #include "src/common_math.h"
 #include "src/global_data.hpp"
 #include "src/interface.hpp"
+#include "src/opencl_engine_render_fractal.h"
 #include "src/render_job.hpp"
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
@@ -163,29 +164,38 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 		params->Set("DOF_min_samples", 5);
 
-		if (params->Get<bool>("opencl_enabled") && params->Get<int>("opencl_mode") > 0)
+		if (fractal->isUsedCustomFormula())
 		{
-			double distance =
-				cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
-			if (distance < 1e-5)
-			{
-				params->Set("opencl_mode", 0);
-			}
+			params->Set("opencl_mode", int(cOpenClEngineRenderFractal::clRenderEngineTypeFull));
+			params->Set("opencl_enabled", true);
+		}
 
-			if (distance < 1e-12)
+		else if (params->Get<bool>("opencl_enabled"))
+		{
+			if (params->Get<int>("opencl_mode") > 0)
 			{
-				isRendered = true;
-				isFullyRendered = true;
-				delete params;
-				params = nullptr;
-				delete fractal;
-				fractal = nullptr;
-				// alloc image in case if samething wnat read it
-				image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
-				image->ClearImage();
-				emit signalZeroDistance();
-				emit signalFinished();
-				return;
+				double distance =
+					cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
+				if (distance < 1e-5)
+				{
+					params->Set("opencl_mode", 0);
+				}
+
+				if (distance < 1e-12)
+				{
+					isRendered = true;
+					isFullyRendered = true;
+					delete params;
+					params = nullptr;
+					delete fractal;
+					fractal = nullptr;
+					// alloc image in case if samething wnat read it
+					image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
+					image->ClearImage();
+					emit signalZeroDistance();
+					emit signalFinished();
+					return;
+				}
 			}
 		}
 

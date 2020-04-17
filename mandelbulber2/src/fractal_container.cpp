@@ -91,3 +91,17 @@ const cParameterContainer &cFractalContainer::at(int index) const
 		return fractals[0];
 	}
 }
+
+bool cFractalContainer::isUsedCustomFormula()
+{
+	bool used = false;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		if (!fractals[i].isDefaultValue("formula_code"))
+		{
+			used = true;
+			break;
+		}
+	}
+	return used;
+}

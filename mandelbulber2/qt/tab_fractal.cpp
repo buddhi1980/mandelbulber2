@@ -171,6 +171,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		if (formulaName == "custom")
 		{
 			fractalWidget = new cCustomFormulaEditor();
+			dynamic_cast<cCustomFormulaEditor *>(fractalWidget)->AssignSlot(tabIndex);
 			widgetLoaded = true;
 		}
 		else

@@ -45,6 +45,7 @@ public:
 	const cParameterContainer &operator[](int index) const;
 	cParameterContainer &at(int index);
 	const cParameterContainer &at(int index) const;
+	bool isUsedCustomFormula();
 
 private:
 	cParameterContainer fractals[NUMBER_OF_FRACTALS];

@@ -67,10 +67,10 @@ class cOpenClEngineRenderFractal : public cOpenClEngine
 public:
 	enum enumClRenderEngineMode
 	{
-		clRenderEngineTypeNone,
-		clRenderEngineTypeFast,
-		clRenderEngineTypeLimited,
-		clRenderEngineTypeFull
+		clRenderEngineTypeNone = 0,
+		clRenderEngineTypeFast = 1,
+		clRenderEngineTypeLimited = 2,
+		clRenderEngineTypeFull = 3
 	};
 
 	cOpenClEngineRenderFractal(cOpenClHardware *hardware);
