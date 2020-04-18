@@ -32,6 +32,8 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		&cCustomFormulaEditor::slotLoadBuiltIn);
 	connect(ui->pushButton_check_syntax, &QPushButton::pressed, this,
 		&cCustomFormulaEditor::slotCheckSyntax);
+	connect(ui->pushButton_auto_format, &QPushButton::pressed, this,
+		&cCustomFormulaEditor::slotAutoFormat);
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -88,6 +90,34 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
 	BuildUI(list);
+}
+
+void cCustomFormulaEditor::slotAutoFormat()
+{
+	QString filePath = systemDirectories.GetOpenCLTempFolder() + QDir::separator() + "temp_format" + ".c";
+	QFile qFileWrite(filePath);
+	if (qFileWrite.open(QIODevice::WriteOnly)) {
+		QTextStream out(&qFileWrite);
+		out << ui->textEdit_formula_code->toPlainText();
+		qFileWrite.close();
+	}
+	QProcess process(this);
+	QString program = "clang-format";
+	QStringList args;
+	args << "-i";
+	args << "--style=file";
+	args << filePath;
+	process.start(program, args);
+	process.waitForFinished();
+
+	QFile qFileRead(filePath);
+	if (qFileRead.open(QIODevice::ReadOnly))
+	{
+		QString codeFormatted;
+		QTextStream sIn(&qFileRead);
+		codeFormatted.append(sIn.readAll());
+		ui->textEdit_formula_code->setText(codeFormatted);
+	}
 }
 
 void cCustomFormulaEditor::slotCheckSyntax()

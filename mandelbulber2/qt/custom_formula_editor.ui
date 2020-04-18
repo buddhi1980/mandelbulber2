@@ -91,6 +91,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
+      <widget class="QPushButton" name="pushButton_auto_format">
+       <property name="text">
+        <string>AutoFormat</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_check_syntax">
        <property name="text">
         <string>Check syntax</string>

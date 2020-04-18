@@ -29,6 +29,7 @@ private slots:
 	void slotNewFormula();
 	void slotTextChanged();
 	void slotLoadBuiltIn();
+	void slotAutoFormat();
 	void slotCheckSyntax();
 
 private:
