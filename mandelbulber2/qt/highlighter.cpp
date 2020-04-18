@@ -145,6 +145,30 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 	//! [6]
 	commentStartExpression = QRegularExpression("/\\*");
 	commentEndExpression = QRegularExpression("\\*/");
+
+
+	// taken from here: https://en.cppreference.com/w/c/keyword
+	controlFormat.setForeground(QColor(181, 94, 0));
+	controlFormat.setFontWeight(QFont::Bold);
+	QStringList controlKeywordPatterns;
+	controlKeywordPatterns << "\\bbreak\\b"
+									<< "\\bcase\\b"
+									<< "\\bcontinue\\b"
+									<< "\\bdefault\\b"
+									<< "\\bdo\\b"
+									<< "\\belse\\b"
+									<< "\\bfor\\b"
+									<< "\\bif\\b"
+									<< "\\breturn\\b"
+									<< "\\bswitch\\b"
+									<< "\\bwhile\\b";
+	foreach (const QString &pattern, controlKeywordPatterns)
+	{
+		rule.pattern = QRegularExpression(pattern);
+		rule.format = controlFormat;
+		highlightingRules.append(rule);
+		//! [0] //! [1]
+	}
 }
 //! [6]
 
