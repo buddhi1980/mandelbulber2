@@ -138,7 +138,7 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 
 	parameterFormat.setFontWeight(QFont::Bold);
 	parameterFormat.setForeground(Qt::darkGreen);
-	rule.pattern = QRegularExpression("fractal->(.*?)[^a-zA-Z0-9_.]");
+	rule.pattern = QRegularExpression("(?:fractal|aux)->(?:[a-zA-Z\\d.]*)\\b");
 	rule.format = parameterFormat;
 	highlightingRules.append(rule);
 
@@ -148,7 +148,7 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 
 
 	// taken from here: https://en.cppreference.com/w/c/keyword
-	controlFormat.setForeground(QColor(181, 94, 0));
+	controlFormat.setForeground(QColor(181, 94, 0)); // orange
 	controlFormat.setFontWeight(QFont::Bold);
 	QStringList controlKeywordPatterns;
 	controlKeywordPatterns << "\\bbreak\\b"
