@@ -15,6 +15,7 @@
 #include "my_line_edit.h"
 #include "my_check_box.h"
 #include "my_spin_box.h"
+#include "my_double_spin_box.h"
 
 #include <QFileDialog>
 #include <QTextStream>
@@ -34,6 +35,10 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		&cCustomFormulaEditor::slotCheckSyntax);
 	connect(
 		ui->pushButton_auto_format, &QPushButton::pressed, this, &cCustomFormulaEditor::slotAutoFormat);
+	connect(ui->pushButton_insert_parameter, &QPushButton::pressed, this,
+		&cCustomFormulaEditor::slotInsertParameter);
+
+	CreateConversionTable();
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -154,8 +159,7 @@ QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
 	return listOfFoundParameters;
 }
 
-QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::ConvertListOfParameters(
-	const QStringList &inputList)
+void cCustomFormulaEditor::CreateConversionTable()
 {
 	QString fileName(systemDirectories.sharedDir + "data/parameterNames.txt");
 	QFile file(fileName);
@@ -176,32 +180,33 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 			<< "cCustomFormulaEditor::ConvertListOfParameters(): cannot open file with parameter names!";
 	}
 
-	QMap<QString, QString> conversionTable;
+	for (int i = 0; i < conversionList.size(); i++)
 	{
-		for (int i = 0; i < conversionList.size(); i++)
+		if (conversionList[i].length() > 0)
 		{
-			if (conversionList[i].length() > 0)
+			QStringList split = conversionList[i].split(" ");
+			if (split.length() == 3)
 			{
-				QStringList split = conversionList[i].split(" ");
-				if (split.length() == 3)
-				{
-					QString parameterInCode = split[0];
+				QString parameterInCode = split[0];
 
-					if (!conversionTable.contains(parameterInCode))
-					{
-						conversionTable.insert(parameterInCode, split[2]);
-					}
-				}
-				else
+				if (!conversionTable.contains(parameterInCode))
 				{
-					qCritical()
-						<< "cCustomFormulaEditor::ConvertListOfParameters(): error in conversion list: "
-						<< conversionList[i];
+					conversionTable.insert(parameterInCode, split[2]);
+					parameterTypes.insert(split[2], split[1]);
 				}
+			}
+			else
+			{
+				qCritical() << "cCustomFormulaEditor::ConvertListOfParameters(): error in conversion list: "
+										<< conversionList[i];
 			}
 		}
 	}
+}
 
+QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::ConvertListOfParameters(
+	const QStringList &inputList)
+{
 	QList<sParameterDesctiption> list;
 
 	for (int i = 0; i < inputList.size(); i++)
@@ -248,11 +253,12 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 	{
 		cOneParameter parameter = listOfParameters[i].parameter;
 		enumVarType varType = parameter.GetValueType();
+		enumMorphType morphType = parameter.GetMorphType();
+
 		if (varType == typeVector3)
 		{
 			for (int axis = 0; axis < 3; axis++)
 			{
-				QWidget *newWidget = new MyLineEdit(this);
 				QString sAxis;
 				switch (axis)
 				{
@@ -261,10 +267,34 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 					case 2: sAxis = "z"; break;
 					default: break;
 				}
-				newWidget->setObjectName(
-					QString("vect3_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
-				ui->formLayoutParameters->addRow(
-					listOfParameters[i].parameterName + " " + sAxis, newWidget);
+
+				switch (morphType)
+				{
+					case morphAkimaAngle:
+					case morphCatMullRomAngle:
+					case morphLinearAngle:
+					{
+						auto *newWidget = new MyDoubleSpinBox(this);
+						newWidget->setObjectName(
+							QString("spinboxd3_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
+						newWidget->setMinimum(-18000.0);
+						newWidget->setMaximum(18000.0);
+						newWidget->setDecimals(6);
+						newWidget->setSingleStep(0.1);
+						ui->formLayoutParameters->addRow(
+							listOfParameters[i].parameterName + " " + sAxis, newWidget);
+						break;
+					}
+					default:
+					{
+						auto *newWidget = new MyLineEdit(this);
+						newWidget->setObjectName(
+							QString("vect3_%1_%2").arg(listOfParameters[i].parameterName).arg(sAxis));
+						ui->formLayoutParameters->addRow(
+							listOfParameters[i].parameterName + " " + sAxis, newWidget);
+						break;
+					}
+				}
 			}
 		}
 		else if (varType == typeVector4)
@@ -322,4 +352,35 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 	}
 	SynchronizeInterfaceWindow(
 		ui->groupBox_parameters, &gParFractal->at(slotIndex), qInterface::write);
+}
+
+void cCustomFormulaEditor::slotInsertParameter()
+{
+	auto *dialog = new QInputDialog(this);
+	dialog->setInputMode(QInputDialog::TextInput);
+	QStringList listOfParameters = conversionTable.values();
+	for (int i = 0; i < listOfParameters.size(); i++)
+	{
+		QString parameterWithType = parameterTypes[listOfParameters[i]] + " " + listOfParameters[i];
+		listOfParameters[i] = parameterWithType;
+	}
+	listOfParameters.sort(Qt::CaseInsensitive);
+	dialog->setComboBoxItems(listOfParameters);
+	// dialog->setComboBoxEditable(true);
+	// TODO: selection with QCompleter
+
+	dialog->exec();
+	QString selected = dialog->textValue();
+	QStringList split = selected.split(' ');
+
+	if (split.size() == 2)
+	{
+		QStringList sourceParameterNames = conversionTable.keys(split[1]);
+
+		if (!sourceParameterNames.isEmpty())
+		{
+			QTextCursor text_cursor = QTextCursor(ui->textEdit_formula_code->textCursor());
+			text_cursor.insertText(QString("fractal->") + sourceParameterNames[0]);
+		}
+	}
 }
