@@ -32,8 +32,8 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		&cCustomFormulaEditor::slotLoadBuiltIn);
 	connect(ui->pushButton_check_syntax, &QPushButton::pressed, this,
 		&cCustomFormulaEditor::slotCheckSyntax);
-	connect(ui->pushButton_auto_format, &QPushButton::pressed, this,
-		&cCustomFormulaEditor::slotAutoFormat);
+	connect(
+		ui->pushButton_auto_format, &QPushButton::pressed, this, &cCustomFormulaEditor::slotAutoFormat);
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -94,9 +94,11 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 
 void cCustomFormulaEditor::slotAutoFormat()
 {
-	QString filePath = systemDirectories.GetOpenCLTempFolder() + QDir::separator() + "temp_format" + ".c";
+	QString filePath =
+		systemDirectories.GetOpenCLTempFolder() + QDir::separator() + "temp_format" + ".c";
 	QFile qFileWrite(filePath);
-	if (qFileWrite.open(QIODevice::WriteOnly)) {
+	if (qFileWrite.open(QIODevice::WriteOnly))
+	{
 		QTextStream out(&qFileWrite);
 		out << ui->textEdit_formula_code->toPlainText();
 		qFileWrite.close();
@@ -184,11 +186,7 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 				if (split.length() == 3)
 				{
 					QString parameterInCode = split[0];
-					if (parameterInCode.endsWith(".x") || parameterInCode.endsWith(".y")
-							|| parameterInCode.endsWith(".z") || parameterInCode.endsWith(".w"))
-					{
-						parameterInCode = parameterInCode.left(parameterInCode.length() - 2);
-					}
+
 					if (!conversionTable.contains(parameterInCode))
 					{
 						conversionTable.insert(parameterInCode, split[2]);
@@ -209,6 +207,12 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 	for (int i = 0; i < inputList.size(); i++)
 	{
 		QString sourceName = inputList[i];
+
+		if (sourceName.endsWith(".x") || sourceName.endsWith(".y") || sourceName.endsWith(".z")
+				|| sourceName.endsWith(".w"))
+		{
+			sourceName = sourceName.left(sourceName.length() - 2);
+		}
 
 		if (conversionTable.contains(sourceName))
 		{
