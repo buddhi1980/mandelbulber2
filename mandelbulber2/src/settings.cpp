@@ -193,18 +193,18 @@ void cSettings::CreateAnimationString(
 					{
 						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(
 							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
-						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
-						text += QString("%L1").arg(val.z, 0, 'g', 16);
+						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 15);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeVector4)
 					{
 						CVector4 val = frames->GetFrame(f).parameters.Get<CVector4>(
 							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
-						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
-						text += QString("%L1").arg(val.z, 0, 'g', 16) + ";";
-						text += QString("%L1").arg(val.w, 0, 'g', 16);
+						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 15) + ";";
+						text += QString("%L1").arg(val.w, 0, 'g', 15);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeRgb)
 					{

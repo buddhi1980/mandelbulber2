@@ -163,6 +163,7 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
 		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 		params->Set("DOF_min_samples", 5);
+		params->Set("antialiasing_enabled", false);
 
 		if (fractal->isUsedCustomFormula())
 		{

@@ -711,22 +711,22 @@ int cFlightAnimation::AddColumn(
 		if (type == typeVector3)
 		{
 			const CVector3 val = frame.parameters.Get<CVector3>(parameterName);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
 			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
 			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
 		}
 		else if (type == typeVector4)
 		{
 			const CVector4 val = frame.parameters.Get<CVector4>(parameterName);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
 			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
 			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
 			table->setItem(
-				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 16)));
+				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 15)));
 		}
 		else if (type == typeRgb)
 		{
@@ -1507,7 +1507,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	{
 		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(
 			mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
-			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 15), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1524,7 +1524,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		else if (valueIsDouble)
 		{
 			const double newValue = doubleStep * (i - column) + valueDouble;
-			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
+			newCellText = QString("%L1").arg(newValue, 0, 'g', 15);
 		}
 		else if (valueIsText)
 		{

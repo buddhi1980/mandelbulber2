@@ -105,7 +105,7 @@ void MyDoubleSpinBox::resetToDefault()
 
 QString MyDoubleSpinBox::getDefaultAsString()
 {
-	return QString("%L1").arg(defaultValue, 0, 'g', 16);
+	return QString("%L1").arg(defaultValue, 0, 'g', 15);
 }
 
 QString MyDoubleSpinBox::getFullParameterName()

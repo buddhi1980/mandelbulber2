@@ -497,11 +497,11 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		if (type == typeVector3)
 		{
 			const CVector3 val = parameter.Get<CVector3>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
 			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
 			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
@@ -512,13 +512,13 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		else if (type == typeVector4)
 		{
 			const CVector4 val = parameter.Get<CVector4>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 15)));
 			table->setItem(
-				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
 			table->setItem(
-				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
 			table->setItem(
-				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 16)));
+				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 15)));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
@@ -1344,7 +1344,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	{
 		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(
 			mainInterface->mainWindow, "Parameter interpolation", "Enter value for last keyframe",
-			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 15), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1361,7 +1361,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		else if (valueIsDouble)
 		{
 			const double newValue = doubleStep * (i - index) + valueDouble;
-			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
+			newCellText = QString("%L1").arg(newValue, 0, 'g', 15);
 		}
 		else if (valueIsText)
 		{

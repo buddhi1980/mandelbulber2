@@ -134,7 +134,7 @@ void SynchronizeInterfaceQLineEdit(
 				{
 					double value;
 					SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
-					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
 				}
 			}
@@ -154,7 +154,7 @@ void SynchronizeInterfaceQLineEdit(
 				{
 					double value;
 					SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
-					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
 				}
 			}
@@ -170,7 +170,7 @@ void SynchronizeInterfaceQLineEdit(
 				else if (mode == qInterface::write)
 				{
 					double value = par->Get<double>(props.paramName);
-					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
 				}
 			}

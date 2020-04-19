@@ -79,7 +79,7 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
-			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 16);
+			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 15);
 			defaultText = valS;
 			gotDefault = true;
 		}
@@ -88,7 +88,7 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector4 val = parameterContainer->GetDefault<CVector4>(nameVect);
-			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 16);
+			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 15);
 			defaultText = valS;
 			gotDefault = true;
 		}
@@ -350,14 +350,14 @@ void MyLineEdit::slotSliderTimerUpdateValue()
 		{
 			double dDiff = iDiff / 1000.0;
 			double change = pow(10.0, dDiff * dDiff * sign);
-			const QString text = QString("%L1").arg(value * change, 0, 'g', 16);
+			const QString text = QString("%L1").arg(value * change, 0, 'g', 15);
 			setText(text);
 		}
 		else
 		{
 			double dDiff = abs(iDiff) / 33.0 - 15.0;
 			double change = pow(10.0, dDiff) * sign;
-			const QString text = QString("%L1").arg(value + change, 0, 'g', 16);
+			const QString text = QString("%L1").arg(value + change, 0, 'g', 15);
 			setText(text);
 		}
 		emit editingFinished();
@@ -379,7 +379,7 @@ void MyLineEdit::slotZeroValue()
 void MyLineEdit::slotDoubleValue()
 {
 	const double value = systemData.locale.toDouble(text());
-	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 16);
+	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
 }
@@ -387,7 +387,7 @@ void MyLineEdit::slotDoubleValue()
 void MyLineEdit::slotHalfValue()
 {
 	const double value = systemData.locale.toDouble(text());
-	const QString text = QString("%L1").arg(value * 0.5, 0, 'g', 16);
+	const QString text = QString("%L1").arg(value * 0.5, 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
 }
@@ -395,7 +395,7 @@ void MyLineEdit::slotHalfValue()
 void MyLineEdit::slotRoundValue()
 {
 	const double value = systemData.locale.toDouble(text());
-	const QString text = QString("%L1").arg(MagicRound(value, 0.05), 0, 'g', 16);
+	const QString text = QString("%L1").arg(MagicRound(value, 0.05), 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
 }
@@ -403,7 +403,7 @@ void MyLineEdit::slotRoundValue()
 void MyLineEdit::slotInvertSign()
 {
 	const double value = systemData.locale.toDouble(text());
-	const QString text = QString("%L1").arg(value * (-1.0), 0, 'g', 16);
+	const QString text = QString("%L1").arg(value * (-1.0), 0, 'g', 15);
 	setText(text);
 	emit returnPressed();
 }
@@ -422,7 +422,7 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 
 		double multiplier = (1.0 + change / 10.0);
 
-		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 16);
+		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 15);
 		setText(text);
 		emit returnPressed();
 		event->accept();
