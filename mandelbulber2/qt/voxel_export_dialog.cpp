@@ -85,13 +85,14 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 		int samplesX = gPar->Get<int>("voxel_samples_x");
 		int samplesY = gPar->Get<int>("voxel_samples_y");
 		int samplesZ = gPar->Get<int>("voxel_samples_z");
+		bool greyscale = gPar->Get<bool>("voxel_greyscale_iterations");
 
 		QDir folder(folderString);
 		if (folder.exists())
 		{
 			slicerBusy = true;
-			voxelExport =
-				new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+			voxelExport = new cVoxelExport(
+				samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter, greyscale);
 			QObject::connect(voxelExport,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));

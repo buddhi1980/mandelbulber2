@@ -1157,6 +1157,33 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 	return result;
 }
 
+bool ImageFileSavePNG::SavePNGQtGreyscale(
+	QString filename, unsigned char *image, int width, int height)
+{
+	QImage *qImage = new QImage(width, height, QImage::Format_Grayscale8);
+
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			int val = image[i + j * width];
+			qImage->setPixel(i, j, qRgb(val, val, val));
+		}
+	}
+	QFile file(filename);
+	file.open(QIODevice::WriteOnly);
+	bool result = qImage->save(&file, "PNG");
+	if (!result)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Can't save image to JPEG file!\n") + filename + "\n" + file.errorString(),
+			cErrorMessage::errorMessage);
+	}
+	file.close();
+	delete qImage;
+	return result;
+}
+
 #ifdef USE_EXR
 void ImageFileSaveEXR::SaveEXR(
 	QString filename, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)

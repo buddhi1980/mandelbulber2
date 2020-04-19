@@ -227,6 +227,7 @@ void InitParams(cParameterContainer *par)
 		QDir::toNativeSeparators(systemDirectories.GetSlicesFolder() + QDir::separator()), morphNone,
 		paramStandard);
 	par->addParam("voxel_show_information", true, morphLinear, paramApp);
+	par->addParam("voxel_greyscale_iterations", false, morphLinear, paramApp);
 
 	// mesh export
 	par->addParam("mesh_output_filename",

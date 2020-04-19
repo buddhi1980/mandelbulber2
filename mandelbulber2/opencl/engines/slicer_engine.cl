@@ -39,8 +39,9 @@ int GetInteger(int byte, __global char *array)
 }
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void fractal3D(__global float *outDistances, __global float *outColor, __global char *inBuff,
-	__constant sClInConstants *consts, __constant sClMeshExport *meshConfig)
+kernel void fractal3D(__global float *outDistances, __global float *outColor,
+	__global int *outIterations, __global char *inBuff, __constant sClInConstants *consts,
+	__constant sClMeshExport *meshConfig)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -131,5 +132,6 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 #endif
 
 	outDistances[buffIndex] = distance;
-	outColor[buffIndex] = color; // TODO color calculation
+	outColor[buffIndex] = color;
+	outIterations[buffIndex] = outF.iters;
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
+    <width>720</width>
     <height>1149</height>
    </rect>
   </property>
@@ -43,7 +43,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>378</width>
+        <width>712</width>
         <height>1141</height>
        </rect>
       </property>
@@ -141,13 +141,6 @@
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>MaxIter</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="1">
              <widget class="MySpinBox" name="spinboxInt_voxel_max_iter">
               <property name="minimum">
@@ -155,6 +148,23 @@
               </property>
               <property name="maximum">
                <number>10000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>MaxIter</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_voxel_greyscale_iterations">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Save as greyscale images with iteration counts</string>
               </property>
              </widget>
             </item>
@@ -598,6 +608,11 @@
    <class>MyProgressBar</class>
    <extends>QProgressBar</extends>
    <header>my_progress_bar.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -916,6 +916,11 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 		outputBuffers[0] << sClInputOutputBuffer(sizeof(float),
 			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
 			"mesh-colors-buffer");
+
+		// buffer for colors
+		outputBuffers[0] << sClInputOutputBuffer(sizeof(int),
+			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
+			"mesh-iterations-buffer");
 	}
 }
 
@@ -1800,8 +1805,8 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 }
 
 // render function for mesh export
-bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int sliceIndex,
-	bool *stopRequest, sRenderData *renderData, size_t dataOffset)
+bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int *iterations,
+	int sliceIndex, bool *stopRequest, sRenderData *renderData, size_t dataOffset)
 {
 	Q_UNUSED(renderData);
 	Q_UNUSED(stopRequest);
@@ -1839,6 +1844,13 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int s
 				double color = (reinterpret_cast<cl_float *>(
 					outputBuffers[0][outputMeshColorsIndex].ptr.data()))[address];
 				colors[address + dataOffset] = color;
+			}
+
+			if (iterations)
+			{
+				int iters = (reinterpret_cast<cl_int *>(
+					outputBuffers[0][outputMeshIterationsIndex].ptr.data()))[address];
+				iterations[address + dataOffset] = iters;
 			}
 		}
 	}

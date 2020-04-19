@@ -49,7 +49,8 @@ class cVoxelExport : public QObject
 	Q_OBJECT
 
 public:
-	cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter);
+	cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter,
+		bool greyscale);
 	~cVoxelExport() override;
 
 signals:
@@ -69,6 +70,7 @@ private:
 	CVector3 limitMax;
 	QDir folder;
 	int maxIter;
+	bool greyscale;
 	bool stop;
 };
 

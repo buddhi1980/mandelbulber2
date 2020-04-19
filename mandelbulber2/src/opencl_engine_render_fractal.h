@@ -95,7 +95,7 @@ public:
 	bool RenderMulti(cImage *image, bool *stopRequest, sRenderData *renderData);
 
 	// render 2D slice with fractal
-	bool Render(double *distances, double *colors, int sliceIndex, bool *stopRequest,
+	bool Render(double *distances, double *colors, int *iterations, int sliceIndex, bool *stopRequest,
 		sRenderData *renderData, size_t dataOffset);
 
 	QList<QPoint> calculateOptimalTileSequence(int gridWidth, int gridHeight);
@@ -110,6 +110,7 @@ private:
 	const int outputIndex = 0;
 	const int outputMeshDistancesIndex = 0;
 	const int outputMeshColorsIndex = 1;
+	const int outputMeshIterationsIndex = 2;
 
 	QString GetKernelName() override;
 

@@ -57,8 +57,8 @@
 #include "render_data.hpp"
 #include "write_log.hpp"
 
-cVoxelExport::cVoxelExport(
-	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter)
+cVoxelExport::cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder,
+	int maxIter, bool greyscale)
 		: QObject()
 {
 	this->w = w;
@@ -68,6 +68,7 @@ cVoxelExport::cVoxelExport(
 	this->limitMax = limitMax;
 	this->folder = folder;
 	this->maxIter = maxIter;
+	this->greyscale = greyscale;
 	voxelLayer.reset(new unsigned char[w * h]);
 	stop = false;
 }
@@ -106,6 +107,7 @@ void cVoxelExport::ProcessVolume()
 
 	bool openClEnabled = false;
 	QScopedArrayPointer<double> voxelDistances;
+	QScopedArrayPointer<int> voxelIterations;
 
 #ifdef USE_OPENCL
 	openClEnabled =
@@ -146,6 +148,7 @@ void cVoxelExport::ProcessVolume()
 		}
 
 		voxelDistances.reset(new double[w * h]);
+		voxelIterations.reset(new int[w * h]);
 	}
 
 #endif // USE_OPENCL
@@ -161,8 +164,8 @@ void cVoxelExport::ProcessVolume()
 #ifdef USE_OPENCL
 		if (openClEnabled)
 		{
-			bool result = gOpenCl->openClEngineRenderFractal->Render(
-				voxelDistances.data(), nullptr, z, renderData->stopRequest, renderData.data(), 0);
+			bool result = gOpenCl->openClEngineRenderFractal->Render(voxelDistances.data(), nullptr,
+				voxelIterations.data(), z, renderData->stopRequest, renderData.data(), 0);
 
 			if (!result)
 			{
@@ -176,7 +179,16 @@ void cVoxelExport::ProcessVolume()
 				for (long long y = 0; y < h; y++)
 				{
 					long long address = x + y * w;
-					voxelLayer[address] = static_cast<unsigned char>(voxelDistances[address] <= dist_thresh);
+					if (greyscale)
+					{
+						voxelLayer[address] =
+							static_cast<unsigned char>((voxelIterations[address] - 1) * 255 / maxIter);
+					}
+					else
+					{
+						voxelLayer[address] =
+							static_cast<unsigned char>(voxelDistances[address] <= dist_thresh);
+					}
 				}
 			}
 		}
@@ -202,7 +214,15 @@ void cVoxelExport::ProcessVolume()
 
 					const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
-					voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
+					if (greyscale)
+					{
+						voxelLayer[x + y * w] =
+							static_cast<unsigned char>((distanceOut.iters - 1) * 255 / maxIter);
+					}
+					else
+					{
+						voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
+					}
 				} // for y
 			}		// for x
 		}			// if not openClEnabled
@@ -234,10 +254,21 @@ bool cVoxelExport::StoreLayer(int z) const
 {
 	const QString filename =
 		folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
-	if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer.data(), w, h))
+	if (greyscale)
 	{
-		qCritical() << "Cannot write to file " << filename;
-		return false;
+		if (!ImageFileSavePNG::SavePNGQtGreyscale(filename, voxelLayer.data(), w, h))
+		{
+			qCritical() << "Cannot write to file " << filename;
+			return false;
+		}
+	}
+	else
+	{
+		if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer.data(), w, h))
+		{
+			qCritical() << "Cannot write to file " << filename;
+			return false;
+		}
 	}
 	return true;
 }
