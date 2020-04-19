@@ -11,6 +11,7 @@
 #include "src/fractal_container.hpp"
 #include "src/interface.hpp"
 #include "src/system_directories.hpp"
+#include "src/error_message.hpp"
 
 #include "my_line_edit.h"
 #include "my_check_box.h"
@@ -99,6 +100,16 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 
 void cCustomFormulaEditor::slotAutoFormat()
 {
+	if(!clangFormatPresent()){
+		cErrorMessage::showMessage(QObject::tr("clang-format is required for autoformat but was not detected\n\n"
+			"To install clang-format:\n"
+			"- Linux: Install clang-format from ypur package manager.\n"
+			"- Windows: Go to https://llvm.org/builds/ download and install LLVM. Make sure you have clang-format in your PATH var.\n"
+			"- MacOS: When you have the brew package manager installed run: `brew install clang-format`"
+			), cErrorMessage::warningMessage);
+		return;
+	}
+
 	QString filePath =
 		systemDirectories.GetOpenCLTempFolder() + QDir::separator() + "temp_format" + ".c";
 	QFile qFileWrite(filePath);
@@ -125,6 +136,17 @@ void cCustomFormulaEditor::slotAutoFormat()
 		codeFormatted.append(sIn.readAll());
 		ui->textEdit_formula_code->setText(codeFormatted);
 	}
+}
+
+bool cCustomFormulaEditor::clangFormatPresent(){
+	QProcess process(this);
+	QString program = "clang-format";
+	QStringList args;
+	args << "-version";
+	process.start(program, args);
+	process.waitForFinished();
+	QString output(process.readAllStandardOutput());
+	return output.contains("clang-format version");
 }
 
 void cCustomFormulaEditor::slotCheckSyntax()

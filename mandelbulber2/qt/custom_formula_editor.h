@@ -30,6 +30,7 @@ private slots:
 	void slotTextChanged();
 	void slotLoadBuiltIn();
 	void slotAutoFormat();
+	bool clangFormatPresent();
 	void slotCheckSyntax();
 	void slotInsertParameter();
 
