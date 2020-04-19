@@ -71,6 +71,7 @@ protected:
 	void highlightBlock(const QString &text) override;
 
 private:
+	bool isDarkSkin();
 	struct HighlightingRule
 	{
 		QRegularExpression pattern;

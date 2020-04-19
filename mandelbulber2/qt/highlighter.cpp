@@ -48,14 +48,14 @@
 **
 ****************************************************************************/
 
+#include "src/initparameters.hpp"
 #include "highlighter.h"
 
 //! [0]
 Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 {
 	HighlightingRule rule;
-
-	keywordFormat.setForeground(Qt::darkBlue);
+	keywordFormat.setForeground(isDarkSkin() ? QColor(137, 142, 255) : Qt::darkBlue);
 	keywordFormat.setFontWeight(QFont::Bold);
 	QStringList keywordPatterns;
 	keywordPatterns << "\\bchar\\b"
@@ -106,7 +106,7 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 
 	//! [2]
 	classFormat.setFontWeight(QFont::Bold);
-	classFormat.setForeground(Qt::darkMagenta);
+	classFormat.setForeground(isDarkSkin() ? QColor(189, 137, 255) : Qt::darkMagenta);
 	rule.pattern = QRegularExpression("\\bQ[A-Za-z]+\\b");
 	rule.format = classFormat;
 	highlightingRules.append(rule);
@@ -122,7 +122,7 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 	//! [3]
 
 	//! [4]
-	quotationFormat.setForeground(Qt::darkGreen);
+	quotationFormat.setForeground(isDarkSkin() ? QColor(157, 255, 137) : Qt::darkGreen);
 	rule.pattern = QRegularExpression("\".*\"");
 	rule.format = quotationFormat;
 	highlightingRules.append(rule);
@@ -130,14 +130,14 @@ Highlighter::Highlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 
 	//! [5]
 	functionFormat.setFontItalic(true);
-	functionFormat.setForeground(Qt::blue);
+	functionFormat.setForeground(isDarkSkin() ? QColor(137, 142, 255) : Qt::blue);
 	rule.pattern = QRegularExpression("\\b[A-Za-z0-9_]+(?=\\()");
 	rule.format = functionFormat;
 	highlightingRules.append(rule);
 	//! [5]
 
 	parameterFormat.setFontWeight(QFont::Bold);
-	parameterFormat.setForeground(Qt::darkGreen);
+	parameterFormat.setForeground(isDarkSkin() ? QColor(157, 255, 137) : Qt::darkGreen);
 	rule.pattern = QRegularExpression("(?:fractal|aux)->(?:[a-zA-Z\\d.]*)\\b");
 	rule.format = parameterFormat;
 	highlightingRules.append(rule);
@@ -214,3 +214,18 @@ void Highlighter::highlightBlock(const QString &text)
 	}
 }
 //! [11]
+
+
+bool Highlighter::isDarkSkin(){
+		int skinCode = (gPar->Get<int>("ui_skin"));
+		switch(skinCode ){
+			case 1: // dark skin
+			case 4: // Nasa Font dark
+			case 5: // Nasa Font dark green
+			case 6: // Nasa Font dark blue
+			case 7: // Nasa Font dark brown
+				return true;
+		default:
+			return false;
+		}
+}
