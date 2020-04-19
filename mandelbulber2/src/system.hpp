@@ -106,5 +106,6 @@ void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
 void CalcPreferredFontSize(bool noGui);
 bool IsOutputTty();
+bool PutClangFormatFileToDataDirectoryHidden();
 
 #endif /* MANDELBULBER2_SRC_SYSTEM_HPP_ */

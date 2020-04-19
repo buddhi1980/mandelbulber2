@@ -300,6 +300,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemDirectories.GetNetrenderFolder());
 	result &= CreateFolder(systemDirectories.GetGradientsFolder());
 	result &= CreateFolder(systemDirectories.GetOpenCLTempFolder());
+	result &= PutClangFormatFileToDataDirectoryHidden();
 
 	RetrieveToolbarPresets(false);
 	RetrieveExampleMaterials(false);
@@ -717,4 +718,81 @@ void DeleteOldChache(const QString &directoryPath, int maxDays)
 		qInfo() << message;
 		WriteLog(message, 2);
 	}
+}
+
+bool PutClangFormatFileToDataDirectoryHidden(){
+	QFile file(systemDirectories.GetDataDirectoryHidden() + "/.clang-format");
+	if(file.exists()) return true;
+	if (file.open(QIODevice::WriteOnly))
+	{
+		QTextStream out(&file);
+		out << "---\n"
+					 "Language:        Cpp\n"
+					 "# BasedOnStyle:  LLVM\n"
+					 "AccessModifierOffset: -2\n"
+					 "AlignAfterOpenBracket: false\n"
+					 "AlignEscapedNewlinesLeft: true\n"
+					 "AlignTrailingComments: true\n"
+					 "AlignOperands:   true\n"
+					 "AllowAllParametersOfDeclarationOnNextLine: true\n"
+					 "AllowShortBlocksOnASingleLine: false\n"
+					 "AllowShortCaseLabelsOnASingleLine: true\n"
+					 "AllowShortIfStatementsOnASingleLine: true\n"
+					 "AllowShortLoopsOnASingleLine: false\n"
+					 "AllowShortFunctionsOnASingleLine: Inline\n"
+					 "AlwaysBreakAfterDefinitionReturnType: false\n"
+					 "AlwaysBreakTemplateDeclarations: true\n"
+					 "AlwaysBreakBeforeMultilineStrings: true\n"
+					 "BreakBeforeBinaryOperators: NonAssignment\n"
+					 "BreakBeforeTernaryOperators: true\n"
+					 "BreakConstructorInitializersBeforeComma: false\n"
+					 "BinPackParameters: true\n"
+					 "BinPackArguments: true\n"
+					 "ColumnLimit:     100\n"
+					 "ConstructorInitializerAllOnOneLineOrOnePerLine: true\n"
+					 "ConstructorInitializerIndentWidth: 4\n"
+					 "DerivePointerAlignment: false\n"
+					 "ExperimentalAutoDetectBinPacking: false\n"
+					 "IndentCaseLabels: true\n"
+					 "IndentWrappedFunctionNames: false\n"
+					 "IndentFunctionDeclarationAfterType: false\n"
+					 "MaxEmptyLinesToKeep: 1\n"
+					 "KeepEmptyLinesAtTheStartOfBlocks: true\n"
+					 "NamespaceIndentation: None\n"
+					 "ObjCBlockIndentWidth: 2\n"
+					 "ObjCSpaceAfterProperty: false\n"
+					 "ObjCSpaceBeforeProtocolList: true\n"
+					 "PenaltyBreakBeforeFirstCallParameter: 19\n"
+					 "PenaltyBreakComment: 300\n"
+					 "PenaltyBreakString: 1000\n"
+					 "PenaltyBreakFirstLessLess: 120\n"
+					 "PenaltyExcessCharacter: 1000000\n"
+					 "PenaltyReturnTypeOnItsOwnLine: 60\n"
+					 "PointerAlignment: Right\n"
+					 "SpacesBeforeTrailingComments: 1\n"
+					 "Cpp11BracedListStyle: true\n"
+					 "Standard:        Cpp11\n"
+					 "IndentWidth:     2\n"
+					 "TabWidth:        2\n"
+					 "UseTab:          Always\n"
+					 "BreakBeforeBraces: Allman\n"
+					 "SpacesInParentheses: false\n"
+					 "SpacesInSquareBrackets: false\n"
+					 "SpacesInAngles:  false\n"
+					 "SpaceInEmptyParentheses: false\n"
+					 "SpacesInCStyleCastParentheses: false\n"
+					 "SpaceAfterCStyleCast: false\n"
+					 "SpacesInContainerLiterals: true\n"
+					 "SpaceBeforeAssignmentOperators: true\n"
+					 "ContinuationIndentWidth: 2\n"
+					 "CommentPragmas:  '^ IWYU pragma:'\n"
+					 "ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]\n"
+					 "SpaceBeforeParens: ControlStatements\n"
+					 "DisableFormat:   false\n"
+					 "SortIncludes: false\n"
+					 "...\n";
+		file.close();
+		return true;
+	}
+	return false;
 }
