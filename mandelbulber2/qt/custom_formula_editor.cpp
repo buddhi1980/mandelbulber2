@@ -20,6 +20,7 @@
 
 #include <QFileDialog>
 #include <QTextStream>
+#include <QComboBox>
 #include <QDebug>
 
 cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
@@ -100,13 +101,17 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 
 void cCustomFormulaEditor::slotAutoFormat()
 {
-	if(!clangFormatPresent()){
-		cErrorMessage::showMessage(QObject::tr("clang-format is required for autoformat but was not detected\n\n"
-			"To install clang-format:\n"
-			"- Linux: Install clang-format from ypur package manager.\n"
-			"- Windows: Go to https://llvm.org/builds/ download and install LLVM. Make sure you have clang-format in your PATH var.\n"
-			"- MacOS: When you have the brew package manager installed run: `brew install clang-format`"
-			), cErrorMessage::warningMessage);
+	if (!clangFormatPresent())
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("clang-format is required for autoformat but was not detected\n\n"
+									"To install clang-format:\n"
+									"- Linux: Install clang-format from ypur package manager.\n"
+									"- Windows: Go to https://llvm.org/builds/ download and install LLVM. Make sure "
+									"you have clang-format in your PATH var.\n"
+									"- MacOS: When you have the brew package manager installed run: `brew install "
+									"clang-format`"),
+			cErrorMessage::warningMessage);
 		return;
 	}
 
@@ -138,7 +143,8 @@ void cCustomFormulaEditor::slotAutoFormat()
 	}
 }
 
-bool cCustomFormulaEditor::clangFormatPresent(){
+bool cCustomFormulaEditor::clangFormatPresent()
+{
 	QProcess process(this);
 	QString program = "clang-format";
 	QStringList args;
@@ -388,8 +394,29 @@ void cCustomFormulaEditor::slotInsertParameter()
 	}
 	listOfParameters.sort(Qt::CaseInsensitive);
 	dialog->setComboBoxItems(listOfParameters);
-	// dialog->setComboBoxEditable(true);
-	// TODO: selection with QCompleter
+
+	QComboBox *comboBox = dialog->findChild<QComboBox *>();
+	if (comboBox)
+	{
+		comboBox->setFocusPolicy(Qt::StrongFocus);
+		comboBox->setEditable(true);
+
+		// add a filter model to filter matching items
+		auto pFilterModel = new QSortFilterProxyModel(comboBox);
+		pFilterModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+		pFilterModel->setSourceModel(comboBox->model());
+
+		// add a completer, which uses the filter model
+		auto completer = new QCompleter(pFilterModel, this);
+		// always show all (filtered) completions
+		completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+		comboBox->setCompleter(completer);
+
+		// connect signals
+		connect(comboBox->lineEdit(), &QLineEdit::textEdited, pFilterModel,
+			&QSortFilterProxyModel::setFilterFixedString);
+		connect(completer, SIGNAL(activated(QString)), comboBox, SLOT(onCompleterActivated(QString)));
+	}
 
 	dialog->exec();
 	QString selected = dialog->textValue();
