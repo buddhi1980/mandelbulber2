@@ -28,32 +28,32 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 {
 
 	//chebyshev
-	double tmp = 0.0f;
-		double F = z.x / z.y;
-		if(z.y == 0.0) tmp =(z.x > 0.0f ? 0.0f: 4.0f);
-		if (fabs(F) < 1.0f)
-		{
-			if(z.y > 0.0f) tmp = 2.0f - F;
-			else tmp = 6.0f - F;
-		}
-		else
-		{
-			F = z.y / z.x;
-			if(z.x > 0.0f) tmp = fmod(F, 8.0f);
-			else tmp = 4.0f + F;
-		}
+	double tmp = 0.0;
+	double F = z.x / z.y;
+	if(z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
+	if(fabs(F) < 1.0)
+	{
+		if(z.y > 0.0) tmp = 2.0 - F;
+		else tmp = 6.0 - F;
+	}
+	else
+	{
+		F = z.y / z.x;
+		if(z.x > 0.0) tmp = fmod(F, 8.0);
+		else tmp = 4.0 + F;
+	}
 
-		tmp = tmp + fractal->transformCommon.scaleA1;
-		double Length2 = max(fabs(z.x), fabs(z.y));
+	tmp = tmp + fractal->transformCommon.scaleA1;
+	double Length2 = max(fabs(z.x), fabs(z.y));
 
-		double C = fmod(tmp, 8.0f);
-		C = fabs(C - 4.0f) - 2.0f;
-		z.x = clamp(C, - 1.0, 1.0) * Length2;
+	double C = fmod(tmp, 8.0);
+	C = fabs(C - 4.0) - 2.0;
+	z.x = clamp(C, - 1.0, 1.0) * Length2;
 
-		double S = tmp - 2.0f;
-		S = fmod(S, 8.0f);
-		S = fabs(S - 4.0f) - 2.0f;
-		z.y = clamp(S, - 1.0, 1.0) * Length2;
+	double S = tmp - 2.0;
+	S = fmod(S, 8.0);
+	S = fabs(S - 4.0) - 2.0;
+	z.y = clamp(S, - 1.0, 1.0) * Length2;
 
 
 	/*CVector4 c = aux.const_c;

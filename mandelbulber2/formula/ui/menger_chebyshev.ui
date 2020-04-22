@@ -148,7 +148,7 @@
       <number>2</number>
      </property>
      <item row="3" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_222_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -425,7 +425,7 @@
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_222_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -460,7 +460,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_222_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1011,9 +1011,9 @@
  </customwidgets>
  <tabstops>
   <tabstop>spinbox_transf_scale_3</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_offset_222_x</tabstop>
+  <tabstop>spinbox3_transf_offset_222_y</tabstop>
+  <tabstop>spinbox3_transf_offset_222_z</tabstop>
   <tabstop>groupCheck_transf_rotation_enabled</tabstop>
   <tabstop>spinboxInt_transf_start_iterations</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations</tabstop>
