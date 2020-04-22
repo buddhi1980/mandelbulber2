@@ -26,7 +26,37 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
+
+	//chebyshev
+	double tmp = 0.0f;
+		double F = z.x / z.y;
+		if(z.y == 0.0) tmp =(z.x > 0.0f ? 0.0f: 4.0f);
+		if (fabs(F) < 1.0f)
+		{
+			if(z.y > 0.0f) tmp = 2.0f - F;
+			else tmp = 6.0f - F;
+		}
+		else
+		{
+			F = z.y / z.x;
+			if(z.x > 0.0f) tmp = fmod(F, 8.0f);
+			else tmp = 4.0f + F;
+		}
+
+		tmp = tmp + fractal->transformCommon.scaleA1;
+		double Length2 = max(fabs(z.x), fabs(z.y));
+
+		double C = fmod(tmp, 8.0f);
+		C = fabs(C - 4.0f) - 2.0f;
+		z.x = clamp(C, - 1.0, 1.0) * Length2;
+
+		double S = tmp - 2.0f;
+		S = fmod(S, 8.0f);
+		S = fabs(S - 4.0f) - 2.0f;
+		z.y = clamp(S, - 1.0, 1.0) * Length2;
+
+
+	/*CVector4 c = aux.const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -199,7 +229,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+	}*/
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }

@@ -181,6 +181,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	// Menger formulas
 	fractalList->append(new cFractalMengerSponge());
+	fractalList->append(new cFractalMengerChebyshev());
 	fractalList->append(new cFractalMengerCrossKIFS());
 	fractalList->append(new cFractalMengerCrossMod1());
 	fractalList->append(new cFractalMengerMod1());

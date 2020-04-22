@@ -232,6 +232,7 @@ enum enumFractalFormula
 	// 2.22
 	sierpinski3dV2 = 201,
 	sierpinski3dV3 = 202,
+	mengerChebyshev = 203,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
