@@ -19,7 +19,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }

@@ -32,22 +32,24 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.z);
 		double tmp = 0.0;
 		double F = z.x / z.z;
-		if(z.z == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
-		if(fabs(F) < 1.0)
+		if (z.z == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
+		if (fabs(F) < 1.0)
 		{
-			if(z.z > 0.0) tmp = 2.0 - F;
+			if (z.z > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;
 		}
 		else
 		{
 			F = z.z / z.x;
-			if(z.x > 0.0) tmp = fmod(F, 8.0);
+			if (z.x > 0.0) tmp = fmod(F, 8.0);
 			else tmp = 4.0 + F;
 		}
 
 		tmp = tmp + fractal->transformCommon.offset3;
+
 		double Length2 = max(fabs(z.x), fabs(z.z));
 
 		double C = fmod(tmp, 8.0);
