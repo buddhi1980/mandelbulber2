@@ -28,13 +28,14 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 {
 
 	//chebyshev
-	if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.z);
+
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
 		//chebyshev
 		double tmp = 0.0;
+		if (fractal->transformCommon.functionEnabledBxFalse) swap(z.x, z.y);
 		double F = z.x / z.y;
 		if (z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
 		if (fabs(F) < 1.0)
@@ -67,6 +68,7 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 			&& aux.i < fractal->transformCommon.stopIterationsY)
 	{
 		double tmp = 0.0;
+		if (fractal->transformCommon.functionEnabledByFalse) swap(z.y, z.z);
 		double F = z.y / z.z;
 		if (z.z == 0.0) tmp =(z.y > 0.0 ? 0.0: 4.0);
 		if (fabs(F) < 1.0)
@@ -99,6 +101,7 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 	{
 		double tmp = 0.0;
+		if (fractal->transformCommon.functionEnabledBzFalse) swap(z.z, z.x);
 		double F = z.z / z.x;
 		if (z.x == 0.0) tmp =(z.z > 0.0 ? 0.0: 4.0);
 		if (fabs(F) < 1.0)

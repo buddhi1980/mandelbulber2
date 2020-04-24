@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotation_folding</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>1962</height>
+    <height>1980</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -77,10 +77,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -105,10 +105,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -143,10 +143,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>

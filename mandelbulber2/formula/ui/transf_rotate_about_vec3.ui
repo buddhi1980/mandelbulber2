@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotate_about_vec3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1231</width>
-    <height>1302</height>
+    <height>1578</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -177,7 +177,7 @@
         <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>180.000000000000000</double>
+        <double>36000.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>1.000000000000000</double>
