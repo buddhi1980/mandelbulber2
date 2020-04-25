@@ -179,7 +179,9 @@ QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
 		if (found)
 		{
 			lastPosition = match.capturedEnd();
-			listOfFoundParameters.append(match.captured(1));
+			QString parameterName = match.captured(1);
+			RemoveVectorComponent(parameterName);
+			listOfFoundParameters.append(parameterName);
 		}
 	} while (found);
 
@@ -232,6 +234,15 @@ void cCustomFormulaEditor::CreateConversionTable()
 	}
 }
 
+void cCustomFormulaEditor::RemoveVectorComponent(QString &sourceName)
+{
+	if (sourceName.endsWith(".x") || sourceName.endsWith(".y") || sourceName.endsWith(".z")
+			|| sourceName.endsWith(".w"))
+	{
+		sourceName = sourceName.left(sourceName.length() - 2);
+	}
+}
+
 QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::ConvertListOfParameters(
 	const QStringList &inputList)
 {
@@ -241,11 +252,7 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 	{
 		QString sourceName = inputList[i];
 
-		if (sourceName.endsWith(".x") || sourceName.endsWith(".y") || sourceName.endsWith(".z")
-				|| sourceName.endsWith(".w"))
-		{
-			sourceName = sourceName.left(sourceName.length() - 2);
-		}
+		RemoveVectorComponent(sourceName);
 
 		if (conversionTable.contains(sourceName))
 		{
@@ -415,21 +422,23 @@ void cCustomFormulaEditor::slotInsertParameter()
 		// connect signals
 		connect(comboBox->lineEdit(), &QLineEdit::textEdited, pFilterModel,
 			&QSortFilterProxyModel::setFilterFixedString);
-		connect(completer, SIGNAL(activated(QString)), comboBox, SLOT(onCompleterActivated(QString)));
 	}
 
 	dialog->exec();
-	QString selected = dialog->textValue();
-	QStringList split = selected.split(' ');
-
-	if (split.size() == 2)
+	if (dialog->result() == QDialog::Accepted)
 	{
-		QStringList sourceParameterNames = conversionTable.keys(split[1]);
+		QString selected = dialog->textValue();
+		QStringList split = selected.split(' ');
 
-		if (!sourceParameterNames.isEmpty())
+		if (split.size() == 2)
 		{
-			QTextCursor text_cursor = QTextCursor(ui->textEdit_formula_code->textCursor());
-			text_cursor.insertText(QString("fractal->") + sourceParameterNames[0]);
+			QStringList sourceParameterNames = conversionTable.keys(split[1]);
+
+			if (!sourceParameterNames.isEmpty())
+			{
+				QTextCursor text_cursor = QTextCursor(ui->textEdit_formula_code->textCursor());
+				text_cursor.insertText(QString("fractal->") + sourceParameterNames[0]);
+			}
 		}
 	}
 }

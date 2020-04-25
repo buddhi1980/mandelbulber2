@@ -46,6 +46,7 @@ private:
 	QList<sParameterDesctiption> ConvertListOfParameters(const QStringList &list);
 	void BuildUI(const QList<sParameterDesctiption> &listOfParameters);
 	void CreateConversionTable();
+	void RemoveVectorComponent(QString &sourceName);
 
 	Ui::cCustomFormulaEditor *ui;
 
