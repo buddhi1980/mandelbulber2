@@ -33,6 +33,8 @@ private slots:
 	bool clangFormatPresent();
 	void slotCheckSyntax();
 	void slotInsertParameter();
+	void slotSave();
+	void slotLoad();
 
 private:
 	struct sParameterDesctiption
@@ -53,6 +55,7 @@ private:
 	int slotIndex = 0;
 	QMap<QString, QString> conversionTable;
 	QMap<QString, QString> parameterTypes;
+	QString actualFormulaFileName;
 };
 
 #endif /* MANDELBULBER2_QT_CUSTOM_FORMULA_EDITOR_H_ */

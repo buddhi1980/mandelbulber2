@@ -300,6 +300,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemDirectories.GetNetrenderFolder());
 	result &= CreateFolder(systemDirectories.GetGradientsFolder());
 	result &= CreateFolder(systemDirectories.GetOpenCLTempFolder());
+	result &= CreateFolder(systemDirectories.GetOpenCLCustomFormulasFolder());
 	result &= PutClangFormatFileToDataDirectoryHidden();
 
 	RetrieveToolbarPresets(false);
@@ -720,9 +721,10 @@ void DeleteOldChache(const QString &directoryPath, int maxDays)
 	}
 }
 
-bool PutClangFormatFileToDataDirectoryHidden(){
+bool PutClangFormatFileToDataDirectoryHidden()
+{
 	QFile file(systemDirectories.GetDataDirectoryHidden() + "/.clang-format");
-	if(file.exists()) return true;
+	if (file.exists()) return true;
 	if (file.open(QIODevice::WriteOnly))
 	{
 		QTextStream out(&file);

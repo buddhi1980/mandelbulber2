@@ -39,6 +39,7 @@ struct sSystemDirectories
 	QString GetResolutionPresetsFile() const { return dataDirectoryHidden + "resolutionPresets.ini"; }
 	QString GetNetrenderFolder() const { return dataDirectoryHidden + "netrender"; }
 	QString GetOpenCLTempFolder() const { return dataDirectoryHidden + "openclTemp"; }
+	QString GetOpenCLCustomFormulasFolder() const { return dataDirectoryHidden + "customFormulas"; }
 
 	QString homeDir;
 	QString sharedDir;

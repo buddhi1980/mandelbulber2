@@ -40,6 +40,14 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 	connect(ui->pushButton_insert_parameter, &QPushButton::pressed, this,
 		&cCustomFormulaEditor::slotInsertParameter);
 
+	connect(
+		ui->pushButton_save_to_file, &QPushButton::pressed, this, &cCustomFormulaEditor::slotSave);
+	connect(
+		ui->pushButton_load_from_file, &QPushButton::pressed, this, &cCustomFormulaEditor::slotLoad);
+
+	actualFormulaFileName =
+		systemDirectories.GetOpenCLCustomFormulasFolder() + QDir::separator() + "custom_formula.cl";
+
 	CreateConversionTable();
 }
 
@@ -70,7 +78,7 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("OpenCL programs (*.cl)"));
+	dialog.setNameFilter(tr("OpenCL code (*.cl)"));
 	dialog.setDirectory(QDir::toNativeSeparators(
 		systemDirectories.sharedDir + "formula" + QDir::separator() + "opencl"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
@@ -258,7 +266,6 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 		{
 			QString parameterName = conversionTable[sourceName];
 			cOneParameter parameter = gParFractal->at(0).GetAsOneParameter(parameterName);
-			qDebug() << inputList[i] << parameterName;
 			sParameterDesctiption parDesc;
 			parDesc.parameterName = parameterName;
 			parDesc.parameter = parameter;
@@ -278,10 +285,14 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 {
 	// delete all existing widgets
 	QLayoutItem *item;
-	while ((item = ui->formLayoutParameters->takeAt(0)) != NULL)
+	while (ui->formLayoutParameters->count() > 0)
 	{
-		delete item->widget();
-		delete item;
+		item = ui->formLayoutParameters->takeAt(0);
+		if (item)
+		{
+			delete item->widget();
+			delete item;
+		}
 	}
 
 	for (int i = 0; i < listOfParameters.size(); i++)
@@ -424,6 +435,9 @@ void cCustomFormulaEditor::slotInsertParameter()
 			&QSortFilterProxyModel::setFilterFixedString);
 	}
 
+	dialog->setWindowTitle(tr("Inserting parameter"));
+	dialog->setLabelText("Select parameter to insert");
+
 	dialog->exec();
 	if (dialog->result() == QDialog::Accepted)
 	{
@@ -442,3 +456,59 @@ void cCustomFormulaEditor::slotInsertParameter()
 		}
 	}
 }
+
+void cCustomFormulaEditor::slotSave()
+{
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("OpenCL code (*.cl)"));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(actualFormulaFileName).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(actualFormulaFileName).completeBaseName()));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Saving custom formula code..."));
+	dialog.setDefaultSuffix("cl");
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString fileName = QDir::toNativeSeparators(filenames.first());
+		QFile file(fileName);
+		if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+		{
+			file.write(ui->textEdit_formula_code->toPlainText().toUtf8());
+			actualFormulaFileName = fileName;
+			file.close();
+		}
+	}
+};
+
+void cCustomFormulaEditor::slotLoad()
+{
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("OpenCL code (*.cl)"));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(actualFormulaFileName).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(actualFormulaFileName).completeBaseName()));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Load custom fractal formula code..."));
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		QFile file(filename);
+		if (file.open(QFile::ReadOnly | QFile::Text))
+		{
+			QTextStream stream(&file);
+			QString code = stream.readAll();
+			ui->textEdit_formula_code->setText(code);
+			file.close();
+		}
+	}
+
+	QStringList parametersInCode = CreateListOfParametersInCode();
+	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	BuildUI(list);
+};
