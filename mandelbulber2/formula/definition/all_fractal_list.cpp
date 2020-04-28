@@ -272,6 +272,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// Riemann formulas
 	fractalList->append(new cFractalRiemannBulbMsltoeMod2());
 	fractalList->append(new cFractalRiemannSphereMsltoe());
+	fractalList->append(new cFractalRiemannSphereMsltoeM3d());
 
 	// Scator Algebra formulas
 	fractalList->append(new cFractalScatorPower2Real());
