@@ -579,6 +579,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("opencl_job_size_multiplier", 2, morphNone, paramApp);
 	par->addParam("opencl_reserved_gpu_time", 0.1, morphNone, paramApp);
 	par->addParam("thumbnails_with_opencl", false, morphNone, paramApp);
+	par->addParam("clang_format_path", QString("clang-format"), morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }

@@ -69,6 +69,7 @@ private slots:
 	void on_listWidget_opencl_platform_list_currentRowChanged(int index);
 	void on_groupCheck_opencl_enabled_toggled(bool state);
 	void on_comboBox_opencl_device_type_currentIndexChanged(int index);
+	void on_pushButton_select_clang_format_path_clicked();
 #endif
 
 private:

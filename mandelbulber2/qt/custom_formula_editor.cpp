@@ -12,6 +12,7 @@
 #include "src/interface.hpp"
 #include "src/system_directories.hpp"
 #include "src/error_message.hpp"
+#include "src/initparameters.hpp"
 
 #include "my_line_edit.h"
 #include "my_check_box.h"
@@ -115,10 +116,13 @@ void cCustomFormulaEditor::slotAutoFormat()
 			QObject::tr("clang-format is required for autoformat but was not detected\n\n"
 									"To install clang-format:\n"
 									"- Linux: Install clang-format from ypur package manager.\n"
-									"- Windows: Go to https://llvm.org/builds/ download and install LLVM. Make sure "
-									"you have clang-format in your PATH var.\n"
-									"- MacOS: When you have the brew package manager installed run: `brew install "
-									"clang-format`"),
+									"- Windows: Go to https://llvm.org/builds/ \n"
+									"  download and install clang-format.\n"
+									"- MacOS: When you have the brew package manager installed run: \n"
+									"  `brew install clang-format`\n"
+									"If required, you can specify the program path under\n"
+									"Preferences > OpenCL (GPU) > clang-format path.\n\n"
+									"Current clang-format path is: %1").arg(gPar->Get<QString>("clang_format_path")),
 			cErrorMessage::warningMessage);
 		return;
 	}
@@ -133,7 +137,7 @@ void cCustomFormulaEditor::slotAutoFormat()
 		qFileWrite.close();
 	}
 	QProcess process(this);
-	QString program = "clang-format";
+	QString program = gPar->Get<QString>("clang_format_path");
 	QStringList args;
 	args << "-i";
 	args << "--style=file";
@@ -154,7 +158,7 @@ void cCustomFormulaEditor::slotAutoFormat()
 bool cCustomFormulaEditor::clangFormatPresent()
 {
 	QProcess process(this);
-	QString program = "clang-format";
+	QString program = gPar->Get<QString>("clang_format_path");
 	QStringList args;
 	args << "-version";
 	process.start(program, args);

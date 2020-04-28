@@ -1646,6 +1646,27 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_clang_format_path">
+                  <property name="text">
+                   <string>clang-format path:</string>
+                  </property>
+                 </widget>
+                 </item>
+                <item row="9" column="1">
+                 <widget class="MyLineEdit" name="text_clang_format_path"/>
+                </item>
+                <item row="9" column="2">
+                 <widget class="QPushButton" name="pushButton_select_clang_format_path">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="folder" resource="icons.qrc">
+                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item>
