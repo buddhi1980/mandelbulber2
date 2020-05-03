@@ -28,7 +28,6 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 {
 
 	//chebyshev
-
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
@@ -50,15 +49,15 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 			else tmp = 4.0 + F;
 		}
 
-		tmp = tmp + fractal->transformCommon.offset333.x;
+		tmp = tmp + fractal->transformCommon.offset111.x;
 		double Length2 = max(fabs(z.x), fabs(z.y));
 
-		double C = fmod(tmp, 8.0);
+		double C = tmp - 8.0 * floor(tmp / 8.0);
 		C = fabs(C - 4.0) - 2.0;
 		z.x = clamp(C, - 1.0, 1.0) * Length2;
 
 		double S = tmp - 2.0;
-		S = fmod(S, 8.0);
+		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
 		z.y = clamp(S, - 1.0, 1.0) * Length2;
 	}
@@ -83,15 +82,15 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 			else tmp = 4.0 + F;
 		}
 
-		tmp = tmp + fractal->transformCommon.offset333.y;
+		tmp = tmp + fractal->transformCommon.offset111.y;
 		double Length2 = max(fabs(z.y), fabs(z.z));
 
-		double C = fmod(tmp, 8.0);
+		double C = tmp - 8.0 * floor(tmp / 8.0);
 		C = fabs(C - 4.0) - 2.0;
 		z.y = clamp(C, - 1.0, 1.0) * Length2;
 
 		double S = tmp - 2.0;
-		S = fmod(S, 8.0);
+		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
 		z.z = clamp(S, - 1.0, 1.0) * Length2;
 	}
@@ -116,15 +115,15 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 			else tmp = 4.0 + F;
 		}
 
-		tmp = tmp + fractal->transformCommon.offset333.z;
+		tmp = tmp + fractal->transformCommon.offset111.z;
 		double Length2 = max(fabs(z.x), fabs(z.z));
 
-		double C = fmod(tmp, 8.0);
+		double C = tmp - 8.0 * floor(tmp / 8.0);
 		C = fabs(C - 4.0) - 2.0;
 		z.z = clamp(C, - 1.0, 1.0) * Length2;
 
 		double S = tmp - 2.0;
-		S = fmod(S, 8.0);
+		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
 		z.x = clamp(S, - 1.0, 1.0) * Length2;
 	}

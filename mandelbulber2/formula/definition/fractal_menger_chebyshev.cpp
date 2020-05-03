@@ -48,16 +48,17 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			else tmp = 4.0 + F;
 		}
 
-		tmp = tmp + fractal->transformCommon.offset3;
+		tmp = tmp + fractal->transformCommon.offset1;
 
 		double Length2 = max(fabs(z.x), fabs(z.z));
 
-		double C = fmod(tmp, 8.0);
+		double C = tmp - 8.0 * floor(tmp / 8.0);
+
 		C = fabs(C - 4.0) - 2.0;
 		z.x = clamp(C, - 1.0, 1.0) * Length2;
 
 		double S = tmp - 2.0;
-		S = fmod(S, 8.0);
+		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
 		z.z = clamp(S, - 1.0, 1.0) * Length2;
 	}
