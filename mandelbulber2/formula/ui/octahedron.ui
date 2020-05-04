@@ -342,7 +342,7 @@
      <item row="12" column="0" rowspan="3">
       <widget class="QLabel" name="label_73">
        <property name="text">
-        <string>int2:</string>
+        <string>temp</string>
        </property>
       </widget>
      </item>

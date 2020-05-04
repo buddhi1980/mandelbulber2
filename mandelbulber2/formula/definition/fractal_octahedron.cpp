@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * eiffie and
+ * reference: eiifie paxis2 https://www.shadertoy.com/view/XlSGDc
+ * paxis idea from dila originally at https://www.shadertoy.com/view/Xlj3DK
  */
 
 #include "all_fractal_definitions.h"
@@ -62,8 +63,8 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		d2 = a.Length() - b;
 
 	 d2 = max(d2, -d);
-	 aux.dist = d2;
+	 //aux.dist = d2;
 
-	//if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
-	//else aux.dist = max(aux.dist, d2);
+	if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
+	else aux.dist = min(aux.dist, d2);
 }
