@@ -235,6 +235,7 @@ enum enumFractalFormula
 	mengerChebyshev = 203,
 	riemannBulbMsltoeM3d = 204,
 	octahedron = 205,
+	aboxMod14 = 206,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

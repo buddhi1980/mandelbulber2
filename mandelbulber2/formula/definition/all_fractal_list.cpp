@@ -138,6 +138,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxMod11());
 	fractalList->append(new cFractalAboxMod12());
 	fractalList->append(new cFractalAboxMod13());
+	fractalList->append(new cFractalAboxMod14());
 	fractalList->append(new cFractalAboxModKali());
 	fractalList->append(new cFractalAboxModKaliEiffie());
 	fractalList->append(new cFractalAboxModKaliV2());
