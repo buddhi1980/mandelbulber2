@@ -84,15 +84,12 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		double m;
 		double rr = z.Dot(z);
-		double minRR = fractal->transformCommon.scale2;
-		// z += fractal->mandelbox.offset;
-
-		if (rr < minRR) m = rr;
-		else m = minRR;
+		if (rr < fractal->transformCommon.scale0) m = fractal->transformCommon.scale0;
+		else if (rr < fractal->transformCommon.scale2) m = rr;
+		else m = fractal->transformCommon.scale2;
 		m = 1.0 / m;
 		z *= m;
 		aux.DE *= m;
-		// z -= fractal->mandelbox.offset;
 	}
 
 	double useScale =  fractal->transformCommon.scale6;
@@ -106,11 +103,9 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 		// update actualScale for next iteration
 		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux.actualScaleA = -vary;
-		else
-			aux.actualScaleA = aux.actualScaleA - vary;
+				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+		aux.actualScaleA = -vary;
+
 	}
 	else
 	{
@@ -118,20 +113,24 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE = aux.DE * fabs(useScale) + 1.0;
 	}
 
-	// offset
-	if (aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
+	// standard offset
+	z += fractal->transformCommon.offset000;
+
+	// offset options
+	if (fractal->transformCommon.functionEnabledAxFalse
+		&& aux.i >= fractal->transformCommon.startIterationsB
+		&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse)
-		{
-			CVector4 offsetAlt = aux.pos_neg * fractal->transformCommon.additionConstant000;
-			z += offsetAlt;
-			aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
-		}
-		else
-		{
-			z += fractal->transformCommon.additionConstant000;
-		}
+		CVector4 offset = aux.pos_neg * fractal->transformCommon.additionConstant000;
+
+		if (fractal->transformCommon.functionEnabledAFalse)
+			offset = CVector4(sign(z.x), sign(z.y), sign(z.z), 1.0) * offset;
+
+		if (fractal->transformCommon.functionEnabledBFalse)
+			offset = CVector4(sign(c.x), sign(c.y), sign(c.z), 1.0) * offset;
+
+		z += offset;
+		aux.pos_neg *= fractal->transformCommon.scale1; // update for next iter
 	}
 
 	// addCpixel

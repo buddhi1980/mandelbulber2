@@ -68,9 +68,9 @@ void cFractalKochV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		}
 	}
 
-	double Pid6 = M_PI / 6.0;
-	double CPid6 = cos(Pid6);
-	double SPid6 = -sin(Pid6);
+	// double Pid6 = M_PI / 6.0;
+	double CPid6 = SQRT_3_4; //cos(Pi / 6);
+	double SPid6 = -0.5; // sin(Pi / 6);
 	double t = 2.0 * min(0.0, z.x * CPid6 + z.y * SPid6);
 	z.x -= t * CPid6;
 	z.y -= t * SPid6;
@@ -83,9 +83,8 @@ void cFractalKochV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	z -= t * fl1;
 	z.x += 0.5;
 	z.z += tsq;
-
-	// scale
 	z.x -= 1.0;
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
@@ -93,6 +92,8 @@ void cFractalKochV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+	// scale
 	z *= BDscale;
 	aux.DE *= BDscale;
 	z.x += 1.0;
