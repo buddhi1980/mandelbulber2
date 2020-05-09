@@ -1,0 +1,44 @@
+# Mandelbulber settings file
+# version 2.22
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+anim_keyframe_dir D:\f _stuff2\imagessss\;
+camera 0.668365129829479 -0.989560204716172 0.855639766837859;
+camera_distance_to_target 0.557658125600602;
+camera_rotation 26.4387255346437 -7.54643509761734 5.20968231040783;
+camera_top 0.0230723701124367 0.157536478074026 0.98724359902378;
+DE_factor 0.7;
+flight_last_to_render 0;
+formula_1 1090;
+formula_2 91;
+formula_stop_iteration_1 1;
+fractal_constant_factor 0.9 1 1;
+hdr true;
+hybrid_fractal_enable true;
+image_proportion 3;
+image_width 900;
+julia_c 2.96101638775167 0 0;
+julia_mode true;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_beta 24.9;
+main_light_intensity 1.7;
+mat1_is_defined true;
+mat1_surface_gradient_enable false;
+mat1_texture_fractalize true;
+mat1_texture_fractalize_cube_size 16;
+mat1_texture_fractalize_start_iteration 9;
+mat1_texture_mapping_type 1;
+mat1_use_color_texture true;
+reflections_max 2;
+target 0.422223677629974 -0.494551816227151 0.782402714173253;
+[fractal_1]
+transf_addition_constant 0 0 -0.8;
+transf_offset_000 0.8 0 0;
+[fractal_2]
+mandelbox_folding_min_radius 0.1;
+mandelbox_scale 1.1;
+transf_int_1 2;
+transf_scale_3 2.8;
+transf_start_iterations_M 15;

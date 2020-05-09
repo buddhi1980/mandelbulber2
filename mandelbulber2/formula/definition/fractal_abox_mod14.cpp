@@ -8,7 +8,7 @@
  *
  * ABoxMod14,
  * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Conditional sphere inversion idea from alexl (sanbase)
+ * Hollow mandelbox idea from alexl (sanbase)
  * http://www.fractalforums.com/3d-fractal-generation/realtime-rendering-on-gpu/
  * Other variations by mclarekin
  * This formula contains aux.color and aux.actualScaleA
@@ -33,9 +33,8 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 {
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
-
+	double m = 1.0;
 	// tglad fold
-	CVector4 oldZ = z;
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
@@ -47,12 +46,6 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		}
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
 	if (fractal->transformCommon.functionEnabledFalse
@@ -82,17 +75,15 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		double m;
 		double rr = z.Dot(z);
-		if (rr < fractal->transformCommon.scale0) m = fractal->transformCommon.scale0;
-		else if (rr < fractal->transformCommon.scale2) m = rr;
-		else m = fractal->transformCommon.scale2;
-		m = 1.0 / m;
+		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 /  rr;
+		else m = fractal->transformCommon.inv1;
 		z *= m;
 		aux.DE *= m;
 	}
 
-	double useScale =  fractal->transformCommon.scale6;
+	double useScale =  fractal->transformCommon.scale2;
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
@@ -105,7 +96,6 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		double vary = fractal->transformCommon.scaleVary0
 				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
 		aux.actualScaleA = -vary;
-
 	}
 	else
 	{
@@ -155,8 +145,9 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	// color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
+		colorAdd += fractal->mandelbox.color.factorSp2 * m;
 		aux.color += colorAdd;
 	}
 }

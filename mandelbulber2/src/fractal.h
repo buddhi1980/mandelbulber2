@@ -494,6 +494,8 @@ struct sFractalTransformCommon
 	double betaAngleOffset;
 	double foldingValue;
 	double foldingLimit;
+	double invert0;
+	double invert1;
 	double offset;
 	double offset0;
 	double offsetA0;
@@ -562,6 +564,8 @@ struct sFractalTransformCommon
 	double pwr8a;
 	double sqtR;
 	double mboxFactor1;
+	double inv0;
+	double inv1;
 
 	int startIterations;
 	int startIterations250;

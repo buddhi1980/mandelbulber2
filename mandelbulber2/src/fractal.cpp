@@ -270,6 +270,9 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
 	transformCommon.foldingValue = container->Get<double>("transf_folding_value");
 	transformCommon.foldingLimit = container->Get<double>("transf_folding_limit");
+	transformCommon.invert0 = container->Get<double>("transf_invert_0");
+	transformCommon.invert1 = container->Get<double>("transf_invert_1");
+	transformCommon.maxR2d1 = container->Get<double>("transf_maxR2_1");
 	transformCommon.multiplication = container->Get<double>("transf_multiplication");
 	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
 	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
@@ -630,7 +633,8 @@ void sFractal::RecalculateFractalParams()
 		transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // for orig. abox asurf
-
+	transformCommon.inv0 = 1.0 / transformCommon.invert0; // Invmin
+	transformCommon.inv1 = 1.0 / transformCommon.invert1; // Invmax
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
 	// Generalized Fold Box pre calculated vectors

@@ -812,6 +812,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_folding_value", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_folding_limit", 1.0, morphAkima, paramStandard);
+	par->addParam("transf_invert_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_invert_1", 1.0, morphAkima, paramStandard);
+
 	par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
