@@ -27,44 +27,50 @@ cFractalOctahedron::cFractalOctahedron() : cAbstractFractal()
 
 void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 a;
-	double b = 1.0;
-	double d;
-	double limitA = fractal->transformCommon.offset0;
-	double limitB = fractal->transformCommon.offsetA0;
-
-	for (int i = 0; i < fractal->transformCommon.int3X; i++)
+	if (aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		double sizer1 = fractal->transformCommon.scale1 * b;
+		CVector4 a;
+		double b = 1.0;
+		double d;
+		double limitA = fractal->transformCommon.offset0;
+		double limitB = fractal->transformCommon.offsetA0;
+
+		for (int i = 0; i < fractal->transformCommon.int3X; i++)
+		{
+			double sizer1 = fractal->transformCommon.scale1 * b;
+			a = fabs(z);
+			z.x -= sign(z.x) * max(double(sign(a.x - max(a.y, a.z))), limitA) * sizer1;
+			z.y -= sign(z.y) * max(double(sign(a.y - max(a.z, a.x))), limitA) * sizer1;
+			z.z -= sign(z.z) * max(double(sign(a.z - max(a.x, a.y))), limitA) * sizer1;
+			b *= fractal->transformCommon.scale05;
+		}
+
+		 d = z.Length() - fractal->transformCommon.minR2p25;
+		for (int i = 0; i < fractal->transformCommon.int3Y; i++)
+		{
+			double sizer2 = fractal->transformCommon.scaleA1 * b;
+			 a = fabs(z);
+			z.x -= sign(z.x) * max(double(sign(a.x - min(a.y, a.z))), limitB) * sizer2;
+			z.y -= sign(z.y) * max(double(sign(a.y - min(a.z, a.x))), limitB) * sizer2;
+			z.z -= sign(z.z) * max(double(sign(a.z - min(a.x, a.y))), limitB) * sizer2;
+			b *= fractal->transformCommon.minR05;
+		}
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		a = fabs(z);
-		z.x -= sign(z.x) * max(double(sign(a.x - max(a.y, a.z))), limitA) * sizer1;
-		z.y -= sign(z.y) * max(double(sign(a.y - max(a.z, a.x))), limitA) * sizer1;
-		z.z -= sign(z.z) * max(double(sign(a.z - max(a.x, a.y))), limitA) * sizer1;
-		b *= fractal->transformCommon.scale05;
+		double d2;
+
+		if (!fractal->transformCommon.functionEnabledFalse)
+			d2 = max(a.x, max(a.y, a.z)) - b - fractal->transformCommon.offsetB0;
+		else
+			d2 = a.Length() - b - fractal->transformCommon.offsetB0;
+
+		 d2 = max(d2, -d);
+		 //aux.dist = d2;
+
+		if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
+		else aux.dist = min(aux.dist, d2);
+
+		 aux.dist *= fractal->transformCommon.scaleC1;
 	}
-
-	 d = z.Length() - fractal->transformCommon.minR2p25;
-	for (int i = 0; i < fractal->transformCommon.int3Y; i++)
-	{
-		double sizer2 = fractal->transformCommon.scaleA1 * b;
-		 a = fabs(z);
-		z.x -= sign(z.x) * max(double(sign(a.x - min(a.y, a.z))), limitB) * sizer2;
-		z.y -= sign(z.y) * max(double(sign(a.y - min(a.z, a.x))), limitB) * sizer2;
-		z.z -= sign(z.z) * max(double(sign(a.z - min(a.x, a.y))), limitB) * sizer2;
-		b *= fractal->transformCommon.minR05;
-	}
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	a = fabs(z);
-	double d2;
-
-	if (!fractal->transformCommon.functionEnabledFalse)
-		d2 = max(a.x, max(a.y, a.z)) - b;
-	else
-		d2 = a.Length() - b;
-
-	 d2 = max(d2, -d);
-	 //aux.dist = d2;
-
-	if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
-	else aux.dist = min(aux.dist, d2);
 }
