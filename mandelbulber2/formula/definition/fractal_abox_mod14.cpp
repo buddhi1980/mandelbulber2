@@ -100,7 +100,7 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	else
 	{
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 	}
 
 	// standard offset

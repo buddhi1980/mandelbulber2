@@ -74,7 +74,10 @@ void cFractalMandalayKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	// Edges:
 	p.x = (fo - fabs(-fo + z.x));
 	p.y = (fo - fabs(-fo + z.y));
-	p.z = zT + z.z;
+
+	if (!fractal->transformCommon.functionEnabledTFalse) p.z = zT + z.z;
+	else p.z = zT - fabs(-fo  + z.z);
+
 	double gy = g + z.y;
 	if (fx > 0.0 && fx > z.y)
 	{
