@@ -119,7 +119,7 @@
         <item row="2" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
           <property name="text">
-           <string notr="true">z.xz = z.zx</string>
+           <string notr="true">z.xy = z.yx</string>
           </property>
          </widget>
         </item>

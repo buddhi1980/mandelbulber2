@@ -32,25 +32,25 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
-		if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.z);
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.y);
 		double tmp = 0.0;
-		double F = z.x / z.z;
-		if (z.z == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
+		double F = z.x / z.y;
+		if (z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
 		if (fabs(F) < 1.0)
 		{
-			if (z.z > 0.0) tmp = 2.0 - F;
+			if (z.y > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;
 		}
 		else
 		{
-			F = z.z / z.x;
+			F = z.y / z.x;
 			if (z.x > 0.0) tmp = fmod(F, 8.0);
 			else tmp = 4.0 + F;
 		}
 
 		tmp = tmp + fractal->transformCommon.offset1;
 
-		double Length2 = max(fabs(z.x), fabs(z.z));
+		double Length2 = max(fabs(z.x), fabs(z.y));
 
 		double C = tmp - 8.0 * floor(tmp / 8.0);
 
@@ -60,16 +60,16 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		double S = tmp - 2.0;
 		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
-		z.z = clamp(S, - 1.0, 1.0) * Length2;
+		z.y = clamp(S, - 1.0, 1.0) * Length2;
 	}
 
 	z = fabs(z);
-	if (z.x < z.z) swap(z.z, z.x);
 	if (z.x < z.y) swap(z.y, z.x);
-	if (z.z < z.y) swap(z.y, z.z);
+	if (z.x < z.z) swap(z.z, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
 	z = z * fractal->transformCommon.scale3 - fractal->transformCommon.offset222;
 	aux.DE *= fractal->transformCommon.scale3;
-	if (z.y < -1.0) z.y += 2.0;
+	if (z.z < -1.0) z.z += 2.0;
 
 
 	z += fractal->transformCommon.additionConstant000;
