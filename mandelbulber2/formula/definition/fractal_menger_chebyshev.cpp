@@ -68,9 +68,8 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	if (z.x < z.z) swap(z.z, z.x);
 	if (z.y < z.z) swap(z.z, z.y);
 	z = z * fractal->transformCommon.scale3 - fractal->transformCommon.offset222;
-	aux.DE *= fractal->transformCommon.scale3;
+	aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
 	if (z.z < -1.0) z.z += 2.0;
-
 
 	z += fractal->transformCommon.additionConstant000;
 
