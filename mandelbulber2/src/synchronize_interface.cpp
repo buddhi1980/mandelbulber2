@@ -54,6 +54,7 @@
 #include "qt/my_group_box.h"
 #include "qt/my_line_edit.h"
 #include "qt/my_spin_box.h"
+#include "qt/my_text_edit.h"
 
 using namespace qInterface;
 
@@ -550,6 +551,9 @@ void SynchronizeInterfaceQTextEdit(
 				{
 					QString value = par->Get<QString>(props.paramName);
 					textEdit->setPlainText(value);
+
+					cMyTextEdit *myTextEdit = qobject_cast<cMyTextEdit *>(textEdit);
+					if (myTextEdit) myTextEdit->sendUpdateSignal();
 				}
 			}
 		}

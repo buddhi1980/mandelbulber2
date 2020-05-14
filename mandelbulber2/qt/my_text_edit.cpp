@@ -103,11 +103,11 @@ void cMyTextEdit::keyPressEvent(QKeyEvent *e)
 			else
 				break;
 		}
-		if(line.size() > 0)
+		if (line.size() > 0)
 		{
 			int position = textCursor().position();
 			QChar ch = toPlainText()[position - 1];
-			if(ch == '{')
+			if (ch == '{')
 			{
 				tabsCount++;
 			}
@@ -124,4 +124,9 @@ void cMyTextEdit::keyPressEvent(QKeyEvent *e)
 	{
 		QTextEdit::keyPressEvent(e);
 	}
+}
+
+void cMyTextEdit::sendUpdateSignal()
+{
+	emit signalUpdate();
 }

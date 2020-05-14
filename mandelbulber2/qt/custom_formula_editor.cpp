@@ -18,6 +18,7 @@
 #include "my_check_box.h"
 #include "my_spin_box.h"
 #include "my_double_spin_box.h"
+#include "my_text_edit.h"
 
 #include <QFileDialog>
 #include <QTextStream>
@@ -29,9 +30,12 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	connect(ui->pushButton_new, &QPushButton::pressed, this, &cCustomFormulaEditor::slotNewFormula);
 	connect(ui->textEdit_formula_code, &QTextEdit::textChanged, this,
 		&cCustomFormulaEditor::slotTextChanged);
+	connect(ui->textEdit_formula_code, &cMyTextEdit::signalUpdate, this,
+		&cCustomFormulaEditor::slotRebuildUI);
+
+	connect(ui->pushButton_new, &QPushButton::pressed, this, &cCustomFormulaEditor::slotNewFormula);
 	connect(ui->pushButton_load_builtin, &QPushButton::pressed, this,
 		&cCustomFormulaEditor::slotLoadBuiltIn);
 	connect(ui->pushButton_check_syntax, &QPushButton::pressed, this,
@@ -122,7 +126,8 @@ void cCustomFormulaEditor::slotAutoFormat()
 									"  `brew install clang-format`\n"
 									"If required, you can specify the program path under\n"
 									"Preferences > OpenCL (GPU) > clang-format path.\n\n"
-									"Current clang-format path is: %1").arg(gPar->Get<QString>("clang_format_path")),
+									"Current clang-format path is: %1")
+				.arg(gPar->Get<QString>("clang_format_path")),
 			cErrorMessage::warningMessage);
 		return;
 	}
@@ -516,3 +521,11 @@ void cCustomFormulaEditor::slotLoad()
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
 	BuildUI(list);
 };
+
+void cCustomFormulaEditor::slotRebuildUI()
+{
+	// create list of parameters used in the code
+	QStringList parametersInCode = CreateListOfParametersInCode();
+	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	BuildUI(list);
+}
