@@ -93,7 +93,8 @@ void cOpenClEngineRenderSSAO::SetParameters(
 	definesCollector.clear();
 }
 
-bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *params)
+bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(
+	const cParameterContainer *params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -136,6 +137,9 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
+
+	if (compilerErrorOutput) *compilerErrorOutput = errorString;
+
 	WriteLogDouble(
 		"cOpenClEngineRenderSSAO: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 

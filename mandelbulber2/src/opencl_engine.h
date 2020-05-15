@@ -77,7 +77,8 @@ public:
 	void Unlock();
 	static void DeleteKernelCache();
 	void Reset();
-	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
+	virtual bool LoadSourcesAndCompile(
+		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
 	virtual bool PreAllocateBuffers(const cParameterContainer *params);
 	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;

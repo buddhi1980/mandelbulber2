@@ -58,7 +58,8 @@ public:
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
-	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
+	bool LoadSourcesAndCompile(
+		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);

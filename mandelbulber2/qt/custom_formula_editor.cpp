@@ -7,12 +7,17 @@
 
 #include "custom_formula_editor.h"
 #include "ui_custom_formula_editor.h"
-#include "src/system.hpp"
-#include "src/fractal_container.hpp"
-#include "src/interface.hpp"
-#include "src/system_directories.hpp"
+
 #include "src/error_message.hpp"
+#include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/nine_fractals.hpp"
+#include "src/opencl_global.h"
+#include "src/opencl_engine_render_fractal.h"
+#include "src/render_data.hpp"
+#include "src/system.hpp"
+#include "src/system_directories.hpp"
 
 #include "my_line_edit.h"
 #include "my_check_box.h"
@@ -24,6 +29,8 @@
 #include <QTextStream>
 #include <QComboBox>
 #include <QDebug>
+#include <QScopedPointer>
+#include <QVector>
 
 cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cCustomFormulaEditor)
@@ -178,6 +185,28 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
 	BuildUI(list);
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+
+	QScopedPointer<sRenderData> renderData(new sRenderData);
+	renderData->objectData.resize(NUMBER_OF_FRACTALS);
+
+	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+
+	CreateMaterialsMap(gPar, &renderData.data()->materials, false, true, false);
+	renderData->ValidateObjects();
+
+	gOpenCl->openClEngineRenderFractal->Lock();
+	gOpenCl->openClEngineRenderFractal->SetParameters(
+		gPar, gParFractal, params.data(), fractals.data(), renderData.data(), true);
+
+	QString compilerOutput;
+	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar, &compilerOutput))
+	{
+	}
+	gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+	gOpenCl->openClEngineRenderFractal->Unlock();
 }
 
 QStringList cCustomFormulaEditor::CreateListOfParametersInCode()

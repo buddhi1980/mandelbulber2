@@ -91,7 +91,8 @@ void cOpenClEngineRenderDOFPhase2::SetParameters(
 	definesCollector.clear();
 }
 
-bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContainer *params)
+bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(
+	const cParameterContainer *params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -134,6 +135,9 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
+
+	if (compilerErrorOutput) *compilerErrorOutput = errorString;
+
 	WriteLogDouble(
 		"cOpenClEngineRenderDOFPhase2: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 

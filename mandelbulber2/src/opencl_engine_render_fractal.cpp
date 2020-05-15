@@ -296,7 +296,8 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 	programEngine.append(hashText.toUtf8());
 }
 
-bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
+bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
+	const cParameterContainer *params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -356,8 +357,11 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
+
+	if (compilerErrorOutput) *compilerErrorOutput = errorString;
+
 	WriteLogDouble(
-		"cOpenClEngineRenderFractal: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
+		"cOpenClEngineRenderFractal: Opencl kernel build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }

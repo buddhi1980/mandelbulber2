@@ -77,7 +77,8 @@ public:
 	~cOpenClEngineRenderFractal() override;
 
 #ifdef USE_OPENCL
-	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
+	bool LoadSourcesAndCompile(
+		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
 	void SetParameters(const cParameterContainer *paramContainer,
 		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
 		sRenderData *renderData, bool meshExportModeEnable);
