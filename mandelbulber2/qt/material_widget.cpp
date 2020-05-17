@@ -140,11 +140,10 @@ void cMaterialWidget::InitializeData()
 
 			params.Set("camera", CVector3(1.5, -2.5, 0.7));
 			params.Set("raytraced_reflections", true);
-			params.Set("N", 10);
-			params.Set("detail_level", 0.2);
-			params.Set("smoothness", 5.0);
+			params.Set("N", 3);
+			params.Set("DE_thresh", 0.1);
+			params.Set("constant_DE_threshold", true);
 			fractal.at(0).Set("power", 5);
-			params.Set("julia_mode", true);
 			params.Set("textured_background", true);
 			params.Set("file_background",
 				QDir::toNativeSeparators(
