@@ -41,6 +41,8 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		&cCustomFormulaEditor::slotTextChanged);
 	connect(ui->textEdit_formula_code, &cMyTextEdit::signalUpdate, this,
 		&cCustomFormulaEditor::slotRebuildUI);
+	connect(ui->textEdit_formula_code, &QTextEdit::cursorPositionChanged, this,
+		&cCustomFormulaEditor::slotCursorMoved);
 
 	connect(ui->pushButton_new, &QPushButton::pressed, this, &cCustomFormulaEditor::slotNewFormula);
 	connect(ui->pushButton_load_builtin, &QPushButton::pressed, this,
@@ -61,6 +63,9 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		systemDirectories.GetOpenCLCustomFormulasFolder() + QDir::separator() + "custom_formula.cl";
 
 	CreateConversionTable();
+
+	ui->label_errors->hide();
+	ui->listWidget_errors->hide();
 }
 
 cCustomFormulaEditor::~cCustomFormulaEditor()
@@ -81,8 +86,10 @@ void cCustomFormulaEditor::slotNewFormula()
 
 void cCustomFormulaEditor::slotTextChanged()
 {
-	ui->textEdit_formula_code->setMinimumHeight(
-		ui->textEdit_formula_code->document()->size().height());
+	// ui->textEdit_formula_code->setMinimumHeight(
+	//	ui->textEdit_formula_code->document()->size().height());
+	QWidget *parentWidget = qobject_cast<QWidget *>(parent()->parent()->parent()->parent());
+	ui->textEdit_formula_code->setMinimumHeight(parentWidget->height() * 3 / 4);
 }
 
 void cCustomFormulaEditor::slotLoadBuiltIn()
@@ -207,6 +214,32 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	}
 	gOpenCl->openClEngineRenderFractal->ReleaseMemory();
 	gOpenCl->openClEngineRenderFractal->Unlock();
+
+	QRegularExpression regex(
+		QString("custom%1.cl\\:(\\d+)\\:(\\d+)\\: error\\:\\ (.*)\\n").arg(slotIndex));
+	QRegularExpressionMatchIterator regIterator = regex.globalMatch(compilerOutput);
+	ui->listWidget_errors->clear();
+	ui->listWidget_errors->hide();
+	ui->label_errors->hide();
+	while (regIterator.hasNext())
+	{
+		ui->listWidget_errors->show();
+		ui->label_errors->show();
+		QRegularExpressionMatch match = regIterator.next();
+		int row = match.captured(1).toInt();
+		int col = match.captured(2).toInt();
+		QString error = match.captured(3);
+		qDebug() << row << col << error;
+
+		ui->listWidget_errors->addItem(QString("line: %1, col %2: %3").arg(row).arg(col).arg(error));
+		ui->listWidget_errors->adjustSize();
+
+		// ui->textEdit_formula_code->setFocus();
+		//		QTextBlock block = ui->textEdit_formula_code->document()->findBlockByLineNumber(row);
+		//		QTextCursor cursor(block); // ln-1 because line number starts from 0
+		//		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col);
+		//		ui->textEdit_formula_code->setTextCursor(cursor);
+	}
 }
 
 QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
@@ -557,4 +590,11 @@ void cCustomFormulaEditor::slotRebuildUI()
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
 	BuildUI(list);
+}
+
+void cCustomFormulaEditor::slotCursorMoved()
+{
+	int row = ui->textEdit_formula_code->textCursor().blockNumber();
+	int col = ui->textEdit_formula_code->textCursor().columnNumber();
+	ui->label_lineColumn->setText(tr("line %1, column %2").arg(row + 1).arg(col + 1));
 }

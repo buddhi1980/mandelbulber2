@@ -36,6 +36,7 @@ private slots:
 	void slotSave();
 	void slotLoad();
 	void slotRebuildUI();
+	void slotCursorMoved();
 
 private:
 	struct sParameterDesctiption
