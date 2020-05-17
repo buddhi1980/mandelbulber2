@@ -16,6 +16,8 @@ namespace Ui
 class cCustomFormulaEditor;
 }
 
+class QListWidgetItem;
+
 class cCustomFormulaEditor : public QWidget
 {
 	Q_OBJECT
@@ -37,6 +39,7 @@ private slots:
 	void slotLoad();
 	void slotRebuildUI();
 	void slotCursorMoved();
+	void slotGoToError(QListWidgetItem *item);
 
 private:
 	struct sParameterDesctiption

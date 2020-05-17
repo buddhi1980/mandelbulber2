@@ -59,6 +59,9 @@ cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 	connect(
 		ui->pushButton_load_from_file, &QPushButton::pressed, this, &cCustomFormulaEditor::slotLoad);
 
+	connect(ui->listWidget_errors, &QListWidget::itemDoubleClicked, this,
+		&cCustomFormulaEditor::slotGoToError);
+
 	actualFormulaFileName =
 		systemDirectories.GetOpenCLCustomFormulasFolder() + QDir::separator() + "custom_formula.cl";
 
@@ -231,14 +234,8 @@ void cCustomFormulaEditor::slotCheckSyntax()
 		QString error = match.captured(3);
 		qDebug() << row << col << error;
 
-		ui->listWidget_errors->addItem(QString("line: %1, col %2: %3").arg(row).arg(col).arg(error));
+		ui->listWidget_errors->addItem(QString("line %1, col %2: %3").arg(row).arg(col).arg(error));
 		ui->listWidget_errors->adjustSize();
-
-		// ui->textEdit_formula_code->setFocus();
-		//		QTextBlock block = ui->textEdit_formula_code->document()->findBlockByLineNumber(row);
-		//		QTextCursor cursor(block); // ln-1 because line number starts from 0
-		//		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col);
-		//		ui->textEdit_formula_code->setTextCursor(cursor);
 	}
 }
 
@@ -597,4 +594,22 @@ void cCustomFormulaEditor::slotCursorMoved()
 	int row = ui->textEdit_formula_code->textCursor().blockNumber();
 	int col = ui->textEdit_formula_code->textCursor().columnNumber();
 	ui->label_lineColumn->setText(tr("line %1, column %2").arg(row + 1).arg(col + 1));
+}
+
+void cCustomFormulaEditor::slotGoToError(QListWidgetItem *item)
+{
+	QString error = item->text();
+	QRegularExpression regex(QString("line (\\d+),\\ col\\ (\\d+)\\:"));
+	QRegularExpressionMatch match = regex.match(error);
+	if(match.hasMatch())
+	{
+		int row = match.captured(1).toInt()-1;
+		int col = match.captured(2).toInt()-1;
+		ui->textEdit_formula_code->setFocus();
+		QTextBlock block = ui->textEdit_formula_code->document()->findBlockByLineNumber(row);
+		QTextCursor cursor(block); // ln-1 because line number starts from 0
+		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col);
+		ui->textEdit_formula_code->setTextCursor(cursor);
+	}
+
 }
