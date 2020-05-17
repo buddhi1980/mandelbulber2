@@ -198,6 +198,7 @@ void cCustomFormulaEditor::slotCheckSyntax()
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
+#ifdef USE_OPENCL
 	QScopedPointer<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
@@ -237,6 +238,7 @@ void cCustomFormulaEditor::slotCheckSyntax()
 		ui->listWidget_errors->addItem(QString("line %1, col %2: %3").arg(row).arg(col).arg(error));
 		ui->listWidget_errors->adjustSize();
 	}
+#endif
 }
 
 QStringList cCustomFormulaEditor::CreateListOfParametersInCode()
@@ -601,15 +603,14 @@ void cCustomFormulaEditor::slotGoToError(QListWidgetItem *item)
 	QString error = item->text();
 	QRegularExpression regex(QString("line (\\d+),\\ col\\ (\\d+)\\:"));
 	QRegularExpressionMatch match = regex.match(error);
-	if(match.hasMatch())
+	if (match.hasMatch())
 	{
-		int row = match.captured(1).toInt()-1;
-		int col = match.captured(2).toInt()-1;
+		int row = match.captured(1).toInt() - 1;
+		int col = match.captured(2).toInt() - 1;
 		ui->textEdit_formula_code->setFocus();
 		QTextBlock block = ui->textEdit_formula_code->document()->findBlockByLineNumber(row);
 		QTextCursor cursor(block); // ln-1 because line number starts from 0
 		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col);
 		ui->textEdit_formula_code->setTextCursor(cursor);
 	}
-
 }
