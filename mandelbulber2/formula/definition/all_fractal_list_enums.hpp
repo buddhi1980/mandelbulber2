@@ -375,14 +375,14 @@ enum enumFractalFormula
 	transfScaleOffset = 1105,
 	transfScaleOffsetV2 = 1106,
 	// 2.21
-	transfDEControls = 1107, // pk offset default = 1
+	transfDeControls = 1107, // pk offset default = 1
 	transfMandalayFoldV1 = 1108,
 	transfMandalayFoldV2 = 1109,
 	transfSinAdd = 1110,
 	transfSphericalFoldV1 = 1111,
 	// 2.22
 	transfRotationChebyshev = 1112,
-
+	transfDeLinearCube = 1113,
 
 
 

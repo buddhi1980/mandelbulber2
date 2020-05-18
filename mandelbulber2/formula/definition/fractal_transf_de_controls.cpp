@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfDEControls::cFractalTransfDEControls() : cAbstractFractal()
+cFractalTransfDeControls::cFractalTransfDeControls() : cAbstractFractal()
 {
 	nameInComboBox = "T>DE Controls";
 	internalName = "transf_de_controls";
-	internalID = fractal::transfDEControls;
+	internalID = fractal::transfDeControls;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalTransfDEControls::cFractalTransfDEControls() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDEControls::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfDeControls::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	double rd = 0.0;
