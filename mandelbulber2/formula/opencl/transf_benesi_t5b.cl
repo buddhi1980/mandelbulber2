@@ -20,7 +20,7 @@ REAL4 TransfBenesiT5bIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	Q_UNUSED(aux);
 
-	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -42,10 +42,10 @@ REAL4 TransfBenesiT5bIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		fractal->transformCommon.power025.z));
 	z = (fabs(tempV2 - fractal->transformCommon.offsetC111)) * fractal->transformCommon.scale3Dd222;
 
-	REAL avgScale = native_divide(length(z), length(tempV2));
+	REAL avgScale = length(z) / length(tempV2);
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.rotationEnabled)

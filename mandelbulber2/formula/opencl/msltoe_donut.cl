@@ -19,23 +19,23 @@
 REAL4 MsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL radius2 = fractal->donut.ringThickness;
-	REAL nSect = native_divide(M_PI_2x_F, fractal->donut.number);
+	REAL nSect = M_PI_2x_F / fractal->donut.number;
 	REAL fact = fractal->donut.factor;
 
-	REAL R = native_sqrt(mad(z.x, z.x, z.y * z.y));
+	REAL R = native_sqrt(z.x * z.x + z.y * z.y);
 	REAL R2 = fractal->donut.ringRadius - R;
-	REAL t = mad(-radius2, radius2, mad(R2, R2, z.z * z.z));
+	REAL t = R2 * R2 + z.z * z.z - radius2 * radius2;
 
 	REAL theta = atan2(z.y, z.x);
-	REAL theta2 = nSect * round(native_divide(theta, nSect));
+	REAL theta2 = nSect * round(theta / nSect);
 
 	if (t > 0.03f)
 	{
 		REAL c1 = native_cos(theta2);
 		REAL s1 = native_sin(theta2);
 
-		REAL x1 = mad(c1, z.x, s1 * z.y);
-		REAL y1 = mad(-s1, z.x, c1 * z.y);
+		REAL x1 = c1 * z.x + s1 * z.y;
+		REAL y1 = -s1 * z.x + c1 * z.y;
 		REAL z1 = z.z;
 
 		x1 = x1 - fractal->donut.ringRadius;

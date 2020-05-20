@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -44,16 +44,16 @@ REAL4 TransfSinOrCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z = trigZ * fractal->transformCommon.scale;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		z.x = z.x * native_divide(fractal->transformCommon.scale, (fabs(oldZ.x) + 1.0f));
-		z.y = z.y * native_divide(fractal->transformCommon.scale, (fabs(oldZ.y) + 1.0f));
-		z.z = z.z * native_divide(fractal->transformCommon.scale, (fabs(oldZ.z) + 1.0f));
-		// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
+		z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0f);
+		z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0f);
+		z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0f);
+		// aux->DE = aux->DE * length(z) / length(oldZ);
 	}
 	//   if z == oldZ    z = oldZ * fractal->transformCommon.scale;
 	if (!fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 	else
-		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scale), fractal->analyticDE.scale1,
-			fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset1;
 	return z;
 }

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,8 +29,8 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 {
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 	// Tglad Fold
 	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -47,12 +47,12 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 	/*	REAL rr;
 		if (temp > 0.0f)
-			rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // on top & bottom of cyl. z.z should be tempZ
+			rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl. z.z should be tempZ
 		else
-			rr = mad(z.x, z.x, z.y * z.y); // on cyl body*/
+			rr = z.x * z.x + z.y * z.y; // on cyl body*/
 	// cylinder half size
 	REAL tempZ = fabs(z.z) - fractal->transformCommon.offset05;
-	REAL rr = mad(z.x, z.x, z.y * z.y);
+	REAL rr = z.x * z.x + z.y * z.y;
 	if (tempZ > 0.0f) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
 	// rPower
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -68,14 +68,14 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+		REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 	// Scale
 	z *= aux->actualScale;
-	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0f;
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse

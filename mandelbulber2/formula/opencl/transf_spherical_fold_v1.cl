@@ -28,7 +28,7 @@ REAL4 TransfSphericalFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	z -= tt;
 
 	REAL trr = dot(z, z);
-	REAL tp = min(max(native_recip(trr), 1.0f), native_recip(fractal->transformCommon.minR2p25));
+	REAL tp = min(max(1.0f / trr, 1.0f), 1.0f / fractal->transformCommon.minR2p25);
 
 	z += tt;
 	z *= tp;
@@ -37,6 +37,6 @@ REAL4 TransfSphericalFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

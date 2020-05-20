@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,10 +20,10 @@ REAL4 CollatzIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	Q_UNUSED(fractal);
 
 	REAL4 xV = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
-	REAL4 temp = mad(2.0f, z, xV);
+	REAL4 temp = xV + z * 2.0f;
 	temp *= RotateAroundVectorByAngle4(z, xV.xyz, M_PI_F);
-	z = xV + mad(z, 4.0f, -temp);
+	z = xV + z * 4.0f - temp;
 	z /= 4.0f;
-	aux->DE = mad(aux->DE, 4.0f, 1.0f);
+	aux->DE = aux->DE * 4.0f + 1.0f;
 	return z;
 }

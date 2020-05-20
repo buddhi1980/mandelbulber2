@@ -54,20 +54,20 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		}
 
 		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcosCl_asin)
-			th0 += asin(native_divide(v.x, aux->r));
+			th0 += asin(v.x / aux->r);
 		else
-			th0 += acos(native_divide(v.x, aux->r));
+			th0 += acos(v.x / aux->r);
 
 		if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtanCl_atan2)
 			ph0 += atan2(v.y, v.z);
 		else
-			ph0 += atan(native_divide(v.y, v.z));
+			ph0 += atan(v.y / v.z);
 
 		REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
 		REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-		aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
+		aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 		rp *= aux->r;
 
 		if (fractal->transformCommon.functionEnabledxFalse)
@@ -99,7 +99,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->DE *= fabs(native_divide(length(z), tempL));
+		aux->DE *= fabs(length(z) / tempL);
 
 		if (fabs(z.x) < fabs(z.z))
 		{
@@ -123,7 +123,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (z.x * z.z < 0.0f) z.z = -z.z;
 		if (z.x * z.y < 0.0f) z.y = -z.y;
 
-		temp.x = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y));
+		temp.x = z.x * z.x - z.y * z.y - z.z * z.z;
 		temp.y = 2.0f * z.x * z.y;
 		temp.z = 2.0f * z.x * z.z;
 
@@ -137,7 +137,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	{
 		aux->r = length(z);
 		REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8_F, M_PI_4_F) - M_PI_8_F);
-		REAL lengthYZ = native_sqrt(mad(z.y, z.y, z.z * z.z));
+		REAL lengthYZ = native_sqrt(z.y * z.y + z.z * z.z);
 
 		z.y = native_cos(psi) * lengthYZ;
 		z.z = native_sin(psi) * lengthYZ;
@@ -145,7 +145,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 		REAL4 z2 = z * z;
 		REAL rr = z2.x + z2.y + z2.z;
-		REAL m = 1.0f - native_divide(z2.z, rr);
+		REAL m = 1.0f - z2.z / rr;
 		REAL4 temp;
 		temp.x = (z2.x - z2.y) * m;
 		temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;;
@@ -192,7 +192,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	// scale
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);

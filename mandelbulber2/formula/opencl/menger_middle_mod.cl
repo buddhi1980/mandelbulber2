@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,11 +23,11 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL rr = 1.0f;
 		z += fractal->transformCommon.offset000;
 		rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z *= fractal->transformCommon.maxR2d1 / rr;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleB1;
 		// REAL r = native_sqrt(rr);
-		aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1
+		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							 * fractal->transformCommon.scaleB1;
 	}
 
@@ -64,19 +64,19 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 		{
-			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 			aux->color += fractal->mandelbox.color.factor.x;
 		}
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 		{
-			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 			aux->color += fractal->mandelbox.color.factor.y;
 		}
 		REAL zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 		REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 		if (fabs(z.z) > zLimit)
 		{
-			z.z = mad(sign(z.z), zValue, -z.z);
+			z.z = sign(z.z) * zValue - z.z;
 			aux->color += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -121,10 +121,9 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z *= useScale;
 
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+			aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		else // testing for log
-			aux->DE =
-				mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 		if (fractal->transformCommon.functionEnabledFFalse
 				&& aux->i >= fractal->transformCommon.startIterationsY

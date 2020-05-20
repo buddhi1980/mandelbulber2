@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,9 +27,9 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 		REAL tempC = fractal->Cpara.paraC;
 		REAL lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
 		REAL lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
-		REAL grade1 = native_divide((tempA - temp0), fractal->Cpara.iterA);
-		REAL grade2 = native_divide((tempB - tempA), lengthAB);
-		REAL grade3 = native_divide((tempC - tempB), lengthBC);
+		REAL grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+		REAL grade2 = (tempB - tempA) / lengthAB;
+		REAL grade3 = (tempC - tempB) / lengthBC;
 
 		// slopes
 		if (aux->i < fractal->Cpara.iterA)
@@ -38,11 +38,11 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 		}
 		if (aux->i < fractal->Cpara.iterB && aux->i >= fractal->Cpara.iterA)
 		{
-			para = mad(grade2, (aux->i - fractal->Cpara.iterA), tempA);
+			para = tempA + (aux->i - fractal->Cpara.iterA) * grade2;
 		}
 		if (aux->i >= fractal->Cpara.iterB)
 		{
-			para = mad(grade3, (aux->i - fractal->Cpara.iterB), tempB);
+			para = tempB + (aux->i - fractal->Cpara.iterB) * grade3;
 		}
 
 		// Curvi part on "true"
@@ -52,9 +52,9 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 			REAL paraIt;
 			if (lengthAB > 2.0f * fractal->Cpara.iterA) // stop  error, todo fix.
 			{
-				REAL curve1 = native_divide((grade2 - grade1), (4.0f * fractal->Cpara.iterA));
+				REAL curve1 = (grade2 - grade1) / (4.0f * fractal->Cpara.iterA);
 				REAL tempL = lengthAB - fractal->Cpara.iterA;
-				REAL curve2 = native_divide((grade3 - grade2), (4.0f * tempL));
+				REAL curve2 = (grade3 - grade2) / (4.0f * tempL);
 				if (aux->i < 2 * fractal->Cpara.iterA)
 				{
 					paraIt = tempA - fabs(tempA - aux->i);
@@ -85,8 +85,8 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 	// if (r2 < 1e-21f) r2 = 1e-21f;
 	if (r2 < para)
 	{
-		z *= native_divide(fractal->transformCommon.maxR2d1, para);
-		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, para);
+		z *= fractal->transformCommon.maxR2d1 / para;
+		aux->DE *= fractal->transformCommon.maxR2d1 / para;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp1;
@@ -94,7 +94,7 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, r2);
+		REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		if (fractal->foldColor.auxColorEnabledFalse)

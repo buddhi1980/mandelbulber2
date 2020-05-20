@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,11 +26,11 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL rr = 1.0f;
 		z += fractal->transformCommon.offset000;
 		rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z *= fractal->transformCommon.maxR2d1 / rr;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		// REAL r = native_sqrt(rr);
-		aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1
+		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							 * fractal->transformCommon.scaleA1;
 	}
 
@@ -67,10 +67,10 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z = trigZ * fractal->transformCommon.scale;
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
-			z.x = z.x * native_divide(fractal->transformCommon.scale, (fabs(oldZ.x) + 1.0f));
-			z.y = z.y * native_divide(fractal->transformCommon.scale, (fabs(oldZ.y) + 1.0f));
-			z.z = z.z * native_divide(fractal->transformCommon.scale, (fabs(oldZ.z) + 1.0f));
-			// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
+			z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0f);
+			z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0f);
+			z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0f);
+			// aux->DE = aux->DE * length(z) / length(oldZ);
 		}
 	}
 
@@ -105,17 +105,14 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		/*{
 			z.x += box_size.x;
 			z.z += box_size.z;
-			z.x = z.x - 2.0f * box_size.x * floor(native_divide(z.x, 2.0f) * box_size.x) - box_size.x;
-			z.z = z.z - 2.0f * box_size.z * floor(native_divide(z.z, 2.0f) * box_size.z) - box_size.z;
+			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
+			z.z = z.z - 2.0f * box_size.z * floor(z.z / 2.0f * box_size.z) - box_size.z;
 			z.y += box_size.y - 1.0f;
-			z.y = z.y - a * box_size.y * floor(native_divide(z.y, a) * box_size.y);
+			z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
 			z.y -= (box_size.y - 1.0f);
 		}*/
 
-		if (z.y
-				>= a
-						 * (0.5f
-								+ 0.2f * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
+		if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.y = -z.y + a;
@@ -127,7 +124,7 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
 		aux->color = min(aux->color, length(colorVector)); // For coloring
 
-		REAL iR = native_recip(rr);
+		REAL iR = 1.0f / rr;
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.y = a + z.y;

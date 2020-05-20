@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -81,7 +81,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if ((c > 0.0f) && ((a * c) > b))
 		{
 			side = i;
-			a = native_divide(b, c);
+			a = b / c;
 		}
 	}
 
@@ -90,7 +90,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{ // mirror check
 		int side_m = side;
 		REAL3 Nv_m = Nv[side_m];
-		REAL3 X_m = mad(-(dot(zXYZ, Nv_m) - solid), Nv_m, zXYZ);
+		REAL3 X_m = zXYZ - Nv_m * (dot(zXYZ, Nv_m) - solid);
 
 		// Find any plane (Nv_r) closest to X_m that cuts the line between Nv_m and X_m.
 		// Nv_m cross Nv_r will define a possible rotation axis.
@@ -110,7 +110,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				if ((c > 0.0f) && ((a * c) > b))
 				{
 					side = i;
-					a = native_divide(b, c);
+					a = b / c;
 				}
 			}
 		}
@@ -118,7 +118,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		// Was a cutting plane found?
 		if (side != -1)
 		{ // rotation check
-			REAL3 Xmr_intersect = mad(a, L, Y);
+			REAL3 Xmr_intersect = Y + L * a;
 			int side_r = side;
 			REAL3 Nv_r = Nv[side_r];
 			// The axis of rotation is define by the cross product of Nv_m and Nv_r and
@@ -126,9 +126,9 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL3 L_r = cross(Nv_m, Nv_r);
 			// The closest point between z and the line of rotation can be found by minimizing
 			// the square of the distance (D) between z and the line
-			// X = mad(a_rmin., L_r, Xmr_intersect)
+			// X = Xmr_intersect + L_r * a_rmin.
 			// Setting dD/da_rmin equal to zero and solving for a_rmin.
-			REAL a_rmin = native_divide((dot(zXYZ, L_r) - dot(Xmr_intersect, L_r)), (dot(L_r, L_r)));
+			REAL a_rmin = (dot(zXYZ, L_r) - dot(Xmr_intersect, L_r)) / (dot(L_r, L_r));
 
 			// force a_rmin to be positive. I think I made an even number of sign errors here.
 			if (a_rmin < 0.0f)
@@ -136,7 +136,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				a_rmin = -a_rmin;
 				L_r = L_r * (-1.0f);
 			}
-			REAL3 X_r = mad(a_rmin, L_r, Xmr_intersect);
+			REAL3 X_r = Xmr_intersect + L_r * a_rmin;
 
 			// Find any plane (Nv_i) closest to Xmr_intersect that cuts the line between
 			// Xmr_intersect and X_r. This will define a possible inversion point.
@@ -156,7 +156,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 					if ((c > 0.0f) && ((a * c) > b))
 					{
 						side = i;
-						a = native_divide(b, c);
+						a = b / c;
 					}
 				}
 			}
@@ -165,13 +165,13 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			{ // inversion check
 				// Only inversion point possible but still need to check for melt.
 
-				REAL3 X_i = mad(a, L, Y);
+				REAL3 X_i = Y + L * a;
 				REAL3 z2X = X_i - zXYZ;
 				// Is z above the melt layer.
 				if (dot(z2X, z2X) > (melt * melt))
 				{
 					REAL z2X_mag = length(z2X);
-					zXYZ += z2X * (2.0f * native_divide((z2X_mag - melt), (z2X_mag + .00000001f)));
+					zXYZ += z2X * (2.0f * (z2X_mag - melt) / (z2X_mag + .00000001f));
 					aux->color += fractal->mandelbox.color.factor.z;
 				}
 			}
@@ -183,7 +183,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				if (dot(z2X, z2X) > (melt * melt))
 				{
 					REAL z2X_mag = length(z2X);
-					zXYZ += z2X * (2.0f * native_divide((z2X_mag - melt), (z2X_mag + .00000001f)));
+					zXYZ += z2X * (2.0f * (z2X_mag - melt) / (z2X_mag + .00000001f));
 					aux->color += fractal->mandelbox.color.factor.y;
 				}
 			}
@@ -195,7 +195,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			if (dot(z2X, z2X) > (melt * melt))
 			{
 				REAL z2X_mag = length(z2X);
-				zXYZ += z2X * (2.0f * native_divide((z2X_mag - melt), (z2X_mag + .00000001f)));
+				zXYZ += z2X * (2.0f * (z2X_mag - melt) / (z2X_mag + .00000001f));
 				aux->color += fractal->mandelbox.color.factor.x;
 			}
 		}
@@ -215,7 +215,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+		REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		aux->color += fractal->mandelbox.color.factorSp2;
@@ -229,6 +229,6 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 
 	z *= fractal->mandelbox.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 	return z;
 }

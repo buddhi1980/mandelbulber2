@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,9 +21,9 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL4 lengthAdd = fractal->transformCommon.additionConstant000;
 	REAL4 factorP;
 
-	factorP.x = native_divide(-slope2.x, (lengthAdd.x * 2.0f));
-	factorP.y = native_divide(-slope2.y, (lengthAdd.y * 2.0f));
-	factorP.z = native_divide(-slope2.z, (lengthAdd.z * 2.0f));
+	factorP.x = -slope2.x / (lengthAdd.x * 2.0f);
+	factorP.y = -slope2.y / (lengthAdd.y * 2.0f);
+	factorP.z = -slope2.z / (lengthAdd.z * 2.0f);
 
 	if (temp.x > 0)
 	{
@@ -33,7 +33,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.x = (z.x - native_divide(lengthAdd.x, 2.0f)) * slope2.x;
+			z.x = (z.x - lengthAdd.x / 2.0f) * slope2.x;
 		}
 	}
 	if (temp.y > 0)
@@ -44,7 +44,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.y = (z.y - native_divide(lengthAdd.y, 2.0f)) * slope2.y;
+			z.y = (z.y - lengthAdd.y / 2.0f) * slope2.y;
 		}
 	}
 	if (temp.z > 0)
@@ -55,7 +55,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.z = (z.z - native_divide(lengthAdd.z, 2.0f)) * slope2.z;
+			z.z = (z.z - lengthAdd.z / 2.0f) * slope2.z;
 		}
 	}
 
@@ -67,7 +67,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.x = (z.x + native_divide(lengthAdd.x, 2.0f)) * slope2.x;
+			z.x = (z.x + lengthAdd.x / 2.0f) * slope2.x;
 		}
 	}
 	if (temp.y < 0)
@@ -78,7 +78,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.y = (z.y + native_divide(lengthAdd.y, 2.0f)) * slope2.y;
+			z.y = (z.y + lengthAdd.y / 2.0f) * slope2.y;
 		}
 	}
 
@@ -91,7 +91,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			z.z = (z.z + native_divide(lengthAdd.z, 2.0f)) * slope2.z;
+			z.z = (z.z + lengthAdd.z / 2.0f) * slope2.z;
 		}
 	}
 
@@ -115,11 +115,11 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			REAL avgScale = native_divide(length(z), length(temp));
-			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			REAL avgScale = length(z) / length(temp);
+			aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	return z;

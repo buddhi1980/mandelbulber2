@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -55,10 +55,9 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -115,7 +114,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		// scale vary
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -162,7 +161,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL sz = fractal->transformCommon.scale05;
 		REAL4 szVect = (REAL4){sz, sz, sz, 1.0f};
 		int count = fractal->transformCommon.int8X; // Menger Sponge
-		zc *= (native_recip(szVect));
+		zc *= (1.0f / szVect);
 		aux->pseudoKleinianDE = 1.0f;
 
 		for (int k = 0; k < count && rr < 10.0f; k++)
@@ -181,7 +180,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				zc.y = zc.z;
 				zc.z = temp;
 			}
-			REAL factor = native_recip(fractal->transformCommon.offset3);
+			REAL factor = 1.0f / fractal->transformCommon.offset3;
 			if (!fractal->transformCommon.functionEnabledJFalse)
 			{
 				if (zc.y < factor) zc.y = fabs(zc.y - factor) + factor;
@@ -214,7 +213,7 @@ REAL4 DIFSMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		mengD = mengD * sz;
 		mengD /= aux->pseudoKleinianDE;
 
-		aux->dist = min(aux->dist, native_divide(mengD, aux->DE));
+		aux->dist = min(aux->dist, mengD / aux->DE);
 	}
 
 	// aux->color

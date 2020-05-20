@@ -22,16 +22,16 @@ REAL4 RiemannSphereMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL r = aux->r;
 	// if (r < 1e-21f) r = 1e-21f;
-	z *= native_divide(fractal->transformCommon.scale, r);
+	z *= fractal->transformCommon.scale / r;
 
-	REAL q = native_recip((1.0f - z.z));
+	REAL q = 1.0f / (1.0f - z.z);
 	REAL s = z.x * q;
 	REAL t = z.y * q;
 
-	REAL p = 1.0f + mad(s, s, t * t);
+	REAL p = 1.0f + s * s + t * t;
 
-	s = fabs(native_sin(mad(M_PI_F, s, fractal->transformCommon.offsetA0)));
-	t = fabs(native_sin(mad(M_PI_F, t, fractal->transformCommon.offsetB0)));
+	s = fabs(native_sin(M_PI_F * s + fractal->transformCommon.offsetA0));
+	t = fabs(native_sin(M_PI_F * t + fractal->transformCommon.offsetB0));
 
 	r *= r;
 	// if (r < 1e-21f)
@@ -42,8 +42,8 @@ REAL4 RiemannSphereMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	z.x = 2.0f * s;
 	z.y = 2.0f * t;
-	z.z = -1.0f + mad(s, s, t * t);
-	z *= native_divide(r, (1.0f + s * s + t * t));
+	z.z = -1.0f + s * s + t * t;
+	z *= r / (1.0f + s * s + t * t);
 
 	z += fractal->transformCommon.additionConstant000;
 	return z;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,23 +27,23 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (fractal->transformCommon.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	// invert and scale
-	z *= native_divide(fractal->transformCommon.scale08, r);
+	z *= fractal->transformCommon.scale08 / r;
 
 	// if (fabs(z.x) < 1e-21f) z.x = 1e-21f;
 	// if (fabs(z.z) < 1e-21f) z.z = 1e-21f;
 
-	rx = native_divide(z.x, (z.y - 1.0f));
+	rx = z.x / (z.y - 1.0f);
 	theta = 8.0f * atan2(2.0f * rx, rx * rx - 1.0f);
-	rz = native_divide(z.z, (z.y - 1.0f));
+	rz = z.z / (z.y - 1.0f);
 	phi = 8.0f * atan2(2.0f * rz, rz * rz - 1.0f);
 
 	theta *= fractal->transformCommon.scaleA1;
 	phi *= fractal->transformCommon.scaleB1;
 
-	rx = native_divide(native_sin(theta), (1.0f + native_cos(theta)));
-	rz = native_divide(native_sin(phi), (1.0f + native_cos(phi)));
-	REAL rXZ = mad(rx, rx, rz * rz);
-	REAL d = native_divide(2.0f, (rXZ + 1.0f));
+	rx = native_sin(theta) / (1.0f + native_cos(theta));
+	rz = native_sin(phi) / (1.0f + native_cos(phi));
+	REAL rXZ = rx * rx + rz * rz;
+	REAL d = 2.0f / (rXZ + 1.0f);
 
 	REAL a1 = rx * d;
 	REAL b1 = (rXZ - 1.0f) * 0.5f * d;
@@ -59,8 +59,8 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE *= 8.0f * fractal->transformCommon.scale08 * native_divide(length(z), r);
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE *= 8.0f * fractal->transformCommon.scale08 * length(z) / r;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -33,8 +33,8 @@ REAL4 TransfSphericalFoldAboxIteration(REAL4 z, __constant sFractalCl *fractal, 
 	}
 	else if (r2 < 1.0f)
 	{
-		z *= native_recip(r2);
-		aux->DE *= native_recip(r2);
+		z *= 1.0f / r2;
+		aux->DE *= 1.0f / r2;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp2;

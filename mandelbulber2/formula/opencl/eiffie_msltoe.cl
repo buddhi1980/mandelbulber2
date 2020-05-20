@@ -18,7 +18,7 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	REAL4 c = aux->const_c;
 	REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8_F, M_PI_4_F) - M_PI_8_F);
-	REAL lengthYZ = native_sqrt(mad(z.y, z.y, z.z * z.z));
+	REAL lengthYZ = native_sqrt(z.y * z.y + z.z * z.z);
 
 	z.y = native_cos(psi) * lengthYZ;
 	z.z = native_sin(psi) * lengthYZ;
@@ -26,7 +26,7 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL4 z2 = z * z;
 	REAL rr = z2.x + z2.y + z2.z;
-	REAL m = 1.0f - native_divide(z2.z, rr);
+	REAL m = 1.0f - z2.z / rr;
 	REAL4 temp;
 	temp.x = (z2.x - z2.y) * m;
 	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;;
@@ -48,9 +48,9 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	/*aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
+	/*aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0f;
 	// aux->DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
@@ -62,9 +62,9 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}*/
 	if (!fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0f;
 	else
-		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scale1), fractal->analyticDE.scale1,
-			fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset1;
 	return z;
 }

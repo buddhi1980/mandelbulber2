@@ -21,48 +21,46 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		if (aux->i > fractal->transformCommon.startIterationsRV)
 		{
-			useAngle *=
-				(1.0f
-					- native_recip((1.0f
-													+ native_divide((aux->i - fractal->transformCommon.startIterationsRV),
-														fractal->transformCommon.offset0))))
-				* fractal->transformCommon.scale1;
+			useAngle *= (1.0f
+										- 1.0f
+												/ (1.0f
+													 + (aux->i - fractal->transformCommon.startIterationsRV)
+															 / fractal->transformCommon.offset0))
+									* fractal->transformCommon.scale1;
 		}
 
 		REAL4 v = fractal->transformCommon.vec111;
-		v = native_divide(v, length(v)); // normalise
+		v = v / length(v); // normalise
 		REAL c = native_cos(useAngle * M_PI_180_F);
 		REAL s = native_sin(useAngle * M_PI_180_F);
 		REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
 
-		rotVec.x = z.x * (mad((1.0f - c), v.x * v.x, c)) + z.y * (mad((1.0f - c) * v.x, v.y, s * v.z))
-							 + z.z * (mad((1.0f - c) * v.x, v.z, -s * v.y));
-		rotVec.y = z.x * (mad((1.0f - c) * v.x, v.y, -s * v.z)) + z.y * (mad((1.0f - c), v.y * v.y, c))
-							 + z.z * (mad((1.0f - c) * v.y, v.z, s * v.x));
-		rotVec.z = z.x * (mad((1.0f - c) * v.x, v.z, s * v.y))
-							 + z.y * (mad((1.0f - c) * v.y, v.z, -s * v.x))
-							 + z.z * (mad((1.0f - c), v.z * v.z, c));
+		rotVec.x = z.x * (c + (1.0f - c) * v.x * v.x) + z.y * ((1.0f - c) * v.x * v.y + s * v.z)
+							 + z.z * ((1.0f - c) * v.x * v.z - s * v.y);
+		rotVec.y = z.x * ((1.0f - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0f - c) * v.y * v.y)
+							 + z.z * ((1.0f - c) * v.y * v.z + s * v.x);
+		rotVec.z = z.x * ((1.0f - c) * v.x * v.z + s * v.y) + z.y * ((1.0f - c) * v.y * v.z - s * v.x)
+							 + z.z * (c + (1.0f - c) * v.z * v.z);
 		z = rotVec;
 	}
 	else
 	{
 		REAL4 v = fractal->transformCommon.vec111;
-		v = native_divide(v, length(v)); // normalise
+		v = v / length(v); // normalise
 		REAL c = native_cos(useAngle * M_PI_180_F);
 		REAL s = native_sin(useAngle * M_PI_180_F);
 		REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
 
-		rotVec.x = z.x * (mad((1.0f - c), v.x * v.x, c)) + z.y * (mad((1.0f - c) * v.x, v.y, s * v.z))
-							 + z.z * (mad((1.0f - c) * v.x, v.z, -s * v.y));
-		rotVec.y = z.x * (mad((1.0f - c) * v.x, v.y, -s * v.z)) + z.y * (mad((1.0f - c), v.y * v.y, c))
-							 + z.z * (mad((1.0f - c) * v.y, v.z, s * v.x));
-		rotVec.z = z.x * (mad((1.0f - c) * v.x, v.z, s * v.y))
-							 + z.y * (mad((1.0f - c) * v.y, v.z, -s * v.x))
-							 + z.z * (mad((1.0f - c), v.z * v.z, c));
+		rotVec.x = z.x * (c + (1.0f - c) * v.x * v.x) + z.y * ((1.0f - c) * v.x * v.y + s * v.z)
+							 + z.z * ((1.0f - c) * v.x * v.z - s * v.y);
+		rotVec.y = z.x * ((1.0f - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0f - c) * v.y * v.y)
+							 + z.z * ((1.0f - c) * v.y * v.z + s * v.x);
+		rotVec.z = z.x * ((1.0f - c) * v.x * v.z + s * v.y) + z.y * ((1.0f - c) * v.y * v.z - s * v.x)
+							 + z.z * (c + (1.0f - c) * v.z * v.z);
 		z = rotVec;
 
 		/*	REAL4 v = fractal->transformCommon.vec111;
-			v = native_divide(v, length(v)); // normalise
+			v = v / length(v); // normalise
 			REAL c = native_cos(useAngle * M_PI_180_F);
 			REAL s = native_sin(useAngle * M_PI_180_F);
 			REAL4 rotVec = (REAL4) {0.0f, 0.0f, 0.0f, z.w};
@@ -78,6 +76,6 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

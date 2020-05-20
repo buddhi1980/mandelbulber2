@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -53,7 +53,7 @@ REAL4 TransfRotationFoldingIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		{
 			if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 			{
-				z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+				z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 				// aux->color += fractal->mandelbox.color.factor.x;
 			}
 		}
@@ -61,7 +61,7 @@ REAL4 TransfRotationFoldingIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		{
 			if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 			{
-				z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+				z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 				// aux->color += fractal->mandelbox.color.factor.y;
 			}
 		}
@@ -71,7 +71,7 @@ REAL4 TransfRotationFoldingIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 			if (fabs(z.z) > zLimit)
 			{
-				z.z = mad(sign(z.z), zValue, -z.z);
+				z.z = sign(z.z) * zValue - z.z;
 				// aux->color += fractal->mandelbox.color.factor.z;
 			}
 		}

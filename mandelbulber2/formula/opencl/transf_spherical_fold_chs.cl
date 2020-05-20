@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,7 +23,7 @@ REAL4 TransfSphericalFoldCHSIteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		rr = mad(z.x, z.x, z.y * z.y);
+		rr = z.x * z.x + z.y * z.y;
 		if (tempZ > 0.0f) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
 	}
 	else
@@ -33,7 +33,7 @@ REAL4 TransfSphericalFoldCHSIteration(REAL4 z, __constant sFractalCl *fractal, s
 
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 	// Spherical Fold
 	if (rr < fractal->transformCommon.minR2p25)
@@ -47,7 +47,7 @@ REAL4 TransfSphericalFoldCHSIteration(REAL4 z, __constant sFractalCl *fractal, s
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+		REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		if (fractal->foldColor.auxColorEnabledFalse)

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -50,19 +50,19 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	{
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 		{
-			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 			colorAdd += fractal->mandelbox.color.factor.x;
 		}
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 		{
-			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 			colorAdd += fractal->mandelbox.color.factor.y;
 		}
 		REAL zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 		REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 		if (fabs(z.z) > zLimit)
 		{
-			z.z = mad(sign(z.z), zValue, -z.z);
+			z.z = sign(z.z) * zValue - z.z;
 			colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -81,7 +81,7 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		}
 		else if (r2 < fractal->mandelbox.fR2)
 		{
-			REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+			REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			colorAdd += fractal->mandelbox.color.factorSp2;
@@ -95,7 +95,7 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	{
 		REAL useScale = aux->actualScaleA + fractal->mandelbox.scale;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
@@ -108,7 +108,7 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	else
 	{
 		z *= fractal->mandelbox.scale;
-		aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 	}
 	if (fractal->mandelbox.mainRotationEnabled && aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)

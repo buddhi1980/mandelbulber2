@@ -47,58 +47,58 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			case comboCl_mode0:
 			default:
-				dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.x -= mad(t, -SQRT_3_F, -tempOff);
+				z.x -= t * -SQRT_3_F - tempOff;
 				z.y = fabs(z.y - t);
 				break;
 			case comboCl_mode1:
-				dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.y -= mad(t, -SQRT_3_F, -tempOff);
+				z.y -= t * -SQRT_3_F - tempOff;
 				z.x = fabs(z.x - t); // x y swap
 				break;
 			case comboCl_mode2:
-				dot1 = (mad(z.z, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.z * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.z -= mad(t, -SQRT_3_F, -tempOff);
+				z.z -= t * -SQRT_3_F - tempOff;
 				z.y = fabs(z.y - t); // z y swap
 				break;
 			case comboCl_mode3:
-				dot1 = (mad(z.z, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.z * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.y -= mad(t, -SQRT_3_F, -tempOff);
+				z.y -= t * -SQRT_3_F - tempOff;
 				z.z = fabs(z.z - t); // z y swap
 				break;
 			case comboCl_mode4:
-				dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.y -= mad(t, -SQRT_3_F, -tempOff);
-				z.z -= mad(t, -SQRT_3_F, -tempOff);
+				z.y -= t * -SQRT_3_F - tempOff;
+				z.z -= t * -SQRT_3_F - tempOff;
 				z.x = fabs(z.x - t); // x y swap and other things
 				z.y = fabs(z.y - t);
 				break;
 			case comboCl_mode5:
-				dot1 = (mad(z.z, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.z * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.x -= mad(t, -SQRT_3_F, -tempOff);
-				z.y -= mad(t, -SQRT_3_F, -tempOff);
+				z.x -= t * -SQRT_3_F - tempOff;
+				z.y -= t * -SQRT_3_F - tempOff;
 				z.y = fabs(z.y - t); // x y swap and other things
 				z.z = fabs(z.z - t);
 				break;
 			case comboCl_mode6:
-				dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.y -= mad(t, -SQRT_3_F, -(fractal->transformCommon.offset0));
-				z.z -= mad(t, -SQRT_3_F, -(fractal->transformCommon.offset0));
+				z.y -= t * -SQRT_3_F - (fractal->transformCommon.offset0);
+				z.z -= t * -SQRT_3_F - (fractal->transformCommon.offset0);
 				z.x = fabs(z.y - t); // x y swap and other things and swizzle
 				z.y = fabs(z.x - t);
 				break;
 			case comboCl_mode7:
-				dot1 = (mad(z.z, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+				dot1 = (z.z * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 				t = max(0.0f, dot1);
-				z.x -= mad(t, -SQRT_3_F, -(fractal->transformCommon.offset0));
-				z.y -= mad(t, -SQRT_3_F, -(fractal->transformCommon.offset0));
+				z.x -= t * -SQRT_3_F - (fractal->transformCommon.offset0);
+				z.y -= t * -SQRT_3_F - (fractal->transformCommon.offset0);
 				z.y = fabs(z.z - t); // x y swap and other things and swizzle
 				z.z = fabs(z.y - t);
 				break;
@@ -151,7 +151,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			z.x = fabs(z.x);
 		}
-		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scaleD1;
+		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scaleD1;
 		REAL t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		if (fractal->transformCommon.functionEnabledBzFalse)
@@ -214,7 +214,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
 
-		REAL dot2 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scaleF1;
+		REAL dot2 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scaleF1;
 		REAL t = max(0.0f, dot2);
 
 		z.x -= t * -SQRT_3_F;
@@ -241,7 +241,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -249,8 +249,8 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL tempL = length(tempZ);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
@@ -263,7 +263,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -271,8 +271,8 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		z = (fabs(z + fractal->transformCommon.additionConstant111)
 				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
@@ -354,6 +354,6 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z += fractal->transformCommon.additionConstantA000;
 	}
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

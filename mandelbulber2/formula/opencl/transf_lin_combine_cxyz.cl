@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,9 +24,9 @@ REAL4 TransfLinCombineCXYZIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 mulX = fractal->transformCommon.constantMultiplier100;
 	REAL4 mulY = fractal->transformCommon.constantMultiplier010;
 	REAL4 mulZ = fractal->transformCommon.constantMultiplier001;
-	c.x = mad(temp.z, mulX.z, mad(mulX.x, temp.x, mulX.y * temp.y));
-	c.y = mad(temp.z, mulY.z, mad(mulY.x, temp.x, mulY.y * temp.y));
-	c.z = mad(temp.z, mulZ.z, mad(mulZ.x, temp.x, mulZ.y * temp.y));
+	c.x = mulX.x * temp.x + mulX.y * temp.y + mulX.z * temp.z;
+	c.y = mulY.x * temp.x + mulY.y * temp.y + mulY.z * temp.z;
+	c.z = mulZ.x * temp.x + mulZ.y * temp.y + mulZ.z * temp.z;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

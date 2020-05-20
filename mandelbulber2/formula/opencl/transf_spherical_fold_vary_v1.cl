@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,8 +27,7 @@ REAL4 TransfSphericalFoldVaryV1Iteration(
 		int iterationRange =
 			fractal->transformCommon.stopIterationsA - fractal->transformCommon.startIterationsA;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterationsA);
-		tempVCf +=
-			fractal->transformCommon.offset * native_divide((1.0f * currentIteration), iterationRange);
+		tempVCf += fractal->transformCommon.offset * (1.0f * currentIteration) / iterationRange;
 	}
 	if (aux->i >= fractal->transformCommon.stopIterationsA)
 	{
@@ -41,8 +40,7 @@ REAL4 TransfSphericalFoldVaryV1Iteration(
 		int iterationRange =
 			fractal->transformCommon.stopIterationsB - fractal->transformCommon.startIterationsB;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterationsB);
-		tempVCm +=
-			fractal->transformCommon.offset0 * native_divide((1.0f * currentIteration), iterationRange);
+		tempVCm += fractal->transformCommon.offset0 * (1.0f * currentIteration) / iterationRange;
 	}
 	if (aux->i >= fractal->transformCommon.stopIterationsB)
 	{
@@ -56,8 +54,8 @@ REAL4 TransfSphericalFoldVaryV1Iteration(
 
 	if (r2 < tempVCm)
 	{
-		z *= native_divide(tempVCf, tempVCm);
-		aux->DE *= native_divide(tempVCf, tempVCm);
+		z *= tempVCf / tempVCm;
+		aux->DE *= tempVCf / tempVCm;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp1;
@@ -65,7 +63,7 @@ REAL4 TransfSphericalFoldVaryV1Iteration(
 	}
 	else if (r2 < tempVCf)
 	{
-		REAL tglad_factor2 = native_divide(tempVCf, r2);
+		REAL tglad_factor2 = tempVCf / r2;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		if (fractal->foldColor.auxColorEnabledFalse)

@@ -20,20 +20,20 @@ REAL4 DIFSMsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	REAL4 zt = z;
 	REAL radius2 = fractal->donut.ringThickness;
-	REAL nSect = native_divide(M_PI_2x_F, fractal->donut.number);
+	REAL nSect = M_PI_2x_F / fractal->donut.number;
 
-	REAL R2 = fractal->donut.ringRadius - native_sqrt(mad(z.x, z.x, z.y * z.y));
+	REAL R2 = fractal->donut.ringRadius - native_sqrt(z.x * z.x + z.y * z.y);
 	R2 *= R2;
-	REAL t = R2 + mad(z.z, z.z, -radius2 * radius2);
-	REAL theta2 = nSect * round(native_divide(atan2(z.y, z.x), nSect));
+	REAL t = R2 + z.z * z.z - radius2 * radius2;
+	REAL theta2 = nSect * round(atan2(z.y, z.x) / nSect);
 
 	if (t > 0.03f)
 	{
 		REAL c1 = native_cos(theta2);
 		REAL s1 = native_sin(theta2);
 
-		z.x = mad(c1, zt.x, s1 * z.y) - fractal->donut.ringRadius;
-		z.z = mad(-s1, zt.x, c1 * z.y); // z.y z.z swap
+		z.x = c1 * zt.x + s1 * z.y - fractal->donut.ringRadius;
+		z.z = -s1 * zt.x + c1 * z.y; // z.y z.z swap
 		z.y = zt.z;
 		z *= fractal->donut.factor;
 		aux->DE *= fractal->donut.factor;
@@ -43,8 +43,8 @@ REAL4 DIFSMsltoeDonutIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z /= t;
 	}
 
-	t = native_sqrt(mad(zt.z, zt.z, R2)) - radius2;
-	aux->dist = min(aux->dist, native_divide(t, (aux->DE + 1.0f)));
+	t = native_sqrt(R2 + zt.z * zt.z) - radius2;
+	aux->dist = min(aux->dist, t / (aux->DE + 1.0f));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled) aux->color += fractal->foldColor.difs1;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -48,20 +48,20 @@ REAL4 MandelbulbMulti2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcosCl_asin)
-		th0 += asin(native_divide(v.x, aux->r));
+		th0 += asin(v.x / aux->r);
 	else
-		th0 += acos(native_divide(v.x, aux->r));
+		th0 += acos(v.x / aux->r);
 
 	if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtanCl_atan2)
 		ph0 += atan2(v.y, v.z);
 	else
-		ph0 += atan(native_divide(v.y, v.z));
+		ph0 += atan(v.y / v.z);
 
 	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
 	REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 	REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-	aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
+	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 	rp *= aux->r;
 
 	if (fractal->transformCommon.functionEnabledxFalse)

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -77,7 +77,7 @@ REAL4 DIFSBoxDiagonalV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -141,7 +141,7 @@ REAL4 DIFSBoxDiagonalV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		zc.z = max(zc.z, 0.0f);
 		REAL zcd = length(zc);
 
-		aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+		aux->dist = min(aux->dist, zcd / aux->DE);
 	}
 
 	// aux->color

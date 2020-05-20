@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -42,7 +42,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			m = native_divide(fractal->transformCommon.maxR2d1, rr);
+			m = fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
@@ -58,18 +58,18 @@ REAL4 TransfSphericalFoldParabIteration(
 		rr = dot(z, z);
 		z += fractal->mandelbox.offset;
 		z *= fractal->transformCommon.scale;
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 		REAL maxScale = fractal->transformCommon.scale4;
 		REAL midPoint = (maxScale - 1.0f) * 0.5f;
 		rr += fractal->transformCommon.offset0;
 		REAL maxR2 = fractal->transformCommon.scale1;
 		REAL halfMax = maxR2 * 0.5f;
-		REAL factor = native_divide(midPoint, (halfMax * halfMax));
+		REAL factor = midPoint / (halfMax * halfMax);
 
 		REAL tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			m = mad(-factor, (rr * rr), maxScale);
+			m = maxScale - (rr * rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
@@ -80,7 +80,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		}
 		else if (rr < maxR2)
 		{
-			m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
+			m = 1.0f + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
@@ -100,8 +100,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		useScale += aux->actualScaleA;
 		z *= useScale;
 
-		aux->DE =
-			mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
@@ -114,8 +113,7 @@ REAL4 TransfSphericalFoldParabIteration(
 	else
 	{
 		z *= useScale;
-		aux->DE =
-			mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

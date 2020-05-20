@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -47,13 +47,13 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (!fractal->transformCommon.functionEnabledxFalse)
 	{
-		th0 += asin(native_divide(z.z, r));
+		th0 += asin(z.z / r);
 		ph0 += atan2(z.y, z.x);
 	}
 	else
 	{
-		th0 += acos(native_divide(z.z, r));
-		ph0 += atan(native_divide(z.y, z.x));
+		th0 += acos(z.z / r);
+		ph0 += atan(z.y / z.x);
 	}
 
 	REAL4 w8ts = fractal->transformCommon.offset1111;
@@ -67,7 +67,7 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (fractal->transformCommon.functionEnabledy) // two
 	{
-		de2 = (mad(rp * aux->DE, 2.0f, 1.0f)) * w8ts.y;
+		de2 = (rp * aux->DE * 2.0f + 1.0f) * w8ts.y;
 		rp *= r;
 		REAL th = th0 * 2.0f * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * 2.0f * fractal->transformCommon.scaleB1;
@@ -88,7 +88,7 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledz) // three
 	{
 		rp = r * r;
-		de3 = (mad(rp * aux->DE, 3.0f, 1.0f)) * w8ts.z;
+		de3 = (rp * aux->DE * 3.0f + 1.0f) * w8ts.z;
 		rp *= r;
 		REAL th = th0 * 3.0f * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * 3.0f * fractal->transformCommon.scaleB1;
@@ -109,7 +109,7 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledw) // four
 	{
 		rp = r * r * r;
-		de4 = (mad(rp * aux->DE, 4.0f, 1.0f)) * w8ts.w;
+		de4 = (rp * aux->DE * 4.0f + 1.0f) * w8ts.w;
 		rp *= r;
 		REAL th = th0 * 4.0f * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * 4.0f * fractal->transformCommon.scaleB1;
@@ -197,6 +197,6 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

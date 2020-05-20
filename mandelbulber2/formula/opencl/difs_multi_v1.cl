@@ -58,10 +58,9 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -121,7 +120,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		// else
 
 		if (fractal->transformCommon.functionEnabledKFalse
@@ -178,7 +177,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			bxV.z = max(bxV.z, 0.0f);
 			aux->DE0 = length(bxV);
 		}
-		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 	}
 	// sphere
 	if (fractal->transformCommon.functionEnabledMFalse
@@ -186,7 +185,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		aux->DE0 = length(zc) - fractal->transformCommon.offsetR1;
-		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 	}
 	// cylinder
 	if (fractal->transformCommon.functionEnabledOFalse
@@ -203,7 +202,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			zc.z = temp;
 		}
 
-		REAL cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y));
+		REAL cylR = native_sqrt(zc.x * zc.x + zc.y * zc.y);
 		REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 
 		REAL cylRm = cylR - fractal->transformCommon.radius1;
@@ -213,13 +212,13 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			if (!fractal->transformCommon.functionEnabledzFalse) cylR = cylRm;
 			cylR = max(cylR, 0.0f);
 			REAL cylHm = max(cylH, 0.0f);
-			cylD = native_sqrt(mad(cylR, cylR, cylHm * cylHm));
+			cylD = native_sqrt(cylR * cylR + cylHm * cylHm);
 		}
 		else
-			cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
+			cylD = native_sqrt(cylRm * cylRm + cylH * cylH);
 
 		aux->DE0 = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
-		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 	}
 
 	// torus
@@ -235,9 +234,9 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			zc.z = temp;
 		}
 
-		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-		aux->DE0 = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
-		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
+		REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		aux->DE0 = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 	}
 
 	// prism
@@ -256,12 +255,12 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		aux->DE0 = max(fabs(zc.x) - fractal->transformCommon.offset2,
 			max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - fractal->transformCommon.offsetA05);
 
-		aux->dist = min(aux->dist, native_divide(aux->DE0, aux->DE));
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 	}
 
 	// aux->dist tweaks
 	if (fractal->analyticDE.enabledFalse)
-		aux->dist = mad(aux->dist, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->dist = aux->dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
@@ -270,7 +269,7 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
-			colorAdd += fractal->foldColor.difs0000.z * (mad(z.x, z.x, z.y * z.y));
+			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
 			colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
 		}
 		colorAdd += fractal->foldColor.difs1;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,9 +26,9 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			REAL rr = 1.0f;
 			z += fractal->transformCommon.offset000;
 			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1;
+			aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1;
 		}
 	}
 
@@ -46,9 +46,7 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	z = (REAL4){wrapped.x, wrapped.y, wrapped.z, z.w};
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
-	if (z.y >= a
-							 * (0.5f
-									+ 0.2f * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
+	if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		z = (REAL4){-b, a, 0.f, z.w} - z; // z.xy = vec2(-b, a) - z.xy;
 
 	REAL rr = dot(z, z);
@@ -56,7 +54,7 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
 	aux->color = min(aux->color, length(colorVector)); // For coloring
 
-	REAL iR = native_recip(rr);
+	REAL iR = 1.0f / rr;
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;

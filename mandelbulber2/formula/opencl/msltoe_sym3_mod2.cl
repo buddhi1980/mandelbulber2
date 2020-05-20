@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,13 +27,13 @@ REAL4 MsltoeSym3Mod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL r = z2.x + z2.y + z2.z;
 	// if (r < 1e-21f)
 	//	r = 1e-21f;
-	REAL r1 = native_sqrt(mad(fractal->transformCommon.scale0, z2.y * z2.z, r));
+	REAL r1 = native_sqrt(r + fractal->transformCommon.scale0 * z2.y * z2.z);
 	// if (r1 < 1e-21f)
 	//	r1 = 1e-21f;
 	if (z2.z < z2.y)
 	{
 		theta = 2.0f * atan2(z.y, z.x);
-		phi = 2.0f * asin(native_divide(z.z, r1));
+		phi = 2.0f * asin(z.z / r1);
 		z.x = r * native_cos(theta) * native_cos(phi);
 		z.y = r * native_sin(theta) * native_cos(phi);
 		z.z = -r * native_sin(phi);
@@ -41,7 +41,7 @@ REAL4 MsltoeSym3Mod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	else
 	{
 		theta = 2.0f * atan2(z.z, z.x);
-		phi = 2.0f * asin(native_divide(z.y, r1));
+		phi = 2.0f * asin(z.y / r1);
 		z.x = r * native_cos(theta) * native_cos(phi);
 		z.y = -r * native_sin(phi);
 		z.z = r * native_sin(theta) * native_cos(phi);
@@ -63,7 +63,7 @@ REAL4 MsltoeSym3Mod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 	return z;

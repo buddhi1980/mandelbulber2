@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,7 +21,7 @@ REAL4 AexionOctopusModIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL4 tempN;
 	tempN.x = z.x * z.z * fractal->transformCommon.scale3D111.x;
-	tempN.y = (mad(z.x, z.x, -z.z * z.z)) * fractal->transformCommon.scale3D111.y;
+	tempN.y = (z.x * z.x - z.z * z.z) * fractal->transformCommon.scale3D111.y;
 	tempN.z = z.y;
 	tempN.w = z.w;
 
@@ -52,7 +52,7 @@ REAL4 AexionOctopusModIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.0f * native_divide(length(z), aux->r)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.0f * length(z) / aux->r
 							+ fractal->analyticDE.offset1;
 	}
 	return z;

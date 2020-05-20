@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,11 +23,11 @@ REAL4 IdesIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux
 
 	REAL4 z2 = z * z;
 	REAL4 newZ;
-	newZ.x = mad(fractal->transformCommon.constantMultiplier121.x, z2.x,
-		-fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z));
+	newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x
+					 - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
 	newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
-	newZ.z = mad(fractal->transformCommon.constantMultiplier121.z, z2.z,
-		-fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y));
+	newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z
+					 - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
 	newZ.w = z.w;
 	z = newZ;
 	return z;

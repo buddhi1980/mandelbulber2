@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -53,17 +53,17 @@ REAL4 MandelboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 		{
-			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 			aux->color += fractal->mandelbox.color.factor.x;
 		}
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 		{
-			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 			aux->color += fractal->mandelbox.color.factor.y;
 		}
 		if (fabs(z.z) > fractal->mandelbox.foldingLimit)
 		{
-			z.z = mad(sign(z.z), fractal->mandelbox.foldingValue, -z.z);
+			z.z = sign(z.z) * fractal->mandelbox.foldingValue - z.z;
 			aux->color += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -80,7 +80,7 @@ REAL4 MandelboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+		REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		aux->color += fractal->mandelbox.color.factorSp2;
@@ -91,6 +91,6 @@ REAL4 MandelboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
 
 	z = z * fractal->mandelbox.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 	return z;
 }

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -123,6 +123,6 @@ REAL4 TransfSurfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;
 	}
-	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0); // tweak
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
 	return z;
 }

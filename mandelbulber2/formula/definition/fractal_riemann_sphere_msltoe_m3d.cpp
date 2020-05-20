@@ -16,7 +16,7 @@ cFractalRiemannSphereMsltoeM3d::cFractalRiemannSphereMsltoeM3d() : cAbstractFrac
 {
 	nameInComboBox = "Riemann - Sphere Msltoe M3D";
 	internalName = "riemann_sphere_msltoe_m3d";
-	internalID = fractal::riemannBulbMsltoeM3d;
+	internalID = fractal::riemannSphereMsltoeM3d;
 	DEType = deltaDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -37,16 +37,16 @@ void cFractalRiemannSphereMsltoeM3d::FormulaCode(
 	s = z.x * q;
 	t = z.y * q;
 	double w = 1.0 + s * s + t * t;
-	float limit = fractal->transformCommon.scale8 * 8000.0; // fudge
+	double limit = fractal->transformCommon.scale8 * 8000.0; // fudge
 	if (w > limit) w = limit;
 
 	s = fabs(sin(M_PI * s + fractal->transformCommon.offsetA0));
 	t = fabs(sin(M_PI * t + fractal->transformCommon.offsetB0));
-	s  = fabs(s - fractal->transformCommon.offsetC0);
-	t  = fabs(t - fractal->transformCommon.offsetD0);
+	s = fabs(s - fractal->transformCommon.offsetC0);
+	t = fabs(t - fractal->transformCommon.offsetD0);
 
 	r = -0.25 + fractal->transformCommon.offsetE0 + pow(r, (fractal->transformCommon.scale2 * w));
-	w = 2.0 / (1.0  + s *s + t * t);
+	w = 2.0 / (1.0 + s * s + t * t);
 	z.x = r * s * w;
 	z.y = r * t * w;
 	z.z = r * (1.0f - w);

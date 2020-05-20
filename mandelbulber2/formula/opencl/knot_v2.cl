@@ -33,7 +33,7 @@ REAL4 KnotV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 
 	zc.z *= fractal->transformCommon.scaleA1;
-	REAL rxz = native_sqrt(mad(zc.x, zc.x, tempA * tempA));
+	REAL rxz = native_sqrt(zc.x * zc.x + tempA * tempA);
 	REAL ang = atan2(tempA, zc.x);
 	REAL t = tempB;
 
@@ -44,21 +44,19 @@ REAL4 KnotV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 		zc.x -= fractal->transformCommon.offsetA2;
 
-		REAL ra = zc.z
-							* native_divide(
-								((REAL)fractal->transformCommon.int3X), ((REAL)fractal->transformCommon.int3Z));
-		REAL raz = zc.z
-							 * native_divide(
-								 ((REAL)fractal->transformCommon.int8Y), ((REAL)fractal->transformCommon.int3Z));
+		REAL ra =
+			zc.z * ((REAL)fractal->transformCommon.int3X) / ((REAL)fractal->transformCommon.int3Z);
+		REAL raz =
+			zc.z * ((REAL)fractal->transformCommon.int8Y) / ((REAL)fractal->transformCommon.int3Z);
 
 		zc.x =
 			zc.x
-			- (mad(fractal->transformCommon.offset1, native_cos(ra), fractal->transformCommon.offsetA2));
+			- (fractal->transformCommon.offset1 * native_cos(ra) + fractal->transformCommon.offsetA2);
 		zc.y =
 			zc.y
-			- (mad(fractal->transformCommon.offset1, native_sin(raz), fractal->transformCommon.offsetA2));
+			- (fractal->transformCommon.offset1 * native_sin(raz) + fractal->transformCommon.offsetA2);
 
-		aux->DE0 = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y)) - fractal->transformCommon.offset01;
+		aux->DE0 = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.offset01;
 
 		if (fractal->transformCommon.functionEnabledKFalse) aux->DE0 /= aux->DE;
 

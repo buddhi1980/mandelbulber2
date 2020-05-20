@@ -29,10 +29,9 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -72,9 +71,9 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		int count = fractal->transformCommon.int8X;
 		for (int k = 0; k < count && rr < 10.0f; k++)
 		{
-			REAL pax = mad(-modOff, 0.5f, fmod(zc.x * aux->DE, modOff));
-			REAL pay = mad(-modOff, 0.5f, fmod(zc.y * aux->DE, modOff));
-			REAL paz = mad(-modOff, 0.5f, fmod(zc.z * aux->DE, modOff));
+			REAL pax = fmod(zc.x * aux->DE, modOff) - 0.5f * modOff;
+			REAL pay = fmod(zc.y * aux->DE, modOff) - 0.5f * modOff;
+			REAL paz = fmod(zc.z * aux->DE, modOff) - 0.5f * modOff;
 			REAL4 pp = (REAL4){pax, pay, paz, 0.0f};
 
 			pp += fractal->transformCommon.offsetA000;
@@ -87,8 +86,7 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			{
 				pp = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, pp);
 			}
-			aux->DE0 =
-				max(aux->DE0, native_divide((fractal->transformCommon.offset1 - length(pp)), aux->DE));
+			aux->DE0 = max(aux->DE0, (fractal->transformCommon.offset1 - length(pp)) / aux->DE);
 			aux->DE *= fractal->transformCommon.scale3;
 		}
 		if (!fractal->transformCommon.functionEnabledAFalse)

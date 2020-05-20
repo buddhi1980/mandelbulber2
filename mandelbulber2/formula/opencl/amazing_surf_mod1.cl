@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,8 +20,8 @@
 REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 	REAL4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -57,11 +57,11 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 		{
-			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 		}
 		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 		{
-			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 		}
 		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
@@ -101,14 +101,14 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 	else if (r2 < 1.0f)
 	{
-		z *= native_recip(r2);
-		aux->DE *= native_recip(r2);
+		z *= 1.0f / r2;
+		aux->DE *= 1.0f / r2;
 		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 
-	z *= mad(aux->actualScale, fractal->transformCommon.scale1,
-		1.0f * (1.0f - fractal->transformCommon.scale1));
-	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	z *= aux->actualScale * fractal->transformCommon.scale1
+			 + 1.0f * (1.0f - fractal->transformCommon.scale1);
+	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0f;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 

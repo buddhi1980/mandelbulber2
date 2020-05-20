@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -37,9 +37,9 @@ REAL4 TransfSphericalFoldCuboidIteration(
 
 		if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
 		{ // if inside cuboid
-			R2.x = native_divide(limitMinR2.x, temp3.x);
-			R2.y = native_divide(limitMinR2.y, temp3.y);
-			R2.z = native_divide(limitMinR2.z, temp3.z);
+			R2.x = limitMinR2.x / temp3.x;
+			R2.y = limitMinR2.y / temp3.y;
+			R2.z = limitMinR2.z / temp3.z;
 			REAL First = min(R2.x, min(R2.y, R2.z));
 			minR2 = rr * First;
 
@@ -48,7 +48,7 @@ REAL4 TransfSphericalFoldCuboidIteration(
 				minR2 = fractal->transformCommon.maxR2d1;
 			}
 
-			m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
+			m *= fractal->transformCommon.maxR2d1 / minR2;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp1;
@@ -56,7 +56,7 @@ REAL4 TransfSphericalFoldCuboidIteration(
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			m *= fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp2;
@@ -65,7 +65,7 @@ REAL4 TransfSphericalFoldCuboidIteration(
 	}
 	else if (rr < minR2)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
+		m *= fractal->transformCommon.maxR2d1 / minR2;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp1;
@@ -73,7 +73,7 @@ REAL4 TransfSphericalFoldCuboidIteration(
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		m *= fractal->transformCommon.maxR2d1 / rr;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp2;
@@ -83,6 +83,6 @@ REAL4 TransfSphericalFoldCuboidIteration(
 
 	// scale
 	z *= m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 	return z;
 }

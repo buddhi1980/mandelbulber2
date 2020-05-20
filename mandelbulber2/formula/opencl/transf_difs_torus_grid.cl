@@ -29,25 +29,24 @@ REAL4 TransfDIFSTorusGridIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (!fractal->transformCommon.functionEnabledGFalse)
 	{
-		zc.x = fabs(zc.x - size * floor(native_divide(zc.x, size) + 0.5f));
-		zc.y = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
+		zc.x = fabs(zc.x - size * floor(zc.x / size + 0.5f));
+		zc.y = fabs(zc.y - size * floor(zc.y / size + 0.5f));
 	}
 	else
 	{
 		REAL tx = fractal->transformCommon.int3X;
 		REAL ty = fractal->transformCommon.int3Y;
-		zc.x = zc.x - size * clamp(round(native_divide(zc.x, size)), -tx, tx);
-		zc.y = zc.y - size * clamp(round(native_divide(zc.y, size)), -ty, ty);
+		zc.x = zc.x - size * clamp(round(zc.x / size), -tx, tx);
+		zc.y = zc.y - size * clamp(round(zc.y / size), -ty, ty);
 	}
 
-	REAL torD = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
+	REAL torD = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
 
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = native_sqrt(mad(torD, torD, zc.z * zc.z));
+		torD = native_sqrt(torD * torD + zc.z * zc.z);
 	else
 		torD = max(fabs(torD), fabs(zc.z));
 
-	aux->dist =
-		min(aux->dist, torD - native_divide(fractal->transformCommon.offset0005, (aux->DE + 1.0f)));
+	aux->dist = min(aux->dist, torD - fractal->transformCommon.offset0005 / (aux->DE + 1.0f));
 	return z;
 }

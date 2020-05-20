@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,9 +26,9 @@ REAL4 ScatorPower2RealIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL y2 = z.y * z.y;
 	REAL z2 = z.z * z.z;
 
-	REAL newx = x2 + y2 + z2 + native_divide((y2 * z2), x2);
-	REAL newy = 2.0f * z.x * z.y * (1.0f + native_divide(z2, x2));
-	REAL newz = 2.0f * z.x * z.z * (1.0f + native_divide(y2, x2));
+	REAL newx = x2 + y2 + z2 + (y2 * z2) / x2;
+	REAL newy = 2.0f * z.x * z.y * (1.0f + z2 / x2);
+	REAL newz = 2.0f * z.x * z.z * (1.0f + y2 / x2);
 
 	z.x = newx;
 	z.y = newy;

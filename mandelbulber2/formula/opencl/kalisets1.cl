@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,17 +25,17 @@ REAL4 Kalisets1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL4 c = aux->const_c;
 
 	z = fabs(z);
-	REAL sqs = (z.x * z.x + mad(z.y, z.y, z.z * z.z) + 1e-21f); // sph inv
+	REAL sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21f); // sph inv
 	REAL m;
 	REAL minR = fractal->transformCommon.minR0; //  KaliDucks
 
 	if (sqs < minR)
-		m = native_rsqrt(minR);
+		m = 1.0f / native_sqrt(minR);
 	else
-		m = native_divide(fractal->transformCommon.scale, sqs); // kalisets
+		m = fractal->transformCommon.scale / sqs; // kalisets
 
 	z = z * m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += c * fractal->transformCommon.constantMultiplier111;

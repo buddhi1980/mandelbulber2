@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,38 +21,38 @@ REAL4 MandelboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	REAL zk1 = SmoothConditionAGreaterB(z.x, fractal->mandelbox.foldingLimit, sm);
 	REAL zk2 = SmoothConditionALessB(z.x, -fractal->mandelbox.foldingLimit, sm);
-	z.x = mad(z.x, (1.0f - zk1), (fractal->mandelbox.foldingValue - z.x) * zk1);
-	z.x = mad(z.x, (1.0f - zk2), (-fractal->mandelbox.foldingValue - z.x) * zk2);
+	z.x = z.x * (1.0f - zk1) + (fractal->mandelbox.foldingValue - z.x) * zk1;
+	z.x = z.x * (1.0f - zk2) + (-fractal->mandelbox.foldingValue - z.x) * zk2;
 	aux->color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
 
 	REAL zk3 = SmoothConditionAGreaterB(z.y, fractal->mandelbox.foldingLimit, sm);
 	REAL zk4 = SmoothConditionALessB(z.y, -fractal->mandelbox.foldingLimit, sm);
-	z.y = mad(z.y, (1.0f - zk3), (fractal->mandelbox.foldingValue - z.y) * zk3);
-	z.y = mad(z.y, (1.0f - zk4), (-fractal->mandelbox.foldingValue - z.y) * zk4);
+	z.y = z.y * (1.0f - zk3) + (fractal->mandelbox.foldingValue - z.y) * zk3;
+	z.y = z.y * (1.0f - zk4) + (-fractal->mandelbox.foldingValue - z.y) * zk4;
 	aux->color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
 
 	REAL zk5 = SmoothConditionAGreaterB(z.z, fractal->mandelbox.foldingLimit, sm);
 	REAL zk6 = SmoothConditionALessB(z.z, -fractal->mandelbox.foldingLimit, sm);
-	z.z = mad(z.z, (1.0f - zk5), (fractal->mandelbox.foldingValue - z.z) * zk5);
-	z.z = mad(z.z, (1.0f - zk6), (-fractal->mandelbox.foldingValue - z.z) * zk6);
+	z.z = z.z * (1.0f - zk5) + (fractal->mandelbox.foldingValue - z.z) * zk5;
+	z.z = z.z * (1.0f - zk6) + (-fractal->mandelbox.foldingValue - z.z) * zk6;
 	aux->color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
 
 	REAL r2 = dot(z, z);
-	REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+	REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
 	REAL rk1 = SmoothConditionALessB(r2, fractal->mandelbox.mR2, sm);
 	REAL rk2 = SmoothConditionALessB(r2, fractal->mandelbox.fR2, sm);
 	REAL rk21 = (1.0f - rk1) * rk2;
 
-	z = mad(z, (1.0f - rk1), z * (fractal->mandelbox.mboxFactor1 * rk1));
-	z = mad(z, (1.0f - rk21), z * (tglad_factor2 * rk21));
-	aux->DE = mad(aux->DE, (1.0f - rk1), aux->DE * (fractal->mandelbox.mboxFactor1 * rk1));
-	aux->DE = mad(aux->DE, (1.0f - rk21), aux->DE * (tglad_factor2 * rk21));
+	z = z * (1.0f - rk1) + z * (fractal->mandelbox.mboxFactor1 * rk1);
+	z = z * (1.0f - rk21) + z * (tglad_factor2 * rk21);
+	aux->DE = aux->DE * (1.0f - rk1) + aux->DE * (fractal->mandelbox.mboxFactor1 * rk1);
+	aux->DE = aux->DE * (1.0f - rk21) + aux->DE * (tglad_factor2 * rk21);
 	aux->color += rk1 * fractal->mandelbox.color.factorSp1;
 	aux->color += rk21 * fractal->mandelbox.color.factorSp2;
 
 	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
 	z = z * fractal->mandelbox.scale;
 
-	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 	return z;
 }

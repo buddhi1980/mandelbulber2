@@ -18,14 +18,12 @@
 REAL4 RiemannSphereHoboldMultiIteration(
 	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	z *= native_divide(fractal->transformCommon.scale08,
-		aux->r); // normalize vector to unit length => project onto sphere
+	z *= fractal->transformCommon.scale08
+			 / aux->r; // normalize vector to unit length => project onto sphere
 
 	// find X-related iso-plane: polar projection onto unit circle
-	REAL Kx = 2.0f * z.x * native_divide((1.0f - z.y), ((z.y - 2.0f) * z.y + z.x * z.x + 1.0f));
-	REAL Ky =
-		1.0f
-		- 2.0f * native_divide((mad((z.y - 2.0f), z.y, 1.0f)), ((z.y - 2.0f) * z.y + z.x * z.x + 1.0f));
+	REAL Kx = 2.0f * z.x * (1.0f - z.y) / ((z.y - 2.0f) * z.y + z.x * z.x + 1.0f);
+	REAL Ky = 1.0f - 2.0f * ((z.y - 2.0f) * z.y + 1.0f) / ((z.y - 2.0f) * z.y + z.x * z.x + 1.0f);
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
@@ -36,7 +34,7 @@ REAL4 RiemannSphereHoboldMultiIteration(
 			REAL tempX = Kx;
 			REAL tempY = Ky;
 			Kx = -2.0f * tempX * tempY;
-			Ky = -(mad(tempY, tempY, -tempX * tempX));
+			Ky = -(tempY * tempY - tempX * tempX);
 		}
 	}
 
@@ -48,8 +46,8 @@ REAL4 RiemannSphereHoboldMultiIteration(
 		{
 			REAL tempY = Ky;
 			REAL tempX = Kx;
-			Kx = -tempX * (mad(-4.0f, tempX * tempX, 3.0f));
-			Ky = -tempY * (mad(4.0f * tempY, tempY, -3.0f));
+			Kx = -tempX * (3.0f - 4.0f * tempX * tempX);
+			Ky = -tempY * (4.0f * tempY * tempY - 3.0f);
 		}
 	}
 
@@ -60,10 +58,8 @@ REAL4 RiemannSphereHoboldMultiIteration(
 	n1x += fractal->transformCommon.offsetA0; // offset tweak
 
 	// find Z-related iso-plane: polar projection onto unit circle
-	REAL Kz = 2.0f * z.z * native_divide((1.0f - z.y), ((z.y - 2.0f) * z.y + z.z * z.z + 1.0f));
-	Ky =
-		1.0f
-		- 2.0f * native_divide((mad((z.y - 2.0f), z.y, 1.0f)), ((z.y - 2.0f) * z.y + z.z * z.z + 1.0f));
+	REAL Kz = 2.0f * z.z * (1.0f - z.y) / ((z.y - 2.0f) * z.y + z.z * z.z + 1.0f);
+	Ky = 1.0f - 2.0f * ((z.y - 2.0f) * z.y + 1.0f) / ((z.y - 2.0f) * z.y + z.z * z.z + 1.0f);
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
@@ -74,7 +70,7 @@ REAL4 RiemannSphereHoboldMultiIteration(
 			REAL tempZ = Kz;
 			REAL tempY = Ky;
 			Kz = -2.0f * tempZ * tempY;
-			Ky = -(mad(tempY, tempY, -tempZ * tempZ));
+			Ky = -(tempY * tempY - tempZ * tempZ);
 		}
 	}
 
@@ -86,8 +82,8 @@ REAL4 RiemannSphereHoboldMultiIteration(
 		{
 			REAL tempY = Ky;
 			REAL tempZ = Kz;
-			Kz = -tempZ * (mad(-4.0f, tempZ * tempZ, 3.0f));
-			Ky = -tempY * (mad(4.0f * tempY, tempY, -3.0f));
+			Kz = -tempZ * (3.0f - 4.0f * tempZ * tempZ);
+			Ky = -tempY * (4.0f * tempY * tempY - 3.0f);
 		}
 	}
 
@@ -103,23 +99,22 @@ REAL4 RiemannSphereHoboldMultiIteration(
 		REAL tpx = n1x;
 		REAL tpz = n2z;
 		REAL beta = fractal->transformCommon.angle0 * M_PI_180_F;
-		n1x = mad(tpx, native_cos(beta), tpz * native_sin(beta));
-		n2z = mad(tpx, -native_sin(beta), tpz * native_cos(beta));
+		n1x = tpx * native_cos(beta) + tpz * native_sin(beta);
+		n2z = tpx * -native_sin(beta) + tpz * native_cos(beta);
 	}
 
 	// compute position of REALd point as intersection of planes and sphere
 	// solved ray parameter
-	REAL nt = 2.0f
-						* native_divide((n1x * n1x * n2z * n2z),
-							(mad((mad(n1x, n1x, n1y * n1y)) * n2z, n2z, n1x * n1x * n2y * n2y)));
+	REAL nt =
+		2.0f * (n1x * n1x * n2z * n2z) / ((n1x * n1x + n1y * n1y) * n2z * n2z + n1x * n1x * n2y * n2y);
 
 	// REALd point position
 	z.y = 1.0f - nt;
-	z.x = n1y * native_divide((1.0f - z.y), n1x);
-	z.z = n2y * native_divide((1.0f - z.y), n2z);
+	z.x = n1y * (1.0f - z.y) / n1x;
+	z.z = n2y * (1.0f - z.y) / n2z;
 
 	// raise original length to the power, then add constant
-	z *= native_powr(aux->r, native_divide(fractal->transformCommon.pwr8, 2.0f));
+	z *= native_powr(aux->r, fractal->transformCommon.pwr8 / 2.0f);
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -127,9 +122,9 @@ REAL4 RiemannSphereHoboldMultiIteration(
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = fractal->analyticDE.offset1
-							+ aux->DE * native_divide(fabs(fractal->transformCommon.scale08), aux->r);
-		aux->DE *= 8.0f * fractal->analyticDE.scale1 * native_divide(length(z), aux->r);
+		aux->DE =
+			fractal->analyticDE.offset1 + aux->DE * fabs(fractal->transformCommon.scale08) / aux->r;
+		aux->DE *= 8.0f * fractal->analyticDE.scale1 * length(z) / aux->r;
 	}
 	return z;
 }

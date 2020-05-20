@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,7 +18,7 @@
 REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 oldZ = z;
-	REAL master = native_divide(fractal->transformCommon.scale, 100.0f);
+	REAL master = fractal->transformCommon.scale / 100.0f;
 	REAL4 bSize = fractal->transformCommon.constantMultiplier111 * master;
 	// bsize maybe shortened to a REAL??
 
@@ -26,33 +26,27 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(native_divide(z.x, bSize.x)) *
-			// bSize.x; if (fractal->transformCommon.functionEnabledCy) z.y = floor(native_divide(z.y,
-			// bSize.y)) * bSize.y; if (fractal->transformCommon.functionEnabledCz) z.z =
-			// floor(native_divide(z.z, bSize.z)) * bSize.z;
-			if (fractal->transformCommon.functionEnabledCx)
-				z.x = (floor(native_divide(z.x, bSize.x)) + 0.5f) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy)
-				z.y = (floor(native_divide(z.y, bSize.y)) + 0.5f) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz)
-				z.z = (floor(native_divide(z.z, bSize.z)) + 0.5f) * bSize.z;
-			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(native_divide(z.x, bSize.x)) +
-			// sign(z.x) * 0.5f) * bSize.x; if (fractal->transformCommon.functionEnabledCy) z.y =
-			// (trunc(native_divide(z.y, bSize.y)) + sign(z.y) * 0.5f) * bSize.y; if
-			// (fractal->transformCommon.functionEnabledCz) z.z = (trunc(native_divide(z.z, bSize.z)) +
-			// sign(z.z) * 0.5f) * bSize.z;
+			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
+			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) *
+			// 0.5f) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) *
+			// 0.5f) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) *
+			// 0.5f) * bSize.z;
 		}
 		else // normalize
 		{
 			REAL rr = dot(z, z);
 			z /= rr;
 			bSize /= 100.0f;
-			if (fractal->transformCommon.functionEnabledCx)
-				z.x = floor(native_divide(z.x, bSize.x)) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy)
-				z.y = floor(native_divide(z.y, bSize.y)) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz)
-				z.z = floor(native_divide(z.z, bSize.z)) * bSize.z;
+			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
 			z *= rr;
 		}
 	}
@@ -60,18 +54,18 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		REAL rr = dot(z, z);
 		if (fractal->transformCommon.functionEnabledRFalse) rr = native_sqrt(rr); // length(z);
-		if (fractal->transformCommon.functionEnabledBxFalse) rr = mad(z.x, z.x, z.y * z.y);
-		if (fractal->transformCommon.functionEnabledByFalse) rr = mad(z.y, z.y, z.z * z.z);
-		if (fractal->transformCommon.functionEnabledBzFalse) rr = mad(z.z, z.z, z.x * z.x);
+		if (fractal->transformCommon.functionEnabledBxFalse) rr = z.x * z.x + z.y * z.y;
+		if (fractal->transformCommon.functionEnabledByFalse) rr = z.y * z.y + z.z * z.z;
+		if (fractal->transformCommon.functionEnabledBzFalse) rr = z.z * z.z + z.x * z.x;
 		z /= rr;
-		rr = floor(native_divide(rr, master)) * master;
+		rr = floor(rr / master) * master;
 		z *= rr;
 	}
 
 	// DE thing that has no effect, too small diff?
 	if (fractal->transformCommon.functionEnabled)
 	{
-		REAL AN = native_divide(length(z), length(oldZ));
+		REAL AN = length(z) / length(oldZ);
 		aux->DE = aux->DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
@@ -82,8 +76,8 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		if (!fractal->analyticDE.enabledFalse)
 			aux->DE *= fractal->transformCommon.scale1;
 		else
-			aux->DE = mad(aux->DE * fractal->transformCommon.scale1, fractal->analyticDE.scale1,
-				fractal->analyticDE.offset0);
+			aux->DE = aux->DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
+								+ fractal->analyticDE.offset0;
 	}
 	return z;
 }

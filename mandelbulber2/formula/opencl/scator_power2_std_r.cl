@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -33,9 +33,9 @@ REAL4 ScatorPower2StdRIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
 		newZ *= fractal->transformCommon.constantMultiplier122;
-		newZ.x += native_divide((zz.y * zz.z), zz.x);
-		newZ.y *= (1.0f - native_divide(zz.z, zz.x));
-		newZ.z *= (1.0f - native_divide(zz.y, zz.x));
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0f - zz.z / zz.x);
+		newZ.z *= (1.0f - zz.y / zz.x);
 	}
 	else
 	{ // scator real
@@ -43,9 +43,9 @@ REAL4 ScatorPower2StdRIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
 		newZ *= fractal->transformCommon.constantMultiplier122;
-		newZ.x += native_divide((zz.y * zz.z), zz.x);
-		newZ.y *= (1.0f + native_divide(zz.z, zz.x));
-		newZ.z *= (1.0f + native_divide(zz.y, zz.x));
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0f + zz.z / zz.x);
+		newZ.z *= (1.0f + zz.y / zz.x);
 	}
 	z = newZ;
 
@@ -57,15 +57,15 @@ REAL4 ScatorPower2StdRIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			if (fractal->transformCommon.functionEnabledXFalse)
 			{
-				r = native_sqrt(zz.x + zz.y + zz.z + native_divide((zz.y * zz.z), zz.x));
+				r = native_sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
 			}
-			aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			aux->DE = r * aux->DE * 2.0f * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 		else
 		{
-			vecDE = fractal->transformCommon.scaleA1 * native_divide(length(z), length(oldZ));
-			aux->DE = mad(
-				max(r, vecDE) * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			vecDE = fractal->transformCommon.scaleA1 * length(z) / length(oldZ);
+			aux->DE =
+				max(r, vecDE) * aux->DE * 2.0f * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	}
 	return z;

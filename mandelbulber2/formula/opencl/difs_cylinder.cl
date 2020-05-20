@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -59,10 +59,9 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -120,7 +119,7 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		// scale vary
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -175,7 +174,7 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		absH = fabs(zc.z);
 		lengthCyl = zc.z;
 
-		cylR = native_sqrt(mad(zc.y, zc.y, cylR));
+		cylR = native_sqrt(cylR + zc.y * zc.y);
 		REAL cylH = absH - fractal->transformCommon.offsetA1;
 
 		// no absz
@@ -210,18 +209,18 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 		temp = max(temp, 0.0f);
 		REAL cylHm = max(cylH, 0.0f);
-		REAL cylD = native_sqrt(mad(temp, temp, cylHm * cylHm));
+		REAL cylD = native_sqrt(temp * temp + cylHm * cylHm);
 
 		// rings
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)
 		{
-			cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
+			cylD = native_sqrt(cylRm * cylRm + cylH * cylH);
 		}
 		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 
-		aux->dist = min(aux->dist, native_divide(cylD, aux->DE));
+		aux->dist = min(aux->dist, cylD / aux->DE);
 	}
 
 	// torus
@@ -238,10 +237,10 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			zc.z = temp;
 		}
 
-		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-		torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+		REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 
-		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
+		aux->dist = min(aux->dist, torD / aux->DE);
 	}
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)

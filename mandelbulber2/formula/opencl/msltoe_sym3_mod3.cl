@@ -20,7 +20,7 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 c = aux->const_c;
 	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL4 z1 = z;
-	REAL psi = mad(2.0f, M_PI_F, atan2(z.z, z.y));
+	REAL psi = atan2(z.z, z.y) + M_PI_F * 2.0f;
 	REAL psi2 = 0;
 	while (psi > M_PI_8_F)
 	{
@@ -29,24 +29,24 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 	REAL cs = native_cos(psi2);
 	REAL sn = native_sin(psi2);
-	z1.y = mad(z.y, cs, -z.z * sn);
-	z1.z = mad(z.y, sn, z.z * cs);
+	z1.y = z.y * cs - z.z * sn;
+	z1.z = z.y * sn + z.z * cs;
 	z.y = z1.y;
 	z.z = z1.z;
 	REAL4 zs = z * z;
 	REAL zs2 = zs.x + zs.y;
 	// if (zs2 < 1e-21f)
 	//	zs2 = 1e-21f;
-	REAL zs3 = mad(
-		zs.z, fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y, (zs2 + zs.z));
-	REAL zsd = (1.0f - native_divide(zs.z, zs3));
+	REAL zs3 =
+		(zs2 + zs.z) + fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y * zs.z;
+	REAL zsd = (1.0f - zs.z / zs3);
 
 	z1.x = (zs.x - zs.y) * zsd;
 	z1.y = (2.0f * z.x * z.y) * zsd * fractal->transformCommon.scale; // scaling y;
 	z1.z = 2.0f * z.z * native_sqrt(zs2);
 	z.x = z1.x;
-	z.y = mad(z1.y, cs, z1.z * sn);
-	z.z = mad(-z1.y, sn, z1.z * cs);
+	z.y = z1.y * cs + z1.z * sn;
+	z.z = -z1.y * sn + z1.z * cs;
 	z += fractal->transformCommon.additionConstant000;
 	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
 	{
@@ -63,7 +63,7 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL lengthTempZ = -length(z); // spherical offset
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 
@@ -81,7 +81,7 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
 			// if (tempL < 1e-21f)
 			//	tempL = 1e-21f;
-			REAL avgScale = native_divide(length(z), tempL);
+			REAL avgScale = length(z) / tempL;
 			aux->DE *= avgScale;
 		}
 		else

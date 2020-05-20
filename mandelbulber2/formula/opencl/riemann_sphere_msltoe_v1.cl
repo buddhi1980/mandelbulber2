@@ -20,8 +20,8 @@ REAL4 RiemannSphereMsltoeV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 {
 	REAL r = aux->r;
 	// if (r < 1e-21f) r = 1e-21f;
-	z *= native_divide(fractal->transformCommon.scale, r);
-	REAL q = native_recip((1.0f - z.z));
+	z *= fractal->transformCommon.scale / r;
+	REAL q = 1.0f / (1.0f - z.z);
 	REAL4 t3;
 	t3.x = z.x * q;
 	t3.y = z.y * q;
@@ -41,8 +41,8 @@ REAL4 RiemannSphereMsltoeV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE *= 4.0f * fractal->transformCommon.scale * native_divide(length(z), r);
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE *= 4.0f * fractal->transformCommon.scale * length(z) / r;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

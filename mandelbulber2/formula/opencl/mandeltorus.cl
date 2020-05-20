@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,13 +21,13 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			&& aux->i < fractal->transformCommon.stopIterationsD1) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux->DE *= native_divide(length(z), aux->r);
+		aux->DE *= length(z) / aux->r;
 	}
 
 	REAL power1 = fractal->transformCommon.pwr8;	// Longitude power, symmetry
 	REAL power2 = fractal->transformCommon.pwr8a; // Latitude power
 
-	REAL rh = native_sqrt(mad(z.x, z.x, z.z * z.z));
+	REAL rh = native_sqrt(z.x * z.x + z.z * z.z);
 	REAL rh1 = 0.0f;
 	REAL rh2 = 0.0f;
 	REAL phi = atan2(z.z, z.x);
@@ -39,8 +39,8 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	{
 		REAL thetapow = theta * power2; // mode1
 
-		REAL px = mad(-1.5f, native_cos(phi), z.x);
-		REAL pz = mad(-1.5f, native_sin(phi), z.z);
+		REAL px = z.x - native_cos(phi) * 1.5f;
+		REAL pz = z.z - native_sin(phi) * 1.5f;
 
 		REAL rhrad = native_sqrt(px * px + pz * pz + z.y * z.y);
 
@@ -55,12 +55,12 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	else // mode 2
 	{
-		REAL px = mad(-1.5f, native_cos(phi), z.x);
-		REAL pz = mad(-1.5f, native_sin(phi), z.z);
+		REAL px = z.x - native_cos(phi) * 1.5f;
+		REAL pz = z.z - native_sin(phi) * 1.5f;
 
 		REAL rhrad = native_sqrt(px * px + pz * pz + z.y * z.y);
 
-		REAL tangle = atan2(native_sqrt(mad(px, px, pz * pz)), z.y) * power2; // mode2
+		REAL tangle = atan2(native_sqrt(px * px + pz * pz), z.y) * power2; // mode2
 
 		rh1 = native_powr(rhrad, power2);
 		rh2 = native_powr(rhrad, power1);
@@ -78,11 +78,11 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	if (!fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = mad(temp, aux->DE, 1.0f);
+		aux->DE = temp * aux->DE + 1.0f;
 	}
 	else
 	{
-		aux->DE = mad(temp * aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = temp * aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

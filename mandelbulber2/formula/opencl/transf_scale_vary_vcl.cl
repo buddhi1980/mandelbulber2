@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,9 +26,9 @@ REAL4 TransfScaleVaryVCLIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL tempC = fractal->Cpara.paraC;
 		REAL lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
 		REAL lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
-		REAL grade1 = native_divide((tempA - temp0), fractal->Cpara.iterA);
-		REAL grade2 = native_divide((tempB - tempA), lengthAB);
-		REAL grade3 = native_divide((tempC - tempB), lengthBC);
+		REAL grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+		REAL grade2 = (tempB - tempA) / lengthAB;
+		REAL grade3 = (tempC - tempB) / lengthBC;
 
 		// slopes
 		if (aux->i < fractal->Cpara.iterA)
@@ -37,11 +37,11 @@ REAL4 TransfScaleVaryVCLIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		if (aux->i < fractal->Cpara.iterB && aux->i >= fractal->Cpara.iterA)
 		{
-			para = mad(grade2, (aux->i - fractal->Cpara.iterA), tempA);
+			para = tempA + (aux->i - fractal->Cpara.iterA) * grade2;
 		}
 		if (aux->i >= fractal->Cpara.iterB)
 		{
-			para = mad(grade3, (aux->i - fractal->Cpara.iterB), tempB);
+			para = tempB + (aux->i - fractal->Cpara.iterB) * grade3;
 		}
 
 		// Curvi part on "true"
@@ -51,9 +51,9 @@ REAL4 TransfScaleVaryVCLIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL paraIt;
 			if (lengthAB > 2.0f * fractal->Cpara.iterA) // stop  error, todo fix.
 			{
-				REAL curve1 = native_divide((grade2 - grade1), (4.0f * fractal->Cpara.iterA));
+				REAL curve1 = (grade2 - grade1) / (4.0f * fractal->Cpara.iterA);
 				REAL tempL = lengthAB - fractal->Cpara.iterA;
-				REAL curve2 = native_divide((grade3 - grade2), (4.0f * tempL));
+				REAL curve2 = (grade3 - grade2) / (4.0f * tempL);
 				if (aux->i < 2 * fractal->Cpara.iterA)
 				{
 					paraIt = tempA - fabs(tempA - aux->i);
@@ -78,6 +78,6 @@ REAL4 TransfScaleVaryVCLIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	para += paraAddP0;
 
 	z *= para; // using the parameter
-	aux->DE = mad(aux->DE, fabs(para), 1.0f);
+	aux->DE = aux->DE * fabs(para) + 1.0f;
 	return z;
 }

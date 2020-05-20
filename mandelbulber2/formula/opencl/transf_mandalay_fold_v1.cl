@@ -39,8 +39,8 @@ REAL4 TransfMandalayFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		p.y = p.z;
 		p.z = temp;
 	}
-	t1 = mad(-fo.x, 2.0f, p.x);
-	t2 = mad(-fo.x, 4.0f, p.y);
+	t1 = p.x - 2.0f * fo.x;
+	t2 = p.y - 4.0f * fo.x;
 	v = max(fabs(t1 + fo.x) - fo.x, t2);
 	v1 = max(t1 - g.x, p.y);
 	v = min(v, v1);
@@ -57,8 +57,8 @@ REAL4 TransfMandalayFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		p.z = p.x;
 		p.x = temp;
 	}
-	t1 = mad(-fo.y, 2.0f, p.y);
-	t2 = mad(-fo.y, 4.0f, p.z);
+	t1 = p.y - 2.0f * fo.y;
+	t2 = p.z - 4.0f * fo.y;
 	v = max(fabs(t1 + fo.y) - fo.y, t2);
 	v1 = max(t1 - g.y, p.z);
 	v = min(v, v1);
@@ -75,8 +75,8 @@ REAL4 TransfMandalayFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		p.x = p.y;
 		p.y = temp;
 	}
-	t1 = mad(-fo.z, 2.0f, p.z);
-	t2 = mad(-fo.z, 4.0f, p.x);
+	t1 = p.z - 2.0f * fo.z;
+	t2 = p.x - 4.0f * fo.z;
 	v = max(fabs(t1 + fo.z) - fo.z, t2);
 	v1 = max(t1 - g.z, p.x);
 	v = min(v, v1);

@@ -20,7 +20,7 @@ REAL4 TransfBenesiMagForwardIteration(REAL4 z, __constant sFractalCl *fractal, s
 	Q_UNUSED(fractal);
 	Q_UNUSED(aux);
 
-	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 	return z;

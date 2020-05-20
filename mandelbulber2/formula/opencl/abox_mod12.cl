@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -50,7 +50,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		REAL4 limit = fractal->transformCommon.additionConstant111;
 		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = native_recip(length);
+		REAL4 tgladS = 1.0f / length;
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
@@ -106,12 +106,12 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			z += fractal->transformCommon.offset000;
 			if (rr < minR2)
 			{
-				m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
+				m *= fractal->transformCommon.maxR2d1 / minR2;
 				colorAdd += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				m *= fractal->transformCommon.maxR2d1 / rr;
 				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
@@ -143,9 +143,9 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 			if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
 			{ // if inside cuboid
-				R2.x = native_divide(limitMinR2.x, temp3.x);
-				R2.y = native_divide(limitMinR2.y, temp3.y);
-				R2.z = native_divide(limitMinR2.z, temp3.z);
+				R2.x = limitMinR2.x / temp3.x;
+				R2.y = limitMinR2.y / temp3.y;
+				R2.z = limitMinR2.z / temp3.z;
 				REAL First = min(R2.x, min(R2.y, R2.z));
 				MinR2 = rr * First;
 
@@ -156,12 +156,12 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					MinR2 = fractal->transformCommon.maxR2d1;
 				}
 
-				m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
+				m *= fractal->transformCommon.maxR2d1 / MinR2;
 				aux->color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				m *= fractal->transformCommon.maxR2d1 / rr;
 				aux->color += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
@@ -178,12 +178,12 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			z += fractal->transformCommon.offset000;
 			if (rr < MinR2)
 			{
-				m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
+				m *= fractal->transformCommon.maxR2d1 / MinR2;
 				aux->color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				m *= fractal->transformCommon.maxR2d1 / rr;
 				aux->color += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
@@ -200,7 +200,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		useScale += aux->actualScaleA;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
@@ -213,7 +213,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	else
 	{
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 	}
 
 	// offset

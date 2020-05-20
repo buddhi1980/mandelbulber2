@@ -29,10 +29,9 @@ REAL4 MengerV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -62,7 +61,7 @@ REAL4 MengerV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		REAL rr = 0.0f;
 		REAL4 ptFive = (REAL4){0.5f, 0.5f, 0.5f, 0.0f};
 		REAL4 onePtFive = (REAL4){1.5f, 1.5f, 1.5f, 0.0f};
-		zc = mad(zc, 0.5f, ptFive);
+		zc = zc * 0.5f + ptFive;
 		REAL4 pp = fabs(zc - ptFive) - ptFive;
 		REAL modOff = fractal->transformCommon.offset3;
 		aux->DE += fractal->transformCommon.offsetA0;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,7 +26,7 @@ REAL4 MengerPwr2PolyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		if (fractal->transformCommon.functionEnabledxFalse) // pwr3 or z * fabs(z^2)
 			partA *= z;
 		partA =
-			mad(partA, fractal->transformCommon.scale2, fractal->transformCommon.constantMultiplier111);
+			partA * fractal->transformCommon.scale2 + fractal->transformCommon.constantMultiplier111;
 
 		REAL4 fnZ1 = z;
 
@@ -57,9 +57,9 @@ REAL4 MengerPwr2PolyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL4 constantMult = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
 			fractal->transformCommon.constantMultiplierB111.y,
 			fractal->transformCommon.constantMultiplierB111.z, 0.0f};
-		z = constantMult + mad(-fnZ1, partA, partB);
+		z = constantMult + partB - partA * fnZ1;
 		z *= fractal->transformCommon.scale025;
-		aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * 4.0f * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

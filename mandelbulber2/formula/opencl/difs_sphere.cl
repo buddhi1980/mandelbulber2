@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -59,10 +59,9 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -119,7 +118,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		// scale vary
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -170,7 +169,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			vecLen = length(zc);
 
 		REAL spD = vecLen - fractal->transformCommon.offsetR1;
-		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
+		aux->dist = min(aux->dist, spD / aux->DE);
 	}
 	// torus
 	if (fractal->transformCommon.functionEnabledTFalse
@@ -187,10 +186,10 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			zc.z = temp;
 		}
 
-		REAL T1 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - fractal->transformCommon.offsetT1;
-		torD = native_sqrt(mad(T1, T1, zc.z * zc.z)) - fractal->transformCommon.offset05;
+		REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		torD = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 
-		aux->dist = min(aux->dist, native_divide(torD, aux->DE));
+		aux->dist = min(aux->dist, torD / aux->DE);
 	}
 
 	// aux->color

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -40,15 +40,15 @@ REAL4 TransfAddCpixelScatorIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	// scator algebra
 	if (cc.x < limitA)
 	{
-		REAL temp = native_recip(cc.x) - 1.0f;
+		REAL temp = 1.0f / cc.x - 1.0f;
 		cc.x = temp;
 	}
 
 	if (!fractal->transformCommon.functionEnabledFalse)
-	{																								// real
-		newC.x += native_divide((cc.y * cc.z), cc.x); // all pos
-		newC.y *= (1.0f + native_divide(cc.z, cc.x));
-		newC.z *= (1.0f + native_divide(cc.y, cc.x));
+	{																	// real
+		newC.x += (cc.y * cc.z) / cc.x; // all pos
+		newC.y *= (1.0f + cc.z / cc.x);
+		newC.z *= (1.0f + cc.y / cc.x);
 		newC *= fractal->transformCommon.constantMultiplier111;
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
@@ -69,10 +69,10 @@ REAL4 TransfAddCpixelScatorIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 	}
 	else
-	{																								// imaginary
-		newC.x += native_divide((cc.y * cc.z), cc.x); // pos
-		newC.y *= (1.0f - native_divide(cc.z, cc.x)); // pos  neg
-		newC.z *= (1.0f - native_divide(cc.y, cc.x)); // pos  neg
+	{																	// imaginary
+		newC.x += (cc.y * cc.z) / cc.x; // pos
+		newC.y *= (1.0f - cc.z / cc.x); // pos  neg
+		newC.z *= (1.0f - cc.y / cc.x); // pos  neg
 		newC *= fractal->transformCommon.constantMultiplier111;
 		if (fractal->transformCommon.functionEnabledy) newC.y = fabs(newC.y);
 		if (fractal->transformCommon.functionEnabledz) newC.z = fabs(newC.z);
@@ -99,8 +99,8 @@ REAL4 TransfAddCpixelScatorIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	// DE calculations
 	if (fractal->analyticDE.enabledFalse)
 	{
-		REAL vecDE = native_divide(length(z), length(oldZ));
-		aux->DE = mad(aux->DE * vecDE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		REAL vecDE = length(z) / length(oldZ);
+		aux->DE = aux->DE * vecDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

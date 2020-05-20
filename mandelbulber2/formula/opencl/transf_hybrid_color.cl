@@ -46,7 +46,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		temp35 = box - temp35;
 		REAL temp36 = max(max(temp35.x, temp35.y), temp35.z);
 		REAL temp37 = min(min(temp35.x, temp35.y), temp35.z);
-		temp36 = mad(fractal->transformCommon.offsetB0, temp37, temp36);
+		temp36 = temp36 + temp37 * fractal->transformCommon.offsetB0;
 		temp36 *= fractal->transformCommon.scaleC1;
 
 		if (fractal->surfBox.enabledY2False)
@@ -58,7 +58,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 			temp39 = max(max(temp38.x, temp38.y), temp38.z);
 			REAL temp40 = min(min(temp38.x, temp38.y), temp38.z);
-			temp39 = mad(fractal->transformCommon.offsetA0, temp40, temp39);
+			temp39 = temp39 + temp40 * fractal->transformCommon.offsetA0;
 			temp39 *= fractal->transformCommon.scaleE1;
 		}
 		boxTrap = temp36 + temp39;

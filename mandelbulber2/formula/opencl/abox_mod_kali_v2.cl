@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -35,17 +35,17 @@ REAL4 AboxModKaliV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL m = fractal->transformCommon.scale015;
 	if (rr < fractal->transformCommon.minR2p25)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+		m *= fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		m *= fractal->transformCommon.maxR2d1 / rr;
 		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 	// z -= fractal->transformCommon.additionConstant000;
 	z = z * m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -87,7 +87,7 @@ REAL4 AboxModKaliV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux->color controls
 	if (fractal->foldColor.auxColorEnabledFalse)

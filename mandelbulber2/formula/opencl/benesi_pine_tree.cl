@@ -21,11 +21,11 @@ REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 c = aux->const_c * fractal->transformCommon.constantMultiplier100;
 	REAL4 zz = z * z;
 	aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
-	aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+	aux->DE = aux->r * aux->DE * 2.0f + 1.0f;
 
 	REAL t = 1.0f;
 	REAL temp = zz.y + zz.z;
-	if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+	if (temp > 0.0f) t = 2.0f * z.x / native_sqrt(temp);
 	temp = z.z;
 	z.x = (zz.x - zz.y - zz.z);
 	z.y = (2.0f * t * z.y * temp);
@@ -39,8 +39,8 @@ REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		REAL tempY = z.y;
 		REAL beta = fractal->transformCommon.angle0 * M_PI_180_F;
-		z.y = mad(z.y, native_cos(beta), z.z * native_sin(beta));
-		z.z = mad(tempY, -native_sin(beta), z.z * native_cos(beta));
+		z.y = z.y * native_cos(beta) + z.z * native_sin(beta);
+		z.z = tempY * -native_sin(beta) + z.z * native_cos(beta);
 	}
 	return z;
 }

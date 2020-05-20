@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,7 +32,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		{
 			aux->c *= fractal->transformCommon.scale3D111;
 			REAL rSqrL = dot(aux->c, aux->c);
-			rSqrL = native_recip(rSqrL);
+			rSqrL = 1.0f / rSqrL;
 			aux->c *= rSqrL;
 			z += aux->c;
 		}
@@ -40,7 +40,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		{
 			c *= fractal->transformCommon.scale3D111;
 			REAL rSqrL = dot(c, c);
-			rSqrL = native_recip(rSqrL);
+			rSqrL = 1.0f / rSqrL;
 			z += c * rSqrL;
 		}
 	}
@@ -72,7 +72,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		REAL4 limit = fractal->transformCommon.additionConstant111;
 		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = native_recip(length);
+		REAL4 tgladS = 1.0f / length;
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
@@ -104,15 +104,14 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
-			REAL tglad_factor1 =
-				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			colorAdd += fractal->mandelbox.color.factorSp2;
@@ -127,7 +126,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		useScale += aux->actualScaleA;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
@@ -140,7 +139,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	else
 	{
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 	}
 
 	// offset

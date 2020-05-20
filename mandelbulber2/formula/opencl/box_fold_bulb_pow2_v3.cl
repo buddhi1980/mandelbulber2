@@ -24,8 +24,8 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL rr = 1.0f;
 		z += fractal->transformCommon.offset000;
 		rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.scaleG1, rr);
-		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux->DE *= (fractal->transformCommon.scaleG1 / rr);
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
@@ -61,14 +61,13 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
-			REAL tglad_factor1 =
-				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 		}
@@ -101,14 +100,14 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsTM
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 		REAL4 temp = z;
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
+		REAL avgScale = length(z) / tempL;
 		aux->DE = aux->DE * avgScale;
 		z = (fabs(z + fractal->transformCommon.additionConstantA111)
 				 - fabs(z - fractal->transformCommon.additionConstantA111) - z);
@@ -135,8 +134,8 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z = (REAL4){z.z, z.y, z.x, z.w};
 
 		z.x = fabs(z.x);
-		z = mad(z, fractal->transformCommon.scaleA2,
-			-fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f));
+		z = z * fractal->transformCommon.scaleA2
+				- fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f);
 		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
@@ -190,18 +189,17 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux->DE = mad(aux->r * aux->DE * 10.0f * fractal->analyticDE.scale1,
-				native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
-										+ fractal->analyticDE.offset2),
-				fractal->analyticDE.offset1);
+			aux->DE = aux->r * aux->DE * 10.0f * fractal->analyticDE.scale1
+									* native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
+																+ 2.0f + fractal->analyticDE.offset2)
+								+ fractal->analyticDE.offset1;
 		}
 		else
 		{
 			aux->DE = aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
-									* native_divide(
-										native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
-																+ 2.0f + fractal->analyticDE.offset2),
-										SQRT_3_F)
+									* native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
+																+ 2.0f + fractal->analyticDE.offset2)
+									/ SQRT_3_F
 								+ fractal->analyticDE.offset1;
 		}
 
@@ -209,7 +207,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL x2 = z.x * z.x;
 		REAL y2 = z.y * z.y;
 		REAL z2 = z.z * z.z;
-		REAL temp = 1.0f - native_divide(z2, (x2 + y2));
+		REAL temp = 1.0f - z2 / (x2 + y2);
 		REAL4 zTemp;
 		zTemp.x = (x2 - y2) * temp;
 		zTemp.y = 2.0f * z.x * z.y * temp;
@@ -233,10 +231,9 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (rrCol < fractal->transformCommon.maxR2d1)
 		{
 			if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd +=
-					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-						fractal->mandelbox.color.factorSp2
-							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 			else
 				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 		}

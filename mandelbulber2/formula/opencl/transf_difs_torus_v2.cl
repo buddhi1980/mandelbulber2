@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -49,12 +49,11 @@ REAL4 TransfDIFSTorusV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	torD = native_sqrt(q.y + q.x) - fractal->transformCommon.offsetT1;
 
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		torD = native_sqrt(mad(torD, torD, q.z));
+		torD = native_sqrt(torD * torD + q.z);
 	else
 		torD = max(fabs(torD), fabs(zc.z));
 
-	aux->dist =
-		min(aux->dist, native_divide((torD - fractal->transformCommon.offset05), (aux->DE + 1.0f)));
+	aux->dist = min(aux->dist, (torD - fractal->transformCommon.offset05) / (aux->DE + 1.0f));
 	aux->DE0 = (torD - fractal->transformCommon.offset05); // temp testing
 	return z;
 }

@@ -29,8 +29,8 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		z += fractal->transformCommon.offset000;
 		REAL rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.scaleG1, rr);
-		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux->DE *= (fractal->transformCommon.scaleG1 / rr);
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
@@ -42,7 +42,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	if (fractal->transformCommon.functionEnabledJFalse)
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	REAL4 zCol = z;
 
 	z += fractal->transformCommon.offsetA000;
@@ -54,9 +54,9 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// scale
 	REAL useScale = 1.0f;
 
-	useScale = native_divide((aux->actualScaleA + fractal->transformCommon.scale2), dividend);
+	useScale = (aux->actualScaleA + fractal->transformCommon.scale2) / dividend;
 	z *= useScale;
-	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	aux->DE = aux->DE * fabs(useScale) + 1.0f;
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		// update actualScaleA for next iteration
@@ -89,8 +89,8 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			colorAdd += fractal->mandelbox.color.factor.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
-			colorAdd += fractal->mandelbox.color.factorSp2
-									* native_divide((fractal->transformCommon.minR2p25 - rrCol), 100.0f);
+			colorAdd +=
+				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0f;
 		aux->color += colorAdd;
 	}
 	return z;

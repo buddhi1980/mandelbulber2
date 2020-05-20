@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -80,23 +80,23 @@ REAL4 MandelbulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				break;
 			// lkmitch/quick dudley type
 			case multi_combo4Cl_type2:
-				v4.x = mad(-oldZ.z, Scale2.x * oldZ.y, zz.x);
-				v4.y = mad(oldZ.y, Scale2.y * oldZ.x, zz.z);
-				v4.z = mad(-oldZ.z, Scale2.z * oldZ.x, zz.y);
+				v4.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
+				v4.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
+				v4.z = zz.y - Scale2.z * oldZ.x * oldZ.z;
 				break;
 			// makin 3D-2 type
 			case multi_combo4Cl_type3:
-				v4.x = mad(oldZ.z, Scale2.x * oldZ.y, zz.x);
-				v4.y = mad(-oldZ.z, Scale2.y * oldZ.x, -zz.y);
-				v4.z = mad(oldZ.y, Scale2.z * oldZ.x, -zz.z);
+				v4.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
+				v4.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
+				v4.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
 				aux->DE += 1.0f;
 				break;
 			// buffalo V2
 			case multi_combo4Cl_type4:
 				oldZ = fabs(oldZ);
-				v4.x = mad((zz.x - zz.y - zz.z) * Scale2.x, 0.5f, -oldZ.x);
-				v4.y = mad(oldZ.x * oldZ.y, Scale2.y, -oldZ.y);
-				v4.z = mad(oldZ.x * oldZ.z, Scale2.z, -oldZ.z);
+				v4.x = (zz.x - zz.y - zz.z) * Scale2.x * 0.5f - oldZ.x;
+				v4.y = oldZ.x * oldZ.y * Scale2.y - oldZ.y;
+				v4.z = oldZ.x * oldZ.z * Scale2.z - oldZ.z;
 				break;
 		}
 		z = v4;
@@ -165,6 +165,6 @@ REAL4 MandelbulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

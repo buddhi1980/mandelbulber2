@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,38 +16,38 @@
 
 REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL sc1 = fractal->transformCommon.scale3 - 1.0f;							// 3 - 1 = 2f, 2/3 = 0.6667f;
-	REAL sc2 = native_divide(sc1, fractal->transformCommon.scale3); //  8 - 1 = 7f, 7/8 = 0.89ish;
+	REAL sc1 = fractal->transformCommon.scale3 - 1.0f; // 3 - 1 = 2f, 2/3 = 0.6667f;
+	REAL sc2 = sc1 / fractal->transformCommon.scale3;	 //  8 - 1 = 7f, 7/8 = 0.89ish;
 	REAL OffsetS = fractal->transformCommon.offset0005;
 
 	// the closer to origin the greater the effect of OffsetSQ
-	z = (REAL4){native_sqrt(mad(z.x, z.x, OffsetS)), native_sqrt(mad(z.y, z.y, OffsetS)),
-		native_sqrt(mad(z.z, z.z, OffsetS)), z.w};
+	z = (REAL4){native_sqrt(z.x * z.x + OffsetS), native_sqrt(z.y * z.y + OffsetS),
+		native_sqrt(z.z * z.z + OffsetS), z.w};
 
 	REAL t;
 	REAL4 OffsetC = fractal->transformCommon.offset1105;
 
 	t = z.x - z.y;
-	t = 0.5f * (t - native_sqrt(mad(t, t, OffsetS)));
+	t = 0.5f * (t - native_sqrt(t * t + OffsetS));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
 	t = z.x - z.z;
-	t = 0.5f * (t - native_sqrt(mad(t, t, OffsetS)));
+	t = 0.5f * (t - native_sqrt(t * t + OffsetS));
 	z.x = z.x - t;
 	z.z = z.z + t;
 
 	t = z.y - z.z;
-	t = 0.5f * (t - native_sqrt(mad(t, t, OffsetS)));
+	t = 0.5f * (t - native_sqrt(t * t + OffsetS));
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	z.z = mad(-sc2, OffsetC.z, z.z); // sc2 reduces C.z
-	z.z = -native_sqrt(mad(z.z, z.z, OffsetS));
-	z.z = mad(sc2, OffsetC.z, z.z);
+	z.z = z.z - OffsetC.z * sc2; // sc2 reduces C.z
+	z.z = -native_sqrt(z.z * z.z + OffsetS);
+	z.z = z.z + OffsetC.z * sc2;
 
-	z.x = mad(fractal->transformCommon.scale3, z.x, -OffsetC.x * sc1); // sc1 scales up C.x
-	z.y = mad(fractal->transformCommon.scale3, z.y, -OffsetC.y * sc1);
+	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x * sc1; // sc1 scales up C.x
+	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y * sc1;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux->DE *= fractal->transformCommon.scale3;

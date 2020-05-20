@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -42,7 +42,7 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 		if (fabs(z.z) > zLimit)
 		{
-			z.z = mad(sign(z.z), zValue, -z.z);
+			z.z = sign(z.z) * zValue - z.z;
 			colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -58,19 +58,19 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL m = fractal->transformCommon.scale015;
 	if (rr < MinR)
 	{
-		m = native_divide(m, MinR);
+		m = m / MinR;
 		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else
 	{
 		if (rr < 1.0f)
 		{
-			m = native_divide(m, rr);
+			m = m / rr;
 			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 	}
 	z = z * m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 
 	z += fractal->transformCommon.additionConstant000;
 

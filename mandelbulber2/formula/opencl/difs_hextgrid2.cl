@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -28,8 +28,8 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		z += fractal->transformCommon.offset000;
 		REAL rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.scaleG1, rr);
-		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux->DE *= (fractal->transformCommon.scaleG1 / rr);
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
@@ -87,20 +87,18 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL hexD = 0.0f;
 		zc.z /= fractal->transformCommon.scaleF1;
 
-		REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
-		REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
-		REAL xFloor = fabs(zc.x
-											 - size * native_divide(1.5f, cosPi6)
-													 * floor(native_divide(native_divide(zc.x, size), 1.5f) * cosPi6 + 0.5f));
-		REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(native_divide(M_PI_F, 6.0f)));
+		REAL cosPi6 = native_cos(M_PI_F / 6.0f);
+		REAL yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
+		REAL xFloor = fabs(zc.x - size * 1.5f / cosPi6 * floor(zc.x / size / 1.5f * cosPi6 + 0.5f));
+		REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(M_PI_F / 6.0f));
 		REAL gridMin = min(gridMax - size * 0.5f, yFloor);
 		if (!fractal->transformCommon.functionEnabledJFalse)
-			hexD = native_sqrt(mad(gridMin, gridMin, zc.z * zc.z));
+			hexD = native_sqrt(gridMin * gridMin + zc.z * zc.z);
 		else
 			hexD = max(fabs(gridMin), fabs(zc.z));
 		hexD -= fractal->transformCommon.offset0005;
 
-		aux->dist = min(aux->dist, native_divide(hexD, (aux->DE + 1.0f)));
+		aux->dist = min(aux->dist, hexD / (aux->DE + 1.0f));
 	}
 
 	// aux->color

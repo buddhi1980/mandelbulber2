@@ -24,8 +24,8 @@ REAL4 TransfRotationIterControlsIteration(
 	{
 		tp = z;
 		REAL alpha = fractal->transformCommon.rotation44a.y * -M_PI_180_F;
-		z.y = mad(tp.y, native_cos(alpha), tp.z * native_sin(alpha));
-		z.z = mad(tp.y, -native_sin(alpha), tp.z * native_cos(alpha));
+		z.y = tp.y * native_cos(alpha) + tp.z * native_sin(alpha);
+		z.z = tp.y * -native_sin(alpha) + tp.z * native_cos(alpha);
 	}
 
 	if (fractal->transformCommon.rotation44a.z != 0
@@ -34,8 +34,8 @@ REAL4 TransfRotationIterControlsIteration(
 	{
 		tp = z;
 		REAL beta = fractal->transformCommon.rotation44a.z * M_PI_180_F;
-		z.x = mad(tp.x, native_cos(beta), tp.z * native_sin(beta));
-		z.z = mad(tp.x, -native_sin(beta), tp.z * native_cos(beta));
+		z.x = tp.x * native_cos(beta) + tp.z * native_sin(beta);
+		z.z = tp.x * -native_sin(beta) + tp.z * native_cos(beta);
 	}
 
 	if (fractal->transformCommon.rotation44a.x != 0
@@ -44,8 +44,8 @@ REAL4 TransfRotationIterControlsIteration(
 	{
 		tp = z;
 		REAL gamma = fractal->transformCommon.rotation44a.x * -M_PI_180_F;
-		z.x = mad(tp.x, native_cos(gamma), tp.y * native_sin(gamma));
-		z.y = mad(tp.x, -native_sin(gamma), tp.y * native_cos(gamma));
+		z.x = tp.x * native_cos(gamma) + tp.y * native_sin(gamma);
+		z.y = tp.x * -native_sin(gamma) + tp.y * native_cos(gamma);
 	}
 	return z;
 }

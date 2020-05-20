@@ -488,25 +488,25 @@ function parseToOpenCL($code, $mode = 'single')
 		// array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x) (this is wrong! probably copysign not usable at all)
 
 		// from here on its getting messy
-		array('find' => "/1.0f$s\/$s($rval)/", 'replace' => 'native_recip($1)'),        // native reciprocal
-		array('find' => "/($rval)$s\/$s($rval)/", 'replace' => 'native_divide($1, $2)'),        // native division
+		//array('find' => "/1.0f$s\/$s($rval)/", 'replace' => 'native_recip($1)'),        // native reciprocal
+		//array('find' => "/($rval)$s\/$s($rval)/", 'replace' => 'native_divide($1, $2)'),        // native division
 		array('find' => "/($preF)native_recip\(native_sqrt($rval)\)/", 'replace' => '$1native_rsqrt$2'),        // native reciprocal sqrt
-		array('find' => "/($preF)native_sqrt\(native_recip($rval)\)/", 'replace' => '$1native_rsqrt$2'),        // native reciprocal sqrt
+		//array('find' => "/($preF)native_sqrt\(native_recip($rval)\)/", 'replace' => '$1native_rsqrt$2'),        // native reciprocal sqrt
 
 		// mad (literally ;D )
-		array('find' => "/\(($multChain)$s\*$s($rval)$s\+$s($multChain)\)/", 'replace' => '(mad($1, $2, $3))'),    // (a * b + c) ====> mad(a, b, c)
-		array('find' => "/\(($multChain)$s\*$s($rval)$s\-$s($multChain)\)/", 'replace' => '(mad($1, $2, -$3))'),    // (a * b - c) ====> mad(a, b, -c)
-		array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\+$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
-		array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\-$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b - c ====> mad(a, b, -c)
-		array('find' => "/\(($multChain)$s\+$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad($2, $3, $1))'),    // (c + a * b) ====> mad(a, b, c)
-		array('find' => "/\(($multChain)$s\-$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad(-$2, $3, $1))'),    // (c - a * b) ====> mad(-a, b, c)
-		array('find' => "/([^*-]$s)($multChain)$s\+$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $2)$5'), // a * b + c ====> mad(a, b, c)
-		array('find' => "/([^*-]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
+		//array('find' => "/\(($multChain)$s\*$s($rval)$s\+$s($multChain)\)/", 'replace' => '(mad($1, $2, $3))'),    // (a * b + c) ====> mad(a, b, c)
+		//array('find' => "/\(($multChain)$s\*$s($rval)$s\-$s($multChain)\)/", 'replace' => '(mad($1, $2, -$3))'),    // (a * b - c) ====> mad(a, b, -c)
+		//array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\+$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
+		//array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\-$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b - c ====> mad(a, b, -c)
+		//array('find' => "/\(($multChain)$s\+$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad($2, $3, $1))'),    // (c + a * b) ====> mad(a, b, c)
+		//array('find' => "/\(($multChain)$s\-$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad(-$2, $3, $1))'),    // (c - a * b) ====> mad(-a, b, c)
+		//array('find' => "/([^*-]$s)($multChain)$s\+$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $2)$5'), // a * b + c ====> mad(a, b, c)
+		//array('find' => "/([^*-]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
 
 		// formula specific replacements
 		array('find' => "/^void(\s)/", 'replace' => $fod . '4 $1'), // mark void with inline void
 		array('find' => "/" . $fod . "4 &z/", 'replace' => $fod . '4 z'), // no passing by reference
-		array('find' => "/" . $fod . " &w/", 'replace' => $fod . ' *w'), // no passing by reference
+		//array('find' => "/" . $fod . " \&w/", 'replace' => $fod . ' *w'), // no passing by reference
 		//array('find' => "/z\./", 'replace' => 'z->'),
 		array('find' => "/" . $fod . "4 &z4D/", 'replace' => $fod . '4 *z4D'), // no passing by reference
 		array('find' => "/z4D\./", 'replace' => 'z4D->'),
@@ -521,9 +521,9 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 		array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
 		array('find' => "/([\s\(-])z4D([,\);\s}])/", 'replace' => '$1*z4D$2'), // z4D to pointer
-		array('find' => "/(\s)w\s=/", 'replace' => '$1*w ='), // w to pointer
-		array('find' => "/(\s)w\s(.)=/", 'replace' => '$1*w $2='), // w to pointer
-		array('find' => "/([\s\(-])w([,\);\s}])/", 'replace' => '$1*w$2'), // w to pointer
+		//array('find' => "/(\s)w\s=/", 'replace' => '$1*w ='), // w to pointer
+		//array('find' => "/(\s)w\s(.)=/", 'replace' => '$1*w $2='), // w to pointer
+		//array('find' => "/([\s\(-])w([,\);\s}])/", 'replace' => '$1*w$2'), // w to pointer
 		array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases with cl version
 		array('find' => "/== ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+)\)/", 'replace' => '== $1Cl$2)'), // replace enum if comparison with cl version
 		array('find' => "/($s)(enum[a-zA-Z0-9_]+?[^l])($s)/", 'replace' => '$1$2Cl$3'), // replace enum definitions with cl version

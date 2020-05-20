@@ -30,7 +30,7 @@ REAL4 MandelboxFastIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+		REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 	}
@@ -38,6 +38,6 @@ REAL4 MandelboxFastIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
 
 	z = z * fractal->mandelbox.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 	return z;
 }

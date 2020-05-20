@@ -507,6 +507,8 @@ typedef struct
 	cl_float betaAngleOffset;
 	cl_float foldingValue;
 	cl_float foldingLimit;
+	cl_float invert0;
+	cl_float invert1;
 	cl_float offset;
 	cl_float offset0;
 	cl_float offsetA0;
@@ -564,6 +566,7 @@ typedef struct
 	cl_float scaleA3;
 	cl_float scaleB3;
 	cl_float scale4;
+	cl_float scale6;
 	cl_float scale8;
 	cl_float scaleMain2;
 	cl_float scaleVary0;
@@ -574,6 +577,8 @@ typedef struct
 	cl_float pwr8a;
 	cl_float sqtR;
 	cl_float mboxFactor1;
+	cl_float inv0;
+	cl_float inv1;
 
 	cl_int startIterations;
 	cl_int startIterations250;
@@ -691,6 +696,7 @@ typedef struct
 	cl_float4 offsetA200;
 	cl_float4 offset222;
 	cl_float4 offsetA222;
+	cl_float4 offset333;
 	cl_float4 power025;
 	cl_float4 power8;
 	cl_float4 vec111;
@@ -1246,6 +1252,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.betaAngleOffset = source.betaAngleOffset;
 	target.foldingValue = source.foldingValue;
 	target.foldingLimit = source.foldingLimit;
+	target.invert0 = source.invert0;
+	target.invert1 = source.invert1;
 	target.offset = source.offset;
 	target.offset0 = source.offset0;
 	target.offsetA0 = source.offsetA0;
@@ -1303,6 +1311,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.scaleA3 = source.scaleA3;
 	target.scaleB3 = source.scaleB3;
 	target.scale4 = source.scale4;
+	target.scale6 = source.scale6;
 	target.scale8 = source.scale8;
 	target.scaleMain2 = source.scaleMain2;
 	target.scaleVary0 = source.scaleVary0;
@@ -1312,6 +1321,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.pwr8a = source.pwr8a;
 	target.sqtR = source.sqtR;
 	target.mboxFactor1 = source.mboxFactor1;
+	target.inv0 = source.inv0;
+	target.inv1 = source.inv1;
 	target.startIterations = source.startIterations;
 	target.startIterations250 = source.startIterations250;
 	target.stopIterations = source.stopIterations;
@@ -1425,6 +1436,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offsetA200 = toClFloat4(source.offsetA200);
 	target.offset222 = toClFloat4(source.offset222);
 	target.offsetA222 = toClFloat4(source.offsetA222);
+	target.offset333 = toClFloat4(source.offset333);
 	target.power025 = toClFloat4(source.power025);
 	target.power8 = toClFloat4(source.power8);
 	target.vec111 = toClFloat4(source.vec111);

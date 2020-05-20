@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,10 +27,10 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			z += fractal->transformCommon.offset000;
 			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 			// REAL r = native_sqrt(rr);
-			aux->DE = native_divide((fractal->transformCommon.maxR2d1), rr);
+			aux->DE = (fractal->transformCommon.maxR2d1) / rr;
 		}
 	}
 
@@ -52,10 +52,9 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			}
 			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 			{
-				if (rr < fractal->transformCommon.minR0)
-					mode = mad(2.0f, fractal->transformCommon.minR0, -rr);
+				if (rr < fractal->transformCommon.minR0) mode = 2.0f * fractal->transformCommon.minR0 - rr;
 			}
-			mode = native_recip(mode);
+			mode = 1.0f / mode;
 			z *= mode;
 			aux->DE *= fabs(mode);
 		}
@@ -76,12 +75,10 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a, linear addition 0.0f at Max,
 			{
 				if (rr < fractal->transformCommon.offsetC0)
-					mode +=
-						rr
-						* (native_divide(fractal->transformCommon.offset0, fractal->transformCommon.offsetC0));
+					mode += rr * (fractal->transformCommon.offset0 / fractal->transformCommon.offsetC0);
 				else
-					mode += (fractal->transformCommon.scaleE1 - rr)
-									* native_divide(fractal->transformCommon.offset0, lengthAB);
+					mode +=
+						(fractal->transformCommon.scaleE1 - rr) * fractal->transformCommon.offset0 / lengthAB;
 			}
 
 			if (fractal->transformCommon.functionEnabledzFalse) // Mode 3b
@@ -90,41 +87,41 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				if (rr > fractal->transformCommon.offsetC0)
 					mode += fractal->transformCommon.offsetB0 * (fractal->transformCommon.scaleE1 - rr);
 				else
-					mode += mad(fractal->transformCommon.offsetA0, (fractal->transformCommon.offsetC0 - rr),
-						fractal->transformCommon.offsetB0 * lengthAB);
+					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.offsetC0 - rr)
+									+ fractal->transformCommon.offsetB0 * lengthAB;
 			}
 
 			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c, basic parabolic curve
 			{
 
-				REAL halfLen = native_divide(fractal->transformCommon.scaleE1, 2.0f);
-				REAL slope = native_divide(2.0f, fractal->transformCommon.scaleE1);
-				REAL factor = native_divide(slope, fractal->transformCommon.scaleE1);
+				REAL halfLen = fractal->transformCommon.scaleE1 / 2.0f;
+				REAL slope = 2.0f / fractal->transformCommon.scaleE1;
+				REAL factor = slope / fractal->transformCommon.scaleE1;
 				REAL parab = 0.0f;
 
 				if (rr < halfLen)
 				{
 					parab = rr * rr * factor * fractal->transformCommon.scaleG1;
-					mode += mad(rr * slope, fractal->transformCommon.scaleF1, -parab);
+					mode += rr * slope * fractal->transformCommon.scaleF1 - parab;
 				}
 				else
 				{
 					REAL temp = fractal->transformCommon.scaleE1 - rr;
 					parab = temp * temp * factor * fractal->transformCommon.scaleG1;
-					mode += mad(temp * slope, fractal->transformCommon.scaleF1, -parab);
+					mode += temp * slope * fractal->transformCommon.scaleF1 - parab;
 				}
 			}
 
 			/*if (fractal->transformCommon.functionEnabledwFalse) // Mode 3d
 			{
-				mode = mad((fractal->mandelbox.foldingSphericalFixed -
-			rr), fractal->transformCommon.offset0, rr);
+				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed -
+			rr);
 				if (rr < fractal->transformCommon.minR0)
-					mode -= rr * native_divide((fractal->transformCommon.offset0
-									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0)),
-			fractal->transformCommon.minR0);
+					mode -= rr * (fractal->transformCommon.offset0
+									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0))
+							/ fractal->transformCommon.minR0;
 			}*/
-			mode = native_recip(mode);
+			mode = 1.0f / mode;
 			z *= mode;
 			aux->DE *= fabs(mode);
 		}
@@ -132,7 +129,7 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	if (fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 	return z;
 }

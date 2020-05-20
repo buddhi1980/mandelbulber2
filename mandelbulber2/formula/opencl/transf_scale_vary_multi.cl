@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,32 +29,36 @@ REAL4 TransfScaleVaryMultiIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 		if (fractal->transformCommon.functionEnabled)
 		{
-			aux->actualScaleA = mad(vary, fractal->transformCommon.scaleVary0, base);
+			aux->actualScaleA = base + fractal->transformCommon.scaleVary0 * vary;
 		}
 		else if (fractal->transformCommon.functionEnabledCxFalse)
 		{
 			base = aux->actualScaleA;
-			aux->actualScaleA = mad(vary, fractal->transformCommon.scale0, base);
+			aux->actualScaleA = base + fractal->transformCommon.scale0 * vary;
 		}
 
 		else if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			REAL base2 = mad((aux->actualScaleA - fractal->transformCommon.offset1),
-				fractal->transformCommon.scaleVary0, base);
+			REAL base2 = base
+									 + fractal->transformCommon.scaleVary0
+											 * (aux->actualScaleA - fractal->transformCommon.offset1);
 
-			aux->actualScaleA = mad((aux->actualScaleA - fractal->transformCommon.offset1),
-				fractal->transformCommon.scale0, base2);
+			aux->actualScaleA =
+				base2
+				+ fractal->transformCommon.scale0 * (aux->actualScaleA - fractal->transformCommon.offset1);
 		}
 
 		else if (fractal->transformCommon.functionEnabledCzFalse)
 		{
 
 			base = aux->actualScaleA;
-			REAL base2 = mad((aux->actualScaleA - fractal->transformCommon.offset1),
-				fractal->transformCommon.scale0, base);
+			REAL base2 =
+				base
+				+ fractal->transformCommon.scale0 * (aux->actualScaleA - fractal->transformCommon.offset1);
 
-			aux->actualScaleA = mad((aux->actualScaleA - fractal->transformCommon.offset1),
-				fractal->transformCommon.scaleVary0, base2);
+			aux->actualScaleA = base2
+													+ fractal->transformCommon.scaleVary0
+															* (aux->actualScaleA - fractal->transformCommon.offset1);
 		}
 		REAL temp = aux->actualScaleA;
 		if (fractal->transformCommon.functionEnabledByFalse) // limits
@@ -65,12 +69,12 @@ REAL4 TransfScaleVaryMultiIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				temp = fractal->transformCommon.offset4;
 		}
 		z *= temp;
-		aux->DE = mad(aux->DE, fabs(temp), 1.0f);
+		aux->DE = aux->DE * fabs(temp) + 1.0f;
 	}
 	else if (aux->i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scaleMain2), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleMain2) + 1.0f;
 	}
 	else
 	{
@@ -79,7 +83,7 @@ REAL4 TransfScaleVaryMultiIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			aux->actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux->actualScaleA;
-		aux->DE = mad(aux->DE, fabs(aux->actualScaleA), 1.0f);
+		aux->DE = aux->DE * fabs(aux->actualScaleA) + 1.0f;
 	}
 	return z;
 }

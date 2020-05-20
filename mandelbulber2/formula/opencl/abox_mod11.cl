@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -22,8 +22,8 @@
 REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 	REAL4 c = aux->const_c;
 
 	// tglad fold
@@ -51,7 +51,7 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		REAL4 limit = fractal->transformCommon.additionConstant111;
 		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = native_recip(length);
+		REAL4 tgladS = 1.0f / length;
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
@@ -91,9 +91,9 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 				REAL tempC = fractal->Cpara.paraC;
 				REAL lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
 				REAL lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
-				REAL grade1 = native_divide((tempA - temp0), fractal->Cpara.iterA);
-				REAL grade2 = native_divide((tempB - tempA), lengthAB);
-				REAL grade3 = native_divide((tempC - tempB), lengthBC);
+				REAL grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+				REAL grade2 = (tempB - tempA) / lengthAB;
+				REAL grade3 = (tempC - tempB) / lengthBC;
 
 				// slopes
 				if (aux->i < fractal->Cpara.iterA)
@@ -102,11 +102,11 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 				}
 				if (aux->i < fractal->Cpara.iterB && aux->i >= fractal->Cpara.iterA)
 				{
-					para = mad(grade2, (aux->i - fractal->Cpara.iterA), tempA);
+					para = tempA + (aux->i - fractal->Cpara.iterA) * grade2;
 				}
 				if (aux->i >= fractal->Cpara.iterB)
 				{
-					para = mad(grade3, (aux->i - fractal->Cpara.iterB), tempB);
+					para = tempB + (aux->i - fractal->Cpara.iterB) * grade3;
 				}
 
 				// Curvi part on "true"
@@ -116,9 +116,9 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					REAL paraIt;
 					if (lengthAB > 2.0f * fractal->Cpara.iterA) // stop  error, todo fix.
 					{
-						REAL curve1 = native_divide((grade2 - grade1), (4.0f * fractal->Cpara.iterA));
+						REAL curve1 = (grade2 - grade1) / (4.0f * fractal->Cpara.iterA);
 						REAL tempL = lengthAB - fractal->Cpara.iterA;
-						REAL curve2 = native_divide((grade3 - grade2), (4.0f * tempL));
+						REAL curve2 = (grade3 - grade2) / (4.0f * tempL);
 						if (aux->i < 2 * fractal->Cpara.iterA)
 						{
 							paraIt = tempA - fabs(tempA - aux->i);
@@ -149,14 +149,14 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < para)
 		{
-			REAL tglad_factor1 = native_divide(fractal->transformCommon.maxR2d1, para);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			colorAdd += fractal->mandelbox.color.factorSp2;
@@ -171,10 +171,10 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z *= aux->actualScale;
 
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+			aux->DE = aux->DE * fabs(aux->actualScale) + 1.0f;
 		else
-			aux->DE = mad(
-				aux->DE * fabs(aux->actualScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			aux->DE =
+				aux->DE * fabs(aux->actualScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -42,7 +42,7 @@ REAL4 MandelbulbAbsPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL4 zz = z * z;
 	REAL4 newZ = z;
-	REAL temp = 1.0f - native_divide(zz.z, (zz.x + zz.y));
+	REAL temp = 1.0f - zz.z / (zz.x + zz.y);
 	newZ.x = (zz.x - zz.y) * temp;
 	newZ.y = 2.0f * z.x * z.y * temp;
 	newZ.z = (fractal->buffalo.posz ? 2.0f : -2.0f) * z.z * native_sqrt(zz.x + zz.y);
@@ -116,6 +116,6 @@ REAL4 MandelbulbAbsPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

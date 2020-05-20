@@ -27,9 +27,9 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
-		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		REAL t = max(0.0f, dot1);
-		z.x -= mad(t, -SQRT_3_F, -(0.5f * SQRT_3_4_F));
+		z.x -= t * -SQRT_3_F - (0.5f * SQRT_3_4_F);
 
 		z.y = fabs(z.y - t);
 
@@ -68,7 +68,7 @@ REAL4 MengerCrossMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-		REAL dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f));
+		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f);
 		REAL t = 1.0f * max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		if (fractal->transformCommon.functionEnabledXFalse)

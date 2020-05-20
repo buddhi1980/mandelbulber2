@@ -18,7 +18,7 @@
 
 REAL4 TransfBenesiT1ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -26,8 +26,8 @@ REAL4 TransfBenesiT1ModIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL tempL = length(temp);
 	z = fabs(z) * fractal->transformCommon.scale3D333;
 	// if (tempL < 1e-21f) tempL = 1e-21f;
-	REAL avgScale = native_divide(length(z), tempL);
-	aux->DE = mad(aux->DE, avgScale, 1.0f);
+	REAL avgScale = length(z) / tempL;
+	aux->DE = aux->DE * avgScale + 1.0f;
 
 	z = (fabs(z + fractal->transformCommon.additionConstant111)
 			 - fabs(z - fractal->transformCommon.additionConstant111) - z);

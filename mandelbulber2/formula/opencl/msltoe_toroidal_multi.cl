@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,7 +21,7 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i < fractal->transformCommon.stopIterationsD1) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux->DE = aux->DE * native_divide(length(z), aux->r);
+		aux->DE = aux->DE * length(z) / aux->r;
 	}
 	// Toroidal bulb multi
 	REAL th0 = fractal->bulb.betaAngleOffset;
@@ -65,14 +65,14 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	switch (fractal->sinTan2Trig.atan2OrAtan)
 	{
 		case multi_atan2OrAtanCl_atan2: ph0 += atan2(v2, v3); break;
-		case multi_atan2OrAtanCl_atan: ph0 += atan(native_divide(v2, v3)); break;
+		case multi_atan2OrAtanCl_atan: ph0 += atan(v2 / v3); break;
 	}
 
 	REAL r1 = fractal->transformCommon.minR05;
 	REAL x1 = r1 * native_cos(ph0);
 	REAL y1 = r1 * native_sin(ph0);
 
-	aux->r = mad((z.x - x1), (z.x - x1), (z.y - y1) * (z.y - y1)) + z.z * z.z; //+ 1e-030f
+	aux->r = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1) + z.z * z.z; //+ 1e-030f
 
 	REAL sqrT = aux->r;
 	if (fractal->transformCommon.functionEnabledAy) // sqrt
@@ -82,8 +82,8 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	switch (fractal->sinTan2Trig.asinOrAcos)
 	{
-		case multi_asinOrAcosCl_asin: th0 += asin(native_divide(v1, sqrT)); break;
-		case multi_asinOrAcosCl_acos: th0 += acos(native_divide(v1, sqrT)); break;
+		case multi_asinOrAcosCl_asin: th0 += asin(v1 / sqrT); break;
+		case multi_asinOrAcosCl_acos: th0 += acos(v1 / sqrT); break;
 	}
 
 	th0 *= fractal->transformCommon.pwr8; // default 8
@@ -93,8 +93,8 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL costh = native_cos(th0);
 	REAL sinth = native_sin(th0);
-	REAL r1RpCosTh = mad(costh, rp, r1);
-	REAL r1RpSinTh = mad(sinth, rp, r1);
+	REAL r1RpCosTh = r1 + rp * costh;
+	REAL r1RpSinTh = r1 + rp * sinth;
 
 	if (fractal->transformCommon.functionEnabledzFalse)
 	{ // cosine mode
@@ -113,21 +113,22 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	// DEcalc
 	if (!fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = mad(rp * aux->DE, (fractal->transformCommon.pwr4 + 1.0f), 1.0f);
+		aux->DE = rp * aux->DE * (fractal->transformCommon.pwr4 + 1.0f) + 1.0f;
 	}
 	else
 	{
-		aux->DE = mad(rp * aux->DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2),
-			fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = rp * aux->DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
+								* fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
 		REAL lengthTempZ = -length(z);
 		// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
-		z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+		z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 		z *= fractal->transformCommon.scale;
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 	}
 	// then add Cpixel constant vector
 	return z;

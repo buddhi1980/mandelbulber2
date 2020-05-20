@@ -25,11 +25,10 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			REAL rr = 1.0f;
 			z += fractal->transformCommon.offset000;
 			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
 			// REAL r = native_sqrt(rr);
-			aux->DE = mad(aux->DE, (native_divide(fractal->transformCommon.maxR2d1, rr)),
-				fractal->analyticDE.offset0);
+			aux->DE = aux->DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
 		}
 	}
 
@@ -43,7 +42,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
@@ -92,19 +91,19 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 		{
-			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 			aux->color += fractal->mandelbox.color.factor.x;
 		}
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 		{
-			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 			aux->color += fractal->mandelbox.color.factor.y;
 		}
 		REAL zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 		REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 		if (fabs(z.z) > zLimit)
 		{
-			z.z = mad(sign(z.z), zValue, -z.z);
+			z.z = sign(z.z) * zValue - z.z;
 			aux->color += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -118,8 +117,8 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (z.z > cSize.z) tempZ.z = cSize.z;
 	if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-	z = mad(tempZ, 2.0f, -z);
-	REAL k = max(native_divide(fractal->transformCommon.minR05, dot(z, z)), 1.0f);
+	z = tempZ * 2.0f - z;
+	REAL k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 	z *= k;
 	aux->DE *= k + fractal->analyticDE.tweak005;
 	// rotation

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -35,7 +35,7 @@ REAL4 MsltoeSym2ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL v3 = (z2.x + z2.y + z2.z); // sum of squares
 	// if (v3 < 1e-21f && v3 > -1e-21f)
 	//	v3 = (v3 > 0) ? 1e-21f : -1e-21f;
-	REAL zr = 1.0f - native_divide(z2.z, v3);
+	REAL zr = 1.0f - z2.z / v3;
 	temp.x = (z2.x - z2.y) * zr;
 	temp.y = 2.0f * z.x * z.y * zr * fractal->transformCommon.scale; // scaling temp.y
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
@@ -58,7 +58,7 @@ REAL4 MsltoeSym2ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 	return z;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,9 +18,9 @@ REAL4 MengerSmoothMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 {
 	if (fractal->transformCommon.functionEnabled)
 	{
-		z = (REAL4){native_sqrt(mad(z.x, z.x, fractal->transformCommon.offset0)),
-			native_sqrt(mad(z.y, z.y, fractal->transformCommon.offset0)),
-			native_sqrt(mad(z.z, z.z, fractal->transformCommon.offset0)), z.w};
+		z = (REAL4){native_sqrt(z.x * z.x + fractal->transformCommon.offset0),
+			native_sqrt(z.y * z.y + fractal->transformCommon.offset0),
+			native_sqrt(z.z * z.z + fractal->transformCommon.offset0), z.w};
 	}
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
@@ -35,29 +35,29 @@ REAL4 MengerSmoothMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL OffsetS = fractal->transformCommon.offset0005;
 
 	t = z.x - z.y;
-	t = ScaleP5
-			* (t - native_sqrt(mad(t, t, OffsetS * fractal->transformCommon.constantMultiplier111.x)));
+	t =
+		ScaleP5 * (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.x));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
 	t = z.x - z.z;
-	t = ScaleP5
-			* (t - native_sqrt(mad(t, t, OffsetS * fractal->transformCommon.constantMultiplier111.y)));
+	t =
+		ScaleP5 * (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.y));
 	z.x = z.x - t;
 	z.z = z.z + t;
 
 	t = z.y - z.z;
-	t = ScaleP5
-			* (t - native_sqrt(mad(t, t, OffsetS * fractal->transformCommon.constantMultiplier111.z)));
+	t =
+		ScaleP5 * (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.z));
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	z.z = z.z - native_divide(OffsetC.z, 3.0f);
-	z.z = -native_sqrt(mad(z.z, z.z, OffsetS));
-	z.z = z.z + native_divide(OffsetC.z, 3.0f);
+	z.z = z.z - OffsetC.z / 3.0f;
+	z.z = -native_sqrt(z.z * z.z + OffsetS);
+	z.z = z.z + OffsetC.z / 3.0f;
 
-	z.x = mad(fractal->transformCommon.scale3, z.x, -OffsetC.x);
-	z.y = mad(fractal->transformCommon.scale3, z.y, -OffsetC.y);
+	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
+	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux->DE *= fractal->transformCommon.scale3;
@@ -73,9 +73,9 @@ REAL4 MengerSmoothMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA) // box offset
 	{
-		z.x = mad(sign(z.x), fractal->transformCommon.additionConstantA000.x, z.x);
-		z.y = mad(sign(z.y), fractal->transformCommon.additionConstantA000.y, z.y);
-		z.z = mad(sign(z.z), fractal->transformCommon.additionConstantA000.z, z.z);
+		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
+		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
+		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse)

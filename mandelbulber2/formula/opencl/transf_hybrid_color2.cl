@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -50,8 +50,8 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				REAL4 oldPt = aux->old_z;
 				REAL lastZ = length(oldPt); // aux->old_r;
 				REAL newZ = aux->r;
-				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = native_divide(newZ, lastZ);
-				if (fractal->transformCommon.functionEnabledByFalse) lastVec = native_divide(lastZ, newZ);
+				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
+				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
 				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 				lastVec *= fractal->transformCommon.scaleB1;
 			}

@@ -31,10 +31,10 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 	REAL4 z2 = z * z; // squares
 	// sum of squares
-	REAL v3 = mad(z2.z, fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * z2.y,
-		(z2.x + z2.y + z2.z));
+	REAL v3 = (z2.x + z2.y + z2.z)
+						+ fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * z2.y * z2.z;
 	// if (v3 < 1e-21f && v3 > -1e-21f) v3 = (v3 > 0) ? 1e-21f : -1e-21f;
-	REAL zr = 1.0f - native_divide(z2.z, v3);
+	REAL zr = 1.0f - z2.z / v3;
 	temp.x = (z2.x - z2.y) * zr;
 	temp.y = 2.0f * z.x * z.y * zr * fractal->transformCommon.scale; // scaling temp.y
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
@@ -55,9 +55,9 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
-	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0f;
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
 			&& aux->i >= fractal->transformCommon.startIterationsA
@@ -73,10 +73,10 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			REAL tempL = length(temp2);
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
 			// if (tempL < 1e-21f) tempL = 1e-21f;
-			REAL avgScale = native_divide(length(z), tempL);
+			REAL avgScale = length(z) / tempL;
 			// aux->DE *= avgScale * fractal->transformCommon.scaleA1;
 			REAL tempAux = aux->DE * avgScale;
-			aux->DE = mad(fractal->analyticDE.scale1, (tempAux - aux->DE), aux->DE);
+			aux->DE = aux->DE + (tempAux - aux->DE) * fractal->analyticDE.scale1;
 		}
 		else
 		{

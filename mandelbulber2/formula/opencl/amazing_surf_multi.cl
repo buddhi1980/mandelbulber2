@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -67,12 +67,12 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 					// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
 					if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 					{
-						z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
+						z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 						colorAdd += fractal->mandelbox.color.factor.x;
 					}
 					if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 					{
-						z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
+						z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 						colorAdd += fractal->mandelbox.color.factor.y;
 					}
 					break;
@@ -99,7 +99,7 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL zValue = fractal->transformCommon.foldingValue * fractal->transformCommon.scale0;
 		if (fabs(z.z) > zLimit)
 		{
-			z.z = mad(sign(z.z), zValue, -z.z);
+			z.z = sign(z.z) * zValue - z.z;
 		}
 	}
 	z += fractal->transformCommon.additionConstant000;
@@ -128,8 +128,8 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			}
 			else if (rr < 1.0f)
 			{
-				z *= native_recip(rr);
-				aux->DE *= native_recip(rr);
+				z *= 1.0f / rr;
+				aux->DE *= 1.0f / rr;
 				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->mandelbox.offset;
@@ -150,7 +150,7 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			}
 			else if (rr < fractal->mandelbox.fR2)
 			{
-				REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, rr);
+				REAL tglad_factor2 = fractal->mandelbox.fR2 / rr;
 				z *= tglad_factor2;
 				aux->DE *= tglad_factor2;
 				colorAdd += fractal->mandelbox.color.factorSp2;
@@ -161,9 +161,9 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (aux->i >= fractal->transformCommon.startIterationsS
 				&& aux->i < fractal->transformCommon.stopIterationsS)
 		{ // scale
-			z *= mad(fractal->mandelbox.scale, fractal->transformCommon.scale1,
-				1.0f * (1.0f - fractal->transformCommon.scale1));
-			aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+			z *= fractal->mandelbox.scale * fractal->transformCommon.scale1
+					 + 1.0f * (1.0f - fractal->transformCommon.scale1);
+			aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 		}
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse)

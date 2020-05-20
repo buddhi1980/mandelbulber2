@@ -1143,7 +1143,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("info", false, morphNone, paramStandard);
 
 	// parameters for coustom formulas
-	par->addParam("custom_formula_name", QString(), morphNone, paramStandard);
 
 	QString emptyCode =
 		"REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)\n"

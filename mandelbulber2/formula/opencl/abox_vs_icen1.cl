@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,8 +19,8 @@
 
 REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 	REAL4 c = aux->const_c;
 	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -53,14 +53,14 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	else if (rr < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, rr);
+		REAL tglad_factor2 = fractal->mandelbox.fR2 / rr;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 
 	z *= aux->actualScale; // aux->actualScale;
-	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0f;
 
 	if (fractal->transformCommon.rotationEnabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
@@ -70,11 +70,11 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	if (fractal->transformCommon.juliaMode)
 	{
-		z += mad(-fractal->transformCommon.constantMultiplier111, c, fractal->transformCommon.juliaC);
+		z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
 	}
 	else
 	{
-		z += mad(c, fractal->transformCommon.constantMultiplier111, fractal->transformCommon.juliaC);
+		z += c * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.juliaC;
 	}
 	return z;
 }

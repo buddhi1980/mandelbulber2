@@ -40,9 +40,9 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			double sizer1 = fractal->transformCommon.scale1 * b;
 			a = fabs(z);
-			z.x -= sign(z.x) * max(double(sign(a.x - max(a.y, a.z))), limitA) * sizer1;
-			z.y -= sign(z.y) * max(double(sign(a.y - max(a.z, a.x))), limitA) * sizer1;
-			z.z -= sign(z.z) * max(double(sign(a.z - max(a.x, a.y))), limitA) * sizer1;
+			z.x -= sign(z.x) * max(1.0 * sign(a.x - max(a.y, a.z)), limitA) * sizer1;
+			z.y -= sign(z.y) * max(1.0 * sign(a.y - max(a.z, a.x)), limitA) * sizer1;
+			z.z -= sign(z.z) * max(1.0 * sign(a.z - max(a.x, a.y)), limitA) * sizer1;
 			b *= fractal->transformCommon.scale05;
 		}
 
@@ -51,9 +51,9 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			double sizer2 = fractal->transformCommon.scaleA1 * b;
 			a = fabs(z);
-			z.x -= sign(z.x) * max(double(sign(a.x - min(a.y, a.z))), limitB) * sizer2;
-			z.y -= sign(z.y) * max(double(sign(a.y - min(a.z, a.x))), limitB) * sizer2;
-			z.z -= sign(z.z) * max(double(sign(a.z - min(a.x, a.y))), limitB) * sizer2;
+			z.x -= sign(z.x) * max(1.0 * sign(a.x - min(a.y, a.z)), limitB) * sizer2;
+			z.y -= sign(z.y) * max(1.0 * sign(a.y - min(a.z, a.x)), limitB) * sizer2;
+			z.z -= sign(z.z) * max(1.0 * sign(a.z - min(a.x, a.y)), limitB) * sizer2;
 			b *= fractal->transformCommon.minR05;
 		}
 
@@ -66,9 +66,11 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		else
 			d2 = a.Length() - b * fractal->transformCommon.scaleC1;
 
-		 d2 = max(d2, -d);
+		d2 = max(d2, -d);
 
-		if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
-		else aux.dist = min(aux.dist, d2);
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			aux.dist = d2;
+		else
+			aux.dist = min(aux.dist, d2);
 	}
 }

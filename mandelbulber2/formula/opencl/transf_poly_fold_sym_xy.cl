@@ -24,21 +24,21 @@ REAL4 TransfPolyFoldSymXYIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 
 	int order = fractal->transformCommon.int6;
-	REAL div2PI = (REAL)native_divide(order, M_PI_2x_F);
+	REAL div2PI = (REAL)order / M_PI_2x_F;
 
 	bool cy = false;
 	int sector;
 	if (!fractal->transformCommon.functionEnabledFalse)
-		sector = (int)(-div2PI * atan(native_divide(z.x, z.y)));
+		sector = (int)(-div2PI * atan(z.x / z.y));
 	else
 		sector = (int)(-div2PI * atan2(z.x, z.y));
 
 	if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
-	REAL angle = (REAL)(native_divide(sector, div2PI));
+	REAL angle = (REAL)(sector / div2PI);
 	// z.xy = rotate(z.xy,angle); // sin
 	REAL tempZx = z.x;
-	z.x = mad(z.x, native_cos(angle), -z.y * native_sin(angle));
-	z.y = mad(tempZx, native_sin(angle), z.y * native_cos(angle));
+	z.x = z.x * native_cos(angle) - z.y * native_sin(angle);
+	z.y = tempZx * native_sin(angle) + z.y * native_cos(angle);
 	if (cy) z.y = -z.y;
 	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
 
@@ -49,11 +49,11 @@ REAL4 TransfPolyFoldSymXYIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			REAL avgScale = native_divide(length(z), length(oldZ));
-			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			REAL avgScale = length(z) / length(oldZ);
+			aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	return z;

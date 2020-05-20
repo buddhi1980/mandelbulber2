@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,10 +27,8 @@ REAL4 TransfPolyFoldAtanIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0f) z.x = -z.x;
 		int poly = fractal->transformCommon.int8X;
-		REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-											native_divide(M_PI_F, (0.5f * poly)))
-										- native_divide(M_PI_F, poly));
-		REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+		REAL psi = fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
 	}
@@ -39,10 +37,8 @@ REAL4 TransfPolyFoldAtanIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0f) z.y = -z.y;
 		int poly = fractal->transformCommon.int8Y;
-		REAL psi = fabs(fmod(atan(native_divide(z.z, z.y)) + native_divide(M_PI_F, poly),
-											native_divide(M_PI_F, (0.5f * poly)))
-										- native_divide(M_PI_F, poly));
-		REAL len = native_sqrt(mad(z.y, z.y, z.z * z.z));
+		REAL psi = fabs(fmod(atan(z.z / z.y) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.y * z.y + z.z * z.z);
 		z.y = native_cos(psi) * len;
 		z.z = native_sin(psi) * len;
 	}
@@ -51,10 +47,8 @@ REAL4 TransfPolyFoldAtanIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0f) z.z = -z.z;
 		int poly = fractal->transformCommon.int8Z;
-		REAL psi = fabs(fmod(atan(native_divide(z.x, z.z)) + native_divide(M_PI_F, poly),
-											native_divide(M_PI_F, (0.5f * poly)))
-										- native_divide(M_PI_F, poly));
-		REAL len = native_sqrt(mad(z.z, z.z, z.x * z.x));
+		REAL psi = fabs(fmod(atan(z.x / z.z) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.z * z.z + z.x * z.x);
 		z.z = native_cos(psi) * len;
 		z.x = native_sin(psi) * len;
 	}
@@ -72,11 +66,11 @@ REAL4 TransfPolyFoldAtanIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			REAL avgScale = native_divide(length(z), length(oldZ));
-			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			REAL avgScale = length(z) / length(oldZ);
+			aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	return z;

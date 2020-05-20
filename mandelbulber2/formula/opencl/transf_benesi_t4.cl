@@ -20,21 +20,21 @@ REAL4 TransfBenesiT4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 {
 	Q_UNUSED(aux);
 
-	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 	REAL4 tempV2 = z;
-	tempV2.x = (mad(z.y, z.y, z.z * z.z));
-	tempV2.y = (mad(z.x, z.x, z.z * z.z)); // switching, squared,
-	tempV2.z = (mad(z.x, z.x, z.y * z.y));
+	tempV2.x = (z.y * z.y + z.z * z.z);
+	tempV2.y = (z.x * z.x + z.z * z.z); // switching, squared,
+	tempV2.z = (z.x * z.x + z.y * z.y);
 	z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
 			* fractal->transformCommon.scale3D222;
 
-	REAL avgScale = native_divide(length(z), length(tempV2));
+	REAL avgScale = length(z) / length(tempV2);
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.rotationEnabled)

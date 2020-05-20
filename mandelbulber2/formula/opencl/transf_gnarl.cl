@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -38,14 +38,13 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		REAL xx = z.x * z.x;
-		tempZ.x = z.x
-							+ stepX
-									* (native_sin(
-										Gamma * (z.y - xx) + native_sin(Alpha * (mad(Beta, native_cos(z.y), z.y)))));
+		tempZ.x =
+			z.x
+			+ stepX
+					* (native_sin(Gamma * (z.y - xx) + native_sin(Alpha * (z.y + Beta * native_cos(z.y)))));
 		tempZ.y =
 			z.y
-			+ stepY
-					* (native_sin(Gamma * (z.y + xx) - Alpha * native_sin(mad(Beta, native_cos(xx), xx))));
+			+ stepY * (native_sin(Gamma * (z.y + xx) - Alpha * native_sin(xx + Beta * native_cos(xx))));
 		z = tempZ;
 	}
 
@@ -78,11 +77,11 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE * fabs(Scale), fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			aux->DE = aux->DE * fabs(Scale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			REAL avgScale = native_divide(length(z), length(oldZ));
-			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			REAL avgScale = length(z) / length(oldZ);
+			aux->DE = aux->DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	return z;

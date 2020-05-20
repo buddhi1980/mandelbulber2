@@ -68,10 +68,9 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -81,14 +80,13 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			// z += fractal->mandelbox.offset;
 			if (rr < fractal->transformCommon.minR0)
 			{
-				REAL tglad_factor1 =
-					native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR0);
+				REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 				z *= tglad_factor1;
 				aux->DE *= tglad_factor1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+				REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 				z *= tglad_factor2;
 				aux->DE *= tglad_factor2;
 			}
@@ -140,11 +138,11 @@ REAL4 FoldCutCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		REAL divT = 1.0f + aux->i;
-		divT = native_divide(fractal->transformCommon.offset05, divT);
-		aux->dist = fabs(min(divT - aux->dist, native_divide(z.x, aux->DE)));
+		divT = fractal->transformCommon.offset05 / divT;
+		aux->dist = fabs(min(divT - aux->dist, z.x / aux->DE));
 	}
 	else
-		aux->dist = min(aux->dist, native_divide(z.x, aux->DE));
+		aux->dist = min(aux->dist, z.x / aux->DE);
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);

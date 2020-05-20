@@ -28,8 +28,7 @@ REAL4 TransfRotationVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
 			REAL dCurrentIteration = (REAL)currentIteration;
 			REAL dIterationRange = (REAL)iterationRange;
-			tempVC +=
-				fractal->transformCommon.offset000 * native_divide(dCurrentIteration, dIterationRange);
+			tempVC += fractal->transformCommon.offset000 * dCurrentIteration / dIterationRange;
 		}
 		else
 		{

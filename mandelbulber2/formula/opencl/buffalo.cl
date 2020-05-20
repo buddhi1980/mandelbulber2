@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,7 +25,7 @@ REAL4 BuffaloIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	REAL x2 = z.x * z.x;
 	REAL y2 = z.y * z.y;
 	REAL z2 = z.z * z.z;
-	REAL temp = 1.0f - native_divide(z2, (x2 + y2));
+	REAL temp = 1.0f - z2 / (x2 + y2);
 	REAL newx = (x2 - y2) * temp;
 	REAL newy = 2.0f * z.x * z.y * temp;
 	REAL newz = (fractal->buffalo.posz ? 2.0f : -2.0f) * z.z * native_sqrt(x2 + y2);

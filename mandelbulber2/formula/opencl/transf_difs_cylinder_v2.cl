@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,7 +32,7 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL absH = fabs(zc.z);
 	REAL lengthCyl = zc.z;
 
-	cylR = native_sqrt(mad(zc.y, zc.y, cylR));
+	cylR = native_sqrt(cylR + zc.y * zc.y);
 	REAL cylH = absH - fractal->transformCommon.offsetA1;
 
 	// no absz
@@ -67,17 +67,17 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	temp = max(temp, 0.0f);
 	REAL cylHm = max(cylH, 0.0f);
-	REAL cylD = native_sqrt(mad(temp, temp, cylHm * cylHm));
+	REAL cylD = native_sqrt(temp * temp + cylHm * cylHm);
 
 	// rings
 	if (fractal->transformCommon.functionEnabledOFalse
 			&& aux->i >= fractal->transformCommon.startIterationsO
 			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
-		cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
+		cylD = native_sqrt(cylRm * cylRm + cylH * cylH);
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 
-	aux->dist = min(aux->dist, native_divide(cylD, (aux->DE + 1.0f)));
+	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
 	return z;
 }

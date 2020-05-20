@@ -58,8 +58,8 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		aux->DE *= fractal->transformCommon.maxR2d1 / rr;
 	}
 	z -= fractal->transformCommon.offset0000;
 
@@ -67,7 +67,7 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL useScale = 1.0f;
 	useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 	z *= useScale;
-	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	aux->DE = aux->DE * fabs(useScale) + 1.0f;
 	// scale vary
 	if (fractal->transformCommon.functionEnabledKFalse
 			&& aux->i >= fractal->transformCommon.startIterationsK
@@ -89,43 +89,43 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		{
 			tp = z;
 			REAL alpha = fractal->transformCommon.rotation44a.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(alpha), tp.y * native_sin(alpha));
-			z.y = mad(tp.x, -native_sin(alpha), tp.y * native_cos(alpha));
+			z.x = tp.x * native_cos(alpha) + tp.y * native_sin(alpha);
+			z.y = tp.x * -native_sin(alpha) + tp.y * native_cos(alpha);
 		}
 		if (fractal->transformCommon.rotation44a.y != 0)
 		{
 			tp = z;
 			REAL beta = fractal->transformCommon.rotation44a.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(beta), tp.z * native_sin(beta));
-			z.z = mad(tp.y, -native_sin(beta), tp.z * native_cos(beta));
+			z.y = tp.y * native_cos(beta) + tp.z * native_sin(beta);
+			z.z = tp.y * -native_sin(beta) + tp.z * native_cos(beta);
 		}
 		if (fractal->transformCommon.rotation44a.z != 0)
 		{
 			tp = z;
 			REAL gamma = fractal->transformCommon.rotation44a.z * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(gamma), tp.z * native_sin(gamma));
-			z.z = mad(tp.x, -native_sin(gamma), tp.z * native_cos(gamma));
+			z.x = tp.x * native_cos(gamma) + tp.z * native_sin(gamma);
+			z.z = tp.x * -native_sin(gamma) + tp.z * native_cos(gamma);
 		}
 		if (fractal->transformCommon.rotation44b.x != 0)
 		{
 			tp = z;
 			REAL delta = fractal->transformCommon.rotation44b.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(delta), tp.w * native_sin(delta));
-			z.w = mad(tp.x, -native_sin(delta), tp.w * native_cos(delta));
+			z.x = tp.x * native_cos(delta) + tp.w * native_sin(delta);
+			z.w = tp.x * -native_sin(delta) + tp.w * native_cos(delta);
 		}
 		if (fractal->transformCommon.rotation44b.y != 0)
 		{
 			tp = z;
 			REAL epsilon = fractal->transformCommon.rotation44b.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(epsilon), tp.w * native_sin(epsilon));
-			z.w = mad(tp.y, -native_sin(epsilon), tp.w * native_cos(epsilon));
+			z.y = tp.y * native_cos(epsilon) + tp.w * native_sin(epsilon);
+			z.w = tp.y * -native_sin(epsilon) + tp.w * native_cos(epsilon);
 		}
 		if (fractal->transformCommon.rotation44b.z != 0)
 		{
 			tp = z;
 			REAL zeta = fractal->transformCommon.rotation44b.z * M_PI_180_F;
-			z.z = mad(tp.z, native_cos(zeta), tp.w * native_sin(zeta));
-			z.w = mad(tp.z, -native_sin(zeta), tp.w * native_cos(zeta));
+			z.z = tp.z * native_cos(zeta) + tp.w * native_sin(zeta);
+			z.w = tp.z * -native_sin(zeta) + tp.w * native_cos(zeta);
 		}
 	}
 	z += fractal->transformCommon.additionConstant0000;
@@ -149,6 +149,6 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -48,10 +48,8 @@ REAL4 IfsXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *au
 	{
 		z.x = fabs(z.x);
 		int poly = fractal->transformCommon.int3;
-		REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-											native_divide(M_PI_F, (0.5f * poly)))
-										- native_divide(M_PI_F, poly));
-		REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+		REAL psi = fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
 	}
@@ -109,10 +107,9 @@ REAL4 IfsXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *au
 		z *= useScale;
 
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+			aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		else
-			aux->DE =
-				mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 		if (fractal->transformCommon.functionEnabledFFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -140,6 +137,6 @@ REAL4 IfsXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *au
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

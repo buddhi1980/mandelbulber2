@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,6 +23,6 @@ REAL4 TransfDIFSBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	zc.z = max(zc.z, 0.0f);
 	REAL zcd = length(zc);
 
-	aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f)));
+	aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f));
 	return z;
 }

@@ -18,14 +18,14 @@
 
 REAL4 TransfBenesiT2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 	REAL4 tempV2 = z;
-	tempV2.x = native_sqrt(mad(z.y, z.y, z.z * z.z));
-	tempV2.y = native_sqrt(mad(z.x, z.x, z.z * z.z)); // switching, squared, sqrt
-	tempV2.z = native_sqrt(mad(z.x, z.x, z.y * z.y));
+	tempV2.x = native_sqrt(z.y * z.y + z.z * z.z);
+	tempV2.y = native_sqrt(z.x * z.x + z.z * z.z); // switching, squared, sqrt
+	tempV2.z = native_sqrt(z.x * z.x + z.y * z.y);
 
 	z = fabs(tempV2 - fractal->transformCommon.additionConstant111);
 
@@ -33,8 +33,8 @@ REAL4 TransfBenesiT2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL tempL = length(temp);
 	z = fabs(z) * fractal->transformCommon.scale3D444;
 	// if (tempL < 1e-21f) tempL = 1e-21f;
-	REAL avgScale = native_divide(length(z), tempL);
-	aux->DE = mad(aux->DE, avgScale, 1.0f);
+	REAL avgScale = length(z) / tempL;
+	aux->DE = aux->DE * avgScale + 1.0f;
 
 	if (fractal->transformCommon.rotationEnabled)
 	{

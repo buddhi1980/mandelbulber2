@@ -26,7 +26,7 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
@@ -61,7 +61,7 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -69,8 +69,8 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
@@ -83,7 +83,7 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -91,8 +91,8 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		z = (fabs(z + fractal->transformCommon.additionConstant111)
 				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
@@ -166,6 +166,6 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z += fractal->transformCommon.additionConstantA000;
 	}
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

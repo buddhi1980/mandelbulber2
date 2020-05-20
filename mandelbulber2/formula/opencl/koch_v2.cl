@@ -44,10 +44,9 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -70,14 +69,13 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 			if (rr < fractal->transformCommon.minR0)
 			{
-				REAL tglad_factor1 =
-					native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR0);
+				REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 				z *= tglad_factor1;
 				aux->DE *= tglad_factor1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+				REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 				z *= tglad_factor2;
 				aux->DE *= tglad_factor2;
 			}
@@ -107,7 +105,7 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	z.x += FRAC_1_3_F;
 
 	REAL4 Offset = fractal->transformCommon.offset100;
-	z = mad(fractal->transformCommon.scale3, (z - Offset), Offset);
+	z = fractal->transformCommon.scale3 * (z - Offset) + Offset;
 	aux->DE = aux->DE * fractal->transformCommon.scale3;
 
 	// rotation
@@ -122,7 +120,7 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		aux->dist = fabs(length(z) - length(Offset));
-		aux->dist = native_divide(aux->dist, aux->DE);
+		aux->dist = aux->dist / aux->DE;
 	}
 	else
 	{
@@ -137,7 +135,7 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			e = clamp(length(aux->c) - e, 0.0f, 100.0f); // circle
 		}
 		aux->dist = fabs(z.z - Offset.z);
-		aux->dist = native_divide(aux->dist, aux->DE);
+		aux->dist = aux->dist / aux->DE;
 		aux->dist = max(aux->dist, e);
 	}
 	return z;

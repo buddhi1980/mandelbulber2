@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,21 +25,21 @@ REAL4 TransfClamp4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
 		if (z.x < lower.x) z.x = lower.x;
 		if (z.x > upper.x) z.x = upper.x;
-		z.x = mad(oldZ.x, scale.x, -z.x);
+		z.x = oldZ.x * scale.x - z.x;
 	}
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 		if (z.y < lower.y) z.y = lower.y;
 		if (z.y > upper.y) z.y = upper.y;
-		z.y = mad(oldZ.y, scale.y, -z.y);
+		z.y = oldZ.y * scale.y - z.y;
 	}
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 		if (z.z < lower.z) z.z = lower.z;
 		if (z.z > upper.z) z.z = upper.z;
-		z.z = mad(oldZ.z, scale.z, -z.z);
+		z.z = oldZ.z * scale.z - z.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledAwFalse)
@@ -47,7 +47,7 @@ REAL4 TransfClamp4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 		if (z.w < lower.w) z.w = lower.w;
 		if (z.w > upper.w) z.w = upper.w;
-		z.w = mad(oldZ.w, scale.w, -z.w);
+		z.w = oldZ.w * scale.w - z.w;
 	}
 
 	aux->DE *= fractal->analyticDE.scale1;

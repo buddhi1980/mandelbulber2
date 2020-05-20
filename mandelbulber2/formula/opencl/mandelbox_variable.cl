@@ -73,12 +73,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsC)
 				{
-					limit4.x *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsC),
-																fractal->transformCommon.offsetA000.x))))
-						* fractal->transformCommon.scale3D111.x;
+					limit4.x *= (1.0f
+												- 1.0f
+														/ (1.0f
+															 + (aux->i - fractal->transformCommon.startIterationsC)
+																	 / fractal->transformCommon.offsetA000.x))
+											* fractal->transformCommon.scale3D111.x;
 				}
 				z.x = fabs(z.x + limit4.x) - fabs(z.x - limit4.x) - z.x;
 			}
@@ -86,12 +86,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsY)
 				{
-					limit4.y *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsY),
-																fractal->transformCommon.offsetA000.y))))
-						* fractal->transformCommon.scale3D111.y;
+					limit4.y *= (1.0f
+												- 1.0f
+														/ (1.0f
+															 + (aux->i - fractal->transformCommon.startIterationsY)
+																	 / fractal->transformCommon.offsetA000.y))
+											* fractal->transformCommon.scale3D111.y;
 				}
 				z.y = fabs(z.y + limit4.y) - fabs(z.y - limit4.y) - z.y;
 			}
@@ -99,12 +99,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsZ)
 				{
-					limit4.z *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsZ),
-																fractal->transformCommon.offsetA000.z))))
-						* fractal->transformCommon.scale3D111.z;
+					limit4.z *= (1.0f
+												- 1.0f
+														/ (1.0f
+															 + (aux->i - fractal->transformCommon.startIterationsZ)
+																	 / fractal->transformCommon.offsetA000.z))
+											* fractal->transformCommon.scale3D111.z;
 				}
 				z.z = fabs(z.z + limit4.z) - fabs(z.z - limit4.z) - z.z;
 			}
@@ -120,12 +120,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		if (aux->i > fractal->transformCommon.startIterationsB)
 		{
-			maxR2use *=
-				(1.0f
-					- native_recip((1.0f
-													+ native_divide((aux->i - fractal->transformCommon.startIterationsB),
-														fractal->transformCommon.offsetA0))))
-				* fractal->transformCommon.scaleA1;
+			maxR2use *= (1.0f
+										- 1.0f
+												/ (1.0f
+													 + (aux->i - fractal->transformCommon.startIterationsB)
+															 / fractal->transformCommon.offsetA0))
+									* fractal->transformCommon.scaleA1;
 		}
 	}
 	// vary minR2
@@ -133,12 +133,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		if (aux->i > fractal->transformCommon.startIterationsA)
 		{
-			minR2use *=
-				(1.0f
-					- native_recip((1.0f
-													+ native_divide((aux->i - fractal->transformCommon.startIterationsA),
-														fractal->transformCommon.offset0))))
-				* fractal->transformCommon.scale1;
+			minR2use *= (1.0f
+										- 1.0f
+												/ (1.0f
+													 + (aux->i - fractal->transformCommon.startIterationsA)
+															 / fractal->transformCommon.offset0))
+									* fractal->transformCommon.scale1;
 		}
 	}
 
@@ -151,13 +151,13 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// if (r2 < 1e-21f) r2 = 1e-21f;
 	if (rr < minR2use)
 	{
-		REAL tglad_factor1 = native_divide(maxR2use, minR2use);
+		REAL tglad_factor1 = maxR2use / minR2use;
 		z *= tglad_factor1;
 		aux->DE *= tglad_factor1;
 	}
 	else if (rr < maxR2use)
 	{
-		REAL tglad_factor2 = native_divide(maxR2use, rr);
+		REAL tglad_factor2 = maxR2use / rr;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 	}
@@ -179,8 +179,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				REAL iterationRange =
 					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
 				REAL currentIteration = (aux->i - fractal->transformCommon.startIterations);
-				tempVC +=
-					fractal->transformCommon.offset000 * native_divide(currentIteration, iterationRange);
+				tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 			}
 
 			if (aux->i >= fractal->transformCommon.stopIterations)
@@ -202,7 +201,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		useScale = aux->actualScaleA + fractal->mandelbox.scale;
 
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 		if (fractal->transformCommon.functionEnabledFFalse
 				&& aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -266,36 +265,36 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsM)
 				{
-					tempC.x *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsM),
-																fractal->transformCommon.offsetF000.x))))
-						* fractal->transformCommon.constantMultiplierB111.x;
+					tempC.x *= (1.0f
+											 - 1.0f
+													 / (1.0f
+															+ (aux->i - fractal->transformCommon.startIterationsM)
+																	/ fractal->transformCommon.offsetF000.x))
+										 * fractal->transformCommon.constantMultiplierB111.x;
 				}
 			}
 			if (fractal->transformCommon.functionEnabledy)
 			{
 				if (aux->i > fractal->transformCommon.startIterationsO)
 				{
-					tempC.y *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsO),
-																fractal->transformCommon.offsetF000.y))))
-						* fractal->transformCommon.constantMultiplierB111.y;
+					tempC.y *= (1.0f
+											 - 1.0f
+													 / (1.0f
+															+ (aux->i - fractal->transformCommon.startIterationsO)
+																	/ fractal->transformCommon.offsetF000.y))
+										 * fractal->transformCommon.constantMultiplierB111.y;
 				}
 			}
 			if (fractal->transformCommon.functionEnabledz)
 			{
 				if (aux->i > fractal->transformCommon.startIterationsP)
 				{
-					tempC.z *=
-						(1.0f
-							- native_recip((1.0f
-															+ native_divide((aux->i - fractal->transformCommon.startIterationsP),
-																fractal->transformCommon.offsetF000.z))))
-						* fractal->transformCommon.constantMultiplierB111.z;
+					tempC.z *= (1.0f
+											 - 1.0f
+													 / (1.0f
+															+ (aux->i - fractal->transformCommon.startIterationsP)
+																	/ fractal->transformCommon.offsetF000.z))
+										 * fractal->transformCommon.constantMultiplierB111.z;
 				}
 			}
 		}
@@ -304,7 +303,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// color updated v2.13 & mode2 v2.14
 	if (fractal->foldColor.auxColorEnabledFalse)
@@ -325,9 +324,9 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (rrCol < fractal->transformCommon.minR2p25)
 					colorAdd +=
-						mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-							fractal->mandelbox.color.factorSp2
-								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 				else
 					colorAdd +=
 						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);

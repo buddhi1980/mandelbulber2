@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,8 +32,8 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z = (REAL4){z.z, z.y, z.x, z.w};
 
 		z.x = fabs(z.x);
-		z = mad(z, fractal->transformCommon.scale2,
-			-fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0f));
+		z = z * fractal->transformCommon.scale2
+				- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0f);
 
 		aux->DE *= fractal->transformCommon.scale2;
 	}
@@ -43,16 +43,16 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		REAL4 temp = z;
-		z.x = mad(sign(z.x), fractal->transformCommon.additionConstantA000.x, z.x);
-		z.y = mad(sign(z.y), fractal->transformCommon.additionConstantA000.y, z.y);
-		z.z = mad(sign(z.z), fractal->transformCommon.additionConstantA000.z, z.z);
+		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
+		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
+		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
 			REAL tempL = length(temp);
 			// if (tempL < 1e-21f) tempL = 1e-21f;
-			REAL avgScale = native_divide(length(z), tempL);
-			aux->DE = mad(aux->DE, avgScale, 1.0f);
+			REAL avgScale = length(z) / tempL;
+			aux->DE = aux->DE * avgScale + 1.0f;
 		}
 	}
 	// spherical fold
@@ -74,9 +74,9 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				REAL tempC = fractal->Cpara.paraC;
 				REAL lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
 				REAL lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
-				REAL grade1 = native_divide((tempA - temp0), fractal->Cpara.iterA);
-				REAL grade2 = native_divide((tempB - tempA), lengthAB);
-				REAL grade3 = native_divide((tempC - tempB), lengthBC);
+				REAL grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+				REAL grade2 = (tempB - tempA) / lengthAB;
+				REAL grade3 = (tempC - tempB) / lengthBC;
 
 				// slopes
 				if (aux->i < fractal->Cpara.iterA)
@@ -85,11 +85,11 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				}
 				if (aux->i < fractal->Cpara.iterB && aux->i >= fractal->Cpara.iterA)
 				{
-					para = mad(grade2, (aux->i - fractal->Cpara.iterA), tempA);
+					para = tempA + (aux->i - fractal->Cpara.iterA) * grade2;
 				}
 				if (aux->i >= fractal->Cpara.iterB)
 				{
-					para = mad(grade3, (aux->i - fractal->Cpara.iterB), tempB);
+					para = tempB + (aux->i - fractal->Cpara.iterB) * grade3;
 				}
 
 				// Curvi part on "true"
@@ -99,9 +99,9 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 					REAL paraIt;
 					if (lengthAB > 2.0f * fractal->Cpara.iterA) // stop  error, todo fix.
 					{
-						REAL curve1 = native_divide((grade2 - grade1), (4.0f * fractal->Cpara.iterA));
+						REAL curve1 = (grade2 - grade1) / (4.0f * fractal->Cpara.iterA);
 						REAL tempL = lengthAB - fractal->Cpara.iterA;
-						REAL curve2 = native_divide((grade3 - grade2), (4.0f * tempL));
+						REAL curve2 = (grade3 - grade2) / (4.0f * tempL);
 						if (aux->i < 2 * fractal->Cpara.iterA)
 						{
 							paraIt = tempA - fabs(tempA - aux->i);
@@ -132,14 +132,14 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < para)
 		{
-			REAL tglad_factor1 = native_divide(fractal->transformCommon.maxR2d1, para);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 			aux->color += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			aux->color += fractal->mandelbox.color.factorSp2;

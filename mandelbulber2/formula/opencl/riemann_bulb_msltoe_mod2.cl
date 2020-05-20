@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,13 +21,12 @@ REAL4 RiemannBulbMsltoeMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	Q_UNUSED(aux);
 
 	REAL radius2 = fractal->transformCommon.minR05;
-	REAL rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // r2 or point radius squared
+	REAL rr = z.x * z.x + z.y * z.y + z.z * z.z; // r2 or point radius squared
 	if (rr < radius2 * radius2)
 	{
 		if (fractal->transformCommon.functionEnabled)
 			// smooth inside
-			z *= radius2 * ((rr * 0.1f) + 0.4f) * 1.18f
-					 * native_divide(fractal->transformCommon.scaleA1, rr);
+			z *= radius2 * ((rr * 0.1f) + 0.4f) * 1.18f * fractal->transformCommon.scaleA1 / rr;
 		else
 		{
 			z *= fractal->transformCommon.constantMultiplier111;
@@ -39,11 +38,11 @@ REAL4 RiemannBulbMsltoeMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		z *= fractal->transformCommon.constantMultiplier222;
 		REAL shift = fractal->transformCommon.offset1;
 		// r1 = length^2,  //  + 1e-030f
-		REAL r1 = mad(z.x, z.x, (z.y - shift) * (z.y - shift)) + z.z * z.z;
+		REAL r1 = z.x * z.x + (z.y - shift) * (z.y - shift) + z.z * z.z;
 		// inversions by length^2
-		z.x = native_divide(z.x, r1);
-		z.y = native_divide((z.y - shift), r1);
-		z.z = native_divide(z.z, r1);
+		z.x = z.x / r1;
+		z.y = (z.y - shift) / r1;
+		z.z = z.z / r1;
 		// 2nd scale variable , default = REAL (3.0f)
 		z *= fractal->transformCommon.scale3;
 		// y offset variable, default = REAL (1.9f);

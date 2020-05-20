@@ -27,8 +27,8 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		z += fractal->transformCommon.offset000;
 		REAL rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.scaleG1, rr);
-		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux->DE *= (fractal->transformCommon.scaleG1 / rr);
 		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
@@ -58,8 +58,8 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (z.z > cSize.z) tempZ.z = cSize.z;
 		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-		z = mad(tempZ, 2.0f, -z);
-		k = max(native_divide(fractal->transformCommon.minR05, dot(z, z)), 1.0f);
+		z = tempZ * 2.0f - z;
+		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k;
 	}
@@ -106,7 +106,7 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->DE0 = d2;
 	if (d1 < d2) aux->DE0 = d1;
 
-	aux->DE0 = 0.5f * native_divide((aux->DE0 - fractal->transformCommon.offset0), aux->DE);
+	aux->DE0 = 0.5f * (aux->DE0 - fractal->transformCommon.offset0) / aux->DE;
 
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE0 = min(aux->dist, aux->DE0);
 

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -65,10 +65,10 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL c = native_cos(k * zc.y);
 		REAL s = native_sin(k * zc.y);
 		if (!fractal->transformCommon.functionEnabledOFalse)
-			zc.x = mad(c, swap, -s * zc.y);
+			zc.x = c * swap + -s * zc.y;
 		else
-			zc.z = mad(c, swap, -s * zc.y);
-		zc.y = mad(s, swap, c * zc.y);
+			zc.z = c * swap + -s * zc.y;
+		zc.y = s * swap + c * zc.y;
 	}
 
 	zc = fabs(zc) - boxSize;
@@ -78,9 +78,8 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL zcd = length(zc);
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
-		aux->dist = min(aux->dist, native_divide(zcd, (aux->DE + 1.0f)));
+		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f));
 	else
-		aux->dist =
-			min(aux->dist, native_divide(zcd, (aux->DE + 1.0f))) - fractal->transformCommon.offsetB0;
+		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f)) - fractal->transformCommon.offsetB0;
 	return z;
 }

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,17 +16,17 @@
 
 REAL4 QuickDudleyModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->DE = mad(aux->DE * 2.0f * aux->r, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+	aux->DE = aux->DE * 2.0f * aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	REAL x2 = z.x * z.x;
 	REAL y2 = z.y * z.y;
 	REAL z2 = z.z * z.z;
-	REAL newx = mad(x2, fractal->transformCommon.constantMultiplier111.x,
-		-fractal->transformCommon.constantMultiplier222.x * z.y * z.z);
-	REAL newy = mad(z2, fractal->transformCommon.constantMultiplier111.y,
-		fractal->transformCommon.constantMultiplier222.y * z.x * z.y);
-	REAL newz = mad(y2, fractal->transformCommon.constantMultiplier111.z,
-		fractal->transformCommon.constantMultiplier222.z * z.z * z.x);
+	REAL newx = x2 * fractal->transformCommon.constantMultiplier111.x
+							- fractal->transformCommon.constantMultiplier222.x * z.y * z.z;
+	REAL newy = z2 * fractal->transformCommon.constantMultiplier111.y
+							+ fractal->transformCommon.constantMultiplier222.y * z.x * z.y;
+	REAL newz = y2 * fractal->transformCommon.constantMultiplier111.z
+							+ fractal->transformCommon.constantMultiplier222.z * z.z * z.x;
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;

@@ -29,7 +29,7 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		REAL dot1;
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
@@ -58,15 +58,15 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.benesiT1Enabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 		REAL tempL = length(z);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		if (fractal->transformCommon.rotationEnabled)
 		{ // rotation inside T1
@@ -94,7 +94,7 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		temp = zz.x - rrYZ;
 		newZ.x = -sign(c.x) * temp;
 		if (z.x < lenYZ) newZ.x = temp;
-		rrYZ = -native_recip(lenYZ) * 2.0f * fabs(z.x);
+		rrYZ = -1.0f / lenYZ * 2.0f * fabs(z.x);
 		newZ.y = rrYZ * (zz.y - zz.z);
 		newZ.z = rrYZ * 2.0f * z.y * z.z;
 		z = newZ + (c * fractal->transformCommon.constantMultiplierA100);
@@ -106,11 +106,11 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	{
 		REAL4 zz = z * z;
 		aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
-		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+		aux->DE = aux->r * aux->DE * 2.0f + 1.0f;
 
 		REAL t = 1.0f;
 		REAL temp = zz.y + zz.z;
-		if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+		if (temp > 0.0f) t = 2.0f * z.x / native_sqrt(temp);
 		temp = z.z;
 		z.x = (zz.x - zz.y - zz.z);
 		z.y = (2.0f * t * z.y * temp);
@@ -152,6 +152,6 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

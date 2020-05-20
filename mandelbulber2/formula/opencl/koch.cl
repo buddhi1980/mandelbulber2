@@ -48,7 +48,7 @@ REAL4 KochIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux
 	z.x += FRAC_1_3_F;
 
 	REAL4 Offset = fractal->transformCommon.offset100;
-	z = mad(fractal->transformCommon.scale3, (z - Offset), Offset);
+	z = fractal->transformCommon.scale3 * (z - Offset) + Offset;
 	aux->DE = aux->DE * fractal->transformCommon.scale3;
 
 	// rotation
@@ -59,6 +59,6 @@ REAL4 KochIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 	aux->dist = fabs(length(z) - length(Offset));
-	aux->dist = native_divide(aux->dist, aux->DE);
+	aux->dist = aux->dist / aux->DE;
 	return z;
 }

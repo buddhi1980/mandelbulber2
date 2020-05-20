@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,7 +27,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = native_recip(length);
+		REAL4 tgladS = 1.0f / length;
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 		;
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
@@ -61,8 +61,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		else
 		{
-			colorAdd +=
-				fractal->mandelbox.color.factor.x * (1.0f - native_divide((limit.x - fabs(z.x)), limit.x));
+			colorAdd += fractal->mandelbox.color.factor.x * (1.0f - (limit.x - fabs(z.x)) / limit.x);
 		}
 
 		if (fabs(z.y) > limit.y)
@@ -71,8 +70,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		else
 		{
-			colorAdd +=
-				fractal->mandelbox.color.factor.y * (1.0f - native_divide((limit.y - fabs(z.y)), limit.y));
+			colorAdd += fractal->mandelbox.color.factor.y * (1.0f - (limit.y - fabs(z.y)) / limit.y);
 		}
 
 		if (fabs(z.z) > limit.z)
@@ -81,8 +79,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		else
 		{
-			colorAdd +=
-				fractal->mandelbox.color.factor.z * (1.0f - native_divide((limit.z - fabs(z.z)), limit.z));
+			colorAdd += fractal->mandelbox.color.factor.z * (1.0f - (limit.z - fabs(z.z)) / limit.z);
 		}
 	}
 
@@ -92,15 +89,15 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		// REAL valMinusLim = limit;
 		if (z.x != oldZ.x)
 		{
-			colorAdd += fractal->mandelbox.color.factor.x * native_divide((fabs(z.x) - limit.x), limit.x);
+			colorAdd += fractal->mandelbox.color.factor.x * (fabs(z.x) - limit.x) / limit.x;
 		}
 		if (z.y != oldZ.y)
 		{
-			colorAdd += fractal->mandelbox.color.factor.y * native_divide((fabs(z.y) - limit.y), limit.y);
+			colorAdd += fractal->mandelbox.color.factor.y * (fabs(z.y) - limit.y) / limit.y;
 		}
 		if (z.z != oldZ.z)
 		{
-			colorAdd += fractal->mandelbox.color.factor.z * native_divide((fabs(z.z) - limit.z), limit.z);
+			colorAdd += fractal->mandelbox.color.factor.z * (fabs(z.z) - limit.z) / limit.z;
 		}
 	}
 	aux->color += colorAdd;

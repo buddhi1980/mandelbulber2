@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -41,11 +41,11 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 
 	if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsinCl_acos)
-		th0 += acos(native_divide(v.x, aux->r));
+		th0 += acos(v.x / aux->r);
 	else
-		th0 += asin(native_divide(v.x, aux->r));
+		th0 += asin(v.x / aux->r);
 	if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2Cl_atan)
-		ph0 += atan(native_divide(v.y, v.z));
+		ph0 += atan(v.y / v.z);
 	else
 		ph0 += atan2(v.y, v.z);
 
@@ -75,14 +75,14 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsinA == multi_acosOrAsinCl_acos)
-			th0 = acos(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
+			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset
 						+ 1e-030f; // MUST keep exception catch
 		else
-			th0 += asin(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
+			th0 += asin(v.x / aux->r) + fractal->transformCommon.betaAngleOffset
 						 + 1e-030f; // MUST keep exception catch;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2A == multi_atanOrAtan2Cl_atan)
-			ph0 += atan(native_divide(v.y, v.z));
+			ph0 += atan(v.y / v.z);
 		else
 			ph0 += atan2(v.y, v.z);
 	}
@@ -100,14 +100,14 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		}
 
 		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsinCl_acos)
-			th0 = acos(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
+			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset
 						+ 1e-030f; // MUST keep exception catch ??;
 		else
-			th0 += asin(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
+			th0 += asin(v.x / aux->r) + fractal->transformCommon.betaAngleOffset
 						 + 1e-030f; // MUST keep exception catch ??;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2Cl_atan)
-			ph0 += atan(native_divide(v.y, v.z));
+			ph0 += atan(v.y / v.z);
 		else
 			ph0 += atan2(v.y, v.z);
 	}
@@ -128,15 +128,15 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic log DE adjustment
-		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
-										* aux->DE * fractal->transformCommon.pwr8,
-			fractal->analyticDE.scale1, fractal->analyticDE.offset2);
+		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
+								* aux->DE * fractal->transformCommon.pwr8 * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset2;
 	}
 	else // default, i.e. scale1 & offset1 & offset2 = 1.0f
 	{
-		aux->DE =
-			mad(native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f) * fractal->transformCommon.pwr8,
-				aux->DE, 1.0f);
+		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f)
+								* fractal->transformCommon.pwr8 * aux->DE
+							+ 1.0f;
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

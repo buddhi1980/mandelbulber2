@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,10 +23,10 @@ REAL4 Quaternion3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL tempL = length(z);
 	z *= fractal->transformCommon.constantMultiplier122;
 	// if (tempL < 1e-21f) tempL = 1e-21f;
-	REAL4 tempAvgScale = (REAL4){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
-	REAL avgScale = native_divide(length(tempAvgScale), tempL);
+	REAL4 tempAvgScale = (REAL4){z.x, z.y / 2.0f, z.z / 2.0f, z.w};
+	REAL avgScale = length(tempAvgScale) / tempL;
 	REAL tempAux = aux->DE * avgScale;
-	aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
+	aux->DE = aux->DE + (tempAux - aux->DE) * fractal->transformCommon.scaleA1;
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);

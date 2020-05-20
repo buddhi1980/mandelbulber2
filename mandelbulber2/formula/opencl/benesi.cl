@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,18 +20,18 @@ REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	REAL4 c = aux->const_c;
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL r1 = mad(z.y, z.y, z.z * z.z);
+	REAL r1 = z.y * z.y + z.z * z.z;
 	REAL newx;
 	if (c.x < 0.0f || z.x < native_sqrt(r1))
 	{
-		newx = mad(z.x, z.x, -r1);
+		newx = z.x * z.x - r1;
 	}
 	else
 	{
-		newx = mad(-z.x, z.x, r1);
+		newx = -z.x * z.x + r1;
 	}
-	r1 = -native_rsqrt(r1) * 2.0f * fabs(z.x);
-	REAL newy = r1 * (mad(z.y, z.y, -z.z * z.z));
+	r1 = -1.0f / native_sqrt(r1) * 2.0f * fabs(z.x);
+	REAL newy = r1 * (z.y * z.y - z.z * z.z);
 	REAL newz = r1 * 2.0f * z.y * z.z;
 
 	z.x = newx;

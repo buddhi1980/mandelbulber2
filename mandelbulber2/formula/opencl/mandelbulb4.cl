@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,7 +16,7 @@
 REAL4 Mandelbulb4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
-	aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
+	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 
 	REAL angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	REAL angY = atan2(z.z, z.x) + fractal->bulb.betaAngleOffset;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -22,12 +22,12 @@ REAL4 TransfReciprocal4dIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		if (fractal->transformCommon.functionEnabledAx)
-			tempZ.x = (native_recip(fractal->transformCommon.offset1111.x))
-								- native_recip((fabs(z.x) + fractal->transformCommon.offset1111.x));
+			tempZ.x = (1.0f / fractal->transformCommon.offset1111.x)
+								- 1.0f / (fabs(z.x) + fractal->transformCommon.offset1111.x);
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			tempZ.x = (fractal->transformCommon.offsetA1111.x)
-								- native_recip((fabs(z.x) + fractal->transformCommon.offset1111.x));
+								- 1.0f / (fabs(z.x) + fractal->transformCommon.offset1111.x);
 
 		tempZ.x += fabs(z.x) * fractal->transformCommon.additionConstant0000.x; // function slope
 		z.x = sign(z.x) * tempZ.x;
@@ -36,12 +36,12 @@ REAL4 TransfReciprocal4dIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		if (fractal->transformCommon.functionEnabledAx)
-			tempZ.y = (native_recip(fractal->transformCommon.offset1111.y))
-								- native_recip((fabs(z.y) + fractal->transformCommon.offset1111.y));
+			tempZ.y = (1.0f / fractal->transformCommon.offset1111.y)
+								- 1.0f / (fabs(z.y) + fractal->transformCommon.offset1111.y);
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			tempZ.y = (fractal->transformCommon.offsetA1111.y)
-								- native_recip((fabs(z.y) + fractal->transformCommon.offset1111.y));
+								- 1.0f / (fabs(z.y) + fractal->transformCommon.offset1111.y);
 
 		tempZ.y += fabs(z.y) * fractal->transformCommon.additionConstant0000.y;
 		z.y = sign(z.y) * tempZ.y;
@@ -50,12 +50,12 @@ REAL4 TransfReciprocal4dIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		if (fractal->transformCommon.functionEnabledAx)
-			tempZ.z = (native_recip(fractal->transformCommon.offset1111.z))
-								- native_recip((fabs(z.z) + fractal->transformCommon.offset1111.z));
+			tempZ.z = (1.0f / fractal->transformCommon.offset1111.z)
+								- 1.0f / (fabs(z.z) + fractal->transformCommon.offset1111.z);
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			tempZ.z = (fractal->transformCommon.offsetA1111.z)
-								- native_recip((fabs(z.z) + fractal->transformCommon.offset1111.z));
+								- 1.0f / (fabs(z.z) + fractal->transformCommon.offset1111.z);
 
 		tempZ.z += fabs(z.z) * fractal->transformCommon.additionConstant0000.z;
 		z.z = sign(z.z) * tempZ.z;
@@ -64,12 +64,12 @@ REAL4 TransfReciprocal4dIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledw)
 	{
 		if (fractal->transformCommon.functionEnabledAw)
-			tempZ.w = (native_recip(fractal->transformCommon.offset1111.w))
-								- native_recip((fabs(z.w) + fractal->transformCommon.offset1111.w));
+			tempZ.w = (1.0f / fractal->transformCommon.offset1111.w)
+								- 1.0f / (fabs(z.w) + fractal->transformCommon.offset1111.w);
 
 		if (fractal->transformCommon.functionEnabledAwFalse)
 			tempZ.w = (fractal->transformCommon.offsetA1111.w)
-								- native_recip((fabs(z.w) + fractal->transformCommon.offset1111.w));
+								- 1.0f / (fabs(z.w) + fractal->transformCommon.offset1111.w);
 
 		tempZ.z += fabs(z.w) * fractal->transformCommon.additionConstant0000.w;
 		z.z = sign(z.w) * tempZ.w;

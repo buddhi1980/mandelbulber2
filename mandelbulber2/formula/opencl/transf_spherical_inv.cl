@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,11 +20,11 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 {
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+	aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		REAL r2Inv = native_recip(dot(z, z));
+		REAL r2Inv = 1.0f / dot(z, z);
 		z *= r2Inv;
 		aux->DE *= r2Inv;
 	}
@@ -41,10 +41,9 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			}
 			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 			{
-				if (rr < fractal->transformCommon.minR0)
-					mode = mad(2.0f, fractal->transformCommon.minR0, -rr);
+				if (rr < fractal->transformCommon.minR0) mode = 2.0f * fractal->transformCommon.minR0 - rr;
 			}
-			mode = native_recip(mode);
+			mode = 1.0f / mode;
 			z *= mode;
 			aux->DE *= fabs(mode);
 		}
@@ -52,7 +51,7 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	if (fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 	return z;
 }

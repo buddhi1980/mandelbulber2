@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -8,8 +8,6 @@
  *
  * folding tetra3D from M3D (Luca GN 2011):
  * Code taken from the forums, KIFS original thread
- * side note - if you disable the 1st half, 2nd half will be
- * done even if you disable it... (to avoid a NOP transform)
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
 
@@ -22,27 +20,26 @@ REAL4 TransfFoldingTetra3dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 {
 	Q_UNUSED(aux);
 
-	REAL x1;
-	REAL y1;
 	if (fractal->transformCommon.functionEnabledx)
 	{
+		REAL temp = 0.0f;
 		if (z.x + z.y < 0.0f)
 		{
-			x1 = -z.y;
+			temp = -z.y;
 			z.y = -z.x;
-			z.x = x1;
+			z.x = temp;
 		}
 		if (z.x + z.z < 0.0f)
 		{
-			x1 = -z.z;
+			temp = -z.z;
 			z.z = -z.x;
-			z.x = x1;
+			z.x = temp;
 		}
 		if (z.y + z.z < 0.0f)
 		{
-			y1 = -z.z;
+			temp = -z.z;
 			z.z = -z.y;
-			z.y = y1;
+			z.y = temp;
 		}
 	}
 	if (fractal->transformCommon.functionEnabledy)

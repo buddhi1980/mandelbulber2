@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,12 +18,12 @@ REAL4 IqBulbIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 {
 	// extract polar coordinates
 	REAL wr = aux->r;
-	REAL wo = acos(native_divide(z.y, wr));
+	REAL wo = acos(z.y / wr);
 	REAL wi = atan2(z.x, z.z);
 
 	// scale and rotate the point
 	wr = native_powr(wr, fractal->transformCommon.pwr8 - 1.0f);
-	aux->DE = mad(wr * aux->DE, fractal->transformCommon.pwr8, 1.0f);
+	aux->DE = wr * aux->DE * fractal->transformCommon.pwr8 + 1.0f;
 	wr *= aux->r;
 	wo *= fractal->transformCommon.pwr8;
 	wi *= fractal->transformCommon.pwr8a;

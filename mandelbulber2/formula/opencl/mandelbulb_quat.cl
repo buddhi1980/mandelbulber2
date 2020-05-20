@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -63,17 +63,17 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL tempL = length(z);
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL3 tempAvgScale = (REAL3){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f)};
-		REAL avgScale = native_divide(length(tempAvgScale), tempL);
+		REAL3 tempAvgScale = (REAL3){z.x, z.y / 2.0f, z.z / 2.0f};
+		REAL avgScale = length(tempAvgScale) / tempL;
 		REAL tempAux = aux->DE * avgScale;
-		aux->DE = mad(fractal->analyticDE.scale1, (tempAux - aux->DE), aux->DE);
+		aux->DE = aux->DE + (tempAux - aux->DE) * fractal->analyticDE.scale1;
 		z += fractal->transformCommon.offset000;
 		// if (!fractal->analyticDE.enabledFalse)
-		//	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+		//	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0f;
 		// else
 		//	aux->DE =
-		//		mad(aux->DE * fabs(aux->actualScale), fractal->analyticDE.scale1,
-		//fractal->analyticDE.offset1);
+		//		aux->DE * fabs(aux->actualScale) * fractal->analyticDE.scale1 +
+		//fractal->analyticDE.offset1;
 	}
 	// sym4
 	if (fractal->transformCommon.functionEnabledCxFalse
@@ -88,7 +88,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->DE *= native_divide(length(z), tempL);
+		aux->DE *= length(z) / tempL;
 
 		if (fabs(z.x) < fabs(z.z))
 		{
@@ -112,7 +112,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		if (z.x * z.z < 0.0f) z.z = -z.z;
 		if (z.x * z.y < 0.0f) z.y = -z.y;
 
-		temp.x = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y));
+		temp.x = z.x * z.x - z.y * z.y - z.z * z.z;
 		temp.y = 2.0f * z.x * z.y;
 		temp.z = 2.0f * z.x * z.z;
 
@@ -121,7 +121,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL lengthTempZ = -length(z);
 		// if (lengthTempZ > -1e-21f)
 		//	lengthTempZ = -1e-21f;   //  z is neg.)
-		z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+		z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 
 		// scale
 		z *= fractal->transformCommon.scale1;
@@ -171,20 +171,20 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 
 		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcosCl_asin)
-			th0 += asin(native_divide(v.x, aux->r));
+			th0 += asin(v.x / aux->r);
 		else
-			th0 += acos(native_divide(v.x, aux->r));
+			th0 += acos(v.x / aux->r);
 
 		if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtanCl_atan2)
 			ph0 += atan2(v.y, v.z);
 		else
-			ph0 += atan(native_divide(v.y, v.z));
+			ph0 += atan(v.y / v.z);
 
 		REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
 		REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-		aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
+		aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 		rp *= aux->r;
 
 		if (fractal->transformCommon.functionEnabledxFalse)

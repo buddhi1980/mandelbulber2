@@ -13,7 +13,6 @@
 #include "abstract_fractal.h"
 
 FRACTAL_CLASS(cFractalNone)
-FRACTAL_CLASS(cFractalCustom)
 FRACTAL_CLASS(cFractalAbox4d)
 FRACTAL_CLASS(cFractalAboxMod1)
 FRACTAL_CLASS(cFractalAboxMod11)
@@ -55,6 +54,7 @@ FRACTAL_CLASS(cFractalBuffalo)
 FRACTAL_CLASS(cFractalCoastalbrot)
 FRACTAL_CLASS(cFractalCollatz)
 FRACTAL_CLASS(cFractalCollatzMod)
+FRACTAL_CLASS(cFractalCustom)
 FRACTAL_CLASS(cFractalDIFSBoxDiagonalV1)
 FRACTAL_CLASS(cFractalDIFSBoxDiagonalV3)
 FRACTAL_CLASS(cFractalDIFSBoxV1)

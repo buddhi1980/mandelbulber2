@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -41,7 +41,7 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL Pwr = fractal->bulb.power;
 	// if (aux->r < 1e-21f) aux->r = 1e-21f;
 	if (fractal->transformCommon.functionEnabledAFalse) z1.z = -z1.z;
-	th0 += asin(native_divide(z1.z, aux->r));
+	th0 += asin(z1.z / aux->r);
 	ph0 += atan2(z1.y, z1.x);
 	REAL rp = native_powr(aux->r, Pwr - fractal->transformCommon.offset0);
 	REAL th = th0 * Pwr;
@@ -49,7 +49,7 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL costh = native_cos(th);
 	z1 = rp * (REAL4){costh * native_cos(ph), native_sin(ph) * costh, native_sin(th), 0.0f};
 
-	// aux->DE = mad((rp * aux->DE), Pwr, 1.0f);
+	// aux->DE = (rp * aux->DE) * Pwr + 1.0f;
 	// rp *= aux->r;
 
 	z1 = z - z1;
@@ -59,14 +59,14 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (lc.x > -1e-21f && lc.x < 1e-21f) lc.x = (lc.x > 0) ? 1e-21f : -1e-21f;
 	if (lc.y > -1e-21f && lc.y < 1e-21f) lc.y = (lc.y > 0) ? 1e-21f : -1e-21f;
 
-	REAL r1 = native_sqrt(mad(z1.x, z1.x, z1.y * z1.y));
-	REAL r2 = native_sqrt(mad(lc.x, lc.x, lc.y * lc.y));
+	REAL r1 = native_sqrt(z1.x * z1.x + z1.y * z1.y);
+	REAL r2 = native_sqrt(lc.x * lc.x + lc.y * lc.y);
 	REAL a = r1 * r2;
 	if (fractal->transformCommon.functionEnabledBFalse) z1.z = -z1.z;
-	a = mad(-native_divide(lc.z, a), z1.z, 1.0f);
-	z.x = a * (mad(z1.x, lc.x, -z1.y * lc.y));
-	z.y = a * (mad(lc.x, z1.y, z1.x * lc.y));
-	z.z = mad(r2, z1.z, r1 * lc.z);
+	a = 1.0f - z1.z * lc.z / a;
+	z.x = a * (z1.x * lc.x - z1.y * lc.y);
+	z.y = a * (lc.x * z1.y + z1.x * lc.y);
+	z.z = r2 * z1.z + r1 * lc.z;
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
@@ -103,6 +103,6 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL bias = fractal->transformCommon.scaleC1;
 	aux->DE = max(aux->DE * bias, native_powr(aux->r, Pwr - 1.0f) * aux->DE * Pwr + 1.0f);
-	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

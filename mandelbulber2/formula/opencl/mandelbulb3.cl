@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,17 +25,17 @@ REAL4 Mandelbulb3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL sign2 = 1.0f;
 
 	if (z.x < 0.0f) sign2 = -1.0f;
-	tempR = native_sqrt(mad(z.x, z.x, z.y * z.y)); //+ 1e-030f
-	z *= native_recip(tempR);
-	temp = mad(z.x, z.x, -z.y * z.y);
+	tempR = native_sqrt(z.x * z.x + z.y * z.y); //+ 1e-030f
+	z *= 1.0f / tempR;
+	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0f * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
 
 	if (z.x < 0.0f) sign = -1.0f;
-	tempR = native_sqrt(mad(z.x, z.x, z.z * z.z)); //+ 1e-030f
-	z *= native_recip(tempR);
-	temp = mad(z.x, z.x, -z.z * z.z);
+	tempR = native_sqrt(z.x * z.x + z.z * z.z); //+ 1e-030f
+	z *= 1.0f / tempR;
+	temp = z.x * z.x - z.z * z.z;
 	z.z = 2.0f * z.x * z.z * sign2;
 	z.x = temp * sign;
 	z *= tempR;

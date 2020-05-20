@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -35,10 +35,10 @@ REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		z.z = tempZ;
 		z.w = tempW;
 	}
-	REAL tempX = mad(z.x, z.x, -z.y * z.y) + mad(2.0f * z.w, z.z, aux->c.x);
-	REAL tempY = mad(z.y, z.y, -z.x * z.x) + mad(2.0f * z.w, z.z, aux->c.y);
-	REAL tempZ = mad(z.z, z.z, -z.w * z.w) + mad(2.0f * z.x, z.y, aux->c.z);
-	REAL tempW = mad(z.w, z.w, -z.z * z.z) + mad(2.0f * z.x, z.y, aux->cw);
+	REAL tempX = z.x * z.x - z.y * z.y + 2.0f * z.w * z.z + aux->c.x;
+	REAL tempY = z.y * z.y - z.x * z.x + 2.0f * z.w * z.z + aux->c.y;
+	REAL tempZ = z.z * z.z - z.w * z.w + 2.0f * z.x * z.y + aux->c.z;
+	REAL tempW = z.w * z.w - z.z * z.z + 2.0f * z.x * z.y + aux->cw;
 	z.x = tempX;
 	z.y = tempY;
 	z.z = tempZ;
@@ -49,9 +49,9 @@ REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		// aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.2f * aux->r
 		//	+ (fractal->analyticDE.offset1 *2.0);
 		REAL de1 = 1.1f * aux->r;
-		REAL de2 = native_divide(length(z), aux->r);
-		aux->DE = mad((mad((de2 - de1), fractal->analyticDE.scale1, de1)) * 2.0f, aux->DE,
-			fractal->analyticDE.offset1);
+		REAL de2 = length(z) / aux->r;
+		aux->DE = (de1 + (de2 - de1) * fractal->analyticDE.scale1) * 2.0f * aux->DE
+							+ fractal->analyticDE.offset1;
 	}
 	return z;
 }

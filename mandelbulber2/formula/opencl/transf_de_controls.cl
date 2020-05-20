@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDeControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
 	REAL rd = 0.0f;
@@ -43,17 +43,17 @@ REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// out distance functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		rd = native_divide(rd, aux->DE); // same as an uncondtional aux->dist
+		rd = rd / aux->DE; // same as an uncondtional aux->dist
 	}
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		REAL rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-		REAL pkD = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
-		rd = native_divide(pkD, aux->DE);
+		REAL rxy = native_sqrt(z.x * z.x + z.y * z.y);
+		REAL pkD = max(rxy - fractal->transformCommon.offsetA1, fabs(rxy * z.z) / rd);
+		rd = pkD / aux->DE;
 	}
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		rd = 0.5f * rd * native_divide(log(rd), aux->DE);
+		rd = 0.5f * rd * log(rd) / aux->DE;
 	}
 
 	if (fractal->transformCommon.functionEnabledMFalse)
@@ -69,17 +69,17 @@ REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				mixB = 0.5f * rd * log(rd);
 				break;
 			case multi_combo3Cl_type2:
-				rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-				mixA = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
+				rxy = native_sqrt(z.x * z.x + z.y * z.y);
+				mixA = max(rxy - fractal->transformCommon.offsetA1, fabs(rxy * z.z) / rd);
 				mixB = rd;
 				break;
 			case multi_combo3Cl_type3:
 				mixA = 0.5f * rd * log(rd);
-				rxy = native_sqrt(mad(z.x, z.x, z.y * z.y));
-				mixB = max(rxy - fractal->transformCommon.offsetA1, native_divide(fabs(rxy * z.z), rd));
+				rxy = native_sqrt(z.x * z.x + z.y * z.y);
+				mixB = max(rxy - fractal->transformCommon.offsetA1, fabs(rxy * z.z) / rd);
 				break;
 		}
-		rd = native_divide((mad((mixB - mixA), fractal->transformCommon.scale1, mixA)), aux->DE);
+		rd = (mixA + (mixB - mixA) * fractal->transformCommon.scale1) / aux->DE;
 	}
 	REAL colorDist = aux->dist;
 	if (!fractal->transformCommon.functionEnabledFalse)
@@ -103,7 +103,7 @@ REAL4 TransfDEControlsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y); // fabs(zc.x * zc.y)
 			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);	 // max(z.x, z.y);
-			colorAdd += fractal->foldColor.difs0000.z * (mad(z.x, z.x, z.y * z.y));
+			colorAdd += fractal->foldColor.difs0000.z * (z.x * z.x + z.y * z.y);
 			// colorAdd += fractal->foldColor.difs0000.w * fabs(zc.x * zc.y);
 		}
 		colorAdd += fractal->foldColor.difs1;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -49,8 +49,8 @@ REAL4 Bristorbrot2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->transformCommon.functionEnabledzFalse) tmpz = zFabs.z;
 
 	zNew.x = zz.x - zz.y - zz.z;
-	zNew.y = zOrig.y * (mad(zOrig.x, 2.0f, -tmpz * signT * fractal->transformCommon.scaleB1));
-	zNew.z = zOrig.z * (mad(zOrig.x, 2.0f, tmpy * signT * fractal->transformCommon.scaleC1));
+	zNew.y = zOrig.y * (zOrig.x * 2.0f - tmpz * signT * fractal->transformCommon.scaleB1);
+	zNew.z = zOrig.z * (zOrig.x * 2.0f + tmpy * signT * fractal->transformCommon.scaleC1);
 	z = zNew;
 
 	// post abs
@@ -63,6 +63,6 @@ REAL4 Bristorbrot2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	// analyticDE controls
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	return z;
 }

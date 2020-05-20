@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>abox_sphere4d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1720,7 +1720,7 @@ scale:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;Formula based on Aexion's SphereBox&lt;br&gt;http://www.fractalforums.com/mandelbulb-3d/how-to-make-a-sphere/msg90387/#msg90387&lt;br&gt;This formula contains aux.color and aux.actualScale&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_sphere4D.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

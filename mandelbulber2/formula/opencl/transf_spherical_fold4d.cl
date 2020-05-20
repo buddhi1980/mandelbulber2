@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,7 +17,7 @@
 REAL4 TransfSphericalFold4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// REAL r2 = dot(z, z);
-	// REAL r2 = mad(z.x, z.x, z.y * z.y);
+	// REAL r2 = z.x * z.x + z.y * z.y;
 	// if (r2 < 1e-21f && r2 > -1e-21f) r2 = (r2 > 0) ? 1e-21f : -1e-21f;
 	// r2 += z.z * z.z;
 	REAL rr = dot(z, z);
@@ -33,8 +33,8 @@ REAL4 TransfSphericalFold4dIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		aux->DE *= fractal->transformCommon.maxR2d1 / rr;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp2;

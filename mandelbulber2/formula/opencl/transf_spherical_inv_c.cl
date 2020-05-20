@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -26,7 +26,7 @@ REAL4 TransfSphericalInvCIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		tempC *= fractal->transformCommon.constantMultiplier111;
 		rSqrL = dot(tempC, tempC);
 		// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-		rSqrL = native_recip(rSqrL);
+		rSqrL = 1.0f / rSqrL;
 		tempC *= rSqrL;
 		aux->c = tempC;
 	}
@@ -36,7 +36,7 @@ REAL4 TransfSphericalInvCIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		tempC *= fractal->transformCommon.constantMultiplier111;
 		rSqrL = dot(tempC, tempC);
 		// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-		rSqrL = native_recip(rSqrL);
+		rSqrL = 1.0f / rSqrL;
 		tempC *= rSqrL;
 	}
 
@@ -44,7 +44,7 @@ REAL4 TransfSphericalInvCIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	{
 		rSqrL = dot(z, z);
 		// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-		rSqrL = native_recip(rSqrL);
+		rSqrL = 1.0f / rSqrL;
 		z *= rSqrL;
 		aux->DE *= rSqrL;
 		z += tempC;

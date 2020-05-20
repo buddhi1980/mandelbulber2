@@ -37,8 +37,8 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			z = (REAL4){z.z, z.y, z.x, z.w};
 
 		z.x = fabs(z.x);
-		z = mad(z, fractal->transformCommon.scale2,
-			-fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0f));
+		z = z * fractal->transformCommon.scale2
+				- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0f);
 
 		aux->DE *= fractal->transformCommon.scale2;
 	}
@@ -61,7 +61,7 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			aux->color += fractal->mandelbox.color.factorSp2;
@@ -129,7 +129,7 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// aux color
 	if (fractal->foldColor.auxColorEnabledFalse)
@@ -150,9 +150,9 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			{
 				if (rrCol < fractal->transformCommon.minR2p25)
 					colorAdd +=
-						mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-							fractal->mandelbox.color.factorSp2
-								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 				else
 					colorAdd +=
 						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);

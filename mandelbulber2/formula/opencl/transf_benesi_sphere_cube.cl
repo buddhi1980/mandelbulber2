@@ -22,29 +22,29 @@ REAL4 TransfBenesiSphereCubeIteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL4 oldZ = z;
 	z *= z;
 	// if (z.z == 0.0f) z.z = 1e-21f;
-	REAL rCyz = native_divide(z.y, z.z);
+	REAL rCyz = z.y / z.z;
 	if (rCyz < 1.0f)
-		rCyz = native_rsqrt(rCyz + 1.0f);
+		rCyz = 1.0f / native_sqrt(rCyz + 1.0f);
 	else
-		rCyz = native_rsqrt(native_recip(rCyz) + 1.0f);
+		rCyz = 1.0f / native_sqrt(1.0f / rCyz + 1.0f);
 
 	z.y *= rCyz;
 	z.z *= rCyz;
 
 	// if (z.x == 0.0f) z.x = 1e-21f;
-	REAL rCxyz = native_divide((mad(z.y, z.y, z.z * z.z)), z.x);
+	REAL rCxyz = (z.y * z.y + z.z * z.z) / z.x;
 
 	if (rCxyz < 1.0f)
-		rCxyz = native_rsqrt(rCxyz + 1.0f);
+		rCxyz = 1.0f / native_sqrt(rCxyz + 1.0f);
 	else
-		rCxyz = native_rsqrt(native_recip(rCxyz) + 1.0f);
+		rCxyz = 1.0f / native_sqrt(1.0f / rCxyz + 1.0f);
 
 	z *= rCxyz * SQRT_3_2_F;
-	// aux->DE *= native_divide(length(z), length(oldZ));
+	// aux->DE *= length(z) / length(oldZ);
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 * native_divide(length(z), length(oldZ))
-							+ fractal->analyticDE.offset1;
+		aux->DE =
+			aux->DE * fractal->analyticDE.scale1 * length(z) / length(oldZ) + fractal->analyticDE.offset1;
 	}
 	return z;
 }

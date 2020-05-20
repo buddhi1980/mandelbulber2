@@ -29,7 +29,7 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 
-		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
 		z.x -= (t * -SQRT_3_F) - 0.5f;
 		z.y = fabs(z.y - t);
@@ -74,7 +74,7 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-		lengthL = mad(z.x, SQRT_3_4_F, -z.y * 0.5f);
+		lengthL = z.x * SQRT_3_4_F - z.y * 0.5f;
 		if (lengthL < 0.0f)
 		{
 			z.x -= SQRT_3_4_F * (2.0f * lengthL);

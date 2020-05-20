@@ -27,15 +27,15 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				&& aux->i >= fractal->transformCommon.startIterations
 				&& aux->i < fractal->transformCommon.stopIterations)
 		{
-			REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+			REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 			z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 				z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
 			REAL tempL = length(z);
 			z = fabs(z) * fractal->transformCommon.scale3D222;
 			// if (tempL < 1e-21f) tempL = 1e-21f;
-			REAL avgScale = native_divide(length(z), tempL);
-			aux->DE = mad(aux->DE, avgScale, 1.0f);
+			REAL avgScale = length(z) / tempL;
+			aux->DE = aux->DE * avgScale + 1.0f;
 
 			if (fractal->transformCommon.rotationEnabled)
 			{ // rotation inside T1
@@ -56,11 +56,11 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		REAL4 zz = z * z;
 		aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
-		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+		aux->DE = aux->r * aux->DE * 2.0f + 1.0f;
 
 		REAL t = 1.0f;
 		REAL temp = zz.y + zz.z;
-		if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+		if (temp > 0.0f) t = 2.0f * z.x / native_sqrt(temp);
 		temp = z.z;
 		z.x = (zz.x - zz.y - zz.z);
 		z.y = (2.0f * t * z.y * temp);

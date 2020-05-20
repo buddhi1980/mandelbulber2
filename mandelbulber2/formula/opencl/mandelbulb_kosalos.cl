@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,9 +24,8 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 diffVec = (REAL4){0.001f, 0.001f, 0.001f, 0.0f} + aux->c - z;
 	aux->c = z;
 	REAL diffLen = length(diffVec); // > 3.16e-5f
-	REAL thetaTweak =
-		fractal->transformCommon.scaleA1
-		* native_divide(0.01f, (mad(fractal->transformCommon.offsetA0, 0.01f, diffLen)));
+	REAL thetaTweak = fractal->transformCommon.scaleA1 * 0.01f
+										/ (diffLen + fractal->transformCommon.offsetA0 * 0.01f);
 
 	if (!fractal->transformCommon.functionEnabledxFalse)
 	{
@@ -34,10 +33,10 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else // mode2
 	{
-		thetaTweak = mad(fractal->transformCommon.scaleB1, (1.0f - thetaTweak), thetaTweak);
+		thetaTweak = thetaTweak + (1.0f - thetaTweak) * fractal->transformCommon.scaleB1;
 	}
 
-	REAL xyL = native_sqrt(mad(z.x, z.x, z.y * z.y));
+	REAL xyL = native_sqrt(z.x * z.x + z.y * z.y);
 	REAL theta = atan2(xyL * thetaTweak, z.z); // <-- added 'thetaTweak' effect
 
 	REAL phi = atan2(z.y, z.x) * power;
@@ -65,6 +64,6 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		else
 			z += (REAL4){c.y, c.x, c.z, 0.0f};
 	}
-	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	return z;
 }

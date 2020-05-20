@@ -27,7 +27,7 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (mad(z.x, -SQRT_3_4_F, z.y * 0.5f)) * fractal->transformCommon.scale;
+		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
 		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
@@ -62,7 +62,7 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -70,8 +70,8 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL tempL = length(tempZ);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		tempXZ = (z.y + z.x) * SQRT_1_2_F;
 
@@ -84,7 +84,7 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3_F, -z.z * SQRT_1_3_F);
+		REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 		z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 			z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
 
@@ -92,8 +92,8 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
+		REAL avgScale = length(z) / tempL;
+		aux->DE = aux->DE * avgScale + 1.0f;
 
 		z = (fabs(z + fractal->transformCommon.additionConstant111)
 				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
@@ -185,9 +185,9 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
 		z *= fractal->transformCommon.scaleB1;
-		z = mad(tempZ, 2.0f, -z);
+		z = tempZ * 2.0f - z;
 
-		k = max(native_divide(fractal->transformCommon.minR05, dot(z, z)), 1.0f);
+		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
 	}
@@ -197,19 +197,19 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		//  variation from openCL
-		if (z.x > cSize.x) z.x = mad(cSize.x, 2.0f, -z.x);
-		if (z.x < -cSize.x) z.x = mad(-cSize.x, 2.0f, -z.x);
-		if (z.y > cSize.y) z.y = mad(cSize.y, 2.0f, -z.y);
-		if (z.y < -cSize.y) z.y = mad(-cSize.y, 2.0f, -z.y);
-		if (z.z > cSize.z) z.z = mad(cSize.z, 2.0f, -z.z);
-		if (z.z < -cSize.z) z.z = mad(-cSize.z, 2.0f, -z.z);
-		k = max(native_divide(fractal->transformCommon.minR05, dot(z, z)), 1.0f);
+		if (z.x > cSize.x) z.x = cSize.x * 2.0f - z.x;
+		if (z.x < -cSize.x) z.x = -cSize.x * 2.0f - z.x;
+		if (z.y > cSize.y) z.y = cSize.y * 2.0f - z.y;
+		if (z.y < -cSize.y) z.y = -cSize.y * 2.0f - z.y;
+		if (z.z > cSize.z) z.z = cSize.z * 2.0f - z.z;
+		if (z.z < -cSize.z) z.z = -cSize.z * 2.0f - z.z;
+		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
 	}
 
 	z += fractal->transformCommon.additionConstant000;
 
-	aux->dist = native_divide(native_sqrt(mad(z.x, z.x, z.y * z.y)), aux->DE);
+	aux->dist = native_sqrt(z.x * z.x + z.y * z.y) / aux->DE;
 	return z;
 }

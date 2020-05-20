@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,8 +25,7 @@ REAL4 MandelbulbVaryPowerV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		int iterationRange =
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
-		tempVC +=
-			fractal->transformCommon.offset0 * native_divide((1.0f * currentIteration), iterationRange);
+		tempVC += fractal->transformCommon.offset0 * (1.0f * currentIteration) / iterationRange;
 	}
 	if (aux->i >= fractal->transformCommon.stopIterations)
 	{
@@ -35,13 +34,13 @@ REAL4 MandelbulbVaryPowerV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	// if (aux->r < 1e-21f)
 	//	aux->r = 1e-21f;
-	REAL th0 = asin(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset;
+	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
 	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	REAL rp = native_powr(aux->r, tempVC - 1.0f);
 	REAL th = th0 * tempVC;
 	REAL ph = ph0 * tempVC;
 	REAL cth = native_cos(th);
-	aux->DE = mad(rp * aux->DE, tempVC, 1.0f);
+	aux->DE = rp * aux->DE * tempVC + 1.0f;
 	rp *= aux->r;
 	z = (REAL4){cth * native_cos(ph), cth * native_sin(ph), native_sin(th), 0.0f} * rp;
 	return z;

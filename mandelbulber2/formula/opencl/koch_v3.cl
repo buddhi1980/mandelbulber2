@@ -18,12 +18,12 @@
 
 REAL4 KochV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL beta = fractal->transformCommon.angle72 * native_divide(M_PI_F, 360.0f);
+	REAL beta = fractal->transformCommon.angle72 * M_PI_F / 360.0f;
 	REAL tc = tan(beta);
-	REAL tsq = native_sqrt(mad(3.0f * tc, tc, -1.0f)) * 0.25f;
+	REAL tsq = native_sqrt(3.0f * tc * tc - 1.0f) * 0.25f;
 
 	REAL4 fl1 = ((REAL4){1.0f, 0.0f, -2.0f * tsq, 0.0f});
-	fl1 = native_divide(fl1, native_sqrt(mad(4.0f, tsq * tsq, 1.0f)));
+	fl1 = fl1 / native_sqrt(1.0f + 4.0f * tsq * tsq);
 	tc = native_cos(beta);
 
 	REAL BDscale = fractal->transformCommon.scale4 * tc * tc;
@@ -49,10 +49,9 @@ REAL4 KochV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		{
 			z.x = fabs(z.x);
 			int poly = fractal->transformCommon.int6;
-			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-												native_divide(M_PI_F, (0.5f * poly)))
-											- native_divide(M_PI_F, poly));
-			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+			REAL psi =
+				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;
 		}
@@ -64,9 +63,9 @@ REAL4 KochV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 	}
 
-	REAL Pid6 = native_divide(M_PI_F, 6.0f);
-	REAL CPid6 = native_cos(Pid6);
-	REAL SPid6 = -native_sin(Pid6);
+	// REAL Pid6 = M_PI_F / 6.0f;
+	REAL CPid6 = SQRT_3_4_F; // cos(Pi / 6);
+	REAL SPid6 = -0.5f;			 // native_sin(Pi / 6);
 	REAL t = 2.0f * min(0.0f, z.x * CPid6 + z.y * SPid6);
 	z.x -= t * CPid6;
 	z.y -= t * SPid6;
@@ -79,9 +78,8 @@ REAL4 KochV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	z -= t * fl1;
 	z.x += 0.5f;
 	z.z += tsq;
-
-	// scale
 	z.x -= 1.0f;
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
@@ -89,10 +87,12 @@ REAL4 KochV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+
+	// scale
 	z *= BDscale;
 	aux->DE *= BDscale;
 	z.x += 1.0f;
 
-	aux->dist = native_divide((length(z) - 3.0f), aux->DE);
+	aux->dist = (length(z) - 3.0f) / aux->DE;
 	return z;
 }

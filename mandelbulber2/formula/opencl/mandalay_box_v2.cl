@@ -65,8 +65,8 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		p.y = p.z;
 		p.z = temp;
 	}
-	t1 = mad(-fo.x, 2.0f, p.x);
-	t2 = mad(-fo.x, 4.0f, p.y);
+	t1 = p.x - 2.0f * fo.x;
+	t2 = p.y - 4.0f * fo.x;
 	v = max(fabs(t1 + fo.x) - fo.x, t2);
 	v1 = max(t1 - g.x, p.y);
 	v = min(v, v1);
@@ -83,8 +83,8 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		p.z = p.x;
 		p.x = temp;
 	}
-	t1 = mad(-fo.y, 2.0f, p.y);
-	t2 = mad(-fo.y, 4.0f, p.z);
+	t1 = p.y - 2.0f * fo.y;
+	t2 = p.z - 4.0f * fo.y;
 	v = max(fabs(t1 + fo.y) - fo.y, t2);
 	v1 = max(t1 - g.y, p.z);
 	v = min(v, v1);
@@ -101,8 +101,8 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		p.x = p.y;
 		p.y = temp;
 	}
-	t1 = mad(-fo.z, 2.0f, p.z);
-	t2 = mad(-fo.z, 4.0f, p.x);
+	t1 = p.z - 2.0f * fo.z;
+	t2 = p.x - 4.0f * fo.z;
 	v = max(fabs(t1 + fo.z) - fo.z, t2);
 	v1 = max(t1 - g.z, p.x);
 	v = min(v, v1);
@@ -124,14 +124,13 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		rrCol = rr;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
-			REAL tglad_factor1 =
-				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 		}
@@ -140,7 +139,7 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// scale
 	useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 	z *= useScale;
-	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 	if (fractal->transformCommon.functionEnabledKFalse
 			&& aux->i >= fractal->transformCommon.startIterationsK
@@ -161,7 +160,7 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -169,10 +168,9 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd +=
-					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-						fractal->mandelbox.color.factorSp2
-							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 		}
 		aux->color += colorAdd;
 	}
@@ -180,7 +178,7 @@ REAL4 MandalayBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// temp code
 	p = fabs(z);
 	aux->dist = max(p.x, max(p.y, p.z));
-	aux->dist = native_divide(aux->dist, aux->DE);
+	aux->dist = aux->dist / aux->DE;
 
 	return z;
 }

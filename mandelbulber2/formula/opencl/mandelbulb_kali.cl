@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,16 +23,16 @@ REAL4 MandelbulbKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	REAL th0 = acos(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset
-						 + 1e-030f; // MUST keep exception catch
-	REAL ph0 = atan(native_divide(z.y, z.x)) + fractal->bulb.alphaAngleOffset;
+	REAL th0 =
+		acos(z.z / aux->r) + fractal->bulb.betaAngleOffset + 1e-030f; // MUST keep exception catch
+	REAL ph0 = atan(z.y / z.x) + fractal->bulb.alphaAngleOffset;
 	th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 	REAL sinth = native_sin(th0);
 	z = aux->r * (REAL4){sinth * native_cos(ph0), native_sin(ph0) * sinth, native_cos(th0), 0.0f};
 
-	th0 = acos(native_divide(z.z, aux->r)) + fractal->transformCommon.betaAngleOffset
+	th0 = acos(z.z / aux->r) + fractal->transformCommon.betaAngleOffset
 				+ 1e-030f; // MUST keep exception catch ??;
-	ph0 = atan(native_divide(z.y, z.x));
+	ph0 = atan(z.y / z.x);
 	ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 	REAL zp = native_powr(aux->r, fractal->transformCommon.pwr8);
 	sinth = native_sin(th0);
@@ -40,15 +40,15 @@ REAL4 MandelbulbKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic log DE adjustment
-		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
-										* aux->DE * fractal->transformCommon.pwr8,
-			fractal->analyticDE.scale1, fractal->analyticDE.offset2);
+		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
+								* aux->DE * fractal->transformCommon.pwr8 * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset2;
 	}
 	else // default, i.e. scale1 & offset1 & offset2 = 1.0f
 	{
-		aux->DE =
-			mad(native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f) * fractal->transformCommon.pwr8,
-				aux->DE, 1.0f);
+		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f)
+								* fractal->transformCommon.pwr8 * aux->DE
+							+ 1.0f;
 	}
 	return z;
 }

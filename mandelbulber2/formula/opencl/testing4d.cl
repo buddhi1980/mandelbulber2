@@ -33,27 +33,26 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z.w += paraAddP0;
 	}
 
-	// sinusoidal *w
+	// sinusoidal w
 	REAL sinAdd = 0.0f;
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		sinAdd = native_sin(native_divide(
-							 (aux->i + fractal->transformCommon.offset0), fractal->transformCommon.scaleA1))
-						 * fractal->transformCommon.scaleC1;
+		sinAdd =
+			native_sin((aux->i + fractal->transformCommon.offset0) / fractal->transformCommon.scaleA1)
+			* fractal->transformCommon.scaleC1;
 		z.w += sinAdd;
 	}
 
 	/*	REAL4 temp = fractal->transformCommon.offset0000;
 		REAL4 temp2 = temp * temp;
 
-		z.x += (native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f *
-		temp.x) * sign(z.x) * fractal->transformCommon.scale1; z.y += (native_divide((8.0f * temp.y *
-		temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f * temp.y) * sign(z.y) *
+		z.x += ((8.0f * temp.x * temp2.x) / ((z.x * z.x) + (4.0f * temp2.x)) - 2.0f * temp.x) *
+		sign(z.x) * fractal->transformCommon.scale1; z.y += ((8.0f * temp.y * temp2.y) / ((z.y * z.y) +
+		(4.0f * temp2.y)) - 2.0f * temp.y) * sign(z.y) * fractal->transformCommon.scale1; z.z += ((8.0f
+		* temp.z * temp2.z) / ((z.z * z.z) + (4.0f * temp2.z)) - 2.0f * temp.z) * sign(z.z) *
 		fractal->transformCommon.scale1;
-		z.z += (native_divide((8.0f * temp.z * temp2.z), ((z.z * z.z) + (4.0f * temp2.z))) - 2.0f *
-		temp.z) * sign(z.z) * fractal->transformCommon.scale1; z.w += (native_divide((8.0f * temp.w *
-		temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w) * sign(z.w) *
-		fractal->transformCommon.scale1*/
+		z.w += ((8.0f * temp.w * temp2.w) / ((z.w * z.w) + (4.0f * temp2.w)) - 2.0f * temp.w) *
+		sign(z.w) * fractal->transformCommon.scale1*/
 
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -73,18 +72,14 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL4 temp2 = temp * temp;
 	// if (z.w < 1e-016f) z.w = 1e-016f;
 	if (z.w < 1e-21f && z.w > -1e-21f) z.w = (z.w > 0) ? 1e-21f : -1e-21f;
-	z.x +=
-		(native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f * temp.x)
-		* sign(z.x) * fractal->transformCommon.scale1;
-	z.y +=
-		(native_divide((8.0f * temp.y * temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f * temp.y)
-		* sign(z.y) * fractal->transformCommon.scale1;
-	z.z +=
-		(native_divide((8.0f * temp.z * temp2.z), ((z.z * z.z) + (4.0f * temp2.z))) - 2.0f * temp.z)
-		* sign(z.z) * fractal->transformCommon.scale1;
-	z.w +=
-		(native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w)
-		* sign(z.w) * fractal->transformCommon.scale1;
+	z.x += ((8.0f * temp.x * temp2.x) / ((z.x * z.x) + (4.0f * temp2.x)) - 2.0f * temp.x) * sign(z.x)
+				 * fractal->transformCommon.scale1;
+	z.y += ((8.0f * temp.y * temp2.y) / ((z.y * z.y) + (4.0f * temp2.y)) - 2.0f * temp.y) * sign(z.y)
+				 * fractal->transformCommon.scale1;
+	z.z += ((8.0f * temp.z * temp2.z) / ((z.z * z.z) + (4.0f * temp2.z)) - 2.0f * temp.z) * sign(z.z)
+				 * fractal->transformCommon.scale1;
+	z.w += ((8.0f * temp.w * temp2.w) / ((z.w * z.w) + (4.0f * temp2.w)) - 2.0f * temp.w) * sign(z.w)
+				 * fractal->transformCommon.scale1;
 
 	// r power
 	if (aux->i >= fractal->transformCommon.startIterationsS
@@ -105,8 +100,8 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-			aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			aux->DE *= fractal->transformCommon.maxR2d1 / rr;
 			// colorAdd += fractal->mandelbox.color.factorSp2 * (rr - fractal->transformCommon.minR2p25);
 		}
 		/*else
@@ -150,43 +145,43 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		{
 			tp = z;
 			REAL alpha = fractal->transformCommon.rotation44a.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(alpha), tp.y * native_sin(alpha));
-			z.y = mad(tp.x, -native_sin(alpha), tp.y * native_cos(alpha));
+			z.x = tp.x * native_cos(alpha) + tp.y * native_sin(alpha);
+			z.y = tp.x * -native_sin(alpha) + tp.y * native_cos(alpha);
 		}
 		if (fractal->transformCommon.rotation44a.y != 0)
 		{
 			tp = z;
 			REAL beta = fractal->transformCommon.rotation44a.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(beta), tp.z * native_sin(beta));
-			z.z = mad(tp.y, -native_sin(beta), tp.z * native_cos(beta));
+			z.y = tp.y * native_cos(beta) + tp.z * native_sin(beta);
+			z.z = tp.y * -native_sin(beta) + tp.z * native_cos(beta);
 		}
 		if (fractal->transformCommon.rotation44a.z != 0)
 		{
 			tp = z;
 			REAL gamma = fractal->transformCommon.rotation44a.z * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(gamma), tp.z * native_sin(gamma));
-			z.z = mad(tp.x, -native_sin(gamma), tp.z * native_cos(gamma));
+			z.x = tp.x * native_cos(gamma) + tp.z * native_sin(gamma);
+			z.z = tp.x * -native_sin(gamma) + tp.z * native_cos(gamma);
 		}
 		if (fractal->transformCommon.rotation44b.x != 0)
 		{
 			tp = z;
 			REAL delta = fractal->transformCommon.rotation44b.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(delta), tp.w * native_sin(delta));
-			z.w = mad(tp.x, -native_sin(delta), tp.w * native_cos(delta));
+			z.x = tp.x * native_cos(delta) + tp.w * native_sin(delta);
+			z.w = tp.x * -native_sin(delta) + tp.w * native_cos(delta);
 		}
 		if (fractal->transformCommon.rotation44b.y != 0)
 		{
 			tp = z;
 			REAL epsilon = fractal->transformCommon.rotation44b.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(epsilon), tp.w * native_sin(epsilon));
-			z.w = mad(tp.y, -native_sin(epsilon), tp.w * native_cos(epsilon));
+			z.y = tp.y * native_cos(epsilon) + tp.w * native_sin(epsilon);
+			z.w = tp.y * -native_sin(epsilon) + tp.w * native_cos(epsilon);
 		}
 		if (fractal->transformCommon.rotation44b.z != 0)
 		{
 			tp = z;
 			REAL zeta = fractal->transformCommon.rotation44b.z * M_PI_180_F;
-			z.z = mad(tp.z, native_cos(zeta), tp.w * native_sin(zeta));
-			z.w = mad(tp.z, -native_sin(zeta), tp.w * native_cos(zeta));
+			z.z = tp.z * native_cos(zeta) + tp.w * native_sin(zeta);
+			z.w = tp.z * -native_sin(zeta) + tp.w * native_cos(zeta);
 		}
 	}
 	z += fractal->transformCommon.additionConstant0000;
@@ -194,35 +189,30 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	/*REAL4 temp = fractal->transformCommon.offset0000;
 	REAL4 temp2 = temp * temp;
 
-	z.x += (native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f *
-	temp.x) * sign(z.x)
+	z.x += ((8.0f * temp.x * temp2.x) / ((z.x * z.x) + (4.0f * temp2.x)) - 2.0f * temp.x) * sign(z.x)
 				 * fractal->transformCommon.scale1;
-	z.y += (native_divide((8.0f * temp.y * temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f *
-	temp.y) * sign(z.y)
+	z.y += ((8.0f * temp.y * temp2.y) / ((z.y * z.y) + (4.0f * temp2.y)) - 2.0f * temp.y) * sign(z.y)
 				 * fractal->transformCommon.scale1;
-	z.z += (native_divide((8.0f * temp.z * temp2.z), ((z.z * z.z) + (4.0f * temp2.z))) - 2.0f *
-	temp.z) * sign(z.z)
+	z.z += ((8.0f * temp.z * temp2.z) / ((z.z * z.z) + (4.0f * temp2.z)) - 2.0f * temp.z) * sign(z.z)
 				 * fractal->transformCommon.scale1;
-	z.w += (native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f *
-	temp.w) * sign(z.w)
+	z.w += ((8.0f * temp.w * temp2.w) / ((z.w * z.w) + (4.0f * temp2.w)) - 2.0f * temp.w) * sign(z.w)
 				 * fractal->transformCommon.scale1;*/
 
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(z);
-		aux->DE =
-			aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
-				* native_divide(native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
-																		+ 2.0f + fractal->analyticDE.offset2),
-					SQRT_3_F)
-			+ fractal->analyticDE.offset1;
+		aux->DE = aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
+								* native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
+															+ fractal->analyticDE.offset2)
+								/ SQRT_3_F
+							+ fractal->analyticDE.offset1;
 
 		z = z * 2.0f;
 		REAL x2 = z.x * z.x;
 		REAL y2 = z.y * z.y;
 		REAL z2 = z.z * z.z;
-		REAL temp = 1.0f - native_divide(z2, (x2 + y2));
+		REAL temp = 1.0f - z2 / (x2 + y2);
 		REAL4 zTemp;
 		zTemp.x = (x2 - y2) * temp;
 		zTemp.y = 2.0f * z.x * z.y * temp;
@@ -253,9 +243,9 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			{
 				if (rrCol < fractal->transformCommon.minR2p25)
 					colorAdd +=
-						mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-							fractal->mandelbox.color.factorSp2
-								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 				else
 					colorAdd +=
 						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);

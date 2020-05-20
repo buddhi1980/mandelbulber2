@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,9 +23,9 @@ REAL4 AboxModKaliV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL rr = dot(z, z);
 		REAL MinR = fractal->transformCommon.minR0;
 		REAL dividend = rr < MinR ? MinR : min(rr, 1.0f);
-		REAL m = native_divide(-fractal->transformCommon.scale015, dividend);
+		REAL m = -fractal->transformCommon.scale015 / dividend;
 		z = z * m;
-		aux->DE = mad(aux->DE, fabs(m), 1.0f);
+		aux->DE = aux->DE * fabs(m) + 1.0f;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsB

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -30,7 +30,7 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (!fractal->transformCommon.functionEnabledFalse)
 			wrap_mode.x = fmod(z.x, 2.0f * box_size.x);
 		else
-			wrap_mode.x = z.x - 2.0f * box_size.x * floor(native_divide(z.x, 2.0f) * box_size.x);
+			wrap_mode.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x);
 		z.x = wrap_mode.x - box_size.x;
 	}
 	if (fractal->transformCommon.functionEnabledByFalse)
@@ -39,7 +39,7 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (!fractal->transformCommon.functionEnabledFalse)
 			wrap_mode.y = fmod(z.y, 2.0f * box_size.y);
 		else
-			wrap_mode.y = z.y - 2.0f * box_size.y * floor(native_divide(z.y, 2.0f) * box_size.y);
+			wrap_mode.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y);
 		z.y = wrap_mode.y - box_size.y;
 	}
 	if (fractal->transformCommon.functionEnabledBzFalse)
@@ -48,7 +48,7 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (!fractal->transformCommon.functionEnabledFalse)
 			wrap_mode.z = fmod(z.z, 2.0f * box_size.z);
 		else
-			wrap_mode.z = z.z - 2.0f * box_size.z * floor(native_divide(z.z, 2.0f) * box_size.z);
+			wrap_mode.z = z.z - 2.0f * box_size.z * floor(z.z / 2.0f * box_size.z);
 		z.z = wrap_mode.z - box_size.z;
 	}
 
@@ -58,17 +58,17 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (!fractal->transformCommon.functionEnabledFalse)
 			wrap_mode.w = fmod(z.w, 2.0f * box_size.w);
 		else
-			wrap_mode.w = z.w - 2.0f * box_size.w * floor(native_divide(z.w, 2.0f) * box_size.w);
+			wrap_mode.w = z.w - 2.0f * box_size.w * floor(z.w / 2.0f * box_size.w);
 		z.w = wrap_mode.w - box_size.w;
 	}
 	if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
-		z.x = z.x * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.x) + 1.0f));
-		z.y = z.y * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.y) + 1.0f));
-		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
-		z.w = z.w * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.w) + 1.0f));
+		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0f);
+		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0f);
+		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0f);
+		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0f);
 	}
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,32 +17,31 @@
 
 REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 temp = z;
-
-	// Normal full tetra-fold;
+	// Normal full tetra-fold
 	if (fractal->transformCommon.functionEnabled)
 	{
+		REAL temp = 0.0f;
 		if (z.x + z.y < 0.0f)
 		{
-			temp.x = -z.y;
+			temp = -z.y;
 			z.y = -z.x;
-			z.x = temp.x;
+			z.x = temp;
 		}
 		if (z.x + z.z < 0.0f)
 		{
-			temp.x = -z.z;
+			temp = -z.z;
 			z.z = -z.x;
-			z.x = temp.x;
+			z.x = temp;
 		}
 		if (z.y + z.z < 0.0f)
 		{
-			temp.y = -z.z;
+			temp = -z.z;
 			z.z = -z.y;
-			z.y = temp.y;
+			z.y = temp;
 		}
 	}
 
-	// Reversed full tetra-fold;
+	// Reversed full tetra-fold
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (z.x - z.y < 0.0f)
@@ -83,7 +82,7 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (!fractal->analyticDE.enabledFalse)
 		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scaleA2), fractal->analyticDE.scale1,
-			fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset0;
 	return z;
 }

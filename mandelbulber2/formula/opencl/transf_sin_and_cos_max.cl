@@ -23,11 +23,9 @@ REAL4 TransfSinAndCosMaxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		sinZ.x = native_sin(
-							 oldZ.x * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierA111.x))
+		sinZ.x = native_sin(oldZ.x * M_PI_2x_F / fractal->transformCommon.constantMultiplierA111.x)
 						 * fractal->transformCommon.scaleA1; // freq
-		cosZ.x = native_cos(
-							 oldZ.x * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierB111.x))
+		cosZ.x = native_cos(oldZ.x * M_PI_2x_F / fractal->transformCommon.constantMultiplierB111.x)
 						 * fractal->transformCommon.scaleB1;
 		sinCosZ.x = sinZ.x * cosZ.x * fractal->transformCommon.scaleC1;
 		maxZ.x = max(max(sinZ.x, cosZ.x), sinCosZ.x);
@@ -37,11 +35,9 @@ REAL4 TransfSinAndCosMaxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
-		sinZ.y = native_sin(
-							 oldZ.y * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierA111.y))
+		sinZ.y = native_sin(oldZ.y * M_PI_2x_F / fractal->transformCommon.constantMultiplierA111.y)
 						 * fractal->transformCommon.scaleA1; // freq
-		cosZ.y = native_cos(
-							 oldZ.y * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierB111.y))
+		cosZ.y = native_cos(oldZ.y * M_PI_2x_F / fractal->transformCommon.constantMultiplierB111.y)
 						 * fractal->transformCommon.scaleB1;
 		sinCosZ.y = sinZ.y * cosZ.y * fractal->transformCommon.scaleC1;
 		maxZ.y = max(max(sinZ.y, cosZ.y), sinCosZ.y);
@@ -51,11 +47,9 @@ REAL4 TransfSinAndCosMaxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-		sinZ.z = native_sin(
-							 oldZ.z * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierA111.z))
+		sinZ.z = native_sin(oldZ.z * M_PI_2x_F / fractal->transformCommon.constantMultiplierA111.z)
 						 * fractal->transformCommon.scaleA1; // freq
-		cosZ.z = native_cos(
-							 oldZ.z * native_divide(M_PI_2x_F, fractal->transformCommon.constantMultiplierB111.z))
+		cosZ.z = native_cos(oldZ.z * M_PI_2x_F / fractal->transformCommon.constantMultiplierB111.z)
 						 * fractal->transformCommon.scaleB1;
 		sinCosZ.z = sinZ.z * cosZ.z * fractal->transformCommon.scaleC1;
 		maxZ.z = max(max(sinZ.z, cosZ.z), sinCosZ.z);
@@ -84,7 +78,7 @@ REAL4 TransfSinAndCosMaxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// analytic tweaks
 	if (fractal->analyticDE.enabledFalse) // temp
 	{
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	return z;
 }

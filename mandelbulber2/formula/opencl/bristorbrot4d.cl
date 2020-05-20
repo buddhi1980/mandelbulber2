@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,7 +18,7 @@
 REAL4 Bristorbrot4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y)) - z.w * z.w;
+	REAL newx = z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w;
 	REAL newy = z.y * (2.0f * z.x - z.z - z.w);
 	REAL newz = z.z * (2.0f * z.x + z.y - z.w);
 	REAL neww = z.w * (2.0f * z.x + z.y + z.z);

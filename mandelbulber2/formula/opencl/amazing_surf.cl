@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -21,8 +21,8 @@
 REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// update aux->actualScale
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 
 	REAL4 c = aux->const_c;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -47,11 +47,11 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}*/
 	// use aux->actualScale
-	REAL m = native_divide(aux->actualScale, dividend);
+	REAL m = aux->actualScale / dividend;
 
-	z *= mad((m - 1.0f), fractal->transformCommon.scale1, 1.0f);
-	// z *= mad(m, fractal->transformCommon.scale1, 1.0f * (1.0f - fractal->transformCommon.scale1));
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	z *= (m - 1.0f) * fractal->transformCommon.scale1 + 1.0f;
+	// z *= m * fractal->transformCommon.scale1 + 1.0f * (1.0f - fractal->transformCommon.scale1);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;

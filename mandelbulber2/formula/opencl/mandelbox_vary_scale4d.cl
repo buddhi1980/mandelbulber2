@@ -16,8 +16,8 @@
 
 REAL4 MandelboxVaryScale4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+	aux->actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 
 	REAL paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
@@ -39,21 +39,20 @@ REAL4 MandelboxVaryScale4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
 
 	REAL rr =
-		native_powr(z.x * z.x + mad(z.y, z.y, z.z * z.z) + z.w * z.w, fractal->mandelboxVary4D.rPower);
+		native_powr(z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w, fractal->mandelboxVary4D.rPower);
 	REAL m = aux->actualScale;
 	if (rr < fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR)
 	{
-		m = native_divide(
-			aux->actualScale, (fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR));
+		m = aux->actualScale / (fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR);
 		aux->color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < 1.0f)
 	{
-		m = native_divide(aux->actualScale, rr);
+		m = aux->actualScale / rr;
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z *= m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -65,43 +64,43 @@ REAL4 MandelboxVaryScale4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			tp = z;
 			REAL alpha = fractal->transformCommon.rotation44a.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(alpha), tp.y * native_sin(alpha));
-			z.y = mad(tp.x, -native_sin(alpha), tp.y * native_cos(alpha));
+			z.x = tp.x * native_cos(alpha) + tp.y * native_sin(alpha);
+			z.y = tp.x * -native_sin(alpha) + tp.y * native_cos(alpha);
 		}
 		if (fractal->transformCommon.rotation44a.y != 0)
 		{
 			tp = z;
 			REAL beta = fractal->transformCommon.rotation44a.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(beta), tp.z * native_sin(beta));
-			z.z = mad(tp.y, -native_sin(beta), tp.z * native_cos(beta));
+			z.y = tp.y * native_cos(beta) + tp.z * native_sin(beta);
+			z.z = tp.y * -native_sin(beta) + tp.z * native_cos(beta);
 		}
 		if (fractal->transformCommon.rotation44a.z != 0)
 		{
 			tp = z;
 			REAL gamma = fractal->transformCommon.rotation44a.z * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(gamma), tp.z * native_sin(gamma));
-			z.z = mad(tp.x, -native_sin(gamma), tp.z * native_cos(gamma));
+			z.x = tp.x * native_cos(gamma) + tp.z * native_sin(gamma);
+			z.z = tp.x * -native_sin(gamma) + tp.z * native_cos(gamma);
 		}
 		if (fractal->transformCommon.rotation44b.x != 0)
 		{
 			tp = z;
 			REAL delta = fractal->transformCommon.rotation44b.x * M_PI_180_F;
-			z.x = mad(tp.x, native_cos(delta), tp.w * native_sin(delta));
-			z.w = mad(tp.x, -native_sin(delta), tp.w * native_cos(delta));
+			z.x = tp.x * native_cos(delta) + tp.w * native_sin(delta);
+			z.w = tp.x * -native_sin(delta) + tp.w * native_cos(delta);
 		}
 		if (fractal->transformCommon.rotation44b.y != 0)
 		{
 			tp = z;
 			REAL epsilon = fractal->transformCommon.rotation44b.y * M_PI_180_F;
-			z.y = mad(tp.y, native_cos(epsilon), tp.w * native_sin(epsilon));
-			z.w = mad(tp.y, -native_sin(epsilon), tp.w * native_cos(epsilon));
+			z.y = tp.y * native_cos(epsilon) + tp.w * native_sin(epsilon);
+			z.w = tp.y * -native_sin(epsilon) + tp.w * native_cos(epsilon);
 		}
 		if (fractal->transformCommon.rotation44b.z != 0)
 		{
 			tp = z;
 			REAL zeta = fractal->transformCommon.rotation44b.z * M_PI_180_F;
-			z.z = mad(tp.z, native_cos(zeta), tp.w * native_sin(zeta));
-			z.w = mad(tp.z, -native_sin(zeta), tp.w * native_cos(zeta));
+			z.z = tp.z * native_cos(zeta) + tp.w * native_sin(zeta);
+			z.w = tp.z * -native_sin(zeta) + tp.w * native_cos(zeta);
 		}
 	}
 	return z;

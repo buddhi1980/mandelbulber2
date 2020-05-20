@@ -31,8 +31,7 @@ REAL4 AboxModKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 				REAL iterationRange =
 					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
 				REAL currentIteration = (aux->i - fractal->transformCommon.startIterations);
-				tempVC +=
-					fractal->transformCommon.offset000 * native_divide(currentIteration, iterationRange);
+				tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 			}
 
 			if (aux->i >= fractal->transformCommon.stopIterations)
@@ -52,8 +51,8 @@ REAL4 AboxModKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL rr = dot(z, z);
 	REAL MinR = fractal->transformCommon.minR06;
 	REAL dividend = rr < MinR ? MinR : min(rr, 1.0f);
-	REAL m = native_divide(fractal->transformCommon.scale015, dividend);
+	REAL m = fractal->transformCommon.scale015 / dividend;
 	z = z * m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 	return z;
 }

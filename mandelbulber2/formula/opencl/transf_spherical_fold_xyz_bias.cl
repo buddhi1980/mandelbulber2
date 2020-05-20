@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -49,17 +49,17 @@ REAL4 TransfSphericalFoldXYZBiasIteration(
 
 	if (rr < minR2)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
+		m *= fractal->transformCommon.maxR2d1 / minR2;
 		aux->color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		m *= fractal->transformCommon.maxR2d1 / rr;
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset000;
 
 	z *= m;
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->DE = aux->DE * fabs(m) + 1.0f;
 	return z;
 }

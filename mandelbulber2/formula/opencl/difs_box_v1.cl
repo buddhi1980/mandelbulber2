@@ -55,10 +55,8 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		z.x = fabs(z.x);
 		int poly = fractal->transformCommon.int6;
-		REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
-											native_divide(M_PI_F, (0.5f * poly)))
-										- native_divide(M_PI_F, poly));
-		REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
+		REAL psi = fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
 	}
@@ -117,7 +115,7 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
@@ -185,12 +183,12 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		zc.z = max(zc.z, 0.0f);
 		REAL zcd = length(zc);
 
-		aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+		aux->dist = min(aux->dist, zcd / aux->DE);
 
 		if (!fractal->transformCommon.functionEnabledEFalse)
-			aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+			aux->dist = min(aux->dist, zcd / aux->DE);
 		else
-			aux->dist = min(aux->dist, native_divide(zcd, aux->DE)) - fractal->transformCommon.offsetB0;
+			aux->dist = min(aux->dist, zcd / aux->DE) - fractal->transformCommon.offsetB0;
 	}
 
 	// aux->color

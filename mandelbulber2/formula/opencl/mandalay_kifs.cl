@@ -74,11 +74,16 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	// ABoxKali-like abs folding:
-	REAL fx = mad(-2.0f, fo, z.x);
+	REAL fx = -2.0f * fo + z.x;
 	// Edges:
 	p.x = (fo - fabs(-fo + z.x));
 	p.y = (fo - fabs(-fo + z.y));
-	p.z = zT + z.z;
+
+	if (!fractal->transformCommon.functionEnabledTFalse)
+		p.z = zT + z.z;
+	else
+		p.z = zT - fabs(-fo + z.z);
+
 	REAL gy = g + z.y;
 	if (fx > 0.0f && fx > z.y)
 	{
@@ -92,7 +97,7 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			// edges:
 			p.x = -z.y;
-			p.y = (fo - fabs(mad(-3.0f, fo, z.x)));
+			p.y = (fo - fabs(-3.0f * fo + z.x));
 		}
 	}
 	z = p;
@@ -106,14 +111,13 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		rrCol = rr;
 		if (rr < fractal->transformCommon.minR0)
 		{
-			REAL tglad_factor1 =
-				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR0);
+			REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 		}
@@ -122,7 +126,7 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// scale
 	useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 	z *= useScale;
-	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	aux->DE = aux->DE * fabs(useScale) + 1.0f;
 
 	if (fractal->transformCommon.functionEnabledKFalse
 			&& aux->i >= fractal->transformCommon.startIterationsK
@@ -143,7 +147,7 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -151,10 +155,9 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd +=
-					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-						fractal->mandelbox.color.factorSp2
-							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 		}
 		aux->color += colorAdd;
 	}
@@ -162,6 +165,6 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// temp code
 	p = fabs(z);
 	aux->dist = max(p.x, max(p.y, p.z));
-	aux->dist = native_divide(aux->dist, aux->DE);
+	aux->dist = aux->dist / aux->DE;
 	return z;
 }

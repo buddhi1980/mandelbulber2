@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,8 +20,7 @@ REAL4 TransfPwr2PolynomialIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		partA = fabs(z);
 	if (fractal->transformCommon.functionEnabledxFalse) // pwr3 or z * fabs(z^2)
 		partA *= z;
-	partA =
-		mad(partA, fractal->transformCommon.scale2, fractal->transformCommon.constantMultiplier111);
+	partA = partA * fractal->transformCommon.scale2 + fractal->transformCommon.constantMultiplier111;
 
 	REAL4 fnZ1 = z;
 	if (fractal->transformCommon.functionEnabledBxFalse) // native_cos(z*Pi)
@@ -36,9 +35,9 @@ REAL4 TransfPwr2PolynomialIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			M_PI_F * fractal->transformCommon.scale0);			// * cPI ;
 	if (fractal->transformCommon.functionEnabledzFalse) // box offset
 	{
-		fnZ1.x = mad(fractal->transformCommon.additionConstant000.x, sign(fnZ1.x), fnZ1.x);
-		fnZ1.y = mad(fractal->transformCommon.additionConstant000.y, sign(fnZ1.y), fnZ1.y);
-		fnZ1.z = mad(fractal->transformCommon.additionConstant000.z, sign(fnZ1.z), fnZ1.z);
+		fnZ1.x = fnZ1.x + sign(fnZ1.x) * fractal->transformCommon.additionConstant000.x;
+		fnZ1.y = fnZ1.y + sign(fnZ1.y) * fractal->transformCommon.additionConstant000.y;
+		fnZ1.z = fnZ1.z + sign(fnZ1.z) * fractal->transformCommon.additionConstant000.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // fabs fnZ1
@@ -52,9 +51,9 @@ REAL4 TransfPwr2PolynomialIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		fractal->transformCommon.constantMultiplierB111.y,
 		fractal->transformCommon.constantMultiplierB111.z, 0.0f};
 
-	z = constantMult + mad(-fnZ1, partA, partB);
+	z = constantMult + partB - partA * fnZ1;
 	z *= fractal->transformCommon.scale025;
 
-	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+	aux->DE = aux->DE * 4.0f * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	return z;
 }
