@@ -61,17 +61,10 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		S = S - 8.0 * floor(S / 8.0);
 		S = fabs(S - 4.0) - 2.0;
 		z.y = clamp(S, - 1.0, 1.0) * Length2;
+		aux.DE *= SQRT_1_2 * 2.0;
 	}
 
 	z = fabs(z);
-	if (z.x < z.y) swap(z.y, z.x);
-	if (z.x < z.z) swap(z.z, z.x);
-	if (z.y < z.z) swap(z.z, z.y);
-	z = z * fractal->transformCommon.scale3 - fractal->transformCommon.offset222;
-	aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
-	if (z.z < -1.0) z.z += 2.0;
-
-	z += fractal->transformCommon.additionConstant000;
 
 	// rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
@@ -79,6 +72,16 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+	if (z.x < z.y) swap(z.y, z.x);
+	if (z.x < z.z) swap(z.z, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
+
+	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	z = z * fractal->transformCommon.scale3 - fractal->transformCommon.offset222;
+	aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
+	if (z.z < -1.0) z.z += 2.0;
 
 	// boxoffset
 	if (fractal->transformCommon.functionEnabledxFalse
@@ -99,13 +102,5 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		CVector4 zA = (aux.i == fractal->transformCommon.intA) ? z : CVector4();
-		CVector4 zB = (aux.i == fractal->transformCommon.intB) ? z : CVector4();
 
-		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offset)
-				+ (zB * fractal->transformCommon.offset0);
-		aux.DE *= fractal->transformCommon.scale1;
-	}
 }

@@ -56,22 +56,20 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z.z -= sign(z.z) * max(double(sign(a.z - min(a.x, a.y))), limitB) * sizer2;
 			b *= fractal->transformCommon.minR05;
 		}
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
 		a = fabs(z);
 
 		double d2;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
-			d2 = max(a.x, max(a.y, a.z)) - b - fractal->transformCommon.offsetB0;
+			d2 = max(a.x, max(a.y, a.z)) - b * fractal->transformCommon.scaleC1;
 		else
-			d2 = a.Length() - b * fractal->transformCommon.offsetB0;
+			d2 = a.Length() - b * fractal->transformCommon.scaleC1;
 
 		 d2 = max(d2, -d);
 		 //aux.dist = d2;
 
 		if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
 		else aux.dist = min(aux.dist, d2);
-
-		 aux.dist *= fractal->transformCommon.scaleC1;
 	}
 }

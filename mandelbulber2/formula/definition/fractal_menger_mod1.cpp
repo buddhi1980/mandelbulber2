@@ -55,7 +55,7 @@ void cFractalMengerMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 
-		if (fractal->transformCommon.functionEnabledFalse)
+		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			double tempL = temp.Length();
 			// if (tempL < 1e-21) tempL = 1e-21;

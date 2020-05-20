@@ -46,7 +46,14 @@
    <item>
     <widget class="QLabel" name="label_134">
      <property name="text">
-      <string>reduce  Stop at Iteration </string>
+      <string>reduce  maximum Iterations Rendering Engine tab</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_135">
+     <property name="text">
+      <string>sometimes disable bailout check on other slots</string>
      </property>
     </widget>
    </item>
