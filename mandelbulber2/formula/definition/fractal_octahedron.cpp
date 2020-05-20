@@ -46,7 +46,7 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			b *= fractal->transformCommon.scale05;
 		}
 
-		 d = z.Length() - fractal->transformCommon.minR2p25;
+		d = z.Length() - fractal->transformCommon.minR2p25;
 		for (int i = 0; i < fractal->transformCommon.int3Y; i++)
 		{
 			double sizer2 = fractal->transformCommon.scaleA1 * b;
@@ -67,7 +67,6 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			d2 = a.Length() - b * fractal->transformCommon.scaleC1;
 
 		 d2 = max(d2, -d);
-		 //aux.dist = d2;
 
 		if (!fractal->transformCommon.functionEnabledAFalse) aux.dist = d2;
 		else aux.dist = min(aux.dist, d2);

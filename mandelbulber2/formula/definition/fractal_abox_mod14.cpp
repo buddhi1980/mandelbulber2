@@ -71,6 +71,9 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z.z = (z.z - (sign(z.z) * (Add.z)));
 	}
 
+	// standard offset
+	z += fractal->transformCommon.offset000;
+
 	// spherical fold
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
@@ -102,9 +105,6 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 	}
-
-	// standard offset
-	z += fractal->transformCommon.offset000;
 
 	// offset options
 	if (fractal->transformCommon.functionEnabledAxFalse
