@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>riemann_sphere_msltoe_m3d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>844</width>
+    <width>898</width>
     <height>1238</height>
    </rect>
   </property>
@@ -197,10 +197,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -232,10 +232,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -274,10 +274,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -344,10 +344,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -372,10 +372,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -407,10 +407,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -449,10 +449,38 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>

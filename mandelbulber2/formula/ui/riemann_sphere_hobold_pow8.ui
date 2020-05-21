@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>riemann_sphere_hobold_pow8</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>844</width>
-    <height>1254</height>
+    <width>925</width>
+    <height>2009</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -246,10 +246,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -274,10 +274,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -337,10 +337,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-180.000000000000000</double>
+        <double>-36000.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>180.000000000000000</double>
+        <double>36000.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>1.000000000000000</double>
@@ -396,10 +396,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -445,10 +445,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -473,10 +473,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>

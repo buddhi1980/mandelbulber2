@@ -17,20 +17,20 @@
 REAL4 TransfDeLinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// if (aux->i < fractal->transformCommon.stopIterations15)
-	{
-		REAL R;
-		if (!fractal->transformCommon.functionEnabledFalse)
-		{
-			R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
-		}
-		else
-		{
-			R = length(z);
-		}
 
-		aux->dist = (fractal->transformCommon.scale1 * R / aux->DE)
-								- fractal->transformCommon.offset0 / 100.0f; // shape size, change with iter number
+	REAL R;
+	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
 	}
+	else
+	{
+		R = length(z);
+	}
+
+	aux->dist = (fractal->transformCommon.scale1 * R / aux->DE)
+							- fractal->transformCommon.offset0 / 100.0f; // shape size, change with iter number
+
 
 	return z;
 }

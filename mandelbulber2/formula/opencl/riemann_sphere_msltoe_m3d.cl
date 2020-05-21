@@ -16,29 +16,33 @@
 
 REAL4 RiemannSphereMsltoeM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	REAL r = aux->r;
-	REAL s, t;
-	// if (r < 1e-21f) r = 1e-21f;
-	z *= fractal->transformCommon.scale / r;
-	REAL q = 1.0f / (1.0f - z.z);
-	s = z.x * q;
-	t = z.y * q;
-	REAL w = 1.0f + s * s + t * t;
-	REAL limit = fractal->transformCommon.scale8 * 8000.0f; // fudge
-	if (w > limit) w = limit;
+	if (z.z > fractal->transformCommon.offsetA1) z * 1000.0; // fail bailout check
+	else
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		REAL r = aux->r;
+		REAL s, t;
+		// if (r < 1e-21f) r = 1e-21f;
+		z *= fractal->transformCommon.scale / r;
+		REAL q = 1.0f / (1.0f - z.z);
+		s = z.x * q;
+		t = z.y * q;
+		REAL w = 1.0f + s * s + t * t;
+		REAL limit = fractal->transformCommon.scale8 * 8000.0f; // fudge
+		if (w > limit) w = limit;
 
-	s = fabs(native_sin(M_PI_F * s + fractal->transformCommon.offsetA0));
-	t = fabs(native_sin(M_PI_F * t + fractal->transformCommon.offsetB0));
-	s = fabs(s - fractal->transformCommon.offsetC0);
-	t = fabs(t - fractal->transformCommon.offsetD0);
+		s = fabs(native_sin(M_PI_F * s + fractal->transformCommon.offsetA0));
+		t = fabs(native_sin(M_PI_F * t + fractal->transformCommon.offsetB0));
+		s = fabs(s - fractal->transformCommon.offsetC0);
+		t = fabs(t - fractal->transformCommon.offsetD0);
 
-	r = -0.25f + fractal->transformCommon.offsetE0
-			+ native_powr(r, (fractal->transformCommon.scale2 * w));
-	w = 2.0f / (1.0f + s * s + t * t);
-	z.x = r * s * w;
-	z.y = r * t * w;
-	z.z = r * (1.0f - w);
-	z += fractal->transformCommon.offset001;
+		r = -0.25f + fractal->transformCommon.offsetE0
+				+ native_powr(r, (fractal->transformCommon.scale2 * w));
+		w = 2.0f / (1.0f + s * s + t * t);
+		z.x = r * s * w;
+		z.y = r * t * w;
+		z.z = r * (1.0f - w);
+		z += fractal->transformCommon.offset001;
+	}
 	return z;
 }
