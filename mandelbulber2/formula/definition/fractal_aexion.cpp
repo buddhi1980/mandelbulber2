@@ -36,7 +36,7 @@ void cFractalAexion::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		aux.c.x = cx;
 		aux.c.y = cy;
 		aux.c.z = cz;
-		aux.cw = cw;
+		aux.c.w = cw;
 		double tempX = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
 		double tempY = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
 		double tempZ = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
@@ -49,7 +49,7 @@ void cFractalAexion::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	double tempX = z.x * z.x - z.y * z.y + 2.0 * z.w * z.z + aux.c.x;
 	double tempY = z.y * z.y - z.x * z.x + 2.0 * z.w * z.z + aux.c.y;
 	double tempZ = z.z * z.z - z.w * z.w + 2.0 * z.x * z.y + aux.c.z;
-	double tempW = z.w * z.w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
+	double tempW = z.w * z.w - z.z * z.z + 2.0 * z.x * z.y + aux.c.w;
 	z.x = tempX;
 	z.y = tempY;
 	z.z = tempZ;

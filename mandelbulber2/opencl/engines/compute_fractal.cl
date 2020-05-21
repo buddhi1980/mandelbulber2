@@ -143,29 +143,21 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	// formula init
 	sExtendedAuxCl aux;
-	// TODO copy aux
 
 	aux.c = c;
 	aux.const_c = c;
 	aux.old_z = z;
-	// aux.sum_z = z;
 	aux.pos_neg = 1.0f;
-	aux.cw = 0.0f;
-
 	aux.r = length(z);
 	aux.DE = 1.0f;
 	aux.DE0 = 0.0;
 	aux.dist = 1000.0f;
 	aux.pseudoKleinianDE = 1.0f;
-
 	aux.actualScale = consts->fractal[fractalIndex].mandelbox.scale;
 	aux.actualScaleA = 0.0f;
-
 	aux.color = 1.0f;
 	aux.colorHybrid = 0.0f;
-
 	aux.temp1000 = 1000.0f;
-	aux.addDist = 0.0f;
 
 	int sequence = 0;
 	__constant sFractalCl *fractal;
@@ -227,7 +219,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
 				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 			}
-#else	// not HYBRID and not BOOLEAN
+#else	 // not HYBRID and not BOOLEAN
 		z = FORMULA_ITER_0(z, fractal, &aux);
 #endif // defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 

@@ -92,7 +92,6 @@ typedef struct
 	cl_float4 old_z;
 	// cl_float4 sum_z;
 	cl_float pos_neg;
-	cl_float cw;
 
 	cl_float r;
 	cl_float DE;
@@ -107,7 +106,6 @@ typedef struct
 	cl_float colorHybrid;
 
 	cl_float temp1000;
-	cl_float addDist;
 } sExtendedAuxCl;
 
 typedef struct
@@ -850,7 +848,6 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.const_c = toClFloat4(source.const_c);
 	target.old_z = toClFloat4(source.old_z);
 	target.pos_neg = source.pos_neg;
-	target.cw = source.cw;
 	target.r = source.r;
 	target.DE = source.DE;
 	target.DE0 = source.DE0;
@@ -861,7 +858,6 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.color = source.color;
 	target.colorHybrid = source.colorHybrid;
 	target.temp1000 = source.temp1000;
-	target.addDist = source.addDist;
 	return target;
 }
 

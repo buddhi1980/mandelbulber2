@@ -25,7 +25,7 @@ REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		aux->c.x = cx;
 		aux->c.y = cy;
 		aux->c.z = cz;
-		aux->cw = cw;
+		aux->c.w = cw;
 		REAL tempX = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
 		REAL tempY = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
 		REAL tempZ = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
@@ -38,7 +38,7 @@ REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	REAL tempX = z.x * z.x - z.y * z.y + 2.0f * z.w * z.z + aux->c.x;
 	REAL tempY = z.y * z.y - z.x * z.x + 2.0f * z.w * z.z + aux->c.y;
 	REAL tempZ = z.z * z.z - z.w * z.w + 2.0f * z.x * z.y + aux->c.z;
-	REAL tempW = z.w * z.w - z.z * z.z + 2.0f * z.x * z.y + aux->cw;
+	REAL tempW = z.w * z.w - z.z * z.z + 2.0f * z.x * z.y + aux->c.w;
 	z.x = tempX;
 	z.y = tempY;
 	z.z = tempZ;

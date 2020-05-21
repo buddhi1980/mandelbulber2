@@ -79,7 +79,6 @@ struct sExtendedAux
 	CVector4 old_z;
 	// CVector4 sum_z;
 	double pos_neg;
-	double cw;
 
 	double r;
 	double DE;
@@ -94,7 +93,6 @@ struct sExtendedAux
 	double colorHybrid;
 
 	double temp1000;
-	double addDist;
 };
 
 struct sFoldColor

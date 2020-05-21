@@ -83,27 +83,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	sExtendedAux extendedAux;
 
-	extendedAux.c = z;
-	extendedAux.const_c = z;
-	extendedAux.old_z = z;
-	// extendedAux.sum_z = z; //CVector4(0.0, 0.0, 0.0, 0.0);
+	extendedAux.c = z;			 // variable c
+	extendedAux.const_c = z; // constant c
+	extendedAux.old_z = z;	 // used in hybrid color2
 	extendedAux.pos_neg = 1.0;
-	extendedAux.cw = 0;
+	extendedAux.r = r;				 // r
+	extendedAux.DE = 1.0;			 // partially calculated distance (derivative)  in fractal formulas
+	extendedAux.DE0 = 0.0;		 // used in difs formulas
+	extendedAux.dist = 1000.0; // used in difs formulas
+	extendedAux.pseudoKleinianDE = 1.0; // used to calculate DE for pseudo cleinian
 
-	extendedAux.r = r;
-	extendedAux.DE = 1.0;
-	extendedAux.DE0 = 0.0;
-	extendedAux.dist = 1000.0;
-	extendedAux.pseudoKleinianDE = 1.0;
-
-	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
-	extendedAux.actualScaleA = 0.0;
-
-	extendedAux.color = 1.0;
-	extendedAux.colorHybrid = 0.0;
-
-	extendedAux.temp1000 = 1000.0;
-	extendedAux.addDist = 0.0;
+	extendedAux.actualScale =
+		fractals.GetFractal(fractalIndex)->mandelbox.scale; // used for vary scale
+	extendedAux.actualScaleA = 0.0;												// used for vary scale
+	extendedAux.color = 1.0;			 // used to calculate color from most of formulas
+	extendedAux.colorHybrid = 0.0; // used for hybrid color
+	extendedAux.temp1000 = 1000.0; // used for hybrid color 2 (initial value 1000)
 
 	// main iteration loop
 	int i;
