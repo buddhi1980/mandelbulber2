@@ -124,7 +124,7 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// addCpixel
-	if (fractal->transformCommon.addCpixelEnabledFalse
+	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{

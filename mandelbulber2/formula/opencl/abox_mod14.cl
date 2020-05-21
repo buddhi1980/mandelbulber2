@@ -116,7 +116,7 @@ REAL4 AboxMod14Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	// addCpixel
-	if (fractal->transformCommon.addCpixelEnabledFalse
+	if (fractal->transformCommon.addCpixelEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{

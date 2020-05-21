@@ -2,7 +2,18 @@ Version history
 
 v2.22 (??? 2020)
 - Added new fractal formulas
-   sierpinski3dV2
+
+
+   aboxMod14
+   menger3
+   mengerChebyshev
+   transfRotationChebyshev
+
+
+
+
+
+
 
 - modified fractal formulas
    sierpinski3d, fixed add reverse
