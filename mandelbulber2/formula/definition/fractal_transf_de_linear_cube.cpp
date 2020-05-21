@@ -27,8 +27,6 @@ cFractalTransfDeLinearCube::cFractalTransfDeLinearCube() : cAbstractFractal()
 
 void cFractalTransfDeLinearCube::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	//if (aux.i < fractal->transformCommon.stopIterations15)
-
 	double R;
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
@@ -38,8 +36,6 @@ void cFractalTransfDeLinearCube::FormulaCode(CVector4 &z, const sFractal *fracta
 	{
 		R = z.Length();
 	}
-
 	aux.dist = (fractal->transformCommon.scale1 * R /aux.DE)
-			- fractal->transformCommon.offset0 / 100.0; // shape size, change with iter number
-
+			- fractal->transformCommon.offset0 / 100.0;
 }

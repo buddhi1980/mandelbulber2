@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_cross_kifs</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -689,10 +689,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -717,10 +717,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -745,10 +745,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-180.000000000000000</double>
+           <double>-36000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>180.000000000000000</double>
+           <double>36000.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
@@ -1374,10 +1374,10 @@
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-180.000000000000000</double>
+              <double>-36000.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>180.000000000000000</double>
+              <double>36000.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>1.000000000000000</double>
@@ -1409,10 +1409,10 @@
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-180.000000000000000</double>
+              <double>-36000.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>180.000000000000000</double>
+              <double>36000.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>1.000000000000000</double>
@@ -1444,10 +1444,10 @@
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-180.000000000000000</double>
+              <double>-36000.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>180.000000000000000</double>
+              <double>36000.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>1.000000000000000</double>
