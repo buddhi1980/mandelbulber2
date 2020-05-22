@@ -93,7 +93,7 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		useScale += aux.actualScaleA;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 
 		// update actualScale for next iteration
 		double vary = fractal->transformCommon.scaleVary0
