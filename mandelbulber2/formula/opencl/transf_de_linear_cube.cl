@@ -27,5 +27,5 @@ REAL4 TransfDeLinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// shape size, change with iter number
 	aux->dist = (fractal->transformCommon.scale1 * R / aux->DE)
 							- fractal->transformCommon.offset0 / 100.0f;
-	return;
+	return z;
 }
