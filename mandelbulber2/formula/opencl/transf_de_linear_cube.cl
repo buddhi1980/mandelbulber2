@@ -13,7 +13,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDeLinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+
 {
 	REAL R;
 	if (!fractal->transformCommon.functionEnabledFalse)
@@ -24,8 +25,8 @@ REAL4 TransfDeLinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		R = length(z);
 	}
-	// shape size, change with iter number
 	aux->dist = (fractal->transformCommon.scale1 * R / aux->DE)
-							- fractal->transformCommon.offset0 / 100.0f;
+							- fractal->transformCommon.offset0 / 100.0f; // shape size, change with iter number
+
 	return z;
 }

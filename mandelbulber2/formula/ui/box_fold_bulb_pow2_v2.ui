@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -716,10 +716,10 @@ offset:</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-100000.000000000000000</double>
+              <double>-99.989999999999995</double>
              </property>
              <property name="maximum">
-              <double>100000.000000000000000</double>
+              <double>99.989999999999995</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -751,10 +751,10 @@ offset:</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-100000.000000000000000</double>
+              <double>-99.989999999999995</double>
              </property>
              <property name="maximum">
-              <double>100000.000000000000000</double>
+              <double>99.989999999999995</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>

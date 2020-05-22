@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fold_box_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -498,7 +498,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -905,7 +905,7 @@
             </layout>
            </item>
            <item>
-            <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0" columnstretch="0,0">
+            <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0" columnstretch="0,1">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -948,10 +948,10 @@
                 <number>6</number>
                </property>
                <property name="minimum">
-                <double>-100000.000000000000000</double>
+                <double>-99.989999999999995</double>
                </property>
                <property name="maximum">
-                <double>100000.000000000000000</double>
+                <double>99.989999999999995</double>
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>
@@ -976,10 +976,10 @@
                 <number>6</number>
                </property>
                <property name="minimum">
-                <double>-100000.000000000000000</double>
+                <double>-99.989999999999995</double>
                </property>
                <property name="maximum">
-                <double>100000.000000000000000</double>
+                <double>99.989999999999995</double>
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>

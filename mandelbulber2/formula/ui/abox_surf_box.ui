@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_surf_box</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -786,10 +786,10 @@ offset:</string>
                 <number>6</number>
                </property>
                <property name="minimum">
-                <double>-100000.000000000000000</double>
+                <double>-99.989999999999995</double>
                </property>
                <property name="maximum">
-                <double>100000.000000000000000</double>
+                <double>99.989999999999995</double>
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>
@@ -828,10 +828,10 @@ offset:</string>
                 <number>6</number>
                </property>
                <property name="minimum">
-                <double>-100000.000000000000000</double>
+                <double>-99.989999999999995</double>
                </property>
                <property name="maximum">
-                <double>100000.000000000000000</double>
+                <double>99.989999999999995</double>
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>
@@ -2136,15 +2136,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
