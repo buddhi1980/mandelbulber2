@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>riemann_sphere_msltoe_v2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>

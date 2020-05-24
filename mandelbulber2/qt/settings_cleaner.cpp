@@ -127,6 +127,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName == "camera_rotation") continue;
 			if (parameterName == "view_distance_max") continue;
 			if (parameterName == "stereo_mode") continue;
+			if (parameterName == "formula_code") continue;
 			if (parameterName.contains("flight_")) continue;
 			if (parameterName.contains("keyframe_")) continue;
 			if (parameterName.contains("voxel_")) continue;

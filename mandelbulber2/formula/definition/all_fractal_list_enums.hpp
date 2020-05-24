@@ -382,9 +382,7 @@ enum enumFractalFormula
 	transfSphericalFoldV1 = 1111,
 	// 2.22
 	transfRotationChebyshev = 1112,
-	transfDeLinearCube = 1113,
-
-
+	transfDELinearCube = 1113,
 
 	// mandelbulber transfdIFS
 	// 2.20
@@ -405,7 +403,6 @@ enum enumFractalFormula
 	transfDIFSGridV2 = 1614,
 	// 2.21
 	transfDIFSTorusGrid = 1615,
-
 
 	// hybrid color
 	transfHybridColor = 2000,

@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfDeLinearCube::cFractalTransfDeLinearCube() : cAbstractFractal()
+cFractalTransfDELinearCube::cFractalTransfDELinearCube() : cAbstractFractal()
 {
 	nameInComboBox = "T>DE Linear Cube";
 	internalName = "transf_de_linear_cube";
-	internalID = fractal::transfDeLinearCube;
+	internalID = fractal::transfDELinearCube;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,8 @@ cFractalTransfDeLinearCube::cFractalTransfDeLinearCube() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDeLinearCube::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfDELinearCube::FormulaCode(
+	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double R;
 	if (!fractal->transformCommon.functionEnabledFalse)
@@ -36,6 +37,6 @@ void cFractalTransfDeLinearCube::FormulaCode(CVector4 &z, const sFractal *fracta
 	{
 		R = z.Length();
 	}
-	aux.dist = (fractal->transformCommon.scale1 * R /aux.DE)
-			- fractal->transformCommon.offset0 / 100.0;
+	aux.dist =
+		(fractal->transformCommon.scale1 * R / aux.DE) - fractal->transformCommon.offset0 / 100.0;
 }

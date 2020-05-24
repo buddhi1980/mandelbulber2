@@ -16,7 +16,8 @@
 
 REAL4 RiemannSphereMsltoeM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (z.z > fractal->transformCommon.offsetA1) z * 1000.0; // fail bailout check
+	if (z.z > fractal->transformCommon.offsetA1)
+		z * 1000.0f; // fail bailout check
 	else
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);

@@ -85,7 +85,7 @@ REAL4 AboxMod14Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		useScale += aux->actualScaleA;
 		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) + 1.0f;
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0

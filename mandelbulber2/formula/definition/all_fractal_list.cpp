@@ -422,7 +422,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSurfFoldMulti());
 	fractalList->append(new cFractalTransfZvectorAxisSwap());
 	fractalList->append(new cFractalTransfDeControls());
-	fractalList->append(new cFractalTransfDeLinearCube());
+	fractalList->append(new cFractalTransfDELinearCube());
 
 	// ------------------ hybrid color trial -----------------------
 	fractalList->append(new cFractalTransfHybridColor());

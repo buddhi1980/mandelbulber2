@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>difs_box_diagonal_v1</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
