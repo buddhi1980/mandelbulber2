@@ -46,7 +46,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 	for (int i = 0; i < renderData->AOVectorsCount; i++)
 	{
 #else
-	int i = Random(renderData->AOVectorsCount, &calcParam->randomSeed);
+	int i = Random(renderData->AOVectorsCount - 1, &calcParam->randomSeed);
 #endif
 		sVectorsAroundCl v = renderData->AOVectors[i];
 
