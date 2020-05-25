@@ -16,39 +16,7 @@
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
-	// chebyshev
-	REAL tmp = 0.0f;
-	REAL F = z.x / z.y;
-	if (z.y == 0.0f) tmp = (z.x > 0.0f ? 0.0 : 4.0f);
-	if (fabs(F) < 1.0f)
-	{
-		if (z.y > 0.0f)
-			tmp = 2.0f - F;
-		else
-			tmp = 6.0f - F;
-	}
-	else
-	{
-		F = z.y / z.x;
-		if (z.x > 0.0f)
-			tmp = fmod(F, 8.0f);
-		else
-			tmp = 4.0f + F;
-	}
-
-	tmp = tmp + fractal->transformCommon.scaleA1;
-	REAL Length2 = max(fabs(z.x), fabs(z.y));
-
-	REAL C = fmod(tmp, 8.0f);
-	C = fabs(C - 4.0f) - 2.0f;
-	z.x = clamp(C, -1.0f, 1.0f) * Length2;
-
-	REAL S = tmp - 2.0f;
-	S = fmod(S, 8.0f);
-	S = fabs(S - 4.0f) - 2.0f;
-	z.y = clamp(S, -1.0f, 1.0f) * Length2;
-
-	/*REAL4 c = aux->const_c;
+	REAL4 c = aux->const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -66,121 +34,53 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 
 	REAL r = aux->r;
-	REAL de1 = 0.0f;
-	REAL de2 = 0.0f;
-	REAL de3 = 0.0f;
-	REAL de4 = 0.0f;
-	REAL4 zer0s = (REAL4) {0.0f, 0.0f, 0.0f, 0.0f};
-	REAL4 newZ1 = zer0s;
-	REAL4 newZ2 = zer0s;
-	REAL4 newZ3 = zer0s;
-	REAL4 newZ4 = zer0s;
 
-	REAL th0 = fractal->bulb.betaAngleOffset;
-	REAL ph0 = fractal->bulb.alphaAngleOffset;
+	aux->DE = r * 2.0 * aux->DE + 1.0;
+	REAL Scale = fractal->transformCommon.scale1;
 
-	if (!fractal->transformCommon.functionEnabledxFalse)
+	REAL Shape = fractal->transformCommon.offset0;
+	REAL4 temp = z;
+
+	// stereographic projection, modified a bit
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		th0 += asin(z.z / r);
-		ph0 += atan2(z.y, z.x);
+		z.x /= r;
+		z.y /= r;
 	}
-	else
+	z.z = (z.z / r) + Shape;
+
+	if (fractal->transformCommon.functionEnabledBFalse) // then begin z:=z*z;Shape:=Shape*Shape;end;
 	{
-		th0 += acos(z.z / r);
-		ph0 += atan(z.y / z.x);
+		z.z *= z.z;
+		Shape *= Shape;
 	}
 
-	REAL4 w8ts = fractal->transformCommon.offset1111;
-	REAL rp = r;
+	z.x /= z.z;
+	z.y /= z.z;
 
-	if (fractal->transformCommon.functionEnabledx) // 0ne
-	{
-		newZ1 = z * w8ts.x;
-		de1 = w8ts.x;
-	}
+	// complex multiplication
+	temp.x = z.x * z.x - z.y * z.y;
+	z.y = 2.0 * z.x * z.y;
+	z.x = temp.x;
 
-	if (fractal->transformCommon.functionEnabledy) // two
-	{
-		de2 = (rp * aux->DE * 2.0f + 1.0f) * w8ts.y;
-		rp *= r;
-		REAL th = th0 * 2.0f * fractal->transformCommon.scaleA1;
-		REAL ph = ph0 * 2.0f * fractal->transformCommon.scaleB1;
+	z.x = z.x * Scale * (1.0 + (Shape * Shape));
+	z.y = z.y * Scale * (1.0 + (Shape * Shape));
+//z.z = z.z * Scale * (1.0 + (Shape * Shape));
+	// p = vec3(2.*z.x,2.*z.y,dot(z,z)-1)/dot(z.z+1);
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			REAL costh = native_cos(th);
-			newZ2 = rp * (REAL4) {costh * native_cos(ph), native_sin(ph) * costh, native_sin(th), 0.0f};
-		}
-		else
-		{
-			REAL sinth = native_sin(th);
-			newZ2 = rp * (REAL4) {sinth * native_sin(ph), native_cos(ph) * sinth, native_cos(th), 0.0f};
-		}
-		newZ2 *= w8ts.y;
-	}
+	// inverse stereographic
+	REAL mag1 = z.x * z.x + z.y * z.y - 1.0;
+	REAL mag2 = mag1 + 2.0;
 
-	if (fractal->transformCommon.functionEnabledz) // three
-	{
-		rp = r * r;
-		de3 = (rp * aux->DE * 3.0f + 1.0f) * w8ts.z;
-		rp *= r;
-		REAL th = th0 * 3.0f * fractal->transformCommon.scaleA1;
-		REAL ph = ph0 * 3.0f * fractal->transformCommon.scaleB1;
+	z.x = z.x * 2.0 / mag2;
+	z.y = z.y * 2.0 / mag2;
+	z.z = mag1 / mag2;
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			REAL costh = native_cos(th);
-			newZ3 = rp * (REAL4) {costh * native_cos(ph), native_sin(ph) * costh, native_sin(th), 0.0f};
-		}
-		else
-		{
-			REAL sinth = native_sin(th);
-			newZ3 = rp * (REAL4) {sinth * native_sin(ph), native_cos(ph) * sinth, native_cos(th), 0.0f};
-		}
-		newZ3 *= w8ts.z;
-	}
+	REAL r2 = r * r; //+Offset3;
 
-	if (fractal->transformCommon.functionEnabledw) // four
-	{
-		rp = r * r * r;
-		de4 = (rp * aux->DE * 4.0f + 1.0f) * w8ts.w;
-		rp *= r;
-		REAL th = th0 * 4.0f * fractal->transformCommon.scaleA1;
-		REAL ph = ph0 * 4.0f * fractal->transformCommon.scaleB1;
-
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			REAL costh = native_cos(th);
-			newZ4 = rp * (REAL4) {costh * native_cos(ph), native_sin(ph) * costh, native_sin(th), 0.0f};
-		}
-		else
-		{
-			REAL sinth = native_sin(th);
-			newZ4 = rp * (REAL4) {sinth * native_sin(ph), native_cos(ph) * sinth, native_cos(th), 0.0f};
-		}
-		newZ4 *= w8ts.w;
-	}
-	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux->DE = fabs(de1 + de2 + de3 + de4);
-
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		if (fractal->transformCommon.functionEnabledDFalse
-				&& aux->i >= fractal->transformCommon.startIterationsD
-				&& aux->i < fractal->transformCommon.stopIterationsD)
-			{ REAL temp = z.x; z.x = z.y; z.y = temp; }
-		if (fractal->transformCommon.functionEnabledEFalse
-				&& aux->i >= fractal->transformCommon.startIterationsE
-				&& aux->i < fractal->transformCommon.stopIterationsE)
-			{ REAL temp = z.x; z.x = z.z; z.z = temp; }
-
-		// swap
-		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
-		if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
-		if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
-	}
-
-	z += fractal->transformCommon.additionConstant000;
+	z.x = z.x * r2;
+	z.y = z.y * r2;
+	z.z = z.z * r2;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -215,13 +115,9 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}*/
+
+	z += fractal->transformCommon.additionConstant000;
+
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
