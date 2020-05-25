@@ -82,6 +82,7 @@ public:
 	void SetParameters(const cParameterContainer *paramContainer,
 		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
 		sRenderData *renderData, bool meshExportModeEnable);
+	void SetDistanceMode() { distanceMode = true; }
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
@@ -94,6 +95,8 @@ public:
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
 	// render 3D fractal
 	bool RenderMulti(cImage *image, bool *stopRequest, sRenderData *renderData);
+	// calculate distance using OpenCL
+	float CalculateDistance(CVector3 point);
 
 	// render 2D slice with fractal
 	bool Render(double *distances, double *colors, int *iterations, int sliceIndex, bool *stopRequest,
@@ -173,6 +176,8 @@ private:
 	bool autoRefreshMode;
 	bool monteCarlo;
 	bool meshExportMode;
+	cl_float3 pointToCalculateDistance;
+	bool distanceMode;
 	double reservedGpuTime;
 
 #endif

@@ -1752,6 +1752,31 @@ void cInterface::ResetView()
 	sParamRender *params = new sParamRender(gPar);
 	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 
+	bool openClEnabled = false;
+#ifdef USE_OPENCL
+	openClEnabled = gPar->Get<bool>("opencl_enabled") && gParFractal->isUsedCustomFormula();
+
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			gPar, gParFractal, params, fractals, nullptr, false);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(gPar);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(gPar);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		}
+		else
+		{
+			gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			gOpenCl->openClEngineRenderFractal->Unlock();
+			return;
+		}
+	}
+#endif
+
 	for (int i = 0; i < 100; i++)
 	{
 		cProgressText::ProgressStatusText(QObject::tr("Resetting view"),
@@ -1767,7 +1792,18 @@ void cInterface::ResetView()
 			CVector3 point = direction * scan;
 			sDistanceIn in(point, 0, false);
 			sDistanceOut out;
-			double dist = CalculateDistance(*params, *fractals, in, &out);
+
+			double dist;
+			if (openClEnabled)
+			{
+#ifdef USE_OPENCL
+				dist = gOpenCl->openClEngineRenderFractal->CalculateDistance(point);
+#endif
+			}
+			else
+			{
+				dist = CalculateDistance(*params, *fractals, in, &out);
+			}
 			if (dist < 0.1)
 			{
 				break;
@@ -1784,6 +1820,14 @@ void cInterface::ResetView()
 	delete fractals;
 
 	double newCameraDist;
+
+#ifdef USE_OPENCL
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif
 
 	if (perspType == params::perspThreePoint)
 	{

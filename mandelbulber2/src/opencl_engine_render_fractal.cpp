@@ -85,6 +85,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	renderEngineMode = clRenderEngineTypeNone;
 	meshExportMode = false;
+	distanceMode = false;
 	reservedGpuTime = 0.0;
 
 	// create empty list of custom formulas
@@ -121,6 +122,7 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	inTextureBuffer.clear();
 
 	cOpenClEngine::ReleaseMemory();
+	distanceMode = false;
 }
 
 // name of main kernel function used by build function
@@ -193,7 +195,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 	}
 	// compute fractal
 	programEngine.append("\n#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
-	if (!meshExportMode || true)
+	if (!distanceMode)
 	{
 		// texture mapping
 		programEngine.append("\n#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
@@ -212,7 +214,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 	programEngine.append("\n#include \"" + openclEnginePath + "primitives.cl\"\n");
 	// calculate distance
 	programEngine.append("\n#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
-	if (!meshExportMode || true)
+	if (!distanceMode)
 	{
 		// normal vector calculation
 		programEngine.append("\n#include \"" + openclEnginePath + "normal_vector.cl\"\n");
@@ -271,6 +273,10 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 	if (meshExportMode)
 	{
 		engineFileName = "slicer_engine.cl";
+	}
+	else if (distanceMode)
+	{
+		engineFileName = "distance_engine.cl";
 	}
 	else
 	{
@@ -819,6 +825,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	if (renderEngineMode == clRenderEngineTypeFull) definesCollector += " -DFULL_ENGINE";
 	if (meshExportMode) definesCollector += " -DMESH_EXPORT";
+	if (distanceMode) definesCollector += " -DDISTANCE_CALCULATION_MODE";
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
 
@@ -837,38 +844,45 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	// ---- perspective projections ------
 	SetParametersForPerspectiveProjection(paramRender);
 
-	// ------------ enabling shaders ----------
-	SetParametersForShaders(paramRender, renderData);
-
-	SetParametersForStereoscopic(renderData);
-
-	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
-
-	//---------- DYNAMIC DATA -------------
-	renderData->ValidateObjects();
-
-	QMap<QString, int> textureIndexes = SetParametersAndDataForTextures(renderData);
-
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
 	dynamicData.reset(new cOpenClDynamicData);
 	dynamicData->ReserveHeader();
 
-	// materials
-	SetParametersAndDataForMaterials(textureIndexes, renderData, paramRender);
+	// ------------ enabling shaders ----------
+	if (renderData)
+	{
+		SetParametersForShaders(paramRender, renderData);
 
-	// AO colored vectors
-	DynamicDataForAOVectors(paramRender, fractals, renderData);
+		SetParametersForStereoscopic(renderData);
 
-	// random lights
-	dynamicData->BuildLightsData(&renderData->lights);
+		WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
+
+		//---------- DYNAMIC DATA -------------
+
+		renderData->ValidateObjects();
+
+		QMap<QString, int> textureIndexes = SetParametersAndDataForTextures(renderData);
+
+		// materials
+		SetParametersAndDataForMaterials(textureIndexes, renderData, paramRender);
+
+		// AO colored vectors
+		DynamicDataForAOVectors(paramRender, fractals, renderData);
+
+		// random lights
+		dynamicData->BuildLightsData(&renderData->lights);
+	}
 
 	definesCollector += dynamicData->BuildPrimitivesData(&paramRender->primitives);
 	if (paramRender->primitives.GetListOfPrimitives()->size() > 0)
 		definesCollector += " -DUSE_PRIMITIVES";
 
-	dynamicData->BuildObjectsData(&renderData->objectData);
-	// definesCollector += " -DOBJ_ARRAY_SIZE=" + QString::number(renderData->objectData.size());
+	if (renderData)
+	{
+		dynamicData->BuildObjectsData(&renderData->objectData);
+		// definesCollector += " -DOBJ_ARRAY_SIZE=" + QString::number(renderData->objectData.size());
+	}
 
 	dynamicData->FillHeader();
 
@@ -899,17 +913,7 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 {
 	Q_UNUSED(params);
 
-	if (!meshExportMode)
-	{
-		outputBuffers.clear();
-		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
-		{
-			outputBuffers.append(listOfBuffers());
-			outputBuffers[d] << sClInputOutputBuffer(
-				sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
-		}
-	}
-	else
+	if (meshExportMode)
 	{
 		// buffer for distances
 		outputBuffers[0] << sClInputOutputBuffer(sizeof(float),
@@ -925,6 +929,21 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 		outputBuffers[0] << sClInputOutputBuffer(sizeof(int),
 			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
 			"mesh-iterations-buffer");
+	}
+	else if (distanceMode)
+	{
+		// buffer for distances
+		outputBuffers[0] << sClInputOutputBuffer(sizeof(float), 1, "distance-buffer");
+	}
+	else
+	{
+		outputBuffers.clear();
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			outputBuffers.append(listOfBuffers());
+			outputBuffers[d] << sClInputOutputBuffer(
+				sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+		}
 	}
 }
 
@@ -988,7 +1007,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				return false;
 			}
 
-			if (renderEngineMode == clRenderEngineTypeFull)
+			if (renderEngineMode == clRenderEngineTypeFull && !distanceMode)
 			{
 				WriteLog(QString("Allocating OpenCL buffer for texture data"), 2);
 
@@ -1556,11 +1575,10 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
+	if (!meshExportMode && !distanceMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		int err =
-			clKernels.at(deviceIndex)
-				->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input data in global memory
+		err = clKernels.at(deviceIndex)
+						->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1596,7 +1614,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
-	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
+	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode && !distanceMode)
 	{
 		err =
 			clKernels.at(deviceIndex)
@@ -1611,13 +1629,25 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
-	if (!meshExportMode)
+	if (!meshExportMode && !distanceMode)
 	{
 		err = clKernels.at(deviceIndex)->setArg(argIterator++, Random(1000000)); // random seed
 		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
+	if (distanceMode)
+	{
+		err = clKernels.at(deviceIndex)->setArg(argIterator++, pointToCalculateDistance); // random seed
+		if (!checkErr(err, "kernel->setArg(4, pointToCalculateDistance)"))
+		{
+			emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
+															.arg(QObject::tr("pointToCalculateDistance")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -1653,7 +1683,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			return false;
 		}
 
-		if (renderEngineMode == clRenderEngineTypeFull)
+		if (renderEngineMode == clRenderEngineTypeFull && !distanceMode)
 		{
 			WriteLog(QString("Writing OpenCL texture buffer"), 2);
 
@@ -1860,6 +1890,27 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int *
 	}
 
 	return true;
+}
+
+float cOpenClEngineRenderFractal::CalculateDistance(CVector3 point)
+{
+	pointToCalculateDistance = (cl_float3){cl_float(point.x), cl_float(point.y), cl_float(point.z)};
+
+	// writing data to queue
+	if (!WriteBuffersToQueue()) return false;
+
+	// assign parameters to kernel
+	if (!AssignParametersToKernel(0)) return false;
+
+	// processing queue
+	if (!ProcessQueue(0, 0, 1, 1)) return false;
+
+	if (!ReadBuffersFromQueue()) return false;
+
+	float distance =
+		(reinterpret_cast<cl_float *>(outputBuffers[0][outputMeshDistancesIndex].ptr.data()))[0];
+
+	return distance;
 }
 
 void cOpenClEngineRenderFractal::SetMeshExportParameters(const sClMeshExport *meshParams)
