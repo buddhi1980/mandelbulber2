@@ -5,8 +5,8 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- *
- * testing log
+ * formula by pupukuusikko
+ * http://www.fractalforums.com/the-3d-mandelbulb/a-new-3d-mandelbrot-variant-mandelcup/
  */
 
 #include "all_fractal_definitions.h"
@@ -26,37 +26,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-	//chebyshev
-	double tmp = 0.0;
-	double F = z.x / z.y;
-	if(z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
-	if(fabs(F) < 1.0)
-	{
-		if(z.y > 0.0) tmp = 2.0 - F;
-		else tmp = 6.0 - F;
-	}
-	else
-	{
-		F = z.y / z.x;
-		if(z.x > 0.0) tmp = fmod(F, 8.0);
-		else tmp = 4.0 + F;
-	}
-
-	tmp = tmp + fractal->transformCommon.scaleA1;
-	double Length2 = max(fabs(z.x), fabs(z.y));
-
-	double C = fmod(tmp, 8.0);
-	C = fabs(C - 4.0) - 2.0;
-	z.x = clamp(C, - 1.0, 1.0) * Length2;
-
-	double S = tmp - 2.0;
-	S = fmod(S, 8.0);
-	S = fabs(S - 4.0) - 2.0;
-	z.y = clamp(S, - 1.0, 1.0) * Length2;
-
-
-	/*CVector4 c = aux.const_c;
+	CVector4 c = aux.const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -74,121 +44,55 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	double r = aux.r;
-	double de1 = 0.0;
-	double de2 = 0.0;
-	double de3 = 0.0;
-	double de4 = 0.0;
-	CVector4 zer0s = CVector4(0.0, 0.0, 0.0, 0.0);
-	CVector4 newZ1 = zer0s;
-	CVector4 newZ2 = zer0s;
-	CVector4 newZ3 = zer0s;
-	CVector4 newZ4 = zer0s;
 
-	double th0 = fractal->bulb.betaAngleOffset;
-	double ph0 = fractal->bulb.alphaAngleOffset;
+	aux.DE = r * 2.0 * aux.DE + 1.0;
+	double Scale = fractal->transformCommon.scale1;
 
-	if (!fractal->transformCommon.functionEnabledxFalse)
+	double Shape = fractal->transformCommon.offset0;
+	CVector4 temp = z;
+
+	// stereographic projection, modified a bit
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		th0 += asin(z.z / r);
-		ph0 += atan2(z.y, z.x);
+		z.x /= r;
+		z.y /= r;
 	}
-	else
+	z.z = (z.z / r) + Shape;
+
+	if (fractal->transformCommon.functionEnabledBFalse) // then begin z:=z*z;Shape:=Shape*Shape;end;
 	{
-		th0 += acos(z.z / r);
-		ph0 += atan(z.y / z.x);
+		z.z *= z.z;
+		Shape *= Shape;
 	}
 
-	CVector4 w8ts = fractal->transformCommon.offset1111;
-	double rp = r;
+	z.x /= z.z;
+	z.y /= z.z;
 
-	if (fractal->transformCommon.functionEnabledx) // 0ne
-	{
-		newZ1 = z * w8ts.x;
-		de1 = w8ts.x;
-	}
+	// complex multiplication
+	temp.x = z.x * z.x - z.y * z.y;
+	z.y = 2.0 * z.x * z.y;
+	z.x = temp.x;
 
-	if (fractal->transformCommon.functionEnabledy) // two
-	{
-		de2 = (rp * aux.DE * 2.0 + 1.0) * w8ts.y;
-		rp *= r;
-		double th = th0 * 2.0 * fractal->transformCommon.scaleA1;
-		double ph = ph0 * 2.0 * fractal->transformCommon.scaleB1;
+	z.x = z.x * Scale * (1.0 + (Shape * Shape));
+	z.y = z.y * Scale * (1.0 + (Shape * Shape));
+//z.z = z.z * Scale * (1.0 + (Shape * Shape));
+	// p = vec3(2.*z.x,2.*z.y,dot(z,z)-1)/dot(z.z+1);
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			double costh = cos(th);
-			newZ2 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
-		}
-		else
-		{
-			double sinth = sin(th);
-			newZ2 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
-		}
-		newZ2 *= w8ts.y;
-	}
+	// inverse stereographic
+	double mag1 = z.x * z.x + z.y * z.y - 1.0;
+	double mag2 = mag1 + 2.0;
 
-	if (fractal->transformCommon.functionEnabledz) // three
-	{
-		rp = r * r;
-		de3 = (rp * aux.DE * 3.0 + 1.0) * w8ts.z;
-		rp *= r;
-		double th = th0 * 3.0 * fractal->transformCommon.scaleA1;
-		double ph = ph0 * 3.0 * fractal->transformCommon.scaleB1;
+	z.x = z.x * 2.0 / mag2;
+	z.y = z.y * 2.0 / mag2;
+	z.z = mag1 / mag2;
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			double costh = cos(th);
-			newZ3 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
-		}
-		else
-		{
-			double sinth = sin(th);
-			newZ3 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
-		}
-		newZ3 *= w8ts.z;
-	}
+	double r2 = r * r; //+Offset3;
 
-	if (fractal->transformCommon.functionEnabledw) // four
-	{
-		rp = r * r * r;
-		de4 = (rp * aux.DE * 4.0 + 1.0) * w8ts.w;
-		rp *= r;
-		double th = th0 * 4.0 * fractal->transformCommon.scaleA1;
-		double ph = ph0 * 4.0 * fractal->transformCommon.scaleB1;
+	z.x = z.x * r2;
+	z.y = z.y * r2;
+	z.z = z.z * r2;
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			double costh = cos(th);
-			newZ4 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
-		}
-		else
-		{
-			double sinth = sin(th);
-			newZ4 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
-		}
-		newZ4 *= w8ts.w;
-	}
-	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux.DE = fabs(de1 + de2 + de3 + de4);
 
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		if (fractal->transformCommon.functionEnabledDFalse
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD)
-			swap(z.x, z.y);
-		if (fractal->transformCommon.functionEnabledEFalse
-				&& aux.i >= fractal->transformCommon.startIterationsE
-				&& aux.i < fractal->transformCommon.stopIterationsE)
-			swap(z.x, z.z);
-
-		// swap
-		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
-		if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
-		if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
-	}
-
-	z += fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -223,13 +127,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}*/
+
+	z += fractal->transformCommon.additionConstant000;
+
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
