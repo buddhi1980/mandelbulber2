@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * Fast kernel for rendering opencl with missing effects
+ * kernel for calculating distance from given point to fractal
  */
 
 int GetInteger(int byte, __global char *array)

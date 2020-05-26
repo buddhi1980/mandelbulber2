@@ -1894,7 +1894,7 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int *
 
 float cOpenClEngineRenderFractal::CalculateDistance(CVector3 point)
 {
-	pointToCalculateDistance = (cl_float3){cl_float(point.x), cl_float(point.y), cl_float(point.z)};
+	pointToCalculateDistance = {{cl_float(point.x), cl_float(point.y), cl_float(point.z)}};
 
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
