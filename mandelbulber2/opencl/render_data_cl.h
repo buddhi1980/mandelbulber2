@@ -46,7 +46,7 @@ typedef struct
 	float hue;
 #endif
 
-#if defined(FULL_ENGINE) || defined(MESH_EXPORT)
+#if (defined(FULL_ENGINE) || defined(MESH_EXPORT)) && !defined(DISTANCE_CALCULATION_MODE)
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
 

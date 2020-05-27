@@ -72,7 +72,7 @@ kernel void fractal3D(__global float *outDistance, __global char *inBuff,
 	calcParam.detailSize = 1e-6f;
 
 	sRenderData renderData;
-	renderData.materials = 0;
+	renderData.material = 0;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
 	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
