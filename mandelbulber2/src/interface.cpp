@@ -1134,10 +1134,55 @@ double cInterface::GetDistanceForPoint(
 	cNineFractals *fractals = new cNineFractals(parFractal, par);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
-	double distance = CalculateDistance(*params, *fractals, in, &out);
+
+	bool openClEnabled = false;
+#ifdef USE_OPENCL
+	openClEnabled = par->Get<bool>("opencl_enabled") && parFractal->isUsedCustomFormula();
+
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			par, parFractal, params, fractals, nullptr, false);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(par))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(par);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(par);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		}
+		else
+		{
+			gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			gOpenCl->openClEngineRenderFractal->Unlock();
+			return 0.0;
+		}
+	}
+#endif
+
+	double dist;
+	if (openClEnabled)
+	{
+#ifdef USE_OPENCL
+		dist = gOpenCl->openClEngineRenderFractal->CalculateDistance(point);
+#endif
+	}
+	else
+	{
+		dist = CalculateDistance(*params, *fractals, in, &out);
+	}
 	delete params;
 	delete fractals;
-	return distance;
+
+#ifdef USE_OPENCL
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif
+
+	return dist;
 }
 
 double cInterface::GetDistanceForPoint(CVector3 point) const
@@ -1873,6 +1918,7 @@ void cInterface::BoundingBoxMove(char dimension, double moveLower, double moveUp
 			limitMin.z -= moveLower * limitDifference.z;
 			limitMax.z += moveUpper * limitDifference.z;
 			break;
+		default: break;
 	}
 	gPar->Set("limit_min", limitMin);
 	gPar->Set("limit_max", limitMax);

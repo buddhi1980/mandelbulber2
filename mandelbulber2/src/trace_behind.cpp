@@ -34,11 +34,15 @@
  * which does not collide with the fractal.
  */
 
+#include "algebra.hpp"
 #include "calculate_distance.hpp"
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 #include "parameters.hpp"
+#include "projection_3d.hpp"
 
 double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
 	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit)
@@ -49,6 +53,31 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 	double totalDistanceBehind = 0.0;
 	double distanceBehind = 0.0;
 	CVector3 point = paramRender->camera + viewVector * startingDepth;
+
+	bool openClEnabled = false;
+#ifdef USE_OPENCL
+	openClEnabled = params->Get<bool>("opencl_enabled") && fractals->isUsedCustomFormula();
+
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			params, fractals, paramRender, nineFractals, nullptr, false);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(params))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(params);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(params);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		}
+		else
+		{
+			gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			gOpenCl->openClEngineRenderFractal->Unlock();
+			return 0.0;
+		}
+	}
+#endif
 
 	while (totalDistanceBehind < maxDist)
 	{
@@ -65,7 +94,18 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 
 		const sDistanceIn in(point, 0, false);
 		sDistanceOut out;
-		const double distance = CalculateDistance(*paramRender, *nineFractals, in, &out);
+
+		double distance;
+		if (openClEnabled)
+		{
+#ifdef USE_OPENCL
+			distance = gOpenCl->openClEngineRenderFractal->CalculateDistance(point);
+#endif
+		}
+		else
+		{
+			distance = CalculateDistance(*paramRender, *nineFractals, in, &out);
+		}
 
 		double step = distance;
 		if (step < distThresh)
@@ -89,6 +129,14 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 
 	delete paramRender;
 	delete nineFractals;
+
+#ifdef USE_OPENCL
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif
 
 	return distanceBehind;
 }
