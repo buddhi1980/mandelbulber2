@@ -120,6 +120,7 @@ private:
 	void RandomizeStringParameter(double randomScale, cOneParameter &parameter);
 	void UpdateProgressBar(double progress);
 	QString CreateTooltipText(const QMap<QString, QString> &list);
+	void StopAll();
 
 	// events
 	void closeEvent(QCloseEvent *event) override;

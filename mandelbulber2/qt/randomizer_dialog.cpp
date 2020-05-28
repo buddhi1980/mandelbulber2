@@ -292,7 +292,7 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		// qDebug() << previewWidget;
 
 		numberOfRunningJobs++;
-		qDebug() << numberOfRunningJobs;
+		// qDebug() << numberOfRunningJobs;
 		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
 		previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
 		previewWidget->update();
@@ -1115,6 +1115,7 @@ void cRandomizerDialog::closeEvent(QCloseEvent *event)
 						QMessageBox::Yes | QMessageBox::No)
 				&& !blockClose)
 		{
+			StopAll();
 			event->accept();
 		}
 	}
@@ -1306,19 +1307,7 @@ void cRandomizerDialog::slotAddToKeyframes()
 
 void cRandomizerDialog::slotClickedStopButton()
 {
-	stopRequest = true;
-
-	ui->progressBar->setFormat("Stopping");
-
-	referenceSkyPreview->StopRequest();
-	referenceNoisePreview->StopRequest();
-	for (int i = 0; i < numberOfVersions; i++)
-	{
-		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
-		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-		previewWidget->StopRequest();
-	}
-	ui->previewwidget_actual->StopRequest();
+	StopAll();
 }
 
 void cRandomizerDialog::slotPreviewFinished()
@@ -1332,4 +1321,21 @@ void cRandomizerDialog::slotPreviewFinished()
 		}
 		stopRequest = false;
 	}
+}
+
+void cRandomizerDialog::StopAll()
+{
+	stopRequest = true;
+
+	ui->progressBar->setFormat("Stopping");
+
+	referenceSkyPreview->StopRequest();
+	referenceNoisePreview->StopRequest();
+	for (int i = 0; i < numberOfVersions; i++)
+	{
+		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
+		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
+		previewWidget->StopRequest();
+	}
+	ui->previewwidget_actual->StopRequest();
 }
