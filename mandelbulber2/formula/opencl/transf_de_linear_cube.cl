@@ -27,5 +27,11 @@ REAL4 TransfDELinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	aux->dist =
 		(fractal->transformCommon.scale1 * R / aux->DE) - fractal->transformCommon.offset0 / 100.0f;
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux->color = fractal->foldColor.difs1 * aux->DE / R;
+	}
 	return z;
 }

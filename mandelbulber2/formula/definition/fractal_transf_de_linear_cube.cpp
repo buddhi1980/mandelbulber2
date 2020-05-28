@@ -39,4 +39,10 @@ void cFractalTransfDELinearCube::FormulaCode(
 	}
 	aux.dist =
 		(fractal->transformCommon.scale1 * R / aux.DE) - fractal->transformCommon.offset0 / 100.0;
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux.color = fractal->foldColor.difs1 * aux.DE / R;
+	}
 }
