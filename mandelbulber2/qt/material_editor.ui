@@ -32,20 +32,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
-       <property name="text">
-        <string>Load</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
-       <property name="text">
-        <string>Save</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
        <property name="text">
         <string>Reset</string>
@@ -4834,16 +4820,6 @@ object size)</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonLoadSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_load_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonSaveSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_save_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cButtonResetSettingsFromWidget</class>
