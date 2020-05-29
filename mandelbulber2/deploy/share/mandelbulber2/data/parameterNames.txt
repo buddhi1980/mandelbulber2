@@ -228,6 +228,9 @@ transformCommon.alphaAngleOffset REAL transf_alpha_angle_offset
 transformCommon.betaAngleOffset REAL transf_beta_angle_offset
 transformCommon.foldingValue REAL transf_folding_value
 transformCommon.foldingLimit REAL transf_folding_limit
+transformCommon.invert0 REAL transf_invert_0
+transformCommon.invert1 REAL transf_invert_1
+transformCommon.maxR2d1 REAL transf_maxR2_1
 transformCommon.multiplication REAL transf_multiplication
 transformCommon.minR0 REAL transf_minimum_radius_0
 transformCommon.minR05 REAL transf_minimum_radius_05
@@ -288,6 +291,7 @@ transformCommon.scale3 REAL transf_scale_3
 transformCommon.scaleA3 REAL transf_scaleA_3
 transformCommon.scaleB3 REAL transf_scaleB_3
 transformCommon.scale4 REAL transf_scale_4
+transformCommon.scale6 REAL transf_scale_6
 transformCommon.scale8 REAL transf_scale_8
 
 transformCommon.scaleMain2 REAL transf_scale_main_2
@@ -411,6 +415,7 @@ transformCommon.offset200 REAL3 transf_offset_200
 transformCommon.offsetA200 REAL3 transf_offsetA_200
 transformCommon.offset222 REAL3 transf_offset_222
 transformCommon.offsetA222 REAL3 transf_offsetA_222
+transformCommon.offset333 REAL3 transf_offset_333
 transformCommon.power025 REAL3 transf_power_025
 transformCommon.power8 REAL3 transf_power_8
 
@@ -509,3 +514,14 @@ transformCommon.rotationEnabled bool transf_rotation_enabled
 transformCommon.rotation2EnabledFalse bool transf_rotation2_enabled_false
 transformCommon.sphereInversionEnabledFalse bool transf_sphere_inversion_enabled_false
 transformCommon.spheresEnabled bool transf_spheres_enabled
+
+mandelbox.fR2 none none
+mandelbox.mR2 none none
+mandelbox.mboxFactor1 none none
+transformCommon.sqtR none none
+transformCommon.mboxFactor1 none none
+transformCommon.inv0 none none
+transformCommon.inv1 none none
+transformCommon.maxMinR2factor none none
+
+

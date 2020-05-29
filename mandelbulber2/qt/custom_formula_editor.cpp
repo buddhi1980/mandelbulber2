@@ -335,11 +335,14 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 		if (conversionTable.contains(sourceName))
 		{
 			QString parameterName = conversionTable[sourceName];
-			cOneParameter parameter = gParFractal->at(0).GetAsOneParameter(parameterName);
-			sParameterDesctiption parDesc;
-			parDesc.parameterName = parameterName;
-			parDesc.parameter = parameter;
-			list.append(parDesc);
+			if (parameterName != "none")
+			{
+				cOneParameter parameter = gParFractal->at(0).GetAsOneParameter(parameterName);
+				sParameterDesctiption parDesc;
+				parDesc.parameterName = parameterName;
+				parDesc.parameter = parameter;
+				list.append(parDesc);
+			}
 		}
 		else
 		{
@@ -488,6 +491,7 @@ void cCustomFormulaEditor::slotInsertParameter()
 	{
 		comboBox->setFocusPolicy(Qt::StrongFocus);
 		comboBox->setEditable(true);
+		comboBox->setMaxVisibleItems(30);
 
 		// add a filter model to filter matching items
 		auto pFilterModel = new QSortFilterProxyModel(comboBox);
