@@ -30,6 +30,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButton_new">
+       <property name="toolTip">
+        <string>Creates empty custom formula</string>
+       </property>
        <property name="text">
         <string>New</string>
        </property>
@@ -37,6 +40,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_load_builtin">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load formula code from selected build-in formula&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Load built-in</string>
        </property>
@@ -44,6 +50,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_load_from_file">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads formula code from file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Load from file</string>
        </property>
@@ -51,6 +60,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_save_to_file">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saves formula code to chosen file. &lt;/p&gt;&lt;p&gt;Remark: formula code is always saved together with fractal settings (compressed formula code in .fract file)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Save to file</string>
        </property>
@@ -89,6 +101,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="pushButton_auto_format">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Formats code in the editor. It needs clang-format tool.&lt;/p&gt;&lt;p&gt;To install clang-format:&lt;/p&gt;&lt;p&gt;- Linux: Install clang-format from ypur package manager.&lt;/p&gt;&lt;p&gt;- Windows: Go to https://llvm.org/builds&lt;br/&gt;   download and install clang-format&lt;/p&gt;&lt;p&gt;MacOS: When you have the brew package manager installed run: &lt;br/&gt;brew install clang-format&lt;/p&gt;&lt;p&gt;If required, you can specify the program path under &lt;br/&gt;Preferences &amp;gt; OpenCL (GPU) &amp;gt; clang-format path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>AutoFormat</string>
        </property>
@@ -96,6 +111,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_check_syntax">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Runs OpenCL compiler to check syntax&lt;/p&gt;&lt;p&gt;Errors are displayed in the list below.&lt;/p&gt;&lt;p&gt;You can double-click on chosen error to move cursor to the error position.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Check syntax</string>
        </property>
@@ -103,6 +121,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_insert_parameter">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inserts parameter from the list of available parameter names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Insert parameter</string>
        </property>
