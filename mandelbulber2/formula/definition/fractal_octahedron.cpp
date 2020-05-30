@@ -31,6 +31,7 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		CVector4 a;
+		double colorAdd = 0.0;
 		double b = 1.0;
 		double d;
 		double limitA = fractal->transformCommon.offset0;
@@ -55,6 +56,7 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z.y -= sign(z.y) * max(1.0 * sign(a.y - min(a.z, a.x)), limitB) * sizer2;
 			z.z -= sign(z.z) * max(1.0 * sign(a.z - min(a.x, a.y)), limitB) * sizer2;
 			b *= fractal->transformCommon.minR05;
+			colorAdd += z.Dot(z);
 		}
 
 		a = fabs(z);
@@ -72,5 +74,15 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			aux.dist = d2;
 		else
 			aux.dist = min(aux.dist, d2);
+
+		// aux.color
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd = fractal->foldColor.difs0000.x * colorAdd;
+			colorAdd += fractal->foldColor.difs0000.y * max(a.x, max(a.y, a.z));
+			colorAdd += fractal->foldColor.difs0000.z * a.Length();
+			colorAdd += fractal->foldColor.difs0000.w * d;
+			aux.color += colorAdd * 100.0;
+		}
 	}
 }

@@ -20,6 +20,7 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
 		REAL4 a;
+		REAL colorAdd = 0.0f;
 		REAL b = 1.0f;
 		REAL d;
 		REAL limitA = fractal->transformCommon.offset0;
@@ -44,6 +45,7 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z.y -= sign(z.y) * max(1.0f * sign(a.y - min(a.z, a.x)), limitB) * sizer2;
 			z.z -= sign(z.z) * max(1.0f * sign(a.z - min(a.x, a.y)), limitB) * sizer2;
 			b *= fractal->transformCommon.minR05;
+			colorAdd += dot(z, z);
 		}
 
 		a = fabs(z);
@@ -61,6 +63,16 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			aux->dist = d2;
 		else
 			aux->dist = min(aux->dist, d2);
+
+		// aux.color
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd = fractal->foldColor.difs0000.x * colorAdd;
+			colorAdd += fractal->foldColor.difs0000.y * max(a.x, max(a.y, a.z));
+			colorAdd += fractal->foldColor.difs0000.z * length(a);
+			colorAdd += fractal->foldColor.difs0000.w * d;
+			aux->color += colorAdd * 100.0f;
+		}
 	}
 	return z;
 }
