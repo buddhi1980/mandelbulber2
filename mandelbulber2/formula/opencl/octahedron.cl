@@ -47,7 +47,8 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			b *= fractal->transformCommon.minR05;
 			colorAdd += dot(z, z);
 		}
-
+		z *= fractal->transformCommon.scaleC1;
+		aux->DE *= fractal->transformCommon.scaleC1;
 		a = fabs(z);
 
 		REAL d2;
@@ -57,7 +58,7 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		else
 			d2 = length(a) - b * fractal->transformCommon.scaleC1;
 
-		d2 = max(d2, -d);
+		d2 = max(d2, -d) / fabs(aux->DE);
 
 		if (!fractal->transformCommon.functionEnabledAFalse)
 			aux->dist = d2;

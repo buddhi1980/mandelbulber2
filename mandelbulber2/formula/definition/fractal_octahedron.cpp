@@ -58,17 +58,18 @@ void cFractalOctahedron::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			b *= fractal->transformCommon.minR05;
 			colorAdd += z.Dot(z);
 		}
-
+		z *= fractal->transformCommon.scaleC1;
+		aux.DE *= fractal->transformCommon.scaleC1;
 		a = fabs(z);
 
 		double d2;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
-			d2 = max(a.x, max(a.y, a.z)) - b * fractal->transformCommon.scaleC1;
+			d2 = max(a.x, max(a.y, a.z)) - b * fractal->transformCommon.scaleD1;
 		else
-			d2 = a.Length() - b * fractal->transformCommon.scaleC1;
+			d2 = a.Length() - b * fractal->transformCommon.scaleD1;
 
-		d2 = max(d2, -d);
+		d2 = max(d2, -d) / fabs(aux.DE);
 
 		if (!fractal->transformCommon.functionEnabledAFalse)
 			aux.dist = d2;
