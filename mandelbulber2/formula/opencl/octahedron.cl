@@ -54,9 +54,9 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL d2;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
-			d2 = max(a.x, max(a.y, a.z)) - b * fractal->transformCommon.scaleC1;
+			d2 = max(a.x, max(a.y, a.z)) - b * fractal->transformCommon.scaleD1;
 		else
-			d2 = length(a) - b * fractal->transformCommon.scaleC1;
+			d2 = length(a) - b * fractal->transformCommon.scaleD1;
 
 		d2 = max(d2, -d) / fabs(aux->DE);
 

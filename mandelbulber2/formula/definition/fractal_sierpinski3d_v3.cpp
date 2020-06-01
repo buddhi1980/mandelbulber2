@@ -28,43 +28,12 @@ cFractalSierpinski3dV3::cFractalSierpinski3dV3() : cAbstractFractal()
 
 void cFractalSierpinski3dV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.rotation2EnabledFalse
+	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += SQRT_1_3 + fractal->transformCommon.offset000.y;
-		z.z += SQRT_3_4d2 / 2.0 + fractal->transformCommon.offset000.z - 0.0123;
-
-
-		//z.z += SQRT_3_4d2 / 2; // - 0.0123;
-
+		z += fractal->transformCommon.offset000;
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
-		/*double an = (35.264389683 + 6.784268031) * M_PI_180;
-		double cosa = cos(an);
-		double sina = sin(an);
-
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-			double zTemp = cosa * z.y + z.z * sina;
-			z.y = cosa * z.y - z.z * sina;
-			z.z = zTemp;
-		}
-		else
-		{
-			double yTemp = cosa * z.z + z.y * sina;
-			z.z = cosa * z.z - z.y * sina;
-			z.y = yTemp;
-		}*/
-
-		//z.y += fractal->transformCommon.offset111.y; // SQRT_1_3;
-
-		//z.y +=  SQRT_1_2;
-
-		double xTemp = SQRT_1_2 * (z.y + z.x);
-		z.y = SQRT_1_2 * (z.y - z.x);
-		z.x = xTemp;
 	}
 
 	if (z.x - z.y < 0.0) swap(z.y, z.x);

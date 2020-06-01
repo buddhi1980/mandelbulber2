@@ -17,42 +17,12 @@
 
 REAL4 Sierpinski3dV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.rotation2EnabledFalse
+	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += SQRT_1_3_F + fractal->transformCommon.offset000.y;
-		z.z += SQRT_3_4d2_F / 2.0f + fractal->transformCommon.offset000.z - 0.0123f;
-
-		// z.z += SQRT_3_4d2_F / 2; // - 0.0123f;
-
+		z += fractal->transformCommon.offset000;
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-
-		/*REAL an = (35.264389683f + 6.784268031f) * M_PI_180_F;
-		REAL cosa = native_cos(an);
-		REAL sina = native_sin(an);
-
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-			REAL zTemp = cosa * z.y + z.z * sina;
-			z.y = cosa * z.y - z.z * sina;
-			z.z = zTemp;
-		}
-		else
-		{
-			REAL yTemp = cosa * z.z + z.y * sina;
-			z.z = cosa * z.z - z.y * sina;
-			z.y = yTemp;
-		}*/
-
-		// z.y += fractal->transformCommon.offset111.y; // SQRT_1_3_F;
-
-		// z.y +=  SQRT_1_2_F;
-
-		REAL xTemp = SQRT_1_2_F * (z.y + z.x);
-		z.y = SQRT_1_2_F * (z.y - z.x);
-		z.x = xTemp;
 	}
 
 	if (z.x - z.y < 0.0f)
