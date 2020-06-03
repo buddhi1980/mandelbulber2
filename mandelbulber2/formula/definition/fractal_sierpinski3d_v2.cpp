@@ -28,77 +28,64 @@ cFractalSierpinski3dV2::cFractalSierpinski3dV2() : cAbstractFractal()
 
 void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledAFalse
+	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += SQRT_1_3 + fractal->transformCommon.offset000.y;
-		z.z += SQRT_3_4d2 / 2.0 + fractal->transformCommon.offset000.z - 0.0123;
-
-
-
+		z += fractal->transformCommon.offset000;
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
-		double temp = z.x;
-		z.x = z.z;
-		z.z = temp;
-		temp = SQRT_1_2 * (z.y + z.x);
-		z.y = SQRT_1_2 * (z.y - z.x);
-		z.x = temp;
-
-
-		/*double an = (60.) * M_PI / 180;
-
-		double cosa = cos(an);
-		double sina = sin(an);
-
-		temp = cosa * z.y + z.z * sina;
-		z.y = cosa * z.y - z.z * sina;
-		z.z = temp;*/
 	}
-
-
-
-	CVector4 temp = z;
-
-	if (z.x + z.y < 0.0)
+	if (fractal->transformCommon.functionEnabledPFalse)
 	{
-		temp.x = -z.y;
-		z.y = -z.x;
-		z.x = temp.x;
+		// abs z
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC1)
+			z.x = fabs(z.x + fractal->transformCommon.offsetA000.x);
+
+		if (fractal->transformCommon.functionEnabledAy
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+			z.y = fabs(z.y + fractal->transformCommon.offsetA000.y);
+
+		if (fractal->transformCommon.functionEnabledAz
+				&& aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP1)
+			z.z = fabs(z.z + fractal->transformCommon.offsetA000.z);
 	}
-	if (z.x + z.z < 0.0)
+
+	CVector4 va = CVector4( 0.0, SQRT_1_3, 0.0, 0.0);
+	CVector4 vb = CVector4( 0.0, -1.0, 2.0 * SQRT_1_3, 0.0);
+	CVector4 vc = CVector4( 1.0, -1.0, -SQRT_1_3, 0.0);
+	CVector4 vd = CVector4( -1.0, -1.0, -SQRT_1_3, 0.0);
+
+	CVector4 tv = z - va;
+	double d = tv.Dot(tv);
+	CVector4 v = va;
+	double td = d;
+
+	tv = z - vb;
+	d = tv.Dot(tv);
+	if(d < td)
 	{
-		temp.x = -z.z;
-		z.z = -z.x;
-		z.x = temp.x;
+		v = vb;
+		td = d;
 	}
-	if (z.y + z.z < 0.0)
+	tv = z - vc;
+	d = tv.Dot(tv);
+	if(d < td)
 	{
-		temp.y = -z.z;
-		z.z = -z.y;
-		z.y = temp.y;
+		v = vc;
+		td = d;
 	}
-
-	z *= fractal->transformCommon.scaleA2;
-	z -= fractal->transformCommon.offset111; // neg offset
-
-
-
-	// Reversed full tetra-fold;
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
+	tv = z - vd;
+	d = tv.Dot(tv);
+	if(d < td)
 	{
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
-
-		z *= fractal->transformCommon.scale1;
-		aux.DE *= fractal->transformCommon.scale1;
-		z -= fractal->transformCommon.offsetF000;
+		v = vd;
 	}
+	z = v + fractal->transformCommon.scale2 * (z - v);
+	aux.DE *= fabs(fractal->transformCommon.scale2);
 
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
@@ -125,9 +112,7 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scaleA2);
-	else
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
