@@ -17,98 +17,76 @@
 
 REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledAFalse
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += SQRT_1_3_F + fractal->transformCommon.offset000.y;
-		z.z += SQRT_3_4d2_F / 2.0f + fractal->transformCommon.offset000.z - 0.0123f;
+		z += fractal->transformCommon.offset000;
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+	}
+	if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		// abs z
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC1)
+			z.x = fabs(z.x + fractal->transformCommon.offsetA000.x);
 
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+		if (fractal->transformCommon.functionEnabledAy
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+			z.y = fabs(z.y + fractal->transformCommon.offsetA000.y);
 
-		REAL temp = z.x;
-		z.x = z.z;
-		z.z = temp;
-		temp = SQRT_1_2_F * (z.y + z.x);
-		z.y = SQRT_1_2_F * (z.y - z.x);
-		z.x = temp;
-
-		/*REAL an = (60.f) * M_PI_F / 180;
-
-		REAL cosa = native_cos(an);
-		REAL sina = native_sin(an);
-
-		temp = cosa * z.y + z.z * sina;
-		z.y = cosa * z.y - z.z * sina;
-		z.z = temp;*/
+		if (fractal->transformCommon.functionEnabledAz
+				&& aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP1)
+			z.z = fabs(z.z + fractal->transformCommon.offsetA000.z);
 	}
 
-	REAL4 temp = z;
+	REAL4 va = (REAL4)( 0.0, 0.0, SQRT_1_3, 0.0);
+	REAL4 vb = (REAL4)( 0.0, -2.0 * SQRT_1_3, -1.0, 0.0);
+	REAL4 vc = (REAL4)( -1.0, SQRT_1_3, -1.0, 0.0);
+	REAL4 vd = (REAL4)( 1.0, SQRT_1_3, -1.0, 0.0);
 
-	if (z.x + z.y < 0.0f)
-	{
-		temp.x = -z.y;
-		z.y = -z.x;
-		z.x = temp.x;
-	}
-	if (z.x + z.z < 0.0f)
-	{
-		temp.x = -z.z;
-		z.z = -z.x;
-		z.x = temp.x;
-	}
-	if (z.y + z.z < 0.0f)
-	{
-		temp.y = -z.z;
-		z.z = -z.y;
-		z.y = temp.y;
-	}
+	REAL4 tv = z - va;
+	REAL d = dot(tv, tv);
+	REAL4 v = va;
+	REAL td = d;
 
-	z *= fractal->transformCommon.scaleA2;
-	z -= fractal->transformCommon.offset111; // neg offset
-
-	// Reversed full tetra-fold;
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC)
+	tv = z - vb;
+	d = dot(tv, tv);
+	if(d < td)
 	{
-		if (z.x - z.y < 0.0f)
-		{
-			REAL temp = z.y;
-			z.y = z.x;
-			z.x = temp;
-		}
-		if (z.x - z.z < 0.0f)
-		{
-			REAL temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
-		if (z.y - z.z < 0.0f)
-		{
-			REAL temp = z.z;
-			z.z = z.y;
-			z.y = temp;
-		}
-
-		z *= fractal->transformCommon.scale1;
-		aux->DE *= fractal->transformCommon.scale1;
-		z -= fractal->transformCommon.offsetF000;
+		v = vb;
+		td = d;
 	}
+	tv = z - vc;
+	d = dot(tv, tv);
+	if(d < td)
+	{
+		v = vc;
+		td = d;
+	}
+	tv = z - vd;
+	d = dot(tv, tv);
+	if(d < td)
+	{
+		v = vd;
+	}
+	z = v + fractal->transformCommon.scale2 * (z - v);
+	aux->DE *= fabs(fractal->transformCommon.scale2);
 
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		REAL rr = dot(z, z);
-		if (rr < 1.0f)
+		if (rr < 1.0)
 		{
-			REAL m = 1.0f;
+			REAL m = 1.0;
 			z += fractal->mandelbox.offset;
 			if (rr < fractal->transformCommon.scale025)
-				m = fractal->transformCommon.scale025;
-			else
-				m = rr;
-			m = 1.0f / m;
+			m = fractal->transformCommon.scale025;
+			else m = rr;
+			m = 1.0 / m;
 			z *= m;
 			aux->DE *= m;
 			z -= fractal->mandelbox.offset;

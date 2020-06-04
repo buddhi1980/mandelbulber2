@@ -54,10 +54,10 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			z.z = fabs(z.z + fractal->transformCommon.offsetA000.z);
 	}
 
-	CVector4 va = CVector4( 0.0, SQRT_1_3, 0.0, 0.0);
-	CVector4 vb = CVector4( 0.0, -1.0, 2.0 * SQRT_1_3, 0.0);
-	CVector4 vc = CVector4( 1.0, -1.0, -SQRT_1_3, 0.0);
-	CVector4 vd = CVector4( -1.0, -1.0, -SQRT_1_3, 0.0);
+	CVector4 va = CVector4( 0.0, 0.0, SQRT_1_3, 0.0);
+	CVector4 vb = CVector4( 0.0, -2.0 * SQRT_1_3, -1.0, 0.0);
+	CVector4 vc = CVector4( -1.0, SQRT_1_3, -1.0, 0.0);
+	CVector4 vd = CVector4( 1.0, SQRT_1_3, -1.0, 0.0);
 
 	CVector4 tv = z - va;
 	double d = tv.Dot(tv);
