@@ -37,6 +37,7 @@ foreach ($formulas as $index => $formula) {
 }
 printEndGroup();
 if (!isDryRun()) writeFormulaCSV($formulas);
+if (!isDryRun()) writeParameterNamesTxt();
 if (!isDryRun()) writeFractalDefinitionFile($formulas);
 printFinish();
 exit;
@@ -718,6 +719,48 @@ function writeFormulaCSV($formulas){
     	fputcsv($file, $data);
 	}
 	fclose($file);
+}
+
+function writeParameterNamesTxt(){
+	$fractalCpp = file_get_contents(PROJECT_PATH . 'src/fractal.cpp');
+	preg_match_all('/(.*?)\s=[\s\n]+.*container->Get<(.*?)>\("(.*?)"(, i)?\).*;/', $fractalCpp, $matches);
+        $parameterNames = array();	
+	foreach($matches[0] as $i => $unused){
+		$parameter = trim($matches[1][$i]);
+		if(strpos($parameter, '//') !== false) continue; // skip comments
+		$mainParameter = @explode('.', $parameter)[0];
+		switch($matches[2][$i]){
+			case 'double': $type = 'REAL'; break;
+			case 'CVector3': $type = 'REAL3'; break;
+			case 'CVector4': $type = 'REAL4'; break;
+			default: $type = $matches[2][$i];
+		}
+		$name = $matches[3][$i];
+		if(empty($matches[4][$i])){
+	        	$parameterNames[$mainParameter][] = $parameter . ' ' . $type . ' ' . $name;
+		}else{
+			if(strpos($parameter, 'mandelbox.rot') !== false){
+				$minI = 1;
+				$maxI = 4;
+			}
+			if(strpos($parameter, 'IFS') !== false){
+				$minI = 0;
+				$maxI = 9;
+			}
+			for($i = $minI; $i < $maxI; $i++){
+				$parameterRun = $parameter;
+				$parameterRun = str_replace('[i - 1]', '[' . ($i - 1) . ']', $parameterRun);
+				$parameterRun = str_replace('[i]', '[' . $i . ']', $parameterRun);
+				$typeRun = str_replace('REAL3', 'matrix33', $type);
+				$parameterNames[$mainParameter][] = $parameterRun . ' ' . $typeRun . ' ' . $name . '_' . $i;
+			}
+		}
+	}
+	$txtFile = '';
+	foreach($parameterNames as $parameterName => $parameterLines){
+		$txtFile .= implode(PHP_EOL, $parameterLines) . PHP_EOL . PHP_EOL;
+	}
+	file_put_contents(PROJECT_PATH . 'deploy/share/mandelbulber2/data/parameterNames.txt', $txtFile);
 }
 
 function writeFractalDefinitionFile($formulas){
