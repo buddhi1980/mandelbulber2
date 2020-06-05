@@ -37,7 +37,7 @@
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -54,7 +54,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+       <widget class="MyGroupBox" name="groupCheck_transf_function_enabledN_false">
         <property name="toolTip">
          <string/>
         </property>
@@ -232,6 +232,13 @@
        </widget>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+        <property name="text">
+         <string>bool false</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
         <property name="text">
          <string>bool A false</string>
@@ -242,6 +249,13 @@
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
         <property name="text">
          <string>bool B false</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+        <property name="text">
+         <string>bool C false</string>
         </property>
        </widget>
       </item>
@@ -1043,15 +1057,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -1070,7 +1084,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabledN_false</tabstop>
   <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_X</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_X</tabstop>

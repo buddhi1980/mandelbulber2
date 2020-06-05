@@ -27,7 +27,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsX
@@ -49,48 +49,51 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double Scale = fractal->transformCommon.scale1;
 
 	double Shape = fractal->transformCommon.offset0;
-	CVector4 temp = z;
+	double temp = 1.0;
 
 	// stereographic projection, modified a bit
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z.x /= r;
 		z.y /= r;
 	}
-	z.z = (z.z / r) + Shape;
+	if (fractal->transformCommon.functionEnabledAFalse) z.z = (z.z / r) + Shape;
 
 	if (fractal->transformCommon.functionEnabledBFalse) // then begin z:=z*z;Shape:=Shape*Shape;end;
 	{
 		z.z *= z.z;
 		Shape *= Shape;
 	}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		z.x /= z.z;
+		z.y /= z.z;
+	}
 
-	z.x /= z.z;
-	z.y /= z.z;
 
 	// complex multiplication
-	temp.x = z.x * z.x - z.y * z.y;
+	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
-	z.x = temp.x;
-
-	z.x = z.x * Scale * (1.0 + (Shape * Shape));
-	z.y = z.y * Scale * (1.0 + (Shape * Shape));
+	z.x = temp;
+	temp = Scale * (1.0 + (Shape * Shape));
+	z.x *= temp;
+	z.y *= temp;
 //z.z = z.z * Scale * (1.0 + (Shape * Shape));
 	// p = vec3(2.*z.x,2.*z.y,dot(z,z)-1)/dot(z.z+1);
 
 	// inverse stereographic
 	double mag1 = z.x * z.x + z.y * z.y - 1.0;
-	double mag2 = mag1 + 2.0;
+	double mag2 = 1.0 / (mag1 + 2.0);
 
-	z.x = z.x * 2.0 / mag2;
-	z.y = z.y * 2.0 / mag2;
-	z.z = mag1 / mag2;
+	z.x = z.x * 2.0 * mag2;
+	z.y = z.y * 2.0 * mag2;
+	z.z = mag1 * mag2;
 
-	double r2 = r * r; //+Offset3;
+	//double r2 = r * r; //+Offset3;
 
-	z.x = z.x * r2;
-	z.y = z.y * r2;
-	z.z = z.z * r2;
+	z *= r * r;
+	//z.y = z.y * r2;
+	//z.z = z.z * r2;
 
 
 

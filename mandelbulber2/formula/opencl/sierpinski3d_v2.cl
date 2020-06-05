@@ -22,7 +22,7 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
 		z += fractal->transformCommon.offset000;
-		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 	}
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
