@@ -18,8 +18,8 @@
 REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT1)
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
 		z += fractal->transformCommon.offset000;
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
@@ -47,7 +47,7 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 vb = (REAL4)( 0.0, -2.0 * SQRT_1_3, -1.0, 0.0);
 	REAL4 vc = (REAL4)( -1.0, SQRT_1_3, -1.0, 0.0);
 	REAL4 vd = (REAL4)( 1.0, SQRT_1_3, -1.0, 0.0);
-	if (fractal->transformCommon.functionEnabledSFalse)
+	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		va *= fractal->transformCommon.scale1111.x;
 		vb *= fractal->transformCommon.scale1111.y;
@@ -82,21 +82,17 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z = v + fractal->transformCommon.scale2 * (z - v);
 	aux->DE *= fabs(fractal->transformCommon.scale2);
 
-	if (fractal->transformCommon.functionEnabledNFalse)
+	if (fractal->transformCommon.functionEnabledSFalse
+		&& aux->i >= fractal->transformCommon.startIterationsS
+		&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
+		REAL m = 1.0;
 		REAL rr = dot(z, z);
-		if (rr < 1.0)
-		{
-			REAL m = 1.0;
-			z += fractal->mandelbox.offset;
-			if (rr < fractal->transformCommon.scale025)
-			m = fractal->transformCommon.scale025;
-			else m = rr;
-			m = 1.0 / m;
-			z *= m;
-			aux->DE *= m;
-			z -= fractal->mandelbox.offset;
-		}
+		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 /  rr;
+		else m = fractal->transformCommon.inv1;
+		z *= m;
+		aux->DE *= m;
 	}
 
 	// rotation
