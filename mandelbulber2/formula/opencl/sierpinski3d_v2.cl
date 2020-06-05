@@ -28,18 +28,18 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		// abs z
 		if (fractal->transformCommon.functionEnabledAx
-				&& aux.i >= fractal->transformCommon.startIterationsC
-				&& aux.i < fractal->transformCommon.stopIterationsC1)
+				&& aux->i >= fractal->transformCommon.startIterationsC
+				&& aux->i < fractal->transformCommon.stopIterationsC1)
 			z.x = fabs(z.x + fractal->transformCommon.offsetA000.x);
 
 		if (fractal->transformCommon.functionEnabledAy
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD1)
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
 			z.y = fabs(z.y + fractal->transformCommon.offsetA000.y);
 
 		if (fractal->transformCommon.functionEnabledAz
-				&& aux.i >= fractal->transformCommon.startIterationsP
-				&& aux.i < fractal->transformCommon.stopIterationsP1)
+				&& aux->i >= fractal->transformCommon.startIterationsP
+				&& aux->i < fractal->transformCommon.stopIterationsP1)
 			z.z = fabs(z.z + fractal->transformCommon.offsetA000.z);
 	}
 
@@ -47,7 +47,13 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 vb = (REAL4)( 0.0, -2.0 * SQRT_1_3, -1.0, 0.0);
 	REAL4 vc = (REAL4)( -1.0, SQRT_1_3, -1.0, 0.0);
 	REAL4 vd = (REAL4)( 1.0, SQRT_1_3, -1.0, 0.0);
-
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		va *= fractal->transformCommon.scale1111.x;
+		vb *= fractal->transformCommon.scale1111.y;
+		vc *= fractal->transformCommon.scale1111.z;
+		vd *= fractal->transformCommon.scale1111.w;
+	}
 	REAL4 tv = z - va;
 	REAL d = dot(tv, tv);
 	REAL4 v = va;
@@ -101,10 +107,8 @@ REAL4 Sierpinski3dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (!fractal->analyticDE.enabledFalse)
-		aux->DE *= fabs(fractal->transformCommon.scaleA2);
-	else
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1
 							+ fractal->analyticDE.offset0;
 	return z;
 }
