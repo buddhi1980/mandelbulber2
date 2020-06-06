@@ -25,7 +25,7 @@ $formulas = getFormulasData();
 $formulaExampleUsage = getFormulaExampleUsage();
 
 printStartGroup('RUNNING FORMULA CHECKS');
-foreach ($formulas as $index => $formula) {
+foreach ($formulas as $index => $formula) { break;
 	@$i++;
 	$success = true;
 	$status = array();
@@ -760,6 +760,13 @@ function writeParameterNamesTxt(){
 	foreach($parameterNames as $parameterName => $parameterLines){
 		$txtFile .= implode(PHP_EOL, $parameterLines) . PHP_EOL . PHP_EOL;
 	}
+
+  // derived parameters
+  preg_match_all('/(.*\..*?)\s=[\s\n]([A-Za-z0-9.+*\/\s\(\)]*);/', $fractalCpp, $matches);
+  foreach($matches[0] as $i => $line){
+    if(strpos($line, '//') !== false || strpos($line, 'for (') !== false) continue; // skip comments and loops
+    $txtFile .= trim($matches[1][$i] . ' none none') . PHP_EOL;
+  }
 	file_put_contents(PROJECT_PATH . 'deploy/share/mandelbulber2/data/parameterNames.txt', $txtFile);
 }
 
