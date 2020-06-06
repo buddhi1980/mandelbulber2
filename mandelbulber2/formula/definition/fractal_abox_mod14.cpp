@@ -80,7 +80,7 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		double rr = z.Dot(z);
 		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
-		else if (rr < fractal->transformCommon.invert1) m = 1.0 /  rr;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
 		else m = fractal->transformCommon.inv1;
 		z *= m;
 		aux.DE *= m;

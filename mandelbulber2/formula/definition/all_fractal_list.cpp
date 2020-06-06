@@ -407,6 +407,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSphericalFoldVaryV1());
 	fractalList->append(new cFractalTransfSphericalFoldVaryVCL());
 	fractalList->append(new cFractalTransfSphericalFoldV1());
+	fractalList->append(new cFractalTransfSphericalFoldV2());
 	fractalList->append(new cFractalTransfSphericalFoldXYZBias());
 	fractalList->append(new cFractalTransfSphericalInv());
 	fractalList->append(new cFractalTransfSphericalInvV2());

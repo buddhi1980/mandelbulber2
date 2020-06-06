@@ -58,7 +58,13 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	CVector4 vb = CVector4( 0.0, -2.0 * SQRT_1_3, -1.0, 0.0);
 	CVector4 vc = CVector4( -1.0, SQRT_1_3, -1.0, 0.0);
 	CVector4 vd = CVector4( 1.0, SQRT_1_3, -1.0, 0.0);
-
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		va *= fractal->transformCommon.scale1111.x;
+		vb *= fractal->transformCommon.scale1111.y;
+		vc *= fractal->transformCommon.scale1111.z;
+		vd *= fractal->transformCommon.scale1111.w;
+	}
 	CVector4 tv = z - va;
 	double d = tv.Dot(tv);
 	CVector4 v = va;
@@ -87,21 +93,18 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	z = v + fractal->transformCommon.scale2 * (z - v);
 	aux.DE *= fabs(fractal->transformCommon.scale2);
 
-	if (fractal->transformCommon.functionEnabledNFalse)
+	// spherical inv
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
+		double m = 1.0;
 		double rr = z.Dot(z);
-		if (rr < 1.0)
-		{
-			double m = 1.0;
-			z += fractal->mandelbox.offset;
-			if (rr < fractal->transformCommon.scale025)
-			m = fractal->transformCommon.scale025;
-			else m = rr;
-			m = 1.0 / m;
-			z *= m;
-			aux.DE *= m;
-			z -= fractal->mandelbox.offset;
-		}
+		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
+		else m = fractal->transformCommon.inv1;
+		z *= m;
+		aux.DE *= m;
 	}
 
 	// rotation

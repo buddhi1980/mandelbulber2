@@ -3,16 +3,16 @@ Version history
 v2.22 (??? 2020)
 - Added new fractal formulas
 
-
    aboxMod14
    menger3
    mengerChebyshev
+   octahedron
    riemannSphereMsltoeM3d
+   sierpinski3dV2
+   sierpinski3dV3
+   transfDELinearCube
    transfRotationChebyshev
-
-
-
-
+   transfSphericalFoldV2
 
 
 
