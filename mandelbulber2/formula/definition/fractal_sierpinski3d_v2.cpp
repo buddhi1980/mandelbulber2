@@ -92,7 +92,8 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	}
 	z = v + fractal->transformCommon.scale2 * (z - v);
 	aux.DE *= fabs(fractal->transformCommon.scale2);
-	// spherical fold
+
+	// spherical inv
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
@@ -100,7 +101,7 @@ void cFractalSierpinski3dV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		double m = 1.0;
 		double rr = z.Dot(z);
 		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
-		else if (rr < fractal->transformCommon.invert1) m = 1.0 /  rr;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
 		else m = fractal->transformCommon.inv1;
 		z *= m;
 		aux.DE *= m;

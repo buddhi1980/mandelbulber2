@@ -877,7 +877,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledS_false">
      <property name="title">
-      <string>&amp;conditional sphere inversion</string>
+      <string>&amp;sphere fold v2</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

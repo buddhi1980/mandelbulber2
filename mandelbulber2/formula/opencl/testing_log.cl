@@ -42,14 +42,14 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL temp = 1.0;
 
 	// stereographic projection, modified a bit
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledx)
 	{
 		z.x /= r;
 		z.y /= r;
 	}
-		if (fractal->transformCommon.functionEnabledAFalse) z.z = (z.z / r) + Shape;
+		if (fractal->transformCommon.functionEnabledz) z.z = (z.z / r) + Shape;
 
-	if (fractal->transformCommon.functionEnabledBFalse) // then begin z:=z*z;Shape:=Shape*Shape;end;
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		z.z *= z.z;
 		Shape *= Shape;
@@ -59,15 +59,29 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z.x /= z.z;
 		z.y /= z.z;
 	}
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = 1.0 / (z.z * z.z * 1.0);
+		z.x *= temp;
+		z.y *= temp;
+	}
+	if (fractal->transformCommon.functionEnabledEFalse)
+	{
+		z.x *= z.z;
+		z.y *= z.z;
+	}
+
 	// complex multiplication
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
 	z.x = temp;
 	temp = Scale * (1.0 + (Shape * Shape));
-	z.x = z.x * temp;
-	z.y = z.y * temp;
-//z.z = z.z * Scale * (1.0 + (Shape * Shape));
-	// p = vec3(2.*z.x,2.*z.y,dot(z,z)-1)/dot(z.z+1);
+
+	if (!fractal->transformCommon.functionEnabledGFalse)
+	{
+		z.x *= temp;
+		z.y *= temp;
+	}
 
 	// inverse stereographic
 	REAL mag1 = z.x * z.x + z.y * z.y - 1.0;
@@ -76,6 +90,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.x = z.x * 2.0 * mag2;
 	z.y = z.y * 2.0 * mag2;
 	z.z = mag1 * mag2;
+
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		z.x *= temp;
+		z.y *= temp;
+	}
 
 	//REAL r2 = r * r; //+Offset3;
 
