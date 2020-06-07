@@ -25,7 +25,7 @@ $formulas = getFormulasData();
 $formulaExampleUsage = getFormulaExampleUsage();
 
 printStartGroup('RUNNING FORMULA CHECKS');
-foreach ($formulas as $index => $formula) { break;
+foreach ($formulas as $index => $formula) {
 	@$i++;
 	$success = true;
 	$status = array();
