@@ -270,13 +270,13 @@ void cOpenClTexturesData::BuildTextureData(
 		cl_uchar4 clpixel;
 		if (!grey16bit)
 		{
-			clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
-				cl_uchar(pixel.A / 256)};
+			clpixel = {{cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
+				cl_uchar(pixel.A / 256)}};
 		}
 		else
 		{
 			// greyscale 16bit texture is coded using first two bytes
-			clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.R % 256), 0, 0};
+			clpixel = {{cl_uchar(pixel.R / 256), cl_uchar(pixel.R % 256), 0, 0}};
 		}
 
 		data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));

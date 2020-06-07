@@ -335,7 +335,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 		offset.y = 0.0f;
 	}
 
-	cl_float2 antiAliasingOffset = {offset.x, offset.y};
+	cl_float2 antiAliasingOffset = {{offset.x, offset.y}};
 	cl_int err = clKernel->setArg(6, antiAliasingOffset);
 	if (!checkErr(err, "kernel->setArg(6, cl_int(actualDepth))"))
 	{
