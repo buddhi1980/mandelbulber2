@@ -905,7 +905,7 @@
               <item row="2" column="0">
                <widget class="MyGroupBox" name="groupCheck_zbuffer_constant_range">
                 <property name="title">
-                 <string>Use contant depth range</string>
+                 <string>Use constant depth range</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -1351,8 +1351,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>251</width>
-            <height>917</height>
+            <width>264</width>
+            <height>944</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1652,7 +1652,7 @@ and will only be present after enabling and re-render.</string>
                    <string>clang-format path:</string>
                   </property>
                  </widget>
-                 </item>
+                </item>
                 <item row="9" column="1">
                  <widget class="MyLineEdit" name="text_clang_format_path"/>
                 </item>
