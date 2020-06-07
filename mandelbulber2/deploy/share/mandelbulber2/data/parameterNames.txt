@@ -10,15 +10,13 @@ mandelbox.foldingSphericalMin REAL mandelbox_folding_min_radius
 mandelbox.foldingSphericalFixed REAL mandelbox_folding_fixed_radius
 mandelbox.sharpness REAL mandelbox_sharpness
 mandelbox.offset REAL3 mandelbox_offset
-mandelbox.mainRot matrix33 mandelbox_rotation_main
-
-mandelbox.rot[0][0] matrix33 mandelbox_rotation_neg_1
-mandelbox.rot[1][0] matrix33 mandelbox_rotation_pos_1
-mandelbox.rot[0][1] matrix33 mandelbox_rotation_neg_2
-mandelbox.rot[1][1] matrix33 mandelbox_rotation_pos_2
-mandelbox.rot[0][2] matrix33 mandelbox_rotation_neg_3
-mandelbox.rot[1][2] matrix33 mandelbox_rotation_pos_3
-
+mandelbox.rotationMain REAL3 mandelbox_rotation_main
+mandelbox.rotation[0][0] matrix33 mandelbox_rotation_neg_1
+mandelbox.rotation[0][1] matrix33 mandelbox_rotation_neg_2
+mandelbox.rotation[0][2] matrix33 mandelbox_rotation_neg_3
+mandelbox.rotation[1][0] matrix33 mandelbox_rotation_pos_1
+mandelbox.rotation[1][1] matrix33 mandelbox_rotation_pos_2
+mandelbox.rotation[1][2] matrix33 mandelbox_rotation_pos_3
 mandelbox.color.factor4D REAL4 mandelbox_color_4D
 mandelbox.color.factor REAL3 mandelbox_color
 mandelbox.color.factorR REAL mandelbox_color_R
@@ -26,6 +24,8 @@ mandelbox.color.factorSp1 REAL mandelbox_color_Sp1
 mandelbox.color.factorSp2 REAL mandelbox_color_Sp2
 mandelbox.rotationsEnabled bool mandelbox_rotations_enabled
 mandelbox.mainRotationEnabled bool mandelbox_main_rotation_enabled
+mandelbox.solid REAL mandelbox_solid
+mandelbox.melt REAL mandelbox_melt
 
 mandelboxVary4D.fold REAL mandelbox_vary_fold
 mandelboxVary4D.minR REAL mandelbox_vary_minr
@@ -33,77 +33,65 @@ mandelboxVary4D.rPower REAL mandelbox_vary_rpower
 mandelboxVary4D.scaleVary REAL mandelbox_vary_scale_vary
 mandelboxVary4D.wadd REAL mandelbox_vary_wadd
 
-mandelbox.solid REAL mandelbox_solid
-mandelbox.melt REAL mandelbox_melt
 genFoldBox.type int mandelbox_generalized_fold_type
 
 foldingIntPow.foldFactor REAL boxfold_bulbpow2_folding_factor
 foldingIntPow.zFactor REAL boxfold_bulbpow2_z_factor
 
 IFS.scale REAL IFS_scale
-IFS.mainRot matrix33 IFS_rotation
+IFS.rotation REAL3 IFS_rotation
 IFS.rotationEnabled bool IFS_rotation_enabled
 IFS.offset REAL3 IFS_offset
 IFS.edge REAL3 IFS_edge
 IFS.edgeEnabled bool IFS_edge_enabled
-
 IFS.absX bool IFS_abs_x
 IFS.absY bool IFS_abs_y
 IFS.absZ bool IFS_abs_z
 IFS.mengerSpongeMode bool IFS_menger_sponge_mode
-
-IFS.direction[0] REAL3 IFS_direction_0
-IFS.rot[0] matrix33 IFS_rotations_0
+IFS.direction[0] matrix33 IFS_direction_0
+IFS.direction[1] matrix33 IFS_direction_1
+IFS.direction[2] matrix33 IFS_direction_2
+IFS.direction[3] matrix33 IFS_direction_3
+IFS.direction[4] matrix33 IFS_direction_4
+IFS.direction[5] matrix33 IFS_direction_5
+IFS.direction[6] matrix33 IFS_direction_6
+IFS.direction[7] matrix33 IFS_direction_7
+IFS.direction[8] matrix33 IFS_direction_8
+IFS.rotations[0] matrix33 IFS_rotations_0
+IFS.rotations[1] matrix33 IFS_rotations_1
+IFS.rotations[2] matrix33 IFS_rotations_2
+IFS.rotations[3] matrix33 IFS_rotations_3
+IFS.rotations[4] matrix33 IFS_rotations_4
+IFS.rotations[5] matrix33 IFS_rotations_5
+IFS.rotations[6] matrix33 IFS_rotations_6
+IFS.rotations[7] matrix33 IFS_rotations_7
+IFS.rotations[8] matrix33 IFS_rotations_8
 IFS.distance[0] REAL IFS_distance_0
-IFS.intensity[0] REAL IFS_intensity_0
-IFS.enabled[0] bool IFS_enabled_0
-
-IFS.direction[1] REAL3 IFS_direction_1
-IFS.rot[1] matrix33 IFS_rotations_1
 IFS.distance[1] REAL IFS_distance_1
-IFS.intensity[1] REAL IFS_intensity_1
-IFS.enabled[1] bool IFS_enabled_1
-
-IFS.direction[2] REAL3 IFS_direction_2
-IFS.rot[2] matrix33 IFS_rotations_2
 IFS.distance[2] REAL IFS_distance_2
-IFS.intensity[2] REAL IFS_intensity_2
-IFS.enabled[2] bool IFS_enabled_2
-
-IFS.direction[3] REAL3 IFS_direction_3
-IFS.rot[3] matrix33 IFS_rotations_3
 IFS.distance[3] REAL IFS_distance_3
-IFS.intensity[3] REAL IFS_intensity_3
-IFS.enabled[3] bool IFS_enabled_3
-
-IFS.direction[4] REAL3 IFS_direction_4
-IFS.rot[4] matrix33 IFS_rotations_4
 IFS.distance[4] REAL IFS_distance_4
-IFS.intensity[4] REAL IFS_intensity_4
-IFS.enabled[4] bool IFS_enabled_4
-
-IFS.direction[5] REAL3 IFS_direction_5
-IFS.rot[5] matrix33 IFS_rotations_5
 IFS.distance[5] REAL IFS_distance_5
-IFS.intensity[5] REAL IFS_intensity_5
-IFS.enabled[5] bool IFS_enabled_5
-
-IFS.direction[6] REAL3 IFS_direction_6
-IFS.rot[6] matrix33 IFS_rotations_6
 IFS.distance[6] REAL IFS_distance_6
-IFS.intensity[6] REAL IFS_intensity_6
-IFS.enabled[6] bool IFS_enabled_6
-
-IFS.direction[7] REAL3 IFS_direction_7
-IFS.rot[7] matrix33 IFS_rotations_7
 IFS.distance[7] REAL IFS_distance_7
-IFS.intensity[7] REAL IFS_intensity_7
-IFS.enabled[7] bool IFS_enabled_7
-
-IFS.direction[8] REAL3 IFS_direction_8
-IFS.rot[8] matrix33 IFS_rotations_8
 IFS.distance[8] REAL IFS_distance_8
+IFS.intensity[0] REAL IFS_intensity_0
+IFS.intensity[1] REAL IFS_intensity_1
+IFS.intensity[2] REAL IFS_intensity_2
+IFS.intensity[3] REAL IFS_intensity_3
+IFS.intensity[4] REAL IFS_intensity_4
+IFS.intensity[5] REAL IFS_intensity_5
+IFS.intensity[6] REAL IFS_intensity_6
+IFS.intensity[7] REAL IFS_intensity_7
 IFS.intensity[8] REAL IFS_intensity_8
+IFS.enabled[0] bool IFS_enabled_0
+IFS.enabled[1] bool IFS_enabled_1
+IFS.enabled[2] bool IFS_enabled_2
+IFS.enabled[3] bool IFS_enabled_3
+IFS.enabled[4] bool IFS_enabled_4
+IFS.enabled[5] bool IFS_enabled_5
+IFS.enabled[6] bool IFS_enabled_6
+IFS.enabled[7] bool IFS_enabled_7
 IFS.enabled[8] bool IFS_enabled_8
 
 aexion.cadd REAL cadd
@@ -127,10 +115,8 @@ platonicSolid.rhoMul REAL platonic_solid_rhoMul
 
 mandelbulbMulti.acosOrAsin int mandelbulbMulti_acos_or_asin
 mandelbulbMulti.atanOrAtan2 int mandelbulbMulti_atan_or_atan2
-
 mandelbulbMulti.acosOrAsinA int mandelbulbMulti_acos_or_asin_A
 mandelbulbMulti.atanOrAtan2A int mandelbulbMulti_atan_or_atan2_A
-
 mandelbulbMulti.orderOfXYZ int mandelbulbMulti_order_of_xyz
 mandelbulbMulti.orderOfXYZ2 int mandelbulbMulti_order_of_xyz_2
 mandelbulbMulti.orderOfXYZC int mandelbulbMulti_order_of_xyz_C
@@ -175,8 +161,11 @@ aSurf3Folds.orderOf3Folds2 int aSurf3Folds_order_of_folds_2
 aSurf3Folds.orderOf3Folds3 int aSurf3Folds_order_of_folds_3
 
 combo3.combo3 int combo3
+
 combo4.combo4 int combo4
+
 combo5.combo5 int combo5
+
 combo6.combo6 int combo6
 
 magTransf.orderOfTransf1 int magTransf_order_of_transf_1
@@ -293,10 +282,8 @@ transformCommon.scaleB3 REAL transf_scaleB_3
 transformCommon.scale4 REAL transf_scale_4
 transformCommon.scale6 REAL transf_scale_6
 transformCommon.scale8 REAL transf_scale_8
-
 transformCommon.scaleMain2 REAL transf_scale_main_2
 transformCommon.scaleVary0 REAL transf_scale_vary_0
-
 transformCommon.intA int transf_int_A
 transformCommon.intB int transf_int_B
 transformCommon.int1 int transf_int_1
@@ -344,7 +331,6 @@ transformCommon.startIterationsJ int transf_start_iterations_J
 transformCommon.stopIterationsJ int transf_stop_iterations_J
 transformCommon.startIterationsK int transf_start_iterations_K
 transformCommon.stopIterationsK int transf_stop_iterations_K
-
 transformCommon.startIterationsM int transf_start_iterations_M
 transformCommon.stopIterationsM int transf_stop_iterations_M
 transformCommon.startIterationsN int transf_start_iterations_N
@@ -365,14 +351,12 @@ transformCommon.stopIterationsT int transf_stop_iterations_T
 transformCommon.stopIterationsT1 int transf_stop_iterationsT_1
 transformCommon.startIterationsTM int transf_start_iterationsTM
 transformCommon.stopIterationsTM1 int transf_stop_iterationsTM_1
-
 transformCommon.startIterationsX int transf_start_iterations_X
 transformCommon.stopIterationsX int transf_stop_iterations_X
 transformCommon.startIterationsY int transf_start_iterations_Y
 transformCommon.stopIterationsY int transf_stop_iterations_Y
 transformCommon.startIterationsZ int transf_start_iterations_Z
 transformCommon.stopIterationsZ int transf_stop_iterations_Z
-
 transformCommon.additionConstant0555 REAL3 transf_addition_constant_0555
 transformCommon.additionConstant0777 REAL3 transf_addition_constant_0777
 transformCommon.additionConstant000 REAL3 transf_addition_constant
@@ -382,7 +366,6 @@ transformCommon.additionConstant111 REAL3 transf_addition_constant_111
 transformCommon.additionConstantA111 REAL3 transf_addition_constantA_111
 transformCommon.additionConstant222 REAL3 transf_addition_constant_222
 transformCommon.additionConstantNeg100 REAL3 transf_addition_constant_neg100
-
 transformCommon.constantMultiplier000 REAL3 transf_constant_multiplier_000
 transformCommon.constantMultiplier001 REAL3 transf_constant_multiplier_001
 transformCommon.constantMultiplier010 REAL3 transf_constant_multiplier_010
@@ -397,7 +380,6 @@ transformCommon.constantMultiplier122 REAL3 transf_constant_multiplier_122
 transformCommon.constantMultiplier221 REAL3 transf_constant_multiplier_221
 transformCommon.constantMultiplier222 REAL3 transf_constant_multiplier_222
 transformCommon.constantMultiplier441 REAL3 transf_constant_multiplier_441
-
 transformCommon.juliaC REAL3 transf_constant_julia_c
 transformCommon.offset000 REAL3 transf_offset_000
 transformCommon.offsetA000 REAL3 transf_offsetA_000
@@ -418,14 +400,11 @@ transformCommon.offsetA222 REAL3 transf_offsetA_222
 transformCommon.offset333 REAL3 transf_offset_333
 transformCommon.power025 REAL3 transf_power_025
 transformCommon.power8 REAL3 transf_power_8
-
-transformCommon.rotationMatrix matrix33 transf_rotation
-transformCommon.rotationMatrix2 matrix33 transf_rotation2
-transformCommon.rotationMatrixVary matrix33 transf_rotationVary
-
-transformCommon.rotationMatrix44 REAL3 transf_rotation44a
+transformCommon.rotation REAL3 transf_rotation
+transformCommon.rotation2 REAL3 transf_rotation2
+transformCommon.rotationVary REAL3 transf_rotationVary
+transformCommon.rotation44a REAL3 transf_rotation44a
 transformCommon.rotation44b REAL3 transf_rotation44b
-
 transformCommon.scaleP222 REAL3 transf_scaleP_222
 transformCommon.scale3D000 REAL3 transf_scale3D_000
 transformCommon.scale3D111 REAL3 transf_scale3D_111
@@ -437,7 +416,6 @@ transformCommon.scale3Dd222 REAL3 transf_scale3Dd_222
 transformCommon.scale3D333 REAL3 transf_scale3D_333
 transformCommon.scale3D444 REAL3 transf_scale3D_444
 transformCommon.vec111 REAL3 transf_vec_111
-
 transformCommon.additionConstant0000 REAL4 transf_addition_constant_0000
 transformCommon.offset0000 REAL4 transf_offset_0000
 transformCommon.offsetA0000 REAL4 transf_offsetA_0000
@@ -450,7 +428,6 @@ transformCommon.additionConstant111d5 REAL4 transf_addition_constant_111d5
 transformCommon.constantMultiplier1220 REAL4 transf_constant_multiplier_1220
 transformCommon.scale0000 REAL4 transf_scale_0000
 transformCommon.scale1111 REAL4 transf_scale_1111
-
 transformCommon.addCpixelEnabled bool transf_addCpixel_enabled
 transformCommon.addCpixelEnabledFalse bool transf_addCpixel_enabled_false
 transformCommon.alternateEnabledFalse bool transf_alternate_enabled_false
@@ -523,5 +500,11 @@ transformCommon.mboxFactor1 none none
 transformCommon.inv0 none none
 transformCommon.inv1 none none
 transformCommon.maxMinR2factor none none
-
-
+genFoldBox.sides_tet none none
+genFoldBox.sides_cube none none
+genFoldBox.sides_oct none none
+genFoldBox.sides_oct_cube none none
+genFoldBox.sides_dodeca none none
+genFoldBox.sides_icosa none none
+genFoldBox.sides_box6 none none
+genFoldBox.sides_box5 none none
