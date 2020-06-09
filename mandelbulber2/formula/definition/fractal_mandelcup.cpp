@@ -5,17 +5,17 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- * formula by pupukuusikko
+ * based on formula by pupukuusikko
  * http://www.fractalforums.com/the-3d-mandelbulb/a-new-3d-mandelbrot-variant-mandelcup/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
+cFractalMandelcup::cFractalMandelcup() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Log";
-	internalName = "testing_log";
-	internalID = fractal::testingLog;
+	nameInComboBox = "Mandelcup";
+	internalName = "mandelcup";
+	internalID = fractal::mandelcup;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -24,7 +24,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelcup::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
 	if (fractal->transformCommon.functionEnabledNFalse)

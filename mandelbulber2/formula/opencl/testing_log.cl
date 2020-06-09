@@ -15,7 +15,6 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL4 c = aux->const_c;
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
@@ -34,7 +33,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 
 	REAL r = aux->r;
-
 	aux->DE = r * 2.0 * aux->DE + 1.0;
 	REAL Scale = fractal->transformCommon.scale1;
 
@@ -47,7 +45,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z.x /= r;
 		z.y /= r;
 	}
-		if (fractal->transformCommon.functionEnabledz) z.z = (z.z / r) + Shape;
+	if (fractal->transformCommon.functionEnabledz) z.z = (z.z / r) + Shape;
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
@@ -77,11 +75,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.x = temp;
 	temp = Scale * (1.0 + (Shape * Shape));
 
-	if (!fractal->transformCommon.functionEnabledGFalse)
-	{
-		z.x *= temp;
-		z.y *= temp;
-	}
+	z.x *= temp;
+	z.y *= temp;
 
 	// inverse stereographic
 	REAL mag1 = z.x * z.x + z.y * z.y - 1.0;
@@ -91,16 +86,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = z.y * 2.0 * mag2;
 	z.z = mag1 * mag2;
 
-	if (fractal->transformCommon.functionEnabledGFalse)
-	{
-		z.x *= temp;
-		z.y *= temp;
-	}
-
-	//REAL r2 = r * r; //+Offset3;
-
 	z *= r * r;
-
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

@@ -237,6 +237,7 @@ enum enumFractalFormula
 	octahedron = 205,
 	aboxMod14 = 206,
 	menger3 = 207,
+	mandelcup = 208,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

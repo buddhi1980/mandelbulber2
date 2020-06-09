@@ -4,6 +4,7 @@ v2.22 (??? 2020)
 - Added new fractal formulas
 
    aboxMod14
+   mandelcup
    menger3
    mengerChebyshev
    octahedron
