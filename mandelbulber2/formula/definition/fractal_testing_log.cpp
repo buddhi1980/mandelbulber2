@@ -26,6 +26,10 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+	double colorAdd = 0.0;
+
+	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	//double tp = fractal->transformCommon.offset1;
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
@@ -62,12 +66,12 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			// needs a sphere inverse
 			aux.DE *= invSC;
 			z *= invSC;
-			aux.color += 1.0;
+			ColV.x += 1.0;
 		}
 		else
 		{
 			// stretch onto a plane at zero
-			aux.color += 2.0;
+			ColV.y += 1.0;;
 			aux.DE *= invSC;
 			z *= invSC;
 			z.z -= 1.0;
@@ -97,7 +101,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			x = 1.0 - x;
 			y = 1.0 - y;
-		// aux.color += 2.0;
+			colorAdd += 1.0;
 		}
 
 		z = x * t1 - y * t2;
@@ -109,13 +113,13 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (l1 < l0 && l1 < l2)
 		{
 			z -= t1 * (2.0 * z.Dot(t1) - 1.0);
-			// aux.color += 1.0;
+			ColV.z += 1.0;
 		}
 
 		else if (l2 < l0 && l2 < l1)
 		{
 			z -= t2 * (2.0 * z.Dot(t2) + 1.0);
-			// aux.color += 2.0;
+			ColV.w += 1.0;
 		}
 
 		z.z = h;
@@ -127,8 +131,21 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// aux.DE =  scale2;
 	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
 	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
-	if (fractal->analyticDE.enabled) d = (sqrt(d + 1.0) - 1.0) * 2.0;
+	if (fractal->analyticDE.enabledFalse) d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	d /= (scale2 * aux.DE);
 
 	aux.dist = min(aux.dist, d);
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{ //double colorAdd = 0.0;
+		colorAdd += colorAdd * fractal->foldColor.difs1;
+		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
+		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
+		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
+		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
+
+
+		aux.color += colorAdd;
+	}
 }

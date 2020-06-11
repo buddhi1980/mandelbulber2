@@ -15,6 +15,11 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
+	REAL colorAdd = 0.0;
+
+	REAL4 ColV = (REAL4)(0.0, 0.0, 0.0, 0.0);
+
 	//REAL tp = fractal->transformCommon.offset1;
 	REAL t = fractal->transformCommon.minR06;
 	REAL4 t1 = (REAL4)(SQRT_3_4, -0.5, 0.0, 0.0);
@@ -52,12 +57,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			// needs a sphere inverse
 			aux->DE *= invSC;
 			z *= invSC;
-			aux->color += 1.0;
+			ColV.x += 1.0;
 		}
 		else
 		{
 			// stretch onto a plane at zero
-			aux->color += 2.0;
+			ColV.y += 1.0;
 			aux->DE *= invSC;
 			z *= invSC;
 			z.z -= 1.0;
@@ -106,14 +111,14 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			z -= t1 * (2.0 * dot(t1, z) - 1.0);
 
-		// aux->color += 1.0;
+			ColV.z += 1.0;
 
 		}
 
 		else if (l2 < l0 && l2 < l1)
 		{
 			z -= t2 * (2.0 * dot(z, t2) + 1.0);
-		// aux->color += 2.0;
+			ColV.w += 1.0;
 		}
 
 		z.z = h;
@@ -125,10 +130,24 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	// aux->DE =  scale2;
 
 	REAL d = (length(z - (REAL4)(0.0, 0.0, 0.4, 0.0)) - 0.4);
-	if (fractal->analyticDE.enabled)	d = (sqrt(d + 1.0) - 1) * 2.0;
+	if (fractal->analyticDE.enabledFalse)	d = (sqrt(d + 1.0) - 1) * 2.0;
 	d /=			  (scale2 * aux->DE); // the 0.4 is slightly more averaging than 0.5
 
 	aux->dist = min(aux->dist, d);
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{ //double colorAdd = 0.0;
+		colorAdd += colorAdd * fractal->foldColor.difs1;
+		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
+		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
+		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
+		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
+
+
+		aux->color += colorAdd;
+	}
+
 
 	return z;
 }
