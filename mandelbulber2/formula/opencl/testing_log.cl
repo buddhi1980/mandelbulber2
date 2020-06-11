@@ -13,118 +13,201 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
-	if (fractal->transformCommon.functionEnabledNFalse)
+
+
+
+			REAL tp = fractal->transformCommon.offset1;
+
+	REAL t = fractal->transformCommon.minR06;
+
+	REAL4 t1 = (REAL4)(SQRT_3_4, -0.5, 0.0, 0.0);
+
+	REAL4 t2 = (REAL4)(-SQRT_3_4, -0.5, 0.0, 0.0);
+
+	REAL4 n1 = (REAL4)(-0.5, -SQRT_3_4, 0.0, 0.0);
+
+	REAL4 n2 = (REAL4)(-0.5, SQRT_3_4, 0.0, 0.0);
+
+
+	REAL scale2 = fractal->transformCommon.scale2;
+
+	// adjusting this can help with the stepping scheme, but doesn't affect geometry.
+
+
+	REAL innerScale = SQRT_3 / (1.0 + SQRT_3);
+
+	REAL innerScaleB = innerScale * innerScale * 0.25;
+
+	//for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
+
+	for (int i = 0; i < fractal->transformCommon.int8X; i++)
+
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse
-				&& aux->i >= fractal->transformCommon.startIterationsX
-				&& aux->i < fractal->transformCommon.stopIterationsX)
-			z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse
-				&& aux->i >= fractal->transformCommon.startIterationsY
-				&& aux->i < fractal->transformCommon.stopIterationsY)
-			z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse
-				&& aux->i >= fractal->transformCommon.startIterationsZ
-				&& aux->i < fractal->transformCommon.stopIterationsZ)
-			z.z = fabs(z.z);
-	}
 
-	REAL r = aux->r;
-	aux->DE = r * 2.0 * aux->DE + 1.0;
-	REAL Scale = fractal->transformCommon.scale1;
+		if (!fractal->transformCommon.functionEnabledBxFalse)
 
-	REAL Shape = fractal->transformCommon.offset0;
-	REAL temp = 1.0;
-
-	// stereographic projection, modified a bit
-	if (fractal->transformCommon.functionEnabledx)
-	{
-		z.x /= r;
-		z.y /= r;
-	}
-	if (fractal->transformCommon.functionEnabledz) z.z = (z.z / r) + Shape;
-
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		z.z *= z.z;
-		Shape *= Shape;
-	}
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		z.x /= z.z;
-		z.y /= z.z;
-	}
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		temp = 1.0 / (z.z * z.z * 1.0);
-		z.x *= temp;
-		z.y *= temp;
-	}
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		z.x *= z.z;
-		z.y *= z.z;
-	}
-
-	// complex multiplication
-	temp = z.x * z.x - z.y * z.y;
-	z.y = 2.0 * z.x * z.y;
-	z.x = temp;
-	temp = Scale * (1.0 + (Shape * Shape));
-
-	z.x *= temp;
-	z.y *= temp;
-
-	// inverse stereographic
-	REAL mag1 = z.x * z.x + z.y * z.y - 1.0;
-	REAL mag2 = 1.0 / (mag1 + 2.0);
-
-	z.x = z.x * 2.0 * mag2;
-	z.y = z.y * 2.0 * mag2;
-	z.z = mag1 * mag2;
-
-	z *= r * r;
-
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-	{
-		REAL4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
-			tempC = aux->c;
-			switch (fractal->mandelbulbMulti.orderOfXYZC)
-			{
-				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (REAL4) {tempC.x, tempC.y, tempC.z, tempC.w}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (REAL4) {tempC.x, tempC.z, tempC.y, tempC.w}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (REAL4) {tempC.y, tempC.x, tempC.z, tempC.w}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (REAL4) {tempC.y, tempC.z, tempC.x, tempC.w}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (REAL4) {tempC.z, tempC.x, tempC.y, tempC.w}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (REAL4) {tempC.z, tempC.y, tempC.x, tempC.w}; break;
-			}
-			aux->c = tempC;
+
+			REAL4 zB = z - (REAL4)(0.0, 0.0, innerScale * 0.5, 0.0);
+
+			if (dot(zB, zB) < innerScaleB) break; // definitely inside
+
 		}
+
+
+		REAL maxH = 0.4 * fractal->transformCommon.scaleG1;
+
+		if (i == 0) maxH = -100;
+
+		REAL4 zC = z - (REAL4)(0.0, 0.0, t, 0.0);
+
+		if (z.z > maxH && dot(zC, zC) > t * t) break; // definitely outside
+
+		REAL4 zD = z - (REAL4)(0.0, 0.0, 0.5, 0.0);
+
+		REAL invSC = 1.0 / dot(z, z) * fractal->transformCommon.scaleF1;
+
+
+		if (z.z < maxH && dot(zD, zD) > 0.5 * 0.5)
+
+		{
+
+			// needs a sphere inverse
+
+			aux->DE *= invSC;
+
+			z *= invSC;
+
+			aux->color += 1.0;
+
+		}
+
 		else
+
 		{
-			switch (fractal->mandelbulbMulti.orderOfXYZC)
-			{
-				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (REAL4) {c.x, c.y, c.z, c.w}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (REAL4) {c.x, c.z, c.y, c.w}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (REAL4) {c.y, c.x, c.z, c.w}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (REAL4) {c.y, c.z, c.x, c.w}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (REAL4) {c.z, c.x, c.y, c.w}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (REAL4) {c.z, c.y, c.x, c.w}; break;
-			}
+
+			// stretch onto a plane at zero
+
+			aux->color += 2.0;
+
+			aux->DE *= invSC;
+
+			z *= invSC;
+
+			z.z -= 1.0;
+
+			z.z *= -1.0;
+
+			z *= SQRT_3;
+
+			aux->DE *= SQRT_3;
+
+			z.z += 1.0;
+
+
+			// and rotate it a twelfth of a revolution
+
+			REAL a = M_PI / (REAL)(fractal->transformCommon.int6);
+
+			REAL cosA = cos(a);
+
+			REAL sinA = sin(a);
+
+			REAL xx = z.x * cosA + z.y * sinA;
+
+			REAL yy = -z.x * sinA + z.y * cosA;
+
+			z.x = xx;
+
+			z.y = yy;
+
 		}
-		z += tempC * fractal->transformCommon.constantMultiplierC111;
+
+		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
+
+		REAL h = z.z;
+
+
+
+
+		REAL x = dot(z, -n2) * fractal->transformCommon.scaleA2 / SQRT_3;
+
+		REAL y = dot(z, -n1) * fractal->transformCommon.scaleA2 / SQRT_3;
+
+		x = x - floor(x);
+
+		y = y - floor(y);
+
+
+		if (x + y > 1.0)
+
+		{
+
+			x = 1.0 - x;
+
+			y = 1.0 - y;
+
+			// aux->color += 2.0;
+
+		}
+
+		z = x * t1 - y * t2;
+
+
+		// fold the szace to be in a kite
+
+		REAL l0 = dot(z, z);
+
+		REAL l1 = dot(z - t1, z - t1);
+
+		REAL l2 = dot(z + t2, z + t2);
+
+		if (l1 < l0 && l1 < l2)
+
+		{
+
+			z -= t1 * (2.0 * dot(t1, z) - 1.0);
+
+			// aux->color += 1.0;
+
+		}
+
+		else if (l2 < l0 && l2 < l1)
+
+		{
+
+			z -= t2 * (2.0 * dot(z, t2) + 1.0);
+
+			// aux->color += 2.0;
+
+		}
+
+		z.z = h;
+
+		REAL pp = -.2;
+
+		if ( i % 2 == 0) pp = 0.0;
+
+		z += fractal->transformCommon.offset000 + pp;
+
+
+
 	}
 
-	z += fractal->transformCommon.additionConstant000;
+	// aux->DE =  scale2;
 
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	REAL d = (length(z - (REAL4)(0.0, 0.0, 0.4, 0.0)) - 0.4);
+
+	if (fractal->analyticDE.enabled)	d = (sqrt(d + 1.0) - 1) * 2.0;
+
+		d /=			  (scale2 * aux->DE); // the 0.4 is slightly more averaging than 0.5
+
+
+	aux->dist = min(aux->dist, d);
+
+
 	return z;
+
 }
