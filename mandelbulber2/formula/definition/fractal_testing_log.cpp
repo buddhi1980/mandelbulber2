@@ -17,122 +17,118 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	internalName = "testing_log";
 	internalID = fractal::testingLog;
 	DEType = analyticDEType;
-	DEFunctionType = logarithmicDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionLogarithmic;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
-	if (fractal->transformCommon.functionEnabledNFalse)
+	//double tp = fractal->transformCommon.offset1;
+	double t = fractal->transformCommon.minR06;
+	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
+	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
+
+	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
+	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
+	double scale2 = fractal->transformCommon.scale2;
+	// adjusting this can help with the stepping scheme, but doesn't affect geometry.
+
+	double innerScale = SQRT_3 / (1.0 + SQRT_3);
+	double innerScaleB = innerScale * innerScale * 0.25;
+
+	//for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
+	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse
-				&& aux.i >= fractal->transformCommon.startIterationsX
-				&& aux.i < fractal->transformCommon.stopIterationsX)
-			z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse
-				&& aux.i >= fractal->transformCommon.startIterationsY
-				&& aux.i < fractal->transformCommon.stopIterationsY)
-			z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse
-				&& aux.i >= fractal->transformCommon.startIterationsZ
-				&& aux.i < fractal->transformCommon.stopIterationsZ)
-			z.z = fabs(z.z);
-	}
-
-	double r = aux.r;
-	aux.DE = r * 2.0 * aux.DE + 1.0;
-	double Scale = fractal->transformCommon.scale1;
-	double Shape = fractal->transformCommon.offset0;
-	double temp = 1.0;
-
-	// stereographic projection, modified a bit
-	if (fractal->transformCommon.functionEnabledx)
-	{
-		z.x /= r;
-		z.y /= r;
-	}
-	if (fractal->transformCommon.functionEnabledz) z.z = (z.z / r) + Shape;
-
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		z.z *= z.z;
-		Shape *= Shape;
-	}
-	if (fractal->transformCommon.functionEnabledy)
-	{
-		z.x /= z.z;
-		z.y /= z.z;
-	}
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		temp = 1.0 / (z.z * z.z * 1.0);
-		z.x *= temp;
-		z.y *= temp;
-	}
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		z.x *= z.z;
-		z.y *= z.z;
-	}
-
-	// complex multiplication
-	temp = z.x * z.x - z.y * z.y;
-	z.y = 2.0 * z.x * z.y;
-	z.x = temp;
-	temp = Scale * (1.0 + (Shape * Shape));
-
-	z.x *= temp;
-	z.y *= temp;
-
-	// inverse stereographic
-	double mag1 = z.x * z.x + z.y * z.y - 1.0;
-	double mag2 = 1.0 / (mag1 + 2.0);
-	z.x = z.x * 2.0 * mag2;
-	z.y = z.y * 2.0 * mag2;
-	z.z = mag1 * mag2;
-
-	z *= r * r;
-
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-	{
-		CVector4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
-			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfXYZC)
-			{
-				case multi_OrderOfXYZ_xyz:
-				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
-				case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
-				case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
-				case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
-				case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
-				case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
-			}
-			aux.c = tempC;
+			CVector4 zB = z - CVector4(0.0, 0.0, innerScale * 0.5, 0.0);
+			if (zB.Dot(zB) < innerScaleB) break; // definitely inside
+		}
+
+		double maxH = 0.4 * fractal->transformCommon.scaleG1;
+		if (n == 0) maxH = -100;
+
+		CVector4 zC = z - CVector4(0.0, 0.0, t, 0.0);
+		if (z.z > maxH && zC.Dot(zC) > t * t) break; // definitely outside
+
+		CVector4 zD = z - CVector4(0.0, 0.0, 0.5, 0.0);
+		double invSC = 1.0 / z.Dot(z) * fractal->transformCommon.scaleF1;
+
+		if (z.z < maxH && zD.Dot(zD) > 0.5 * 0.5)
+		{
+			// needs a sphere inverse
+			aux.DE *= invSC;
+			z *= invSC;
+			aux.color += 1.0;
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfXYZC)
-			{
-				case multi_OrderOfXYZ_xyz:
-				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
-				case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
-				case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
-				case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
-				case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
-				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
-			}
+			// stretch onto a plane at zero
+			aux.color += 2.0;
+			aux.DE *= invSC;
+			z *= invSC;
+			z.z -= 1.0;
+			z.z *= -1.0;
+			z *= SQRT_3;
+			aux.DE *= SQRT_3;
+			z.z += 1.0;
+
+		// and rotate it a twelfth of a revolution
+			double a = M_PI / double(fractal->transformCommon.int6);
+			double cosA = cos(a);
+			double sinA = sin(a);
+			double xx = z.x * cosA + z.y * sinA;
+			double yy = -z.x * sinA + z.y * cosA;
+			z.x = xx;
+			z.y = yy;
 		}
-		z += tempC * fractal->transformCommon.constantMultiplierC111;
-	}
 
-	z += fractal->transformCommon.additionConstant000;
+		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
+		double h = z.z;
+		double x = z.Dot(-1.0 * n2) * fractal->transformCommon.scaleA2 / SQRT_3;
+		double y = z.Dot(-1.0 * n1) * fractal->transformCommon.scaleA2 / SQRT_3;
+		x = x - floor(x);
+		y = y - floor(y);
 
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		if (x + y > 1.0)
+		{
+			x = 1.0 - x;
+			y = 1.0 - y;
+		// aux.color += 2.0;
+		}
+
+		z = x * t1 - y * t2;
+		// fold the space to be in a kite
+		double l0 = z.Dot(z);
+		double l1 = (z - t1).Dot(z - t1);
+		double l2 = (z + t2).Dot(z + t2);
+
+		if (l1 < l0 && l1 < l2)
+		{
+			z -= t1 * (2.0 * z.Dot(t1) - 1.0);
+			// aux.color += 1.0;
+		}
+
+		else if (l2 < l0 && l2 < l1)
+		{
+			z -= t2 * (2.0 * z.Dot(t2) + 1.0);
+			// aux.color += 2.0;
+		}
+
+		z.z = h;
+		//double pp = -.2;
+		//if ( i % 2 == 0) pp = 0.0;
+		//z += fractal->transformCommon.offset000 + pp;
+
+		}
+	// aux.DE =  scale2;
+	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
+	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
+	if (fractal->analyticDE.enabled) d = (sqrt(d + 1.0) - 1.0) * 2.0;
+	d /= (scale2 * aux.DE);
+
+	aux.dist = min(aux.dist, d);
 }

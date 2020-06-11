@@ -185,14 +185,49 @@
       <number>2</number>
      </property>
      <item row="3" column="0">
+      <widget class="QLabel" name="label_297">
+       <property name="text">
+        <string>invSC:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleF_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
       <widget class="QLabel" name="label_295">
        <property name="text">
-        <string>offset:</string>
+        <string>06t:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -222,12 +257,12 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>scale:</string>
+        <string>maxh</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+     <item row="5" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_06">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -254,6 +289,41 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_299">
+       <property name="text">
+        <string>a2:</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -261,261 +331,79 @@
      <property name="verticalSpacing">
       <number>2</number>
      </property>
-     <item row="1" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-       <property name="text">
-        <string>* z.z</string>
+     <item row="2" column="2">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-       <property name="text">
-        <string>/ z.z</string>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="text">
-        <string>inv z</string>
+      <widget class="MySpinBox" name="spinboxInt_transf_int8_X">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
-       <property name="text">
-        <string>temp</string>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-       <property name="text">
-        <string>/ (z.z * z.z + 1.0)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-       <property name="text">
-        <string>square</string>
+       <property name="maximum">
+        <number>250</number>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+      <widget class="QLabel" name="label_296">
        <property name="text">
-        <string>inv xy</string>
+        <string>int 8x n</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_int_6">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <property name="text">
+        <string>bx false inner</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_298">
+       <property name="text">
+        <string>int6 sym</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="title">
-      <string>addCpixel Axis Swap ConstantM&amp;ultiplier</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_51">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,1,0">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="0" rowspan="3">
-         <widget class="QLabel" name="label_108">
-          <property name="text">
-           <string>Cpixel
-Multiplier:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_110">
-          <property name="text">
-           <string notr="true">c.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_111">
-          <property name="text">
-           <string notr="true">c.z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_109">
-          <property name="text">
-           <string notr="true">c.x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
-          <item>
-           <property name="text">
-            <string notr="true">xyz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">xzy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yxz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yzx</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">zxy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">zyx</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>function order 
-of c.x, c.y and c.z:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
-          <property name="text">
-           <string>alternate swap</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,1">
+    <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,0">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -534,7 +422,7 @@ of c.x, c.y and c.z:</string>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -576,7 +464,7 @@ of c.x, c.y and c.z:</string>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -604,7 +492,7 @@ of c.x, c.y and c.z:</string>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -662,7 +550,7 @@ of c.x, c.y and c.z:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="2">
+        <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -690,7 +578,7 @@ of c.x, c.y and c.z:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -718,17 +606,45 @@ of c.x, c.y and c.z:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
+        <item row="1" column="0" colspan="2">
          <widget class="QLabel" name="label_182">
           <property name="text">
            <string>scale1:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="2" column="0" colspan="2">
          <widget class="QLabel" name="label_177">
           <property name="text">
            <string>offset0:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1052,11 +968,6 @@ of c.x, c.y and c.z:</string>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
   </customwidget>
-  <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
@@ -1068,13 +979,9 @@ of c.x, c.y and c.z:</string>
   <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_Z</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_Z</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
-  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
-  <tabstop>spinbox3_transf_constant_multiplierC_111_x</tabstop>
-  <tabstop>spinbox3_transf_constant_multiplierC_111_y</tabstop>
-  <tabstop>spinbox3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>spinbox3_transf_offset_000_x</tabstop>
+  <tabstop>spinbox3_transf_offset_000_y</tabstop>
+  <tabstop>spinbox3_transf_offset_000_z</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
