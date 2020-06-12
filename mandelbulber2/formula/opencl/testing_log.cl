@@ -73,6 +73,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 		// and rotate it a twelfth of a revolution
 			REAL a = M_PI / (REAL)(fractal->transformCommon.int6);
+			a *= fractal->transformCommon.scaleD1;
 			REAL cosA = cos(a);
 			REAL sinA = sin(a);
 			REAL xx = z.x * cosA + z.y * sinA;
@@ -83,7 +84,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
 
-		REAL h = z.z;
+		REAL h = z.z * fractal->transformCommon.scaleE1;
 
 		REAL x = dot(z, -n2) * fractal->transformCommon.scaleA2 / SQRT_3;
 		REAL y = dot(z, -n1) * fractal->transformCommon.scaleA2 / SQRT_3;
@@ -124,7 +125,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z.z = h;
 		//REAL pp = -.2;
 		//if ( i % 2 == 0) pp = 0.0;
-		//z += fractal->transformCommon.offset000 + pp;
+		z += fractal->transformCommon.offset000;
 
 		}
 	// aux->DE =  scale2;

@@ -18,7 +18,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	internalID = fractal::testingLog;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
@@ -71,7 +71,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		else
 		{
 			// stretch onto a plane at zero
-			ColV.y += 1.0;;
+			ColV.y += 1.0;
 			aux.DE *= invSC;
 			z *= invSC;
 			z.z -= 1.0;
@@ -82,6 +82,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 		// and rotate it a twelfth of a revolution
 			double a = M_PI / double(fractal->transformCommon.int6);
+			a *= fractal->transformCommon.scaleD1;
 			double cosA = cos(a);
 			double sinA = sin(a);
 			double xx = z.x * cosA + z.y * sinA;
@@ -91,7 +92,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
-		double h = z.z;
+		double h = z.z * fractal->transformCommon.scaleE1;
 		double x = z.Dot(-1.0 * n2) * fractal->transformCommon.scaleA2 / SQRT_3;
 		double y = z.Dot(-1.0 * n1) * fractal->transformCommon.scaleA2 / SQRT_3;
 		x = x - floor(x);
@@ -125,7 +126,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z.z = h;
 		//double pp = -.2;
 		//if ( i % 2 == 0) pp = 0.0;
-		//z += fractal->transformCommon.offset000 + pp;
+		z += fractal->transformCommon.offset000;
 
 		}
 	// aux.DE =  scale2;
