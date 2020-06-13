@@ -247,7 +247,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0">
+    <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
      <property name="verticalSpacing">
       <number>2</number>
      </property>
@@ -280,7 +280,7 @@
      <item row="2" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
        <property name="text">
-        <string>bx false inner</string>
+        <string>disable inner</string>
        </property>
       </widget>
      </item>
