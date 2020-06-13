@@ -261,6 +261,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinianStdDE());
 	fractalList->append(new cFractalPseudoKleinianMod3());
 	fractalList->append(new cFractalScatorPower2());
+	fractalList->append(new cFractalSpheretree());
 
 	//------------------------ DELTA DE FORMULAS ------------------------
 

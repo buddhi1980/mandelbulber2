@@ -11,6 +11,7 @@ v2.22 (??? 2020)
    riemannSphereMsltoeM3d
    sierpinski3dV2
    sierpinski3dV3
+   spheretree
    transfDELinearCube
    transfRotationChebyshev
    transfSphericalFoldV2

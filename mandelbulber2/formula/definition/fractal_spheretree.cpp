@@ -11,11 +11,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
+cFractalSpheretree::cFractalSpheretree() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Log";
-	internalName = "testing_log";
-	internalID = fractal::testingLog;
+	nameInComboBox = "Spheretree";
+	internalName = "spheretree";
+	internalID = fractal::spheretree;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -24,10 +24,8 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	//double tp = fractal->transformCommon.offset1;
 	double t = fractal->transformCommon.minR06;
@@ -36,7 +34,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
 	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
-
 
 	double innerScale = SQRT_3 / (1.0 + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
@@ -57,7 +54,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (z.z > maxH && zC.Dot(zC) > t * t) break; // definitely outside
 
 		CVector4 zD = z - CVector4(0.0, 0.0, 0.5, 0.0);
-		double invSC = 1.0 / z.Dot(z) * fractal->transformCommon.scaleF1;
+		double invSC = fractal->transformCommon.scaleF1 / z.Dot(z);
 
 		if (z.z < maxH && zD.Dot(zD) > 0.5 * 0.5)
 		{
@@ -112,22 +109,17 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			z -= t1 * (2.0 * z.Dot(t1) - 1.0);
 		}
-
 		else if (l2 < l0 && l2 < l1)
 		{
 			z -= t2 * (2.0 * z.Dot(t2) + 1.0);
-
 		}
-
 		z.z = h;
-		//double pp = -.2;
-		//if ( i % 2 == 0) pp = 0.0;
+
 		z += fractal->transformCommon.offset000;
 	}
 	// aux.DE
 	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
 	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
-
 	d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
 	d /= (fractal->analyticDE.scale1 * 2.22 * aux.DE);
@@ -136,13 +128,13 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
-	{ double colorAdd = 0.0;
+	{
+		double colorAdd = 0.0;
 		colorAdd += colorAdd * fractal->foldColor.difs1;
 		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
 		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
 		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
-
 
 		aux.color += colorAdd;
 	}
