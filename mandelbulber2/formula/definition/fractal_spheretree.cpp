@@ -127,7 +127,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = d;
 	else aux.dist = min(aux.dist, d);
 
-	if (fractal->analyticDE.enabled) z = oldZ;
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
