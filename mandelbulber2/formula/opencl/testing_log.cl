@@ -131,7 +131,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	ColV.w = d;
 	d /= (fractal->analyticDE.scale1 * 2.22 * aux->DE);
 
-	if (!fractal->analyticDE.enabledXFalse) aux->dist = d;
+	if (!fractal->transformCommon.functionEnabledXFalse) aux->dist = d;
 	else aux->dist = min(aux->dist, d);
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
