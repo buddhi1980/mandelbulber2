@@ -27,7 +27,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-
+	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	//double tp = fractal->transformCommon.offset1;
 	double t = fractal->transformCommon.minR06;
@@ -132,7 +132,10 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	ColV.w = d;
 	d /= (fractal->analyticDE.scale1 * 2.22 * aux.DE);
 
-	aux.dist = min(aux.dist, d);
+	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = d;
+	else aux.dist = min(aux.dist, d);
+
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)

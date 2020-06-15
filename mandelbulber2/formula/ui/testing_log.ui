@@ -441,18 +441,11 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_125">
-       <property name="text">
-        <string notr="true">x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -477,6 +470,41 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_183">
+       <property name="text">
+        <string>Analytic DE scale1:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="MyCheckBox" name="checkBox_analyticDE_enabled">
+       <property name="text">
+        <string>min aux.dist</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
+       <property name="text">
+        <string>z = oldZ</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_125">
+       <property name="text">
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -519,6 +547,16 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
      </item>

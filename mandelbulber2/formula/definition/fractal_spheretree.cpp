@@ -27,7 +27,7 @@ cFractalSpheretree::cFractalSpheretree() : cAbstractFractal()
 void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	//double tp = fractal->transformCommon.offset1;
+	CVector4 oldZ = z;
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
 	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
@@ -124,18 +124,17 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	ColV.w = d;
 	d /= (fractal->analyticDE.scale1 * 2.22 * aux.DE);
 
-	aux.dist = min(aux.dist, d);
+	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = d;
+	else aux.dist = min(aux.dist, d);
+
+	if (fractal->analyticDE.enabled) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		double colorAdd = 0.0;
-		colorAdd += colorAdd * fractal->foldColor.difs1;
-		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
-		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
-		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
-		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
-
-		aux.color += colorAdd;
+		aux.color += ColV.x * fractal->foldColor.difs0000.x
+				+ ColV.y * fractal->foldColor.difs0000.y
+				+ ColV.z * fractal->foldColor.difs0000.z
+				+ ColV.w * fractal->foldColor.difs0000.w;
 	}
 }

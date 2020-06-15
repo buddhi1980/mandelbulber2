@@ -16,7 +16,7 @@
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
-
+	REAL4 oldZ = z;
 
 	REAL4 ColV = (REAL4)(0.0, 0.0, 0.0, 0.0);
 
@@ -131,7 +131,10 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	ColV.w = d;
 	d /= (fractal->analyticDE.scale1 * 2.22 * aux->DE);
 
-	aux->dist = min(aux->dist, d);
+	if (!fractal->analyticDE.enabledFalse) aux->dist = d;
+	else aux->dist = min(aux->dist, d);
+
+	if (fractal->analyticDE.enabled) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
