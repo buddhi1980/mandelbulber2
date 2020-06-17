@@ -15,7 +15,7 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
+	REAL Dd = 1.0;
 	REAL4 oldZ = z;
 
 	REAL4 ColV = (REAL4)(0.0, 0.0, 0.0, 0.0);
@@ -53,7 +53,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (z.z < maxH && dot(zD, zD) > 0.5 * 0.5)
 		{
 			// needs a sphere inverse
-			aux->DE *= invSC;
+			Dd *= invSC;
 			z *= invSC;
 			ColV.x += 1.0;
 		}
@@ -61,12 +61,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			// stretch onto a plane at zero
 			ColV.y += 1.0;
-			aux->DE *= invSC;
+			Dd *= invSC;
 			z *= invSC;
 			z.z -= 1.0;
 			z.z *= -1.0;
 			z *= SQRT_3;
-			aux->DE *= SQRT_3;
+			Dd *= SQRT_3;
 			z.z += 1.0;
 
 		// and rotate it a twelfth of a revolution
@@ -125,14 +125,14 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z += fractal->transformCommon.offset000;
 	}
 
-
+	aux->DE = fractal->analyticDE.scale1 * 2.22 * Dd;
 	REAL d = (length(z - (REAL4)(0.0, 0.0, 0.4, 0.0)) - 0.4);
 	d = (sqrt(d + 1.0) - 1) * 2.0;
 	ColV.w = d;
-	d /= (fractal->analyticDE.scale1 * 2.22 * aux->DE);
+	d /= aux->DE;
 
-	if (!fractal->transformCommon.functionEnabledXFalse) aux->dist = d;
-	else aux->dist = min(aux->dist, d);
+	if (!fractal->transformCommon.functionEnabledXFalse) aux->dist = min(aux->dist, d);
+	else aux->dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 

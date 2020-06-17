@@ -26,6 +26,7 @@ cFractalSpheretree::cFractalSpheretree() : cAbstractFractal()
 
 void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double Dd = 1.0;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 oldZ = z;
 	double t = fractal->transformCommon.minR06;
@@ -59,7 +60,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (z.z < maxH && zD.Dot(zD) > 0.5 * 0.5)
 		{
 			// needs a sphere inverse
-			aux.DE *= invSC;
+			Dd *= invSC;
 			z *= invSC;
 			ColV.x += 1.0;
 		}
@@ -67,12 +68,12 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			// stretch onto a plane at zero
 			ColV.y += 1.0;
-			aux.DE *= invSC;
+			Dd *= invSC;
 			z *= invSC;
 			z.z -= 1.0;
 			z.z *= -1.0;
 			z *= SQRT_3;
-			aux.DE *= SQRT_3;
+			Dd *= SQRT_3;
 			z.z += 1.0;
 
 		// and rotate it a twelfth of a revolution
@@ -118,14 +119,15 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z += fractal->transformCommon.offset000;
 	}
 	// aux.DE
+	aux.DE = fractal->analyticDE.scale1 * 2.22 * Dd;
 	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
 	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
 	d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
-	d /= (fractal->analyticDE.scale1 * 2.22 * aux.DE);
+	d /= aux.DE;
 
-	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = d;
-	else aux.dist = min(aux.dist, d);
+	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = min(aux.dist, d);
+	else aux.dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
