@@ -15,7 +15,9 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL Dd = 1.0;
+	REAL Dd;
+	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
+	else Dd = aux->DE;
 	REAL4 oldZ = z;
 
 	REAL4 ColV = (REAL4)(0.0, 0.0, 0.0, 0.0);
@@ -121,7 +123,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 
 		z.z = h;
-
+		z *= fractal->transformCommon.scaleD1;
+		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
 	}
 

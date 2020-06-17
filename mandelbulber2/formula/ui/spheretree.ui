@@ -109,6 +109,13 @@
      <property name="spacing">
       <number>2</number>
      </property>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_300">
+       <property name="text">
+        <string>z.z scale:</string>
+       </property>
+      </widget>
+     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_295">
        <property name="text">
@@ -116,8 +123,8 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -172,50 +179,8 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_120">
-       <property name="text">
-        <string>maxH:</string>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_06">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_300">
-       <property name="text">
-        <string>z.z scale:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -256,6 +221,41 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_120">
+       <property name="text">
+        <string>maxH:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
      <item row="6" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleE_1">
        <property name="sizePolicy">
@@ -281,6 +281,41 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleD_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_301">
+       <property name="text">
+        <string>scale:</string>
        </property>
       </widget>
      </item>
@@ -463,6 +498,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+          <property name="text">
+           <string>disable min aux.dist</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1">
          <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
           <property name="text">
@@ -470,10 +512,17 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+        <item row="2" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
-           <string>disable min aux.dist</string>
+           <string>Dd = aux.DE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+          <property name="text">
+           <string>Bz</string>
           </property>
          </widget>
         </item>

@@ -26,7 +26,10 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double Dd = 1.0;
+	double Dd;
+	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
+	else Dd = aux.DE;
+
 	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	//double tp = fractal->transformCommon.offset1;
@@ -118,19 +121,18 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z -= t2 * (2.0 * z.Dot(t2) + 1.0);
 
 		}
-
 		z.z = h;
-		//double pp = -.2;
-		//if ( i % 2 == 0) pp = 0.0;
+		z *= fractal->transformCommon.scaleD1;
+		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
 	}
 	// aux.DE
-	aux.DE = fractal->analyticDE.scale1 * 2.22 * Dd;
+	aux.DE = Dd;
 	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
 	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
 	d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
-	d /= aux.DE;
+	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;
 
 	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = min(aux.dist, d);
 	else aux.dist = d;
@@ -145,7 +147,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
 		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
 		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
-
 
 		aux.color += colorAdd;
 	}
