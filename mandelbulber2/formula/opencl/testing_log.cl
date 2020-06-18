@@ -85,7 +85,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
 
 		REAL h = z.z * fractal->transformCommon.scaleE1;
-
+		z *= fractal->transformCommon.scaleC1;
+		Dd *= fractal->transformCommon.scaleC1;
 		REAL x = dot(z, -n2) * fractal->transformCommon.scaleA2 / SQRT_3;
 		REAL y = dot(z, -n1) * fractal->transformCommon.scaleA2 / SQRT_3;
 		x = x - floor(x);
@@ -103,7 +104,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 
 		// fold the space to be in a kite
-
 		REAL l0 = dot(z, z);
 		REAL l1 = dot(z - t1, z - t1);
 		REAL l2 = dot(z + t2, z + t2);
@@ -111,15 +111,11 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (l1 < l0 && l1 < l2)
 		{
 			z -= t1 * (2.0 * dot(t1, z) - 1.0);
-
-
-
 		}
 
 		else if (l2 < l0 && l2 < l1)
 		{
 			z -= t2 * (2.0 * dot(z, t2) + 1.0);
-
 		}
 
 		z.z = h;
@@ -128,11 +124,11 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z += fractal->transformCommon.offset000;
 	}
 
-	aux->DE = fractal->analyticDE.scale1 * 2.22 * Dd;
+	aux->DE = Dd;
 	REAL d = (length(z - (REAL4)(0.0, 0.0, 0.4, 0.0)) - 0.4);
 	d = (sqrt(d + 1.0) - 1) * 2.0;
 	ColV.w = d;
-	d /= aux->DE;
+	d /= fractal->analyticDE.scale1 * 2.22 * aux->DE;
 
 	if (!fractal->transformCommon.functionEnabledXFalse) aux->dist = min(aux->dist, d);
 	else aux->dist = d;

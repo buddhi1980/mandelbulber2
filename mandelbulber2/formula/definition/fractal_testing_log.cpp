@@ -32,7 +32,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	//double tp = fractal->transformCommon.offset1;
+	double tmp = fractal->transformCommon.offset1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
 	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
@@ -50,7 +50,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			CVector4 zB = z - CVector4(0.0, 0.0, innerScale * 0.5, 0.0);
-			if (zB.Dot(zB) < innerScaleB) break; // definitely inside
+			if (zB.Dot(zB) < innerScaleB * tmp) break; // definitely inside
 		}
 
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
@@ -93,6 +93,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
 		double h = z.z * fractal->transformCommon.scaleE1;
+		z *= fractal->transformCommon.scaleC1;
+		Dd *= fractal->transformCommon.scaleC1;
+
 		double x = z.Dot(-1.0 * n2) * fractal->transformCommon.scaleA2 / SQRT_3;
 		double y = z.Dot(-1.0 * n1) * fractal->transformCommon.scaleA2 / SQRT_3;
 		x = x - floor(x);

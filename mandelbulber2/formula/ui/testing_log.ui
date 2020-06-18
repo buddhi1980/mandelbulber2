@@ -30,224 +30,40 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_79" columnstretch="0,1">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_297">
-       <property name="text">
-        <string>invSC:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleF_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_295">
-       <property name="text">
-        <string>06t:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_120">
-       <property name="text">
-        <string>maxh</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_06">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_299">
-       <property name="text">
-        <string>mod:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleE_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_300">
-       <property name="text">
-        <string>z.z scale</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_301">
-       <property name="text">
-        <string>a:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
      <property name="verticalSpacing">
       <number>2</number>
      </property>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_298">
-       <property name="text">
-        <string>int6 sym</string>
+     <item row="0" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_int8_X">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
-       <property name="text">
-        <string>by de</string>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="maximum">
+        <number>250</number>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_296">
+      <widget class="QLabel" name="label_303">
        <property name="text">
-        <string>int 8x n</string>
+        <string>iterations:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_304">
        <property name="text">
-        <string>disable inner</string>
+        <string>symmetry:</string>
        </property>
       </widget>
      </item>
@@ -279,26 +95,203 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_int8_X">
+     <item row="2" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <property name="text">
+        <string>disable inner check</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_79" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_300">
+       <property name="text">
+        <string>z.z scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_295">
+       <property name="text">
+        <string>t scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleF_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_06">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_297">
+       <property name="text">
+        <string>invert scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_299">
+       <property name="text">
+        <string>mod scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_120">
+       <property name="text">
+        <string>maxH:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleE_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_301">
+       <property name="text">
+        <string>scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleD_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -326,10 +319,97 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+     <property name="verticalSpacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_298">
+       <property name="text">
+        <string>int6 sym</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_296">
+       <property name="text">
+        <string>offset1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="label_302">
        <property name="text">
-        <string>scale</string>
+        <string>c1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleC_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -455,60 +535,266 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,1">
-     <property name="spacing">
-      <number>2</number>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Analytic DE and Hybrid Controls</string>
      </property>
-     <item row="0" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_183">
-       <property name="text">
-        <string>Analytic DE scale1:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-       <property name="text">
-        <string>min aux.dist</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-       <property name="text">
-        <string>z = oldZ</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_178">
+          <property name="text">
+           <string>aux.DE scale1:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+          <property name="text">
+           <string>disable min aux.dist</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
+          <property name="text">
+           <string>z = oldZ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+          <property name="text">
+           <string>Dd = aux.DE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+          <property name="text">
+           <string>Bz</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">
+     <property name="title">
+      <string>aux color c&amp;omponents</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_11">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="3" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="2">
+         <widget class="QLabel" name="label_59">
+          <property name="text">
+           <string>stretch on to plane</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_60">
+          <property name="text">
+           <string>sphere invert only</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="2">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_121">
+          <property name="text">
+           <string>if (x + y &gt; 1.0)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_122">
+          <property name="text">
+           <string>radius</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0">
@@ -564,209 +850,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
     </layout>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">
-     <property name="title">
-      <string>aux color c&amp;omponents</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_11">
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,0">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="5" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" rowspan="2">
-         <widget class="QLabel" name="label_59">
-          <property name="text">
-           <string>y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_60">
-          <property name="text">
-           <string>x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" rowspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_61">
-          <property name="text">
-           <string>1 neg1 to stop aux.color prob</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
