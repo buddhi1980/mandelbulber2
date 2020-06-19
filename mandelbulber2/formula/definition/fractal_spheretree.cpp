@@ -34,10 +34,8 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
 	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
-
 	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
 	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
-
 	double innerScale = SQRT_3 / (1.0 + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
 
@@ -78,7 +76,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			Dd *= SQRT_3;
 			z.z += 1.0;
 
-		// and rotate it a twelfth of a revolution
+		// and rotate it a twelfth of a revolution pi/6
 			double a = M_PI / fractal->transformCommon.scale6;
 			double cosA = cos(a);
 			double sinA = sin(a);

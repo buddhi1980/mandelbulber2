@@ -15,6 +15,26 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z += fractal->transformCommon.offsetA000;
+		double m = 1.0;
+		double rr = dot(z, z);
+		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
+		else m = fractal->transformCommon.inv1;
+		z *= m;
+		aux->DE *= m;
+		z += fractal->transformCommon.additionConstant000
+				- fractal->transformCommon.offsetA000;
+	}
+
+
+
+
 	REAL Dd;
 	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
 	else Dd = aux->DE;
@@ -92,7 +112,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		x = x - floor(x);
 		y = y - floor(y);
 
-
 		if (x + y > 1.0)
 		{
 			x = 1.0 - x;
@@ -101,7 +120,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 
 		z = x * t1 - y * t2;
-
 
 		// fold the space to be in a kite
 		REAL l0 = dot(z, z);
@@ -144,10 +162,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
 		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
 
-
 		aux->color += colorAdd;
 	}
-
 
 	return z;
 }

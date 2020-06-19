@@ -26,6 +26,24 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		z += fractal->transformCommon.offsetA000;
+		double m = 1.0;
+		double rr = z.Dot(z);
+		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
+		else m = fractal->transformCommon.inv1;
+		z *= m;
+		aux.DE *= m;
+		z += fractal->transformCommon.additionConstant000
+				- fractal->transformCommon.offsetA000;
+	}
+
+
+
 	double Dd;
 	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
 	else Dd = aux.DE;
@@ -39,7 +57,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
 	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
-
 
 	double innerScale = SQRT_3 / (1.0 + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
