@@ -30,16 +30,30 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		z += fractal->transformCommon.offsetA000;
+		CVector4 signs = z;
+		signs.x = sign(z.x);
+		signs.y = sign(z.y);
+		signs.z = sign(z.z);
+		signs.w = sign(z.w);
+
+		z = fabs(z);
+		CVector4 tt = fractal->transformCommon.offsetA000;
+		z -= tt;
+
 		double m = 1.0;
 		double rr = z.Dot(z);
 		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
 		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
 		else m = fractal->transformCommon.inv1;
+
+		z += tt;
 		z *= m;
 		aux.DE *= m;
-		z += fractal->transformCommon.additionConstant000
-				- fractal->transformCommon.offsetA000;
+
+
+		z *= signs;
+		z += fractal->transformCommon.additionConstant000 * signs;
+
 	}
 
 

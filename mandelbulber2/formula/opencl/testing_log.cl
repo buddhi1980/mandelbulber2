@@ -20,16 +20,28 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		z += fractal->transformCommon.offsetA000;
-		double m = 1.0;
-		double rr = dot(z, z);
+		REAL4 signs = z;
+		signs.x = sign(z.x);
+		signs.y = sign(z.y);
+		signs.z = sign(z.z);
+		signs.w = sign(z.w);
+
+		z = fabs(z);
+		REAL4 tt = fractal->transformCommon.offsetA000;
+		z -= tt;
+
+		REAL m = 1.0;
+		REAL rr = dot(z, z);
 		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
 		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
 		else m = fractal->transformCommon.inv1;
-		z *= m;
+
+		z += tt;
+		z *= (REAL4)(m, m, m, 1.0);
 		aux->DE *= m;
-		z += fractal->transformCommon.additionConstant000
-				- fractal->transformCommon.offsetA000;
+
+		z *= signs;
+		z += fractal->transformCommon.additionConstant000 * signs;
 	}
 
 
