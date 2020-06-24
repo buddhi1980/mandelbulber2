@@ -5,6 +5,7 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
+ *
  * formula by pupukuusikko
  * http://www.fractalforums.com/the-3d-mandelbulb/a-new-3d-mandelbrot-variant-mandelcup/
  */
@@ -42,25 +43,26 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 		double m = 1.0;
 		double rr = z.Dot(z);
-		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
-		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
-		else m = fractal->transformCommon.inv1;
+		if (rr < fractal->transformCommon.invert0)
+			m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1)
+			m = 1.0 / rr;
+		else
+			m = fractal->transformCommon.inv1;
 
 		z += tt;
 		z *= m;
 		aux.DE *= m;
 
-
 		z *= signs;
 		z += fractal->transformCommon.additionConstant000 * signs;
-
 	}
 
-
-
 	double Dd;
-	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
-	else Dd = aux.DE;
+	if (!fractal->transformCommon.functionEnabledByFalse)
+		Dd = 1.0;
+	else
+		Dd = aux.DE;
 
 	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
@@ -75,7 +77,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double innerScale = SQRT_3 / (1.0 + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
 
-	//for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
+	// for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
 		if (!fractal->transformCommon.functionEnabledBxFalse)
@@ -112,7 +114,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			Dd *= SQRT_3;
 			z.z += 1.0;
 
-		// and rotate it a twelfth of a revolution
+			// and rotate it a twelfth of a revolution
 			double a = M_PI / fractal->transformCommon.scale6;
 			double cosA = cos(a);
 			double sinA = sin(a);
@@ -153,7 +155,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		else if (l2 < l0 && l2 < l1)
 		{
 			z -= t2 * (2.0 * z.Dot(t2) + 1.0);
-
 		}
 		z.z = h;
 		z *= fractal->transformCommon.scaleD1;
@@ -168,14 +169,17 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;
 
-	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = min(aux.dist, d);
-	else aux.dist = d;
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux.dist = min(aux.dist, d);
+	else
+		aux.dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
-	{ double colorAdd = 0.0;
+	{
+		double colorAdd = 0.0;
 		colorAdd += colorAdd * fractal->foldColor.difs1;
 		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;

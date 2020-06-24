@@ -5,6 +5,7 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
+ *
  * formula by TGlad, extras by sabine62
  * https://fractalforums.org/fractal-mathematics-and-new-theories/28/new-sphere-tree/3557/msg22100#msg22100
  */
@@ -27,8 +28,10 @@ cFractalSpheretree::cFractalSpheretree() : cAbstractFractal()
 void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double Dd;
-	if (!fractal->transformCommon.functionEnabledByFalse) Dd = 1.0;
-	else Dd = aux.DE;
+	if (!fractal->transformCommon.functionEnabledByFalse)
+		Dd = 1.0;
+	else
+		Dd = aux.DE;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 oldZ = z;
 	double t = fractal->transformCommon.minR06;
@@ -39,7 +42,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double innerScale = SQRT_3 / (1.0 + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
 
-	//for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
+	// for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
 		if (!fractal->transformCommon.functionEnabledBxFalse)
@@ -76,7 +79,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			Dd *= SQRT_3;
 			z.z += 1.0;
 
-		// and rotate it a twelfth of a revolution pi/6
+			// and rotate it a twelfth of a revolution pi/6
 			double a = M_PI / fractal->transformCommon.scale6;
 			double cosA = cos(a);
 			double sinA = sin(a);
@@ -127,17 +130,17 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;
 
-	if (!fractal->transformCommon.functionEnabledXFalse) aux.dist = min(aux.dist, d);
-	else aux.dist = d;
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux.dist = min(aux.dist, d);
+	else
+		aux.dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		aux.color += ColV.x * fractal->foldColor.difs0000.x
-				+ ColV.y * fractal->foldColor.difs0000.y
-				+ ColV.z * fractal->foldColor.difs0000.z
-				+ ColV.w * fractal->foldColor.difs0000.w;
+		aux.color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+								 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 	}
 }

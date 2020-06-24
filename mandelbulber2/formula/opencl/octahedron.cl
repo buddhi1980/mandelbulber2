@@ -65,7 +65,7 @@ REAL4 OctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		else
 			aux->dist = min(aux->dist, d2);
 
-		// aux.color
+		// aux->color
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			colorAdd = fractal->foldColor.difs0000.x * colorAdd;
