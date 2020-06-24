@@ -351,10 +351,11 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 
 	// building OpenCl kernel
 	QString errorString;
+	bool quiet = (compilerErrorOutput) ? true : false;
 
 	QElapsedTimer timer;
 	timer.start();
-	if (Build(programEngine, &errorString))
+	if (Build(programEngine, &errorString, quiet))
 	{
 		programsLoaded = true;
 	}

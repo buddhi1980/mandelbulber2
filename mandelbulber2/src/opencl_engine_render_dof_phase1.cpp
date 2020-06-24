@@ -124,7 +124,7 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(
 
 	QElapsedTimer timer;
 	timer.start();
-	if (Build(programEngine, &errorString))
+	if (Build(programEngine, &errorString, false))
 	{
 		programsLoaded = true;
 	}

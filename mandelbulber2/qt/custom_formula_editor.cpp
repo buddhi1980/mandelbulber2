@@ -233,7 +233,6 @@ void cCustomFormulaEditor::slotCheckSyntax()
 		int row = match.captured(1).toInt();
 		int col = match.captured(2).toInt();
 		QString error = match.captured(3);
-		qDebug() << row << col << error;
 
 		ui->listWidget_errors->addItem(QString("line %1, col %2: %3").arg(row).arg(col).arg(error));
 		ui->listWidget_errors->adjustSize();

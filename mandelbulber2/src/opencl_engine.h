@@ -99,7 +99,7 @@ public:
 protected:
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
-	bool Build(const QByteArray &programString, QString *errorText);
+	bool Build(const QByteArray &programString, QString *errorText, bool quiet);
 	bool CreateKernels();
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(quint64 pixelsLeft);

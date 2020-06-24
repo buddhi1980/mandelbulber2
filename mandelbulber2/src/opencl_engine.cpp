@@ -84,7 +84,7 @@ bool cOpenClEngine::checkErr(cl_int err, QString functionName)
 		return true;
 }
 
-bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
+bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, bool quiet)
 {
 	if (hardware->getClDevices(0).size() > 0 && hardware->getEnabledDevices().size() > 0)
 	{
@@ -183,9 +183,12 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 					std::cerr << buildLogText;
 
-					emit showErrorMessage(
-						QObject::tr("Error during compilation of OpenCL program\n") + errorText->left(500),
-						cErrorMessage::errorMessage, nullptr);
+					if (!quiet)
+					{
+						emit showErrorMessage(
+							QObject::tr("Error during compilation of OpenCL program\n") + errorText->left(500),
+							cErrorMessage::errorMessage, nullptr);
+					}
 
 					lastBuildParametersHash.clear();
 					lastProgramHash.clear();
@@ -195,9 +198,12 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			}
 			else
 			{
-				emit showErrorMessage(
-					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")),
-					cErrorMessage::errorMessage, nullptr);
+				if (!quiet)
+				{
+					emit showErrorMessage(
+						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")),
+						cErrorMessage::errorMessage, nullptr);
+				}
 				return false;
 			}
 		}
