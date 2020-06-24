@@ -420,6 +420,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSphericalOffset());
 	fractalList->append(new cFractalTransfSphericalOffsetVCL());
 
+	fractalList->append(new cFractalTransfStep());
+
 	// Surf Transforms
 	fractalList->append(new cFractalTransfSurfBoxFold());
 	fractalList->append(new cFractalTransfSurfBoxFoldV2());

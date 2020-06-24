@@ -386,7 +386,8 @@ enum enumFractalFormula
 	transfRotationChebyshev = 1112,
 	transfDELinearCube = 1113,
 	transfSphericalFoldV2 = 1114,
-	transfBoxTilingV2= 1115,
+	transfBoxTilingV2 = 1115,
+	transfStep = 1116,
 
 	// mandelbulber transfdIFS
 	// 2.20
