@@ -12,9 +12,12 @@ v2.22 (??? 2020)
    sierpinski3dV2
    sierpinski3dV3
    spheretree
+   transfBoxTilingV2
    transfDELinearCube
+   transfDIFSHexprism
    transfRotationChebyshev
    transfSphericalFoldV2
+
 
 
 

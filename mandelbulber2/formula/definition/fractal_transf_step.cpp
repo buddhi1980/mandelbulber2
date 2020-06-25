@@ -27,12 +27,21 @@ cFractalTransfStep::cFractalTransfStep() : cAbstractFractal()
 void cFractalTransfStep::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = (z);
-	zc.x *= fractal->transformCommon.scaleC1;
-	zc.y *= fractal->transformCommon.scaleC1;
-	//zc.x += step(1.0, zc.y - 2.0 * floor(zc.y / 2.0)) * 0.5;
+	CVector4 colVec = CVector4(0.0, 0.0, 0.0, 0.0);
+	zc *= fractal->transformCommon.scale3D111;
 
 	double Step =  zc.y - 2.0 * floor(zc.y / 2.0);
-	if (Step > 1.0) zc.x += 1.0 * 0.5; // mmmmmmmmmmmmmmmmmmmm
+
+	if (Step > 1.0)
+	{
+		zc.x += fractal->transformCommon.offset05;
+		colVec.x += 1.0;
+	}
+	else colVec.y += 1.0;
+
+	Step = zc.x - 2.0 * floor(zc.x / 2.0);
+
+	if (Step > 1.0) colVec.z += 1.0;
 
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
@@ -40,7 +49,7 @@ void cFractalTransfStep::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		zc.y = zc.y - floor(zc.y);
 	}
 
-	if (fractal->transformCommon.functionEnabledAyFalse)
+	if (fractal->transformCommon.functionEnabledAy)
 	{
 		CVector4 boxSize = fractal->transformCommon.offset111;
 		zc = fabs(zc) - boxSize;
@@ -50,10 +59,11 @@ void cFractalTransfStep::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		double zcd;
 		if (!fractal->transformCommon.functionEnabledAzFalse) zcd = zc.Length();
 		else zcd = max(max(zc.x, zc.y), zc.z);
+		zcd -= fractal->transformCommon.offset0;
 
-		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0f)) - fractal->transformCommon.offsetC0;
+		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0f));
 	}
-	if (!fractal->transformCommon.functionEnabledAwFalse) z = zc;
+
 
 	if (fractal->analyticDE.enabled)
 	{
@@ -63,5 +73,14 @@ void cFractalTransfStep::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		{
 			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
+	}
+	if (!fractal->transformCommon.functionEnabledAwFalse) z = zc;
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux.color += fractal->foldColor.difs0000.x * colVec.x;
+		aux.color += fractal->foldColor.difs0000.y * colVec.y;
+		aux.color += fractal->foldColor.difs0000.z * colVec.z;
 	}
 }
