@@ -153,6 +153,8 @@ void cInterface::ShowUi()
 	systemData.SetPreferredFontSize(pixelFontSize);
 	systemData.SetPreferredThumbnailSize(thumbnailSize);
 
+	systemData.setPreferredCustomFormulaFontSize(gPar->Get<int>("custom_formula_font_size"));
+
 	mainWindow = new RenderWindow;
 
 	WriteLog("Restoring window geometry", 2);

@@ -34,11 +34,13 @@ struct sSystem
 	{
 		preferredFontSize = preferredFontSizeInput;
 	}
+
 	int GetPreferredThumbnailSize() const { return preferredThumbnailSize; }
 	void SetPreferredThumbnailSize(int preferredThumbnailSizeInput)
 	{
 		preferredThumbnailSize = preferredThumbnailSizeInput;
 	}
+
 	int GetPreferredFontPointSize() const { return preferredFontPointSize; }
 	void SetPreferredFontPointSize(int preferredFontPointSizeInput)
 	{
@@ -46,6 +48,12 @@ struct sSystem
 	}
 	void SetLogfileName(QString logfileNameInput) { logfileName = std::move(logfileNameInput); }
 	QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
+
+	int getPreferredCustomFormulaFontSize() const { return preferredCustomFormulaFontSize; }
+	void setPreferredCustomFormulaFontSize(int _preferredCustomFormulaFontSize)
+	{
+		this->preferredCustomFormulaFontSize = _preferredCustomFormulaFontSize;
+	}
 
 	QString logfileName;
 	QString lastSettingsFile;
@@ -68,6 +76,7 @@ struct sSystem
 	enumRenderingThreadPriority threadsPriority;
 	int preferredFontSize;
 	int preferredFontPointSize;
+	int preferredCustomFormulaFontSize;
 	int preferredThumbnailSize;
 	bool isOutputTty;
 };

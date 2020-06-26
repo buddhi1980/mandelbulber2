@@ -58,7 +58,7 @@
             <x>0</x>
             <y>0</y>
             <width>582</width>
-            <height>717</height>
+            <height>741</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -211,13 +211,17 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="MyComboBox" name="comboBox_ui_style_type"/>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_11">
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_toolbar_icon_size">
                   <property name="text">
-                   <string>Language</string>
+                   <string>Toolbar icon size (pixels)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_display_tooltips">
+                  <property name="text">
+                   <string>Display tooltips</string>
                   </property>
                  </widget>
                 </item>
@@ -225,6 +229,13 @@
                  <widget class="QLabel" name="label_4">
                   <property name="text">
                    <string>UI Skin</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>UI font size (points)</string>
                   </property>
                  </widget>
                 </item>
@@ -272,51 +283,14 @@
                   </item>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_7">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_11">
                   <property name="text">
-                   <string>UI font size (points)</string>
+                   <string>Language</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
-                  <property name="minimum">
-                   <number>20</number>
-                  </property>
-                  <property name="maximum">
-                   <number>400</number>
-                  </property>
-                  <property name="value">
-                   <number>40</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_ui_font_size">
-                  <property name="minimum">
-                   <number>5</number>
-                  </property>
-                  <property name="maximum">
-                   <number>50</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_toolbar_icon_size">
-                  <property name="text">
-                   <string>Toolbar icon size (pixels)</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="comboboxLanguage">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0" colspan="2">
+                <item row="7" column="0" colspan="2">
                  <widget class="MyGroupBox" name="groupCheck_ui_colorize">
                   <property name="title">
                    <string>Colorize group&amp;Boxes</string>
@@ -364,10 +338,56 @@
                   </layout>
                  </widget>
                 </item>
-                <item row="5" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_display_tooltips">
+                <item row="1" column="1">
+                 <widget class="MyComboBox" name="comboBox_ui_style_type"/>
+                </item>
+                <item row="5" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
+                  <property name="minimum">
+                   <number>20</number>
+                  </property>
+                  <property name="maximum">
+                   <number>400</number>
+                  </property>
+                  <property name="value">
+                   <number>40</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_ui_font_size">
+                  <property name="minimum">
+                   <number>5</number>
+                  </property>
+                  <property name="maximum">
+                   <number>50</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="comboboxLanguage">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_19">
                   <property name="text">
-                   <string>Display tooltips</string>
+                   <string>Custom formula editor font size (points)</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_custom_formula_font_size">
+                  <property name="minimum">
+                   <number>5</number>
+                  </property>
+                  <property name="maximum">
+                   <number>50</number>
                   </property>
                  </widget>
                 </item>
@@ -682,7 +702,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>582</width>
+            <width>367</width>
             <height>750</height>
            </rect>
           </property>

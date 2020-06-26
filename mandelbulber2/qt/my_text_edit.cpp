@@ -7,15 +7,17 @@
 
 #include "my_text_edit.h"
 #include <QDebug>
-#include "highlighter.h"
-
 #include <QtGlobal>
+
+#include "highlighter.h"
+#include "src/system_data.hpp"
 
 cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	QFont usedFont = this->font();
 	usedFont.setFamily("Condensed");
 	usedFont.setStretch(QFont::Condensed);
+	usedFont.setPointSize(systemData.getPreferredCustomFormulaFontSize());
 	usedFont.setFixedPitch(true);
 	setFont(usedFont);
 

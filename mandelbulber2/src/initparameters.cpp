@@ -504,6 +504,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
 	par->addParam(
+		"custom_formula_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
+	par->addParam(
 		"toolbar_icon_size", systemData.GetPreferredThumbnailSize() / 2, 20, 400, morphNone, paramApp);
 	par->addParam("ui_colorize", true, morphNone, paramApp);
 	par->addParam("ui_colorize_random_seed", 12345, morphNone, paramApp);
