@@ -299,7 +299,7 @@ transfSphericalInvV2,"T>Spherical Invert V2",analyticDEType,withoutDEFunction,cp
 transfSphericalOffset,"T>Spherical Offset",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalOffsetVCL,"T>Spherical OffsetVCL",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalPwrFold,"T>Spherical Pwr Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
-transfStep,T>Step,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfStepXY,T>Step_XY,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSurfBoxFold,"T>Surf Box_Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSurfBoxFoldV2,"T>Surf Box_Fold V2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSurfBoxFoldV24d,"T>Surf Box_Fold V2 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
