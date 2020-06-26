@@ -213,7 +213,7 @@ transfBoxTiling4d,"T>Box Tiling 4D",analyticDEType,withoutDEFunction,cpixelDisab
 transfBoxTilingV2,"T>Box Tiling V2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBoxWrap4d,"T>Box Wrap 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfClamp4d,"T>Clamp 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
-transfDeControls,"T>DE Controls",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+transfDEControls,"T>DE Controls",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDELinearCube,"T>DE Linear Cube",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDiagonalFold,"T>Diagonal Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfDIFSBox,"T>DIFS Box",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
