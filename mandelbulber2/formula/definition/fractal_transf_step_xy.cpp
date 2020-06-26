@@ -11,11 +11,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfStep::cFractalTransfStep() : cAbstractFractal()
+cFractalTransfStepXY::cFractalTransfStepXY() : cAbstractFractal()
 {
-	nameInComboBox = "T>Step";
-	internalName = "transf_step";
-	internalID = fractal::transfStep;
+	nameInComboBox = "T>Step_XY";
+	internalName = "transf_step_xy";
+	internalID = fractal::transfStepXY;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -24,7 +24,7 @@ cFractalTransfStep::cFractalTransfStep() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfStep::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfStepXY::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = (z);
 	CVector4 colVec = CVector4(0.0, 0.0, 0.0, 0.0);
