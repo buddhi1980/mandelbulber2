@@ -92,7 +92,9 @@ void cCustomFormulaEditor::slotTextChanged()
 	// ui->textEdit_formula_code->setMinimumHeight(
 	//	ui->textEdit_formula_code->document()->size().height());
 	QWidget *parentWidget = qobject_cast<QWidget *>(parent()->parent()->parent()->parent());
-	ui->textEdit_formula_code->setMinimumHeight(parentWidget->height() * 3 / 4);
+	int minimumHeight = parentWidget->height() * 3 / 4;
+	if (minimumHeight < 400) minimumHeight = 400;
+	ui->textEdit_formula_code->setMinimumHeight(minimumHeight);
 }
 
 void cCustomFormulaEditor::slotLoadBuiltIn()
