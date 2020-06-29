@@ -34,7 +34,7 @@ cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 
 cMyTextEdit::~cMyTextEdit()
 {
-	delete highlighter;
+	//delete highlighter;
 }
 
 void cMyTextEdit::keyPressEvent(QKeyEvent *e)

@@ -934,7 +934,7 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 	else if (distanceMode)
 	{
 		// buffer for distances
-		outputBuffers[0] << sClInputOutputBuffer(sizeof(float), 1, "distance-buffer");
+		outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), 1, "distance-buffer");
 	}
 	else
 	{
