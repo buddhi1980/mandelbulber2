@@ -54,7 +54,7 @@ inline float3 CalculateViewVector(float2 normalizedPoint, float fov)
 #endif
 
 #ifdef PERSP_EQUIRECTANGULAR
-	float2 v = normalizedPoint * 0.5;
+	float2 v = normalizedPoint * 0.5f;
 	viewVector.x = sin(fov * v.x) * cos(fov * v.y);
 	viewVector.z = sin(fov * v.y);
 	viewVector.y = cos(fov * v.x) * cos(fov * v.y);
