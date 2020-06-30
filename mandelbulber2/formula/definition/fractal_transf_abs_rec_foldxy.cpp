@@ -16,7 +16,7 @@
 cFractalTransfAbsRecFoldXY::cFractalTransfAbsRecFoldXY() : cAbstractFractal()
 {
 	nameInComboBox = "T>Abs Rec FoldXY";
-	internalName = "transf_abs_rec_foldXY";
+	internalName = "transf_abs_rec_foldxy";
 	internalID = fractal::transfAbsRecFoldXY;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
