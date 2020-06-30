@@ -163,8 +163,8 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 	// aux.DE
 	aux.DE = Dd;
-	CVector4 len = z - CVector4(0.0, 0.0, 0.4, 0.0);
-	double d = (len.Length() - 0.4); // the 0.4 is slightly more averaging than 0.5
+	CVector4 len = z - CVector4(0.0, 0.0, 0.5, 0.0);
+	double d = (len.Length() - 0.5);
 	d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;

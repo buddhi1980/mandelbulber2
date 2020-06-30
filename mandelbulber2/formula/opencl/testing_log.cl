@@ -133,8 +133,10 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z = x * t1 - y * t2;
 		// fold the space to be in a kite
 		REAL l0 = dot(z, z);
-		REAL l1 = (z - t1).Dot(z - t1);
-		REAL l2 = (z + t2).Dot(z + t2);
+		REAL4 zt1 = z - t1;
+		REAL4 zt2 = z + t2;
+		REAL l1 = dot(zt1, zt1);
+		REAL l2 = dot(zt2, zt2);
 
 		if (l1 < l0 && l1 < l2)
 		{
@@ -152,8 +154,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 	// aux->DE
 	aux->DE = Dd;
-	REAL4 len = z - (REAL4){0.0f, 0.0f, 0.4f, 0.0f};
-	REAL d = (length(len) - 0.4f); // the 0.4f is slightly more averaging than 0.5f
+	REAL4 len = z - (REAL4){0.0f, 0.0f, 0.5f, 0.0f};
+	REAL d = (length(len) - 0.5f);
 	d = (native_sqrt(d + 1.0f) - 1.0f) * 2.0f;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22f * aux->DE;

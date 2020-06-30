@@ -202,6 +202,12 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
+
+
 	// color updated v2.13
 	if (fractal->foldColor.auxColorEnabled)
 	{

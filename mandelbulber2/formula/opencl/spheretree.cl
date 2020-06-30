@@ -115,9 +115,9 @@ REAL4 SpheretreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 	// aux->DE
 	aux->DE = Dd;
-	REAL4 len = z - (REAL4){0.0f, 0.0f, 0.4f, 0.0f};
-	REAL d = (length(len) - 0.4f); // the 0.4f is slightly more averaging than 0.5f
-	d = (native_sqrt(d + 1.0f) - 1.0f) * 2.0f;
+	REAL4 len = z - (REAL4){0.0f, 0.0f, 0.5f, 0.0f};
+	REAL d = (length(len) - 0.5f);
+	// d = (native_sqrt(d + 1.0f) - 1.0f) * 2.0f;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22f * aux->DE;
 

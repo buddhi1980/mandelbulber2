@@ -212,6 +212,11 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
+
 	// color updated v2.13
 	if (fractal->foldColor.auxColorEnabled)
 	{

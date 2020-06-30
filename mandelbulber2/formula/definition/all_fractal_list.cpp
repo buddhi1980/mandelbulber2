@@ -303,6 +303,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAbsAddMulti4d());
 	fractalList->append(new cFractalTransfNegAbsAddConstant());
 	fractalList->append(new cFractalTransfAbsAddConditional4d());
+	fractalList->append(new cFractalTransfAbsRecFoldXY());
 
 	// Add Transforms
 	fractalList->append(new cFractalTransfAddConstant());
