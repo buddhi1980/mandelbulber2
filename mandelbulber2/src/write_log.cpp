@@ -9,6 +9,7 @@
 
 #include <QFile>
 #include <QCoreApplication>
+#include <iostream>
 
 #include "interface.hpp"
 #include "render_window.hpp"
