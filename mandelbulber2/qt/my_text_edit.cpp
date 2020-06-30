@@ -29,8 +29,7 @@ cMyTextEdit::cMyTextEdit(QWidget *parent) : QTextEdit(parent)
 	setTabStopWidth(fm.width(' ') * tabSize);
 #endif
 
-	// highlighter = new Highlighter(document());
-	highlighter = nullptr;
+	highlighter = new Highlighter(document());
 }
 
 cMyTextEdit::~cMyTextEdit()

@@ -7,11 +7,7 @@
 
 #include "write_log.hpp"
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-//#include <ctime>
-#include <iostream>
+#include <QFile>
 #include <QCoreApplication>
 
 #include "interface.hpp"
@@ -40,7 +36,7 @@ void WriteLog(const QString &text, int verbosityLevel)
 	if (verbosityLevel <= systemData.loggingVerbosity)
 	{
 		mutex.lock();
-		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
+
 #ifdef _WIN32
 		QString logText = QString("PID: %1, time: %2, %3\n")
 												.arg(QCoreApplication::applicationPid())
@@ -53,17 +49,21 @@ void WriteLog(const QString &text, int verbosityLevel)
 				.arg(QString::number((systemData.globalTimer.nsecsElapsed()) / 1.0e9, 'f', 9))
 				.arg(text);
 #endif
-		if (logfile)
+
+		QFile logfile(systemData.logfileName);
+		if (logfile.open(QIODevice::Append | QIODevice::Text))
 		{
-			fputs(logText.toLocal8Bit().constData(), logfile);
-			fclose(logfile);
+			QTextStream out(&logfile);
+			out << logText;
+			logfile.close();
 		}
-		mutex.unlock();
+
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != nullptr)
 		{
 			emit gMainInterface->mainWindow->AppendToLog(logText);
 		}
+		mutex.unlock();
 	}
 }
 
