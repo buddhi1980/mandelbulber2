@@ -6,9 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * abs add tglad fold,  z = fabs( z + constant) -fabs( z - constant) - z:
- * with a fold tweak option
- * This formula contains aux.color
+ * based of darkbeams recfold transform from Mandelbulb3D.
  */
 
 #include "all_fractal_definitions.h"
