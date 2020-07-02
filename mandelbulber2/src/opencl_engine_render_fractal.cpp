@@ -1783,6 +1783,7 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 	WriteLog(QString("Reading OpenCL buffers"), 3);
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
+		if (d > 0 && (meshExportMode || distanceMode)) break;
 		if (!cOpenClEngine::ReadBuffersFromQueue(d)) return false;
 	}
 	return true;

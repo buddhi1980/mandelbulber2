@@ -594,9 +594,10 @@ bool cOpenClEngine::WriteBuffersToQueue()
 
 bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 {
+	cl_int err = 0;
 	for (auto &outputBuffer : outputBuffers[deviceIndex])
 	{
-		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(
+		err = clQueues[deviceIndex]->enqueueReadBuffer(
 			*outputBuffer.clPtr, CL_FALSE, 0, outputBuffer.size(), outputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
@@ -611,8 +612,8 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 	{
 		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[deviceIndex])
 		{
-			cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_FALSE,
-				0, inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
+			err = clQueues[deviceIndex]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_FALSE, 0,
+				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 			{
 				emit showErrorMessage(
@@ -625,7 +626,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 		}
 	}
 
-	int err = clQueues[deviceIndex]->finish();
+	err = clQueues[deviceIndex]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
 		emit showErrorMessage(
