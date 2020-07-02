@@ -1,0 +1,62 @@
+# Mandelbulber settings file
+# version 2.22
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -15.4336049240081 -17.3408379097698 -5.3601492861659;
+camera_distance_to_target 3.50034117698669;
+camera_rotation -26.9361419362198 -6.72361111662411 1.23026509097473;
+camera_top 0.0721659149454354 0.0946280754816609 0.992893553232533;
+constant_DE_threshold true;
+DE_factor 0.9;
+DE_thresh 0.00125;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 119;
+formula_2 1025;
+formula_3 1003;
+formula_4 205;
+formula_iterations_1 23;
+formula_start_iteration_2 24;
+formula_start_iteration_3 24;
+formula_start_iteration_4 31;
+formula_stop_iteration_1 24;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+keyframe_last_to_render 0;
+limit_max 20 20 2.5;
+limit_min -20 -20 -20;
+limits_enabled true;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_xyzC_111 0 0 4;
+mat1_is_defined true;
+mat1_specular_gradient 0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+mat1_specular_gradient_enable true;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 000000 1000 aa0000 2000 0000ff 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+N 54;
+target -13.8588655997471 -14.2417038346689 -5.7699692472257;
+view_distance_max 257.381792298688;
+[fractal_1]
+analyticDE_enabled_false true;
+analyticDE_offset_1 0;
+analyticDE_scale_1 1.08;
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 0.1;
+mandelbox_scale 1;
+transf_addition_constant_111 1 1 0.99;
+transf_minR2_p25 0;
+[fractal_2]
+transf_addition_constant 1 1 0;
+[fractal_3]
+transf_scale 3;
+[fractal_4]
+transf_addition_constant -0.3 -0.3 0.1;
+transf_scale_3 3.5;
+transf_stop_iterations_D1 47;
