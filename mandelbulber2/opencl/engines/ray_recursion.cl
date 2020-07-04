@@ -165,8 +165,8 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 #ifdef USE_REFRACTION
 		if (in.invertMode)
 		{
-			distance = distThresh * 1.99 - distance;
-			if (distance < 0.0) distance = 0.0;
+			distance = distThresh * 1.99f - distance;
+			if (distance < 0.0f) distance = 0.0f;
 		}
 #endif
 
@@ -227,8 +227,8 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			//#ifdef USE_REFRACTION
 			if (in.invertMode)
 			{
-				distance = distThresh * 1.99 - distance;
-				if (distance < 0.0) distance = 0.0;
+				distance = distThresh * 1.99f - distance;
+				if (distance < 0.0f) distance = 0.0f;
 			}
 			//#endif
 
@@ -671,7 +671,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #ifdef USE_REFRACTION
 			float4 transparentColor = (float4){shaderInputData.material->transparencyInteriorColor.s0,
 				shaderInputData.material->transparencyInteriorColor.s1,
-				shaderInputData.material->transparencyInteriorColor.s2, 0.0};
+				shaderInputData.material->transparencyInteriorColor.s2, 0.0f};
 			resultShader = transparentColor;
 #endif
 
