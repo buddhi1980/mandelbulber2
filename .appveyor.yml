@@ -25,13 +25,13 @@ init:
 # add several platforms to build matrix:
 platform:
   - x64
-  - ARM
-  - Win32
+#  - ARM
+#  - Win32
 # add several configurations to build matrix:
 configuration:
   - Release
   - Debug
-  - AnalysisRelease
+#  - AnalysisRelease
 matrix:
   allow_failures:
     - platform: ARM
