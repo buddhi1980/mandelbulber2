@@ -94,7 +94,7 @@ public:
 	void Copy(QString name, const cParameterContainer *sourceContainer);
 	QList<QString> GetListOfParameters() const;
 	void PrintListOfParameters() const;
-	void ResetAllToDefault();
+	void ResetAllToDefault(const QStringList &exclude = QStringList());
 	void SetContainerName(QString name) { containerName = name; }
 	QString GetContainerName() const { return containerName; }
 	bool IfExists(const QString &name) const;

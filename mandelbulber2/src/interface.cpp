@@ -2598,7 +2598,9 @@ void cInterface::ResetFormula(int fractalNumber) const
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
-	fractal->ResetAllToDefault();
+
+	QStringList exclude = {"formula_code"};
+	fractal->ResetAllToDefault(exclude);
 
 	QStringList listToReset = {"formula_iterations", "formula_weight", "formula_start_iteration",
 		"formula_stop_iteration", "julia_mode", "julia_c", "fractal_constant_factor", "initial_waxis",

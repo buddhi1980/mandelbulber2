@@ -545,16 +545,19 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	return isDefault;
 }
 
-void cParameterContainer::ResetAllToDefault()
+void cParameterContainer::ResetAllToDefault(const QStringList &exclude)
 {
 	QMutexLocker lock(&m_lock);
 
 	QMap<QString, cOneParameter>::iterator it = myMap.begin();
 	while (it != myMap.end())
 	{
-		cOneParameter record = it.value();
-		if (record.GetParameterType() != paramApp)
-			it.value().SetMultiVal(record.GetMultiVal(valueDefault), valueActual);
+		if (!exclude.contains(it.key()))
+		{
+			cOneParameter record = it.value();
+			if (record.GetParameterType() != paramApp)
+				it.value().SetMultiVal(record.GetMultiVal(valueDefault), valueActual);
+		}
 		++it;
 	}
 }
