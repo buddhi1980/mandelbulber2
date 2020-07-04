@@ -177,6 +177,7 @@ transfAbsAddMulti,"T>Abs Add Multi",analyticDEType,withoutDEFunction,cpixelDisab
 transfAbsAddMulti4d,"T>Abs Add Multi 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddTgladFold,"T>Abs Add Tglad Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddTgladFold4d,"T>Abs Add Tglad Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfAbsRecFoldXY,"T>Abs Rec FoldXY",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstant,"T>Add Constant",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstant4d,"T>Add Constant 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantMod1,"T>Add Constant Mod1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault

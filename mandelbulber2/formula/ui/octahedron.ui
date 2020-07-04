@@ -689,7 +689,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;reference: eiifie paxis2 https://www.shadertoy.com/view/XlSGDc&lt;br&gt;paxis idea from dila originally at https://www.shadertoy.com/view/Xlj3DK&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_octahedron.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

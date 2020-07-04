@@ -133,10 +133,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z = x * t1 - y * t2;
 		// fold the space to be in a kite
 		REAL l0 = dot(z, z);
-		REAL4 zt1 = z - t1;
-		REAL4 zt2 = z + t2;
-		REAL l1 = dot(zt1, zt1);
-		REAL l2 = dot(zt2, zt2);
+		REAL l1 = (z - t1).Dot(z - t1);
+		REAL l2 = (z + t2).Dot(z + t2);
 
 		if (l1 < l0 && l1 < l2)
 		{

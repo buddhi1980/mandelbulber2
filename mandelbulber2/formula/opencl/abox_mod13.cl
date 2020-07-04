@@ -204,9 +204,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1
-						 + fractal->analyticDE.offset0;
-
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// color updated v2.13
 	if (fractal->foldColor.auxColorEnabled)

@@ -14,7 +14,7 @@
 cFractalTransfAbsRecFoldXY::cFractalTransfAbsRecFoldXY() : cAbstractFractal()
 {
 	nameInComboBox = "T>Abs Rec FoldXY";
-	internalName = "transf_abs_rec_foldxy";
+	internalName = "transf_abs_rec_fold_xy";
 	internalID = fractal::transfAbsRecFoldXY;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
@@ -50,13 +50,9 @@ void cFractalTransfAbsRecFoldXY::FormulaCode(
 	z.y = t - z.y;
 	z.x *= 0.5;
 	z.y *= 0.5;
-	if (fractal->transformCommon.functionEnabledAx)
-	z.x = foldX - fabs(z.x + foldX);
-	if (fractal->transformCommon.functionEnabledAxFalse)
-	z.y = foldY - fabs(z.y + foldY);
+	if (fractal->transformCommon.functionEnabledAx) z.x = foldX - fabs(z.x + foldX);
+	if (fractal->transformCommon.functionEnabledAxFalse) z.y = foldY - fabs(z.y + foldY);
 
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1
-						 + fractal->analyticDE.offset0;
-
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
