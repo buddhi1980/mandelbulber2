@@ -203,7 +203,7 @@ class cKeyframeRenderThread : public QThread
 	Q_OBJECT;
 
 public:
-	cKeyframeRenderThread(QString &settingsText);
+	cKeyframeRenderThread(QString &_settingsText);
 
 public slots:
 	void startAnimationRender();

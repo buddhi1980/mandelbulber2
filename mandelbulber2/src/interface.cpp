@@ -2993,9 +2993,9 @@ void cInterface::RandomizeLocalSettings(const QWidget *widget)
 	randomizer->show();
 }
 
-QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
+QStringList cInterface::CreateListOfParametersInWidget(const QWidget *inputWidget)
 {
-	QList<QWidget *> listOfWidgets = widget->findChildren<QWidget *>();
+	QList<QWidget *> listOfWidgets = inputWidget->findChildren<QWidget *>();
 	QSet<QString> listOfParameters;
 
 	foreach (QWidget *widget, listOfWidgets)

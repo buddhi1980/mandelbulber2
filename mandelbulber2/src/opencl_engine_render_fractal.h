@@ -73,7 +73,7 @@ public:
 		clRenderEngineTypeFull = 3
 	};
 
-	cOpenClEngineRenderFractal(cOpenClHardware *hardware);
+	cOpenClEngineRenderFractal(cOpenClHardware *_hardware);
 	~cOpenClEngineRenderFractal() override;
 
 #ifdef USE_OPENCL

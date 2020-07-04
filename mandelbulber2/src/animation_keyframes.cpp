@@ -751,7 +751,7 @@ void cKeyframeAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 	for (int i = 0; i < gNetRender->GetClientCount(); i++)
 	{
 		QList<int> startingFrames;
-		for (int i = 0; i < numberOfFramesForNetRender; i++)
+		for (int j = 0; j < numberOfFramesForNetRender; j++)
 		{
 			// looking for next unrendered frame
 			bool notFound = false;
@@ -963,7 +963,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				// render frame
 				params->Set("frame_no", frameIndex);
 				renderJob->UpdateParameters(params, fractalParams);
-				const int result = renderJob->Execute();
+				result = renderJob->Execute();
 				if (!result) throw false;
 
 				// save frame

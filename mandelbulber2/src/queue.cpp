@@ -715,8 +715,8 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 				cParameterContainer *tempPar = new cParameterContainer;
 				cFractalContainer *tempFract = new cFractalContainer;
 				InitParams(tempPar);
-				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
-					InitFractalParams(&tempFract->at(j));
+				for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+					InitFractalParams(&tempFract->at(f));
 				InitMaterialParams(1, tempPar);
 
 				cSettings parSettings(cSettings::formatFullText);
