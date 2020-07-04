@@ -660,7 +660,7 @@ function upgradeInternalName($internalName, $internalNameNew)
 	}
 	$fractal_list_content = file_get_contents(PROJECT_PATH . 'formula/definition/all_fractal_list.cpp');
 	$fractal_list_content = str_replace('"' . $internalName . '"', '"' . $internalNameNew . '"', $fractal_list_content);
-	file_put_contents(PROJECT_PATH . 'src/fractal_list.cpp', $fractal_list_content);
+	file_put_contents(PROJECT_PATH . 'formula/definition/all_fractal_list.cpp', $fractal_list_content);
 }
 
 function upgradeFunctionName($functionName, $functionNameNew)
@@ -766,7 +766,15 @@ function writeParameterNamesTxt(){
   foreach($matches[0] as $i => $line){
     if(strpos($line, '//') !== false || strpos($line, 'for (') !== false) continue; // skip comments and loops
     $txtFile .= trim($matches[1][$i] . ' none none') . PHP_EOL;
+    
   }
+  
+  $txtFile .= PHP_EOL;
+  $txtFile .= "IFS.mainRot matrix33 IFS_rotation" . PHP_EOL;
+  $txtFile .= "mandelbox.mainRot matrix33 mandelbox_rotation_main" . PHP_EOL;
+  $txtFile .= "transformCommon.rotationMatrix matrix33 transf_rotation" . PHP_EOL;
+  $txtFile .= "transformCommon.rotationMatrix2 matrix33 transf_rotation2" . PHP_EOL;
+  
 	file_put_contents(PROJECT_PATH . 'deploy/share/mandelbulber2/data/parameterNames.txt', $txtFile);
 }
 

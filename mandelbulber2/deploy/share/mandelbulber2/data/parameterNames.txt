@@ -508,3 +508,8 @@ genFoldBox.sides_dodeca none none
 genFoldBox.sides_icosa none none
 genFoldBox.sides_box6 none none
 genFoldBox.sides_box5 none none
+
+IFS.mainRot matrix33 IFS_rotation
+mandelbox.mainRot matrix33 mandelbox_rotation_main
+transformCommon.rotationMatrix matrix33 transf_rotation
+transformCommon.rotationMatrix2 matrix33 transf_rotation2
