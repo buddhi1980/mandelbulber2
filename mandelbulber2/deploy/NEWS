@@ -1,8 +1,7 @@
 Version history
 
-v2.22 (??? 2020)
+v2.22 (July 2020)
 - Added new fractal formulas
-
    aboxMod14
    mandelcup
    menger3
@@ -19,8 +18,29 @@ v2.22 (??? 2020)
    transfSphericalFoldV2
    transfStepXY
 
-
-
+- Custom formulas: Added custom formula editor
+    - inserting parameters from the list
+    - dynamic UI for parameters existing in custom code
+    - syntax highlighting
+    - auto indenting
+    - syntax checking
+    - loading of build-in formulas
+    - saving of formula code in .fract files
+    - loading/saving of formula code in text files
+    - auto formatting with clang-format
+    - customization of font size
+- Randomizer: Added option to not randomize camera when animated parameters from keyframe editor
+- Randomizer: Added STOP button to Randomizer
+- Randomizer: not finished renderings of previews caused high CPU load
+- Voxel export: Added export of greyscale voxel layers
+- Shaders: fixed bug: Ambient Occlusion (Multiple Rays with light map) produced color noise
+- OpenCL: corrected occurrences of double precision constants which caused compiler errors on MacOS 
+- Files: Added camera top vector to image metadata (issue #722)
+- Files: Added options for zbuffer saving: inverting z-buffer, logarithmic scale, constant depth range
+- Compilation: fixed bug: Corrected location of formula/definition files is source package
+- Compilation: added missing option which includes SVG library to AppImage
+- Compilation: Fixed problem with missing sources when cmake is used (issue #784)
+- Examples: optimized most of examples
 
 - modified fractal formulas
    sierpinski3d, fixed add reverse
