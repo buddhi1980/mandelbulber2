@@ -181,7 +181,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 
 	sClPixel pixel;
 
-	float glow = count / 100.0 * consts->params.DEFactor;
+	float glow = count / 100.0f * consts->params.DEFactor;
 
 	pixel.R = colour.s0 + glow;
 	pixel.G = colour.s1 * glow * 10.0f;

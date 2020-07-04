@@ -878,10 +878,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				for (int index = shaderInputData.stepCount - 1; index > 0; index--)
 				{
 
-					float opacity = (-1.0 + 1.0 / shaderInputData.material->transparencyOfInterior) * step;
-					if (opacity > 1.0) opacity = 1.0;
+					float opacity = (-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * step;
+					if (opacity > 1.0f) opacity = 1.0f;
 
-					resultShader = opacity * transparentColor + (1.0 - opacity) * resultShader;
+					resultShader = opacity * transparentColor + (1.0f - opacity) * resultShader;
 				}
 			}
 			else

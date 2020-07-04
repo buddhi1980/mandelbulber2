@@ -208,7 +208,7 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 		LengthPow(pointXY, pow(2.0f, primitive->data.torus.radiusLPow)) - primitive->data.torus.radius;
 	float2 pointDZ = (float2){d1, point.z};
 
-	float dist = LengthPow(pointDZ, pow(2.0, primitive->data.torus.tubeRadiusLPow))
+	float dist = LengthPow(pointDZ, pow(2.0f, primitive->data.torus.tubeRadiusLPow))
 							 - primitive->data.torus.tubeRadius;
 	return primitive->data.torus.empty ? fabs(dist) : dist;
 }

@@ -307,7 +307,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 #endif // STEREOSCOPIC
 		}
 
-		float glow = count / 500.0 * consts->params.DEFactor;
+		float glow = count / 500.0f * consts->params.DEFactor;
 
 #ifdef STEREO_REYCYAN
 		if (eye == 0)

@@ -66,7 +66,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 
 #ifdef ITER_FOG
 			opacity =
-				IterOpacity(dist * 2.0, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
+				IterOpacity(dist * 2.0f, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
 					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 #else
 		opacity = 0.0f;
