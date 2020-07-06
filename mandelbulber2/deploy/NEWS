@@ -11,13 +11,14 @@ v2.22 (July 2020)
    sierpinski3dV2
    sierpinski3dV3
    spheretree
+   transfAbsRecFoldXY
    transfBoxTilingV2
    transfDELinearCube
    transfDIFSHexprism
    transfRotationChebyshev
    transfSphericalFoldV2
    transfStepXY
-
+   
 - Custom formulas: Added custom formula editor
     - inserting parameters from the list
     - dynamic UI for parameters existing in custom code
@@ -31,7 +32,7 @@ v2.22 (July 2020)
     - customization of font size
 - Randomizer: Added option to not randomize camera when animated parameters from keyframe editor
 - Randomizer: Added STOP button to Randomizer
-- Randomizer: not finished renderings of previews caused high CPU load
+- Randomizer: fixed bug: not finished renderings of previews caused high CPU load
 - Voxel export: Added export of greyscale voxel layers
 - Shaders: fixed bug: Ambient Occlusion (Multiple Rays with light map) produced color noise
 - OpenCL: corrected occurrences of double precision constants which caused compiler errors on MacOS 
@@ -40,7 +41,7 @@ v2.22 (July 2020)
 - Compilation: fixed bug: Corrected location of formula/definition files is source package
 - Compilation: added missing option which includes SVG library to AppImage
 - Compilation: Fixed problem with missing sources when cmake is used (issue #784)
-- Examples: optimized most of examples
+- Examples: cleaned settings of most of the examples
 
 - modified fractal formulas
    sierpinski3d, fixed add reverse
