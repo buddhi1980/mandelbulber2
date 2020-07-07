@@ -38,6 +38,11 @@ REAL4 TransfStepXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		zc.x = zc.x - floor(zc.x);
 		zc.y = zc.y - floor(zc.y);
 	}
+	// offset and scale
+	zc.x -= fractal->transformCommon.offsetA05;
+	zc.y -= fractal->transformCommon.offsetB05;
+	zc *= fractal->transformCommon.scale2;
+	aux->DE *= fractal->transformCommon.scale2;
 
 	if (fractal->transformCommon.functionEnabledAy)
 	{
@@ -62,7 +67,7 @@ REAL4 TransfStepXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			aux->DE = aux->DE * length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux->DE = aux->DE * length(zc) / length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	if (!fractal->transformCommon.functionEnabledAwFalse) z = zc;

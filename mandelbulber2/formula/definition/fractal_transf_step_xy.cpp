@@ -48,6 +48,11 @@ void cFractalTransfStepXY::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		zc.x = zc.x - floor(zc.x);
 		zc.y = zc.y - floor(zc.y);
 	}
+	// offset and scale
+	zc.x -= fractal->transformCommon.offsetA05;
+	zc.y -= fractal->transformCommon.offsetB05;
+	zc *= fractal->transformCommon.scale2;
+	aux.DE *= fractal->transformCommon.scale2;
 
 	if (fractal->transformCommon.functionEnabledAy)
 	{
@@ -64,14 +69,13 @@ void cFractalTransfStepXY::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0f));
 	}
 
-
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.DE = aux.DE * zc.Length() / z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	if (!fractal->transformCommon.functionEnabledAwFalse) z = zc;
