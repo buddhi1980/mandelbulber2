@@ -566,6 +566,7 @@
     <ClInclude Include="$(SourceDir)mandelbulber2\opencl\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\opencl\*.hpp" />
     <ClCompile Include="$(SourceDir)mandelbulber2\opencl\*.cpp" />
+    <ClInclude Include="$(SourceDir)mandelbulber2\third-party\stb\*.h" />
     <None Include="$(SourceDir)mandelbulber2\opencl\engines\*.cl" />
     <None Include="$(SourceDir)mandelbulber2\formula\opencl\*.cl" />
     <ClInclude Include="resource.h" />

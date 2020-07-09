@@ -69,8 +69,9 @@ file(GLOB qtHeader "../qt/*.h" "../qt/*.hpp")
 file(GLOB qtDef "../qt/*.c" "../qt/*.cpp")
 file(GLOB formulaHeader "../formula/definition/*.h" "../formula/definition/*.hpp")
 file(GLOB formulaDef "../formula/definition/*.c" "../formula/definition/*.cpp")
+file(GLOB stbHeaders "../third-part/stb/*.h")
 
-set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef} ${formulaHeader} ${formulaDef} ../qt/icons.qrc)
+set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef} ${formulaHeader} ${formulaDef} ${stbHeaders} ../qt/icons.qrc)
 set(CMAKE_AUTOUIC_SEARCH_PATHS ../qt/)
 
 # Find all ui files in qt/*.ui and add for header generation and linking.
