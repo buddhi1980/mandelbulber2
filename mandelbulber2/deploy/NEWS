@@ -18,7 +18,11 @@ v2.22 (July 2020)
    transfRotationChebyshev
    transfSphericalFoldV2
    transfStepXY
-   
+
+- modified fractal formulas
+   sierpinski3d, fixed add reverse
+   transfDEControls pk offset default = 1   
+
 - Custom formulas: Added custom formula editor
     - inserting parameters from the list
     - dynamic UI for parameters existing in custom code
@@ -42,10 +46,6 @@ v2.22 (July 2020)
 - Compilation: added missing option which includes SVG library to AppImage
 - Compilation: Fixed problem with missing sources when cmake is used (issue #784)
 - Examples: cleaned settings of most of the examples
-
-- modified fractal formulas
-   sierpinski3d, fixed add reverse
-   transfDEControls pk offset default = 1
 
 v2.21 (March 2020)
 - Added new fractal formulas

@@ -15,7 +15,12 @@ stunning images and videos. The possibilities are literally   i n f i n i t e !
 PROJECT LEADER:  Krzysztof Marczak
 PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
                  Robert Pancoast, knighty, makemeunsee, Marius Schilder,
-                 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+                 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Adrian Meyer
+                 github:rikardfalkeborn, github:orbitcowboy, github:brunetton,
+                 github:biberino, github:luchansky, github:jeroenrijckaert,
+                 github:KoviRobi, github:psyriccio, github:valera-rozuvan, 
+                 github:probonopd, github:mia-0, github:gitter-badger, 
+                 github:danuni, github:Starmute
 
 CONTACT:         buddhi1980@gmail.com
 DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
