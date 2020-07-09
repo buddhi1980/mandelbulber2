@@ -66,6 +66,7 @@ HEADERS += $$ROOT/qt/*.hpp
 HEADERS += $$ROOT/qt/*.h
 HEADERS += $$ROOT/formula/definition/*.h
 HEADERS += $$ROOT/formula/definition/*.hpp
+HEADERS += $$ROOT/third-party/stb/*.h
 
 FORMS += $$ROOT/qt/*.ui
 
