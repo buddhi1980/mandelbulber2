@@ -144,8 +144,10 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z = x * t1 - y * t2;
 		// fold the space to be in a kite
 		double l0 = z.Dot(z);
-		double l1 = (z - t1).Dot(z - t1);
-		double l2 = (z + t2).Dot(z + t2);
+		CVector4 zt1 = z - t1;
+		CVector4 zt2 = z + t2;
+		double l1 = zt1.Dot(zt1);
+		double l2 = zt2.Dot(zt2);
 
 		if (l1 < l0 && l1 < l2)
 		{

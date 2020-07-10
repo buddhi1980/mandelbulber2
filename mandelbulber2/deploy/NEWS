@@ -1,5 +1,14 @@
 Version history
 
+v2.23 (???? 2020)
+- Added new fractal formulas
+
+
+- modified fractal formulas
+   transfStepXY added offset and scale
+
+
+
 v2.22 (July 2020)
 - Added new fractal formulas
    aboxMod14
@@ -21,7 +30,7 @@ v2.22 (July 2020)
 
 - modified fractal formulas
    sierpinski3d, fixed add reverse
-   transfDEControls pk offset default = 1   
+   transfDEControls pk offset default = 1
 
 - Custom formulas: Added custom formula editor
     - inserting parameters from the list
