@@ -74,8 +74,14 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
 	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
 
-	double innerScale = SQRT_3 / (1.0 + SQRT_3);
+
+	double k = fractal->transformCommon.scaleA1;
+	double kk = k * k;
+	double innerScale = k * SQRT_3 / (kk + SQRT_3);
 	double innerScaleB = innerScale * innerScale * 0.25;
+	double shift = (kk + SQRT_3) / (k * (1.0 + SQRT_3));
+	double mid = 0.5 * (k + 1.0) / 2.0;
+	double bufferRad = t * k;
 
 	// for (int i = 0; i < fractal->transformCommon.int8X && dot(z, z) < 0.5; i++)
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
@@ -89,13 +95,13 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
 		if (n == 0) maxH = -100;
 
-		CVector4 zC = z - CVector4(0.0, 0.0, t, 0.0);
-		if (z.z > maxH && zC.Dot(zC) > t * t) break; // definitely outside
+		CVector4 zC = z - CVector4(0.0, 0.0, bufferRad, 0.0);
+		if (z.z > maxH && zC.Dot(zC) > bufferRad * bufferRad) break; // definitely outside
 
-		CVector4 zD = z - CVector4(0.0, 0.0, 0.5, 0.0);
+		CVector4 zD = z - CVector4(0.0, 0.0, mid, 0.0);
 		double invSC = 1.0 / z.Dot(z) * fractal->transformCommon.scaleF1;
 
-		if (z.z < maxH && zD.Dot(zD) > 0.5 * 0.5)
+		if (z.z < maxH && zD.Dot(zD) > mid * mid)
 		{
 			// needs a sphere inverse
 			Dd *= invSC;
@@ -108,11 +114,11 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			ColV.y += 1.0;
 			Dd *= invSC;
 			z *= invSC;
-			z.z -= 1.0;
+			z.z -= shift;
 			z.z *= -1.0;
 			z *= SQRT_3;
 			Dd *= SQRT_3;
-			z.z += 1.0;
+			z.z += shift;
 
 			// and rotate it a twelfth of a revolution
 			double a = M_PI / fractal->transformCommon.scale6;
@@ -165,8 +171,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 	// aux.DE
 	aux.DE = Dd;
-	CVector4 len = z - CVector4(0.0, 0.0, 0.5, 0.0);
-	double d = (len.Length() - 0.5);
+
+	CVector4 len = z - CVector4(0.0, 0.0, 0.5 * k, 0.0);
+	double d = (len.Length() - 0.5 * k);
 	d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;

@@ -17,10 +17,10 @@ cFractalTransfStepXY::cFractalTransfStepXY() : cAbstractFractal()
 	internalName = "transf_step_xy";
 	internalID = fractal::transfStepXY;
 	DEType = analyticDEType;
-	DEFunctionType = withoutDEFunction;
+	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionIFS;
 	coloringFunction = coloringFunctionDefault;
 }
 
