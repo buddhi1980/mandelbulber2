@@ -57,7 +57,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // SaveImage() returns list of saved files
 QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
 	QObject *updateReceiver = nullptr);
-sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight);
+std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight);
 
 bool FileExists(const QString &path);
 QString FilePathHelper(const QString &path, const QStringList &pathList);

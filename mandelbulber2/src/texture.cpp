@@ -45,6 +45,7 @@
 #include "files.h"
 #include "netrender.hpp"
 #include "qimage.h"
+#include "radiance_hdr.h"
 #include "resource_http_provider.hpp"
 #include "write_log.hpp"
 
@@ -52,8 +53,6 @@
 cTexture::cTexture(
 	QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet, bool useNetRender)
 {
-	bitmap = nullptr;
-
 	WriteLogString("Loading texture", filename, 2);
 
 	if (gNetRender->IsClient() && useNetRender)
@@ -77,8 +76,16 @@ cTexture::cTexture(
 	WriteLogString("Loading texture - LoadPNG()", filename, 3);
 	bitmap = LoadPNG(filename, width, height);
 
+	// check if it is Radiance HDR image
+	QScopedPointer<cRadianceHDR> radiance(new cRadianceHDR());
+	if (radiance->Init(filename, &width, &height))
+	{
+		qDebug() << "Radiance HDR image";
+		bitmap.resize(width * height);
+	}
+
 	// if not, try to use Qt image loader
-	if (!bitmap)
+	if (bitmap.empty())
 	{
 		WriteLogString("Loading texture - loading using QImage", filename, 3);
 		QImage qImage;
@@ -88,7 +95,7 @@ cTexture::cTexture(
 		{
 			width = qImage.width();
 			height = qImage.height();
-			bitmap = new sRGBA16[width * height];
+			bitmap.resize(width * height);
 			for (int y = 0; y < height; y++)
 			{
 				sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
@@ -103,7 +110,7 @@ cTexture::cTexture(
 		}
 	}
 
-	if (bitmap)
+	if (!bitmap.empty())
 	{
 		loaded = true;
 		originalFileName = filename;
@@ -121,13 +128,14 @@ cTexture::cTexture(
 		width = 100;
 		height = 100;
 		loaded = false;
-		bitmap = new sRGBA16[100 * 100];
-		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
+		bitmap.resize(100 * 100);
+		std::fill(bitmap.begin(), bitmap.end(), sRGBA16(0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF));
 	}
 
 	WriteLogString("Loading texture - finished", filename, 3);
 }
 
+/*
 // copy constructor
 cTexture::cTexture(const cTexture &tex)
 {
@@ -181,15 +189,10 @@ cTexture &cTexture::operator=(cTexture &&tex)
 
 	return *this;
 }
+*/
 
 void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 {
-	if (bitmap)
-	{
-		delete[] bitmap;
-	}
-
-	bitmap = nullptr;
 	QImage qImage(*buffer);
 	qImage.loadFromData(*buffer);
 	qImage = qImage.convertToFormat(QImage::Format_RGB888);
@@ -198,7 +201,7 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	{
 		width = qImage.width();
 		height = qImage.height();
-		bitmap = new sRGBA16[width * height];
+		bitmap.resize(width * height);
 		for (int y = 0; y < height; y++)
 		{
 			sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
@@ -225,8 +228,8 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		width = 100;
 		height = 100;
 		loaded = false;
-		bitmap = new sRGBA16[100 * 100];
-		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
+		bitmap.resize(100 * 100);
+		std::fill(bitmap.begin(), bitmap.end(), sRGBA16(0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF));
 	}
 }
 
@@ -235,18 +238,18 @@ cTexture::cTexture()
 	width = 100;
 	height = 100;
 	loaded = false;
-	bitmap = new sRGBA16[100 * 100];
-	memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
+	bitmap.resize(100 * 100);
+	std::fill(bitmap.begin(), bitmap.end(), sRGBA16(0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF));
 }
 
 // destructor
 cTexture::~cTexture()
 {
-	if (bitmap)
-	{
-		delete[] bitmap;
-		bitmap = nullptr;
-	}
+	//	if (bitmap)
+	//	{
+	//		delete[] bitmap;
+	//		bitmap = nullptr;
+	//	}
 }
 
 // read pixel
@@ -410,7 +413,7 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 		{
 			if (layerBig == 0)
 			{
-				bigBitmap = bitmap;
+				bigBitmap = bitmap.data();
 				smallBitmap = mipmaps[layerSmall - 1].data();
 				bigBitmapSize.x = width;
 				bigBitmapSize.y = height;
@@ -441,7 +444,7 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 	}
 	else
 	{
-		return BicubicInterpolation(x, y, bitmap, width, height);
+		return BicubicInterpolation(x, y, bitmap.data(), width, height);
 	}
 }
 
@@ -451,7 +454,7 @@ void cTexture::CreateMipMaps()
 	int prevH = height;
 	int w = width / 2;
 	int h = height / 2;
-	sRGBA16 *prevBitmap = bitmap;
+	sRGBA16 *prevBitmap = bitmap.data();
 	while (w > 0 && h > 0)
 	{
 		QVector<sRGBA16> newMipmapV(w * h);

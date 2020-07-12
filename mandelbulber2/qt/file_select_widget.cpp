@@ -120,7 +120,7 @@ void FileSelectWidget::slotSelectFile()
 {
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp *.hdr)"));
 	dialog.setDirectory(QDir::toNativeSeparators(lineEdit->text()));
 	dialog.selectFile(QDir::toNativeSeparators(lineEdit->text()));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);

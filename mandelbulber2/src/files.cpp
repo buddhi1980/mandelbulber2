@@ -337,7 +337,7 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 	return listOfSavedFiles;
 }
 
-sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
+std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight)
 {
 	png_structp png_ptr;
 	png_infop info_ptr;
@@ -345,14 +345,15 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	int color_type, interlace_type;
 	FILE *fp;
 
-	if ((fp = fopen(filename.toLocal8Bit().constData(), "rb")) == nullptr) return nullptr;
+	if ((fp = fopen(filename.toLocal8Bit().constData(), "rb")) == nullptr)
+		return std::vector<sRGBA16>();
 
 	png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
 	if (png_ptr == nullptr)
 	{
 		fclose(fp);
-		return nullptr;
+		return std::vector<sRGBA16>();
 	}
 
 	uchar sig[8];
@@ -363,14 +364,14 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	{
 		fclose(fp);
 		png_destroy_read_struct(&png_ptr, nullptr, nullptr);
-		return nullptr;
+		return std::vector<sRGBA16>();
 	}
 
 	if (!png_check_sig(sig, 8))
 	{
 		fclose(fp);
 		png_destroy_read_struct(&png_ptr, nullptr, nullptr);
-		return nullptr; /* bad signature */
+		return std::vector<sRGBA16>(); /* bad signature */
 	}
 
 	info_ptr = png_create_info_struct(png_ptr);
@@ -378,14 +379,14 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	{
 		fclose(fp);
 		png_destroy_read_struct(&png_ptr, nullptr, nullptr);
-		return nullptr;
+		return std::vector<sRGBA16>();
 	}
 
 	if (setjmp(png_jmpbuf(png_ptr)))
 	{
 		png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 		fclose(fp);
-		return nullptr;
+		return std::vector<sRGBA16>();
 	}
 
 	png_init_io(png_ptr, fp);
@@ -404,7 +405,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	// unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
 	// qDebug() << width << height << bit_depth << color_type << row_bytes;
 
-	sRGBA16 *image = new sRGBA16[outWidth * outHeight];
+	std::vector<sRGBA16> image(outWidth * outHeight);
 
 	png_bytepp row_pointers = png_get_rows(png_ptr, info_ptr);
 	if (bit_depth == 8)

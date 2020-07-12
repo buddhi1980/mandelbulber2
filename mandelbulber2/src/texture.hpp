@@ -59,9 +59,9 @@ public:
 
 	cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet, bool useNetRender);
 	cTexture();
-	cTexture(const cTexture &tex);
-	cTexture &operator=(const cTexture &tex);
-	cTexture &operator=(cTexture &&tex);
+	//	cTexture(const cTexture &tex);
+	//	cTexture &operator=(const cTexture &tex);
+	//	cTexture &operator=(cTexture &&tex);
 
 	~cTexture();
 	int Height() const { return height; }
@@ -82,7 +82,7 @@ private:
 	sRGBFloat MipMap(double x, double y, double pixelSize) const;
 	void CreateMipMaps();
 	static int WrapInt(int a, int size) { return (a + size) % size; }
-	sRGBA16 *bitmap;
+	std::vector<sRGBA16> bitmap;
 	int width;
 	int height;
 	bool loaded;
