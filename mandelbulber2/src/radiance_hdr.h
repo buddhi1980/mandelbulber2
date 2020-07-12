@@ -18,7 +18,7 @@ public:
 	~cRadianceHDR();
 
 	bool Init(const QString filename, int *width, int *height);
-	void Load(sRGBFloat *fBitmap);
+	void Load(std::vector<sRGBFloat> *fBitmap);
 
 private:
 	QString actualFileName;

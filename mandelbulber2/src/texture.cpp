@@ -78,19 +78,21 @@ cTexture::cTexture(
 	if (!bitmap16.empty())
 	{
 		bitmap.resize(bitmap16.size());
-		for (qint64 i = 0; i < bitmap16.size(); i++)
+		for (quint64 i = 0; i < bitmap16.size(); i++)
 		{
 			sRGBFloat pixel(bitmap16[i].R / 65536.0f, bitmap16[i].G / 65536.0f, bitmap16[i].B / 65536.0f);
 			bitmap[i] = pixel;
 		}
+		bitmap16.clear();
 	}
 
 	// check if it is Radiance HDR image
 	QScopedPointer<cRadianceHDR> radiance(new cRadianceHDR());
 	if (radiance->Init(filename, &width, &height))
 	{
-		qDebug() << "Radiance HDR image";
 		bitmap.resize(width * height);
+		radiance->Load(&bitmap);
+		loaded = true;
 	}
 
 	// if not, try to use Qt image loader

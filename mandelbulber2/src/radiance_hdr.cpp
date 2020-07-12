@@ -43,8 +43,8 @@ bool cRadianceHDR::Init(const QString filename, int *width, int *height)
 		{
 			*width = w;
 			*height = h;
-			return true;
 			actualFileName = filename;
+			return true;
 		}
 		else
 		{
@@ -57,4 +57,19 @@ bool cRadianceHDR::Init(const QString filename, int *width, int *height)
 	}
 }
 
-void cRadianceHDR::Load(sRGBFloat *fBitmap) {}
+void cRadianceHDR::Load(std::vector<sRGBFloat> *fBitmap)
+{
+	int w = 0;
+	int h = 0;
+	int comp = 0;
+	float *data = stbi_loadf(actualFileName.toLocal8Bit().constData(), &w, &h, &comp, 0);
+	if (data)
+	{
+		quint64 numberOFPixels = w * h;
+		for (quint64 i = 0; i < numberOFPixels; i++)
+		{
+			fBitmap->data()[i] = sRGBFloat(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+		}
+		stbi_image_free(data);
+	}
+}
