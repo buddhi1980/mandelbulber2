@@ -1812,7 +1812,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	quint64 texWidth = renderData->textures.backgroundTexture.Width();
 	quint64 texHeight = renderData->textures.backgroundTexture.Height();
 
-	backgroungImageBuffer.reset(new cl_uchar4[texWidth * texHeight]);
+	backgroungImageBuffer.reset(new cl_float4[texWidth * texHeight]);
 	quint64 backgroundImage2DWidth = texWidth;
 	quint64 backgroundImage2DHeight = texHeight;
 
@@ -1821,10 +1821,10 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		for (quint64 x = 0; x < texWidth; x++)
 		{
 			sRGBFloat pixel = renderData->textures.backgroundTexture.FastPixel(x, y);
-			backgroungImageBuffer[x + y * texWidth].s[0] = clamp(int(pixel.R * 256.0), 0, 255);
-			backgroungImageBuffer[x + y * texWidth].s[1] = clamp(int(pixel.G * 256.0), 0, 255);
-			backgroungImageBuffer[x + y * texWidth].s[2] = clamp(int(pixel.B * 256.0), 0, 255);
-			backgroungImageBuffer[x + y * texWidth].s[3] = CL_UCHAR_MAX;
+			backgroungImageBuffer[x + y * texWidth].s[0] = pixel.R;
+			backgroungImageBuffer[x + y * texWidth].s[1] = pixel.G;
+			backgroungImageBuffer[x + y * texWidth].s[2] = pixel.B;
+			backgroungImageBuffer[x + y * texWidth].s[3] = 1.0f;
 		}
 	}
 
@@ -1833,8 +1833,8 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		cl_int err;
 		backgroundImage2D.append(QSharedPointer<cl::Image2D>(
 			new cl::Image2D(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-				cl::ImageFormat(CL_RGBA, CL_UNORM_INT8), backgroundImage2DWidth, backgroundImage2DHeight,
-				backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer.data(), &err)));
+				cl::ImageFormat(CL_RGBA, CL_FLOAT), backgroundImage2DWidth, backgroundImage2DHeight,
+				backgroundImage2DWidth * sizeof(cl_float4), backgroungImageBuffer.data(), &err)));
 		if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
 	}
 	return true;

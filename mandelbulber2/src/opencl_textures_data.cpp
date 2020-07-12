@@ -271,9 +271,25 @@ void cOpenClTexturesData::BuildTextureData(
 		cl_uchar4 clpixel;
 		if (!grey16bit)
 		{
-			clpixel = {
-				{cl_uchar(clamp(int(pixel.R * 256), 0, 255)), cl_uchar(clamp(int(pixel.G * 256), 0, 255)),
-					cl_uchar(clamp(int(pixel.B * 256), 0, 255)), cl_uchar(0)}};
+			// hdre color compression
+			float v = pixel.R; // max rgb value
+			if (v < pixel.G) v = pixel.G;
+			if (v < pixel.B) v = pixel.B;
+			if (v < 1e-32)
+			{
+				clpixel = {{0, 0, 0, 0}};
+			}
+			else
+			{
+				int exponent;
+				int value = frexp(v, &exponent) * 256.0 / v;
+				int r = int(value * pixel.R);
+				int g = int(value * pixel.G);
+				int b = int(value * pixel.B);
+				int e = int(exponent + 128);
+
+				clpixel = {{cl_uchar(r), cl_uchar(g), cl_uchar(b), cl_uchar(e)}};
+			}
 		}
 		else
 		{

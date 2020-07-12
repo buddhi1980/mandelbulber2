@@ -163,7 +163,7 @@ private:
 	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
 
 	// FIXME: replace QScopedArrayPointer with std::vector
-	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
+	QScopedArrayPointer<cl_float4> backgroungImageBuffer;
 
 	QScopedPointer<cOpenClDynamicData> dynamicData;
 	QScopedPointer<cOpenClTexturesData> texturesData;
