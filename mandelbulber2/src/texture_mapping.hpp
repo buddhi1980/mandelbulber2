@@ -44,7 +44,7 @@
 class cMaterial;
 class cObjectData;
 
-CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
+CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX = nullptr,
 	CVector3 *textureVectorY = nullptr);
 

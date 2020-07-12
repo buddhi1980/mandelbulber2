@@ -119,8 +119,8 @@ inline double LimitAngle(double angle)
 template <typename T>
 T SmoothCVector(const T &v1, const T &v2, double k);
 
-double cubicInterpolate(double p[4], double x);
-double bicubicInterpolate(double p[4][4], double x, double y);
+float cubicInterpolate(float p[4], float x);
+float bicubicInterpolate(float p[4][4], float x, float y);
 
 CVector3 wrap(CVector3 x, const CVector3 &a, const CVector3 &s);
 

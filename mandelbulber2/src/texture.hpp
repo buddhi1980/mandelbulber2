@@ -66,28 +66,28 @@ public:
 	~cTexture();
 	int Height() const { return height; }
 	int Width() const { return width; }
-	sRGBFloat Pixel(double x, double y, double pixelSize = 0.0) const;
-	sRGBFloat Pixel(CVector2<double> point, double pixelSize = 0.0) const;
-	sRGBA16 FastPixel(int x, int y) const;
+	sRGBFloat Pixel(float x, float y, float pixelSize = 0.0) const;
+	sRGBFloat Pixel(CVector2<float> point, float pixelSize = 0.0) const;
+	sRGBFloat FastPixel(int x, int y) const;
 	bool IsLoaded() const { return loaded; }
 	QString GetFileName() const { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
-	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
+	CVector3 NormalMapFromBumpMap(CVector2<float> point, float bump, float pixelSize = 0.0) const;
 	CVector3 NormalMap(
-		CVector2<double> point, double bump, bool invertGreen, double pixelSize = 0.0) const;
+		CVector2<float> point, float bump, bool invertGreen, float pixelSize = 0.0) const;
 
 private:
-	sRGBA16 LinearInterpolation(double x, double y) const;
-	static sRGBFloat BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h);
-	sRGBFloat MipMap(double x, double y, double pixelSize) const;
+	sRGBFloat LinearInterpolation(float x, float y) const;
+	static sRGBFloat BicubicInterpolation(float x, float y, const sRGBFloat *_bitmap, int w, int h);
+	sRGBFloat MipMap(float x, float y, float pixelSize) const;
 	void CreateMipMaps();
 	static int WrapInt(int a, int size) { return (a + size) % size; }
-	std::vector<sRGBA16> bitmap;
+	std::vector<sRGBFloat> bitmap;
 	int width;
 	int height;
 	bool loaded;
 	QString originalFileName;
-	QList<QVector<sRGBA16>> mipmaps;
+	QList<QVector<sRGBFloat>> mipmaps;
 	QList<CVector2<int>> mipmapSizes;
 };
 

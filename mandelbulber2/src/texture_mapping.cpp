@@ -41,11 +41,11 @@
 #include "object_data.hpp"
 #include "texture_enums.hpp"
 
-CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
+CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX,
 	CVector3 *textureVectorY)
 {
-	CVector2<double> textureCoordinates;
+	CVector2<float> textureCoordinates;
 	CVector3 point = inPoint - objectData.position;
 	point = objectData.rotationMatrix.RotateVector(point);
 	point /= objectData.size;
@@ -56,7 +56,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	{
 		case texture::mappingPlanar:
 		{
-			textureCoordinates = CVector2<double>(point.x, point.y);
+			textureCoordinates = CVector2<float>(point.x, point.y);
 			textureCoordinates.x /= -material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
 			textureCoordinates.x -= material->textureCenter.x;
@@ -140,9 +140,9 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				{
 					// x
 					if (normalVector.x > 0)
-						textureCoordinates = CVector2<double>(point.y, -point.z);
+						textureCoordinates = CVector2<float>(point.y, -point.z);
 					else
-						textureCoordinates = CVector2<double>(-point.y, -point.z);
+						textureCoordinates = CVector2<float>(-point.y, -point.z);
 
 					if (textureVectorX && textureVectorY)
 					{
@@ -162,9 +162,9 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				{
 					// z
 					if (normalVector.z > 0)
-						textureCoordinates = CVector2<double>(-point.x, point.y);
+						textureCoordinates = CVector2<float>(-point.x, point.y);
 					else
-						textureCoordinates = CVector2<double>(point.x, point.y);
+						textureCoordinates = CVector2<float>(point.x, point.y);
 
 					if (textureVectorX && textureVectorY)
 					{
@@ -187,9 +187,9 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				{
 					// y
 					if (normalVector.y > 0)
-						textureCoordinates = CVector2<double>(-point.x, -point.z);
+						textureCoordinates = CVector2<float>(-point.x, -point.z);
 					else
-						textureCoordinates = CVector2<double>(point.x, -point.z);
+						textureCoordinates = CVector2<float>(point.x, -point.z);
 
 					if (textureVectorX && textureVectorY)
 					{
@@ -209,9 +209,9 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				{
 					// z
 					if (normalVector.z > 0)
-						textureCoordinates = CVector2<double>(-point.x, point.y);
+						textureCoordinates = CVector2<float>(-point.x, point.y);
 					else
-						textureCoordinates = CVector2<double>(point.x, point.y);
+						textureCoordinates = CVector2<float>(point.x, point.y);
 
 					if (textureVectorX && textureVectorY)
 					{

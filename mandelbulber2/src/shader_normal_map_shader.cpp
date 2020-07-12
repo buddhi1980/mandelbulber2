@@ -44,19 +44,19 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	cObjectData objectData = data->objectData[input.objectId];
 	CVector3 texX, texY;
 	double texturePixelSize;
-	CVector2<double> texPoint =
+	CVector2<float> texPoint =
 		TextureMapping(input.point, input.normal, objectData, input.material, &texX, &texY)
-		+ CVector2<double>(0.5, 0.5);
+		+ CVector2<float>(0.5, 0.5);
 
 	// mipmapping - calculation of texture pixel size
-	double delta = CalcDelta(input.point);
-	double deltaTexX =
+	float delta = CalcDelta(input.point);
+	float deltaTexX =
 		(TextureMapping(input.point + texX * delta, input.normal, objectData, input.material)
-			+ CVector2<double>(0.5, 0.5) - texPoint)
+			+ CVector2<float>(0.5, 0.5) - texPoint)
 			.Length();
-	double deltaTexY =
+	float deltaTexY =
 		(TextureMapping(input.point + texY * delta, input.normal, objectData, input.material)
-			+ CVector2<double>(0.5, 0.5) - texPoint)
+			+ CVector2<float>(0.5, 0.5) - texPoint)
 			.Length();
 	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));

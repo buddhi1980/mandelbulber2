@@ -1820,10 +1820,10 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	{
 		for (quint64 x = 0; x < texWidth; x++)
 		{
-			sRGBA16 pixel = renderData->textures.backgroundTexture.FastPixel(x, y);
-			backgroungImageBuffer[x + y * texWidth].s[0] = pixel.R / 256;
-			backgroungImageBuffer[x + y * texWidth].s[1] = pixel.G / 256;
-			backgroungImageBuffer[x + y * texWidth].s[2] = pixel.B / 256;
+			sRGBFloat pixel = renderData->textures.backgroundTexture.FastPixel(x, y);
+			backgroungImageBuffer[x + y * texWidth].s[0] = clamp(int(pixel.R * 256.0), 0, 255);
+			backgroungImageBuffer[x + y * texWidth].s[1] = clamp(int(pixel.G * 256.0), 0, 255);
+			backgroungImageBuffer[x + y * texWidth].s[2] = clamp(int(pixel.B * 256.0), 0, 255);
 			backgroungImageBuffer[x + y * texWidth].s[3] = CL_UCHAR_MAX;
 		}
 	}

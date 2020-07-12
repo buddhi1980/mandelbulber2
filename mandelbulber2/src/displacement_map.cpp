@@ -49,10 +49,10 @@ double DisplacementMap(
 
 		if (mat->displacementTexture.IsLoaded())
 		{
-			CVector2<double> textureCoordinates;
+			CVector2<float> textureCoordinates;
 			textureCoordinates =
 				TextureMapping(point, CVector3(0.0, 0.0, 1.0), data->objectData[objectId], mat)
-				+ CVector2<double>(0.5, 0.5);
+				+ CVector2<float>(0.5f, 0.5f);
 			sRGBFloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
 			double bump = double(bump3.R);
 			distance -= bump * mat->displacementTextureHeight / reduce;

@@ -32,6 +32,7 @@
  * dynamic data for textures loaded to OpenCL kernel
  */
 
+#include "common_math.h"
 #include "system.hpp"
 
 // custom includes
@@ -265,18 +266,20 @@ void cOpenClTexturesData::BuildTextureData(
 		int x = i % textureWidth;
 		int y = i / textureWidth;
 
-		sRGBA16 pixel = texture->FastPixel(x, y);
+		sRGBFloat pixel = texture->FastPixel(x, y);
 
 		cl_uchar4 clpixel;
 		if (!grey16bit)
 		{
-			clpixel = {{cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
-				cl_uchar(pixel.A / 256)}};
+			clpixel = {
+				{cl_uchar(clamp(int(pixel.R * 256), 0, 255)), cl_uchar(clamp(int(pixel.G * 256), 0, 255)),
+					cl_uchar(clamp(int(pixel.B * 256), 0, 255)), cl_uchar(0)}};
 		}
 		else
 		{
 			// greyscale 16bit texture is coded using first two bytes
-			clpixel = {{cl_uchar(pixel.R / 256), cl_uchar(pixel.R % 256), 0, 0}};
+			int brightness = clamp(int(pixel.R * 256.0), 0, 65535);
+			clpixel = {{cl_uchar(brightness / 256), cl_uchar(brightness % 256), 0, 0}};
 		}
 
 		data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));

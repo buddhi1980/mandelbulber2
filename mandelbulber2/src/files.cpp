@@ -429,7 +429,7 @@ std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight)
 				for (int x = 0; x < outWidth; x++)
 				{
 					unsigned char *pointer = static_cast<unsigned char *>(row_pointers[y]) + x * 4;
-					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, pointer[2] * 256);
+					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, pointer[3] * 256);
 					image[x + y * outWidth] = pixel;
 				}
 			}
