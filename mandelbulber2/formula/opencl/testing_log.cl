@@ -55,7 +55,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	REAL4 oldZ = z;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-	REAL tmp = fractal->transformCommon.offset1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 	REAL t = fractal->transformCommon.minR06;
 	REAL4 t1 = (REAL4){SQRT_3_4_F, -0.5f, 0.0f, 0.0f};
 	REAL4 t2 = (REAL4){-SQRT_3_4_F, -0.5f, 0.0f, 0.0f};
@@ -77,7 +77,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			REAL4 zB = z - (REAL4){0.0f, 0.0f, innerScale * 0.5f, 0.0f};
-			if (dot(zB, zB) < innerScaleB * tmp) break; // definitely inside
+			if (dot(zB, zB) < innerScaleB) break; // definitely inside
 		}
 
 		REAL maxH = 0.4f * fractal->transformCommon.scaleG1;
@@ -159,7 +159,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z *= fractal->transformCommon.scaleD1;
 		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
-		aux->temp1000 = min(aux->temp1000, length(z));
+		//aux->temp1000 = min(aux->temp1000, length(z));
+		aux->temp1000 = min(aux->temp1000, z.Dot(z));
 	}
 	// aux->DE
 	aux->DE = Dd;
@@ -180,7 +181,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		REAL colorAdd = 0.0f;
-		colorAdd += colorAdd * fractal->foldColor.difs1;
 		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
 		colorAdd += aux->temp1000 * fractal->foldColor.difs0000.z;

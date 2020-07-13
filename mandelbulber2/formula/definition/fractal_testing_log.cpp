@@ -66,7 +66,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	double tmp = fractal->transformCommon.offset1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
 	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
@@ -89,7 +89,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			CVector4 zB = z - CVector4(0.0, 0.0, innerScale * 0.5, 0.0);
-			if (zB.Dot(zB) < innerScaleB * tmp) break; // definitely inside
+			if (zB.Dot(zB) < innerScaleB) break; // definitely inside
 		}
 
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
@@ -171,7 +171,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z *= fractal->transformCommon.scaleD1;
 		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
-		aux.temp1000 = min(aux.temp1000, z.Length());
+		//aux.temp1000 = min(aux.temp1000, z.Length());
+
+		aux.temp1000 = min(aux.temp1000, z.Dot(z));
 	}
 	// aux.DE
 	aux.DE = Dd;
