@@ -66,7 +66,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	CVector4 oldZ = z;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	double tmp = fractal->transformCommon.offset1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 	double t = fractal->transformCommon.minR06;
 	CVector4 t1 = CVector4(SQRT_3_4, -0.5, 0.0, 0.0);
 	CVector4 t2 = CVector4(-SQRT_3_4, -0.5, 0.0, 0.0);
@@ -74,12 +74,12 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	CVector4 n1 = CVector4(-0.5, -SQRT_3_4, 0.0, 0.0);
 	CVector4 n2 = CVector4(-0.5, SQRT_3_4, 0.0, 0.0);
 
-
+	double scl = fractal->transformCommon.functionEnabledwFalse ? SQRT_3 : 1.0;
 	double k = fractal->transformCommon.scaleA1;
 	double kk = k * k;
-	double innerScale = k * SQRT_3 / (kk + SQRT_3);
+	double innerScale = k * scl / (kk + scl);
 	double innerScaleB = innerScale * innerScale * 0.25;
-	double shift = (kk + SQRT_3) / (k * (1.0 + SQRT_3));
+	double shift = (kk + scl) / (k * (1.0 + scl));
 	double mid = 0.5 * (k + 1.0) / 2.0;
 	double bufferRad = t * k;
 
@@ -89,7 +89,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			CVector4 zB = z - CVector4(0.0, 0.0, innerScale * 0.5, 0.0);
-			if (zB.Dot(zB) < innerScaleB * tmp) break; // definitely inside
+			if (zB.Dot(zB) < innerScaleB) break; // definitely inside
 		}
 
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
@@ -116,18 +116,21 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z *= invSC;
 			z.z -= shift;
 			z.z *= -1.0;
-			z *= SQRT_3;
-			Dd *= SQRT_3;
+			z *= scl;
+			Dd *= scl;
 			z.z += shift;
 
 			// and rotate it a twelfth of a revolution
-			double a = M_PI / fractal->transformCommon.scale6;
-			double cosA = cos(a);
-			double sinA = sin(a);
-			double xx = z.x * cosA + z.y * sinA;
-			double yy = -z.x * sinA + z.y * cosA;
-			z.x = xx;
-			z.y = yy;
+			if (fractal->transformCommon.functionEnabledwFalse)
+			{
+				double a = M_PI / fractal->transformCommon.scale6;
+				double cosA = cos(a);
+				double sinA = sin(a);
+				double xx = z.x * cosA + z.y * sinA;
+				double yy = -z.x * sinA + z.y * cosA;
+				z.x = xx;
+				z.y = yy;
+			}
 		}
 
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5
@@ -168,13 +171,16 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z *= fractal->transformCommon.scaleD1;
 		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
+		//aux.temp1000 = min(aux.temp1000, z.Length());
+
+		aux.temp1000 = min(aux.temp1000, z.Dot(z));
 	}
 	// aux.DE
 	aux.DE = Dd;
 
 	CVector4 len = z - CVector4(0.0, 0.0, 0.5 * k, 0.0);
 	double d = (len.Length() - 0.5 * k);
-	d = (sqrt(d + 1.0) - 1.0) * 2.0;
+	// d = (sqrt(d + 1.0) - 1.0) * 2.0;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22 * aux.DE;
 
@@ -192,7 +198,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		colorAdd += colorAdd * fractal->foldColor.difs1;
 		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
-		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
+		colorAdd += aux.temp1000 * fractal->foldColor.difs0000.z;
 		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
 
 		aux.color += colorAdd;
