@@ -41,7 +41,6 @@
 #include <clocale>
 
 #include <QTextStream>
-#include <QtGui>
 
 #include "global_data.hpp"
 #include "initparameters.hpp"

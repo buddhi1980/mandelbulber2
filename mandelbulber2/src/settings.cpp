@@ -38,6 +38,7 @@
 #include "settings.hpp"
 
 #include <QCryptographicHash>
+#include <QClipboard>
 
 #include "animation_frames.hpp"
 #include "error_message.hpp"

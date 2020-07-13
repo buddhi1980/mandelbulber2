@@ -34,9 +34,10 @@
 
 #include "fft_view.h"
 
+#include <cmath>
 #include <QPainter>
-#include <QtGui>
 #include <QApplication>
+#include <QMouseEvent>
 
 #include "src/audio_fft_data.h"
 #include "src/audio_track.h"

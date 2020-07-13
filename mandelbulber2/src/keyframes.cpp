@@ -38,6 +38,7 @@
  */
 
 #include "keyframes.hpp"
+#include <QDebug>
 
 cKeyframes *gKeyframes = nullptr;
 

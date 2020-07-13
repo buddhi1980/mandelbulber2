@@ -42,6 +42,7 @@
 #define MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 
 #include <qmessagebox.h>
+#include <QThread>
 
 #include "error_message.hpp"
 #include "keyframes.hpp"

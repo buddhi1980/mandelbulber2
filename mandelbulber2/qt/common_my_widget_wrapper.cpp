@@ -41,6 +41,10 @@
 
 #include "common_my_widget_wrapper.h"
 
+#include <QCoreApplication>
+#include <QDebug>
+#include <QContextMenuEvent>
+
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 

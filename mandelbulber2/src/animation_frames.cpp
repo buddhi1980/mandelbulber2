@@ -37,6 +37,8 @@
 
 #include "animation_frames.hpp"
 
+#include <QDir>
+
 #include "audio_track.h"
 #include "audio_track_collection.h"
 #include "fractal_container.hpp"

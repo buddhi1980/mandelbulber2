@@ -39,8 +39,7 @@
 #define MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 
 #include <utility>
-
-#include <QtGui>
+#include <QImage>
 
 #include "audio_track_collection.h"
 #include "parameters.hpp"

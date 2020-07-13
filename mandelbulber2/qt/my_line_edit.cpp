@@ -34,12 +34,13 @@
 
 #include "my_line_edit.h"
 
-#include <qapplication.h>
-
+#include <QApplication>
 #include <QByteArray>
 #include <QLocale>
 #include <QMenu>
 #include <QSlider>
+#include <QClipboard>
+#include <QWheelEvent>
 
 #include "frame_slider_popup.h"
 

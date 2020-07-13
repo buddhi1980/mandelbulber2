@@ -37,7 +37,6 @@
 
 #include <QScrollArea>
 #include <QScrollBar>
-#include <QtGui>
 
 class MyScrolledArea : public QScrollArea
 {

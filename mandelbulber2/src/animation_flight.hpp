@@ -42,6 +42,7 @@
 #define MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_
 
 #include <qmessagebox.h>
+#include <QThread>
 
 #include "algebra.hpp"
 #include "animation_frames.hpp"
