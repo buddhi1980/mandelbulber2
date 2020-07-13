@@ -9,6 +9,7 @@
 #define MANDELBULBER2_SRC_RADIANCE_HDR_H_
 
 #include <QString>
+#include <vector>
 #include "color_structures.hpp"
 
 class cRadianceHDR

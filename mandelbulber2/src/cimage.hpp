@@ -41,6 +41,9 @@
 
 #include <QMutex>
 #include <QWidget>
+#include <QString>
+#include <QMap>
+#include <QDebug>
 
 #include "color_structures.hpp"
 #include "image_adjustments.h"

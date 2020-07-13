@@ -37,6 +37,7 @@
 #include <algorithm>
 
 #include <QtAlgorithms>
+#include <QDebug>
 
 #include "nine_fractals.hpp"
 #include "projection_3d.hpp"
@@ -87,7 +88,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 
 	if (myMap.find(name) != myMap.end())
 	{
-		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
+		qWarning() << "addParam(): element '" << name << "' already existed";
 	}
 	else
 	{
@@ -127,7 +128,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 
 	if (myMap.find(name) != myMap.end())
 	{
-		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
+		qWarning() << "addParam(): element '" << name << "' already existed";
 	}
 	else
 	{
@@ -165,7 +166,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 		QString indexName = nameWithIndex(&name, index);
 		if (myMap.find(indexName) != myMap.end())
 		{
-			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
+			qWarning() << "addParam(): element '" << indexName << "' already existed";
 		}
 		else
 		{
@@ -174,8 +175,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 	}
 	else
 	{
-		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
-							 << endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
 template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
@@ -214,7 +214,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		QString indexName = nameWithIndex(&name, index);
 		if (myMap.find(indexName) != myMap.end())
 		{
-			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
+			qWarning() << "addParam(): element '" << indexName << "' already existed";
 		}
 		else
 		{
@@ -223,8 +223,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 	}
 	else
 	{
-		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
-							 << endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
 template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
@@ -252,7 +251,7 @@ void cParameterContainer::Set(QString name, T val)
 	}
 	else
 	{
-		qWarning() << "Set(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "Set(): element '" << name << "' doesn't exists";
 	}
 }
 template void cParameterContainer::Set<double>(QString name, double val);
@@ -280,12 +279,12 @@ void cParameterContainer::Set(QString name, int index, T val)
 		}
 		else
 		{
-			qWarning() << "Set(): element '" << indexName << "' doesn't exists" << endl;
+			qWarning() << "Set(): element '" << indexName << "' doesn't exists";
 		}
 	}
 	else
 	{
-		qWarning() << "Set(): element '" << name << "' has negative index (" << index << ")" << endl;
+		qWarning() << "Set(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
 template void cParameterContainer::Set<double>(QString name, int index, double val);
@@ -311,7 +310,7 @@ T cParameterContainer::Get(QString name) const
 	}
 	else
 	{
-		qWarning() << "Get(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "Get(): element '" << name << "' doesn't exists";
 	}
 	return val;
 }
@@ -347,12 +346,12 @@ T cParameterContainer::Get(QString name, int index) const
 		}
 		else
 		{
-			qWarning() << "Get(): element '" << indexName << "' doesn't exists" << endl;
+			qWarning() << "Get(): element '" << indexName << "' doesn't exists";
 		}
 	}
 	else
 	{
-		qWarning() << "Get(): element '" << name << "' has negative index (" << index << ")" << endl;
+		qWarning() << "Get(): element '" << name << "' has negative index (" << index << ")";
 	}
 	return val;
 }
@@ -385,7 +384,7 @@ T cParameterContainer::GetDefault(QString name) const
 	}
 	else
 	{
-		qWarning() << "GetDefault(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "GetDefault(): element '" << name << "' doesn't exists";
 	}
 	return val;
 }
@@ -415,13 +414,12 @@ T cParameterContainer::GetDefault(QString name, int index) const
 		}
 		else
 		{
-			qWarning() << "GetDefault(): element '" << indexName << "' doesn't exists" << endl;
+			qWarning() << "GetDefault(): element '" << indexName << "' doesn't exists";
 		}
 	}
 	else
 	{
-		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")"
-							 << endl;
+		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")";
 	}
 	return val;
 }
@@ -455,12 +453,12 @@ void cParameterContainer::Copy(QString name, const cParameterContainer *sourceCo
 		}
 		else
 		{
-			qWarning() << "CopyPar(): source element '" << name << "' doesn't exists" << endl;
+			qWarning() << "CopyPar(): source element '" << name << "' doesn't exists";
 		}
 	}
 	else
 	{
-		qWarning() << "CopyPar(): destination element '" << name << "' doesn't exists" << endl;
+		qWarning() << "CopyPar(): destination element '" << name << "' doesn't exists";
 	}
 }
 
@@ -501,7 +499,7 @@ enumVarType cParameterContainer::GetVarType(QString name) const
 	}
 	else
 	{
-		qWarning() << "GetVarType(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "GetVarType(): element '" << name << "' doesn't exists";
 	}
 	return type;
 }
@@ -520,7 +518,7 @@ enumParameterType cParameterContainer::GetParameterType(QString name) const
 	}
 	else
 	{
-		qWarning() << "GetParameterType(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "GetParameterType(): element '" << name << "' doesn't exists";
 	}
 	return type;
 }
@@ -540,7 +538,7 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	else
 	{
 		qWarning() << "cParameterContainer::isDefaultValue(QString name): element '" << name
-							 << "' doesn't exists" << endl;
+							 << "' doesn't exists";
 	}
 	return isDefault;
 }
@@ -588,7 +586,7 @@ void cParameterContainer::DeleteParameter(const QString &name)
 	}
 	else
 	{
-		qWarning() << "DeleteParameter(): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "DeleteParameter(): element '" << name << "' doesn't exists";
 	}
 }
 
@@ -606,7 +604,7 @@ cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 	else
 	{
 		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name
-							 << "' doesn't exists" << endl;
+							 << "' doesn't exists";
 	}
 	return val;
 }
@@ -625,7 +623,7 @@ void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter 
 	{
 		qWarning() << "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter "
 									"&parameter): element '"
-							 << name << "' doesn't exists" << endl;
+							 << name << "' doesn't exists";
 	}
 }
 
@@ -637,7 +635,7 @@ void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParam
 	{
 		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter "
 									"&parameter): element '"
-							 << name << "' already existed" << endl;
+							 << name << "' already existed";
 	}
 	else
 	{
@@ -702,6 +700,6 @@ void cParameterContainer::SetAsGradient(QString name)
 	else
 	{
 		qWarning() << "cParameterContainer::SetAsGradient(QString name): element '" << name
-							 << "' doesn't exists" << endl;
+							 << "' doesn't exists";
 	}
 }

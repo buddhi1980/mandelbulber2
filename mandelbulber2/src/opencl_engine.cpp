@@ -37,6 +37,10 @@
 
 #include <iostream>
 #include <sstream>
+#include <QDir>
+#include <QCryptographicHash>
+#include <QDebug>
+#include <QElapsedTimer>
 
 #include "error_message.hpp"
 #include "opencl_hardware.h"

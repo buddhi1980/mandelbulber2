@@ -36,8 +36,6 @@
 #define MANDELBULBER2_QT_MY_LINE_EDIT_H_
 
 #include <QLineEdit>
-#include <QtCore>
-#include <QtGui>
 
 #include "common_my_widget_wrapper.h"
 

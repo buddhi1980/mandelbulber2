@@ -32,8 +32,6 @@
  * InitParams function - initialization of all parameters
  */
 
-#include <QtCore>
-
 #include "formula/definition/all_fractal_list.hpp"
 #include "file_mesh.hpp"
 #include "files.h"

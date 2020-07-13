@@ -36,6 +36,8 @@
 
 #include <cstdio>
 #include <cstring>
+#include <QFileInfo>
+#include <QDir>
 
 #include "cimage.hpp"
 #include "error_message.hpp"

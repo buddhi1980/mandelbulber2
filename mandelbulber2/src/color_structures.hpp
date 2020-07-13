@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_
 #define MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_
 
-#include <QtCore>
+#include <QtGlobal>
 
 template <typename T>
 struct tsRGB

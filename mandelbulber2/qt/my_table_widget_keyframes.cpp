@@ -37,7 +37,6 @@
 #include <QContextMenuEvent>
 #include <QHeaderView>
 #include <QMenu>
-#include <QtCore>
 
 #include "src/animation_keyframes.hpp"
 

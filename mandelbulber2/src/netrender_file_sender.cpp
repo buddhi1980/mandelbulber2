@@ -35,6 +35,10 @@
 
 #include "netrender_file_sender.hpp"
 
+#include <cmath>
+#include <QDir>
+#include <QDebug>
+
 #include "system_directories.hpp"
 
 cNetRenderFileSender::cNetRenderFileSender(QObject *parent) : QObject(parent)

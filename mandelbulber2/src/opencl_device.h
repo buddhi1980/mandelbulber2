@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 #define MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 
-#ifdef USE_OPENCL
+#include <QString>
+#include <QByteArray>
 
-#include <QtCore>
+#ifdef USE_OPENCL
 
 #include "include_header_wrapper.hpp"
 

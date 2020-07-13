@@ -38,7 +38,6 @@
 
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QtCore>
 
 #include "fractal_container.hpp"
 #include "parameters.hpp"

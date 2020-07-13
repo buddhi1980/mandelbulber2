@@ -36,8 +36,6 @@
 #define MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_
 
 #include <QLabel>
-#include <QtCore>
-#include <QtGui>
 
 #include "src/histogram.hpp"
 

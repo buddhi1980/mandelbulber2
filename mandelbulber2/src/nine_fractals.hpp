@@ -36,8 +36,6 @@
 #ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 #define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
-#include <QtCore>
-
 #include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
 #include "fractal_enums.h"

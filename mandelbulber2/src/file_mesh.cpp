@@ -37,6 +37,10 @@
 
 #include "file_mesh.hpp"
 
+#include <QFileInfo>
+#include <QDebug>
+#include <QDir>
+
 #include "error_message.hpp"
 #include "files.h"
 #include "initparameters.hpp"

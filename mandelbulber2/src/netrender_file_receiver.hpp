@@ -35,7 +35,9 @@
 #ifndef MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_
 #define MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_
 
-#include <QtCore>
+#include <QObject>
+#include <QString>
+#include <QMap>
 
 class cNetRenderFileReceiver : public QObject
 {

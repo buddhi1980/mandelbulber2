@@ -37,8 +37,6 @@
 
 #include <string>
 
-#include <QtCore>
-
 #include "file_image.hpp"
 
 // forward declarations

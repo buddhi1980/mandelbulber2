@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_SRC_THUMBNAIL_HPP_
 #define MANDELBULBER2_SRC_THUMBNAIL_HPP_
 
-#include <QtCore>
+#include <QString>
+#include <QPixmap>
 
 // forward declarations
 class cParameterContainer;

@@ -35,9 +35,31 @@
  * method to store the image data with the corresponding file format
  */
 
-#include <string>
-
 #include "file_image.hpp"
+
+// custom includes
+#ifdef USE_EXR
+#include <ImfAttribute.h>
+#include <ImfChannelList.h>
+#include <ImfFrameBuffer.h>
+#include <ImfInputFile.h>
+#include <ImfOutputFile.h>
+#include <ImfStringAttribute.h>
+#include <half.h>
+#endif // USE_EXR
+
+//#include <libpng16/pngconf.h>
+
+#include <QByteArray>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QImage>
+#include <QIODevice>
+#include <QMap>
+#include <QStringList>
+#include <QVector>
 
 #include "cimage.hpp"
 #include "error_message.hpp"

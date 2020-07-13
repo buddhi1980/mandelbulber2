@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_KERNEL_H_
 #define MANDELBULBER2_SRC_OPENCL_KERNEL_H_
 
-#include <QtCore>
-
 #include "include_header_wrapper.hpp"
 
 class cOpenClKernel

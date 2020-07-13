@@ -43,8 +43,6 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QSettings>
-#include <QtCore>
-#include <QtGui>
 
 #include "files.h"
 #include "progress_text.hpp"

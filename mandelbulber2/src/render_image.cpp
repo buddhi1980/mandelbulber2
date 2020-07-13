@@ -36,8 +36,6 @@
 
 #include <algorithm>
 
-#include <QtCore>
-
 #include "ao_modes.h"
 #include "cast.hpp"
 #include "dof.hpp"

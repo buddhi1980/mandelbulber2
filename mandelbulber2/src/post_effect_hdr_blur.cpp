@@ -34,8 +34,6 @@
 
 #include "post_effect_hdr_blur.h"
 
-#include <QtCore>
-
 #include "cimage.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"

@@ -37,8 +37,6 @@
 
 #include <utility>
 
-#include <QtCore>
-
 #include "formula/definition/all_fractal_definitions.h"
 #include "formula/definition/abstract_fractal.h"
 #include "all_fractal_list_enums.hpp"

@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_MULTI_VAL_HPP_
 #define MANDELBULBER2_SRC_MULTI_VAL_HPP_
 
-#include <QtCore>
-
 #include "algebra.hpp"
 #include "color_structures.hpp"
 

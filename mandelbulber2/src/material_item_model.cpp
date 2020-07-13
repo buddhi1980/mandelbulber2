@@ -36,6 +36,8 @@
 
 #include "material_item_model.h"
 
+#include <QDebug>
+
 #include "initparameters.hpp"
 #include "material.h"
 #include "settings.hpp"

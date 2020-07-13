@@ -32,7 +32,7 @@
  * c++ - opencl connector for the DOF OpenCL renderer
  */
 
-#include <QtCore>
+#include <QObject>
 
 #include "region.hpp"
 

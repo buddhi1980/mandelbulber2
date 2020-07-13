@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_SRC_HEADLESS_H_
 #define MANDELBULBER2_SRC_HEADLESS_H_
 
-#include <QtCore>
+#include <QObject>
+#include <QString>
 
 #include "progress_text.hpp"
 #include "statistics.h"

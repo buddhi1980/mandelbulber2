@@ -34,8 +34,6 @@
 
 #include "render_queue.hpp"
 
-#include <QtCore>
-
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"

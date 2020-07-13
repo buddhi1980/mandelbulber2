@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_POST_EFFECT_HDR_BLUR_H_
 #define MANDELBULBER2_SRC_POST_EFFECT_HDR_BLUR_H_
 
+#include <QObject>
+
 #include "color_structures.hpp"
 
 // forward declarations

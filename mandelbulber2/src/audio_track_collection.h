@@ -35,7 +35,9 @@
 #ifndef MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
 #define MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
 
-#include <QtCore>
+#include <QString>
+#include <QSharedPointer>
+#include <QMap>
 
 // forward declarations
 class cAudioTrack;

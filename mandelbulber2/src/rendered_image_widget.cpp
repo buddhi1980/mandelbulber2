@@ -40,8 +40,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QVariant>
-#include <QtCore>
-#include <QtGui>
+#include <QStaticText>
 
 #include "animation_path_data.hpp"
 #include "camera_movement_modes.h"

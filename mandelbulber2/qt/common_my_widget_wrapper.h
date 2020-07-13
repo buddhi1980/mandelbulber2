@@ -44,8 +44,6 @@
 
 #include <QMenu>
 #include <QWidget>
-#include <QtCore>
-#include <QtGui>
 
 // forward declarations
 class cParameterContainer;

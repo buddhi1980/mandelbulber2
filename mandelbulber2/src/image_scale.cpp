@@ -36,8 +36,6 @@
 
 #include <algorithm>
 
-#include <QtCore>
-
 #include "cimage.hpp"
 using std::min;
 

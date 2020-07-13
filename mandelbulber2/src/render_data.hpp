@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_RENDER_DATA_HPP_
 #define MANDELBULBER2_SRC_RENDER_DATA_HPP_
 
+#include <QDebug>
+
 #include "lights.hpp"
 #include "material.h"
 #include "object_data.hpp"

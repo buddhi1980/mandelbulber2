@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_SRC_PARAMETERS_HPP_
 #define MANDELBULBER2_SRC_PARAMETERS_HPP_
 
-#include <QtCore>
+#include <QMap>
+#include <QMutex>
 
 #include "one_parameter.hpp"
 

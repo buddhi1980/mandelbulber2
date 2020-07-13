@@ -36,7 +36,10 @@
 #ifndef MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_
 #define MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_
 
-#include <QtCore>
+#include <QObject>
+#include <QString>
+#include <QFile>
+#include <QQueue>
 
 class cNetRenderFileSender : public QObject
 {

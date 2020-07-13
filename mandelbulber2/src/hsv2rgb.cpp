@@ -35,6 +35,8 @@
 
 #include "hsv2rgb.h"
 
+#include <cmath>
+
 sRGBFloat Hsv2rgb(float hue, float sat, float val)
 {
 	sRGBFloat rgb;

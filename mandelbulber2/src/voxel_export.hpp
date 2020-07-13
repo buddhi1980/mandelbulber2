@@ -40,7 +40,8 @@
 #ifndef MANDELBULBER2_SRC_VOXEL_EXPORT_HPP_
 #define MANDELBULBER2_SRC_VOXEL_EXPORT_HPP_
 
-#include <QtCore>
+#include <QObject>
+#include <QDir>
 
 #include "algebra.hpp"
 

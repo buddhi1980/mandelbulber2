@@ -35,9 +35,9 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_SCHEDULER_H_
 #define MANDELBULBER2_SRC_OPENCL_SCHEDULER_H_
 
-#include "opencl_scheduler.h"
-
-#include <QtCore>
+#include <QList>
+#include <QMutex>
+#include <QPoint>
 
 class cOpenClScheduler
 {

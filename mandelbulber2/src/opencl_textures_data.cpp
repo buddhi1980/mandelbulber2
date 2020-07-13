@@ -32,6 +32,8 @@
  * dynamic data for textures loaded to OpenCL kernel
  */
 
+#include <QSet>
+
 #include "common_math.h"
 #include "system.hpp"
 

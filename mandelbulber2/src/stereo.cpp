@@ -34,8 +34,6 @@
 
 #include "stereo.h"
 
-#include <QtCore>
-
 #include "cimage.hpp"
 cStereo::cStereo()
 {

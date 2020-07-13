@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_RENDER_IMAGE_HPP_
 
 #include <QObject>
+#include <QElapsedTimer>
 
 #include "render_worker.hpp"
 #include "statistics.h"

@@ -41,8 +41,6 @@
 #ifndef MANDELBULBER2_SRC_UNDO_H_
 #define MANDELBULBER2_SRC_UNDO_H_
 
-#include <QtCore>
-
 #include "animation_frames.hpp"
 #include "fractal_container.hpp"
 #include "keyframes.hpp"

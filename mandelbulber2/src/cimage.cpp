@@ -36,9 +36,6 @@
 
 #include <qpainter.h>
 
-#include <QtCore>
-#include <QtGlobal>
-
 #include "common_math.h"
 cImage::cImage(int w, int h, bool _allocLater)
 {

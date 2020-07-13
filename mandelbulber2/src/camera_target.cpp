@@ -34,8 +34,6 @@
 
 #include "camera_target.hpp"
 
-#include <QtCore>
-
 cCameraTarget::cCameraTarget(CVector3 _camera, CVector3 _target, CVector3 _top)
 {
 	SetCameraTargetTop(_camera, _target, _top);

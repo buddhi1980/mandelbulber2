@@ -36,7 +36,6 @@
 #define MANDELBULBER2_SRC_OPENCL_INPUT_OUTPUT_BUFFER_H_
 
 #ifdef USE_OPENCL
-#include <QtCore>
 
 #include "include_header_wrapper.hpp"
 

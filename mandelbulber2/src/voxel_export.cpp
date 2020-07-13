@@ -41,7 +41,6 @@
 
 #include <QScopedPointer>
 #include <QVector>
-#include <QtCore>
 
 #include "calculate_distance.hpp"
 #include "common_math.h"

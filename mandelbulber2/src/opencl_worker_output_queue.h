@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_WORKER_OUTPUT_QUEUE_H_
 #define MANDELBULBER2_SRC_OPENCL_WORKER_OUTPUT_QUEUE_H_
 
-#include <QtCore>
+#include <QQueue>
+#include <QMutex>
 
 #ifdef USE_OPENCL
 class cOpenCLWorkerOutputQueue

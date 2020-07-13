@@ -40,20 +40,15 @@
 #define MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 
 #include <utility>
-
-#include <QtCore>
+#include <QObject>
+#include <QMap>
+#include <QString>
 
 #include "color_structures.hpp"
 
 // custom includes
 #ifdef USE_EXR
-#include <ImfAttribute.h>
-#include <ImfChannelList.h>
-#include <ImfFrameBuffer.h>
-#include <ImfInputFile.h>
-#include <ImfOutputFile.h>
-#include <ImfStringAttribute.h>
-#include <half.h>
+#include "ImfHeader.h"
 #endif // USE_EXR
 extern "C"
 {

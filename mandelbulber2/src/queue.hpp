@@ -36,8 +36,8 @@
 #define MANDELBULBER2_SRC_QUEUE_HPP_
 
 #include <utility>
-
-#include <QtCore>
+#include <QObject>
+#include <QMutex>
 
 // forward declarations
 class cImage;
@@ -47,6 +47,7 @@ class cAnimationFrames;
 class cKeyframes;
 class cInterface;
 class RenderedImage;
+class QFileSystemWatcher;
 
 namespace Ui
 {

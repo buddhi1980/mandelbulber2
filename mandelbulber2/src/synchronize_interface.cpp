@@ -34,8 +34,9 @@
 
 #include "synchronize_interface.hpp"
 
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QPlainTextEdit>
+#include <QComboBox>
+#include <QPlainTextEdit>
+#include <QDebug>
 
 #include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
@@ -611,7 +612,7 @@ void SynchronizeInterfaceReadVect3d(
 		case 'z': vect.z = value; break;
 		default:
 			qWarning() << "cInterface::SynchronizeInterfaceReadVect3d(): edit field " << nameVect
-								 << " has wrong axis name (is " << lastChar << ")" << endl;
+								 << " has wrong axis name (is " << lastChar << ")";
 			break;
 	}
 	par->Set(nameVect, vect);
@@ -628,7 +629,7 @@ void SynchronizeInterfaceWriteVect3d(
 		case 'z': out = vect.z; break;
 		default:
 			qWarning() << "cInterface::SynchronizeInterfaceWriteVect3d(): edit field " << nameVect
-								 << " has wrong axis name (is " << lastChar << ")" << endl;
+								 << " has wrong axis name (is " << lastChar << ")";
 			break;
 	}
 }
@@ -645,7 +646,7 @@ void SynchronizeInterfaceReadVect4d(
 		case 'w': vect.w = value; break;
 		default:
 			qWarning() << "cInterface::SynchronizeInterfaceReadVect4d(): edit field " << nameVect
-								 << " has wrong axis name (is " << lastChar << ")" << endl;
+								 << " has wrong axis name (is " << lastChar << ")";
 			break;
 	}
 	par->Set(nameVect, vect);
@@ -663,7 +664,7 @@ void SynchronizeInterfaceWriteVect4d(
 		case 'w': out = vect.w; break;
 		default:
 			qWarning() << "cInterface::SynchronizeInterfaceWriteVect4d(): edit field " << nameVect
-								 << " has wrong axis name (is " << lastChar << ")" << endl;
+								 << " has wrong axis name (is " << lastChar << ")";
 			break;
 	}
 }

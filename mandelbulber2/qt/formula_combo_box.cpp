@@ -42,6 +42,7 @@
 #include <QLineEdit>
 #include <QStandardItemModel>
 #include <QWidget>
+#include <QDebug>
 
 #include "src/common_math.h"
 #include "src/parameters.hpp"

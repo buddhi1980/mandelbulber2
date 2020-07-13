@@ -37,6 +37,9 @@
 
 #include "multi_val.hpp"
 
+#include <QString>
+#include <QStringList>
+
 namespace parameterContainer
 {
 enum enumParameterType

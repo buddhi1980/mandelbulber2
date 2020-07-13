@@ -35,7 +35,7 @@
 #include "multi_val.hpp"
 
 #include <QLocale>
-#include <QtCore>
+#include <QDebug>
 
 using namespace parameterContainer;
 

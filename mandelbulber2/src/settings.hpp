@@ -38,7 +38,8 @@
 #ifndef MANDELBULBER2_SRC_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_SETTINGS_HPP_
 
-#include <QtCore>
+#include <QString>
+#include <QStringList>
 
 // forward declarations
 class cParameterContainer;

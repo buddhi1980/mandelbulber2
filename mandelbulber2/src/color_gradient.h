@@ -36,6 +36,8 @@
 #define MANDELBULBER2_SRC_COLOR_GRADIENT_H_
 #include "color_structures.hpp"
 
+#include <QList>
+
 class cColorGradient
 {
 public:

@@ -37,7 +37,6 @@
 
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QtCore>
 
 #include "fractal_container.hpp"
 #include "netrender_client.hpp"

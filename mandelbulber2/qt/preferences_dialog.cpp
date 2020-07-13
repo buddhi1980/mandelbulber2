@@ -37,7 +37,6 @@
 #include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QtCore>
 
 #include "ui_preferences_dialog.h"
 
@@ -532,10 +531,13 @@ void cPreferencesDialog::on_pushButton_select_clang_format_path_clicked()
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(ui->text_clang_format_path->text()).absolutePath()));
-	dialog.setNameFilter(tr("clang-format executable (clang-format.exe clang-format-*.exe clang-format-* clang-format)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(ui->text_clang_format_path->text()).absolutePath()));
+	dialog.setNameFilter(tr(
+		"clang-format executable (clang-format.exe clang-format-*.exe clang-format-* clang-format)"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
-	dialog.setWindowTitle(tr("Select clang-format executable (exe on windows, program name on MacOS / Linux)..."));
+	dialog.setWindowTitle(
+		tr("Select clang-format executable (exe on windows, program name on MacOS / Linux)..."));
 	if (dialog.exec())
 	{
 		QStringList filenames = dialog.selectedFiles();

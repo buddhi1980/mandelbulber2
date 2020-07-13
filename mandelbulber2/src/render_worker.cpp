@@ -34,8 +34,6 @@
 
 #include "render_worker.hpp"
 
-#include <QtCore>
-
 #include "ao_modes.h"
 #include "calculate_distance.hpp"
 #include "camera_target.hpp"

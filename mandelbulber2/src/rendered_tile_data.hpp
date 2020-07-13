@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 #define MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 
-#include <QtCore>
-
 struct sRenderedTileData
 {
 	sRenderedTileData(quint64 _x, quint64 _y, quint64 _width, quint64 _height, float _noiseLevel)

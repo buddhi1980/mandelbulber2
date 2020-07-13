@@ -34,6 +34,7 @@
 
 #ifdef USE_OPENCL
 #include "opencl_worker_output_queue.h"
+#include <QDebug>
 
 cOpenCLWorkerOutputQueue::cOpenCLWorkerOutputQueue()
 {

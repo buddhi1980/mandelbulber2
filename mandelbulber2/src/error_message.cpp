@@ -34,7 +34,11 @@
 
 #include "error_message.hpp"
 
+#include <QApplication>
 #include <QMessageBox>
+#include <QObject>
+#include <QString>
+#include <QTextStream>
 
 #include "global_data.hpp"
 #include "headless.h"

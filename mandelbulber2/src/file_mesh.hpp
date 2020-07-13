@@ -39,8 +39,10 @@
 #define MANDELBULBER2_SRC_FILE_MESH_HPP_
 
 #include <utility>
-
-#include <QtCore>
+#include <vector>
+#include <QString>
+#include <QObject>
+#include <QList>
 
 #include "color_structures.hpp"
 

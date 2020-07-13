@@ -9,6 +9,8 @@
 #define MANDELBULBER2_QT_CUSTOM_FORMULA_EDITOR_H_
 
 #include <QWidget>
+#include <QMap>
+#include <QString>
 #include "src/one_parameter.hpp"
 
 namespace Ui

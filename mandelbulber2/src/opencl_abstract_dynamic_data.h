@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ABSTRACT_DYNAMIC_DATA_H_
 #define MANDELBULBER2_SRC_OPENCL_ABSTRACT_DYNAMIC_DATA_H_
 
-#include <QtCore>
-
 #include "include_header_wrapper.hpp"
+
+#include <QByteArray>
+#include <QList>
 
 #ifdef USE_OPENCL
 class cOpenClAbstractDynamicData

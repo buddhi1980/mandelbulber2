@@ -34,6 +34,9 @@
 
 #include "opencl_hardware.h"
 
+#include <QCryptographicHash>
+#include <QDebug>
+
 #include "error_message.hpp"
 #include "opencl_device.h"
 #include "write_log.hpp"

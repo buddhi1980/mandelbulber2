@@ -37,8 +37,7 @@
 #include "opencl_worker_thread.h"
 
 #include <algorithm>
-
-#include <QtCore>
+#include <QDebug>
 
 #include "algebra.hpp"
 #include "opencl_engine.h"

@@ -37,7 +37,6 @@
 
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QtCore>
 
 #include "netrender_transport.hpp"
 

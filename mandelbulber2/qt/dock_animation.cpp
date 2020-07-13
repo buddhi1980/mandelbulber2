@@ -32,6 +32,8 @@
  * widget which contains UI for animation
  */
 
+#include <QStandardItemModel>
+
 #include "dock_animation.h"
 
 #include "ui_dock_animation.h"

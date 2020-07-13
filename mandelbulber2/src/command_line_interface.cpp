@@ -35,6 +35,7 @@
 
 #include "command_line_interface.hpp"
 
+#include <QList>
 #include <ctime>
 
 #include "animation_frames.hpp"

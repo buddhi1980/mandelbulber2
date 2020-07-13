@@ -39,8 +39,6 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QtCore>
-#include <QtGui>
 
 #include "common_my_widget_wrapper.h"
 

@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
 #define MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
 
-#include <QtCore>
-
 #include "include_header_wrapper.hpp"
 #include "opencl_abstract_dynamic_data.h"
 

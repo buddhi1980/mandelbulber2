@@ -39,8 +39,6 @@
 #define MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 
 #include <QPlainTextEdit>
-#include <QtCore>
-#include <QtGui>
 
 class MyLogWidget : public QPlainTextEdit
 {

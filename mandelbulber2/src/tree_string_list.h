@@ -7,7 +7,9 @@
 
 #ifndef MANDELBULBER2_SRC_TREE_STRING_LIST_H_
 #define MANDELBULBER2_SRC_TREE_STRING_LIST_H_
-#include <QtCore>
+
+#include <QString>
+#include <QList>
 
 class cTreeStringList
 {

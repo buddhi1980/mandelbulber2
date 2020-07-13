@@ -34,6 +34,9 @@
 
 #include "netrender_file_receiver.hpp"
 
+#include <QDir>
+#include <QDebug>
+
 #include "initparameters.hpp"
 #include "system_directories.hpp"
 

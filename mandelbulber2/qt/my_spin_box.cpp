@@ -35,8 +35,8 @@
 #include "my_spin_box.h"
 
 #include <QMenu>
-#include <QtCore>
-#include <QtWidgets/QtWidgets>
+#include <QWidget>
+#include <QLineEdit>
 
 #include "frame_slider_popup.h"
 

@@ -35,8 +35,6 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_QUEUE_H_
 #define MANDELBULBER2_SRC_OPENCL_QUEUE_H_
 
-#include <QtCore>
-
 #include "include_header_wrapper.hpp"
 
 class cOpenClQueue

@@ -34,7 +34,11 @@
 
 #ifndef MANDELBULBER2_SRC_COMMAND_LINE_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_COMMAND_LINE_INTERFACE_HPP_
-#include <QtCore>
+
+#include <QString>
+#include <QCommandLineParser>
+
+class QCoreApplication;
 
 class cCommandLineInterface
 {

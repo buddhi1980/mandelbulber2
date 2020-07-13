@@ -34,6 +34,8 @@
 
 #include "fractal_container.hpp"
 
+#include <QDebug>
+
 cFractalContainer *gParFractal = nullptr;
 
 cParameterContainer &cFractalContainer::operator[](int index)

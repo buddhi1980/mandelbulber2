@@ -36,10 +36,9 @@
  * while the image renders.
  */
 
+#include <QDebug>
+
 #include "scheduler.hpp"
-
-#include <QtCore>
-
 #include "system_data.hpp"
 
 #define LINE_DONE_BY_SERVER 9999

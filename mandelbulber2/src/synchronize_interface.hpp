@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 
-#include <QtCore>
+#include <QString>
 
 // forward declarations
 class cParameterContainer;

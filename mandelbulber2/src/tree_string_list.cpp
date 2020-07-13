@@ -7,6 +7,8 @@
 
 #include "tree_string_list.h"
 
+#include <QDebug>
+
 cTreeStringList::cTreeStringList()
 {
 	sItem newItem;

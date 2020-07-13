@@ -35,9 +35,8 @@
 #ifndef MANDELBULBER2_SRC_PROGRESS_TEXT_HPP_
 #define MANDELBULBER2_SRC_PROGRESS_TEXT_HPP_
 
-#include <QProgressBar>
-#include <QStatusBar>
-#include <QtCore>
+#include <QElapsedTimer>
+#include <QString>
 
 class cProgressText
 {

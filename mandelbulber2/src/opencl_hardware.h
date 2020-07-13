@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 #define MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 
-#include <QtCore>
+#include <QObject>
 
 #include "include_header_wrapper.hpp"
 #include "opencl_context.h"

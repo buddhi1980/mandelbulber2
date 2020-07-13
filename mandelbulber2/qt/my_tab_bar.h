@@ -36,8 +36,6 @@
 #define MANDELBULBER2_QT_MY_TAB_BAR_H_
 
 #include <QTabBar>
-#include <QtCore>
-#include <QtGui>
 
 class MyTabBar : public QTabBar
 {

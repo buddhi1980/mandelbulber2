@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 
-#include <QtCore>
+#include <QObject>
 
 #include "progress_text.hpp"
 #include "queue.hpp"

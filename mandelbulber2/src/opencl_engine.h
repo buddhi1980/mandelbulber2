@@ -36,8 +36,8 @@
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_H_
 
 #include <utility>
-
-#include <QtCore>
+#include <QElapsedTimer>
+#include <QMutex>
 
 #include "error_message.hpp"
 #include "include_header_wrapper.hpp"

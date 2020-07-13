@@ -36,8 +36,6 @@
 #define MANDELBULBER2_QT_MY_TAB_WIDGET_H_
 
 #include <QTabWidget>
-#include <QtCore>
-#include <QtGui>
 
 class MyTabWidget : public QTabWidget
 {

@@ -34,9 +34,16 @@
 
 #include "color_gradient.h"
 
-#include <algorithm>
-
+#include <QChar>
+#include <QDebug>
+#include <QtGlobal>
+#include <QList>
+#include <QMutex>
 #include <QString>
+#include <QStringList>
+#include <QVector>
+#include <algorithm>
+#include <cmath>
 
 cColorGradient::cColorGradient()
 {

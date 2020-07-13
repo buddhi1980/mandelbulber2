@@ -37,6 +37,7 @@
 #include <utility>
 
 #include <QFileInfo>
+#include <QDir>
 #include <QPixmap>
 
 #include "cimage.hpp"
