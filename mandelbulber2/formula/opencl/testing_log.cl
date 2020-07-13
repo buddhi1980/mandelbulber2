@@ -62,12 +62,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	REAL4 n1 = (REAL4){-0.5f, -SQRT_3_4_F, 0.0f, 0.0f};
 	REAL4 n2 = (REAL4){-0.5f, SQRT_3_4_F, 0.0f, 0.0f};
-
+	REAL scl = fractal->transformCommon.functionEnabledwFalse ? SQRT_3_F : 1.0;
 	REAL k = fractal->transformCommon.scaleA1;
 	REAL kk = k * k;
-	REAL innerScale = k * SQRT_3_F / (kk + SQRT_3_F);
+	REAL innerScale = k * scl / (kk + scl);
 	REAL innerScaleB = innerScale * innerScale * 0.25f;
-	REAL shift = (kk + SQRT_3_F) / (k * (1.0f + SQRT_3_F));
+	REAL shift = (kk + scl / (k * (1.0f + scl));
 	REAL mid = 0.5 * (k + 1.0f) / 2.0f;
 	REAL bufferRad = t * k;
 
@@ -104,18 +104,21 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z *= invSC;
 			z.z -= shift;
 			z.z *= -1.0f;
-			z *= SQRT_3_F;
-			Dd *= SQRT_3_F;
+			z *= scl;
+			Dd *= scl;
 			z.z += shift;
 
 			// and rotate it a twelfth of a revolution
-			REAL a = M_PI_F / fractal->transformCommon.scale6;
-			REAL cosA = native_cos(a);
-			REAL sinA = native_sin(a);
-			REAL xx = z.x * cosA + z.y * sinA;
-			REAL yy = -z.x * sinA + z.y * cosA;
-			z.x = xx;
-			z.y = yy;
+			if (fractal->transformCommon.functionEnabledwFalse)
+			{
+				REAL a = M_PI_F / fractal->transformCommon.scale6;
+				REAL cosA = native_cos(a);
+				REAL sinA = native_sin(a);
+				REAL xx = z.x * cosA + z.y * sinA;
+				REAL yy = -z.x * sinA + z.y * cosA;
+				z.x = xx;
+				z.y = yy;
+			}
 		}
 
 		// now modolu the space so we move to being in just the central hexagon, inner radius 0.5f
@@ -156,12 +159,13 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z *= fractal->transformCommon.scaleD1;
 		Dd *= fractal->transformCommon.scaleD1;
 		z += fractal->transformCommon.offset000;
+		aux->temp1000 = min(aux->temp1000, length(z));
 	}
 	// aux->DE
 	aux->DE = Dd;
 	REAL4 len = z - (REAL4){0.0f, 0.0f, 0.5f * k, 0.0f};
 	REAL d = (length(len) - 0.5f * k);
-	d = (native_sqrt(d + 1.0f) - 1.0f) * 2.0f;
+	// d = (native_sqrt(d + 1.0f) - 1.0f) * 2.0f;
 	ColV.w = d;
 	d /= fractal->analyticDE.scale1 * 2.22f * aux->DE;
 
@@ -179,7 +183,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		colorAdd += colorAdd * fractal->foldColor.difs1;
 		colorAdd += ColV.x * fractal->foldColor.difs0000.x;
 		colorAdd += ColV.y * fractal->foldColor.difs0000.y;
-		colorAdd += ColV.z * fractal->foldColor.difs0000.z;
+		colorAdd += aux->temp1000 * fractal->foldColor.difs0000.z;
 		colorAdd += ColV.w * fractal->foldColor.difs0000.w;
 
 		aux->color += colorAdd;
