@@ -43,6 +43,7 @@
 #include <ImfChannelList.h>
 #include <ImfFrameBuffer.h>
 #include <ImfInputFile.h>
+#include <ImfHeader.h>
 #include <ImfOutputFile.h>
 #include <ImfStringAttribute.h>
 #include <half.h>

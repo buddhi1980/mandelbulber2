@@ -37,6 +37,7 @@
 
 #include <QQueue>
 #include <QMutex>
+#include <vector>
 
 #ifdef USE_OPENCL
 class cOpenCLWorkerOutputQueue

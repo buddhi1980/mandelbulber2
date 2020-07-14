@@ -38,6 +38,7 @@
 
 #include <algorithm>
 #include <QDebug>
+#include <QVector>
 
 #include "algebra.hpp"
 #include "opencl_engine.h"

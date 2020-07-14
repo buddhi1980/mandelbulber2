@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 
 #include <QObject>
+#include <QVector>
 
 #include "include_header_wrapper.hpp"
 #include "opencl_context.h"

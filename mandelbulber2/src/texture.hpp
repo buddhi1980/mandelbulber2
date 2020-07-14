@@ -44,6 +44,7 @@
 #include <qbytearray.h>
 #include <qlist.h>
 #include <qstring.h>
+#include <vector>
 
 #include "algebra.hpp"
 #include "color_structures.hpp"

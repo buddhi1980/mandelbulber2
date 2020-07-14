@@ -36,6 +36,8 @@
 #define MANDELBULBER2_SRC_STATISTICS_H_
 
 #include "histogram.hpp"
+#include <QString>
+
 class cStatistics
 {
 public:
