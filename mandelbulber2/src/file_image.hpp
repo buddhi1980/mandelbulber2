@@ -48,7 +48,8 @@
 
 // custom includes
 #ifdef USE_EXR
-#include "ImfHeader.h"
+#include <ImfHeader.h>
+#include <ImfFrameBuffer.h>
 #endif // USE_EXR
 extern "C"
 {
