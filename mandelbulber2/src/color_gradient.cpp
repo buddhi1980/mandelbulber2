@@ -32,6 +32,10 @@
  * TODO: description
  */
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include "color_gradient.h"
 
 #include <QChar>
@@ -44,9 +48,6 @@
 #include <QVector>
 #include <algorithm>
 
-#ifndef _USE_MATH_DEFINES
-#define _USE_MATH_DEFINES
-#endif
 #include <cmath>
 
 cColorGradient::cColorGradient()
