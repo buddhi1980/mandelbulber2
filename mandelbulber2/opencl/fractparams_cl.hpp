@@ -213,6 +213,7 @@ typedef struct
 	cl_float mainLightIntensity;
 	cl_float mainLightVisibility;
 	cl_float mainLightVisibilitySize;
+	cl_float monteCarloGIRadianceLimit;
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
@@ -413,6 +414,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.mainLightIntensity = source.mainLightIntensity;
 	target.mainLightVisibility = source.mainLightVisibility;
 	target.mainLightVisibilitySize = source.mainLightVisibilitySize;
+	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
 	target.relMaxMarchingStep = source.relMaxMarchingStep;
 	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;

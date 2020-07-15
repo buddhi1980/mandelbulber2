@@ -336,6 +336,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_MC_CA_dispersion_gain", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);
 	par->addParam("DOF_MC_CA_camera_dispersion", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);
 	par->addParam("MC_soft_shadows_enable", false, morphLinear, paramStandard);
+	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
 
 	// main light
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);

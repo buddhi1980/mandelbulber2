@@ -77,7 +77,7 @@ struct sParamRender
 	int auxLightRandomSeed;
 	int frameNo;
 	int imageHeight; // image height
-	int imageWidth;	// image width
+	int imageWidth;	 // image width
 	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN; // minimum number of iterations
 	int N;
@@ -206,6 +206,7 @@ struct sParamRender
 	float mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;
+	float monteCarloGIRadianceLimit;
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates

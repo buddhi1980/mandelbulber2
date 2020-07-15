@@ -170,6 +170,10 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		}
 		double influence = qBound(0.0, 1.0 - totalOpacity, 1.0);
 
+		resultShader.R = clamp(resultShader.R, 0.0f, params->monteCarloGIRadianceLimit);
+		resultShader.G = clamp(resultShader.G, 0.0f, params->monteCarloGIRadianceLimit);
+		resultShader.B = clamp(resultShader.B, 0.0f, params->monteCarloGIRadianceLimit);
+
 		out.R += resultShader.R * objectColorTemp.R * influence;
 		out.G += resultShader.G * objectColorTemp.G * influence;
 		out.B += resultShader.B * objectColorTemp.B * influence;

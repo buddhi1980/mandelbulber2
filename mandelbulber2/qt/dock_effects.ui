@@ -612,6 +612,27 @@ per pixel:</string>
                </widget>
               </item>
               <item>
+               <layout class="QGridLayout" name="gridLayout_18">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_361">
+                  <property name="text">
+                   <string>Radiance limit for GI</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="MyLineEdit" name="logedit_MC_GI_radiance_limit">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit for intensity of bounced light. Lower value reduces noise caused by very bright spots on HDR background textures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <widget class="MyCheckBox" name="checkBox_MC_global_illumination_volumetric">
                 <property name="enabled">
                  <bool>false</bool>
@@ -2767,7 +2788,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
             <x>0</x>
             <y>0</y>
             <width>551</width>
-            <height>1885</height>
+            <height>1893</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">

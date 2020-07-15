@@ -184,6 +184,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 
 		float influence = clamp(1.0f - totalOpacity, 0.0f, 1.0f);
+		resultShader = clamp(resultShader, 0.0f, consts->params.monteCarloGIRadianceLimit);
 		out += resultShader.xyz * objectColorTemp * influence;
 
 		totalOpacity += opacityOut;
