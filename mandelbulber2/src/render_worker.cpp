@@ -571,9 +571,7 @@ void cRenderWorker::PrepareAOVectors()
 			AOVectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
-			sRGBFloat color(data->textures.lightmapTexture.FastPixel(X, Y).R / 65535.0,
-				data->textures.lightmapTexture.FastPixel(X, Y).G / 65535.0,
-				data->textures.lightmapTexture.FastPixel(X, Y).B / 65535.0);
+			sRGBFloat color(data->textures.lightmapTexture.FastPixel(X, Y));
 			AOVectorsAround[counter].color = color;
 
 			if (AOVectorsAround[counter].color.R > 0.001 || AOVectorsAround[counter].color.G > 0.001
