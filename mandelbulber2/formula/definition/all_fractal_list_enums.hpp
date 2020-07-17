@@ -240,6 +240,9 @@ enum enumFractalFormula
 	mandelcup = 208,
 	spheretree = 209,
 
+	// 2.23
+	spheretreeV2 = 210,
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
