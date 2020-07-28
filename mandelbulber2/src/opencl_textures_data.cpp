@@ -296,7 +296,7 @@ void cOpenClTexturesData::BuildTextureData(
 		else
 		{
 			// greyscale 16bit texture is coded using first two bytes
-			int brightness = clamp(int(pixel.R * 256.0), 0, 65535);
+			int brightness = clamp(int(pixel.R * 65535.0), 0, 65535);
 			clpixel = {{cl_uchar(brightness / 256), cl_uchar(brightness % 256), 0, 0}};
 		}
 
