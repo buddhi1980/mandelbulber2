@@ -39,6 +39,7 @@
 
 #include "src/animation_flight.hpp"
 #include "src/files.h"
+#include "src/radiance_hdr.h"
 #include "src/resource_http_provider.hpp"
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
@@ -150,7 +151,19 @@ void FileSelectWidget::slotChangedFile()
 		cResourceHttpProvider httpProvider(filename);
 		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
 
-		QPixmap pixmap(filename);
+		QPixmap pixmap;
+
+		cRadianceHDR radianceHDR;
+		int w;
+		int h;
+		if (radianceHDR.Init(filename, &w, &h))
+		{
+			radianceHDR.LoadToQPixmap(&pixmap);
+		}
+		else
+		{
+			pixmap.load(filename);
+		}
 
 		if (pixmap.isNull())
 		{

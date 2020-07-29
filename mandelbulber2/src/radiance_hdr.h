@@ -12,6 +12,8 @@
 #include <vector>
 #include "color_structures.hpp"
 
+class QPixmap;
+
 class cRadianceHDR
 {
 public:
@@ -20,9 +22,12 @@ public:
 
 	bool Init(const QString filename, int *width, int *height);
 	void Load(std::vector<sRGBFloat> *fBitmap);
+	void LoadToQPixmap(QPixmap *pixmap);
 
 private:
 	QString actualFileName;
+	size_t imageWidth = 0;
+	size_t imageHeight = 0;
 };
 
 #endif /* MANDELBULBER2_SRC_RADIANCE_HDR_H_ */

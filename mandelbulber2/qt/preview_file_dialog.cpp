@@ -41,6 +41,7 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/queue.hpp"
+#include "src/radiance_hdr.h"
 #include "src/render_window.hpp"
 #include "src/settings.hpp"
 #include "src/system_directories.hpp"
@@ -176,7 +177,18 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		thumbWidget->hide();
 		description->hide();
 		preview->show();
-		pixmap.load(filename);
+
+		cRadianceHDR radianceHDR;
+		int w;
+		int h;
+		if(radianceHDR.Init(filename, &w, &h))
+		{
+			radianceHDR.LoadToQPixmap(&pixmap);
+		}
+		else
+		{
+			pixmap.load(filename);
+		}
 		if (pixmap.isNull() || !checkbox->isChecked())
 		{
 			preview->setText(" ");

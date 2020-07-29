@@ -90,7 +90,6 @@ cTexture::cTexture(
 	QScopedPointer<cRadianceHDR> radiance(new cRadianceHDR());
 	if (radiance->Init(filename, &width, &height))
 	{
-		bitmap.resize(width * height);
 		radiance->Load(&bitmap);
 		loaded = true;
 	}
