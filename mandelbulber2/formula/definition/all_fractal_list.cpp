@@ -313,6 +313,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAddConstantMod2());
 	fractalList->append(new cFractalTransfAddConstantRotV1());
 	fractalList->append(new cFractalTransfAddConstantVaryV1());
+	fractalList->append(new cFractalTransfAddAsdam());
 	fractalList->append(new cFractalTransfAddExp2Z());
 
 	// Add Cpixel Transforms
