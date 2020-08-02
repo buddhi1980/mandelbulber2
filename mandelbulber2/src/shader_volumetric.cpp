@@ -32,8 +32,16 @@
  * cRenderWorker::VolumetricShader method - calculates volumetric shaders
  */
 
+#include <cmath>
+
+#include "algebra.hpp"
+#include "ao_modes.h"
+#include "calculation_mode.h"
+#include "color_structures.hpp"
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "lights.hpp"
+#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
@@ -158,8 +166,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			r = sqrtf(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f
 												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-															* powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-														+ 0.1f);
+														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+													 + 0.1f);
 			output.R +=
 				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
 			output.G +=
@@ -250,6 +258,30 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
+		}
+
+		// perlin noise clouds
+		if (params->cloudsEnable)
+		{
+			double opacity = CloudOpacity(point, 8) * step;
+
+			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
+			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
+			if (opacity > 0)
+			{
+				shadowOutputTemp = MainShadow(input2);
+				newColour.R = shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
+				newColour.G = shadowOutputTemp.R * params->mainLightColour.G * params->mainLightIntensity;
+				newColour.B = shadowOutputTemp.R * params->mainLightColour.B * params->mainLightIntensity;
+			}
+
+			if (opacity > 1.0f) opacity = 1.0f;
+
+			output.R = output.R * (1.0f - opacity) + newColour.R * opacity;
+			output.G = output.G * (1.0f - opacity) + newColour.G * opacity;
+			output.B = output.B * (1.0f - opacity) + newColour.B * opacity;
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+			output.A = opacity + (1.0f - opacity) * output.A;
 		}
 
 		// iter fog

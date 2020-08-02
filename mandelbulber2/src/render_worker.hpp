@@ -51,6 +51,7 @@ struct sRenderData;
 struct sParamRender;
 class cNineFractals;
 class cScheduler;
+class cPerlinNoiseOctaves;
 
 // ambient occlusion data
 struct sVectorsAround
@@ -213,6 +214,7 @@ private:
 	double CalcDelta(CVector3 point) const;
 	static double IterOpacity(
 		double step, double iters, double maxN, double trim, double trimHigh, double opacitySp);
+	double CloudOpacity(CVector3 point, int iterations) const;
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 	void MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) const;
 	double MonteCarloDOFNoiseEstimation(
@@ -278,6 +280,7 @@ private:
 	sRayBuffer *rayBuffer;
 	sRayStack *rayStack;
 	sVectorsAround *AOVectorsAround;
+	cPerlinNoiseOctaves *perlinNoise;
 
 public slots:
 	void doWork();

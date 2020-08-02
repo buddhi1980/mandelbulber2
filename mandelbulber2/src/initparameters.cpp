@@ -307,6 +307,19 @@ void InitParams(cParameterContainer *par)
 	par->addParam("iteration_fog_brightness_boost", 1.0, 0.0, 1e6, morphLinear, paramStandard);
 	par->addParam("iteration_fog_shadows", true, morphLinear, paramStandard);
 
+	par->addParam("clouds_enable", false, morphLinear, paramStandard);
+	par->addParam("clouds_noise_iterations", 5, 1, 150, morphLinear, paramStandard);
+	par->addParam("clouds_random_seed", 12345, 0, 1000000, morphLinear, paramStandard);
+	par->addParam("clouds_opacity", 10.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_density", 0.5, 0.0, 1.0, morphLinear, paramStandard);
+	par->addParam("clouds_frequency", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_height", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_center", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+	par->addParam("clouds_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+	par->addParam("clouds_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("clouds_cast_shadows", true, morphLinear, paramStandard);
+	par->addParam("clouds_advanced_geometry", true, morphLinear, paramStandard);
+
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);
 	par->addParam("hdr_blur_intensity", 0.1, 0.0, 1000.0, morphLinear, paramStandard);

@@ -44,27 +44,30 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	// starting point
 	CVector3 point2;
 
+	bool cloudMode = params->cloudsEnable;
+
 	double factor = input.delta / params->resolution;
 	if (!params->penetratingLights) factor = params->viewDistanceMax;
 	double dist;
 
 	double DEFactor = params->DEFactor;
 	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
+	if (cloudMode) DEFactor = params->DEFactor;
 
 	// double start = input.delta;
 	double start = input.distThresh;
 	if (params->interiorMode) start = input.distThresh * DEFactor;
 
-	double opacity;
+	double opacity = 0.0;
 	double shadowTemp = 1.0;
 	double iterFogSum = 0.0f;
 
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode
-										 && !params->interiorMode && softRange > 0.0
-										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
+	bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
+							 && !params->interiorMode && softRange > 0.0
+							 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	CVector3 shadowVect = input.lightVect;
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -83,7 +86,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		point2 = input.point + shadowVect * i;
 
 		double dist_thresh;
-		if (params->iterFogEnabled || params->volumetricLightEnabled[0])
+		if (params->iterFogEnabled || params->volumetricLightEnabled[0] || cloudMode)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
@@ -121,6 +124,13 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		{
 			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
 				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+			opacity *= (factor - i) / factor;
+			opacity = qMin(opacity, 1.0);
+			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+		}
+		else if (cloudMode)
+		{
+			opacity = CloudOpacity(point2, 8) * dist * DEFactor;
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;

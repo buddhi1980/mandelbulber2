@@ -75,6 +75,8 @@ struct sParamRender
 	int auxLightNumber;
 	int auxLightRandomNumber;
 	int auxLightRandomSeed;
+	int cloudsIterations;
+	int cloudsRandomSeed;
 	int frameNo;
 	int imageHeight; // image height
 	int imageWidth;	 // image width
@@ -103,6 +105,9 @@ struct sParamRender
 	bool auxLightRandomInOneColor;
 	bool background3ColorsEnable;
 	bool booleanOperatorsEnabled;
+	bool cloudsAdvancedGeometry;
+	bool cloudsCastShadows;
+	bool cloudsEnable;
 	bool constantDEThreshold;
 	bool DOFEnabled;
 	bool DOFHDRMode;
@@ -143,6 +148,7 @@ struct sParamRender
 	sRGBFloat background_color1; // background colour
 	sRGBFloat background_color2;
 	sRGBFloat background_color3;
+	sRGBFloat cloudsColor;
 	sRGBFloat fakeLightsColor;
 	sRGBFloat fillLightColor;
 	sRGBFloat fogColor;
@@ -172,6 +178,10 @@ struct sParamRender
 	double backgroundTextureOffsetX;
 	double backgroundTextureOffsetY;
 	double cameraDistanceToTarget; // zoom
+	double cloudsDensity;
+	double cloudsFrequency;
+	double cloudsHeight;
+	double cloudsOpacity;
 	double constantFactor;
 	double DEFactor; // factor for distance estimation steps
 	double deltaDERelativeDelta;
@@ -231,7 +241,8 @@ struct sParamRender
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
 	CVector3 backgroundRotation;
-
+	CVector3 cloudsCenter;
+	CVector3 cloudsRotation;
 	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
 	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
 	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];
@@ -245,6 +256,7 @@ struct sParamRender
 
 	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	CRotationMatrix mRotBackgroundRotation;
+	CRotationMatrix mRotCloudsRotation;
 
 	cPrimitives primitives;
 

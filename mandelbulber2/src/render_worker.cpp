@@ -43,6 +43,7 @@
 #include "fractparams.hpp"
 #include "hsv2rgb.h"
 #include "material.h"
+#include "perlin_noise_octaves.h"
 #include "projection_3d.hpp"
 #include "region.hpp"
 #include "render_data.hpp"
@@ -71,6 +72,7 @@ cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_
 	reflectionsMax = 0;
 	actualHue = 0.0;
 	stopRequest = false;
+	perlinNoise = nullptr;
 }
 
 cRenderWorker::~cRenderWorker()
@@ -120,6 +122,8 @@ void cRenderWorker::doWork()
 	PrepareReflectionBuffer();
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
+
+	perlinNoise = new cPerlinNoiseOctaves(12345678);
 
 	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler;
