@@ -269,10 +269,38 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
 			if (opacity > 0)
 			{
-				shadowOutputTemp = MainShadow(input2);
-				newColour.R = shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
-				newColour.G = shadowOutputTemp.R * params->mainLightColour.G * params->mainLightIntensity;
-				newColour.B = shadowOutputTemp.R * params->mainLightColour.B * params->mainLightIntensity;
+				if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
+				{
+					shadowOutputTemp = MainShadow(input2);
+					newColour.R +=
+						shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
+					newColour.G +=
+						shadowOutputTemp.R * params->mainLightColour.G * params->mainLightIntensity;
+					newColour.B +=
+						shadowOutputTemp.R * params->mainLightColour.B * params->mainLightIntensity;
+				}
+
+				for (int l = 1; l < 5; l++)
+				{
+					const sLight *light = data->lights.GetLight(l - 1);
+					if (light->enabled)
+					{
+						CVector3 lightVectorTemp = light->position - point;
+						float distanceLight = lightVectorTemp.Length();
+						float distanceLight2 = distanceLight * distanceLight;
+						lightVectorTemp.Normalize();
+
+						float lightShadow = 1.0;
+						if (params->iterFogShadows)
+						{
+							lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
+						}
+						float intensity = light->intensity * params->iterFogBrightnessBoost;
+						newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
+						newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
+						newColour.B += lightShadow * light->colour.B / distanceLight2 * intensity;
+					}
+				}
 			}
 
 			if (opacity > 1.0f) opacity = 1.0f;

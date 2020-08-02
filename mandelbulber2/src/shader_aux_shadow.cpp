@@ -47,9 +47,12 @@ double cRenderWorker::AuxShadow(
 	double shadowTemp = 1.0;
 	double iterFogSum = 0.0f;
 
+	bool cloudMode = params->cloudsEnable;
+
 	double DE_factor = params->DEFactor;
 	double volumetricLightDEFactor = params->volumetricLightDEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
+	if (cloudMode) DE_factor = params->DEFactor;
 
 	double softRange;
 	if (params->monteCarloSoftShadows)
@@ -64,7 +67,8 @@ double cRenderWorker::AuxShadow(
 
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0
+	const bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
+										 && softRange > 0.0
 										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -122,6 +126,13 @@ double cRenderWorker::AuxShadow(
 			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N,
 				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
+			opacity *= (distance - i) / distance;
+			opacity = qMin(opacity, 1.0);
+			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+		}
+		else if (cloudMode)
+		{
+			opacity = CloudOpacity(point2) * dist * DE_factor;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;

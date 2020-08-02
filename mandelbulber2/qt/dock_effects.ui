@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1155,7 +1155,7 @@ per pixel:</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-296</y>
+            <y>0</y>
             <width>551</width>
             <height>1414</height>
            </rect>

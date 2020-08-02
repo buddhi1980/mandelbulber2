@@ -123,7 +123,7 @@ void cRenderWorker::doWork()
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
 
-	perlinNoise = new cPerlinNoiseOctaves(12345678);
+	perlinNoise = new cPerlinNoiseOctaves(params->cloudsRandomSeed);
 
 	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler;

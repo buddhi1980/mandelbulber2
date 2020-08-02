@@ -318,7 +318,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("clouds_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("clouds_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("clouds_cast_shadows", true, morphLinear, paramStandard);
-	par->addParam("clouds_advanced_geometry", true, morphLinear, paramStandard);
+	par->addParam("clouds_advanced_geometry", false, morphLinear, paramStandard);
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);

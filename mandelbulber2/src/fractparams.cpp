@@ -215,6 +215,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	volumetricLightDEFactor = container->Get<double>("volumetric_light_DE_Factor");
 
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
+	mRotCloudsRotation.SetRotation2(cloudsRotation * M_PI / 180.0);
 
 	for (int i = 0; i < 4; ++i)
 	{
