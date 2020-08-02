@@ -130,7 +130,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		}
 		else if (cloudMode)
 		{
-			opacity = CloudOpacity(point2, 8) * dist * DEFactor;
+			opacity = CloudOpacity(point2) * dist * DEFactor;
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;

@@ -311,8 +311,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("clouds_noise_iterations", 5, 1, 150, morphLinear, paramStandard);
 	par->addParam("clouds_random_seed", 12345, 0, 1000000, morphLinear, paramStandard);
 	par->addParam("clouds_opacity", 10.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("clouds_density", 0.5, 0.0, 1.0, morphLinear, paramStandard);
-	par->addParam("clouds_frequency", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_density", 0.25, 0.0, 1.0, morphLinear, paramStandard);
+	par->addParam("clouds_period", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_height", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_center", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("clouds_rotation", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);

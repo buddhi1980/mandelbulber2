@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1907,12 +1907,12 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <item row="6" column="0">
                  <widget class="QLabel" name="label_114">
                   <property name="text">
-                   <string>Frequency:</string>
+                   <string>Period:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="6" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_frequency"/>
+                 <widget class="MyLineEdit" name="logedit_clouds_period"/>
                 </item>
                 <item row="1" column="1">
                  <widget class="MySpinBox" name="spinboxInt_clouds_noise_iterations">

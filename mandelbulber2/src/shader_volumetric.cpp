@@ -263,7 +263,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// perlin noise clouds
 		if (params->cloudsEnable)
 		{
-			double opacity = CloudOpacity(point, 8) * step;
+			double opacity = CloudOpacity(point) * step;
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
@@ -277,9 +277,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			if (opacity > 1.0f) opacity = 1.0f;
 
-			output.R = output.R * (1.0f - opacity) + newColour.R * opacity;
-			output.G = output.G * (1.0f - opacity) + newColour.G * opacity;
-			output.B = output.B * (1.0f - opacity) + newColour.B * opacity;
+			output.R = output.R * (1.0f - opacity) + newColour.R * opacity * params->cloudsColor.R;
+			output.G = output.G * (1.0f - opacity) + newColour.G * opacity * params->cloudsColor.G;
+			output.B = output.B * (1.0f - opacity) + newColour.B * opacity * params->cloudsColor.B;
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 			output.A = opacity + (1.0f - opacity) * output.A;
 		}
