@@ -321,7 +321,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("clouds_plain_shape", false, morphLinear, paramStandard);
 	par->addParam("clouds_distance_mode", false, morphLinear, paramStandard);
 	par->addParam("clouds_distance", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("clouds_distance_layer", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_distance_layer", 0.5, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);

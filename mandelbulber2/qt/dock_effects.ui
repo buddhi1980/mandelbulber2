@@ -2211,56 +2211,56 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 </layout>
                </widget>
               </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="MyGroupBox" name="groupCheck_clouds_distance_mode">
-             <property name="title">
-              <string>Clouds at distance from fractal</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
-               <number>2</number>
-              </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_21">
-                <property name="spacing">
-                 <number>2</number>
+               <widget class="MyGroupBox" name="groupCheck_clouds_distance_mode">
+                <property name="title">
+                 <string>Clouds at distance from fractal</string>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_125">
-                  <property name="text">
-                   <string>Distance from fractal</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_distance"/>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_126">
-                  <property name="text">
-                   <string>Clouds layer height</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_distance_layer"/>
-                </item>
-               </layout>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_21">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_125">
+                     <property name="text">
+                      <string>Distance from fractal</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="MyLineEdit" name="logedit_clouds_distance"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_126">
+                     <property name="text">
+                      <string>Clouds layer height</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="logedit_clouds_distance_layer"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
               </item>
              </layout>
             </widget>

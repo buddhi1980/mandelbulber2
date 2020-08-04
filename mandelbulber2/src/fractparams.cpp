@@ -89,7 +89,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	cloudsDistanceMode = container->Get<bool>("clouds_distance_mode");
 	cloudsEnable = container->Get<bool>("clouds_enable");
 	cloudsPeriod = container->Get<double>("clouds_period");
-	cloudsPlainShape = container->Get<bool>("clouds_distance_mode");
+	cloudsPlainShape = container->Get<bool>("clouds_plain_shape");
 	cloudsHeight = container->Get<double>("clouds_height");
 	cloudsIterations = container->Get<int>("clouds_noise_iterations");
 	cloudsOpacity = container->Get<double>("clouds_opacity");
