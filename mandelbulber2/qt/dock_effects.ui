@@ -1157,7 +1157,7 @@ per pixel:</string>
             <x>0</x>
             <y>-336</y>
             <width>551</width>
-            <height>1489</height>
+            <height>1513</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1860,76 +1860,6 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_111">
-                  <property name="text">
-                   <string>Random seed:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_112">
-                  <property name="text">
-                   <string>Opacity:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_113">
-                  <property name="text">
-                   <string>Density:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_clouds_random_seed">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>100000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_opacity"/>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_110">
-                  <property name="text">
-                   <string>Noise iterations:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_114">
-                  <property name="text">
-                   <string>Period:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="MyLineEdit" name="logedit_clouds_period"/>
-                </item>
-                <item row="1" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_clouds_noise_iterations">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                 </widget>
-                </item>
                 <item row="5" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_clouds_density">
                   <property name="sizePolicy">
@@ -1955,13 +1885,6 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0" colspan="2">
-                 <widget class="QPushButton" name="pushButton_clouds_randomize">
-                  <property name="text">
-                   <string>Randomize</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_124">
                   <property name="text">
@@ -1969,10 +1892,119 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_clouds_random_seed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximum">
+                   <number>100000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_112">
+                  <property name="text">
+                   <string>Opacity:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="MyLineEdit" name="logedit_clouds_period"/>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="QPushButton" name="pushButton_clouds_randomize">
+                  <property name="text">
+                   <string>Randomize</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="MyLineEdit" name="logedit_clouds_opacity"/>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_113">
+                  <property name="text">
+                   <string>Density:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_clouds_noise_iterations">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_111">
+                  <property name="text">
+                   <string>Random seed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_110">
+                  <property name="text">
+                   <string>Noise iterations:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_114">
+                  <property name="text">
+                   <string>Period:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_clouds_color" native="true">
                   <property name="text" stdset="0">
                    <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_clouds_ambient_light">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>3</number>
+                  </property>
+                  <property name="maximum">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.010000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_143">
+                  <property name="text">
+                   <string>Ambient light:</string>
                   </property>
                  </widget>
                 </item>

@@ -80,6 +80,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
+	cloudsAmbientLight = container->Get<double>("clouds_ambient_light");
 	cloudsCastShadows = container->Get<bool>("clouds_cast_shadows");
 	cloudsCenter = container->Get<CVector3>("clouds_center");
 	cloudsColor = toRGBFloat(container->Get<sRGB>("clouds_color"));

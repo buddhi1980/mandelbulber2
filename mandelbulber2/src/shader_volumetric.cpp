@@ -267,17 +267,28 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
+
+			double ambient = params->cloudsAmbientLight;
+			double nAmbient = 1.0 - params->cloudsAmbientLight;
+
 			if (opacity > 0)
 			{
 				if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
 				{
 					shadowOutputTemp = MainShadow(input2);
-					newColour.R +=
-						shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
-					newColour.G +=
-						shadowOutputTemp.R * params->mainLightColour.G * params->mainLightIntensity;
-					newColour.B +=
-						shadowOutputTemp.R * params->mainLightColour.B * params->mainLightIntensity;
+					newColour.R += (shadowOutputTemp.R * nAmbient + ambient) * params->mainLightColour.R
+												 * params->mainLightIntensity;
+					newColour.G += (shadowOutputTemp.G * nAmbient + ambient) * params->mainLightColour.G
+												 * params->mainLightIntensity;
+					newColour.B += (shadowOutputTemp.B * nAmbient + ambient) * params->mainLightColour.B
+												 * params->mainLightIntensity;
+
+					//					newColour.R +=
+					//						shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
+					//					newColour.G +=
+					//						shadowOutputTemp.G * params->mainLightColour.G * params->mainLightIntensity;
+					//					newColour.B +=
+					//						shadowOutputTemp.B * params->mainLightColour.B * params->mainLightIntensity;
 				}
 
 				for (int l = 1; l < 5; l++)
@@ -294,6 +305,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (params->iterFogShadows)
 						{
 							lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
+							lightShadow = lightShadow * nAmbient + ambient;
 						}
 						float intensity = light->intensity * params->iterFogBrightnessBoost;
 						newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
