@@ -105,9 +105,10 @@ struct sParamRender
 	bool auxLightRandomInOneColor;
 	bool background3ColorsEnable;
 	bool booleanOperatorsEnabled;
-	bool cloudsAdvancedGeometry;
 	bool cloudsCastShadows;
+	bool cloudsDistanceMode;
 	bool cloudsEnable;
+	bool cloudsPlainShape;
 	bool constantDEThreshold;
 	bool DOFEnabled;
 	bool DOFHDRMode;
@@ -179,6 +180,8 @@ struct sParamRender
 	double backgroundTextureOffsetY;
 	double cameraDistanceToTarget; // zoom
 	double cloudsDensity;
+	double cloudsDistance;
+	double cloudsDistanceLayer;
 	double cloudsPeriod;
 	double cloudsHeight;
 	double cloudsOpacity;

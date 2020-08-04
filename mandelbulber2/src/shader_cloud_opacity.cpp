@@ -10,12 +10,12 @@
 #include "common_math.h"
 #include "fractparams.hpp"
 
-double cRenderWorker::CloudOpacity(CVector3 point) const
+double cRenderWorker::CloudOpacity(CVector3 point, double distance) const
 {
-	double h; // height factor
+	double h = 1.0; // height factor
 	CVector3 point2;
 
-	if (params->cloudsAdvancedGeometry)
+	if (params->cloudsPlainShape)
 	{
 		point2 = params->mRotCloudsRotation.RotateVector(point - params->cloudsCenter);
 		h = clamp(2.0 - abs(3.0 / params->cloudsHeight * (point2.z)), 0.0, 1.0);
@@ -24,6 +24,12 @@ double cRenderWorker::CloudOpacity(CVector3 point) const
 	{
 		h = 1.0;
 		point2 = point;
+	}
+
+	if (params->cloudsDistanceMode)
+	{
+		h *= clamp(
+			2.0 - abs(3.0 / params->cloudsDistanceLayer * (distance - params->cloudsDistance)), 0.0, 1.0);
 	}
 
 	if (h > 0)

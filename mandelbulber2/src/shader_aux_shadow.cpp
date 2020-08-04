@@ -132,7 +132,7 @@ double cRenderWorker::AuxShadow(
 		}
 		else if (cloudMode)
 		{
-			opacity = CloudOpacity(point2) * dist * DE_factor;
+			opacity = CloudOpacity(point2, dist) * dist * DE_factor;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;

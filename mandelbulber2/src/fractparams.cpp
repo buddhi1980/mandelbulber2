@@ -80,13 +80,16 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
-	cloudsAdvancedGeometry = container->Get<bool>("clouds_advanced_geometry");
 	cloudsCastShadows = container->Get<bool>("clouds_cast_shadows");
 	cloudsCenter = container->Get<CVector3>("clouds_center");
 	cloudsColor = toRGBFloat(container->Get<sRGB>("clouds_color"));
 	cloudsDensity = container->Get<double>("clouds_density");
+	cloudsDistance = container->Get<double>("clouds_distance");
+	cloudsDistanceLayer = container->Get<double>("clouds_distance_layer");
+	cloudsDistanceMode = container->Get<bool>("clouds_distance_mode");
 	cloudsEnable = container->Get<bool>("clouds_enable");
 	cloudsPeriod = container->Get<double>("clouds_period");
+	cloudsPlainShape = container->Get<bool>("clouds_distance_mode");
 	cloudsHeight = container->Get<double>("clouds_height");
 	cloudsIterations = container->Get<int>("clouds_noise_iterations");
 	cloudsOpacity = container->Get<double>("clouds_opacity");

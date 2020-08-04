@@ -173,10 +173,10 @@ double cPerlinNoiseOctaves::accumulatedOctaveNoise3D(
 	for (std::int32_t i = 0; i < octaves; ++i)
 	{
 		result += noise3D(x, y, z) * amp;
-		x *= 2;
-		y *= 2;
-		z *= 2;
-		amp /= 2;
+		x *= 2.0;
+		y *= 2.0;
+		z *= 2.0;
+		amp /= 2.0;
 	}
 
 	return result; // unnormalized
