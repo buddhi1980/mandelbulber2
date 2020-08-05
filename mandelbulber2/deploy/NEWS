@@ -2,7 +2,9 @@ Version history
 
 v2.23 (???? 2020)
 - Added new fractal formulas
-
+   spheretreeV2
+   transfAddNorm
+   transfMandalayFold4d
 
 - modified fractal formulas
    transfStepXY added offset and scale

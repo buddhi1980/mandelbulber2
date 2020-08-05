@@ -91,7 +91,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.DE = 1.0;			 // partially calculated distance (derivative)  in fractal formulas
 	extendedAux.DE0 = 0.0;		 // used in difs formulas
 	extendedAux.dist = 1000.0; // used in difs formulas
-	extendedAux.pseudoKleinianDE = 1.0; // used to calculate DE for pseudo cleinian
+	extendedAux.pseudoKleinianDE = 1.0; // used to calculate DE for pseudo kleinian
 
 	extendedAux.actualScale =
 		fractals.GetFractal(fractalIndex)->mandelbox.scale; // used for vary scale

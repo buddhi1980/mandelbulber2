@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfAddAsdam::cFractalTransfAddAsdam() : cAbstractFractal()
+cFractalTransfAddNorm::cFractalTransfAddNorm() : cAbstractFractal()
 {
-	nameInComboBox = "T>Add Asdam";
-	internalName = "transf_add_asdam";
-	internalID = fractal::transfAddAsdam;
+	nameInComboBox = "T>Add Norm";
+	internalName = "transf_add_norm";
+	internalID = fractal::transfAddNorm;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,19 +25,14 @@ cFractalTransfAddAsdam::cFractalTransfAddAsdam() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfAddAsdam::FormulaCode(
+void cFractalTransfAddNorm::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z += fractal->transformCommon.offset000;
-	CVector4 zNorm = z / z.Length(); // aux.r;
+	CVector4 zNorm = z / aux.r;
 	CVector4 rotadd = fractal->transformCommon.rotationMatrix.RotateVector(zNorm);
 	z += fractal->transformCommon.scale1 * rotadd;
 	z -= fractal->transformCommon.offset000;
 	if (fractal->analyticDE.enabledFalse)
-	//	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-	aux.DE = aux.DE * z.Length() / aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-
-
+		aux.DE = aux.DE * z.Length() / aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
