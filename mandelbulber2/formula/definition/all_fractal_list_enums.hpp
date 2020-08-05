@@ -394,6 +394,7 @@ enum enumFractalFormula
 	transfAbsRecFoldXY = 1117,
 	// 2.23
 	transfAddNorm = 1118,
+	transfMandalayFold4d = 1119,
 
 	// mandelbulber transfdIFS
 	// 2.20

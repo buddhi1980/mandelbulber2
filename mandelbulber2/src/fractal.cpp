@@ -507,9 +507,11 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.vec111 = CVector4(container->Get<CVector3>("transf_vec_111"), 0.0);
 
 	// 4d vec
+	transformCommon.offsetp5555 = container->Get<CVector4>("transf_offset_p5555");
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
 	transformCommon.offset0000 = container->Get<CVector4>("transf_offset_0000");
 	transformCommon.offsetA0000 = container->Get<CVector4>("transf_offsetA_0000");
+	transformCommon.offsetp5555 = container->Get<CVector4>("transf_offset_p5555");
 	transformCommon.offset1111 = container->Get<CVector4>("transf_offset_1111");
 	transformCommon.offsetA1111 = container->Get<CVector4>("transf_offsetA_1111");
 	transformCommon.offsetB1111 = container->Get<CVector4>("transf_offsetB_1111");
