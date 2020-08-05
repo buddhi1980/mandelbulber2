@@ -462,7 +462,7 @@ double cRandomizerDialog::RandomizeDoubleValue(double value, double randomScale,
 		value = value * pow(10.0, r);
 		if (isAngle)
 		{
-			value = fmod(value + 3 * M_PI, 2 * M_PI) - M_PI;
+			value = fmod(value + 3 * 180.0, 2 * 180.0) - 180.0;
 		}
 	}
 	return value;
