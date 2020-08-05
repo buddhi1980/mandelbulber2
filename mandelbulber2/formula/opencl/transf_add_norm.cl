@@ -13,11 +13,14 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfAddNormIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
-
-	z += fractal->transformCommon.additionConstant000;
-	z += fractal->transformCommon.additionConstantA000;
+	z += fractal->transformCommon.offset000;
+	REAL4 zNorm = z / aux->r;
+	REAL4 rotadd = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zNorm);
+	z += fractal->transformCommon.scale1 * rotadd;
+	z -= fractal->transformCommon.offset000;
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux=>DE * length(z) / aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }
