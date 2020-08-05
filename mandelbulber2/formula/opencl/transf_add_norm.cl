@@ -21,6 +21,6 @@ REAL4 TransfAddNormIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	z += fractal->transformCommon.scale1 * rotadd;
 	z -= fractal->transformCommon.offset000;
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux=>DE * length(z) / aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * length(z) / aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }
