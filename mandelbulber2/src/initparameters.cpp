@@ -319,7 +319,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("clouds_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("clouds_ambient_light", 0.0, 0.0, 1.0, morphLinear, paramStandard);
 	par->addParam("clouds_cast_shadows", true, morphLinear, paramStandard);
-	par->addParam("clouds_plain_shape", false, morphLinear, paramStandard);
+	par->addParam("clouds_plane_shape", false, morphLinear, paramStandard);
 	par->addParam("clouds_distance_mode", false, morphLinear, paramStandard);
 	par->addParam("clouds_distance", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_distance_layer", 0.5, 0.0, 1e15, morphLinear, paramStandard);

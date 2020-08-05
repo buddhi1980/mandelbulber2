@@ -108,7 +108,7 @@ struct sParamRender
 	bool cloudsCastShadows;
 	bool cloudsDistanceMode;
 	bool cloudsEnable;
-	bool cloudsPlainShape;
+	bool cloudsPlaneShape;
 	bool constantDEThreshold;
 	bool DOFEnabled;
 	bool DOFHDRMode;

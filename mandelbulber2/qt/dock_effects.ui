@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1155,7 +1155,7 @@ per pixel:</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-336</y>
+            <y>-177</y>
             <width>551</width>
             <height>1513</height>
            </rect>
@@ -2024,9 +2024,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                </widget>
               </item>
               <item>
-               <widget class="MyGroupBox" name="groupCheck_clouds_plain_shape">
+               <widget class="MyGroupBox" name="groupCheck_clouds_plane_shape">
                 <property name="title">
-                 <string>Plain shape</string>
+                 <string>Plane shape</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>

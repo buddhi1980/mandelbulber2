@@ -282,13 +282,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 												 * params->mainLightIntensity;
 					newColour.B += (shadowOutputTemp.B * nAmbient + ambient) * params->mainLightColour.B
 												 * params->mainLightIntensity;
-
-					//					newColour.R +=
-					//						shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
-					//					newColour.G +=
-					//						shadowOutputTemp.G * params->mainLightColour.G * params->mainLightIntensity;
-					//					newColour.B +=
-					//						shadowOutputTemp.B * params->mainLightColour.B * params->mainLightIntensity;
 				}
 
 				for (int l = 1; l < 5; l++)

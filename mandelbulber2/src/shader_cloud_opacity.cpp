@@ -15,7 +15,7 @@ double cRenderWorker::CloudOpacity(CVector3 point, double distance) const
 	double h = 1.0; // height factor
 	CVector3 point2;
 
-	if (params->cloudsPlainShape)
+	if (params->cloudsPlaneShape)
 	{
 		point2 = params->mRotCloudsRotation.RotateVector(point - params->cloudsCenter);
 		h = clamp(2.0 - abs(3.0 / params->cloudsHeight * (point2.z)), 0.0, 1.0);
