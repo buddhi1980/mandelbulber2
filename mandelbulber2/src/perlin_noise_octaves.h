@@ -142,6 +142,8 @@ public:
 
 	void serialize(std::array<std::uint8_t, 256> &s) const;
 	void deserialize(const std::array<std::uint8_t, 256> &s);
+
+	std::uint8_t *GetSeeds() { return p; }
 };
 
 #endif /* MANDELBULBER2_SRC_PERLIN_NOISE_OCTAVES_H_ */

@@ -336,7 +336,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 	}
 
 	cl_float2 antiAliasingOffset = {{offset.x, offset.y}};
-	cl_int err = clKernel->setArg(6, antiAliasingOffset);
+	cl_int err = clKernel->setArg(7, antiAliasingOffset);
 	if (!checkErr(err, "kernel->setArg(6, cl_int(actualDepth))"))
 	{
 		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),

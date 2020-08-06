@@ -58,6 +58,7 @@
 #include "opencl_worker_output_queue.h"
 #include "opencl_worker_thread.h"
 #include "parameters.hpp"
+#include "perlin_noise_octaves.h"
 #include "progress_text.hpp"
 #include "rectangle.hpp"
 #include "render_data.hpp"
@@ -115,11 +116,13 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	inCLBuffer.clear();
 	inCLTextureBuffer.clear();
 	backgroundImage2D.clear();
-	backgroungImageBuffer.reset();
+	backgroundImageBuffer.clear();
 	dynamicData.reset();
 	texturesData.reset();
 	inBuffer.clear();
 	inTextureBuffer.clear();
+	perlinNoiseSeeds.clear();
+	inCLPerlinNoiseSeedsBuffer.clear();
 
 	cOpenClEngine::ReleaseMemory();
 	distanceMode = false;
@@ -228,6 +231,8 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		{
 			// shaders
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_iter_opacity.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "perlin_noise.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_clouds_opacity.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_hsv2rgb.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_background.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_surface_color.cl\"\n");
@@ -600,6 +605,13 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 			default: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
 		}
 	}
+
+	if (paramRender->cloudsEnable)
+	{
+		definesCollector += " -DCLOUDS";
+		anyVolumetricShaderUsed = true;
+	}
+
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
 	if (paramRender->DOFMonteCarlo)
@@ -907,6 +919,16 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
 	}
 
+	// buffer for Perlin noise seeds
+	perlinNoiseSeeds.resize(perlinNoiseArraySize);
+	cPerlinNoiseOctaves *perlinNoise = new cPerlinNoiseOctaves(paramRender->cloudsRandomSeed);
+	std::uint8_t *seeds = perlinNoise->GetSeeds();
+	for (int i = 0; i < perlinNoiseArraySize; i++)
+	{
+		perlinNoiseSeeds[i] = seeds[i];
+	}
+	delete perlinNoise;
+
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 }
 
@@ -1022,6 +1044,25 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				{
 					emit showErrorMessage(
 						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for texture data")),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
+			}
+
+			if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode && !distanceMode)
+			{
+				// this buffer will be used for Perlin noise seeds.
+				WriteLog(QString("Allocating OpenCL buffer for perlin noise seeds"), 2);
+
+				inCLPerlinNoiseSeedsBuffer.append(QSharedPointer<cl::Buffer>(
+					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+						size_t(perlinNoiseSeeds.size() * sizeof(cl_uchar)), perlinNoiseSeeds.data(), &err)));
+				if (!checkErr(err,
+							"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+							"sizeof(perlinNoiseSeeds), perlinNoiseSeeds, &err)"))
+				{
+					emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!")
+																	.arg(QObject::tr("buffer for perlin noise seeds")),
 						cErrorMessage::errorMessage, nullptr);
 					return false;
 				}
@@ -1630,10 +1671,24 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
+	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode && !distanceMode)
+	{
+		err = clKernels.at(deviceIndex)
+						->setArg(argIterator++,
+							*inCLPerlinNoiseSeedsBuffer[deviceIndex]); // input data for perlin noise seeds
+		if (!checkErr(err, "kernel->setArg(4, *inCLPerlinNoiseSeedsBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("perlin noise seeds")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
 	if (!meshExportMode && !distanceMode)
 	{
 		err = clKernels.at(deviceIndex)->setArg(argIterator++, Random(1000000)); // random seed
-		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
+		if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("random seed")),
@@ -1703,6 +1758,26 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			{
 				emit showErrorMessage(
 					QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
+			WriteLog(QString("Writing OpenCL perlin noise buffer"), 2);
+			err = clQueues.at(d)->enqueueWriteBuffer(*inCLPerlinNoiseSeedsBuffer[d], CL_TRUE, 0,
+				perlinNoiseSeeds.size() * sizeof(cl_uchar), perlinNoiseSeeds.data());
+			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLPerlinNoiseSeedsBuffer)"))
+			{
+				emit showErrorMessage(
+					QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
+			err = clQueues.at(d)->finish();
+			if (!checkErr(err, "CommandQueue::finish() - inCLPerlinNoiseSeedsBuffer"))
+			{
+				emit showErrorMessage(
+					QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
@@ -1812,7 +1887,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	quint64 texWidth = renderData->textures.backgroundTexture.Width();
 	quint64 texHeight = renderData->textures.backgroundTexture.Height();
 
-	backgroungImageBuffer.reset(new cl_float4[texWidth * texHeight]);
+	backgroundImageBuffer.resize(texWidth * texHeight);
 	quint64 backgroundImage2DWidth = texWidth;
 	quint64 backgroundImage2DHeight = texHeight;
 
@@ -1821,10 +1896,10 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		for (quint64 x = 0; x < texWidth; x++)
 		{
 			sRGBFloat pixel = renderData->textures.backgroundTexture.FastPixel(x, y);
-			backgroungImageBuffer[x + y * texWidth].s[0] = pixel.R;
-			backgroungImageBuffer[x + y * texWidth].s[1] = pixel.G;
-			backgroungImageBuffer[x + y * texWidth].s[2] = pixel.B;
-			backgroungImageBuffer[x + y * texWidth].s[3] = 1.0f;
+			backgroundImageBuffer[x + y * texWidth].s[0] = pixel.R;
+			backgroundImageBuffer[x + y * texWidth].s[1] = pixel.G;
+			backgroundImageBuffer[x + y * texWidth].s[2] = pixel.B;
+			backgroundImageBuffer[x + y * texWidth].s[3] = 1.0f;
 		}
 	}
 
@@ -1834,7 +1909,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		backgroundImage2D.append(QSharedPointer<cl::Image2D>(
 			new cl::Image2D(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 				cl::ImageFormat(CL_RGBA, CL_FLOAT), backgroundImage2DWidth, backgroundImage2DHeight,
-				backgroundImage2DWidth * sizeof(cl_float4), backgroungImageBuffer.data(), &err)));
+				backgroundImage2DWidth * sizeof(cl_float4), backgroundImageBuffer.data(), &err)));
 		if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
 	}
 	return true;

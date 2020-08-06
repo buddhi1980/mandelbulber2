@@ -80,12 +80,26 @@ float PerlinGrad(uchar hash, float x, float y, float z)
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
+float PerlinWeight(int octaves)
+{
+	float amp = 1.0f;
+	float value = 0.0f;
+
+	for (int i = 0; i < octaves; ++i)
+	{
+		value += amp;
+		amp /= 2.0f;
+	}
+
+	return value;
+}
+
 ///////////////////////////////////////
 //
 //	Noise [-1, 1]
 //
 
-float PerlinNoise3D(float x, float y, float z)
+float PerlinNoise3D(float x, float y, float z, __global uchar *p)
 {
 	int X = ((int)floor(x)) & 255;
 	int Y = ((int)floor(y)) & 255;
@@ -122,14 +136,14 @@ float PerlinNoise3D(float x, float y, float z)
 //	* Return value can be outside the range [-1, 1]
 //
 
-float AccumulatedOctavePerlinNoise3D(float x, float y, float z, int octaves) const
+float AccumulatedOctavePerlinNoise3D(float x, float y, float z, int octaves, __global uchar *p)
 {
 	float result = 0.0f;
 	float amp = 1.0f;
 
 	for (int i = 0; i < octaves; ++i)
 	{
-		result += PerlinNoise3D(x, y, z) * amp;
+		result += PerlinNoise3D(x, y, z, p) * amp;
 		x *= 2.0f;
 		y *= 2.0f;
 		z *= 2.0f;
@@ -144,9 +158,9 @@ float AccumulatedOctavePerlinNoise3D(float x, float y, float z, int octaves) con
 //	Normalized octave noise [-1, 1]
 //
 
-float NormalizedOctavePerlinNoise3D(float x, float y, float z, int octaves) const
+float NormalizedOctavePerlinNoise3D(float x, float y, float z, int octaves, __global uchar *p)
 {
-	return AccumulatedOctavePerlinNoise3D(x, y, z, octaves) / Weight(octaves);
+	return AccumulatedOctavePerlinNoise3D(x, y, z, octaves, p) / PerlinWeight(octaves);
 }
 
 ///////////////////////////////////////
@@ -154,9 +168,9 @@ float NormalizedOctavePerlinNoise3D(float x, float y, float z, int octaves) cons
 //	Normalized octave noise [0, 1]
 //
 
-float NormalizedOctavePerlinNoise3D_0_1(float x, float y, float z, int octaves) const
+float NormalizedOctavePerlinNoise3D_0_1(float x, float y, float z, int octaves, __global uchar *p)
 {
-	return NormalizedOctavePerlinNoise3D(x, y, z, octaves) * 0.5f + 0.5f;
+	return NormalizedOctavePerlinNoise3D(x, y, z, octaves, p) * 0.5f + 0.5f;
 }
 
 #endif // CLOUDS

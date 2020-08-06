@@ -82,6 +82,8 @@ typedef struct
 	cl_int auxLightNumber;
 	cl_int auxLightRandomNumber;
 	cl_int auxLightRandomSeed;
+	cl_int cloudsIterations;
+	cl_int cloudsRandomSeed;
 	cl_int frameNo;
 	cl_int imageHeight; // image height
 	cl_int imageWidth;	// image width
@@ -110,6 +112,10 @@ typedef struct
 	cl_int auxLightRandomInOneColor;
 	cl_int background3ColorsEnable;
 	cl_int booleanOperatorsEnabled;
+	cl_int cloudsCastShadows;
+	cl_int cloudsDistanceMode;
+	cl_int cloudsEnable;
+	cl_int cloudsPlaneShape;
 	cl_int constantDEThreshold;
 	cl_int DOFEnabled;
 	cl_int DOFHDRMode;
@@ -150,6 +156,7 @@ typedef struct
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
 	cl_float3 background_color3;
+	cl_float3 cloudsColor;
 	cl_float3 fakeLightsColor;
 	cl_float3 fillLightColor;
 	cl_float3 fogColor;
@@ -179,6 +186,13 @@ typedef struct
 	cl_float backgroundTextureOffsetX;
 	cl_float backgroundTextureOffsetY;
 	cl_float cameraDistanceToTarget; // zoom
+	cl_float cloudsAmbientLight;
+	cl_float cloudsDensity;
+	cl_float cloudsDistance;
+	cl_float cloudsDistanceLayer;
+	cl_float cloudsPeriod;
+	cl_float cloudsHeight;
+	cl_float cloudsOpacity;
 	cl_float constantFactor;
 	cl_float DEFactor; // factor for distance estimation steps
 	cl_float deltaDERelativeDelta;
@@ -238,7 +252,8 @@ typedef struct
 	cl_float3 auxLightPre[4];
 	cl_float3 auxLightRandomCenter;
 	cl_float3 backgroundRotation;
-
+	cl_float3 cloudsCenter;
+	cl_float3 cloudsRotation;
 	cl_float3 formulaPosition[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRotation[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRepeat[NUMBER_OF_FRACTALS];
@@ -252,6 +267,7 @@ typedef struct
 
 	matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	matrix33 mRotBackgroundRotation;
+	matrix33 mRotCloudsRotation;
 
 	sCommonParamsCl common;
 } sParamRenderCl;
@@ -266,6 +282,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.auxLightNumber = source.auxLightNumber;
 	target.auxLightRandomNumber = source.auxLightRandomNumber;
 	target.auxLightRandomSeed = source.auxLightRandomSeed;
+	target.cloudsIterations = source.cloudsIterations;
+	target.cloudsRandomSeed = source.cloudsRandomSeed;
 	target.frameNo = source.frameNo;
 	target.imageHeight = source.imageHeight;
 	target.imageWidth = source.imageWidth;
@@ -301,6 +319,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.auxLightRandomInOneColor = source.auxLightRandomInOneColor;
 	target.background3ColorsEnable = source.background3ColorsEnable;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
+	target.cloudsCastShadows = source.cloudsCastShadows;
+	target.cloudsDistanceMode = source.cloudsDistanceMode;
+	target.cloudsEnable = source.cloudsEnable;
+	target.cloudsPlaneShape = source.cloudsPlaneShape;
 	target.constantDEThreshold = source.constantDEThreshold;
 	target.DOFEnabled = source.DOFEnabled;
 	target.DOFHDRMode = source.DOFHDRMode;
@@ -346,6 +368,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
 	target.background_color3 = toClFloat3(source.background_color3);
+	target.cloudsColor = toClFloat3(source.cloudsColor);
 	target.fakeLightsColor = toClFloat3(source.fakeLightsColor);
 	target.fillLightColor = toClFloat3(source.fillLightColor);
 	target.fogColor = toClFloat3(source.fogColor);
@@ -377,6 +400,13 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.backgroundTextureOffsetX = source.backgroundTextureOffsetX;
 	target.backgroundTextureOffsetY = source.backgroundTextureOffsetY;
 	target.cameraDistanceToTarget = source.cameraDistanceToTarget;
+	target.cloudsAmbientLight = source.cloudsAmbientLight;
+	target.cloudsDensity = source.cloudsDensity;
+	target.cloudsDistance = source.cloudsDistance;
+	target.cloudsDistanceLayer = source.cloudsDistanceLayer;
+	target.cloudsPeriod = source.cloudsPeriod;
+	target.cloudsHeight = source.cloudsHeight;
+	target.cloudsOpacity = source.cloudsOpacity;
 	target.constantFactor = source.constantFactor;
 	target.DEFactor = source.DEFactor;
 	target.deltaDERelativeDelta = source.deltaDERelativeDelta;
@@ -443,6 +473,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	}
 	target.auxLightRandomCenter = toClFloat3(source.auxLightRandomCenter);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
+	target.cloudsCenter = toClFloat3(source.cloudsCenter);
+	target.cloudsRotation = toClFloat3(source.cloudsRotation);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);
@@ -467,6 +499,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 		target.mRotFormulaRotation[i] = toClMatrix33(source.mRotFormulaRotation[i]);
 	}
 	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
+	target.mRotCloudsRotation = toClMatrix33(source.mRotCloudsRotation);
 	target.common = clCopySCommonParamsCl(source.common);
 	return target;
 }

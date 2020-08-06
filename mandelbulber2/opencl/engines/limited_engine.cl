@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.23-dev001
+#define MANDELBULBER_VERSION 2.23 - dev001
 
 int GetInteger(int byte, __global char *array)
 {
@@ -43,7 +43,8 @@ int GetInteger(int byte, __global char *array)
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
-	__constant sClInConstants *consts, image2d_t image2dBackground, int initRandomSeed)
+	__constant sClInConstants *consts, image2d_t image2dBackground, __global uchar *perlinNoiseSeeds,
+	int initRandomSeed)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);

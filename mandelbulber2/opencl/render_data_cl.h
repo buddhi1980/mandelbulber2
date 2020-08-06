@@ -113,6 +113,10 @@ typedef struct
 
 #endif
 
+#ifdef CLOUDS
+	__global uchar *perlinNoiseSeeds;
+#endif
+
 #ifdef USE_TEXTURES
 	__global uchar4 **textures;
 	int2 *textureSizes;

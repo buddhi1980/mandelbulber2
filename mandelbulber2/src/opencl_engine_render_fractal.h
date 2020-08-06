@@ -161,9 +161,11 @@ private:
 	QList<QSharedPointer<cl::Buffer>> inCLTextureBuffer;
 
 	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
+	std::vector<cl_float4> backgroundImageBuffer;
 
-	// FIXME: replace QScopedArrayPointer with std::vector
-	QScopedArrayPointer<cl_float4> backgroungImageBuffer;
+	std::vector<cl_char> perlinNoiseSeeds;
+	QList<QSharedPointer<cl::Buffer>> inCLPerlinNoiseSeedsBuffer;
+	const int perlinNoiseArraySize = 512;
 
 	QScopedPointer<cOpenClDynamicData> dynamicData;
 	QScopedPointer<cOpenClTexturesData> texturesData;

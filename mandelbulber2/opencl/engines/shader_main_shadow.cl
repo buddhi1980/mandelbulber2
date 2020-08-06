@@ -41,12 +41,17 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	// starting point
 	float3 point2;
 
+	bool cloudMode = consts->params.cloudsEnable;
+
 	float factor = input->delta / consts->params.resolution;
 	if (!consts->params.penetratingLights) factor = consts->params.viewDistanceMax;
 	float dist;
 
 	float DEFactor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor = 1.0f;
+#ifdef CLOUDS
+	DEFactor = consts->params.DEFactor;
+#endif
 
 	// float start = input->delta;
 	float start = input->distThresh;
@@ -59,8 +64,9 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
 
-	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.common.iterThreshMode
-										 && !consts->params.interiorMode && softRange > 0.0f
+	const bool bSoft = !cloudMode && !consts->params.iterFogEnabled
+										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
+										 && softRange > 0.0f
 										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
 	float3 shadowVect = input->lightVect;
@@ -82,7 +88,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 		point2 = input->point + shadowVect * i;
 
 		float dist_thresh;
-		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0])
+		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0] || cloudMode)
 		{
 			dist_thresh = CalcDistThresh(point2, consts);
 		}
@@ -117,6 +123,11 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 		opacity =
 			IterOpacity(dist * DEFactor, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
 				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
+		opacity *= (factor - i) / factor;
+		opacity = min(opacity, 1.0f);
+		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+#elif CLOUDS
+		opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist) * dist * DEFactor;
 		opacity *= (factor - i) / factor;
 		opacity = min(opacity, 1.0f);
 		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;

@@ -300,7 +300,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 							lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 							lightShadow = lightShadow * nAmbient + ambient;
 						}
-						float intensity = light->intensity * params->iterFogBrightnessBoost;
+						float intensity = light->intensity;
 						newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
 						newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
 						newColour.B += lightShadow * light->colour.B / distanceLight2 * intensity;

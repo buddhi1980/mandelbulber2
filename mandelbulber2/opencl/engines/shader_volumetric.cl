@@ -178,8 +178,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			r = sqrt(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f
 												/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
-															* pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
-														+ 0.1f);
+														 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+													 + 0.1f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 			output += light * consts->params.fakeLightsColor;
 			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
@@ -242,7 +242,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float densityTemp =
 				step * consts->params.volFogDistanceFactor
 				/ (distanceShifted * distanceShifted
-						+ consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
+					 + consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
 
 			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;
@@ -265,6 +265,60 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
 #endif // VOLUMETRIC_FOG
+
+		//--------- clouds --------
+#ifdef CLOUDS
+		// perlin noise clouds
+
+		float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point, distance) * step;
+
+		float3 newColour = 0.0f;
+		float3 shadowOutputTemp = 1.0f;
+
+		float3 ambient = consts->params.cloudsAmbientLight;
+		float3 nAmbient = 1.0f - consts->params.cloudsAmbientLight;
+
+		if (opacity > 0.0f)
+		{
+			if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
+			{
+				shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
+				newColour += (shadowOutputTemp * nAmbient + ambient) * consts->params.mainLightColour
+										 * consts->params.mainLightIntensity;
+			}
+
+#ifdef AUX_LIGHTS
+			for (int l = 1; l < 5; l++)
+			{
+				__global sLightCl *light = &renderData->lights[l - 1];
+				if (light->enabled)
+				{
+					float3 lightVectorTemp = light->position - point;
+					float distanceLight = length(lightVectorTemp);
+					float distanceLight2 = distanceLight * distanceLight;
+					lightVectorTemp = normalize(lightVectorTemp);
+					float lightShadow = 1.0f;
+					if (consts->params.iterFogShadows)
+					{
+						calcParam->distThresh = input2.distThresh;
+						calcParam->detailSize = input2.distThresh;
+						lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
+							calcParam, light->intensity);
+					}
+					float intensity = light->intensity;
+					newColour += lightShadow * light->colour / distanceLight2 * intensity;
+				}
+			}
+#endif // AUX_LIGTS
+
+			if (opacity > 1.0f) opacity = 1.0f;
+
+			output = output * (1.0f - opacity) + newColour * opacity * consts->params.cloudsColor;
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+			out4.s3 = opacity + (1.0f - opacity) * out4.s3;
+		}
+
+#endif // CLOUDS
 
 // ---------- iter fog
 #ifdef ITER_FOG

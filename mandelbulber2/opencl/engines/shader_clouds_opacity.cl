@@ -33,15 +33,17 @@
  */
 
 #ifdef CLOUDS
-float CloudOpacity(float3 point, float distance) const
+float CloudOpacity(
+	__constant sClInConstants *consts, __global uchar *perlinNoiseSeeds, float3 point, float distance)
 {
 	float h = 1.0f; // height factor
-	CVector3 point2;
+	float3 point2;
 
-	if (params->cloudsPlainShape)
+	if (consts->params.cloudsPlaneShape)
 	{
-		point2 = params->mRotCloudsRotation.RotateVector(point - params->cloudsCenter);
-		h = clamp(2.0f - abs(3.0f / params->cloudsHeight * (point2.z)), 0.0f, 1.0f);
+		point2 =
+			Matrix33MulFloat3(consts->params.mRotCloudsRotation, point - consts->params.cloudsCenter);
+		h = clamp(2.0f - fabs(3.0f / consts->params.cloudsHeight * (point2.z)), 0.0f, 1.0f);
 	}
 	else
 	{
@@ -49,18 +51,21 @@ float CloudOpacity(float3 point, float distance) const
 		point2 = point;
 	}
 
-	if (params->cloudsDistanceMode)
+	if (consts->params.cloudsDistanceMode)
 	{
-		h *= clamp(2.0f - abs(3.0f / params->cloudsDistanceLayer * (distance - params->cloudsDistance)),
+		h *= clamp(2.0f
+								 - fabs(3.0f / consts->params.cloudsDistanceLayer
+												* (distance - consts->params.cloudsDistance)),
 			0.0f, 1.0f);
 	}
 
 	if (h > 0.0f)
 	{
-		float opacity = NormalizedOctavePerlinNoise3D_0_1(point2.x / params->cloudsPeriod,
-			point2.y / params->cloudsPeriod, point2.z / params->cloudsPeriod, params->cloudsIterations);
-		opacity =
-			clamp(opacity - 1.0f + params->cloudsDensity * 2.0f, 0.0f, 1.0f) * params->cloudsOpacity;
+		float opacity = NormalizedOctavePerlinNoise3D_0_1(point2.x / consts->params.cloudsPeriod,
+			point2.y / consts->params.cloudsPeriod, point2.z / consts->params.cloudsPeriod,
+			consts->params.cloudsIterations, perlinNoiseSeeds);
+		opacity = clamp(opacity - 1.0f + consts->params.cloudsDensity * 2.0f, 0.0f, 1.0f)
+							* consts->params.cloudsOpacity;
 
 		opacity = opacity * h;
 		return opacity;
