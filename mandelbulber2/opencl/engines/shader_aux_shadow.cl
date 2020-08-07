@@ -41,7 +41,6 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	float dist;
 	float light;
 
-	float opacity;
 	float shadowTemp = 1.0f;
 
 	bool cloudMode = consts->params.cloudsEnable;
@@ -75,6 +74,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	lightVector += randomSphere;
 #endif // MC_SOFT_SHADOWS
 
+	float lastDistanceToClouds = 1e6f;
 	int count = 0;
 	float step = 0.0f;
 
@@ -116,20 +116,28 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 		}
 
 #ifdef ITER_FOG
-		opacity =
-			IterOpacity(dist * DE_factor, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
-				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
+		{
+			float opacity = IterOpacity(dist * DE_factor, outF.iters, consts->params.N,
+				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacityTrimHigh,
+				consts->params.iterFogOpacity);
 
-		opacity *= (distance - i) / distance;
-		opacity = min(opacity, 1.0f);
-		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-#elif CLOUDS
-		opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist) * dist * DE_factor;
-		opacity *= (distance - i) / distance;
-		opacity = min(opacity, 1.0f);
-		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-#else
-		opacity = 0.0f;
+			opacity *= (distance - i) / distance;
+			opacity = min(opacity, 1.0f);
+			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+		}
+#endif
+
+#ifdef CLOUDS
+		{
+			float distanceToClouds = 0.0f;
+			float opacity =
+				CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, &distanceToClouds) * dist
+				* DE_factor;
+			lastDistanceToClouds = max(dist_thresh, distanceToClouds);
+			opacity *= (distance - i) / distance;
+			opacity = min(opacity, 1.0f);
+			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+		}
 #endif
 
 		shadowTemp = 1.0f - iterFogSum;
@@ -147,8 +155,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 			}
 			break;
 		}
-
-		step = dist * DE_factor;
+		step = min(dist, lastDistanceToClouds) * DE_factor;
 		step = max(step, 1e-6f);
 
 		count++;

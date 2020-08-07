@@ -69,6 +69,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #else // not SIMPLE_GLOW
 	float totalStep = 0.0f;
 	float scan = CalcDistThresh(input->point, consts);
+	float lastCloudDistance = 1e6f;
 
 	sShaderInputDataCl input2 = *input;
 
@@ -87,8 +88,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		outF = CalculateDistance(consts, point, calcParam, renderData);
 		float distance = outF.distance;
 
-		float step = (distance - 0.5f * input2.distThresh) * consts->params.DEFactor
-								 * consts->params.volumetricLightDEFactor;
+		float step = (min(distance, lastCloudDistance) - 0.5f * input2.distThresh)
+								 * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
 
@@ -269,9 +270,10 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		//--------- clouds --------
 #ifdef CLOUDS
 		// perlin noise clouds
-
-		float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point, distance) * step;
-
+		float distanceToClouds = 0.0f;
+		float opacity =
+			CloudOpacity(consts, renderData->perlinNoiseSeeds, point, distance, &distanceToClouds) * step;
+		lastCloudDistance = max(distanceToClouds, input2.distThresh);
 		float3 newColour = 0.0f;
 		float3 shadowOutputTemp = 1.0f;
 

@@ -80,6 +80,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	shadowVect += randomSphere;
 #endif // MC_SOFT_SHADOWS
 
+	float lastDistanceToClouds = 1e6f;
 	int count = 0;
 	float step = 0.0f;
 	for (float i = start; i < factor; i += step)
@@ -130,8 +131,10 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 #ifdef CLOUDS
 		{
+			float distanceToClouds = 0.0f;
 			float opacity =
-				CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist) * dist * DEFactor;
+				CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, &distanceToClouds) * step;
+			lastDistanceToClouds = max(dist_thresh, distanceToClouds);
 			opacity *= (factor - i) / factor;
 			opacity = min(opacity, 1.0f);
 			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
@@ -148,7 +151,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 			break;
 		}
 
-		step = dist * DEFactor;
+		step = min(dist, lastDistanceToClouds) * DEFactor;
 		step = max(step, 1e-6f);
 
 		count++;
