@@ -417,6 +417,8 @@ enum enumFractalFormula
 	transfDIFSTorusGrid = 1615,
 	// 2.22
 	transfDIFSHexprism = 1616,
+	// 2.23
+	transfDIFSPolyhedra = 1617,
 
 	// hybrid color
 	transfHybridColor = 2000,
