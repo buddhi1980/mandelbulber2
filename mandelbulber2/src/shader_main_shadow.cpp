@@ -58,7 +58,6 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double start = input.distThresh;
 	if (params->interiorMode) start = input.distThresh * DEFactor;
 
-	double opacity = 0.0;
 	double shadowTemp = 1.0;
 	double iterFogSum = 0.0f;
 
@@ -122,23 +121,20 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
+			double opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
 				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
-		else if (cloudMode)
+		if (cloudMode)
 		{
-			opacity = CloudOpacity(point2, dist) * dist * DEFactor;
+			double opacity = CloudOpacity(point2, dist) * dist * DEFactor;
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
-		else
-		{
-			opacity = 0.0;
-		}
+
 		shadowTemp = 1.0 - iterFogSum;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)

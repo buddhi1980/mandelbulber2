@@ -282,7 +282,10 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		{
 			if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
 			{
-				shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
+				if (consts->params.cloudsCastShadows)
+				{
+					shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
+				}
 				newColour += (shadowOutputTemp * nAmbient + ambient) * consts->params.mainLightColour
 										 * consts->params.mainLightIntensity;
 			}
@@ -298,7 +301,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp = normalize(lightVectorTemp);
 					float lightShadow = 1.0f;
-					if (consts->params.iterFogShadows)
+					if (consts->params.cloudsCastShadows)
 					{
 						calcParam->distThresh = input2.distThresh;
 						calcParam->detailSize = input2.distThresh;

@@ -50,14 +50,13 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float DEFactor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor = 1.0f;
 #ifdef CLOUDS
-	DEFactor = consts->params.DEFactor;
+	DEFactor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 #endif
 
 	// float start = input->delta;
 	float start = input->distThresh;
 	if (consts->params.interiorMode) start = input->distThresh * DEFactor;
 
-	float opacity;
 	float shadowTemp = 1.0f;
 	float iterFogSum = 0.0f;
 
@@ -120,19 +119,23 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 		}
 
 #ifdef ITER_FOG
-		opacity =
-			IterOpacity(dist * DEFactor, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
-				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
-		opacity *= (factor - i) / factor;
-		opacity = min(opacity, 1.0f);
-		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-#elif CLOUDS
-		opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist) * dist * DEFactor;
-		opacity *= (factor - i) / factor;
-		opacity = min(opacity, 1.0f);
-		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-#else
-		opacity = 0.0f;
+		{
+			float opacity = IterOpacity(dist * DEFactor, outF.iters, consts->params.N,
+				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacityTrimHigh,
+				consts->params.iterFogOpacity);
+			opacity *= (factor - i) / factor;
+			opacity = min(opacity, 1.0f);
+			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+		}
+#endif
+#ifdef CLOUDS
+		{
+			float opacity =
+				CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist) * dist * DEFactor;
+			opacity *= (factor - i) / factor;
+			opacity = min(opacity, 1.0f);
+			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+		}
 #endif
 
 		shadowTemp = 1.0f - iterFogSum;

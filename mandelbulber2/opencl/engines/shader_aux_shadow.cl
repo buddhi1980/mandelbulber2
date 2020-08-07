@@ -49,7 +49,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	float DE_factor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
 #ifdef CLOUDS
-	DE_factor = consts->params.DEFactor;
+	DE_factor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 #endif
 
 #ifdef MC_SOFT_SHADOWS

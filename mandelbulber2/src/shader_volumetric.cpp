@@ -275,7 +275,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			{
 				if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
 				{
-					shadowOutputTemp = MainShadow(input2);
+					if (params->cloudsCastShadows)
+					{
+						shadowOutputTemp = MainShadow(input2);
+					}
 					newColour.R += (shadowOutputTemp.R * nAmbient + ambient) * params->mainLightColour.R
 												 * params->mainLightIntensity;
 					newColour.G += (shadowOutputTemp.G * nAmbient + ambient) * params->mainLightColour.G
@@ -297,7 +300,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						float lightShadow = 1.0;
 						if (params->iterFogShadows)
 						{
-							lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
+							if (params->cloudsCastShadows)
+							{
+								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
+							}
 							lightShadow = lightShadow * nAmbient + ambient;
 						}
 						float intensity = light->intensity;
