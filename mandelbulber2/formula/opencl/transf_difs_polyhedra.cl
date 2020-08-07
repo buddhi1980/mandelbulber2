@@ -56,7 +56,7 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL d1 = dot(zc, pbc) - dot(pbc, p);
 		REAL d2 = dot(zc, pca) - dot(pca, p);
 		REAL df = max(max(d0, d1), d2);
-		colVec.x = df;0
+		colVec.x = df;
 		d = min(d, df);
 	}
 
