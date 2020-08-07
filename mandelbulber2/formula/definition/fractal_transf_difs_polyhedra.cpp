@@ -30,14 +30,12 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 	int Type = fractal->transformCommon.int3;
 	// U 'barycentric' coordinate for the 'principal' node
 	double U = fractal->transformCommon.constantMultiplier100.x;
-	// V
 	double V = fractal->transformCommon.constantMultiplier100.y;
-	// W
 	double W = fractal->transformCommon.constantMultiplier100.z;
 	// vertex radius
 	double VRadius = fractal->transformCommon.offset01;
 	// segments radius
-	double SRadius = fractal->transformCommon.offset0005 * 10.0;
+	double SRadius = fractal->transformCommon.offsetp05;
 
 	double temp;
 	// this block does not use z so could be inline precalc
@@ -75,9 +73,9 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		double d0 = zc.Dot(pab) - p.Dot(pab);
 		double d1 = zc.Dot(pbc) - p.Dot(pbc);
 		double d2 = zc.Dot(pca) - p.Dot(pca);
-		double dd = max(max(d0, d1), d2);
-		colVec.x = dd;
-		d = min(d, dd);
+		double df = max(max(d0, d1), d2);
+		colVec.x = df;
+		d = min(d, df);
 	}
 
 	if (!fractal->transformCommon.functionEnabledByFalse)
@@ -86,19 +84,20 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		double dla = ((zc - min(0.0, zc.x) * CVector4(1.0, 0.0, 0.0, 0.0))).Length();
 		double dlb = ((zc - min(0.0, zc.y) * CVector4(0.0, 1.0, 0.0, 0.0))).Length();
 		double dlc = ((zc - min(0.0, zc.Dot(nc)) * nc)).Length();
-		double ddd = min(min(dla, dlb), dlc) - SRadius;
-		colVec.y = ddd;
-		d = min(d, ddd);
+		double ds = min(min(dla, dlb), dlc) - SRadius;
+		colVec.y = ds;
+		d = min(d, ds);
 	}
 
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{ // Vertices
-		double dddd = (zcv - p).Length() - VRadius;
-		colVec.z = dddd;
-		d = min(d, dddd);
+		double dv = (zcv - p).Length() - VRadius;
+		colVec.z = dv;
+		d = min(d, dv);
 	}
 
 	aux.dist = min(aux.dist, d) / aux.DE;
+	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
@@ -111,16 +110,13 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 			colorAdd += colVec.x;
 			colorAdd += colVec.y;
 			colorAdd += colVec.z;
-			colorAdd += colVec.w;
-			aux.color = colorAdd * 1024.0;
+			// colorAdd += colVec.w;
+			aux.color = colorAdd * 256.0;
 		}
 		else
 		{
-			colVec.w = min(min(colVec.x, colVec.y), colVec.z);
-			colVec.w *= fractal->foldColor.difs0000.w;
-			aux.color = colVec.w * 1024.0;
+			aux.color = min(min(colVec.x, colVec.y), colVec.z)
+				* fractal->foldColor.difs1 * 1024.0;
 		}
 	}
-
-	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 }

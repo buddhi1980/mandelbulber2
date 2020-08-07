@@ -19,21 +19,19 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	int Type = fractal->transformCommon.int3;
 	// U 'barycentric' coordinate for the 'principal' node
 	REAL U = fractal->transformCommon.constantMultiplier100.x;
-	// V
 	REAL V = fractal->transformCommon.constantMultiplier100.y;
-	// W
 	REAL W = fractal->transformCommon.constantMultiplier100.z;
 	// vertex radius
 	REAL VRadius = fractal->transformCommon.offset01;
 	// segments radius
-	REAL SRadius = fractal->transformCommon.offset0005 * 10.0;
+	REAL SRadius = fractal->transformCommon.offsetp05;
 
 	// this block does not use z so could be inline precalc
 	REAL cospin = M_PI / (REAL)(Type);
 	cospin = cos(cospin);
 	REAL scospin = sqrt(0.75 - cospin * cospin);
 	REAL4 nc = (REAL4)(-0.5, -cospin, scospin, 0.0);
-	REAL4 pab = (REAL4)(0., 0., 1.0, 0.0);
+	REAL4 pab = (REAL4)(0.0, 0.0, 1.0, 0.0);
 	REAL4 pbc = normalize((REAL4)(scospin, 0.0, 0.5, 0.0));
 	REAL4 pca = normalize((REAL4)(0.0, scospin, cospin, 0.0));
 	REAL4 p = normalize(U * pab + V * pbc + W * pca);
@@ -57,30 +55,31 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL d0 = dot(zc, pab) - dot(pab, p);
 		REAL d1 = dot(zc, pbc) - dot(pbc, p);
 		REAL d2 = dot(zc, pca) - dot(pca, p);
-		REAL dd = max(max(d0, d1), d2);
-		colVec.x = dd;
-		d = min(d, dd);
+		REAL df = max(max(d0, d1), d2);
+		colVec.x = df;0
+		d = min(d, df);
 	}
 
 	if (!fractal->transformCommon.functionEnabledByFalse)
 	{ // Segments
 		zc -= p;
 		REAL dla = length(zc - min(0.0, zc.x) * (REAL4)(1.0, 0.0, 0.0, 0.0));
-		REAL dlb = length(zc - min(0.0, zc.y) * (REAL4)(0.0, 1.0, 0.0, 0.0));x
+		REAL dlb = length(zc - min(0.0, zc.y) * (REAL4)(0.0, 1.0, 0.0, 0.0));
 		REAL dlc = length(zc - min(0.0, dot(zc, nc)) * nc);
-		REAL ddd = min(min(dla, dlb), dlc) - SRadius;
-		colVec.y = ddd;
-		d = min(d, ddd);
+		REAL ds = min(min(dla, dlb), dlc) - SRadius;
+		colVec.y = ds;
+		d = min(d, ds);
 	}
 
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{ // Vertices
-		REAL dddd = length(zcv - p) - VRadius;
-		colVec.z = dddd;
-		d = min(d, dddd);
+		REAL dv = length(zcv - p) - VRadius;
+		colVec.z = dv;
+		d = min(d, dv);
 	}
 
 	aux->dist = min(aux->dist, d) / aux->DE;
+	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
@@ -93,18 +92,14 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			colorAdd += colVec.x;
 			colorAdd += colVec.y;
 			colorAdd += colVec.z;
-			colorAdd += colVec.w;
-			aux->color = colorAdd * 1024.0;
+			// colorAdd += colVec.w;
+			aux->color = colorAdd * 256.0;
 		}
 		else
 		{
-			colVec.w = min(min(colVec.x, colVec.y), colVec.z);
-			colVec.w *= fractal->foldColor.difs0000.w;
-			aux->color = colVec.w * 1024.0;
+			aux->color = min(min(colVec.x, colVec.y), colVec.z)
+				* fractal->foldColor.difs1 * 1024.0;
 		}
 	}
-
-	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
-
 	return z;
 }
