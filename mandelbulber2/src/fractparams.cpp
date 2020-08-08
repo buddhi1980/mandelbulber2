@@ -84,7 +84,10 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	cloudsCastShadows = container->Get<bool>("clouds_cast_shadows");
 	cloudsCenter = container->Get<CVector3>("clouds_center");
 	cloudsColor = toRGBFloat(container->Get<sRGB>("clouds_color"));
+	cloudsDEMultiplier = container->Get<double>("clouds_DE_multiplier");
 	cloudsDensity = container->Get<double>("clouds_density");
+	cloudsDEApproaching = container->Get<double>("clouds_DE_approaching");
+	cloudsDetailAccuracy = container->Get<double>("clouds_detail_accuracy");
 	cloudsDistance = container->Get<double>("clouds_distance");
 	cloudsDistanceLayer = container->Get<double>("clouds_distance_layer");
 	cloudsDistanceMode = container->Get<bool>("clouds_distance_mode");

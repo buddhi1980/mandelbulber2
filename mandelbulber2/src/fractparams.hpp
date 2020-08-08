@@ -180,7 +180,10 @@ struct sParamRender
 	double backgroundTextureOffsetY;
 	double cameraDistanceToTarget; // zoom
 	double cloudsAmbientLight;
+	double cloudsDEApproaching;
+	double cloudsDEMultiplier;
 	double cloudsDensity;
+	double cloudsDetailAccuracy;
 	double cloudsDistance;
 	double cloudsDistanceLayer;
 	double cloudsPeriod;

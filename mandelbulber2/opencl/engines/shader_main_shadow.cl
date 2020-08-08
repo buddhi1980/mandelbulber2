@@ -132,9 +132,10 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef CLOUDS
 		{
 			float distanceToClouds = 0.0f;
-			float opacity =
-				CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, &distanceToClouds) * step;
-			lastDistanceToClouds = max(dist_thresh, distanceToClouds);
+			float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, dist_thresh,
+												&distanceToClouds)
+											* step;
+			lastDistanceToClouds = distanceToClouds;
 			opacity *= (factor - i) / factor;
 			opacity = min(opacity, 1.0f);
 			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;

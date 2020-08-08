@@ -1155,9 +1155,9 @@ per pixel:</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-177</y>
+            <y>-423</y>
             <width>551</width>
-            <height>1513</height>
+            <height>1611</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2288,6 +2288,64 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </item>
                    <item row="1" column="1">
                     <widget class="MyLineEdit" name="logedit_clouds_distance_layer"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox">
+                <property name="title">
+                 <string>Accuracy control (only OpenCL)</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_14">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_22">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="logedit_clouds_DE_approaching"/>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_128">
+                     <property name="text">
+                      <string>Details accuracy</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="MyLineEdit" name="logedit_clouds_detail_accuracy"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_129">
+                     <property name="text">
+                      <string>Approaching DE multiplier</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_130">
+                     <property name="text">
+                      <string>Clouds DE multiplier</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="MyLineEdit" name="logedit_clouds_DE_multiplier"/>
                    </item>
                   </layout>
                  </item>

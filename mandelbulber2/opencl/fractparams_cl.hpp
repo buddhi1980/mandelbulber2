@@ -187,7 +187,10 @@ typedef struct
 	cl_float backgroundTextureOffsetY;
 	cl_float cameraDistanceToTarget; // zoom
 	cl_float cloudsAmbientLight;
+	cl_float cloudsDEApproaching;
+	cl_float cloudsDEMultiplier;
 	cl_float cloudsDensity;
+	cl_float cloudsDetailAccuracy;
 	cl_float cloudsDistance;
 	cl_float cloudsDistanceLayer;
 	cl_float cloudsPeriod;
@@ -401,7 +404,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.backgroundTextureOffsetY = source.backgroundTextureOffsetY;
 	target.cameraDistanceToTarget = source.cameraDistanceToTarget;
 	target.cloudsAmbientLight = source.cloudsAmbientLight;
+	target.cloudsDEApproaching = source.cloudsDEApproaching;
+	target.cloudsDEMultiplier = source.cloudsDEMultiplier;
 	target.cloudsDensity = source.cloudsDensity;
+	target.cloudsDetailAccuracy = source.cloudsDetailAccuracy;
 	target.cloudsDistance = source.cloudsDistance;
 	target.cloudsDistanceLayer = source.cloudsDistanceLayer;
 	target.cloudsPeriod = source.cloudsPeriod;
