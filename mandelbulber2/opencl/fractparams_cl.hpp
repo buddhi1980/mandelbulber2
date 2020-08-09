@@ -193,6 +193,7 @@ typedef struct
 	cl_float cloudsDetailAccuracy;
 	cl_float cloudsDistance;
 	cl_float cloudsDistanceLayer;
+	cl_float cloudsLightsBoost;
 	cl_float cloudsPeriod;
 	cl_float cloudsHeight;
 	cl_float cloudsOpacity;
@@ -410,6 +411,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsDetailAccuracy = source.cloudsDetailAccuracy;
 	target.cloudsDistance = source.cloudsDistance;
 	target.cloudsDistanceLayer = source.cloudsDistanceLayer;
+	target.cloudsLightsBoost = source.cloudsLightsBoost;
 	target.cloudsPeriod = source.cloudsPeriod;
 	target.cloudsHeight = source.cloudsHeight;
 	target.cloudsOpacity = source.cloudsOpacity;

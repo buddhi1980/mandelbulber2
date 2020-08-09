@@ -111,71 +111,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.A += glowOpacity;
 		}
 		// qDebug() << "step" << step;
-		//------------------ visible light
-		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
-		{
-			for (int i = 0; i < numberOfLights; ++i)
-			{
-				const sLight *light = data->lights.GetLight(i);
-				if (light->enabled && light->intensity > 0)
-				{
-					double lastMiniSteps = -1.0;
-					double miniStep;
-
-					for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
-					{
-						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
-						double lightDist = lightDistVect.Length();
-						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
-
-						double distToLightSurface = lightDist - lightSize;
-						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
-
-						miniStep = 0.1 * (distToLightSurface + 0.1 * distToLightSurface);
-						if (miniStep > step - miniSteps) miniStep = step - miniSteps;
-						if (miniStep < step * 0.001) miniStep = step * 0.001;
-
-						double r2 = lightDist / lightSize;
-						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
-						float lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
-
-						output.R += lightDensity * light->colour.R;
-						output.G += lightDensity * light->colour.G;
-						output.B += lightDensity * light->colour.B;
-						output.A += lightDensity;
-
-						if (miniSteps == lastMiniSteps)
-						{
-							// qWarning() << "Dead computation\n"
-							//		<< "\pointN:" << (point - input.viewVector * miniSteps).Debug();
-							break;
-						}
-						lastMiniSteps = miniSteps;
-					}
-				}
-			}
-		}
-
-		// fake lights (orbit trap)
-		if (params->fakeLightsEnabled)
-		{
-			sFractalIn fractIn(point, params->minN, params->N, &params->common, -1, false);
-			sFractalOut fractOut;
-			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-			float r = fractOut.orbitTrapR;
-			r = sqrtf(1.0f / (r + 1.0e-20f));
-			float fakeLight = 1.0f
-												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-													 + 0.1f);
-			output.R +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
-			output.G +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G;
-			output.B +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B;
-			output.A += fakeLight * float(step) * params->fakeLightsVisibility;
-		}
 
 		//---------------------- volumetric lights with shadows in fog
 
@@ -261,9 +196,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		// perlin noise clouds
+		double cloudsOpacity;
 		if (params->cloudsEnable)
 		{
-			double opacity = CloudOpacity(point, distance) * step;
+			double cloud = CloudOpacity(point, distance);
+			double opacity = cloud * step;
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
@@ -298,14 +235,13 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						lightVectorTemp.Normalize();
 
 						float lightShadow = 1.0;
-						if (params->iterFogShadows)
+
+						if (params->cloudsCastShadows)
 						{
-							if (params->cloudsCastShadows)
-							{
-								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
-							}
-							lightShadow = lightShadow * nAmbient + ambient;
+							lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 						}
+						lightShadow = lightShadow * nAmbient + ambient;
+
 						float intensity = light->intensity;
 						newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
 						newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
@@ -321,6 +257,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.B = output.B * (1.0f - opacity) + newColour.B * opacity * params->cloudsColor.B;
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 			output.A = opacity + (1.0f - opacity) * output.A;
+
+			cloudsOpacity = opacity;
 		}
 
 		// iter fog
@@ -421,6 +359,77 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 				output.A = opacity + (1.0f - opacity) * output.A;
 			}
+		}
+
+		//------------------ visible light
+		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
+		{
+			for (int i = 0; i < numberOfLights; ++i)
+			{
+				const sLight *light = data->lights.GetLight(i);
+				if (light->enabled && light->intensity > 0)
+				{
+					double lastMiniSteps = -1.0;
+					double miniStep;
+
+					for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
+					{
+						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
+						double lightDist = lightDistVect.Length();
+						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
+
+						double distToLightSurface = lightDist - lightSize;
+						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
+
+						miniStep = 0.1 * (distToLightSurface + 0.1 * distToLightSurface);
+						if (miniStep > step - miniSteps) miniStep = step - miniSteps;
+						if (miniStep < step * 0.001) miniStep = step * 0.001;
+
+						double r2 = lightDist / lightSize;
+						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
+						float lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
+
+						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
+
+						output.R += lightDensity * light->colour.R;
+						output.G += lightDensity * light->colour.G;
+						output.B += lightDensity * light->colour.B;
+						output.A += lightDensity;
+
+						if (miniSteps == lastMiniSteps)
+						{
+							// qWarning() << "Dead computation\n"
+							//		<< "\pointN:" << (point - input.viewVector * miniSteps).Debug();
+							break;
+						}
+						lastMiniSteps = miniSteps;
+					}
+				}
+			}
+		}
+
+		// fake lights (orbit trap)
+		if (params->fakeLightsEnabled)
+		{
+			sFractalIn fractIn(point, params->minN, params->N, &params->common, -1, false);
+			sFractalOut fractOut;
+			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+			float r = fractOut.orbitTrapR;
+			r = sqrtf(1.0f / (r + 1.0e-20f));
+			float fakeLight = 1.0f
+												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+													 + 0.1f);
+
+			fakeLight *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
+
+			output.R +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
+			output.G +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G;
+			output.B +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B;
+			output.A += fakeLight * float(step) * params->fakeLightsVisibility;
 		}
 
 		if (totalOpacity > 1.0f) totalOpacity = 1.0f;

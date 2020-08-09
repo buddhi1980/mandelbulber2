@@ -186,6 +186,7 @@ struct sParamRender
 	double cloudsDetailAccuracy;
 	double cloudsDistance;
 	double cloudsDistanceLayer;
+	double cloudsLightsBoost;
 	double cloudsPeriod;
 	double cloudsHeight;
 	double cloudsOpacity;
