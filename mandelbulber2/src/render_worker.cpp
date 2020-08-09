@@ -747,6 +747,8 @@ void cRenderWorker::RayMarching(
 	}
 	//------------- 83.2473 us for RayMarching loop -------------------------
 
+	point = in.start + in.direction * scan;
+
 	// qDebug() << "------------ binary search";
 	if (found && in.binaryEnable && !deadComputationFound)
 	{

@@ -142,6 +142,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				end = true;
 			}
 			scan += step;
+
+			//qDebug() << point.Debug() << distance << step << input.depth - scan << lastCloudDistance;
 		}
 		// distance, points and steps are taken from arrays
 		else
@@ -270,6 +272,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double distanceToClouds = 0.0;
 			double cloud = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
 			double opacity = cloud * step;
+			//qDebug() << cloud;
 
 			lastCloudDistance = distanceToClouds;
 
