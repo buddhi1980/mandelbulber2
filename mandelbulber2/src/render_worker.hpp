@@ -53,6 +53,8 @@ class cNineFractals;
 class cScheduler;
 class cPerlinNoiseOctaves;
 
+#define MAX_RAYMARCHING 10000
+
 // ambient occlusion data
 struct sVectorsAround
 {
@@ -214,7 +216,8 @@ private:
 	double CalcDelta(CVector3 point) const;
 	static double IterOpacity(
 		double step, double iters, double maxN, double trim, double trimHigh, double opacitySp);
-	double CloudOpacity(CVector3 point, double distance) const;
+	double CloudOpacity(
+		CVector3 point, double distance, double detailSize, double *distanceOut) const;
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 	void MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) const;
 	double MonteCarloDOFNoiseEstimation(

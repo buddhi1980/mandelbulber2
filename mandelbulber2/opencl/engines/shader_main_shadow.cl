@@ -121,9 +121,9 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 
 #ifdef ITER_FOG
 		{
-			float opacity = IterOpacity(dist * DEFactor, outF.iters, consts->params.N,
-				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacityTrimHigh,
-				consts->params.iterFogOpacity);
+			float opacity =
+				IterOpacity(step, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
+					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 			opacity *= (factor - i) / factor;
 			opacity = min(opacity, 1.0f);
 			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;

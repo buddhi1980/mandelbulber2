@@ -36,6 +36,7 @@
 
 #include "algebra.hpp"
 #include "ao_modes.h"
+#include "calculate_distance.hpp"
 #include "calculation_mode.h"
 #include "color_structures.hpp"
 #include "compute_fractal.hpp"
@@ -78,32 +79,99 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 	// qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
 
-	sShaderInputData input2 = input;
-	for (int index = input.stepCount - 1; index > 0; index--)
+	int numberOfSteps;
+	bool recalcStepsMode;
+	double scan;
+	double lastCloudDistance = params->cloudsPeriod;
+	bool end = false;
+
+	if (!qFuzzyCompare(params->volumetricLightDEFactor, 1.0) || params->cloudsEnable)
 	{
-		double step = input.stepBuff[index].step;
-		double distance = input.stepBuff[index].distance;
-		CVector3 point = input.stepBuff[index].point;
-		totalStep += step;
+		numberOfSteps = MAX_RAYMARCHING;
+		recalcStepsMode = true;
+		scan = CalcDistThresh(input.point);
+	}
+	else
+	{
+		numberOfSteps = input.stepCount - 1;
+		recalcStepsMode = false;
+	}
 
-		input2.point = point;
-		input2.distThresh = input.stepBuff[index].distThresh;
-		input2.delta = CalcDelta(point);
+	sShaderInputData input2 = input;
+	for (int index = numberOfSteps; index > 0; index--)
+	{
+		double step;
+		double distance;
+		CVector3 point;
+		int iterations = 0;
 
-		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
-		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
-
-		if (totalStep < 1e-10 * CalcDistThresh(point)) // if two steps are the same
+		// distance, points and steps are recalculated when custom DE step is usew=d
+		if (recalcStepsMode)
 		{
-			continue;
+			point = input.point - input.viewVector * scan;
+
+			input2.point = point;
+			input2.distThresh = CalcDistThresh(point);
+			input2.delta = CalcDelta(point);
+
+			sDistanceOut distanceOut;
+			sDistanceIn distanceIn(point, input2.distThresh, false);
+			distance = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			iterations = distanceOut.iters;
+
+			step = (min(distance, lastCloudDistance) - 0.5 * input2.distThresh) * params->DEFactor
+						 * params->volumetricLightDEFactor;
+
+			step *= (1.0 - Random(1000) / 10000.0);
+
+			if (params->advancedQuality)
+			{
+				step = clamp(step, params->absMinMarchingStep, params->absMaxMarchingStep);
+
+				if (input2.distThresh > params->absMinMarchingStep)
+					step = clamp(step, params->relMinMarchingStep * input2.distThresh,
+						params->relMaxMarchingStep * input2.distThresh);
+			}
+
+			step = max(step, input2.distThresh);
+
+			end = false;
+			if (step > input.depth - scan)
+			{
+				step = input.depth - scan;
+				end = true;
+			}
+			scan += step;
 		}
-		step = totalStep;
-		totalStep = 0.0;
+		// distance, points and steps are taken from arrays
+		else
+		{
+			step = input.stepBuff[index].step;
+			distance = input.stepBuff[index].distance;
+			point = input.stepBuff[index].point;
+			iterations = input.stepBuff[index].iters;
+
+			totalStep += step;
+
+			input2.point = point;
+			input2.distThresh = input.stepBuff[index].distThresh;
+			input2.delta = CalcDelta(point);
+
+			// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
+			// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
+
+			if (totalStep < 1e-10 * CalcDistThresh(point)) // if two steps are the same
+			{
+				continue;
+			}
+			step = totalStep;
+			totalStep = 0.0;
+		}
 
 		//------------------- glow
 		if (params->glowEnabled && input.stepCount > 0)
 		{
-			float glowOpacity = glow / input.stepCount;
+			float glowOpacity = glow / input.stepCount * params->volumetricLightDEFactor;
 			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
 			output.R = glowOpacity * glowR + (1.0f - glowOpacity) * output.R;
 			output.G = glowOpacity * glowG + (1.0f - glowOpacity) * output.G;
@@ -195,12 +263,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
 		}
 
-		// perlin noise clouds
+		//-------------- perlin noise clouds
 		double cloudsOpacity;
 		if (params->cloudsEnable)
 		{
-			double cloud = CloudOpacity(point, distance);
+			double distanceToClouds = 0.0;
+			double cloud = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
 			double opacity = cloud * step;
+
+			lastCloudDistance = distanceToClouds;
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
@@ -258,21 +329,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 			output.A = opacity + (1.0f - opacity) * output.A;
 
-			cloudsOpacity = opacity;
+			cloudsOpacity = cloud;
 		}
 
 		// iter fog
 		if (params->iterFogEnabled)
 		{
-			int L = input.stepBuff[index].iters;
-			float opacity = IterOpacity(step, L, params->N, params->iterFogOpacityTrim,
+			float opacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			if (opacity > 0)
 			{
 				// fog colour
-				float iterFactor1 = (L - params->iterFogOpacityTrim)
+				float iterFactor1 = (iterations - params->iterFogOpacityTrim)
 														/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
 				float k = iterFactor1;
 				if (k > 1.0f) k = 1.0f;
@@ -282,7 +352,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				float fogColG = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
 				float fogColB = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
 
-				float iterFactor2 = (L - params->iterFogColor1Maxiter)
+				float iterFactor2 = (iterations - params->iterFogColor1Maxiter)
 														/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
 				float k2 = iterFactor2;
 				if (k2 < 0.0f) k2 = 0.0;
@@ -437,6 +507,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		(*opacityOut).R = totalOpacity;
 		(*opacityOut).G = totalOpacity;
 		(*opacityOut).B = totalOpacity;
+
+		if (end) break;
 
 	} // next stepCount
 

@@ -52,7 +52,7 @@ double cRenderWorker::AuxShadow(
 	double DE_factor = params->DEFactor;
 	double volumetricLightDEFactor = params->volumetricLightDEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
-	if (cloudMode) DE_factor = params->DEFactor;
+	if (cloudMode) DE_factor = params->DEFactor * params->volumetricLightDEFactor;
 
 	double softRange;
 	if (params->monteCarloSoftShadows)
@@ -82,7 +82,11 @@ double cRenderWorker::AuxShadow(
 		lightVector += randomSphere;
 	}
 
-	for (double i = input.delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
+	double lastDistanceToClouds = 1e6f;
+	int count = 0;
+	double step = 0.0f;
+
+	for (double i = input.delta; i < distance; i += step)
 	{
 		CVector3 point2 = input.point + lightVector * i;
 
@@ -123,8 +127,8 @@ double cRenderWorker::AuxShadow(
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N,
-				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+			opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
@@ -132,7 +136,9 @@ double cRenderWorker::AuxShadow(
 		}
 		else if (cloudMode)
 		{
-			opacity = CloudOpacity(point2, dist) * dist * DE_factor;
+			double distanceToClouds = 0.0f;
+			opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
+			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
@@ -157,6 +163,12 @@ double cRenderWorker::AuxShadow(
 			}
 			break;
 		}
+
+		step = std::min(dist, lastDistanceToClouds) * DE_factor;
+		step = std::max(step, 1e-15);
+
+		count++;
+		if (count > MAX_RAYMARCHING) break;
 	}
 
 	if (!bSoft)

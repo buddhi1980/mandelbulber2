@@ -218,6 +218,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float opacity = cloud * step;
 
 			lastCloudDistance = distanceToClouds;
+
 			float3 newColour = 0.0f;
 			float3 shadowOutputTemp = 1.0f;
 

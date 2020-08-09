@@ -52,7 +52,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 	double DEFactor = params->DEFactor;
 	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
-	if (cloudMode) DEFactor = params->DEFactor;
+	if (cloudMode) DEFactor = params->DEFactor * params->volumetricLightDEFactor;
 
 	// double start = input.delta;
 	double start = input.distThresh;
@@ -80,7 +80,11 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		shadowVect += randomSphere;
 	}
 
-	for (double i = start; i < factor; i += dist * DEFactor)
+	int count = 0;
+	double step = 0.0f;
+	double lastDistanceToClouds = 1e6f;
+
+	for (double i = start; i < factor; i += step)
 	{
 		point2 = input.point + shadowVect * i;
 
@@ -121,15 +125,17 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 		if (params->iterFogEnabled)
 		{
-			double opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
-				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
 		if (cloudMode)
 		{
-			double opacity = CloudOpacity(point2, dist) * dist * DEFactor;
+			double distanceToClouds = 0.0f;
+			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
+			lastDistanceToClouds = distanceToClouds;
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
@@ -144,6 +150,12 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 			if (shadowTemp < 0.0) shadowTemp = 0.0;
 			break;
 		}
+
+		step = std::min(dist, lastDistanceToClouds) * DEFactor;
+		step = std::max(step, 1e-15);
+
+		count++;
+		if (count > MAX_RAYMARCHING) break;
 	}
 	if (!bSoft)
 	{
