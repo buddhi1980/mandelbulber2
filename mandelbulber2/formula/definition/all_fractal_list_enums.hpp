@@ -377,8 +377,8 @@ enum enumFractalFormula
 	transfAddConstantMod2 = 1102,
 	transfAddConstantRotV1 = 1103,
 	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
-	transfScaleOffset = 1105,
-	transfScaleOffsetV2 = 1106,
+	transfScaleOffset = 1105, // fix DE v2.23
+	transfScaleOffsetV2 = 1106, // fix DE v2.23
 	// 2.21
 	transfDEControls = 1107, // pk offset default = 1
 	transfMandalayFoldV1 = 1108,

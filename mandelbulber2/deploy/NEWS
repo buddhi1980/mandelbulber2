@@ -4,11 +4,13 @@ v2.23 (???? 2020)
 - Added new fractal formulas
    spheretreeV2
    transfAddNorm
+   transfDIFSPolyhedra
    transfMandalayFold4d
 
 - modified fractal formulas
    transfStepXY added offset and scale
-
+   transfScaleOffset fix DE
+   transfScaleOffsetV2 fix DE
 
 
 v2.22 (July 2020)

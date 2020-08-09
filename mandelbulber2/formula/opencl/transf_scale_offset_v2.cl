@@ -26,9 +26,9 @@ REAL4 TransfScaleOffsetV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	z *= fractal->transformCommon.scale1;
 	z += fractal->transformCommon.additionConstant000;
 	if (!fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0f;
 	else
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
 							+ fractal->analyticDE.offset0;
 	return z;
 }

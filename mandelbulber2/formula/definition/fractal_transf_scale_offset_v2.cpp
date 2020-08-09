@@ -38,8 +38,8 @@ void cFractalTransfScaleOffsetV2::FormulaCode(
 	z *= fractal->transformCommon.scale1;
 	z += fractal->transformCommon.additionConstant000;
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	else
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
