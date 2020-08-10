@@ -75,7 +75,7 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 		}
 		zcv = zc;
 
-		if (!fractal->transformCommon.functionEnabledBx)
+		if (fractal->transformCommon.functionEnabledBxFalse)
 		{ // faces
 			double d0 = zc.Dot(pab) - p.Dot(pab);
 			double d1 = zc.Dot(pbc) - p.Dot(pbc);

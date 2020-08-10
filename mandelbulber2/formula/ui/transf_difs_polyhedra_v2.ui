@@ -42,7 +42,10 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>enable faces</string>
        </property>

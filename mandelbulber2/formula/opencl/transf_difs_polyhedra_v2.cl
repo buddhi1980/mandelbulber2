@@ -56,7 +56,7 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 		zcv = zc;
 
-		if (!fractal->transformCommon.functionEnabledBx)
+		if (fractal->transformCommon.functionEnabledBxFalse)
 		{ // faces
 			REAL d0 = dot(zc, pab) - dot(pab, p);
 			REAL d1 = dot(zc, pbc) - dot(pbc, p);
