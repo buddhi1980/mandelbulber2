@@ -419,6 +419,7 @@ enum enumFractalFormula
 	transfDIFSHexprism = 1616,
 	// 2.23
 	transfDIFSPolyhedra = 1617,
+	transfDIFSPolyhedraV2 = 1618,
 
 	// hybrid color
 	transfHybridColor = 2000,
