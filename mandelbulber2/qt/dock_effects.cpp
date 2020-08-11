@@ -42,6 +42,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/random.hpp"
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
 #include "src/synchronize_interface.hpp"
@@ -98,6 +99,9 @@ void cDockEffects::ConnectSignals() const
 		SLOT(slotChangedEnableMCDOF(bool)));
 	connect(ui->checkBox_DOF_MC_global_illumination, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedEnableGI(int)));
+
+	connect(ui->pushButton_clouds_randomize, &QPushButton::clicked, this,
+		&cDockEffects::slotPressedButtonCloudsRandomize);
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
@@ -253,4 +257,12 @@ void cDockEffects::slotChangedEnableMCDOF(bool state)
 void cDockEffects::slotChangedEnableGI(int state)
 {
 	ui->checkBox_MC_global_illumination_volumetric->setEnabled(state);
+}
+
+void cDockEffects::slotPressedButtonCloudsRandomize()
+{
+	cRandom random;
+	random.Initialize(QTime::currentTime().msec());
+	int rnd = random.Random(100000);
+	ui->spinboxInt_clouds_random_seed->setValue(rnd);
 }

@@ -79,6 +79,7 @@ private slots:
 	void slotChangedPlaceLightBehindObjects(int state);
 	void slotChangedEnableMCDOF(bool state);
 	void slotChangedEnableGI(int state);
+	void slotPressedButtonCloudsRandomize();
 
 private:
 	void ConnectSignals() const;
