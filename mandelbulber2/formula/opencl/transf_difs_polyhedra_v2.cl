@@ -68,13 +68,24 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 		if (!fractal->transformCommon.functionEnabledByFalse)
 		{ // Segments
-			zcv -= p;
+			zcv = zcv - p;
+			REAL minDL = fractal->transformCommon.offsetB0;
+			REAL dla =  zcv.x - min(minDL, zcv.x);
+			dla = length((REAL4)(dla, zcv.y, zcv.z, zcv.w));
+			REAL dlc = length(zcv - dot(zcv, nc) * nc);
+			REAL ds = min(dla, dlc) - SRadius;
+			colVec.y = ds;
+			d = min(d, ds * powp);
+
+
+
+			/*zcv -= p;
 			REAL dla = length(zcv - min(0.0, zcv.x) * (REAL4)(1.0, 0.0, 0.0, 0.0));
 			REAL dlb = length(zcv - min(0.0, zcv.y) * (REAL4)(0.0, 1.0, 0.0, 0.0));
 			REAL dlc = length(zcv - min(0.0, dot(zcv, nc)) * nc);
 			REAL ds = min(min(dla, dlb), dlc) - SRadius;
 			colVec.y = ds;
-			d = min(d, ds);
+			d = min(d, ds);*/
 		}
 
 		if (!fractal->transformCommon.functionEnabledBzFalse)

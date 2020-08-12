@@ -55,6 +55,13 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+       <property name="text">
+        <string>square vertices</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -319,6 +326,16 @@
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string>z = zc</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
      </item>

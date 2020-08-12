@@ -73,7 +73,16 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{ // Vertices
-		REAL dv = length(zcv - p) - VRadius;
+		REAL dv;
+		if (!fractal->transformCommon.functionEnabledDFalse)
+		{
+			dv = length(zcv - p) - VRadius;
+		}
+		else
+		{
+			REAL4 ff = fabs(zcv - p);
+			dv = max(max(ff.x, ff.y), ff.z) - VRadius;
+		}
 		colVec.z = dv;
 		d = min(d, dv);
 	}

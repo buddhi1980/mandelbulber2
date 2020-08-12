@@ -88,12 +88,19 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 		if (!fractal->transformCommon.functionEnabledByFalse)
 		{ // Segments
 			zcv = zcv - p;
-			double dla = ((zcv - min(0.0, zcv.x) * CVector4(1.0, 0.0, 0.0, 0.0))).Length();
-			double dlb = ((zcv - min(0.0, zcv.y) * CVector4(0.0, 1.0, 0.0, 0.0))).Length();
-			double dlc = ((zcv - min(0.0, zcv.Dot(nc)) * nc)).Length();
-			double ds = min(min(dla, dlb), dlc) - SRadius;
+			double minDL = fractal->transformCommon.offsetB0;
+			double dla =  zcv.x - min(minDL, zcv.x);
+			dla = CVector4(dla, zcv.y, zcv.z, zcv.w).Length();
+			double dlc = (zcv - zcv.Dot(nc) * nc).Length();
+			double ds = min(dla, dlc) - SRadius;
 			colVec.y = ds;
 			d = min(d, ds * powp);
+
+
+			//double dla = ((zcv - min(0.0, zcv.x) * CVector4(1.0, 0.0, 0.0, 0.0))).Length();
+			//double dlb = ((zcv - min(0.0, zcv.y) * CVector4(0.0, 1.0, 0.0, 0.0))).Length();
+			//double dlc = ((zcv - min(0.0, zcv.Dot(nc)) * nc)).Length();
+			//double ds = min(min(dla, dlb), dlc) - SRadius;
 		}
 
 		if (!fractal->transformCommon.functionEnabledBzFalse)

@@ -91,10 +91,20 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{ // Vertices
-		double dv = (zcv - p).Length() - VRadius;
+		double dv;
+		if (!fractal->transformCommon.functionEnabledDFalse)
+		{
+			dv = (zcv - p).Length() - VRadius;
+		}
+		else
+		{
+			CVector4 ff = fabs(zcv - p);
+			dv = max(max(ff.x, ff.y), ff.z) - VRadius;
+		}
 		colVec.z = dv;
 		d = min(d, dv);
 	}
+
 
 	aux.dist = min(aux.dist, d) / aux.DE;
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
