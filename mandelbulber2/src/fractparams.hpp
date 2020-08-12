@@ -221,6 +221,7 @@ struct sParamRender
 	float iterFogBrightnessBoost;
 	double mainLightAlpha;
 	double mainLightBeta;
+	double mainLightContourSharpness;
 	float mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;

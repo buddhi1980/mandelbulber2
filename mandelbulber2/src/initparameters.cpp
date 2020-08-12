@@ -363,6 +363,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("main_light_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("main_light_visibility_size", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("main_light_contour_sharpness", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("main_light_alpha", -45.0, morphAkimaAngle, paramStandard);
 	par->addParam("main_light_beta", 45.0, morphAkimaAngle, paramStandard);
 	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), morphLinear, paramStandard);

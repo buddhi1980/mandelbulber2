@@ -143,10 +143,10 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	if (consts->params.mainLightEnable)
 	{
 
-		float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
+		float light = -(dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
 									/ consts->params.mainLightVisibilitySize;
-		light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
-						* consts->params.mainLightIntensity;
+		light = 1.0f / (1.0f + pow(light, 6.0f * consts->params.mainLightContourSharpness))
+						* consts->params.mainLightVisibility * consts->params.mainLightIntensity;
 		pixel += light * consts->params.mainLightColour;
 	}
 

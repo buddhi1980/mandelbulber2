@@ -6,8 +6,8 @@ CONFIG += link_pkgconfig
 CONFIG += c++14
 
 QMAKE_FULL_VERSION = 2.3-dev
-QMAKE_SHORT_VERSION = 2.3
-QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber.mandelbulber2
+QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
+VERSION = 2.3
 
 # optional dependecies
 qtHaveModule(gamepad){

@@ -172,6 +172,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	mainLightAlpha = container->Get<double>("main_light_alpha");
 	mainLightBeta = container->Get<double>("main_light_beta");
 	mainLightColour = toRGBFloat(container->Get<sRGB>("main_light_colour"));
+	mainLightContourSharpness = container->Get<double>("main_light_contour_sharpness");
 	mainLightEnable = container->Get<bool>("main_light_enable");
 	mainLightIntensity = container->Get<float>("main_light_intensity");
 	mainLightPositionAsRelative = container->Get<bool>("main_light_position_relative");

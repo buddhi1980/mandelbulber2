@@ -228,6 +228,7 @@ typedef struct
 	cl_float iterFogBrightnessBoost;
 	cl_float mainLightAlpha;
 	cl_float mainLightBeta;
+	cl_float mainLightContourSharpness;
 	cl_float mainLightIntensity;
 	cl_float mainLightVisibility;
 	cl_float mainLightVisibilitySize;
@@ -449,6 +450,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.mainLightAlpha = source.mainLightAlpha;
 	target.mainLightBeta = source.mainLightBeta;
+	target.mainLightContourSharpness = source.mainLightContourSharpness;
 	target.mainLightIntensity = source.mainLightIntensity;
 	target.mainLightVisibility = source.mainLightVisibility;
 	target.mainLightVisibilitySize = source.mainLightVisibilitySize;
