@@ -203,6 +203,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalSierpinski3d());
 	fractalList->append(new cFractalSierpinski3dV2());
 	fractalList->append(new cFractalSierpinski3dV3());
+	fractalList->append(new cFractalSierpinski3dV4());
 	fractalList->append(new cFractalSierpinski4d());
 	fractalList->append(new cFractalVicsek());
 
