@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1156,8 +1156,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
-            <height>1644</height>
+            <width>264</width>
+            <height>1659</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2634,8 +2634,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>270</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3723,9 +3723,6 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                   <property name="singleStep">
                    <double>0.010000000000000</double>
-                  </property>
-                  <property name="stepType">
-                   <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
                   </property>
                  </widget>
                 </item>
@@ -5323,8 +5320,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1070</height>
+            <width>162</width>
+            <height>110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
