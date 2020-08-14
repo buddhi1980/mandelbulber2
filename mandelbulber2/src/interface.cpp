@@ -544,7 +544,7 @@ void cInterface::StartRender(bool noUndo)
 		autoRefreshLastHash = tempSettings.GetHashCode();
 	}
 
-	if (!noUndo) gUndo.Store(gPar, gParFractal);
+	if (!noUndo) gUndo->Store(gPar, gParFractal);
 
 	DisableJuliaPointMode();
 
@@ -1348,7 +1348,7 @@ void cInterface::SetByMouse(
 					double DOF = depth;
 					gPar->Set("DOF_focus", DOF);
 					mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
-					gUndo.Store(gPar, gParFractal);
+					gUndo->Store(gPar, gParFractal);
 					RefreshPostEffects();
 					ReEnablePeriodicRefresh();
 					break;
@@ -1741,7 +1741,7 @@ void cInterface::Undo()
 	bool refreshKeyframes = false;
 	DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
-	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
+	if (gUndo->Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
@@ -1761,7 +1761,7 @@ void cInterface::Redo()
 	bool refreshKeyframes = false;
 	DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
-	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
+	if (gUndo->Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
@@ -2478,7 +2478,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	}
 
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	gUndo.Store(gPar, gParFractal);
+	gUndo->Store(gPar, gParFractal);
 
 	cParameterContainer tempParam = *gPar;
 	cFractalContainer tempFractal = *gParFractal;
@@ -2596,7 +2596,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 void cInterface::ResetFormula(int fractalNumber) const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
+	gUndo->Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
 
 	QStringList exclude = {"formula_code"};
@@ -2615,7 +2615,7 @@ void cInterface::ResetFormula(int fractalNumber) const
 		gPar->SetFromOneParameter(listToReset[i] + QString("_%1").arg(fractalNumber + 1), oneParameter);
 	}
 
-	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
+	gUndo->Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
@@ -3044,8 +3044,8 @@ void cInterface::CleanSettings()
 				QMessageBox::Yes | QMessageBox::No))
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
-		gUndo.Store(gPar, gParFractal);
-		gUndo.Store(gPar, gParFractal);
+		gUndo->Store(gPar, gParFractal);
+		gUndo->Store(gPar, gParFractal);
 		cSettingsCleaner *cleaner = new cSettingsCleaner(mainWindow);
 		cleaner->show();
 		cleaner->runCleaner();

@@ -57,6 +57,7 @@
 #include "system.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
+#include "undo.h"
 #include "write_log.hpp"
 
 int main(int argc, char *argv[])
@@ -215,6 +216,8 @@ int main(int argc, char *argv[])
 
 	gInterfaceReadyForSynchronization = true;
 
+	gUndo = new cUndo();
+
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->mainWindow->slotPopulateToolbar();
@@ -231,6 +234,7 @@ int main(int argc, char *argv[])
 	}
 
 	// clean objects when exit
+	delete gUndo;
 	delete gPar;
 	gPar = nullptr;
 	delete gParFractal;

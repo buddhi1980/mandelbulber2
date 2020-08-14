@@ -249,7 +249,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	// get latest values of all parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, frames, nullptr);
+	gUndo->Store(params, fractalParams, frames, nullptr);
 
 	if (!continueRecording)
 	{
@@ -996,7 +996,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-		gUndo.Store(params, fractalParams, frames, nullptr);
+		gUndo->Store(params, fractalParams, frames, nullptr);
 	}
 
 	*stopRequest = false;
@@ -1036,7 +1036,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 		{
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-			gUndo.Store(params, fractalParams, frames, nullptr);
+			gUndo->Store(params, fractalParams, frames, nullptr);
 		}
 
 		CheckWhichFramesAreAlreadyRendered(frameRanges);
@@ -1248,7 +1248,7 @@ void cFlightAnimation::RenderFrame(int index) const
 
 void cFlightAnimation::DeleteFramesFrom(int index) const
 {
-	gUndo.Store(params, fractalParams, frames, nullptr);
+	gUndo->Store(params, fractalParams, frames, nullptr);
 	for (int i = frames->GetNumberOfFrames() - 1; i >= index; i--)
 		table->removeColumn(index);
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
@@ -1257,7 +1257,7 @@ void cFlightAnimation::DeleteFramesFrom(int index) const
 
 void cFlightAnimation::DeleteFramesTo(int index) const
 {
-	gUndo.Store(params, fractalParams, frames, nullptr);
+	gUndo->Store(params, fractalParams, frames, nullptr);
 	for (int i = 0; i <= index; i++)
 		table->removeColumn(0);
 	frames->DeleteFrames(0, index);
@@ -1440,7 +1440,7 @@ void cFlightAnimation::slotRecordPause()
 
 void cFlightAnimation::InterpolateForward(int row, int column)
 {
-	gUndo.Store(params, fractalParams, frames, nullptr);
+	gUndo->Store(params, fractalParams, frames, nullptr);
 
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
@@ -1563,7 +1563,7 @@ QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) cons
 void cFlightAnimation::slotExportFlightToKeyframes() const
 {
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, gAnimFrames, gKeyframes);
+	gUndo->Store(params, fractalParams, gAnimFrames, gKeyframes);
 
 	if (gKeyframes->GetFrames().size() > 0)
 	{

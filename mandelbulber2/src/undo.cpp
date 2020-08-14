@@ -46,11 +46,32 @@
 #include "system_directories.hpp"
 #include "write_log.hpp"
 
-cUndo gUndo;
+#include <QDir>
+#include <QDebug>
+
+cUndo *gUndo = nullptr;
 
 cUndo::cUndo()
 {
 	level = 0;
+	fileIndex = 0;
+
+	QDir undoDir(systemDirectories.GetUndoFolder());
+	QStringList listOfFiles = undoDir.entryList(QStringList() << "*.fract", QDir::Files, QDir::Time);
+
+	if (listOfFiles.size() > 0)
+	{
+		int lastFoundFileIndex = listOfFiles[0].mid(5, 2).toInt();
+		fileIndex = (lastFoundFileIndex + 1 + 100) % 100;
+
+		for (int i = 0; i < listOfFiles.size(); i++)
+		{
+			sUndoRecord record;
+			record.isLoaded = false;
+			undoBuffer.append(record);
+			level++;
+		}
+	}
 }
 
 cUndo::~cUndo() = default;
@@ -65,6 +86,8 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToFile(systemDirectories.GetAutosaveFile());
+	parSettings.SaveToFile(systemDirectories.GetUndoFolder() + QDir::separator()
+												 + QString("undo_%1.fract").arg(fileIndex, 2, 10, QChar('0')));
 	WriteLog("Autosave finished", 2);
 
 	WriteLog("cUndo::Store() started", 2);
@@ -99,9 +122,10 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 			undoBuffer.removeAt(i);
 		}
 	}
-
+	record.isLoaded = true;
 	undoBuffer.append(record);
 	level++;
+	fileIndex = (fileIndex + 1 + 100) % 100;
 	WriteLog("cUndo::Store() finished", 2);
 }
 
@@ -114,19 +138,51 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 		if (undoBuffer.length() >= level)
 		{
 			level--;
+			fileIndex = (fileIndex - 1 + 100) % 100;
 			record = undoBuffer.at(level - 1);
-			*par = record.mainParams;
-			*parFractal = record.fractParams;
-			if (frames && record.hasFrames)
+
+			if (!record.isLoaded)
 			{
-				*frames = record.animationFrames;
-				*refreshFrames = true;
+				// if record in not in memory then load from settings stored in undo folder
+				QString undoFilename = systemDirectories.GetUndoFolder() + QDir::separator()
+															 + QString("undo_%1.fract").arg(fileIndex, 2, 10, QChar('0'));
+
+				if (QFile::exists(undoFilename))
+				{
+					record.mainParams = *par;
+					record.fractParams = *parFractal;
+					cSettings parSettings(cSettings::formatCondensedText);
+					parSettings.LoadFromFile(undoFilename);
+					if (parSettings.Decode(&record.mainParams, &record.fractParams, &record.animationFrames,
+								&record.animationKeyframes))
+					{
+						record.isLoaded = true;
+						undoBuffer[level - 1] = record;
+					}
+				}
+				else
+				{
+					cErrorMessage::showMessage(
+						QObject::tr("Missing undo data in disk cache"), cErrorMessage::warningMessage);
+					return false;
+				}
 			}
-			if (keyframes && record.hasKeyframes)
+
+			if (record.isLoaded)
 			{
-				*keyframes = record.animationKeyframes;
-				keyframes->RegenerateAudioTracks(par);
-				*refreshKeyframes = true;
+				*par = record.mainParams;
+				*parFractal = record.fractParams;
+				if (frames && record.hasFrames)
+				{
+					*frames = record.animationFrames;
+					*refreshFrames = true;
+				}
+				if (keyframes && record.hasKeyframes)
+				{
+					*keyframes = record.animationKeyframes;
+					keyframes->RegenerateAudioTracks(par);
+					*refreshKeyframes = true;
+				}
 			}
 		}
 		return true;
@@ -146,20 +202,28 @@ bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 		sUndoRecord record;
 		record = undoBuffer.at(level);
 		level++;
-		*par = record.mainParams;
-		*parFractal = record.fractParams;
-		if (frames && record.hasFrames)
+		fileIndex = (fileIndex + 1 + 100) % 100;
+		if (record.isLoaded)
 		{
-			*frames = record.animationFrames;
-			*refreshFrames = true;
+			*par = record.mainParams;
+			*parFractal = record.fractParams;
+			if (frames && record.hasFrames)
+			{
+				*frames = record.animationFrames;
+				*refreshFrames = true;
+			}
+			if (keyframes && record.hasKeyframes)
+			{
+				*keyframes = record.animationKeyframes;
+				keyframes->RegenerateAudioTracks(par);
+				*refreshKeyframes = true;
+			}
+			return true;
 		}
-		if (keyframes && record.hasKeyframes)
+		else
 		{
-			*keyframes = record.animationKeyframes;
-			keyframes->RegenerateAudioTracks(par);
-			*refreshKeyframes = true;
+			return false;
 		}
-		return true;
 	}
 	else
 	{

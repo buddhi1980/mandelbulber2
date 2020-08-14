@@ -201,7 +201,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 void cKeyframeAnimation::slotAddKeyframe()
 {
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	NewKeyframe(keyframes->GetNumberOfFrames());
 }
@@ -212,7 +212,7 @@ void cKeyframeAnimation::slotInsertKeyframe()
 	if (index < 0) index = 0;
 
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	NewKeyframe(index);
 }
@@ -257,7 +257,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 	}
 	else
 	{
-		gUndo.Store(params, fractalParams, nullptr, keyframes);
+		gUndo->Store(params, fractalParams, nullptr, keyframes);
 		keyframes->DeleteFrames(index, index);
 		table->removeColumn(index + reservedColumns);
 		UpdateLimitsForFrameRange();
@@ -279,7 +279,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 		{
 			// get latest values of all parameters
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-			gUndo.Store(params, fractalParams, nullptr, keyframes);
+			gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 			// add new frame to container
 			keyframes->DeleteFrames(index, index);
@@ -883,7 +883,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 		{
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-			gUndo.Store(params, fractalParams, nullptr, keyframes);
+			gUndo->Store(params, fractalParams, nullptr, keyframes);
 		}
 
 		keyframes->SetFramesPerKeyframe(frameRanges.framesPerKeyframe);
@@ -1127,7 +1127,7 @@ void cKeyframeAnimation::RenderFrame(int index) const
 
 void cKeyframeAnimation::DeleteFramesFrom(int index) const
 {
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 	for (int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--)
 		table->removeColumn(index + reservedColumns);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
@@ -1136,7 +1136,7 @@ void cKeyframeAnimation::DeleteFramesFrom(int index) const
 
 void cKeyframeAnimation::DeleteFramesTo(int index) const
 {
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 	for (int i = 0; i <= index; i++)
 		table->removeColumn(reservedColumns);
 	keyframes->DeleteFrames(0, index);
@@ -1275,7 +1275,7 @@ void cKeyframeAnimation::slotShowAnimation() const
 
 void cKeyframeAnimation::InterpolateForward(int row, int column)
 {
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	QTableWidgetItem *cell = table->item(row, column);
 	QString cellText = cell->text();
@@ -1410,7 +1410,7 @@ parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row) cons
 
 void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphType morphType)
 {
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 	const int parameterIndex = rowParameter.at(row);
 	keyframes->ChangeMorphType(parameterIndex, morphType);
 	RefreshTable();
@@ -1419,7 +1419,7 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, gAnimFrames, keyframes);
+	gUndo->Store(params, fractalParams, gAnimFrames, keyframes);
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	if (gAnimFrames->GetFrames().size() > 0)
@@ -1530,7 +1530,7 @@ void cKeyframeAnimation::slotValidate()
 {
 	// updating parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
@@ -1574,7 +1574,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 {
 	// updating parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-	gUndo.Store(params, fractalParams, nullptr, keyframes);
+	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	const double constDist = params->Get<double>("keyframe_constant_target_distance");
 

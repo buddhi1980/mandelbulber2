@@ -65,14 +65,16 @@ private:
 		cFractalContainer fractParams;
 		cAnimationFrames animationFrames;
 		cKeyframes animationKeyframes;
-		bool hasFrames;
-		bool hasKeyframes;
+		bool hasFrames = false;
+		bool hasKeyframes = false;
+		bool isLoaded = false;
 	};
 
 	QList<sUndoRecord> undoBuffer;
 	int level;
+	int fileIndex;
 };
 
-extern cUndo gUndo;
+extern cUndo *gUndo;
 
 #endif /* MANDELBULBER2_SRC_UNDO_H_ */

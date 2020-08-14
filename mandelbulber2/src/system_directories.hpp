@@ -40,6 +40,7 @@ struct sSystemDirectories
 	QString GetNetrenderFolder() const { return dataDirectoryHidden + "netrender"; }
 	QString GetOpenCLTempFolder() const { return dataDirectoryHidden + "openclTemp"; }
 	QString GetOpenCLCustomFormulasFolder() const { return dataDirectoryHidden + "customFormulas"; }
+	QString GetUndoFolder() const { return dataDirectoryHidden + "undo"; }
 
 	QString homeDir;
 	QString sharedDir;
