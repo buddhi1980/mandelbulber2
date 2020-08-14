@@ -396,6 +396,7 @@ enum enumFractalFormula
 	// 2.23
 	transfAddNorm = 1118,
 	transfMandalayFold4d = 1119,
+	transfSmooth = 1120,
 
 	// mandelbulber transfdIFS
 	// 2.20
