@@ -17,6 +17,13 @@ REAL4 TransfSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	Q_UNUSED(aux);
 
+
+	REAL4 Zigns = CVector4(1.0, 1.0, 1.0, 1.0);
+	Zigns.x = sign(z.x);
+	Zigns.y = sign(z.y);
+	Zigns.z = sign(z.z);
+
+
 	REAL OffsetS = fractal->transformCommon.offset0005;
 
 	// the closer to origin the greater the effect of OffsetSQ

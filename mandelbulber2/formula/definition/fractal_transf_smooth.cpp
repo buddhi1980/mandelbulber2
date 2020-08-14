@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- *
+ * smoothing based on Menger Smooth
+ * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 
 #include "all_fractal_definitions.h"
