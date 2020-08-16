@@ -331,7 +331,7 @@ QStringList ImageFileSaveJPG::SaveImage()
 				bool logarithmicScale = gPar->Get<bool>("zbuffer_logarithmic");
 				bool constRange = gPar->Get<bool>("zbuffer_constant_range");
 
-				unsigned char *zBuffer8Bit = new unsigned char[size];
+				std::vector<unsigned char> zBuffer8Bit(size);
 				float minZ = float(1.0e50);
 				float maxZ = 0.0;
 
@@ -374,9 +374,9 @@ QStringList ImageFileSaveJPG::SaveImage()
 						zBuffer8Bit[ptr] = (invertZ) ? uchar(255 - intZ) : uchar(intZ);
 					}
 				}
-				SaveJPEGQtGreyscale(fullFilename, zBuffer8Bit, image->GetWidth(), image->GetHeight(),
+				SaveJPEGQtGreyscale(fullFilename, zBuffer8Bit.data(), image->GetWidth(), image->GetHeight(),
 					gPar->Get<int>("jpeg_quality"), image->getMeta());
-				delete[] zBuffer8Bit;
+
 				break;
 			}
 			case IMAGE_CONTENT_NORMAL:
@@ -469,10 +469,8 @@ void ImageFileSavePNG::SavePNG(
 
 	/* create file */
 	FILE *fp = fopen(filenameInput.toLocal8Bit().constData(), "wb");
-	png_bytep *row_pointers = nullptr;
 	png_structp png_ptr = nullptr;
 	png_info *info_ptr = nullptr;
-	char *colorPtr = nullptr;
 
 	try
 	{
@@ -534,7 +532,7 @@ void ImageFileSavePNG::SavePNG(
 		/* write bytes */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing bytes");
 
-		row_pointers = new png_bytep[height];
+		std::vector<png_bytep> row_pointers(height);
 
 		uint64_t pixelSize = qualitySizeByte;
 
@@ -600,7 +598,7 @@ void ImageFileSavePNG::SavePNG(
 		}
 		else
 		{
-			colorPtr = new char[uint64_t(width) * height * pixelSize];
+			std::vector<char> colorPtr(uint64_t(width) * height * pixelSize);
 
 			// calculate min / max values from zbuffer range
 			float minZ = float(1.0e50);
@@ -750,8 +748,7 @@ void ImageFileSavePNG::SavePNG(
 
 		png_write_end(png_ptr, info_ptr);
 		png_destroy_write_struct(&png_ptr, &info_ptr);
-		delete[] row_pointers;
-		if (colorPtr) delete[] colorPtr;
+
 		fclose(fp);
 	}
 	catch (QString &status)
@@ -767,8 +764,6 @@ void ImageFileSavePNG::SavePNG(
 				png_destroy_write_struct(&png_ptr, nullptr);
 			}
 		}
-		if (row_pointers) delete[] row_pointers;
-		if (colorPtr) delete[] colorPtr;
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
 			QObject::tr("Can't save image to PNG file!\n") + filenameInput + "\n" + status,
@@ -780,7 +775,6 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 {
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
-	png_bytep *row_pointers = nullptr;
 	png_structp png_ptr = nullptr;
 	png_info *info_ptr = nullptr;
 
@@ -812,20 +806,19 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		/* write bytes */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing bytes");
 
-		row_pointers = new png_bytep[height];
+		std::vector<png_bytep> row_pointers(height);
 		for (int y = 0; y < height; y++)
 		{
 			row_pointers[y] = reinterpret_cast<png_byte *>(&image16[y * width]);
 		}
 
-		png_write_image(png_ptr, row_pointers);
+		png_write_image(png_ptr, row_pointers.data());
 
 		/* end write */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during end of write");
 
 		png_write_end(png_ptr, info_ptr);
 		png_destroy_write_struct(&png_ptr, &info_ptr);
-		delete[] row_pointers;
 
 		fclose(fp);
 	}
@@ -842,7 +835,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 				png_destroy_write_struct(&png_ptr, nullptr);
 			}
 		}
-		if (row_pointers) delete[] row_pointers;
+
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
 			QObject::tr("Can't save image to PNG file!\n") + filename + "\n" + status,
@@ -1017,7 +1010,7 @@ bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int wi
 		return false;
 	}
 
-	QImage *qImage = new QImage(width, height, QImage::Format_RGB888);
+	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1042,7 +1035,7 @@ bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int wi
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qImage;
+
 	return result;
 }
 
@@ -1060,7 +1053,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 		return false;
 	}
 
-	QImage *qImage = new QImage(width, height, QImage::Format_RGB888);
+	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1100,14 +1093,13 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qImage;
+
 	return result;
 }
 
 bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width,
 	int height, int quality, QMap<QString, QString> meta)
 {
-
 	if (!image)
 	{
 		WriteLog(
@@ -1117,7 +1109,7 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 			1);
 		return false;
 	}
-	QImage *qImage = new QImage(width, height, QImage::Format_Indexed8);
+	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Indexed8));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1146,14 +1138,14 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qImage;
+
 	return result;
 }
 
 bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 	QString filename, unsigned char *image, int width, int height)
 {
-	QImage *qImage = new QImage(width, height, QImage::Format_Mono);
+	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Mono));
 	QVector<QRgb> my_table;
 	my_table.push_back(qRgb(0, 0, 0));
 	my_table.push_back(qRgb(255, 255, 255));
@@ -1176,14 +1168,13 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qImage;
 	return result;
 }
 
 bool ImageFileSavePNG::SavePNGQtGreyscale(
 	QString filename, unsigned char *image, int width, int height)
 {
-	QImage *qImage = new QImage(width, height, QImage::Format_Grayscale8);
+	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Grayscale8));
 
 	for (int i = 0; i < width; i++)
 	{
@@ -1203,7 +1194,7 @@ bool ImageFileSavePNG::SavePNGQtGreyscale(
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qImage;
+
 	return result;
 }
 
@@ -1235,9 +1226,9 @@ void ImageFileSaveEXR::SaveEXR(
 
 		uint64_t pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[uint64_t(width) * height * pixelSize];
-		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
-		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
+		std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer.data());
+		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer.data());
 
 		for (uint64_t y = 0; y < height; y++)
 		{
@@ -1263,12 +1254,15 @@ void ImageFileSaveEXR::SaveEXR(
 
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("R", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
-															3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("G", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
-															3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("B", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
-															3 * compSize, 3 * width * compSize));
+		frameBuffer.insert(
+			"R", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 0 * compSize, 3 * compSize,
+						 3 * width * compSize));
+		frameBuffer.insert(
+			"G", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 1 * compSize, 3 * compSize,
+						 3 * width * compSize));
+		frameBuffer.insert(
+			"B", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 2 * compSize, 3 * compSize,
+						 3 * width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ALPHA))
@@ -1282,9 +1276,9 @@ void ImageFileSaveEXR::SaveEXR(
 
 		uint64_t pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
-		char *buffer = new char[uint64_t(width) * height * pixelSize];
-		half *halfPointer = reinterpret_cast<half *>(buffer);
-		float *floatPointer = reinterpret_cast<float *>(buffer);
+		std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+		half *halfPointer = reinterpret_cast<half *>(buffer.data());
+		float *floatPointer = reinterpret_cast<float *>(buffer.data());
 
 		for (uint64_t y = 0; y < height; y++)
 		{
@@ -1305,7 +1299,7 @@ void ImageFileSaveEXR::SaveEXR(
 		// point EXR frame buffer to alpha
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert(
-			"A", Imf::Slice(imfQuality, static_cast<char *>(buffer), compSize, width * compSize));
+			"A", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()), compSize, width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
@@ -1328,8 +1322,8 @@ void ImageFileSaveEXR::SaveEXR(
 		else
 		{
 			uint64_t pixelSize = sizeof(half);
-			char *buffer = new char[uint64_t(width) * height * pixelSize];
-			half *halfPointer = reinterpret_cast<half *>(buffer);
+			std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+			half *halfPointer = reinterpret_cast<half *>(buffer.data());
 
 			for (uint64_t y = 0; y < height; y++)
 			{
@@ -1339,8 +1333,8 @@ void ImageFileSaveEXR::SaveEXR(
 					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
 				}
 			}
-			frameBuffer.insert("Z",
-				Imf::Slice(imfQuality, static_cast<char *>(buffer), sizeof(half), width * sizeof(half)));
+			frameBuffer.insert("Z", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()),
+																sizeof(half), width * sizeof(half)));
 		}
 	}
 
@@ -1411,9 +1405,9 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 
 	int pixelSize = sizeof(tsRGB<half>);
 	if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-	char *buffer = new char[uint64_t(width) * height * pixelSize];
-	tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
-	tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
+	std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+	tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer.data());
+	tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer.data());
 
 	for (uint64_t y = 0; y < height; y++)
 	{
@@ -1446,14 +1440,14 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 	// point EXR frame buffer to rgb
 	size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 	frameBuffer->insert(names.at(0).toStdString().c_str(),
-		Imf::Slice(
-			imfQuality, static_cast<char *>(buffer) + 0 * compSize, 3 * compSize, 3 * width * compSize));
+		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 0 * compSize, 3 * compSize,
+			3 * width * compSize));
 	frameBuffer->insert(names.at(1).toStdString().c_str(),
-		Imf::Slice(
-			imfQuality, static_cast<char *>(buffer) + 1 * compSize, 3 * compSize, 3 * width * compSize));
+		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 1 * compSize, 3 * compSize,
+			3 * width * compSize));
 	frameBuffer->insert(names.at(2).toStdString().c_str(),
-		Imf::Slice(
-			imfQuality, static_cast<char *>(buffer) + 2 * compSize, 3 * compSize, 3 * width * compSize));
+		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 2 * compSize, 3 * compSize,
+			3 * width * compSize));
 }
 
 #endif /* USE_EXR */
@@ -1530,7 +1524,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleFormat);
 
 	uint64_t pixelSize = samplesPerPixel * qualitySize / 8;
-	char *colorPtr = new char[uint64_t(width) * height * pixelSize];
+	std::vector<char> colorPtr(uint64_t(width) * height * pixelSize);
 
 	// calculate min / max values from zbuffer range
 	float minZ = float(1.0e50);
@@ -1733,13 +1727,13 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	{
 		uint64_t currentChunkSize = std::min(height - r, SAVE_CHUNK_SIZE);
 		// needs buffer with offset position
-		char *buf = static_cast<char *>(colorPtr) + r * pixelSize * width;
+		char *buf = static_cast<char *>(colorPtr.data()) + r * pixelSize * width;
 		tsize_t size = tsize_t(currentChunkSize * pixelSize * width);
 		TIFFWriteEncodedStrip(tiff, r / SAVE_CHUNK_SIZE, buf, size);
 		updateProgressAndStatusChannel(1.0 * r / height);
 	}
 	TIFFClose(tiff);
-	delete[] colorPtr;
+
 	return true;
 }
 
