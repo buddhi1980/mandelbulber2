@@ -225,8 +225,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -284,8 +284,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -343,8 +343,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -402,8 +402,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -461,8 +461,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -520,8 +520,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -579,8 +579,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -638,8 +638,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>96</width>
-                <height>26</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -2255,8 +2255,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>228</width>
-            <height>309</height>
+            <width>380</width>
+            <height>851</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -2708,6 +2708,14 @@ and water):</string>
                </layout>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="MyCheckBox" name="checkBox_all_primitives_invisible_alpha">
+             <property name="text">
+              <string>Invisible primitives in alpha channel
+with visible shadows of fractal objects</string>
+             </property>
             </widget>
            </item>
            <item>

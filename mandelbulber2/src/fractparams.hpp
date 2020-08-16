@@ -97,6 +97,7 @@ struct sParamRender
 	fractal::enumDEFunctionType delta_DE_function;
 
 	bool advancedQuality;
+	bool allPrimitivesInvisibleAlpha;
 	bool antialiasingEnabled;
 	bool antialiasingAdaptive;
 	bool ambientOcclusionEnabled; // enable global illumination

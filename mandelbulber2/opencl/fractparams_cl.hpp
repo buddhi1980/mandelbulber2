@@ -104,6 +104,7 @@ typedef struct
 	cl_int delta_DE_function;
 
 	cl_int advancedQuality;
+	cl_int allPrimitivesInvisibleAlpha;
 	cl_int antialiasingEnabled;
 	cl_int antialiasingAdaptive;
 	cl_int ambientOcclusionEnabled; // enable global illumination
@@ -313,6 +314,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.delta_DE_method = source.delta_DE_method;
 	target.delta_DE_function = source.delta_DE_function;
 	target.advancedQuality = source.advancedQuality;
+	target.allPrimitivesInvisibleAlpha = source.allPrimitivesInvisibleAlpha;
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.antialiasingAdaptive = source.antialiasingAdaptive;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;

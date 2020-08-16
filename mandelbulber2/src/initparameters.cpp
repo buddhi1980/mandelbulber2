@@ -434,6 +434,7 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+	par->addParam("all_primitives_invisible_alpha", false, morphLinear, paramStandard);
 	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);

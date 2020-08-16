@@ -40,6 +40,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sGradientsCollection *gradients) const
 {
 	sRGBAfloat output;
+	float alpha = 1.0f;
 
 	// normal vector
 	CVector3 vn = _input.normal;
@@ -72,6 +73,13 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	// calculate shadow
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
+	if (params->allPrimitivesInvisibleAlpha)
+	{
+		if (input.objectId >= NUMBER_OF_FRACTALS)
+		{
+			alpha = 1.0f - (shadow.R + shadow.G + shadow.B) / 3.0f;
+		}
+	}
 
 	gradients->specular = sRGBFloat(1.0, 1.0, 1.0);
 
@@ -183,7 +191,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	output.G += luminosity.G;
 	output.B += luminosity.B;
 
-	output.A = 1.0;
+	output.A = alpha;
 
 	specularOut->R =
 		(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R)

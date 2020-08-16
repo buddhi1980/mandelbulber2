@@ -717,8 +717,9 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				sClGradientsCollection gradients;
 
 				specular = 0.0f;
+				float alpha = 1.0f;
 				objectShader = ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour,
-					&specular, &iridescence, &gradients);
+					&specular, &iridescence, &alpha, &gradients);
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(
@@ -856,7 +857,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				}
 #endif // USE_REFRACTION || USE_REFLECTANCE
 				resultShader = max(resultShader, 0.0f);
-				resultShader.w = 1.0f;
+				resultShader.w = alpha;
 			}
 			else
 			{
