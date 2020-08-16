@@ -159,9 +159,10 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 
 			sClGradientsCollection gradients;
+			float alpha = 1.0f;
 
 			float3 objectShader = ObjectShader(consts, renderData, &inputCopy, calcParam, &objectColor,
-				&specular, &iridescence, &gradients);
+				&specular, &iridescence, &alpha, &gradients);
 
 			newColor = objectColor;
 			resultShader.xyz = objectShader;
