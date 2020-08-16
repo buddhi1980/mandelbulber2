@@ -1045,6 +1045,8 @@ void cKeyframeAnimation::RefreshTable()
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	keyframes->RefreshAllAudioTracks(params);
 
+	int lastSelectedColumn = table->currentColumn();
+
 	PrepareTable();
 	gApplication->processEvents();
 
@@ -1079,6 +1081,8 @@ void cKeyframeAnimation::RefreshTable()
 
 		if (systemData.globalStopRequest) break;
 	}
+
+	table->selectColumn(lastSelectedColumn);
 
 	UpdateLimitsForFrameRange();
 
