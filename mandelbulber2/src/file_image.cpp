@@ -552,6 +552,8 @@ void ImageFileSavePNG::SavePNG(
 		if (imageChannel.contentType == IMAGE_CONTENT_COLOR && !appendAlpha) directOnBuffer = true;
 		if (imageChannel.contentType == IMAGE_CONTENT_ALPHA) directOnBuffer = true;
 
+		std::vector<char> colorPtr;
+
 		if (directOnBuffer)
 		{
 			char *directPointer = nullptr;
@@ -598,7 +600,7 @@ void ImageFileSavePNG::SavePNG(
 		}
 		else
 		{
-			std::vector<char> colorPtr(uint64_t(width) * height * pixelSize);
+			colorPtr.resize(uint64_t(width) * height * pixelSize);
 
 			// calculate min / max values from zbuffer range
 			float minZ = float(1.0e50);
@@ -1207,6 +1209,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 	Imf::Header header(width, height);
 	Imf::FrameBuffer frameBuffer;
+	std::vector<char> buffer;
 
 	// compress each scan line on its own. This gives a good compression / read performance tradeoff
 	header.compression() = Imf::ZIPS_COMPRESSION;
@@ -1226,7 +1229,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		uint64_t pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+		buffer.resize(uint64_t(width) * height * pixelSize);
 		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer.data());
 		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer.data());
 
@@ -1276,7 +1279,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		uint64_t pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
-		std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+		buffer.resize(uint64_t(width) * height * pixelSize);
 		half *halfPointer = reinterpret_cast<half *>(buffer.data());
 		float *floatPointer = reinterpret_cast<float *>(buffer.data());
 
@@ -1322,7 +1325,7 @@ void ImageFileSaveEXR::SaveEXR(
 		else
 		{
 			uint64_t pixelSize = sizeof(half);
-			std::vector<char> buffer(uint64_t(width) * height * pixelSize);
+			buffer.resize(uint64_t(width) * height * pixelSize);
 			half *halfPointer = reinterpret_cast<half *>(buffer.data());
 
 			for (uint64_t y = 0; y < height; y++)
