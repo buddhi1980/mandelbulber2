@@ -424,8 +424,8 @@ void cInterface::ConnectSignals() const
 	// rendered image widget
 	connect(
 		renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
-	connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow,
-		SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
+	connect(
+		renderedImage, &RenderedImage::singleClick, mainWindow, &RenderWindow::slotMouseClickOnImage);
 	connect(renderedImage, SIGNAL(keyPress(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyPressOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
@@ -1417,7 +1417,9 @@ void cInterface::SetByMouse(
 					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
 					double distanceFromLast = (point - oldPoint).Length();
 					double distanceFromCamera = (point - camera).Length();
+					CVector3 midPoint = 0.5 * (point + oldPoint);
 					gPar->Set("meas_point", point);
+					gPar->Set("meas_midpoint", midPoint);
 					gPar->Set("meas_distance_from_last", distanceFromLast);
 					gPar->Set("meas_distance_from_camera", distanceFromCamera);
 					SynchronizeInterfaceWindow(
