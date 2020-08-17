@@ -507,8 +507,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			if (found)
 			{
 				color = ObjectShader(consts, &renderData, &shaderInputData, &calcParam, &surfaceColor,
-					&specular, &iridescence, &gradients);
-				alpha = 1.0f;
+					&specular, &iridescence, &alpha, &gradients);
 			}
 			else
 			{
