@@ -44,16 +44,16 @@
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {
-	QFrame *frameTextAndButton = new QFrame;
-	QHBoxLayout *layoutTextAndButton = new QHBoxLayout;
+	QFrame *frameTextAndButton = new QFrame(this);
+	QHBoxLayout *layoutTextAndButton = new QHBoxLayout();
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(2);
 	layoutTextAndButton->setContentsMargins(0, 0, 0, 0);
 	layoutTextAndButton->setSpacing(2);
-	lineEdit = new QLineEdit;
-	button = new QPushButton;
-	labelImage = new QLabel;
+	lineEdit = new QLineEdit(this);
+	button = new QPushButton(this);
+	labelImage = new QLabel(this);
 	labelImage->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 	labelImage->setContentsMargins(0, 0, 0, 0);
 	labelImage->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);

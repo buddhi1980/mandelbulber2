@@ -107,6 +107,8 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 			MeshFileSave::enumMeshFileModeType(gPar->Get<int>("mesh_file_mode")));
 
 		slicerBusy = true;
+
+		// meshExport is deleted by deleteLater();
 		meshExport = new cMeshExport(
 			samplesX, samplesY, samplesZ, limitMin, limitMax, fi.absoluteFilePath(), maxIter, meshConfig);
 		QObject::connect(meshExport,

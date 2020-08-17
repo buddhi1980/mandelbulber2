@@ -49,7 +49,7 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonM
 	layout->setMargin(2);
 
 	materialWidget = new cMaterialWidget(this);
-	label = new QLabel(parent);
+	label = new QLabel(this);
 	label->setText("test");
 	layout->addWidget(materialWidget);
 	layout->addWidget(label);

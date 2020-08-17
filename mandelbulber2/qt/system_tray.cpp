@@ -47,21 +47,21 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 	setParent(parent);
 	this->image = image;
 	isBusy = false;
-	systemTrayIcon = new QSystemTrayIcon(parent);
+	systemTrayIcon = new QSystemTrayIcon(this);
 	systemTrayIcon->setIcon(QIcon(":system/icons/mandelbulber.png"));
-	menu = new QMenu;
+	menu.reset(new QMenu());
 
 	QIcon renderIcon =
 		QIcon::fromTheme("applications-graphics", QIcon(":system/icons/applications-graphics.svg"));
 	QIcon stopIcon = QIcon::fromTheme("process-stop", QIcon(":system/icons/process-stop.svg"));
 	QIcon quitIcon = QIcon::fromTheme("application-exit", QIcon(":system/icons/system-shutdown.svg"));
 
-	stActionRender = new QAction(renderIcon, tr("Render Image"), parent);
-	stActionRenderAnimation = new QAction(renderIcon, tr("Render Animation"), parent);
-	stActionRenderFlight = new QAction(renderIcon, tr("Render Flight"), parent);
-	stActionStop = new QAction(stopIcon, tr("Stop"), parent);
-	stActionToggleNotification = new QAction(tr("Show Notifications"), parent);
-	stActionQuit = new QAction(quitIcon, tr("Quit"), parent);
+	stActionRender = new QAction(renderIcon, tr("Render Image"), this);
+	stActionRenderAnimation = new QAction(renderIcon, tr("Render Animation"), this);
+	stActionRenderFlight = new QAction(renderIcon, tr("Render Flight"), this);
+	stActionStop = new QAction(stopIcon, tr("Stop"), this);
+	stActionToggleNotification = new QAction(tr("Show Notifications"), this);
+	stActionQuit = new QAction(quitIcon, tr("Quit"), this);
 
 	stActionToggleNotification->setCheckable(true);
 	stActionToggleNotification->setChecked(gPar->Get<bool>("system_tray_notify"));
@@ -75,7 +75,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 	menu->addSeparator();
 	menu->addAction(stActionQuit);
 
-	systemTrayIcon->setContextMenu(menu);
+	systemTrayIcon->setContextMenu(menu.data());
 
 	connect(stActionRender, SIGNAL(triggered()), this, SLOT(slotStartRender()));
 	connect(stActionStop, SIGNAL(triggered()), this, SLOT(slotStopRender()));
@@ -90,7 +90,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 
 	// TODO remove timer and replace with proper signal connection
 	// to slotStarted and slotStopped
-	checkBusyTimer = new QTimer;
+	checkBusyTimer = new QTimer(this);
 	checkBusyTimer->setInterval(30);
 	connect(checkBusyTimer, SIGNAL(timeout()), this, SLOT(checkBusy()));
 	checkBusyTimer->start();
@@ -98,8 +98,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 
 cSystemTray::~cSystemTray()
 {
-	delete menu;
-	delete checkBusyTimer;
+	// nothing to delete
 }
 
 void cSystemTray::checkBusy()

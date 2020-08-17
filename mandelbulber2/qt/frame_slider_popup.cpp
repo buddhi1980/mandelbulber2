@@ -55,7 +55,7 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 	connect(ui->buZero, SIGNAL(pressed()), this, SIGNAL(zeroPressed()));
 	connect(ui->buMinus, SIGNAL(pressed()), this, SIGNAL(minusPressed()));
 
-	sliderTimer = new QTimer();
+	sliderTimer = new QTimer(this);
 	sliderTimer->setSingleShot(true);
 	connect(sliderTimer, SIGNAL(timeout()), this, SLOT(slotSliderTimerTrigger()));
 	sliderTimer->start(100);
@@ -74,9 +74,8 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 
 cFrameSliderPopup::~cFrameSliderPopup()
 {
-	delete ui;
 	sliderTimer->stop();
-	delete sliderTimer;
+	delete ui;
 }
 
 int cFrameSliderPopup::value() const

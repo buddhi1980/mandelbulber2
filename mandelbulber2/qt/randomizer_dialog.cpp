@@ -123,12 +123,12 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
 
-	referenceSkyPreview = new cThumbnailWidget();
+	referenceSkyPreview.reset(new cThumbnailWidget());
 	referenceSkyPreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceSkyPreview->DisableThumbnailCache();
 	referenceSkyPreview->DisableTimer();
 
-	referenceNoisePreview = new cThumbnailWidget();
+	referenceNoisePreview.reset(new cThumbnailWidget());
 	referenceNoisePreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceNoisePreview->DisableThumbnailCache();
 	referenceNoisePreview->DisableTimer();
@@ -164,8 +164,6 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 cRandomizerDialog::~cRandomizerDialog()
 {
 	delete ui;
-	delete referenceSkyPreview;
-	delete referenceNoisePreview;
 }
 
 void cRandomizerDialog::InitParameterContainers()
@@ -1197,7 +1195,7 @@ void cRandomizerDialog::slotCleanUp()
 
 	QList<QString> list = actualListOfChangedParameters.keys();
 
-	cThumbnailWidget *cleanedPreview = new cThumbnailWidget();
+	QScopedPointer<cThumbnailWidget> cleanedPreview(new cThumbnailWidget());
 	cleanedPreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	cleanedPreview->DisableThumbnailCache();
 	cleanedPreview->DisableTimer();
@@ -1260,8 +1258,6 @@ void cRandomizerDialog::slotCleanUp()
 	// refresh actual reference image
 	RefreshReferenceImage();
 	ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
-
-	delete cleanedPreview;
 }
 
 void cRandomizerDialog::slotAddToKeyframes()

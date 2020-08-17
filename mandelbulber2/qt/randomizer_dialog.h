@@ -151,8 +151,8 @@ private:
 	cFractalContainer actualFractParams;
 	cRandom randomizer;
 	enimRandomizeStrength actualStrength;
-	cThumbnailWidget *referenceSkyPreview;
-	cThumbnailWidget *referenceNoisePreview;
+	QScopedPointer<cThumbnailWidget> referenceSkyPreview;
+	QScopedPointer<cThumbnailWidget> referenceNoisePreview;
 	cProgressText progressText;
 	QList<QMap<QString, QString>> listsOfChangedParameters;
 	QMap<QString, QString> actualListOfChangedParameters;		// updated after selection

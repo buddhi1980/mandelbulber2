@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>556</width>
-    <height>699</height>
+    <width>423</width>
+    <height>793</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,600 +17,593 @@
    <iconset theme="image-x-generic" resource="icons.qrc">
     <normaloff>:/system/icons/image-x-generic.svg</normaloff>:/system/icons/image-x-generic.svg</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <property name="spacing">
-    <number>2</number>
-   </property>
-   <item row="1" column="3" rowspan="3">
-    <layout class="QVBoxLayout" name="verticalLayout_8">
-     <item>
-      <widget class="QScrollArea" name="scrollArea_image">
-       <property name="widgetResizable">
-        <bool>true</bool>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea_image">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_image">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>407</width>
+        <height>777</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_image">
+       <property name="spacing">
+        <number>2</number>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents_image">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>538</width>
-          <height>681</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_image">
-         <property name="spacing">
-          <number>2</number>
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
-         <property name="leftMargin">
-          <number>2</number>
+         <property name="title">
+          <string>Image Settings</string>
          </property>
-         <property name="topMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <property name="bottomMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="groupBox_4">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="title">
-            <string>Image Settings</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <property name="leftMargin">
-             <number>2</number>
-            </property>
-            <property name="topMargin">
-             <number>2</number>
-            </property>
-            <property name="rightMargin">
-             <number>2</number>
-            </property>
-            <property name="bottomMargin">
-             <number>2</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QGridLayout" name="gridLayout_4">
-              <property name="spacing">
-               <number>2</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>Image Channel</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Postfix</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="MyCheckBox" name="checkBox_color_enabled">
-                <property name="text">
-                 <string>Color</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="MyComboBox" name="comboBox_color_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="MyLineEdit" name="text_color_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="MyCheckBox" name="checkBox_alpha_enabled">
-                <property name="text">
-                 <string>Alpha</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="MyComboBox" name="comboBox_alpha_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="MyLineEdit" name="text_alpha_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="MyCheckBox" name="checkBox_zbuffer_enabled">
-                <property name="text">
-                 <string>Z Buffer</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="MyComboBox" name="comboBox_zbuffer_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="3" column="2">
-               <widget class="MyLineEdit" name="text_zbuffer_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Z-buffer options</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <property name="leftMargin">
-             <number>2</number>
             </property>
-            <property name="topMargin">
-             <number>2</number>
-            </property>
-            <property name="rightMargin">
-             <number>2</number>
-            </property>
-            <property name="bottomMargin">
-             <number>2</number>
-            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_4">
             <property name="spacing">
              <number>2</number>
             </property>
             <item row="0" column="0">
-             <widget class="MyCheckBox" name="checkBox_zbuffer_invert">
+             <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>Invert z-buffer</string>
+               <string>Image Channel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Quality</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Postfix</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="MyCheckBox" name="checkBox_zbuffer_logarithmic">
+             <widget class="MyCheckBox" name="checkBox_color_enabled">
               <property name="text">
-               <string>Logarithmic scale</string>
+               <string>Color</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="MyComboBox" name="comboBox_color_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="MyLineEdit" name="text_color_postfix">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="MyGroupBox" name="groupCheck_zbuffer_constant_range">
-              <property name="title">
-               <string>Use contant depth range</string>
+             <widget class="MyCheckBox" name="checkBox_alpha_enabled">
+              <property name="text">
+               <string>Alpha</string>
               </property>
-              <property name="checkable">
-               <bool>true</bool>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="MyComboBox" name="comboBox_alpha_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="MyLineEdit" name="text_alpha_postfix">
+              <property name="text">
+               <string/>
               </property>
-              <layout class="QGridLayout" name="gridLayout_5">
-               <property name="leftMargin">
-                <number>2</number>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="MyCheckBox" name="checkBox_zbuffer_enabled">
+              <property name="text">
+               <string>Z Buffer</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="MyComboBox" name="comboBox_zbuffer_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
                </property>
-               <property name="topMargin">
-                <number>2</number>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
                </property>
-               <property name="rightMargin">
-                <number>2</number>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
                </property>
-               <property name="bottomMargin">
-                <number>2</number>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="MyLineEdit" name="text_zbuffer_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Z-buffer options</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="MyCheckBox" name="checkBox_zbuffer_invert">
+            <property name="text">
+             <string>Invert z-buffer</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="MyCheckBox" name="checkBox_zbuffer_logarithmic">
+            <property name="text">
+             <string>Logarithmic scale</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="MyGroupBox" name="groupCheck_zbuffer_constant_range">
+            <property name="title">
+             <string>Use contant depth range</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>maximum z-depth</string>
                </property>
-               <property name="spacing">
-                <number>2</number>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>minimum z-depth</string>
                </property>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_2">
-                 <property name="text">
-                  <string>maximum z-depth</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label">
-                 <property name="text">
-                  <string>minimum z-depth</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="MyLineEdit" name="logedit_zbuffer_min_depth"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="MyLineEdit" name="logedit_zbuffer_max_depth"/>
-               </item>
-              </layout>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="MyLineEdit" name="logedit_zbuffer_min_depth"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="MyLineEdit" name="logedit_zbuffer_max_depth"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <item>
+          <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled">
+           <property name="title">
+            <string>Optional Image Channels</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_optional_image_channels">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <item row="0" column="0" colspan="3">
+             <widget class="QLabel" name="label_rerender_required_info">
+              <property name="text">
+               <string>Following channels are only rendered on demand
+and will only be present after enabling and re-render.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_image_channel_optional">
+              <property name="text">
+               <string>Image Channel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="label_image_quality_optional">
+              <property name="text">
+               <string>Quality</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_image_postfix_optional">
+              <property name="text">
+               <string>Postfix</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="MyCheckBox" name="checkBox_normal_enabled">
+              <property name="text">
+               <string>Surface Normal</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="MyComboBox" name="comboBox_normal_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="MyLineEdit" name="text_normal_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="MyCheckBox" name="checkBox_specular_enabled">
+              <property name="text">
+               <string>Specular</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="MyComboBox" name="comboBox_specular_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="MyLineEdit" name="text_specular_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="MyCheckBox" name="checkBox_world_enabled">
+              <property name="text">
+               <string>World</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="MyComboBox" name="comboBox_world_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="MyLineEdit" name="text_world_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="MyCheckBox" name="checkBox_diffuse_enabled">
+              <property name="text">
+               <string>Diffuse</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="MyComboBox" name="comboBox_diffuse_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="5" column="2">
+             <widget class="MyLineEdit" name="text_diffuse_postfix">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+              <property name="text">
+               <string>World Normal</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="MyComboBox" name="comboBox_normalWorld_quality">
+              <item>
+               <property name="text">
+                <string>8 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>16 bit</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>32 bit</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="6" column="2">
+             <widget class="MyLineEdit" name="text_normalWorld_postfix">
+              <property name="text">
+               <string/>
+              </property>
              </widget>
             </item>
            </layout>
           </widget>
          </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_10">
-           <item>
-            <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled">
-             <property name="title">
-              <string>Optional Image Channels</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_optional_image_channels">
-              <property name="spacing">
-               <number>2</number>
-              </property>
-              <item row="0" column="0" colspan="3">
-               <widget class="QLabel" name="label_rerender_required_info">
-                <property name="text">
-                 <string>Following channels are only rendered on demand
-and will only be present after enabling and re-render.</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_image_channel_optional">
-                <property name="text">
-                 <string>Image Channel</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_image_quality_optional">
-                <property name="text">
-                 <string>Quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_image_postfix_optional">
-                <property name="text">
-                 <string>Postfix</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="MyCheckBox" name="checkBox_normal_enabled">
-                <property name="text">
-                 <string>Surface Normal</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="MyComboBox" name="comboBox_normal_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="MyLineEdit" name="text_normal_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="MyCheckBox" name="checkBox_specular_enabled">
-                <property name="text">
-                 <string>Specular</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="MyComboBox" name="comboBox_specular_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="3" column="2">
-               <widget class="MyLineEdit" name="text_specular_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="MyCheckBox" name="checkBox_world_enabled">
-                <property name="text">
-                 <string>World</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="MyComboBox" name="comboBox_world_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="4" column="2">
-               <widget class="MyLineEdit" name="text_world_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="MyCheckBox" name="checkBox_diffuse_enabled">
-                <property name="text">
-                 <string>Diffuse</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="MyComboBox" name="comboBox_diffuse_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="5" column="2">
-               <widget class="MyLineEdit" name="text_diffuse_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
-                <property name="text">
-                 <string>World Normal</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="MyComboBox" name="comboBox_normalWorld_quality">
-                <item>
-                 <property name="text">
-                  <string>8 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>16 bit</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>32 bit</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="6" column="2">
-               <widget class="MyLineEdit" name="text_normalWorld_postfix">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_2">
-           <property name="title">
-            <string>Misc Image Settings</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Misc Image Settings</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_2">
             <property name="spacing">
              <number>2</number>
             </property>
-            <property name="leftMargin">
-             <number>2</number>
-            </property>
-            <property name="topMargin">
-             <number>2</number>
-            </property>
-            <property name="rightMargin">
-             <number>2</number>
-            </property>
-            <property name="bottomMargin">
-             <number>2</number>
-            </property>
-            <item>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <property name="spacing">
-               <number>2</number>
+            <item row="1" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+              <property name="text">
+               <string>Append alpha to image (only PNG and TIFF)</string>
               </property>
-              <item row="1" column="0" colspan="2">
-               <widget class="MyCheckBox" name="checkBox_append_alpha_png">
-                <property name="text">
-                 <string>Append alpha to image (only PNG and TIFF)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="2">
-               <widget class="MyCheckBox" name="checkBox_linear_colorspace">
-                <property name="text">
-                 <string>Use linear colorspace (only EXR)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>JPEG quality:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="MySpinBox" name="spinboxInt_jpeg_quality">
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>100</number>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0" colspan="2">
-               <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
-                <property name="text">
-                 <string>Save stereoscopic left and right images in separate files
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_linear_colorspace">
+              <property name="text">
+               <string>Use linear colorspace (only EXR)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>JPEG quality:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="MySpinBox" name="spinboxInt_jpeg_quality">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
+              <property name="text">
+               <string>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="2">
-               <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
-                <property name="text">
-                 <string>Save each channel in separate folder</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
+              <property name="text">
+               <string>Save each channel in separate folder</string>
+              </property>
+             </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>

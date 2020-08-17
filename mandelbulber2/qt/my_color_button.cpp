@@ -50,8 +50,7 @@ MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent), CommonMyWid
 
 MyColorButton::~MyColorButton()
 {
-	delete painter;
-	delete pix;
+	// nothing to delete
 }
 
 void MyColorButton::resetToDefault()
@@ -115,8 +114,8 @@ void MyColorButton::UpdateColor()
 
 void MyColorButton::SetupColor()
 {
-	pix = new QPixmap(w, h);
-	painter = new QPainter(pix);
+	pix.reset(new QPixmap(w, h));
+	painter.reset(new QPainter(pix.data()));
 }
 
 void MyColorButton::mousePressEvent(QMouseEvent *event)

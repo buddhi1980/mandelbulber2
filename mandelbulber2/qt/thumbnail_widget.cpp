@@ -69,7 +69,6 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 
 void cThumbnailWidget::Init(QWidget *parent)
 {
-	image = nullptr;
 	tWidth = 0;
 	tHeight = 0;
 	oversample = 0;
@@ -81,11 +80,11 @@ void cThumbnailWidget::Init(QWidget *parent)
 	disableTimer = false;
 	disableThumbnailCache = false;
 	connect(this, SIGNAL(renderRequest()), this, SLOT(slotRender()));
-	params = new cParameterContainer;
-	fractal = new cFractalContainer;
+	params.reset(new cParameterContainer);
+	fractal.reset(new cFractalContainer);
 	useOneCPUCore = false;
 
-	timer = new QTimer(parent);
+	timer = new QTimer(this);
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
 
@@ -101,7 +100,7 @@ void cThumbnailWidget::SetSize(int _width, int _height, int _oversample)
 	tWidth = _width;
 	tHeight = _height;
 	oversample = _oversample;
-	image = new cImage(tWidth * oversample, tHeight * oversample, true);
+	image.reset(new cImage(tWidth * oversample, tHeight * oversample, true));
 	image->CreatePreview(1.0 / oversample, tWidth, tWidth, this);
 	setFixedWidth(tWidth);
 	setFixedHeight(tHeight);
@@ -110,17 +109,15 @@ void cThumbnailWidget::SetSize(int _width, int _height, int _oversample)
 cThumbnailWidget::~cThumbnailWidget()
 {
 	stopRequest = true;
-	if (image)
+	if (!image.isNull())
 	{
 		// qDebug() << "cThumbnailWidget trying to delete" << instanceIndex;
 		while (image->IsUsed())
 		{
 		}
-		delete image;
+		image.reset();
 		// qDebug() << "cThumbnailWidget image deleted" << instanceIndex;
 	}
-	if (params) delete params;
-	if (fractal) delete fractal;
 
 	instanceCount--;
 	// qDebug() << "cThumbnailWidget destructed" << instanceIndex;
@@ -154,8 +151,8 @@ void cThumbnailWidget::AssignParameters(
 	// qDebug() << "AssignParameters";
 	if (image)
 	{
-		if (!params) params = new cParameterContainer;
-		if (!fractal) fractal = new cFractalContainer;
+		params.reset(new cParameterContainer);
+		fractal.reset(new cFractalContainer);
 		*params = _params;
 		*fractal = _fractal;
 		params->Set("image_width", tWidth * oversample);
@@ -175,8 +172,8 @@ void cThumbnailWidget::AssignParameters(
 		{
 			if (params->Get<int>("opencl_mode") > 0)
 			{
-				double distance =
-					cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
+				double distance = cInterface::GetDistanceForPoint(
+					params->Get<CVector3>("camera"), params.data(), fractal.data());
 				if (distance < 1e-5)
 				{
 					params->Set("opencl_mode", 0);
@@ -186,10 +183,8 @@ void cThumbnailWidget::AssignParameters(
 				{
 					isRendered = true;
 					isFullyRendered = true;
-					delete params;
-					params = nullptr;
-					delete fractal;
-					fractal = nullptr;
+					params.reset();
+					fractal.reset();
 					// alloc image in case if samething wnat read it
 					image->ChangeSize(tWidth * oversample, tHeight * oversample, sImageOptional());
 					image->ClearImage();
@@ -201,7 +196,7 @@ void cThumbnailWidget::AssignParameters(
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(params, fractal);
+		tempSettings.CreateText(params.data(), fractal.data());
 		oldHash = hash;
 		hash = tempSettings.GetHashCode();
 
@@ -255,10 +250,8 @@ void cThumbnailWidget::AssignParameters(
 					}
 				}
 
-				delete params;
-				params = nullptr;
-				delete fractal;
-				fractal = nullptr;
+				params.reset();
+				fractal.reset();
 				emit thumbnailRendered();
 				emit signalFinished();
 			}
@@ -304,8 +297,8 @@ void cThumbnailWidget::slotRender()
 
 		stopRequest = false;
 
-		cRenderJob *renderJob =
-			new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
+		cRenderJob *renderJob = new cRenderJob(
+			params.data(), fractal.data(), image.data(), &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));
@@ -356,10 +349,8 @@ void cThumbnailWidget::slotFullyRendered()
 		pixmap.save(thumbnailFileName, "PNG");
 	}
 	lastRenderTime = renderingTimeTimer.nsecsElapsed() / 1e9;
-	delete params;
-	params = nullptr;
-	delete fractal;
-	fractal = nullptr;
+	params.reset();
+	fractal.reset();
 	emit thumbnailRendered();
 	isFullyRendered = true;
 	// qDebug() << "fullyRendered";

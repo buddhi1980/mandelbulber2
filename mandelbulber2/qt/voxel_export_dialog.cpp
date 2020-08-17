@@ -91,6 +91,7 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 		if (folder.exists())
 		{
 			slicerBusy = true;
+			//voxelExport deleted by deleteLater()
 			voxelExport = new cVoxelExport(
 				samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter, greyscale);
 			QObject::connect(voxelExport,

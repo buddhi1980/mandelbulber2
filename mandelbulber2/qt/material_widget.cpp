@@ -73,11 +73,11 @@ void cMaterialWidget::Init()
 	previewWidth = systemData.GetPreferredThumbnailSize();
 	previewHeight = systemData.GetPreferredThumbnailSize();
 
-	timerPeriodicRefresh = new QTimer(parent());
+	timerPeriodicRefresh = new QTimer(this);
 	timerPeriodicRefresh->setSingleShot(true);
 	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
 
-	timerPeriodicUpdateData = new QTimer(parent());
+	timerPeriodicUpdateData = new QTimer(this);
 	timerPeriodicUpdateData->setSingleShot(true);
 	connect(timerPeriodicUpdateData, SIGNAL(timeout()), this, SLOT(slotPeriodicUpdateData()));
 	timerPeriodicUpdateData->start(100);

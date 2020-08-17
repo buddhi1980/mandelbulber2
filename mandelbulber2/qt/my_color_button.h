@@ -68,8 +68,8 @@ private:
 
 	int w;
 	int h;
-	QPixmap *pix;
-	QPainter *painter;
+	QScopedPointer<QPixmap> pix;
+	QScopedPointer<QPainter> painter;
 
 protected:
 	void UpdateColor();

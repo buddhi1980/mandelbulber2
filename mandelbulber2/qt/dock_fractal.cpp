@@ -54,7 +54,7 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 {
 	ui->setupUi(this);
 
-	fractalTabs = new cTabFractal *[NUMBER_OF_FRACTALS];
+	fractalTabs.resize(NUMBER_OF_FRACTALS);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractalTabs[i] =
@@ -80,7 +80,6 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 cDockFractal::~cDockFractal()
 {
 	delete ui;
-	delete[] fractalTabs;
 }
 
 bool cDockFractal::AreHybridFractalsEnabled() const
@@ -406,29 +405,29 @@ void cDockFractal::slotChangedFractalTab(int index)
 		if (!ui->checkBox_hybrid_fractal_enable->isChecked()
 				&& !ui->groupCheck_boolean_operators->isChecked())
 		{
-			QMessageBox *message = new QMessageBox(this);
+			QMessageBox message;;
 
 			QPushButton *buttonHybrid =
-				message->addButton(tr("Enable hybrid fractals"), QMessageBox::AcceptRole);
+				message.addButton(tr("Enable hybrid fractals"), QMessageBox::AcceptRole);
 			QPushButton *buttonBoolean =
-				message->addButton(tr("Enable boolean mode"), QMessageBox::AcceptRole);
-			const QPushButton *buttonCancel = message->addButton(QMessageBox::Cancel);
+				message.addButton(tr("Enable boolean mode"), QMessageBox::AcceptRole);
+			const QPushButton *buttonCancel = message.addButton(QMessageBox::Cancel);
 
-			message->setText(tr(
+			message.setText(tr(
 				"You have selected next fractal formula.\nDo you want to enable hybrid fractals or boolean "
 				"mode?"));
-			message->setWindowTitle(tr("More fractals..."));
-			message->setIcon(QMessageBox::Question);
-			const int result = message->exec();
+			message.setWindowTitle(tr("More fractals..."));
+			message.setIcon(QMessageBox::Question);
+			const int result = message.exec();
 			Q_UNUSED(result);
 
-			if (message->clickedButton() != buttonCancel)
+			if (message.clickedButton() != buttonCancel)
 			{
-				if (message->clickedButton() == buttonHybrid)
+				if (message.clickedButton() == buttonHybrid)
 				{
 					ui->checkBox_hybrid_fractal_enable->setChecked(true);
 				}
-				else if (message->clickedButton() == buttonBoolean)
+				else if (message.clickedButton() == buttonBoolean)
 				{
 					ui->groupCheck_boolean_operators->setChecked(true);
 				}

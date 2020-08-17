@@ -89,7 +89,7 @@ private:
 	Ui::cDockFractal *ui;
 
 	cAutomatedWidgets *automatedWidgets;
-	cTabFractal **fractalTabs;
+	std::vector<cTabFractal *> fractalTabs;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_FRACTAL_H_ */

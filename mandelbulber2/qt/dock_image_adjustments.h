@@ -105,7 +105,7 @@ private:
 
 	cAutomatedWidgets *automatedWidgets;
 
-	cParameterContainer *resolutionPresets;
+	QScopedPointer<cParameterContainer> resolutionPresets;
 	QList<QToolButton *> listOfPresetPushButtons;
 };
 

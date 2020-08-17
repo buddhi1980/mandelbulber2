@@ -45,7 +45,7 @@ MyProgressBar::MyProgressBar(QWidget *parent) : QProgressBar(parent)
 	textLabel = nullptr;
 #ifdef __APPLE__
 	QHBoxLayout *layout = new QHBoxLayout(this);
-	textLabel = new QLabel();
+	textLabel = new QLabel(this);
 	textLabel->setAlignment(Qt::AlignCenter);
 	textLabel->setText("");
 	// textLabel->setStyleSheet("QLabel { color: green; }");

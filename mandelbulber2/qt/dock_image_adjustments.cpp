@@ -60,7 +60,7 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
-	resolutionPresets = new cParameterContainer;
+	resolutionPresets.reset(new cParameterContainer);
 	InitResolutionPresets();
 
 	SetAntialiasingOpenCL(false);
@@ -69,7 +69,6 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 cDockImageAdjustments::~cDockImageAdjustments()
 {
 	delete ui;
-	delete resolutionPresets;
 }
 
 void cDockImageAdjustments::slotDisableAutoRefresh()
@@ -358,12 +357,12 @@ void cDockImageAdjustments::InitResolutionPresets()
 		cSettings settings(cSettings::formatAppSettings);
 		settings.BeQuiet(true);
 		settings.LoadFromFile(presetsFile);
-		settings.Decode(resolutionPresets, nullptr);
+		settings.Decode(resolutionPresets.data(), nullptr);
 	}
 	else
 	{
 		cSettings settings(cSettings::formatAppSettings);
-		settings.CreateText(resolutionPresets, nullptr);
+		settings.CreateText(resolutionPresets.data(), nullptr);
 		settings.SaveToFile(presetsFile);
 	}
 
@@ -395,24 +394,27 @@ void cDockImageAdjustments::slotChangeResolutionPreset()
 	QString oldPreset = resolutionPresets->Get<QString>("resolution_preset", index);
 	QString newPreset = QInputDialog::getText(this, tr("Edit resolution preset"),
 		tr("Type new preset in format WIDTHxHEIGHT"), QLineEdit::Normal, oldPreset);
+	if (!newPreset.isEmpty())
+	{
 
-	int xPosition = newPreset.indexOf('x');
-	int width = newPreset.left(xPosition).toInt();
-	int height = newPreset.mid(xPosition + 1).toInt();
-	width = std::max(32, width);
-	height = std::max(32, height);
-	QString newPresetCorrected = QString("%1x%2").arg(width).arg(height);
+		int xPosition = newPreset.indexOf('x');
+		int width = newPreset.left(xPosition).toInt();
+		int height = newPreset.mid(xPosition + 1).toInt();
+		width = std::max(32, width);
+		height = std::max(32, height);
+		QString newPresetCorrected = QString("%1x%2").arg(width).arg(height);
 
-	QToolButton *button = ui->groupBox_presets->findChild<QToolButton *>(
-		QString("toolButton_resolution_preset_%1").arg(index));
+		QToolButton *button = ui->groupBox_presets->findChild<QToolButton *>(
+			QString("toolButton_resolution_preset_%1").arg(index));
 
-	resolutionPresets->Set("resolution_preset", index, newPresetCorrected);
-	button->setText(newPresetCorrected);
+		resolutionPresets->Set("resolution_preset", index, newPresetCorrected);
+		button->setText(newPresetCorrected);
 
-	QString presetsFile = systemDirectories.GetResolutionPresetsFile();
-	cSettings settings(cSettings::formatAppSettings);
-	settings.CreateText(resolutionPresets, nullptr);
-	settings.SaveToFile(presetsFile);
+		QString presetsFile = systemDirectories.GetResolutionPresetsFile();
+		cSettings settings(cSettings::formatAppSettings);
+		settings.CreateText(resolutionPresets.data(), nullptr);
+		settings.SaveToFile(presetsFile);
+	}
 }
 
 void cDockImageAdjustments::slotOptimalDistancesBetweenEyes() const

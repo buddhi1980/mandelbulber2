@@ -62,7 +62,7 @@ void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrac
 		const int sampleRate = audiotrack->getSampleRate();
 		numberOfFrames = audiotrack->getNumberOfFrames();
 		framesPerSecond = audiotrack->getFramesPerSecond();
-		audioFrame *audioBuffer = new audioFrame[numberOfFrames + 1];
+		std::vector<audioFrame> audioBuffer(numberOfFrames + 1);
 
 		setFixedWidth(numberOfFrames);
 
@@ -105,8 +105,6 @@ void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrac
 		scaledWaveImage =
 			waveImage.scaled(width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
-
-		delete[] audioBuffer;
 
 		WriteLog("WaveFormView created", 2);
 	}

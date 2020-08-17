@@ -50,7 +50,7 @@ cDockQueue::cDockQueue(QWidget *parent) : QWidget(parent), ui(new Ui::cDockQueue
 	ui->queueProgressBarAnimation->setAlignment(Qt::AlignCenter);
 	ui->queueProgressBarAnimation->hide();
 
-	renderedImageWidget = new RenderedImage;
+	renderedImageWidget = new RenderedImage(this);
 	renderedImageWidget->SetCursorVisibility(false);
 	ui->verticalLayout_queue_preview->addWidget(renderedImageWidget);
 }
@@ -58,7 +58,6 @@ cDockQueue::cDockQueue(QWidget *parent) : QWidget(parent), ui(new Ui::cDockQueue
 cDockQueue::~cDockQueue()
 {
 	delete ui;
-	if (renderedImageWidget) delete renderedImageWidget;
 }
 
 MyProgressBar *cDockQueue::GetProgressBarImage() const

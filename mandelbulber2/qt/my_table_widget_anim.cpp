@@ -62,7 +62,7 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point) const
 	int row = index.row();
 	int column = index.column();
 
-	QMenu *menu = new QMenu;
+	QScopedPointer<QMenu> menu(new QMenu);
 
 	QAction *actionRender = nullptr;
 	QAction *interpolateForward = nullptr;
@@ -92,13 +92,11 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point) const
 			gFlightAnimation->InterpolateForward(row, column);
 		}
 	}
-
-	delete menu;
 }
 
 void MyTableWidgetAnim::columnContextMenuRequest(QPoint point) const
 {
-	QMenu *menu = new QMenu;
+	QScopedPointer<QMenu> menu(new QMenu);
 
 	QAction *actionRender;
 	QAction *actionDeleteTo;
@@ -127,15 +125,13 @@ void MyTableWidgetAnim::columnContextMenuRequest(QPoint point) const
 			gFlightAnimation->DeleteFramesTo(column);
 		}
 	}
-
-	delete menu;
 }
 
 void MyTableWidgetAnim::rowContextMenuRequest(QPoint point) const
 {
 	int row = verticalHeader()->logicalIndexAt(point);
 
-	QMenu *menu = new QMenu;
+	QScopedPointer<QMenu> menu(new QMenu);
 
 	if (row > 0)
 	{
@@ -169,6 +165,4 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point) const
 			}
 		}
 	}
-
-	delete menu;
 }

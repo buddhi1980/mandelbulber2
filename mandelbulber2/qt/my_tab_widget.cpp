@@ -40,7 +40,7 @@
 
 MyTabWidget::MyTabWidget(QWidget *parent) : QTabWidget(parent)
 {
-	MyTabBar *bar = new MyTabBar();
+	MyTabBar *bar = new MyTabBar(this);
 	connect(bar, SIGNAL(swapTabs(int, int)), this, SIGNAL(swapTabs(int, int)));
 	setTabBar(bar);
 	bar->setupMoveButtons();

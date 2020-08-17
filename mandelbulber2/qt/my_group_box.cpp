@@ -124,7 +124,7 @@ void MyGroupBox::slotToggled(bool on) const
 
 void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = new QMenu;
+	QMenu *menu = new QMenu; //deleted by contextMenuEvent()
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
 	QIcon iconLoad = QIcon(":system/icons/document-open.svg");
 	QIcon iconSave = QIcon(":system/icons/document-save.svg");

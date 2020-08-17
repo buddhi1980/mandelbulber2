@@ -59,13 +59,11 @@ cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFrac
 	// automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
 
-	fractalWidget = nullptr;
 	tabIndex = 0;
 }
 
 cTabFractal::~cTabFractal()
 {
-	if (fractalWidget) delete fractalWidget;
 	delete ui;
 }
 
@@ -163,15 +161,12 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		QString formulaName = newFractalList[index]->getInternalName();
 		QString uiFilename = newFractalList[index]->getUiFilename();
 
-		if (fractalWidget) delete fractalWidget;
-		fractalWidget = nullptr;
-
 		bool widgetLoaded = false;
 
 		if (formulaName == "custom")
 		{
-			fractalWidget = new cCustomFormulaEditor();
-			dynamic_cast<cCustomFormulaEditor *>(fractalWidget)->AssignSlot(tabIndex);
+			fractalWidget.reset(new cCustomFormulaEditor());
+			dynamic_cast<cCustomFormulaEditor *>(fractalWidget.data())->AssignSlot(tabIndex);
 			widgetLoaded = true;
 		}
 		else
@@ -182,7 +177,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			if (uiFile.exists())
 			{
 				uiFile.open(QFile::ReadOnly);
-				fractalWidget = loader.load(&uiFile);
+				fractalWidget.reset(loader.load(&uiFile));
 
 				uiFile.close();
 				widgetLoaded = true;
@@ -192,14 +187,16 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		if (widgetLoaded)
 		{
 			QVBoxLayout *layout = ui->verticalLayout_fractal;
-			layout->addWidget(fractalWidget);
+			layout->addWidget(fractalWidget.data());
 
 			if (gPar->Get<bool>("ui_colorize"))
-				cInterface::ColorizeGroupBoxes(fractalWidget, gPar->Get<int>("ui_colorize_random_seed"));
+				cInterface::ColorizeGroupBoxes(
+					fractalWidget.data(), gPar->Get<int>("ui_colorize_random_seed"));
 
 			fractalWidget->show();
-			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget);
-			SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget.data());
+			SynchronizeInterfaceWindow(
+				fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 
 			switch (newFractalList[index]->getCpixelAddition())
 			{
@@ -270,11 +267,6 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 	}
-	else
-	{
-		if (fractalWidget) delete fractalWidget;
-		fractalWidget = nullptr;
-	}
 
 	gMainInterface->mainWindow->GetWidgetDockFractal()->SetTabText(
 		tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
@@ -339,42 +331,42 @@ void cTabFractal::FrameIterationFormulaSetEnabled(bool enabled) const
 void cTabFractal::SynchronizeFractal(
 	cParameterContainer *fractal, qInterface::enumReadWrite mode) const
 {
-	SynchronizeInterfaceWindow(fractalWidget, fractal, mode);
+	SynchronizeInterfaceWindow(fractalWidget.data(), fractal, mode);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsDodecahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::read);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::read);
 	gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsIcosahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::read);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::read);
 	gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsOctahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::read);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::read);
 	gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsMengerSponge() const
 {
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::read);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::read);
 	gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsReset() const
 {
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::read);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::read);
 	gMainInterface->IFSDefaultsReset(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.data(), &gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonResetFormula() const

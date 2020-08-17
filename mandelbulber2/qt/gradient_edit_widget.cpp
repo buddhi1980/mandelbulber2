@@ -529,7 +529,7 @@ void cGradientEditWidget::SaveToClipboard()
 
 void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = new QMenu();
+	QMenu *menu = new QMenu(); // menu is deleted in contextMenuEvent()
 	QAction *actionAddColor = menu->addAction(tr("Add color"));
 	QAction *actionRemoveColor = menu->addAction(tr("Remove color"));
 	menu->addSeparator();

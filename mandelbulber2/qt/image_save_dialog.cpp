@@ -51,11 +51,13 @@ cImageSaveDialog::cImageSaveDialog(QWidget *parent)
 
 	// load the custom image quality ui into a container widget
 	// and append it to the QFileDialog ui
-	QWidget *container = new QWidget();
+	QWidget *container = new QWidget(this);
 	QGridLayout *gridLayout = static_cast<QGridLayout *>(layout());
 	ui->setupUi(container);
 	gridLayout->addWidget(container, 1, 3, 3, 1);
-	resize(900, height()); // needs more width to display all elements
+	// resize(900, height()); // needs more width to display all elements
+	adjustSize();
+	container->adjustSize();
 
 	// connect signal and synchronize image quality settings
 	automatedWidgets = new cAutomatedWidgets(this);

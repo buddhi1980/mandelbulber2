@@ -55,7 +55,7 @@ class cThumbnailWidget : public QWidget
 	Q_OBJECT
 public:
 	cThumbnailWidget(QWidget *parent = nullptr);
-	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
+	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent = nullptr);
 	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
 	void SetSize(int _width, int _height, int _oversample);
@@ -65,7 +65,7 @@ public:
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isFullyRendered; }
-	cImage *GetImage() { return image; };
+	cImage *GetImage() { return image.data(); };
 	QString GetThumbnailFileName() const;
 	void StopRequest() { stopRequest = true; }
 
@@ -84,9 +84,9 @@ public slots:
 	void slotRender();
 
 private:
-	cImage *image;
-	cParameterContainer *params;
-	cFractalContainer *fractal;
+	QScopedPointer<cImage> image;
+	QScopedPointer<cParameterContainer> params;
+	QScopedPointer<cFractalContainer> fractal;
 	int tWidth;
 	int tHeight;
 	int oversample;
