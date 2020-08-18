@@ -54,15 +54,15 @@ class cOpenClWorkerThread : public QObject
 
 public:
 	cOpenClWorkerThread(
-		cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int deviceIndex);
+		cOpenClEngine *engine, const std::shared_ptr<cOpenClScheduler> scheduler, int deviceIndex);
 	~cOpenClWorkerThread() override;
 
 	void setImageHeight(quint64 imageHeight) { this->imageHeight = imageHeight; }
 	void setImageWidth(quint64 imageWidth) { this->imageWidth = imageWidth; }
 	void setOptimalStepX(quint64 optimalStepX) { this->optimalStepX = optimalStepX; }
 	void setOptimalStepY(quint64 optimalStepY) { this->optimalStepY = optimalStepY; }
-	void setClKernel(const QSharedPointer<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
-	void setClQueue(const QSharedPointer<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
+	void setClKernel(const std::shared_ptr<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
+	void setClQueue(const std::shared_ptr<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
 	void setAntiAliasingDepth(int antiAliasingDepth) { this->antiAliasingDepth = antiAliasingDepth; }
 	void setFullEngineFlag(bool fullEngine) { this->isFullEngine = fullEngine; }
 	void setInputAndOutputBuffers(const QList<sClInputOutputBuffer> &inputAndOutputBuffers)
@@ -73,7 +73,7 @@ public:
 	{
 		this->outputBuffers = outputBuffers;
 	}
-	void setOutputQueue(const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue)
+	void setOutputQueue(const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue)
 	{
 		this->outputQueue = outputQueue;
 	}
@@ -90,11 +90,11 @@ private:
 	static bool checkErr(cl_int err, QString functionName);
 	bool AddAntiAliasingParameters(int actualDepth, int repeatIndex);
 
-	QSharedPointer<cl::Kernel> clKernel;
-	QSharedPointer<cl::CommandQueue> clQueue;
+	std::shared_ptr<cl::Kernel> clKernel;
+	std::shared_ptr<cl::CommandQueue> clQueue;
 
-	QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue;
-	QSharedPointer<cOpenClScheduler> scheduler;
+	std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue;
+	std::shared_ptr<cOpenClScheduler> scheduler;
 	QList<sClInputOutputBuffer> outputBuffers;
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 	bool *stopRequest;

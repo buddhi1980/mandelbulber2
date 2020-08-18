@@ -36,8 +36,8 @@
 #define MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
 
 #include <QString>
-#include <QSharedPointer>
 #include <QMap>
+#include <memory>
 
 // forward declarations
 class cAudioTrack;
@@ -57,7 +57,7 @@ public:
 	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAllAudioTracks(cParameterContainer *params);
-	QSharedPointer<cAudioTrack> GetAudioTrackPtr(const QString fullParameterName) const;
+	std::shared_ptr<cAudioTrack> GetAudioTrackPtr(const QString fullParameterName) const;
 	void AddParameters(cParameterContainer *params, const QString parameterName) const;
 	void RemoveParameters(cParameterContainer *params, const QString parameterName) const;
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName) const;
@@ -66,7 +66,7 @@ public:
 	void SetPrefix(QString _prefix) { prefix = _prefix; }
 
 private:
-	QMap<QString, QSharedPointer<cAudioTrack>> audioTracks;
+	QMap<QString, std::shared_ptr<cAudioTrack>> audioTracks;
 	QString prefix;
 };
 

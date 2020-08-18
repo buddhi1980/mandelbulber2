@@ -109,7 +109,7 @@ void cThumbnailWidget::SetSize(int _width, int _height, int _oversample)
 cThumbnailWidget::~cThumbnailWidget()
 {
 	stopRequest = true;
-	if (!image.isNull())
+	if (image)
 	{
 		// qDebug() << "cThumbnailWidget trying to delete" << instanceIndex;
 		while (image->IsUsed())
@@ -173,7 +173,7 @@ void cThumbnailWidget::AssignParameters(
 			if (params->Get<int>("opencl_mode") > 0)
 			{
 				double distance = cInterface::GetDistanceForPoint(
-					params->Get<CVector3>("camera"), params.data(), fractal.data());
+					params->Get<CVector3>("camera"), params.get(), fractal.get());
 				if (distance < 1e-5)
 				{
 					params->Set("opencl_mode", 0);
@@ -196,7 +196,7 @@ void cThumbnailWidget::AssignParameters(
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(params.data(), fractal.data());
+		tempSettings.CreateText(params.get(), fractal.get());
 		oldHash = hash;
 		hash = tempSettings.GetHashCode();
 
@@ -298,7 +298,7 @@ void cThumbnailWidget::slotRender()
 		stopRequest = false;
 
 		cRenderJob *renderJob = new cRenderJob(
-			params.data(), fractal.data(), image.data(), &stopRequest, static_cast<QWidget *>(this));
+			params.get(), fractal.get(), image.get(), &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));

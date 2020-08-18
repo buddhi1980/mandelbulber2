@@ -131,7 +131,7 @@ private:
 	int AddVariableToTable(
 		const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn = -1);
-	QSharedPointer<cRenderJob> PrepareRenderJob(bool *stopRequest);
+	std::shared_ptr<cRenderJob> PrepareRenderJob(bool *stopRequest);
 	bool InitFrameRanges(sFrameRanges *frameRanges);
 	void InitFrameMarkers(const sFrameRanges &frameRanges);
 	void CheckWhichFramesAreAlreadyRendered(const sFrameRanges &frameRanges);

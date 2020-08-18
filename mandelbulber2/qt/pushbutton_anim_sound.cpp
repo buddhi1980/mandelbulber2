@@ -63,8 +63,8 @@ void cPushButtonAnimSound::slotUpdateButton()
 	QFont f = font();
 	if (animationFrames)
 	{
-		QSharedPointer<cAudioTrack> audio = animationFrames->GetAudioPtr(parameterName);
-		if (!audio.isNull() && audio->isLoaded())
+		std::shared_ptr<cAudioTrack> audio = animationFrames->GetAudioPtr(parameterName);
+		if (audio && audio->isLoaded())
 		{
 			setText(tr("Audio loaded"));
 			f.setBold(true);

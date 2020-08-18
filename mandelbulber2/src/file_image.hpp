@@ -182,8 +182,10 @@ public:
 		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
-	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
-	static bool SavePNGQtGreyscale(QString filename, unsigned char *image, int width, int height);
+	static bool SavePNGQtBlackAndWhite(
+		QString filename, const unsigned char *image, int width, int height);
+	static bool SavePNGQtGreyscale(
+		QString filename, const unsigned char *image, int width, int height);
 	void SavePngRgbPixel(
 		structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel, bool signedInput);
 

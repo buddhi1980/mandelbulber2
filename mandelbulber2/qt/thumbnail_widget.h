@@ -65,7 +65,7 @@ public:
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isFullyRendered; }
-	cImage *GetImage() { return image.data(); };
+	cImage *GetImage() { return image.get(); };
 	QString GetThumbnailFileName() const;
 	void StopRequest() { stopRequest = true; }
 
@@ -84,9 +84,9 @@ public slots:
 	void slotRender();
 
 private:
-	QScopedPointer<cImage> image;
-	QScopedPointer<cParameterContainer> params;
-	QScopedPointer<cFractalContainer> fractal;
+	std::unique_ptr<cImage> image;
+	std::unique_ptr<cParameterContainer> params;
+	std::unique_ptr<cFractalContainer> fractal;
 	int tWidth;
 	int tHeight;
 	int oversample;

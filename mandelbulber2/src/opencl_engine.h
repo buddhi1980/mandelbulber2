@@ -111,9 +111,9 @@ protected:
 	QList<listOfBuffers> outputBuffers;					// separate output buffer for each OpenCL device
 	QList<listOfBuffers> inputAndOutputBuffers; // separate input/output buffer for each OpenCL device
 
-	QList<QSharedPointer<cl::Program>> clPrograms;
-	QList<QSharedPointer<cl::Kernel>> clKernels;
-	QList<QSharedPointer<cl::CommandQueue>> clQueues;
+	QList<std::shared_ptr<cl::Program>> clPrograms;
+	QList<std::shared_ptr<cl::Kernel>> clKernels;
+	QList<std::shared_ptr<cl::CommandQueue>> clQueues;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;

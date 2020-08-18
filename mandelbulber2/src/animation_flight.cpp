@@ -335,14 +335,14 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->renderedImage->setClickMode(clickMode);
 
 	// setup of rendering engine
-	QScopedPointer<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
+	std::unique_ptr<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
 		mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage));
-	connect(renderJob.data(),
+	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	connect(renderJob.get(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -745,19 +745,19 @@ int cFlightAnimation::AddColumn(
 	return newColumn;
 }
 
-QSharedPointer<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest)
+std::shared_ptr<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest)
 {
-	QSharedPointer<cRenderJob> renderJob(
+	std::shared_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
-	connect(renderJob.data(),
+	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	if (!systemData.noGui)
 	{
-		connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
-		connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+		connect(renderJob.get(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+		connect(renderJob.get(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
 			mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 	}
 	return renderJob;
@@ -1002,7 +1002,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	*stopRequest = false;
 	animationStopRequest = false;
 
-	QSharedPointer<cRenderJob> renderJob = PrepareRenderJob(stopRequest);
+	std::shared_ptr<cRenderJob> renderJob = PrepareRenderJob(stopRequest);
 
 	cRenderingConfiguration config;
 

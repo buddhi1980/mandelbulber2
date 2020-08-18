@@ -215,13 +215,13 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 			for (quint64 x = 0; x < width; x++)
 			{
 				quint64 i = x + y * width;
-				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.data())[i] =
+				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.get())[i] =
 					image->GetPixelZBuffer(imageRegion.x1 + x, imageRegion.y1 + y);
 
 				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
 
 				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0f;
-				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.data())[i] =
+				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.get())[i] =
 					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 			}
 		}
@@ -265,7 +265,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 						quint64 yy = y + imageRegion.y1;
 
 						cl_float4 pixelCl = reinterpret_cast<cl_float4 *>(
-							outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
+							outputBuffers[0][outputIndex].ptr.get())[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						quint16 alpha = quint16(pixelCl.s[3] * 65535);
 

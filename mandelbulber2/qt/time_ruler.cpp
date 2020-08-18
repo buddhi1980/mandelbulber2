@@ -51,7 +51,7 @@ cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 
 cTimeRuler::~cTimeRuler() = default;
 
-void cTimeRuler::SetParameters(QSharedPointer<cAudioTrack> audioTrack, int _framesPerKeyframe)
+void cTimeRuler::SetParameters(std::shared_ptr<cAudioTrack> audioTrack, int _framesPerKeyframe)
 {
 	frames = audioTrack->getNumberOfFrames();
 	framesPerSecond = audioTrack->getFramesPerSecond();

@@ -39,7 +39,6 @@
 
 #include "voxel_export.hpp"
 
-#include <QScopedPointer>
 #include <QVector>
 
 #include "calculate_distance.hpp"
@@ -68,7 +67,7 @@ cVoxelExport::cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limi
 	this->folder = folder;
 	this->maxIter = maxIter;
 	this->greyscale = greyscale;
-	voxelLayer.reset(new unsigned char[w * h]);
+	voxelLayer.resize(w * h);
 	stop = false;
 }
 
@@ -79,13 +78,13 @@ cVoxelExport::~cVoxelExport()
 
 void cVoxelExport::ProcessVolume()
 {
-	QScopedPointer<sRenderData> renderData(new sRenderData);
+	std::unique_ptr<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::unique_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::unique_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
-	CreateMaterialsMap(gPar, &renderData.data()->materials, false, true, false);
+	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 
 	renderData->ValidateObjects();
 
@@ -105,8 +104,8 @@ void cVoxelExport::ProcessVolume()
 	progressText.ResetTimer();
 
 	bool openClEnabled = false;
-	QScopedArrayPointer<double> voxelDistances;
-	QScopedArrayPointer<int> voxelIterations;
+	std::vector<double> voxelDistances;
+	std::vector<int> voxelIterations;
 
 #ifdef USE_OPENCL
 	openClEnabled =
@@ -128,7 +127,7 @@ void cVoxelExport::ProcessVolume()
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params.data(), fractals.data(), renderData.data(), true);
+			gPar, gParFractal, params.get(), fractals.get(), renderData.get(), true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
 		{
@@ -146,8 +145,8 @@ void cVoxelExport::ProcessVolume()
 			return;
 		}
 
-		voxelDistances.reset(new double[w * h]);
-		voxelIterations.reset(new int[w * h]);
+		voxelDistances.resize(w * h);
+		voxelIterations.resize(w * h);
 	}
 
 #endif // USE_OPENCL
@@ -163,8 +162,8 @@ void cVoxelExport::ProcessVolume()
 #ifdef USE_OPENCL
 		if (openClEnabled)
 		{
-			bool result = gOpenCl->openClEngineRenderFractal->Render(voxelDistances.data(), nullptr,
-				voxelIterations.data(), z, renderData->stopRequest, renderData.data(), 0);
+			bool result = gOpenCl->openClEngineRenderFractal->Render(&voxelDistances, nullptr,
+				&voxelIterations, z, renderData->stopRequest, renderData.get(), 0);
 
 			if (!result)
 			{

@@ -984,9 +984,9 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		{
 			WriteLog(QString("Allocating OpenCL buffer for constants"), 2);
 
-			inCLConstBuffer.append(QSharedPointer<cl::Buffer>(
+			inCLConstBuffer.append(std::shared_ptr<cl::Buffer>(
 				new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-					sizeof(sClInConstants), constantInBuffer.data(), &err)));
+					sizeof(sClInConstants), constantInBuffer.get(), &err)));
 			if (!checkErr(err,
 						"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 						"sizeof(sClInConstants), constantInBuffer, &err)"))
@@ -1001,9 +1001,9 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 			{
 				WriteLog(QString("Allocating OpenCL buffer for mesh constants"), 2);
 
-				inCLConstMeshExportBuffer.append(QSharedPointer<cl::Buffer>(
+				inCLConstMeshExportBuffer.append(std::shared_ptr<cl::Buffer>(
 					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-						sizeof(sClMeshExport), constantInMeshExportBuffer.data(), &err)));
+						sizeof(sClMeshExport), constantInMeshExportBuffer.get(), &err)));
 				if (!checkErr(err,
 							"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 							"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
@@ -1018,7 +1018,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 			// this buffer will be used for color palettes, lights, etc...
 			WriteLog(QString("Allocating OpenCL buffer for dynamic data"), 2);
 
-			inCLBuffer.append(QSharedPointer<cl::Buffer>(new cl::Buffer(*hardware->getContext(d),
+			inCLBuffer.append(std::shared_ptr<cl::Buffer>(new cl::Buffer(*hardware->getContext(d),
 				CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err)));
 			if (!checkErr(err,
 						"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
@@ -1035,7 +1035,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				WriteLog(QString("Allocating OpenCL buffer for texture data"), 2);
 
 				// this buffer will be used for textures
-				inCLTextureBuffer.append(QSharedPointer<cl::Buffer>(
+				inCLTextureBuffer.append(std::shared_ptr<cl::Buffer>(
 					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 						size_t(inTextureBuffer.size()), inTextureBuffer.data(), &err)));
 				if (!checkErr(err,
@@ -1054,7 +1054,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				// this buffer will be used for Perlin noise seeds.
 				WriteLog(QString("Allocating OpenCL buffer for perlin noise seeds"), 2);
 
-				inCLPerlinNoiseSeedsBuffer.append(QSharedPointer<cl::Buffer>(
+				inCLPerlinNoiseSeedsBuffer.append(std::shared_ptr<cl::Buffer>(
 					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 						size_t(perlinNoiseSeeds.size() * sizeof(cl_uchar)), perlinNoiseSeeds.data(), &err)));
 				if (!checkErr(err,
@@ -1079,18 +1079,18 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 }
 
 void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
-	const QSharedPointer<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
-	const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
-	int antiAliasingDepth, QList<QSharedPointer<QThread>> &threads,
-	QList<QSharedPointer<cOpenClWorkerThread>> &workers, bool *stopRequest)
+	const std::shared_ptr<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
+	const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
+	int antiAliasingDepth, QList<std::shared_ptr<QThread>> &threads,
+	QList<std::shared_ptr<cOpenClWorkerThread>> &workers, bool *stopRequest)
 {
 	for (int d = 0; d < numberOfOpenCLWorkers; d++)
 	{
 		// allocating memory for threads and workers
 		WriteLog(QString("Thread for OpenCL worker") + QString::number(d) + " create", 3);
-		threads.append(QSharedPointer<QThread>(new QThread));
+		threads.append(std::shared_ptr<QThread>(new QThread));
 		workers.append(
-			QSharedPointer<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
+			std::shared_ptr<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
 		// pushing data to workers
 		workers[d]->setImageWidth(width);
 		workers[d]->setImageHeight(height);
@@ -1107,11 +1107,11 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setReservedGpuTime(reservedGpuTime);
 		workers[d]->setFullEngineFlag(renderEngineMode == clRenderEngineTypeFull);
 		// stating threads
-		workers[d]->moveToThread(threads[d].data());
+		workers[d]->moveToThread(threads[d].get());
 		QObject::connect(
-			threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
-		QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
-		connect(workers[d].data(),
+			threads[d].get(), SIGNAL(started()), workers[d].get(), SLOT(ProcessRenderingLoop()));
+		QObject::connect(workers[d].get(), SIGNAL(finished()), threads[d].get(), SLOT(quit()));
+		connect(workers[d].get(),
 			SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)), gErrorMessage,
 			SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 		threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
@@ -1299,14 +1299,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		int numberOfOpenCLWorkers = hardware->getEnabledDevices().size();
 
 		// prepare list of threads
-		QList<QSharedPointer<QThread>> threads;
+		QList<std::shared_ptr<QThread>> threads;
 		// prepare list of workers
-		QList<QSharedPointer<cOpenClWorkerThread>> workers;
+		QList<std::shared_ptr<cOpenClWorkerThread>> workers;
 
 		// create scheduler
-		QSharedPointer<cOpenClScheduler> scheduler(new cOpenClScheduler(&tileSequence));
+		std::shared_ptr<cOpenClScheduler> scheduler(new cOpenClScheduler(&tileSequence));
 		// create output FIFO buffer
-		QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
+		std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
 		// initializing and starting of all workers
 
@@ -1762,30 +1762,33 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 				return false;
 			}
 
-			WriteLog(QString("Writing OpenCL perlin noise buffer"), 2);
-			err = clQueues.at(d)->enqueueWriteBuffer(*inCLPerlinNoiseSeedsBuffer[d], CL_TRUE, 0,
-				perlinNoiseSeeds.size() * sizeof(cl_uchar), perlinNoiseSeeds.data());
-			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLPerlinNoiseSeedsBuffer)"))
+			if (!meshExportMode)
 			{
-				emit showErrorMessage(
-					QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+				WriteLog(QString("Writing OpenCL perlin noise buffer"), 2);
+				err = clQueues.at(d)->enqueueWriteBuffer(*inCLPerlinNoiseSeedsBuffer[d], CL_TRUE, 0,
+					perlinNoiseSeeds.size() * sizeof(cl_uchar), perlinNoiseSeeds.data());
+				if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLPerlinNoiseSeedsBuffer)"))
+				{
+					emit showErrorMessage(
+						QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
 
-			err = clQueues.at(d)->finish();
-			if (!checkErr(err, "CommandQueue::finish() - inCLPerlinNoiseSeedsBuffer"))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
+				err = clQueues.at(d)->finish();
+				if (!checkErr(err, "CommandQueue::finish() - inCLPerlinNoiseSeedsBuffer"))
+				{
+					emit showErrorMessage(
+						QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("perlin noise seeds")),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
 			}
 		}
 
 		WriteLog(QString("Writing OpenCL constant buffer"), 2);
 		err = clQueues.at(d)->enqueueWriteBuffer(
-			*inCLConstBuffer[d].data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
+			*inCLConstBuffer[d].get(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.get());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1807,8 +1810,8 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	if (meshExportMode)
 	{
 		WriteLog(QString("Writing OpenCL mesh constant buffer"), 2);
-		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer[0].data(), CL_TRUE, 0,
-			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
+		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer[0].get(), CL_TRUE, 0,
+			sizeof(sClMeshExport), constantInMeshExportBuffer.get());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1")
@@ -1906,7 +1909,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
 		cl_int err;
-		backgroundImage2D.append(QSharedPointer<cl::Image2D>(
+		backgroundImage2D.append(std::shared_ptr<cl::Image2D>(
 			new cl::Image2D(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 				cl::ImageFormat(CL_RGBA, CL_FLOAT), backgroundImage2DWidth, backgroundImage2DHeight,
 				backgroundImage2DWidth * sizeof(cl_float4), backgroundImageBuffer.data(), &err)));
@@ -1916,8 +1919,9 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 }
 
 // render function for mesh export
-bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int *iterations,
-	int sliceIndex, bool *stopRequest, sRenderData *renderData, size_t dataOffset)
+bool cOpenClEngineRenderFractal::Render(std::vector<double> *distances, std::vector<double> *colors,
+	std::vector<int> *iterations, int sliceIndex, bool *stopRequest, sRenderData *renderData,
+	size_t dataOffset)
 {
 	Q_UNUSED(renderData);
 	Q_UNUSED(stopRequest);
@@ -1947,21 +1951,21 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int *
 		{
 			size_t address = x + y * constantInMeshExportBuffer->sliceWidth;
 			double distance = (reinterpret_cast<cl_float *>(
-				outputBuffers[0][outputMeshDistancesIndex].ptr.data()))[address];
-			distances[address + dataOffset] = distance;
+				outputBuffers[0][outputMeshDistancesIndex].ptr.get()))[address];
+			(*distances)[address + dataOffset] = distance;
 
 			if (colors)
 			{
 				double color = (reinterpret_cast<cl_float *>(
-					outputBuffers[0][outputMeshColorsIndex].ptr.data()))[address];
-				colors[address + dataOffset] = color;
+					outputBuffers[0][outputMeshColorsIndex].ptr.get()))[address];
+				(*colors)[address + dataOffset] = color;
 			}
 
 			if (iterations)
 			{
 				int iters = (reinterpret_cast<cl_int *>(
-					outputBuffers[0][outputMeshIterationsIndex].ptr.data()))[address];
-				iterations[address + dataOffset] = iters;
+					outputBuffers[0][outputMeshIterationsIndex].ptr.get()))[address];
+				(*iterations)[address + dataOffset] = iters;
 			}
 		}
 	}
@@ -1985,7 +1989,7 @@ float cOpenClEngineRenderFractal::CalculateDistance(CVector3 point)
 	if (!ReadBuffersFromQueue()) return false;
 
 	float distance =
-		(reinterpret_cast<cl_float *>(outputBuffers[0][outputMeshDistancesIndex].ptr.data()))[0];
+		(reinterpret_cast<cl_float *>(outputBuffers[0][outputMeshDistancesIndex].ptr.get()))[0];
 
 	return distance;
 }

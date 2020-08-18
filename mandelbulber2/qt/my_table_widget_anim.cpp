@@ -62,7 +62,7 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point) const
 	int row = index.row();
 	int column = index.column();
 
-	QScopedPointer<QMenu> menu(new QMenu);
+	std::unique_ptr<QMenu> menu(new QMenu);
 
 	QAction *actionRender = nullptr;
 	QAction *interpolateForward = nullptr;
@@ -96,7 +96,7 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point) const
 
 void MyTableWidgetAnim::columnContextMenuRequest(QPoint point) const
 {
-	QScopedPointer<QMenu> menu(new QMenu);
+	std::unique_ptr<QMenu> menu(new QMenu);
 
 	QAction *actionRender;
 	QAction *actionDeleteTo;
@@ -131,7 +131,7 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point) const
 {
 	int row = verticalHeader()->logicalIndexAt(point);
 
-	QScopedPointer<QMenu> menu(new QMenu);
+	std::unique_ptr<QMenu> menu(new QMenu);
 
 	if (row > 0)
 	{

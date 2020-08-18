@@ -60,7 +60,7 @@ private:
 	QSystemTrayIcon *systemTrayIcon;
 	cImage *image;
 	bool isBusy;
-	QScopedPointer<QMenu> menu;
+	std::unique_ptr<QMenu> menu;
 	QTimer *checkBusyTimer;
 
 public slots:

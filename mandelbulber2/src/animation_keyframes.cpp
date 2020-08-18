@@ -570,20 +570,20 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 	return color;
 }
 
-QSharedPointer<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopRequest)
+std::shared_ptr<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopRequest)
 {
 	// preparing Render Job
-	QSharedPointer<cRenderJob> renderJob(
+	std::shared_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
-	connect(renderJob.data(),
+	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	if (!systemData.noGui)
 	{
-		connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
-		connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+		connect(renderJob.get(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+		connect(renderJob.get(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
 			mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 	}
 	return renderJob;
@@ -849,7 +849,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	animationStopRequest = false;
 
 	// preparing Render Job
-	QSharedPointer<cRenderJob> renderJob = PrepareRenderJob(stopRequest);
+	std::shared_ptr<cRenderJob> renderJob = PrepareRenderJob(stopRequest);
 
 	cRenderingConfiguration config;
 

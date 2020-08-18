@@ -82,13 +82,13 @@ void cMeshExport::updateProgressAndStatus(int i)
 
 void cMeshExport::ProcessVolume()
 {
-	QScopedPointer<sRenderData> renderData(new sRenderData);
+	std::unique_ptr<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::unique_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::unique_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
-	CreateMaterialsMap(gPar, &renderData.data()->materials, false, true, false);
+	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 
 	renderData->ValidateObjects();
 
@@ -121,8 +121,8 @@ void cMeshExport::ProcessVolume()
 	limitMax.z = limitMin.z + l * step;
 
 	// update fractal limits to calculated box
-	params.data()->limitMin = limitMin + CVector3(extension, extension, extension);
-	params.data()->limitMax = limitMax - CVector3(extension, extension, extension);
+	params.get()->limitMin = limitMin + CVector3(extension, extension, extension);
+	params.get()->limitMax = limitMax - CVector3(extension, extension, extension);
 
 	progressText.ResetTimer();
 
@@ -135,8 +135,8 @@ void cMeshExport::ProcessVolume()
 	try
 	{
 		marchingCube =
-			new MarchingCubes(gPar, gParFractal, params.data(), fractals.data(), renderData.data(), w, h,
-				l, limitMin, limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
+			new MarchingCubes(gPar, gParFractal, params.get(), fractals.get(), renderData.get(), w, h, l,
+				limitMin, limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
 	}
 	catch (std::bad_alloc &ba)
 	{

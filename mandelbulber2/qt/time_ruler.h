@@ -49,7 +49,7 @@ public:
 	cTimeRuler(QWidget *parent);
 	~cTimeRuler() override;
 
-	void SetParameters(QSharedPointer<cAudioTrack> audioTrack, int _framesPerKeyframe);
+	void SetParameters(std::shared_ptr<cAudioTrack> audioTrack, int _framesPerKeyframe);
 
 private:
 	void paintEvent(QPaintEvent *event) override;

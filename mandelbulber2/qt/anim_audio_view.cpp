@@ -47,7 +47,7 @@ cAnimAudioView::cAnimAudioView(QWidget *parent) : QWidget(parent)
 
 cAnimAudioView::~cAnimAudioView() = default;
 
-void cAnimAudioView::UpdateChart(const QSharedPointer<cAudioTrack> audioTrack)
+void cAnimAudioView::UpdateChart(const std::shared_ptr<cAudioTrack> audioTrack)
 {
 	if (audioTrack && audioTrack->isLoaded())
 	{

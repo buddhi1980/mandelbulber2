@@ -77,9 +77,9 @@ private slots:
 	void slotError(QAudioDecoder::Error error);
 
 private:
-	QScopedPointer<QAudioDecoder> decoder;
+	std::unique_ptr<QAudioDecoder> decoder;
 	std::vector<float> rawAudio;
-	QScopedArrayPointer<cAudioFFTData> fftAudio;
+	std::vector<cAudioFFTData> fftAudio;
 	QVector<float> animation;
 	bool memoryReserved;
 	quint64 length;

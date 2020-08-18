@@ -33,6 +33,7 @@
  */
 
 #include <QObject>
+#include <memory>
 
 #include "region.hpp"
 
@@ -59,8 +60,8 @@ public:
 		bool *stopRequest, cRegion<int> screenRegion);
 	void Reset();
 
-	QScopedPointer<cOpenClEngineRenderDOFPhase1> dofEnginePhase1;
-	QScopedPointer<cOpenClEngineRenderDOFPhase2> dofEnginePhase2;
+	std::unique_ptr<cOpenClEngineRenderDOFPhase1> dofEnginePhase1;
+	std::unique_ptr<cOpenClEngineRenderDOFPhase2> dofEnginePhase2;
 #endif
 
 signals:

@@ -99,8 +99,9 @@ public:
 	float CalculateDistance(CVector3 point);
 
 	// render 2D slice with fractal
-	bool Render(double *distances, double *colors, int *iterations, int sliceIndex, bool *stopRequest,
-		sRenderData *renderData, size_t dataOffset);
+	bool Render(std::vector<double> *distances, std::vector<double> *colors,
+		std::vector<int> *iterations, int sliceIndex, bool *stopRequest, sRenderData *renderData,
+		size_t dataOffset);
 
 	QList<QPoint> calculateOptimalTileSequence(int gridWidth, int gridHeight);
 	static bool sortByCenterDistanceAsc(
@@ -135,10 +136,10 @@ private:
 		sParamRender *paramRender, cNineFractals *fractals, sRenderData *renderData);
 	void SetParametersForIterationWeight(cNineFractals *fractals);
 	void CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
-		const QSharedPointer<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
-		const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
-		int antiAliasingDepth, QList<QSharedPointer<QThread>> &threads,
-		QList<QSharedPointer<cOpenClWorkerThread>> &workers, bool *stopRequest);
+		const std::shared_ptr<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
+		const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
+		int antiAliasingDepth, QList<std::shared_ptr<QThread>> &threads,
+		QList<std::shared_ptr<cOpenClWorkerThread>> &workers, bool *stopRequest);
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
@@ -147,28 +148,28 @@ private:
 		QList<QRect> &lastRenderedRects, QList<sRenderedTileData> &listOfRenderedTilesData);
 	void FinallRefreshOfImage(QList<QRect> lastRenderedRects, cImage *image);
 
-	QScopedPointer<sClInConstants> constantInBuffer;
-	QList<QSharedPointer<cl::Buffer>> inCLConstBuffer;
+	std::unique_ptr<sClInConstants> constantInBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;
 
-	QScopedPointer<sClMeshExport> constantInMeshExportBuffer;
-	QList<QSharedPointer<cl::Buffer>> inCLConstMeshExportBuffer;
+	std::unique_ptr<sClMeshExport> constantInMeshExportBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLConstMeshExportBuffer;
 
 	// FIXME: replace QByteArray with std::vector
 	QByteArray inBuffer;
-	QList<QSharedPointer<cl::Buffer>> inCLBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLBuffer;
 
 	QByteArray inTextureBuffer;
-	QList<QSharedPointer<cl::Buffer>> inCLTextureBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLTextureBuffer;
 
-	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
+	QList<std::shared_ptr<cl::Image2D>> backgroundImage2D;
 	std::vector<cl_float4> backgroundImageBuffer;
 
 	std::vector<cl_char> perlinNoiseSeeds;
-	QList<QSharedPointer<cl::Buffer>> inCLPerlinNoiseSeedsBuffer;
+	QList<std::shared_ptr<cl::Buffer>> inCLPerlinNoiseSeedsBuffer;
 	const int perlinNoiseArraySize = 512;
 
-	QScopedPointer<cOpenClDynamicData> dynamicData;
-	QScopedPointer<cOpenClTexturesData> texturesData;
+	std::unique_ptr<cOpenClDynamicData> dynamicData;
+	std::unique_ptr<cOpenClTexturesData> texturesData;
 
 	QStringList listOfUsedFormulas;
 	QStringList customFormulaCodes;

@@ -65,7 +65,7 @@ public slots:
 private:
 	bool StoreLayer(int z) const;
 
-	QScopedArrayPointer<unsigned char> voxelLayer;
+	std::vector<unsigned char> voxelLayer;
 	long long w, h, l;
 	CVector3 limitMin;
 	CVector3 limitMax;

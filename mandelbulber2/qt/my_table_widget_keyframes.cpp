@@ -62,7 +62,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	int row = index.row();
 	int column = index.column();
 
-	QScopedPointer<QMenu> menu(new QMenu);
+	std::unique_ptr<QMenu> menu(new QMenu);
 
 	QAction *actionRender = nullptr;
 	QAction *interpolateForward = nullptr;
@@ -100,7 +100,7 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 
 	if (column >= cKeyframeAnimation::reservedColumns)
 	{
-		QScopedPointer<QMenu> menu(new QMenu);
+		std::unique_ptr<QMenu> menu(new QMenu);
 
 		QAction *actionRender;
 		QAction *actionDelete;
@@ -140,7 +140,7 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 {
 	int row = verticalHeader()->logicalIndexAt(point);
 
-	QScopedPointer<QMenu> menu(new QMenu);
+	std::unique_ptr<QMenu> menu(new QMenu);
 
 	if (row > 0)
 	{
@@ -154,7 +154,7 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 		QAction *actionCatMulRomAngleInterpolation = menu->addAction(tr("CatMulRom angle"));
 		QAction *actionAkimaInterpolation = menu->addAction(tr("Akima"));
 		QAction *actionAkimaAngleInterpolation = menu->addAction(tr("Akima angle"));
-		QActionGroup actionGroupInterpolation(menu.data());
+		QActionGroup actionGroupInterpolation(menu.get());
 		actionGroupInterpolation.addAction(actionNoInterpolation);
 		actionGroupInterpolation.addAction(actionLinearInterpolation);
 		actionGroupInterpolation.addAction(actionLinearAngleInterpolation);

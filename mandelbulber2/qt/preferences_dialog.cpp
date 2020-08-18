@@ -277,19 +277,19 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 				listOfFiles << it.next();
 		}
 
-		QScopedPointer<cParameterContainer> examplePar(new cParameterContainer);
-		QScopedPointer<cFractalContainer> exampleParFractal(new cFractalContainer);
-		QScopedPointer<cThumbnailWidget> thumbWidget(new cThumbnailWidget(200, 200, 1));
-		QObject::connect(thumbWidget.data(),
+		std::unique_ptr<cParameterContainer> examplePar(new cParameterContainer);
+		std::unique_ptr<cFractalContainer> exampleParFractal(new cFractalContainer);
+		std::unique_ptr<cThumbnailWidget> thumbWidget(new cThumbnailWidget(200, 200, 1));
+		QObject::connect(thumbWidget.get(),
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
 		examplePar->SetContainerName("main");
-		InitParams(examplePar.data());
+		InitParams(examplePar.get());
 		/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-		InitMaterialParams(1, examplePar.data());
+		InitMaterialParams(1, examplePar.get());
 
 		/*******************************************************************/
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -311,7 +311,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 			parSettings.BeQuiet(true);
 			parSettings.LoadFromFile(filename);
 
-			if (parSettings.Decode(examplePar.data(), exampleParFractal.data()))
+			if (parSettings.Decode(examplePar.get(), exampleParFractal.get()))
 			{
 				examplePar->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 				examplePar->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));

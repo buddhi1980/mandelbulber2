@@ -1195,7 +1195,7 @@ void cRandomizerDialog::slotCleanUp()
 
 	QList<QString> list = actualListOfChangedParameters.keys();
 
-	QScopedPointer<cThumbnailWidget> cleanedPreview(new cThumbnailWidget());
+	std::unique_ptr<cThumbnailWidget> cleanedPreview(new cThumbnailWidget());
 	cleanedPreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	cleanedPreview->DisableThumbnailCache();
 	cleanedPreview->DisableTimer();

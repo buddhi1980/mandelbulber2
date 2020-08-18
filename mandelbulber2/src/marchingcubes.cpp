@@ -91,17 +91,13 @@ MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
 
 	this->stop = stop;
 
-	shared_indices = nullptr;
-	voxelBuffer = nullptr;
-	colorBuffer = nullptr;
-
 	coloredMesh = paramsContainer->Get<bool>("mesh_color");
 
 	try
 	{
-		shared_indices = new long long[2 * numy * numz * 3];
-		voxelBuffer = new double[2 * numyzb];
-		colorBuffer = new double[2 * numyzb];
+		shared_indices.resize(2LL * numy * numz * 3);
+		voxelBuffer.resize(2LL * numyzb);
+		colorBuffer.resize(2LL * numyzb);
 	}
 	catch (std::bad_alloc &ba)
 	{
@@ -112,9 +108,9 @@ MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
 
 void MarchingCubes::FreeBuffers()
 {
-	if (shared_indices) delete[] shared_indices;
-	if (voxelBuffer) delete[] voxelBuffer;
-	if (colorBuffer) delete[] colorBuffer;
+	shared_indices.clear();
+	voxelBuffer.clear();
+	colorBuffer.clear();
 }
 
 void MarchingCubes::RunMarchingCube()
@@ -184,7 +180,7 @@ void MarchingCubes::RunMarchingCube()
 		{
 			size_t dataOffset = clMeshParams.sliceHeight * clMeshParams.sliceWidth;
 			bool result = gOpenCl->openClEngineRenderFractal->Render(
-				voxelBuffer, colorBuffer, nullptr, i, renderData->stopRequest, renderData, dataOffset);
+				&voxelBuffer, &colorBuffer, nullptr, i, renderData->stopRequest, renderData, dataOffset);
 
 			if (!result)
 			{

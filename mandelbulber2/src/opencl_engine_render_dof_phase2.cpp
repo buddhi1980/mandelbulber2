@@ -233,15 +233,15 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			for (quint64 x = 0; x < width; x++)
 			{
 				quint64 i = x + y * width;
-				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.data())[i].i =
+				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.get())[i].i =
 					sortedZBuffer[i].i;
-				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.data())[i].z =
+				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.get())[i].z =
 					sortedZBuffer[i].z;
 				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
 				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0f;
-				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.data())[i] =
+				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.get())[i] =
 					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
-				reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
+				reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][outputIndex].ptr.get())[i] =
 					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 			}
 		}
@@ -282,7 +282,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 					quint64 yy = y + imageRegion.y1;
 
 					cl_float4 imagePixelCl = reinterpret_cast<cl_float4 *>(
-						inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];
+						inputAndOutputBuffers[0][outputIndex].ptr.get())[x + y * width];
 
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
 					unsigned short alpha = ushort(imagePixelCl.s[3] * 65535.0f);

@@ -76,7 +76,7 @@ void cAudioTrack::Clear()
 	maxFft = 0.0;
 	rawAudio.clear();
 
-	fftAudio.reset();
+	fftAudio.clear();
 
 	animation.clear();
 	maxFftArray = cAudioFFTData();
@@ -172,9 +172,9 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 		decoder->setAudioFormat(desiredFormat);
 		decoder->setSourceFilename(filename);
 
-		connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
-		connect(decoder.data(), SIGNAL(finished()), this, SLOT(slotFinished()));
-		connect(decoder.data(), SIGNAL(error(QAudioDecoder::Error)), this,
+		connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
+		connect(decoder.get(), SIGNAL(finished()), this, SLOT(slotFinished()));
+		connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
 			SLOT(slotError(QAudioDecoder::Error)));
 
 		loadingInProgress = true;
@@ -279,7 +279,7 @@ void cAudioTrack::calculateFFT()
 		emit loadingProgress(tr("Calculating FFT"));
 		QApplication::processEvents();
 
-		fftAudio.reset(new cAudioFFTData[numberOfFrames]);
+		fftAudio.resize(numberOfFrames);
 
 		const int overSample = int(sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2);
 

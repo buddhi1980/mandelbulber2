@@ -406,7 +406,7 @@ void cAnimationFrames::RemoveAudioParameter(
 	}
 }
 
-QSharedPointer<cAudioTrack> cAnimationFrames::GetAudioPtr(const QString fullParameterName) const
+std::shared_ptr<cAudioTrack> cAnimationFrames::GetAudioPtr(const QString fullParameterName) const
 {
 	return audioTracks.GetAudioTrackPtr(fullParameterName);
 }

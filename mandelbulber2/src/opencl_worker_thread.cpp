@@ -50,7 +50,7 @@
 using std::min;
 
 cOpenClWorkerThread::cOpenClWorkerThread(
-	cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int _deviceIndex)
+	cOpenClEngine *engine, const std::shared_ptr<cOpenClScheduler> scheduler, int _deviceIndex)
 		: QObject(), deviceIndex(_deviceIndex)
 {
 	this->scheduler = scheduler;
@@ -152,7 +152,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				quint64 outputItemlength = outputBuffers.at(outputIndex).length;
 				cOpenCLWorkerOutputQueue::sClDataBuffer dataBuffer(outputItemSize, outputItemlength);
 
-				char *startPtr = outputBuffers.at(outputIndex).ptr.data();
+				char *startPtr = outputBuffers.at(outputIndex).ptr.get();
 				char *endPtr = startPtr + outputBuffers.at(outputIndex).size();
 				dataBuffer.data.assign(startPtr, endPtr);
 

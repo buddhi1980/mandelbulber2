@@ -86,7 +86,7 @@ private:
 	Ui::cTabFractal *ui;
 
 	int tabIndex;
-	QScopedPointer<QWidget> fractalWidget;
+	std::unique_ptr<QWidget> fractalWidget;
 
 	cAutomatedWidgets *automatedWidgets;
 };

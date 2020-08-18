@@ -29,7 +29,6 @@
 #include <QTextStream>
 #include <QComboBox>
 #include <QDebug>
-#include <QScopedPointer>
 #include <QVector>
 
 cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
@@ -201,18 +200,18 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 #ifdef USE_OPENCL
-	QScopedPointer<sRenderData> renderData(new sRenderData);
+	std::unique_ptr<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::unique_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::unique_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
-	CreateMaterialsMap(gPar, &renderData.data()->materials, false, true, false);
+	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 	renderData->ValidateObjects();
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
-		gPar, gParFractal, params.data(), fractals.data(), renderData.data(), true);
+		gPar, gParFractal, params.get(), fractals.get(), renderData.get(), true);
 
 	QString compilerOutput;
 	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar, &compilerOutput))

@@ -52,8 +52,8 @@ struct sClInputOutputBuffer
 	quint64 itemSize;
 	quint64 length;
 	QString name;
-	QSharedPointer<char> ptr;
-	QSharedPointer<cl::Buffer> clPtr;
+	std::shared_ptr<char> ptr;
+	std::shared_ptr<cl::Buffer> clPtr;
 };
 #endif // USE_OPENCL
 

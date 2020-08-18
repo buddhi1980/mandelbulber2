@@ -115,7 +115,7 @@ void MyColorButton::UpdateColor()
 void MyColorButton::SetupColor()
 {
 	pix.reset(new QPixmap(w, h));
-	painter.reset(new QPainter(pix.data()));
+	painter.reset(new QPainter(pix.get()));
 }
 
 void MyColorButton::mousePressEvent(QMouseEvent *event)

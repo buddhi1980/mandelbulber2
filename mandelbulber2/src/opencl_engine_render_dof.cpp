@@ -53,10 +53,10 @@ cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObj
 	dofEnginePhase1.reset(new cOpenClEngineRenderDOFPhase1(hardware));
 	dofEnginePhase2.reset(new cOpenClEngineRenderDOFPhase2(hardware));
 
-	connect(dofEnginePhase1.data(),
+	connect(dofEnginePhase1.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(dofEnginePhase2.data(),
+	connect(dofEnginePhase2.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
@@ -233,7 +233,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 		if (!*stopRequest)
 		{
-			connect(dofEnginePhase2.data(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			connect(dofEnginePhase2.get(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 			dofEnginePhase2->Lock();
 			dofEnginePhase2->SetParameters(paramRender, screenRegion);
 			if (dofEnginePhase2->LoadSourcesAndCompile(params))

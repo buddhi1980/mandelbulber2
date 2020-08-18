@@ -119,7 +119,7 @@ public:
 	void RemoveAllAudioParameters(cParameterContainer *params = nullptr);
 	void LoadAllAudioFiles(cParameterContainer *params = nullptr);
 
-	QSharedPointer<cAudioTrack> GetAudioPtr(const QString fullParameterName) const;
+	std::shared_ptr<cAudioTrack> GetAudioPtr(const QString fullParameterName) const;
 
 	cOneParameter ApplyAudioAnimation(int frame, const cOneParameter &parameter,
 		const QString &parameterName, const cParameterContainer *params) const;

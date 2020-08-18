@@ -48,7 +48,7 @@ class cAnimAudioView : public QWidget
 public:
 	cAnimAudioView(QWidget *parent);
 	~cAnimAudioView() override;
-	void UpdateChart(const QSharedPointer<cAudioTrack> audioTrack);
+	void UpdateChart(const std::shared_ptr<cAudioTrack> audioTrack);
 
 private:
 	void paintEvent(QPaintEvent *event) override;

@@ -74,17 +74,17 @@ private:
 #ifdef USE_OFFLOAD
 	__declspec(target(mic))
 #endif // USE_OFFLOAD
-		long long *shared_indices;
+		std::vector<long long> shared_indices;
 
 #ifdef USE_OFFLOAD
 	__declspec(target(mic))
 #endif // USE_OFFLOAD
-		double *voxelBuffer;
+		std::vector<double> voxelBuffer;
 
 #ifdef USE_OFFLOAD
 	__declspec(target(mic))
 #endif // USE_OFFLOAD
-		double *colorBuffer;
+		std::vector<double> colorBuffer;
 
 	int numx;
 	int numy;

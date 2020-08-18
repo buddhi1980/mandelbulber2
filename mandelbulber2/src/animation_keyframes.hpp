@@ -140,7 +140,7 @@ private:
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPath() const;
 	void UpdateCameraDistanceInformation() const;
-	QSharedPointer<cRenderJob> PrepareRenderJob(bool *stopRequest);
+	std::shared_ptr<cRenderJob> PrepareRenderJob(bool *stopRequest);
 	bool InitFrameRanges(sFrameRanges *frameRanges);
 	void InitFrameMarkers(const sFrameRanges &frameRanges);
 	void VerifyAnimation(bool *stopRequest);

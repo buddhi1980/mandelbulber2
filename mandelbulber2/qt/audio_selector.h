@@ -82,7 +82,7 @@ private:
 
 	cAutomatedWidgets *automatedWidgets;
 
-	QSharedPointer<cAudioTrack> audio;
+	std::shared_ptr<cAudioTrack> audio;
 	QString parameterName;
 	cAnimationFrames *animationFrames;
 

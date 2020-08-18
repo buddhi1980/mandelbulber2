@@ -87,7 +87,7 @@ cTexture::cTexture(
 	}
 
 	// check if it is Radiance HDR image
-	QScopedPointer<cRadianceHDR> radiance(new cRadianceHDR());
+	std::unique_ptr<cRadianceHDR> radiance(new cRadianceHDR());
 	if (radiance->Init(filename, &width, &height))
 	{
 		radiance->Load(&bitmap);

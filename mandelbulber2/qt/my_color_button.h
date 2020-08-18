@@ -68,8 +68,8 @@ private:
 
 	int w;
 	int h;
-	QScopedPointer<QPixmap> pix;
-	QScopedPointer<QPainter> painter;
+	std::unique_ptr<QPixmap> pix;
+	std::unique_ptr<QPainter> painter;
 
 protected:
 	void UpdateColor();

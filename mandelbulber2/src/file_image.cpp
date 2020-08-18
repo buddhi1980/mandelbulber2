@@ -1012,7 +1012,7 @@ bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int wi
 		return false;
 	}
 
-	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
+	std::unique_ptr<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1055,7 +1055,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 		return false;
 	}
 
-	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
+	std::unique_ptr<QImage> qImage(new QImage(width, height, QImage::Format_RGB888));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1111,7 +1111,7 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 			1);
 		return false;
 	}
-	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Indexed8));
+	std::unique_ptr<QImage> qImage(new QImage(width, height, QImage::Format_Indexed8));
 	QMapIterator<QString, QString> i(meta);
 	while (i.hasNext())
 	{
@@ -1145,9 +1145,9 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 }
 
 bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
-	QString filename, unsigned char *image, int width, int height)
+	QString filename, const unsigned char *image, int width, int height)
 {
-	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Mono));
+	std::unique_ptr<QImage> qImage(new QImage(width, height, QImage::Format_Mono));
 	QVector<QRgb> my_table;
 	my_table.push_back(qRgb(0, 0, 0));
 	my_table.push_back(qRgb(255, 255, 255));
@@ -1174,9 +1174,9 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 }
 
 bool ImageFileSavePNG::SavePNGQtGreyscale(
-	QString filename, unsigned char *image, int width, int height)
+	QString filename, const unsigned char *image, int width, int height)
 {
-	QScopedPointer<QImage> qImage(new QImage(width, height, QImage::Format_Grayscale8));
+	std::unique_ptr<QImage> qImage(new QImage(width, height, QImage::Format_Grayscale8));
 
 	for (int i = 0; i < width; i++)
 	{

@@ -75,7 +75,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 	menu->addSeparator();
 	menu->addAction(stActionQuit);
 
-	systemTrayIcon->setContextMenu(menu.data());
+	systemTrayIcon->setContextMenu(menu.get());
 
 	connect(stActionRender, SIGNAL(triggered()), this, SLOT(slotStartRender()));
 	connect(stActionStop, SIGNAL(triggered()), this, SLOT(slotStopRender()));

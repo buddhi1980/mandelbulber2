@@ -48,7 +48,7 @@ public:
 	cFFTView(QWidget *parent);
 	~cFFTView() override;
 
-	void AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack);
+	void AssignAudioTrack(const std::shared_ptr<cAudioTrack> audiotrack);
 
 public slots:
 	void slotFreqChanged(double midFreq, double bandwidth);

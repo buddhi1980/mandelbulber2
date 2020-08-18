@@ -69,7 +69,7 @@ void cAudioTrackCollection::AddAudioTrack(
 	}
 	else
 	{
-		audioTracks.insert(fullParameterName, QSharedPointer<cAudioTrack>(new cAudioTrack()));
+		audioTracks.insert(fullParameterName, std::shared_ptr<cAudioTrack>(new cAudioTrack()));
 		if (params) // params is nullptr when audio tracks are regenerated
 		{
 			AddParameters(params, fullParameterName);
@@ -102,7 +102,7 @@ void cAudioTrackCollection::DeleteAllAudioTracks(cParameterContainer *params)
 	}
 }
 
-QSharedPointer<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
+std::shared_ptr<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
 	const QString fullParameterName) const
 {
 	if (audioTracks.contains(fullParameterName))
@@ -113,7 +113,7 @@ QSharedPointer<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
 	{
 		qCritical() << "cAudioTrackCollection::GetAudioTrackPtr(): element '" << fullParameterName
 								<< "' doesn't exist";
-		return QSharedPointer<cAudioTrack>(nullptr);
+		return std::shared_ptr<cAudioTrack>(nullptr);
 	}
 }
 

@@ -49,7 +49,7 @@ cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 
 cWaveFormView::~cWaveFormView() = default;
 
-void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
+void cWaveFormView::AssignAudioTrack(const std::shared_ptr<cAudioTrack> audiotrack)
 {
 	if (audiotrack && audiotrack->isLoaded())
 	{

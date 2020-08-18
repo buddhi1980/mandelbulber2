@@ -138,19 +138,19 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		if (parSettings.LoadFromFile(filename))
 		{
 			progressBar->show();
-			QScopedPointer<cParameterContainer> par(new cParameterContainer);
-			QScopedPointer<cFractalContainer> parFractal (new cFractalContainer);
-			InitParams(par.data());
+			std::unique_ptr<cParameterContainer> par(new cParameterContainer);
+			std::unique_ptr<cFractalContainer> parFractal (new cFractalContainer);
+			InitParams(par.get());
 			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				InitFractalParams(&parFractal->at(i));
 
 			/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-			InitMaterialParams(1, par.data());
+			InitMaterialParams(1, par.get());
 
 			/*******************************************************************/
 
-			if (parSettings.Decode(par.data(), parFractal.data()))
+			if (parSettings.Decode(par.get(), parFractal.get()))
 			{
 				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));

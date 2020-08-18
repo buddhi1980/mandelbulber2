@@ -232,17 +232,17 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			for (quint64 x = 0; x < width; x++)
 			{
 				quint64 i = x + y * width;
-				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.data())[i] =
+				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.get())[i] =
 					image->GetPixelZBuffer(x + imageRegion.x1, y + imageRegion.y1);
 			}
 		}
 
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			reinterpret_cast<cl_float *>(inputBuffers[0][sineCosineIndex].ptr.data())[i] =
+			reinterpret_cast<cl_float *>(inputBuffers[0][sineCosineIndex].ptr.get())[i] =
 				sinf(float(i) / paramsSSAO.quality * 2.0f * float(M_PI));
 			reinterpret_cast<cl_float *>(
-				inputBuffers[0][sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
+				inputBuffers[0][sineCosineIndex].ptr.get())[i + paramsSSAO.quality] =
 				cosf(float(i) / paramsSSAO.quality * 2.0f * float(M_PI));
 		}
 
@@ -285,7 +285,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 					quint64 yy = y + imageRegion.y1;
 
 					cl_float total_ambient =
-						reinterpret_cast<cl_float *>(outputBuffers[0][outputIndex].ptr.data())[x + y * width];
+						reinterpret_cast<cl_float *>(outputBuffers[0][outputIndex].ptr.get())[x + y * width];
 
 					unsigned short opacity16 = image->GetPixelOpacity(xx, yy);
 					float opacity = opacity16 / 65535.0f;
