@@ -96,7 +96,7 @@ private:
 	// arguments to cause print and exit
 	[[noreturn]] static void printExampleHelpAndExit();
 	[[noreturn]] static void printInputHelpAndExit();
-	[[noreturn]] static void printOpenCLHelpAndExit();
+	[[noreturn]] void printOpenCLHelpAndExit();
 	[[noreturn]] static void printParametersAndExit();
 	[[noreturn]] static void runTestCasesAndExit();
 	[[noreturn]] void runBenchmarksAndExit();
@@ -153,6 +153,7 @@ private:
 	QStringList args;
 	cliOperationalMode cliOperationalMode;
 	bool settingsSpecified;
+	QCoreApplication *qApplication;
 };
 
 #endif /* MANDELBULBER2_SRC_COMMAND_LINE_INTERFACE_HPP_ */

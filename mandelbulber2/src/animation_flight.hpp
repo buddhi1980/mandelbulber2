@@ -85,7 +85,7 @@ public:
 
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
-		QObject *parent = nullptr);
+		QObject *parent);
 	void RecordFlight(bool continueRecording);
 	bool RenderFlight(bool *stopRequest);
 	void RenderFrame(int index) const;

@@ -128,8 +128,8 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 			rawAudio.reserve(quint64(sfInfo.frames));
 			rawAudio.resize(quint64(sfInfo.frames));
 
-			float *tempBuff = new float[sfInfo.frames * sfInfo.channels];
-			const sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfInfo.frames);
+			std::vector<float> tempBuff(sfInfo.frames * sfInfo.channels);
+			const sf_count_t readSamples = sf_readf_float(infile, tempBuff.data(), sfInfo.frames);
 
 			for (int64_t i = 0; i < readSamples; i++)
 			{
@@ -144,8 +144,6 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 			}
 
 			length = readSamples;
-
-			delete[] tempBuff;
 		}
 
 		sf_close(infile);

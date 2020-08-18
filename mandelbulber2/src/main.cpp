@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
 	UpdateLanguage();
 
 #ifdef USE_OPENCL
-	gOpenCl = new cGlobalOpenCl();
+	gOpenCl = new cGlobalOpenCl(gApplication);
 #endif
 
 	commandLineInterface.ReadCLI();
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
 
 	gInterfaceReadyForSynchronization = true;
 
-	gUndo = new cUndo();
+	gUndo = new cUndo(gMainInterface);
 
 	if (!commandLineInterface.isNoGUI())
 	{
@@ -234,21 +234,19 @@ int main(int argc, char *argv[])
 	}
 
 	// clean objects when exit
-	delete gUndo;
-	delete gPar;
-	gPar = nullptr;
-	delete gParFractal;
-	if (gFlightAnimation) delete gFlightAnimation;
-	if (gKeyframeAnimation) delete gKeyframeAnimation;
-	delete gAnimFrames;
-	delete gKeyframes;
+
 	delete gNetRender;
 	delete gQueue;
-#ifdef USE_OPENCL
-	delete gOpenCl;
-#endif
+
 	delete gMainInterface;
 	delete gErrorMessage;
 	delete gApplication;
+
+	delete gPar;
+	gPar = nullptr;
+	delete gParFractal;
+	delete gAnimFrames;
+	delete gKeyframes;
+
 	return result;
 }

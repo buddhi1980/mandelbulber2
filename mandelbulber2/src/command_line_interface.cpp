@@ -58,9 +58,10 @@
 #include "write_log.hpp"
 #include "test.hpp"
 
-cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
+cCommandLineInterface::cCommandLineInterface(QCoreApplication *_qApplication)
 		: settingsSpecified(false)
 {
+	qApplication = _qApplication;
 	// text from http://sourceforge.net/projects/mandelbulber/
 	parser.setApplicationDescription(QCoreApplication::translate("main",
 		"Mandelbulber is an easy to use, "
@@ -406,31 +407,31 @@ void cCommandLineInterface::ProcessCLI() const
 		}
 		case modeFlight:
 		{
-			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless = new cHeadless(gMainInterface);
 			gMainInterface->headless->RenderFlightAnimation();
 			break;
 		}
 		case modeKeyframe:
 		{
-			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless = new cHeadless(gMainInterface);
 			gMainInterface->headless->RenderKeyframeAnimation();
 			break;
 		}
 		case modeStill:
 		{
-			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless = new cHeadless(gMainInterface);
 			gMainInterface->headless->RenderStillImage(cliData.outputText, cliData.imageFileFormat);
 			break;
 		}
 		case modeQueue:
 		{
-			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless = new cHeadless(gMainInterface);
 			gMainInterface->headless->RenderQueue();
 			break;
 		}
 		case modeVoxel:
 		{
-			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless = new cHeadless(gMainInterface);
 			gMainInterface->headless->RenderVoxel(cliData.voxelFormat);
 			break;
 		}
@@ -526,7 +527,7 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 {
 	QTextStream out(stdout);
 #ifdef USE_OPENCL
-	gOpenCl = new cGlobalOpenCl();
+	gOpenCl = new cGlobalOpenCl(qApplication);
 	gOpenCl->InitPlatfromAndDevices();
 
 	out << QObject::tr(

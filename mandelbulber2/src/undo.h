@@ -41,15 +41,18 @@
 #ifndef MANDELBULBER2_SRC_UNDO_H_
 #define MANDELBULBER2_SRC_UNDO_H_
 
+#include <QObject>
+
 #include "animation_frames.hpp"
 #include "fractal_container.hpp"
 #include "keyframes.hpp"
 #include "parameters.hpp"
 
-class cUndo
+class cUndo : QObject
 {
+	Q_OBJECT
 public:
-	cUndo();
+	cUndo(QObject *parent);
 	~cUndo();
 	void Store(cParameterContainer *par, cFractalContainer *parFractal,
 		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);

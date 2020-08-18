@@ -1763,7 +1763,7 @@ void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 
 void cKeyframeAnimation::slotRandomize()
 {
-	cRandomizerDialog *randomizer = new cRandomizerDialog();
+	cRandomizerDialog *randomizer = new cRandomizerDialog(); // deleted by WA_DeleteOnClose
 	randomizer->setAttribute(Qt::WA_DeleteOnClose);
 	QStringList listOfParameterNames;
 	QList<cKeyframes::sParameterDescription> list = keyframes->GetListOfParameters();

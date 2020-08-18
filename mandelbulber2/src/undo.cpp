@@ -51,7 +51,7 @@
 
 cUndo *gUndo = nullptr;
 
-cUndo::cUndo()
+cUndo::cUndo(QObject *parent) : QObject(parent)
 {
 	level = 0;
 	fileIndex = 0;

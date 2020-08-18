@@ -380,7 +380,7 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 			// in noGui mode it must be started as separate thread to be able to process event loop
 			if (!gMainInterface->headless)
 			{
-				gMainInterface->headless = new cHeadless;
+				gMainInterface->headless = new cHeadless(gMainInterface);
 			}
 
 			auto *thread = new QThread; // deleted by deleteLater()
@@ -488,7 +488,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
 					}
 
-					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless;
+					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless(gMainInterface);
 
 					connect(gKeyframeAnimation,
 						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
@@ -519,7 +519,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 							gMainInterface->mainImage, nullptr, gPar, gParFractal, nullptr);
 					}
 
-					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless;
+					if (!gMainInterface->headless) gMainInterface->headless = new cHeadless(gMainInterface);
 
 					connect(gFlightAnimation,
 						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),

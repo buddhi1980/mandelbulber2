@@ -35,15 +35,19 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_GLOBAL_H_
 #define MANDELBULBER2_SRC_OPENCL_GLOBAL_H_
 
+#include <QObject>
+
 class cOpenClHardware;
 class cOpenClEngineRenderFractal;
 class cOpenClEngineRenderSSAO;
 class cOpenClEngineRenderDOF;
 
-class cGlobalOpenCl
+class cGlobalOpenCl : public QObject
 {
+	Q_OBJECT
+
 public:
-	cGlobalOpenCl();
+	cGlobalOpenCl(QObject *parent);
 	~cGlobalOpenCl();
 
 #ifdef USE_OPENCL

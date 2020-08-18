@@ -45,7 +45,7 @@ class cHeadless : public QObject
 {
 	Q_OBJECT
 public:
-	cHeadless();
+	cHeadless(QObject *parent);
 	~cHeadless() override;
 
 	enum ansiColor
@@ -64,8 +64,8 @@ public:
 	void RenderStillImage(QString filename, QString imageFileFormat);
 	[[noreturn]] static void RenderQueue();
 	void RenderVoxel(QString voxelFormat);
-	void RenderFlightAnimation() const;
-	void RenderKeyframeAnimation() const;
+	void RenderFlightAnimation();
+	void RenderKeyframeAnimation();
 	static void RenderingProgressOutput(
 		const QString &header, const QString &progressTxt, double percentDone);
 	static QString colorize(QString text, ansiColor foregroundColor,

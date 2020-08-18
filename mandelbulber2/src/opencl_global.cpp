@@ -43,10 +43,10 @@
 
 cGlobalOpenCl *gOpenCl = nullptr;
 
-cGlobalOpenCl::cGlobalOpenCl()
+cGlobalOpenCl::cGlobalOpenCl(QObject *parent) : QObject(parent)
 {
 #ifdef USE_OPENCL
-	openClHardware = new cOpenClHardware();
+	openClHardware = new cOpenClHardware(this);
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
@@ -56,11 +56,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 cGlobalOpenCl::~cGlobalOpenCl()
 {
-#ifdef USE_OPENCL
-	delete openClEngineRenderFractal;
-	delete openClEngineRenderSSAO;
-	delete openClHardware;
-#endif
+	// all deleted by parent objects
 }
 
 #ifdef USE_OPENCL

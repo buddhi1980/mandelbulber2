@@ -55,7 +55,7 @@
 #include "wait.hpp"
 #include "voxel_export.hpp"
 
-cHeadless::cHeadless() : QObject() {}
+cHeadless::cHeadless(QObject *parent) : QObject(parent) {}
 
 cHeadless::~cHeadless() = default;
 
@@ -207,11 +207,11 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 	emit finished();
 }
 
-void cHeadless::RenderFlightAnimation() const
+void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation =
-		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
+		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, this);
 	QObject::connect(gFlightAnimation,
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)),
@@ -230,11 +230,11 @@ void cHeadless::RenderFlightAnimation() const
 	return;
 }
 
-void cHeadless::RenderKeyframeAnimation() const
+void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation =
-		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
+		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, this);
 	QObject::connect(gKeyframeAnimation,
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)),

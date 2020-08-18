@@ -133,7 +133,6 @@ cInterface::~cInterface()
 	if (progressBarLayout) delete progressBarLayout;
 	if (qImage) delete qImage;
 	if (mainImage) delete mainImage;
-	if (headless) delete headless;
 	if (mainWindow) delete mainWindow;
 }
 
