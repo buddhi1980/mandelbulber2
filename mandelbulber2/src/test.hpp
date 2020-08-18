@@ -74,7 +74,7 @@ private slots:
 	static void init();
 	static void cleanup();
 	void renderExamplesWrapper() const;
-	void netrender() const;
+	void netrender();
 	void testFlightWrapper() const;
 	void testKeyframeWrapper() const;
 	void renderSimpleWrapper() const;

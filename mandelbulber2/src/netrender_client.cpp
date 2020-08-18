@@ -55,7 +55,7 @@
 #include "wait.hpp"
 #include "write_log.hpp"
 
-CNetRenderClient::CNetRenderClient()
+CNetRenderClient::CNetRenderClient(QObject *parent) : QObject(parent)
 {
 	clientSocket = nullptr;
 	reconnectTimer = new QTimer;

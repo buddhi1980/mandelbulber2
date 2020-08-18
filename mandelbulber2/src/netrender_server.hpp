@@ -48,7 +48,7 @@ class cNetRenderServer : public QObject
 {
 	Q_OBJECT
 public:
-	explicit cNetRenderServer();
+	explicit cNetRenderServer(QObject *parent);
 	~cNetRenderServer() override;
 	void SetServer(int _portNo);
 	void DeleteServer();

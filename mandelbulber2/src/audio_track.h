@@ -37,6 +37,7 @@
 
 #include <QAudioDecoder>
 #include <QObject>
+#include <memory>
 
 #include "audio_fft_data.h"
 

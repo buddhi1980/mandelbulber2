@@ -44,7 +44,7 @@ class cErrorMessage : public QObject
 {
 	Q_OBJECT
 public:
-	cErrorMessage(QObject *parent = nullptr);
+	cErrorMessage(QObject *parent);
 
 	enum enumMessageType
 	{

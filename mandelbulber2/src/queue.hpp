@@ -81,7 +81,7 @@ public:
 
 	// initializes queue and create necessary files and folders
 	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder,
-		QObject *parent = nullptr);
+		QObject *parent);
 	~cQueue() override;
 
 	// add settings to queue

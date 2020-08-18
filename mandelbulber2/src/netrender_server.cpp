@@ -52,7 +52,7 @@
 #include "wait.hpp"
 #include "write_log.hpp"
 
-cNetRenderServer::cNetRenderServer()
+cNetRenderServer::cNetRenderServer(QObject *parent) : QObject(parent)
 {
 	actualId = 0;
 	server = nullptr;

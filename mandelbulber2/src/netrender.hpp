@@ -51,7 +51,7 @@ class cNetRender : public QObject
 {
 	Q_OBJECT
 public:
-	explicit cNetRender();
+	explicit cNetRender(QObject *parent);
 	~cNetRender() override;
 
 	//--------------- enumerations ---------------------

@@ -237,12 +237,12 @@ void Test::renderExamples() const
 	delete testPar;
 }
 
-void Test::netrender() const
+void Test::netrender()
 {
 	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
-	cNetRender *netRenderServer = new cNetRender();
-	cNetRender *netRenderClient = new cNetRender();
+	cNetRender *netRenderServer = new cNetRender(this);
+	cNetRender *netRenderClient = new cNetRender(this);
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 

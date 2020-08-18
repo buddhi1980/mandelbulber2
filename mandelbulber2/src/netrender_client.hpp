@@ -48,7 +48,7 @@ class CNetRenderClient : public QObject
 {
 	Q_OBJECT
 public:
-	explicit CNetRenderClient();
+	explicit CNetRenderClient(QObject *parent);
 	~CNetRenderClient() override;
 	void SetClient(QString address, qint32 portNo);
 	void DeleteClient();

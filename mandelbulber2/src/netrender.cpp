@@ -57,13 +57,13 @@ cNetRender *gNetRender = nullptr;
 // TODO: to modify NetRender status table
 // TODO: progress bar in headless mode
 
-cNetRender::cNetRender() : QObject(nullptr)
+cNetRender::cNetRender(QObject *parent) : QObject(parent)
 {
 	deviceType = netRenderDevuceType_UNKNOWN;
 	status = netRenderSts_NEW;
 	isUsed = false;
 	isAnimation = false;
-	netRenderClient = new CNetRenderClient();
+	netRenderClient = new CNetRenderClient(this);
 
 	// client signals
 	connect(
@@ -79,7 +79,7 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(this, &cNetRender::AddFileToSender, netRenderClient, &CNetRenderClient::AddFileToSender);
 
 	// server signals
-	netRenderServer = new cNetRenderServer();
+	netRenderServer = new cNetRenderServer(this);
 	connect(
 		netRenderServer, &cNetRenderServer::changeServerStatus, this, &cNetRender::serverStatusChanged);
 	connect(
@@ -296,8 +296,8 @@ QString cNetRender::GetFileFromNetRender(QString requiredFileName, int frameInde
 
 	QByteArray hash = hashCrypt.result();
 	QString hashString = hash.toHex();
-	QString fileInCache = systemDirectories.GetNetrenderFolder() + QDir::separator() + hashString + "."
-												+ QFileInfo(requiredFileName).suffix();
+	QString fileInCache = systemDirectories.GetNetrenderFolder() + QDir::separator() + hashString
+												+ "." + QFileInfo(requiredFileName).suffix();
 	if (QFile::exists(fileInCache))
 	{
 		return fileInCache;

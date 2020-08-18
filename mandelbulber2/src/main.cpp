@@ -109,10 +109,10 @@ int main(int argc, char *argv[])
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 
+	gErrorMessage = new cErrorMessage(gApplication);
+
 	// class for interface windows
 	gMainInterface = new cInterface;
-
-	gErrorMessage = new cErrorMessage;
 
 	// create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()", 2);
@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
 	DefineFractalList(&newFractalList);
 
 	// Netrender
-	gNetRender = new cNetRender();
+	gNetRender = new cNetRender(gMainInterface);
 
 	// loading AppSettings
 	QString iniFileName = systemData.GetIniFile();
@@ -235,15 +235,10 @@ int main(int argc, char *argv[])
 
 	// clean objects when exit
 
-	delete gNetRender;
-	delete gQueue;
-
 	delete gMainInterface;
-	delete gErrorMessage;
 	delete gApplication;
 
 	delete gPar;
-	gPar = nullptr;
 	delete gParFractal;
 	delete gAnimFrames;
 	delete gKeyframes;
