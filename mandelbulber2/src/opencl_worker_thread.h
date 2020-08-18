@@ -37,6 +37,7 @@
 
 #ifdef USE_OPENCL
 
+#include <memory>
 #include <QObject>
 
 #include "algebra.hpp"

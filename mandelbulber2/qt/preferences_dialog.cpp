@@ -34,6 +34,7 @@
 
 #include "preferences_dialog.h"
 
+#include <memory>
 #include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>

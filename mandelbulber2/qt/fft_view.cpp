@@ -35,6 +35,7 @@
 #include "fft_view.h"
 
 #include <cmath>
+#include <memory>
 #include <QPainter>
 #include <QApplication>
 #include <QMouseEvent>

@@ -42,6 +42,7 @@
 
 #include <qprogressbar.h>
 
+#include <memory>
 #include <QElapsedTimer>
 #include <QWidget>
 

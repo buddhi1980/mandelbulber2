@@ -34,6 +34,8 @@
 
 #include "audio_track_collection.h"
 
+#include <memory>
+
 #include "audio_track.h"
 #include "global_data.hpp"
 #include "one_parameter.hpp"

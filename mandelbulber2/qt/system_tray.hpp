@@ -37,6 +37,7 @@
 #ifndef MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
 #define MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
 
+#include <memory>
 #include <QAction>
 #include <QSystemTrayIcon>
 

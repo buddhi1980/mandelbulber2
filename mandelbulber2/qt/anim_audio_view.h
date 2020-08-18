@@ -36,6 +36,7 @@
 #ifndef MANDELBULBER2_QT_ANIM_AUDIO_VIEW_H_
 #define MANDELBULBER2_QT_ANIM_AUDIO_VIEW_H_
 
+#include <memory>
 #include <QWidget>
 
 // forward declarations

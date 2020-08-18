@@ -36,6 +36,7 @@
 #define MANDELBULBER2_QT_MY_COLOR_BUTTON_H_
 
 #include <QPushButton>
+#include <memory>
 
 #include "common_my_widget_wrapper.h"
 

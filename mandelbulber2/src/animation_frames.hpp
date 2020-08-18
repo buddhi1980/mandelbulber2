@@ -38,6 +38,7 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 
+#include <memory>
 #include <utility>
 #include <QImage>
 

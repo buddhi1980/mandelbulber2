@@ -39,6 +39,7 @@
 
 #include "voxel_export.hpp"
 
+#include <memory>
 #include <QVector>
 
 #include "calculate_distance.hpp"

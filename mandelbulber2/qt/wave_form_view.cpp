@@ -34,6 +34,7 @@
 
 #include "wave_form_view.h"
 
+#include <memory>
 #include <QPainter>
 
 #include "src/audio_track.h"

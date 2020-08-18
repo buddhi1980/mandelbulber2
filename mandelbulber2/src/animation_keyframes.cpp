@@ -42,6 +42,8 @@
 
 #include "ui_dock_animation.h"
 
+#include <memory>
+
 #include "animation_path_data.hpp"
 #include "cimage.hpp"
 #include "common_math.h"

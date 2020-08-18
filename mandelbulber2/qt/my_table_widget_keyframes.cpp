@@ -34,6 +34,7 @@
 
 #include "my_table_widget_keyframes.hpp"
 
+#include <memory>
 #include <QContextMenuEvent>
 #include <QHeaderView>
 #include <QMenu>

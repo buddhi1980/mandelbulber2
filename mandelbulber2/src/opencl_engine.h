@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_H_
 
+#include <memory>
 #include <utility>
 #include <QElapsedTimer>
 #include <QMutex>

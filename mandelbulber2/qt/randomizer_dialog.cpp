@@ -34,6 +34,8 @@
 
 #include "randomizer_dialog.h"
 
+#include <memory>
+
 #include "ui_randomizer_dialog.h"
 
 #include "formula/definition/all_fractal_list.hpp"

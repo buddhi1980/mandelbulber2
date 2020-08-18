@@ -40,6 +40,8 @@
 
 #include "texture.hpp"
 
+#include <memory>
+
 #include "common_math.h"
 #include "error_message.hpp"
 #include "files.h"

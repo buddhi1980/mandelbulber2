@@ -35,6 +35,7 @@
 
 #include "time_ruler.h"
 
+#include <memory>
 #include <QApplication>
 #include <QPaintEvent>
 #include <QPainter>

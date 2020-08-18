@@ -35,6 +35,7 @@
 
 #include "anim_audio_view.h"
 
+#include <memory>
 #include <QPainter>
 
 #include "src/audio_track.h"

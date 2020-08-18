@@ -97,7 +97,6 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	mainWindow = nullptr;
 	detachedWindow = nullptr;
 	headless = nullptr;
-	qImage = nullptr;
 	renderedImage = nullptr;
 	imageSequencePlayer = nullptr;
 	mainImage = nullptr;
@@ -123,15 +122,7 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 
 cInterface::~cInterface()
 {
-	if (renderedImage) delete renderedImage;
 	if (imageSequencePlayer) delete imageSequencePlayer;
-	if (progressBar) delete progressBar;
-	if (progressBarAnimation) delete progressBarAnimation;
-	if (progressBarQueueImage) delete progressBarQueueImage;
-	if (progressBarQueueAnimation) delete progressBarQueueAnimation;
-	if (progressBarFrame) delete progressBarFrame;
-	if (progressBarLayout) delete progressBarLayout;
-	if (qImage) delete qImage;
 	if (mainImage) delete mainImage;
 	if (mainWindow) delete mainWindow;
 }
@@ -154,7 +145,7 @@ void cInterface::ShowUi()
 
 	systemData.setPreferredCustomFormulaFontSize(gPar->Get<int>("custom_formula_font_size"));
 
-	mainWindow = new RenderWindow;
+	mainWindow = new RenderWindow();
 
 	WriteLog("Restoring window geometry", 2);
 
@@ -238,7 +229,7 @@ void cInterface::ShowUi()
 	progressBar->setAlignment(Qt::AlignCenter);
 	progressBarLayout->addWidget(progressBar);
 
-	QFrame *progressBarFrameInternal = new QFrame;
+	QFrame *progressBarFrameInternal = new QFrame(mainWindow->ui->statusbar);
 	progressBarFrameInternal->setLayout(progressBarLayout);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrameInternal);
 

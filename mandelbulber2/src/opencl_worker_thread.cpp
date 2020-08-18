@@ -37,6 +37,7 @@
 #include "opencl_worker_thread.h"
 
 #include <algorithm>
+#include <memory>
 #include <QDebug>
 #include <QVector>
 

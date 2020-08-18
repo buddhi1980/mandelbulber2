@@ -41,6 +41,7 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 
+#include <memory>
 #include <qmessagebox.h>
 #include <QThread>
 

@@ -36,6 +36,7 @@
 #include "opencl_engine.h"
 
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <QDir>
 #include <QCryptographicHash>

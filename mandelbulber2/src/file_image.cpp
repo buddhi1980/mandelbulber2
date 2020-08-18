@@ -61,6 +61,7 @@
 #include <QMap>
 #include <QStringList>
 #include <QVector>
+#include <memory>
 
 #include "cimage.hpp"
 #include "error_message.hpp"

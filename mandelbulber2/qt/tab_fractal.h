@@ -38,6 +38,7 @@
 #ifndef MANDELBULBER2_QT_TAB_FRACTAL_H_
 #define MANDELBULBER2_QT_TAB_FRACTAL_H_
 
+#include <memory>
 #include <QWidget>
 
 #include "src/synchronize_interface.hpp"

@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_QT_WAVE_FORM_VIEW_H_
 #define MANDELBULBER2_QT_WAVE_FORM_VIEW_H_
 
+#include <memory>
 #include <QWidget>
 
 // forward declarations

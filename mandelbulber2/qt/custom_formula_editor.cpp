@@ -25,6 +25,7 @@
 #include "my_double_spin_box.h"
 #include "my_text_edit.h"
 
+#include <memory>
 #include <QFileDialog>
 #include <QTextStream>
 #include <QComboBox>

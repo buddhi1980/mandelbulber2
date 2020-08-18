@@ -43,6 +43,8 @@
 #include "rendered_tile_data.hpp"
 #include "statistics.h"
 
+#include <memory>
+
 // custom includes
 #ifdef USE_OPENCL
 #include "opencl/input_data_structures.h"

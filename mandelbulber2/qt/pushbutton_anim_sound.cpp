@@ -35,6 +35,8 @@
 
 #include "pushbutton_anim_sound.h"
 
+#include <memory>
+
 #include "audio_selector.h"
 
 #include "src/animation_frames.hpp"

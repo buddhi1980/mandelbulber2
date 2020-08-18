@@ -36,6 +36,7 @@
 #define MANDELBULBER2_QT_RANDOMIZER_DIALOG_H_
 
 #include <QDialog>
+#include <memory>
 
 #include "src/fractal_container.hpp"
 #include "src/parameters.hpp"

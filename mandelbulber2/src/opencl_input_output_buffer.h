@@ -37,6 +37,7 @@
 
 #ifdef USE_OPENCL
 
+#include <memory>
 #include "include_header_wrapper.hpp"
 
 struct sClInputOutputBuffer

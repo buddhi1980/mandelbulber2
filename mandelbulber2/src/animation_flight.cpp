@@ -40,6 +40,7 @@
 
 #include "animation_flight.hpp"
 
+#include <memory>
 #include <QWidget>
 
 #include "ui_dock_animation.h"

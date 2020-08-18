@@ -34,6 +34,7 @@
 
 #include "mesh_export.hpp"
 
+#include <memory>
 #include <vector>
 
 #include "calculate_distance.hpp"

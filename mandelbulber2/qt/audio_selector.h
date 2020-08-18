@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_QT_AUDIO_SELECTOR_H_
 #define MANDELBULBER2_QT_AUDIO_SELECTOR_H_
 
+#include <memory>
 #include <QAudioOutput>
 #include <QBuffer>
 #include <QMediaPlayer>

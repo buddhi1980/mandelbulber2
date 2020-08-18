@@ -34,6 +34,8 @@
 
 #include "preview_file_dialog.h"
 
+#include <memory>
+
 #include "my_progress_bar.h"
 #include "thumbnail_widget.h"
 

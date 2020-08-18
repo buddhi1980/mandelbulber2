@@ -37,6 +37,7 @@
 
 #include "animation_frames.hpp"
 
+#include <memory>
 #include <QDir>
 
 #include "audio_track.h"
