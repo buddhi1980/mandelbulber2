@@ -93,7 +93,7 @@ QPixmap cThumbnail::Render()
 
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();
-		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), width, height,
+		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()), width, height,
 			width * sizeof(sRGB8), QImage::Format_RGB888);
 		pixmap.convertFromImage(qImage);
 		delete renderJob;
@@ -105,5 +105,5 @@ QPixmap cThumbnail::Render()
 void cThumbnail::Save(QString filename) const
 {
 	ImageFileSaveJPG::SaveJPEGQt(
-		filename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), 85);
+		filename, image->ConvertTo8bitChar(), image->GetWidth(), image->GetHeight(), 85);
 }

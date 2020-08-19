@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_DOF_HPP_
 #define MANDELBULBER2_SRC_DOF_HPP_
 
+#include <memory>
+
 #include "cimage.hpp"
 #include "region.hpp"
 

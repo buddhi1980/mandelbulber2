@@ -9,6 +9,8 @@
 
 #include "ui_settings_cleaner.h"
 
+#include <memory>
+
 #include "thumbnail_widget.h"
 
 #include "src/cimage.hpp"

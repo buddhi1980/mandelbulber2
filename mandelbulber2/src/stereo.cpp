@@ -39,7 +39,6 @@ cStereo::cStereo()
 {
 	swapped = false;
 	stereoMode = stereoDisabled;
-	imageBuffer = nullptr;
 	imageBufferWidth = 0;
 	imageBufferHeight = 0;
 	forceEye = eyeNone;
@@ -47,11 +46,7 @@ cStereo::cStereo()
 
 cStereo::~cStereo()
 {
-	if (imageBuffer)
-	{
-		delete[] imageBuffer;
-		imageBuffer = nullptr;
-	}
+	// nothing to delete
 }
 
 void cStereo::SetMode(enumStereoMode mode)
@@ -262,10 +257,8 @@ void cStereo::StoreImageInBuffer(std::shared_ptr<cImage> image)
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 	unsigned int size = width * height;
-	if (imageBuffer) delete[] imageBuffer;
-	imageBuffer = new sRGB16[size];
-	sRGB16 *image16Ptr = image->GetImage16Ptr();
-	memcpy(imageBuffer, image16Ptr, size * sizeof(sRGB16));
+	imageBuffer.resize(size);
+	imageBuffer = image->GetImage16();
 	imageBufferWidth = width;
 	imageBufferHeight = height;
 }

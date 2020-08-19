@@ -353,7 +353,7 @@ void cImage::SetImageParameters(sImageAdjustments adjustments)
 	CalculateGammaTable();
 }
 
-quint8 *cImage::ConvertTo8bit()
+quint8 *cImage::ConvertTo8bitChar()
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
@@ -364,7 +364,7 @@ quint8 *cImage::ConvertTo8bit()
 	return reinterpret_cast<quint8 *>(image8.data());
 }
 
-quint8 *cImage::ConvertTo8bit(const QList<QRect> *list)
+quint8 *cImage::ConvertTo8bitCharFromList(const QList<QRect> *list)
 {
 	for (auto rect : *list)
 	{
@@ -384,16 +384,16 @@ quint8 *cImage::ConvertTo8bit(const QList<QRect> *list)
 	return reinterpret_cast<quint8 *>(image8.data());
 }
 
-quint8 *cImage::ConvertAlphaTo8bit()
+std::vector<quint8> &cImage::ConvertAlphaTo8bit()
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
 		alphaBuffer8[i] = alphaBuffer16[i] / 256;
 	}
-	return alphaBuffer8.data();
+	return alphaBuffer8;
 }
 
-quint8 *cImage::ConvertGenericRGBTo8bit(std::vector<sRGBFloat> &from, std::vector<sRGB8> &to)
+quint8 *cImage::ConvertGenericRGBTo8bitChar(std::vector<sRGBFloat> &from, std::vector<sRGB8> &to)
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
@@ -404,7 +404,7 @@ quint8 *cImage::ConvertGenericRGBTo8bit(std::vector<sRGBFloat> &from, std::vecto
 	return reinterpret_cast<quint8 *>(to.data());
 }
 
-quint8 *cImage::ConvertGenericRGBTo16bit(std::vector<sRGBFloat> &from, std::vector<sRGB16> &to)
+quint8 *cImage::ConvertGenericRGBTo16bitWord(std::vector<sRGBFloat> &from, std::vector<sRGB16> &to)
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
@@ -1129,8 +1129,8 @@ void cImage::GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_
 
 double cImage::VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank)
 {
-	ConvertTo8bit();
-	refImage->ConvertTo8bit();
+	ConvertTo8bitChar();
+	refImage->ConvertTo8bitChar();
 
 	int min = 255 * 3;
 	int max = 0;

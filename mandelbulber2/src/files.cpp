@@ -36,6 +36,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <memory>
 #include <QFileInfo>
 #include <QDir>
 

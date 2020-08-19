@@ -1165,7 +1165,7 @@ int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
 	image->CompileImage(&lastRenderedRects);
 	if (image->IsPreview())
 	{
-		image->ConvertTo8bit(&lastRenderedRects);
+		image->ConvertTo8bitCharFromList(&lastRenderedRects);
 		image->UpdatePreview(&lastRenderedRects);
 		sendRenderedTilesList(listOfRenderedTilesData);
 		updateImage();
@@ -1186,7 +1186,7 @@ void cOpenClEngineRenderFractal::FinallRefreshOfImage(
 	image->CompileImage(&lastRenderedRects);
 	if (image->IsPreview())
 	{
-		image->ConvertTo8bit(&lastRenderedRects);
+		image->ConvertTo8bitCharFromList(&lastRenderedRects);
 		image->UpdatePreview(&lastRenderedRects);
 		updateImage();
 	}

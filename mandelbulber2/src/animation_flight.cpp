@@ -554,7 +554,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
-	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), int(image->GetWidth()),
+	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()), int(image->GetWidth()),
 		int(image->GetHeight()), int(image->GetWidth() * sizeof(sRGB8)), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);

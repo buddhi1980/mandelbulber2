@@ -36,6 +36,7 @@
 
 #include "system_tray.hpp"
 
+#include <memory>
 #include <QMenu>
 
 #include "src/cimage.hpp"

@@ -194,7 +194,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		image->CompileImage();
 		if (image->IsPreview())
 		{
-			image->ConvertTo8bit();
+			image->ConvertTo8bitChar();
 			image->UpdatePreview();
 			emit updateImage();
 		}
@@ -340,7 +340,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					timerRefresh.restart();
 
 					image->CompileImage();
-					image->ConvertTo8bit();
+					image->ConvertTo8bitChar();
 					image->UpdatePreview();
 					emit updateImage();
 

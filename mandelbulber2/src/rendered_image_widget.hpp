@@ -36,6 +36,7 @@
 #ifndef MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_
 #define MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_
 
+#include <memory>
 #include <QWidget>
 
 #include "QVariant"

@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE2_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE2_H_
 
+#include <memory>
+
 #include "dof.hpp"
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"

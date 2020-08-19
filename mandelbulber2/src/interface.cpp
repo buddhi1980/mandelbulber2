@@ -200,7 +200,7 @@ void cInterface::ShowUi()
 	mainImage.reset(new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	mainImage->CreatePreview(1.0, 800, 600, renderedImage);
 	mainImage->CompileImage();
-	mainImage->ConvertTo8bit();
+	mainImage->ConvertTo8bitChar();
 	mainImage->UpdatePreview();
 	mainImage->SetAsMainImage();
 	renderedImage->setMinimumSize(
@@ -967,9 +967,9 @@ void cInterface::RefreshMainImage()
 		mainImage->SetImageParameters(imageAdjustments);
 		mainImage->CompileImage();
 
-		mainImage->ConvertTo8bit();
+		mainImage->ConvertTo8bitChar();
 		mainImage->UpdatePreview();
-		mainImage->GetImageWidget()->update();
+		if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
 	}
 	else
 	{
@@ -1041,9 +1041,9 @@ void cInterface::RefreshPostEffects()
 				rendererSSAO.RenderSSAO();
 
 				mainImage->CompileImage();
-				mainImage->ConvertTo8bit();
+				mainImage->ConvertTo8bitChar();
 				mainImage->UpdatePreview();
-				mainImage->GetImageWidget()->update();
+				if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
 			}
 		}
 
@@ -1091,9 +1091,9 @@ void cInterface::RefreshPostEffects()
 
 		mainImage->CompileImage();
 
-		mainImage->ConvertTo8bit();
+		mainImage->ConvertTo8bitChar();
 		mainImage->UpdatePreview();
-		mainImage->GetImageWidget()->update();
+		if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
 	}
 	else
 	{

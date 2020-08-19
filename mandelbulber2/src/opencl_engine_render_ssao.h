@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 
+#include <memory>
+
 #include "color_structures.hpp"
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"

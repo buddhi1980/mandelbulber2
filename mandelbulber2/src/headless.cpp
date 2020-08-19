@@ -34,6 +34,8 @@
 
 #include "headless.h"
 
+#include <memory>
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"

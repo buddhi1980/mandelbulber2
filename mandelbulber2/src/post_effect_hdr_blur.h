@@ -55,7 +55,7 @@ public:
 	void Render(bool *stopRequest);
 
 	std::shared_ptr<cImage> image;
-	sRGBFloat *tempImage;
+	std::vector<sRGBFloat> tempImage;
 	double radius;
 	double intensity;
 

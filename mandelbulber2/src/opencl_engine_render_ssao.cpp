@@ -309,7 +309,7 @@ bool cOpenClEngineRenderSSAO::Render(std::shared_ptr<cImage> image, bool *stopRe
 			if (image->IsPreview())
 			{
 				WriteLog("image->ConvertTo8bit()", 2);
-				image->ConvertTo8bit();
+				image->ConvertTo8bitChar();
 				WriteLog("image->UpdatePreview()", 2);
 				image->UpdatePreview();
 				WriteLog("image->GetImageWidget()->update()", 2);

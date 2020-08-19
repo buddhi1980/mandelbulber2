@@ -292,7 +292,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(std::shared_ptr<cImage> image, bool *s
 			if (image->IsPreview())
 			{
 				WriteLog("image->ConvertTo8bit()", 2);
-				image->ConvertTo8bit();
+				image->ConvertTo8bitChar();
 				WriteLog("image->UpdatePreview()", 2);
 				image->UpdatePreview();
 				WriteLog("image->GetImageWidget()->update()", 2);

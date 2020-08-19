@@ -317,16 +317,17 @@ QStringList ImageFileSaveJPG::SaveImage()
 		switch (currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
-				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), int(image->GetWidth()),
+				SaveJPEGQt(fullFilename, image->ConvertTo8bitChar(), int(image->GetWidth()),
 					int(image->GetHeight()), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ALPHA:
-				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), int(image->GetWidth()),
-					int(image->GetHeight()), gPar->Get<int>("jpeg_quality"), image->getMeta());
+				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit().data(),
+					int(image->GetWidth()), int(image->GetHeight()), gPar->Get<int>("jpeg_quality"),
+					image->getMeta());
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 			{
-				float *zbuffer = image->GetZBufferPtr();
+				std::vector<float> &zbuffer = image->GetZBuffer();
 				quint64 size = image->GetWidth() * image->GetHeight();
 
 				bool invertZ = gPar->Get<bool>("zbuffer_invert");
@@ -565,11 +566,11 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						directPointer = reinterpret_cast<char *>(image->GetImage16Ptr());
+						directPointer = reinterpret_cast<char *>(image->GetImage16().data());
 					}
 					else
 					{
-						directPointer = reinterpret_cast<char *>(image->ConvertTo8bit());
+						directPointer = reinterpret_cast<char *>(image->ConvertTo8bitChar());
 					}
 				}
 				break;
@@ -577,11 +578,11 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						directPointer = reinterpret_cast<char *>(image->GetAlphaBufPtr());
+						directPointer = reinterpret_cast<char *>(image->GetAlphaBuf().data());
 					}
 					else
 					{
-						directPointer = reinterpret_cast<char *>(image->ConvertAlphaTo8bit());
+						directPointer = reinterpret_cast<char *>(image->ConvertAlphaTo8bit().data());
 					}
 				}
 				break;
@@ -609,7 +610,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 			float maxZ = 0.0;
 			if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 			{
-				float *zbuffer = image->GetZBufferPtr();
+				std::vector<float> &zbuffer = image->GetZBuffer();
 				uint64_t size = width * height;
 
 				bool constRange = gPar->Get<bool>("zbuffer_constant_range");
@@ -658,7 +659,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 									if (x == 0 && y == 0)
 									{
 										image->ConvertAlphaTo8bit();
-										image->ConvertTo8bit();
+										image->ConvertTo8bitChar();
 									}
 									sRGBA8 *typedColorPtr = reinterpret_cast<sRGBA8 *>(&colorPtr[ptr]);
 									*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
@@ -1320,8 +1321,8 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 		if (imfQuality == Imf::FLOAT)
 		{
 			// direct on buffer
-			float *zBuffer = image->GetZBufferPtr();
-			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, reinterpret_cast<char *>(zBuffer),
+			std::vector<float> &zBuffer = image->GetZBuffer();
+			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, reinterpret_cast<char *>(zBuffer.data()),
 																sizeof(float), width * sizeof(float)));
 		}
 		else
@@ -1537,7 +1538,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 	float rangeZ = 0.0;
 	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 	{
-		float *zbuffer = image->GetZBufferPtr();
+		std::vector<float> &zbuffer = image->GetZBuffer();
 		uint64_t size = width * height;
 
 		bool constRange = gPar->Get<bool>("zbuffer_constant_range");
@@ -1613,7 +1614,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 							if (x == 0 && y == 0)
 							{
 								image->ConvertAlphaTo8bit();
-								image->ConvertTo8bit();
+								image->ConvertTo8bitChar();
 							}
 							sRGBA8 *typedColorPtr = reinterpret_cast<sRGBA8 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
@@ -1623,7 +1624,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 						{
 							if (x == 0 && y == 0)
 							{
-								image->ConvertTo8bit();
+								image->ConvertTo8bitChar();
 							}
 							sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGB8(image->GetPixelImage8(x, y));

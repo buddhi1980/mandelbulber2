@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_STEREO_H_
 
 #include <memory>
+#include <vector>
 #include "algebra.hpp"
 #include "color_structures.hpp"
 #include "projection_3d.hpp"
@@ -91,7 +92,7 @@ public:
 private:
 	bool swapped;
 	enumStereoMode stereoMode;
-	sRGB16 *imageBuffer;
+	std::vector<sRGB16> imageBuffer;
 	int imageBufferWidth;
 	int imageBufferHeight;
 	enumEye forceEye;

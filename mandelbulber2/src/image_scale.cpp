@@ -35,6 +35,7 @@
 #include "image_scale.hpp"
 
 #include <algorithm>
+#include <memory>
 
 #include "cimage.hpp"
 using std::min;
@@ -53,7 +54,8 @@ double ImageScaleComboSelection2Double(int index)
 	}
 }
 
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, std::shared_ptr<cImage> image)
+double CalcMainImageScale(
+	double scale, int previewWidth, int previewHeight, std::shared_ptr<cImage> image)
 {
 	double scaleOut;
 	if (scale == 0.0)

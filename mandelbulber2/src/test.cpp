@@ -34,6 +34,8 @@
 
 #include "test.hpp"
 
+#include <memory>
+
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"

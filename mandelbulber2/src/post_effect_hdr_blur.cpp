@@ -41,21 +41,20 @@
 
 cPostEffectHdrBlur::cPostEffectHdrBlur(std::shared_ptr<cImage> _image) : QObject(), image(_image)
 {
-	tempImage = new sRGBFloat[image->GetHeight() * image->GetWidth()];
+	tempImage.resize(image->GetHeight() * image->GetWidth());
 	radius = 0;
 	intensity = 0;
 }
 
 cPostEffectHdrBlur::~cPostEffectHdrBlur()
 {
-	delete[] tempImage;
+	// nothing to delete
 }
 
 void cPostEffectHdrBlur::Render(bool *stopRequest)
 {
 
-	memcpy(tempImage, image->GetPostImageFloatPtr(),
-		image->GetHeight() * image->GetWidth() * sizeof(sRGBFloat));
+	tempImage = image->GetPostImageFloat();
 
 	const double blurSize = radius * (image->GetWidth() + image->GetHeight()) * 0.001;
 	const double blurSize2 = blurSize * blurSize;

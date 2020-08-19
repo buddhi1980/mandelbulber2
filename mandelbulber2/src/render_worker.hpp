@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 #define MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 
+#include <memory>
 #include <QObject>
 #include <QThread>
 

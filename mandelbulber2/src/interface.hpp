@@ -34,6 +34,7 @@
 #ifndef MANDELBULBER2_SRC_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_INTERFACE_HPP_
 
+#include <memory>
 #include <QtWidgets/QtWidgets>
 
 #include "algebra.hpp"

@@ -300,7 +300,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			if (image->IsPreview())
 			{
 				WriteLog("image->ConvertTo8bit()", 2);
-				image->ConvertTo8bit();
+				image->ConvertTo8bitChar();
 				WriteLog("image->UpdatePreview()", 2);
 				image->UpdatePreview();
 				WriteLog("image->GetImageWidget()->update()", 2);

@@ -39,7 +39,8 @@
 #ifndef MANDELBULBER2_SRC_SSAO_WORKER_H_
 #define MANDELBULBER2_SRC_SSAO_WORKER_H_
 
-#include <qobject.h>
+#include <memory>
+#include <QObject>
 
 #include <QList>
 #include <QThread>

@@ -138,7 +138,7 @@ void cRenderer::TerminateRendering()
 {
 	scheduler->Stop();
 	image->CompileImage();
-	image->ConvertTo8bit();
+	image->ConvertTo8bitChar();
 	if (data->configuration.UseImageRefresh())
 	{
 		image->SetFastPreview(true);
@@ -183,7 +183,7 @@ QSet<int> cRenderer::UpdateImageDuringRendering(QList<int> &listToRefresh, QList
 		}
 	}
 	image->CompileImage(&listToRefresh);
-	image->ConvertTo8bit();
+	image->ConvertTo8bitChar();
 	if (data->configuration.UseImageRefresh())
 	{
 		image->SetFastPreview(true);
@@ -502,7 +502,7 @@ bool cRenderer::RenderImage()
 			image->SetFastPreview(*data->stopRequest || data->configuration.GetMaxRenderTime() < 1e49);
 
 			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bit();
+			image->ConvertTo8bitChar();
 			WriteLog("image->UpdatePreview()", 2);
 			image->UpdatePreview();
 			WriteLog("image->GetImageWidget()->update()", 2);
