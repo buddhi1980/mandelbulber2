@@ -88,8 +88,8 @@ void cSettingsCleaner::runCleaner()
 			Wait(10);
 		}
 	}
-	cImage *actualImage = ui->previewwidget_actual->GetImage();
-	cImage *cleanedImage = ui->previewwidget_cleaned->GetImage();
+	std::shared_ptr<cImage> actualImage = ui->previewwidget_actual->GetImage();
+	std::shared_ptr<cImage> cleanedImage = ui->previewwidget_cleaned->GetImage();
 	double referenceNoise = cleanedImage->VisualCompare(actualImage, false);
 	double referenceDistane =
 		gMainInterface->GetDistanceForPoint(actualParams.Get<CVector3>("camera"));

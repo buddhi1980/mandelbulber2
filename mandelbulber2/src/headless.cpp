@@ -61,7 +61,8 @@ cHeadless::~cHeadless() = default;
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
-	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 
 	QObject::connect(renderJob,
@@ -114,7 +115,6 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	out << tr("Image saved to: %1\n").arg(filenameWithoutExtension + ext);
 
 	delete renderJob;
-	delete image;
 	emit finished();
 }
 
@@ -209,7 +209,8 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 
 void cHeadless::RenderFlightAnimation()
 {
-	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	gFlightAnimation =
 		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, this);
 	QObject::connect(gFlightAnimation,
@@ -224,7 +225,6 @@ void cHeadless::RenderFlightAnimation()
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)), this,
 		SLOT(slotUpdateStatistics(cStatistics)));
 	gFlightAnimation->slotRenderFlight();
-	delete image;
 	delete gFlightAnimation;
 	gFlightAnimation = nullptr;
 	return;
@@ -232,7 +232,8 @@ void cHeadless::RenderFlightAnimation()
 
 void cHeadless::RenderKeyframeAnimation()
 {
-	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	gKeyframeAnimation =
 		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, this);
 	QObject::connect(gKeyframeAnimation,
@@ -247,7 +248,6 @@ void cHeadless::RenderKeyframeAnimation()
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)), this,
 		SLOT(slotUpdateStatistics(cStatistics)));
 	gKeyframeAnimation->slotRenderKeyframes();
-	delete image;
 	delete gKeyframeAnimation;
 	gKeyframeAnimation = nullptr;
 	return;
@@ -256,7 +256,8 @@ void cHeadless::RenderKeyframeAnimation()
 void cHeadless::slotNetRender()
 {
 	gMainInterface->stopRequest = true;
-	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 	QObject::connect(renderJob,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
@@ -273,7 +274,6 @@ void cHeadless::slotNetRender()
 	renderJob->Execute();
 
 	delete renderJob;
-	delete image;
 	emit finished();
 }
 

@@ -56,8 +56,8 @@ public:
 	~cOpenClEngineRenderDOF() override;
 
 #ifdef USE_OPENCL
-	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,
-		bool *stopRequest, cRegion<int> screenRegion);
+	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params,
+		std::shared_ptr<cImage> image, bool *stopRequest, cRegion<int> screenRegion);
 	void Reset();
 
 	std::unique_ptr<cOpenClEngineRenderDOFPhase1> dofEnginePhase1;

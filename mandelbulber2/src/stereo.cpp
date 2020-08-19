@@ -257,7 +257,7 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 	}
 }
 
-void cStereo::StoreImageInBuffer(cImage *image)
+void cStereo::StoreImageInBuffer(std::shared_ptr<cImage> image)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -270,7 +270,7 @@ void cStereo::StoreImageInBuffer(cImage *image)
 	imageBufferHeight = height;
 }
 
-void cStereo::MixImages(cImage *image) const
+void cStereo::MixImages(std::shared_ptr<cImage> image) const
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();

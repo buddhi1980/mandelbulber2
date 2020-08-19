@@ -35,10 +35,13 @@
 #ifndef MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 #define MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 
+#include <memory>
+
 // forward declarations
 class cImage;
 
 double ImageScaleComboSelection2Double(int index);
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
+double CalcMainImageScale(
+	double scale, int previewWidth, int previewHeight, std::shared_ptr<cImage> image);
 
 #endif /* MANDELBULBER2_SRC_IMAGE_SCALE_HPP_ */

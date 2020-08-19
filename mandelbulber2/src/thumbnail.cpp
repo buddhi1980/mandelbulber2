@@ -53,13 +53,13 @@ cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContain
 {
 	image = nullptr;
 	qWidget = nullptr;
-	image = new cImage(width, height);
+	image.reset(new cImage(width, height));
 	// image->CreatePreview(1.0, width, height, qWidget);
 }
 
 cThumbnail::~cThumbnail()
 {
-	delete image;
+	// nothing to delete
 }
 
 QPixmap cThumbnail::Render()

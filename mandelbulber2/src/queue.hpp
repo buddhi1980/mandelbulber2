@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_QUEUE_HPP_
 #define MANDELBULBER2_SRC_QUEUE_HPP_
 
+#include <memory>
 #include <utility>
 #include <QObject>
 #include <QMutex>
@@ -180,7 +181,7 @@ private:
 	Ui::cDockQueue *ui;
 	RenderedImage *renderedImageWidget;
 
-	cImage *image;
+	std::shared_ptr<cImage> image;
 
 	QFileSystemWatcher *queueFileWatcher;
 	QFileSystemWatcher *queueFolderWatcher;

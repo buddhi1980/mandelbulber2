@@ -63,7 +63,8 @@ public:
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
-	bool Render(cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest);
+	bool Render(std::shared_ptr<cImage> image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer,
+		bool *stopRequest);
 	size_t CalcNeededMemory() override;
 
 private:

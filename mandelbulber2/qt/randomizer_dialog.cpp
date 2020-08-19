@@ -239,8 +239,8 @@ void cRandomizerDialog::CalcReferenceNoise()
 		}
 	}
 	blockClose = false;
-	cImage *actualImage = ui->previewwidget_actual->GetImage();
-	cImage *noiseRefImage = referenceNoisePreview->GetImage();
+	std::shared_ptr<cImage> actualImage = ui->previewwidget_actual->GetImage();
+	std::shared_ptr<cImage> noiseRefImage = referenceNoisePreview->GetImage();
 	referenceNoise = noiseRefImage->VisualCompare(actualImage, true);
 	// qDebug() << "Reference noise: " << referenceNoise;
 }
@@ -1003,9 +1003,9 @@ void cRandomizerDialog::slotPreviewRendered()
 	widget->update();
 	if (widget)
 	{
-		cImage *image = widget->GetImage();
-		cImage *actualImage = ui->previewwidget_actual->GetImage();
-		cImage *skyImage = referenceSkyPreview->GetImage();
+		std::shared_ptr<cImage> image = widget->GetImage();
+		std::shared_ptr<cImage> actualImage = ui->previewwidget_actual->GetImage();
+		std::shared_ptr<cImage> skyImage = referenceSkyPreview->GetImage();
 		double difference = image->VisualCompare(actualImage, true) - referenceNoise;
 		double differenceSky = image->VisualCompare(skyImage, true) - referenceNoise;
 
@@ -1017,7 +1017,7 @@ void cRandomizerDialog::slotPreviewRendered()
 			{
 				QString widgetName = QString("previewwidget_%1").arg(i, 2, 10, QChar('0'));
 				cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-				cImage *imageFromOtherVersion = previewWidget->GetImage();
+				std::shared_ptr<cImage> imageFromOtherVersion = previewWidget->GetImage();
 				double diffOther =
 					(image->VisualCompare(imageFromOtherVersion, false) - referenceNoise) / 3.0;
 				// divided by 3 to make bigger differences between versions
@@ -1233,8 +1233,8 @@ void cRandomizerDialog::slotCleanUp()
 				Wait(10);
 			}
 		}
-		cImage *actualImage = ui->previewwidget_actual->GetImage();
-		cImage *cleanedImage = cleanedPreview->GetImage();
+		std::shared_ptr<cImage> actualImage = ui->previewwidget_actual->GetImage();
+		std::shared_ptr<cImage> cleanedImage = cleanedPreview->GetImage();
 		double diff = cleanedImage->VisualCompare(actualImage, false);
 		blockClose = false;
 

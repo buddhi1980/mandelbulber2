@@ -44,8 +44,8 @@
 #include "fractparams.hpp"
 #include "render_data.hpp"
 
-cSSAOWorker::cSSAOWorker(
-	const sParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
+cSSAOWorker::cSSAOWorker(const sParamRender *_params, sThreadData *_threadData,
+	const sRenderData *_data, std::shared_ptr<cImage> _image)
 {
 	params = _params;
 	data = _data;

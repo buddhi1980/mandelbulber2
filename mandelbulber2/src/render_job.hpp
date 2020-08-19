@@ -39,6 +39,7 @@
 #define _USE_MATH_DEFINES
 #endif
 
+#include <memory>
 #include <QObject>
 
 #include "camera_target.hpp"
@@ -62,8 +63,8 @@ class cRenderJob : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image,
-		bool *_stopRequest, QWidget *_qWidget = nullptr);
+	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
+		std::shared_ptr<cImage> _image, bool *_stopRequest, QWidget *_qWidget = nullptr);
 	~cRenderJob() override;
 	// QWidget *parent is needed to connect signals for refreshing progress and status bar.
 	// If _parent is not nullptr then parent has to have slot slotUpdateProgressAndStatus()
@@ -78,7 +79,7 @@ public:
 
 	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
-	cImage *GetImagePtr() const { return image; }
+	std::shared_ptr<cImage> GetImagePtr() const { return image; }
 	int GetNumberOfCPUs() const { return totalNumberOfCPUs; }
 	void UseSizeFromImage(bool modeInput) { useSizeFromImage = modeInput; }
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const;
@@ -117,7 +118,7 @@ private:
 	bool inProgress;
 	bool ready;
 	bool useSizeFromImage;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	cFractalContainer *fractalContainer;
 	cParameterContainer *paramsContainer;
 

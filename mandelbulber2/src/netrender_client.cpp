@@ -479,8 +479,8 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				{
 					if (!gMainInterface->mainImage)
 					{
-						gMainInterface->mainImage =
-							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+						gMainInterface->mainImage.reset(
+							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 					}
 					if (!gKeyframeAnimation)
 					{
@@ -510,8 +510,8 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				{
 					if (!gMainInterface->mainImage)
 					{
-						gMainInterface->mainImage =
-							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+						gMainInterface->mainImage.reset(
+							new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 					}
 					if (!gFlightAnimation)
 					{

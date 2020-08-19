@@ -39,6 +39,7 @@
 #ifndef MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 #define MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 
+#include <memory>
 #include <utility>
 #include <QObject>
 #include <QMap>
@@ -135,8 +136,8 @@ public:
 	static QStringList ImageChannelNames();
 	static QString ImageNameWithoutExtension(QString path);
 	static enumImageFileType ImageFileType(QString imageFileExtension);
-	static ImageFileSave *create(
-		QString filename, enumImageFileType fileType, cImage *image, ImageConfig imageConfig);
+	static ImageFileSave *create(QString filename, enumImageFileType fileType,
+		std::shared_ptr<cImage> image, ImageConfig imageConfig);
 	virtual QStringList SaveImage() = 0;
 	virtual QString getJobName() = 0;
 	static const uint64_t SAVE_CHUNK_SIZE = 64;
@@ -145,13 +146,13 @@ public:
 
 protected:
 	QString filename;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	ImageConfig imageConfig;
 	enumImageContentType currentChannelKey;
 	int currentChannel;
 	int totalChannel;
 
-	ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig);
+	ImageFileSave(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig);
 
 	void updateProgressAndStatusChannel(double progress);
 	void updateProgressAndStatusStarted();
@@ -165,7 +166,7 @@ class ImageFileSavePNG : public ImageFileSave
 {
 	Q_OBJECT
 public:
-	ImageFileSavePNG(QString filename, cImage *image, ImageConfig imageConfig)
+	ImageFileSavePNG(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
 	{
 		hasAppendAlphaCustom = false;
@@ -178,8 +179,8 @@ public:
 	}
 	QStringList SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("PNG"); }
-	void SavePNG(
-		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
+	void SavePNG(QString filename, std::shared_ptr<cImage> image, structSaveImageChannel imageChannel,
+		bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(
@@ -198,7 +199,7 @@ class ImageFileSaveJPG : public ImageFileSave
 {
 	Q_OBJECT
 public:
-	ImageFileSaveJPG(QString filename, cImage *image, ImageConfig imageConfig)
+	ImageFileSaveJPG(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
@@ -217,14 +218,14 @@ class ImageFileSaveTIFF : public ImageFileSave
 {
 	Q_OBJECT
 public:
-	ImageFileSaveTIFF(QString filename, cImage *image, ImageConfig imageConfig)
+	ImageFileSaveTIFF(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
 	QStringList SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("TIFF"); }
-	bool SaveTIFF(
-		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
+	bool SaveTIFF(QString filename, std::shared_ptr<cImage> image,
+		structSaveImageChannel imageChannel, bool appendAlpha = false);
 	void SaveTiffRgbPixel(structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel);
 };
 #endif /* USE_TIFF */
@@ -234,13 +235,13 @@ class ImageFileSaveEXR : public ImageFileSave
 {
 	Q_OBJECT
 public:
-	ImageFileSaveEXR(QString filename, cImage *image, ImageConfig imageConfig)
+	ImageFileSaveEXR(QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
 	QStringList SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("EXR"); }
-	void SaveEXR(QString filename, cImage *image,
+	void SaveEXR(QString filename, std::shared_ptr<cImage> image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 	void SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
 		Imf::Header *header, Imf::FrameBuffer *frameBuffer, uint64_t width, uint64_t height);

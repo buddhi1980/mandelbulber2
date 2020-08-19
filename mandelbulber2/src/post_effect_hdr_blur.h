@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_POST_EFFECT_HDR_BLUR_H_
 #define MANDELBULBER2_SRC_POST_EFFECT_HDR_BLUR_H_
 
+#include <memory>
 #include <QObject>
 
 #include "color_structures.hpp"
@@ -47,13 +48,13 @@ class cPostEffectHdrBlur : public QObject
 	Q_OBJECT
 
 public:
-	cPostEffectHdrBlur(cImage *_image);
+	cPostEffectHdrBlur(std::shared_ptr<cImage> _image);
 	~cPostEffectHdrBlur() override;
 	void SetParameters(double _radius, double _intensity);
 
 	void Render(bool *stopRequest);
 
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	sRGBFloat *tempImage;
 	double radius;
 	double intensity;

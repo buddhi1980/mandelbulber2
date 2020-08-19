@@ -94,7 +94,7 @@ public:
 	};
 
 	RenderedImage(QWidget *parent = nullptr);
-	void AssignImage(cImage *_image) { image = _image; }
+	void AssignImage(std::shared_ptr<cImage> _image) { image = _image; }
 	void AssignParameters(cParameterContainer *_mainParams, cFractalContainer *_fractals)
 	{
 		params = _mainParams;
@@ -158,7 +158,7 @@ private:
 	int draggingStarted;
 	bool draggingInitStarted;
 	cFractalContainer *fractals;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	cParameterContainer *params;
 	CVector2<double> keyArrows;
 	CVector2<int> lastMousePosition;

@@ -55,7 +55,7 @@
 #include "system_data.hpp"
 #include "write_log.hpp"
 
-cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
+cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget) : QObject()
 {
 	image = _image;
 	imageWidget = widget;

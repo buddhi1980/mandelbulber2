@@ -94,9 +94,9 @@ public:
 	bool ReadBuffersFromQueue();
 
 	// render 3D fractal
-	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
+	bool Render(std::shared_ptr<cImage> image, bool *stopRequest, sRenderData *renderData);
 	// render 3D fractal
-	bool RenderMulti(cImage *image, bool *stopRequest, sRenderData *renderData);
+	bool RenderMulti(std::shared_ptr<cImage> image, bool *stopRequest, sRenderData *renderData);
 	// calculate distance using OpenCL
 	float CalculateDistance(CVector3 point);
 
@@ -145,10 +145,10 @@ private:
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
-		unsigned short newAlpha, sRGB8 color, unsigned short opacity, cImage *image);
-	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh, cImage *image,
+		unsigned short newAlpha, sRGB8 color, unsigned short opacity, std::shared_ptr<cImage> &image);
+	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh, std::shared_ptr<cImage> image,
 		QList<QRect> &lastRenderedRects, QList<sRenderedTileData> &listOfRenderedTilesData);
-	void FinallRefreshOfImage(QList<QRect> lastRenderedRects, cImage *image);
+	void FinallRefreshOfImage(QList<QRect> lastRenderedRects, std::shared_ptr<cImage> image);
 
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;

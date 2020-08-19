@@ -42,7 +42,7 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 
-cSystemTray::cSystemTray(cImage *image, QObject *parent)
+cSystemTray::cSystemTray(std::shared_ptr<cImage> image, QObject *parent)
 {
 	setParent(parent);
 	this->image = image;

@@ -186,7 +186,7 @@ bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
+bool cOpenClEngineRenderDOFPhase1::Render(std::shared_ptr<cImage> image, bool *stopRequest)
 {
 	if (programsLoaded)
 	{

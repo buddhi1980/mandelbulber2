@@ -77,7 +77,7 @@ public:
 	};
 
 	cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
-		sThreadData *_threadData, sRenderData *_data, cImage *_image);
+		sThreadData *_threadData, sRenderData *_data, std::shared_ptr<cImage> _image);
 	~cRenderWorker() override;
 
 	// PrepareAOVectors() is public because is needed also for OpenCL data
@@ -262,7 +262,7 @@ private:
 	const cNineFractals *fractal;
 	sRenderData *data;
 	sThreadData *threadData;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 
 	// internal variables
 	int maxRaymarchingSteps;

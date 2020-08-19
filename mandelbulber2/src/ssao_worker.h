@@ -70,7 +70,7 @@ public:
 	};
 
 	cSSAOWorker(const sParamRender *_params, sThreadData *_threadData, const sRenderData *_data,
-		cImage *_image);
+		std::shared_ptr<cImage> _image);
 	~cSSAOWorker() override;
 
 	QThread workerThread;
@@ -79,7 +79,7 @@ public:
 	const sParamRender *params;
 	const sRenderData *data;
 	sThreadData *threadData;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 
 public slots:
 	void doWork();

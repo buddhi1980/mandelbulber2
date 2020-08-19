@@ -123,7 +123,6 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 cInterface::~cInterface()
 {
 	if (imageSequencePlayer) delete imageSequencePlayer;
-	if (mainImage) delete mainImage;
 	if (mainWindow) delete mainWindow;
 }
 
@@ -198,7 +197,7 @@ void cInterface::ShowUi()
 
 	// setup main image
 	WriteLog("Setup of main image", 2);
-	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	mainImage.reset(new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
 	mainImage->CreatePreview(1.0, 800, 600, renderedImage);
 	mainImage->CompileImage();
 	mainImage->ConvertTo8bit();

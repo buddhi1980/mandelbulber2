@@ -209,7 +209,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(quint64 pixelsLeft, quint64 pixelInde
 	return true;
 }
 
-bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
+bool cOpenClEngineRenderSSAO::Render(std::shared_ptr<cImage> image, bool *stopRequest)
 {
 	if (programsLoaded)
 	{

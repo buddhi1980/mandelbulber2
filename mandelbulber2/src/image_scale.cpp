@@ -53,7 +53,7 @@ double ImageScaleComboSelection2Double(int index)
 	}
 }
 
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
+double CalcMainImageScale(double scale, int previewWidth, int previewHeight, std::shared_ptr<cImage> image)
 {
 	double scaleOut;
 	if (scale == 0.0)

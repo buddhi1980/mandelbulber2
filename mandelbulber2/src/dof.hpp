@@ -49,14 +49,14 @@ public:
 		quint64 i;
 	};
 
-	cPostRenderingDOF(cImage *_image);
+	cPostRenderingDOF(std::shared_ptr<cImage> _image);
 
 	void Render(cRegion<int> screenRegion, float deep, float neutral, int numberOfPasses,
 		float blurOpacity, float maxRadius, bool *stopRequest);
 	template <class T>
 	static void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
 
-	cImage *image;
+	std::shared_ptr<cImage> image;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

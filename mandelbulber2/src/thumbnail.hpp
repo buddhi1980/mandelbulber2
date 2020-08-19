@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_THUMBNAIL_HPP_
 #define MANDELBULBER2_SRC_THUMBNAIL_HPP_
 
+#include <memory>
 #include <QString>
 #include <QPixmap>
 
@@ -54,7 +55,7 @@ public:
 	void Save(QString filename) const;
 
 private:
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	const cParameterContainer *params;
 	const cFractalContainer *fractal;
 	QWidget *qWidget;

@@ -80,7 +80,8 @@
 
 const uint64_t ImageFileSave::SAVE_CHUNK_SIZE;
 
-ImageFileSave::ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig)
+ImageFileSave::ImageFileSave(
+	QString filename, std::shared_ptr<cImage> image, ImageConfig imageConfig)
 {
 	this->filename = filename;
 	this->image = image;
@@ -90,8 +91,8 @@ ImageFileSave::ImageFileSave(QString filename, cImage *image, ImageConfig imageC
 	currentChannelKey = IMAGE_CONTENT_COLOR;
 }
 
-ImageFileSave *ImageFileSave::create(
-	QString filename, enumImageFileType fileType, cImage *image, ImageConfig imageConfig)
+ImageFileSave *ImageFileSave::create(QString filename, enumImageFileType fileType,
+	std::shared_ptr<cImage> image, ImageConfig imageConfig)
 {
 	switch (fileType)
 	{
@@ -462,8 +463,8 @@ QStringList ImageFileSaveEXR::SaveImage()
 }
 #endif /* USE_EXR */
 
-void ImageFileSavePNG::SavePNG(
-	QString filenameInput, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
+void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> image,
+	structSaveImageChannel imageChannel, bool appendAlpha)
 {
 	uint64_t width = image->GetWidth();
 	uint64_t height = image->GetHeight();
@@ -1202,8 +1203,8 @@ bool ImageFileSavePNG::SavePNGQtGreyscale(
 }
 
 #ifdef USE_EXR
-void ImageFileSaveEXR::SaveEXR(
-	QString filename, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
+void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
+	QMap<enumImageContentType, structSaveImageChannel> imageConfig)
 {
 	uint64_t width = image->GetWidth();
 	uint64_t height = image->GetHeight();
@@ -1457,8 +1458,8 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 #endif /* USE_EXR */
 
 #ifdef USE_TIFF
-bool ImageFileSaveTIFF::SaveTIFF(
-	QString filenameInput, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
+bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> image,
+	structSaveImageChannel imageChannel, bool appendAlpha)
 {
 	uint64_t width = image->GetWidth();
 	uint64_t height = image->GetHeight();

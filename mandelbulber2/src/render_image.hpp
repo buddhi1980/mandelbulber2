@@ -55,7 +55,7 @@ class cRenderer : public QObject
 	Q_OBJECT
 public:
 	cRenderer(const sParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
-		cImage *_image);
+		std::shared_ptr<cImage> _image);
 	~cRenderer() override;
 	bool RenderImage();
 
@@ -79,7 +79,7 @@ private:
 	const sParamRender *params;
 	const cNineFractals *fractal;
 	sRenderData *data;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	cScheduler *scheduler;
 	bool netRenderAckReceived;
 

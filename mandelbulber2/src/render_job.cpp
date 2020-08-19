@@ -59,7 +59,7 @@
 #include "write_log.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
-	cImage *_image, bool *_stopRequest, QWidget *_qWidget)
+	std::shared_ptr<cImage> _image, bool *_stopRequest, QWidget *_qWidget)
 		: QObject()
 {
 	WriteLog("cRenderJob::cRenderJob", 2);

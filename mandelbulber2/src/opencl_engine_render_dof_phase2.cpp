@@ -210,7 +210,7 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(quint64 pixelsLeft, quint64 pixe
 }
 
 bool cOpenClEngineRenderDOFPhase2::Render(
-	cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest)
+	std::shared_ptr<cImage> image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest)
 {
 	if (programsLoaded)
 	{

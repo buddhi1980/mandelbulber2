@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_STEREO_H_
 #define MANDELBULBER2_SRC_STEREO_H_
 
+#include <memory>
 #include "algebra.hpp"
 #include "color_structures.hpp"
 #include "projection_3d.hpp"
@@ -80,8 +81,8 @@ public:
 	int GetNumberOfRepeats() const;
 	void WhichEyeForAnaglyph(enumEye *eye, int repeat) const;
 	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye) const;
-	void StoreImageInBuffer(cImage *image);
-	void MixImages(cImage *image) const;
+	void StoreImageInBuffer(std::shared_ptr<cImage> image);
+	void MixImages(std::shared_ptr<cImage> image) const;
 	void ForceEye(enumEye eye);
 	enumEye GetForcedEye() { return forceEye; }
 	void SwapEyes() { swapped = true; }

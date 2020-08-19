@@ -108,7 +108,8 @@ void Test::renderExamples() const
 		InitFractalParams(&testParFractal->at(i));
 	}
 	bool stopRequest = false;
-	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -230,7 +231,6 @@ void Test::renderExamples() const
 		}
 	}
 
-	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
 	delete testParFractal;
@@ -297,7 +297,8 @@ void Test::testFlight() const
 		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(&testParFractal->at(i));
 	}
-	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -319,7 +320,6 @@ void Test::testFlight() const
 	else
 		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
 
-	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
 	delete testParFractal;
@@ -362,7 +362,8 @@ void Test::testKeyframe() const
 		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(&testParFractal->at(i));
 	}
-	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -384,7 +385,6 @@ void Test::testKeyframe() const
 	else
 		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
 
-	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
 	delete testParFractal;
@@ -430,7 +430,8 @@ void Test::renderSimple() const
 		InitFractalParams(&testParFractal->at(i));
 	}
 	bool stopRequest = false;
-	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -450,7 +451,6 @@ void Test::renderSimple() const
 		QVERIFY2(renderJob->Execute(), "example render failed.");
 
 	delete renderJob;
-	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
 	delete testParFractal;
@@ -496,7 +496,8 @@ void Test::renderImageSave() const
 		InitFractalParams(&testParFractal->at(i));
 	}
 	bool stopRequest = false;
-	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	std::shared_ptr<cImage> image(
+		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
@@ -600,7 +601,6 @@ void Test::renderImageSave() const
 		}
 	}
 	delete renderJob;
-	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
 	delete testParFractal;

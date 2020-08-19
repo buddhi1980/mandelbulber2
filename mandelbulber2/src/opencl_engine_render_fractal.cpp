@@ -1145,7 +1145,7 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
 	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, unsigned short opacity,
-	cImage *image)
+	std::shared_ptr<cImage> &image)
 {
 	image->PutPixelImage(xx, yy, newPixel);
 	image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
@@ -1157,7 +1157,7 @@ void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRG
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
-	QElapsedTimer &timerImageRefresh, cImage *image, QList<QRect> &lastRenderedRects,
+	QElapsedTimer &timerImageRefresh, std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
 	QList<sRenderedTileData> &listOfRenderedTilesData)
 {
 	timerImageRefresh.restart();
@@ -1177,7 +1177,8 @@ int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
 	return lastRefreshTime;
 }
 
-void cOpenClEngineRenderFractal::FinallRefreshOfImage(QList<QRect> lastRenderedRects, cImage *image)
+void cOpenClEngineRenderFractal::FinallRefreshOfImage(
+	QList<QRect> lastRenderedRects, std::shared_ptr<cImage> image)
 {
 	QElapsedTimer timerImageRefresh;
 	timerImageRefresh.start();
@@ -1194,7 +1195,7 @@ void cOpenClEngineRenderFractal::FinallRefreshOfImage(QList<QRect> lastRenderedR
 
 // Multi-threaded version of OpenCL render function
 bool cOpenClEngineRenderFractal::RenderMulti(
-	cImage *image, bool *stopRequest, sRenderData *renderData)
+	std::shared_ptr<cImage> image, bool *stopRequest, sRenderData *renderData)
 {
 	WriteLog(QString("Starting RenderMulti()"), 2);
 

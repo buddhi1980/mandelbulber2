@@ -66,7 +66,7 @@ public:
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() const { return isFullyRendered; }
-	cImage *GetImage() { return image.get(); };
+	std::shared_ptr<cImage> GetImage() { return image; };
 	QString GetThumbnailFileName() const;
 	void StopRequest() { stopRequest = true; }
 
@@ -85,7 +85,7 @@ public slots:
 	void slotRender();
 
 private:
-	std::unique_ptr<cImage> image;
+	std::shared_ptr<cImage> image;
 	std::unique_ptr<cParameterContainer> params;
 	std::unique_ptr<cFractalContainer> fractal;
 	int tWidth;

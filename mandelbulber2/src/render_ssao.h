@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_RENDER_SSAO_H_
 #define MANDELBULBER2_SRC_RENDER_SSAO_H_
 
+#include <memory>
 #include <QObject>
 
 #include "region.hpp"
@@ -48,7 +49,8 @@ class cRenderSSAO : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderSSAO(const sParamRender *_params, const sRenderData *_renderData, cImage *_image);
+	cRenderSSAO(
+		const sParamRender *_params, const sRenderData *_renderData, std::shared_ptr<cImage> _image);
 	~cRenderSSAO() override;
 
 	void SetRegion(const cRegion<int> &_region);
@@ -58,7 +60,7 @@ public:
 private:
 	const sParamRender *params;
 	const sRenderData *data;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	cRegion<int> region;
 	double qualityFactor;
 	int progressive;

@@ -319,11 +319,11 @@ public:
 	{
 		isStereoLeftRight = isStereoLeftRightInput;
 	}
-	void GetStereoLeftRightImages(cImage *left, cImage *right);
+	void GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_ptr<cImage> right);
 	void setMeta(QMap<QString, QString> meta) { this->meta = meta; }
 	QMap<QString, QString> &getMeta() { return meta; }
 	int progressiveFactor;
-	double VisualCompare(cImage *refImage, bool checkIfBlank);
+	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);
 
 private:
 	bool isAllocated;

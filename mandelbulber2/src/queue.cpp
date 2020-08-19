@@ -102,7 +102,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
 
-	image = new cImage(200, 200);
+	image.reset(new cImage(200, 200));
 
 	if (mainInterface->mainWindow)
 	{
@@ -147,7 +147,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 
 cQueue::~cQueue()
 {
-	if (image) delete image;
+	//nothing to delete
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)

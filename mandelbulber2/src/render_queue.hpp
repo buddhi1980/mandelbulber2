@@ -55,7 +55,7 @@ class cRenderQueue : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderQueue(cImage *_image, RenderedImage *widget = nullptr);
+	cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget = nullptr);
 	~cRenderQueue() override;
 	bool RenderStill(const cQueue::structQueueItem &queueItem);
 	bool RenderFlight(const cQueue::structQueueItem &queueItem) const;
@@ -73,7 +73,7 @@ signals:
 	void finished();
 
 private:
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	RenderedImage *imageWidget;
 	cParameterContainer *queuePar;
 	cFractalContainer *queueParFractal;

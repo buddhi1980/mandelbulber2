@@ -39,7 +39,7 @@
 #include "progress_text.hpp"
 #include "system_data.hpp"
 
-cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
+cPostEffectHdrBlur::cPostEffectHdrBlur(std::shared_ptr<cImage> _image) : QObject(), image(_image)
 {
 	tempImage = new sRGBFloat[image->GetHeight() * image->GetWidth()];
 	radius = 0;

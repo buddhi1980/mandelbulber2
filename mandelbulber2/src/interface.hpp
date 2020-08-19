@@ -138,7 +138,7 @@ public:
 	MyProgressBar *progressBarQueueAnimation;
 	QFrame *progressBarFrame;
 	QVBoxLayout *progressBarLayout;
-	cImage *mainImage;
+	std::shared_ptr<cImage> mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
 	QTimer *autoRefreshTimer;
 	QTimer *stopRequestPulseTimer;

@@ -253,8 +253,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
-QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
-	QObject *updateReceiver)
+QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType,
+	std::shared_ptr<cImage> image, QObject *updateReceiver)
 {
 	QStringList listOfSavedFiles;
 
@@ -278,8 +278,8 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 
 	if (image->IsStereoLeftRight() && gPar->Get<bool>("stereoscopic_in_separate_files"))
 	{
-		cImage *leftImage = new cImage(1, 1, true);
-		cImage *rightImage = new cImage(1, 1, true);
+		std::shared_ptr<cImage> leftImage(new cImage(1, 1, true));
+		std::shared_ptr<cImage> rightImage(new cImage(1, 1, true));
 		image->GetStereoLeftRightImages(leftImage, rightImage);
 
 		// save left
@@ -315,9 +315,6 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 
 			delete imageFileSave;
 		}
-
-		delete leftImage;
-		delete rightImage;
 	}
 	else
 	{

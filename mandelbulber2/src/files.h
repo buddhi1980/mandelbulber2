@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_FILES_H_
 #define MANDELBULBER2_SRC_FILES_H_
 
+#include <memory>
 #include <string>
 
 #include "file_image.hpp"
@@ -53,8 +54,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // void SaveAllImageLayers(const char *filename, cImage *image);
 
 // SaveImage() returns list of saved files
-QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
-	QObject *updateReceiver = nullptr);
+QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType,
+	std::shared_ptr<cImage> image, QObject *updateReceiver = nullptr);
 std::vector<sRGBA16> LoadPNG(QString filename, int &outWidth, int &outHeight);
 
 bool FileExists(const QString &path);

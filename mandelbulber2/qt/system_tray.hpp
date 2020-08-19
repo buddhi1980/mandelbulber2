@@ -48,7 +48,7 @@ class cSystemTray : public QObject
 {
 	Q_OBJECT
 public:
-	cSystemTray(cImage *image, QObject *parent = nullptr);
+	cSystemTray(std::shared_ptr<cImage> image, QObject *parent = nullptr);
 	~cSystemTray() override;
 
 private:
@@ -59,7 +59,7 @@ private:
 	QAction *stActionQuit;
 	QAction *stActionToggleNotification;
 	QSystemTrayIcon *systemTrayIcon;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	bool isBusy;
 	std::unique_ptr<QMenu> menu;
 	QTimer *checkBusyTimer;

@@ -1054,7 +1054,7 @@ void cImage::NullPostEffect(const QList<QRect> *list)
 	}
 }
 
-void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
+void cImage::GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_ptr<cImage> right)
 {
 	if (isStereoLeftRight && left && right)
 	{
@@ -1127,7 +1127,7 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 	}
 }
 
-double cImage::VisualCompare(cImage *refImage, bool checkIfBlank)
+double cImage::VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank)
 {
 	ConvertTo8bit();
 	refImage->ConvertTo8bit();

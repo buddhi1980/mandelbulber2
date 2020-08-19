@@ -57,11 +57,12 @@ public:
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
-	bool LoadSourcesAndCompile(const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
+	bool LoadSourcesAndCompile(
+		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
-	bool Render(cImage *image, bool *stopRequest);
+	bool Render(std::shared_ptr<cImage> image, bool *stopRequest);
 	size_t CalcNeededMemory() override;
 
 private:

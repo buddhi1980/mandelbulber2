@@ -84,9 +84,9 @@ public:
 		int unrenderedTotalBeforeRender;
 	};
 
-	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image,
-		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
-		QObject *parent);
+	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames,
+		std::shared_ptr<cImage> _image, QWidget *_imageWidget, cParameterContainer *_params,
+		cFractalContainer *_fractal, QObject *parent);
 	void RecordFlight(bool continueRecording);
 	bool RenderFlight(bool *stopRequest);
 	void RenderFrame(int index) const;
@@ -146,7 +146,7 @@ private:
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
 	cAnimationFrames *frames;
-	cImage *image;
+	std::shared_ptr<cImage> image;
 	RenderedImage *imageWidget;
 	cParameterContainer *params;
 	cFractalContainer *fractalParams;

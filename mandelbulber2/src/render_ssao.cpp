@@ -45,7 +45,7 @@
 #include "write_log.hpp"
 
 cRenderSSAO::cRenderSSAO(
-	const sParamRender *_params, const sRenderData *_renderData, cImage *_image)
+	const sParamRender *_params, const sRenderData *_renderData, std::shared_ptr<cImage> _image)
 		: QObject()
 {
 	params = _params;
