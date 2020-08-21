@@ -123,8 +123,8 @@ int main(int argc, char *argv[])
 	}
 
 	// create internal database with parameters
-	gPar = new cParameterContainer;
-	gParFractal = new cFractalContainer;
+	gPar.reset(new cParameterContainer);
+	gParFractal.reset(new cFractalContainer);
 
 	// Allocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
@@ -136,8 +136,8 @@ int main(int argc, char *argv[])
 	InitParams(gPar);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		gParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&gParFractal->at(i));
+		gParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(gParFractal->at(i));
 	}
 
 	// Define list of fractal formulas
@@ -238,8 +238,6 @@ int main(int argc, char *argv[])
 	delete gMainInterface;
 	delete gApplication;
 
-	delete gPar;
-	delete gParFractal;
 	delete gAnimFrames;
 	delete gKeyframes;
 

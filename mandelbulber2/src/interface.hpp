@@ -65,25 +65,25 @@ public:
 	void ShowUi();
 	void ConnectSignals() const;
 	void ConnectProgressAndStatisticsSignals() const;
-	void SynchronizeInterface(
-		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const;
+	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
+		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName, bool synchronizeAndRender = false);
 	void RotateCamera(QString buttonName, bool synchronizeAndRender = false);
 	void CameraOrTargetEdited() const;
 	void RotationEdited() const;
 	void CameraDistanceEdited() const;
-	void IFSDefaultsDodecahedron(cParameterContainer *parFractal) const;
-	void IFSDefaultsIcosahedron(cParameterContainer *parFractal) const;
-	static void IFSDefaultsOctahedron(cParameterContainer *parFractal);
-	static void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
-	static void IFSDefaultsReset(cParameterContainer *parFractal);
+	void IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const;
+	void IFSDefaultsIcosahedron(std::shared_ptr<cParameterContainer> parFractal) const;
+	static void IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal);
+	static void IFSDefaultsMengerSponge(std::shared_ptr<cParameterContainer> parFractal);
+	static void IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFractal);
 	void RefreshMainImage();
 	void RefreshPostEffects();
 	void AutoFog() const;
 	double GetDistanceForPoint(CVector3 point) const;
-	static double GetDistanceForPoint(
-		CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);
+	static double GetDistanceForPoint(CVector3 point, std::shared_ptr<cParameterContainer> par,
+		std::shared_ptr<cFractalContainer> parFractal);
 	void SetByMouse(
 		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
@@ -99,7 +99,7 @@ public:
 	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax);
 	void NewPrimitive(const QString &primitiveType, int index = 0);
 	void DeletePrimitive(const QString &primitiveName);
-	void RebuildPrimitives(cParameterContainer *par);
+	void RebuildPrimitives(std::shared_ptr<cParameterContainer> par);
 	void ComboMouseClickUpdate() const;
 	void AutoRecovery() const;
 	bool DataFolderUpgrade() const;

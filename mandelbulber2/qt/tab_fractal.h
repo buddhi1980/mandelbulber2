@@ -67,8 +67,8 @@ public:
 	void FrameIterationFormulaSetEnabled(bool enabled) const;
 	void FrameIterationFormulaSetWidgetsVisibility(bool visible) const;
 	int GetCurrentFractalIndexOnList() const;
-	void SynchronizeInterface(cParameterContainer *par, qInterface::enumReadWrite mode) const;
-	void SynchronizeFractal(cParameterContainer *fractal, qInterface::enumReadWrite mode) const;
+	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const;
+	void SynchronizeFractal(std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const;
 
 private slots:
 	void slotChangedComboFractal(int indexInComboBox);

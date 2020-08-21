@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
 
+#include <memory>
 #include <vector>
 
 #include "algebra.hpp"
@@ -351,7 +352,7 @@ struct sImageAdjustments
 struct sParamRenderD
 {
 	double zoom;			 // zoom
-	double DE_factor;	// factor for distance estimation steps
+	double DE_factor;	 // factor for distance estimation steps
 	double resolution; // resolution of image in fractal coordinates
 	double persp;			 // perspective factor
 	double quality;		 // DE threshold factor
@@ -499,7 +500,8 @@ public:
 	cOldSettings();
 	~cOldSettings();
 	bool LoadSettings(const QString &filename);
-	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal) const;
+	void ConvertToNewContainer(
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal) const;
 
 private:
 	bool LoadSettings2(const QString &filename);

@@ -49,7 +49,7 @@ cMaterialItemModel::cMaterialItemModel(QObject *parent) : QAbstractListModel(par
 
 cMaterialItemModel::~cMaterialItemModel() = default;
 
-void cMaterialItemModel::AssignContainer(cParameterContainer *_parameterContainer)
+void cMaterialItemModel::AssignContainer(std::shared_ptr<cParameterContainer> _parameterContainer)
 {
 	if (_parameterContainer)
 	{
@@ -75,21 +75,22 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 	{
 		int matIndex = materialIndexes.at(index.row());
 
-		cParameterContainer params;
+		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
 
-		params.SetContainerName("material");
-		InitMaterialParams(matIndex, &params);
+		params->SetContainerName("material");
+		InitMaterialParams(matIndex, params);
 
 		// copy parameters from main parameter container to temporary container for material
 		for (int i = 0; i < cMaterial::paramsList.size(); i++)
 		{
 			cOneParameter parameter =
 				container->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
-			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
+			params->SetFromOneParameter(
+				cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(&params, nullptr);
+		tempSettings.CreateText(params, nullptr);
 		return tempSettings.GetSettingsText();
 	}
 
@@ -110,19 +111,19 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 		// look for first free material index
 		int matIndex = materialIndexes.at(index.row());
 
-		cParameterContainer params;
-		params.SetContainerName(container->GetContainerName());
-		InitMaterialParams(matIndex, &params);
+		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
+		params->SetContainerName(container->GetContainerName());
+		InitMaterialParams(matIndex, params);
 
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.LoadFromString(value.toString());
-		tempSettings.Decode(&params, nullptr);
+		tempSettings.Decode(params, nullptr);
 
 		// copy parameters from temporary container for material to main parameter container
 		for (int i = 0; i < cMaterial::paramsList.size(); i++)
 		{
 			cOneParameter parameter =
-				params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
+				params->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
 			container->SetFromOneParameter(
 				cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
 		}
@@ -270,7 +271,7 @@ QModelIndex cMaterialItemModel::getModelIndexByMaterialId(int materialId) const
 	}
 }
 
-void cMaterialItemModel::insertRowWithParameters(const cParameterContainer *params1)
+void cMaterialItemModel::insertRowWithParameters(const std::shared_ptr<cParameterContainer> params1)
 {
 	insertRows(rowCount(), 1);
 	int matIndex = materialIndexes[rowCount() - 1];

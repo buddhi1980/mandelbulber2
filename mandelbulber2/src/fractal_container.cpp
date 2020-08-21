@@ -36,9 +36,18 @@
 
 #include <QDebug>
 
-cFractalContainer *gParFractal = nullptr;
+std::shared_ptr<cFractalContainer> gParFractal;
 
-cParameterContainer &cFractalContainer::operator[](int index)
+cFractalContainer::cFractalContainer()
+{
+	fractals.resize(NUMBER_OF_FRACTALS);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		fractals[i].reset(new cParameterContainer());
+	}
+}
+
+std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index)
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)
 	{
@@ -52,7 +61,7 @@ cParameterContainer &cFractalContainer::operator[](int index)
 	}
 }
 
-const cParameterContainer &cFractalContainer::operator[](int index) const
+const std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index) const
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)
 	{
@@ -67,7 +76,7 @@ const cParameterContainer &cFractalContainer::operator[](int index) const
 	}
 }
 
-cParameterContainer &cFractalContainer::at(int index)
+std::shared_ptr<cParameterContainer> cFractalContainer::at(int index)
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)
 	{
@@ -80,7 +89,7 @@ cParameterContainer &cFractalContainer::at(int index)
 	}
 }
 
-const cParameterContainer &cFractalContainer::at(int index) const
+const std::shared_ptr<cParameterContainer> cFractalContainer::at(int index) const
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)
 	{
@@ -99,7 +108,7 @@ bool cFractalContainer::isUsedCustomFormula()
 	bool used = false;
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		if (!fractals[i].isDefaultValue("formula_code"))
+		if (!fractals[i]->isDefaultValue("formula_code"))
 		{
 			used = true;
 			break;

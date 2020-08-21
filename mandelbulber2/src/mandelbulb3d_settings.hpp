@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_MANDELBULB3D_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_MANDELBULB3D_SETTINGS_HPP_
 
+#include <memory>
 #include <vector>
 
 #include "algebra.hpp"
@@ -50,7 +51,8 @@ public:
 	cMandelbulb3dSettings();
 	~cMandelbulb3dSettings();
 	bool LoadSettings(const QString &filename);
-	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal);
+	void ConvertToNewContainer(
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal);
 	quint64 FourCharsTo3Bytes(char *fourChars);
 
 private:

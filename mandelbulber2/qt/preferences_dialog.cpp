@@ -278,8 +278,8 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 				listOfFiles << it.next();
 		}
 
-		std::unique_ptr<cParameterContainer> examplePar(new cParameterContainer);
-		std::unique_ptr<cFractalContainer> exampleParFractal(new cFractalContainer);
+		std::shared_ptr<cParameterContainer> examplePar(new cParameterContainer);
+		std::shared_ptr<cFractalContainer> exampleParFractal(new cFractalContainer);
 		std::unique_ptr<cThumbnailWidget> thumbWidget(new cThumbnailWidget(200, 200, 1));
 		QObject::connect(thumbWidget.get(),
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
@@ -287,16 +287,16 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
 		examplePar->SetContainerName("main");
-		InitParams(examplePar.get());
+		InitParams(examplePar);
 		/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-		InitMaterialParams(1, examplePar.get());
+		InitMaterialParams(1, examplePar);
 
 		/*******************************************************************/
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
-			exampleParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-			InitFractalParams(&exampleParFractal->at(i));
+			exampleParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+			InitFractalParams(exampleParFractal->at(i));
 		}
 		for (int i = 0; i < listOfFiles.size(); i++)
 		{
@@ -312,13 +312,13 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 			parSettings.BeQuiet(true);
 			parSettings.LoadFromFile(filename);
 
-			if (parSettings.Decode(examplePar.get(), exampleParFractal.get()))
+			if (parSettings.Decode(examplePar, exampleParFractal))
 			{
 				examplePar->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 				examplePar->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
 
 				thumbWidget->DisableTimer();
-				thumbWidget->AssignParameters(*examplePar, *exampleParFractal);
+				thumbWidget->AssignParameters(examplePar, exampleParFractal);
 				if (!thumbWidget->IsRendered())
 				{
 					thumbWidget->slotRender();

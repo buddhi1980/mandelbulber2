@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_MATERIAL_H_
 #define MANDELBULBER2_SRC_MATERIAL_H_
 
+#include <memory>
 #include <QMap>
 
 #include "color_gradient.h"
@@ -50,11 +51,11 @@ class cMaterial
 {
 public:
 	cMaterial();
-	cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet,
-		bool useNetRender);
-	~cMaterial();
-	void setParameters(int _id, const cParameterContainer *materialParam, bool loadTextures,
+	cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
 		bool quiet, bool useNetRender);
+	~cMaterial();
+	void setParameters(int _id, const std::shared_ptr<cParameterContainer> materialParam,
+		bool loadTextures, bool quiet, bool useNetRender);
 
 	static QString Name(const QString &name, int materialId)
 	{
@@ -153,7 +154,7 @@ public:
 	sFractalColoring fractalColoring;
 };
 
-void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials,
-	bool loadTextures, bool quiet, bool useNetRender);
+void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
+	QMap<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender);
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

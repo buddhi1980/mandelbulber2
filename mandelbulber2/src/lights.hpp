@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_LIGHTS_HPP_
 #define MANDELBULBER2_SRC_LIGHTS_HPP_
 
+#include <memory>
 #include <QObject>
 
 #include "algebra.hpp"
@@ -59,8 +60,8 @@ class cLights : public QObject
 public:
 	cLights();
 	cLights(const cLights &_lights) : QObject() { Copy(_lights); }
-	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
+	cLights(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal);
+	void Set(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal);
 	~cLights() override;
 	sLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }

@@ -286,12 +286,12 @@ bool cNetRenderServer::WaitForAllClientsReady(double timeout)
 	return false;
 }
 
-void cNetRenderServer::SetCurrentJob(
-	const cParameterContainer &settings, const cFractalContainer &fractal, QStringList listOfTextures)
+void cNetRenderServer::SetCurrentJob(std::shared_ptr<const cParameterContainer> settings,
+	std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures)
 {
 	WriteLog(QString("NetRender - Sending job to %1 client(s)").arg(clients.size()), 2);
 	cSettings settingsData(cSettings::formatNetRender);
-	size_t dataSize = settingsData.CreateText(&settings, &fractal);
+	size_t dataSize = settingsData.CreateText(settings, fractal);
 	if (dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
@@ -345,8 +345,8 @@ void cNetRenderServer::SetCurrentJob(
 	}
 }
 
-void cNetRenderServer::SetCurrentAnimation(
-	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
+void cNetRenderServer::SetCurrentAnimation(std::shared_ptr<const cParameterContainer> settings,
+	std::shared_ptr<const cFractalContainer> fractal, bool isFlight)
 {
 	WriteLog(QString("NetRender - Sending animation to %1 client(s)").arg(clients.size()), 2);
 	cSettings settingsData(cSettings::formatFullText);
@@ -355,11 +355,11 @@ void cNetRenderServer::SetCurrentAnimation(
 
 	if (isFlight)
 	{
-		dataSize = settingsData.CreateText(&settings, &fractal, gAnimFrames, nullptr);
+		dataSize = settingsData.CreateText(settings, fractal, gAnimFrames, nullptr);
 	}
 	else
 	{
-		dataSize = settingsData.CreateText(&settings, &fractal, nullptr, gKeyframes);
+		dataSize = settingsData.CreateText(settings, fractal, nullptr, gKeyframes);
 	}
 
 	if (dataSize > 0)

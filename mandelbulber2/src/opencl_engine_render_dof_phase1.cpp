@@ -90,7 +90,7 @@ void cOpenClEngineRenderDOFPhase1::SetParameters(
 }
 
 bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(
-	const cParameterContainer *params, QString *compilerErrorOutput)
+	std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -142,7 +142,8 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(
 	return programsLoaded;
 }
 
-void cOpenClEngineRenderDOFPhase1::RegisterInputOutputBuffers(const cParameterContainer *params)
+void cOpenClEngineRenderDOFPhase1::RegisterInputOutputBuffers(
+	std::shared_ptr<const cParameterContainer> params)
 {
 	Q_UNUSED(params);
 	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");

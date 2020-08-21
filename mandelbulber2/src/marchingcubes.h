@@ -38,6 +38,7 @@
 #define MANDELBULBER2_SRC_MARCHINGCUBES_H_
 
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include <QObject>
@@ -55,11 +56,12 @@ class MarchingCubes : public QObject
 	Q_OBJECT
 
 public:
-	MarchingCubes(const cParameterContainer *paramsContainer,
-		const cFractalContainer *fractalContainer, sParamRender *params, cNineFractals *fractals,
-		sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
-		const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
-		std::vector<long long> &polygons, std::vector<double> &colorIndices);
+	MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
+		std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *params,
+		cNineFractals *fractals, sRenderData *renderData, int numx, int numy, int numz,
+		const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
+		std::vector<double> &vertices, std::vector<long long> &polygons,
+		std::vector<double> &colorIndices);
 
 	~MarchingCubes() override { FreeBuffers(); }
 
@@ -103,8 +105,8 @@ private:
 	cNineFractals *fractals;
 	sRenderData *renderData;
 	double dist_thresh;
-	const cParameterContainer *paramsContainer;
-	const cFractalContainer *fractalContainer;
+	std::shared_ptr<const cParameterContainer> paramsContainer;
+	std::shared_ptr<const cFractalContainer> fractalContainer;
 	bool coloredMesh;
 
 	bool *stop;

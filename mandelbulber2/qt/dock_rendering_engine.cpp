@@ -305,7 +305,7 @@ void cDockRenderingEngine::slotNetRenderKickAndKill()
 	gNetRender->KickAndKillClient(buttonName.toInt());
 }
 
-void cDockRenderingEngine::SynchronizeInterfaceDistanceEstimation(cParameterContainer *par) const
+void cDockRenderingEngine::SynchronizeInterfaceDistanceEstimation(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupBox_detailLevel, par, qInterface::write);
 }

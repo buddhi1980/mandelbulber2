@@ -35,19 +35,20 @@
 #ifndef MANDELBULBER2_SRC_INITPARAMETERS_HPP_
 #define MANDELBULBER2_SRC_INITPARAMETERS_HPP_
 
+#include <memory>
 #include "object_types.hpp"
 #include "parameters.hpp"
 
-extern cParameterContainer *gPar;
+extern std::shared_ptr<cParameterContainer> gPar;
 
-void InitParams(cParameterContainer *par);
-void InitFractalParams(cParameterContainer *par);
-void InitPrimitiveParams(
-	fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par);
-void DeletePrimitiveParams(
-	fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par);
-void DeleteAllPrimitiveParams(cParameterContainer *par);
-void DeleteAllMaterialParams(cParameterContainer *par);
-void InitMaterialParams(int materialId, cParameterContainer *par);
+void InitParams(std::shared_ptr<cParameterContainer> par);
+void InitFractalParams(std::shared_ptr<cParameterContainer> par);
+void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
+	std::shared_ptr<cParameterContainer> par);
+void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
+	std::shared_ptr<cParameterContainer> par);
+void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par);
+void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par);
+void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par);
 
 #endif /* MANDELBULBER2_SRC_INITPARAMETERS_HPP_ */

@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_H_
 #define MANDELBULBER2_SRC_FRACTAL_H_
 
+#include <memory>
 #include "formula/definition/all_fractal_list_enums.hpp"
 #include "algebra.hpp"
 
@@ -793,7 +794,7 @@ struct sFractalTransformCommon
 
 struct sFractal
 {
-	sFractal(const cParameterContainer *par);
+	sFractal(const std::shared_ptr<cParameterContainer> par);
 	void RecalculateFractalParams();
 
 	fractal::enumFractalFormula formula;

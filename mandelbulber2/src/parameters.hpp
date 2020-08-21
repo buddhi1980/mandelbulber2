@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_PARAMETERS_HPP_
 #define MANDELBULBER2_SRC_PARAMETERS_HPP_
 
+#include <memory>
 #include <QMap>
 #include <QMutex>
 
@@ -92,7 +93,7 @@ public:
 	enumVarType GetVarType(QString name) const;
 	enumParameterType GetParameterType(QString name) const;
 	bool isDefaultValue(QString name) const;
-	void Copy(QString name, const cParameterContainer *sourceContainer);
+	void Copy(QString name, std::shared_ptr<const cParameterContainer> sourceContainer);
 	QList<QString> GetListOfParameters() const;
 	void PrintListOfParameters() const;
 	void ResetAllToDefault(const QStringList &exclude = QStringList());

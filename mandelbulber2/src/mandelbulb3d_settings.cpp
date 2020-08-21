@@ -105,7 +105,7 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 }
 
 void cMandelbulb3dSettings::ConvertToNewContainer(
-	cParameterContainer *par, cFractalContainer *fractal)
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractal)
 {
 	// general parameters
 	par->ResetAllToDefault();

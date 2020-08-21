@@ -157,7 +157,7 @@ void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFi
 }
 
 void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeaderFiles,
-	const QString &openclPathSlash, const cParameterContainer *params,
+	const QString &openclPathSlash, std::shared_ptr<const cParameterContainer> params,
 	const QString &openclEnginePath, QByteArray &programEngine)
 {
 	for (int i = 0; i < clHeaderFiles.size(); i++)
@@ -309,7 +309,7 @@ void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
 }
 
 bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
-	const cParameterContainer *params, QString *compilerErrorOutput)
+	std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -474,7 +474,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 }
 
 void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
-	cNineFractals *fractals, const cFractalContainer *fractalContainer)
+	cNineFractals *fractals, std::shared_ptr<const cFractalContainer> fractalContainer)
 {
 	listOfUsedFormulas.clear();
 	// creating list of used formulas
@@ -486,7 +486,7 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 		if (formulaName == "custom")
 		{
 			formulaName += QString::number(i);
-			QString formulaCode = fractalContainer->at(i).Get<QString>("formula_code");
+			QString formulaCode = fractalContainer->at(i)->Get<QString>("formula_code");
 
 			if (formulaCode.contains("CustomIteration("))
 			{
@@ -810,9 +810,10 @@ void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *
 	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
 }
 
-void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer,
-	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
-	sRenderData *renderData, bool meshExportModeEnable)
+void cOpenClEngineRenderFractal::SetParameters(
+	std::shared_ptr<const cParameterContainer> paramContainer,
+	std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *paramRender,
+	cNineFractals *fractals, sRenderData *renderData, bool meshExportModeEnable)
 {
 	Q_UNUSED(fractalContainer);
 
@@ -933,7 +934,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 }
 
-void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterContainer *params)
+void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(
+	std::shared_ptr<const cParameterContainer> params)
 {
 	Q_UNUSED(params);
 
@@ -971,7 +973,8 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 	}
 }
 
-bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)
+bool cOpenClEngineRenderFractal::PreAllocateBuffers(
+	std::shared_ptr<const cParameterContainer> params)
 {
 	cOpenClEngine::PreAllocateBuffers(params);
 

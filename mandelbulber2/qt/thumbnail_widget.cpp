@@ -144,8 +144,8 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 	}
 }
 
-void cThumbnailWidget::AssignParameters(
-	const cParameterContainer &_params, const cFractalContainer &_fractal)
+void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContainer> _params,
+	std::shared_ptr<const cFractalContainer> _fractal)
 {
 	isFullyRendered = false;
 	// qDebug() << "AssignParameters";
@@ -153,8 +153,8 @@ void cThumbnailWidget::AssignParameters(
 	{
 		params.reset(new cParameterContainer);
 		fractal.reset(new cFractalContainer);
-		*params = _params;
-		*fractal = _fractal;
+		*params = *_params;
+		*fractal = *_fractal;
 		params->Set("image_width", tWidth * oversample);
 		params->Set("image_height", tHeight * oversample);
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
@@ -172,8 +172,8 @@ void cThumbnailWidget::AssignParameters(
 		{
 			if (params->Get<int>("opencl_mode") > 0)
 			{
-				double distance = cInterface::GetDistanceForPoint(
-					params->Get<CVector3>("camera"), params.get(), fractal.get());
+				double distance =
+					cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
 				if (distance < 1e-5)
 				{
 					params->Set("opencl_mode", 0);
@@ -196,7 +196,7 @@ void cThumbnailWidget::AssignParameters(
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(params.get(), fractal.get());
+		tempSettings.CreateText(params, fractal);
 		oldHash = hash;
 		hash = tempSettings.GetHashCode();
 
@@ -297,8 +297,8 @@ void cThumbnailWidget::slotRender()
 
 		stopRequest = false;
 
-		cRenderJob *renderJob = new cRenderJob(
-			params.get(), fractal.get(), image, &stopRequest, static_cast<QWidget *>(this));
+		cRenderJob *renderJob =
+			new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));

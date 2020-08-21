@@ -63,7 +63,7 @@ public:
 		widget = referenceWidget;
 	};
 
-	void AssignParameterContainer(cParameterContainer *container)
+	void AssignParameterContainer(std::shared_ptr<cParameterContainer> container)
 	{
 		if (!parameterContainer)
 		{
@@ -90,7 +90,7 @@ public:
 
 protected:
 	~CommonMyWidgetWrapper() = default;
-	cParameterContainer *parameterContainer;
+	std::shared_ptr<cParameterContainer> parameterContainer;
 	QString parameterName;
 	bool gotDefault;
 	QWidget *widget;

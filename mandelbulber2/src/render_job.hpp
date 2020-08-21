@@ -63,8 +63,9 @@ class cRenderJob : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
-		std::shared_ptr<cImage> _image, bool *_stopRequest, QWidget *_qWidget = nullptr);
+	cRenderJob(const std::shared_ptr<cParameterContainer> _params,
+		const std::shared_ptr<cFractalContainer> _fractal, std::shared_ptr<cImage> _image,
+		bool *_stopRequest, QWidget *_qWidget = nullptr);
 	~cRenderJob() override;
 	// QWidget *parent is needed to connect signals for refreshing progress and status bar.
 	// If _parent is not nullptr then parent has to have slot slotUpdateProgressAndStatus()
@@ -84,7 +85,8 @@ public:
 	void UseSizeFromImage(bool modeInput) { useSizeFromImage = modeInput; }
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const;
 
-	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
+	void UpdateParameters(const std::shared_ptr<cParameterContainer> _params,
+		const std::shared_ptr<cFractalContainer> _fractal);
 	void UpdateConfig(const cRenderingConfiguration &config) const;
 	static int GetRunningJobCount() { return runningJobs; }
 	cStatistics GetStatistics() const;
@@ -119,8 +121,8 @@ private:
 	bool ready;
 	bool useSizeFromImage;
 	std::shared_ptr<cImage> image;
-	cFractalContainer *fractalContainer;
-	cParameterContainer *paramsContainer;
+	std::shared_ptr<cFractalContainer> fractalContainer;
+	std::shared_ptr<cParameterContainer> paramsContainer;
 
 	enumMode mode;
 	int height;
@@ -141,8 +143,8 @@ signals:
 	void updateStatistics(cStatistics statistics);
 	void updateImage();
 	void sendRenderedTilesList(QList<sRenderedTileData>);
-	void SendNetRenderJob(
-		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
+	void SendNetRenderJob(std::shared_ptr<const cParameterContainer> settings,
+		std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
 	void signalTotalRenderTime(double seconds);

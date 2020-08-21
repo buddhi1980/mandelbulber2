@@ -438,11 +438,11 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
 			if (parSettings.LoadFromFile(filename))
 			{
-				cParameterContainer *par = new cParameterContainer;
-				cFractalContainer *parFractal = new cFractalContainer;
+				std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+				std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
 				InitParams(par);
 				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
-					InitFractalParams(&parFractal->at(j));
+					InitFractalParams(parFractal->at(j));
 
 				/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
@@ -455,10 +455,8 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 					thumbWidget = new cThumbnailWidget(
 						gPar->Get<int>("toolbar_icon_size"), gPar->Get<int>("toolbar_icon_size"), 2, this);
 					thumbWidget->UseOneCPUCore(true);
-					thumbWidget->AssignParameters(*par, *parFractal);
+					thumbWidget->AssignParameters(par, parFractal);
 				}
-				delete par;
-				delete parFractal;
 			}
 		}
 

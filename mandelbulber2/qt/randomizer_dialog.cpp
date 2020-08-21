@@ -70,6 +70,9 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	stopRequest = false;
 	numberOfRunningJobs = 0;
 
+	actualParams.reset(new cParameterContainer());
+	actualFractParams.reset(new cFractalContainer());
+
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
 	int sizeSetiing = enumRandomizerPreviewSize(gPar->Get<int>("randomizer_preview_size"));
 	int qualitySetiing = enumRandomizerPreviewQuality(gPar->Get<int>("randomizer_preview_quality"));
@@ -117,8 +120,8 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	}
 
 	// local copy of parameters
-	actualParams = *gPar;
-	actualFractParams = *gParFractal;
+	*actualParams = *gPar;
+	*actualFractParams = *gParFractal;
 
 	ui->previewwidget_actual->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	ui->previewwidget_actual->DisableThumbnailCache();
@@ -175,8 +178,8 @@ void cRandomizerDialog::InitParameterContainers()
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		sParameterVersion version;
-		version.params = actualParams;
-		version.fractParams = actualFractParams;
+		*version.params = *actualParams;
+		*version.fractParams = *actualFractParams;
 		listOfVersions.append(version);
 	}
 }
@@ -202,13 +205,16 @@ void cRandomizerDialog::RefreshReferenceImage()
 void cRandomizerDialog::RefreshReferenceSkyImage()
 {
 	// render reference sky
-	cParameterContainer parSky = actualParams;
-	cFractalContainer parFractSky = actualFractParams;
+	std::shared_ptr<cParameterContainer> parSky(new cParameterContainer);
+	*parSky = *actualParams;
+	std::shared_ptr<cFractalContainer> parFractSky(new cFractalContainer);
+	*parFractSky = *actualFractParams;
+
 	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 	{
-		parSky.Set("fractal_enable", i, false);
+		parSky->Set("fractal_enable", i, false);
 	}
-	parSky.Set("iteration_threshold_mode", false);
+	parSky->Set("iteration_threshold_mode", false);
 	// iterThresh mode needs to be disabled to render sky, otherwise DE will be zero.
 	blockClose = true;
 	referenceSkyPreview->AssignParameters(parSky, parFractSky);
@@ -284,7 +290,7 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		numbersOfRepeats[i] = 0;
 		versionsDone[i] = false;
 
-		RandomizeParameters(strength, &listOfVersions[i].params, &listOfVersions[i].fractParams, i);
+		RandomizeParameters(strength, listOfVersions[i].params, listOfVersions[i].fractParams, i);
 
 		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
 		// qDebug() << widgetName;
@@ -328,7 +334,8 @@ void cRandomizerDialog::AssignParameters(const QStringList &list)
 
 	for (const QString &parameter : list)
 	{
-		cParameterContainer *container = ContainerSelector(parameter, gPar, gParFractal);
+		std::shared_ptr<cParameterContainer> container =
+			ContainerSelector(parameter, gPar, gParFractal);
 		int firstDashIndex = parameter.indexOf("_");
 		QString parameterName = parameter.mid(firstDashIndex + 1);
 		enumVarType varType = container->GetVarType(parameterName);
@@ -592,7 +599,8 @@ void cRandomizerDialog::RandomizeStringParameter(double randomScale, cOneParamet
 }
 
 void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
-	cParameterContainer *params, cFractalContainer *fractal, int widgetIndex)
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal,
+	int widgetIndex)
 {
 	listsOfChangedParameters[widgetIndex].clear();
 
@@ -691,7 +699,7 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 				}
 
 				QString fullParameterNameToCheck = parametersTree.GetString(parentIndex);
-				cParameterContainer *container =
+				std::shared_ptr<cParameterContainer> container =
 					ContainerSelector(fullParameterNameToCheck, params, fractal);
 				int firstDashIndex = fullParameterNameToCheck.indexOf("_");
 				QString parameterName = fullParameterNameToCheck.mid(firstDashIndex + 1);
@@ -727,7 +735,8 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 			int deeperRandomIndex = childrens.at(randomChildIndex);
 
 			// enable group
-			cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
+			std::shared_ptr<cParameterContainer> container =
+				ContainerSelector(fullParameterName, params, fractal);
 			int firstDashIndex = fullParameterName.indexOf("_");
 			QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 			container->Set(parameterName, true);
@@ -742,9 +751,11 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 }
 
 void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double randomScale,
-	cParameterContainer *params, cFractalContainer *fractal, int widgetIndex)
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal,
+	int widgetIndex)
 {
-	cParameterContainer *container = ContainerSelector(fullParameterName, params, fractal);
+	std::shared_ptr<cParameterContainer> container =
+		ContainerSelector(fullParameterName, params, fractal);
 	int firstDashIndex = fullParameterName.indexOf("_");
 	QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 	// qDebug() << "---Randomizing: " << container->GetContainerName() << parameterName;
@@ -831,7 +842,8 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 
 				// exceptions
 				if (parameterName == "") continue;
-				cParameterContainer *container = ContainerSelector(fullParameterName, gPar, gParFractal);
+				std::shared_ptr<cParameterContainer> container =
+					ContainerSelector(fullParameterName, gPar, gParFractal);
 				if (container->GetParameterType(parameterName) != parameterContainer::paramStandard)
 					continue;
 				if (parameterName.contains("material_id")) continue;
@@ -874,10 +886,10 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 	level--;
 }
 
-cParameterContainer *cRandomizerDialog::ContainerSelector(
-	QString fullParameterName, cParameterContainer *params, cFractalContainer *fractal)
+std::shared_ptr<cParameterContainer> cRandomizerDialog::ContainerSelector(QString fullParameterName,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
-	cParameterContainer *container = nullptr;
+	std::shared_ptr<cParameterContainer> container = nullptr;
 
 	int firstDashIndex = fullParameterName.indexOf("_");
 	QString containerName = fullParameterName.left(firstDashIndex);
@@ -891,7 +903,7 @@ cParameterContainer *cRandomizerDialog::ContainerSelector(
 		const int index = containerName.rightRef(1).toInt();
 		if (index < NUMBER_OF_FRACTALS)
 		{
-			container = &fractal->at(index);
+			container = fractal->at(index);
 		}
 		else
 		{
@@ -913,8 +925,8 @@ void cRandomizerDialog::slotClickedSelectButton()
 	QString numberString = buttonName.right(2);
 	int buttonNumber = numberString.toInt();
 
-	actualParams = listOfVersions.at(buttonNumber - 1).params;
-	actualFractParams = listOfVersions.at(buttonNumber - 1).fractParams;
+	*actualParams = *listOfVersions.at(buttonNumber - 1).params;
+	*actualFractParams = *listOfVersions.at(buttonNumber - 1).fractParams;
 
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	ui->previewwidget_actual->update();
@@ -942,7 +954,7 @@ void cRandomizerDialog::slotClickedSaveButton()
 
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(
-		&listOfVersions.at(buttonNumber - 1).params, &listOfVersions.at(buttonNumber - 1).fractParams);
+		listOfVersions.at(buttonNumber - 1).params, listOfVersions.at(buttonNumber - 1).fractParams);
 
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
@@ -969,17 +981,17 @@ void cRandomizerDialog::slotClickedUseButton()
 {
 	pressedUse = true;
 	// copy parameters one by one to not loose new animBySoundParameters
-	QList<QString> listOfParameters = actualParams.GetListOfParameters();
+	QList<QString> listOfParameters = actualParams->GetListOfParameters();
 	for (QString parameterName : listOfParameters)
 	{
-		gPar->Copy(parameterName, &actualParams);
+		gPar->Copy(parameterName, actualParams);
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		QList<QString> listOfFractalParameters = actualFractParams[i].GetListOfParameters();
+		QList<QString> listOfFractalParameters = actualFractParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)
 		{
-			gParFractal->at(i).Copy(parameterName, &actualFractParams[i]);
+			gParFractal->at(i)->Copy(parameterName, actualFractParams->at(i));
 		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -1037,11 +1049,11 @@ void cRandomizerDialog::slotPreviewRendered()
 				numberOfRepeats++;
 				numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
 
-				listOfVersions[previewNumber - 1].params = actualParams;
-				listOfVersions[previewNumber - 1].fractParams = actualFractParams;
+				*listOfVersions[previewNumber - 1].params = *actualParams;
+				*listOfVersions[previewNumber - 1].fractParams = *actualFractParams;
 
-				RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
-					&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
+				RandomizeParameters(actualStrength, listOfVersions[previewNumber - 1].params,
+					listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 
 				numberOfRunningJobs++;
 
@@ -1080,11 +1092,11 @@ void cRandomizerDialog::slotDetectedZeroDistance()
 		numberOfRepeats++;
 		numbersOfRepeats[previewNumber - 1] = numberOfRepeats;
 
-		listOfVersions[previewNumber - 1].params = actualParams;
-		listOfVersions[previewNumber - 1].fractParams = actualFractParams;
+		*listOfVersions[previewNumber - 1].params = *actualParams;
+		*listOfVersions[previewNumber - 1].fractParams = *actualFractParams;
 
-		RandomizeParameters(actualStrength, &listOfVersions[previewNumber - 1].params,
-			&listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
+		RandomizeParameters(actualStrength, listOfVersions[previewNumber - 1].params,
+			listOfVersions[previewNumber - 1].fractParams, previewNumber - 1);
 
 		numberOfRunningJobs++;
 
@@ -1130,8 +1142,8 @@ void cRandomizerDialog::UpdateProgressBar(double progress)
 
 void cRandomizerDialog::slotClickedResetButton()
 {
-	actualParams = *gPar;
-	actualFractParams = *gParFractal;
+	*actualParams = *gPar;
+	*actualFractParams = *gParFractal;
 	blockClose = true;
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
 	if (!ui->previewwidget_actual->IsRendered())
@@ -1192,8 +1204,10 @@ void cRandomizerDialog::slotCleanUp()
 	// render the same image as actual to calculate reference noise
 	CalcReferenceNoise();
 
-	cParameterContainer actualParamsCleaned = actualParams;
-	cFractalContainer actualFractParamsCleaned = actualFractParams;
+	std::shared_ptr<cParameterContainer> actualParamsCleaned(new cParameterContainer);
+	*actualParamsCleaned = *actualParams;
+	std::shared_ptr<cFractalContainer> actualFractParamsCleaned(new cFractalContainer);
+	*actualFractParamsCleaned = *actualFractParams;
 
 	QList<QString> list = actualListOfChangedParameters.keys();
 
@@ -1210,13 +1224,14 @@ void cRandomizerDialog::slotCleanUp()
 		int firstDashIndex = fullParameterName.indexOf("_");
 		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 
-		cParameterContainer *containerOrigin = ContainerSelector(fullParameterName, gPar, gParFractal);
+		std::shared_ptr<cParameterContainer> containerOrigin =
+			ContainerSelector(fullParameterName, gPar, gParFractal);
 
-		cParameterContainer *containerCleaned =
-			ContainerSelector(fullParameterName, &actualParamsCleaned, &actualFractParamsCleaned);
+		std::shared_ptr<cParameterContainer> containerCleaned =
+			ContainerSelector(fullParameterName, actualParamsCleaned, actualFractParamsCleaned);
 
-		cParameterContainer *containerActual =
-			ContainerSelector(fullParameterName, &actualParams, &actualFractParams);
+		std::shared_ptr<cParameterContainer> containerActual =
+			ContainerSelector(fullParameterName, actualParams, actualFractParams);
 
 		cOneParameter parameterOrigin = containerOrigin->GetAsOneParameter(parameterName);
 		containerCleaned->SetFromOneParameter(parameterName, parameterOrigin);
@@ -1254,8 +1269,8 @@ void cRandomizerDialog::slotCleanUp()
 		QApplication::processEvents();
 	}
 
-	actualParams = actualParamsCleaned;
-	actualFractParams = actualFractParamsCleaned;
+	*actualParams = *actualParamsCleaned;
+	*actualFractParams = *actualFractParamsCleaned;
 
 	// refresh actual reference image
 	RefreshReferenceImage();
@@ -1274,7 +1289,8 @@ void cRandomizerDialog::slotAddToKeyframes()
 		int firstDashIndex = fullParameterName.indexOf("_");
 		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 
-		cParameterContainer *container = ContainerSelector(fullParameterName, gPar, gParFractal);
+		std::shared_ptr<cParameterContainer> container =
+			ContainerSelector(fullParameterName, gPar, gParFractal);
 
 		if (gKeyframes->IndexOnList(parameterName, container->GetContainerName()) == -1)
 		{
@@ -1283,17 +1299,17 @@ void cRandomizerDialog::slotAddToKeyframes()
 	}
 
 	// copy parameters one by one to not loose new animBySoundParameters
-	QList<QString> listOfParameters = actualParams.GetListOfParameters();
+	QList<QString> listOfParameters = actualParams->GetListOfParameters();
 	for (QString parameterName : listOfParameters)
 	{
-		gPar->Copy(parameterName, &actualParams);
+		gPar->Copy(parameterName, actualParams);
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		QList<QString> listOfFractalParameters = actualFractParams[i].GetListOfParameters();
+		QList<QString> listOfFractalParameters = actualFractParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)
 		{
-			gParFractal->at(i).Copy(parameterName, &actualFractParams[i]);
+			gParFractal->at(i)->Copy(parameterName, actualFractParams->at(i));
 		}
 	}
 

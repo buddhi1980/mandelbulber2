@@ -88,9 +88,9 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 	return type;
 }
 
-cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *objectData)
+cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
 {
-	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started", 3);
+	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) started", 3);
 	isAnyPrimitive = false;
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
@@ -276,7 +276,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	allPrimitivesRotation = par->Get<CVector3>("all_primitives_rotation");
 	mRotAllPrimitivesRotation.SetRotation2(allPrimitivesRotation / 180.0 * M_PI);
 
-	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished", 3);
+	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
 }
 
 cPrimitives::~cPrimitives()

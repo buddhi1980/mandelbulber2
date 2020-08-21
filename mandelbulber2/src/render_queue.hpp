@@ -76,8 +76,8 @@ signals:
 private:
 	std::shared_ptr<cImage> image;
 	RenderedImage *imageWidget;
-	cParameterContainer *queuePar;
-	cFractalContainer *queueParFractal;
+	std::shared_ptr<cParameterContainer> queuePar;
+	std::shared_ptr<cFractalContainer> queueParFractal;
 	cAnimationFrames *queueAnimFrames;
 	cFlightAnimation *queueFlightAnimation;
 	cKeyframeAnimation *queueKeyframeAnimation;

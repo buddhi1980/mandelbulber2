@@ -37,7 +37,7 @@
 #include "object_data.hpp"
 #include "parameters.hpp"
 
-sParamRender::sParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
+sParamRender::sParamRender(const std::shared_ptr<cParameterContainer> container, QVector<cObjectData> *objectData)
 		: primitives(container, objectData)
 {
 	advancedQuality = container->Get<bool>("advanced_quality");

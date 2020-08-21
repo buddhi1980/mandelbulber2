@@ -58,17 +58,18 @@
 #include "system_data.hpp"
 #include "write_log.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
-	std::shared_ptr<cImage> _image, bool *_stopRequest, QWidget *_qWidget)
+cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
+	const std::shared_ptr<cFractalContainer> _fractal, std::shared_ptr<cImage> _image,
+	bool *_stopRequest, QWidget *_qWidget)
 		: QObject()
 {
 	WriteLog("cRenderJob::cRenderJob", 2);
 	image = _image;
 
 	// create new copy of parameter container
-	paramsContainer = new cParameterContainer;
+	paramsContainer.reset(new cParameterContainer());
 	*paramsContainer = *_params;
-	fractalContainer = new cFractalContainer;
+	fractalContainer.reset(new cFractalContainer());
 	*fractalContainer = *_fractal;
 	canUseNetRender = false;
 
@@ -108,8 +109,6 @@ cRenderJob::~cRenderJob()
 {
 	id--;
 	// qDebug() << "Id" << id;
-	delete paramsContainer;
-	delete fractalContainer;
 	if (renderData) delete renderData;
 
 	if (canUseNetRender) gNetRender->Release();
@@ -612,7 +611,7 @@ void cRenderJob::InitNetRender()
 		QStringList listOfUsedTextures = CreateListOfUsedTextures();
 
 		// send settings to all clients
-		emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
+		emit SendNetRenderJob(paramsContainer, fractalContainer, listOfUsedTextures);
 	}
 
 	// get starting positions received from server
@@ -814,8 +813,8 @@ void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const
 	paramsContainer->Set("camera_distance_to_target", cameraTarget.GetDistance());
 }
 
-void cRenderJob::UpdateParameters(
-	const cParameterContainer *_params, const cFractalContainer *_fractal)
+void cRenderJob::UpdateParameters(const std::shared_ptr<cParameterContainer> _params,
+	const std::shared_ptr<cFractalContainer> _fractal)
 {
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;

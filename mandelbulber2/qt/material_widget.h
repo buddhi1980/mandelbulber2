@@ -51,11 +51,11 @@ public:
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cMaterialWidget() override;
 	void AssignMaterial(
-		cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = nullptr);
+		std::shared_ptr<cParameterContainer> _params, int materialIndex, QWidget *_materialEditorWidget = nullptr);
 	void AssignMaterial(const QString &settings, int materialIndex);
 
 private:
-	cParameterContainer *paramsHandle;
+	std::shared_ptr<cParameterContainer> paramsHandle;
 	cParameterContainer paramsCopy;
 	int actualMaterialIndex;
 	QTimer *timerPeriodicRefresh;

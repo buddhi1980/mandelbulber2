@@ -338,7 +338,7 @@ QList<cCustomFormulaEditor::sParameterDesctiption> cCustomFormulaEditor::Convert
 			QString parameterName = conversionTable[sourceName];
 			if (parameterName != "none")
 			{
-				cOneParameter parameter = gParFractal->at(0).GetAsOneParameter(parameterName);
+				cOneParameter parameter = gParFractal->at(0)->GetAsOneParameter(parameterName);
 				sParameterDesctiption parDesc;
 				parDesc.parameterName = parameterName;
 				parDesc.parameter = parameter;
@@ -471,7 +471,7 @@ void cCustomFormulaEditor::BuildUI(const QList<sParameterDesctiption> &listOfPar
 		ui->formLayoutParameters->addRow(line);
 	}
 	SynchronizeInterfaceWindow(
-		ui->groupBox_parameters, &gParFractal->at(slotIndex), qInterface::write);
+		ui->groupBox_parameters, gParFractal->at(slotIndex), qInterface::write);
 }
 
 void cCustomFormulaEditor::slotInsertParameter()

@@ -82,8 +82,8 @@ public:
 	};
 
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, std::shared_ptr<cImage> _image,
-		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
-		QObject *parent);
+		QWidget *_imageWidget, std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractal, QObject *parent);
 
 	bool RenderKeyframes(bool *stopRequest);
 	void RenderFrame(int index) const;
@@ -158,8 +158,8 @@ private:
 	cKeyframes *keyframes;
 	std::shared_ptr<cImage> image;
 	RenderedImage *imageWidget;
-	cParameterContainer *params;
-	cFractalContainer *fractalParams;
+	std::shared_ptr<cParameterContainer> params;
+	std::shared_ptr<cFractalContainer> fractalParams;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; // position of parameter in table
 	QVector<int> rowParameter;	// index of parameter in row
@@ -189,8 +189,8 @@ signals:
 	void notifyRenderKeyframeRenderStatus(QString text, QString progressText);
 
 	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
-	void NetRenderCurrentAnimation(
-		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
+	void NetRenderCurrentAnimation(std::shared_ptr<const cParameterContainer> settings,
+		std::shared_ptr<const cFractalContainer> fractal, bool isFlight);
 	void NetRenderConfirmRendered(int frameIndex, int toDoListLength);
 	void NetRenderSendFramesToDoList(int clientIndex, QList<int> frameNumbers);
 	void NetRenderAddFileToSender(QString);

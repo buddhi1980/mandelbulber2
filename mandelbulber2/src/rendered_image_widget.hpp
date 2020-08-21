@@ -96,7 +96,8 @@ public:
 
 	RenderedImage(QWidget *parent = nullptr);
 	void AssignImage(std::shared_ptr<cImage> _image) { image = _image; }
-	void AssignParameters(cParameterContainer *_mainParams, cFractalContainer *_fractals)
+	void AssignParameters(
+		std::shared_ptr<cParameterContainer> _mainParams, std::shared_ptr<cFractalContainer> _fractals)
 	{
 		params = _mainParams;
 		fractals = _fractals;
@@ -158,9 +159,9 @@ private:
 	bool clickModesEnables;
 	int draggingStarted;
 	bool draggingInitStarted;
-	cFractalContainer *fractals;
+	std::shared_ptr<cFractalContainer> fractals;
 	std::shared_ptr<cImage> image;
-	cParameterContainer *params;
+	std::shared_ptr<cParameterContainer> params;
 	CVector2<double> keyArrows;
 	CVector2<int> lastMousePosition;
 	CVector2<int> dragStartPosition;

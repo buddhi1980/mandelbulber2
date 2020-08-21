@@ -357,12 +357,12 @@ void cDockImageAdjustments::InitResolutionPresets()
 		cSettings settings(cSettings::formatAppSettings);
 		settings.BeQuiet(true);
 		settings.LoadFromFile(presetsFile);
-		settings.Decode(resolutionPresets.get(), nullptr);
+		settings.Decode(resolutionPresets, nullptr);
 	}
 	else
 	{
 		cSettings settings(cSettings::formatAppSettings);
-		settings.CreateText(resolutionPresets.get(), nullptr);
+		settings.CreateText(resolutionPresets, nullptr);
 		settings.SaveToFile(presetsFile);
 	}
 
@@ -412,7 +412,7 @@ void cDockImageAdjustments::slotChangeResolutionPreset()
 
 		QString presetsFile = systemDirectories.GetResolutionPresetsFile();
 		cSettings settings(cSettings::formatAppSettings);
-		settings.CreateText(resolutionPresets.get(), nullptr);
+		settings.CreateText(resolutionPresets, nullptr);
 		settings.SaveToFile(presetsFile);
 	}
 }

@@ -67,7 +67,7 @@ enum enumBooleanOperator
 struct sParamRender
 {
 	// constructor with init
-	sParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
+	sParamRender(const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
 
 	int antialiasingSize;
 	int antialiasingOclDepth;

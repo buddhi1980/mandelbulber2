@@ -37,7 +37,7 @@
 #ifndef MANDELBULBER2_SRC_TRACE_BEHIND_H_
 #define MANDELBULBER2_SRC_TRACE_BEHIND_H_
 
-double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
+double traceBehindFractal(std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractals, double maxDist,
 	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit);
 
 #endif /* MANDELBULBER2_SRC_TRACE_BEHIND_H_ */

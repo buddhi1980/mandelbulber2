@@ -77,8 +77,9 @@
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
 cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames,
-	std::shared_ptr<cImage> _image, QWidget *_imageWidget, cParameterContainer *_params,
-	cFractalContainer *_fractal, QObject *parent)
+	std::shared_ptr<cImage> _image, QWidget *_imageWidget,
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
+	QObject *parent)
 		: QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	image = _image;
@@ -225,7 +226,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 	if (keyframes)
 	{
 		// add new frame to container
-		keyframes->AddFrame(*params, *fractalParams, index);
+		keyframes->AddFrame(params, fractalParams, index);
 
 		params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
@@ -238,7 +239,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			cThumbnailWidget *thumbWidget =
 				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(false);
-			thumbWidget->AssignParameters(*params, *fractalParams);
+			thumbWidget->AssignParameters(params, fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		UpdateLimitsForFrameRange();
@@ -286,7 +287,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 			// add new frame to container
 			keyframes->DeleteFrames(index, index);
-			keyframes->AddFrame(*params, *fractalParams, index);
+			keyframes->AddFrame(params, fractalParams, index);
 
 			// add column to table
 			table->removeColumn(index + reservedColumns);
@@ -298,7 +299,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 				cThumbnailWidget *thumbWidget =
 					new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 				thumbWidget->UseOneCPUCore(false);
-				thumbWidget->AssignParameters(*params, *fractalParams);
+				thumbWidget->AssignParameters(params, fractalParams);
 				table->setCellWidget(0, newColumn, thumbWidget);
 			}
 
@@ -783,7 +784,7 @@ void cKeyframeAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 			emit SendNetRenderSetup(i, startingFrames);
 		}
 	}
-	emit NetRenderCurrentAnimation(*params, *fractalParams, false);
+	emit NetRenderCurrentAnimation(params, fractalParams, false);
 }
 
 void cKeyframeAnimation::UpdateCameraAndTarget()
@@ -1057,8 +1058,10 @@ void cKeyframeAnimation::RefreshTable()
 
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
-	cParameterContainer tempPar = *params;
-	cFractalContainer tempFract = *fractalParams;
+	auto tempPar = std::make_shared<cParameterContainer>();
+	*tempPar = *params;
+	auto tempFract = std::make_shared<cFractalContainer>();
+	*tempFract = *fractalParams;
 
 	for (int i = 0; i < noOfFrames; i++)
 	{
@@ -1069,8 +1072,8 @@ void cKeyframeAnimation::RefreshTable()
 			cThumbnailWidget *thumbWidget =
 				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
-			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
-			tempPar.Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
+			keyframes->GetFrameAndConsolidate(i, tempPar, tempFract);
+			tempPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
@@ -1222,9 +1225,12 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		// update thumbnail
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cParameterContainer tempPar = *params;
-			cFractalContainer tempFract = *fractalParams;
-			keyframes->GetFrameAndConsolidate(index, &tempPar, &tempFract);
+			auto tempPar = std::make_shared<cParameterContainer>();
+			*tempPar = *params;
+			auto tempFract = std::make_shared<cFractalContainer>();
+			*tempFract = *fractalParams;
+
+			keyframes->GetFrameAndConsolidate(index, tempPar, tempFract);
 			cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
 
 			if (!thumbWidget)
@@ -1498,8 +1504,11 @@ void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequest)
 {
 	QList<int> listOfCollisions;
-	cParameterContainer tempPar = *params;
-	cFractalContainer tempFractPar = *fractalParams;
+
+	auto tempPar = std::make_shared<cParameterContainer>();
+	*tempPar = *params;
+	auto tempFractPar = std::make_shared<cFractalContainer>();
+	*tempFractPar = *fractalParams;
 
 	*stopRequest = false;
 
@@ -1516,10 +1525,10 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 			gApplication->processEvents();
 			if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
 			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
-			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
-			tempPar.Set("frame_no", frameIndex);
-			const CVector3 point = tempPar.Get<CVector3>("camera");
-			const double dist = mainInterface->GetDistanceForPoint(point, &tempPar, &tempFractPar);
+			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
+			tempPar->Set("frame_no", frameIndex);
+			const CVector3 point = tempPar->Get<CVector3>("camera");
+			const double dist = mainInterface->GetDistanceForPoint(point, tempPar, tempFractPar);
 			if (dist < minDist)
 			{
 				listOfCollisions.append(frameIndex);
@@ -1632,8 +1641,11 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
 	int framesPerKey = keyframes->GetFramesPerKeyframe();
 
-	cParameterContainer tempPar = *params;
-	cFractalContainer tempFractPar = *fractalParams;
+	auto tempPar = std::make_shared<cParameterContainer>();
+	*tempPar = *params;
+	auto tempFractPar = std::make_shared<cFractalContainer>();
+	*tempFractPar = *fractalParams;
+
 	sAnimationPathData animationPathData;
 	animationPathData.framesPeyKey = framesPerKey;
 	animationPathData.numberOfKeyframes = numberOfKeyframes;
@@ -1652,14 +1664,14 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 		{
 			int frame = keyframe * framesPerKey + interFrame;
 
-			keyframes->GetInterpolatedFrameAndConsolidate(frame, &tempPar, &tempFractPar);
+			keyframes->GetInterpolatedFrameAndConsolidate(frame, tempPar, tempFractPar);
 			sAnimationPathPoint point;
-			point.camera = tempPar.Get<CVector3>("camera");
-			point.target = tempPar.Get<CVector3>("target");
+			point.camera = tempPar->Get<CVector3>("camera");
+			point.target = tempPar->Get<CVector3>("target");
 			for (int l = 0; l < 4; l++)
 			{
-				point.lights[l] = tempPar.Get<CVector3>("aux_light_position", l + 1);
-				sRGB color16 = tempPar.Get<sRGB>("aux_light_colour", l + 1);
+				point.lights[l] = tempPar->Get<CVector3>("aux_light_position", l + 1);
+				sRGB color16 = tempPar->Get<sRGB>("aux_light_colour", l + 1);
 				sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
 				point.lightColor[l] = color8;
 			}

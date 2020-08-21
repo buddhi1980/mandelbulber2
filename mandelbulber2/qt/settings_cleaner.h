@@ -46,13 +46,13 @@ private:
 	struct sDefaultedParameter
 	{
 		QString parameterName;
-		cParameterContainer *actualContainer;
-		cParameterContainer *originalContainer;
+		std::shared_ptr<cParameterContainer> actualContainer;
+		std::shared_ptr<cParameterContainer> originalContainer;
 	};
 
 	bool stopRequest = false;
-	cParameterContainer actualParams;
-	cFractalContainer actualFractalParams;
+	std::shared_ptr<cParameterContainer> actualParams;
+	std::shared_ptr<cFractalContainer> actualFractalParams;
 	QList<sDefaultedParameter> listOfAllDefaultedParameters;
 };
 

@@ -34,6 +34,7 @@
 
 #include "synchronize_interface.hpp"
 
+#include <memory>
 #include <QComboBox>
 #include <QPlainTextEdit>
 #include <QDebug>
@@ -60,7 +61,8 @@
 using namespace qInterface;
 
 // Reading ad writing parameters from/to selected widget to/from parameters container
-void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode)
+void SynchronizeInterfaceWindow(
+	QWidget *window, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	if (!gInterfaceReadyForSynchronization && mode == qInterface::read) return;
 
@@ -105,7 +107,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 // widget specific synchronization functions
 void SynchronizeInterfaceQLineEdit(
-	QList<QLineEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QLineEdit *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	for (auto &widget : widgets)
 	{
@@ -196,7 +198,7 @@ void SynchronizeInterfaceQLineEdit(
 }
 
 void SynchronizeInterfaceQDoubleSpinBox(
-	QList<QDoubleSpinBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QDoubleSpinBox *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QDoubleSpinBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -263,7 +265,7 @@ void SynchronizeInterfaceQDoubleSpinBox(
 }
 
 void SynchronizeInterfaceQSpinBox(
-	QList<QSpinBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QSpinBox *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QSpinBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -297,7 +299,7 @@ void SynchronizeInterfaceQSpinBox(
 }
 
 void SynchronizeInterfaceQCheckBox(
-	QList<QCheckBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QCheckBox *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QCheckBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -331,7 +333,7 @@ void SynchronizeInterfaceQCheckBox(
 }
 
 void SynchronizeInterfaceQGroupBox(
-	QList<QGroupBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QGroupBox *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QGroupBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -365,7 +367,7 @@ void SynchronizeInterfaceQGroupBox(
 }
 
 void SynchronizeInterfaceFileSelectWidget(
-	QList<FileSelectWidget *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<FileSelectWidget *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<FileSelectWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -390,7 +392,7 @@ void SynchronizeInterfaceFileSelectWidget(
 }
 
 void SynchronizeInterfaceMyColorButton(
-	QList<MyColorButton *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<MyColorButton *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<MyColorButton *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -416,7 +418,7 @@ void SynchronizeInterfaceMyColorButton(
 }
 
 void SynchronizeInterfaceQComboBox(
-	QList<QComboBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QComboBox *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QComboBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -473,7 +475,7 @@ void SynchronizeInterfaceQComboBox(
 }
 
 void SynchronizeInterfaceMaterialSelector(
-	QList<cMaterialSelector *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<cMaterialSelector *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<cMaterialSelector *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -501,7 +503,7 @@ void SynchronizeInterfaceMaterialSelector(
 }
 
 void SynchronizeInterfaceQPlainTextEdit(
-	QList<QPlainTextEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QPlainTextEdit *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QPlainTextEdit *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -530,7 +532,7 @@ void SynchronizeInterfaceQPlainTextEdit(
 }
 
 void SynchronizeInterfaceQTextEdit(
-	QList<QTextEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+	QList<QTextEdit *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	QList<QTextEdit *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -561,8 +563,8 @@ void SynchronizeInterfaceQTextEdit(
 	} // end foreach
 }
 
-void SynchronizeInterfaceColorGradientWidget(
-	QList<cGradientEditWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode)
+void SynchronizeInterfaceColorGradientWidget(QList<cGradientEditWidget *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode)
 {
 	QList<cGradientEditWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
@@ -602,7 +604,7 @@ void GetNameAndType(QString name, QString *parameterName, QString *type)
 }
 
 void SynchronizeInterfaceReadVect3d(
-	QString &nameVect, char lastChar, double value, cParameterContainer *par)
+	QString &nameVect, char lastChar, double value, std::shared_ptr<cParameterContainer> par)
 {
 	CVector3 vect = par->Get<CVector3>(nameVect);
 	switch (lastChar)
@@ -619,7 +621,7 @@ void SynchronizeInterfaceReadVect3d(
 }
 
 void SynchronizeInterfaceWriteVect3d(
-	QString &nameVect, char lastChar, double &out, cParameterContainer *par)
+	QString &nameVect, char lastChar, double &out, std::shared_ptr<cParameterContainer> par)
 {
 	CVector3 vect = par->Get<CVector3>(nameVect);
 	switch (lastChar)
@@ -635,7 +637,7 @@ void SynchronizeInterfaceWriteVect3d(
 }
 
 void SynchronizeInterfaceReadVect4d(
-	QString &nameVect, char lastChar, double value, cParameterContainer *par)
+	QString &nameVect, char lastChar, double value, std::shared_ptr<cParameterContainer> par)
 {
 	CVector4 vect = par->Get<CVector4>(nameVect);
 	switch (lastChar)
@@ -653,7 +655,7 @@ void SynchronizeInterfaceReadVect4d(
 }
 
 void SynchronizeInterfaceWriteVect4d(
-	QString &nameVect, char lastChar, double &out, cParameterContainer *par)
+	QString &nameVect, char lastChar, double &out, std::shared_ptr<cParameterContainer> par)
 {
 	CVector4 vect = par->Get<CVector4>(nameVect);
 	switch (lastChar)

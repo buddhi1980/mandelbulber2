@@ -65,8 +65,9 @@ cSettings::cSettings(enumFormat _format)
 	foundAnimSoundParameters = false;
 }
 
-size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
-	cAnimationFrames *frames, cKeyframes *keyframes)
+size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
+	std::shared_ptr<const cFractalContainer> fractPar, cAnimationFrames *frames,
+	cKeyframes *keyframes)
 {
 	WriteLog("Create settings text", 3);
 	settingsText.clear();
@@ -98,7 +99,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		{
 			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
-				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
+				QList<QString> parameterListFractal = fractPar->at(f)->GetListOfParameters();
 				QString fractalSettingsText = "";
 				for (const auto &parameterNameFromFractal : parameterListFractal)
 				{
@@ -108,7 +109,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 									QString("fractal%1_").arg(f) + parameterNameFromFractal))
 							continue;
 					}
-					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterNameFromFractal);
+					fractalSettingsText += CreateOneLine(fractPar->at(f), parameterNameFromFractal);
 				}
 				if (fractalSettingsText.length() > 0)
 				{
@@ -269,7 +270,7 @@ QString cSettings::CreateHeader() const
 	return header;
 }
 
-QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) const
+QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par, QString name) const
 {
 	QString text;
 
@@ -482,11 +483,12 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 	}
 }
 
-bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
-	cAnimationFrames *frames, cKeyframes *keyframes)
+bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	WriteLog(
-		"cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames "
+		"cSettings::Decode(std::shared_ptr<cParameterContainer> par, "
+		"std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames "
 		"*frames)",
 		2);
 
@@ -508,7 +510,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			if (fractPar)
 			{
 				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-					fractPar->at(i).ResetAllToDefault();
+					fractPar->at(i)->ResetAllToDefault();
 			}
 			DeleteAllPrimitiveParams(par);
 			listOfLoadedPrimitives.clear();
@@ -527,8 +529,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 		}
 		// temporary containers to decode frames
-		cParameterContainer parTemp;
-		cFractalContainer fractTemp;
+		std::shared_ptr<cParameterContainer> parTemp(new cParameterContainer());
+		std::shared_ptr<cFractalContainer> fractTemp(new cFractalContainer());
 
 		for (int l = 3; l < separatedText.size(); l++)
 		{
@@ -577,7 +579,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 							continue;
 					}
 
-					if (fractPar) result = DecodeOneLine(&fractPar->at(i), line);
+					if (fractPar) result = DecodeOneLine(fractPar->at(i), line);
 				}
 				else if (section == QString("frames"))
 				{
@@ -588,15 +590,15 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 							if (csvLine == 0)
 							{
 								CheckIfMaterialsAreDefined(par);
-								parTemp = *par;
-								if (fractPar) fractTemp = *fractPar;
+								*parTemp = *par;
+								if (fractPar) *fractTemp = *fractPar;
 
 								result = DecodeFramesHeader(line, par, fractPar, frames);
 								csvLine++;
 							}
 							else
 							{
-								result = DecodeFramesLine(line, &parTemp, &fractTemp, frames);
+								result = DecodeFramesLine(line, parTemp, fractTemp, frames);
 								csvLine++;
 							}
 						}
@@ -619,15 +621,15 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 							if (csvLine == 0)
 							{
 								CheckIfMaterialsAreDefined(par);
-								parTemp = *par;
-								if (fractPar) fractTemp = *fractPar;
+								*parTemp = *par;
+								if (fractPar) *fractTemp = *fractPar;
 
 								result = DecodeFramesHeader(line, par, fractPar, keyframes);
 								csvLine++;
 							}
 							else
 							{
-								result = DecodeFramesLine(line, &parTemp, &fractTemp, keyframes);
+								result = DecodeFramesLine(line, parTemp, fractTemp, keyframes);
 								csvLine++;
 							}
 						}
@@ -735,7 +737,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	}
 }
 
-bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
+bool cSettings::CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> par)
 {
 	bool matParameterFound = false;
 	QList<QString> list = par->GetListOfParameters();
@@ -765,7 +767,7 @@ bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
 	return matParameterFound;
 }
 
-bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
+bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString line)
 {
 	int firstSpace = line.indexOf(' ');
 	int semicolon = line.indexOf(';');
@@ -1052,7 +1054,8 @@ void cSettings::Compatibility(QString &name, QString &value) const
 	}
 }
 
-void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)
+void cSettings::Compatibility2(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract)
 {
 	if (fileVersion <= 2.06)
 	{
@@ -1064,7 +1067,7 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				fract->at(i).Set("IFS_rotation_enabled", true);
+				fract->at(i)->Set("IFS_rotation_enabled", true);
 			}
 		}
 	}
@@ -1198,17 +1201,17 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 		{
 			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 			{
-				if (fract->at(i).Get<CVector3>("IFS_edge").Length() > 0)
+				if (fract->at(i)->Get<CVector3>("IFS_edge").Length() > 0)
 				{
-					fract->at(i).Set("IFS_edge_enabled", true);
+					fract->at(i)->Set("IFS_edge_enabled", true);
 				}
 			}
 		}
 	}
 }
 
-bool cSettings::DecodeFramesHeader(
-	QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames)
 {
 	QStringList lineSplit = line.split(';');
 	try
@@ -1231,7 +1234,7 @@ bool cSettings::DecodeFramesHeader(
 						int firstUnderscore = fullParameterName.indexOf('_');
 						QString containerName = fullParameterName.left(firstUnderscore);
 						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
-						cParameterContainer *selectedContainer =
+						std::shared_ptr<cParameterContainer> selectedContainer =
 							cAnimationFrames::ContainerSelector(containerName, par, fractPar);
 
 						if (!selectedContainer->IfExists(parameterName))
@@ -1269,7 +1272,7 @@ bool cSettings::DecodeFramesHeader(
 						int firstUnderscore = fullParameterName.indexOf('_');
 						QString containerName = fullParameterName.left(firstUnderscore);
 						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
-						cParameterContainer *selectedContainer =
+						std::shared_ptr<cParameterContainer> selectedContainer =
 							cAnimationFrames::ContainerSelector(containerName, par, fractPar);
 
 						if (!selectedContainer->IfExists(parameterName))
@@ -1320,8 +1323,8 @@ bool cSettings::DecodeFramesHeader(
 	return true;
 }
 
-bool cSettings::DecodeFramesLine(
-	QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames)
 {
 	QStringList lineSplit = line.split(';');
 	QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
@@ -1371,7 +1374,8 @@ bool cSettings::DecodeFramesLine(
 					enumVarType type = parameterDescription.varType;
 					QString containerName = parameterDescription.containerName;
 					QString parameterName = parameterDescription.parameterName;
-					cParameterContainer *container = frames->ContainerSelector(containerName, par, fractPar);
+					std::shared_ptr<cParameterContainer> container =
+						frames->ContainerSelector(containerName, par, fractPar);
 
 					if (type == typeVector3)
 					{
@@ -1434,7 +1438,7 @@ bool cSettings::DecodeFramesLine(
 	}
 
 	Compatibility2(par, fractPar);
-	frames->AddFrame(*par, *fractPar);
+	frames->AddFrame(par, fractPar);
 
 	return true;
 }
@@ -1459,7 +1463,7 @@ QString cSettings::everyLocaleDouble(QString txt)
 	return txtOut;
 }
 
-void cSettings::PreCompatibilityMaterials(int matIndex, cParameterContainer *par)
+void cSettings::PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par)
 {
 	if (fileVersion < 2.15)
 	{

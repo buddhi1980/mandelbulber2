@@ -62,7 +62,7 @@ cAudioTrackCollection &cAudioTrackCollection::operator=(const cAudioTrackCollect
 }
 
 void cAudioTrackCollection::AddAudioTrack(
-	const QString fullParameterName, cParameterContainer *params)
+	const QString fullParameterName, std::shared_ptr<cParameterContainer> params)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -80,7 +80,7 @@ void cAudioTrackCollection::AddAudioTrack(
 }
 
 void cAudioTrackCollection::DeleteAudioTrack(
-	const QString fullParameterName, cParameterContainer *params)
+	const QString fullParameterName, std::shared_ptr<cParameterContainer> params)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -94,7 +94,7 @@ void cAudioTrackCollection::DeleteAudioTrack(
 	}
 }
 
-void cAudioTrackCollection::DeleteAllAudioTracks(cParameterContainer *params)
+void cAudioTrackCollection::DeleteAllAudioTracks(std::shared_ptr<cParameterContainer> params)
 {
 	QStringList listOfAllParameters = audioTracks.keys();
 
@@ -120,7 +120,7 @@ std::shared_ptr<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
 }
 
 void cAudioTrackCollection::AddParameters(
-	cParameterContainer *params, const QString parameterName) const
+	std::shared_ptr<cParameterContainer> params, const QString parameterName) const
 {
 	if (!params->IfExists(FullParameterName("enable", parameterName)))
 	{
@@ -159,7 +159,7 @@ void cAudioTrackCollection::AddParameters(
 }
 
 void cAudioTrackCollection::RemoveParameters(
-	cParameterContainer *params, const QString parameterName) const
+	std::shared_ptr<cParameterContainer> params, const QString parameterName) const
 {
 	if (params->IfExists(FullParameterName("enable", parameterName)))
 	{
@@ -187,7 +187,7 @@ QString cAudioTrackCollection::FullParameterName(
 	return prefix + QString("_") + nameOfSoundParameter + "_" + parameterName;
 }
 
-void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
+void cAudioTrackCollection::LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params)
 {
 	QStringList listOfAllParameters = audioTracks.keys();
 
@@ -210,7 +210,7 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 	}
 }
 
-void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
+void cAudioTrackCollection::RefreshAllAudioTracks(std::shared_ptr<cParameterContainer> params)
 {
 	QStringList listOfAllParameters = audioTracks.keys();
 

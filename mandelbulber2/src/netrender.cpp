@@ -137,14 +137,14 @@ void cNetRender::DeleteClient()
 	netRenderClient->DeleteClient();
 }
 
-void cNetRender::SetCurrentJob(
-	const cParameterContainer &settings, const cFractalContainer &fractal, QStringList listOfTextures)
+void cNetRender::SetCurrentJob(std::shared_ptr<const cParameterContainer> settings,
+	std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures)
 {
 	netRenderServer->SetCurrentJob(settings, fractal, listOfTextures);
 }
 
-void cNetRender::SetCurrentAnimation(
-	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
+void cNetRender::SetCurrentAnimation(std::shared_ptr<const cParameterContainer> settings,
+	std::shared_ptr<const cFractalContainer> fractal, bool isFlight)
 {
 	netRenderServer->SetCurrentAnimation(settings, fractal, isFlight);
 }

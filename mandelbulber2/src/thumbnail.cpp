@@ -47,7 +47,7 @@
 #include "settings.hpp"
 #include "system_directories.hpp"
 
-cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
+cThumbnail::cThumbnail(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal,
 	int _width, int _height, QString _hash = QString())
 		: params(_params), fractal(_fractal), width(_width), height(_height), hash(std::move(_hash))
 {

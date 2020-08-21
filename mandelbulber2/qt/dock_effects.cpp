@@ -104,22 +104,22 @@ void cDockEffects::ConnectSignals() const
 		&cDockEffects::slotPressedButtonCloudsRandomize);
 }
 
-void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
+void cDockEffects::SynchronizeInterfaceBasicFogEnabled(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_basic_fog_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceDOFEnabled(cParameterContainer *par) const
+void cDockEffects::SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_DOF_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceLights(cParameterContainer *par) const
+void cDockEffects::SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupBox_Lights, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceRandomLights(cParameterContainer *par) const
+void cDockEffects::SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_random_lights_group, par, qInterface::write);
 }

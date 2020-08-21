@@ -76,11 +76,11 @@ public:
 	// in cli mode this method enables waiting for the clients before start of rendering
 	bool WaitForAllClientsReady(double timeout);
 	// send parameters and textures to all clients and start rendering
-	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
-		QStringList listOfTextures);
+	void SetCurrentJob(std::shared_ptr<const cParameterContainer> settings,
+		std::shared_ptr<const cFractalContainer> fractal, QStringList listOfTextures);
 	// send parameters and start rendering animation from frame n
-	void SetCurrentAnimation(
-		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
+	void SetCurrentAnimation(std::shared_ptr<const cParameterContainer> settings,
+		std::shared_ptr<const cFractalContainer> fractal, bool isFlight);
 	// send list of frames to render next
 	void SendFramesToDoList(int clientIndex, const QList<int> &frameNumbers);
 

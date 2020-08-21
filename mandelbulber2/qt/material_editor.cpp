@@ -78,7 +78,7 @@ void cMaterialEditor::ConnectSignals()
 		ui->widget_material_preview, SIGNAL(materialChanged(int)), this, SIGNAL(materialChanged(int)));
 }
 
-void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
+void cMaterialEditor::AssignMaterial(std::shared_ptr<cParameterContainer> params, int index)
 {
 	if (isMaterialAssigned)
 	{

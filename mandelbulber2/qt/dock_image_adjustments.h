@@ -106,7 +106,7 @@ private:
 
 	cAutomatedWidgets *automatedWidgets;
 
-	std::unique_ptr<cParameterContainer> resolutionPresets;
+	std::shared_ptr<cParameterContainer> resolutionPresets;
 	QList<QToolButton *> listOfPresetPushButtons;
 };
 

@@ -26,6 +26,9 @@ cSettingsCleaner::cSettingsCleaner(QWidget *parent) : QDialog(parent), ui(new Ui
 {
 	ui->setupUi(this);
 
+	actualParams.reset(new cParameterContainer());
+	actualFractalParams.reset(new cFractalContainer());
+
 	setModal(true);
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
@@ -61,8 +64,8 @@ void cSettingsCleaner::runCleaner()
 	ui->progressBar->setFormat(tr("Initializing"));
 	ui->progressBar->setValue(0.0);
 
-	actualParams = *gPar;
-	actualFractalParams = *gParFractal;
+	*actualParams = *gPar;
+	*actualFractalParams = *gParFractal;
 
 	// render reference image
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractalParams);
@@ -94,7 +97,7 @@ void cSettingsCleaner::runCleaner()
 	std::shared_ptr<cImage> cleanedImage = ui->previewwidget_cleaned->GetImage();
 	double referenceNoise = cleanedImage->VisualCompare(actualImage, false);
 	double referenceDistane =
-		gMainInterface->GetDistanceForPoint(actualParams.Get<CVector3>("camera"));
+		gMainInterface->GetDistanceForPoint(actualParams->Get<CVector3>("camera"));
 
 	QApplication::processEvents();
 
@@ -102,11 +105,11 @@ void cSettingsCleaner::runCleaner()
 
 	QList<sDefaultedParameter> listOfAllModifiedParameters;
 
-	QList<QString> listOfMainParameters = actualParams.GetListOfParameters();
+	QList<QString> listOfMainParameters = actualParams->GetListOfParameters();
 	for (QString parameterName : listOfMainParameters)
 	{
-		if (!actualParams.isDefaultValue(parameterName)
-				&& actualParams.GetParameterType(parameterName) == paramStandard)
+		if (!actualParams->isDefaultValue(parameterName)
+				&& actualParams->GetParameterType(parameterName) == paramStandard)
 		{
 			// exceptions
 			if (parameterName == "image_width") continue;
@@ -141,23 +144,23 @@ void cSettingsCleaner::runCleaner()
 
 			sDefaultedParameter par;
 			par.parameterName = parameterName;
-			par.actualContainer = &actualParams;
+			par.actualContainer = actualParams;
 			par.originalContainer = gPar;
 			listOfAllModifiedParameters.append(par);
 		}
 	}
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		QList<QString> listOfFractalParameters = actualFractalParams[i].GetListOfParameters();
+		QList<QString> listOfFractalParameters = actualFractalParams->at(i)->GetListOfParameters();
 		for (QString parameterName : listOfFractalParameters)
 		{
-			if (!actualFractalParams[i].isDefaultValue(parameterName)
-					&& actualFractalParams[i].GetParameterType(parameterName) == paramStandard)
+			if (!actualFractalParams->at(i)->isDefaultValue(parameterName)
+					&& actualFractalParams->at(i)->GetParameterType(parameterName) == paramStandard)
 			{
 				sDefaultedParameter par;
 				par.parameterName = parameterName;
-				par.actualContainer = &actualFractalParams[i];
-				par.originalContainer = &gParFractal->at(i);
+				par.actualContainer = actualFractalParams->at(i);
+				par.originalContainer = gParFractal->at(i);
 				listOfAllModifiedParameters.append(par);
 			}
 		}
@@ -173,7 +176,7 @@ void cSettingsCleaner::runCleaner()
 	{
 		if (stopRequest) break;
 
-		cParameterContainer *container = par.actualContainer;
+		std::shared_ptr<cParameterContainer> container = par.actualContainer;
 		QString parameterName = par.parameterName;
 
 		//	qDebug() << container->GetContainerName() << parameterName;
@@ -188,7 +191,7 @@ void cSettingsCleaner::runCleaner()
 			tr("Trying parameter: %1:%2").arg(container->GetContainerName()).arg(parameterName));
 
 		double distanceAfterCleaning = gMainInterface->GetDistanceForPoint(
-			actualParams.Get<CVector3>("camera"), &actualParams, &actualFractalParams);
+			actualParams->Get<CVector3>("camera"), actualParams, actualFractalParams);
 		bool changedDistance = false;
 		if (distanceAfterCleaning < referenceDistane * 0.9
 				|| distanceAfterCleaning > referenceDistane * 1.1)
@@ -266,8 +269,8 @@ void cSettingsCleaner::slotPressedStop()
 
 void cSettingsCleaner::slotPressedOK()
 {
-	*gPar = actualParams;
-	*gParFractal = actualFractalParams;
+	*gPar = *actualParams;
+	*gParFractal = *actualFractalParams;
 	close();
 }
 void cSettingsCleaner::slotPressedCancel()

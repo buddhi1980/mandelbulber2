@@ -79,10 +79,10 @@ public:
 	static void DeleteKernelCache();
 	void Reset();
 	virtual bool LoadSourcesAndCompile(
-		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) = 0;
-	bool CreateKernel4Program(const cParameterContainer *params);
-	virtual bool PreAllocateBuffers(const cParameterContainer *params);
-	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;
+		std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput = nullptr) = 0;
+	bool CreateKernel4Program(std::shared_ptr<const cParameterContainer> params);
+	virtual bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params);
+	virtual void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) = 0;
 	bool WriteBuffersToQueue();
 	bool ReadBuffersFromQueue(int deviceIndex);
 	bool CreateCommandQueue();
@@ -102,7 +102,7 @@ protected:
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText, bool quiet);
 	bool CreateKernels();
-	void InitOptimalJob(const cParameterContainer *params);
+	void InitOptimalJob(std::shared_ptr<const cParameterContainer> params);
 	void UpdateOptimalJobStart(quint64 pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;

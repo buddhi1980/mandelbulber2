@@ -87,8 +87,8 @@ bool cDockFractal::AreHybridFractalsEnabled() const
 	return ui->checkBox_hybrid_fractal_enable->isChecked();
 }
 
-void cDockFractal::SynchronizeInterfaceFractals(
-	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const
+void cDockFractal::SynchronizeInterfaceFractals(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const
 {
 	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
 	SynchronizeInterfaceWindow(ui->tabWidget_fractal_common, par, mode);
@@ -105,7 +105,7 @@ void cDockFractal::SynchronizeInterfaceFractals(
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		WriteLog("cInterface::SynchronizeInterface: fractalWidgets[i]", 3);
-		fractalTabs[i]->SynchronizeFractal(&parFractal->at(i), mode);
+		fractalTabs[i]->SynchronizeFractal(parFractal->at(i), mode);
 		fractalTabs[i]->SynchronizeInterface(par, mode);
 	}
 }
@@ -267,8 +267,8 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	}
 
 	// swap formula specific fields in gParFractal by swapping whole container
-	fractalTabs[swapA]->SynchronizeFractal(&gParFractal->at(swapB), qInterface::read);
-	fractalTabs[swapB]->SynchronizeFractal(&gParFractal->at(swapA), qInterface::read);
+	fractalTabs[swapA]->SynchronizeFractal(gParFractal->at(swapB), qInterface::read);
+	fractalTabs[swapB]->SynchronizeFractal(gParFractal->at(swapA), qInterface::read);
 
 	// write swapped changes to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -351,33 +351,33 @@ void cDockFractal::slotChangedJuliaPoint() const
 {
 	if (ui->groupCheck_julia_mode->isChecked() && gInterfaceReadyForSynchronization)
 	{
-		cParameterContainer params;
-		InitParams(&params);
-		InitMaterialParams(1, &params);
-		SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, &params, qInterface::read);
-		params.SetContainerName("juliaPreview");
+		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
+		InitParams(params);
+		InitMaterialParams(1, params);
+		SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, params, qInterface::read);
+		params->SetContainerName("juliaPreview");
 
-		const double cameraDistance = params.Get<double>("julia_preview_distance");
+		const double cameraDistance = params->Get<double>("julia_preview_distance");
 		CVector3 target(0.0, 0.0, 0.0);
 		CVector3 direction = gPar->Get<CVector3>("camera") - gPar->Get<CVector3>("target");
 		direction.Normalize();
 		CVector3 camera = target + direction * cameraDistance;
 
-		params.Set("camera", camera);
-		params.Set("target", target);
-		params.Set("julia_mode", true);
-		params.Set("ambient_occlusion_enabled", true);
-		params.Copy("camera_top", gPar);
+		params->Set("camera", camera);
+		params->Set("target", target);
+		params->Set("julia_mode", true);
+		params->Set("ambient_occlusion_enabled", true);
+		params->Copy("camera_top", gPar);
 		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 		{
-			params.Copy(QString("formula_%1").arg(i), gPar);
+			params->Copy(QString("formula_%1").arg(i), gPar);
 		}
-		params.Copy("hybrid_fractal_enable", gPar);
-		params.Copy("fractal_constant_factor", gPar);
-		params.Copy("opencl_mode", gPar);
-		params.Copy("opencl_enabled", gPar);
+		params->Copy("hybrid_fractal_enable", gPar);
+		params->Copy("fractal_constant_factor", gPar);
+		params->Copy("opencl_mode", gPar);
+		params->Copy("opencl_enabled", gPar);
 
-		ui->previewwidget_julia->AssignParameters(params, *gParFractal);
+		ui->previewwidget_julia->AssignParameters(params, gParFractal);
 		ui->previewwidget_julia->update();
 	}
 }
@@ -405,7 +405,8 @@ void cDockFractal::slotChangedFractalTab(int index)
 		if (!ui->checkBox_hybrid_fractal_enable->isChecked()
 				&& !ui->groupCheck_boolean_operators->isChecked())
 		{
-			QMessageBox message;;
+			QMessageBox message;
+			;
 
 			QPushButton *buttonHybrid =
 				message.addButton(tr("Enable hybrid fractals"), QMessageBox::AcceptRole);

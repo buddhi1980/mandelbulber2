@@ -38,6 +38,7 @@
 #ifndef MANDELBULBER2_SRC_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_SETTINGS_HPP_
 
+#include <memory>
 #include <QString>
 #include <QStringList>
 
@@ -59,14 +60,15 @@ public:
 	};
 
 	cSettings(enumFormat _format);
-	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
-		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
+	size_t CreateText(std::shared_ptr<const cParameterContainer> par,
+		std::shared_ptr<const cFractalContainer> fractPar, cAnimationFrames *frames = nullptr,
+		cKeyframes *keyframes = nullptr);
 	bool SaveToFile(QString filename) const;
 	void SaveToClipboard() const;
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
-	bool Decode(cParameterContainer *par, cFractalContainer *fractPar,
+	bool Decode(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
 		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
 	QString GetHashCode() const { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
@@ -77,23 +79,24 @@ public:
 private:
 	QString CreateHeader() const;
 	void DecodeHeader(QStringList &separatedText);
-	QString CreateOneLine(const cParameterContainer *par, QString name) const;
-	bool DecodeOneLine(cParameterContainer *par, QString line);
+	QString CreateOneLine(std::shared_ptr<const cParameterContainer> par, QString name) const;
+	bool DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString line);
 	static bool CheckSection(QString text, QString &section);
 	void Compatibility(QString &name, QString &value) const;
-	void Compatibility2(cParameterContainer *par, cFractalContainer *fract);
-	void PreCompatibilityMaterials(int matIndex, cParameterContainer *par);
+	void Compatibility2(
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
+	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const cAnimationFrames *frames) const;
 
-	bool DecodeFramesHeader(
-		QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
-	bool DecodeFramesLine(
-		QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
+	bool DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
+		std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames);
+	bool DecodeFramesLine(QString line, std::shared_ptr<cParameterContainer> par,
+		std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames);
 
 	static QString everyLocaleDouble(QString txt);
 
-	static bool CheckIfMaterialsAreDefined(cParameterContainer *par);
+	static bool CheckIfMaterialsAreDefined(std::shared_ptr<cParameterContainer> par);
 
 	QString CompressAndCode(const QString &text) const;
 	QString DecodeAndDecompress(const QString &text) const;

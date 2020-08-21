@@ -87,8 +87,14 @@ private:
 
 	struct sParameterVersion
 	{
-		cParameterContainer params;
-		cFractalContainer fractParams;
+		sParameterVersion()
+		{
+			params.reset(new cParameterContainer());
+			fractParams.reset(new cFractalContainer());
+		}
+
+		std::shared_ptr<cParameterContainer> params;
+		std::shared_ptr<cFractalContainer> fractParams;
 		QStringList modifiedParameters;
 	};
 
@@ -102,12 +108,14 @@ private:
 
 	void CreateParametersTreeInWidget(
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
-	static cParameterContainer *ContainerSelector(
-		QString fullParameterName, cParameterContainer *params, cFractalContainer *fractal);
-	void RandomizeParameters(enimRandomizeStrength strength, cParameterContainer *params,
-		cFractalContainer *fractal, int widgetIndex);
+	static std::shared_ptr<cParameterContainer> ContainerSelector(QString fullParameterName,
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal);
+	void RandomizeParameters(enimRandomizeStrength strength,
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal,
+		int widgetIndex);
 	void RandomizeOneParameter(QString fullParameterName, double randomScale,
-		cParameterContainer *params, cFractalContainer *fractal, int widgetIndex);
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal,
+		int widgetIndex);
 	void RandomizeIntegerParameter(
 		double randomScale, cOneParameter &parameter, const QString &parameterName);
 	double RandomizeDoubleValue(double value, double randomScale, bool isAngle);
@@ -148,8 +156,8 @@ private:
 	QList<sParameterVersion> listOfVersions;
 	QList<int> numbersOfRepeats;
 	QList<bool> versionsDone;
-	cParameterContainer actualParams;
-	cFractalContainer actualFractParams;
+	std::shared_ptr<cParameterContainer> actualParams;
+	std::shared_ptr<cFractalContainer> actualFractParams;
 	cRandom randomizer;
 	enimRandomizeStrength actualStrength;
 	std::unique_ptr<cThumbnailWidget> referenceSkyPreview;

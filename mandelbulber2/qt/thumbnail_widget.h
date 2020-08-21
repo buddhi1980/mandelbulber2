@@ -60,7 +60,8 @@ public:
 	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
 	void SetSize(int _width, int _height, int _oversample);
-	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
+	void AssignParameters(std::shared_ptr<const cParameterContainer> _params,
+		std::shared_ptr<const cFractalContainer> _fractal);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void DisableTimer() { disableTimer = true; }
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
@@ -86,8 +87,8 @@ public slots:
 
 private:
 	std::shared_ptr<cImage> image;
-	std::unique_ptr<cParameterContainer> params;
-	std::unique_ptr<cFractalContainer> fractal;
+	std::shared_ptr<cParameterContainer> params;
+	std::shared_ptr<cFractalContainer> fractal;
 	int tWidth;
 	int tHeight;
 	int oversample;

@@ -53,7 +53,7 @@ class cMaterialEditor : public QWidget
 public:
 	explicit cMaterialEditor(QWidget *parent = nullptr);
 	~cMaterialEditor() override;
-	void AssignMaterial(cParameterContainer *params, int index);
+	void AssignMaterial(std::shared_ptr<cParameterContainer> params, int index);
 	void Colorize(int randomSeed);
 
 private slots:
@@ -64,7 +64,7 @@ private:
 
 	Ui::cMaterialEditor *ui;
 	int materialIndex;
-	cParameterContainer *parameterContainer;
+	std::shared_ptr<cParameterContainer> parameterContainer;
 	bool isMaterialAssigned;
 
 	cAutomatedWidgets *automatedWidgets;

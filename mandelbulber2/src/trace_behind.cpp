@@ -44,7 +44,7 @@
 #include "parameters.hpp"
 #include "projection_3d.hpp"
 
-double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
+double traceBehindFractal(std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractals, double maxDist,
 	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit)
 {
 	sParamRender *paramRender = new sParamRender(params);

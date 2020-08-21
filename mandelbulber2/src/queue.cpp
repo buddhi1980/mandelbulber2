@@ -147,7 +147,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 
 cQueue::~cQueue()
 {
-	//nothing to delete
+	// nothing to delete
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)
@@ -174,8 +174,9 @@ void cQueue::Append(enumRenderType renderType)
 	Append(gPar, gParFractal, gAnimFrames, gKeyframes, renderType);
 }
 
-void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
-	cKeyframes *keyframes, enumRenderType renderType)
+void cQueue::Append(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes,
+	enumRenderType renderType)
 {
 	// add settings to queue
 	cSettings parSettings(cSettings::formatCondensedText);
@@ -247,8 +248,8 @@ bool cQueue::Get()
 	return Get(gPar, gParFractal, gAnimFrames, gKeyframes);
 }
 
-bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
-	cKeyframes *keyframes)
+bool cQueue::Get(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	// get next fractal from queue
 	structQueueItem queueItem = GetNextFromList();
@@ -712,11 +713,11 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 		{
 			if (ui->checkBox_show_queue_thumbnails->isChecked())
 			{
-				cParameterContainer *tempPar = new cParameterContainer;
-				cFractalContainer *tempFract = new cFractalContainer;
+				std::shared_ptr<cParameterContainer> tempPar(new cParameterContainer());
+				std::shared_ptr<cFractalContainer> tempFract(new cFractalContainer());
 				InitParams(tempPar);
 				for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
-					InitFractalParams(&tempFract->at(f));
+					InitFractalParams(tempFract->at(f));
 				InitMaterialParams(1, tempPar);
 
 				cSettings parSettings(cSettings::formatFullText);
@@ -729,17 +730,15 @@ void cQueue::slotQueueListUpdateCell(int i, int j)
 					{
 						thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 						thumbWidget->UseOneCPUCore(true);
-						thumbWidget->AssignParameters(*tempPar, *tempFract);
+						thumbWidget->AssignParameters(tempPar, tempFract);
 						table->setCellWidget(i, j, thumbWidget);
 					}
 					else
 					{
-						thumbWidget->AssignParameters(*tempPar, *tempFract);
+						thumbWidget->AssignParameters(tempPar, tempFract);
 						thumbWidget->update();
 					}
 				}
-				delete tempPar;
-				delete tempFract;
 			}
 			break;
 		}

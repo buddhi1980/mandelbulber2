@@ -94,7 +94,7 @@ void cOpenClEngineRenderSSAO::SetParameters(
 }
 
 bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(
-	const cParameterContainer *params, QString *compilerErrorOutput)
+	std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -146,7 +146,8 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(
 	return programsLoaded;
 }
 
-void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContainer *params)
+void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(
+	std::shared_ptr<const cParameterContainer> params)
 {
 	Q_UNUSED(params);
 	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");

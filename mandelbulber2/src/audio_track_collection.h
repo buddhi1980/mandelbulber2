@@ -54,15 +54,18 @@ public:
 	/* Warning! this is fake operator to avoid copying audio data to cUndo buffers */
 	cAudioTrackCollection &operator=(const cAudioTrackCollection &collection);
 
-	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
-	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
-	void DeleteAllAudioTracks(cParameterContainer *params);
+	void AddAudioTrack(const QString fullParameterName, std::shared_ptr<cParameterContainer> params);
+	void DeleteAudioTrack(
+		const QString fullParameterName, std::shared_ptr<cParameterContainer> params);
+	void DeleteAllAudioTracks(std::shared_ptr<cParameterContainer> params);
 	std::shared_ptr<cAudioTrack> GetAudioTrackPtr(const QString fullParameterName) const;
-	void AddParameters(cParameterContainer *params, const QString parameterName) const;
-	void RemoveParameters(cParameterContainer *params, const QString parameterName) const;
+	void AddParameters(
+		std::shared_ptr<cParameterContainer> params, const QString parameterName) const;
+	void RemoveParameters(
+		std::shared_ptr<cParameterContainer> params, const QString parameterName) const;
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName) const;
-	void LoadAllAudioFiles(cParameterContainer *params);
-	void RefreshAllAudioTracks(cParameterContainer *params);
+	void LoadAllAudioFiles(std::shared_ptr<cParameterContainer> params);
+	void RefreshAllAudioTracks(std::shared_ptr<cParameterContainer> params);
 	void SetPrefix(QString _prefix) { prefix = _prefix; }
 
 private:

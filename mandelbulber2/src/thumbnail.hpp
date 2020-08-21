@@ -47,7 +47,7 @@ class cImage;
 class cThumbnail
 {
 public:
-	cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width,
+	cThumbnail(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal, int _width,
 		int _height, QString _hash);
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) { qWidget = widget; }
@@ -56,8 +56,8 @@ public:
 
 private:
 	std::shared_ptr<cImage> image;
-	const cParameterContainer *params;
-	const cFractalContainer *fractal;
+	const std::shared_ptr<cParameterContainer> params;
+	const std::shared_ptr<cFractalContainer> fractal;
 	QWidget *qWidget;
 	const int width;
 	const int height;

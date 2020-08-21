@@ -95,7 +95,7 @@ cMaterial::cMaterial()
 	transparencyGradientEnable = false;
 }
 
-cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures,
+cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
 	bool quiet, bool useNetRender)
 {
 	setParameters(_id, materialParam, loadTextures, quiet, useNetRender);
@@ -247,7 +247,7 @@ QStringList cMaterial::paramsList = {
 	"transparency_gradient",
 };
 
-void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool loadTextures,
+void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
 	bool quiet, bool useNetRender)
 {
 	id = _id;
@@ -579,7 +579,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }
 
-void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials,
+void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params, QMap<int, cMaterial> *materials,
 	bool loadTextures, bool quiet, bool useNetRender)
 {
 	materials->clear();

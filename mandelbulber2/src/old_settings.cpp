@@ -942,12 +942,13 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	return true;
 }
 
-void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalContainer *fractal) const
+void cOldSettings::ConvertToNewContainer(
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractal) const
 {
 	// general parameters
 	par->ResetAllToDefault();
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-		fractal->at(i).ResetAllToDefault();
+		fractal->at(i)->ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 	DeleteAllMaterialParams(par);
 	InitMaterialParams(1, par);
@@ -1238,86 +1239,86 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	if (oldData->fractal.formula == trig_DE)
 	{
 		par->Set("formula", 1, int(fractal::mandelbulb));
-		fractal->at(0).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
-		fractal->at(0).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
+		fractal->at(0)->Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
+		fractal->at(0)->Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 	}
 
-	fractal->at(0).Set("power", oldData->fractal.doubles.power);
-	fractal->at(0).Set("cadd", oldData->fractal.doubles.cadd);
-	fractal->at(0).Set("IFS_scale", oldData->fractal.IFS.doubles.scale);
-	fractal->at(0).Set("IFS_rotation",
+	fractal->at(0)->Set("power", oldData->fractal.doubles.power);
+	fractal->at(0)->Set("cadd", oldData->fractal.doubles.cadd);
+	fractal->at(0)->Set("IFS_scale", oldData->fractal.IFS.doubles.scale);
+	fractal->at(0)->Set("IFS_rotation",
 		CVector3(oldData->fractal.IFS.doubles.rotationAlfa, oldData->fractal.IFS.doubles.rotationBeta,
 			oldData->fractal.IFS.doubles.rotationGamma)
 			* 180.0 / M_PI);
-	fractal->at(0).Set("IFS_offset", oldData->fractal.IFS.doubles.offset);
-	fractal->at(0).Set("IFS_edge", oldData->fractal.IFS.doubles.edge);
-	fractal->at(0).Set(
+	fractal->at(0)->Set("IFS_offset", oldData->fractal.IFS.doubles.offset);
+	fractal->at(0)->Set("IFS_edge", oldData->fractal.IFS.doubles.edge);
+	fractal->at(0)->Set(
 		"IFS_edge_enabled", (oldData->fractal.IFS.doubles.edge.Length() > 0) ? true : false);
-	fractal->at(0).Set("IFS_abs_x", oldData->fractal.IFS.absX);
-	fractal->at(0).Set("IFS_abs_y", oldData->fractal.IFS.absY);
-	fractal->at(0).Set("IFS_abs_z", oldData->fractal.IFS.absZ);
-	fractal->at(0).Set("IFS_menger_sponge_mode", oldData->fractal.IFS.mengerSpongeMode);
+	fractal->at(0)->Set("IFS_abs_x", oldData->fractal.IFS.absX);
+	fractal->at(0)->Set("IFS_abs_y", oldData->fractal.IFS.absY);
+	fractal->at(0)->Set("IFS_abs_z", oldData->fractal.IFS.absZ);
+	fractal->at(0)->Set("IFS_menger_sponge_mode", oldData->fractal.IFS.mengerSpongeMode);
 
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		fractal->at(0).Set("IFS_direction", i, oldData->fractal.IFS.doubles.direction[i]);
-		fractal->at(0).Set("IFS_rotations", i,
+		fractal->at(0)->Set("IFS_direction", i, oldData->fractal.IFS.doubles.direction[i]);
+		fractal->at(0)->Set("IFS_rotations", i,
 			CVector3(oldData->fractal.IFS.doubles.alfa[i], oldData->fractal.IFS.doubles.beta[i],
 				oldData->fractal.IFS.doubles.gamma[i])
 				* 180.0 / M_PI);
-		fractal->at(0).Set("IFS_distance", i, oldData->fractal.IFS.doubles.distance[i]);
-		fractal->at(0).Set("IFS_intensity", i, oldData->fractal.IFS.doubles.intensity[i]);
-		fractal->at(0).Set("IFS_enabled", i, oldData->fractal.IFS.enabled[i]);
+		fractal->at(0)->Set("IFS_distance", i, oldData->fractal.IFS.doubles.distance[i]);
+		fractal->at(0)->Set("IFS_intensity", i, oldData->fractal.IFS.doubles.intensity[i]);
+		fractal->at(0)->Set("IFS_enabled", i, oldData->fractal.IFS.enabled[i]);
 	}
 
-	fractal->at(0).Set("mandelbox_scale", oldData->fractal.mandelbox.doubles.scale);
-	fractal->at(0).Set("mandelbox_folding_limit", oldData->fractal.mandelbox.doubles.foldingLimit);
-	fractal->at(0).Set("mandelbox_folding_value", oldData->fractal.mandelbox.doubles.foldingValue);
-	fractal->at(0).Set(
+	fractal->at(0)->Set("mandelbox_scale", oldData->fractal.mandelbox.doubles.scale);
+	fractal->at(0)->Set("mandelbox_folding_limit", oldData->fractal.mandelbox.doubles.foldingLimit);
+	fractal->at(0)->Set("mandelbox_folding_value", oldData->fractal.mandelbox.doubles.foldingValue);
+	fractal->at(0)->Set(
 		"mandelbox_folding_min_radius", oldData->fractal.mandelbox.doubles.foldingSphericalMin);
-	fractal->at(0).Set(
+	fractal->at(0)->Set(
 		"mandelbox_folding_fixed_radius", oldData->fractal.mandelbox.doubles.foldingSphericalFixed);
-	fractal->at(0).Set("mandelbox_sharpness", oldData->fractal.mandelbox.doubles.sharpness);
-	fractal->at(0).Set("mandelbox_offset", oldData->fractal.mandelbox.doubles.offset);
-	fractal->at(0).Set("mandelbox_rotation_main",
+	fractal->at(0)->Set("mandelbox_sharpness", oldData->fractal.mandelbox.doubles.sharpness);
+	fractal->at(0)->Set("mandelbox_offset", oldData->fractal.mandelbox.doubles.offset);
+	fractal->at(0)->Set("mandelbox_rotation_main",
 		CVector3(oldData->fractal.mandelbox.doubles.rotationMain) * 180.0 / M_PI);
 
 	for (int i = 0; i < 3; i++)
 	{
-		fractal->at(0).Set("mandelbox_rotation_neg", i + 1,
+		fractal->at(0)->Set("mandelbox_rotation_neg", i + 1,
 			CVector3(oldData->fractal.mandelbox.doubles.rotation[0][i]) * 180.0 / M_PI);
-		fractal->at(0).Set("mandelbox_rotation_pos", i + 1,
+		fractal->at(0)->Set("mandelbox_rotation_pos", i + 1,
 			CVector3(oldData->fractal.mandelbox.doubles.rotation[1][i]) * 180.0 / M_PI);
 	}
 
-	fractal->at(0).Set("mandelbox_color", CVector3(oldData->fractal.mandelbox.doubles.colorFactorX,
-																					oldData->fractal.mandelbox.doubles.colorFactorY,
-																					oldData->fractal.mandelbox.doubles.colorFactorZ));
-	fractal->at(0).Set("mandelbox_color_R", oldData->fractal.mandelbox.doubles.colorFactorR);
-	fractal->at(0).Set("mandelbox_color_Sp1", oldData->fractal.mandelbox.doubles.colorFactorSp1);
-	fractal->at(0).Set("mandelbox_color_Sp2", oldData->fractal.mandelbox.doubles.colorFactorSp2);
-	fractal->at(0).Set("mandelbox_rotations_enabled", oldData->fractal.mandelbox.rotationsEnabled);
-	fractal->at(0).Set("mandelbox_main_rotation_enabled",
+	fractal->at(0)->Set("mandelbox_color", CVector3(oldData->fractal.mandelbox.doubles.colorFactorX,
+																					 oldData->fractal.mandelbox.doubles.colorFactorY,
+																					 oldData->fractal.mandelbox.doubles.colorFactorZ));
+	fractal->at(0)->Set("mandelbox_color_R", oldData->fractal.mandelbox.doubles.colorFactorR);
+	fractal->at(0)->Set("mandelbox_color_Sp1", oldData->fractal.mandelbox.doubles.colorFactorSp1);
+	fractal->at(0)->Set("mandelbox_color_Sp2", oldData->fractal.mandelbox.doubles.colorFactorSp2);
+	fractal->at(0)->Set("mandelbox_rotations_enabled", oldData->fractal.mandelbox.rotationsEnabled);
+	fractal->at(0)->Set("mandelbox_main_rotation_enabled",
 		(CVector3(oldData->fractal.mandelbox.doubles.rotationMain).Length() > 0) ? true : false);
-	fractal->at(0).Set("mandelbox_solid", oldData->fractal.mandelbox.doubles.solid);
-	fractal->at(0).Set("mandelbox_melt", oldData->fractal.mandelbox.doubles.melt);
+	fractal->at(0)->Set("mandelbox_solid", oldData->fractal.mandelbox.doubles.solid);
+	fractal->at(0)->Set("mandelbox_melt", oldData->fractal.mandelbox.doubles.melt);
 
-	fractal->at(0).Set(
+	fractal->at(0)->Set(
 		"mandelbox_vary_scale_vary", oldData->fractal.mandelbox.doubles.vary4D.scaleVary);
-	fractal->at(0).Set("mandelbox_vary_fold", oldData->fractal.mandelbox.doubles.vary4D.fold);
-	fractal->at(0).Set("mandelbox_vary_minr", oldData->fractal.mandelbox.doubles.vary4D.minR);
-	fractal->at(0).Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
-	fractal->at(0).Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
+	fractal->at(0)->Set("mandelbox_vary_fold", oldData->fractal.mandelbox.doubles.vary4D.fold);
+	fractal->at(0)->Set("mandelbox_vary_minr", oldData->fractal.mandelbox.doubles.vary4D.minR);
+	fractal->at(0)->Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
+	fractal->at(0)->Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
 
-	fractal->at(0).Set("mandelbox_generalized_fold_type", int(oldData->fractal.genFoldBox.type));
+	fractal->at(0)->Set("mandelbox_generalized_fold_type", int(oldData->fractal.genFoldBox.type));
 
-	fractal->at(0).Set(
+	fractal->at(0)->Set(
 		"boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
-	fractal->at(0).Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
+	fractal->at(0)->Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
 
 	for (int i = 0; i < 4; i++)
 	{
-		fractal->at(i).Set("IFS_rotation_enabled", true);
+		fractal->at(i)->Set("IFS_rotation_enabled", true);
 	}
 
 	fractal->at(1) = fractal->at(2) = fractal->at(3) = fractal->at(0);
@@ -1356,8 +1357,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 					if (formula == trig_DE)
 					{
 						par->Set("formula", 1, int(fractal::mandelbulb));
-						fractal->at(i).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
-						fractal->at(i).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
+						fractal->at(i)->Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
+						fractal->at(i)->Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 					}
 					par->Set(
 						"formula_iterations", i + 1, oldData->fractal.hybridIters[fractalsListTemp.at(i)]);
@@ -1372,7 +1373,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 						case benesi:
 						case bristorbrot:
 						{
-							fractal->at(i).Set(
+							fractal->at(i)->Set(
 								"power", oldData->fractal.doubles.hybridPower[fractalsListTemp.at(i)]);
 							break;
 						}
@@ -1381,7 +1382,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 						case mandelboxVaryScale4D:
 						case tglad:
 						{
-							fractal->at(i).Set(
+							fractal->at(i)->Set(
 								"mandelbox_scale", oldData->fractal.doubles.hybridPower[fractalsListTemp.at(i)]);
 							break;
 						}

@@ -65,7 +65,7 @@ public:
 	void EnableJuliaMode() const;
 	void SetTabText(int tabIndex, QString text) const;
 	void SynchronizeInterfaceFractals(
-		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const;
+		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void SynchronizeInterfaceJulia() const;
 	void SynchronizeInterfacePrimitives() const;
 

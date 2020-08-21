@@ -54,7 +54,7 @@ public:
 	explicit cDockRenderingEngine(QWidget *parent = nullptr);
 	~cDockRenderingEngine() override;
 
-	void SynchronizeInterfaceDistanceEstimation(cParameterContainer *par) const;
+	void SynchronizeInterfaceDistanceEstimation(std::shared_ptr<cParameterContainer> par) const;
 	void ComboDeltaDEFunctionSetEnabled(bool enabled) const;
 	int ComboDeltaDEMethodCurrentIndex() const;
 	void CheckboxConnectDetailLevelSetCheckState(Qt::CheckState state) const;

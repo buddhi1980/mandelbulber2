@@ -59,8 +59,8 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 {
 	image = _image;
 	imageWidget = widget;
-	queuePar = new cParameterContainer;
-	queueParFractal = new cFractalContainer;
+	queuePar.reset(new cParameterContainer);
+	queueParFractal.reset(new cFractalContainer);
 	queueAnimFrames = new cAnimationFrames;
 	queueKeyframes = new cKeyframes;
 
@@ -73,8 +73,8 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		queueParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&queueParFractal->at(i));
+		queueParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(queueParFractal->at(i));
 	}
 
 	queueFlightAnimation = new cFlightAnimation(
@@ -111,8 +111,6 @@ cRenderQueue::~cRenderQueue()
 	delete queueKeyframes;
 	delete queueFlightAnimation;
 	delete queueKeyframeAnimation;
-	delete queueParFractal;
-	delete queuePar;
 }
 
 void cRenderQueue::slotRenderQueue()

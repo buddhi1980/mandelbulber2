@@ -437,7 +437,8 @@ QString cParameterContainer::nameWithIndex(QString *str, int index)
 	return name;
 }
 
-void cParameterContainer::Copy(QString name, const cParameterContainer *sourceContainer)
+void cParameterContainer::Copy(
+	QString name, std::shared_ptr<const cParameterContainer> sourceContainer)
 {
 	QMutexLocker lock(&m_lock);
 

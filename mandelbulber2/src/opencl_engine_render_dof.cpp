@@ -77,7 +77,7 @@ void cOpenClEngineRenderDOF::Reset()
 }
 
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
-	const cParameterContainer *params, std::shared_ptr<cImage> image, bool *stopRequest,
+	const std::shared_ptr<cParameterContainer> params, std::shared_ptr<cImage> image, bool *stopRequest,
 	cRegion<int> screenRegion)
 {
 	int numberOfPasses = paramRender->DOFNumberOfPasses;

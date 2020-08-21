@@ -461,11 +461,12 @@ void cInterface::ConnectSignals() const
 }
 
 // Reading ad writing parameters from/to ui to/from parameters container
-void cInterface::SynchronizeInterface(
-	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const
+void cInterface::SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const
 {
 	WriteLog(
-		"cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, "
+		"cInterface::SynchronizeInterface(std::shared_ptr<cParameterContainer> par, cFractalContainer "
+		"*parFractal, "
 		"enumReadWrite mode)",
 		2);
 
@@ -866,7 +867,7 @@ void cInterface::CameraDistanceEdited() const
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
 }
 
-void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal) const
+void cInterface::IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const
 {
 	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", phi * phi);
@@ -883,7 +884,7 @@ void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal) const
 	parFractal->Set("IFS_menger_sponge_mode", false);
 }
 
-void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal) const
+void cInterface::IFSDefaultsIcosahedron(std::shared_ptr<cParameterContainer> parFractal) const
 {
 	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", 2.0);
@@ -898,7 +899,7 @@ void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal) const
 	parFractal->Set("IFS_menger_sponge_mode", false);
 }
 
-void cInterface::IFSDefaultsOctahedron(cParameterContainer *parFractal)
+void cInterface::IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal)
 {
 	parFractal->Set("IFS_scale", 2.0);
 	parFractal->Set("IFS_direction_5", CVector3(1.0, -1.0, 0));
@@ -914,7 +915,7 @@ void cInterface::IFSDefaultsOctahedron(cParameterContainer *parFractal)
 	parFractal->Set("IFS_menger_sponge_mode", false);
 }
 
-void cInterface::IFSDefaultsMengerSponge(cParameterContainer *parFractal)
+void cInterface::IFSDefaultsMengerSponge(std::shared_ptr<cParameterContainer> parFractal)
 {
 	parFractal->Set("IFS_scale", 3.0);
 	parFractal->Set("IFS_direction_5", CVector3(1.0, -1.0, 0));
@@ -930,7 +931,7 @@ void cInterface::IFSDefaultsMengerSponge(cParameterContainer *parFractal)
 	parFractal->Set("IFS_menger_sponge_mode", true);
 }
 
-void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
+void cInterface::IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFractal)
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -1118,8 +1119,8 @@ void cInterface::AutoFog() const
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-double cInterface::GetDistanceForPoint(
-	CVector3 point, cParameterContainer *par, cFractalContainer *parFractal)
+double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParameterContainer> par,
+	std::shared_ptr<cFractalContainer> parFractal)
 {
 	sParamRender *params = new sParamRender(par);
 	cNineFractals *fractals = new cNineFractals(parFractal, par);
@@ -1932,12 +1933,14 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
-	cParameterContainer parTemp = *gPar;
-	parTemp.Set("limits_enabled", false);
-	parTemp.Set("interior_mode", false);
+	auto parTemp = std::make_shared<cParameterContainer>();
+	*parTemp = *gPar;
 
-	sParamRender *params = new sParamRender(&parTemp);
-	cNineFractals *fractals = new cNineFractals(gParFractal, &parTemp);
+	parTemp->Set("limits_enabled", false);
+	parTemp->Set("interior_mode", false);
+
+	sParamRender *params = new sParamRender(parTemp);
+	cNineFractals *fractals = new cNineFractals(gParFractal, parTemp);
 
 	CVector3 direction;
 	CVector3 orthDirection;
@@ -2175,7 +2178,7 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 	ComboMouseClickUpdate();
 }
 
-void cInterface::RebuildPrimitives(cParameterContainer *par)
+void cInterface::RebuildPrimitives(std::shared_ptr<cParameterContainer> par)
 {
 	// clear all widgets
 	for (const auto &primitiveItem : listOfPrimitives)
@@ -2471,24 +2474,26 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo->Store(gPar, gParFractal);
 
-	cParameterContainer tempParam = *gPar;
-	cFractalContainer tempFractal = *gParFractal;
+	auto tempParam = std::make_shared<cParameterContainer>();
+	*tempParam = *gPar;
+	auto tempFractal = std::make_shared<cFractalContainer>();
+	*tempFractal = *gParFractal;
 
 	// disabling all slow effects
-	tempParam.Set("shadows_enabled", false);
-	tempParam.Set("ambient_occlusion", false);
-	tempParam.Set("DOF_enabled", false);
-	tempParam.Set("iteration_threshold_mode", false);
-	tempParam.Set("raytraced_reflections", false);
-	tempParam.Set("textured_background", false);
-	tempParam.Set("iteration_fog_enable", false);
-	tempParam.Set("fake_lights_enabled", false);
-	tempParam.Set("main_light_volumetric_enabled", false);
-	tempParam.Set("opencl_mode", 0); // disable OpenCL
+	tempParam->Set("shadows_enabled", false);
+	tempParam->Set("ambient_occlusion", false);
+	tempParam->Set("DOF_enabled", false);
+	tempParam->Set("iteration_threshold_mode", false);
+	tempParam->Set("raytraced_reflections", false);
+	tempParam->Set("textured_background", false);
+	tempParam->Set("iteration_fog_enable", false);
+	tempParam->Set("fake_lights_enabled", false);
+	tempParam->Set("main_light_volumetric_enabled", false);
+	tempParam->Set("opencl_mode", 0); // disable OpenCL
 	for (int i = 1; i <= 4; i++)
 	{
-		tempParam.Set("aux_light_enabled", i, false);
-		tempParam.Set("aux_light_volumetric_enabled", i, false);
+		tempParam->Set("aux_light_enabled", i, false);
+		tempParam->Set("aux_light_volumetric_enabled", i, false);
 	}
 
 	int maxDimension = max(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
@@ -2496,16 +2501,16 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	int newWidth = double(gPar->Get<int>("image_width")) / maxDimension * 256.0;
 	int newHeight = double(gPar->Get<int>("image_height")) / maxDimension * 256.0;
 
-	tempParam.Set("image_width", newWidth);
-	tempParam.Set("image_height", newHeight);
-	tempParam.Set("detail_level", 4.0);
+	tempParam->Set("image_width", newWidth);
+	tempParam->Set("image_height", newHeight);
+	tempParam->Set("detail_level", 4.0);
 
 	int scanCount = 0;
 	double DEFactor = 1.0;
 	double step = 1.0;
 
 	cRenderJob *renderJob =
-		new cRenderJob(&tempParam, &tempFractal, mainImage, &stopRequest, renderedImage);
+		new cRenderJob(tempParam, tempFractal, mainImage, &stopRequest, renderedImage);
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
@@ -2530,12 +2535,12 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	{
 		if (stopRequest || systemData.globalStopRequest) return;
 		scanCount++;
-		tempParam.Set("DE_factor", DEFactor);
+		tempParam->Set("DE_factor", DEFactor);
 
 		gPar->Set("DE_factor", DEFactor);
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
-		renderJob->UpdateParameters(&tempParam, &tempFractal);
+		renderJob->UpdateParameters(tempParam, tempFractal);
 		renderJob->Execute();
 		missedDE = renderJob->GetStatistics().GetMissedDEPercentage();
 
@@ -2588,7 +2593,7 @@ void cInterface::ResetFormula(int fractalNumber) const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo->Store(gPar, gParFractal, gAnimFrames, gKeyframes);
-	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
+	std::shared_ptr<cParameterContainer> fractal = gParFractal->at(fractalNumber);
 
 	QStringList exclude = {"formula_code"};
 	fractal->ResetAllToDefault(exclude);
@@ -2952,7 +2957,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 		const QString containerName = fullParameterName.left(firstUnderscore);
 		const QString parameterName = fullParameterName.mid(firstUnderscore + 1);
 
-		cParameterContainer *container = nullptr;
+		std::shared_ptr<cParameterContainer> container = nullptr;
 		if (containerName == "main")
 		{
 			container = gPar;
@@ -2962,7 +2967,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 			const int index = containerName.rightRef(1).toInt();
 			if (index < 4)
 			{
-				container = &gParFractal->at(index);
+				container = gParFractal->at(index);
 			}
 		}
 

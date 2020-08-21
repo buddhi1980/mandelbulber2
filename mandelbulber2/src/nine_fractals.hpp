@@ -36,6 +36,7 @@
 #ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 #define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
+#include <memory>
 #include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
 #include "fractal_enums.h"
@@ -54,7 +55,8 @@ class cAbstractFractal;
 class cNineFractals
 {
 public:
-	cNineFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
+	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
+		std::shared_ptr<const cParameterContainer> generalPar);
 	~cNineFractals();
 	sFractal *GetFractal(int index) const { return fractals[index]; }
 	sFractal **fractals;
@@ -129,7 +131,7 @@ private:
 	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
 	cAbstractFractal *fractalFormulaFunctions[NUMBER_OF_FRACTALS];
 
-	void CreateSequence(const cParameterContainer *generalPar);
+	void CreateSequence(std::shared_ptr<const cParameterContainer> generalPar);
 };
 
 #endif /* MANDELBULBER2_SRC_NINE_FRACTALS_HPP_ */

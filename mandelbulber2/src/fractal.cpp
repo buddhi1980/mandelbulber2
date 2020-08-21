@@ -38,9 +38,9 @@
 #include "parameters.hpp"
 #include "write_log.hpp"
 
-sFractal::sFractal(const cParameterContainer *container)
+sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 {
-	// WriteLog("cFractal::cFractal(const cParameterContainer *container)");
+	// WriteLog("cFractal::cFractal(const std::shared_ptr<cParameterContainer> container)");
 	formula = fractal::none;
 
 	bulb.power = container->Get<double>("power");

@@ -79,8 +79,9 @@
 cFlightAnimation *gFlightAnimation = nullptr;
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames,
-	std::shared_ptr<cImage> _image, QWidget *_imageWidget, cParameterContainer *_params,
-	cFractalContainer *_fractal, QObject *parent)
+	std::shared_ptr<cImage> _image, QWidget *_imageWidget,
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
+	QObject *parent)
 		: QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	if (mainInterface->mainWindow)
@@ -493,7 +494,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		// add new frame to container
-		frames->AddFrame(*params, *fractalParams);
+		frames->AddFrame(params, fractalParams);
 
 		// add column to table
 		const int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
@@ -554,8 +555,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
-	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()), int(image->GetWidth()),
-		int(image->GetHeight()), int(image->GetWidth() * sizeof(sRGB8)), QImage::Format_RGB888);
+	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()),
+		int(image->GetWidth()), int(image->GetHeight()), int(image->GetWidth() * sizeof(sRGB8)),
+		QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
 	const QIcon icon(
@@ -928,7 +930,7 @@ void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 			emit SendNetRenderSetup(i, startingFrames);
 		}
 	}
-	emit NetRenderCurrentAnimation(*params, *fractalParams, true);
+	emit NetRenderCurrentAnimation(params, fractalParams, true);
 }
 
 void cFlightAnimation::UpadeProgressInformation(
@@ -1188,8 +1190,11 @@ void cFlightAnimation::RefreshTable()
 	UpdateLimitsForFrameRange();
 
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, qInterface::read);
-	cParameterContainer tempPar = *params;
-	cFractalContainer tempFract = *fractalParams;
+
+	auto tempPar = std::make_shared<cParameterContainer>();
+	*tempPar = *params;
+	auto tempFract = std::make_shared<cFractalContainer>();
+	*tempFract = *fractalParams;
 
 	table->setColumnCount(noOfFrames);
 
@@ -1202,7 +1207,7 @@ void cFlightAnimation::RefreshTable()
 			cThumbnailWidget *thumbWidget =
 				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
-			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
+			frames->GetFrameAndConsolidate(i, tempPar, tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
@@ -1377,9 +1382,12 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		// update thumbnail
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cParameterContainer tempPar = *params;
-			cFractalContainer tempFract = *fractalParams;
-			frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+			auto tempPar = std::make_shared<cParameterContainer>();
+			*tempPar = *params;
+			auto tempFract = std::make_shared<cFractalContainer>();
+			*tempFract = *fractalParams;
+
+			frames->GetFrameAndConsolidate(column, tempPar, tempFract);
 			cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
 
 			if (!thumbWidget)

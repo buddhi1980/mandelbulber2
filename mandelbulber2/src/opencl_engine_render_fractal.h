@@ -79,14 +79,14 @@ public:
 	~cOpenClEngineRenderFractal() override;
 
 #ifdef USE_OPENCL
-	bool LoadSourcesAndCompile(
-		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
-	void SetParameters(const cParameterContainer *paramContainer,
-		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
-		sRenderData *renderData, bool meshExportModeEnable);
+	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
+		QString *compilerErrorOutput = nullptr) override;
+	void SetParameters(std::shared_ptr<const cParameterContainer> paramContainer,
+		std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *paramRender,
+		cNineFractals *fractals, sRenderData *renderData, bool meshExportModeEnable);
 	void SetDistanceMode() { distanceMode = true; }
-	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
-	bool PreAllocateBuffers(const cParameterContainer *params) override;
+	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
+	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool WriteBuffersToQueue();
@@ -124,10 +124,12 @@ private:
 	static QString toCamelCase(const QString &s);
 	void CreateListOfHeaderFiles(QStringList &clHeaderFiles);
 	void CreateListOfIncludes(const QStringList &clHeaderFiles, const QString &openclPathSlash,
-		const cParameterContainer *params, const QString &openclEnginePath, QByteArray &programEngine);
+		std::shared_ptr<const cParameterContainer> params, const QString &openclEnginePath,
+		QByteArray &programEngine);
 	void LoadSourceWithMainEngine(const QString &openclEnginePath, QByteArray &programEngine);
 	void SetParametersForDistanceEstimationMethod(cNineFractals *fractals, sParamRender *paramRender);
-	void CreateListOfUsedFormulas(cNineFractals *fractals, const cFractalContainer *fractalContainer);
+	void CreateListOfUsedFormulas(
+		cNineFractals *fractals, std::shared_ptr<const cFractalContainer> fractalContainer);
 	void SetParametersForPerspectiveProjection(sParamRender *paramRender);
 	void SetParametersForShaders(sParamRender *paramRender, sRenderData *renderData);
 	void SetParametersForStereoscopic(sRenderData *renderData);
@@ -146,8 +148,9 @@ private:
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
 		unsigned short newAlpha, sRGB8 color, unsigned short opacity, std::shared_ptr<cImage> &image);
-	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh, std::shared_ptr<cImage> image,
-		QList<QRect> &lastRenderedRects, QList<sRenderedTileData> &listOfRenderedTilesData);
+	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh,
+		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
+		QList<sRenderedTileData> &listOfRenderedTilesData);
 	void FinallRefreshOfImage(QList<QRect> lastRenderedRects, std::shared_ptr<cImage> image);
 
 	std::unique_ptr<sClInConstants> constantInBuffer;

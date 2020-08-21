@@ -76,8 +76,8 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	return *this;
 }
 
-cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(
-	int index, cParameterContainer *params, cFractalContainer *fractal)
+cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
 	Q_UNUSED(fractal);
 	int keyframe = index / framesPerKeyframe;
@@ -121,8 +121,8 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(
 	return interpolated;
 }
 
-void cKeyframes::GetInterpolatedFrameAndConsolidate(
-	int index, cParameterContainer *params, cFractalContainer *fractal)
+void cKeyframes::GetInterpolatedFrameAndConsolidate(int index,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
 	if (index >= 0 && index < frames.count() * framesPerKeyframe)
 	{
@@ -130,7 +130,7 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 
 		for (auto &listOfParameter : listOfParameters)
 		{
-			cParameterContainer *container =
+			std::shared_ptr<cParameterContainer> container =
 				ContainerSelector(listOfParameter.containerName, params, fractal);
 			QString parameterName = listOfParameter.parameterName;
 			cOneParameter oneParameter =
@@ -166,15 +166,15 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 		}
 	}
 }
-void cKeyframes::AddAnimatedParameter(
-	const QString &parameterName, const cOneParameter &defaultValue, cParameterContainer *params)
+void cKeyframes::AddAnimatedParameter(const QString &parameterName,
+	const cOneParameter &defaultValue, std::shared_ptr<cParameterContainer> params)
 {
 	morph.clear();
 	cAnimationFrames::AddAnimatedParameter(parameterName, defaultValue, params);
 }
 
-bool cKeyframes::AddAnimatedParameter(
-	const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal)
+bool cKeyframes::AddAnimatedParameter(const QString &fullParameterName,
+	std::shared_ptr<cParameterContainer> param, std::shared_ptr<cFractalContainer> fractal)
 {
 	morph.clear();
 	return cAnimationFrames::AddAnimatedParameter(fullParameterName, param, fractal);

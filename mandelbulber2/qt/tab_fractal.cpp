@@ -195,8 +195,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 
 			fractalWidget->show();
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget.get());
-			SynchronizeInterfaceWindow(
-				fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+			SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 
 			switch (newFractalList[index]->getCpixelAddition())
 			{
@@ -288,7 +287,7 @@ void cTabFractal::CConstantAdditionSetVisible(bool visible) const
 }
 
 void cTabFractal::SynchronizeInterface(
-	cParameterContainer *par, qInterface::enumReadWrite mode) const
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const
 {
 	WriteLog("cTabFractal::SynchronizeInterface: frame_iterations_formula", 3);
 	SynchronizeInterfaceWindow(ui->frame_iterations_formula, par, mode);
@@ -329,44 +328,44 @@ void cTabFractal::FrameIterationFormulaSetEnabled(bool enabled) const
 }
 
 void cTabFractal::SynchronizeFractal(
-	cParameterContainer *fractal, qInterface::enumReadWrite mode) const
+	std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const
 {
 	SynchronizeInterfaceWindow(fractalWidget.get(), fractal, mode);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsDodecahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::read);
-	gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::read);
+	gMainInterface->IFSDefaultsDodecahedron(gParFractal->at(tabIndex));
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsIcosahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::read);
-	gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::read);
+	gMainInterface->IFSDefaultsIcosahedron(gParFractal->at(tabIndex));
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsOctahedron() const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::read);
-	gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::read);
+	gMainInterface->IFSDefaultsOctahedron(gParFractal->at(tabIndex));
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsMengerSponge() const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::read);
-	gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::read);
+	gMainInterface->IFSDefaultsMengerSponge(gParFractal->at(tabIndex));
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsReset() const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::read);
-	gMainInterface->IFSDefaultsReset(&gParFractal->at(tabIndex));
-	SynchronizeInterfaceWindow(fractalWidget.get(), &gParFractal->at(tabIndex), qInterface::write);
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::read);
+	gMainInterface->IFSDefaultsReset(gParFractal->at(tabIndex));
+	SynchronizeInterfaceWindow(fractalWidget.get(), gParFractal->at(tabIndex), qInterface::write);
 }
 
 void cTabFractal::slotPressedButtonResetFormula() const

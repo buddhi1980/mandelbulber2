@@ -35,22 +35,25 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 
+#include <memory>
 #include "fractal_enums.h"
 #include "parameters.hpp"
 
 class cFractalContainer
 {
 public:
-	cParameterContainer &operator[](int index);
-	const cParameterContainer &operator[](int index) const;
-	cParameterContainer &at(int index);
-	const cParameterContainer &at(int index) const;
+	cFractalContainer();
+
+	std::shared_ptr<cParameterContainer> operator[](int index);
+	const std::shared_ptr<cParameterContainer> operator[](int index) const;
+	std::shared_ptr<cParameterContainer> at(int index);
+	const std::shared_ptr<cParameterContainer> at(int index) const;
 	bool isUsedCustomFormula();
 
 private:
-	cParameterContainer fractals[NUMBER_OF_FRACTALS];
+	std::vector<std::shared_ptr<cParameterContainer>> fractals;
 };
 
-extern cFractalContainer *gParFractal;
+extern std::shared_ptr<cFractalContainer> gParFractal;
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_ */

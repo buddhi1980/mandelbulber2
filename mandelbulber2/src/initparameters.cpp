@@ -46,10 +46,10 @@
 #include "texture_enums.hpp"
 #include "write_log.hpp"
 
-cParameterContainer *gPar = nullptr;
+std::shared_ptr<cParameterContainer> gPar;
 
 // definition of all parameters
-void InitParams(cParameterContainer *par)
+void InitParams(std::shared_ptr<cParameterContainer> par)
 {
 	using namespace parameterContainer;
 
@@ -610,7 +610,7 @@ void InitParams(cParameterContainer *par)
 }
 
 // definition of all parameters
-void InitFractalParams(cParameterContainer *par)
+void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 {
 	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 3);
 
@@ -1182,8 +1182,8 @@ void InitFractalParams(cParameterContainer *par)
 	WriteLog("Fractal parameters initialization finished", 3);
 }
 
-void InitPrimitiveParams(
-	fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
+void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
+	std::shared_ptr<cParameterContainer> par)
 {
 	par->addParam(
 		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
@@ -1270,7 +1270,7 @@ void InitPrimitiveParams(
 	}
 }
 
-void InitMaterialParams(int materialId, cParameterContainer *par)
+void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par)
 {
 	//*********** NOTE: every material parameter have to be listed in QStringList
 	// cMaterial::paramsList in material.cpp file
@@ -1579,8 +1579,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->SetAsGradient(cMaterial::Name("transparency_gradient", materialId));
 }
 
-void DeletePrimitiveParams(
-	fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
+void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
+	std::shared_ptr<cParameterContainer> par)
 {
 	par->DeleteParameter(QString(primitiveName) + "_position");
 	par->DeleteParameter(QString(primitiveName) + "_rotation");
@@ -1647,7 +1647,7 @@ void DeletePrimitiveParams(
 	}
 }
 
-void DeleteAllPrimitiveParams(cParameterContainer *par)
+void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par)
 {
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
@@ -1659,7 +1659,7 @@ void DeleteAllPrimitiveParams(cParameterContainer *par)
 	}
 }
 
-void DeleteAllMaterialParams(cParameterContainer *par)
+void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par)
 {
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)

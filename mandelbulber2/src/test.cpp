@@ -92,8 +92,8 @@ void Test::renderExamples() const
 	QDirIterator it(
 		examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
 
-	cParameterContainer *testPar = new cParameterContainer;
-	cFractalContainer *testParFractal = new cFractalContainer;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
 	cAnimationFrames *testAnimFrames = new cAnimationFrames;
 	cKeyframes *testKeyframes = new cKeyframes;
 
@@ -106,8 +106,8 @@ void Test::renderExamples() const
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&testParFractal->at(i));
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
 	}
 	bool stopRequest = false;
 	std::shared_ptr<cImage> image(
@@ -235,8 +235,6 @@ void Test::renderExamples() const
 
 	delete testKeyframes;
 	delete testAnimFrames;
-	delete testParFractal;
-	delete testPar;
 }
 
 void Test::netrender()
@@ -282,8 +280,8 @@ void Test::testFlight() const
 		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "flight_anim_menger sponge_3.fract");
 
-	cParameterContainer *testPar = new cParameterContainer;
-	cFractalContainer *testParFractal = new cFractalContainer;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
 	cAnimationFrames *testAnimFrames = new cAnimationFrames;
 	cKeyframes *testKeyframes = new cKeyframes;
 
@@ -296,8 +294,8 @@ void Test::testFlight() const
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&testParFractal->at(i));
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
 	}
 	std::shared_ptr<cImage> image(
 		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
@@ -324,8 +322,6 @@ void Test::testFlight() const
 
 	delete testKeyframes;
 	delete testAnimFrames;
-	delete testParFractal;
-	delete testPar;
 	delete flightAnimation;
 }
 
@@ -347,8 +343,8 @@ void Test::testKeyframe() const
 		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "keyframe_anim_mandelbulb.fract");
 
-	cParameterContainer *testPar = new cParameterContainer;
-	cFractalContainer *testParFractal = new cFractalContainer;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer);
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer);
 	cAnimationFrames *testAnimFrames = new cAnimationFrames;
 	cKeyframes *testKeyframes = new cKeyframes;
 
@@ -361,8 +357,8 @@ void Test::testKeyframe() const
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&testParFractal->at(i));
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
 	}
 	std::shared_ptr<cImage> image(
 		new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height")));
@@ -389,8 +385,6 @@ void Test::testKeyframe() const
 
 	delete testKeyframes;
 	delete testAnimFrames;
-	delete testParFractal;
-	delete testPar;
 	delete testKeyframeAnimation;
 }
 
@@ -414,8 +408,8 @@ void Test::renderSimple() const
 		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbox001.fract");
 
-	cParameterContainer *testPar = new cParameterContainer;
-	cFractalContainer *testParFractal = new cFractalContainer;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
 	cAnimationFrames *testAnimFrames = new cAnimationFrames;
 	cKeyframes *testKeyframes = new cKeyframes;
 
@@ -428,8 +422,8 @@ void Test::renderSimple() const
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&testParFractal->at(i));
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
 	}
 	bool stopRequest = false;
 	std::shared_ptr<cImage> image(
@@ -455,8 +449,6 @@ void Test::renderSimple() const
 	delete renderJob;
 	delete testKeyframes;
 	delete testAnimFrames;
-	delete testParFractal;
-	delete testPar;
 }
 
 void Test::testImageSaveWrapper() const
@@ -479,8 +471,8 @@ void Test::renderImageSave() const
 		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbulb001.fract");
 
-	cParameterContainer *testPar = new cParameterContainer;
-	cFractalContainer *testParFractal = new cFractalContainer;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer);
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer);
 	cAnimationFrames *testAnimFrames = new cAnimationFrames;
 	cKeyframes *testKeyframes = new cKeyframes;
 
@@ -494,8 +486,8 @@ void Test::renderImageSave() const
 	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&testParFractal->at(i));
+		testParFractal->at(i)->SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(testParFractal->at(i));
 	}
 	bool stopRequest = false;
 	std::shared_ptr<cImage> image(
@@ -605,6 +597,4 @@ void Test::renderImageSave() const
 	delete renderJob;
 	delete testKeyframes;
 	delete testAnimFrames;
-	delete testParFractal;
-	delete testPar;
 }

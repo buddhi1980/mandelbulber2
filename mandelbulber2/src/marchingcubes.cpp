@@ -57,8 +57,8 @@
 #include "opencl/mesh_export_data_cl.h"
 #endif
 
-MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
-	const cFractalContainer *fractalContainer, sParamRender *params, cNineFractals *fractals,
+MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
+	std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *params, cNineFractals *fractals,
 	sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
 	const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
 	std::vector<long long> &polygons, std::vector<double> &colorIndices)

@@ -140,25 +140,25 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		if (parSettings.LoadFromFile(filename))
 		{
 			progressBar->show();
-			std::unique_ptr<cParameterContainer> par(new cParameterContainer);
-			std::unique_ptr<cFractalContainer> parFractal (new cFractalContainer);
-			InitParams(par.get());
+			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+			InitParams(par);
 			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-				InitFractalParams(&parFractal->at(i));
+				InitFractalParams(parFractal->at(i));
 
 			/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-			InitMaterialParams(1, par.get());
+			InitMaterialParams(1, par);
 
 			/*******************************************************************/
 
-			if (parSettings.Decode(par.get(), parFractal.get()))
+			if (parSettings.Decode(par, parFractal))
 			{
 				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
 				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
 				description->setText(par->Get<QString>("description"));
-				thumbWidget->AssignParameters(*par, *parFractal);
+				thumbWidget->AssignParameters(par, parFractal);
 				thumbWidget->update();
 			}
 			else

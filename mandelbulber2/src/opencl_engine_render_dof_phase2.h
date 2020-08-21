@@ -60,9 +60,9 @@ public:
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
-	bool LoadSourcesAndCompile(
-		const cParameterContainer *params, QString *compilerErrorOutput = nullptr) override;
-	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
+	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
+		QString *compilerErrorOutput = nullptr) override;
+	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
 	bool Render(std::shared_ptr<cImage> image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer,

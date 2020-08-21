@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 
+#include <memory>
 #include <QString>
 
 // forward declarations
@@ -75,44 +76,44 @@ struct widgetProperties
 } // namespace qInterface
 
 void SynchronizeInterfaceWindow(
-	QWidget *window, cParameterContainer *par, qInterface::enumReadWrite mode);
+	QWidget *window, std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // widget specific synchronization functions
-void SynchronizeInterfaceQLineEdit(
-	QList<QLineEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQDoubleSpinBox(
-	QList<QDoubleSpinBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQSpinBox(
-	QList<QSpinBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQCheckBox(
-	QList<QCheckBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQGroupBox(
-	QList<QGroupBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceFileSelectWidget(
-	QList<FileSelectWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceMyColorButton(
-	QList<MyColorButton *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceColorGradientWidget(
-	QList<cGradientEditWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQComboBox(
-	QList<QComboBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceMaterialSelector(
-	QList<cMaterialSelector *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQPlainTextEdit(
-	QList<QPlainTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceQTextEdit(
-	QList<QTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQLineEdit(QList<QLineEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQDoubleSpinBox(QList<QDoubleSpinBox *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQSpinBox(QList<QSpinBox *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQCheckBox(QList<QCheckBox *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQGroupBox(QList<QGroupBox *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceFileSelectWidget(QList<FileSelectWidget *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceMyColorButton(QList<MyColorButton *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceColorGradientWidget(QList<cGradientEditWidget *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQComboBox(QList<QComboBox *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceMaterialSelector(QList<cMaterialSelector *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQPlainTextEdit(QList<QPlainTextEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQTextEdit(QList<QTextEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // utility functions
 void GetNameAndType(QString name, QString *parameterName, QString *type);
 void SynchronizeInterfaceReadVect3d(
-	QString &nameVect, char lastChar, double value, cParameterContainer *par);
+	QString &nameVect, char lastChar, double value, std::shared_ptr<cParameterContainer> par);
 void SynchronizeInterfaceWriteVect3d(
-	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
+	QString &nameVect, char lastChar, double &out, std::shared_ptr<cParameterContainer> par);
 void SynchronizeInterfaceReadVect4d(
-	QString &nameVect, char lastChar, double value, cParameterContainer *par);
+	QString &nameVect, char lastChar, double value, std::shared_ptr<cParameterContainer> par);
 void SynchronizeInterfaceWriteVect4d(
-	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
+	QString &nameVect, char lastChar, double &out, std::shared_ptr<cParameterContainer> par);
 qInterface::widgetProperties parseWidgetProperties(QWidget *widget, QStringList allowedClassNames);
 
 #endif /* MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_ */

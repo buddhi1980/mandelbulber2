@@ -623,13 +623,13 @@ void cCommandLineInterface::printParametersAndExit()
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 
-	QList<QString> listOfFractalParameters = gParFractal->at(0).GetListOfParameters();
+	QList<QString> listOfFractalParameters = gParFractal->at(0)->GetListOfParameters();
 	out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"), cHeadless::ansiYellow,
 		cHeadless::noExplicitColor, true);
 
 	for (auto &parameterName : listOfFractalParameters)
 	{
-		const QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
+		const QString defaultValue = gParFractal->at(0)->GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 
@@ -936,7 +936,7 @@ void cCommandLineInterface::handleOverrideParameters() const
 			if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
 			{
 				gParFractal->at(fractalIndex)
-					.Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+					->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
 			}
 			else
 			{

@@ -54,10 +54,10 @@ public:
 	explicit cDockEffects(QWidget *parent = nullptr);
 	~cDockEffects() override;
 
-	void SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const;
-	void SynchronizeInterfaceDOFEnabled(cParameterContainer *par) const;
-	void SynchronizeInterfaceLights(cParameterContainer *par) const;
-	void SynchronizeInterfaceRandomLights(cParameterContainer *par) const;
+	void SynchronizeInterfaceBasicFogEnabled(std::shared_ptr<cParameterContainer> par) const;
+	void SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterContainer> par) const;
+	void SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const;
+	void SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
 
 	double GetAuxLightManualPlacementDistance() const;
 	void SetAuxLightManualPlacementDistance(double dist) const;

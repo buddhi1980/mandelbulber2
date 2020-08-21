@@ -226,7 +226,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 	}
 }
 
-bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
+bool cOpenClEngine::CreateKernel4Program(std::shared_ptr<const cParameterContainer> params)
 {
 	if (programsLoaded)
 	{
@@ -302,7 +302,7 @@ bool cOpenClEngine::CreateKernels()
 	return false;
 }
 
-void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
+void cOpenClEngine::InitOptimalJob(std::shared_ptr<const cParameterContainer> params)
 {
 	quint64 width = params->Get<int>("image_width");
 	quint64 height = params->Get<int>("image_height");
@@ -441,7 +441,7 @@ void cOpenClEngine::DeleteKernelCache()
 	if (!dir.exists()) QDir().mkdir(dir.absolutePath());
 }
 
-bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
+bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params)
 {
 	ReleaseMemory();
 	RegisterInputOutputBuffers(params);
