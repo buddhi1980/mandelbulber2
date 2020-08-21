@@ -201,18 +201,18 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 #ifdef USE_OPENCL
-	std::unique_ptr<sRenderData> renderData(new sRenderData);
+	std::shared_ptr<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	std::unique_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::unique_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
 	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 	renderData->ValidateObjects();
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
-		gPar, gParFractal, params.get(), fractals.get(), renderData.get(), true);
+		gPar, gParFractal, params, fractals, renderData, true);
 
 	QString compilerOutput;
 	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar, &compilerOutput))

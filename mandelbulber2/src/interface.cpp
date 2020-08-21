@@ -1029,11 +1029,11 @@ void cInterface::RefreshPostEffects()
 			}
 			else
 			{
-				sParamRender params(gPar);
-				sRenderData data;
-				data.stopRequest = &stopRequest;
-				data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				cRenderSSAO rendererSSAO(&params, &data, mainImage);
+				std::shared_ptr<sParamRender> params(new sParamRender(gPar));
+				std::shared_ptr<sRenderData> data(new sRenderData());
+				data->stopRequest = &stopRequest;
+				data->screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				cRenderSSAO rendererSSAO(params, data, mainImage);
 				QObject::connect(&rendererSSAO,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
@@ -1122,8 +1122,8 @@ void cInterface::AutoFog() const
 double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> parFractal)
 {
-	sParamRender *params = new sParamRender(par);
-	cNineFractals *fractals = new cNineFractals(parFractal, par);
+	std::shared_ptr<sParamRender> params(new sParamRender(par));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, par));
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
 
@@ -1163,8 +1163,6 @@ double cInterface::GetDistanceForPoint(CVector3 point, std::shared_ptr<cParamete
 	{
 		dist = CalculateDistance(*params, *fractals, in, &out);
 	}
-	delete params;
-	delete fractals;
 
 #ifdef USE_OPENCL
 	if (openClEnabled)
@@ -1788,8 +1786,8 @@ void cInterface::ResetView()
 	// calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
-	sParamRender *params = new sParamRender(gPar);
-	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
+	std::shared_ptr<sParamRender> params(new sParamRender(gPar));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
@@ -1855,8 +1853,6 @@ void cInterface::ResetView()
 	}
 	cProgressText::ProgressStatusText(
 		QObject::tr("Resetting view"), QObject::tr("Done"), 1.0, cProgressText::progress_IMAGE);
-	delete params;
-	delete fractals;
 
 	double newCameraDist;
 

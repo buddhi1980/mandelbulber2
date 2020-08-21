@@ -49,8 +49,8 @@ class cRenderSSAO : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderSSAO(
-		const sParamRender *_params, const sRenderData *_renderData, std::shared_ptr<cImage> _image);
+	cRenderSSAO(std::shared_ptr<const sParamRender> _params,
+		std::shared_ptr<const sRenderData> _renderData, std::shared_ptr<cImage> _image);
 	~cRenderSSAO() override;
 
 	void SetRegion(const cRegion<int> &_region);

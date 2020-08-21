@@ -57,10 +57,10 @@ class MarchingCubes : public QObject
 
 public:
 	MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
-		std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *params,
-		cNineFractals *fractals, sRenderData *renderData, int numx, int numy, int numz,
-		const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
-		std::vector<double> &vertices, std::vector<long long> &polygons,
+		std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> params,
+		std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, int numx,
+		int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh,
+		bool *stop, std::vector<double> &vertices, std::vector<long long> &polygons,
 		std::vector<double> &colorIndices);
 
 	~MarchingCubes() override { FreeBuffers(); }
@@ -101,9 +101,9 @@ private:
 	long long numyzb;
 	int z3;
 	int yz3;
-	sParamRender *params;
-	cNineFractals *fractals;
-	sRenderData *renderData;
+	std::shared_ptr<sParamRender> params;
+	std::shared_ptr<cNineFractals> fractals;
+	std::shared_ptr<sRenderData> renderData;
 	double dist_thresh;
 	std::shared_ptr<const cParameterContainer> paramsContainer;
 	std::shared_ptr<const cFractalContainer> fractalContainer;

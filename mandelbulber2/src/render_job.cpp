@@ -109,7 +109,6 @@ cRenderJob::~cRenderJob()
 {
 	id--;
 	// qDebug() << "Id" << id;
-	if (renderData) delete renderData;
 
 	if (canUseNetRender) gNetRender->Release();
 
@@ -190,8 +189,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	// systemData.numberOfThreads = 1;
 
 	// aux renderer data
-	if (renderData) delete renderData;
-	renderData = new sRenderData;
+	renderData.reset(new sRenderData);
 
 	renderData->stereo = stereo;
 	renderData->configuration = config;
@@ -369,8 +367,9 @@ bool cRenderJob::Execute()
 			WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
 
 			// move parameters from containers to structures
-			sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
-			cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+			std::shared_ptr<sParamRender> params(
+				new sParamRender(paramsContainer, &renderData->objectData));
+			std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
 
 			renderData->ValidateObjects();
 
@@ -378,7 +377,7 @@ bool cRenderJob::Execute()
 			params->resolution = 1.0 / image->GetHeight();
 			ReduceDetail();
 
-			InitStatistics(fractals);
+			InitStatistics(fractals.get());
 
 			// initialize histograms
 			renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
@@ -387,22 +386,18 @@ bool cRenderJob::Execute()
 			renderData->statistics.usedDEType = fractals->GetDETypeString();
 
 			// create and execute renderer
-			cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
+			std::unique_ptr<cRenderer> renderer(new cRenderer(params, fractals, renderData, image));
 
-			ConnectUpdateSinalsSlots(renderer);
+			ConnectUpdateSinalsSlots(renderer.get());
 
 			if (renderData->configuration.UseNetRender())
 			{
-				ConnectNetRenderSignalsSlots(renderer);
+				ConnectNetRenderSignalsSlots(renderer.get());
 			}
 
 			result = renderer->RenderImage();
 
 			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
-
-			delete params;
-			delete fractals;
-			delete renderer;
 		}
 	}
 
@@ -422,14 +417,15 @@ bool cRenderJob::Execute()
 			SetupStereoEyes(repeat, twoPassStereo);
 
 			// move parameters from containers to structures
-			sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
-			cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+			std::shared_ptr<sParamRender> params(
+				new sParamRender(paramsContainer, &renderData->objectData));
+			std::shared_ptr<cNineFractals> fractals(new cNineFractals(fractalContainer, paramsContainer));
 
 			renderData->ValidateObjects();
 
 			image->SetImageParameters(params->imageAdjustments);
 
-			InitStatistics(fractals);
+			InitStatistics(fractals.get());
 			emit updateStatistics(renderData->statistics);
 
 			image->SetFastPreview(true);
@@ -476,9 +472,6 @@ bool cRenderJob::Execute()
 			}
 
 			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
-
-			delete params;
-			delete fractals;
 		} // next repeat
 
 		image->SetFastPreview(false);
@@ -631,8 +624,8 @@ void cRenderJob::InitStatistics(const cNineFractals *fractals)
 }
 
 #ifdef USE_OPENCL
-bool cRenderJob::RenderFractalWithOpenCl(
-	sParamRender *params, cNineFractals *fractals, cProgressText *progressText)
+bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
+	std::shared_ptr<cNineFractals> fractals, cProgressText *progressText)
 {
 	bool result = false;
 	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
@@ -658,8 +651,8 @@ bool cRenderJob::RenderFractalWithOpenCl(
 			gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
 		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-		result =
-			gOpenCl->openClEngineRenderFractal->RenderMulti(image, renderData->stopRequest, renderData);
+		result = gOpenCl->openClEngineRenderFractal->RenderMulti(
+			image, renderData->stopRequest, renderData.get());
 	}
 	WriteLog("OpenCL RenderMulti exited", 2);
 	gOpenCl->openClEngineRenderFractal->ReleaseMemory();
@@ -670,8 +663,8 @@ bool cRenderJob::RenderFractalWithOpenCl(
 	return result;
 }
 
-void cRenderJob::RenderSSAOWithOpenCl(
-	sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result)
+void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
+	const cRegion<int> &region, cProgressText *progressText, bool *result)
 {
 	if (!*renderData->stopRequest && *result == true)
 	{
@@ -686,7 +679,7 @@ void cRenderJob::RenderSSAOWithOpenCl(
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 			gOpenCl->openClEngineRenderSSAO->Lock();
-			gOpenCl->openClEngineRenderSSAO->SetParameters(params, region);
+			gOpenCl->openClEngineRenderSSAO->SetParameters(params.get(), region);
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 			{
 				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
@@ -739,7 +732,7 @@ void cRenderJob::RenderSSAOWithOpenCl(
 	}
 }
 
-void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
+void cRenderJob::RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool *result)
 {
 	if (!*renderData->stopRequest)
 	{
@@ -758,17 +751,17 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest, region);
+					params.get(), paramsContainer, image, renderData->stopRequest, region);
 
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest, region);
+					params.get(), paramsContainer, image, renderData->stopRequest, region);
 			}
 			else
 			{
 				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
+					params.get(), paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
 			}
 		}
 	}

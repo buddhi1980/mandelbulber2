@@ -52,12 +52,13 @@
 #include "system_data.hpp"
 #include "texture.hpp"
 
-cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
-	sThreadData *_threadData, sRenderData *_data, std::shared_ptr<cImage> _image)
+cRenderWorker::cRenderWorker(std::shared_ptr<const sParamRender> _params,
+	std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sThreadData> _threadData,
+	std::shared_ptr<sRenderData> _data, std::shared_ptr<cImage> _image)
 {
-	params = _params;
-	fractal = _fractal;
-	data = _data;
+	params = _params.get();
+	fractal = _fractal.get();
+	data = _data.get();
 	image = _image;
 	threadData = _threadData;
 	cameraTarget = nullptr;
@@ -126,7 +127,7 @@ void cRenderWorker::doWork()
 	perlinNoise = new cPerlinNoiseOctaves(params->cloudsRandomSeed);
 
 	// init of scheduler
-	cScheduler *scheduler = threadData->scheduler;
+	cScheduler *scheduler = threadData->scheduler.get();
 
 	// start point for ray-marching
 	CVector3 start = params->camera;

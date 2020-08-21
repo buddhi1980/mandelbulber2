@@ -79,11 +79,11 @@ cVoxelExport::~cVoxelExport()
 
 void cVoxelExport::ProcessVolume()
 {
-	std::unique_ptr<sRenderData> renderData(new sRenderData);
+	std::shared_ptr<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	std::unique_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	std::unique_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::shared_ptr<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
 	CreateMaterialsMap(gPar, &renderData.get()->materials, false, true, false);
 
@@ -128,7 +128,7 @@ void cVoxelExport::ProcessVolume()
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params.get(), fractals.get(), renderData.get(), true);
+			gPar, gParFractal, params, fractals, renderData, true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
 		{

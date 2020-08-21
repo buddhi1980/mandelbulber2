@@ -107,11 +107,11 @@ private:
 	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
 
 #ifdef USE_OPENCL
-	bool RenderFractalWithOpenCl(
-		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
-	void RenderSSAOWithOpenCl(
-		sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result);
-	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
+	bool RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
+		std::shared_ptr<cNineFractals> fractals, cProgressText *progressText);
+	void RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params, const cRegion<int> &region,
+		cProgressText *progressText, bool *result);
+	void RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool *result);
 #endif
 
 	void LoadTextures(int frameNo, const cRenderingConfiguration &config);
@@ -129,7 +129,7 @@ private:
 	int totalNumberOfCPUs;
 	int width;
 	QWidget *imageWidget;
-	sRenderData *renderData;
+	std::shared_ptr<sRenderData> renderData;
 	bool *stopRequest;
 	bool canUseNetRender;
 

@@ -785,7 +785,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 }
 
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
-	sParamRender *paramRender, cNineFractals *fractals, sRenderData *renderData)
+	std::shared_ptr<const sParamRender> paramRender, std::shared_ptr<const cNineFractals> fractals,
+	std::shared_ptr<sRenderData> renderData)
 {
 	// AO colored vectors
 	cRenderWorker *tempRenderWorker =
@@ -812,8 +813,8 @@ void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *
 
 void cOpenClEngineRenderFractal::SetParameters(
 	std::shared_ptr<const cParameterContainer> paramContainer,
-	std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *paramRender,
-	cNineFractals *fractals, sRenderData *renderData, bool meshExportModeEnable)
+	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> paramRender,
+	std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable)
 {
 	Q_UNUSED(fractalContainer);
 
@@ -845,19 +846,19 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
 
 	// define distance estimation method
-	SetParametersForDistanceEstimationMethod(fractals, paramRender);
+	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get());
 
-	CreateListOfUsedFormulas(fractals, fractalContainer);
+	CreateListOfUsedFormulas(fractals.get(), fractalContainer);
 
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
 	if (paramRender->interiorMode) definesCollector += " -DINTERIOR_MODE";
 	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
 
-	SetParametersForIterationWeight(fractals);
+	SetParametersForIterationWeight(fractals.get());
 
 	// ---- perspective projections ------
-	SetParametersForPerspectiveProjection(paramRender);
+	SetParametersForPerspectiveProjection(paramRender.get());
 
 	//----------- create dynamic data -----------
 	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
@@ -867,9 +868,9 @@ void cOpenClEngineRenderFractal::SetParameters(
 	// ------------ enabling shaders ----------
 	if (renderData)
 	{
-		SetParametersForShaders(paramRender, renderData);
+		SetParametersForShaders(paramRender.get(), renderData.get());
 
-		SetParametersForStereoscopic(renderData);
+		SetParametersForStereoscopic(renderData.get());
 
 		WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
 
@@ -877,10 +878,10 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 		renderData->ValidateObjects();
 
-		QMap<QString, int> textureIndexes = SetParametersAndDataForTextures(renderData);
+		QMap<QString, int> textureIndexes = SetParametersAndDataForTextures(renderData.get());
 
 		// materials
-		SetParametersAndDataForMaterials(textureIndexes, renderData, paramRender);
+		SetParametersAndDataForMaterials(textureIndexes, renderData.get(), paramRender.get());
 
 		// AO colored vectors
 		DynamicDataForAOVectors(paramRender, fractals, renderData);

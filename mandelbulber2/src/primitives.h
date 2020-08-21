@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_PRIMITIVES_H_
 #define MANDELBULBER2_SRC_PRIMITIVES_H_
 
+#include <memory>
 #include <utility>
 
 #include "QtCore"
@@ -168,7 +169,8 @@ class cPrimitives
 	// http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
 
 public:
-	cPrimitives(const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+	cPrimitives(
+		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
 	~cPrimitives();
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
 		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;

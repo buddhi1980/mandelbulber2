@@ -82,8 +82,9 @@ public:
 	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
 		QString *compilerErrorOutput = nullptr) override;
 	void SetParameters(std::shared_ptr<const cParameterContainer> paramContainer,
-		std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *paramRender,
-		cNineFractals *fractals, sRenderData *renderData, bool meshExportModeEnable);
+		std::shared_ptr<const cFractalContainer> fractalContainer,
+		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
+		std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable);
 	void SetDistanceMode() { distanceMode = true; }
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
@@ -136,8 +137,8 @@ private:
 	QMap<QString, int> SetParametersAndDataForTextures(sRenderData *renderData);
 	void SetParametersAndDataForMaterials(
 		const QMap<QString, int> &textureIndexes, sRenderData *renderData, sParamRender *paramRender);
-	void DynamicDataForAOVectors(
-		sParamRender *paramRender, cNineFractals *fractals, sRenderData *renderData);
+	void DynamicDataForAOVectors(std::shared_ptr<const sParamRender> paramRender,
+		std::shared_ptr<const cNineFractals> fractals, std::shared_ptr<sRenderData> renderData);
 	void SetParametersForIterationWeight(cNineFractals *fractals);
 	void CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
 		const std::shared_ptr<cOpenClScheduler> &scheduler, quint64 width, quint64 height,

@@ -55,7 +55,8 @@ class cRenderer : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderer(const sParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
+	cRenderer(std::shared_ptr<const sParamRender> _params,
+		std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sRenderData> _renderData,
 		std::shared_ptr<cImage> _image);
 	~cRenderer() override;
 	bool RenderImage();
@@ -63,9 +64,9 @@ public:
 private:
 	void CreateLineData(int y, QByteArray *lineData) const;
 	int InitProgresiveSteps();
-	void InitializeThreadData(cRenderWorker::sThreadData *threadData);
-	void LaunchThreads(
-		QThread **thread, cRenderWorker **worker, cRenderWorker::sThreadData *threadData);
+	void InitializeThreadData(std::vector<std::shared_ptr<cRenderWorker::sThreadData>> &threadData);
+	void LaunchThreads(std::vector<QThread *> &threads, std::vector<cRenderWorker *> &workers,
+		std::vector<std::shared_ptr<cRenderWorker::sThreadData>> &threadsData);
 	void TerminateRendering();
 	double PeriodicUpdateStatusAndProgressBar(QString &statusText, QString &progressTxt,
 		cProgressText &progressText, QElapsedTimer &timerProgressRefresh);
@@ -77,11 +78,11 @@ private:
 	void RenderDOF();
 	void RenderHDRBlur();
 
-	const sParamRender *params;
-	const cNineFractals *fractal;
-	sRenderData *data;
+	std::shared_ptr<const sParamRender> params;
+	std::shared_ptr<const cNineFractals> fractal;
+	std::shared_ptr<sRenderData> data;
 	std::shared_ptr<cImage> image;
-	cScheduler *scheduler;
+	std::shared_ptr<cScheduler> scheduler;
 	bool netRenderAckReceived;
 
 public slots:

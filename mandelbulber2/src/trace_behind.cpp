@@ -44,11 +44,12 @@
 #include "parameters.hpp"
 #include "projection_3d.hpp"
 
-double traceBehindFractal(std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractals, double maxDist,
-	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit)
+double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
+	std::shared_ptr<cFractalContainer> fractals, double maxDist, CVector3 viewVector,
+	double startingDepth, double resolution, double distanceLimit)
 {
-	sParamRender *paramRender = new sParamRender(params);
-	cNineFractals *nineFractals = new cNineFractals(fractals, params);
+	std::shared_ptr<sParamRender> paramRender(new sParamRender(params));
+	std::shared_ptr<cNineFractals> nineFractals(new cNineFractals(fractals, params));
 	paramRender->resolution = resolution;
 	double totalDistanceBehind = 0.0;
 	double distanceBehind = 0.0;
@@ -126,9 +127,6 @@ double traceBehindFractal(std::shared_ptr<cParameterContainer> params, std::shar
 
 		if ((paramRender->camera - point).Length() > distanceLimit) break;
 	}
-
-	delete paramRender;
-	delete nineFractals;
 
 #ifdef USE_OPENCL
 	if (openClEnabled)

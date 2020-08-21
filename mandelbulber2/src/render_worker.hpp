@@ -74,11 +74,12 @@ public:
 	{
 		int id;
 		int startLine;
-		cScheduler *scheduler;
+		std::shared_ptr<cScheduler> scheduler;
 	};
 
-	cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
-		sThreadData *_threadData, sRenderData *_data, std::shared_ptr<cImage> _image);
+	cRenderWorker(std::shared_ptr<const sParamRender> _params,
+		std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sThreadData> _threadData,
+		std::shared_ptr<sRenderData> _data, std::shared_ptr<cImage> _image);
 	~cRenderWorker() override;
 
 	// PrepareAOVectors() is public because is needed also for OpenCL data
@@ -262,7 +263,7 @@ private:
 	const sParamRender *params;
 	const cNineFractals *fractal;
 	sRenderData *data;
-	sThreadData *threadData;
+	std::shared_ptr<sThreadData> threadData;
 	std::shared_ptr<cImage> image;
 
 	// internal variables

@@ -53,21 +53,21 @@
 #include "wait.hpp"
 #include "write_log.hpp"
 
-cRenderer::cRenderer(const sParamRender *_params, const cNineFractals *_fractal,
-	sRenderData *_renderData, std::shared_ptr<cImage> _image)
+cRenderer::cRenderer(std::shared_ptr<const sParamRender> _params,
+	std::shared_ptr<const cNineFractals> _fractal, std::shared_ptr<sRenderData> _renderData,
+	std::shared_ptr<cImage> _image)
 		: QObject()
 {
 	params = _params;
 	fractal = _fractal;
 	data = _renderData;
 	image = _image;
-	scheduler = nullptr;
 	netRenderAckReceived = true;
 }
 
 cRenderer::~cRenderer()
 {
-	if (scheduler) delete scheduler;
+	// nothing to delete
 }
 
 int cRenderer::InitProgresiveSteps()
@@ -86,50 +86,53 @@ int cRenderer::InitProgresiveSteps()
 	return progressive;
 }
 
-void cRenderer::InitializeThreadData(cRenderWorker::sThreadData *threadData)
+void cRenderer::InitializeThreadData(
+	std::vector<std::shared_ptr<cRenderWorker::sThreadData>> &threadData)
 {
-	for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
+	for (uint i = 0; i < threadData.size(); i++)
 	{
-		threadData[i].id = i + 1;
+		threadData[i].reset(new cRenderWorker::sThreadData());
+		threadData[i]->id = i + 1;
 		if (data->configuration.UseNetRender() && !gNetRender->IsAnimation())
 		{
 			if (i < data->netRenderStartingPositions.size())
 			{
-				threadData[i].startLine = data->netRenderStartingPositions.at(i);
+				threadData[i]->startLine = data->netRenderStartingPositions.at(i);
 			}
 			else
 			{
-				threadData[i].startLine = data->screenRegion.y1;
+				threadData[i]->startLine = data->screenRegion.y1;
 				qCritical() << "NetRender - Missing starting positions data";
 			}
 		}
 		else
 		{
-			threadData[i].startLine =
+			threadData[i]->startLine =
 				(data->screenRegion.height / data->configuration.GetNumberOfThreads() * i
 					+ data->screenRegion.y1)
 				/ scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 		}
-		threadData[i].scheduler = scheduler;
+		threadData[i]->scheduler = scheduler;
 	}
 }
 
-void cRenderer::LaunchThreads(
-	QThread **thread, cRenderWorker **worker, cRenderWorker::sThreadData *threadData)
+void cRenderer::LaunchThreads(std::vector<QThread *> &threads,
+	std::vector<cRenderWorker *> &workers,
+	std::vector<std::shared_ptr<cRenderWorker::sThreadData>> &threadsData)
 {
 	for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 	{
 		WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
-		thread[i] = new QThread;
-		worker[i] = new cRenderWorker(
-			params, fractal, &threadData[i], data, image); // Warning! not needed to delete object
-		worker[i]->moveToThread(thread[i]);
-		QObject::connect(thread[i], SIGNAL(started()), worker[i], SLOT(doWork()));
-		QObject::connect(worker[i], SIGNAL(finished()), thread[i], SLOT(quit()));
-		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
-		thread[i]->setObjectName("RenderWorker #" + QString::number(i));
-		thread[i]->start();
-		thread[i]->setPriority(systemData.GetQThreadPriority(systemData.threadsPriority));
+		threads[i] = new QThread;
+		workers[i] = new cRenderWorker(
+			params, fractal, threadsData[i], data, image); // Warning! not needed to delete object
+		workers[i]->moveToThread(threads[i]);
+		QObject::connect(threads[i], SIGNAL(started()), workers[i], SLOT(doWork()));
+		QObject::connect(workers[i], SIGNAL(finished()), threads[i], SLOT(quit()));
+		QObject::connect(workers[i], SIGNAL(finished()), workers[i], SLOT(deleteLater()));
+		threads[i]->setObjectName("RenderWorker #" + QString::number(i));
+		threads[i]->start();
+		threads[i]->setPriority(systemData.GetQThreadPriority(systemData.threadsPriority));
 		WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 	}
 }
@@ -359,15 +362,14 @@ bool cRenderer::RenderImage()
 		progressText.ResetTimer();
 
 		// prepare multiple threads
-		QThread **thread = new QThread *[data->configuration.GetNumberOfThreads()];
-		cRenderWorker::sThreadData *threadData =
-			new cRenderWorker::sThreadData[data->configuration.GetNumberOfThreads()];
-		cRenderWorker **worker = new cRenderWorker *[data->configuration.GetNumberOfThreads()];
+		std::vector<QThread *> threads(data->configuration.GetNumberOfThreads());
+		std::vector<std::shared_ptr<cRenderWorker::sThreadData>> threadsData(
+			data->configuration.GetNumberOfThreads());
+		std::vector<cRenderWorker *> workers(data->configuration.GetNumberOfThreads());
 
-		if (scheduler) delete scheduler;
-		scheduler = new cScheduler(data->screenRegion, progressive);
+		scheduler.reset(new cScheduler(data->screenRegion, progressive));
 
-		InitializeThreadData(threadData);
+		InitializeThreadData(threadsData);
 
 		QString statusText;
 		QString progressTxt;
@@ -386,7 +388,7 @@ bool cRenderer::RenderImage()
 		{
 			WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep(), 2);
 
-			LaunchThreads(thread, worker, threadData);
+			LaunchThreads(threads, workers, threadsData);
 
 			while (!scheduler->AllLinesDone())
 			{
@@ -450,12 +452,12 @@ bool cRenderer::RenderImage()
 
 			for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 			{
-				while (thread[i]->isRunning())
+				while (threads[i]->isRunning())
 				{
 					gApplication->processEvents();
 				};
 				WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
-				delete thread[i];
+				delete threads[i];
 			}
 		} while (scheduler->ProgressiveNextStep());
 
@@ -530,10 +532,6 @@ bool cRenderer::RenderImage()
 				emit NotifyClientStatus();
 			}
 		}
-
-		delete[] thread;
-		delete[] threadData;
-		delete[] worker;
 
 		WriteLog("cRenderer::RenderImage(): memory released", 2);
 

@@ -58,10 +58,11 @@
 #endif
 
 MarchingCubes::MarchingCubes(std::shared_ptr<const cParameterContainer> paramsContainer,
-	std::shared_ptr<const cFractalContainer> fractalContainer, sParamRender *params, cNineFractals *fractals,
-	sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
-	const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
-	std::vector<long long> &polygons, std::vector<double> &colorIndices)
+	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> params,
+	std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, int numx,
+	int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
+	std::vector<double> &vertices, std::vector<long long> &polygons,
+	std::vector<double> &colorIndices)
 		: vertices{vertices}, polygons{polygons}, colorIndices{colorIndices}
 {
 	this->numx = numx;
@@ -180,7 +181,7 @@ void MarchingCubes::RunMarchingCube()
 		{
 			size_t dataOffset = clMeshParams.sliceHeight * clMeshParams.sliceWidth;
 			bool result = gOpenCl->openClEngineRenderFractal->Render(
-				&voxelBuffer, &colorBuffer, nullptr, i, renderData->stopRequest, renderData, dataOffset);
+				&voxelBuffer, &colorBuffer, nullptr, i, renderData->stopRequest, renderData.get(), dataOffset);
 
 			if (!result)
 			{
@@ -441,7 +442,8 @@ __declspec(target(mic))
 	sDistanceOut distanceOut;
 	sDistanceIn distanceIn(point, dist_thresh, false);
 
-	double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut, renderData);
+	double dist =
+		CalculateDistance(*params.get(), *fractals.get(), distanceIn, &distanceOut, renderData.get());
 
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
 	cMaterial *material = &renderData->materials[objectData.materialId];

@@ -44,12 +44,12 @@
 #include "wait.hpp"
 #include "write_log.hpp"
 
-cRenderSSAO::cRenderSSAO(
-	const sParamRender *_params, const sRenderData *_renderData, std::shared_ptr<cImage> _image)
+cRenderSSAO::cRenderSSAO(std::shared_ptr<const sParamRender> _params,
+	std::shared_ptr<const sRenderData> _renderData, std::shared_ptr<cImage> _image)
 		: QObject()
 {
-	params = _params;
-	data = _renderData;
+	params = _params.get();
+	data = _renderData.get();
 	image = _image;
 	qualityFactor = 1.0;
 	progressive = 0;
