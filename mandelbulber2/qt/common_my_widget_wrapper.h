@@ -42,6 +42,7 @@
 #ifndef MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
 #define MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
 
+#include <memory>
 #include <QMenu>
 #include <QWidget>
 
