@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_QT_MATERIAL_EDITOR_H_
 #define MANDELBULBER2_QT_MATERIAL_EDITOR_H_
 
+#include <memory>
 #include <QWidget>
 
 // forward declarations
