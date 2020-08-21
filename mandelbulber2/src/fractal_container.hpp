@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 
 #include <memory>
+#include <vector>
 #include "fractal_enums.h"
 #include "parameters.hpp"
 
