@@ -162,7 +162,7 @@ void MarchingCubes::RunMarchingCube()
 	// numx, numy and numz are the numbers of evaluations in each direction
 	for (long long i = 0; i < numx; ++i)
 	{
-		emit updateProgressAndStatus(i);
+		emit signalUpdateProgressAndStatus(i, polygons.size());
 
 		// shift voxel planes
 		if (i > 0)
@@ -180,8 +180,8 @@ void MarchingCubes::RunMarchingCube()
 		if (openClEnabled)
 		{
 			size_t dataOffset = clMeshParams.sliceHeight * clMeshParams.sliceWidth;
-			bool result = gOpenCl->openClEngineRenderFractal->Render(
-				&voxelBuffer, &colorBuffer, nullptr, i, renderData->stopRequest, renderData.get(), dataOffset);
+			bool result = gOpenCl->openClEngineRenderFractal->Render(&voxelBuffer, &colorBuffer, nullptr,
+				i, renderData->stopRequest, renderData.get(), dataOffset);
 
 			if (!result)
 			{

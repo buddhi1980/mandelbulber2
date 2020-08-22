@@ -70,14 +70,14 @@ cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitM
 
 cMeshExport::~cMeshExport() = default;
 
-void cMeshExport::updateProgressAndStatus(int i)
+void cMeshExport::slotUpdateProgressAndStatus(int i, quint64 polygonsCount)
 {
 	QString statusText =
-		" - " + tr("Processing layer %1 of %2").arg(QString::number(i + 1), QString::number(w));
+		" - " + tr("Processing layer %1 of %2. Got %3 polygons").arg(i + 1).arg(w).arg(polygonsCount);
 
 	double percentDone = double(i) / w;
 
-	emit updateProgressAndStatus(
+	emit signalUpdateProgressAndStatus(
 		tr("Mesh Export") + statusText, progressText.getText(percentDone), percentDone);
 }
 
@@ -143,15 +143,15 @@ void cMeshExport::ProcessVolume()
 		QString errorMessage = QString("bad_alloc caught in MarchingCubes: ") + ba.what()
 													 + ", maybe required mesh dimension to big?";
 		qCritical() << errorMessage;
-		emit updateProgressAndStatus(errorMessage, "Error occured", 0.0);
+		emit signalUpdateProgressAndStatus(errorMessage, "Error occured", 0.0);
 		emit finished();
 		return;
 	}
 
 	QThread *thread = new QThread();
 	marchingCube->moveToThread(thread);
-	QObject::connect(
-		marchingCube, SIGNAL(updateProgressAndStatus(int)), this, SLOT(updateProgressAndStatus(int)));
+	QObject::connect(marchingCube, &MarchingCubes::signalUpdateProgressAndStatus, this,
+		&cMeshExport::slotUpdateProgressAndStatus);
 	connect(thread, SIGNAL(started()), marchingCube, SLOT(RunMarchingCube()));
 	connect(marchingCube, SIGNAL(finished()), thread, SLOT(quit()));
 	connect(thread, SIGNAL(finished()), marchingCube, SLOT(deleteLater()));
@@ -183,16 +183,17 @@ void cMeshExport::ProcessVolume()
 	// Save to file
 	MeshFileSave::structSaveMeshData meshData(&vertices, &polygons, &colorsRGB);
 	MeshFileSave *meshFileSave = MeshFileSave::create(outputFileName, meshConfig, meshData);
-	QObject::connect(meshFileSave,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	QObject::connect(meshFileSave, &MeshFileSave::updateProgressAndStatus, this,
+		&cMeshExport::signalUpdateProgressAndStatus);
 	meshFileSave->SaveMesh();
 
 	QString statusText;
 	if (stop)
 		statusText = tr("Mesh Export finished - Cancelled export");
 	else
-		statusText = tr("Mesh Export finished - Processed %1 layers").arg(QString::number(w));
-	emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
+		statusText = tr("Mesh Export finished - Processed %1 layers and got %2 polygons")
+									 .arg(w)
+									 .arg(polygons.size());
+	emit signalUpdateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 	emit finished();
 }

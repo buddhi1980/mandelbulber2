@@ -49,13 +49,14 @@ public:
 	~cMeshExport() override;
 
 signals:
-	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void signalUpdateProgressAndStatus(
+		const QString &text, const QString &progressText, double progress);
 	void finished();
 
 public slots:
 	void Stop() { stop = true; }
 	void ProcessVolume();
-	void updateProgressAndStatus(int i);
+	void slotUpdateProgressAndStatus(int i, quint64 polygonsCount);
 
 private:
 	int w, h, l;

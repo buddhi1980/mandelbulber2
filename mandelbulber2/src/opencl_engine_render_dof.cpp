@@ -77,8 +77,8 @@ void cOpenClEngineRenderDOF::Reset()
 }
 
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
-	const std::shared_ptr<cParameterContainer> params, std::shared_ptr<cImage> image, bool *stopRequest,
-	cRegion<int> screenRegion)
+	const std::shared_ptr<cParameterContainer> params, std::shared_ptr<cImage> image,
+	bool *stopRequest, cRegion<int> screenRegion)
 {
 	int numberOfPasses = paramRender->DOFNumberOfPasses;
 
@@ -142,7 +142,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
 	quint64 numberOfPixels = quint64(screenRegion.height) * quint64(screenRegion.width);
-	cPostRenderingDOF::sSortZ<float> *tempSort = new cPostRenderingDOF::sSortZ<float>[numberOfPixels];
+	std::vector<cPostRenderingDOF::sSortZ<float>> tempSort(numberOfPixels);
 
 	{
 		quint64 index = 0;
@@ -162,7 +162,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	// sorting z-buffer
 	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
-	cPostRenderingDOF::QuickSortZBuffer(tempSort, 1, numberOfPixels - 1);
+	cPostRenderingDOF::QuickSortZBuffer(tempSort.data(), 1, numberOfPixels - 1);
 
 	for (int pass = 0; pass < numberOfPasses; pass++)
 	{
@@ -246,7 +246,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 				{
 					dofEnginePhase2->PreAllocateBuffers(params);
 					dofEnginePhase2->CreateCommandQueue();
-					result = dofEnginePhase2->Render(image, tempSort, stopRequest);
+					result = dofEnginePhase2->Render(image, tempSort.data(), stopRequest);
 				}
 				else
 				{
@@ -259,8 +259,6 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	} // next pass
 
 	emit updateProgressAndStatus(tr("OpenCL DOF finished"), progressText.getText(1.0), 1.0);
-
-	delete[] tempSort;
 
 	return result;
 }

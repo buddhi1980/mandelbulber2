@@ -111,9 +111,8 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 		// meshExport is deleted by deleteLater();
 		meshExport = new cMeshExport(
 			samplesX, samplesY, samplesZ, limitMin, limitMax, fi.absoluteFilePath(), maxIter, meshConfig);
-		QObject::connect(meshExport,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		QObject::connect(meshExport, &cMeshExport::signalUpdateProgressAndStatus, this,
+			&cMeshExportDialog::slotUpdateProgressAndStatus);
 
 		QThread *thread = new QThread; // deleted by deleteLater()
 		meshExport->moveToThread(thread);

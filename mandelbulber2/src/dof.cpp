@@ -35,6 +35,7 @@
 #include "dof.hpp"
 
 #include <algorithm>
+#include <vector>
 
 #include "common_math.h"
 #include "global_data.hpp"
@@ -52,10 +53,10 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 	quint64 imageWidth = image->GetWidth();
 	quint64 imageHeight = image->GetHeight();
 
-	sRGBFloat *temp_image = new sRGBFloat[quint64(imageWidth) * quint64(imageHeight)];
-	unsigned short *temp_alpha = new unsigned short[quint64(imageWidth) * quint64(imageHeight)];
+	std::vector<sRGBFloat> temp_image(quint64(imageWidth) * quint64(imageHeight));
+	std::vector<unsigned short> temp_alpha(quint64(imageWidth) * quint64(imageHeight));
 	quint64 sortBufferSize = quint64(screenRegion.height) * quint64(screenRegion.width);
-	sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
+	std::vector<sSortZ<float>> temp_sort(sortBufferSize);
 
 	{
 		quint64 index = 0;
@@ -207,7 +208,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 			statusText, QObject::tr("Sorting zBuffer"), 1.0 / (numberOfPasses + 1.0));
 		gApplication->processEvents();
 
-		QuickSortZBuffer(temp_sort, 1, sortBufferSize - 1);
+		QuickSortZBuffer(temp_sort.data(), 1, sortBufferSize - 1);
 
 		for (int pass = 0; pass < numberOfPasses; pass++)
 		{
@@ -356,9 +357,6 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 	catch (QString &status)
 	{
 		emit updateProgressAndStatus(statusText, status, 1.0);
-		delete[] temp_image;
-		delete[] temp_alpha;
-		delete[] temp_sort;
 	}
 }
 

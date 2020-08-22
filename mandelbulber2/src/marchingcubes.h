@@ -179,7 +179,7 @@ private:
 	}
 
 signals:
-	int updateProgressAndStatus(int i);
+	int signalUpdateProgressAndStatus(int i, quint64 polygosnCount);
 	void finished();
 };
 
