@@ -37,8 +37,7 @@ void cFractalTransfSmoothV2::FormulaCode(
 	CVector4 tc = fabs(z) * fractal->transformCommon.offsetF000;
 
 	// the closer to origin the greater the effect of smooth
-	z =
-		CVector4(sqrt(ZZ.x + OffsetS + sc.x), sqrt(ZZ.y + OffsetS) + sc.y, sqrt(ZZ.z + OffsetS + sc.z), z.w);
+	z = CVector4(sqrt(ZZ.x + OffsetS + sc.x), sqrt(ZZ.y + OffsetS) + sc.y, sqrt(ZZ.z + OffsetS + sc.z), z.w);
 
 	double t;
 	if (fractal->transformCommon.functionEnabledx)
