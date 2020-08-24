@@ -128,6 +128,13 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			quint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			quint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
+			if (*stopRequest || systemData.globalStopRequest)
+			{
+				emit finished();
+				finishedWithSuccess = false;
+				return;
+			}
+
 			if (jobX < imageWidth && jobY < imageHeight)
 			{
 				openclProcessingTime.restart();
@@ -179,13 +186,6 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 					if (waitTime == 0) waitTime = 1;
 					thread()->usleep(waitTime);
 				}
-			}
-
-			if (*stopRequest || systemData.globalStopRequest)
-			{
-				emit finished();
-				finishedWithSuccess = false;
-				return;
 			}
 
 			// slow down to reduce length of queue
