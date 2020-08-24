@@ -47,6 +47,29 @@ cFractalContainer::cFractalContainer()
 	}
 }
 
+cFractalContainer::cFractalContainer(const cFractalContainer &other)
+{
+	fractals.resize(NUMBER_OF_FRACTALS);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		fractals[i].reset(new cParameterContainer());
+		*fractals[i] = *other.fractals[i];
+	}
+}
+
+cFractalContainer &cFractalContainer::operator=(const cFractalContainer &other)
+{
+	if (&other == this) return *this;
+
+	fractals.resize(NUMBER_OF_FRACTALS);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		fractals[i].reset(new cParameterContainer());
+		*fractals[i] = *other.fractals[i];
+	}
+	return *this;
+}
+
 std::shared_ptr<cParameterContainer> cFractalContainer::operator[](int index)
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)

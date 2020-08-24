@@ -44,6 +44,8 @@ class cFractalContainer
 {
 public:
 	cFractalContainer();
+	cFractalContainer(const cFractalContainer &other);
+	cFractalContainer &operator=(const cFractalContainer &other);
 
 	std::shared_ptr<cParameterContainer> operator[](int index);
 	const std::shared_ptr<cParameterContainer> operator[](int index) const;
