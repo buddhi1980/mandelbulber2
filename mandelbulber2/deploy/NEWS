@@ -11,6 +11,7 @@ v2.23 (???? 2020)
    transfSmoothV2
 
 - modified fractal formulas
+   mandeltorus prescale and mode2 had swapped checkboxes
    transfStepXY added offset and scale
    transfScaleOffset fix DE
    transfScaleOffsetV2 fix DE

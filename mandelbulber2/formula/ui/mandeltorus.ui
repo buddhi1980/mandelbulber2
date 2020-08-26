@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandeltorus</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>1537</height>
+    <height>1762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledz_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="toolTip">
       <string/>
      </property>
@@ -282,7 +282,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string>Enable mode2</string>
        </property>
@@ -653,7 +653,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>groupCheck_transf_function_enabledz_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_z</tabstop>

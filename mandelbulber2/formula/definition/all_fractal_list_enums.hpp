@@ -190,7 +190,7 @@ enum enumFractalFormula
 	josKleinianV2 = 143,
 	mandelbulbAtan2Power2 = 144,
 	bristorbrot2 = 145,
-	mandeltorus = 146,
+	mandeltorus = 146, // fixed prescale mode2 swapped checkboxes v2.23
 	// 2.18
 	amazingSurfMod3 = 147,
 	// 2.19
