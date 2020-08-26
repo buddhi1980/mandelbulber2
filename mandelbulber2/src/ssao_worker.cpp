@@ -154,6 +154,8 @@ void cSSAOWorker::doWork()
 
 				if (params->SSAO_random_mode) rRandom = 0.5 + Random(65536) / 65536.0;
 
+				int rayCount = 0;
+
 				for (int angleIndex = 0; angleIndex < quality; angleIndex++)
 				{
 					double ca, sa;
@@ -171,6 +173,7 @@ void cSSAOWorker::doWork()
 					}
 
 					double max_diff = -1e50;
+					bool wasRay = false;
 
 					for (double r = 1.0; r < quality; r += rRandom)
 					{
@@ -181,6 +184,8 @@ void cSSAOWorker::doWork()
 						if (int(xx) == x && int(yy) == y) continue;
 						if (xx < startX || xx > endX - 1 || yy < startLine || yy > endLine - 1) continue;
 						double z2 = double(image->GetPixelZBuffer(int(xx), int(yy)));
+
+						wasRay = true;
 
 						double xx2, yy2;
 						if (perspectiveType == params::perspFishEye
@@ -220,10 +225,14 @@ void cSSAOWorker::doWork()
 					}
 					double max_angle = atan(max_diff);
 
-					ambient += -max_angle / M_PI + 0.5;
+					if (wasRay)
+					{
+						ambient += -max_angle / M_PI + 0.5;
+						rayCount++;
+					}
 				}
 
-				total_ambient = ambient / quality;
+				total_ambient = ambient / rayCount;
 				if (total_ambient < 0) total_ambient = 0;
 			}
 

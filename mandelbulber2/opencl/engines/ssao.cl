@@ -71,6 +71,8 @@ kernel void SSAO(
 		float rRandom = 1.0f;
 		if (p.random_mode) rRandom = 0.5f + Random(65536, &randomSeed) / 65536.0f;
 
+		int rayCount = 0;
+
 		for (int angleIndex = 0; angleIndex < quality; angleIndex++)
 		{
 			float angle = angleIndex;
@@ -86,6 +88,7 @@ kernel void SSAO(
 			}
 			float maxDiff = -1e10f;
 
+			bool wasRay = false;
 			for (float r = 1.0f; r < quality; r += rRandom)
 			{
 				float rr = r * r * scaleFactor;
@@ -93,6 +96,8 @@ kernel void SSAO(
 
 				if (((int)v.x == scr.x) && ((int)v.y == scr.y)) continue;
 				if (v.x < 0 || v.x > p.width - 1 || v.y < 0 || v.y > p.height - 1) continue;
+
+				wasRay = true;
 
 				float z2 = zBuffer[(int)v.x + (int)v.y * p.width];
 				float2 v2;
@@ -107,10 +112,14 @@ kernel void SSAO(
 				maxDiff = max(maxDiff, diff);
 			}
 			float maxAngle = atan(maxDiff);
-			ambient += -maxAngle / M_PI_F + 0.5f;
+			if (wasRay)
+			{
+				ambient += -maxAngle / M_PI_F + 0.5f;
+				rayCount++;
+			}
 		}
 
-		totalAmbient = ambient / quality;
+		totalAmbient = ambient / rayCount;
 		totalAmbient = max(totalAmbient, 0.0f);
 	}
 	out[i] = totalAmbient;
