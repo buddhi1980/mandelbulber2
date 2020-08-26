@@ -119,15 +119,14 @@ bool cNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	if (socket->bytesAvailable() < (sMessage::crcSize() + msg->size)) return false;
 
 	// full payload available, read to buffer
-	char *buffer = new char[msg->size];
-	socketReadStream.readRawData(buffer, msg->size);
-	msg->payload.append(buffer, msg->size);
+	std::vector<char> buffer(msg->size);
+	socketReadStream.readRawData(buffer.data(), msg->size);
+	msg->payload.append(buffer.data(), msg->size);
 
 	// run crc check on the payload
-	quint16 crcCalculated = qChecksum(buffer, msg->size);
+	quint16 crcCalculated = qChecksum(buffer.data(), msg->size);
 	quint16 crcReceived;
 	socketReadStream >> crcReceived;
-	delete[] buffer;
 	if (crcCalculated != crcReceived)
 	{
 		WriteLog("NetRender - ReceiveData() : crc error", 2);

@@ -64,10 +64,9 @@ int cOpenClAbstractDynamicData::PutDummyToAlign(
 	int missingBytes = alignmentSize - dataLength % alignmentSize;
 	if (missingBytes > 0 && missingBytes != alignmentSize)
 	{
-		char *dummyData = new char[missingBytes];
-		memset(dummyData, 0, missingBytes);
-		array->append(dummyData, missingBytes);
-		delete[] dummyData;
+		std::vector<char> dummyData(missingBytes);
+		std::fill(dummyData.begin(), dummyData.end(), 0);
+		array->append(dummyData.data(), missingBytes);
 		return missingBytes;
 	}
 	else

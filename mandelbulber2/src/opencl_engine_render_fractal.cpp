@@ -1239,7 +1239,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		// preparation of table for noise statistics used in MC method
 		const quint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
-		float *noiseTable = new float[noiseTableSize];
+		std::vector<float> noiseTable(noiseTableSize);
 		for (quint64 i = 0; i < noiseTableSize; i++)
 		{
 			noiseTable[i] = 0.0;
@@ -1538,8 +1538,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		{
 			FinallRefreshOfImage(lastRenderedRects, image);
 		}
-
-		delete[] noiseTable;
 
 		emit updateProgressAndStatus(
 			tr("OpenCL - rendering image finished"), progressText.getText(1.0), 1.0);

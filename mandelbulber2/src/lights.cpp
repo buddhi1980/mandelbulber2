@@ -47,7 +47,6 @@
 
 cLights::cLights() : QObject()
 {
-	lights = nullptr;
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
@@ -57,7 +56,6 @@ cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
 	const std::shared_ptr<cFractalContainer> _fractal)
 		: QObject()
 {
-	lights = nullptr;
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
@@ -67,11 +65,7 @@ cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
 
 cLights::~cLights()
 {
-	if (lights)
-	{
-		delete[] lights;
-		lights = nullptr;
-	}
+	// nothing to delete
 }
 
 void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
@@ -84,14 +78,13 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 
 	numberOfLights = params->auxLightNumber;
 
-	if (lights) delete[] lights;
 	if (params->auxLightRandomEnabled)
 	{
-		lights = new sLight[numberOfLights + params->auxLightRandomNumber];
+		lights.resize(numberOfLights + params->auxLightRandomNumber);
 	}
 	else
 	{
-		lights = new sLight[numberOfLights];
+		lights.resize(numberOfLights);
 	}
 
 	// custom user defined lights
@@ -191,13 +184,13 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	WriteLog("Preparation of lights finished", 2);
 }
 
-sLight *cLights::GetLight(const int index) const
+const sLight *cLights::GetLight(const int index) const
 {
 	if (lightsReady)
 	{
 		if (index < numberOfLights)
 		{
-			return &lights[index];
+			return &(lights[index]);
 		}
 		else
 		{
@@ -209,18 +202,4 @@ sLight *cLights::GetLight(const int index) const
 		qCritical() << "Lights not initialized";
 	}
 	return const_cast<sLight *>(&dummyLight);
-}
-
-void cLights::Copy(const cLights &_lights)
-{
-	numberOfLights = _lights.numberOfLights;
-	lightsReady = _lights.lightsReady;
-	if (lights) delete[] lights;
-	lights = new sLight[numberOfLights];
-	isAnyLight = _lights.isAnyLight;
-
-	for (int i = 0; i < numberOfLights; i++)
-	{
-		lights[i] = _lights.lights[i];
-	}
 }

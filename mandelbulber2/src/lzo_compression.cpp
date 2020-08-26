@@ -39,6 +39,7 @@
 #include <lzo/lzoconf.h>
 
 #include <cassert>
+#include <vector>
 
 #include <QByteArray>
 #include <QElapsedTimer>
@@ -51,12 +52,12 @@ QByteArray lzoCompress(QByteArray data)
 {
 	QElapsedTimer time;
 	time.start();
-	char *wrkmem = new char[LZO1X_1_MEM_COMPRESS];
+	std::vector<char> wrkmem(LZO1X_1_MEM_COMPRESS);
 	size_t len = data.size() + data.size() / 16 + 64 + 3;
-	char *out = new char[len];
+	std::vector<char> out(len);
 
-	int ret = lzo1x_1_compress((lzo_bytep)data.data(), (lzo_uint)data.size(), (lzo_bytep)out,
-		(lzo_uintp)&len, (lzo_voidp)wrkmem);
+	int ret = lzo1x_1_compress((lzo_bytep)data.data(), (lzo_uint)data.size(), (lzo_bytep)out.data(),
+		(lzo_uintp)&len, (lzo_voidp)wrkmem.data());
 
 	assert(ret == LZO_E_OK);
 
@@ -72,9 +73,7 @@ QByteArray lzoCompress(QByteArray data)
 	qDebug() << data.size() << len;
 
 	QByteArray arr;
-	arr.append(out, CastSizeToInt(len));
-	delete[] wrkmem;
-	delete[] out;
+	arr.append(out.data(), CastSizeToInt(len));
 	return arr;
 }
 
@@ -83,16 +82,16 @@ QByteArray lzoUncompress(QByteArray data)
 	QElapsedTimer time;
 	time.start();
 	lzo_uint len;
-	char *tmp = nullptr;
+	std::vector<char> tmp;
 	int decompressionFactor = 10;
 
 	while (true)
 	{
 		len = data.size() * decompressionFactor;
-		if (tmp) delete[] tmp;
-		tmp = new char[len];
+		tmp.resize(len);
 
-		if (lzo1x_decompress_safe((lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp, &len, nullptr)
+		if (lzo1x_decompress_safe(
+					(lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp.data(), &len, nullptr)
 				== LZO_E_OUTPUT_OVERRUN)
 		{
 			decompressionFactor *= 2;
@@ -111,7 +110,6 @@ QByteArray lzoUncompress(QByteArray data)
 		3);
 
 	QByteArray arr;
-	arr.append(tmp, len);
-	delete[] tmp;
+	arr.append(tmp.data(), len);
 	return arr;
 }

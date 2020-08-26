@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_HISTOGRAM_HPP_
 #define MANDELBULBER2_SRC_HISTOGRAM_HPP_
 
+#include <vector>
 #include <QMetaType>
 
 class cHistogram
@@ -42,8 +43,6 @@ class cHistogram
 public:
 	cHistogram();
 	cHistogram(int size);
-	cHistogram(const cHistogram &source);
-	cHistogram &operator=(const cHistogram &source);
 	~cHistogram();
 	void Resize(int size);
 	void Clear();
@@ -71,9 +70,8 @@ public:
 
 private:
 	void Alloc(int size);
-	void Copy(const cHistogram &source);
 
-	long *data;
+	std::vector<long> data;
 	long long count;
 	long long sum;
 	int histSize;

@@ -34,6 +34,8 @@
 
 #include "opencl_dynamic_data.hpp"
 
+#include <vector>
+
 #include "color_gradient.h"
 #include "lights.hpp"
 #include "material.h"
@@ -106,9 +108,9 @@ int cOpenClDynamicData::BuildMaterialsData(
 	totalDataOffset += headerSize;
 
 	// reserve bytes for material offsets
-	cl_int *materialOffsets = new cl_int[numberOfMaterials];
+	std::vector<cl_int> materialOffsets(numberOfMaterials);
 	int materialOffsetsSize = sizeof(cl_int) * numberOfMaterials;
-	memset(materialOffsets, 0, materialOffsetsSize);
+	std::fill(materialOffsets.begin(), materialOffsets.end(), 0);
 
 	int materialOffsetsAddress = totalDataOffset;
 	data.append(reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
@@ -120,7 +122,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 	for (int materialIndex = 0; materialIndex < numberOfMaterials; materialIndex++)
 	{
 		sMaterialCl materialCl;
-		cl_float4 *paletteCl;
+		std::vector<cl_float4> paletteCl;
 
 		int totalSizeOfGradients = 0;
 		cl_int paletteOffsetSurface;
@@ -396,15 +398,11 @@ int cOpenClDynamicData::BuildMaterialsData(
 		// fill paletteItemsOffset value
 		data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
 			reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
-
-		delete[] paletteCl;
 	}
 
 	// fill materials offsets:
 	data.replace(materialOffsetsAddress, materialOffsetsSize,
 		reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
-
-	delete[] materialOffsets;
 
 	return numberOfMaterials;
 }
@@ -493,7 +491,7 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		if (i == 0) arrayOffset = totalDataOffset;
 
 		sLightCl lightCl;
-		sLight *light = lights->GetLight(i);
+		const sLight *light = lights->GetLight(i);
 		lightCl.position = toClFloat3(light->position);
 		lightCl.colour = toClFloat3(light->colour);
 		lightCl.intensity = light->intensity;
@@ -750,8 +748,8 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		catch (const QString &ex)
 		{
 			qCritical() << QString(
-											 "cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
-											 "object - error: ")
+				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
+				"object - error: ")
 									<< ex;
 		}
 

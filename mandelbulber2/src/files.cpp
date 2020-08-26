@@ -37,6 +37,7 @@
 #include <cstdio>
 #include <cstring>
 #include <memory>
+#include <vector>
 #include <QFileInfo>
 #include <QDir>
 
@@ -89,7 +90,7 @@ int fcopy(const char *source, const char *dest)
 
 	FILE *pFile;
 	long int lSize;
-	char *buffer;
+	std::vector<char> buffer;
 	size_t result;
 
 	pFile = fopen(source, "rb");
@@ -107,14 +108,13 @@ int fcopy(const char *source, const char *dest)
 	if (lSize > 0)
 	{
 		// allocate memory to contain the whole file:
-		buffer = new char[lSize];
+		buffer.resize(lSize);
 
 		// copy the file into the buffer:
-		result = fread(buffer, 1, lSize, pFile);
+		result = fread(buffer.data(), 1, lSize, pFile);
 		if (result != size_t(lSize))
 		{
 			qCritical() << "Can't read source file for copying: " << source;
-			delete[] buffer;
 			fclose(pFile);
 			return 2;
 		}
@@ -133,13 +133,11 @@ int fcopy(const char *source, const char *dest)
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest;
-		delete[] buffer;
 		return 3;
 	}
-	fwrite(buffer, 1, lSize, pFile);
+	fwrite(buffer.data(), 1, lSize, pFile);
 	fclose(pFile);
 
-	delete[] buffer;
 	return 0;
 }
 
@@ -147,7 +145,7 @@ int fcopy(const QString &source, const QString &dest)
 {
 	// ------ file reading
 
-	char *buffer;
+	std::vector<char> buffer;
 
 	FILE *pFile = fopen(source.toLocal8Bit().constData(), "rb");
 	if (pFile == nullptr)
@@ -165,15 +163,14 @@ int fcopy(const QString &source, const QString &dest)
 	// allocate memory to contain the whole file:
 	if (lSize > 0)
 	{
-		buffer = new char[lSize];
+		buffer.resize(lSize);
 
 		// copy the file into the buffer:
-		const size_t result = fread(buffer, 1, lSize, pFile);
+		const size_t result = fread(buffer.data(), 1, lSize, pFile);
 		if (result != size_t(lSize))
 		{
 			qCritical() << "Can't read source file for copying: " << source << endl;
 			WriteLogString("Can't read source file for copying", source, 1);
-			delete[] buffer;
 			fclose(pFile);
 			return 2;
 		}
@@ -193,13 +190,11 @@ int fcopy(const QString &source, const QString &dest)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest << endl;
 		WriteLogString("Can't open destination file for copying", dest, 1);
-		delete[] buffer;
 		return 3;
 	}
-	fwrite(buffer, 1, lSize, pFile);
+	fwrite(buffer.data(), 1, lSize, pFile);
 	fclose(pFile);
 
-	delete[] buffer;
 	WriteLogString("File copied", dest, 2);
 	return 0;
 }
