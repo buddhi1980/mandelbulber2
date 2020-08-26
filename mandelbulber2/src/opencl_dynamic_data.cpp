@@ -113,7 +113,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 	std::fill(materialOffsets.begin(), materialOffsets.end(), 0);
 
 	int materialOffsetsAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
+	data.append(reinterpret_cast<char *>(materialOffsets.data()), materialOffsetsSize);
 	totalDataOffset += materialOffsetsSize;
 
 	// add dummy bytes for alignment to 16
@@ -223,7 +223,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 			paletteSizeTransparency = gradientTransparency.size();
 			totalSizeOfGradients += paletteSizeTransparency;
 
-			paletteCl = new cl_float4[totalSizeOfGradients];
+			paletteCl.resize(totalSizeOfGradients);
 
 			for (int i = 0; i < paletteSizeSurface; i++)
 			{
@@ -292,7 +292,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 			paletteSizeReflectance = 2;
 			paletteOffsetTransparency = 12;
 			paletteSizeTransparency = 2;
-			paletteCl = new cl_float4[14];
+			paletteCl.resize(14);
 			for (int i = 0; i < 14; i++)
 			{
 				paletteCl[i] = toClFloat4(CVector4());
@@ -392,7 +392,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 		// palette data
 		paletteItemsOffset = totalDataOffset;
 		int paletteSizeBytes = totalSizeOfGradients * sizeof(cl_float4);
-		data.append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);
+		data.append(reinterpret_cast<char *>(paletteCl.data()), paletteSizeBytes);
 		totalDataOffset += paletteSizeBytes;
 
 		// fill paletteItemsOffset value
@@ -402,7 +402,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 
 	// fill materials offsets:
 	data.replace(materialOffsetsAddress, materialOffsetsSize,
-		reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
+		reinterpret_cast<char *>(materialOffsets.data()), materialOffsetsSize);
 
 	return numberOfMaterials;
 }
