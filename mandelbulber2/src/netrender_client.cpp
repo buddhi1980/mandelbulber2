@@ -58,7 +58,7 @@
 CNetRenderClient::CNetRenderClient(QObject *parent) : QObject(parent)
 {
 	clientSocket = nullptr;
-	reconnectTimer = new QTimer;
+	reconnectTimer = new QTimer(this);
 	reconnectTimer->setInterval(1000);
 	connect(reconnectTimer, &QTimer::timeout, this, &CNetRenderClient::TryServerConnect);
 	actualId = 0;
@@ -82,8 +82,6 @@ CNetRenderClient::~CNetRenderClient()
 	if (reconnectTimer)
 	{
 		if (reconnectTimer->isActive()) reconnectTimer->stop();
-		delete reconnectTimer;
-		reconnectTimer = nullptr;
 	}
 }
 

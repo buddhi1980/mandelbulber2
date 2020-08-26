@@ -37,6 +37,7 @@
 #define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
 #include <memory>
+#include <vector>
 #include "formula/definition/all_fractal_list.hpp"
 #include "algebra.hpp"
 #include "fractal_enums.h"
@@ -58,8 +59,7 @@ public:
 	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
 		std::shared_ptr<const cParameterContainer> generalPar);
 	~cNineFractals();
-	sFractal *GetFractal(int index) const { return fractals[index]; }
-	sFractal **fractals;
+	sFractal *GetFractal(int index) const { return fractals[index].get(); }
 	int GetSequence(const int i) const;
 	bool IsHybrid() const { return isHybrid; }
 	fractal::enumDEType GetDEType(int formulaIndex) const;
@@ -102,6 +102,7 @@ public:
 #endif
 
 private:
+	std::vector<std::unique_ptr<sFractal>> fractals;
 	bool forceDeltaDE;
 	bool forceAnalyticDE;
 	bool isHybrid;
@@ -110,7 +111,7 @@ private:
 	bool useOptimizedDE;
 	int maxFractalIndex;
 	int maxN;
-	int *hybridSequence;
+	std::vector<int> hybridSequence;
 	int hybridSequenceLength;
 
 	double formulaWeight[NUMBER_OF_FRACTALS];

@@ -175,7 +175,7 @@ void cQueue::Append(enumRenderType renderType)
 }
 
 void cQueue::Append(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes,
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes,
 	enumRenderType renderType)
 {
 	// add settings to queue
@@ -249,7 +249,7 @@ bool cQueue::Get()
 }
 
 bool cQueue::Get(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes)
 {
 	// get next fractal from queue
 	structQueueItem queueItem = GetNextFromList();

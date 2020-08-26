@@ -48,26 +48,13 @@
 
 cNineFractals::~cNineFractals()
 {
-	if (fractals)
-	{
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-		{
-			if (fractals[i])
-			{
-				delete fractals[i];
-			}
-		}
-		delete[] fractals;
-	}
-	if (hybridSequence) delete[] hybridSequence;
-	hybridSequence = nullptr;
+	// nothing to delete
 }
 
 cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	std::shared_ptr<const cParameterContainer> generalPar)
 {
-	fractals = new sFractal *[NUMBER_OF_FRACTALS];
-	hybridSequence = nullptr;
+	fractals.resize(NUMBER_OF_FRACTALS);
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
@@ -78,7 +65,7 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		// allocating memory for formula data
-		fractals[i] = new sFractal(par->at(i));
+		fractals[i].reset(new sFractal(par->at(i)));
 
 		// getting selected formula
 		fractals[i]->formula = fractal::enumFractalFormula(generalPar->Get<int>("formula", i + 1));
@@ -341,10 +328,8 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 
 void cNineFractals::CreateSequence(std::shared_ptr<const cParameterContainer> generalPar)
 {
-	if (hybridSequence) delete[] hybridSequence;
-	hybridSequence = nullptr;
 	hybridSequenceLength = maxN * 5;
-	hybridSequence = new int[hybridSequenceLength];
+	hybridSequence.resize(hybridSequenceLength);
 	int repeatFrom = generalPar->Get<int>("repeat_from");
 
 	int fractalNo = 0;

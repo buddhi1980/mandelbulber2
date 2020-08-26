@@ -39,6 +39,7 @@
 #ifndef MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
+#include <memory>
 #include "common_math.h"
 
 // forward declarations
@@ -71,7 +72,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
 double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
-double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params, std::shared_ptr<const cNineFractals> fractals,
 	const CVector3 point, const CVector3 direction, const CVector3 orthDirection, bool *stopRequest);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */

@@ -76,6 +76,6 @@ private:
 	QList<cMorph *> morph;
 };
 
-extern cKeyframes *gKeyframes;
+extern std::shared_ptr<cKeyframes> gKeyframes;
 
 #endif /* MANDELBULBER2_SRC_KEYFRAMES_HPP_ */

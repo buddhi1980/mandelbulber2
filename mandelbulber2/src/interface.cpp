@@ -1079,15 +1079,14 @@ void cInterface::RefreshPostEffects()
 
 		if (gPar->Get<bool>("hdr_blur_enabled"))
 		{
-			cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(mainImage);
+			std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(mainImage));
 			double blurRadius = gPar->Get<double>("hdr_blur_radius");
 			double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
 			hdrBlur->SetParameters(blurRadius, blurIntensity);
-			QObject::connect(hdrBlur,
+			QObject::connect(hdrBlur.get(),
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			hdrBlur->Render(&stopRequest);
-			delete hdrBlur;
 		}
 
 		mainImage->CompileImage();
@@ -1935,8 +1934,8 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	parTemp->Set("limits_enabled", false);
 	parTemp->Set("interior_mode", false);
 
-	sParamRender *params = new sParamRender(parTemp);
-	cNineFractals *fractals = new cNineFractals(gParFractal, parTemp);
+	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, parTemp));
 
 	CVector3 direction;
 	CVector3 orthDirection;
@@ -1951,8 +1950,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
 	point = CVector3(outerBoundingMin.x, boundingCenter.y, boundingCenter.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double minX = point.x + dist;
 
 	// negative y limit
@@ -1961,8 +1959,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
 	point = CVector3(boundingCenter.x, outerBoundingMin.y, boundingCenter.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double minY = point.y + dist;
 
 	// negative z limit
@@ -1971,8 +1968,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
 	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMin.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double minZ = point.z + dist;
 
 	// positive x limit
@@ -1981,8 +1977,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
 	point = CVector3(outerBoundingMax.x, boundingCenter.y, boundingCenter.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double maxX = point.x - dist;
 
 	// positive y limit
@@ -1991,8 +1986,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
 	point = CVector3(boundingCenter.x, outerBoundingMax.y, boundingCenter.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double maxY = point.y - dist;
 
 	// positive z limit
@@ -2001,8 +1995,7 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
 	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMax.z);
-	dist =
-		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	dist = CalculateDistanceMinPlane(params, fractals, point, direction, orthDirection, &stopRequest);
 	double maxZ = point.z - dist;
 
 	double medX = (maxX + minX) / 2.0;
@@ -2016,8 +2009,6 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	gPar->Set("limit_max", CVector3(medX + rangeX * 0.6, medY + rangeY * 0.6, medZ + rangeZ * 0.6));
 
 	cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Done"), 1.0);
-	delete params;
-	delete fractals;
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
@@ -2505,11 +2496,11 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	double DEFactor = 1.0;
 	double step = 1.0;
 
-	cRenderJob *renderJob =
-		new cRenderJob(tempParam, tempFractal, mainImage, &stopRequest, renderedImage);
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(tempParam, tempFractal, mainImage, &stopRequest, renderedImage));
+	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
+	connect(renderJob.get(), SIGNAL(updateImage()), renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -2581,8 +2572,6 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		1.0, cProgressText::progress_IMAGE);
 
 	ReEnablePeriodicRefresh();
-
-	delete renderJob;
 }
 
 void cInterface::ResetFormula(int fractalNumber) const

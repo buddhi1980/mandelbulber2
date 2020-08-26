@@ -127,10 +127,10 @@ int main(int argc, char *argv[])
 	gParFractal.reset(new cFractalContainer);
 
 	// Allocate container for animation frames
-	gAnimFrames = new cAnimationFrames;
+	gAnimFrames.reset(new cAnimationFrames);
 
 	// Allocate container for key frames
-	gKeyframes = new cKeyframes;
+	gKeyframes.reset(new cKeyframes);
 
 	gPar->SetContainerName("main");
 	InitParams(gPar);
@@ -237,9 +237,6 @@ int main(int argc, char *argv[])
 
 	delete gMainInterface;
 	delete gApplication;
-
-	delete gAnimFrames;
-	delete gKeyframes;
 
 	return result;
 }

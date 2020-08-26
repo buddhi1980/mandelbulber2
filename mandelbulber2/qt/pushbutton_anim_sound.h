@@ -47,7 +47,7 @@ public:
 	cPushButtonAnimSound(QWidget *parent = nullptr);
 	~cPushButtonAnimSound() override;
 	void AssignParameterName(const QString &_parameterName);
-	void AssignAnimation(cAnimationFrames *_animationFrames)
+	void AssignAnimation(std::shared_ptr<cAnimationFrames> _animationFrames)
 	{
 		animationFrames = _animationFrames;
 		slotUpdateButton();
@@ -59,7 +59,7 @@ private slots:
 
 private:
 	QString parameterName;
-	cAnimationFrames *animationFrames;
+	std::shared_ptr<cAnimationFrames> animationFrames;
 };
 
 #endif /* MANDELBULBER2_QT_PUSHBUTTON_ANIM_SOUND_H_ */

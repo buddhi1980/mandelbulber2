@@ -78,10 +78,10 @@ private:
 	RenderedImage *imageWidget;
 	std::shared_ptr<cParameterContainer> queuePar;
 	std::shared_ptr<cFractalContainer> queueParFractal;
-	cAnimationFrames *queueAnimFrames;
+	std::shared_ptr<cAnimationFrames> queueAnimFrames;
 	cFlightAnimation *queueFlightAnimation;
 	cKeyframeAnimation *queueKeyframeAnimation;
-	cKeyframes *queueKeyframes;
+	std::shared_ptr<cKeyframes> queueKeyframes;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_QUEUE_HPP_ */

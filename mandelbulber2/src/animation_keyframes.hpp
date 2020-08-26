@@ -81,7 +81,7 @@ public:
 		int unrenderedTotalBeforeRender;
 	};
 
-	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, std::shared_ptr<cImage> _image,
+	cKeyframeAnimation(cInterface *_interface, std::shared_ptr<cKeyframes> _frames, std::shared_ptr<cImage> _image,
 		QWidget *_imageWidget, std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractal, QObject *parent);
 
@@ -155,7 +155,7 @@ private:
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
-	cKeyframes *keyframes;
+	std::shared_ptr<cKeyframes> keyframes;
 	std::shared_ptr<cImage> image;
 	RenderedImage *imageWidget;
 	std::shared_ptr<cParameterContainer> params;

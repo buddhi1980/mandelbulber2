@@ -65,12 +65,13 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
 	std::shared_ptr<cImage> image(
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest));
 
-	QObject::connect(renderJob,
+	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this,
+	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SLOT(slotUpdateStatistics(cStatistics)));
 
 #ifdef USE_OPENCL
@@ -116,7 +117,6 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	QTextStream out(stdout);
 	out << tr("Image saved to: %1\n").arg(filenameWithoutExtension + ext);
 
-	delete renderJob;
 	emit finished();
 }
 
@@ -181,13 +181,12 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 		{
 			QString folderString = gPar->Get<QString>("voxel_image_path");
 			QDir folder(folderString);
-			cVoxelExport *voxelExport = new cVoxelExport(
-				samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter, greyscale);
-			QObject::connect(voxelExport,
+			std::unique_ptr<cVoxelExport> voxelExport(new cVoxelExport(
+				samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter, greyscale));
+			QObject::connect(voxelExport.get(),
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			voxelExport->ProcessVolume();
-			delete voxelExport;
 		}
 		else if (voxelFormat == "ply")
 		{
@@ -197,13 +196,12 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 			MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
 				MeshFileSave::enumMeshFileModeType(gPar->Get<int>("mesh_file_mode")));
 
-			cMeshExport *meshExport = new cMeshExport(
-				samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter, meshConfig);
-			QObject::connect(meshExport,
+			std::unique_ptr<cMeshExport> meshExport(new cMeshExport(
+				samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter, meshConfig));
+			QObject::connect(meshExport.get(),
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			meshExport->ProcessVolume();
-			delete meshExport;
 		}
 	}
 	emit finished();
@@ -260,11 +258,12 @@ void cHeadless::slotNetRender()
 	gMainInterface->stopRequest = true;
 	std::shared_ptr<cImage> image(
 		new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height")));
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
-	QObject::connect(renderJob,
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest));
+	QObject::connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this,
+	QObject::connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
@@ -275,7 +274,6 @@ void cHeadless::slotNetRender()
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 
-	delete renderJob;
 	emit finished();
 }
 

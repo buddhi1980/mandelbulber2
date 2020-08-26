@@ -46,7 +46,7 @@
 #include "initparameters.hpp"
 #include "system.hpp"
 
-cAnimationFrames *gAnimFrames = nullptr;
+std::shared_ptr<cAnimationFrames> gAnimFrames;
 
 cAnimationFrames::cAnimationFrames() = default;
 

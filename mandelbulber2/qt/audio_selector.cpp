@@ -282,7 +282,7 @@ QString cAudioSelector::FullParameterName(const QString &name) const
 	return QString("animsound_") + name + "_" + parameterName;
 }
 
-void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
+void cAudioSelector::AssignAnimation(std::shared_ptr<cAnimationFrames> _animationFrames)
 {
 	animationFrames = _animationFrames;
 	if (animationFrames && !parameterName.isEmpty())

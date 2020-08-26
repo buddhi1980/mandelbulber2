@@ -59,10 +59,10 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 {
 	image = _image;
 	imageWidget = widget;
-	queuePar.reset(new cParameterContainer);
-	queueParFractal.reset(new cFractalContainer);
-	queueAnimFrames = new cAnimationFrames;
-	queueKeyframes = new cKeyframes;
+	queuePar.reset(new cParameterContainer());
+	queueParFractal.reset(new cFractalContainer());
+	queueAnimFrames.reset(new cAnimationFrames());
+	queueKeyframes.reset(new cKeyframes);
 
 	queuePar->SetContainerName("main");
 	InitParams(queuePar);
@@ -107,8 +107,6 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 
 cRenderQueue::~cRenderQueue()
 {
-	delete queueAnimFrames;
-	delete queueKeyframes;
 	delete queueFlightAnimation;
 	delete queueKeyframeAnimation;
 }

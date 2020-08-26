@@ -58,7 +58,7 @@ public:
 	explicit cAudioSelector(QWidget *parent = nullptr);
 	~cAudioSelector() override;
 	void AssignParameter(const QString &_parameterName);
-	void AssignAnimation(cAnimationFrames *_animationFrames);
+	void AssignAnimation(std::shared_ptr<cAnimationFrames> _animationFrames);
 
 private slots:
 	void slotLoadAudioFile();
@@ -85,7 +85,7 @@ private:
 
 	std::shared_ptr<cAudioTrack> audio;
 	QString parameterName;
-	cAnimationFrames *animationFrames;
+	std::shared_ptr<cAnimationFrames> animationFrames;
 
 	std::unique_ptr<QAudioOutput> audioOutput;
 	QByteArray playBuffer;

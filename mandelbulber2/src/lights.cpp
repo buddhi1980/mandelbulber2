@@ -53,7 +53,9 @@ cLights::cLights() : QObject()
 	isAnyLight = false;
 }
 
-cLights::cLights(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal) : QObject()
+cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
+	const std::shared_ptr<cFractalContainer> _fractal)
+		: QObject()
 {
 	lights = nullptr;
 	numberOfLights = 0;
@@ -72,12 +74,13 @@ cLights::~cLights()
 	}
 }
 
-void cLights::Set(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal)
+void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
+	const std::shared_ptr<cFractalContainer> _fractal)
 {
 	WriteLog("Preparation of lights started", 2);
 	// move parameters from containers to structures
-	const sParamRender *params = new sParamRender(_params);
-	const cNineFractals *fractals = new cNineFractals(_fractal, _params);
+	std::unique_ptr<const sParamRender> params(new sParamRender(_params));
+	std::unique_ptr<const cNineFractals> fractals(new cNineFractals(_fractal, _params));
 
 	numberOfLights = params->auxLightNumber;
 
@@ -184,9 +187,6 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params, const std:
 	}
 
 	lightsReady = true;
-
-	delete params;
-	delete fractals;
 
 	WriteLog("Preparation of lights finished", 2);
 }

@@ -146,6 +146,6 @@ protected:
 	cAudioTrackCollection audioTracks;
 };
 
-extern cAnimationFrames *gAnimFrames;
+extern std::shared_ptr<cAnimationFrames> gAnimFrames;
 
 #endif /* MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_ */

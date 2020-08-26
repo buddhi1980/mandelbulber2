@@ -94,8 +94,8 @@ void Test::renderExamples() const
 
 	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
 	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
-	cAnimationFrames *testAnimFrames = new cAnimationFrames;
-	cKeyframes *testKeyframes = new cKeyframes;
+	std::shared_ptr<cAnimationFrames> testAnimFrames(new cAnimationFrames());
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -232,9 +232,6 @@ void Test::renderExamples() const
 			testPar->PrintListOfParameters();
 		}
 	}
-
-	delete testKeyframes;
-	delete testAnimFrames;
 }
 
 void Test::netrender()
@@ -282,8 +279,8 @@ void Test::testFlight() const
 
 	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
 	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
-	cAnimationFrames *testAnimFrames = new cAnimationFrames;
-	cKeyframes *testKeyframes = new cKeyframes;
+	std::shared_ptr<cAnimationFrames> testAnimFrames(new cAnimationFrames());
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -320,8 +317,6 @@ void Test::testFlight() const
 	else
 		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
 
-	delete testKeyframes;
-	delete testAnimFrames;
 	delete flightAnimation;
 }
 
@@ -345,8 +340,8 @@ void Test::testKeyframe() const
 
 	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer);
 	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer);
-	cAnimationFrames *testAnimFrames = new cAnimationFrames;
-	cKeyframes *testKeyframes = new cKeyframes;
+	std::shared_ptr<cAnimationFrames> testAnimFrames(new cAnimationFrames());
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -383,8 +378,6 @@ void Test::testKeyframe() const
 	else
 		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
 
-	delete testKeyframes;
-	delete testAnimFrames;
 	delete testKeyframeAnimation;
 }
 
@@ -410,8 +403,8 @@ void Test::renderSimple() const
 
 	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
 	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
-	cAnimationFrames *testAnimFrames = new cAnimationFrames;
-	cKeyframes *testKeyframes = new cKeyframes;
+	std::shared_ptr<cAnimationFrames> testAnimFrames(new cAnimationFrames());
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -447,8 +440,6 @@ void Test::renderSimple() const
 		QVERIFY2(renderJob->Execute(), "example render failed.");
 
 	delete renderJob;
-	delete testKeyframes;
-	delete testAnimFrames;
 }
 
 void Test::testImageSaveWrapper() const
@@ -471,10 +462,10 @@ void Test::renderImageSave() const
 		QDir::toNativeSeparators(systemDirectories.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbulb001.fract");
 
-	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer);
-	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer);
-	cAnimationFrames *testAnimFrames = new cAnimationFrames;
-	cKeyframes *testKeyframes = new cKeyframes;
+	std::shared_ptr<cParameterContainer> testPar(new cParameterContainer());
+	std::shared_ptr<cFractalContainer> testParFractal(new cFractalContainer());
+	std::shared_ptr<cAnimationFrames> testAnimFrames(new cAnimationFrames());
+	std::shared_ptr<cKeyframes> testKeyframes(new cKeyframes());
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -595,6 +586,4 @@ void Test::renderImageSave() const
 		}
 	}
 	delete renderJob;
-	delete testKeyframes;
-	delete testAnimFrames;
 }

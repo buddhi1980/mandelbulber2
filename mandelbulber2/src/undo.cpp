@@ -77,7 +77,8 @@ cUndo::cUndo(QObject *parent) : QObject(parent)
 cUndo::~cUndo() = default;
 
 void cUndo::Store(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> parFractal, cAnimationFrames *frames, cKeyframes *keyframes)
+	std::shared_ptr<cFractalContainer> parFractal, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes)
 {
 	sUndoRecord record;
 
@@ -95,24 +96,24 @@ void cUndo::Store(std::shared_ptr<cParameterContainer> par,
 	*record.fractParams = *parFractal;
 	if (frames)
 	{
-		record.animationFrames = *frames;
+		*record.animationFrames = *frames;
 		record.hasFrames = true;
 	}
 	else
 	{
 		record.hasFrames = false;
-		record.animationFrames = cAnimationFrames();
+		record.animationFrames.reset(new cAnimationFrames());
 	}
 
 	if (keyframes)
 	{
-		record.animationKeyframes = *keyframes;
+		*record.animationKeyframes = *keyframes;
 		record.hasKeyframes = true;
 	}
 	else
 	{
 		record.hasKeyframes = false;
-		record.animationKeyframes = cKeyframes();
+		record.animationKeyframes.reset(new cKeyframes());
 	}
 
 	if (undoBuffer.size() > level)
@@ -130,8 +131,8 @@ void cUndo::Store(std::shared_ptr<cParameterContainer> par,
 }
 
 bool cUndo::Undo(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> parFractal, cAnimationFrames *frames, cKeyframes *keyframes,
-	bool *refreshFrames, bool *refreshKeyframes)
+	std::shared_ptr<cFractalContainer> parFractal, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
 	if (level > 1)
 	{
@@ -154,8 +155,8 @@ bool cUndo::Undo(std::shared_ptr<cParameterContainer> par,
 					*record.fractParams = *parFractal;
 					cSettings parSettings(cSettings::formatCondensedText);
 					parSettings.LoadFromFile(undoFilename);
-					if (parSettings.Decode(record.mainParams, record.fractParams, &record.animationFrames,
-								&record.animationKeyframes))
+					if (parSettings.Decode(record.mainParams, record.fractParams, record.animationFrames,
+								record.animationKeyframes))
 					{
 						record.isLoaded = true;
 						undoBuffer[level - 1] = record;
@@ -175,12 +176,12 @@ bool cUndo::Undo(std::shared_ptr<cParameterContainer> par,
 				*parFractal = *record.fractParams;
 				if (frames && record.hasFrames)
 				{
-					*frames = record.animationFrames;
+					*frames = *record.animationFrames;
 					*refreshFrames = true;
 				}
 				if (keyframes && record.hasKeyframes)
 				{
-					*keyframes = record.animationKeyframes;
+					*keyframes = *record.animationKeyframes;
 					keyframes->RegenerateAudioTracks(par);
 					*refreshKeyframes = true;
 				}
@@ -196,8 +197,8 @@ bool cUndo::Undo(std::shared_ptr<cParameterContainer> par,
 }
 
 bool cUndo::Redo(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> parFractal, cAnimationFrames *frames, cKeyframes *keyframes,
-	bool *refreshFrames, bool *refreshKeyframes)
+	std::shared_ptr<cFractalContainer> parFractal, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
 	if (level < undoBuffer.size())
 	{
@@ -211,12 +212,12 @@ bool cUndo::Redo(std::shared_ptr<cParameterContainer> par,
 			*parFractal = *record.fractParams;
 			if (frames && record.hasFrames)
 			{
-				*frames = record.animationFrames;
+				*frames = *record.animationFrames;
 				*refreshFrames = true;
 			}
 			if (keyframes && record.hasKeyframes)
 			{
-				*keyframes = record.animationKeyframes;
+				*keyframes = *record.animationKeyframes;
 				keyframes->RegenerateAudioTracks(par);
 				*refreshKeyframes = true;
 			}

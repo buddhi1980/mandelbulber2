@@ -61,15 +61,15 @@ public:
 
 	cSettings(enumFormat _format);
 	size_t CreateText(std::shared_ptr<const cParameterContainer> par,
-		std::shared_ptr<const cFractalContainer> fractPar, cAnimationFrames *frames = nullptr,
-		cKeyframes *keyframes = nullptr);
+		std::shared_ptr<const cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames = nullptr,
+		std::shared_ptr<cKeyframes> keyframes = nullptr);
 	bool SaveToFile(QString filename) const;
 	void SaveToClipboard() const;
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
 	bool Decode(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
-		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
+		std::shared_ptr<cAnimationFrames> frames = nullptr, std::shared_ptr<cKeyframes> keyframes = nullptr);
 	QString GetHashCode() const { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;
@@ -87,12 +87,12 @@ private:
 		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
-		QString &text, const QString &headerText, const cAnimationFrames *frames) const;
+		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;
 
 	bool DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
-		std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames);
+		std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames);
 	bool DecodeFramesLine(QString line, std::shared_ptr<cParameterContainer> par,
-		std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames);
+		std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames);
 
 	static QString everyLocaleDouble(QString txt);
 

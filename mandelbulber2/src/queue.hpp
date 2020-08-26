@@ -88,15 +88,15 @@ public:
 	// add settings to queue
 	void Append(const QString &filename, enumRenderType renderType = queue_STILL);
 	void Append(enumRenderType renderType = queue_STILL);
-	void Append(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames,
-		cKeyframes *keyframes, enumRenderType renderType = queue_STILL);
+	void Append(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+		std::shared_ptr<cKeyframes> keyframes, enumRenderType renderType = queue_STILL);
 	void AppendList(const QString &filename);
 	void AppendFolder(const QString &filename);
 
 	// get next queue element into given containers
 	bool Get();
-	bool Get(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames,
-		cKeyframes *keyframes);
+	bool Get(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+		std::shared_ptr<cKeyframes> keyframes);
 
 	// syncing methods
 	// find and delete files which are not on the list

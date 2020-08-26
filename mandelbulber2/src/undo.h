@@ -55,12 +55,15 @@ public:
 	cUndo(QObject *parent);
 	~cUndo();
 	void Store(std::shared_ptr<cParameterContainer> par,
-		std::shared_ptr<cFractalContainer> parFractal, cAnimationFrames *frames = nullptr,
-		cKeyframes *keyframes = nullptr);
+		std::shared_ptr<cFractalContainer> parFractal,
+		std::shared_ptr<cAnimationFrames> frames = nullptr,
+		std::shared_ptr<cKeyframes> keyframes = nullptr);
 	bool Undo(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal,
-		cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
+		std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes,
+		bool *refreshFrames, bool *refreshKeyframes);
 	bool Redo(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal,
-		cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
+		std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes,
+		bool *refreshFrames, bool *refreshKeyframes);
 
 private:
 	struct sUndoRecord
@@ -69,12 +72,14 @@ private:
 		{
 			mainParams.reset(new cParameterContainer);
 			fractParams.reset(new cFractalContainer);
+			animationFrames.reset(new cAnimationFrames);
+			animationKeyframes.reset(new cKeyframes);
 		}
 
 		std::shared_ptr<cParameterContainer> mainParams;
 		std::shared_ptr<cFractalContainer> fractParams;
-		cAnimationFrames animationFrames;
-		cKeyframes animationKeyframes;
+		std::shared_ptr<cAnimationFrames> animationFrames;
+		std::shared_ptr<cKeyframes> animationKeyframes;
 		bool hasFrames = false;
 		bool hasKeyframes = false;
 		bool isLoaded = false;

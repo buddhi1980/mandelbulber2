@@ -78,7 +78,7 @@
 
 cFlightAnimation *gFlightAnimation = nullptr;
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames,
+cFlightAnimation::cFlightAnimation(cInterface *_interface, std::shared_ptr<cAnimationFrames> _frames,
 	std::shared_ptr<cImage> _image, QWidget *_imageWidget,
 	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
 	QObject *parent)

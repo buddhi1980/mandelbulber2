@@ -76,7 +76,7 @@
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
-cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames,
+cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<cKeyframes> _frames,
 	std::shared_ptr<cImage> _image, QWidget *_imageWidget,
 	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
 	QObject *parent)

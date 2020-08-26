@@ -66,8 +66,8 @@ cSettings::cSettings(enumFormat _format)
 }
 
 size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
-	std::shared_ptr<const cFractalContainer> fractPar, cAnimationFrames *frames,
-	cKeyframes *keyframes)
+	std::shared_ptr<const cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes)
 {
 	WriteLog("Create settings text", 3);
 	settingsText.clear();
@@ -143,7 +143,7 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 }
 
 void cSettings::CreateAnimationString(
-	QString &text, const QString &headerText, const cAnimationFrames *frames) const
+	QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const
 {
 	if (frames)
 	{
@@ -484,7 +484,8 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 }
 
 bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes)
 {
 	WriteLog(
 		"cSettings::Decode(std::shared_ptr<cParameterContainer> par, "
@@ -1211,7 +1212,7 @@ void cSettings::Compatibility2(
 }
 
 bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames)
 {
 	QStringList lineSplit = line.split(';');
 	try
@@ -1324,7 +1325,7 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 }
 
 bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, cAnimationFrames *frames)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames)
 {
 	QStringList lineSplit = line.split(';');
 	QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
@@ -1353,7 +1354,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 						morphType = morphAkima;
 					else if (lineSplit[column] == "morphAkimaAngle")
 						morphType = morphAkimaAngle;
-					static_cast<cKeyframes *>(frames)->ChangeMorphType(i, morphType);
+					static_pointer_cast<cKeyframes>(frames)->ChangeMorphType(i, morphType);
 				}
 				return true;
 			}

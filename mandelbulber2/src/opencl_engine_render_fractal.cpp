@@ -789,13 +789,12 @@ void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
 	std::shared_ptr<sRenderData> renderData)
 {
 	// AO colored vectors
-	cRenderWorker *tempRenderWorker =
-		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr);
+	std::unique_ptr<cRenderWorker> tempRenderWorker(
+		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr));
 	tempRenderWorker->PrepareAOVectors();
 	sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
-	delete tempRenderWorker;
 }
 
 void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *fractals)
@@ -813,8 +812,9 @@ void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *
 
 void cOpenClEngineRenderFractal::SetParameters(
 	std::shared_ptr<const cParameterContainer> paramContainer,
-	std::shared_ptr<const cFractalContainer> fractalContainer, std::shared_ptr<sParamRender> paramRender,
-	std::shared_ptr<cNineFractals> fractals, std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable)
+	std::shared_ptr<const cFractalContainer> fractalContainer,
+	std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
+	std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable)
 {
 	Q_UNUSED(fractalContainer);
 
@@ -924,13 +924,13 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	// buffer for Perlin noise seeds
 	perlinNoiseSeeds.resize(perlinNoiseArraySize);
-	cPerlinNoiseOctaves *perlinNoise = new cPerlinNoiseOctaves(paramRender->cloudsRandomSeed);
+	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise(
+		new cPerlinNoiseOctaves(paramRender->cloudsRandomSeed));
 	std::uint8_t *seeds = perlinNoise->GetSeeds();
 	for (int i = 0; i < perlinNoiseArraySize; i++)
 	{
 		perlinNoiseSeeds[i] = seeds[i];
 	}
-	delete perlinNoise;
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 }
