@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalMandeltorus::cFractalMandeltorus() : cAbstractFractal()
+cFractalMandeltorusV2::cFractalMandeltorusV2() : cAbstractFractal()
 {
-	nameInComboBox = "Mandeltorus";
-	internalName = "mandeltorus";
-	internalID = fractal::mandeltorus;
+	nameInComboBox = "Mandeltorus V2";
+	internalName = "mandeltorus_v2";
+	internalID = fractal::mandeltorusV2;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -25,7 +25,7 @@ cFractalMandeltorus::cFractalMandeltorus() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalMandeltorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandeltorusV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -35,18 +35,27 @@ void cFractalMandeltorus::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		aux.DE *= z.Length() / aux.r;
 	}
 
-	const double power1 = fractal->transformCommon.pwr8; // Longitude power, symmetry
+
+	const double power1 = fractal->bulb.power; // Longitude power, symmetry
 	const double power2 = fractal->transformCommon.pwr8a; // Latitude power
+
+	double  off1p5 = 1.0;
+
+	if (aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		off1p5 = fractal->transformCommon.offset105;
+	}
 
 	const double rh = sqrt(z.x * z.x + z.z * z.z);
 
-	const double phi = atan2(z.z, z.x);
+	const double phi = atan2(z.z, z.x) + fractal->transformCommon.offset0;
 	const double phipow = phi * power1;
 
 	const double theta = atan2(rh, z.y);
 
-	const double px = z.x - cos(phi) * 1.5;
-	const double pz = z.z - sin(phi) * 1.5;
+	const double px = z.x - cos(phi) * off1p5;
+	const double pz = z.z - sin(phi) * off1p5;
 	const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
 	double rh1 = pow(rhrad, power2);
 	double rh2 = pow(rhrad, power1);

@@ -101,6 +101,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbVaryPowerV1());
 	fractalList->append(new cFractalMandelcup());
 	fractalList->append(new cFractalMandeltorus());
+	fractalList->append(new cFractalMandeltorusV2());
 
 	// Msltoe formulas
 	fractalList->append(new cFractalMsltoeSym2Mod());
