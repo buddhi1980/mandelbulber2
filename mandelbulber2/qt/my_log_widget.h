@@ -38,6 +38,7 @@
 #ifndef MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 #define MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 
+#include <memory>
 #include <QPlainTextEdit>
 
 class MyLogWidget : public QPlainTextEdit

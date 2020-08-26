@@ -189,6 +189,7 @@ void Test::renderExamples() const
 					cpuGpuString = "GPU";
 					break;
 				}
+				default: break;
 			}
 
 			QElapsedTimer timer;
@@ -207,7 +208,8 @@ void Test::renderExamples() const
 			double distance = gMainInterface->GetDistanceForPoint(
 				testPar->Get<CVector3>("camera"), testPar, testParFractal);
 
-			cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+			std::unique_ptr<cRenderJob> renderJob(
+				new cRenderJob(testPar, testParFractal, image, &stopRequest));
 			renderJob->Init(cRenderJob::still, config);
 
 			if (IsBenchmarking())
@@ -225,7 +227,6 @@ void Test::renderExamples() const
 
 				SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
 			}
-			delete renderJob;
 
 			WriteLog(
 				QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(elapsedTime), 1);
@@ -238,8 +239,8 @@ void Test::netrender()
 {
 	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
-	cNetRender *netRenderServer = new cNetRender(this);
-	cNetRender *netRenderClient = new cNetRender(this);
+	std::unique_ptr<cNetRender> netRenderServer(new cNetRender(this));
+	std::unique_ptr<cNetRender> netRenderClient(new cNetRender(this));
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 
@@ -254,9 +255,6 @@ void Test::netrender()
 
 	QVERIFY2(netRenderServer->GetClientCount() == 1,
 		QString("client not connected to server.").toStdString().c_str());
-
-	delete netRenderClient;
-	delete netRenderServer;
 }
 
 void Test::testFlightWrapper() const
@@ -310,14 +308,12 @@ void Test::testFlight() const
 	testPar->Set("flight_last_to_render", IsBenchmarking() ? 100 : 55);
 	testPar->Set("anim_flight_dir", testFolder() + QDir::separator());
 
-	cFlightAnimation *flightAnimation = new cFlightAnimation(
-		gMainInterface, testAnimFrames, image, nullptr, testPar, testParFractal, nullptr);
+	std::unique_ptr<cFlightAnimation> flightAnimation(new cFlightAnimation(
+		gMainInterface, testAnimFrames, image, nullptr, testPar, testParFractal, nullptr));
 	if (IsBenchmarking())
 		flightAnimation->slotRenderFlight();
 	else
 		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
-
-	delete flightAnimation;
 }
 
 void Test::testKeyframeWrapper() const
@@ -371,14 +367,12 @@ void Test::testKeyframe() const
 	testPar->Set("keyframe_last_to_render", IsBenchmarking() ? 100 : 55);
 	testPar->Set("anim_keyframe_dir", testFolder() + QDir::separator());
 
-	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
-		gMainInterface, testKeyframes, image, nullptr, testPar, testParFractal, nullptr);
+	std::unique_ptr<cKeyframeAnimation> testKeyframeAnimation(new cKeyframeAnimation(
+		gMainInterface, testKeyframes, image, nullptr, testPar, testParFractal, nullptr));
 	if (IsBenchmarking())
 		testKeyframeAnimation->slotRenderKeyframes();
 	else
 		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
-
-	delete testKeyframeAnimation;
 }
 
 void Test::renderSimpleWrapper() const
@@ -431,15 +425,14 @@ void Test::renderSimple() const
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
 	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
 	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
-	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(testPar, testParFractal, image, &stopRequest));
 	renderJob->Init(cRenderJob::still, config);
 
 	if (IsBenchmarking())
 		renderJob->Execute();
 	else
 		QVERIFY2(renderJob->Execute(), "example render failed.");
-
-	delete renderJob;
 }
 
 void Test::testImageSaveWrapper() const
@@ -494,7 +487,8 @@ void Test::renderImageSave() const
 	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
 	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
 
-	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(testPar, testParFractal, image, &stopRequest));
 	renderJob->Init(cRenderJob::still, config);
 
 	if (IsBenchmarking())
@@ -585,5 +579,4 @@ void Test::renderImageSave() const
 			}
 		}
 	}
-	delete renderJob;
 }

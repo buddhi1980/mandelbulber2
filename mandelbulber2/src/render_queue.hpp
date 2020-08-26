@@ -79,8 +79,8 @@ private:
 	std::shared_ptr<cParameterContainer> queuePar;
 	std::shared_ptr<cFractalContainer> queueParFractal;
 	std::shared_ptr<cAnimationFrames> queueAnimFrames;
-	cFlightAnimation *queueFlightAnimation;
-	cKeyframeAnimation *queueKeyframeAnimation;
+	std::shared_ptr<cFlightAnimation> queueFlightAnimation;
+	std::shared_ptr<cKeyframeAnimation> queueKeyframeAnimation;
 	std::shared_ptr<cKeyframes> queueKeyframes;
 };
 

@@ -75,10 +75,6 @@ cOpenClHardware::~cOpenClHardware()
 {
 #ifdef USE_OPENCL
 	// deleting existing contexts
-	for (cl::Context *context : contexts)
-	{
-		if (context) delete context;
-	}
 	contexts.clear();
 #endif
 }
@@ -153,10 +149,6 @@ void cOpenClHardware::CreateContext(
 				CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
 
 			// deleting existing contexts
-			for (cl::Context *context : contexts)
-			{
-				if (context) delete context;
-			}
 			contexts.clear();
 			contexts.resize(1);
 			contextReady = false;
@@ -176,24 +168,24 @@ void cOpenClHardware::CreateContext(
 				switch (deviceType)
 				{
 					case cOpenClDevice::openClDeviceTypeACC:
-						contexts[contextIndex] =
-							new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cProps, nullptr, nullptr, &err);
+						contexts[contextIndex].reset(
+							new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cProps, nullptr, nullptr, &err));
 						break;
 					case cOpenClDevice::openClDeviceTypeALL:
-						contexts[contextIndex] =
-							new cl::Context(CL_DEVICE_TYPE_ALL, cProps, nullptr, nullptr, &err);
+						contexts[contextIndex].reset(
+							new cl::Context(CL_DEVICE_TYPE_ALL, cProps, nullptr, nullptr, &err));
 						break;
 					case cOpenClDevice::openClDeviceTypeCPU:
-						contexts[contextIndex] =
-							new cl::Context(CL_DEVICE_TYPE_CPU, cProps, nullptr, nullptr, &err);
+						contexts[contextIndex].reset(
+							new cl::Context(CL_DEVICE_TYPE_CPU, cProps, nullptr, nullptr, &err));
 						break;
 					case cOpenClDevice::openClDeviceTypeDEF:
-						contexts[contextIndex] =
-							new cl::Context(CL_DEVICE_TYPE_DEFAULT, cProps, nullptr, nullptr, &err);
+						contexts[contextIndex].reset(
+							new cl::Context(CL_DEVICE_TYPE_DEFAULT, cProps, nullptr, nullptr, &err));
 						break;
 					case cOpenClDevice::openClDeviceTypeGPU:
-						contexts[contextIndex] =
-							new cl::Context(CL_DEVICE_TYPE_GPU, cProps, nullptr, nullptr, &err);
+						contexts[contextIndex].reset(
+							new cl::Context(CL_DEVICE_TYPE_GPU, cProps, nullptr, nullptr, &err));
 						break;
 				}
 

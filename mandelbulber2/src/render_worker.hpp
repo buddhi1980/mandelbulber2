@@ -281,7 +281,7 @@ private:
 	bool stopRequest;
 
 	// allocated objects
-	cCameraTarget *cameraTarget;
+	std::unique_ptr<cCameraTarget> cameraTarget;
 	sRayBuffer *rayBuffer;
 	sRayStack *rayStack;
 	sVectorsAround *AOVectorsAround;

@@ -78,12 +78,6 @@ cRenderWorker::cRenderWorker(std::shared_ptr<const sParamRender> _params,
 
 cRenderWorker::~cRenderWorker()
 {
-	if (cameraTarget)
-	{
-		delete cameraTarget;
-		cameraTarget = nullptr;
-	}
-
 	if (rayBuffer)
 	{
 		for (int i = 0; i < reflectionsMax + 3; i++)
@@ -500,7 +494,7 @@ void cRenderWorker::doWork()
 // calculation of base vectors
 void cRenderWorker::PrepareMainVectors()
 {
-	cameraTarget = new cCameraTarget(params->camera, params->target, params->topVector);
+	cameraTarget.reset(new cCameraTarget(params->camera, params->target, params->topVector));
 	// cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
 	viewAngle = cameraTarget->GetRotation();
 

@@ -35,6 +35,7 @@
 #include "render_image.hpp"
 
 #include <algorithm>
+#include <memory>
 
 #include "ao_modes.h"
 #include "cast.hpp"
@@ -338,12 +339,11 @@ void cRenderer::RenderDOF()
 
 void cRenderer::RenderHDRBlur()
 {
-	cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
+	std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(image));
 	hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);
-	connect(hdrBlur, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(hdrBlur.get(), SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 	hdrBlur->Render(data->stopRequest);
-	delete hdrBlur;
 }
 
 bool cRenderer::RenderImage()

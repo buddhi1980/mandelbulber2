@@ -35,8 +35,9 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 #define MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 
+#include <memory>
+#include <vector>
 #include <QObject>
-#include <QVector>
 
 #include "include_header_wrapper.hpp"
 #include "opencl_context.h"
@@ -82,7 +83,7 @@ public:
 		return clDevices[contextIndex];
 	}
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
-	cl::Context *getContext(int d) const { return contexts[d]; }
+	cl::Context *getContext(int d) const { return contexts[d].get(); }
 
 	QList<const cl::Device *> getEnabledDevices() const
 	{
@@ -132,7 +133,7 @@ protected:
 	// The Multi-GPU System only supports (1) platform - separate cotexts for each device
 	// because even when used different therads, the devices blocked each other.
 	// 1 context == 1 platform
-	QVector<cl::Context *> contexts;
+	std::vector<std::unique_ptr<cl::Context>> contexts;
 	bool isNVidia;
 	bool isAMD;
 

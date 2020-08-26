@@ -47,8 +47,9 @@
 #include "settings.hpp"
 #include "system_directories.hpp"
 
-cThumbnail::cThumbnail(const std::shared_ptr<cParameterContainer> _params, const std::shared_ptr<cFractalContainer> _fractal,
-	int _width, int _height, QString _hash = QString())
+cThumbnail::cThumbnail(const std::shared_ptr<cParameterContainer> _params,
+	const std::shared_ptr<cFractalContainer> _fractal, int _width, int _height,
+	QString _hash = QString())
 		: params(_params), fractal(_fractal), width(_width), height(_height), hash(std::move(_hash))
 {
 	image = nullptr;
@@ -82,7 +83,8 @@ QPixmap cThumbnail::Render()
 	else
 	{
 		bool stopRequest = false;
-		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qWidget);
+		std::unique_ptr<cRenderJob> renderJob(
+			new cRenderJob(params, fractal, image, &stopRequest, qWidget));
 		renderJob->UseSizeFromImage(true);
 
 		cRenderingConfiguration config;
@@ -96,7 +98,6 @@ QPixmap cThumbnail::Render()
 		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()), width, height,
 			width * sizeof(sRGB8), QImage::Format_RGB888);
 		pixmap.convertFromImage(qImage);
-		delete renderJob;
 		pixmap.save(thumbnailFileName, "PNG");
 	}
 	return pixmap;

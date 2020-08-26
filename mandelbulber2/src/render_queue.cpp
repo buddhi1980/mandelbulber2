@@ -77,38 +77,37 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 		InitFractalParams(queueParFractal->at(i));
 	}
 
-	queueFlightAnimation = new cFlightAnimation(
-		gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this);
-	queueKeyframeAnimation = new cKeyframeAnimation(
-		gMainInterface, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this);
-	QObject::connect(queueFlightAnimation,
+	queueFlightAnimation.reset(new cFlightAnimation(
+		gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this));
+	queueKeyframeAnimation.reset(new cKeyframeAnimation(
+		gMainInterface, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this));
+	QObject::connect(queueFlightAnimation.get(),
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)),
 		this,
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)));
-	QObject::connect(queueFlightAnimation,
+	QObject::connect(queueFlightAnimation.get(),
 		SIGNAL(updateProgressHide(cProgressText::enumProgressType)), this,
 		SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(queueFlightAnimation, SIGNAL(updateStatistics(cStatistics)), this,
+	QObject::connect(queueFlightAnimation.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
-	QObject::connect(queueKeyframeAnimation,
+	QObject::connect(queueKeyframeAnimation.get(),
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)),
 		this,
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)));
-	QObject::connect(queueKeyframeAnimation,
+	QObject::connect(queueKeyframeAnimation.get(),
 		SIGNAL(updateProgressHide(cProgressText::enumProgressType)), this,
 		SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(queueKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)), this,
+	QObject::connect(queueKeyframeAnimation.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 }
 
 cRenderQueue::~cRenderQueue()
 {
-	delete queueFlightAnimation;
-	delete queueKeyframeAnimation;
+	// nothing to delete
 }
 
 void cRenderQueue::slotRenderQueue()
@@ -222,14 +221,15 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	QString saveFilename = QFileInfo(queueItem.filename).baseName() + "." + extension;
 
 	// setup of rendering engine
-	cRenderJob *renderJob =
-		new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget));
 
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(
-		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+	connect(renderJob.get(),
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
+		SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob.get(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 	cRenderingConfiguration config;
 	if (systemData.noGui)
@@ -246,7 +246,6 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	bool result = renderJob->Execute();
 	if (!result)
 	{
-		delete renderJob;
 		return false;
 	}
 
@@ -260,6 +259,5 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	parSettings.CreateText(queuePar, queueParFractal);
 	parSettings.SaveToFile(fullSaveFilename);
 
-	delete renderJob;
 	return true;
 }
