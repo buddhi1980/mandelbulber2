@@ -43,22 +43,17 @@ cFileDownloader::cFileDownloader(QString sourceBaseURL, QString targetDir) : QOb
 {
 	this->sourceBaseURL = sourceBaseURL;
 	this->targetDir = targetDir;
-	network = new QNetworkAccessManager();
+	network.reset(new QNetworkAccessManager());
 	done = true;
 	currentFileFinished = true;
 	cntFilesAlreadyExists = 0;
 	cntFilesToDownload = 0;
 	cntFilesDownloaded = 0;
-	tempFile = nullptr;
 }
 
 cFileDownloader::~cFileDownloader()
 {
-	if (tempFile)
-	{
-		delete tempFile;
-		tempFile = nullptr;
-	}
+	//nothing to delete
 }
 
 void cFileDownloader::downloadFileList()
@@ -105,15 +100,11 @@ void cFileDownloader::fileListDownloaded()
 	{
 		QString file = filesToDownload.at(i);
 		QNetworkReply *replyFile = network->get(QNetworkRequest(QUrl(sourceBaseURL + "/" + file)));
-		if (tempFile)
-		{
-			delete tempFile;
-			tempFile = nullptr;
-		}
-		tempFile = new QFile(targetDir + QDir::separator() + file);
+
+		tempFile.reset(new QFile(targetDir + QDir::separator() + file));
 		if (!tempFile->open(QIODevice::WriteOnly))
 		{
-			qCritical() << "could not open file for writing!";
+			qCritical() << "could not open file for writing!" << tempFile->fileName();
 		}
 		else
 		{

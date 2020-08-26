@@ -286,52 +286,46 @@ QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileTyp
 		// save left
 		{
 			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_left";
-			ImageFileSave *imageFileSave =
+			std::shared_ptr<ImageFileSave> imageFileSave =
 				ImageFileSave::create(fileWithoutExtension, fileType, leftImage, imageConfig);
 			if (updateReceiver != nullptr)
 			{
-				QObject::connect(imageFileSave,
+				QObject::connect(imageFileSave.get(),
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			}
 			QStringList list = imageFileSave->SaveImage();
 			listOfSavedFiles.append(list);
-
-			delete imageFileSave;
 		}
 
 		// save right
 		{
 			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_right";
-			ImageFileSave *imageFileSave =
+			std::shared_ptr<ImageFileSave> imageFileSave =
 				ImageFileSave::create(fileWithoutExtension, fileType, rightImage, imageConfig);
 			if (updateReceiver != nullptr)
 			{
-				QObject::connect(imageFileSave,
+				QObject::connect(imageFileSave.get(),
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			}
 			QStringList list = imageFileSave->SaveImage();
 			listOfSavedFiles.append(list);
-
-			delete imageFileSave;
 		}
 	}
 	else
 	{
 		QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
-		ImageFileSave *imageFileSave =
+		std::shared_ptr<ImageFileSave> imageFileSave =
 			ImageFileSave::create(fileWithoutExtension, fileType, image, imageConfig);
 		if (updateReceiver != nullptr)
 		{
-			QObject::connect(imageFileSave,
+			QObject::connect(imageFileSave.get(),
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 		}
 		QStringList list = imageFileSave->SaveImage();
 		listOfSavedFiles.append(list);
-
-		delete imageFileSave;
 	}
 
 	return listOfSavedFiles;

@@ -46,15 +46,14 @@ MyLogWidget::MyLogWidget(QWidget *parent) : QPlainTextEdit(parent)
 {
 	setReadOnly(true);
 	initializedFromLogFile = false;
-	reBasic = new QRegularExpression("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)");
-	reInnerType =
-		new QRegularExpression("^(Info|Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)");
+	reBasic.reset(new QRegularExpression("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)"));
+	reInnerType.reset(
+		new QRegularExpression("^(Info|Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)"));
 }
 
 MyLogWidget::~MyLogWidget()
 {
-	delete reBasic;
-	delete reInnerType;
+	// nothing to delete
 }
 
 void MyLogWidget::appendMessage(const QString &text)

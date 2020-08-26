@@ -136,7 +136,7 @@ public:
 	static QStringList ImageChannelNames();
 	static QString ImageNameWithoutExtension(QString path);
 	static enumImageFileType ImageFileType(QString imageFileExtension);
-	static ImageFileSave *create(QString filename, enumImageFileType fileType,
+	static std::shared_ptr<ImageFileSave> create(QString filename, enumImageFileType fileType,
 		std::shared_ptr<cImage> image, ImageConfig imageConfig);
 	virtual QStringList SaveImage() = 0;
 	virtual QString getJobName() = 0;

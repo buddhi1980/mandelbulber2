@@ -91,18 +91,22 @@ ImageFileSave::ImageFileSave(
 	currentChannelKey = IMAGE_CONTENT_COLOR;
 }
 
-ImageFileSave *ImageFileSave::create(QString filename, enumImageFileType fileType,
+std::shared_ptr<ImageFileSave> ImageFileSave::create(QString filename, enumImageFileType fileType,
 	std::shared_ptr<cImage> image, ImageConfig imageConfig)
 {
 	switch (fileType)
 	{
-		case IMAGE_FILE_TYPE_PNG: return new ImageFileSavePNG(filename, image, imageConfig);
-		case IMAGE_FILE_TYPE_JPG: return new ImageFileSaveJPG(filename, image, imageConfig);
+		case IMAGE_FILE_TYPE_PNG:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSavePNG(filename, image, imageConfig));
+		case IMAGE_FILE_TYPE_JPG:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSaveJPG(filename, image, imageConfig));
 #ifdef USE_TIFF
-		case IMAGE_FILE_TYPE_TIFF: return new ImageFileSaveTIFF(filename, image, imageConfig);
+		case IMAGE_FILE_TYPE_TIFF:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSaveTIFF(filename, image, imageConfig));
 #endif /* USE_TIFF */
 #ifdef USE_EXR
-		case IMAGE_FILE_TYPE_EXR: return new ImageFileSaveEXR(filename, image, imageConfig);
+		case IMAGE_FILE_TYPE_EXR:
+			return std::shared_ptr<ImageFileSave>(new ImageFileSaveEXR(filename, image, imageConfig));
 #endif /* USE_EXR */
 	}
 	qCritical() << "fileType " << ImageFileExtension(fileType) << " not supported!";

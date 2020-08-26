@@ -87,9 +87,9 @@ private:
 	QString parameterName;
 	cAnimationFrames *animationFrames;
 
-	QAudioOutput *audioOutput;
+	std::unique_ptr<QAudioOutput> audioOutput;
 	QByteArray playBuffer;
-	QBuffer *playStream;
+	std::unique_ptr<QBuffer> playStream;
 
 signals:
 	void frequencyChanged(double midfreq, double bandwidth);

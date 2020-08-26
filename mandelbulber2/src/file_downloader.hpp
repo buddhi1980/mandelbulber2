@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_FILE_DOWNLOADER_HPP_
 #define MANDELBULBER2_SRC_FILE_DOWNLOADER_HPP_
 
+#include <memory>
 #include <QDir>
 #include <QFile>
 #include <QNetworkAccessManager>
@@ -60,8 +61,8 @@ signals:
 private:
 	QString sourceBaseURL;
 	QString targetDir;
-	QNetworkAccessManager *network;
-	QFile *tempFile;
+	std::unique_ptr<QNetworkAccessManager> network;
+	std::unique_ptr<QFile> tempFile;
 	QStringList filesToDownload;
 	int cntFilesAlreadyExists;
 	int cntFilesToDownload;

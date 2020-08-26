@@ -54,8 +54,8 @@ public slots:
 
 private:
 	bool initializedFromLogFile;
-	QRegularExpression *reBasic;
-	QRegularExpression *reInnerType;
+	std::unique_ptr<QRegularExpression> reBasic;
+	std::unique_ptr<QRegularExpression> reInnerType;
 
 	QString formatLine(const QString &text) const;
 };

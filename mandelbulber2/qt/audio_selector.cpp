@@ -51,9 +51,6 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
-	audioOutput = nullptr;
-	playStream = nullptr;
-
 	ConnectSignals();
 	animationFrames = nullptr;
 	setAttribute(Qt::WA_DeleteOnClose, true);
@@ -67,10 +64,8 @@ cAudioSelector::~cAudioSelector()
 	if (audioOutput)
 	{
 		audioOutput->stop();
-		delete audioOutput;
 	}
 
-	if (playStream) delete playStream;
 	delete ui;
 }
 
@@ -225,7 +220,7 @@ void cAudioSelector::slotPlaybackStart() const
 				break;
 			case QAudio::StoppedState:
 				// stopped -> play
-				audioOutput->start(playStream);
+				audioOutput->start(playStream.get());
 				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
 				break;
 			case QAudio::IdleState: qWarning() << "audio not loaded yet!"; break;
@@ -244,20 +239,18 @@ void cAudioSelector::audioSetup()
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setSampleType(QAudioFormat::Float);
 
-	if (audioOutput) delete audioOutput;
-	audioOutput = new QAudioOutput(format, this);
+	audioOutput.reset(new QAudioOutput(format, this));
 	audioOutput->setVolume(1.0);
 	audioOutput->setNotifyInterval(50);
 
-	connect(audioOutput, SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
-	connect(audioOutput, SIGNAL(stateChanged(QAudio::State)), this,
+	connect(audioOutput.get(), SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
+	connect(audioOutput.get(), SIGNAL(stateChanged(QAudio::State)), this,
 		SLOT(slotPlaybackStateChanged(QAudio::State)));
 
 	playBuffer = QByteArray(
 		reinterpret_cast<char *>(audio->getRawAudio()), int(audio->getLength() * sizeof(float)));
 
-	if (playStream) delete playStream;
-	playStream = new QBuffer(&playBuffer);
+	playStream.reset(new QBuffer(&playBuffer));
 	playStream->open(QIODevice::ReadOnly);
 	slotPlayPositionChanged();
 }
