@@ -37,11 +37,10 @@ void cFractalSierpinski3dV4::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z += fractal->transformCommon.offset000;
 		rr = z.Dot(z);
 		z *= fractal->transformCommon.maxR2d1 / rr;
+		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
-		// double r = sqrt(rr);
-		aux.DE *= (fractal->transformCommon.maxR2d1 / rr)
-							* fractal->transformCommon.scaleA1;
+		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{

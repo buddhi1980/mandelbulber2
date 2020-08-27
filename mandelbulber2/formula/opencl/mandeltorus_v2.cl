@@ -36,7 +36,7 @@ REAL4 MandeltorusV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	REAL rh = native_sqrt(z.x * z.x + z.y * z.y);
-	REAL phi = atan2(z.y, z.x);
+	REAL phi = atan2(z.y, z.x) + fractal->transformCommon.offset0;
 	REAL phipow = phi * power1;
 
 	REAL theta = atan2(rh, z.z);
