@@ -42,6 +42,7 @@
 #include <qvector.h>
 
 #include <atomic>
+#include <vector>
 
 #include <QMutex>
 
@@ -56,11 +57,11 @@ public:
 	bool ShouldIBreak(int threadId, int actualLine) const;
 	bool ThereIsStillSomethingToDo(int ThreadId) const;
 	bool AllLinesDone() const;
-	void InitFirstLine(int threadId, int firstLine) const;
-	QList<int> GetLastRenderedLines() const;
+	void InitFirstLine(int threadId, int firstLine);
+	QList<int> GetLastRenderedLines();
 	double PercentDone() const;
 	void Stop() { stopRequest = true; }
-	void MarkReceivedLines(const QList<int> &lineNumbers) const;
+	void MarkReceivedLines(const QList<int> &lineNumbers);
 	void UpdateDoneLines(const QList<int> &done);
 
 	int GetProgressiveStep() const { return progressiveStep; }
@@ -70,12 +71,12 @@ public:
 	bool IsLineDoneByServer(int line) const;
 
 private:
-	void Reset() const;
+	void Reset();
 	int FindBiggestGap() const;
 
-	int *linePendingThreadId;
-	bool *lineDone;
-	bool *lastLinesDone;
+	std::vector<int> linePendingThreadId;
+	std::vector<bool> lineDone;
+	std::vector<bool> lastLinesDone;
 	int numberOfLines;
 	int startLine;
 	int endLine;

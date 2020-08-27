@@ -84,7 +84,7 @@ public:
 
 	// PrepareAOVectors() is public because is needed also for OpenCL data
 	void PrepareAOVectors();
-	sVectorsAround *getAOVectorsAround() const { return AOVectorsAround; }
+	const sVectorsAround *getAOVectorsAround() const { return AOVectorsAround.data(); }
 	int getAoVectorsCount() const { return AOVectorsCount; }
 
 	QThread workerThread;
@@ -93,17 +93,17 @@ private:
 	// ray-marching step data
 	struct sStep
 	{
-		double distance;
-		double step;
+		double distance = 0.0;
+		double step = 0.0;
 		CVector3 point;
-		int iters;
-		double distThresh;
+		int iters = 0;
+		double distThresh = 0.0;
 	};
 
 	struct sRayBuffer
 	{
-		sStep *stepBuff;
-		int buffCount;
+		std::vector<sStep> stepBuff;
+		int buffCount = 0;
 	};
 
 	struct sRayMarchingIn
@@ -111,10 +111,10 @@ private:
 		inline sRayMarchingIn &operator=(const sRayMarchingIn &assign) = default;
 		CVector3 start;
 		CVector3 direction;
-		double minScan;
-		double maxScan;
-		bool binaryEnable;
-		bool invertMode;
+		double minScan = 0.0;
+		double maxScan = 0.0;
+		bool binaryEnable = false;
+		bool invertMode = false;
 	};
 
 	struct sRayMarchingInOut
@@ -127,11 +127,12 @@ private:
 	struct sRayMarchingOut
 	{
 		CVector3 point;
-		double lastDist;
-		double depth;
-		double distThresh;
-		int objectId;
-		bool found;
+		double lastDist = 0.0;
+		double depth = 0.0;
+		double distThresh = 0.0;
+		int objectId = 0;
+		bool found = false;
+		;
 	};
 
 	enum enumRayBranch
@@ -282,10 +283,10 @@ private:
 
 	// allocated objects
 	std::unique_ptr<cCameraTarget> cameraTarget;
-	sRayBuffer *rayBuffer;
-	sRayStack *rayStack;
-	sVectorsAround *AOVectorsAround;
-	cPerlinNoiseOctaves *perlinNoise;
+	std::vector<sRayBuffer> rayBuffer;
+	std::vector<sRayStack> rayStack;
+	std::vector<sVectorsAround> AOVectorsAround;
+	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise;
 
 public slots:
 	void doWork();

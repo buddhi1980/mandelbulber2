@@ -552,7 +552,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 	if (y >= 0 && y < int(image->GetHeight()))
 	{
 		int width = image->GetWidth();
-		sAllImageData *lineOfImage = new sAllImageData[width];
+		std::vector<sAllImageData> lineOfImage(width);
 		size_t dataSize = sizeof(sAllImageData) * width;
 		for (int x = 0; x < width; x++)
 		{
@@ -570,8 +570,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 			if (image->GetImageOptional()->optionalWorld)
 				lineOfImage[x].worldPosition = image->GetPixelWorld(x, y);
 		}
-		lineData->append(reinterpret_cast<char *>(lineOfImage), CastSizeToInt(dataSize));
-		delete[] lineOfImage;
+		lineData->append(reinterpret_cast<char *>(lineOfImage.data()), CastSizeToInt(dataSize));
 	}
 	else
 	{

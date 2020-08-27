@@ -34,6 +34,7 @@
 
 #include "render_ssao.h"
 
+#include <vector>
 #include "cimage.hpp"
 #include "fractparams.hpp"
 #include "global_data.hpp"
@@ -78,18 +79,18 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 {
 	WriteLog("cRenderSSAO::RenderSSAO()", 2);
 	// prepare multiple threads
-	QThread **thread = new QThread *[numberOfThreads];
-	cSSAOWorker::sThreadData *threadData = new cSSAOWorker::sThreadData[numberOfThreads];
-	cSSAOWorker **worker = new cSSAOWorker *[numberOfThreads];
+	std::vector<QThread *> thread(numberOfThreads);
+	std::vector<cSSAOWorker::sThreadData> threadData(numberOfThreads);
+	std::vector<cSSAOWorker *> worker(numberOfThreads);
 
 	cProgressText progressText;
 	progressText.ResetTimer();
 
 	// create list of lines to render for each CPU core
-	QList<int> *lists = nullptr;
+	std::vector<QList<int>> lists;
 	if (list)
 	{
-		lists = new QList<int>[numberOfThreads];
+		lists.resize(numberOfThreads);
 		for (int y : *list)
 		{
 			int mod = (y - startLine) % numberOfThreads;
@@ -205,11 +206,6 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	progressTxt = progressText.getText(percentDone);
 
 	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-
-	delete[] thread;
-	delete[] threadData;
-	delete[] worker;
-	if (list) delete[] lists;
 
 	WriteLog("cRenderSSAO::RenderSSAO(): memory released", 2);
 

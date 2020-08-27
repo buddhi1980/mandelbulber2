@@ -792,7 +792,7 @@ void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
 	std::unique_ptr<cRenderWorker> tempRenderWorker(
 		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr));
 	tempRenderWorker->PrepareAOVectors();
-	sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
+	const sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 }

@@ -48,9 +48,9 @@ cScheduler::cScheduler(cRegion<int> screenRegion, int progressive)
 	startLine = screenRegion.y1;
 	endLine = screenRegion.y2;
 	numberOfLines = screenRegion.height;
-	linePendingThreadId = new int[endLine];
-	lineDone = new bool[endLine];
-	lastLinesDone = new bool[endLine];
+	linePendingThreadId.resize(endLine);
+	lineDone.resize(endLine);
+	lastLinesDone.resize(endLine);
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
@@ -58,18 +58,13 @@ cScheduler::cScheduler(cRegion<int> screenRegion, int progressive)
 	Reset();
 }
 
-cScheduler::~cScheduler()
-{
-	delete[] lineDone;
-	delete[] linePendingThreadId;
-	delete[] lastLinesDone;
-}
+cScheduler::~cScheduler() {}
 
-void cScheduler::Reset() const
+void cScheduler::Reset()
 {
-	memset(linePendingThreadId, 0, sizeof(int) * endLine);
-	memset(lineDone, 0, sizeof(bool) * endLine);
-	memset(lastLinesDone, 0, sizeof(bool) * endLine);
+	std::fill(linePendingThreadId.begin(), linePendingThreadId.end(), 0);
+	std::fill(lineDone.begin(), lineDone.end(), false);
+	std::fill(lastLinesDone.begin(), lastLinesDone.end(), false);
 }
 
 bool cScheduler::ThereIsStillSomethingToDo(int threadId) const
@@ -231,12 +226,12 @@ int cScheduler::FindBiggestGap() const
 	return theBest;
 }
 
-void cScheduler::InitFirstLine(int threadId, int firstLine) const
+void cScheduler::InitFirstLine(int threadId, int firstLine)
 {
 	linePendingThreadId[firstLine] = threadId;
 }
 
-QList<int> cScheduler::GetLastRenderedLines() const
+QList<int> cScheduler::GetLastRenderedLines()
 {
 	QList<int> list;
 	for (int i = startLine; i < endLine; i++)
@@ -288,13 +283,13 @@ bool cScheduler::ProgressiveNextStep()
 	}
 	else
 	{
-		memset(linePendingThreadId, 0, sizeof(int) * endLine);
-		memset(lineDone, 0, sizeof(bool) * endLine);
+		std::fill(linePendingThreadId.begin(), linePendingThreadId.end(), 0);
+		std::fill(lineDone.begin(), lineDone.end(), false);
 		return true;
 	}
 }
 
-void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers) const
+void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 {
 	for (int line : lineNumbers)
 	{

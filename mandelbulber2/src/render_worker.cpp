@@ -62,9 +62,6 @@ cRenderWorker::cRenderWorker(std::shared_ptr<const sParamRender> _params,
 	image = _image;
 	threadData = _threadData;
 	cameraTarget = nullptr;
-	rayBuffer = nullptr;
-	rayStack = nullptr;
-	AOVectorsAround = nullptr;
 	AOVectorsCount = 0;
 	baseX = CVector3(1.0, 0.0, 0.0);
 	baseY = CVector3(0.0, 1.0, 0.0);
@@ -73,27 +70,11 @@ cRenderWorker::cRenderWorker(std::shared_ptr<const sParamRender> _params,
 	reflectionsMax = 0;
 	actualHue = 0.0;
 	stopRequest = false;
-	perlinNoise = nullptr;
 }
 
 cRenderWorker::~cRenderWorker()
 {
-	if (rayBuffer)
-	{
-		for (int i = 0; i < reflectionsMax + 3; i++)
-		{
-			delete[] rayBuffer[i].stepBuff;
-		}
-		delete[] rayBuffer;
-	}
-
-	if (AOVectorsAround)
-	{
-		delete[] AOVectorsAround;
-		AOVectorsAround = nullptr;
-	}
-
-	if (rayStack) delete[] rayStack;
+	// nothing to delete
 }
 
 // main render engine function called as multiple threads
@@ -118,7 +99,7 @@ void cRenderWorker::doWork()
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
 
-	perlinNoise = new cPerlinNoiseOctaves(params->cloudsRandomSeed);
+	perlinNoise.reset(new cPerlinNoiseOctaves(params->cloudsRandomSeed));
 
 	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler.get();
@@ -326,7 +307,7 @@ void cRenderWorker::doWork()
 					sRayRecursionInOut recursionInOut;
 					sRayMarchingInOut rayMarchingInOut;
 					rayMarchingInOut.buffCount = &rayBuffer[0].buffCount;
-					rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff;
+					rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff.data();
 					recursionInOut.rayMarchingInOut = rayMarchingInOut;
 
 					sRayRecursionOut recursionOut = RayRecursion(recursionIn, recursionInOut);
@@ -537,22 +518,22 @@ void cRenderWorker::PrepareReflectionBuffer()
 
 	reflectionsMax = params->reflectionsMax * 1;
 	if (!params->raytracedReflections) reflectionsMax = 0;
-	rayBuffer = new sRayBuffer[reflectionsMax + 4];
+	rayBuffer.resize(reflectionsMax + 4);
 
 	for (int i = 0; i < reflectionsMax + 3; i++)
 	{
 		// rayMarching buffers
-		rayBuffer[i].stepBuff = new sStep[maxRaymarchingSteps + 2];
+		rayBuffer[i].stepBuff.resize(maxRaymarchingSteps + 2);
 		rayBuffer[i].buffCount = 0;
 	}
 
-	rayStack = new sRayStack[reflectionsMax + 1];
+	rayStack.resize(reflectionsMax + 1);
 }
 
 // calculating vectors for AmbientOcclusion
 void cRenderWorker::PrepareAOVectors()
 {
-	AOVectorsAround = new sVectorsAround[10000];
+	AOVectorsAround.resize(10000);
 	AOVectorsCount = 0;
 	int counter = 0;
 	int lightMapWidth = data->textures.lightmapTexture.Width();
@@ -965,7 +946,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							// setup buffers for ray data
 
 							rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
-							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff;
+							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 							inOut.rayMarchingInOut = rayMarchingInOut;
 
 							// recursion for reflection
@@ -1027,7 +1008,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 							// setup buffers for ray data
 							rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
-							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff;
+							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 							inOut.rayMarchingInOut = rayMarchingInOut;
 
 							// recursion for refraction
@@ -1071,7 +1052,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			sRGBAfloat transparentShader = rayStack[rayIndex].transparentShader;
 
 			inOut.rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
-			inOut.rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff;
+			inOut.rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 
 			// prepare data for shaders
 			CVector3 lightVector = shadowVector;

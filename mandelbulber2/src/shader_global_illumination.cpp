@@ -45,8 +45,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 	sShaderInputData inputCopy = input;
 	sRGBAfloat objectColorTemp = objectColor;
 
-	sStep *stepBuff = new sStep[maxRaymarchingSteps + 2];
-	inputCopy.stepBuff = stepBuff;
+	std::vector<sStep> stepBuff(maxRaymarchingSteps + 2);
+	inputCopy.stepBuff = stepBuff.data();
 	inputCopy.stepCount = 0;
 
 	sRGBAfloat resultShader;
@@ -99,7 +99,6 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			{
 				if (scan < distThresh * 2.0)
 				{
-					delete[] stepBuff;
 					return out;
 				}
 				inputCopy.point = point;
@@ -184,6 +183,5 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		if (finished || totalOpacity > 1.0) break;
 	}
 
-	delete[] stepBuff;
 	return out;
 }

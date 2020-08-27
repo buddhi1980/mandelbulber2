@@ -38,6 +38,7 @@
 
 #include "ssao_worker.h"
 
+#include <vector>
 #include "cimage.hpp"
 #include "color_structures.hpp"
 #include "common_math.h"
@@ -70,8 +71,8 @@ void cSSAOWorker::doWork()
 	int endX = threadData->region.x2;
 	sRGBFloat aoColor = threadData->color;
 
-	double *cosine = new double[quality];
-	double *sine = new double[quality];
+	std::vector<double> cosine(quality);
+	std::vector<double> sine(quality);
 	for (int i = 0; i < quality; i++)
 	{
 		sine[i] = sin(double(i) / quality * 2.0 * M_PI);
@@ -253,8 +254,6 @@ void cSSAOWorker::doWork()
 
 		if (threadData->stopRequest) break;
 	}
-	delete[] sine;
-	delete[] cosine;
 
 	// emit signal to main thread when finished
 	emit finished();
