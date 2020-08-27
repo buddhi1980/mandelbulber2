@@ -39,7 +39,7 @@ void cFractalMandeltorusV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	const double power1 = fractal->bulb.power; // Longitude power, symmetry
 	const double power2 = fractal->transformCommon.pwr8a; // Latitude power
 
-	double  off1p5 = 1.0;
+	double off1p5 = 1.0;
 
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
@@ -47,16 +47,16 @@ void cFractalMandeltorusV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		off1p5 = fractal->transformCommon.offset105;
 	}
 
-	const double rh = sqrt(z.x * z.x + z.z * z.z);
+	const double rh = sqrt(z.x * z.x + z.y * z.y);
 
-	const double phi = atan2(z.z, z.x) + fractal->transformCommon.offset0;
+	const double phi = atan2(z.y, z.x) + fractal->transformCommon.offset0;
 	const double phipow = phi * power1;
 
-	const double theta = atan2(rh, z.y);
+	const double theta = atan2(rh, z.z);
 
 	const double px = z.x - cos(phi) * off1p5;
-	const double pz = z.z - sin(phi) * off1p5;
-	const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
+	const double py = z.y - sin(phi) * off1p5;
+	const double rhrad = sqrt(px * px + py * py + z.z * z.z);
 	double rh1 = pow(rhrad, power2);
 	double rh2 = pow(rhrad, power1);
 
@@ -65,16 +65,16 @@ void cFractalMandeltorusV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		const double thetapow = theta * power2;
 		const double sintheta = sin(thetapow) * rh2;
 		z.x = sintheta * cos(phipow);
-		z.z = sintheta * sin(phipow);
-		z.y = cos(thetapow) * rh1; // mode 1
+		z.y = sintheta * sin(phipow);
+		z.z = cos(thetapow) * rh1; // mode 1
 	}
 	else // mode 2
 	{
-		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2;
+		const double tangle = atan2(sqrt(px * px + py * py), z.z) * power2;
 		const double sintheta = (1.5 + cos(tangle)) * rh2;
 		z.x = sintheta * cos(phipow);
-		z.z = sintheta * sin(phipow);
-		z.y = sin(tangle) * rh1; // mode 2
+		z.y = sintheta * sin(phipow);
+		z.z = sin(tangle) * rh1; // mode 2
 	}
 
 	// DEcalc
