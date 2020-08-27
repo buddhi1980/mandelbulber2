@@ -44,9 +44,8 @@ REAL4 MandeltorusV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL px = z.x - native_cos(phi) * off1p5;
 	REAL py = z.y - native_sin(phi) * off1p5;
 	REAL rhrad = native_sqrt(px * px + py * py + z.z * z.z);
-	rh1 = native_powr(rhrad, power2);
-	rh2 = native_powr(rhrad, power1);
-
+	REAL rh1 = native_powr(rhrad, power2);
+	REAL rh2 = native_powr(rhrad, power1);
 
 	if (!fractal->transformCommon.functionEnabledzFalse) // mode 1
 	{
