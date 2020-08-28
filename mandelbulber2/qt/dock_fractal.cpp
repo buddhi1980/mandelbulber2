@@ -349,7 +349,8 @@ void cDockFractal::slotGroupCheckJuliaModeToggled(bool state)
 
 void cDockFractal::slotChangedJuliaPoint() const
 {
-	if (ui->groupCheck_julia_mode->isChecked() && gInterfaceReadyForSynchronization)
+	if (ui->groupCheck_julia_mode->isChecked() && gPar->Get<bool>("julia_preview")
+			&& gInterfaceReadyForSynchronization)
 	{
 		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
 		InitParams(params);
@@ -371,6 +372,13 @@ void cDockFractal::slotChangedJuliaPoint() const
 		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 		{
 			params->Copy(QString("formula_%1").arg(i), gPar);
+			params->Copy(QString("formula_iterations_%1").arg(i), gPar);
+			params->Copy(QString("fractal_enable_%1").arg(i), gPar);
+			params->Copy(QString("formula_weight_%1").arg(i), gPar);
+			params->Copy(QString("formula_start_iteration_%1").arg(i), gPar);
+			params->Copy(QString("formula_stop_iteration_%1").arg(i), gPar);
+			params->Copy(QString("dont_add_c_constant_%1").arg(i), gPar);
+			params->Copy(QString("check_for_bailout_%1").arg(i), gPar);
 		}
 		params->Copy("hybrid_fractal_enable", gPar);
 		params->Copy("fractal_constant_factor", gPar);

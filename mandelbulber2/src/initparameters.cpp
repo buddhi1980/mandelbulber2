@@ -505,6 +505,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("connect_detail_level_2", false, morphNone, paramNoSave);
 
 	par->addParam("julia_preview_distance", 3.0, 1e-10, 1000.0, morphNone, paramApp);
+	par->addParam("julia_preview", true, morphNone, paramApp);
 
 	par->addParam("image_detached", false, morphNone, paramApp);
 
