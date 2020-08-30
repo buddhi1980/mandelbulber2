@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>aexion</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>953</height>
+    <width>934</width>
+    <height>1129</height>
    </rect>
   </property>
   <property name="windowTitle">
