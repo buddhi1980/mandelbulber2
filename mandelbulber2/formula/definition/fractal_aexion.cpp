@@ -33,17 +33,12 @@ void cFractalAexion::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		t = fractal->aexion.cadd;
 		CVector4 cadd = CVector4(t, t, t, t);
-		CVector4 c = z;
-		c.x = aux.c.x + aux.c.y + aux.c.z;
-		c.y = -aux.c.x - aux.c.y + aux.c.z;
-		c.z = -aux.c.x + aux.c.y - aux.c.z;
-		c.w = aux.c.x - aux.c.y - aux.c.z;
-		aux.c = fabs(c) + cadd;
 		temp.x = z.x + z.y + z.z;
 		temp.y = -z.x - z.y + z.z;
 		temp.z = -z.x + z.y - z.z;
 		temp.w = z.x - z.y - z.z;
 		z = fabs(temp) + cadd;
+		aux.const_c = z;
 	}
 	t = 2.0 * z.w * z.z;
 	temp.x = z.x * z.x - z.y * z.y;
@@ -53,7 +48,7 @@ void cFractalAexion::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	temp.z = z.z * z.z - z.w * z.w;
 	temp.w = t - temp.z;
 	temp.z += t;
-	z = temp + aux.c;
+	z = temp + aux.const_c;
 
 	if (fractal->analyticDE.enabled)
 	{

@@ -30,13 +30,15 @@ void cFractalAboxSphere4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 {
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
-	CVector4 zCol = z;
-	double lenC = aux.const_c.Length();
+
 	if (aux.i == 0)
 	{
-		z.w = lenC;
+		z.w = aux.const_c.Length();
+		z = CVector4(z.x, z.y, z.z, z.w);
+		aux.const_c = z;
 	}
 
+	CVector4 zCol = z;
 	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
 				- fabs(z.x - fractal->transformCommon.offset1111.x) - z.x;
@@ -134,8 +136,7 @@ void cFractalAboxSphere4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 	z += fractal->transformCommon.additionConstant0000;
 
-	CVector4 cR = CVector4(aux.const_c.x, aux.const_c.y, aux.const_c.z, lenC);
-	z += cR * fractal->transformCommon.scale1111;
+	z += aux.const_c * fractal->transformCommon.scale1111;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{

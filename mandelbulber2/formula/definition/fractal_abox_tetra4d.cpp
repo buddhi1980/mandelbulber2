@@ -30,15 +30,11 @@ void cFractalAboxTetra4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 {
 	double colorAdd = 0.0;
 
-	CVector4 CT = CVector4(aux.const_c.x + aux.const_c.y + aux.const_c.z,
-		-aux.const_c.x - aux.const_c.y + aux.const_c.z, -aux.const_c.x + aux.const_c.y - aux.const_c.z,
-		aux.const_c.x - aux.const_c.y - aux.const_c.z);
-	CT = fabs(CT);
-	CT = fabs(CT - fractal->transformCommon.offsetA0000);
-
 	if (aux.i == 0)
 	{
-		z = CT;
+		z = CVector4(z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z);
+		z = fabs(fabs(z) - fractal->transformCommon.offsetA0000);
+		aux.const_c = z;
 	}
 
 	double rrCol = 0.0;
@@ -140,8 +136,7 @@ void cFractalAboxTetra4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 	}
 	z += fractal->transformCommon.additionConstant0000;
 
-	CVector4 cR = CT;
-	z += cR * fractal->transformCommon.scale1111;
+	z += aux.const_c * fractal->transformCommon.scale1111;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
