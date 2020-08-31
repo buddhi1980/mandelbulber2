@@ -106,6 +106,10 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<QMessageBox::StandardButtons *>("QMessageBox::StandardButtons*");
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
 	qRegisterMetaType<QList<sRenderedTileData> /* */>("QList<sRenderedTileData>");
+	qRegisterMetaType<std::shared_ptr<const cParameterContainer> /* */>(
+		"std::shared_ptr<const cParameterContainer>");
+	qRegisterMetaType<std::shared_ptr<const cFractalContainer> /* */>(
+		"std::shared_ptr<const cFractalContainer>");
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 

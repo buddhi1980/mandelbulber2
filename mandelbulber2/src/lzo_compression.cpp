@@ -70,7 +70,7 @@ QByteArray lzoCompress(QByteArray data)
 			.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)),
 		3);
 
-	qDebug() << data.size() << len;
+	//qDebug() << data.size() << len;
 
 	QByteArray arr;
 	arr.append(out.data(), CastSizeToInt(len));
