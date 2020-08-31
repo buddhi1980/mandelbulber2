@@ -358,6 +358,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfGnarl());
 	fractalList->append(new cFractalTransfIterationWeight());
 	fractalList->append(new cFractalTransfIterationWeight4d());
+	fractalList->append(new cFractalTransfInitial4d());
 	fractalList->append(new cFractalTransfInvCylindrical());
 	fractalList->append(new cFractalTransfLinCombineCXYZ());
 	fractalList->append(new cFractalTransfMandalayFoldV1());
