@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>759</height>
+    <height>982</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -398,7 +398,8 @@ offset</string>
      <item row="1" column="0" rowspan="2">
       <widget class="QLabel" name="label_179">
        <property name="text">
-        <string>cpix scale</string>
+        <string>cpixel
+ scale</string>
        </property>
       </widget>
      </item>

@@ -27,7 +27,7 @@ REAL4 TransfInitial4d(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 		else
 		{
-			z = (REAL4)(z.x, z.y, z.z, z.Length());
+			z = (REAL4)(z.x, z.y, z.z, length(z));
 		}
 		aux.const_c = z * fractal->transformCommon.scale1111;
 	}

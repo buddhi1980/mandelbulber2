@@ -6,6 +6,7 @@ v2.23 (???? 2020)
    transfAddNorm
    transfDIFSPolyhedra
    transfDIFSPolyhedraV2
+   transfInitial4d
    transfMandalayFold4d
    transfSmooth
    transfSmoothV2
