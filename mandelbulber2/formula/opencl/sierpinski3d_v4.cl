@@ -22,7 +22,7 @@ REAL4 Sierpinski3dV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
-		double rr = 1.0;
+		REAL rr = 1.0;
 		z += fractal->transformCommon.offset000;
 		rr = dot(z, z);
 		z *= fractal->transformCommon.maxR2d1 / rr;

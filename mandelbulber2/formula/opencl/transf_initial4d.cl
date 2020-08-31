@@ -29,7 +29,7 @@ REAL4 TransfInitial4d(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		{
 			z = (REAL4)(z.x, z.y, z.z, length(z));
 		}
-		aux.const_c = z * fractal->transformCommon.scale1111;
+		aux->const_c = z * fractal->transformCommon.scale1111;
 	}
 	// DE tweak
 	if (!fractal->analyticDE.enabledFalse) aux->DE = aux->DE * length(z) / aux->r;
