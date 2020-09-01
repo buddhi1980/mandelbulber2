@@ -244,6 +244,7 @@ enum enumFractalFormula
 	spheretreeV2 = 210,
 	sierpinski3dV4 = 211,
 	mandeltorusV2 = 212,
+	aexion4dV2 = 213,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

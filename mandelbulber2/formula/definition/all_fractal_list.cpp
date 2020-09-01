@@ -49,6 +49,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	//------------------------ ANALYTIC DE FORMULAS ----------------------
 	// ----- Logarithmic -------
 	fractalList->append(new cFractalAexion());
+	fractalList->append(new cFractalAexion4dV2());
 
 	// Benesi formulas
 	fractalList->append(new cFractalBenesiPineTree());
