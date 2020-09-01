@@ -925,25 +925,32 @@ void cRandomizerDialog::slotClickedSelectButton()
 	QString numberString = buttonName.right(2);
 	int buttonNumber = numberString.toInt();
 
-	*actualParams = *listOfVersions.at(buttonNumber - 1).params;
-	*actualFractParams = *listOfVersions.at(buttonNumber - 1).fractParams;
-
-	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
-	ui->previewwidget_actual->update();
-
-	// update main list of changed parameters
-	actualListOfChangedParameters = previousListOfChangedParameters; // to prevent adding more setting
-																																	 // in case of multiple selections
-	QMapIterator<QString, QString> i(listsOfChangedParameters[buttonNumber - 1]);
-	while (i.hasNext())
+	if (listOfVersions.count() > 0)
 	{
-		i.next();
-		if (!actualListOfChangedParameters.contains(i.key()))
+		if (listOfVersions[buttonNumber - 1].params->GetCount() > 0)
 		{
-			actualListOfChangedParameters.insert(i.key(), i.value());
+			*actualParams = *listOfVersions.at(buttonNumber - 1).params;
+			*actualFractParams = *listOfVersions.at(buttonNumber - 1).fractParams;
+
+			ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+			ui->previewwidget_actual->update();
+
+			// update main list of changed parameters
+			actualListOfChangedParameters =
+				previousListOfChangedParameters; // to prevent adding more setting
+																				 // in case of multiple selections
+			QMapIterator<QString, QString> i(listsOfChangedParameters[buttonNumber - 1]);
+			while (i.hasNext())
+			{
+				i.next();
+				if (!actualListOfChangedParameters.contains(i.key()))
+				{
+					actualListOfChangedParameters.insert(i.key(), i.value());
+				}
+			}
+			ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
 		}
 	}
-	ui->previewwidget_actual->setToolTip(CreateTooltipText(actualListOfChangedParameters));
 }
 
 void cRandomizerDialog::slotClickedSaveButton()

@@ -95,6 +95,7 @@ public:
 	bool isDefaultValue(QString name) const;
 	void Copy(QString name, std::shared_ptr<const cParameterContainer> sourceContainer);
 	QList<QString> GetListOfParameters() const;
+	int GetCount() const { return myMap.count(); }
 	void PrintListOfParameters() const;
 	void ResetAllToDefault(const QStringList &exclude = QStringList());
 	void SetContainerName(QString name) { containerName = name; }
