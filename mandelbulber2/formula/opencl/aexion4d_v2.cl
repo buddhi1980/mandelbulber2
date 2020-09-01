@@ -46,7 +46,7 @@ REAL4 Aexion4dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	temp.z += t;
 
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fractal->transformCommon.scale1 + fractal->analyticDE.offset0;
+	aux->DE = aux->DE * fractal->transformCommon.scale1 + fractal->analyticDE.offset0;
 
 	z = temp + aux->const_c;
 
