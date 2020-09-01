@@ -5,7 +5,7 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- *
+
  * scale 4D
  * This formula contains aux.actualScaleA
  */
@@ -41,6 +41,7 @@ void cFractalTransfInitial4d::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			z = CVector4(z.x, z.y, z.z, z.Length());
 		}
 		aux.const_c = z * fractal->transformCommon.scale1111;
+		if (fractal->transformCommon.functionEnabledAFalse) z = CVector4(0.0, 0.0, 0.0, 0.0);
 	}
 	// DE tweak
 	if (!fractal->analyticDE.enabledFalse) aux.DE = aux.DE * z.Length() / aux.r;

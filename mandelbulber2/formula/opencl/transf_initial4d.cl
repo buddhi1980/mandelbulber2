@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfInitial4d(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfInitial4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
@@ -30,6 +30,7 @@ REAL4 TransfInitial4d(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			z = (REAL4)(z.x, z.y, z.z, length(z));
 		}
 		aux->const_c = z * fractal->transformCommon.scale1111;
+		if (fractal->transformCommon.functionEnabledAFalse) z = (REAL4)(0.0, 0.0, 0.0, 0.0);
 	}
 	// DE tweak
 	if (!fractal->analyticDE.enabledFalse) aux->DE = aux->DE * length(z) / aux->r;

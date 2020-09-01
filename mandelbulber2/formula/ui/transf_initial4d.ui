@@ -96,6 +96,13 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+     <property name="text">
+      <string>enable z = 0</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_46" columnstretch="0,0,2">
      <property name="spacing">
       <number>2</number>
