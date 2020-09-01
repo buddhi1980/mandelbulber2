@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>982</height>
+    <height>1007</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,7 +98,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
      <property name="text">
-      <string>enable z = 0</string>
+      <string>enable z = 0  works with addCpixel type formulas</string>
      </property>
     </widget>
    </item>

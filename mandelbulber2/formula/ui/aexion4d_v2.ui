@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>1129</height>
+    <height>1368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -256,6 +256,48 @@ offset</string>
     </layout>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_47" columnstretch="0,0,2">
      <property name="spacing">
       <number>2</number>
@@ -436,12 +478,12 @@ offset</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_180">
           <property name="text">
-           <string>offset1:</string>
+           <string>offset0:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

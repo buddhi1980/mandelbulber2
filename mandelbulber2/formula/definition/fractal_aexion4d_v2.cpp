@@ -46,7 +46,7 @@ void cFractalAexion4dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 		aux.r = t;
 	}
-	aux.DE = aux.DE * 2.0 * aux.r + 1.0 + fractal->analyticDE.offset1;
+	aux.DE = aux.DE * 2.0 * aux.r + 1.0;
 	t = 2.0 * z.w * z.z;
 	temp.x = z.x * z.x - z.y * z.y;
 	temp.y = t - temp.x;
@@ -55,5 +55,9 @@ void cFractalAexion4dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	temp.z = z.z * z.z - z.w * z.w;
 	temp.w = t - temp.z;
 	temp.z += t;
+
+	z *= fractal->transformCommon.scale1;
+	aux.DE = aux.DE * fractal->transformCommon.scale1 + fractal->analyticDE.offset0;
+
 	z = temp + aux.const_c;
 }
