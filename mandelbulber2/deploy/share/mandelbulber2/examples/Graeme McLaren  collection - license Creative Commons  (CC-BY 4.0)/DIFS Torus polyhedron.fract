@@ -1,0 +1,58 @@
+# Mandelbulber settings file
+# version 2.23
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+camera 0 -6.88074039201174 0.905866657858823;
+camera_distance_to_target 7.03955796794367;
+camera_rotation 0 -13.2294154974253 0;
+camera_top 0 0.22885067275646 0.973461539856052;
+constant_DE_threshold true;
+DE_thresh 0.0025;
+delta_DE_function 5;
+detail_level 0.5;
+fake_lights_color fb00 ff00 c700;
+fake_lights_enabled true;
+fake_lights_min_iter 0;
+fake_lights_orbit_trap 0 0 0;
+fake_lights_orbit_trap_shape cube;
+flight_last_to_render 0;
+formula_1 606;
+formula_2 1618;
+formula_iterations_1 2;
+formula_stop_iteration_2 2;
+fov 29.13;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+keyframe_last_to_render 0;
+mat1_fractal_coloring_extra_color_options_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 550000 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+N 12;
+target -1.97621527077183e-17 -0.0280014526313584 -0.705140919013181;
+view_distance_max 30.5967065319307;
+[fractal_1]
+fold_color_aux_color_enabled false;
+fold_color_difs_0000 0 0 0.025 0;
+formula_code AAAMHHjalVZNb9s4ED1Lv4J7imTLspxNdg/eFAjSBCjQAoskdY8BTVGtAInyinRiK8h/3xl+yFRqx8nBEj/eG868GY58e3359YxcraVq6i+Kt1SVjYhu9WqXkIcH1gipqFBE3rSUKVpdVWRUmGFC5PVGcZHz/HK9wQ263sThcxiUQLjfrji5IBY7+aRaKmTRtPVVU9eNSAHz5zwMplPynZwsabtlXKi2ZCeENU2bl4IqTgBP1C9OTlZtKVi5otUJEU3OwwB9BOYbBzRFIbmamTMWlrE4zsgM44dl/DjOuLSUR94qviEtzcu1dAfe6tk7jrWeSv6zBiXk0Mzdu81k2TkZkVmWglOWzBq5KgVwvz38+4VMiU5wHGGGYji034ZBZCa4rKmy35T/tSrK0r/PycQZHJEh+owIBkhTP3E0ydLzhEwMJnGmEgKu7RgruvQoWYrbCZmlmcM5IGuqBffNzyBUhO1/eycskSVAKFqVHY8c3/cHH+fmRI/I6F6ixvdsPyqPO2B+B6kw0DHU30g7NIa6GuEJscm6FjsHEnqvc2cNdeh8Nw/d7BGnzKUHGQVdyqhj6QYSMzOB47WJ8BLWsJ/N4fXPmxfxL4CMx3EYPIPc6I45lYGLB2mS0YpjzSIeLv7k0+drILnRu5i9n8L4KcBPrEoYaXfAnyAItDM2SowuMLErWJ2cphkcVZfCZCVvFIASqMPYIIE7vgDoCJZw4QUD9FQMQmvtDp1663pZr3vCqnnCJM90rgI7g1ekLSXukk1q40lZkOiPg8aLtWDYeq8FXVY8v7mhleRaAALqFpRx2cedZ3CQCxSqKoa84xSGMPcEymc+cMl64JK9Ap76QKhJB2T0FRDrraabCH856j2L4XFqIOaGQh2CsVyvaDjkJk+QOtKaxX0aPiTJ3VCSO9slbY4nIL3nZoUXt+Lip/oV4e6uQPCexOBJ30Rso9k9Yj/eavmGoa1vyLSew4bYIUN+yeoyHejtFNQqVpAOcAklr3Q27VfBV3+r1d8j/yv9Pyj//VD+BXzpykFRujM/ZPVzb9Xc9CA3EfdCPUKQK4x04UWKzgcciDue6Y5FsWsUhjn3rbrCLYp0kwAYEqhf3d4DrJ6d0XOfoL8pig3zwnQSWIKVMJxO97VGAwkQAA+9npdSWev9HE6JSd9c8VOI6vbiFk2VXzVV06aA0AMrq27k3n0ceW1tR8rLQuqPzWYeeuVzBLz1wN0xcPd75zvo9K7A+qJiuH2pc2c+ifpkszS+IC6+QxvbQxvdoY0nvaH11rv6P5FF4X+q0zPjBibbFuCzVytP3mV1ziW9N3E/7Ab98umYivu9stShVy+vSuTI/euM6KRzn8OWq3Ur8P/GS/g/RqZ17w==;
+transf_function_enabledF_false true;
+transf_int_3 5;
+transf_offset_05 0.0625;
+transf_offsetT_1 0.125;
+transf_scale_1 1.173671;
+[fractal_2]
+fold_color_aux_color_enabled false;
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 0.6 0.4 0.025 0;
+transf_function_enabledD_false true;
+transf_int_3 5;
+transf_int_6 8;
+transf_offset_05 0.0625;
+transf_offsetT_1 0.125;
+transf_scale_1 1.173671;
