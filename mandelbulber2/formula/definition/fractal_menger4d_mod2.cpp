@@ -6,26 +6,27 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * formula by TGlad, extras by sabine62
- * https://fractalforums.org/fractal-mathematics-and-new-theories/28/new-sphere-tree/3557/msg22100#msg22100
+ * Menger4D MOD1   from Syntopia & DarkBeam's Menger4 code from M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
+cFractalMenger4dMod2::cFractalMenger4dMod2() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Log";
-	internalName = "testing_log";
-	internalID = fractal::testingLog;
+	nameInComboBox = "Menger 4D Mod2";
+	internalName = "menger4d_mod2";
+	internalID = fractal::menger4dMod2;
 	DEType = analyticDEType;
-	DEFunctionType = customDEFunction;
+	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionCustomDE;
+	defaultBailout = 10.0;
+	DEAnalyticFunction = analyticFunctionIFS;
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMenger4dMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -34,7 +35,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			z = CVector4(z.x, z.y, z.z, z.Length());
-
+			aux.DE += 0.5;
 		}
 		z = fabs(z - fractal->transformCommon.offsetA0000);
 	}
@@ -128,16 +129,14 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			{
 				z *= fractal->transformCommon.maxMinR2factor;
 				aux.DE *= fractal->transformCommon.maxMinR2factor;
-				aux.color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
 				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 				z *= tglad_factor2;
 				aux.DE *= tglad_factor2;
-				aux.color += fractal->mandelbox.color.factorSp2;
 			}
 		}
 
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}

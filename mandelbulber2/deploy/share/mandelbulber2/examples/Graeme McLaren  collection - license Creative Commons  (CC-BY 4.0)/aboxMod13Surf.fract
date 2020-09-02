@@ -1,0 +1,46 @@
+# Mandelbulber settings file
+# version 2.23
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -1.91209520584736 1.06049713757889 -0.64189314425381;
+camera_distance_to_target 2.19169314548796;
+camera_rotation 34.9031289003326 -5.37809151221157 0;
+camera_top -0.0536300735102115 0.0768679614838769 0.995597876510694;
+constant_DE_threshold true;
+DE_factor 0.636456901244486;
+DE_thresh 0.0025;
+detail_level 0.5;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 127;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+keyframe_last_to_render 0;
+main_light_alpha -21.94;
+main_light_beta 20.05;
+mat1_is_defined true;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 365532 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 355539 6000 550000 7000 3b9fee 8000 550000 9000 aba53c;
+N 62;
+target -3.16064100003379 2.85003729176318 -0.84731534451558;
+textured_background_map_type flat;
+view_distance_max 79.5350574644275;
+volumetric_fog_colour_1_distance 0.000915222987366623;
+volumetric_fog_colour_2_distance 0.00183044597473325;
+volumetric_fog_density 0.25;
+volumetric_fog_distance_factor 0.00183044597473325;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_scale 1.2;
+transf_addCpixel_enabled_false true;
+transf_addition_constant 0 0 0.6;
+transf_addition_constant_111 1.3 1.5 1;
+transf_constant_multiplier_111 -0.2 -0.2 0;
+transf_function_enabled false;
+transf_minR2_p25 0;
+transf_rotation 2 10 8;
+transf_rotation_enabled true;
+transf_start_iterations_C 9;
