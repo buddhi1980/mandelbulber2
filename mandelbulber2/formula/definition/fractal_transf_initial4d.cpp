@@ -46,5 +46,5 @@ void cFractalTransfInitial4d::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	// DE tweak
 	if (!fractal->analyticDE.enabledFalse) aux.DE = aux.DE * z.Length() / aux.r;
 
-	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

@@ -91,7 +91,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
-      <string>enable z.w = length z</string>
+      <string>enable z.w = length z (disable quadray)</string>
      </property>
     </widget>
    </item>
@@ -436,7 +436,7 @@ offset</string>
          <number>2</number>
         </property>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -501,7 +501,7 @@ offset</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_180">
           <property name="text">
-           <string>offset0:</string>
+           <string>offset1:</string>
           </property>
          </widget>
         </item>
@@ -653,5 +653,22 @@ offset</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledA_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_analyticDE_enabled_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>401</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -35,7 +35,7 @@ REAL4 TransfInitial4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// DE tweak
 	if (!fractal->analyticDE.enabledFalse) aux->DE = aux->DE * length(z) / aux->r;
 
-	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	return z;
 }
