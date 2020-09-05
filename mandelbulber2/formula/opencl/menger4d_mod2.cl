@@ -121,7 +121,7 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			z.w = tp.z * -native_sin(zeta) + tp.w * native_cos(zeta);
 		}
 	}
-	REAL scaleM = fractal->transformCommon.scale3 * fractal->transformCommon.scale1111;
+	REAL4 scaleM = fractal->transformCommon.scale3 * fractal->transformCommon.scale1111;
 	REAL4 offsetM = fractal->transformCommon.additionConstant111d5;
 
 	z.x = scaleM * z.x - offsetM.x;
