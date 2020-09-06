@@ -124,9 +124,9 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 scaleM = fractal->transformCommon.scale3 * fractal->transformCommon.scale1111;
 	REAL4 offsetM = fractal->transformCommon.additionConstant111d5;
 
-	z.x = scaleM * z.x - offsetM.x;
-	z.y = scaleM * z.y - offsetM.y;
-	z.w = scaleM * z.w - offsetM.w;
+	z.x = scaleM.x * z.x - offsetM.x;
+	z.y = scaleM.y * z.y - offsetM.y;
+	z.w = scaleM.w * z.w - offsetM.w;
 	z.z *= fractal->transformCommon.scale1;
 	REAL t = 0.5 * offsetM.z / scaleM.z;
 	z.z -= t;

@@ -24,11 +24,11 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		z += fractal->transformCommon.offset000;
+		z += fractal->transformCommon.offset0000;
 		REAL rr = dot(z, z);
 		z *= fractal->transformCommon.scaleG1 / rr;
 		aux->DE *= (fractal->transformCommon.scaleG1 / rr);
-		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
+		z += fractal->transformCommon.offsetA0000 - fractal->transformCommon.offset0000;
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
@@ -37,33 +37,27 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
-		z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
-		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
+		z.x -= fractal->transformCommon.scale0000.x * sign(z.x);
+		z.y -= fractal->transformCommon.scale0000.y * sign(z.y);
+		z.z -= fractal->transformCommon.scale0000.z * sign(z.z);
+		z.w -= fractal->transformCommon.scale0000.w * sign(z.w);
 	}
 
 	REAL k = 0.0f;
 	// Pseudo kleinian
-	REAL4 cSize = fractal->transformCommon.additionConstant0777;
+	REAL4 cSize = fractal->transformCommon.offset1111;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL4 tempZ = z;
-		if (z.x > cSize.x) tempZ.x = cSize.x;
-		if (z.x < -cSize.x) tempZ.x = -cSize.x;
-		if (z.y > cSize.y) tempZ.y = cSize.y;
-		if (z.y < -cSize.y) tempZ.y = -cSize.y;
-		if (z.z > cSize.z) tempZ.z = cSize.z;
-		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-		z = tempZ * 2.0f - z;
+		z = fabs(z + cSize) - fabs(z - cSize) - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k;
 	}
 
-	z += fractal->transformCommon.additionConstant000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+	z += fractal->transformCommon.additionConstant0000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux->i >= fractal->transformCommon.startIterationsG
