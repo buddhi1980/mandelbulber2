@@ -64,9 +64,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
-		aux.DE *= k;
+		aux.DE *= k + fractal->analyticDE.tweak005;
 	}
-
+				aux.pseudoKleinianDE = fractal->analyticDE.scale1;
 	z += fractal->transformCommon.additionConstant0000;//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledGFalse

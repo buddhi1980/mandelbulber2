@@ -442,7 +442,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case analyticFunctionPseudoKleinian:
 					{
-						double rxy = sqrt(z.x * z.x + z.y * z.y);
+						double rxy = sqrt(z.x * z.x + z.y * z.y * z.w * z.w);
 						out->distance =
 							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / extendedAux.DE;
 						break;
