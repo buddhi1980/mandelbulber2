@@ -29,7 +29,9 @@ REAL4 TransfInitial4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			z = (REAL4)(z.x, z.y, z.z, length(z));
 		}
-		aux->const_c = z * fractal->transformCommon.scale1111;
+
+		if (fractal->transformCommon.addCpixelEnabledFalse)
+			aux->const_c = z * fractal->transformCommon.scale1111;
 		if (fractal->transformCommon.functionEnabledAFalse) z = (REAL4)(0.0, 0.0, 0.0, 0.0);
 	}
 	// DE tweak

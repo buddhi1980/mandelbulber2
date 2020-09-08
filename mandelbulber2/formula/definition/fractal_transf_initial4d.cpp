@@ -40,7 +40,9 @@ void cFractalTransfInitial4d::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			z = CVector4(z.x, z.y, z.z, z.Length());
 		}
-		aux.const_c = z * fractal->transformCommon.scale1111;
+		if (fractal->transformCommon.addCpixelEnabledFalse)
+			aux.const_c = z * fractal->transformCommon.scale1111;
+
 		if (fractal->transformCommon.functionEnabledAFalse) z = CVector4(0.0, 0.0, 0.0, 0.0);
 	}
 	// DE tweak
