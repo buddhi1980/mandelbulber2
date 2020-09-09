@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>808</width>
-    <height>656</height>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,16 +40,16 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
      <property name="text">
-      <string>quadray</string>
+      <string>enable z.w = length z (disable quadray)</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
-      <string>enable z.w = length z (disable quadray)</string>
+      <string>quadray</string>
      </property>
     </widget>
    </item>
@@ -63,7 +63,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
      <property name="text">
-      <string>fabs ff</string>
+      <string>fabs (cpixel - domain offset)</string>
      </property>
     </widget>
    </item>
@@ -225,21 +225,21 @@ offset</string>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
-      <string>signs</string>
+      <string>signs (sign cpixel = sign z)</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
      <property name="text">
-      <string>sg</string>
+      <string>iterate</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled_false">
      <property name="text">
-      <string>create Cpixel constant</string>
+      <string>create Cpixel constant (slot#1, 1 iteration)</string>
      </property>
     </widget>
    </item>

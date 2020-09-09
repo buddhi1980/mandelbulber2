@@ -16,30 +16,23 @@
 REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 t = aux->const_c;
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		t = aux->c;
+	if (fractal->transformCommon.functionEnabledEFalse) t = aux->c;
 
-	}
-
-	if (fractal->transformCommon.functionEnabledFalse)
-	{ // quadray
-		t = (REAL4)(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
-		t = fabs(t);
-		t = fabs(t - fractal->transformCommon.offsetA0000);
-	}
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{ // c.w = rad
 		t = (REAL4)(t.x, t.y, t.z, 0.0);
 		t = (REAL4)(t.x, t.y, t.z, length(t));
 	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{ // quadray
+		t = (REAL4)(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
+	}
+
 	if (fractal->transformCommon.functionEnabledBFalse) t = fabs(t);
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 		t = fabs(t - fractal->transformCommon.offsetA0000);
-
-
-	t = t * fractal->transformCommon.scale1111;
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
@@ -48,6 +41,7 @@ REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		t.z = sign(z.z) * t.z;
 		t.w = sign(z.w) * t.w;
 	}
+
 	t = t * fractal->transformCommon.scale1111;
 
 	z += t;

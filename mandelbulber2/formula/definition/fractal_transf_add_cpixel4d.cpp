@@ -27,28 +27,23 @@ cFractalTransfAddCpixel4d::cFractalTransfAddCpixel4d() : cAbstractFractal()
 void cFractalTransfAddCpixel4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 t = aux.const_c;
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		t = aux.c;
-	}
+	if (fractal->transformCommon.functionEnabledEFalse) t = aux.c;
 
-	if (fractal->transformCommon.functionEnabledFalse)
-	{ // quadray
-		t = CVector4(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
-		t = fabs(t);
-		t = fabs(t - fractal->transformCommon.offsetA0000);
-	}
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{ // c.w = rad
 		t = CVector4(t.x, t.y, t.z, 0.0);
 		t = CVector4(t.x, t.y, t.z, t.Length());
 	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{ // quadray
+		t = CVector4(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
+	}
+
 	if (fractal->transformCommon.functionEnabledBFalse) t = fabs(t);
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 		t = fabs(t - fractal->transformCommon.offsetA0000);
-
-	t = t * fractal->transformCommon.scale1111;
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
