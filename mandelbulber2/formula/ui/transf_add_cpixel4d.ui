@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>808</width>
-    <height>598</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -233,6 +233,13 @@ offset</string>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
      <property name="text">
       <string>sg</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled_false">
+     <property name="text">
+      <string>create Cpixel constant</string>
      </property>
     </widget>
    </item>
