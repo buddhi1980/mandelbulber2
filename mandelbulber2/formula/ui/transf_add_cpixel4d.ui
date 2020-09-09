@@ -30,16 +30,6 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="text">
-      <string>addCpixel ConstantMultiplier</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
      <property name="text">
       <string>enable z.w = length z (disable quadray)</string>
@@ -233,6 +223,13 @@ offset</string>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
      <property name="text">
       <string>iterate</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
+     <property name="text">
+      <string>z = z + cpixel</string>
      </property>
     </widget>
    </item>

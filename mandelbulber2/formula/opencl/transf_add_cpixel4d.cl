@@ -44,11 +44,11 @@ REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	t = t * fractal->transformCommon.scale1111;
 
-	z += t;
-	aux->c = t;
+	if (fractal->transformCommon.functionEnabled) z+= t;
+
 
 	if (fractal->transformCommon.addCpixelEnabledFalse) aux->const_c = t;
-	else z += t;
+
 	aux->c = t;
 
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

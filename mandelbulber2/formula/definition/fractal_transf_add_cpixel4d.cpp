@@ -45,6 +45,7 @@ void cFractalTransfAddCpixel4d::FormulaCode(CVector4 &z, const sFractal *fractal
 	if (fractal->transformCommon.functionEnabledCFalse)
 		t = fabs(t - fractal->transformCommon.offsetA0000);
 
+
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		t.x = sign(z.x) * t.x;
@@ -53,9 +54,9 @@ void cFractalTransfAddCpixel4d::FormulaCode(CVector4 &z, const sFractal *fractal
 		t.w = sign(z.w) * t.w;
 	}
 	t = t * fractal->transformCommon.scale1111;
-
+	if (fractal->transformCommon.functionEnabled) z+= t;
 	if (fractal->transformCommon.addCpixelEnabledFalse) aux.const_c = t;
-	else  z += t;
+	//else  z += t;
 
 	aux.c = t;
 
