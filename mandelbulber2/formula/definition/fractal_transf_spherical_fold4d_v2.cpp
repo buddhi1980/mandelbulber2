@@ -28,7 +28,6 @@ cFractalTransfSphericalFold4dV2::cFractalTransfSphericalFold4dV2() : cAbstractFr
 void cFractalTransfSphericalFold4dV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	double rrCol = 0.0;
 	double rr = 0.0;
 	z += fractal->transformCommon.offset0000;
@@ -41,11 +40,10 @@ void cFractalTransfSphericalFold4dV2::FormulaCode(
 		rr = z.x * z.x + z.y * z.y + z.z * z.z;
 	}
 	if (fractal->transformCommon.functionEnabledBz)
-	//{	r2 = z.Dot(z) ;}
 	{
 		rr = z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w;
 	}
-	// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+
 	rrCol = rr;
 	if (rr < fractal->transformCommon.minR2p25)
 	{

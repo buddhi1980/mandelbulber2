@@ -28,7 +28,6 @@ REAL4 TransfSphericalFold4dV2Iteration(REAL4 z, __constant sFractalCl *fractal, 
 		rr = z.x * z.x + z.y * z.y + z.z * z.z;
 	}
 	if (fractal->transformCommon.functionEnabledBz)
-	//{	r2 = z.Dot(z) ;}
 	{
 		rr = z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w;
 	}
@@ -40,11 +39,12 @@ REAL4 TransfSphericalFold4dV2Iteration(REAL4 z, __constant sFractalCl *fractal, 
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 	}
 	z -= fractal->transformCommon.offset0000;
+
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

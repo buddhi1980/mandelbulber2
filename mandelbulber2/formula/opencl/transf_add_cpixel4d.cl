@@ -15,8 +15,8 @@
 
 REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	if (aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
 		REAL4 t = aux->const_c;
 		if (fractal->transformCommon.functionEnabledEFalse) t = aux->c;
