@@ -58,11 +58,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	if (in.forcedFormulaIndex >= 0)
 	{
-		z.w = fractals.GetInitialWAxis(in.forcedFormulaIndex); // z.Length();
+		z.w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
 	}
 	else
 	{
-		z.w = fractals.GetInitialWAxis(0); // z.Length();
+		z.w = fractals.GetInitialWAxis(0);
 	}
 
 	double r = z.Length();
@@ -442,7 +442,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case analyticFunctionPseudoKleinian:
 					{
-						double rxy = sqrt(z.x * z.x + z.y * z.y * z.w * z.w);
+						double rxy = sqrt(z.x * z.x + z.y * z.y); // * z.w * z.w)
 						out->distance =
 							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / extendedAux.DE;
 						break;

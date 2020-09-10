@@ -15,41 +15,42 @@
 
 REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 t = aux->const_c;
-	if (fractal->transformCommon.functionEnabledEFalse) t = aux->c;
+	if (aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		REAL4 t = aux->const_c;
+		if (fractal->transformCommon.functionEnabledEFalse) t = aux->c;
+		if (fractal->transformCommon.functionEnabledAFalse)
+		{ // c.w = rad
+			t = (REAL4)(t.x, t.y, t.z, 0.0);
+			t = (REAL4)(t.x, t.y, t.z, length(t));
+		}
 
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{ // c.w = rad
-		t = (REAL4)(t.x, t.y, t.z, 0.0);
-		t = (REAL4)(t.x, t.y, t.z, length(t));
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{ // quadray
+			t = (REAL4)(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
+		}
+
+		if (fractal->transformCommon.functionEnabledFFalse) t = fabs(t);
+		t = t - fractal->transformCommon.offsetA0000;
+		if (fractal->transformCommon.functionEnabledCFalse) t = fabs(t);
+
+		aux->const_c = t * fractal->transformCommon.scale1111;
+		aux->c = aux->const_c;
 	}
-
-	if (fractal->transformCommon.functionEnabledFalse)
-	{ // quadray
-		t = (REAL4)(t.x + t.y + t.z, -t.x - t.y + t.z, -t.x + t.y - t.z, t.x - t.y - t.z);
-	}
-
-	if (fractal->transformCommon.functionEnabledBFalse) t = fabs(t);
-
-	if (fractal->transformCommon.functionEnabledCFalse)
-		t = fabs(t - fractal->transformCommon.offsetA0000);
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		t.x = sign(z.x) * t.x;
-		t.y = sign(z.y) * t.y;
-		t.z = sign(z.z) * t.z;
-		t.w = sign(z.w) * t.w;
+		aux->const_c.x *= sign(z.x);
+		aux->const_c.y *= sign(z.y);
+		aux->const_c.z *= sign(z.z);
+		aux->const_c.w *= sign(z.w);
 	}
 
-	t = t * fractal->transformCommon.scale1111;
 
-	if (fractal->transformCommon.functionEnabled) z+= t;
+	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->const_c
 
 
-	if (fractal->transformCommon.addCpixelEnabledFalse) aux->const_c = t;
-
-	aux->c = t;
 
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;

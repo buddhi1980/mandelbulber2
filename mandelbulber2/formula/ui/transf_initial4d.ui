@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>1007</height>
+    <height>1032</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
      <item>
       <widget class="QLabel" name="label_75">
        <property name="text">
-        <string>Start vary iter. count =</string>
+        <string>Start iter. count =</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -66,7 +66,7 @@
      <item>
       <widget class="QLabel" name="label_62">
        <property name="text">
-        <string>Stop vary at iter. count =</string>
+        <string>Stop iter. count =</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -91,7 +91,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
-      <string>enable z.w = length z (disable quadray)</string>
+      <string>enable initial radius (disable quadray)</string>
      </property>
     </widget>
    </item>
@@ -646,14 +646,14 @@ offset</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
