@@ -139,6 +139,7 @@ private:
 signals:
 	void finished();
 	void fullyRendered(const QString &text, const QString &progressText);
+	void fullyRenderedTime(double timeSeconds);
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics statistics);
 	void updateImage();

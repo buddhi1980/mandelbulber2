@@ -545,11 +545,11 @@ void cInterface::StartRender(bool noUndo)
 		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
 		SLOT(slotUpdateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
-		SLOT(showMessage(const QString &, const QString &)));
+	connect(renderJob, &cRenderJob::fullyRendered, systemTray, &cSystemTray::showMessage);
 	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 	connect(renderJob, SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), renderedImage,
 		SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
+	connect(renderJob, &cRenderJob::fullyRenderedTime, this, &cInterface::slotAutoSaveImage);
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -3033,5 +3033,15 @@ void cInterface::CleanSettings()
 		cleaner->exec();
 		delete cleaner;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	}
+}
+
+void cInterface::slotAutoSaveImage(double timeSeconds)
+{
+	if (timeSeconds > 600)
+	{
+		QString filename = systemDirectories.GetImagesFolder() + QDir::separator() + "autosave.png";
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage, nullptr);
+		mainWindow->ui->statusbar->showMessage(tr("Image auto-saved to %1").arg(filename), 0);
 	}
 }

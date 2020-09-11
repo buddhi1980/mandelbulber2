@@ -338,6 +338,8 @@ bool cRenderJob::Execute()
 
 	bool twoPassStereo = false;
 	int noOfRepeats = GetNumberOfRepeatsOfStereoLoop(&twoPassStereo);
+	QElapsedTimer totalTime;
+	totalTime.start();
 
 	PrepareData();
 
@@ -499,7 +501,10 @@ bool cRenderJob::Execute()
 	}
 
 	if (result)
+	{
 		emit fullyRendered(tr("Finished Render"), tr("The image has been rendered completely."));
+		emit fullyRenderedTime(totalTime.elapsed() / 1000.0);
+	}
 
 	inProgress = false;
 

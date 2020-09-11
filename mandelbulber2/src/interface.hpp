@@ -173,6 +173,9 @@ public:
 		QElapsedTimer lastRefreshTime;
 		qint64 lastStartRenderingTime{0};
 	} cameraDragData;
+
+private slots:
+	void slotAutoSaveImage(double timeSeconds);
 };
 
 extern cInterface *gMainInterface;
