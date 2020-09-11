@@ -56,8 +56,12 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	// vec3 triMul(vec3 a, vec3 b) non-trig
 
-	if (lc.x > -1e-21f && lc.x < 1e-21f) lc.x = (lc.x > 0) ? 1e-21f : -1e-21f;
-	if (lc.y > -1e-21f && lc.y < 1e-21f) lc.y = (lc.y > 0) ? 1e-21f : -1e-21f;
+	// if (lc.x > -1e-21f && lc.x < 1e-21f) lc.x = (lc.x > 0) ? 1e-21f : -1e-21f;
+	// if (lc.y > -1e-21f && lc.y < 1e-21f) lc.y = (lc.y > 0) ? 1e-21f : -1e-21f;
+
+	if (lc.x > -1e-06f && lc.x < 1e-06f) lc.x = (lc.x > 0) ? 1e-06f : -1e-06f;
+	if (lc.y > -1e-06f && lc.y < 1e-06f) lc.y = (lc.y > 0) ? 1e-06f : -1e-06f;
+
 
 	REAL r1 = native_sqrt(z1.x * z1.x + z1.y * z1.y);
 	REAL r2 = native_sqrt(lc.x * lc.x + lc.y * lc.y);

@@ -48,7 +48,7 @@ REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 
-	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->const_c
+	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->const_c;
 
 
 

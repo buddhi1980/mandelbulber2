@@ -3,7 +3,9 @@ Version history
 v2.23 (???? 2020)
 - Added new fractal formulas
    aexion4dV2
+   mandeltorusV2
    menger4dMod2
+   sierpinski3dV4
    spheretreeV2
    transfAddCpixel4d
    transfAddNorm
@@ -13,6 +15,7 @@ v2.23 (???? 2020)
    transfMandalayFold4d
    transfSmooth
    transfSmoothV2
+   transfSphericalFold4dV2
 
 - modified fractal formulas
    mandeltorus prescale and mode2 had swapped checkboxes
