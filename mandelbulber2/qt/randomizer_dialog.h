@@ -156,6 +156,7 @@ private:
 	QList<sParameterVersion> listOfVersions;
 	QList<int> numbersOfRepeats;
 	QList<bool> versionsDone;
+	QList<bool> keep;
 	std::shared_ptr<cParameterContainer> actualParams;
 	std::shared_ptr<cFractalContainer> actualFractParams;
 	cRandom randomizer;
@@ -170,6 +171,7 @@ private:
 	int previewWidth;
 	int previewHeight;
 	int qualityMultiplier;
+	int keepCount;
 
 	double referenceNoise;
 	bool pressedUse;

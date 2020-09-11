@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>698</width>
-    <height>693</height>
+    <width>820</width>
+    <height>916</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0,0">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -159,362 +159,17 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_01">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="cThumbnailWidget" name="previewwidget_01" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QGroupBox" name="groupBox_version_03">
-       <property name="title">
-        <string>Version 3</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_14">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_03">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_03">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_03" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QGroupBox" name="groupBox_version_02">
-       <property name="title">
-        <string>Version 2</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_02">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_02">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_02" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QGroupBox" name="groupBox_version_04">
-       <property name="title">
-        <string>Version 4</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_04">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_04">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_04" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QGroupBox" name="groupBox_version_05">
-       <property name="title">
-        <string>Version 5</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_05">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_05">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_05" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QGroupBox" name="groupBox_version_06">
-       <property name="title">
-        <string>Version 6</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_06">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_06">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_06" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QGroupBox" name="groupBox_version_07">
-       <property name="title">
-        <string>Version 7</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_07">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_07">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QGroupBox" name="groupBox_version_08">
-       <property name="title">
-        <string>Version 8</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_08">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_08">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_08" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QGroupBox" name="groupBox_version_10">
-       <property name="title">
-        <string>Version 10</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0,1">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_10">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="pushButton_select_10">
-            <property name="text">
-             <string>Select</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_save_10">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="document-save" resource="icons.qrc">
-              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="cThumbnailWidget" name="previewwidget_10" native="true">
           <property name="minimumSize">
            <size>
             <width>16</width>
@@ -533,7 +188,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,0,0">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -555,6 +210,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_09">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -570,26 +232,26 @@
        </layout>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QGroupBox" name="groupBox_version_11">
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="groupBox_version_02">
        <property name="title">
-        <string>Version 11</string>
+        <string>Version 2</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,1">
+       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,0">
           <property name="spacing">
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButton_select_11">
+           <widget class="QPushButton" name="pushButton_select_02">
             <property name="text">
              <string>Select</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="toolButton_save_11">
+           <widget class="QToolButton" name="toolButton_save_02">
             <property name="text">
              <string>...</string>
             </property>
@@ -599,10 +261,170 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_02">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
-         <widget class="cThumbnailWidget" name="previewwidget_11" native="true">
+         <widget class="cThumbnailWidget" name="previewwidget_02" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QGroupBox" name="groupBox_version_05">
+       <property name="title">
+        <string>Version 5</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_05">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_05">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_05">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_05" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QGroupBox" name="groupBox_version_08">
+       <property name="title">
+        <string>Version 8</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_08">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_08">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_08">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_08" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QGroupBox" name="groupBox_version_03">
+       <property name="title">
+        <string>Version 3</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_03">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_03">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_03">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_03" native="true">
           <property name="minimumSize">
            <size>
             <width>16</width>
@@ -621,7 +443,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,0,0">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -643,10 +465,272 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_12">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="cThumbnailWidget" name="previewwidget_12" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QGroupBox" name="groupBox_version_10">
+       <property name="title">
+        <string>Version 10</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_10">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_10">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_10">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_10" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QGroupBox" name="groupBox_version_11">
+       <property name="title">
+        <string>Version 11</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_11">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_11">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_11">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_11" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QGroupBox" name="groupBox_version_04">
+       <property name="title">
+        <string>Version 4</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_04">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_04">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_04">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_04" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QGroupBox" name="groupBox_version_07">
+       <property name="title">
+        <string>Version 7</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_07">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_07">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_07">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_07" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QGroupBox" name="groupBox_version_06">
+       <property name="title">
+        <string>Version 6</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,0,0">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_select_06">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_save_06">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-save" resource="icons.qrc">
+              <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_keep_06">
+            <property name="text">
+             <string>Keep</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="cThumbnailWidget" name="previewwidget_06" native="true">
           <property name="minimumSize">
            <size>
             <width>16</width>

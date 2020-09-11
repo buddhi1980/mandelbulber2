@@ -69,6 +69,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	keyframeMode = false;
 	stopRequest = false;
 	numberOfRunningJobs = 0;
+	keepCount = 0;
 
 	actualParams.reset(new cParameterContainer());
 	actualFractParams.reset(new cFractalContainer());
@@ -157,6 +158,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 		numbersOfRepeats.append(0);
 		versionsDone.append(false);
+		keep.append(false);
 		listsOfChangedParameters.append(QMap<QString, QString>());
 	}
 
@@ -283,6 +285,8 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	CalcReferenceNoise();
 
 	// randomizing
+	keepCount = 0;
+
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		// qDebug() << "Version " << i;
@@ -290,18 +294,28 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 		numbersOfRepeats[i] = 0;
 		versionsDone[i] = false;
 
-		RandomizeParameters(strength, listOfVersions[i].params, listOfVersions[i].fractParams, i);
+		QString checkBoxKeepWidgetName = QString("checkBox_keep_%1").arg(i + 1, 2, 10, QChar('0'));
+		QCheckBox *checkBoxKeep = this->findChild<QCheckBox *>(checkBoxKeepWidgetName);
+		keep[i] = checkBoxKeep->isChecked();
 
-		QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
-		// qDebug() << widgetName;
-		cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
-		// qDebug() << previewWidget;
+		if (keep[i]) keepCount++;
 
-		numberOfRunningJobs++;
-		// qDebug() << numberOfRunningJobs;
-		previewWidget->AssignParameters(listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
-		previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
-		previewWidget->update();
+		if (!keep[i])
+		{
+			RandomizeParameters(strength, listOfVersions[i].params, listOfVersions[i].fractParams, i);
+
+			QString widgetName = QString("previewwidget_%1").arg(i + 1, 2, 10, QChar('0'));
+			// qDebug() << widgetName;
+			cThumbnailWidget *previewWidget = this->findChild<cThumbnailWidget *>(widgetName);
+			// qDebug() << previewWidget;
+
+			numberOfRunningJobs++;
+			// qDebug() << numberOfRunningJobs;
+			previewWidget->AssignParameters(
+				listOfVersions.at(i).params, listOfVersions.at(i).fractParams);
+			previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
+			previewWidget->update();
+		}
 	}
 }
 
@@ -1081,7 +1095,7 @@ void cRandomizerDialog::slotPreviewRendered()
 	}
 
 	int doneCount = versionsDone.count(true);
-	double progress = double(doneCount) / (numberOfVersions);
+	double progress = double(doneCount) / (numberOfVersions - keepCount);
 	UpdateProgressBar(progress);
 }
 
