@@ -54,6 +54,8 @@ function getFormulasData()
 		if(strpos($file, 'legacy_fractal_transforrms.cpp') !== false) continue;
 		if(strpos($file, 'fractal_none.cpp') !== false) continue;
 	
+		//echo 'Processing file ' . $file . PHP_EOL;
+		
 		$fractalCppFile = file_get_contents($file);
 		// read index and name from fractal_list
 		preg_match('/cAbstractFractal\(\)\n{([\s\S]*?)\n}/', $fractalCppFile, $match);
@@ -67,7 +69,10 @@ function getFormulasData()
 			$f[$matchLine[1]] = $matchLine[2];
 		}
 		$index = str_replace('fractal::', '', $f['internalID']);
+		
 		$internalNameNew = from_camel_case($index);
+		
+		//echo $index . ' ' . $internalNameNew . PHP_EOL;
 		
 		// check for automatic renaming to fit naming convention
 		if ($internalNameNew != $f['internalName']) {
@@ -81,6 +86,9 @@ function getFormulasData()
 
 		// read function contents
 		$functionContentMatchString = '/\+\+\+\n\s\*(\n[\s\S]+?\*\/)[\S\s]*(FormulaCode\([\s\S]*})/';
+	
+		//echo $functionContentMatchString . PHP_EOL;
+		
 		$functionContentFound = false;
 		$code = false;
 		$comment = false;

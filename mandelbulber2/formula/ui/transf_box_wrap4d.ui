@@ -529,7 +529,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;box wrap 4d&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxWrap-bulb.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxWrap-bulb.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelbulb_bermarte boxwrap.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

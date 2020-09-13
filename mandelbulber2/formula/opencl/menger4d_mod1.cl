@@ -128,7 +128,7 @@ REAL4 Menger4dMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		z.z -= 0.5f * offsetM.z / scaleM;
-		z.z = -fabs(-z.z);
+		z.z = -fabs(z.z);
 		z.z += 0.5f * offsetM.z / scaleM;
 	}
 	else
@@ -142,31 +142,31 @@ REAL4 Menger4dMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			&& aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		REAL r2 = 0.f;
+		REAL rr = 0.f;
 		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
-			r2 = z.x * z.x + z.y * z.y;
+			rr = z.x * z.x + z.y * z.y;
 		}
 		if (fractal->transformCommon.functionEnabledByFalse)
 		{
-			r2 = z.x * z.x + z.y * z.y + z.z * z.z;
+			rr = z.x * z.x + z.y * z.y + z.z * z.z;
 		}
 		if (fractal->transformCommon.functionEnabledBz)
 		//{	r2 = dot(z, z) ;}
 		{
-			r2 = z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w;
+			rr = z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w;
 		}
 		// if (r2 < 1e-21f && r2 > -1e-21f) r2 = (r2 > 0) ? 1e-21f : -1e-21f;
 
-		if (r2 < fractal->transformCommon.minR2p25)
+		if (rr < fractal->transformCommon.minR2p25)
 		{
 			z *= fractal->transformCommon.maxMinR2factor;
 			aux->DE *= fractal->transformCommon.maxMinR2factor;
 			aux->color += fractal->mandelbox.color.factorSp1;
 		}
-		else if (r2 < fractal->transformCommon.maxR2d1)
+		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
+			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			aux->color += fractal->mandelbox.color.factorSp2;

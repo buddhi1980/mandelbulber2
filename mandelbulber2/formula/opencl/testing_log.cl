@@ -50,13 +50,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
 	}
-			aux->pseudoKleinianDE = fractal->analyticDE.scale1;
+	aux->pseudoKleinianDE = fractal->analyticDE.scale1;
 	z += fractal->transformCommon.additionConstant0000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledGFalse

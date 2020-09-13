@@ -5,8 +5,8 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
-
- * scale 4D
+ *
+ * initial 4D
  * This formula contains aux.actualScaleA
  */
 

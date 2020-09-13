@@ -16,42 +16,34 @@
 
 REAL4 AexionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 temp = z;
+	REAL t;
 	if (aux->i == 0)
 	{
-		REAL cx = fabs(aux->c.x + aux->c.y + aux->c.z) + fractal->aexion.cadd;
-		REAL cy = fabs(-aux->c.x - aux->c.y + aux->c.z) + fractal->aexion.cadd;
-		REAL cz = fabs(-aux->c.x + aux->c.y - aux->c.z) + fractal->aexion.cadd;
-		REAL cw = fabs(aux->c.x - aux->c.y - aux->c.z) + fractal->aexion.cadd;
-		aux->c.x = cx;
-		aux->c.y = cy;
-		aux->c.z = cz;
-		aux->c.w = cw;
-		REAL tempX = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
-		REAL tempY = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
-		REAL tempZ = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
-		REAL tempW = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
-		z.x = tempX;
-		z.y = tempY;
-		z.z = tempZ;
-		z.w = tempW;
+		t = fractal->aexion.cadd;
+		REAL4 cadd = (REAL4){t, t, t, t};
+		temp.x = z.x + z.y + z.z;
+		temp.y = -z.x - z.y + z.z;
+		temp.z = -z.x + z.y - z.z;
+		temp.w = z.x - z.y - z.z;
+		z = fabs(temp) + cadd;
+		aux->const_c = z;
 	}
-	REAL tempX = z.x * z.x - z.y * z.y + 2.0f * z.w * z.z + aux->c.x;
-	REAL tempY = z.y * z.y - z.x * z.x + 2.0f * z.w * z.z + aux->c.y;
-	REAL tempZ = z.z * z.z - z.w * z.w + 2.0f * z.x * z.y + aux->c.z;
-	REAL tempW = z.w * z.w - z.z * z.z + 2.0f * z.x * z.y + aux->c.w;
-	z.x = tempX;
-	z.y = tempY;
-	z.z = tempZ;
-	z.w = tempW;
+	t = 2.0f * z.w * z.z;
+	temp.x = z.x * z.x - z.y * z.y;
+	temp.y = t - temp.x;
+	temp.x += t;
+	t = 2.0f * z.x * z.y;
+	temp.z = z.z * z.z - z.w * z.w;
+	temp.w = t - temp.z;
+	temp.z += t;
+	z = temp + aux->const_c;
 
 	if (fractal->analyticDE.enabled)
 	{
-		// aux->DE = aux->DE * fractal->analyticDE.scale1 * 2.2f * aux->r
-		//	+ (fractal->analyticDE.offset1 *2.0);
 		REAL de1 = 1.1f * aux->r;
-		REAL de2 = length(z) / aux->r;
-		aux->DE = (de1 + (de2 - de1) * fractal->analyticDE.scale1) * 2.0f * aux->DE
-							+ fractal->analyticDE.offset1;
+		de1 = de1 + (length(z) / aux->r - de1) * fractal->analyticDE.scale1;
+		aux->DE = de1 * 2.0f * aux->DE + fractal->analyticDE.offset1;
 	}
 	return z;
 }

@@ -19,13 +19,15 @@ REAL4 AboxSphere4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	REAL colorAdd = 0.0f;
 	REAL rrCol = 0.0f;
-	REAL4 zCol = z;
-	REAL lenC = length(aux->const_c);
+
 	if (aux->i == 0)
 	{
-		z.w = lenC;
+		z.w = length(aux->const_c);
+		z = (REAL4){z.x, z.y, z.z, z.w};
+		aux->const_c = z;
 	}
 
+	REAL4 zCol = z;
 	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
 				- fabs(z.x - fractal->transformCommon.offset1111.x) - z.x;
@@ -123,8 +125,7 @@ REAL4 AboxSphere4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 	z += fractal->transformCommon.additionConstant0000;
 
-	REAL4 cR = (REAL4){aux->const_c.x, aux->const_c.y, aux->const_c.z, lenC};
-	z += cR * fractal->transformCommon.scale1111;
+	z += aux->const_c * fractal->transformCommon.scale1111;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{

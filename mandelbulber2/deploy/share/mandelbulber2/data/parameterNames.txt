@@ -236,9 +236,11 @@ transformCommon.offsetE0 REAL transf_offsetE_0
 transformCommon.offsetF0 REAL transf_offsetF_0
 transformCommon.offsetR0 REAL transf_offsetR_0
 transformCommon.offset0005 REAL transf_offset_0005
+transformCommon.offsetp05 REAL transf_offset_p05
 transformCommon.offset01 REAL transf_offset_01
 transformCommon.offset05 REAL transf_offset_05
 transformCommon.offsetA05 REAL transf_offsetA_05
+transformCommon.offsetB05 REAL transf_offsetB_05
 transformCommon.offset1 REAL transf_offset_1
 transformCommon.offsetA1 REAL transf_offsetA_1
 transformCommon.offsetR1 REAL transf_offsetR_1
@@ -416,9 +418,11 @@ transformCommon.scale3Dd222 REAL3 transf_scale3Dd_222
 transformCommon.scale3D333 REAL3 transf_scale3D_333
 transformCommon.scale3D444 REAL3 transf_scale3D_444
 transformCommon.vec111 REAL3 transf_vec_111
+transformCommon.offsetp5555 REAL4 transf_offset_p5555
 transformCommon.additionConstant0000 REAL4 transf_addition_constant_0000
 transformCommon.offset0000 REAL4 transf_offset_0000
 transformCommon.offsetA0000 REAL4 transf_offsetA_0000
+transformCommon.offsetp5555 REAL4 transf_offset_p5555
 transformCommon.offset1111 REAL4 transf_offset_1111
 transformCommon.offsetA1111 REAL4 transf_offsetA_1111
 transformCommon.offsetB1111 REAL4 transf_offsetB_1111

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -197,7 +197,6 @@ FRACTAL_CLASS(cFractalTransfAbsAddMulti4d)
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold)
 FRACTAL_CLASS(cFractalTransfAbsAddTgladFold4d)
 FRACTAL_CLASS(cFractalTransfAbsRecFoldXY)
-FRACTAL_CLASS(cFractalTransfAddNorm)
 FRACTAL_CLASS(cFractalTransfAddConstant)
 FRACTAL_CLASS(cFractalTransfAddConstant4d)
 FRACTAL_CLASS(cFractalTransfAddConstantMod1)
@@ -214,6 +213,7 @@ FRACTAL_CLASS(cFractalTransfAddCpixelSinOrCos)
 FRACTAL_CLASS(cFractalTransfAddCpixelSymmetrical)
 FRACTAL_CLASS(cFractalTransfAddCpixelVaryV1)
 FRACTAL_CLASS(cFractalTransfAddExp2Z)
+FRACTAL_CLASS(cFractalTransfAddNorm)
 FRACTAL_CLASS(cFractalTransfBenesiCubeSphere)
 FRACTAL_CLASS(cFractalTransfBenesiMagBackward)
 FRACTAL_CLASS(cFractalTransfBenesiMagForward)
@@ -267,9 +267,9 @@ FRACTAL_CLASS(cFractalTransfInvCylindrical)
 FRACTAL_CLASS(cFractalTransfIterationWeight)
 FRACTAL_CLASS(cFractalTransfIterationWeight4d)
 FRACTAL_CLASS(cFractalTransfLinCombineCXYZ)
+FRACTAL_CLASS(cFractalTransfMandalayFold4d)
 FRACTAL_CLASS(cFractalTransfMandalayFoldV1)
 FRACTAL_CLASS(cFractalTransfMandalayFoldV2)
-FRACTAL_CLASS(cFractalTransfMandalayFold4d)
 FRACTAL_CLASS(cFractalTransfMengerFold)
 FRACTAL_CLASS(cFractalTransfMultipleAngle)
 FRACTAL_CLASS(cFractalTransfNegAbsAddConstant)

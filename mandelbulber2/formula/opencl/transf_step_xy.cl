@@ -67,7 +67,8 @@ REAL4 TransfStepXYIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			aux->DE = aux->DE * length(zc) / length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux->DE =
+				aux->DE * length(zc) / length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 	if (!fractal->transformCommon.functionEnabledAwFalse) z = zc;

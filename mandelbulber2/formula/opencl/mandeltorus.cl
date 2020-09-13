@@ -28,44 +28,30 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL power2 = fractal->transformCommon.pwr8a; // Latitude power
 
 	REAL rh = native_sqrt(z.x * z.x + z.z * z.z);
-	REAL rh1 = 0.0f;
-	REAL rh2 = 0.0f;
+
 	REAL phi = atan2(z.z, z.x);
 	REAL phipow = phi * power1;
 
 	REAL theta = atan2(rh, z.y);
 
+	REAL px = z.x - native_cos(phi) * 1.5f;
+	REAL pz = z.z - native_sin(phi) * 1.5f;
+	REAL rhrad = native_sqrt(px * px + pz * pz + z.y * z.y);
+	REAL rh1 = native_powr(rhrad, power2);
+	REAL rh2 = native_powr(rhrad, power1);
+
 	if (!fractal->transformCommon.functionEnabledzFalse) // mode 1
 	{
-		REAL thetapow = theta * power2; // mode1
-
-		REAL px = z.x - native_cos(phi) * 1.5f;
-		REAL pz = z.z - native_sin(phi) * 1.5f;
-
-		REAL rhrad = native_sqrt(px * px + pz * pz + z.y * z.y);
-
-		rh1 = native_powr(rhrad, power2);
-		rh2 = native_powr(rhrad, power1);
-
-		REAL sintheta = native_sin(thetapow) * rh2; // mode1
-
+		REAL thetapow = theta * power2;
+		REAL sintheta = native_sin(thetapow) * rh2;
 		z.x = sintheta * native_cos(phipow);
 		z.z = sintheta * native_sin(phipow);
 		z.y = native_cos(thetapow) * rh1; // mode 1
 	}
 	else // mode 2
 	{
-		REAL px = z.x - native_cos(phi) * 1.5f;
-		REAL pz = z.z - native_sin(phi) * 1.5f;
-
-		REAL rhrad = native_sqrt(px * px + pz * pz + z.y * z.y);
-
-		REAL tangle = atan2(native_sqrt(px * px + pz * pz), z.y) * power2; // mode2
-
-		rh1 = native_powr(rhrad, power2);
-		rh2 = native_powr(rhrad, power1);
-
-		REAL sintheta = (1.5f + native_cos(tangle)) * rh2; // mode2
+		REAL tangle = atan2(native_sqrt(px * px + pz * pz), z.y) * power2;
+		REAL sintheta = (1.5f + native_cos(tangle)) * rh2;
 		z.x = sintheta * native_cos(phipow);
 		z.z = sintheta * native_sin(phipow);
 		z.y = native_sin(tangle) * rh1; // mode 2

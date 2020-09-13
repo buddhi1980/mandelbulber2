@@ -19,16 +19,11 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	REAL colorAdd = 0.0f;
 
-	REAL4 CT = (REAL4){aux->const_c.x + aux->const_c.y + aux->const_c.z,
-		-aux->const_c.x - aux->const_c.y + aux->const_c.z,
-		-aux->const_c.x + aux->const_c.y - aux->const_c.z,
-		aux->const_c.x - aux->const_c.y - aux->const_c.z};
-	CT = fabs(CT);
-	CT = fabs(CT - fractal->transformCommon.offsetA0000);
-
 	if (aux->i == 0)
 	{
-		z = CT;
+		z = (REAL4){z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z};
+		z = fabs(fabs(z) - fractal->transformCommon.offsetA0000);
+		aux->const_c = z;
 	}
 
 	REAL rrCol = 0.0f;
@@ -130,8 +125,7 @@ REAL4 AboxTetra4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	z += fractal->transformCommon.additionConstant0000;
 
-	REAL4 cR = CT;
-	z += cR * fractal->transformCommon.scale1111;
+	z += aux->const_c * fractal->transformCommon.scale1111;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
