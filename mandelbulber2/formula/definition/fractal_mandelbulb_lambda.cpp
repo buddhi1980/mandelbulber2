@@ -50,7 +50,7 @@ void cFractalMandelbulbLambda::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	double Pwr = fractal->bulb.power;
-	// if (aux.r < 1e-21) aux.r = 1e-21;
+	// if (aux.r < 1e-021) aux.r = 1e-021;
 	if (fractal->transformCommon.functionEnabledAFalse) z1.z = -z1.z;
 	th0 += asin(z1.z / aux.r);
 	ph0 += atan2(z1.y, z1.x);
@@ -67,8 +67,8 @@ void cFractalMandelbulbLambda::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	// vec3 triMul(vec3 a, vec3 b) non-trig
 
-	if (lc.x > -1e-21 && lc.x < 1e-21) lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
-	if (lc.y > -1e-21 && lc.y < 1e-21) lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
+	if (lc.x > -1e-021 && lc.x < 1e-021) lc.x = (lc.x > 0) ? 1e-021 : -1e-021;
+	if (lc.y > -1e-021 && lc.y < 1e-021) lc.y = (lc.y > 0) ? 1e-021 : -1e-021;
 
 	double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
 	double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);

@@ -545,6 +545,7 @@ function parseToOpenCL($code, $mode = 'single')
 		
 		
 		array('find' => "/1e-061f/", 'replace' => ($mode == 'single' ? '1e-030f' : '1e-061')), // replace minimal double constant
+		array('find' => "/1e-021f/", 'replace' => ($mode == 'single' ? '1e-006f' : '1e-021')), // replace minimal double constant
 		array('find' => "/reinterpret_cast<(.*?)>\((.*?)\)/", 'replace' => '($1)$2'), // replace reinterpret_cast with simple cast
 		// TODO more replacements
 	);
