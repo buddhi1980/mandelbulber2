@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -637,8 +637,8 @@ void sFractal::RecalculateFractalParams()
 		transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // for orig. abox asurf
-	transformCommon.inv0 = 1.0 / transformCommon.invert0; // Invmin
-	transformCommon.inv1 = 1.0 / transformCommon.invert1; // Invmax
+	transformCommon.inv0 = 1.0 / transformCommon.invert0;			// Invmin
+	transformCommon.inv1 = 1.0 / transformCommon.invert1;			// Invmax
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
 	// Generalized Fold Box pre calculated vectors

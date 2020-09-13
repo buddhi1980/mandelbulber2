@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -95,8 +95,8 @@ cMaterial::cMaterial()
 	transparencyGradientEnable = false;
 }
 
-cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
-	bool quiet, bool useNetRender)
+cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam,
+	bool loadTextures, bool quiet, bool useNetRender)
 {
 	setParameters(_id, materialParam, loadTextures, quiet, useNetRender);
 }
@@ -247,8 +247,8 @@ QStringList cMaterial::paramsList = {
 	"transparency_gradient",
 };
 
-void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
-	bool quiet, bool useNetRender)
+void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer> materialParam,
+	bool loadTextures, bool quiet, bool useNetRender)
 {
 	id = _id;
 
@@ -579,8 +579,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }
 
-void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params, QMap<int, cMaterial> *materials,
-	bool loadTextures, bool quiet, bool useNetRender)
+void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
+	QMap<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender)
 {
 	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();

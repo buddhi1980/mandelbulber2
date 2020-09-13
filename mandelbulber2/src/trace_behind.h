@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -37,7 +37,8 @@
 #ifndef MANDELBULBER2_SRC_TRACE_BEHIND_H_
 #define MANDELBULBER2_SRC_TRACE_BEHIND_H_
 
-double traceBehindFractal(std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractals, double maxDist,
-	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit);
+double traceBehindFractal(std::shared_ptr<cParameterContainer> params,
+	std::shared_ptr<cFractalContainer> fractals, double maxDist, CVector3 viewVector,
+	double startingDepth, double resolution, double distanceLimit);
 
 #endif /* MANDELBULBER2_SRC_TRACE_BEHIND_H_ */

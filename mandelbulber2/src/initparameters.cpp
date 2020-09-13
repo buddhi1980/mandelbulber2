@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -32,7 +32,6 @@
  * InitParams function - initialization of all parameters
  */
 
-#include "formula/definition/all_fractal_list.hpp"
 #include "file_mesh.hpp"
 #include "files.h"
 #include "fractal.h"
@@ -45,6 +44,8 @@
 #include "system_directories.hpp"
 #include "texture_enums.hpp"
 #include "write_log.hpp"
+
+#include "formula/definition/all_fractal_list.hpp"
 
 std::shared_ptr<cParameterContainer> gPar;
 

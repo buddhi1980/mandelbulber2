@@ -47,7 +47,8 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 	switch (material->textureMappingType)
 	{
 
-		case mappingPlanar: {
+		case mappingPlanar:
+		{
 #ifdef USE_PLANAR_MAPPING
 			textureCoordinates = (float2){point.x, point.y};
 			textureCoordinates.x /= -material->textureScale.x;
@@ -73,7 +74,8 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			break;
 		}
 
-		case mappingCylindrical: {
+		case mappingCylindrical:
+		{
 #ifdef USE_CYLINDRICAL_MAPPING
 			float alphaTexture = fmod(GetAlpha(point) + 2.0f * M_PI_F, 2.0f * M_PI_F);
 			textureCoordinates.x = alphaTexture / (2.0f * M_PI_F);
@@ -100,7 +102,8 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			break;
 		}
 
-		case mappingSpherical: {
+		case mappingSpherical:
+		{
 #ifdef USE_SPHERICAL_MAPPING
 			float alphaTexture = fmod(GetAlpha(point) + 2.0f * M_PI_F, 2.0f * M_PI_F);
 			float betaTexture = -GetBeta(point);
@@ -131,7 +134,8 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			break;
 		}
 
-		case mappingCubic: {
+		case mappingCubic:
+		{
 #ifdef USE_CUBIC_MAPPING
 			point /= material->textureScale;
 			point -= material->textureCenter;

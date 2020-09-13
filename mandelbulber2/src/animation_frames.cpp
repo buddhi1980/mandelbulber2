@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -38,6 +38,7 @@
 #include "animation_frames.hpp"
 
 #include <memory>
+
 #include <QDir>
 
 #include "audio_track.h"
@@ -124,8 +125,7 @@ void cAnimationFrames::AddAnimatedParameter(const QString &parameterName,
 }
 
 bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
-	std::shared_ptr<cParameterContainer> param,
-	std::shared_ptr<cFractalContainer> fractal)
+	std::shared_ptr<cParameterContainer> param, std::shared_ptr<cFractalContainer> fractal)
 {
 	const int firstUnderscore = fullParameterName.indexOf('_');
 	const QString containerName = fullParameterName.left(firstUnderscore);

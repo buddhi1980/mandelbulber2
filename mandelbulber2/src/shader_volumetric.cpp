@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -143,7 +143,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			}
 			scan += step;
 
-			//qDebug() << point.Debug() << distance << step << input.depth - scan << lastCloudDistance;
+			// qDebug() << point.Debug() << distance << step << input.depth - scan << lastCloudDistance;
 		}
 		// distance, points and steps are taken from arrays
 		else
@@ -272,7 +272,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double distanceToClouds = 0.0;
 			double cloud = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
 			double opacity = cloud * step;
-			//qDebug() << cloud;
+			// qDebug() << cloud;
 
 			lastCloudDistance = distanceToClouds;
 

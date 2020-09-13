@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -39,6 +39,7 @@
 #define MANDELBULBER2_SRC_SETTINGS_HPP_
 
 #include <memory>
+
 #include <QString>
 #include <QStringList>
 
@@ -61,7 +62,8 @@ public:
 
 	cSettings(enumFormat _format);
 	size_t CreateText(std::shared_ptr<const cParameterContainer> par,
-		std::shared_ptr<const cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames = nullptr,
+		std::shared_ptr<const cFractalContainer> fractPar,
+		std::shared_ptr<cAnimationFrames> frames = nullptr,
 		std::shared_ptr<cKeyframes> keyframes = nullptr);
 	bool SaveToFile(QString filename) const;
 	void SaveToClipboard() const;
@@ -69,7 +71,8 @@ public:
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
 	bool Decode(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fractPar,
-		std::shared_ptr<cAnimationFrames> frames = nullptr, std::shared_ptr<cKeyframes> keyframes = nullptr);
+		std::shared_ptr<cAnimationFrames> frames = nullptr,
+		std::shared_ptr<cKeyframes> keyframes = nullptr);
 	QString GetHashCode() const { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;

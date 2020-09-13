@@ -37,6 +37,7 @@
 #include "ui_dock_navigation.h"
 
 #include "dock_image_adjustments.h"
+
 #include "src/automated_widgets.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"

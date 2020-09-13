@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -59,8 +59,8 @@ public:
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
-	bool LoadSourcesAndCompile(
-		std::shared_ptr<const cParameterContainer> params, QString *compilerErrorOutput = nullptr) override;
+	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
+		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);

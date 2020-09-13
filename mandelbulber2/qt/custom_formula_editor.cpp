@@ -1,36 +1,65 @@
-/*
- * custom_formula_editor.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2020 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  Created on: 19 mar 2020
- *      Author: krzysztof
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * TODO: description
  */
 
 #include "custom_formula_editor.h"
+
+#include <memory>
+
+#include <QComboBox>
+#include <QDebug>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QVector>
+
 #include "ui_custom_formula_editor.h"
+
+#include "my_check_box.h"
+#include "my_double_spin_box.h"
+#include "my_line_edit.h"
+#include "my_spin_box.h"
+#include "my_text_edit.h"
 
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/nine_fractals.hpp"
-#include "src/opencl_global.h"
 #include "src/opencl_engine_render_fractal.h"
+#include "src/opencl_global.h"
 #include "src/render_data.hpp"
 #include "src/system.hpp"
 #include "src/system_directories.hpp"
-
-#include "my_line_edit.h"
-#include "my_check_box.h"
-#include "my_spin_box.h"
-#include "my_double_spin_box.h"
-#include "my_text_edit.h"
-
-#include <memory>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QComboBox>
-#include <QDebug>
-#include <QVector>
 
 cCustomFormulaEditor::cCustomFormulaEditor(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cCustomFormulaEditor)

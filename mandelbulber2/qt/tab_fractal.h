@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -39,6 +39,7 @@
 #define MANDELBULBER2_QT_TAB_FRACTAL_H_
 
 #include <memory>
+
 #include <QWidget>
 
 #include "src/synchronize_interface.hpp"
@@ -67,8 +68,10 @@ public:
 	void FrameIterationFormulaSetEnabled(bool enabled) const;
 	void FrameIterationFormulaSetWidgetsVisibility(bool visible) const;
 	int GetCurrentFractalIndexOnList() const;
-	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const;
-	void SynchronizeFractal(std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const;
+	void SynchronizeInterface(
+		std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const;
+	void SynchronizeFractal(
+		std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const;
 
 private slots:
 	void slotChangedComboFractal(int indexInComboBox);

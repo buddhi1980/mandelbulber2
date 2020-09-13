@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -52,9 +52,9 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
-#include "system.hpp"
 
 #include "qt/dock_queue.h"
 #include "qt/preview_file_dialog.h"
@@ -175,8 +175,8 @@ void cQueue::Append(enumRenderType renderType)
 }
 
 void cQueue::Append(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes,
-	enumRenderType renderType)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes, enumRenderType renderType)
 {
 	// add settings to queue
 	cSettings parSettings(cSettings::formatCondensedText);
@@ -249,7 +249,8 @@ bool cQueue::Get()
 }
 
 bool cQueue::Get(std::shared_ptr<cParameterContainer> par,
-	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes)
+	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
+	std::shared_ptr<cKeyframes> keyframes)
 {
 	// get next fractal from queue
 	structQueueItem queueItem = GetNextFromList();

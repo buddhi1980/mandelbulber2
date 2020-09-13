@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -41,6 +41,7 @@
 #include "animation_flight.hpp"
 
 #include <memory>
+
 #include <QWidget>
 
 #include "ui_dock_animation.h"
@@ -78,8 +79,8 @@
 
 cFlightAnimation *gFlightAnimation = nullptr;
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, std::shared_ptr<cAnimationFrames> _frames,
-	std::shared_ptr<cImage> _image, QWidget *_imageWidget,
+cFlightAnimation::cFlightAnimation(cInterface *_interface,
+	std::shared_ptr<cAnimationFrames> _frames, std::shared_ptr<cImage> _image, QWidget *_imageWidget,
 	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
 	QObject *parent)
 		: QObject(parent), mainInterface(_interface), frames(_frames)

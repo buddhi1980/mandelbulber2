@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
 #define MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
 
-#include <QString>
-#include <QMap>
 #include <memory>
+
+#include <QMap>
+#include <QString>
 
 // forward declarations
 class cAudioTrack;

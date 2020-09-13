@@ -129,7 +129,8 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
 	switch (objectType)
 	{
-		case objFractal: {
+		case objFractal:
+		{
 #endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
 
 #ifdef USE_FRACTAL_COLORING
@@ -231,7 +232,9 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 			color = input->material->color;
 			break;
 		}
-		case objNone: { color = 0.0f;
+		case objNone:
+		{
+			color = 0.0f;
 		}
 	}
 #endif

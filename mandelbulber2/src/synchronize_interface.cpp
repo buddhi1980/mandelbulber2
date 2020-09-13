@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -35,16 +35,17 @@
 #include "synchronize_interface.hpp"
 
 #include <memory>
-#include <QComboBox>
-#include <QPlainTextEdit>
-#include <QDebug>
 
-#include "formula/definition/all_fractal_list.hpp"
+#include <QComboBox>
+#include <QDebug>
+#include <QPlainTextEdit>
+
 #include "algebra.hpp"
 #include "global_data.hpp"
 #include "parameters.hpp"
 #include "system_data.hpp"
 #include "write_log.hpp"
+
 #include "qt/file_select_widget.h"
 #include "qt/formula_combo_box.h"
 #include "qt/gradient_edit_widget.h"
@@ -57,6 +58,8 @@
 #include "qt/my_line_edit.h"
 #include "qt/my_spin_box.h"
 #include "qt/my_text_edit.h"
+
+#include "formula/definition/all_fractal_list.hpp"
 
 using namespace qInterface;
 

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2019-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -38,20 +38,22 @@
 
 #include "ui_randomizer_dialog.h"
 
-#include "formula/definition/all_fractal_list.hpp"
 #include "common_my_widget_wrapper.h"
 #include "my_group_box.h"
 #include "thumbnail_widget.h"
+
 #include "src/animation_keyframes.hpp"
 #include "src/cimage.hpp"
 #include "src/color_gradient.h"
-#include "src/initparameters.hpp"
 #include "src/fractal_container.hpp"
+#include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/keyframes.hpp"
 #include "src/settings.hpp"
 #include "src/system_data.hpp"
 #include "src/wait.hpp"
+
+#include "formula/definition/all_fractal_list.hpp"
 
 cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cRandomizerDialog)

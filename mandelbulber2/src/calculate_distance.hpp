@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -40,6 +40,7 @@
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
 #include <memory>
+
 #include "common_math.h"
 
 // forward declarations
@@ -72,7 +73,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
 double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
-double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params, std::shared_ptr<const cNineFractals> fractals,
-	const CVector3 point, const CVector3 direction, const CVector3 orthDirection, bool *stopRequest);
+double CalculateDistanceMinPlane(std::shared_ptr<const sParamRender> params,
+	std::shared_ptr<const cNineFractals> fractals, const CVector3 point, const CVector3 direction,
+	const CVector3 orthDirection, bool *stopRequest);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */
