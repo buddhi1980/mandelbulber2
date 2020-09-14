@@ -267,6 +267,10 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 	}
+	else
+	{
+		fractalWidget.reset();
+	}
 
 	gMainInterface->mainWindow->GetWidgetDockFractal()->SetTabText(
 		tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
