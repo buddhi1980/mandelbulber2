@@ -41,13 +41,13 @@ REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		aux->const_c.x *= sign(z.x);
-		aux->const_c.y *= sign(z.y);
-		aux->const_c.z *= sign(z.z);
-		aux->const_c.w *= sign(z.w);
+		aux->c.x *= sign(z.x);
+		aux->c.y *= sign(z.y);
+		aux->c.z *= sign(z.z);
+		aux->c.w *= sign(z.w);
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->const_c;
+	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->c;
 
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;

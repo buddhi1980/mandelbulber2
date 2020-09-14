@@ -19,6 +19,7 @@ v2.23 (???? 2020)
 
 - modified fractal formulas
    mandeltorus prescale and mode2 had swapped checkboxes
+   mandelbulbLambda fixed openCL
    transfStepXY added offset and scale
    transfScaleOffset fix DE
    transfScaleOffsetV2 fix DE
