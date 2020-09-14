@@ -131,6 +131,7 @@ private:
 	void UpdateProgressBar(double progress);
 	QString CreateTooltipText(const QMap<QString, QString> &list);
 	void StopAll();
+	void UpdateKeepList();
 
 	// events
 	void closeEvent(QCloseEvent *event) override;

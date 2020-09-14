@@ -162,6 +162,11 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		versionsDone.append(false);
 		keep.append(false);
 		listsOfChangedParameters.append(QMap<QString, QString>());
+
+		sParameterVersion version;
+		*version.params = *actualParams;
+		*version.fractParams = *actualFractParams;
+		listOfVersions.append(version);
 	}
 
 	ui->checkBox_dont_randomize_booleans->setChecked(gPar->Get<bool>("randomizer_only_floats"));
@@ -178,13 +183,14 @@ cRandomizerDialog::~cRandomizerDialog()
 void cRandomizerDialog::InitParameterContainers()
 {
 	// initialize parameter containers
-	listOfVersions.clear();
 	for (int i = 0; i < numberOfVersions; i++)
 	{
-		sParameterVersion version;
-		*version.params = *actualParams;
-		*version.fractParams = *actualFractParams;
-		listOfVersions.append(version);
+		if (!keep[i])
+		{
+			sParameterVersion version;
+			*listOfVersions[i].params = *actualParams;
+			*listOfVersions[i].fractParams = *actualFractParams;
+		}
 	}
 }
 
@@ -272,6 +278,9 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 
 	stopRequest = false;
 
+	// update list of version which will be excluded from randomizing
+	UpdateKeepList();
+
 	// initialize parameter containers
 	InitParameterContainers();
 
@@ -287,20 +296,12 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 	CalcReferenceNoise();
 
 	// randomizing
-	keepCount = 0;
-
 	for (int i = 0; i < numberOfVersions; i++)
 	{
 		// qDebug() << "Version " << i;
 
 		numbersOfRepeats[i] = 0;
 		versionsDone[i] = false;
-
-		QString checkBoxKeepWidgetName = QString("checkBox_keep_%1").arg(i + 1, 2, 10, QChar('0'));
-		QCheckBox *checkBoxKeep = this->findChild<QCheckBox *>(checkBoxKeepWidgetName);
-		keep[i] = checkBoxKeep->isChecked();
-
-		if (keep[i]) keepCount++;
 
 		if (!keep[i])
 		{
@@ -318,6 +319,19 @@ void cRandomizerDialog::Randomize(enimRandomizeStrength strength)
 			previewWidget->setToolTip(CreateTooltipText(listsOfChangedParameters[i]));
 			previewWidget->update();
 		}
+	}
+}
+
+void cRandomizerDialog::UpdateKeepList()
+{
+	keepCount = 0;
+
+	for (int i = 0; i < numberOfVersions; i++)
+	{
+		QString checkBoxKeepWidgetName = QString("checkBox_keep_%1").arg(i + 1, 2, 10, QChar('0'));
+		QCheckBox *checkBoxKeep = this->findChild<QCheckBox *>(checkBoxKeepWidgetName);
+		keep[i] = checkBoxKeep->isChecked();
+		if (keep[i]) keepCount++;
 	}
 }
 
