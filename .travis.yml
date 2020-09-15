@@ -103,7 +103,7 @@ script:
       unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
       ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines,imageformats
       
-      export UPLOADTOOL_ISPRERELEASE=true
+      #export UPLOADTOOL_ISPRERELEASE=true
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       
       bash upload.sh Mandelbulber*.AppImage*
