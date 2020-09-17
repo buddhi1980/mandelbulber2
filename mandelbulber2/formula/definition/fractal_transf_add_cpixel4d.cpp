@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Adds Cpixel 4D constant to z vector
+ * Create and add Cpixel 4D constant to z vector
  */
 
 #include "all_fractal_definitions.h"
@@ -30,7 +30,7 @@ void cFractalTransfAddCpixel4d::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		CVector4 t = aux.const_c;
-		if (fractal->transformCommon.functionEnabledEFalse) t = aux.c;
+
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{ // c.w = rad
 			t = CVector4(t.x, t.y, t.z, 0.0);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_cpixel4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
-    <height>813</height>
+    <width>835</width>
+    <height>1387</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -138,16 +138,9 @@
        </widget>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-        <property name="text">
-         <string>iterate</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
         <property name="text">
-         <string notr="true">fabs</string>
+         <string notr="true">abs</string>
         </property>
        </widget>
       </item>
@@ -473,7 +466,7 @@ offset</string>
    <item>
     <widget class="QLabel" name="label_77">
      <property name="text">
-      <string>Use Cpixel</string>
+      <string>Use Cpixel in this transform</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

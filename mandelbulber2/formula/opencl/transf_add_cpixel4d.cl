@@ -19,7 +19,7 @@ REAL4 TransfAddCpixel4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
 		REAL4 t = aux->const_c;
-		if (fractal->transformCommon.functionEnabledEFalse) t = aux->c;
+
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{ // c.w = rad
 			t = (REAL4){t.x, t.y, t.z, 0.0f};
