@@ -90,7 +90,9 @@ script:
 
 # AppImage building and uploading
   - |
-    if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${TRAVIS_EVENT_TYPE}" = "cron" ]; then
+    #if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${TRAVIS_EVENT_TYPE}" = "cron" ]; then
+    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+    
       cd ../../build
       
       make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
@@ -104,8 +106,9 @@ script:
       ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines,imageformats
       
       #export UPLOADTOOL_ISPRERELEASE=true
-      wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+      wget -c  https://github.com/damirporobic/uploadtool/raw/master/upload.sh
       
+      export UPLOADTOOL_ISPRERELEASE=true
       bash upload.sh Mandelbulber*.AppImage*
     fi
 branches:
