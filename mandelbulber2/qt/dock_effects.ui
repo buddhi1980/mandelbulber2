@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1156,8 +1156,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>264</width>
-            <height>1659</height>
+            <width>551</width>
+            <height>1644</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2310,7 +2310,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
               <item>
                <widget class="QGroupBox" name="groupBox">
                 <property name="title">
-                 <string>Accuracy control (only OpenCL)</string>
+                 <string>Accuracy control</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14">
                  <property name="leftMargin">
@@ -3311,7 +3311,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
+            <width>295</width>
             <height>1917</height>
            </rect>
           </property>
