@@ -136,7 +136,7 @@ public:
 		"normal_postfix", "specular_postfix", "diffuse_postfix", "world_postfix", "append_alpha_png",
 		"linear_colorspace", "jpeg_quality", "stereoscopic_in_separate_files",
 		"save_channels_in_separate_folders", "optional_image_channels_enabled",
-		"flight_animation_image_type", "keyframe_animation_image_type",
+		"flight_animation_image_type", "keyframe_animation_image_type", "zbuffer_logarithmic",
 		"zbuffer_invert", "zbuffer_constant_range", "zbuffer_max_depth", "zbuffer_min_depth"};
 };
 
