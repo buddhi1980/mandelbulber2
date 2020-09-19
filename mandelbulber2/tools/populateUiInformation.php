@@ -128,6 +128,7 @@ function getFormulasData()
 // update information boxes in the ui
 function updateInfoBoxes($index, $formula, &$status)
 {
+  if($index == 'custom') return; // nothing to do for the custom opencl formula
 	global $formulaExampleUsage;
 	$formattedEscapedCode = getFormatCode($formula['code']);
 	// remove hardcoded font-size, to use system defined font-size

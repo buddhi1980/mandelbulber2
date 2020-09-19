@@ -166,6 +166,8 @@ Options:
   --stats                Shows statistics while rendering in CLI mode.
   -g, --gpu              Runs the program in opencl mode and selects first
                          available gpu device.
+  -G, --gpuall           Runs the program in opencl mode and selects all
+                         available gpu devices.
   --help-input           Shows help about input.
   --help-examples        Shows example commands.
   --help-opencl          Shows commands regarding OpenCL.
