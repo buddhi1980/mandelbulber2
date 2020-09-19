@@ -112,7 +112,7 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 #endif
 
-#else	 // TEXTURED_BACKGROUND
+#else	// TEXTURED_BACKGROUND
 
 	if (consts->params.background3ColorsEnable)
 	{

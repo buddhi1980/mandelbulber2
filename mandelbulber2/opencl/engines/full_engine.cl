@@ -337,7 +337,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection * stereoIntensity, &rot,
 			&rotInv, eye, consts->params.stereoSwapEyes, &viewVector);
-#else	 // PERSP_FISH_EYE_CUT
+#else	// PERSP_FISH_EYE_CUT
 		float3 eyePosition = 0.0f;
 		float3 sideVector = normalize(cross(viewVector, consts->params.topVector));
 		float3 rightVector =

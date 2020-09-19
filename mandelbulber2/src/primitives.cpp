@@ -418,7 +418,7 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 
 		point.x += phase * 0.05
 							 * (animProgressionSpeed * 3.0
-									- 3.0); // 3.0 to keep compatibility and to have 0.0 stopping moving
+									 - 3.0); // 3.0 to keep compatibility and to have 0.0 stopping moving
 
 		for (int i = 1; i <= iterations; i++)
 		{

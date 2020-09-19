@@ -169,7 +169,7 @@ bool InitSystem()
 		}
 	}
 
-#else	 // SHARED_DIR
+#else	// SHARED_DIR
 	systemDirectories.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 	systemDirectories.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
 #endif // else SHARED_DIR
@@ -596,8 +596,8 @@ void UpdateLanguage()
 	// try to load qt translator
 	if (qtTranslator.load(
 				QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
-			|| qtTranslator.load(
-				QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			|| qtTranslator.load(QLatin1String("qtbase_") + locale,
+					 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 	{
 		QCoreApplication::installTranslator(&qtTranslator);
 	}

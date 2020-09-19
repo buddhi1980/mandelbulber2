@@ -104,7 +104,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 #ifdef USE_OPENCL
 	UpdateOpenCLListBoxes();
 	UpdateOpenCLMemoryLimits();
-#else	 // USE_OPENCL
+#else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
 
