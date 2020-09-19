@@ -3021,8 +3021,8 @@ void cInterface::CleanSettings()
 {
 	if (QMessageBox::Yes
 			== QMessageBox::question(mainWindow, tr("Cleaning up"),
-				tr("Do you want to clean up settings?\nIt will take a while"),
-				QMessageBox::Yes | QMessageBox::No))
+					 tr("Do you want to clean up settings?\nIt will take a while"),
+					 QMessageBox::Yes | QMessageBox::No))
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		gUndo->Store(gPar, gParFractal);

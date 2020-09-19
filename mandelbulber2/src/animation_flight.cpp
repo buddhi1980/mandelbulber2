@@ -1565,8 +1565,8 @@ QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) cons
 
 	QString filename = dir + "frame_" + QString("%1").arg(index, 7, 10, QChar('0'));
 	filename += "."
-							+ ImageFileSave::ImageFileExtension(
-								ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type")));
+							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+									params->Get<int>("flight_animation_image_type")));
 	return filename;
 }
 

@@ -111,7 +111,7 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(
 	QStringList clHeaderFiles;
 	clHeaderFiles.append("opencl_typedefs.h"); // definitions of common opencl types
 	clHeaderFiles.append("ssao_cl.h");				 // main data structures
-	clHeaderFiles.append("opencl_algebra.h");	 // definitions of common math functions
+	clHeaderFiles.append("opencl_algebra.h");	// definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");

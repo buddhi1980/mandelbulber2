@@ -172,9 +172,9 @@ float cubicInterpolate(float p[4], float x)
 	return p[1]
 				 + 0.5f * x
 						 * (p[2] - p[0]
-								+ x
-										* (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
-											 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+								 + x
+										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
 float bicubicInterpolate(float p[4][4], float x, float y)

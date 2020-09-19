@@ -748,8 +748,8 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		catch (const QString &ex)
 		{
 			qCritical() << QString(
-				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
-				"object - error: ")
+											 "cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
+											 "object - error: ")
 									<< ex;
 		}
 

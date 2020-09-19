@@ -289,7 +289,7 @@ void cRenderer::RenderSSAO()
 	connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 	if (data->stereo.isEnabled()
 			&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
+					 || data->stereo.GetMode() == cStereo::stereoTopBottom))
 	{
 		cRegion<int> region;
 		region = data->stereo.GetRegion(
@@ -315,7 +315,7 @@ void cRenderer::RenderDOF()
 	connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 	if (data->stereo.isEnabled()
 			&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
+					 || data->stereo.GetMode() == cStereo::stereoTopBottom))
 	{
 		cRegion<int> region;
 		region = data->stereo.GetRegion(

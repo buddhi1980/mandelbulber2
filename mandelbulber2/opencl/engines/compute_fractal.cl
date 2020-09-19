@@ -219,7 +219,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
 				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 			}
-#else	 // not HYBRID and not BOOLEAN
+#else	// not HYBRID and not BOOLEAN
 		z = FORMULA_ITER_0(z, fractal, &aux);
 #endif // defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 

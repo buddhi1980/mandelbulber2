@@ -409,7 +409,7 @@ void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitc
 		else
 			value = 0.5f
 							* (getBand(i, midFreq, bandwidth, pitchMode)
-								 + getBand(i - 1, midFreq, bandwidth, pitchMode));
+									+ getBand(i - 1, midFreq, bandwidth, pitchMode));
 
 		animation.append(value);
 	}
