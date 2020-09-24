@@ -28,7 +28,7 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	REAL temp;
 	// this block does not use z so could be inline precalc
-	REAL cospin = M_PI_F / REAL(Type);
+	REAL cospin = M_PI_F / (REAL)(Type);
 	cospin = native_cos(cospin);
 	REAL scospin = native_sqrt(0.75f - cospin * cospin);
 	REAL4 nc = (REAL4){-0.5f, -cospin, scospin, 0.0f};
@@ -79,16 +79,13 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 			zcv = zcv - p;
 			REAL minDL = fractal->transformCommon.offsetB0;
 			REAL dla = zcv.x - min(minDL, zcv.x);
-			dla = (REAL4){dla, zcv.y, zcv.z, zcv.w}.Length();
-			REAL dlc = (zcv - dot(zcv, nc) * nc).Length();
+			REAL4 temp4 = (REAL4){dla, zcv.y, zcv.z, zcv.w};
+			dla = length(temp4);
+			temp4 = zcv - dot(zcv, nc) * nc;
+			REAL dlc = length(temp4);
 			REAL ds = min(dla, dlc) - SRadius;
 			colVec.y = ds;
 			d = min(d, ds * powp);
-
-			// REAL dla = ((zcv - min(0.0f, zcv.x) * (REAL4) {1.0f, 0.0f, 0.0f, 0.0f})).Length();
-			// REAL dlb = ((zcv - min(0.0f, zcv.y) * (REAL4) {0.0f, 1.0f, 0.0f, 0.0f})).Length();
-			// REAL dlc = ((zcv - min(0.0f, dot(zcv, nc)) * nc)).Length();
-			// REAL ds = min(min(dla, dlb), dlc) - SRadius;
 		}
 
 		if (!fractal->transformCommon.functionEnabledBzFalse)
@@ -96,7 +93,8 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 			REAL dv;
 			if (!fractal->transformCommon.functionEnabledDFalse)
 			{
-				dv = (zc - p).Length() - VRadius;
+				REAL4 temp4 = zcv - p;
+				dv = length(temp4) - VRadius;
 			}
 			else
 			{
