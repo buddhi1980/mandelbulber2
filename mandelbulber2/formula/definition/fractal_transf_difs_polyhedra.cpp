@@ -39,7 +39,7 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 
 	double temp;
 	// this block does not use z so could be inline precalc
-	double cospin = M_PI / double(Type);
+	double cospin = M_PI / (double)(Type);
 	cospin = cos(cospin);
 	double scospin = sqrt(0.75 - cospin * cospin);
 	CVector4 nc = CVector4(-0.5, -cospin, scospin, 0.0);
@@ -81,9 +81,12 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 	if (!fractal->transformCommon.functionEnabledByFalse)
 	{ // Segments
 		zc -= p;
-		double dla = ((zc - min(0.0, zc.x) * CVector4(1.0, 0.0, 0.0, 0.0))).Length();
-		double dlb = ((zc - min(0.0, zc.y) * CVector4(0.0, 1.0, 0.0, 0.0))).Length();
-		double dlc = ((zc - min(0.0, zc.Dot(nc)) * nc)).Length();
+		CVector4 temp4 =zc - min(0.0, zc.x) * CVector4(1.0, 0.0, 0.0, 0.0);
+		double dla = temp4.Length();
+		temp4 = zc - min(0.0, zc.y) * CVector4(0.0, 1.0, 0.0, 0.0);
+		double dlb = temp4.Length();
+		temp4 = zc - min(0.0, zc.Dot(nc)) * nc;
+		double dlc = temp4.Length();
 		double ds = min(min(dla, dlb), dlc) - SRadius;
 		colVec.y = ds;
 		d = min(d, ds);
@@ -94,7 +97,8 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		double dv;
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			dv = (zcv - p).Length() - VRadius;
+			CVector4 temp4 = zcv - p;
+			dv = temp4.Length() - VRadius;
 		}
 		else
 		{
