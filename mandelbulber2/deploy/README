@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.22
+                              MANDELBULBER 2.23
 
 1. What is Mandelbulber
 -----------------------
@@ -151,11 +151,11 @@ make install
 - Debian Buster x64
 - Ubuntu 19.04
 
-- gcc 9.3.0
-- clang 9.0.1
+- gcc 10.2.0
+- clang 9.0.1-14
 - msvc17
 
-- Qt 5.12.5
+- Qt 5.14.2
 
 7. USAGE
 --------

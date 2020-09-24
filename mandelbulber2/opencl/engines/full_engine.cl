@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.23 - dev003
+#define MANDELBULBER_VERSION 2.23
 
 int GetInteger(int byte, __global char *array)
 {
@@ -337,7 +337,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection * stereoIntensity, &rot,
 			&rotInv, eye, consts->params.stereoSwapEyes, &viewVector);
-#else	// PERSP_FISH_EYE_CUT
+#else	 // PERSP_FISH_EYE_CUT
 		float3 eyePosition = 0.0f;
 		float3 sideVector = normalize(cross(viewVector, consts->params.topVector));
 		float3 rightVector =
