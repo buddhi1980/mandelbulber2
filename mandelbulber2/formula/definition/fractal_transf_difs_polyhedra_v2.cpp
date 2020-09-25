@@ -39,7 +39,7 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 
 	double temp;
 	// this block does not use z so could be inline precalc
-	double cospin = M_PI / double(Type);
+	double cospin = M_PI / (double)(Type);
 	cospin = cos(cospin);
 	double scospin = sqrt(0.75 - cospin * cospin);
 	CVector4 nc = CVector4(-0.5, -cospin, scospin, 0.0);
@@ -64,7 +64,7 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 	{
 		double Scale = fractal->transformCommon.scale1;
 		double powp = 1.0;
-		powp = pow(Scale, double(-m));
+		powp = pow(Scale, (double)(-m));
 
 		for (int n = 0; n < Type; n++)
 		{
@@ -80,6 +80,7 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 			double d0 = zc.Dot(pab) - p.Dot(pab);
 			double d1 = zc.Dot(pbc) - p.Dot(pbc);
 			double d2 = zc.Dot(pca) - p.Dot(pca);
+
 			double df = max(max(d0, d1), d2);
 			colVec.x = df;
 			d = min(d, df * powp);
@@ -90,17 +91,13 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 			zcv = zcv - p;
 			double minDL = fractal->transformCommon.offsetB0;
 			double dla =  zcv.x - min(minDL, zcv.x);
-			dla = CVector4(dla, zcv.y, zcv.z, zcv.w).Length();
-			double dlc = (zcv - zcv.Dot(nc) * nc).Length();
+			CVector4 temp4 = CVector4(dla, zcv.y, zcv.z, zcv.w);
+			dla = temp4.Length();
+			temp4 = zcv - zcv.Dot(nc) * nc;
+			double dlc = temp4.Length();
 			double ds = min(dla, dlc) - SRadius;
 			colVec.y = ds;
 			d = min(d, ds * powp);
-
-
-			//double dla = ((zcv - min(0.0, zcv.x) * CVector4(1.0, 0.0, 0.0, 0.0))).Length();
-			//double dlb = ((zcv - min(0.0, zcv.y) * CVector4(0.0, 1.0, 0.0, 0.0))).Length();
-			//double dlc = ((zcv - min(0.0, zcv.Dot(nc)) * nc)).Length();
-			//double ds = min(min(dla, dlb), dlc) - SRadius;
 		}
 
 		if (!fractal->transformCommon.functionEnabledBzFalse)
@@ -108,7 +105,8 @@ void cFractalTransfDIFSPolyhedraV2::FormulaCode(CVector4 &z, const sFractal *fra
 			double dv;
 			if (!fractal->transformCommon.functionEnabledDFalse)
 			{
-				dv = (zc - p).Length() - VRadius;
+				CVector4 temp4 = zcv - p;
+				dv = temp4.Length() - VRadius;
 			}
 			else
 			{

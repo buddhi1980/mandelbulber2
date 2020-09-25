@@ -72,9 +72,9 @@ REAL4 TransfDIFSPolyhedraIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc -= p;
 		REAL4 temp4 = zc - min(0.0f, zc.x) * (REAL4){1.0f, 0.0f, 0.0f, 0.0f};
 		REAL dla = length(temp4);
-		REAL4 temp4 = zc - min(0.0f, zc.y) * (REAL4){0.0f, 1.0f, 0.0f, 0.0f};
+		temp4 = zc - min(0.0f, zc.y) * (REAL4){0.0f, 1.0f, 0.0f, 0.0f};
 		REAL dlb = length(temp4);
-		REAL4 temp4 = zc - min(0.0f, dot(zc, nc)) * nc;
+		temp4 = zc - min(0.0f, dot(zc, nc)) * nc;
 		REAL dlc = length(temp4);
 		REAL ds = min(min(dla, dlb), dlc) - SRadius;
 		colVec.y = ds;
