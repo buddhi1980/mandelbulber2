@@ -1,6 +1,6 @@
 Version history
 
-v2.23 (???? 2020)
+v2.23 (September 2020)
 - Added new fractal formulas
    aexion4dV2
    mandeltorusV2
@@ -24,7 +24,28 @@ v2.23 (???? 2020)
    transfScaleOffset fix DE
    transfScaleOffsetV2 fix DE
 
-
+- Shaders: Added clouds based on Perlin noise
+    - receiving and casting shadows by clouds
+    - clouds located by plane geometry
+    - clouds located at certain distance from fractal
+    - distance estimation to clouds for fast rendering
+    - illumination boost by orbit trap lights
+- Textures: added support for textures in HDR Radiance format
+- Shaders: Added parameter for limiting GI radiance
+- Shaders: Volumetric DE factor now also works in CPU mode
+- Shaders: Added parameter for main light source contour sharpness
+- Shaders: Added option to make shadows on primitives visible on alpha channel and to hide primitives
+- Randomizer: Fixed bug in randomization algorithm for angular variables
+- Randomizer: Improved stopping of Randomizer (faster stop of OpenCL worker)
+- Randomizer: Fixed bug #800. There was no check if randomized version had assigned parameters.
+- Randomizer: Added "keep" checkbox in each variation in Randomizer. It excludes selected version from randomizing
+- UI: Added calculation and displaying of midpoint in measurement dock (issue #332)
+- UI: Fixed problem with missing selection of column in keyframe table after adding parameter to the table.
+- UI: Corrected rendering of Julia preview (now works properly with hybrids). Added option to disable Julia preview (issue #691)
+- Files: Added image auto-save when rendering takes more than 10 minutes (issue #776)
+- Files: Added storing of 100 undo levels in disk cache
+- NetRender: Fixed bug #805. Zbuffer parameters weren't transferred to NetRender clients
+- Code: minimized explicit use of new and delete (issue #445)
 
 v2.22 (July 2020)
 - Added new fractal formulas
