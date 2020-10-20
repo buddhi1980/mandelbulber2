@@ -37,27 +37,28 @@ void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
-			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
-			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
-			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) *
-			// 0.5) * bSize.x;
-			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) *
-			// 0.5) * bSize.y;
-			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) *
-			// 0.5) * bSize.z;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+			}
+			else
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
+			}
+
 		}
 		else // normalize
 		{
-			double rr = z.Dot(z);
+			double rr = z.Length(); //z.Dot(z);
 			z /= rr;
-			bSize /= 100.0;
-			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
+			//bSize;
+			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
 			z *= rr;
 		}
 	}
@@ -82,12 +83,7 @@ void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 	// post scale
 	z *= fractal->transformCommon.scale1;
-	if (fractal->analyticDE.enabled)
-	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE *= fractal->transformCommon.scale1;
-		else
-			aux.DE = aux.DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
+	aux.DE = aux.DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
 							 + fractal->analyticDE.offset0;
-	}
+
 }
