@@ -28,7 +28,6 @@ cFractalTransfBlockify::cFractalTransfBlockify() : cAbstractFractal()
 
 void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 oldZ = z;
 	double master = fractal->transformCommon.scale / 100.0;
 	CVector4 bSize = fractal->transformCommon.constantMultiplier111 * master;
 	// bsize maybe shortened to a double??
@@ -53,13 +52,12 @@ void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		}
 		else // normalize
 		{
-			double rr = z.Length(); //z.Dot(z);
-			z /= rr;
-			//bSize;
+			double rNorm = z.Length(); //z.Dot(z);
+			z /= rNorm;
 			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
 			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
-			z *= rr;
+			z *= rNorm;
 		}
 	}
 	else // radial
@@ -72,13 +70,6 @@ void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z /= rr;
 		rr = floor(rr / master) * master;
 		z *= rr;
-	}
-
-	// DE thing that has no effect, too small diff?
-	if (fractal->transformCommon.functionEnabled)
-	{
-		double AN = z.Length() / oldZ.Length();
-		aux.DE = aux.DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
 	// post scale

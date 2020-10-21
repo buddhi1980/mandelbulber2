@@ -17,7 +17,7 @@
 
 REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 oldZ = z;
+
 	REAL master = fractal->transformCommon.scale / 100.0f;
 	REAL4 bSize = fractal->transformCommon.constantMultiplier111 * master;
 	// bsize maybe shortened to a REAL??
@@ -26,24 +26,26 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
-			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
-			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
-			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) *
-			// 0.5f) * bSize.x;
-			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) *
-			// 0.5f) * bSize.y;
-			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) *
-			// 0.5f) * bSize.z;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+
+				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			}
+			else
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
+			}
+
 		}
 		else // normalize
 		{
-			REAL rr = dot(z, z);
+			REAL rr = length(z); //dot(z, z);
 			z /= rr;
-			bSize /= 100.0f;
+
 			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
 			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
@@ -62,22 +64,11 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z *= rr;
 	}
 
-	// DE thing that has no effect, too small diff?
-	if (fractal->transformCommon.functionEnabled)
-	{
-		REAL AN = length(z) / length(oldZ);
-		aux->DE = aux->DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	}
 
 	// post scale
 	z *= fractal->transformCommon.scale1;
-	if (fractal->analyticDE.enabled)
-	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux->DE *= fractal->transformCommon.scale1;
-		else
-			aux->DE = aux->DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
-								+ fractal->analyticDE.offset0;
-	}
+	aux->DE = aux->DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
+							+ fractal->analyticDE.offset0;
+
 	return z;
 }

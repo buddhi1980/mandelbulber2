@@ -113,8 +113,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>466</width>
-        <height>3855</height>
+        <width>472</width>
+        <height>4461</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -712,19 +712,19 @@ direction vector:</string>
            </layout>
           </item>
           <item>
-           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For backwards compatibity.  If enabled, OpenCL and Non-OpenCL modes will sometimes render differrent coloring.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="text">
-             <string notr="true">pre V2.15 orbit trap color</string>
+             <string notr="true">4D orbit trap color</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For backwards compatibity.  If enabled, OpenCL and Non-OpenCL modes will sometimes render different coloring.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
-             <string notr="true">4D orbit trap color</string>
+             <string notr="true">pre V2.15 orbit trap color</string>
             </property>
            </widget>
           </item>
