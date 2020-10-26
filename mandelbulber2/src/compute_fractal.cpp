@@ -146,6 +146,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		// temporary vector for weight function
 		CVector4 tempZ = z;
+		double tempAuxDE = extendedAux.DE;
+		double tempAuxColor = extendedAux.color;
 
 		extendedAux.r = r;
 		extendedAux.i = i;
@@ -213,7 +215,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		if (fractals.IsHybrid())
 		{
-			z = SmoothCVector(tempZ, z, fractals.GetWeight(sequence));
+			double k = fractals.GetWeight(sequence);
+			if (k < 1.0)
+			{
+				z = SmoothCVector(tempZ, z, k);
+				double kn = 1.0 - k;
+				extendedAux.DE = extendedAux.DE * k + tempAuxDE * kn;
+				extendedAux.color = extendedAux.DE * k + tempAuxColor * kn;
+			}
 		}
 
 		// r calculation

@@ -200,6 +200,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		// temporary vector for weight function
 		float4 tempZ = z;
+		float tempAuxDE = aux.DE;
+		float tempAuxColor = aux.color;
 
 #ifdef ITERATION_WEIGHT
 		if (consts->sequence.formulaWeight[sequence] > 0)
@@ -219,7 +221,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
 				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 			}
-#else	// not HYBRID and not BOOLEAN
+#else	 // not HYBRID and not BOOLEAN
 		z = FORMULA_ITER_0(z, fractal, &aux);
 #endif // defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 
@@ -278,7 +280,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef ITERATION_WEIGHT
 		if (consts->sequence.isHybrid)
 		{
-			z = SmoothCVector(tempZ, z, consts->sequence.formulaWeight[sequence]);
+			float k = consts->sequence.formulaWeight[sequence];
+			if (k < 1.0f)
+			{
+				z = SmoothCVector(tempZ, z, k);
+				float kn = 1.0f - k;
+				aux.DE = aux.DE * k + tempAuxDE * kn;
+				aux.color = aux.DE * k + tempAuxColor * kn;
+			}
 		}
 #endif
 
