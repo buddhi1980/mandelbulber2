@@ -405,6 +405,9 @@ enum enumFractalFormula
 	transfAddCpixel4d = 1123,
 	transfSphericalFold4dV2 = 1124,
 
+
+	transfBlockifyV2 = 1125,
+
 	// mandelbulber transfdIFS
 	// 2.20
 	transfDIFSBox = 1600,

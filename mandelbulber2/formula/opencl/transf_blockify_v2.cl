@@ -26,17 +26,29 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+
+				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			}
+			else
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
+			}
+
 		}
 		else // normalize
 		{
 			REAL rr = length(z); //dot(z, z);
 			z /= rr;
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+
+			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
 			z *= rr;
 		}
 	}

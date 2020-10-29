@@ -13,11 +13,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfBlockify::cFractalTransfBlockify() : cAbstractFractal()
+cFractalTransfBlockifyV2::cFractalTransfBlockifyV2() : cAbstractFractal()
 {
-	nameInComboBox = "T>Blockify";
-	internalName = "transf_blockify";
-	internalID = fractal::transfBlockify;
+	nameInComboBox = "T>Blockify V2";
+	internalName = "transf_blockify_v2";
+	internalID = fractal::transfBlockifyV2;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,18 +26,29 @@ cFractalTransfBlockify::cFractalTransfBlockify() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfBlockify::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfBlockifyV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double master = fractal->transformCommon.scale / 100.0;
 	CVector4 bSize = fractal->transformCommon.constantMultiplier111 * master;
+	// bsize maybe shortened to a double??
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+			}
+			else
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
+			}
+
 		}
 		else // normalize
 		{
