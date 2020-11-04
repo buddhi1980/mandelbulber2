@@ -247,6 +247,10 @@ enum enumFractalFormula
 	aexion4dV2 = 213,
 	menger4dMod2 = 214,
 
+
+	mandelbulbPlusZ = 215,
+
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
