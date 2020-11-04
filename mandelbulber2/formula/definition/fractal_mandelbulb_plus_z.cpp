@@ -27,7 +27,8 @@ cFractalMandelbulbPlusZ::cFractalMandelbulbPlusZ() : cAbstractFractal()
 
 void cFractalMandelbulbPlusZ::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
+	CVector4 zeros = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 zTmp = zeros;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -36,14 +37,15 @@ void cFractalMandelbulbPlusZ::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	}
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{
-		if (aux.i == fractal->transformCommon.startIterations) aux.c = CVector4(0.0, 0.0, 0.0, 0.0);
+		if (aux.i == fractal->transformCommon.startIterations) aux.c = zeros;
 	}
 	else
-		if (aux.i <= fractal->transformCommon.startIterations) aux.c = CVector4(0.0, 0.0, 0.0, 0.0);
+		if (aux.i <= fractal->transformCommon.startIterations) aux.c = zeros;
 
 
 
-	CVector4 zTmp = z;
+
+	if (aux.i >= fractal->transformCommon.startIterationsA) zTmp = z;
 
 	double theta = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int3;
 	double phi = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->transformCommon.int3;

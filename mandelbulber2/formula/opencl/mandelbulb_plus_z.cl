@@ -16,7 +16,8 @@
 
 REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
+	REAL4 zeros = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
+	REAL4 zTmp = zeros;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -26,10 +27,15 @@ REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	if (!fractal->transformCommon.functionEnabledBzFalse)
 	{
-		if (aux->i == fractal->transformCommon.startIterations) aux->c = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
+		if (aux->i == fractal->transformCommon.startIterations) aux->c = zeros;
 	}
 	else
-		if (aux->i <= fractal->transformCommon.startIterations) aux->c = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
+		if (aux->i <= fractal->transformCommon.startIterations) aux->c = zeros;
+
+
+	if (aux->i >= fractal->transformCommon.startIterationsA) zTmp = z;
+
+
 
 
 	REAL theta = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int3;
