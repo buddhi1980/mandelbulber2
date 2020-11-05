@@ -27,36 +27,27 @@ cFractalMandelbulbPlusZ::cFractalMandelbulbPlusZ() : cAbstractFractal()
 
 void cFractalMandelbulbPlusZ::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 zeros = CVector4(0.0, 0.0, 0.0, 0.0);
-	CVector4 zTmp = zeros;
+	CVector4 zTmp = CVector4(0.0, 0.0, 0.0, 0.0);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-	if (!fractal->transformCommon.functionEnabledBzFalse)
-	{
-		if (aux.i == fractal->transformCommon.startIterations) aux.c = zeros;
-	}
-	else
-		if (aux.i <= fractal->transformCommon.startIterations) aux.c = zeros;
 
-
-
+	if (aux.i == fractal->transformCommon.startIterations) aux.c = zTmp;
 
 	if (aux.i >= fractal->transformCommon.startIterationsA) zTmp = z;
 
-	double theta = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int3;
-	double phi = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->transformCommon.int3;
-	double rp = pow(aux.r, fractal->transformCommon.int3 - 1.0);
-	aux.DE = rp * aux.DE * fractal->transformCommon.int3 + 1.0;
+	double theta = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int2;
+	double phi = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->transformCommon.int2;
+	double rp = pow(aux.r, fractal->transformCommon.int2 - 1.0);
+	aux.DE = rp * aux.DE * fractal->transformCommon.int2 + 1.0;
 
 	if (!fractal->transformCommon.functionEnabledBxFalse)
-		rp = pow(aux.r, fractal->transformCommon.int3);
+		rp = pow(aux.r, fractal->transformCommon.int2);
 	else
 		rp *= aux.r;
-
 
 	if (!fractal->transformCommon.functionEnabledByFalse)
 	{
@@ -69,6 +60,20 @@ void cFractalMandelbulbPlusZ::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		z = rp * CVector4(costh * sin(phi), cos(phi) * costh, sin(theta), 0.0);
 	}
 	z += aux.c * fractal->transformCommon.constantMultiplierC111;
+
 	aux.c = zTmp;
 
+	// offset or juliaC
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		z += fractal->transformCommon.offset000;
+	}
+
+	// z.z scale
+	z.z *= fractal->transformCommon.scale1;
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }

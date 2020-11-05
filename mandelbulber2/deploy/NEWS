@@ -1,5 +1,16 @@
 Version history
 
+v2.2nnn  (mmm 2020)
+- Added new fractal formulas
+   mandelbulbPlusZ
+
+
+- modified fractal formulas
+   josKleinianV2, reinstate sphere inversion
+   transfBlockify, fix and finish
+
+
+
 v2.23 (September 2020)
 - Added new fractal formulas
    aexion4dV2

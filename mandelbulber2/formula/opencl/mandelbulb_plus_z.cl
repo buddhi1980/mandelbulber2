@@ -16,8 +16,8 @@
 
 REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 zeros = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
-	REAL4 zTmp = zeros;
+	REAL4 zTmp = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -25,27 +25,18 @@ REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	if (!fractal->transformCommon.functionEnabledBzFalse)
-	{
-		if (aux->i == fractal->transformCommon.startIterations) aux->c = zeros;
-	}
-	else
-		if (aux->i <= fractal->transformCommon.startIterations) aux->c = zeros;
-
+	if (aux->i == fractal->transformCommon.startIterations) aux->c = zTmp;
 
 	if (aux->i >= fractal->transformCommon.startIterationsA) zTmp = z;
 
+	REAL theta = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int2;
+	REAL phi = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->transformCommon.int2;
 
-
-
-	REAL theta = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset) * fractal->transformCommon.int3;
-	REAL phi = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->transformCommon.int3;
-
-	REAL rp = native_powr(aux->r, fractal->transformCommon.int3 - 1.0f);
-	aux->DE = rp * aux->DE * fractal->transformCommon.int3 + 1.0f;
+	REAL rp = native_powr(aux->r, fractal->transformCommon.int2 - 1.0f);
+	aux->DE = rp * aux->DE * fractal->transformCommon.int2 + 1.0f;
 
 	if (!fractal->transformCommon.functionEnabledBxFalse)
-		rp = native_powr(aux->r, fractal->transformCommon.int3);
+		rp = native_powr(aux->r, fractal->transformCommon.int2);
 	else
 		rp *= aux->r;
 
@@ -62,6 +53,20 @@ REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z += aux->c * fractal->transformCommon.constantMultiplierC111;
 
 	aux->c = zTmp;
+
+	// offset or juliaC
+	if (aux->i >= fractal->transformCommon.startIterationsG
+			&& aux->i < fractal->transformCommon.stopIterationsG)
+	{
+		z += fractal->transformCommon.offset000;
+	}
+
+	// z.z scale
+	z.z *= fractal->transformCommon.scale1;
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	return z;
 }
