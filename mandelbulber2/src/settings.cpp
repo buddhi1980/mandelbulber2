@@ -63,6 +63,7 @@ cSettings::cSettings(enumFormat _format)
 	quiet = false;
 	csvNoOfColumns = 0;
 	foundAnimSoundParameters = false;
+	forcedFractalFormulaIndex = -1;
 }
 
 size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
@@ -561,8 +562,23 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				{
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
 					{
+
 						int firstSpace = line.indexOf(' ');
 						QString parameterName = line.left(firstSpace);
+
+						if (forcedFractalFormulaIndex > 0)
+						{
+							// replace index in parameter name
+							bool conversionOK = false;
+							parameterName.right(1).toInt(&conversionOK);
+							if (conversionOK) // if last letter is a number, then replace index in settings line
+							{
+								QString digit = QString::number(forcedFractalFormulaIndex);
+								line[firstSpace - 1] = digit[0];
+								parameterName[firstSpace - 1] = digit[0];
+							}
+						}
+
 						if (!listOfParametersToProcess.contains(QString("main_") + parameterName)) continue;
 					}
 
@@ -571,12 +587,15 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				else if (section.contains("fractal"))
 				{
 					int i = section.rightRef(1).toInt() - 1;
+					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
 
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
 					{
 						int firstSpace = line.indexOf(' ');
 						QString parameterName = line.left(firstSpace);
-						if (!listOfParametersToProcess.contains(QString("fractal%1_").arg(i) + parameterName))
+						if (forcedFractalFormulaIndex == -1
+								&& !listOfParametersToProcess.contains(
+									QString("fractal%1_").arg(i) + parameterName))
 							continue;
 					}
 

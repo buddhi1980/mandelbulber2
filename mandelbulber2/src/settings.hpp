@@ -78,6 +78,7 @@ public:
 	QString GetSettingsText() const;
 	void SetListOfParametersToProcess(const QStringList &list) { listOfParametersToProcess = list; }
 	void SetListAppSettings(const QStringList &list) { listOfAppSettings = list; }
+	void SetFractalFormulaIndex(int _formulaIndex) { forcedFractalFormulaIndex = _formulaIndex; }
 
 private:
 	QString CreateHeader() const;
@@ -116,6 +117,7 @@ private:
 	QStringList listOfLoadedPrimitives;
 	QStringList listOfParametersToProcess;
 	QStringList listOfAppSettings;
+	int forcedFractalFormulaIndex;
 
 	QList<QString> linesWithSoundParameters;
 	bool foundAnimSoundParameters;

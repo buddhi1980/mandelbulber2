@@ -2920,6 +2920,12 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.SetListOfParametersToProcess(listOfParameters);
 
+			if (widget->objectName().contains("widgetTabFractal"))
+			{
+				int fractalIndex = widget->objectName().right(1).toInt();
+				parSettings.SetFractalFormulaIndex(fractalIndex);
+			}
+
 			DisablePeriodicRefresh();
 			gInterfaceReadyForSynchronization = false;
 			parSettings.LoadFromFile(filename);
@@ -3021,8 +3027,8 @@ void cInterface::CleanSettings()
 {
 	if (QMessageBox::Yes
 			== QMessageBox::question(mainWindow, tr("Cleaning up"),
-					 tr("Do you want to clean up settings?\nIt will take a while"),
-					 QMessageBox::Yes | QMessageBox::No))
+				tr("Do you want to clean up settings?\nIt will take a while"),
+				QMessageBox::Yes | QMessageBox::No))
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		gUndo->Store(gPar, gParFractal);
