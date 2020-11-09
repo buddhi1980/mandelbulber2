@@ -249,7 +249,7 @@ enum enumFractalFormula
 
 
 	mandelbulbPlusZ = 215,
-
+	mandelbulbAbs = 216,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

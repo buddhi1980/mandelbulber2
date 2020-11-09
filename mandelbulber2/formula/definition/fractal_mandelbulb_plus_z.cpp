@@ -44,10 +44,7 @@ void cFractalMandelbulbPlusZ::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double rp = pow(aux.r, fractal->transformCommon.int2 - 1.0);
 	aux.DE = rp * aux.DE * fractal->transformCommon.int2 + 1.0;
 
-	if (!fractal->transformCommon.functionEnabledBxFalse)
-		rp = pow(aux.r, fractal->transformCommon.int2);
-	else
-		rp *= aux.r;
+	rp *= aux.r;
 
 	if (!fractal->transformCommon.functionEnabledByFalse)
 	{

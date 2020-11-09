@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>763</width>
-    <height>958</height>
+    <height>1135</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -179,19 +179,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
      <item row="7" column="0" rowspan="2">
       <widget class="QLabel" name="label_17">
        <property name="text">
@@ -234,20 +221,6 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
-       <property name="text">
-        <string notr="true">switch to cos</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_18">
-       <property name="text">
-        <string> z start iter:</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations">
        <property name="sizePolicy">
@@ -261,10 +234,30 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+     <item row="6" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
        <property name="text">
-        <string notr="true">bx</string>
+        <string notr="true">switch to cos</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" rowspan="2">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" rowspan="2">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string> z start iter:</string>
        </property>
       </widget>
      </item>

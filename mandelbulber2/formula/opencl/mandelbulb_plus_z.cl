@@ -35,10 +35,7 @@ REAL4 MandelbulbPlusZIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL rp = native_powr(aux->r, fractal->transformCommon.int2 - 1.0f);
 	aux->DE = rp * aux->DE * fractal->transformCommon.int2 + 1.0f;
 
-	if (!fractal->transformCommon.functionEnabledBxFalse)
-		rp = native_powr(aux->r, fractal->transformCommon.int2);
-	else
-		rp *= aux->r;
+	rp *= aux->r;
 
 	if (!fractal->transformCommon.functionEnabledByFalse)
 	{
