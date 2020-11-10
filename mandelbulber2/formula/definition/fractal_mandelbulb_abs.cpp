@@ -33,7 +33,11 @@ void cFractalMandelbulbAbs::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		z.z *= fractal->transformCommon.scaleA1;
+	}
 	// if (aux.r < 1e-21) aux.r = 1e-21;
 	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
@@ -47,6 +51,9 @@ void cFractalMandelbulbAbs::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	z.y = cth * sin(ph) * rp;
 	z.z = sin(th) * rp;
 
-	// z.z scale
-	z.z *= fractal->transformCommon.scale1;
+	if (aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		z.z *= fractal->transformCommon.scaleB1;
+	}
 }

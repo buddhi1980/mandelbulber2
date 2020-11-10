@@ -22,7 +22,11 @@ REAL4 MandelbulbAbsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
+	if (aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		z.z *= fractal->transformCommon.scaleA1;
+	}
 	// if (aux->r < 1e-21f) aux->r = 1e-21f;
 	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
 	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
@@ -36,8 +40,11 @@ REAL4 MandelbulbAbsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	z.y = cth * native_sin(ph) * rp;
 	z.z = native_sin(th) * rp;
 
-	// z.z scale
-	z.z *= fractal->transformCommon.scale1;
+	if (aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z.z *= fractal->transformCommon.scaleB1;
+	}
 
 	return z;
 }
