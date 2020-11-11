@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Robert Pancoast (Pancoaster@outlook.com)
  *
  * Functions to Help safely create rectangle objects.
  */

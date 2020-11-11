@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
  *
  * These objects enable an OpenCL backend definition.
  */

@@ -28,7 +28,7 @@
  * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com),
- *  Robert Pancoast (RobertPancoast77@gmail.com)
+ *  Robert Pancoast (Pancoaster@outlook.com)
  *
  * cCommandLineInterface - CLI Input handler
  */

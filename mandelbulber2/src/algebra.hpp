@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
  *
  * CVector2, CVector3, CVector4 and CMatrix33 classes - vector and matrix
  * manipulation

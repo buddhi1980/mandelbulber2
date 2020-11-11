@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
  *
  *  Created on: 3 maj 2017
  *      Author: krzysztof

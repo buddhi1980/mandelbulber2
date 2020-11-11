@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
  *
  * cPreferencesDialog - dialog to configure and maintain application Preferences
  */

@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com),
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (Pancoaster@outlook.com),
  *  Sebastian Jennen (jenzebas@gmail.com)
  *
  * cOpenClEngineRenderFractal - prepares and executes fractal rendering on opencl

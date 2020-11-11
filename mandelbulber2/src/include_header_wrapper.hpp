@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
  *
  * This header contains the include dependencies for math and opencl specific code
  * see usage in other src/opencl_*, algebra, and random
