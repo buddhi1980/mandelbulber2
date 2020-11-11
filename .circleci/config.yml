@@ -30,6 +30,8 @@ jobs:
       - store_artifacts:
           path: ~/mandelbulber2/build/artifacts/
 
+# TODO: Build App Store version on CI
+
 workflows:
   version: 2
   build-and-deploy:
