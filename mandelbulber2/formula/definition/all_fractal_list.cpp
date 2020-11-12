@@ -220,6 +220,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinian());
 	fractalList->append(new cFractalPseudoKleinianMod1());
 	fractalList->append(new cFractalPseudoKleinianMod2());
+	fractalList->append(new cFractalPseudoKleinianMod4());
 
 	// ----- custom DE - dIFS formulas------
 	fractalList->append(new cFractalDIFSBoxV1());
