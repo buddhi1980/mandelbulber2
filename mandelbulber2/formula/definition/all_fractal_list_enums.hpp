@@ -247,11 +247,12 @@ enum enumFractalFormula
 	aexion4dV2 = 213,
 	menger4dMod2 = 214,
 
-
+	// 2.24
 	mandelbulbPlusZ = 215,
 	mandelbulbAbs = 216,
 	pseudoKleinianMod4 = 217,
-
+	msltoeSym3Mod4 = 218,
+	msltoeSym3Mod5 = 219,
 
 
 
