@@ -19,9 +19,9 @@ REAL4 MsltoeSym3Mod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 c = aux->const_c;
 
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL poly = M_PI_F / fractal->transformCommon.int8Y;
+	REAL psi = M_PI_F / fractal->transformCommon.int8Y;
 
-	REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + poly, 2.0f * poly) - poly);
+	psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + psi, 2.0f * psi) - psi);
 	REAL lengthYZ = native_sqrt(z.y * z.y + z.z * z.z);
 	z.y = native_cos(psi) * lengthYZ;
 	z.z = native_sin(psi) * lengthYZ;
@@ -34,7 +34,7 @@ REAL4 MsltoeSym3Mod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
 	temp.w = z.w;
-	z = temp + fractal->transformCommon.additionConstant000;
+	z = temp + fractal->transformCommon.additionConstantNeg100;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

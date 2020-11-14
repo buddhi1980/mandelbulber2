@@ -29,8 +29,8 @@ void cFractalMsltoeSym3Mod4::FormulaCode(CVector4 &z, const sFractal *fractal, s
 {
 	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
-	double poly = M_PI / fractal->transformCommon.int8Y;
-	double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + poly, 2.0 * poly) - poly);
+	double psi = M_PI / fractal->transformCommon.int8Y;
+	psi = fabs(fmod(atan2(z.z, z.y) + M_PI + psi, 2.0 * psi) - psi);
 	double len = sqrt(z.y * z.y + z.z * z.z);
 	z.y = cos(psi) * len;
 	z.z = sin(psi) * len;
@@ -43,7 +43,7 @@ void cFractalMsltoeSym3Mod4::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	temp.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
 	temp.w = z.w;
-	z = temp + fractal->transformCommon.additionConstant000;
+	z = temp + fractal->transformCommon.additionConstantNeg100;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

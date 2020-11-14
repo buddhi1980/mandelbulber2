@@ -45,7 +45,7 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
 	temp.w = z.w;
-	z = temp + fractal->transformCommon.additionConstant000;
+	z = temp + fractal->transformCommon.additionConstantNeg100;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

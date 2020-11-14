@@ -54,7 +54,7 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	temp.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
 	temp.w = z.w;
-	z = temp + fractal->transformCommon.additionConstant000;
+	z = temp + fractal->transformCommon.additionConstantNeg100;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
