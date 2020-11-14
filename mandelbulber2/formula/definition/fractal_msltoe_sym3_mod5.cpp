@@ -29,29 +29,22 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 {
 	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
-	double poly = M_PI / fractal->transformCommon.int8Y;
+	double psi = fractal->transformCommon.int8Y;
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		poly *= 2.0;
+		psi += fractal->transformCommon.int1;
 
 	}
-	//int poly = fractal->transformCommon.int8Y;
+	psi = M_PI / psi;
+
+	psi = fabs(fmod(atan2(z.z, z.y) + M_PI + psi, 2.0 * psi) - psi);
 
 
-	double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + poly, 2.0 * poly) - poly);
-
-	//double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 	double len = sqrt(z.y * z.y + z.z * z.z);
 	z.y = cos(psi) * len;
 	z.z = sin(psi) * len;
-
-
-
-	//double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
-	//double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
-
 
 	CVector4 z2 = z * z;
 	double rr = z2.x + z2.y + z2.z;

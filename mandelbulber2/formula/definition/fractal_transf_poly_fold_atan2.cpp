@@ -38,8 +38,8 @@ void cFractalTransfPolyFoldAtan2::FormulaCode(
 	if (fractal->transformCommon.functionEnabledCx)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
-		int poly = fractal->transformCommon.int8X;
-		double psi = fabs(fmod(atan2(z.y, z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = M_PI / fractal->transformCommon.int8X;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
@@ -48,8 +48,8 @@ void cFractalTransfPolyFoldAtan2::FormulaCode(
 	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
-		int poly = fractal->transformCommon.int8Y;
-		double psi = fabs(fmod(atan2(z.z, z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = M_PI / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.y * z.y + z.z * z.z);
 		z.y = cos(psi) * len;
 		z.z = sin(psi) * len;
@@ -58,8 +58,8 @@ void cFractalTransfPolyFoldAtan2::FormulaCode(
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
-		int poly = fractal->transformCommon.int8Z;
-		double psi = fabs(fmod(atan2(z.x, z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = M_PI / fractal->transformCommon.int8Z;
+		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.z * z.z + z.x * z.x);
 		z.z = cos(psi) * len;
 		z.x = sin(psi) * len;

@@ -14,14 +14,25 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MsltoeSym3Mod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL poly = M_PI_F / fractal->transformCommon.int8Y;
 
-	REAL psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + poly, 2.0f * poly) - poly);
+	REAL psi = fractal->transformCommon.int8Y;
+
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		psi += fractal->transformCommon.int1;
+
+	}
+	psi =  M_PI_F / psi;
+
+	psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + psi, 2.0f * psi) - psi);
+
 	REAL lengthYZ = native_sqrt(z.y * z.y + z.z * z.z);
 	z.y = native_cos(psi) * lengthYZ;
 	z.z = native_sin(psi) * lengthYZ;

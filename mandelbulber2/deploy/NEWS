@@ -1,8 +1,12 @@
 Version history
 
-v2.2nnn  (mmm 2020)
+v2.24 (????? 2020)
 - Added new fractal formulas
+   mandelbulbAbs
    mandelbulbPlusZ
+   msltoeSym3Mod4
+   msltoeSym3Mod5
+   pseudoKleinianMod4
 
 
 - modified fractal formulas
