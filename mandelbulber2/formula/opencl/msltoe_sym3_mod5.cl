@@ -41,13 +41,15 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL rr = z2.x + z2.y + z2.z;
 	REAL m = 1.0f - z2.z / rr;
 	REAL4 temp;
-	temp.x = (z2.x - z2.y) * m;
+	temp.x = (z2.x - z2.y) * m * fractal->transformCommon.scaleB1;
 	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
 	temp.w = z.w;
 	z = temp + fractal->transformCommon.additionConstantNeg100;
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		REAL4 tempFAB = c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);

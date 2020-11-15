@@ -30,22 +30,15 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
 
-		z.x *= fractal->transformCommon.scaleB1;
-
-
 	double psi = fractal->transformCommon.int8Y;
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		psi += fractal->transformCommon.int1;
-
 	}
 	psi = M_PI / psi;
-
 	psi = fabs(fmod(atan2(z.z, z.y) + M_PI + psi, 2.0 * psi) - psi);
-
-
 	double len = sqrt(z.y * z.y + z.z * z.z);
 	z.y = cos(psi) * len;
 	z.z = sin(psi) * len;
@@ -54,13 +47,15 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double rr = z2.x + z2.y + z2.z;
 	double m = 1.0 - z2.z / rr;
 	CVector4 temp;
-	temp.x = (z2.x - z2.y) * m;
+	temp.x = (z2.x - z2.y) * m * fractal->transformCommon.scaleB1;
 	temp.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
 	temp.w = z.w;
 	z = temp + fractal->transformCommon.additionConstantNeg100;
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector4 tempFAB = c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
