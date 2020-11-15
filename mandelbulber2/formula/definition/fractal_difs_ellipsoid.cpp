@@ -66,8 +66,8 @@ void cFractalDIFSEllipsoid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 				&& aux.i < fractal->transformCommon.stopIterationsP)
 		{
 			z.x = fabs(z.x);
-			int poly = fractal->transformCommon.int6;
-			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double psi = M_PI / fractal->transformCommon.int6;
+			psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
 			double len = sqrt(z.x * z.x + z.y * z.y);
 			z.x = cos(psi) * len;
 			z.y = sin(psi) * len;

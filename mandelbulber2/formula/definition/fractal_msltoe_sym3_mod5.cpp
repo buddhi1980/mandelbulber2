@@ -29,6 +29,10 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 {
 	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
+
+		z.x *= fractal->transformCommon.scaleB1;
+
+
 	double psi = fractal->transformCommon.int8Y;
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
@@ -80,7 +84,11 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		aux.r = z.Length();
 		aux.DE = aux.DE * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
-		if (fractal->analyticDE.enabledFalse)
+		if (!fractal->analyticDE.enabled)
+		{
+			z *= CVector4(1.0, 2.0, 2.0, 1.0);
+		}
+		else
 		{
 			CVector4 temp = z;
 			double tempL = temp.Length();
@@ -89,10 +97,6 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			//	tempL = 1e-21;
 			double avgScale = z.Length() / tempL;
 			aux.DE *= avgScale;
-		}
-		else
-		{
-			z *= CVector4(1.0, 2.0, 2.0, 1.0);
 		}
 	}
 	if (!fractal->analyticDE.enabledFalse)

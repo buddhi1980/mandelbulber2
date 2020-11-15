@@ -72,7 +72,12 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		aux->r = length(z);
 		aux->DE = aux->DE * 2.0f * aux->r;
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
-		if (fractal->analyticDE.enabledFalse)
+		if (!fractal->analyticDE.enabled)
+		{
+
+			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
+		}
+		else
 		{
 			REAL4 temp = z;
 			REAL tempL = length(temp);
@@ -81,10 +86,6 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			//	tempL = 1e-21f;
 			REAL avgScale = length(z) / tempL;
 			aux->DE *= avgScale;
-		}
-		else
-		{
-			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
 		}
 	}
 
