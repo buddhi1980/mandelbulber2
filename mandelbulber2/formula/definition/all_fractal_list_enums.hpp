@@ -253,7 +253,7 @@ enum enumFractalFormula
 	pseudoKleinianMod4 = 217,
 	msltoeSym3Mod4 = 218,
 	msltoeSym3Mod5 = 219,
-
+	msltoeSym3Mod6 = 220,
 
 
 	// mandelbulber dIFS
