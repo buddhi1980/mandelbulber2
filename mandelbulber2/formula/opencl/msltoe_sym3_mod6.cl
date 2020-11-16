@@ -49,7 +49,7 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		temp.y = 2.0f * z.z * z.y * m * fractal->transformCommon.scale; // scaling y;
 		temp.x = 2.0f * z.x * native_sqrt(z2.z + z2.y);
 		temp.w = z.w;
-		z = temp + fractal->transformCommon.additionConstantNeg100;
+		z = temp - fractal->transformCommon.offset001;
 
 		if (fractal->transformCommon.addCpixelEnabledFalse
 				&& aux->i >= fractal->transformCommon.startIterationsC
@@ -117,7 +117,9 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z.z -= aux->const_c.z * fractal->transformCommon.scaleF1;
 		z.z -= fractal->transformCommon.offset0;
 	}
-	if (fractal->transformCommon.angle0 != 0)
+	if (fractal->transformCommon.angle0 != 0
+		&& aux->i >= fractal->transformCommon.startIterationsS
+		&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		REAL tempY = z.y;
 		REAL beta = fractal->transformCommon.angle0 * M_PI_180_F;

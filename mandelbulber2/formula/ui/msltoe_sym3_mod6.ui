@@ -1060,18 +1060,71 @@ Multiplier:</string>
     </widget>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_11">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_S">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_64">
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_65">
+       <property name="text">
+        <string>stop at Iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_S">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_39" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_116">
        <property name="text">
         <string>Symmetric rotation:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">

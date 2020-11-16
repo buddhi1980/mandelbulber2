@@ -124,7 +124,9 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.z -= aux.const_c.z * fractal->transformCommon.scaleF1;
 		z.z -= fractal->transformCommon.offset0;
 	}
-	if (fractal->transformCommon.angle0 != 0)
+	if (fractal->transformCommon.angle0 != 0
+			&& aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		double tempY = z.y;
 		double beta = fractal->transformCommon.angle0 * M_PI_180;
