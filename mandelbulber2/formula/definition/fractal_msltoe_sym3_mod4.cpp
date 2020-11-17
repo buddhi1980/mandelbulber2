@@ -83,7 +83,7 @@ void cFractalMsltoeSym3Mod4::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			aux.DE *= avgScale;
 		}
 	}
-	if (!fractal->analyticDE.enabledFalse)
+	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }

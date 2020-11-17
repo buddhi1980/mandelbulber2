@@ -97,7 +97,7 @@ void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.z -= aux.const_c.z * fractal->transformCommon.scaleF1;
 		z.z -= fractal->transformCommon.offset0;
 	}
-	if (!fractal->analyticDE.enabledFalse)
+	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }

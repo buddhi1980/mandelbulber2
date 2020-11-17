@@ -128,7 +128,7 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 
-	if (!fractal->analyticDE.enabledFalse)
+	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1
 							+ fractal->analyticDE.offset0;
 	return z;

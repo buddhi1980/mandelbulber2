@@ -133,7 +133,7 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z.y = z.y * cos(beta) + z.x * sin(beta);
 		z.x = tempY * -sin(beta) + z.x * cos(beta);
 	}
-	if (!fractal->analyticDE.enabledFalse)
+	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
