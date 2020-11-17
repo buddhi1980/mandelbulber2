@@ -108,7 +108,7 @@ void cFractalMsltoeSym3Mod6::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		aux.r = z.Length();
 		aux.DE = aux.DE * 2.0 * aux.r;
 		z = CVector4(z.x * z.z, z.y * z.z, z.z * z.z - z.y * z.y - z.x * z.x, 0.0);
-		if (!fractal->analyticDE.enabled)
+		if (!fractal->transformCommon.functionEnabledTFalse)
 		{
 			z *= CVector4(2.0, 2.0, 1.0, 1.0);
 			//z.z -= aux.const_c.z * fractal->transformCommon.scaleF1;

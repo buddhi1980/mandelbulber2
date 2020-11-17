@@ -535,7 +535,7 @@ Multiplier:</string>
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
         <property name="text">
          <string>Enable Analytic DE Vector tweak</string>
         </property>

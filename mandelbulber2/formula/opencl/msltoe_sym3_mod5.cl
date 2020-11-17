@@ -66,6 +66,7 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f; // z is neg.)
 	z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
+	aux->DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
 			&& aux->i >= fractal->transformCommon.startIterationsA
@@ -74,9 +75,8 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		aux->r = length(z);
 		aux->DE = aux->DE * 2.0f * aux->r;
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
-		if (!fractal->analyticDE.enabled)
+		if (!fractal->transformCommon.functionEnabledTFalse)
 		{
-
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
 		}
 		else
@@ -84,17 +84,15 @@ REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			REAL4 temp = z;
 			REAL tempL = length(temp);
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
-			// if (tempL < 1e-21f)
-			//	tempL = 1e-21f;
 			REAL avgScale = length(z) / tempL;
 			aux->DE *= avgScale;
 		}
+		z.z -= aux->const_c.z * fractal->transformCommon.scaleF1;
+		z.z -= fractal->transformCommon.offset0;
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0f;
-	else
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
+		aux->DE = aux->DE * fractal->analyticDE.scale1
 							+ fractal->analyticDE.offset0;
 	return z;
 }

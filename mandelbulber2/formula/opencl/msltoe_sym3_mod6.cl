@@ -39,7 +39,7 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 		REAL len = native_sqrt(z.y * z.y + z.x * z.x);
 		z.y = native_cos(psi) * len;
-		z.z = native_sin(psi) * len;
+		z.x = native_sin(psi) * len;
 
 		REAL4 z2 = z * z;
 		REAL rr = z2.x + z2.y + z2.z;
@@ -103,7 +103,7 @@ REAL4 MsltoeSym3Mod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		aux->r = length(z);
 		aux->DE = aux->DE * 2.0f * aux->r;
 		z = (REAL4){z.x * z.z, z.y * z.z, z.z * z.z - z.y * z.y - z.x * z.x, 0.0};
-		if (!fractal->analyticDE.enabled)
+		if (!fractal->transformCommon.functionEnabledTFalse)
 		{
 			z *= (REAL4){2.0f, 2.0f, 1.0f, 1.0f};
 		}

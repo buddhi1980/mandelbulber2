@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>1751</height>
+    <height>2019</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1050,7 +1050,7 @@ Multiplier:</string>
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
         <property name="text">
          <string>Enable Analytic DE Vector tweak</string>
         </property>
