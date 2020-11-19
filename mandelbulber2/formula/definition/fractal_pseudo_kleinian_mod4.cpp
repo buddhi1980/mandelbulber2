@@ -19,10 +19,10 @@ cFractalPseudoKleinianMod4::cFractalPseudoKleinianMod4() : cAbstractFractal()
 	internalName = "pseudo_kleinian_mod4";
 	internalID = fractal::pseudoKleinianMod4;
 	DEType = analyticDEType;
-	DEFunctionType = pseudoKleinianDEFunction;
+	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionPseudoKleinian;
+	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionDefault;
 }
 
