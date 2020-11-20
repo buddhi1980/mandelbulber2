@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Pseudo Kleinian Mod2, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
+ * Pseudo Kleinian Mod4, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
 
@@ -46,23 +46,20 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL k = 0.0f;
 	// Pseudo kleinian
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
-	if (fractal->transformCommon.functionEnabledAy
-			&& aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC)
-	{
-		REAL4 tempZ = z;
-		if (z.x > cSize.x) tempZ.x = cSize.x;
-		if (z.x < -cSize.x) tempZ.x = -cSize.x;
-		if (z.y > cSize.y) tempZ.y = cSize.y;
-		if (z.y < -cSize.y) tempZ.y = -cSize.y;
-		if (z.z > cSize.z) tempZ.z = cSize.z;
-		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+	z = fabs(z + cSize) - fabs(z - cSize) - z;
+	/*REAL4 tempZ = z;
+	if (z.x > cSize.x) tempZ.x = cSize.x;
+	if (z.x < -cSize.x) tempZ.x = -cSize.x;
+	if (z.y > cSize.y) tempZ.y = cSize.y;
+	if (z.y < -cSize.y) tempZ.y = -cSize.y;
+	if (z.z > cSize.z) tempZ.z = cSize.z;
+	if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-		z = tempZ * 2.0f - z;
-		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-		z *= k;
-		aux->DE *= k + fractal->analyticDE.tweak005;
-	}
+	z = tempZ * 2.0f - z;*/
+	k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
+	z *= k;
+	aux->DE *= k + fractal->analyticDE.tweak005;
+
 
 	z += fractal->transformCommon.additionConstant000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
@@ -84,6 +81,7 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z = fabs(z + fractal->transformCommon.offsetA000)
 				- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
+
 	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
 	{
 		REAL4 tempFAB = c;
@@ -96,6 +94,10 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.y -= sign(z.y) * tempFAB.y;
 		z.z -= sign(z.z) * tempFAB.z;
 	}
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 
 	REAL4 zz = z * z;
 	REAL d1 = native_sqrt(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));

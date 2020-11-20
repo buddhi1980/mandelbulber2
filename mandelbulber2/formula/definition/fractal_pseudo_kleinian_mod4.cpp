@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Pseudo Kleinian Mod2, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
+ * Pseudo Kleinian Mod4, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
@@ -58,23 +58,19 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 	double k = 0.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
-	if (fractal->transformCommon.functionEnabledAy
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{
-		CVector4 tempZ = z;
-		if (z.x > cSize.x) tempZ.x = cSize.x;
-		if (z.x < -cSize.x) tempZ.x = -cSize.x;
-		if (z.y > cSize.y) tempZ.y = cSize.y;
-		if (z.y < -cSize.y) tempZ.y = -cSize.y;
-		if (z.z > cSize.z) tempZ.z = cSize.z;
-		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+	z = fabs(z + cSize) - fabs(z - cSize) - z;
+/*	CVector4 tempZ = z;
+	if (z.x > cSize.x) tempZ.x = cSize.x;
+	if (z.x < -cSize.x) tempZ.x = -cSize.x;
+	if (z.y > cSize.y) tempZ.y = cSize.y;
+	if (z.y < -cSize.y) tempZ.y = -cSize.y;
+	if (z.z > cSize.z) tempZ.z = cSize.z;
+	if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-		z = tempZ * 2.0 - z;
-		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-		z *= k;
-		aux.DE *= k;
-	}
+	z = tempZ * 2.0 - z;*/
+	k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+	z *= k;
+	aux.DE *= k;
 
 	z += fractal->transformCommon.additionConstant000;//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
@@ -109,7 +105,9 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 		z.y -= sign(z.y) * tempFAB.y;
 		z.z -= sign(z.z) * tempFAB.z;
 	}
-
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 	/*CVector4 zz = z * z;
 	double d1 = sqrt(min(min( zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
 	if (fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y);
