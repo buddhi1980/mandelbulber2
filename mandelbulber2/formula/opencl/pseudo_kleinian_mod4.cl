@@ -51,7 +51,6 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z *= k;
 	aux->DE *= k + fractal->analyticDE.tweak005;
 
-
 	z += fractal->transformCommon.additionConstant000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledGFalse
