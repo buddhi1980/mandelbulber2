@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Pseudo Kleinian Mod2, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
+ * Pseudo Kleinian, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
 
@@ -96,6 +96,9 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.y -= sign(z.y) * tempFAB.y;
 		z.z -= sign(z.z) * tempFAB.z;
 	}
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 
 	REAL4 zz = z * z;
 	REAL d1 = native_sqrt(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));

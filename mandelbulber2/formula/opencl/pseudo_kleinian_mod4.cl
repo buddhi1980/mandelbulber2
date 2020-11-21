@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Pseudo Kleinian Mod4, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
+ * Pseudo Kleinian, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
 
@@ -17,7 +17,6 @@
 
 REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 
 	// sphere inversion
@@ -43,19 +42,11 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
 	}
 
-	REAL k = 0.0f;
 	// Pseudo kleinian
-	REAL4 cSize = fractal->transformCommon.additionConstant0777;
-	z = fabs(z + cSize) - fabs(z - cSize) - z;
-	/*REAL4 tempZ = z;
-	if (z.x > cSize.x) tempZ.x = cSize.x;
-	if (z.x < -cSize.x) tempZ.x = -cSize.x;
-	if (z.y > cSize.y) tempZ.y = cSize.y;
-	if (z.y < -cSize.y) tempZ.y = -cSize.y;
-	if (z.z > cSize.z) tempZ.z = cSize.z;
-	if (z.z < -cSize.z) tempZ.z = -cSize.z;
+	REAL k = 0.0f;
+	z = fabs(z + fractal->transformCommon.additionConstant0777)
+		- fabs(z - fractal->transformCommon.additionConstant0777) - z;
 
-	z = tempZ * 2.0f - z;*/
 	k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 	z *= k;
 	aux->DE *= k + fractal->analyticDE.tweak005;
@@ -82,37 +73,10 @@ REAL4 PseudoKleinianMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
-	{
-		REAL4 tempFAB = c;
-		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
-		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
-		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
-
-		tempFAB *= fractal->transformCommon.offsetF000;
-		z.x -= sign(z.x) * tempFAB.x;
-		z.y -= sign(z.y) * tempFAB.y;
-		z.z -= sign(z.z) * tempFAB.z;
-	}
-
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 
-	REAL4 zz = z * z;
-	REAL d1 = native_sqrt(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
-	if (fractal->transformCommon.functionEnabledKFalse) d1 = native_sqrt(zz.x + zz.y);
-	d1 -= fractal->transformCommon.offsetR0;
-
-	REAL d2 = fabs(z.z);
-	aux->DE0 = d2;
-	if (d1 < d2) aux->DE0 = d1;
-
-	aux->DE0 = 0.5f * (aux->DE0 - fractal->transformCommon.offset0) / aux->DE;
-
-	if (fractal->transformCommon.functionEnabledDFalse) aux->DE0 = min(aux->dist, aux->DE0);
-
-	aux->dist = aux->DE0;
 	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
