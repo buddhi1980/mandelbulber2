@@ -51,6 +51,7 @@ public:
 
 	CVector3 position;
 	CVector3 size;
+	CVector3 repeat;
 	int materialId;
 	fractal::enumObjectType objectType;
 	CRotationMatrix rotationMatrix;

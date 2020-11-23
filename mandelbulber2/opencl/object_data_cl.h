@@ -47,6 +47,7 @@ typedef struct
 	cl_int objectId;
 	cl_float3 position;
 	cl_float3 size;
+	cl_float3 repeat;
 	cl_int materialId;
 	enumObjectTypeCl objectType;
 	matrix33 rotationMatrix;

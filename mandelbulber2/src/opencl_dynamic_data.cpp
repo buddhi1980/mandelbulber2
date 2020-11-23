@@ -585,6 +585,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		primitiveCl.object.position = toClFloat3(primitive->position);
 		primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
 		primitiveCl.object.size = toClFloat3(primitive->size);
+		primitiveCl.object.repeat = toClFloat3(primitive->repeat);
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 
@@ -748,8 +749,8 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		catch (const QString &ex)
 		{
 			qCritical() << QString(
-											 "cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
-											 "object - error: ")
+				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
+				"object - error: ")
 									<< ex;
 		}
 
@@ -816,6 +817,7 @@ void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData
 		objectCl.objectId = i;
 		objectCl.position = toClFloat3(object->position);
 		objectCl.size = toClFloat3(object->size);
+		objectCl.repeat = toClFloat3(object->repeat);
 		objectCl.materialId = object->materialId;
 		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
 		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
