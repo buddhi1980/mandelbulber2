@@ -86,8 +86,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		sDistanceIn inTemp = in;
 		CVector3 point = inTemp.point;
 
-		point = (point - params.formulaPosition[0]).mod(params.formulaRepeat[0]);
+		point = point - params.formulaPosition[0];
 		point = params.mRotFormulaRotation[0].RotateVector(point);
+		point = point.mod(params.formulaRepeat[0]);
 		point *= params.formulaScale[0];
 		inTemp.point = point;
 
@@ -107,8 +108,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				sDistanceOut outTemp = *out;
 
 				point = in.point - params.formulaPosition[i + 1];
-				point = point.mod(params.formulaRepeat[i + 1]);
 				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
+				point = point.mod(params.formulaRepeat[i + 1]);
 				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 

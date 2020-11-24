@@ -105,9 +105,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	if (mode == calcModeColouring) N *= 4;
 
 	// repeat, move and rotate
-	float3 pointTransformed =
-		modRepeat(point - consts->params.common.fractalPosition, consts->params.common.repeat);
+	float3 pointTransformed = point - consts->params.common.fractalPosition;
 	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
+	pointTransformed = modRepeat(pointTransformed, consts->params.common.repeat);
 
 	float4 point4D = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, 0.0f};
 

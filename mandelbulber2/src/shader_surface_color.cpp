@@ -56,9 +56,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 					formulaIndex = -1;
 				else
 				{
-					tempPoint = (tempPoint - params->formulaPosition[formulaIndex])
-												.mod(params->formulaRepeat[formulaIndex]);
+					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
 					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
+					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex]);
 					tempPoint *= params->formulaScale[formulaIndex];
 				}
 

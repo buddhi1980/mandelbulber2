@@ -264,7 +264,7 @@ cPrimitives::cPrimitives(
 		primitive->enable = par->Get<bool>(item.name + "_enabled");
 		primitive->booleanOperator =
 			enumPrimitiveBooleanOperator(par->Get<int>(item.name + "_boolean_operator"));
-		primitive->repeat = CVector3();
+		primitive->repeat = par->Get<CVector3>(item.name + "_repeat");
 
 		if (objectData)
 		{
