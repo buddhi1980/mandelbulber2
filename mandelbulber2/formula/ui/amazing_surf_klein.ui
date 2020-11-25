@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>2842</height>
+    <height>2880</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1955,15 +1955,15 @@ offset:</string>
    <sender>checkBox_transf_function_enabledJ_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledT_false</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>98</x>
-     <y>394</y>
+     <x>124</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
-     <x>103</x>
-     <y>425</y>
+     <x>133</x>
+     <y>411</y>
     </hint>
    </hints>
   </connection>

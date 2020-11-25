@@ -71,7 +71,7 @@ double rr = 0.0;
 		}
 		CVector4 zCol = z;
 
-		z += fractal->transformCommon.offsetA000;
+		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		double r2 = z.Dot(z);
 		double rrCol = r2;
 		double MinRR = fractal->transformCommon.minR0;
@@ -96,7 +96,7 @@ double rr = 0.0;
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 
-		z += fractal->transformCommon.additionConstantA000;
+		z += fractal->transformCommon.additionConstantA000; // mmmmmmmmmmmmmmmmm
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -115,44 +115,24 @@ double rr = 0.0;
 					fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
 			aux.color += colorAdd;
 		}
-
 	}
 	else
 	{
 		if (fractal->transformCommon.functionEnabled)
 		{
-
 			z.x = fabs(z.x + fractal->transformCommon.offset222.x)
 					- fabs(z.x - fractal->transformCommon.offset222.x) - z.x;
 
 			z.y = fabs(z.y + fractal->transformCommon.offset222.y)
 					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
 
-			double rr = z.Dot(z);
-			double rrCol = rr;
+			/*double rr = z.Dot(z);
+			//double rrCol = rr;
 			double MinRR = fractal->transformCommon.minR2p25;
-			double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
+			double dividend = rr < MinRR ? MinRR : min(rr, 1.0);*/
 
 			z *= fractal->transformCommon.scale2;
 			aux.DE *= fractal->transformCommon.scale2;
 		}
 	}
-
-	/*if (fractal->foldColor.auxColorEnabledFalse)
-	{
-		double colorAdd = 0.0;
-		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
-									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
-									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
-									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-		if (rrCol > fractal->transformCommon.minR2p25)
-			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
-		aux.color += colorAdd;
-	}*/
 }

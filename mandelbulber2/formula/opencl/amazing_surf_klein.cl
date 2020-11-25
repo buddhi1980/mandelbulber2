@@ -16,8 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-
+REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
 
@@ -63,7 +62,7 @@ REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 		REAL4 zCol = z;
 
-		z += fractal->transformCommon.offsetA000;
+		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		REAL rr = dot(z, z);
 		REAL rrCol = rr;
 		REAL MinRR = fractal->transformCommon.minR0;
@@ -81,6 +80,15 @@ REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
 			aux->actualScaleA -= vary;
 		}
+
+		if (fractal->transformCommon.rotation2EnabledFalse)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
+
+		z += fractal->transformCommon.additionConstantA000; // mmmmmmmmmmmmmmmmm
+
+
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -116,38 +124,7 @@ REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		}
 	}
 
-	/*if (fractal->foldColor.auxColorEnabledFalse)
 
-	{
-
-		if (zCol.x != oldZ.x)
-
-			colorAdd += fractal->mandelbox.color.factor.x
-
-									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-
-		if (zCol.y != oldZ.y)
-
-			colorAdd += fractal->mandelbox.color.factor.y
-
-									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-
-		if (zCol.z != oldZ.z)
-
-			colorAdd += fractal->mandelbox.color.factor.z
-
-									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-
-
-		if (rrCol > fractal->transformCommon.minR2p25)
-
-			colorAdd +=
-
-				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0f;
-
-		aux->color += colorAdd;
-
-	}*/
 
 	return z;
 
