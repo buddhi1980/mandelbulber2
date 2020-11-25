@@ -16,10 +16,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
-
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -43,15 +41,15 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 
-		if (!fractal->transformCommon.functionEnabledJFalse)
+		if (fractal->transformCommon.functionEnabledJFalse)
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
 		else
 		{
-			REAL tt = z.x;
-			z.x = z.z;
+			REAL tt = z.y;
+			z.y = z.z;
 			z.z = tt;
 			if (fractal->transformCommon.functionEnabledTFalse)
 			{
@@ -64,7 +62,7 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		REAL rr = dot(z, z);
-		REAL rrCol = rr;
+		//REAL rrCol = rr;
 		REAL MinRR = fractal->transformCommon.minR0;
 		REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
 
@@ -72,7 +70,7 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		REAL useScale = 1.0f;
 		useScale = (aux->actualScaleA + fractal->transformCommon.scale1) / dividend;
 		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.tweak005;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
@@ -92,19 +90,17 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
+			REAL colorAdd = 0.0f;
 			if (zCol.x != oldZ.x)
-				colorAdd += fractal->mandelbox.color.factor.x
+				colorAdd += fractal->foldColor.difs0000.x
 										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 			if (zCol.y != oldZ.y)
-				colorAdd += fractal->mandelbox.color.factor.y
+				colorAdd += fractal->foldColor.difs0000.y
 										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 			if (zCol.z != oldZ.z)
-				colorAdd += fractal->mandelbox.color.factor.z
+				colorAdd += fractal->foldColor.difs0000.z
 										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 
-			if (rrCol > fractal->transformCommon.minR2p25)
-				colorAdd +=
-					fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0f;
 			aux->color += colorAdd;
 		}
 	}
@@ -114,18 +110,21 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		if (fractal->transformCommon.functionEnabled)
 		{
 			z.x = fabs(z.x + fractal->transformCommon.offset222.x)
-
 						- fabs(z.x - fractal->transformCommon.offset222.x) - z.x;
 			z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-
 						- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
+
+	/*REAL rr = z.Dot(z);
+	//REAL rrCol = rr;
+	REAL MinRR = fractal->transformCommon.minR2p25;
+	REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0);*/
+
+
+
 			z *= fractal->transformCommon.scale2;
 			aux->DE *= fractal->transformCommon.scale2;
 		}
 	}
 
-
-
 	return z;
-
 }

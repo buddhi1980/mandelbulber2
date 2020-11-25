@@ -43,8 +43,6 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
-double rr = 0.0;
-
 	if (aux.i < fractal->transformCommon.stopIterations15)
 	{
 		CVector4 oldZ = z;
@@ -59,8 +57,8 @@ double rr = 0.0;
 		}
 		else
 		{
-			double tt = z.x;
-			z.x = z.z;
+			double tt = z.y;
+			z.y = z.z;
 			z.z = tt;
 			if (fractal->transformCommon.functionEnabledTFalse)
 			{
@@ -72,10 +70,10 @@ double rr = 0.0;
 		CVector4 zCol = z;
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
-		double r2 = z.Dot(z);
-		double rrCol = r2;
+		double rr = z.Dot(z);
+		//double rrCol = rr;
 		double MinRR = fractal->transformCommon.minR0;
-		double dividend = r2 < MinRR ? MinRR : min(r2, 1.0);
+		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
 
 		// scale
 		double useScale = 1.0;
@@ -102,17 +100,14 @@ double rr = 0.0;
 		{
 			double colorAdd = 0.0;
 			if (zCol.x != oldZ.x)
-				colorAdd += fractal->mandelbox.color.factor.x
+				colorAdd += fractal->foldColor.difs0000.x
 										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 			if (zCol.y != oldZ.y)
-				colorAdd += fractal->mandelbox.color.factor.y
+				colorAdd += fractal->foldColor.difs0000.y
 										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 			if (zCol.z != oldZ.z)
-				colorAdd += fractal->mandelbox.color.factor.z
+				colorAdd += fractal->foldColor.difs0000.z
 										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-			if (rrCol > fractal->transformCommon.minR2p25)
-				colorAdd +=
-					fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
 			aux.color += colorAdd;
 		}
 	}
