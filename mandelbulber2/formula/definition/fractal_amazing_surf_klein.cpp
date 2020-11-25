@@ -6,9 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by
+ * amazing surf based on Mandelbulber3D. Formula proposed by Kali, with features added by
  * DarkBeam
- * This formula has a c.x c.y SWAP
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
@@ -30,8 +29,6 @@ cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
 
 void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
-
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -47,9 +44,8 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 double rr = 0.0;
-	int count =  fractal->transformCommon.stopIterations15;
-	int k;
-	for (k = 0; k <= count; k++)
+
+	if (aux.i < fractal->transformCommon.stopIterations15)
 	{
 		CVector4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -57,14 +53,28 @@ double rr = 0.0;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		if (fractal->transformCommon.functionEnabledJFalse)
+		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+		else
+		{
+			double tt = z.x;
+			z.x = z.z;
+			z.z = tt;
+			if (fractal->transformCommon.functionEnabledTFalse)
+			{
+				double tt = z.x;
+				z.x = z.y;
+				z.y = tt;
+			}
+		}
 		CVector4 zCol = z;
 
 		z += fractal->transformCommon.offsetA000;
 		double r2 = z.Dot(z);
 		double rrCol = r2;
-		double MinRR = 0.0;
+		double MinRR = fractal->transformCommon.minR0;
 		double dividend = r2 < MinRR ? MinRR : min(r2, 1.0);
 
 		// scale
@@ -88,29 +98,49 @@ double rr = 0.0;
 
 		z += fractal->transformCommon.additionConstantA000;
 
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			double colorAdd = 0.0;
+			if (zCol.x != oldZ.x)
+				colorAdd += fractal->mandelbox.color.factor.x
+										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+			if (zCol.y != oldZ.y)
+				colorAdd += fractal->mandelbox.color.factor.y
+										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+			if (zCol.z != oldZ.z)
+				colorAdd += fractal->mandelbox.color.factor.z
+										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+			if (rrCol > fractal->transformCommon.minR2p25)
+				colorAdd +=
+					fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
+			aux.color += colorAdd;
+		}
 
 	}
-
-	if (fractal->transformCommon.functionEnabled)
+	else
 	{
+		if (fractal->transformCommon.functionEnabled)
+		{
 
-		z.x = fabs(z.x + fractal->transformCommon.offset222.x)
-				- fabs(z.x - fractal->transformCommon.offset222.x) - z.x;
+			z.x = fabs(z.x + fractal->transformCommon.offset222.x)
+					- fabs(z.x - fractal->transformCommon.offset222.x) - z.x;
 
-		z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-				- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
+			z.y = fabs(z.y + fractal->transformCommon.offset222.y)
+					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
 
-		double rr = z.Dot(z);
-		double rrCol = rr;
-		double MinRR = 0.0;
-		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
+			double rr = z.Dot(z);
+			double rrCol = rr;
+			double MinRR = fractal->transformCommon.minR2p25;
+			double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
 
-		z *= fractal->transformCommon.scale2;
-		aux.DE *= fractal->transformCommon.scale2;
+			z *= fractal->transformCommon.scale2;
+			aux.DE *= fractal->transformCommon.scale2;
+		}
 	}
 
 	/*if (fractal->foldColor.auxColorEnabledFalse)
 	{
+		double colorAdd = 0.0;
 		if (zCol.x != oldZ.x)
 			colorAdd += fractal->mandelbox.color.factor.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
