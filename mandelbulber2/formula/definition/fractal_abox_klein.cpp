@@ -6,19 +6,18 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * amazing surf based on Mandelbulber3D. Formula proposed by Kali, with features added by
- * DarkBeam
+ * Mandelbulber modification of fractal known as AmazingBox or Mandelbox, invented by Tom Lowe in 2010
  * @reference
- * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
+cFractalAboxKlein::cFractalAboxKlein() : cAbstractFractal()
 {
-	nameInComboBox = "Amazing Surf - Klein";
-	internalName = "amazing_surf_klein";
-	internalID = fractal::amazingSurfKlein;
+	nameInComboBox = "Abox- Klein";
+	internalName = "abox_klein";
+	internalID = fractal::aboxKlein;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -27,7 +26,7 @@ cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -46,32 +45,20 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (aux.i < fractal->transformCommon.stopIterations15)
 	{
 		CVector4 oldZ = z;
-		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		if (fractal->transformCommon.functionEnabledJFalse)
+		z = fabs(z + fractal->transformCommon.additionConstant111)
+					- fabs(z - fractal->transformCommon.additionConstant111) - z;
+
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+			double tt = z.x;
+			z.x = z.y;
+			z.y = tt;
 		}
-		else
-		{
-			double tt = z.y;
-			z.y = z.z;
-			z.z = tt;
-			if (fractal->transformCommon.functionEnabledSwFalse)
-			{
-				double tt = z.x;
-				z.x = z.y;
-				z.y = tt;
-			}
-		}
+
 		CVector4 zCol = z;
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		double rr = z.Dot(z);
-		//double rrCol = rr;
 		double MinRR = fractal->transformCommon.minR0;
 		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
 
@@ -108,6 +95,8 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (zCol.z != oldZ.z)
 				colorAdd += fractal->foldColor.difs0000.z
 										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+
 			aux.color += colorAdd;
 		}
 	}
@@ -117,8 +106,12 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			z = fabs(z + fractal->transformCommon.offset110)
 					- fabs(z - fractal->transformCommon.offset110) - z;
+
 			/*z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;*/
+					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
+
+			z.z = fabs(z.z + fractal->transformCommon.offset222.z)
+					- fabs(z.z - fractal->transformCommon.offset222.z) - z.z;*/
 
 			/*double rr = z.Dot(z);
 			//double rrCol = rr;

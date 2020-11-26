@@ -255,7 +255,7 @@ enum enumFractalFormula
 	msltoeSym3Mod5 = 219,
 	msltoeSym3Mod6 = 220,
 	amazingSurfKlein = 221,
-
+	aboxKlein = 222,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

@@ -1044,6 +1044,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_offset_002", CVector3(0.0, 0.0, 2.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_010", CVector3(0.0, 1.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_100", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offset_110", CVector3(1.0, 1.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_1105", CVector3(1.0, 1.0, 0.5), morphAkima, paramStandard);
 	par->addParam("transf_offset_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);

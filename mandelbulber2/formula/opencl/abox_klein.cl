@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 AboxKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -32,37 +32,23 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
-
 	if (aux->i < fractal->transformCommon.stopIterations15)
 	{
 		REAL4 oldZ = z;
-		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		z = fabs(z + fractal->transformCommon.additionConstant111)
+					- fabs(z - fractal->transformCommon.additionConstant111) - z;
 
-		if (fractal->transformCommon.functionEnabledJFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+			REAL tt = z.x;
+			z.x = z.y;
+			z.y = tt;
 		}
-		else
-		{
-			REAL tt = z.y;
-			z.y = z.z;
-			z.z = tt;
-			if (fractal->transformCommon.functionEnabledSwFalse)
-			{
-				REAL tt = z.x;
-				z.x = z.y;
-				z.y = tt;
-			}
-		}
-		REAL4 zCol = z;
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
+
+		REAL4 zCol = z;
 		REAL rr = dot(z, z);
-		//REAL rrCol = rr;
 		REAL MinRR = fractal->transformCommon.minR0;
 		REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
 
