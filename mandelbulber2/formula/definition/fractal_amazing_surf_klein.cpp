@@ -70,17 +70,16 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 		CVector4 zCol = z;
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
+
 		double rr = z.Dot(z);
-		//double rrCol = rr;
 		double MinRR = fractal->transformCommon.minR0;
 		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
 
 		// scale
 		double useScale = 1.0;
-
 		useScale = (aux.actualScaleA + fractal->transformCommon.scale1) / dividend;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.tweak005;
+		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset1;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
@@ -108,6 +107,7 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (zCol.z != oldZ.z)
 				colorAdd += fractal->foldColor.difs0000.z
 										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+			colorAdd += fractal->foldColor.difs0000.w * useScale;
 			aux.color += colorAdd;
 		}
 	}

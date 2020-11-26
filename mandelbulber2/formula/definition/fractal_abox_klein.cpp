@@ -54,8 +54,8 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z.x = z.y;
 			z.y = tt;
 		}
-
 		CVector4 zCol = z;
+
 
 		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		double rr = z.Dot(z);
@@ -67,7 +67,7 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 		useScale = (aux.actualScaleA + fractal->transformCommon.scale1) / dividend;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.tweak005;
+		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset1;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
@@ -95,7 +95,7 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			if (zCol.z != oldZ.z)
 				colorAdd += fractal->foldColor.difs0000.z
 										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-
+			colorAdd += fractal->foldColor.difs0000.w * useScale;
 
 			aux.color += colorAdd;
 		}
