@@ -51,16 +51,15 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			REAL tt = z.y;
 			z.y = z.z;
 			z.z = tt;
-			if (fractal->transformCommon.functionEnabledSwFalse)
-			{
-				REAL tt = z.x;
-				z.x = z.y;
-				z.y = tt;
-			}
+		}
+
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			REAL tt = z.x;
+			z.x = z.y;
+			z.y = tt;
 		}
 		REAL4 zCol = z;
-
-		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 
 		REAL rr = dot(z, z);
 		REAL MinRR = fractal->transformCommon.minR0;
@@ -84,9 +83,7 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
 
-		z += fractal->transformCommon.additionConstantA000; // mmmmmmmmmmmmmmmmm
-
-
+		z += fractal->transformCommon.additionConstantA000;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -110,18 +107,12 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			z = fabs(z + fractal->transformCommon.offset110)
 						- fabs(z - fractal->transformCommon.offset110) - z;
-			/*z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-						- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;*/
-
-	/*REAL rr = z.Dot(z);
-	//REAL rrCol = rr;
-	REAL MinRR = fractal->transformCommon.minR2p25;
-	REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0);*/
-
-
 
 			z *= fractal->transformCommon.scale2;
 			aux->DE *= fractal->transformCommon.scale2;
+
+			z += fractal->transformCommon.offsetA000;
+
 		}
 	}
 

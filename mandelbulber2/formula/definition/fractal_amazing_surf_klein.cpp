@@ -60,16 +60,16 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 			double tt = z.y;
 			z.y = z.z;
 			z.z = tt;
-			if (fractal->transformCommon.functionEnabledSwFalse)
-			{
-				double tt = z.x;
-				z.x = z.y;
-				z.y = tt;
-			}
 		}
-		CVector4 zCol = z;
 
-		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			double tt = z.x;
+			z.x = z.y;
+			z.y = tt;
+		}
+
+		CVector4 zCol = z;
 
 		double rr = z.Dot(z);
 		double MinRR = fractal->transformCommon.minR0;
@@ -93,7 +93,7 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 
-		z += fractal->transformCommon.additionConstantA000; // mmmmmmmmmmmmmmmmm
+		z += fractal->transformCommon.additionConstantA000;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -117,16 +117,11 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			z = fabs(z + fractal->transformCommon.offset110)
 					- fabs(z - fractal->transformCommon.offset110) - z;
-			/*z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;*/
-
-			/*double rr = z.Dot(z);
-			//double rrCol = rr;
-			double MinRR = fractal->transformCommon.minR2p25;
-			double dividend = rr < MinRR ? MinRR : min(rr, 1.0);*/
 
 			z *= fractal->transformCommon.scale2;
 			aux.DE *= fractal->transformCommon.scale2;
+
+			z += fractal->transformCommon.offsetA000;
 		}
 	}
 }

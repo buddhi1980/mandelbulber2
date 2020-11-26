@@ -56,8 +56,6 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		}
 		CVector4 zCol = z;
 
-
-		z += fractal->transformCommon.offsetA000; // mmmmmmmmmmmmmmmmm
 		double rr = z.Dot(z);
 		double MinRR = fractal->transformCommon.minR0;
 		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
@@ -81,7 +79,7 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 
-		z += fractal->transformCommon.additionConstantA000; // mmmmmmmmmmmmmmmmm
+		z += fractal->transformCommon.additionConstantA000;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
@@ -107,19 +105,10 @@ void cFractalAboxKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z = fabs(z + fractal->transformCommon.offset110)
 					- fabs(z - fractal->transformCommon.offset110) - z;
 
-			/*z.y = fabs(z.y + fractal->transformCommon.offset222.y)
-					- fabs(z.y - fractal->transformCommon.offset222.y) - z.y;
-
-			z.z = fabs(z.z + fractal->transformCommon.offset222.z)
-					- fabs(z.z - fractal->transformCommon.offset222.z) - z.z;*/
-
-			/*double rr = z.Dot(z);
-			//double rrCol = rr;
-			double MinRR = fractal->transformCommon.minR2p25;
-			double dividend = rr < MinRR ? MinRR : min(rr, 1.0);*/
-
 			z *= fractal->transformCommon.scale2;
 			aux.DE *= fractal->transformCommon.scale2;
+
+			z += fractal->transformCommon.offsetA000;
 		}
 	}
 }
