@@ -141,7 +141,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// ----- Linear -------
 
 	// Abox formulas
-	fractalList->append(new cFractalAboxKlein());
 	fractalList->append(new cFractalAboxMod1());
 	fractalList->append(new cFractalAboxMod2());
 	fractalList->append(new cFractalAboxMod11());
@@ -152,6 +151,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxModKaliEiffie());
 	fractalList->append(new cFractalAboxModKaliV2());
 	fractalList->append(new cFractalAboxModKaliV3());
+	fractalList->append(new cFractalAboxKlein());
 	fractalList->append(new cFractalAboxSphere4d());
 	fractalList->append(new cFractalAboxSurfBox());
 	fractalList->append(new cFractalAboxTetra());

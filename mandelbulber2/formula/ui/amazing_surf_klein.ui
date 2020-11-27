@@ -671,7 +671,7 @@ offset:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_9">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale above 1.0 renders faster, &lt;/p&gt;&lt;p&gt;reduce DE tweak until quality is affected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string/>
      </property>
      <property name="title">
       <string>Scaling</string>
@@ -712,6 +712,9 @@ offset:</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale above 1.0 renders faster&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -746,6 +749,9 @@ offset:</string>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reduce DE tweak until quality is affected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="prefix">
            <string/>
@@ -1178,7 +1184,7 @@ offset:</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_16" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_16" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1335,48 +1341,6 @@ offset:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_167">
-          <property name="text">
-           <string>Minimum R2 OFF</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_minR2_p25">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1951,22 +1915,6 @@ offset:</string>
     <hint type="destinationlabel">
      <x>596</x>
      <y>408</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledJ_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledSw_false</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>124</x>
-     <y>392</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>133</x>
-     <y>411</y>
     </hint>
    </hints>
   </connection>

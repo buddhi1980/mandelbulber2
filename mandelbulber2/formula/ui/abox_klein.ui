@@ -701,7 +701,7 @@ offset:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_9">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale above 1.0 renders faster, &lt;/p&gt;&lt;p&gt;reduce DE tweak until quality is affected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string/>
      </property>
      <property name="title">
       <string>Scaling</string>
@@ -742,6 +742,9 @@ offset:</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scale above 1.0 renders faster&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -776,6 +779,9 @@ offset:</string>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reduce DE tweak until quality is affected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="prefix">
            <string/>

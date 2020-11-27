@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -74,7 +74,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_x">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -113,7 +113,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -536,16 +536,6 @@
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QFrame" name="frame">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
              </property>
             </widget>
            </item>
