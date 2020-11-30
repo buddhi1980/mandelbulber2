@@ -18,6 +18,20 @@
 
 REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		double psi = M_PI_F / fractal->transformCommon.int8Y;
+		REAL psi =
+			fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -32,8 +46,7 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
-
-	if (aux->i < fractal->transformCommon.stopIterations15)
+	if (aux->i < fractal->transformCommon.int8X)
 	{
 		REAL4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)

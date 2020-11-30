@@ -29,6 +29,19 @@ cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
 
 void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		double psi = M_PI / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -43,7 +56,7 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
-	if (aux.i < fractal->transformCommon.stopIterations15)
+	if (aux.i < fractal->transformCommon.int8X)
 	{
 		CVector4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
