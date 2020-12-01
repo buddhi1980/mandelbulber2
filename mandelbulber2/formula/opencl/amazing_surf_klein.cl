@@ -26,7 +26,7 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.x = fabs(z.x);
 		REAL psi = M_PI_F / fractal->transformCommon.int8Y;
 		psi =
-			fabs(fmod(atan(z.y / z.x) + M_PI_F / psi, M_PI_F / (0.5f * psi)) - M_PI_F / psi);
+			fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
 		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
@@ -54,7 +54,9 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 
-		if (fractal->transformCommon.functionEnabledJFalse)
+		if (fractal->transformCommon.functionEnabledJFalse
+			&& aux->i >= fractal->transformCommon.startIterationsJ
+			&& aux.->i < fractal->transformCommon.stopIterationsJ)
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;

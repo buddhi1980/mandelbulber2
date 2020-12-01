@@ -63,7 +63,9 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		if (fractal->transformCommon.functionEnabledJFalse)
+		if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
