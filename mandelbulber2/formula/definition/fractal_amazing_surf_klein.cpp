@@ -77,7 +77,9 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 			z.z = tt;
 		}
 
-		if (fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse
+				&& aux.i >= fractal->transformCommon.startIterationsH
+				&& aux.i < fractal->transformCommon.stopIterationsH)
 		{
 			double tt = z.x;
 			z.x = z.y;

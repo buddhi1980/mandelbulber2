@@ -56,7 +56,7 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		if (fractal->transformCommon.functionEnabledJFalse
 			&& aux->i >= fractal->transformCommon.startIterationsJ
-			&& aux.->i < fractal->transformCommon.stopIterationsJ)
+			&& aux->i < fractal->transformCommon.stopIterationsJ)
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
@@ -68,7 +68,9 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z.z = tt;
 		}
 
-		if (fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse
+			&& aux->i >= fractal->transformCommon.startIterationsH
+			&& aux->i < fractal->transformCommon.stopIterationsH)
 		{
 			REAL tt = z.x;
 			z.x = z.y;
