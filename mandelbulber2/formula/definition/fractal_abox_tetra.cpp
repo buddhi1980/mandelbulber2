@@ -36,15 +36,13 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	double m = 1.0;
 
 	z += fractal->transformCommon.additionConstantA000;
-
 	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-
 	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-
 	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
-
-	if (fractal->transformCommon.functionEnabledAx)
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
 		double temp = 0.0;
 		if (z.x + z.y < 0.0)
@@ -66,7 +64,9 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z.y = temp;
 		}
 	}
-	if (fractal->transformCommon.functionEnabledAy)
+	if (fractal->transformCommon.functionEnabledAy
+			&& aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
 		if (z.x - z.y < 0.0) swap(z.y, z.x);
 		if (z.x - z.z < 0.0) swap(z.z, z.x);

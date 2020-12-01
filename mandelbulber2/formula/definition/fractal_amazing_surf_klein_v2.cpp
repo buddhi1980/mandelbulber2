@@ -41,6 +41,7 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
+		z += fractal->transformCommon.offsetF000;
 	}
 
 	// sphere inversion

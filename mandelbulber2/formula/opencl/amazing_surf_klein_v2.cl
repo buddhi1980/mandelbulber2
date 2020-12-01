@@ -31,6 +31,7 @@ REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
+		z += fractal->transformCommon.offsetF000;
 	}
 
 	// sphere inversion

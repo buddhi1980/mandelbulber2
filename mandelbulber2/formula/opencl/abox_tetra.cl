@@ -23,6 +23,51 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 	REAL m = 1.0f;
+
+		z += fractal->transformCommon.additionConstantA000;
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+	if (fractal->transformCommon.functionEnabledAx
+		&& aux->i >= fractal->transformCommon.startIterationsE
+		&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		REAL temp = 0.0;
+		if (z.x + z.y < 0.0)
+		{
+			temp = -z.y;
+			z.y = -z.x;
+			z.x = temp;
+		}
+		if (z.x + z.z < 0.0)
+		{
+			temp = -z.z;
+			z.z = -z.x;
+			z.x = temp;
+		}
+		if (z.y + z.z < 0.0)
+		{
+			temp = -z.z;
+			z.z = -z.y;
+			z.y = temp;
+		}
+	}
+	if (fractal->transformCommon.functionEnabledAy
+		&& aux->i >= fractal->transformCommon.startIterationsF
+		&& aux->i < fractal->transformCommon.stopIterationsF)
+	{
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
+	}
+
+
+
+
+
+
+
 	// tglad fold
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
