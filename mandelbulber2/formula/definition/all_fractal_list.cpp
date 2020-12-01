@@ -166,6 +166,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAmazingSurfMod3());
 	fractalList->append(new cFractalAmazingSurfMod4());
 	fractalList->append(new cFractalAmazingSurfKlein());
+	fractalList->append(new cFractalAmazingSurfKleinV2());
 	fractalList->append(new cFractalAmazingSurfMulti());
 	fractalList->append(new cFractalBenesiMagTransforms());
 

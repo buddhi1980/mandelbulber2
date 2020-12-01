@@ -16,8 +16,23 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+		psi =
+			fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -39,22 +54,28 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			REAL tt = z.x;
-			z.x = z.y;
-			z.y = tt;
-		}
-		if (fractal->transformCommon.functionEnabledJFalse)
+
+		if (fractal->transformCommon.functionEnabledJFalse
+			&& aux->i >= fractal->transformCommon.startIterationsJ
+			&& aux->i < fractal->transformCommon.stopIterationsJ)
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
-		if (fractal->transformCommon.functionEnabledCz)
+		else
 		{
 			REAL tt = z.y;
 			z.y = z.z;
 			z.z = tt;
+		}
+
+		if (fractal->transformCommon.functionEnabledSwFalse
+			&& aux->i >= fractal->transformCommon.startIterationsH
+			&& aux->i < fractal->transformCommon.stopIterationsH)
+		{
+			REAL tt = z.x;
+			z.x = z.y;
+			z.y = tt;
 		}
 		REAL4 zCol = z;
 
@@ -109,6 +130,7 @@ REAL4 AmazingSurfKleinIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			aux->DE *= fractal->transformCommon.scale2;
 
 			z += fractal->transformCommon.offsetA000;
+
 		}
 	}
 

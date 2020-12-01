@@ -14,11 +14,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
+cFractalAmazingSurfKleinV2::cFractalAmazingSurfKleinV2() : cAbstractFractal()
 {
-	nameInComboBox = "Amazing Surf - Klein";
-	internalName = "amazing_surf_klein";
-	internalID = fractal::amazingSurfKlein;
+	nameInComboBox = "Amazing Surf - Klein V2";
+	internalName = "amazing_surf_klein_v2";
+	internalID = fractal::amazingSurfKleinV2;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -27,8 +27,22 @@ cFractalAmazingSurfKlein::cFractalAmazingSurfKlein() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -50,25 +64,29 @@ void cFractalAmazingSurfKlein::FormulaCode(CVector4 &z, const sFractal *fractal,
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+		else
+		{
+			double tt = z.y;
+			z.y = z.z;
+			z.z = tt;
+		}
 
-		if (fractal->transformCommon.functionEnabledSwFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse
+				&& aux.i >= fractal->transformCommon.startIterationsH
+				&& aux.i < fractal->transformCommon.stopIterationsH)
 		{
 			double tt = z.x;
 			z.x = z.y;
 			z.y = tt;
 		}
 
-		if (fractal->transformCommon.functionEnabledJFalse)
-		{
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		}
-		if (fractal->transformCommon.functionEnabledCz)
-		{
-			double tt = z.y;
-			z.y = z.z;
-			z.z = tt;
-		}
 		CVector4 zCol = z;
 
 		double rr = z.Dot(z);
