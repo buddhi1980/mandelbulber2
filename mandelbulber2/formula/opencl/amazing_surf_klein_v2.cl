@@ -89,7 +89,9 @@ REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		useScale = (aux->actualScaleA + fractal->transformCommon.scale1) / dividend;
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset1;
-		if (fractal->transformCommon.functionEnabledKFalse)
+		if (fractal->transformCommon.functionEnabledKFalse
+			&& aux->i >= fractal->transformCommon.startIterationsK
+			&& aux->i < fractal->transformCommon.stopIterationsK)
 		{
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
@@ -101,8 +103,9 @@ REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		{
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
-
-		z += fractal->transformCommon.additionConstantA000;
+		if (aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
+				z += fractal->transformCommon.additionConstantA000;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{

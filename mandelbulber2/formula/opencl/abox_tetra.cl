@@ -57,9 +57,24 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		&& aux->i >= fractal->transformCommon.startIterationsF
 		&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		if (z.x - z.y < 0.0f)
+		{
+			REAL temp = z.y;
+			z.y = z.x;
+			z.x = temp;
+		}
+		if (z.x - z.z < 0.0f)
+		{
+			REAL temp = z.z;
+			z.z = z.x;
+			z.x = temp;
+		}
+		if (z.y - z.z < 0.0f)
+		{
+			REAL temp = z.z;
+			z.z = z.y;
+			z.y = temp;
+		}
 	}
 
 

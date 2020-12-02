@@ -99,7 +99,9 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		useScale = (aux.actualScaleA + fractal->transformCommon.scale1) / dividend;
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset1;
-		if (fractal->transformCommon.functionEnabledKFalse)
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
 		{
 			// update actualScaleA for next iteration
 			double vary = fractal->transformCommon.scaleVary0
@@ -111,8 +113,9 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		{
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
-
-		z += fractal->transformCommon.additionConstantA000;
+		if (aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
+				z += fractal->transformCommon.additionConstantA000;
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
