@@ -34,13 +34,6 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_23">
-       <property name="text">
-        <string>pre-offset:</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="2">
       <widget class="QLabel" name="label_25">
        <property name="text">
@@ -158,13 +151,28 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="label_23">
+       <property name="text">
+        <string>Tetra
+pre-offset:</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,1,0,1">
      <property name="topMargin">
       <number>0</number>
      </property>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+       <property name="text">
+        <string>1st half</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="label_263">
        <property name="text">
@@ -208,10 +216,17 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,1,0,1">
      <property name="topMargin">
       <number>0</number>
      </property>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
+       <property name="text">
+        <string>2nd half</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="label_264">
        <property name="text">
@@ -255,29 +270,20 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
-       <property name="text">
-        <string>1st half</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
-       <property name="text">
-        <string>2nd half</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Box Fold</string>
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledA_false">
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="title">
+      <string>&amp;Box Fold</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_12">
       <property name="leftMargin">
        <number>2</number>
       </property>
@@ -644,7 +650,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Standard Offset:</string>
+      <string>Negative Offset:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <property name="leftMargin">
@@ -693,7 +699,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_110_x">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -718,7 +724,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_110_y">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -743,7 +749,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_110_z">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -951,7 +957,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_015">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1421,7 +1427,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -1506,7 +1512,7 @@
          <number>2</number>
         </property>
         <item row="0" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled">
           <property name="text">
            <string>sym</string>
           </property>
@@ -2119,10 +2125,10 @@ Multiplier:</string>
   <tabstop>spinbox3_transf_addition_constant_x</tabstop>
   <tabstop>spinbox3_transf_addition_constant_y</tabstop>
   <tabstop>spinbox3_transf_addition_constant_z</tabstop>
-  <tabstop>groupCheck_transf_addCpixel_enabled</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
-  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>checkBox_transf_addCpixel_enabled</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>

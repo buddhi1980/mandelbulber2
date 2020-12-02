@@ -76,7 +76,8 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 
 	// tglad fold
-	if (aux.i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledAFalse
+			&&aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -88,32 +89,32 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
-	}
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		CVector4 limit = fractal->transformCommon.additionConstant111;
-		CVector4 length = 2.0 * limit;
-		CVector4 tgladS = 1.0 / length;
-		CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
-	}
 
-	// standard offset
-	z += fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+		{
+			CVector4 limit = fractal->transformCommon.additionConstant111;
+			CVector4 length = 2.0 * limit;
+			CVector4 tgladS = 1.0 / length;
+			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
+	}
+	// negative offset
+	z -= fractal->transformCommon.offset110;
 
 	// spherical fold
 	if (aux.i >= fractal->transformCommon.startIterationsS
@@ -127,7 +128,7 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE *= m;
 	}
 
-	double useScale =  fractal->transformCommon.scale2;
+	double useScale =  fractal->transformCommon.scale015;
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
@@ -165,12 +166,12 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// addCpixel
-	if (fractal->transformCommon.addCpixelEnabled
+	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse)
+		if (fractal->transformCommon.addCpixelEnabled)
 		{
 			tempC.x = sign(z.x) * fabs(c.x);
 			tempC.y = sign(z.y) * fabs(c.y);

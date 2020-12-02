@@ -29,7 +29,7 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
-	if (fractal->transformCommon.functionEnabledAx
+	if (fractal->transformCommon.functionEnabledAxFalse
 		&& aux->i >= fractal->transformCommon.startIterationsE
 		&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
@@ -84,7 +84,8 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 
 	// tglad fold
-	if (aux->i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -96,32 +97,32 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
-	}
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
-	{
-		REAL4 limit = fractal->transformCommon.additionConstant111;
-		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = 1.0f / length;
-		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
-	}
 
-	// standard offset
-	z += fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
+		{
+			REAL4 limit = fractal->transformCommon.additionConstant111;
+			REAL4 length = 2.0f * limit;
+			REAL4 tgladS = 1.0f / length;
+			REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
+	}
+	// negative offset
+	z -= fractal->transformCommon.offset110;
 
 	// spherical fold
 	if (aux->i >= fractal->transformCommon.startIterationsS
@@ -138,7 +139,7 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		aux->DE *= m;
 	}
 
-	REAL useScale = fractal->transformCommon.scale2;
+	REAL useScale = fractal->transformCommon.scale015;
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -176,12 +177,12 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	// addCpixel
-	if (fractal->transformCommon.addCpixelEnabled
+	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		REAL4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse)
+		if (fractal->transformCommon.addCpixelEnabled)
 		{
 			tempC.x = sign(z.x) * fabs(c.x);
 			tempC.y = sign(z.y) * fabs(c.y);
