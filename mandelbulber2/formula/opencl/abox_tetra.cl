@@ -160,16 +160,16 @@ REAL4 AboxTetraIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	// offset options
-	if (fractal->transformCommon.functionEnabledAxFalse
+	if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		REAL4 offset = aux->pos_neg * fractal->transformCommon.additionConstant000;
 
-		if (fractal->transformCommon.functionEnabledAFalse)
+		if (fractal->transformCommon.functionEnabledByFalse)
 			offset = (REAL4){sign(z.x), sign(z.y), sign(z.z), 1.0f} * offset;
 
-		if (fractal->transformCommon.functionEnabledBFalse)
+		if (fractal->transformCommon.functionEnabledBzFalse)
 			offset = (REAL4){sign(c.x), sign(c.y), sign(c.z), 1.0f} * offset;
 
 		z += offset;

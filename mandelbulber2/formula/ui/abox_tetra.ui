@@ -1182,7 +1182,7 @@ pre-offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledBx_false">
      <property name="title">
       <string>Offset op&amp;tions</string>
      </property>
@@ -1408,14 +1408,14 @@ pre-offset:</string>
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
            <string>sym1</string>
           </property>
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
           <property name="text">
            <string>sym2</string>
           </property>

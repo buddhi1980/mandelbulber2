@@ -149,16 +149,16 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// offset options
-	if (fractal->transformCommon.functionEnabledAxFalse
+	if (fractal->transformCommon.functionEnabledBxFalse
 		&& aux.i >= fractal->transformCommon.startIterationsB
 		&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		CVector4 offset = aux.pos_neg * fractal->transformCommon.additionConstant000;
 
-		if (fractal->transformCommon.functionEnabledAFalse)
+		if (fractal->transformCommon.functionEnabledByFalse)
 			offset = CVector4(sign(z.x), sign(z.y), sign(z.z), 1.0) * offset;
 
-		if (fractal->transformCommon.functionEnabledBFalse)
+		if (fractal->transformCommon.functionEnabledBzFalse)
 			offset = CVector4(sign(c.x), sign(c.y), sign(c.z), 1.0) * offset;
 
 		z += offset;
