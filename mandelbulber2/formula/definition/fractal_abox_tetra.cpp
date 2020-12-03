@@ -6,11 +6,12 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * ABoxMod14,
+ * Tetra folding with Mandelbox
+ * Tetrahedral symmetry folding Code taken from the forums, KIFS original thread
+ * Reference http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Hollow mandelbox idea from alexl (sanbase)
  * http://www.fractalforums.com/3d-fractal-generation/realtime-rendering-on-gpu/
- * Other variations by mclarekin
+ * Other options by mclarekin
  * This formula contains aux.color and aux.actualScaleA
  */
 

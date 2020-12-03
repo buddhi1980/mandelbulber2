@@ -168,6 +168,9 @@ pre-offset:</string>
      </property>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;disable one or more abs&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>1st half</string>
        </property>
