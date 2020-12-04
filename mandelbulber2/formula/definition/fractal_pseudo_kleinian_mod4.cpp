@@ -83,6 +83,50 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 		z = fabs(z + fractal->transformCommon.offsetA000)
 				- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
+	{
+		double foldX = fractal->transformCommon.offset1;
+		double foldY = fractal->transformCommon.offsetA1;
+
+		double t;
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAFalse)
+		{
+			t = z.x;
+			z.x = z.y;
+			z.y = t;
+		}
+		t = z.x;
+		z.x = z.x + z.y - fractal->transformCommon.offset0;
+		z.y = t - z.y - fractal->transformCommon.offsetA0;
+		if (fractal->transformCommon.functionEnabledBxFalse
+				&& aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
+					z.x = -fabs(z.x);
+		if (fractal->transformCommon.functionEnabledBx
+				&& aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP)
+					z.y = -fabs(z.y);
+
+		t = z.x;
+		z.x = z.x + z.y;
+		z.y = t - z.y;
+		z.x *= 0.5;
+		z.y *= 0.5;
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux.i >= fractal->transformCommon.startIterationsR
+				&& aux.i < fractal->transformCommon.stopIterationsR)
+					z.x = foldX - fabs(z.x + foldX);
+		if (fractal->transformCommon.functionEnabledAxFalse
+				&& aux.i >= fractal->transformCommon.startIterationsRV
+				&& aux.i < fractal->transformCommon.stopIterationsRV)
+					z.y = foldY - fabs(z.y + foldY);
+	}
+
+
 
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
