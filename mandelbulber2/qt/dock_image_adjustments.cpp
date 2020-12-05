@@ -211,16 +211,16 @@ void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 	if (perspType == params::perspFishEyeCut)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
-		ui->spinbox_fov->setValue(180.0);
+		ui->logedit_fov->setText(QString::number(180.0));
 	}
 	else if (perspType == params::perspEquirectangular)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion2_1);
-		ui->spinbox_fov->setValue(360.0);
+		ui->logedit_fov->setText(QString::number(360.0));
 	}
 	else if (perspType == params::perspThreePoint)
 	{
-		if (gPar->Get<double>("fov") > 179.0) ui->spinbox_fov->setValue(53.13);
+		if (gPar->Get<double>("fov") > 179.0) ui->logedit_fov->setText(QString::number(53.13));
 	}
 }
 

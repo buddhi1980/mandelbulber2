@@ -601,13 +601,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="MyLineEdit" name="logedit_stereo_eye_distance">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The distance between two virtual eyes. Higher values make the 3D effect more intense. &lt;/p&gt;&lt;p&gt;The optimal distance between eyes is about 1%-5% of the distance to the viewed object. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1" colspan="2">
          <widget class="MyDoubleSpinBox" name="spinbox_stereo_infinite_correction">
           <property name="sizePolicy">
@@ -989,6 +982,20 @@ no ambient occlusion)</string>
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="MyLineEdit" name="logedit_fov">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_126">
+          <property name="text">
+           <string>Perspective type:</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1" colspan="2">
          <widget class="MyComboBox" name="comboBox_perspective_type">
           <property name="sizePolicy">
@@ -1020,47 +1027,6 @@ no ambient occlusion)</string>
             <string>Fulldome</string>
            </property>
           </item>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_126">
-          <property name="text">
-           <string>Perspective type:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_fov">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.010000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>720.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="value">
-           <double>90.000000000000000</double>
-          </property>
          </widget>
         </item>
        </layout>
@@ -1159,7 +1125,6 @@ no ambient occlusion)</string>
   <tabstop>toolButton_resolution_preset_9</tabstop>
   <tabstop>groupCheck_stereo_enabled</tabstop>
   <tabstop>comboBox_stereo_mode</tabstop>
-  <tabstop>logedit_stereo_eye_distance</tabstop>
   <tabstop>spinbox_stereo_infinite_correction</tabstop>
   <tabstop>checkBox_stereo_swap_eyes</tabstop>
   <tabstop>pushButton_quality_preset_very_low</tabstop>
@@ -1171,7 +1136,6 @@ no ambient occlusion)</string>
   <tabstop>spinbox_gamma</tabstop>
   <tabstop>checkBox_hdr</tabstop>
   <tabstop>pushButton_apply_image_changes</tabstop>
-  <tabstop>spinbox_fov</tabstop>
   <tabstop>comboBox_perspective_type</tabstop>
   <tabstop>checkBox_legacy_coordinate_system</tabstop>
  </tabstops>
