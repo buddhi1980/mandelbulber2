@@ -938,6 +938,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (gNetRender->IsClient())
 				{
+//					//waiting for new jobs when list is empty
+//					while (gNetRender->IsClient() && !animationStopRequest && netRenderListOfFramesToRender.size() == 0)
+//					{
+//						gApplication->processEvents();
+//					}
+
 					bool frameFound = false;
 					for (int f = 0; f < netRenderListOfFramesToRender.size(); f++)
 					{
@@ -1761,7 +1767,10 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 				}
 				if (toDoList.size() >= numberOfNewFrames) break;
 			}
-			NetRenderSendFramesToDoList(clientIndex, toDoList);
+			if(toDoList.size() > 0)
+			{
+				emit NetRenderSendFramesToDoList(clientIndex, toDoList);
+			}
 			// qDebug() << "Server: new toDo list" << toDoList;
 		}
 	}
