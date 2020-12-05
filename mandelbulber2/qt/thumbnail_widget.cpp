@@ -179,7 +179,7 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 					params->Set("opencl_mode", 0);
 				}
 
-				if (distance < 1e-12)
+				if (distance < 1e-15)
 				{
 					isRendered = true;
 					isFullyRendered = true;
