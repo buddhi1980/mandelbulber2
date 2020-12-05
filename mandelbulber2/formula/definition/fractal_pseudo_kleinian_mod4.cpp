@@ -9,6 +9,7 @@
  * Pseudo Kleinian, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
+ * rec fold from darkbeam
  */
 
 #include "all_fractal_definitions.h"
