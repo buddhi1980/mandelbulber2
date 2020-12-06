@@ -65,6 +65,16 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+
+		if (fractal->transformCommon.functionEnabledIFalse
+				&& aux.i >= fractal->transformCommon.startIterationsI
+				&& aux.i < fractal->transformCommon.stopIterationsI)
+		{
+			double tt = z.x;
+			z.x = z.y;
+			z.y = tt;
+		}
+
 		if (fractal->transformCommon.functionEnabledJFalse
 			&& aux.i >= fractal->transformCommon.startIterationsJ
 			&& aux.i < fractal->transformCommon.stopIterationsJ)
@@ -78,7 +88,6 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			z.y = z.z;
 			z.z = tt;
 		}
-
 		if (fractal->transformCommon.functionEnabledSwFalse
 				&& aux.i >= fractal->transformCommon.startIterationsH
 				&& aux.i < fractal->transformCommon.stopIterationsH)
@@ -87,7 +96,6 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			z.x = z.y;
 			z.y = tt;
 		}
-
 		CVector4 zCol = z;
 
 		double rr = z.Dot(z);

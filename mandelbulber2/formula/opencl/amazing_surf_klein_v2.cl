@@ -56,6 +56,15 @@ REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 
+		if (fractal->transformCommon.functionEnabledIFalse
+			&& aux->i >= fractal->transformCommon.startIterationsI
+			&& aux->i < fractal->transformCommon.stopIterationsI)
+		{
+			REAL tt = z.x;
+			z.x = z.y;
+			z.y = tt;
+		}
+
 		if (fractal->transformCommon.functionEnabledJFalse
 			&& aux->i >= fractal->transformCommon.startIterationsJ
 			&& aux->i < fractal->transformCommon.stopIterationsJ)
@@ -129,14 +138,10 @@ REAL4 AmazingSurfKleinV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		{
 			z = fabs(z + fractal->transformCommon.offset110)
 						- fabs(z - fractal->transformCommon.offset110) - z;
-
 			z *= fractal->transformCommon.scale2;
 			aux->DE *= fractal->transformCommon.scale2;
-
 			z += fractal->transformCommon.offsetA000;
-
 		}
 	}
-
 	return z;
 }

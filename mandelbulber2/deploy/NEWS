@@ -2,8 +2,10 @@ Version history
 
 v2.24 (????? 2020)
 - Added new fractal formulas
-
    aboxKlein
+   aboxTetra
+   amazingSurfKlein
+   amazingSurfKleinV2
    mandelbulbAbs
    mandelbulbPlusZ
    msltoeSym3Mod4
