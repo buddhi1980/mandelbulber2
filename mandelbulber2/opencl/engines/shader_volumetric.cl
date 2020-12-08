@@ -181,7 +181,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float densityTemp =
 				step * consts->params.volFogDistanceFactor
 				/ (distanceShifted * distanceShifted
-						+ consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
+					 + consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
 
 			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;
@@ -420,8 +420,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			r = sqrt(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f
 												/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
-															* pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
-														+ 0.1f);
+														 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+													 + 0.1f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 #ifdef CLOUDS
 			light *= 1.0f + consts->params.cloudsLightsBoost * cloudsOpacity;

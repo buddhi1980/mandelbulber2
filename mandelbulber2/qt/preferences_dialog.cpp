@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * cPreferencesDialog - dialog to configure and maintain application Preferences
  */
@@ -104,7 +104,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 #ifdef USE_OPENCL
 	UpdateOpenCLListBoxes();
 	UpdateOpenCLMemoryLimits();
-#else	// USE_OPENCL
+#else	 // USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
 

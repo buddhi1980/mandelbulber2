@@ -29,7 +29,7 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL m = 1.0f - z2.z / rr;
 	REAL4 temp;
 	temp.x = (z2.x - z2.y) * m;
-	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;;
+	temp.y = 2.0f * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;
 	temp.z = 2.0f * z.z * native_sqrt(z2.x + z2.y);
 	temp.w = z.w;
 	z = temp + fractal->transformCommon.additionConstant000;

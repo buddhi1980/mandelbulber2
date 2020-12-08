@@ -1161,7 +1161,7 @@ void cRandomizerDialog::closeEvent(QCloseEvent *event)
 		event->ignore();
 		if (QMessageBox::Yes
 					== QMessageBox::question(this, tr("Close Confirmation"), tr("Exit Randomizer?"),
-							 QMessageBox::Yes | QMessageBox::No)
+						QMessageBox::Yes | QMessageBox::No)
 				&& !blockClose)
 		{
 			StopAll();

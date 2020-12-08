@@ -548,11 +548,11 @@ void Test::renderImageSave() const
 					{
 						if ((imageChannelName == "zbuffer" && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG)
 								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_8
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_EXR)
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_EXR)
 								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_32
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG)
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG)
 								|| (qualityTypeValue != ImageFileSave::IMAGE_CHANNEL_QUALITY_8
-										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG))
+										&& fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG))
 						{
 							// jpg cannot save zbuffer, jpg can only save 8bit
 							// exr cannot save 8 bit

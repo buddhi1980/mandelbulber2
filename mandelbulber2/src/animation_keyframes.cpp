@@ -938,11 +938,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (gNetRender->IsClient())
 				{
-//					//waiting for new jobs when list is empty
-//					while (gNetRender->IsClient() && !animationStopRequest && netRenderListOfFramesToRender.size() == 0)
-//					{
-//						gApplication->processEvents();
-//					}
+					//					//waiting for new jobs when list is empty
+					//					while (gNetRender->IsClient() && !animationStopRequest &&
+					//netRenderListOfFramesToRender.size() == 0)
+					//					{
+					//						gApplication->processEvents();
+					//					}
 
 					bool frameFound = false;
 					for (int f = 0; f < netRenderListOfFramesToRender.size(); f++)
@@ -1415,7 +1416,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-									params->Get<int>("keyframe_animation_image_type")));
+								params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 
@@ -1767,7 +1768,7 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 				}
 				if (toDoList.size() >= numberOfNewFrames) break;
 			}
-			if(toDoList.size() > 0)
+			if (toDoList.size() > 0)
 			{
 				emit NetRenderSendFramesToDoList(clientIndex, toDoList);
 			}

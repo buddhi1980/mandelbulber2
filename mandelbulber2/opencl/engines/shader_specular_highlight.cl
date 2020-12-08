@@ -55,8 +55,8 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 		diffuse *=
 			10.0f
 			* (1.1f
-					- input->material->diffusionTextureIntensity
-							* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
+				 - input->material->diffusionTextureIntensity
+						 * (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
 	}
 #endif
 

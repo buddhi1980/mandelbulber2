@@ -17,10 +17,8 @@
 
 REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL master = fractal->transformCommon.scale / 100.0f;
 	REAL4 bSize = fractal->transformCommon.constantMultiplier111 * master;
-	// bsize maybe shortened to a REAL??
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
@@ -32,12 +30,12 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 		else // normalize
 		{
-			REAL rr = length(z); //dot(z, z);
-			z /= rr;
+			REAL rNorm = length(z); // dot(z, z);
+			z /= rNorm;
 			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
 			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
-			z *= rr;
+			z *= rNorm;
 		}
 	}
 	else // radial
@@ -52,11 +50,10 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z *= rr;
 	}
 
-
 	// post scale
 	z *= fractal->transformCommon.scale1;
 	aux->DE = aux->DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
-							+ fractal->analyticDE.offset0;
+						+ fractal->analyticDE.offset0;
 
 	return z;
 }

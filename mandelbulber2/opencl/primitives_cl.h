@@ -129,7 +129,8 @@ typedef struct
 } sPrimitiveGlobalPositionCl;
 
 // union - variable container for primitive data
-typedef union {
+typedef union
+{
 	sPrimitivePlaneCl plane;
 	sPrimitiveBoxCl box;
 	sPrimitiveSphereCl sphere;

@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (Pancoaster@outlook.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * These objects enable control of flight animation using a gamepad controller.
  */

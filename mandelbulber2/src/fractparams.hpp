@@ -80,7 +80,7 @@ struct sParamRender
 	int cloudsRandomSeed;
 	int frameNo;
 	int imageHeight; // image height
-	int imageWidth;	// image width
+	int imageWidth;	 // image width
 	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN; // minimum number of iterations
 	int N;

@@ -39,9 +39,9 @@ inline float3 cubicInterpolate(float3 p[4], float x)
 	return p[1]
 				 + 0.5f * x
 						 * (p[2] - p[0]
-								 + x
-										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
-												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+								+ x
+										* (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+											 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
 #ifdef USE_DISPLACEMENT_TEXTURE
@@ -50,9 +50,9 @@ inline float cubicInterpolateGrey(float p[4], float x)
 	return p[1]
 				 + 0.5f * x
 						 * (p[2] - p[0]
-								 + x
-										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
-												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+								+ x
+										* (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+											 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 #endif
 

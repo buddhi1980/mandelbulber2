@@ -161,7 +161,7 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 						(1.0f
 							- 1.0f
 									/ (1.0f
-											+ (colorValue - fractalColoring->addStartValue) / fractalColoring->addSpread))
+										 + (colorValue - fractalColoring->addStartValue) / fractalColoring->addSpread))
 						* fractalColoring->addMax;
 				}
 			}

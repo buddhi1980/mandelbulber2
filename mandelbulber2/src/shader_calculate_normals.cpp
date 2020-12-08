@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -107,7 +107,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 		}
 	}
 
-	if (fabs(normal.x)<1e50 && fabs(normal.y)<1e-50 && fabs(normal.z)<1e-50)
+	if (fabs(normal.x) < 1e50 && fabs(normal.y) < 1e-50 && fabs(normal.z) < 1e-50)
 	{
 		normal = CVector3(1.0, 0.0, 0.0);
 	}

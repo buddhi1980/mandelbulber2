@@ -491,8 +491,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			r = sqrtf(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f
 												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-															* powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-														+ 0.1f);
+														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+													 + 0.1f);
 
 			fakeLight *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
 

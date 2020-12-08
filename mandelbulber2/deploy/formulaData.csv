@@ -1,5 +1,6 @@
 index,name,deType,deFunctionType,pixelAddition,defaultBailout,analyticFunction,coloringFunction
 abox4d,"Abox 4D",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
+aboxKlein,"Abox- Klein",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 aboxMod1,"Abox - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 aboxMod11,"Abox - Mod 11",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxMod12,"Abox - Mod 12",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
@@ -12,12 +13,15 @@ aboxModKaliV2,"Abox - Mod Kali-V2",analyticDEType,linearDEFunction,cpixelEnabled
 aboxModKaliV3,"Abox - Mod Kali-V3",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionIFS
 aboxSphere4d,"Abox - Sphere 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxSurfBox,"Abox - Surf Box",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
+aboxTetra,"Abox - Tetra",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxTetra4d,"Abox - Tetra 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 aboxVSIcen1,"Abox - VS icen1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 aexion,Aexion,analyticDEType,logarithmicDEFunction,cpixelAlreadyHas,10000.0,analyticFunctionLogarithmic,coloringFunctionDefault
 aexion4dV2,Aexion4D_V2,analyticDEType,logarithmicDEFunction,cpixelAlreadyHas,10000.0,analyticFunctionLogarithmic,coloringFunctionDefault
 aexionOctopusMod,"Aexion Octopus Mod",deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10.0,analyticFunctionNone,coloringFunctionDefault
 amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionAmazingSurf
+amazingSurfKlein,"Amazing Surf - Klein",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
+amazingSurfKleinV2,"Amazing Surf - Klein V2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMod1,"Amazing Surf - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod2,"Amazing Surf - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMod3,"Amazing Surf - Mod 3",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
@@ -87,6 +91,7 @@ mandelbulb,Mandelbulb,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefaul
 mandelbulb2,"Mandelbulb 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulb3,"Mandelbulb 3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulb4,"Mandelbulb 4",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbAbs,"Mandelbulb Abs",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbAbsPower2,"Mandelbulb - Abs Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbAtan2Power2,"Mandelbulb - Atan2 Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbBermarte,"Mandelbulb - Bermarte",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -99,6 +104,7 @@ mandelbulbKosalosV2,"Mandelbulb - Kosalos V2",analyticDEType,logarithmicDEFuncti
 mandelbulbLambda,"Mandelbulb - Lambda",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbMulti,"Mandelbulb - Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbMulti2,"Mandelbulb - Multi2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbPlusZ,"Mandelbulb Plus Z",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower1234,"Mandelbulb - Power 1234",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -134,6 +140,9 @@ msltoeSym2Mod,"Msltoe - Sym2 Mod",analyticDEType,logarithmicDEFunction,cpixelEna
 msltoeSym3Mod,"Msltoe - Sym3 Mod",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod2,"Msltoe - Julia Bulb Mod2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod3,"Msltoe - Julia Bulb Mod3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeSym3Mod4,"Msltoe - Julia Bulb Mod4",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeSym3Mod5,"Msltoe - Julia Bulb Mod5",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeSym3Mod6,"Msltoe - Julia Bulb Mod6",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym4Mod,"Msltoe - Sym4 Mod",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeToroidal,"Msltoe - Toroidal Bulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeToroidalMulti,"Msltoe - Toroidal Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -142,6 +151,7 @@ pseudoKleinian,"Pseudo Kleinian",analyticDEType,pseudoKleinianDEFunction,cpixelD
 pseudoKleinianMod1,"Pseudo Kleinian - Mod 1",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod2,"Pseudo Kleinian - Mod 2",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod3,"Pseudo Kleinian - Mod 3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
+pseudoKleinianMod4,"Pseudo Kleinian - Mod 4",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 quaternion,Quaternion,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 quaternion3d,Quaternion3D,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -211,6 +221,7 @@ transfBenesiT3,"T>Benesi T3",analyticDEType,withoutDEFunction,cpixelDisabledByDe
 transfBenesiT4,"T>Benesi T4",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBenesiT5b,"T>Benesi T5b",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfBlockifyV2,"T>Blockify V2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold,"T>Box Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4d,"T>Box Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4dTglad,"T>Box Fold 4D Tglad",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault

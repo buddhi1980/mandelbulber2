@@ -53,7 +53,7 @@
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(
-				systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
+			systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
 {
 	Init();
 }

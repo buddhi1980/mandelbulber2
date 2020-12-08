@@ -57,9 +57,8 @@ REAL4 DIFSMultiV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 				&& aux->i < fractal->transformCommon.stopIterationsP)
 		{
 			z.x = fabs(z.x);
-			int poly = fractal->transformCommon.int6;
-			REAL psi =
-				fabs(fmod(atan(z.y / z.x) + M_PI_F / poly, M_PI_F / (0.5f * poly)) - M_PI_F / poly);
+			REAL psi = M_PI_F / fractal->transformCommon.int6;
+			psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0f * psi) - psi);
 			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 			z.x = native_cos(psi) * len;
 			z.y = native_sin(psi) * len;

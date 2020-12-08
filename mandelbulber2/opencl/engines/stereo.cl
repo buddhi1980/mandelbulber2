@@ -80,7 +80,7 @@ void StereoViewVectorCorrection(float correction, const matrix33 *mRot, const ma
 		*viewVector = viewVectorTemp;
 	}
 
-#else	// not PERSP_THREE_POINT
+#else	 // not PERSP_THREE_POINT
 
 	viewVectorTemp = Matrix33MulFloat3(*mRotInv, viewVectorTemp);
 	if (eye == 0)

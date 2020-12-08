@@ -50,8 +50,8 @@ sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVect
 	{
 		diffuse *= 10.0f
 							 * (1.1f
-									 - input.material->diffusionTextureIntensity
-											 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+									- input.material->diffusionTextureIntensity
+											* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 	}
 
 	if (input.material->useColorsFromPalette && input.material->diffuseGradientEnable)

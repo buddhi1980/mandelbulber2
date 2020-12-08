@@ -300,10 +300,10 @@ void cRenderJob::PrepareData()
 	bool loadTextures = !(
 		paramsContainer->Get<bool>("opencl_enabled")
 		&& (cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
-					 == cOpenClEngineRenderFractal::clRenderEngineTypeFast
-				 || cOpenClEngineRenderFractal::enumClRenderEngineMode(
-							paramsContainer->Get<int>("opencl_mode"))
-							== cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
+					== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+				|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 == cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
 
 	if (loadTextures)
 	{
@@ -437,7 +437,7 @@ bool cRenderJob::Execute()
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				// stereoscopic rendering of SSAO (separate for each half of image)
 				cRegion<int> region;
@@ -527,8 +527,8 @@ int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
 			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
 			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
 						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
-					 || (paramsContainer->Get<bool>("DOF_enabled")
-								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
+					|| (paramsContainer->Get<bool>("DOF_enabled")
+							&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
 	{
 		noOfRepeats = 2;
 		*twoPassStereo = true;
@@ -750,7 +750,7 @@ void cRenderJob::RenderDOFWithOpenCl(std::shared_ptr<sParamRender> params, bool 
 
 			if (renderData->stereo.isEnabled()
 					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
 			{
 				cRegion<int> region;
 				region = renderData->stereo.GetRegion(

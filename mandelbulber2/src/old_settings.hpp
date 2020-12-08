@@ -352,7 +352,7 @@ struct sImageAdjustments
 struct sParamRenderD
 {
 	double zoom;			 // zoom
-	double DE_factor;	// factor for distance estimation steps
+	double DE_factor;	 // factor for distance estimation steps
 	double resolution; // resolution of image in fractal coordinates
 	double persp;			 // perspective factor
 	double quality;		 // DE threshold factor
