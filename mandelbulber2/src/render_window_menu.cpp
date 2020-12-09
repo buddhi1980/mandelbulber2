@@ -191,11 +191,14 @@ void RenderWindow::slotMenuAboutHotKeys()
 	QString shiftBadge =
 		"<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Shift") + "</span>";
 
+	// Main program hotkeys
 	QString style = "<style>td { padding: 2px; color: black;}</style>";
 	QString text = "<table><tr>";
 	text += "<td style='padding: 5px; background-color: #DDF'>";
 	text += "<h3>" + tr("Main Program Hotkeys") + "</h3>";
 	text += "<table border='1'>";
+
+	// File
 	text += " <tr><th colspan='2'>" + tr("File") + "</th></tr>";
 	text += " <tr><th>" + ctrlBadge + " + O</th><td>" + tr("Load settings...") + "</td></tr>";
 	text +=
@@ -216,6 +219,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th>F11</th><td>" + tr("Full screen") + "</td></tr>";
 	text += "</table>";
 
+	// Other
 	text += "<table style='margin-top: 10px;' border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Other") + "</th></tr>";
 	text += " <tr><th>" + ctrlBadge + " + Z</th><td>" + tr("Undo") + "</td></tr>";
@@ -227,11 +231,22 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += "</table>";
 	text += "</td>";
 
+	// Render window hotkeys
 	text += "<td style='padding: 5px; background-color: #DFD'>";
 	text += "<h3>" + tr("Render Window Hotkeys") + "</h3>";
 
+	// Movement
 	text += "<table border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Movement") + "</th></tr>";
+	text +=
+		" <tr><th>" + tr("Mouse left button click") + "</th><td>" + tr("jump forward") + "</td></tr>";
+	text +=
+		" <tr><th>" + tr("Mouse right button click") + "</th><td>" + tr("jump backward") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + tr("Mouse Wheel") + "</th><td>"
+					+ tr("forward / backward") + "</td></tr>";
+	text += " <tr><th>" + tr("Mouse left+right buttons drag") + "</th><td>" + tr("Move camera")
+					+ "</td></tr>";
+
 	text += " <tr><th>W</th><td>" + tr("up") + "</td></tr>";
 	text += " <tr><th>S</th><td>" + tr("down") + "</td></tr>";
 	text += " <tr><th>A</th><td>" + tr("left") + "</td></tr>";
@@ -250,12 +265,17 @@ void RenderWindow::slotMenuAboutHotKeys()
 					+ "</td></tr>";
 	text += " <tr><th>" + shiftBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward")
 					+ "</td></tr>";
-	text += " <tr><th>" + ctrlBadge + " + " + tr("Mouse Wheel") + "</th><td>"
-					+ tr("forward / backward") + "</td></tr>";
 	text += "</table>";
 
+	// Rotation
 	text += "<table style='margin-top: 10px;' border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Rotation") + "</th></tr>";
+	text += " <tr><th>" + tr("Mouse left button drag") + "</th><td>" + tr("Rotate camera")
+					+ "</td></tr>";
+	text += " <tr><th>" + tr("Mouse right button drag") + "</th><td>" + tr("Rotate camera around point")
+					+ "</td></tr>";
+	text += " <tr><th>" + tr("Mouse middle button drag") + "</th><td>" + tr("Roll camera")
+					+ "</td></tr>";
 	text += " <tr><th>" + tr("Arrow up") + "</th><td>" + tr("up") + "</td></tr>";
 	text += " <tr><th>" + tr("Arrow down") + "</th><td>" + tr("down") + "</td></tr>";
 	text += " <tr><th>" + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
@@ -266,9 +286,11 @@ void RenderWindow::slotMenuAboutHotKeys()
 					+ "</td></tr>";
 	text += "</table>";
 
+	// Render Window, Keyframe, Flight
 	text += "<td style='padding: 5px; background-color: #FDD'>";
 	text += "<h3>" + tr("Render Window Keyframe / Flight") + "</h3>";
 
+	// Flight
 	text += "<table border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Flight") + "</th></tr>";
 	text += " <tr><th>" + tr("Left mouse click") + "</th><td>" + tr("Increase speed") + "</td></tr>";
@@ -281,6 +303,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th>Z, X</th><td>" + tr("Roll rotation") + "</td></tr>";
 	text += "</table>";
 
+	// Keyframe
 	text += "<table style='margin-top: 10px;' border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Keyframe") + "</th></tr>";
 	text += " <tr><th>I</th><td>" + tr("Add Keyframe") + "</td></tr>";
