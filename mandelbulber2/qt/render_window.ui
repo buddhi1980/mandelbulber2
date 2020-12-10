@@ -380,6 +380,8 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <addaction name="actionRender_Image"/>
+    <addaction name="actionStop_rendering"/>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
@@ -1562,6 +1564,30 @@
   <action name="actionCleanSettings">
    <property name="text">
     <string>Clean settings...</string>
+   </property>
+  </action>
+  <action name="actionRender_Image">
+   <property name="icon">
+    <iconset theme="applications-graphics">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Render Image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionStop_rendering">
+   <property name="icon">
+    <iconset theme="process-stop">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Stop rendering</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

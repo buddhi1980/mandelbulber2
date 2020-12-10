@@ -270,12 +270,12 @@ void RenderWindow::slotMenuAboutHotKeys()
 	// Rotation
 	text += "<table style='margin-top: 10px;' border='1'>";
 	text += " <tr><th colspan='2'>" + tr("Rotation") + "</th></tr>";
-	text += " <tr><th>" + tr("Mouse left button drag") + "</th><td>" + tr("Rotate camera")
-					+ "</td></tr>";
-	text += " <tr><th>" + tr("Mouse right button drag") + "</th><td>" + tr("Rotate camera around point")
-					+ "</td></tr>";
-	text += " <tr><th>" + tr("Mouse middle button drag") + "</th><td>" + tr("Roll camera")
-					+ "</td></tr>";
+	text +=
+		" <tr><th>" + tr("Mouse left button drag") + "</th><td>" + tr("Rotate camera") + "</td></tr>";
+	text += " <tr><th>" + tr("Mouse right button drag") + "</th><td>"
+					+ tr("Rotate camera around point") + "</td></tr>";
+	text +=
+		" <tr><th>" + tr("Mouse middle button drag") + "</th><td>" + tr("Roll camera") + "</td></tr>";
 	text += " <tr><th>" + tr("Arrow up") + "</th><td>" + tr("up") + "</td></tr>";
 	text += " <tr><th>" + tr("Arrow down") + "</th><td>" + tr("down") + "</td></tr>";
 	text += " <tr><th>" + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
@@ -752,6 +752,16 @@ void RenderWindow::slotMenuSaveSettingsToClipboard()
 void RenderWindow::slotMenuUndo()
 {
 	gMainInterface->Undo();
+}
+
+void RenderWindow::slotMenuRenderImage()
+{
+	gMainInterface->StartRender();
+}
+
+void RenderWindow::slotMenuStopRendering()
+{
+	gMainInterface->stopRequest = true;
 }
 
 void RenderWindow::slotUpdateDocksAndToolbarByAction()

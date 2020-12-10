@@ -393,6 +393,10 @@ void cInterface::ConnectSignals() const
 		&RenderWindow::slotMenuAboutMandelbulber);
 	connect(mainWindow->ui->actionAbout_ThirdParty, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuAboutThirdParty);
+	connect(mainWindow->ui->actionRender_Image, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuRenderImage);
+	connect(mainWindow->ui->actionStop_rendering, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuStopRendering);
 	connect(mainWindow->ui->actionUndo, &QAction::triggered, mainWindow, &RenderWindow::slotMenuUndo);
 	connect(mainWindow->ui->actionRedo, &QAction::triggered, mainWindow, &RenderWindow::slotMenuRedo);
 	connect(mainWindow->ui->actionRandomizeAll, &QAction::triggered, mainWindow,
