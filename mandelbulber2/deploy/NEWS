@@ -1,6 +1,6 @@
 Version history
 
-v2.24 (????? 2020)
+v2.24 (December 2020)
 - Added new fractal formulas
    aboxKlein
    aboxTetra
@@ -13,7 +13,6 @@ v2.24 (????? 2020)
    msltoeSym3Mod6
    pseudoKleinianMod4
 
-
 - modified fractal formulas
    josKleinianV2, reinstate sphere inversion
    transfBlockify, fix and finish
@@ -21,16 +20,16 @@ v2.24 (????? 2020)
 - updated User Manual. Added chapters:
    - Quick Start Guide
    - Materials
-- Fractals: Fixed problem with not working fractal weight function in analytic DE mode
-- UI: Fixed problem with copying parameters from one fractal tab to other one using local load/save functions
-- UI: There was too high distance limit for thumbnails (was 1e-12, should be 1e-15). It caused missing rendering of thumbnails.
-- UI: FOV spinbox replaced with logEdit - now can be used much lower FOV values
+- Fractals: Fixed problem with fractal weight function not working in analytic DE mode
+- UI: Fixed problem with copying parameters from one fractal tab to another using local load/save functions
+- UI: There was a too high distance limit for thumbnails (was 1e-12, should be 1e-15). It caused missing rendering of thumbnails.
+- UI: FOV spinbox replaced with logEdit - now it can be used for much lower FOV values
 - UI: Improved resolution of spinbox for formula weight
 - UI: Added mouse hotkeys in Help/Hotkeys
 - UI: Added menu options and shortcuts for Render and Stop (ctrl+R, ctrl+T)
 - Shaders: Added missing checkbox "cast shadows" in iteration fog options
-- Shaders: Fixed bug #812-  now textures looks properly when objects are repeated
-- Files: Fixed bug #815 - There is no longer need to run update of data folder structure (compatibility with 2.10)
+- Shaders: Fixed bug #812-  now textures look correct when objects are repeated
+- Files: Fixed bug #815 - There is no longer the need to run update of data folder structure (compatibility with 2.10)
 - Shaders: Corrected rendering of deep zooms in CPU mode. There was wrong zero-checking in normal vector calculation
 - NetRender: Fixed bug #756 - Fixed problem with missing last frames when NetRender is used for animations
 
