@@ -19,8 +19,8 @@ installing all needed packages
 
 "
 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools \
-	libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
+sudo apt-get install build-essential qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
+	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
 sudo apt-get install qtcreator git
 sudo apt-get install opencl-headers ocl-icd-libopencl1
 
