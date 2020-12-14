@@ -128,7 +128,7 @@ void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fr
 	fontHeading.setBold(true);
 
 	QPalette palette = window()->palette();
-	QColor globalColor = palette.background().color();
+	QColor globalColor = palette.window().color();
 	int brightness = globalColor.value();
 
 	int rBase = globalColor.red();
@@ -137,8 +137,6 @@ void cFormulaComboBox::populateItemsFromFractalList(QList<cAbstractFractal *> fr
 
 	cRandom random;
 	random.Initialize(randomSeedForColors);
-
-	QColor color = globalColor;
 
 	int previousComboIndex = 0;
 

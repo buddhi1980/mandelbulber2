@@ -134,7 +134,9 @@ void MyLineEdit::PasteFromClipboard()
 			if (numbersStr.length() == 3)
 			{
 				QString nameVect = parameterName.left(parameterName.length() - 2);
-				QString lineEditNameX, lineEditNameY, lineEditNameZ;
+				QString lineEditNameX;
+				QString lineEditNameY;
+				QString lineEditNameZ;
 				if (type == QString("vect3"))
 				{
 					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
@@ -192,7 +194,10 @@ void MyLineEdit::ResetVectorToDefault()
 			QStringList numbersStr = parameterContainer->GetDefault<QString>(nameVect).split(' ');
 			if (numbersStr.length() >= 3)
 			{
-				QString lineEditNameX, lineEditNameY, lineEditNameZ;
+				QString lineEditNameX;
+				QString lineEditNameY;
+				QString lineEditNameZ;
+
 				if (type == QString("vect3"))
 				{
 					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
@@ -415,7 +420,7 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 	{
 		double value = systemData.locale.toDouble(text());
 
-		double change = event->delta() / 360.0;
+		double change = event->angleDelta().y() / 360.0;
 
 		if (qIsNull(value)) value = (change > 0.0) ? 0.1 : -0.1;
 

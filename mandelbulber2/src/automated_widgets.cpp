@@ -49,7 +49,8 @@ void cAutomatedWidgets::slotSliderMoved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinbox_") + parameterName;
 
@@ -62,7 +63,8 @@ void cAutomatedWidgets::slotSliderMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSliderMoved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotSliderMoved() error: spinbox " << spinBoxName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -70,7 +72,8 @@ void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString sliderName = QString("slider_") + parameterName;
 	QSlider *slider = sender()->parent()->findChild<QSlider *>(sliderName);
@@ -84,7 +87,7 @@ void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 	else
 	{
 		qWarning() << "slotDoubleSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -92,7 +95,8 @@ void cAutomatedWidgets::slotIntSliderMoved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinboxName = QString("spinboxInt_") + parameterName;
 
@@ -104,7 +108,7 @@ void cAutomatedWidgets::slotIntSliderMoved(int value) const
 	else
 	{
 		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -112,7 +116,8 @@ void cAutomatedWidgets::slotIntSpinBoxChanged(int value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString sliderName = QString("sliderInt_") + parameterName;
 
@@ -124,7 +129,7 @@ void cAutomatedWidgets::slotIntSpinBoxChanged(int value) const
 	else
 	{
 		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -132,7 +137,8 @@ void cAutomatedWidgets::slotSlider3Moved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinbox3_") + parameterName;
 
@@ -146,7 +152,8 @@ void cAutomatedWidgets::slotSlider3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSlider3Moved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotSlider3Moved() error: spinbox " << spinBoxName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -154,7 +161,8 @@ void cAutomatedWidgets::slotSlider4Moved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinbox4_") + parameterName;
 
@@ -168,7 +176,8 @@ void cAutomatedWidgets::slotSlider4Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSlider4Moved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotSlider4Moved() error: spinbox " << spinBoxName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -176,7 +185,8 @@ void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString sliderName = QString("slider3_") + parameterName;
 
@@ -191,7 +201,8 @@ void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox3Changed() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotSpinBox3Changed() error: slider " << sliderName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -199,7 +210,8 @@ void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString sliderName = QString("slider4_") + parameterName;
 
@@ -214,7 +226,8 @@ void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox4Changed() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotSpinBox4Changed() error: slider " << sliderName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -222,7 +235,8 @@ void cAutomatedWidgets::slotDial3Moved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinboxd3_") + parameterName;
 
@@ -233,7 +247,8 @@ void cAutomatedWidgets::slotDial3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDial3Moved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotDial3Moved() error: spinbox " << spinBoxName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -241,7 +256,8 @@ void cAutomatedWidgets::slotDial4Moved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinboxd4_") + parameterName;
 
@@ -252,7 +268,8 @@ void cAutomatedWidgets::slotDial4Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDial4Moved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotDial4Moved() error: spinbox " << spinBoxName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -260,7 +277,8 @@ void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString dialName = QString("dial3_") + parameterName;
 
@@ -271,7 +289,8 @@ void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox3Changed() error: slider " << dialName << " doesn't exists" << endl;
+		qWarning() << "slotSpinBox3Changed() error: slider " << dialName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -279,7 +298,8 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString dialName = QString("dial4_") + parameterName;
 
@@ -290,7 +310,8 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox4Changed() error: slider " << dialName << " doesn't exists" << endl;
+		qWarning() << "slotSpinBox4Changed() error: slider " << dialName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -298,7 +319,8 @@ void cAutomatedWidgets::slotDialMoved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString spinBoxName = QString("spinboxd_") + parameterName;
 
@@ -309,7 +331,7 @@ void cAutomatedWidgets::slotDialMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDialMoved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+		qWarning() << "slotDialMoved() error: spinbox " << spinBoxName << " doesn't exists" << Qt::endl;
 	}
 }
 
@@ -317,7 +339,8 @@ void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 {
 	using namespace std;
 	const QString spinBoxName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
 	const QString dialName = QString("dial_") + parameterName;
 
@@ -328,7 +351,8 @@ void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBoxChanged() error: slider " << dialName << " doesn't exists" << endl;
+		qWarning() << "slotSpinBoxChanged() error: slider " << dialName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -336,7 +360,8 @@ void cAutomatedWidgets::slotLogSliderMoved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString lineEditName = QString("logedit_") + parameterName;
 
@@ -350,7 +375,7 @@ void cAutomatedWidgets::slotLogSliderMoved(int value) const
 	else
 	{
 		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -358,7 +383,8 @@ void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 {
 	using namespace std;
 	const QString sliderName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
 	const QString lineEditName = QString("logvect3_") + parameterName;
 
@@ -372,7 +398,7 @@ void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 	else
 	{
 		qWarning() << "slotLogSliderVect3Moved() error: lineEdit " << lineEditName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -380,7 +406,8 @@ void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 {
 	using namespace std;
 	const QString lineEditName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(lineEditName, &parameterName, &type);
 	const QString sliderName = QString("logslider_") + parameterName;
 
@@ -396,13 +423,13 @@ void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 		else
 		{
 			qWarning() << "slotLogLineEditChanged() error: value from " << lineEditName
-								 << " is not greater zero" << endl;
+								 << " is not greater zero" << Qt::endl;
 		}
 	}
 	else
 	{
 		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists"
-							 << endl;
+							 << Qt::endl;
 	}
 }
 
@@ -410,7 +437,8 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 {
 	using namespace std;
 	const QString lineEditName = sender()->objectName();
-	QString type, parameterName;
+	QString type;
+	QString parameterName;
 	GetNameAndType(lineEditName, &parameterName, &type);
 	const QString sliderName = QString("logslidervect3_") + parameterName;
 
@@ -426,12 +454,13 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 		else
 		{
 			qWarning() << "slotLogVect3Changed() error: value from " << lineEditName
-								 << " is not greater zero" << endl;
+								 << " is not greater zero" << Qt::endl;
 		}
 	}
 	else
 	{
-		qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists"
+							 << Qt::endl;
 	}
 }
 
@@ -449,7 +478,8 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 		{
 			const QSlider *slider = it;
 
-			QString type, parameterName;
+			QString type;
+			QString parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
 			if (type == QString("slider"))
@@ -466,7 +496,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("logslider"))
@@ -484,7 +514,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("logslidervect3"))
@@ -502,7 +532,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("sliderInt"))
@@ -520,7 +550,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("slider3"))
@@ -536,7 +566,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("slider4"))
@@ -552,7 +582,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox4 " << spinboxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 		}
@@ -565,7 +595,8 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 		if (name.length() > 1 && it2->metaObject()->className() == QString("QDial"))
 		{
 			const QDial *dial = it2;
-			QString type, parameterName;
+			QString type;
+			QString parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
 			if (type == QString("dial3"))
@@ -582,7 +613,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("dial4"))
@@ -599,7 +630,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd4 " << spinBoxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 			if (type == QString("dial"))
@@ -616,7 +647,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName
-										 << " doesn't exists" << endl;
+										 << " doesn't exists" << Qt::endl;
 				}
 			}
 		}

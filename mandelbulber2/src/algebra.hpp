@@ -443,7 +443,10 @@ public:
 
 	double itemByName(char item) const;
 
-	double x, y, z, w;
+	double x;
+	double y;
+	double z;
+	double w;
 };
 
 inline CVector4 operator*(double scalar, const CVector4 &vector)

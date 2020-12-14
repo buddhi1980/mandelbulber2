@@ -500,7 +500,7 @@ void cGradientEditWidget::SaveColors()
 		{
 			QString string = gradient.GetColorsAsString();
 			QTextStream stream(&file);
-			stream << "[gradient] " << string << endl;
+			stream << "[gradient] " << string << Qt::endl;
 			file.close();
 		}
 	}

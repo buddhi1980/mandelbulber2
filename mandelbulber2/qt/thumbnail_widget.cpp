@@ -69,6 +69,8 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 
 void cThumbnailWidget::Init(QWidget *parent)
 {
+	Q_UNUSED(parent);
+
 	tWidth = 0;
 	tHeight = 0;
 	oversample = 0;

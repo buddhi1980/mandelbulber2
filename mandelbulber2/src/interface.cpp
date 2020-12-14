@@ -2822,7 +2822,7 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 		widgets.append(static_cast<QGroupBox *>(window));
 	}
 	QPalette palette = window->palette();
-	QColor globalColor = palette.background().color();
+	QColor globalColor = palette.window().color();
 	int brightness = globalColor.value();
 
 	int rBase = globalColor.red();
@@ -3000,7 +3000,11 @@ QStringList cInterface::CreateListOfParametersInWidget(const QWidget *inputWidge
 			listOfParameters.insert(fullParameterName);
 		}
 	}
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList list(listOfParameters.toList());
+#else
+	QStringList list(listOfParameters.values());
+#endif
 	return list;
 }
 

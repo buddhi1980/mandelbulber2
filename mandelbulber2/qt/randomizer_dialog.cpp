@@ -359,7 +359,6 @@ void cRandomizerDialog::AssignSourceWidget(const QWidget *sourceWidget)
 
 void cRandomizerDialog::AssignParameters(const QStringList &list)
 {
-	int level = 0;
 	setWindowTitle(tr("Randomizer (for parameters from keyframe animation)"));
 
 	for (const QString &parameter : list)
@@ -578,7 +577,7 @@ void cRandomizerDialog::RandomizeStringParameter(double randomScale, cOneParamet
 
 		if (numberOfColors == 2)
 		{
-			int numberOfColors = randomizer.Random(18) + 2;
+			numberOfColors = randomizer.Random(18) + 2;
 			gradient.DeleteAll();
 			for (int i = 0; i < numberOfColors; i++)
 			{

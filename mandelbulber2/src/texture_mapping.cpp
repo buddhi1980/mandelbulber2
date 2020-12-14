@@ -139,7 +139,9 @@ CVector2<float> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			point /= material->textureScale;
 			point -= material->textureCenter;
 
-			CVector3 texX, texY;
+			CVector3 texX;
+			CVector3 texY;
+
 			if (fabs(normalVector.x) > fabs(normalVector.y))
 			{
 				if (fabs(normalVector.x) > fabs(normalVector.z))

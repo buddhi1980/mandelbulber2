@@ -236,8 +236,8 @@ void cDockRenderingEngine::slotNetRenderClientListUpdateCell(int i, int j) const
 			QString color = cNetRender::GetStatusColor(gNetRender->GetClient(i).status);
 
 			cell->setText(text);
-			cell->setTextColor(color);
-			cell->setBackgroundColor(Qt::white);
+			cell->setForeground(QBrush(QColor(color)));
+			cell->setBackground(QBrush(Qt::white));
 			break;
 		}
 		case 4: cell->setText(QString::number(gNetRender->GetClient(i).itemsRendered)); break;

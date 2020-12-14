@@ -788,7 +788,13 @@ void RenderedImage::wheelEvent(QWheelEvent *event)
 		if ((event->modifiers() & Qt::ControlModifier) != 0)
 		{
 			event->accept(); // do not propagate event to parent widgets - prevents from scrolling
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 			emit mouseWheelRotatedWithCtrl(event->x(), event->y(), event->delta());
+#else
+			emit mouseWheelRotatedWithCtrl(
+				int(event->position().x()), int(event->position().y()), event->angleDelta().y());
+#endif
 			if (params)
 			{
 				if (cursorVisible && isFocus && redrawed)

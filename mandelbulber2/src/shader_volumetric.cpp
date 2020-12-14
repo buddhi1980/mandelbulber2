@@ -266,7 +266,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//-------------- perlin noise clouds
-		double cloudsOpacity;
+		double cloudsOpacity = 0.0;
 		if (params->cloudsEnable)
 		{
 			double distanceToClouds = 0.0;
