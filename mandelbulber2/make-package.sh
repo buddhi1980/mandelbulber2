@@ -97,6 +97,10 @@ then
 	cp -vurL "$sourceDir/src/" "$destNameWin/source"
 	cp -vurL "$sourceDir/src/" "$destNameWin64/source"
 	
+	cp -vurL "$sourceDir/third-party/" "$destNameLinux/"
+	cp -vurL "$sourceDir/third-party/" "$destNameWin/source"
+	cp -vurL "$sourceDir/third-party/" "$destNameWin64/source"
+	
 	cp -vurL "$sourceDir/qt/" "$destNameLinux/"
 	cp -vurL "$sourceDir/qt/" "$destNameWin/source"
 	cp -vurL "$sourceDir/qt/" "$destNameWin64/source"
