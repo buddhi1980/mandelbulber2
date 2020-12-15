@@ -411,7 +411,7 @@ void cQueue::StoreList()
 		stream << "#\n# Mandelbulber queue file\n#\n";
 		for (const auto &i : queueListFromFile)
 		{
-			stream << i.filename << " " << GetTypeText(i.renderType) << Qt::endl;
+			stream << i.filename << " " << GetTypeText(i.renderType) << "\n";
 		}
 	}
 	file.close();

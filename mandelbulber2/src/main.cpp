@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 	WriteLog("CreateDefaultFolders()", 2);
 	if (!CreateDefaultFolders())
 	{
-		qCritical() << "Files/directories initialization failed" << Qt::endl;
+		qCritical() << "Files/directories initialization failed";
 		return 73;
 	}
 
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 	if (QFile(iniFileName).exists())
 	{
 		QTextStream out(stdout);
-		out << "Settings file: " << iniFileName << Qt::endl;
+		out << "Settings file: " << iniFileName << "\n";
 		cSettings parSettings(cSettings::formatAppSettings);
 		parSettings.LoadFromFile(iniFileName);
 		parSettings.Decode(gPar, gParFractal);

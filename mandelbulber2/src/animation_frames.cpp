@@ -120,7 +120,7 @@ void cAnimationFrames::AddAnimatedParameter(const QString &parameterName,
 	{
 		qWarning() << "cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const "
 									"cOneParameter &defaultValue): element '"
-							 << parameterName << "' already exists" << Qt::endl;
+							 << parameterName << "' already exists";
 	}
 }
 

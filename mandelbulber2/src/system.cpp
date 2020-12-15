@@ -116,7 +116,8 @@ bool InitSystem()
 			else
 			{
 				outErr << "Error! There is no 'mandelbulber2' directory in "
-							 << shareMandelbulber.absolutePath() << Qt::endl;
+							 << shareMandelbulber.absolutePath() << "\n";
+				;
 			}
 
 			QDir shareDocMandelbulber = shareDir;
@@ -128,24 +129,29 @@ bool InitSystem()
 			else
 			{
 				outErr << "Error! There is no 'doc/mandelbulber2' directory in "
-							 << shareDocMandelbulber.absolutePath() << Qt::endl;
+							 << shareDocMandelbulber.absolutePath() << "\n";
+				;
 			}
 		}
 		else
 		{
-			outErr << "Error! There is no 'share' directory in " << shareDir.absolutePath() << Qt::endl;
+			outErr << "Error! There is no 'share' directory in " << shareDir.absolutePath() << "\n";
+			;
 		}
 	}
 	else
 	{
 		outErr << "Error: " << QCoreApplication::applicationDirPath() << " has no parent directory!"
-					 << Qt::endl;
+					 << "\n";
+		;
 	}
 
 	// try to use default share dir
 	if (!success)
 	{
-		outErr << "Trying to use /usr/share/mandelbulber2 as program data directory" << Qt::endl;
+		outErr << "Trying to use /usr/share/mandelbulber2 as program data directory"
+					 << "\n";
+		;
 		if (shareDir.cd("/usr/share/mandelbulber2"))
 		{
 			systemDirectories.sharedDir = QDir::cleanPath(shareDir.absolutePath()) + QDir::separator();
@@ -154,7 +160,9 @@ bool InitSystem()
 		{
 			outErr << "Error! Directory "
 						 << "/usr/share/mandelbulber2"
-						 << "doesn't exist!" << Qt::endl;
+						 << "doesn't exist!"
+						 << "\n";
+			;
 		}
 
 		if (shareDir.cd("/usr/share/doc/mandelbulber2"))
@@ -165,7 +173,9 @@ bool InitSystem()
 		{
 			outErr << "Error! Directory "
 						 << "/usr/share/doc/mandelbulber2"
-						 << "doesn't exist!" << Qt::endl;
+						 << "doesn't exist!"
+						 << "\n";
+			;
 		}
 	}
 
@@ -188,7 +198,8 @@ bool InitSystem()
 	}
 
 	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << "\n";
-	out << "Log file name: " << systemData.logfileName << Qt::endl;
+	out << "Log file name: " << systemData.logfileName << "\n";
+	;
 	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING), 1);
 
 	// detecting number of CPU cores
@@ -213,12 +224,13 @@ bool InitSystem()
 	systemDirectories.SetDataDirectoryPublic(
 		QDir::toNativeSeparators(systemDirectories.homeDir + "mandelbulber" + QDir::separator()));
 #endif
-	out << "Program data files directory " << systemDirectories.sharedDir << Qt::endl;
-	out << "Default data hidden directory: " << systemDirectories.GetDataDirectoryHidden()
-			<< Qt::endl;
+	out << "Program data files directory " << systemDirectories.sharedDir << "\n";
+	;
+	out << "Default data hidden directory: " << systemDirectories.GetDataDirectoryHidden() << "\n";
+	;
 	WriteLogString("Default data hidden directory", systemDirectories.GetDataDirectoryHidden(), 1);
-	out << "Default data public directory: " << systemDirectories.GetDataDirectoryPublic()
-			<< Qt::endl;
+	out << "Default data public directory: " << systemDirectories.GetDataDirectoryPublic() << "\n";
+	;
 	WriteLogString("Default data public directory", systemDirectories.GetDataDirectoryPublic(), 1);
 
 	//*********** temporary set to false ************
@@ -366,7 +378,7 @@ bool CreateFolder(const QString &qName)
 		else
 		{
 			WriteLogString("Directory can't be created", qName, 1);
-			qCritical() << "error: directory " << qName << " cannot be created" << Qt::endl;
+			qCritical() << "error: directory " << qName << " cannot be created";
 			return false;
 		}
 	}

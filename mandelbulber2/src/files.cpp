@@ -151,7 +151,7 @@ int fcopy(const QString &source, const QString &dest)
 	FILE *pFile = fopen(source.toLocal8Bit().constData(), "rb");
 	if (pFile == nullptr)
 	{
-		qCritical() << "Can't open source file for copying: " << source << Qt::endl;
+		qCritical() << "Can't open source file for copying: " << source;
 		WriteLogString("Can't open source file for copying", source, 1);
 		return 1;
 	}
@@ -170,7 +170,7 @@ int fcopy(const QString &source, const QString &dest)
 		const size_t result = fread(buffer.data(), 1, lSize, pFile);
 		if (result != size_t(lSize))
 		{
-			qCritical() << "Can't read source file for copying: " << source << Qt::endl;
+			qCritical() << "Can't read source file for copying: " << source;
 			WriteLogString("Can't read source file for copying", source, 1);
 			fclose(pFile);
 			return 2;
@@ -189,7 +189,7 @@ int fcopy(const QString &source, const QString &dest)
 	pFile = fopen(dest.toLocal8Bit().constData(), "wb");
 	if (pFile == nullptr)
 	{
-		qCritical() << "Can't open destination file for copying: " << dest << Qt::endl;
+		qCritical() << "Can't open destination file for copying: " << dest;
 		WriteLogString("Can't open destination file for copying", dest, 1);
 		return 3;
 	}

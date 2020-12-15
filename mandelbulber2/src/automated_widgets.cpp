@@ -63,8 +63,7 @@ void cAutomatedWidgets::slotSliderMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSliderMoved() error: spinbox " << spinBoxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSliderMoved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -86,8 +85,7 @@ void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 	}
 	else
 	{
-		qWarning() << "slotDoubleSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotDoubleSpinBoxChanged() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -107,8 +105,7 @@ void cAutomatedWidgets::slotIntSliderMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists";
 	}
 }
 
@@ -128,8 +125,7 @@ void cAutomatedWidgets::slotIntSpinBoxChanged(int value) const
 	}
 	else
 	{
-		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -152,8 +148,7 @@ void cAutomatedWidgets::slotSlider3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSlider3Moved() error: spinbox " << spinBoxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSlider3Moved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -176,8 +171,7 @@ void cAutomatedWidgets::slotSlider4Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotSlider4Moved() error: spinbox " << spinBoxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSlider4Moved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -201,8 +195,7 @@ void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox3Changed() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSpinBox3Changed() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -226,8 +219,7 @@ void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox4Changed() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSpinBox4Changed() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -247,8 +239,7 @@ void cAutomatedWidgets::slotDial3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDial3Moved() error: spinbox " << spinBoxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotDial3Moved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -268,8 +259,7 @@ void cAutomatedWidgets::slotDial4Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDial4Moved() error: spinbox " << spinBoxName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotDial4Moved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -289,8 +279,7 @@ void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox3Changed() error: slider " << dialName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSpinBox3Changed() error: slider " << dialName << " doesn't exists";
 	}
 }
 
@@ -311,7 +300,7 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 	else
 	{
 		qWarning() << "slotSpinBox4Changed() error: slider " << dialName << " doesn't exists"
-							 << Qt::endl;
+							 ;
 	}
 }
 
@@ -331,7 +320,7 @@ void cAutomatedWidgets::slotDialMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotDialMoved() error: spinbox " << spinBoxName << " doesn't exists" << Qt::endl;
+		qWarning() << "slotDialMoved() error: spinbox " << spinBoxName << " doesn't exists";
 	}
 }
 
@@ -351,8 +340,7 @@ void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBoxChanged() error: slider " << dialName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotSpinBoxChanged() error: slider " << dialName << " doesn't exists";
 	}
 }
 
@@ -374,8 +362,7 @@ void cAutomatedWidgets::slotLogSliderMoved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists";
 	}
 }
 
@@ -397,8 +384,7 @@ void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotLogSliderVect3Moved() error: lineEdit " << lineEditName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotLogSliderVect3Moved() error: lineEdit " << lineEditName << " doesn't exists";
 	}
 }
 
@@ -423,13 +409,12 @@ void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 		else
 		{
 			qWarning() << "slotLogLineEditChanged() error: value from " << lineEditName
-								 << " is not greater zero" << Qt::endl;
+								 << " is not greater zero";
 		}
 	}
 	else
 	{
-		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -454,13 +439,12 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 		else
 		{
 			qWarning() << "slotLogVect3Changed() error: value from " << lineEditName
-								 << " is not greater zero" << Qt::endl;
+								 << " is not greater zero";
 		}
 	}
 	else
 	{
-		qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists"
-							 << Qt::endl;
+		qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists";
 	}
 }
 
@@ -496,7 +480,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("logslider"))
@@ -514,7 +498,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("logslidervect3"))
@@ -532,7 +516,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("sliderInt"))
@@ -550,7 +534,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("slider3"))
@@ -566,7 +550,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("slider4"))
@@ -582,7 +566,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox4 " << spinboxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 		}
@@ -613,7 +597,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("dial4"))
@@ -630,7 +614,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd4 " << spinBoxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 			if (type == QString("dial"))
@@ -647,7 +631,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName
-										 << " doesn't exists" << Qt::endl;
+										 << " doesn't exists";
 				}
 			}
 		}
