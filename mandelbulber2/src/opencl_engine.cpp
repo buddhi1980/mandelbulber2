@@ -691,4 +691,9 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 	return AssignParametersToKernelAdditional(argIterator, deviceIndex);
 }
 
+void cOpenClEngine::AddInclude(QByteArray &program, const QString &filePath)
+{
+	program.append(QString("\n#include \"" + filePath + "\"\n").toUtf8());
+}
+
 #endif

@@ -73,10 +73,17 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 
 		WriteLog(messageText, 1);
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+		if (messageType == warningMessage)
+			outErr << messageText << "\n" << flush;
+		else if (messageType == errorMessage)
+			outErr << messageText << "\n" << flush;
+#else
 		if (messageType == warningMessage)
 			outErr << messageText << "\n" << Qt::flush;
 		else if (messageType == errorMessage)
 			outErr << messageText << "\n" << Qt::flush;
+#endif
 		else if (messageType == infoMessage)
 			out << messageText << "\n";
 

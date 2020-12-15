@@ -163,11 +163,11 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 {
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		programEngine.append("\n#include \"" + openclPathSlash + clHeaderFiles.at(i) + "\"\n");
+		AddInclude(programEngine, openclPathSlash + clHeaderFiles.at(i));
 	}
 	if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
 	{
-		programEngine.append("\n#include \"" + openclEnginePath + "basic_foldings.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "basic_foldings.cl");
 	}
 	// fractal formulas - only actually used
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
@@ -177,97 +177,92 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		{
 			if (formulaName.startsWith("custom"))
 			{
-				programEngine.append("\n#include \"" + systemDirectories.GetOpenCLTempFolder()
-														 + QDir::separator() + formulaName + ".cl\"\n");
+				AddInclude(programEngine,
+					systemDirectories.GetOpenCLTempFolder() + QDir::separator() + formulaName + ".cl");
 			}
 			else
 			{
-				programEngine.append("\n#include \"" + systemDirectories.sharedDir + "formula"
-														 + QDir::separator() + "opencl" + QDir::separator() + formulaName
-														 + ".cl\"\n");
+				AddInclude(programEngine, systemDirectories.sharedDir + "formula" + QDir::separator()
+																		+ "opencl" + QDir::separator() + formulaName + ".cl");
 			}
 		}
 	}
 	if (renderEngineMode != clRenderEngineTypeFast)
 	{
 		// fractal coloring
-		programEngine.append("\n#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "fractal_coloring.cl");
 	}
 	if (params->Get<bool>("fake_lights_enabled"))
 	{
 		// fake lights based on orbit traps - shapes
-		programEngine.append("\n#include \"" + openclEnginePath + "orbit_trap_shape.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "orbit_trap_shape.cl");
 	}
 	// compute fractal
-	programEngine.append("\n#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
+	AddInclude(programEngine, openclEnginePath + "compute_fractal.cl");
 	if (!distanceMode)
 	{
 		// texture mapping
-		programEngine.append("\n#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "texture_mapping.cl");
 		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// calculation of texture pixel address
-			programEngine.append(
-				"\n#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "shader_texture_pixel_address.cl");
 			// calculation of bicubic interpolation for textures
-			programEngine.append("\n#include \"" + openclEnginePath + "bicubic_interpolation.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "bicubic_interpolation.cl");
 			// calculate displacement from textures
-			programEngine.append("\n#include \"" + openclEnginePath + "displacement_map.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "displacement_map.cl");
 		}
 	}
 	// compute fractal
-	programEngine.append("\n#include \"" + openclEnginePath + "primitives.cl\"\n");
+	AddInclude(programEngine, openclEnginePath + "primitives.cl");
 	// calculate distance
-	programEngine.append("\n#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
+	AddInclude(programEngine, openclEnginePath + "calculate_distance.cl");
 	if (!distanceMode)
 	{
 		// normal vector calculation
-		programEngine.append("\n#include \"" + openclEnginePath + "normal_vector.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "normal_vector.cl");
 		// 3D projections (3point, equirectagular, fisheye)
-		programEngine.append("\n#include \"" + openclEnginePath + "projection_3d.cl\"\n");
+		AddInclude(programEngine, openclEnginePath + "projection_3d.cl");
 		// stereoscipic rendering
 		if (params->Get<bool>("stereo_enabled"))
-			programEngine.append("\n#include \"" + openclEnginePath + "stereo.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "stereo.cl");
 
 		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// shaders
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_iter_opacity.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "perlin_noise.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_clouds_opacity.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_hsv2rgb.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_background.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_surface_color.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shading.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_specular_highlight.cl\"\n");
-			programEngine.append(
-				"\n#include \"" + openclEnginePath + "shader_specular_highlight_combined.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shadow.cl\"\n");
-			programEngine.append(
-				"\n#include \"" + openclEnginePath + "shader_fast_ambient_occlusion.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_ambient_occlusion.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_aux_shadow.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_light_shading.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_aux_lights_shader.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_fake_lights.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_texture.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_roughness_texture.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_object.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
-			programEngine.append(
-				"\n#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "shader_iter_opacity.cl");
+			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_clouds_opacity.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_hsv2rgb.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_background.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_surface_color.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_main_shading.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight_combined.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_main_shadow.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_fast_ambient_occlusion.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_ambient_occlusion.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_aux_shadow.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_light_shading.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_aux_lights_shader.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_fake_lights.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_iridescence.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_texture.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_normal_map_texture.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_roughness_texture.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_object.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_volumetric.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_global_illumination.cl");
 		}
 		if (renderEngineMode == clRenderEngineTypeFull)
 		{
 			// ray recursion
-			programEngine.append("\n#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "ray_recursion.cl");
 		}
 		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// Monte Carlo DOF
-			programEngine.append("\n#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
+			AddInclude(programEngine, openclEnginePath + "monte_carlo_dof.cl");
 		}
 	}
 }

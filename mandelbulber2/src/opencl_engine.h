@@ -107,6 +107,7 @@ protected:
 	void UpdateOptimalJobStart(quint64 pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
+	static void AddInclude(QByteArray &programString, const QString &filePath);
 
 	typedef QList<sClInputOutputBuffer> listOfBuffers;
 	QList<listOfBuffers> inputBuffers;

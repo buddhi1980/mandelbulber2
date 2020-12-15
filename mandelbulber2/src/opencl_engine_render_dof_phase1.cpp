@@ -110,8 +110,7 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(
 
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		programEngine.append(
-			QString("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n").toUtf8());
+		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
 	}
 
 	QString engineFileName = "dof_phase1.cl";
