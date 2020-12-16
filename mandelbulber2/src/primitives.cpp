@@ -135,7 +135,14 @@ cPrimitives::cPrimitives(
 			int order1 = par->Get<int>(listOfPrimitives.at(j).name + "_calculation_order");
 			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).name + "_calculation_order");
 
-			if (order1 > order2) listOfPrimitives.swap(j, j + 1);
+			if (order1 > order2)
+			{
+#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
+				listOfPrimitives.swap(j, j + 1);
+#else
+				listOfPrimitives.swapItemsAt(j, j + 1);
+#endif
+			}
 		}
 	}
 

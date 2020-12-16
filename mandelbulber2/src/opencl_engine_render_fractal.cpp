@@ -327,7 +327,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(
 		programEngine.append("#define USE_OPENCL 1\n");
 
 		if (params->Get<bool>("opencl_precision"))
-			programEngine.append("#define DOUBLE_PRECISION " + QString::number(1) + "\n");
+			programEngine.append(
+				QString("#define DOUBLE_PRECISION " + QString::number(1) + "\n").toUtf8());
 
 #ifdef _WIN32
 		QString openclPathSlash = openclPath.replace("/", "\\"); // replace single slash with backslash
@@ -520,7 +521,7 @@ void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(
 		}
 	}
 
-	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
+	listOfUsedFormulas.removeDuplicates(); // eliminate duplicates
 }
 
 void cOpenClEngineRenderFractal::SetParametersForPerspectiveProjection(sParamRender *paramRender)
@@ -1588,7 +1589,11 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
 	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs", "Difs"});
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
+#else
+	QStringList parts = s.split('_', Qt::SkipEmptyParts);
+#endif
 	for (int i = 0; i < parts.size(); ++i)
 	{
 		parts[i].replace(0, 1, parts[i][0].toUpper());

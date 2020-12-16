@@ -872,7 +872,7 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 			if (texture->IsLoaded()) listOfTextures.insert(texture->GetFileName());
 		}
 
-		return listOfTextures.toList();
+		return listOfTextures.values();
 	}
 	return QStringList();
 }

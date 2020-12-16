@@ -81,7 +81,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 	int numberOfSteps;
 	bool recalcStepsMode;
-	double scan;
+	double scan = 0.0f;
 	double lastCloudDistance = params->cloudsPeriod;
 	bool end = false;
 

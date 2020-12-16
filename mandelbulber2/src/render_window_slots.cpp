@@ -598,7 +598,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		action->setDefaultWidget(buttonLoad);*/
 
 		QAction *action = new QAction(this);
-		action->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
+		action->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile.toUtf8())));
 		action->setObjectName("window_" + customWindowStateFile);
 
 		ui->menuSaved_window_layouts->addAction(action);
@@ -626,7 +626,7 @@ void RenderWindow::slotCustomWindowStateAddToMenu()
 		WriteLogCout("Cancelled window saving", 2);
 		return;
 	}
-	QString textEncoded = QByteArray().append(text).toBase64();
+	QString textEncoded = QByteArray().append(text.toUtf8()).toBase64();
 	QString basePath = systemDirectories.GetCustomWindowStateFolder() + QDir::separator();
 	QString filename = basePath + textEncoded;
 	QString filenameGeometry = filename + ".geometry";
@@ -676,7 +676,8 @@ void RenderWindow::slotCustomWindowRemovePopup()
 	for (int i = 0; i < customWindowStateFiles.size(); i++)
 	{
 		QString customWindowStateFile = customWindowStateFiles[i].replace(".geometry", "");
-		itemsEscaped.append(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
+		itemsEscaped.append(
+			QByteArray().fromBase64(QByteArray().append(customWindowStateFile.toUtf8())));
 	}
 	bool ok;
 
@@ -711,8 +712,13 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	}
 	QTextStream in(&recentFilesFile);
 	QString recentFilesFileContent = in.readAll();
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList recentFiles =
 		recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+#else
+	QStringList recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), Qt::KeepEmptyParts);
+#endif
 
 	QSignalMapper *mapRecentFileLoad = new QSignalMapper(this);
 	QList<QAction *> actions = ui->menuRecent_Settings_list->actions();

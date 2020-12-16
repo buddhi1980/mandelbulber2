@@ -114,7 +114,7 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(
 	clHeaderFiles.append("opencl_algebra.h");	 // definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
-		programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
+		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
 	}
 
 	QString engineFileName = "ssao.cl";

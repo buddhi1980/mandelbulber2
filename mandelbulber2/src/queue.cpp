@@ -341,7 +341,13 @@ void cQueue::SwapQueueItem(int i, int j)
 {
 	mutex.lock();
 	if (i >= 0 && j >= 0 && i < queueListFileName.size() - 1 && j < queueListFileName.size() - 1)
+	{
+#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
 		queueListFromFile.swap(i, j);
+#else
+		queueListFromFile.swapItemsAt(i, j);
+#endif
+	}
 	mutex.unlock();
 	StoreList();
 }

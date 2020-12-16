@@ -171,8 +171,12 @@ double cRenderer::PeriodicUpdateStatusAndProgressBar(QString &statusText, QStrin
 
 QSet<int> cRenderer::UpdateImageDuringRendering(QList<int> &listToRefresh, QList<int> &listToSend)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QSet<int> set_listToRefresh = listToRefresh.toSet(); // removing duplicates
-	listToRefresh = set_listToRefresh.toList();
+#else
+	QSet<int> set_listToRefresh(listToRefresh.begin(), listToRefresh.end());
+#endif
+	listToRefresh = set_listToRefresh.values();
 	qSort(listToRefresh);
 	listToSend += listToRefresh;
 	image->NullPostEffect(&listToRefresh);

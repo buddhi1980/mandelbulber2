@@ -919,8 +919,14 @@ void cCommandLineInterface::handleArgs()
 
 void cCommandLineInterface::handleOverrideParameters() const
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList overrideParameters =
 		cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
+#else
+	QStringList overrideParameters =
+		cliData.overrideParametersText.split("#", Qt::SkipEmptyParts);
+#endif
+
 	for (int i = 0; i < overrideParameters.size(); i++)
 	{
 		int fractalIndex = -1;

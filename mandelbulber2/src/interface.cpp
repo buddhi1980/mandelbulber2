@@ -2438,7 +2438,7 @@ bool cInterface::DataFolderUpgrade() const
 		{
 			systemData.Upgrade();
 			// Needs restart
-			QProcess::startDetached(qApp->arguments()[0]);
+			QProcess::startDetached(qApp->arguments()[0], QStringList());
 			delete messageBox;
 			return true;
 			break;
