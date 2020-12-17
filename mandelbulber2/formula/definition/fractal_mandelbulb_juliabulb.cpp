@@ -110,7 +110,7 @@ void cFractalMandelbulbJuliabulb::FormulaCode(
 		//	tempL = 1e-21;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux.DE *= fabs(z.Length() / tempL);
+		aux.DE *= z.Length() / tempL;
 
 		if (fabs(z.x) < fabs(z.z)) swap(z.x, z.z);
 		if (fabs(z.x) < fabs(z.y)) swap(z.x, z.y);

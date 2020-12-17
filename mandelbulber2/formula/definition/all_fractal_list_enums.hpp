@@ -259,6 +259,9 @@ enum enumFractalFormula
 	aboxTetra = 223,
 	amazingSurfKleinV2 = 224,
 
+	// 2.25
+	josKleinianV3 = 225,
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,

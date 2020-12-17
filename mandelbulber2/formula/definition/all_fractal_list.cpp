@@ -222,6 +222,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// ----- JosLeys-Kleinian -----
 	fractalList->append(new cFractalJosKleinian());
 	fractalList->append(new cFractalJosKleinianV2());
+	fractalList->append(new cFractalJosKleinianV3());
 
 	// ----- Pseudo Kleinian ----
 	fractalList->append(new cFractalPseudoKleinian());
