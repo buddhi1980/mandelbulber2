@@ -71,10 +71,20 @@
 
 // OpenCL SDK for all others
 #if defined(__APPLE__) || defined(__MACOSX)
+#if CL_NEW_HEADERS || __has_include("OpenCL/opencl.hpp")
 #include <OpenCL/opencl.hpp>
 #else
+#include <OpenCL/cl.hpp>
+#endif // if exists opencl.hpp
+
+#else // if linux of windows
+
+#if defined(CL_NEW_HEADERS) || __has_include("CL/opencl.hpp")
 #include <CL/opencl.hpp>
+#else
+#include <CL/cl.hpp>
 #endif
+#endif // if macos or linux or windows
 
 #endif // USE_OPENCL
 
