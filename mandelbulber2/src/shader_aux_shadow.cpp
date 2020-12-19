@@ -50,7 +50,6 @@ double cRenderWorker::AuxShadow(
 	bool cloudMode = params->cloudsEnable;
 
 	double DE_factor = params->DEFactor;
-	double volumetricLightDEFactor = params->volumetricLightDEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 	if (cloudMode) DE_factor = params->DEFactor * params->volumetricLightDEFactor;
 

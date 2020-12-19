@@ -1558,7 +1558,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	{
 		tiles.append(QPoint(i % gridWidth, i / gridWidth));
 	}
-	qSort(tiles.begin(), tiles.end(),
+	std::sort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
 			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;

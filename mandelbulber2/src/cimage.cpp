@@ -852,7 +852,8 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 				float k = (y2 - y1) / (x2 - x1);
 				float kz = (z2 - z1) / (x2 - x1);
 
-				float xx1, xx2;
+				float xx1;
+				float xx2;
 				if (x1 < x2)
 				{
 					xx1 = x1;
@@ -902,7 +903,8 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 			{
 				float k = (x2 - x1) / (y2 - y1);
 				float kz = (z2 - z1) / (y2 - y1);
-				float yy1, yy2;
+				float yy1;
+				float yy2;
 				if (y1 < y2)
 				{
 					yy1 = y1;
@@ -1135,8 +1137,8 @@ double cImage::VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank
 	int min = 255 * 3;
 	int max = 0;
 
-	int w = GetWidth();
-	int h = GetHeight();
+	unsigned int w = GetWidth();
+	unsigned int h = GetHeight();
 	int numberOfPixels = w * h;
 
 	if (w != refImage->GetWidth() || h != refImage->GetHeight())
@@ -1147,9 +1149,9 @@ double cImage::VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank
 
 	double totalDiff = 0.0;
 
-	for (int y = 2; y < h - 2; y++)
+	for (unsigned int y = 2; y < h - 2; y++)
 	{
-		for (int x = 2; x < w - 2; x++)
+		for (unsigned int x = 2; x < w - 2; x++)
 		{
 			sRGB8 pixel1 = GetPixelImage8(x, y);
 			sRGB8 pixel2 = refImage->GetPixelImage8(x, y);

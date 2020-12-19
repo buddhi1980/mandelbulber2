@@ -495,8 +495,14 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 		2);
 
 	QString settingsTextTrimmed = settingsText.trimmed();
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QStringList separatedText =
 		settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+#else
+	QStringList separatedText = settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), Qt::KeepEmptyParts);
+#endif
+
 	DecodeHeader(separatedText);
 
 	int errorCount = 0;

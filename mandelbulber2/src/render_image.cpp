@@ -177,7 +177,7 @@ QSet<int> cRenderer::UpdateImageDuringRendering(QList<int> &listToRefresh, QList
 	QSet<int> set_listToRefresh(listToRefresh.begin(), listToRefresh.end());
 #endif
 	listToRefresh = set_listToRefresh.values();
-	qSort(listToRefresh);
+	std::sort(listToRefresh.begin(), listToRefresh.end());
 	listToSend += listToRefresh;
 	image->NullPostEffect(&listToRefresh);
 	if (data->configuration.UseRenderTimeEffects())

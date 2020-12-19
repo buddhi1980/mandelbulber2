@@ -506,12 +506,12 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 15)));
 			table->setItem(
 				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
-			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row, newColumn)->setTextColor(Qt::black);
-			table->item(row + 1, newColumn)->setTextColor(Qt::black);
-			table->item(row + 2, newColumn)->setTextColor(Qt::black);
+			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 1, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 2, newColumn)->setForeground(QBrush(Qt::black));
 		}
 		else if (type == typeVector4)
 		{
@@ -523,14 +523,14 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 15)));
 			table->setItem(
 				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 15)));
-			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 3, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row, newColumn)->setTextColor(Qt::black);
-			table->item(row + 1, newColumn)->setTextColor(Qt::black);
-			table->item(row + 2, newColumn)->setTextColor(Qt::black);
-			table->item(row + 3, newColumn)->setTextColor(Qt::black);
+			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 3, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 1, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 2, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 3, newColumn)->setForeground(QBrush(Qt::black));
 		}
 		else if (type == typeRgb)
 		{
@@ -538,19 +538,19 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
-			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row, newColumn)->setTextColor(Qt::black);
-			table->item(row + 1, newColumn)->setTextColor(Qt::black);
-			table->item(row + 2, newColumn)->setTextColor(Qt::black);
+			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 1, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row + 2, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 1, newColumn)->setForeground(QBrush(Qt::black));
+			table->item(row + 2, newColumn)->setForeground(QBrush(Qt::black));
 		}
 		else
 		{
 			const QString val = parameter.Get<QString>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
-			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
-			table->item(row, newColumn)->setTextColor(Qt::black);
+			table->item(row, newColumn)->setBackground(QBrush(MorphType2Color(morphType)));
+			table->item(row, newColumn)->setForeground(QBrush(Qt::black));
 		}
 	}
 	table->blockSignals(false);
@@ -940,7 +940,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				{
 					//					//waiting for new jobs when list is empty
 					//					while (gNetRender->IsClient() && !animationStopRequest &&
-					//netRenderListOfFramesToRender.size() == 0)
+					// netRenderListOfFramesToRender.size() == 0)
 					//					{
 					//						gApplication->processEvents();
 					//					}
@@ -1389,7 +1389,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		}
 		QTableWidgetItem *newCell = table->item(row, i + reservedColumns);
 		newCell->setText(newCellText);
-		newCell->setTextColor(Qt::black);
+		newCell->setForeground(QBrush(Qt::black));
 	}
 }
 

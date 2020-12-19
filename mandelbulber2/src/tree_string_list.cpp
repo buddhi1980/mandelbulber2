@@ -179,8 +179,6 @@ QList<int> cTreeStringList::GetChildrens(int index)
 
 bool cTreeStringList::CheckIfExists(QString string)
 {
-	bool exists = false;
-
 	for (int i = 0; i < items.size(); i++)
 	{
 		if (items.at(i).string == string) return true;
