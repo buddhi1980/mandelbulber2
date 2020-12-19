@@ -49,57 +49,32 @@
 // custom includes
 #ifdef USE_OPENCL
 
-#if __has_include("CL/cl2.hpp") || __has_include("OpenCL/cl2.hpp")
-
-#ifndef CL_HPP_TARGET_OPENCL_VERSION
-#define CL_HPP_TARGET_OPENCL_VERSION 120
-#endif
-
-#ifndef CL_HPP_MINIMUM_OPENCL_VERSION
-#define CL_HPP_MINIMUM_OPENCL_VERSION 120
-#endif
-
-#ifndef CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
-#define CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
-#endif
-
-#ifndef CL_HPP_CL_1_2_DEFAULT_BUILD
-#define CL_HPP_CL_1_2_DEFAULT_BUILD
-#endif
-
-#ifdef _WIN32
-#ifndef _MSC_VER
-// clew for cross compile
-#include "clew.h"
-#include "clew-cl.hpp"
-#endif // NOT _MSC_VER
-#endif // _WIN32
-// OpenCL SDK for all others
-#if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl2.hpp>
-#else
-#include <CL/cl2.hpp>
-#endif
-
-#else // cl2.cpp doesn't exist
 #ifndef CL_TARGET_OPENCL_VERSION
 #define CL_TARGET_OPENCL_VERSION 120
 #endif
 
-#ifdef _WIN32
-#ifndef _MSC_VER
-// clew for cross compile
-#include "clew.h"
-#include "clew-cl.hpp"
-#endif // NOT _MSC_VER
-#endif // _WIN32
+#ifndef CL_HPP_TARGET_OPENCL_VERSION
+#define CL_HPP_TARGET_OPENCL_VERSION 120
+#endif // not CL_HPP_TARGET_OPENCL_VERSION
+
+#ifndef CL_HPP_MINIMUM_OPENCL_VERSION
+#define CL_HPP_MINIMUM_OPENCL_VERSION 120
+#endif // not CL_HPP_MINIMUM_OPENCL_VERSION
+
+#ifndef CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
+#define CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
+#endif // not CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
+
+#ifndef CL_HPP_CL_1_2_DEFAULT_BUILD
+#define CL_HPP_CL_1_2_DEFAULT_BUILD
+#endif // not CL_HPP_CL_1_2_DEFAULT_BUILD
+
 // OpenCL SDK for all others
 #if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl.hpp>
+#include <OpenCL/opencl.hpp>
 #else
-#include <CL/cl.hpp>
+#include <CL/opencl.hpp>
 #endif
-#endif //_has_include("cl2.hpp")
 
 #endif // USE_OPENCL
 
