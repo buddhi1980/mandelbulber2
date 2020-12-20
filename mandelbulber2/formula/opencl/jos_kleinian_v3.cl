@@ -18,6 +18,50 @@
 
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		// pre abs
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			//if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0f) z.x = -z.x;
+			REAL psi = M_PI_F / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * len;
+			z.y = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			//if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0f) z.y = -z.y;
+			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+			z.y = native_cos(psi) * len;
+			z.z = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCzFalse)
+		{
+			//if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0f) z.z = -z.z;
+			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+			z.z = native_cos(psi) * len;
+			z.x = native_sin(psi) * len;
+		}
+		z += fractal->transformCommon.offsetF000;
+	}
+
+
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -92,31 +136,31 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		REAL a = fractal->transformCommon.foldingValue;
 		REAL b = fractal->transformCommon.offset;
-		REAL c = fractal->transformCommon.offsetA0;
+		//REAL c = fractal->transformCommon.offsetA0;
 		REAL f = sign(b);
 
 		// wrap
 		REAL4 box_size = fractal->transformCommon.offset111;
-		REAL3 box1 = (REAL3){2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
-		REAL3 box2 = (REAL3){-box_size.x, -box_size.y + 1.0f, -box_size.z};
-		REAL3 wrapped = wrap(z.xyz, box1, box2);
+		//REAL3 box1 = (REAL3){2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
+		//REAL3 box2 = (REAL3){-box_size.x, -box_size.y + 1.0f, -box_size.z};
+		//REAL3 wrapped = wrap(z.xyz, box1, box2);
 
-		z = (REAL4){wrapped.x, wrapped.y, wrapped.z, z.w};
-		/*{
+		//z = (REAL4){wrapped.x, wrapped.y, wrapped.z, z.w};
+		{
 			z.x += box_size.x;
-			z.z += box_size.z;
+			z.y += box_size.y;
 			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-			z.z = z.z - 2.0f * box_size.z * floor(z.z / 2.0f * box_size.z) - box_size.z;
-			z.y += box_size.y - 1.0f;
-			z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
-			z.y -= (box_size.y - 1.0f);
-		}*/
+			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
+			z.z += box_size.z - 1.0f;
+			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+			z.z -= (box_size.z - 1.0f);
+		}
 
 		if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
-			z.y = -z.y + a;
-			z.z = -z.z - c;
+			z.z = -z.z + a;
+			//z.z = -z.z - c;
 		}
 
 		REAL rr = dot(z, z);
@@ -127,8 +171,8 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL iR = 1.0f / rr;
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
-		z.y = a + z.y;
-		z.z = -z.z - c;
+		z.z = a + z.z;
+		//z.z = -z.z - c;
 
 		aux->DE *= fabs(iR);
 	}
@@ -141,5 +185,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 					* (fractal->transformCommon.offset1 - fabs(z.z)
 						 + fabs(z.z) * fractal->transformCommon.scale0);
 	}
+
+	REAL Ztemp = z.z;
+	if (fractal->transformCommon.spheresEnabled)
+		Ztemp = min(z.y, fractal->transformCommon.foldingValue - z.y);
+	aux->dist = min(Ztemp, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
+
 	return z;
 }

@@ -22,7 +22,7 @@ cFractalPseudoKleinianMod3::cFractalPseudoKleinianMod3() : cAbstractFractal()
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionPseudoKleinian;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 
