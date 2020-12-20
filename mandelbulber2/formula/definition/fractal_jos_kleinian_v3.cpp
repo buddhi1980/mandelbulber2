@@ -35,8 +35,8 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
 		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
 		if (fractal->transformCommon.functionEnabledCx)
 		{

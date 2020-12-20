@@ -25,8 +25,8 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		// pre abs
 		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
 		if (fractal->transformCommon.functionEnabledCx)
 		{
@@ -188,7 +188,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 	REAL Ztemp = z.z;
 	if (fractal->transformCommon.spheresEnabled)
-		Ztemp = min(z.y, fractal->transformCommon.foldingValue - z.y);
+		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 	aux->dist = min(Ztemp, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
 
 	return z;

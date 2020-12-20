@@ -52,7 +52,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="title">
-      <string>&amp;Poly fold</string>
+      <string>&amp;Poly fold and abs()</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -123,14 +123,14 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string>PreAbs(z)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string>PreAbs(y)</string>
           </property>
@@ -146,7 +146,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_45" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_45" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -380,13 +380,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_62">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
