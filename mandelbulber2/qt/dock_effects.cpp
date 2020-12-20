@@ -117,7 +117,7 @@ void cDockEffects::SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterCont
 
 void cDockEffects::SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const
 {
-	SynchronizeInterfaceWindow(ui->groupBox_Lights, par, qInterface::write);
+	SynchronizeInterfaceWindow(ui->tabWidget_Lights, par, qInterface::write);
 }
 
 void cDockEffects::SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const
