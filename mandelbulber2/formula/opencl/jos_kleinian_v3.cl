@@ -30,7 +30,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		if (fractal->transformCommon.functionEnabledCx)
 		{
-			//if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0f) z.x = -z.x;
 			REAL psi = M_PI_F / fractal->transformCommon.int8X;
 			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
 			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
@@ -40,7 +39,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			//if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0f) z.y = -z.y;
 			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
 			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
 			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
@@ -50,7 +48,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			//if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0f) z.z = -z.z;
 			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
 			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
 			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
@@ -59,8 +56,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 		z += fractal->transformCommon.offsetF000;
 	}
-
-
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -73,7 +68,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z *= fractal->transformCommon.maxR2d1 / rr;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
-		// REAL r = native_sqrt(rr);
 		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							 * fractal->transformCommon.scaleA1;
 	}
@@ -156,7 +150,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.z -= (box_size.z - 1.0f);
 		}
 
-		if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
+		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;

@@ -40,7 +40,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		if (fractal->transformCommon.functionEnabledCx)
 		{
-			//if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
 			double psi = M_PI / fractal->transformCommon.int8X;
 			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 			double len = sqrt(z.x * z.x + z.y * z.y);
@@ -50,7 +49,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			//if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
 			double psi = M_PI / fractal->transformCommon.int8Y;
 			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
 			double len = sqrt(z.y * z.y + z.z * z.z);
@@ -60,19 +58,15 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			//if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
 			double psi = M_PI / fractal->transformCommon.int8Z;
 			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
 			double len = sqrt(z.z * z.z + z.x * z.x);
 			z.z = cos(psi) * len;
 			z.x = sin(psi) * len;
 		}
-
 		// addition constant
 		z += fractal->transformCommon.offsetF000;
-
 	}
-
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -85,7 +79,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z *= fractal->transformCommon.maxR2d1 / rr;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
-		// double r = sqrt(rr);
 		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							* fractal->transformCommon.scaleA1;
 	}
@@ -192,12 +185,15 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 					* (fractal->transformCommon.offset1 - fabs(z.z)
 						 + fabs(z.z) * fractal->transformCommon.scale0);
 	}
-	double Ztemp = z.z;
+
+	{double Ztemp = z.z;
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
 	aux.dist =
 		min(Ztemp, fractal->analyticDE.tweak005)
 		/ max(aux.DE, fractal->analyticDE.offset1);
+
+	}
 
 }
