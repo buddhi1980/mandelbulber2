@@ -423,6 +423,9 @@ enum enumFractalFormula
 	// 2.24
 	transfBlockifyV2 = 1125,
 
+	// 2.25
+	transfPolyFoldAtan2Iter = 1126,
+
 	// mandelbulber transfdIFS
 	// 2.20
 	transfDIFSBox = 1600,
