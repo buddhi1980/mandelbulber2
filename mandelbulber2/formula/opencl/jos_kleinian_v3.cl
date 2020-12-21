@@ -18,6 +18,8 @@
 
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
+	REAL rr = 0.0f;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -157,7 +159,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			//z.z = -z.z - c;
 		}
 
-		REAL rr = dot(z, z);
+		rr = dot(z, z);
 
 		REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
 		aux->color = min(aux->color, length(colorVector)); // For coloring
@@ -184,6 +186,18 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 	aux->dist = min(Ztemp, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		REAL colorAdd = 0.0f;
+		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+		colorAdd += fractal->foldColor.difs0000.z * rr;
+		colorAdd += fractal->foldColor.difs0000.w * z.z;
+		colorAdd += fractal->foldColor.difs1;
+		aux->color += colorAdd;
+	}
 
 	return z;
 }

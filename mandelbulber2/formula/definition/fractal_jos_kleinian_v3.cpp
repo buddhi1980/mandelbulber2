@@ -29,6 +29,7 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double rr = 0.0;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -163,7 +164,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			//z.z = -z.z - c;
 		}
 
-		double rr = z.Dot(z);
+		rr = z.Dot(z);
 
 		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
 		aux.color = min(aux.color, colorVector.Length()); // For coloring
@@ -193,7 +194,17 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	aux.dist =
 		min(Ztemp, fractal->analyticDE.tweak005)
 		/ max(aux.DE, fractal->analyticDE.offset1);
-
+	}
+	// aux.color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		double colorAdd;
+		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+		colorAdd += fractal->foldColor.difs0000.z * rr;
+		colorAdd += fractal->foldColor.difs0000.w * z.z;
+		colorAdd += fractal->foldColor.difs1;
+		aux.color += colorAdd;
 	}
 
 }

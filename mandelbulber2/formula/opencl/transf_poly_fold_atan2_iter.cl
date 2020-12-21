@@ -62,12 +62,6 @@ REAL4 TransfPolyFoldAtan2IterIteration(REAL4 z, __constant sFractalCl *fractal, 
 	// addition constant
 	z += fractal->transformCommon.additionConstant000;
 
-	// rotation
-	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}
-
 	// DE tweaks
 	if (fractal->analyticDE.enabled)
 	{

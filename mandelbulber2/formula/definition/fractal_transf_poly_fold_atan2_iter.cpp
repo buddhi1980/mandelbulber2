@@ -74,12 +74,6 @@ void cFractalTransfPolyFoldAtan2Iter::FormulaCode(
 	// addition constant
 	z += fractal->transformCommon.additionConstant000;
 
-	// rotation
-	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
 	// DE tweaks
 	if (fractal->analyticDE.enabled)
 	{
