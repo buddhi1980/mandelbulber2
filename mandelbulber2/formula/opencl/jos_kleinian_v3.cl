@@ -74,7 +74,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 							 * fractal->transformCommon.scaleA1;
 	}
 
-	if (fractal->transformCommon.functionEnabledCyFalse
+	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
@@ -118,11 +118,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		if (z.z > z.x)
+		if (z.y > z.x)
 		{
 			REAL temp = z.x;
-			z.x = z.z;
-			z.z = temp;
+			z.x = z.y;
+			z.y = temp;
 		}
 	}
 
@@ -132,7 +132,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		REAL a = fractal->transformCommon.foldingValue;
 		REAL b = fractal->transformCommon.offset;
-		//REAL c = fractal->transformCommon.offsetA0;
 		REAL f = sign(b);
 
 		// wrap
@@ -156,19 +155,17 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
-			//z.z = -z.z - c;
 		}
 
 		rr = dot(z, z);
 
-		REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
-		aux->color = min(aux->color, length(colorVector)); // For coloring
+		//REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
+		//aux->color = min(aux->color, length(colorVector)); // For coloring
 
 		REAL iR = 1.0f / rr;
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.z = a + z.z;
-		//z.z = -z.z - c;
 
 		aux->DE *= fabs(iR);
 	}
@@ -186,6 +183,13 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 	aux->dist = min(Ztemp, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
+
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT)
+	{
+		z.z = Ztemp;
+	}
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)

@@ -84,7 +84,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 							* fractal->transformCommon.scaleA1;
 	}
 
-	if (fractal->transformCommon.functionEnabledCyFalse
+	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
@@ -128,7 +128,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		if (z.z > z.x) swap(z.x, z.z);
+		if (z.y > z.x) swap(z.x, z.y);
 	}
 
 	// kleinian
@@ -137,7 +137,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	{
 		double a = fractal->transformCommon.foldingValue;
 		double b = fractal->transformCommon.offset;
-		//double c = fractal->transformCommon.offsetA0;
 		double f = sign(b);
 
 		// wrap
@@ -161,7 +160,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
-			//z.z = -z.z - c;
 		}
 
 		rr = z.Dot(z);
@@ -173,7 +171,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.z = a + z.z;
-		//z.z = -z.z - c;
 
 		aux.DE *= fabs(iR);
 	}
@@ -187,18 +184,27 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 						 + fabs(z.z) * fractal->transformCommon.scale0);
 	}
 
-	{double Ztemp = z.z;
+	double Ztemp = z.z;
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
 	aux.dist =
 		min(Ztemp, fractal->analyticDE.tweak005)
 		/ max(aux.DE, fractal->analyticDE.offset1);
+
+
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		z.z = Ztemp;
 	}
+
+
 	// aux.color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		double colorAdd;
+		double colorAdd = 0.0;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
 		colorAdd += fractal->foldColor.difs0000.z * rr;

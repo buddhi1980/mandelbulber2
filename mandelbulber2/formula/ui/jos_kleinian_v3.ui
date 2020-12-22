@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>3709</height>
+    <height>3846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -865,7 +865,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledCy_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledC_false">
      <property name="title">
       <string>Sin or Co&amp;s</string>
      </property>
@@ -1279,7 +1279,7 @@ cosine</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1296,7 +1296,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="5" column="1">
          <widget class="QLabel" name="label_123">
           <property name="font">
            <font>
@@ -1312,7 +1312,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_266">
           <property name="font">
            <font>
@@ -1325,7 +1325,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
+        <item row="6" column="1">
          <widget class="QLabel" name="label_146">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1347,7 +1347,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="4" column="1">
          <widget class="QLabel" name="label_124">
           <property name="font">
            <font>
@@ -1363,7 +1363,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="4" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1444,41 +1444,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.010000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
+        <item row="5" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1512,20 +1478,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_269">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Klein I-z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
+        <item row="3" column="1" colspan="2">
          <widget class="Line" name="line_7">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -1566,7 +1519,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="2">
+        <item row="6" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1600,7 +1553,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="0" colspan="3">
+        <item row="8" column="0" colspan="3">
          <widget class="MyCheckBox" name="checkBox_transf_spheres_enabled">
           <property name="text">
            <string>Spheres (only disables if in slot #1)</string>
@@ -1737,7 +1690,7 @@ cosine</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="3">
+        <item row="1" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1750,7 +1703,7 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="1" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1763,14 +1716,14 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="1" column="1">
          <widget class="QLabel" name="label_249">
           <property name="text">
            <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="1" column="3">
          <widget class="QLabel" name="label_248">
           <property name="text">
            <string>Stop at iteration:</string>
@@ -1858,6 +1811,60 @@ cosine</string>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_66">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_253">
+       <property name="text">
+        <string>Start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_T">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_T">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="label_263">
+       <property name="text">
+        <string>Stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
+       <property name="text">
+        <string>z.z = Ztemp</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
