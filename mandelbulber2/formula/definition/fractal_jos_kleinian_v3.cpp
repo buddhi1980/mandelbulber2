@@ -88,46 +88,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
-		CVector4 oldZ = z;
-		CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
-		CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
-
-		if (fractal->transformCommon.functionEnabledAx)
-		{
-			if (!fractal->transformCommon.functionEnabledAxFalse)
-				trigZ.x = sin(scaleZ.x);
-			else
-				trigZ.x = cos(scaleZ.x); // scale =0, cos = 1
-		}
-		if (fractal->transformCommon.functionEnabledAy)
-		{
-			if (!fractal->transformCommon.functionEnabledAyFalse)
-				trigZ.y = sin(scaleZ.y);
-			else
-				trigZ.y = cos(scaleZ.y);
-		}
-		if (fractal->transformCommon.functionEnabledAz)
-		{
-			if (!fractal->transformCommon.functionEnabledAzFalse)
-				trigZ.z = sin(scaleZ.z);
-			else
-				trigZ.z = cos(scaleZ.z);
-		}
-
-		z = trigZ * fractal->transformCommon.scale;
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-			z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0);
-			z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0);
-			z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0);
-			// aux.DE = aux.DE * z.Length() / oldZ.Length();
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledJFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-	{
 		if (z.y > z.x) swap(z.x, z.y);
 	}
 
@@ -189,7 +149,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
 	aux.dist =
-		min(Ztemp, fractal->analyticDE.tweak005)
+		min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
 		/ max(aux.DE, fractal->analyticDE.offset1);
 
 

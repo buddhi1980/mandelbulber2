@@ -78,46 +78,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
-		REAL4 oldZ = z;
-		REAL4 trigZ = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-		REAL4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
-
-		if (fractal->transformCommon.functionEnabledAx)
-		{
-			if (!fractal->transformCommon.functionEnabledAxFalse)
-				trigZ.x = native_sin(scaleZ.x);
-			else
-				trigZ.x = native_cos(scaleZ.x); // scale =0, cos = 1
-		}
-		if (fractal->transformCommon.functionEnabledAy)
-		{
-			if (!fractal->transformCommon.functionEnabledAyFalse)
-				trigZ.y = native_sin(scaleZ.y);
-			else
-				trigZ.y = native_cos(scaleZ.y);
-		}
-		if (fractal->transformCommon.functionEnabledAz)
-		{
-			if (!fractal->transformCommon.functionEnabledAzFalse)
-				trigZ.z = native_sin(scaleZ.z);
-			else
-				trigZ.z = native_cos(scaleZ.z);
-		}
-
-		z = trigZ * fractal->transformCommon.scale;
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-			z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0f);
-			z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0f);
-			z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0f);
-			// aux->DE = aux->DE * length(z) / length(oldZ);
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledJFalse
-			&& aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
-	{
 		if (z.y > z.x)
 		{
 			REAL temp = z.x;
@@ -182,7 +142,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL Ztemp = z.z;
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
-	aux->dist = min(Ztemp, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
+	aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005) / max(aux->DE, fractal->analyticDE.offset1);
 
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
