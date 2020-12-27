@@ -451,6 +451,11 @@ enum enumFractalFormula
 	transfDIFSPolyhedra = 1617,
 	transfDIFSPolyhedraV2 = 1618,
 
+	// 2.25
+	transfDIFSGearV1 = 1619,
+
+
+
 	// hybrid color
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,

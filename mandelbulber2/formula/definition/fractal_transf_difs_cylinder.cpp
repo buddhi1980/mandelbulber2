@@ -34,6 +34,8 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
 	double cylR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	if (fractal->transformCommon.functionEnabledFalse)
+		cylR = fabs(cylR ) - fractal->transformCommon.offset0;
 	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 
 	cylR = max(cylR, 0.0);

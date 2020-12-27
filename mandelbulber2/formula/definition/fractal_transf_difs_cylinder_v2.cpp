@@ -59,6 +59,9 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 	}
 
 	double cylRm = cylR - fractal->transformCommon.radius1;
+	if (fractal->transformCommon.functionEnabledFalse)
+		cylRm = fabs(cylRm ) - fractal->transformCommon.offset0;
+
 	cylRm += fractal->transformCommon.scale0 * absH;
 
 	// tops

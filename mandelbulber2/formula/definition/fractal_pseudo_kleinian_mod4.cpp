@@ -62,9 +62,9 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 
 	k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 	z *= k;
-	aux.DE *= k;
+	aux.DE *= k + fractal->analyticDE.tweak005;
 
-	z += fractal->transformCommon.additionConstant000;//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+	z += fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG

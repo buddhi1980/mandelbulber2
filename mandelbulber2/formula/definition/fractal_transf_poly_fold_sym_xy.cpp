@@ -49,8 +49,10 @@ void cFractalTransfPolyFoldSymXY::FormulaCode(
 	double angle = (double)(sector / div2PI);
 	// z.xy = rotate(z.xy,angle); // sin
 	double tempZx = z.x;
-	z.x = z.x * cos(angle) - z.y * sin(angle);
-	z.y = tempZx * sin(angle) + z.y * cos(angle);
+	double sAng = sin(angle);
+	double cAng = cos(angle);
+	z.x = z.x * cAng - z.y * sAng;
+	z.y = tempZx * sAng + z.y * cAng;
 	if (cy) z.y = -z.y;
 	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
 

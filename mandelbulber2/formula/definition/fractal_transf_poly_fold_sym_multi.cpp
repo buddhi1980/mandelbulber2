@@ -39,6 +39,9 @@ void cFractalTransfPolyFoldSymMulti::FormulaCode(
 	int order = fractal->transformCommon.int6;
 	double div2PI = (double)order / M_PI_2x;
 	double temp = 0.0;
+	double sAng = 0.0;
+	double cAng = 0.0;
+	double angle = 0.0;
 	int sector;
 	if (fractal->transformCommon.functionEnabledCx)
 	{
@@ -48,10 +51,12 @@ void cFractalTransfPolyFoldSymMulti::FormulaCode(
 		else
 			sector = (int)(-div2PI * atan2(z.x, z.y));
 		if (sector & 1) cy = true;
-		double angle = (double)(sector / div2PI);
+		angle = (double)(sector / div2PI);
 		temp = z.x;
-		z.x = z.x * cos(angle) - z.y * sin(angle);
-		z.y = temp * sin(angle) + z.y * cos(angle);
+		sAng = sin(angle);
+		cAng = cos(angle);
+		z.x = z.x * cAng - z.y * sAng;
+		z.y = temp * sAng + z.y * cAng;
 		if (cy == true) z.y = -z.y;
 		/*if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -68,10 +73,12 @@ void cFractalTransfPolyFoldSymMulti::FormulaCode(
 		else
 			sector = (int)(-div2PI * atan2(z.y, z.z));
 		if (sector & 1) cz = true;
-		double angle = (double)(sector / div2PI);
+		angle = (double)(sector / div2PI);
 		temp = z.y;
-		z.y = z.y * cos(angle) - z.z * sin(angle);
-		z.z = temp * sin(angle) + z.z * cos(angle);
+		sAng = sin(angle);
+		cAng = cos(angle);
+		z.y = z.y * cAng - z.z * sAng;
+		z.z = temp * sAng + z.z * cAng;
 		if (cz == true) z.z = -z.z;
 	}
 	if (fractal->transformCommon.functionEnabledCzFalse)
@@ -82,10 +89,12 @@ void cFractalTransfPolyFoldSymMulti::FormulaCode(
 		else
 			sector = (int)(-div2PI * atan2(z.z, z.x));
 		if (sector & 1) cx = true;
-		double angle = (double)(sector / div2PI);
+		angle = (double)(sector / div2PI);
 		temp = z.z;
-		z.z = z.z * cos(angle) - z.x * sin(angle);
-		z.x = temp * sin(angle) + z.x * cos(angle);
+		sAng = sin(angle);
+		cAng = cos(angle);
+		z.z = z.z * cAng - z.x * sAng;
+		z.x = temp * sAng + z.x * cAng;
 		if (cx == true) z.x = -z.x;
 	}
 
