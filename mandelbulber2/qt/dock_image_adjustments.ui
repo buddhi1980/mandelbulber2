@@ -601,6 +601,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="MyLineEdit" name="logedit_stereo_eye_distance">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The distance between two virtual eyes. Higher values make the 3D effect more intense. &lt;/p&gt;&lt;p&gt;The optimal distance between eyes is about 1%-5% of the distance to the viewed object. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1" colspan="2">
          <widget class="MyDoubleSpinBox" name="spinbox_stereo_infinite_correction">
           <property name="sizePolicy">
