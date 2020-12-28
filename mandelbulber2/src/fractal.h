@@ -509,6 +509,7 @@ struct sFractalTransformCommon
 	double offset0005;
 	double offsetp05;
 	double offset01;
+	double offset02;
 	double offset05;
 	double offsetA05;
 	double offsetB05;
@@ -645,6 +646,7 @@ struct sFractalTransformCommon
 	int int8X;
 	int int8Y;
 	int int8Z;
+	int int16;
 
 	CVector4 additionConstant0555;
 	CVector4 additionConstant0777;

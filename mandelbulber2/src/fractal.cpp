@@ -291,6 +291,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.offset0005 = container->Get<double>("transf_offset_0005");
 	transformCommon.offsetp05 = container->Get<double>("transf_offset_p05");
 	transformCommon.offset01 = container->Get<double>("transf_offset_01");
+	transformCommon.offset02 = container->Get<double>("transf_offset_02");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");
 	transformCommon.offsetA05 = container->Get<double>("transf_offsetA_05");
 	transformCommon.offsetB05 = container->Get<double>("transf_offsetB_05");
@@ -355,6 +356,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.int8X = container->Get<int>("transf_int8_X");
 	transformCommon.int8Y = container->Get<int>("transf_int8_Y");
 	transformCommon.int8Z = container->Get<int>("transf_int8_Z");
+	transformCommon.int16 = container->Get<int>("transf_int_16");
 	transformCommon.startIterations = container->Get<int>("transf_start_iterations");
 	transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
 	transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");

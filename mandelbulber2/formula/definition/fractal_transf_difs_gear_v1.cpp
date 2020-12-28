@@ -28,9 +28,15 @@ cFractalTransfDIFSGearV1::cFractalTransfDIFSGearV1() : cAbstractFractal()
 void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-		//double d = 100.0;
-	double angle = M_PI_2x /  (fractal->transformCommon.int8X);
-	double sector = round(atan2(z.x , z.y) / angle);
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	double angle = M_PI_2x / (fractal->transformCommon.int16);
+	double sector = round(atan2(z.x , z.y) / angle) + fractal->transformCommon.intA *1.0;
 	CVector4 zc = z;
 	double an = sector * angle;
 	double sinan = sin(an);
@@ -39,43 +45,49 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	zc.x = zc.x * cosan - zc.y * sinan;
 	zc.y = temp * sinan + zc.y * cosan;
-
 	zc.y -= fractal->transformCommon.offset1;
-		zc.z -= fractal->transformCommon.offset0;
-		// zc.x -= fractal->transformCommon.scaleB1 * fabs(zc.y);
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-		// zc.x -= fractal->transformCommon.scaleB1 * fabs(zc.y);
+	zc.z -= fractal->transformCommon.offset0;
+
+	double widthX = fractal->transformCommon.offset01;
+	double lengthY = fractal->transformCommon.offset02;
+	double heightZ = fractal->transformCommon.offset05;
+
+	// chevron
+	if (fractal->transformCommon.functionEnabledFalse)
+		 zc.x -= fractal->transformCommon.scale0 * fabs(zc.y);
+
 	// curve
-	if (fractal->transformCommon.functionEnabledTFalse)
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		double absZZ = zc.z * zc.z * fractal->transformCommon.scale0;
-		boxSize.x += absZZ;
-		boxSize.y += absZZ;
+		double absZZ = zc.z * zc.z * fractal->transformCommon.scaleA0;
+		widthX += absZZ;
+		lengthY += absZZ;
 	}
 
 	// pyramid
-	if (fractal->transformCommon.functionEnabledMFalse)
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		double subZ = fractal->transformCommon.scaleA0 * zc.z;
-		boxSize.x -= subZ;
-		boxSize.y -= subZ;
+		double subZ = fractal->transformCommon.scaleB0 * zc.z;
+		widthX -= subZ;
+		lengthY -= subZ;
 	}
 
 	// star
-	if (fractal->transformCommon.functionEnabledNFalse)
-				boxSize.x -= (fractal->transformCommon.scaleB0 * zc.y);
+	if (fractal->transformCommon.functionEnabledCFalse)
+				widthX -= (fractal->transformCommon.scaleC0 * zc.y);
 
-	if (fractal->transformCommon.functionEnabledOFalse)
+	if (fractal->transformCommon.functionEnabledDFalse)
 				zc.x -= fractal->transformCommon.scale05 * zc.y;
 
-	zc = fabs(zc) - boxSize;
+	zc.x = fabs(zc.x) - widthX;
+	zc.y = fabs(zc.y) - lengthY;
+	zc.z = fabs(zc.z) - heightZ;
 
+	if (fractal->transformCommon.functionEnabledEFalse)
+				zc.x *= -fractal->transformCommon.scaleE1 * zc.y;
 
-	if (fractal->transformCommon.functionEnabledPFalse)
-				zc.x *= -fractal->transformCommon.scaleD1 * zc.y;
-
-	if (fractal->transformCommon.functionEnabledRFalse)
-				zc.x += fractal->transformCommon.scaleE1 * zc.y;
+	if (fractal->transformCommon.functionEnabledFFalse)
+				zc.x += fractal->transformCommon.scaleF1 * zc.y;
 
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
@@ -83,12 +95,12 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double zcd = zc.Length();
 
 
-		double sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
-				+ fractal->transformCommon.offsetR0)
-				- fractal->transformCommon.offsetR0;
-		sdTor= max (sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	double sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
+			+ fractal->transformCommon.offsetR0)
+			- fractal->transformCommon.offsetR0;
+	sdTor = max (sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
 
-		double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+	double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	aux.dist = min(aux.dist, d / (aux.DE + 1.0));
 
