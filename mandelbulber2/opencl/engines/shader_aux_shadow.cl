@@ -55,7 +55,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	float lightSize = sqrt(intensity) * consts->params.auxLightVisibilitySize;
 	float softRange = lightSize / distance;
 #else
-	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
+	float softRange = tan(consts->params.shadowConeAngle);
 #endif
 
 	float maxSoft = 0.0f;

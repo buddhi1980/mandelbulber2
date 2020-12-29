@@ -44,6 +44,7 @@
 #include "system_directories.hpp"
 #include "texture_enums.hpp"
 #include "write_log.hpp"
+#include "light.h"
 
 #include "formula/definition/all_fractal_list.hpp"
 
@@ -863,7 +864,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);
 	par->addParam("transf_offset_p05", 0.05, morphAkima, paramStandard);
 	par->addParam("transf_offset_01", 0.1, morphAkima, paramStandard);
-	par->addParam("transf_offset_02", 0.2, morphAkima, paramStandard);
 	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offsetA_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offsetB_05", 0.5, morphAkima, paramStandard);
@@ -928,7 +928,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_int8_X", 8, morphLinear, paramStandard);
 	par->addParam("transf_int8_Y", 8, morphLinear, paramStandard);
 	par->addParam("transf_int8_Z", 8, morphLinear, paramStandard);
-	par->addParam("transf_int_16", 16, morphLinear, paramStandard);
 
 	par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
@@ -1574,6 +1573,37 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->SetAsGradient(cMaterial::Name("roughness_gradient", materialId));
 	par->SetAsGradient(cMaterial::Name("reflectance_gradient", materialId));
 	par->SetAsGradient(cMaterial::Name("transparency_gradient", materialId));
+}
+
+void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
+{
+	//*********** NOTE: every material parameter have to be listed in QStringList
+	// cMaterial::paramsList in material.cpp file
+
+	par->addParam(cLight::Name("is_defined", lightId), false, morphNone, paramStandard);
+	par->addParam(cLight::Name("cast_shadows", lightId), true, morphLinear, paramStandard);
+	par->addParam(cLight::Name("penetrating", lightId), true, morphLinear, paramStandard);
+	par->addParam(cLight::Name("relative_position", lightId), false, morphLinear, paramStandard);
+	par->addParam(cLight::Name("volumetric", lightId), false, morphLinear, paramStandard);
+	par->addParam(cLight::Name("cone_angle", lightId), 5.0, 0.0, 180.0, morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("cone_soft_angle", lightId), 4.0, 0.0, 180.0, morphLinear, paramStandard);
+	par->addParam(cLight::Name("intensity", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(cLight::Name("visibility", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("volumetric_visibility", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(cLight::Name("size", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("soft_shadow_cone", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(cLight::Name("position", lightId), CVector3(0, 0, 0), morphAkima, paramStandard);
+	par->addParam(
+		cLight::Name("rotation", lightId), CVector3(-45.0, 45.0, 0), morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("color", lightId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("type", lightId), int(cLight::lightGlobal), morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);
 }
 
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,

@@ -59,14 +59,15 @@ public:
 	int id = -1;
 
 	float coneAngle = 0.0f;
-	float codeSoftAngle = 0.0f;
+	float coneSoftAngle = 0.0f;
 	float intensity = 0.0f;
 	float visibility = 0.0f;
 	float volumetricVisibility = 0.0f;
 	float size = 0.0f;
+	float softShadowCone = 0.0f;
 
 	CVector3 position;
-	CVector3 rotattion;
+	CVector3 rotation;
 
 	sRGBFloat color;
 

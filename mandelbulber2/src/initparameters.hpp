@@ -51,5 +51,6 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par);
 void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par);
 void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par);
+void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par);
 
 #endif /* MANDELBULBER2_SRC_INITPARAMETERS_HPP_ */

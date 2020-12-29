@@ -60,7 +60,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float shadowTemp = 1.0f;
 	float iterFogSum = 0.0f;
 
-	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
+	float softRange = tan(consts->params.shadowConeAngle);
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !cloudMode && !consts->params.iterFogEnabled

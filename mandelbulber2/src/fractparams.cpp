@@ -193,7 +193,7 @@ sParamRender::sParamRender(
 	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
 	shadow = container->Get<bool>("shadows_enabled");
-	shadowConeAngle = container->Get<double>("shadows_cone_angle");
+	shadowConeAngle = container->Get<double>("shadows_cone_angle") / 180.0 * M_PI;
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");

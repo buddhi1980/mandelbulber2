@@ -61,7 +61,7 @@ double cRenderWorker::AuxShadow(
 	}
 	else
 	{
-		softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
+		softRange = tan(params->shadowConeAngle);
 	}
 
 	double maxSoft = 0.0;
