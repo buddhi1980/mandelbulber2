@@ -47,35 +47,43 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// curve
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		REAL absZZ = zc.z * zc.z * fractal->transformCommon.scaleA0;
-		widthX += absZZ;
-		lengthY += absZZ;
+		REAL absZZ = zc.z * zc.z;
+		widthX += absZZ * fractal->transformCommon.constantMultiplier000.x;
+		lengthY += absZZ * fractal->transformCommon.constantMultiplier000.y;
+		widthX += zc.y * zc.y * fractal->transformCommon.constantMultiplier000.z;
 	}
 
-	// pyramid
+	// wedge
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		REAL subZ = fractal->transformCommon.scaleB0 * zc.z;
-		widthX -= subZ;
-		lengthY -= subZ;
+		widthX += zc.z * fractal->transformCommon.scale3D000.x;
+		lengthY += zc.z * fractal->transformCommon.scale3D000.y;
+		zc.y += zc.z * fractal->transformCommon.scale3D000.z;
 	}
 
 	// star
 	if (fractal->transformCommon.functionEnabledCFalse)
-				widthX -= (fractal->transformCommon.scaleC0 * zc.y);
+				widthX -= fractal->transformCommon.scaleC0 * zc.y;
 
+	// saw
 	if (fractal->transformCommon.functionEnabledDFalse)
-				zc.x -= fractal->transformCommon.scale05 * zc.y;
+				zc.x += zc.z * fractal->transformCommon.scaleA0;
 
 	zc.x = fabs(zc.x) - widthX;
 	zc.y = fabs(zc.y) - lengthY;
 	zc.z = fabs(zc.z) - heightZ;
 
-	if (fractal->transformCommon.functionEnabledEFalse)
+	if (fractal->transformCommon.functionEnabledFFalse)
 				zc.x *= -fractal->transformCommon.scaleE1 * zc.y;
 
-	if (fractal->transformCommon.functionEnabledFFalse)
-				zc.x += fractal->transformCommon.scaleF1 * zc.y;
+	// track
+	if (fractal->transformCommon.functionEnabledGFalse)
+	{
+		zc.x += zc.y * fractal->transformCommon.scale0000.x;
+		zc.y += zc.x * fractal->transformCommon.scale0000.y;
+		zc.y += zc.z * fractal->transformCommon.scale0000.z;
+		zc.z += zc.y * fractal->transformCommon.scale0000.w;
+	}
 
 
 	zc.x = max(zc.x, 0.0);
@@ -84,12 +92,12 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL zcd = length(zc);
 
 
-		REAL sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
-				+ fractal->transformCommon.offsetR0)
-				- fractal->transformCommon.offsetR0;
-		sdTor = max(sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	REAL sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
+			+ fractal->transformCommon.offsetR0)
+			- fractal->transformCommon.offsetR0;
+	sdTor = max(sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
 
-		REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+	REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	aux->dist = min(aux->dist, d / (aux->DE + 1.0));
 	return z;
