@@ -84,6 +84,7 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	zc.y = fabs(zc.y) - lengthY;
 	zc.z = fabs(zc.z) - heightZ;
 
+	// voids
 	if (fractal->transformCommon.functionEnabledFFalse)
 				zc.x *= -fractal->transformCommon.scaleE1 * zc.y;
 
@@ -96,19 +97,25 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 		zc.z += zc.y * fractal->transformCommon.scale0000.w;
 	}
 
-	zc.x = max(zc.x, 0.0) + fractal->analyticDE.offset0;
-	zc.y = max(zc.y, 0.0) + fractal->analyticDE.offset0;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
 	zc.z = max(zc.z, 0.0);
-	double zcd = zc.Length();
+	double zcd = zc.Length() + fractal->analyticDE.offset0;
 
-	double sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
-			+ fractal->transformCommon.offsetR0)
-			- fractal->transformCommon.offsetR0;
-	sdTor = max (sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	// cylinder
+	double sdTor = 1000.0;
+	if (fractal->transformCommon.functionEnabled)
+	{
+		 sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
+				+ fractal->transformCommon.offsetR0)
+				- fractal->transformCommon.offsetR0;
+		sdTor = max (sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	}
 
 	double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	aux.dist = min(aux.dist, d / (aux.DE + 1.0));
 
-
+	if (fractal->transformCommon.functionEnabledEFalse)
+		z = zc;
 }

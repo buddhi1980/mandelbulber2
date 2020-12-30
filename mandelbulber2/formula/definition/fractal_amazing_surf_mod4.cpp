@@ -67,7 +67,7 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	useScale = (aux.actualScaleA + fractal->transformCommon.scale2) / dividend;
 	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale) + 1.0;
+	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset1;
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		// update actualScaleA for next iteration

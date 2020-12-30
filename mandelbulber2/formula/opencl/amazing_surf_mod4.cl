@@ -56,7 +56,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	useScale = (aux->actualScaleA + fractal->transformCommon.scale2) / dividend;
 	z *= useScale;
-	aux->DE = aux->DE * fabs(useScale) + 1.0f;
+	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset1;
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		// update actualScaleA for next iteration

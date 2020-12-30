@@ -1045,11 +1045,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled">
      <property name="title">
-      <string>Cylinder controls</string>
+      <string>&amp;Cylinder controls</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1221,6 +1224,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+     <property name="text">
+      <string>temp</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
