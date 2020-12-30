@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>2870</height>
+    <height>3004</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -551,7 +551,7 @@ offset:</string>
      <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_z">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -574,7 +574,7 @@ offset:</string>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
         <string notr="true">Fold z:</string>
        </property>
@@ -804,7 +804,7 @@ offset:</string>
          <number>2</number>
         </property>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -839,7 +839,7 @@ offset:</string>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_015">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1423,6 +1423,16 @@ offset:</string>
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -1549,6 +1559,158 @@ offset:</string>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="title">
+      <string>abs&amp; and swap</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_51">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,0">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+          <property name="text">
+           <string notr="true">absZ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+          <property name="text">
+           <string notr="true">absX</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+          <property name="text">
+           <string notr="true">absY</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>function order of z.x, z.y and z.z:
+(swaps order each iteration)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+          <item>
+           <property name="text">
+            <string notr="true">xyz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">zxy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">zyx</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_26">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="2">
+           <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+            <property name="text">
+             <string notr="true">z.y</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+            <property name="text">
+             <string notr="true">z.z</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+            <property name="text">
+             <string notr="true">z.x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>reverse axis sign each iteration:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
@@ -1906,6 +2068,11 @@ offset:</string>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
@@ -1920,10 +2087,10 @@ offset:</string>
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_transf_function_enabledJ_false</sender>
+   <sender>checkBox_transf_function_enabled</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox3_transf_addition_constant_111_z</receiver>
-   <slot>setEnabled(bool)</slot>
+   <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>33</x>

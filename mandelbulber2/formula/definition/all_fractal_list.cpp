@@ -147,6 +147,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxMod12());
 	fractalList->append(new cFractalAboxMod13());
 	fractalList->append(new cFractalAboxMod14());
+	fractalList->append(new cFractalAboxMod15());
 	fractalList->append(new cFractalAboxModKali());
 	fractalList->append(new cFractalAboxModKaliEiffie());
 	fractalList->append(new cFractalAboxModKaliV2());
@@ -222,7 +223,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// ----- JosLeys-Kleinian -----
 	fractalList->append(new cFractalJosKleinian());
 	fractalList->append(new cFractalJosKleinianV2());
-	fractalList->append(new cFractalJosKleinianV3());
+
 
 	// ----- Pseudo Kleinian ----
 	fractalList->append(new cFractalPseudoKleinian());
@@ -269,6 +270,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	// ---- custom DE - non-dIFS Formulas----
 	fractalList->append(new cFractalFoldCutCube());
+	fractalList->append(new cFractalJosKleinianV3());
 	fractalList->append(new cFractalKoch());
 	fractalList->append(new cFractalKochV2());
 	fractalList->append(new cFractalKochV3());

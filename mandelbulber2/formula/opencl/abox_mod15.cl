@@ -17,7 +17,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
@@ -40,7 +40,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.functionEnabled)
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	REAL4 zCol = z;
@@ -54,9 +54,9 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// scale
 	REAL useScale = 1.0f;
 
-	useScale = (aux->actualScaleA + fractal->transformCommon.scale2) / dividend;
+	useScale = (aux->actualScaleA + fractal->transformCommon.scale015) / dividend;
 	z *= useScale;
-	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset1;
+	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		// update actualScaleA for next iteration
@@ -76,6 +76,27 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZCl_xyz:
+			default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
+			case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
+		}
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

@@ -15,20 +15,20 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalAmazingSurfMod4::cFractalAmazingSurfMod4() : cAbstractFractal()
+cFractalAboxMod15::cFractalAboxMod15() : cAbstractFractal()
 {
-	nameInComboBox = "Amazing Surf - Mod 4";
-	internalName = "amazing_surf_mod4";
-	internalID = fractal::amazingSurfMod4;
+	nameInComboBox = "Abox - Mod 15";
+	internalName = "abox_mod15";
+	internalID = fractal::aboxMod15;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLinear;
-	coloringFunction = coloringFunctionDefault;
+	coloringFunction = coloringFunctionABox;
 }
 
-void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
@@ -51,7 +51,7 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.functionEnabled)
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	CVector4 zCol = z;
@@ -65,9 +65,9 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	// scale
 	double useScale = 1.0;
 
-	useScale = (aux.actualScaleA + fractal->transformCommon.scale2) / dividend;
+	useScale = (aux.actualScaleA + fractal->transformCommon.scale015) / dividend;
 	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset1;
+	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		// update actualScaleA for next iteration
@@ -84,9 +84,35 @@ void cFractalAmazingSurfMod4::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
 
+
+
 	z += fractal->transformCommon.additionConstantA000;
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		//z += fractal->transformCommon.additionConstant000;
+
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+		//z += fractal->transformCommon.offsetA000;
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZ_xyz:
+			default: z = CVector4(z.x, z.y, z.z, z.w); break;
+			case multi_OrderOfXYZ_xzy: z = CVector4(z.x, z.z, z.y, z.w); break;
+			case multi_OrderOfXYZ_yxz: z = CVector4(z.y, z.x, z.z, z.w); break;
+			case multi_OrderOfXYZ_yzx: z = CVector4(z.y, z.z, z.x, z.w); break;
+			case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
+			case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
+		}
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

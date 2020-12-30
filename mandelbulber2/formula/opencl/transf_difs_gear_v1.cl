@@ -85,20 +85,26 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		zc.z += zc.y * fractal->transformCommon.scale0000.w;
 	}
 
-
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
 	zc.z = max(zc.z, 0.0);
 	REAL zcd = length(zc);
 
-
-	REAL sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
-			+ fractal->transformCommon.offsetR0)
-			- fractal->transformCommon.offsetR0;
-	sdTor = max(sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	REAL sdTor = 1000.0;
+	if (fractal->transformCommon.functionEnabled)
+	{
+		 sdTor = fabs(sqrt(z.x * z.x + z.y *z.y) - fractal->transformCommon.offsetA1
+				+ fractal->transformCommon.offsetR0)
+				- fractal->transformCommon.offsetR0;
+		sdTor = max(sdTor , fabs(z.z) - fractal->transformCommon.offsetA05);
+	}
 
 	REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	aux->dist = min(aux->dist, d / (aux->DE + 1.0));
+
+	if (fractal->transformCommon.functionEnabledEFalse)
+		z = zc;
+
 	return z;
 }
