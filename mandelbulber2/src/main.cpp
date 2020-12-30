@@ -145,6 +145,10 @@ int main(int argc, char *argv[])
 		InitFractalParams(gParFractal->at(i));
 	}
 
+	// FIXME ---------------- temporary code for testing lights UI -----
+	InitLightParams(1, gPar);
+	//-----------------------------------------------------------
+
 	// Define list of fractal formulas
 	DefineFractalList(&newFractalList);
 

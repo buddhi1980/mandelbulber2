@@ -32,7 +32,7 @@
       <number>2</number>
      </property>
      <item row="1" column="1">
-      <widget class="MyColorButton" name="colorButton_aux_light_colour" native="true">
+      <widget class="MyColorButton" name="colorButton_color" native="true">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -42,7 +42,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="comboBox_decayFunction">
        <item>
         <property name="text">
          <string>1/r</string>
@@ -68,7 +68,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="MyLineEdit" name="logedit_aux_light_visibility">
+      <widget class="MyLineEdit" name="logedit_visibility">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -81,7 +81,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="comboBox_type">
        <item>
         <property name="text">
          <string>Global light</string>
@@ -119,7 +119,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="MyLineEdit" name="logedit_aux_light_intensity">
+      <widget class="MyLineEdit" name="logedit_intensity">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -146,7 +146,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="MyLineEdit" name="logedit_aux_light_size">
+      <widget class="MyLineEdit" name="logedit_size">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -173,7 +173,7 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_shadows_cone_angle">
+      <widget class="MyDoubleSpinBox" name="spinbox_soft_shadow_cone">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -217,7 +217,7 @@
       <number>2</number>
      </property>
      <item row="2" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_z">
+      <widget class="MyLineEdit" name="vect3_position_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -230,7 +230,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_y">
+      <widget class="MyLineEdit" name="vect3_position_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -243,7 +243,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_x">
+      <widget class="MyLineEdit" name="vect3_position_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -290,45 +290,6 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_z_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_y_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="MyLineEdit" name="vect3_aux_light_position_x_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_24">
        <property name="text">
@@ -357,10 +318,94 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>-36000.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>36000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>-36000.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>36000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>-36000.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>36000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_shadows_enabled">
+    <widget class="MyCheckBox" name="checkBox_cast_shadows">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
@@ -376,7 +421,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_penetrating_lights">
+    <widget class="MyCheckBox" name="checkBox_penetrating">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
@@ -392,7 +437,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_penetrating_lights_2">
+    <widget class="MyCheckBox" name="checkBox_relative_position">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
@@ -408,7 +453,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupBox">
+    <widget class="MyGroupBox" name="groupCheck_volumetric">
      <property name="title">
       <string>Volumetric</string>
      </property>
@@ -432,7 +477,7 @@
        <number>2</number>
       </property>
       <item row="0" column="1">
-       <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity">
+       <widget class="MyLineEdit" name="logedit_volumetric_visibility">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -454,8 +499,23 @@
       <string>Cone options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_6">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <property name="spacing">
+       <number>2</number>
+      </property>
       <item row="0" column="1">
-       <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity_2"/>
+       <widget class="MyLineEdit" name="logedit_cone_angle"/>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_62">
@@ -484,7 +544,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity_4"/>
+       <widget class="MyLineEdit" name="logedit_cone_soft_angle"/>
       </item>
      </layout>
     </widget>
@@ -505,7 +565,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="FileSelectWidget" name="text_file_background" native="true">
+      <widget class="FileSelectWidget" name="text_file_texture" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>

@@ -9,8 +9,10 @@
 #define MANDELBULBER2_QT_LIGHT_EDITOR_H_
 
 #include <QWidget>
+#include <memory>
 
 class cAutomatedWidgets;
+class cParameterContainer;
 
 namespace Ui
 {
@@ -24,10 +26,15 @@ class cLightEditor : public QWidget
 public:
 	explicit cLightEditor(QWidget *parent = nullptr);
 	~cLightEditor() override;
+	void AssignLight(std::shared_ptr<cParameterContainer> params, int index);
 
+private:
 	Ui::cLightEditor *ui;
 	int lightIndex = -1;
 
+	bool isLightAssigned = false;
+
+	std::shared_ptr<cParameterContainer> parameterContainer;
 	cAutomatedWidgets *automatedWidgets;
 };
 

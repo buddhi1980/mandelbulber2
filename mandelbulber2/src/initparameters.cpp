@@ -1604,6 +1604,8 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 		cLight::Name("type", lightId), int(cLight::lightGlobal), morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);
+	par->addParam(cLight::Name("file_texture", lightId), QString("superDuperLightTexture.jpg"),
+		morphLinear, paramStandard);
 }
 
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,

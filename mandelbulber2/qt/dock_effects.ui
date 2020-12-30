@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -3323,7 +3323,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-81</y>
+            <y>-338</y>
             <width>551</width>
             <height>1422</height>
            </rect>
@@ -4461,6 +4461,16 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                </item>
               </layout>
              </widget>
+             <widget class="QWidget" name="tab">
+              <attribute name="title">
+               <string>Test</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="cLightEditor" name="widget_light_5" native="true"/>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
            <item>
@@ -5561,6 +5571,12 @@ of lights:</string>
    <class>cButtonRandomSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_random_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cLightEditor</class>
+   <extends>QWidget</extends>
+   <header>light_editor.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

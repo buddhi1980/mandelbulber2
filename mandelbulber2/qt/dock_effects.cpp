@@ -51,6 +51,11 @@
 cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
 {
 	ui->setupUi(this);
+
+	// FIXME---------------- temporary code for testing lights UI -----
+	ui->widget_light_5->AssignLight(gPar, 1);
+	//-----------------------------------------------------------
+
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
