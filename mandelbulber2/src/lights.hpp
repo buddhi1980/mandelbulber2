@@ -63,9 +63,11 @@ class cLights : public QObject
 public:
 	cLights();
 	cLights(const std::shared_ptr<cParameterContainer> _params,
-		const std::shared_ptr<cFractalContainer> _fractal);
+		const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
+		bool useNetRender);
 	void Set(const std::shared_ptr<cParameterContainer> _params,
-		const std::shared_ptr<cFractalContainer> _fractal);
+		const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
+		bool useNetRender);
 	~cLights() override;
 	const cLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }

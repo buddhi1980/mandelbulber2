@@ -323,7 +323,8 @@ void cRenderJob::PrepareData()
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 		Qt::UniqueConnection);
 
-	renderData->lights.Set(paramsContainer, fractalContainer);
+	renderData->lights.Set(paramsContainer, fractalContainer, loadTextures,
+		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
 
 	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
 }

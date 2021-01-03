@@ -41,7 +41,6 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 {
 
 	int numberOfLights = data->lights.GetNumberOfLights();
-	if (numberOfLights < 4) numberOfLights = 4;
 	sRGBAfloat shadeAuxSum;
 	sRGBAfloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)

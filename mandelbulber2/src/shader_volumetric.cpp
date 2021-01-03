@@ -184,7 +184,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		//---------------------- volumetric lights with shadows in fog
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < data->lights.GetNumberOfLights() + 1; i++)
 		{
 			if (i == 0 && params->volumetricLightEnabled[0] && params->mainLightEnable)
 			{
@@ -437,7 +437,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		//------------------ visible light
 		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
 		{
-			for (int i = 0; i < numberOfLights; ++i)
+			for (int i = 0; i < data->lights.GetNumberOfLights(); ++i)
 			{
 				const cLight *light = data->lights.GetLight(i);
 				if (light->enabled && light->intensity > 0)

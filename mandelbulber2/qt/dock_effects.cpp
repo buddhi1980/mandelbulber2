@@ -52,10 +52,6 @@ cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockE
 {
 	ui->setupUi(this);
 
-	// FIXME---------------- temporary code for testing lights UI -----
-	ui->widget_light_5->AssignLight(gPar, 1);
-	//-----------------------------------------------------------
-
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
@@ -83,6 +79,8 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->pushButton_hdr_blur_update, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonUpdatePostEffects()));
 
+	// FIXME temporary disabled code until new buttons will be added
+	/*
 	connect(ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight1ByMouse()));
 	connect(ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), this,
@@ -91,6 +89,7 @@ void cDockEffects::ConnectSignals() const
 		SLOT(slotPressedButtonSetLight3ByMouse()));
 	connect(ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight4ByMouse()));
+	 */
 
 	connect(ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetFogByMouse()));
@@ -122,7 +121,7 @@ void cDockEffects::SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterCont
 
 void cDockEffects::SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const
 {
-	SynchronizeInterfaceWindow(ui->tabWidget_Lights, par, qInterface::write);
+	SynchronizeInterfaceWindow(ui->widget_light_sources_manager, par, qInterface::write);
 }
 
 void cDockEffects::SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const

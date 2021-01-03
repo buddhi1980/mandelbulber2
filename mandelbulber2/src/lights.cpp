@@ -33,6 +33,7 @@
  */
 
 #include "lights.hpp"
+#include "light.h"
 
 #include "calculate_distance.hpp"
 #include "common_math.h"
@@ -53,14 +54,15 @@ cLights::cLights() : QObject()
 }
 
 cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
-	const std::shared_ptr<cFractalContainer> _fractal)
+	const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
+	bool useNetRender)
 		: QObject()
 {
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
 	dummyLight = cLight();
-	Set(_params, _fractal);
+	Set(_params, _fractal, loadTextures, quiet, useNetRender);
 }
 
 cLights::~cLights()
@@ -69,13 +71,34 @@ cLights::~cLights()
 }
 
 void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
-	const std::shared_ptr<cFractalContainer> _fractal)
+	const std::shared_ptr<cFractalContainer> _fractal, bool loadTextures, bool quiet,
+	bool useNetRender)
 {
 	WriteLog("Preparation of lights started", 2);
 	// move parameters from containers to structures
 	std::unique_ptr<const sParamRender> params(new sParamRender(_params));
 	std::unique_ptr<const cNineFractals> fractals(new cNineFractals(_fractal, _params));
 
+	lights.clear();
+	QList<QString> listOfParameters = _params->GetListOfParameters();
+	for (auto &parameterName : listOfParameters)
+	{
+		const int lengthOfPrefix = 5;
+		if (parameterName.leftRef(lengthOfPrefix) == "light")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int lightIndex =
+				parameterName.midRef(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
+			{
+				lights.push_back(cLight(lightIndex, _params, loadTextures, quiet, useNetRender));
+				isAnyLight = true;
+				numberOfLights++;
+			}
+		}
+	}
+
+	/*
 	numberOfLights = params->auxLightNumber;
 
 	if (params->auxLightRandomEnabled)
@@ -109,6 +132,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			}
 		}
 	}
+	*/
 
 	// auto generated random lights
 	if (params->auxLightRandomEnabled && params->auxLightRandomNumber > 0)
