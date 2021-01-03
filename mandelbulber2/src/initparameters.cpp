@@ -1583,6 +1583,7 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	// cMaterial::paramsList in material.cpp file
 
 	par->addParam(cLight::Name("is_defined", lightId), false, morphNone, paramStandard);
+	par->addParam(cLight::Name("enabled", lightId), false, morphNone, paramStandard);
 	par->addParam(cLight::Name("cast_shadows", lightId), true, morphLinear, paramStandard);
 	par->addParam(cLight::Name("penetrating", lightId), true, morphLinear, paramStandard);
 	par->addParam(cLight::Name("relative_position", lightId), false, morphLinear, paramStandard);

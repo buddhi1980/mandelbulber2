@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -3323,9 +3323,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-338</y>
+            <y>0</y>
             <width>551</width>
-            <height>1422</height>
+            <height>1434</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3759,6 +3759,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
               </item>
              </layout>
             </widget>
+           </item>
+           <item>
+            <widget class="cLightSourcesManager" name="widget_light_sources_manager" native="true"/>
            </item>
            <item>
             <widget class="QTabWidget" name="tabWidget_Lights">
@@ -5576,6 +5579,12 @@ of lights:</string>
    <class>cLightEditor</class>
    <extends>QWidget</extends>
    <header>light_editor.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cLightSourcesManager</class>
+   <extends>QWidget</extends>
+   <header>light_sources_manager.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

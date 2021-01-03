@@ -38,16 +38,16 @@ void cLightEditor::AssignLight(std::shared_ptr<cParameterContainer> params, int 
 		isLightAssigned = true;
 
 		QList<QWidget *> lightWidgets = findChildren<QWidget *>();
-		for (auto &materialWidget : lightWidgets)
+		for (auto &lightWidget : lightWidgets)
 		{
-			if (!materialWidget->objectName().isEmpty())
+			if (!lightWidget->objectName().isEmpty())
 			{
-				QString objectName = materialWidget->objectName();
+				QString objectName = lightWidget->objectName();
 				int posOfDash = objectName.indexOf('_');
 				if (posOfDash > 0)
 				{
 					QString newName = objectName.insert(posOfDash, QString("_light%1").arg(index));
-					materialWidget->setObjectName(newName);
+					lightWidget->setObjectName(newName);
 				}
 			}
 		}
