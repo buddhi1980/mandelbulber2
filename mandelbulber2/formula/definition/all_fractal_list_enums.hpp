@@ -454,7 +454,7 @@ enum enumFractalFormula
 
 	// 2.25
 	transfDIFSGearV1 = 1619,
-
+	transfDIFSGridV3 = 1620,
 
 
 	// hybrid color
