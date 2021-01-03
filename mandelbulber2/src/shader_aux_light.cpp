@@ -34,6 +34,7 @@
 #include "fractparams.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
+#include "light.h"
 
 sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfloat surfaceColor,
 	sGradientsCollection *gradients, sRGBAfloat *specularOut) const
@@ -45,7 +46,7 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	sRGBAfloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		const sLight *light = data->lights.GetLight(i);
+		const cLight *light = data->lights.GetLight(i);
 		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;

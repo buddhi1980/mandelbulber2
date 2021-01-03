@@ -200,7 +200,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			}
 			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
-				const sLight *light = data->lights.GetLight(i - 1);
+				const cLight *light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
 				{
 					CVector3 lightVectorTemp = light->position - point;
@@ -208,11 +208,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
 					float lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
-					output.R += lightShadow * light->colour.R * params->volumetricLightIntensity[i]
+					output.R += lightShadow * light->color.R * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
-					output.G += lightShadow * light->colour.G * params->volumetricLightIntensity[i]
+					output.G += lightShadow * light->color.G * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
-					output.B += lightShadow * light->colour.B * params->volumetricLightIntensity[i]
+					output.B += lightShadow * light->color.B * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
 					output.A +=
 						lightShadow * params->volumetricLightIntensity[i] * float(step) / distanceLight2;
@@ -300,7 +300,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 				for (int l = 1; l < 5; l++)
 				{
-					const sLight *light = data->lights.GetLight(l - 1);
+					const cLight *light = data->lights.GetLight(l - 1);
 					if (light->enabled)
 					{
 						CVector3 lightVectorTemp = light->position - point;
@@ -317,9 +317,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						lightShadow = lightShadow * nAmbient + ambient;
 
 						float intensity = light->intensity;
-						newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
-						newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
-						newColour.B += lightShadow * light->colour.B / distanceLight2 * intensity;
+						newColour.R += lightShadow * light->color.R / distanceLight2 * intensity;
+						newColour.G += lightShadow * light->color.G / distanceLight2 * intensity;
+						newColour.B += lightShadow * light->color.B / distanceLight2 * intensity;
 					}
 				}
 			}
@@ -394,7 +394,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 					if (i > 0)
 					{
-						const sLight *light = data->lights.GetLight(i - 1);
+						const cLight *light = data->lights.GetLight(i - 1);
 						if (light->enabled)
 						{
 							CVector3 lightVectorTemp = light->position - point;
@@ -408,9 +408,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 							}
 							float intensity = light->intensity * params->iterFogBrightnessBoost;
-							newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
-							newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
-							newColour.B += lightShadow * light->colour.B / distanceLight2 * intensity;
+							newColour.R += lightShadow * light->color.R / distanceLight2 * intensity;
+							newColour.G += lightShadow * light->color.G / distanceLight2 * intensity;
+							newColour.B += lightShadow * light->color.B / distanceLight2 * intensity;
 						}
 					}
 				}
@@ -439,7 +439,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		{
 			for (int i = 0; i < numberOfLights; ++i)
 			{
-				const sLight *light = data->lights.GetLight(i);
+				const cLight *light = data->lights.GetLight(i);
 				if (light->enabled && light->intensity > 0)
 				{
 					double lastMiniSteps = -1.0;
@@ -464,9 +464,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
 
-						output.R += lightDensity * light->colour.R;
-						output.G += lightDensity * light->colour.G;
-						output.B += lightDensity * light->colour.B;
+						output.R += lightDensity * light->color.R;
+						output.G += lightDensity * light->color.G;
+						output.B += lightDensity * light->color.B;
 						output.A += lightDensity;
 
 						if (miniSteps == lastMiniSteps)

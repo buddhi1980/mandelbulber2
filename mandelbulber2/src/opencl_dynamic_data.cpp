@@ -37,6 +37,7 @@
 #include <vector>
 
 #include "color_gradient.h"
+#include "light.h"
 #include "lights.hpp"
 #include "material.h"
 #include "opencl_textures_data.h"
@@ -491,9 +492,9 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		if (i == 0) arrayOffset = totalDataOffset;
 
 		sLightCl lightCl;
-		const sLight *light = lights->GetLight(i);
+		const cLight *light = lights->GetLight(i);
 		lightCl.position = toClFloat3(light->position);
-		lightCl.colour = toClFloat3(light->colour);
+		lightCl.colour = toClFloat3(light->color);
 		lightCl.intensity = light->intensity;
 		lightCl.enabled = light->enabled;
 

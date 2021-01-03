@@ -46,7 +46,7 @@
 
 // forward declarations
 class cMaterial;
-struct sLight;
+class cLight;
 class cCameraTarget;
 class cImage;
 struct sRenderData;
@@ -246,7 +246,7 @@ private:
 	double AuxShadow(
 		const sShaderInputData &input, double distance, CVector3 lightVector, double intensity) const;
 	sRGBAfloat LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-		const sLight *light, int number, sGradientsCollection *gradients,
+		const cLight *light, int number, sGradientsCollection *gradients,
 		sRGBAfloat *outSpecular) const;
 	sRGBAfloat BackgroundShader(const sShaderInputData &input) const;
 	sRGBAfloat FakeLights(

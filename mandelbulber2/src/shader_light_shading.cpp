@@ -38,7 +38,7 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-	const sLight *light, int number, sGradientsCollection *gradients, sRGBAfloat *outSpecular) const
+	const cLight *light, int number, sGradientsCollection *gradients, sRGBAfloat *outSpecular) const
 {
 	sRGBAfloat shading;
 
@@ -94,13 +94,13 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		}
 	}
 
-	shading.R = shade * light->colour.R;
-	shading.G = shade * light->colour.G;
-	shading.B = shade * light->colour.B;
+	shading.R = shade * light->color.R;
+	shading.G = shade * light->color.G;
+	shading.B = shade * light->color.B;
 
-	outSpecular->R = specular.R * light->colour.R;
-	outSpecular->G = specular.G * light->colour.G;
-	outSpecular->B = specular.B * light->colour.B;
+	outSpecular->R = specular.R * light->color.R;
+	outSpecular->G = specular.G * light->color.G;
+	outSpecular->B = specular.B * light->color.B;
 
 	return shading;
 }

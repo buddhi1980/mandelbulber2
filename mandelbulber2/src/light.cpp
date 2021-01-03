@@ -8,6 +8,11 @@
 #include "light.h"
 #include "parameters.hpp"
 
+cLight::cLight()
+{
+	// nothing to construct
+}
+
 cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, bool loadTextures,
 	bool quiet, bool useNetRender)
 {
@@ -26,6 +31,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	int frameNo = lightParam->Get<int>("frame_no");
 
+	enabled = lightParam->Get<bool>(Name("enabled", id));
 	castShadows = lightParam->Get<bool>(Name("cast_shadows", id));
 	penetrating = lightParam->Get<bool>(Name("penetrating", id));
 	relativePosition = lightParam->Get<bool>(Name("relative_position", id));

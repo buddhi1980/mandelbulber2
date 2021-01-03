@@ -42,19 +42,20 @@
 
 #include "algebra.hpp"
 #include "color_structures.hpp"
+#include "light.h"
 
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
 
-struct sLight
-{
-	CVector3 position;
-	sRGBFloat colour;
-	float intensity{0.0f};
-	bool enabled{false};
-	sLight() {}
-};
+// struct sLight
+//{
+//	CVector3 position;
+//	sRGBFloat colour;
+//	float intensity{0.0f};
+//	bool enabled{false};
+//	sLight() {}
+//};
 
 class cLights : public QObject
 {
@@ -66,15 +67,15 @@ public:
 	void Set(const std::shared_ptr<cParameterContainer> _params,
 		const std::shared_ptr<cFractalContainer> _fractal);
 	~cLights() override;
-	const sLight *GetLight(const int index) const;
+	const cLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }
 	int IsAnyLightEnabled() const { return isAnyLight; };
 
 private:
 	void Copy(const cLights &);
 
-	std::vector<sLight> lights;
-	sLight dummyLight;
+	std::vector<cLight> lights;
+	cLight dummyLight;
 	int numberOfLights;
 	bool lightsReady;
 	bool isAnyLight;

@@ -59,7 +59,7 @@ cLights::cLights(const std::shared_ptr<cParameterContainer> _params,
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
-	dummyLight = sLight();
+	dummyLight = cLight();
 	Set(_params, _fractal);
 }
 
@@ -96,7 +96,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			{
 				lights[i].position = params->auxLightPre[i];
 				lights[i].intensity = params->auxLightPreIntensity[i];
-				lights[i].colour = params->auxLightPreColour[i];
+				lights[i].color = params->auxLightPreColour[i];
 				lights[i].enabled = true;
 				isAnyLight = true;
 			}
@@ -104,7 +104,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			{
 				lights[i].position = CVector3(0.0, 0.0, 0.0);
 				lights[i].intensity = 0.0;
-				lights[i].colour = sRGBFloat(0.0, 0.0, 0.0);
+				lights[i].color = sRGBFloat(0.0, 0.0, 0.0);
 				lights[i].enabled = false;
 			}
 		}
@@ -163,7 +163,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			double intensity = params->auxLightRandomIntensity * distanceLimited * distanceLimited;
 
 			lights[i + params->auxLightNumber].position = position;
-			lights[i + params->auxLightNumber].colour = colour;
+			lights[i + params->auxLightNumber].color = colour;
 			lights[i + params->auxLightNumber].intensity = float(intensity);
 			lights[i + params->auxLightNumber].enabled = true;
 			isAnyLight = true;
@@ -184,7 +184,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	WriteLog("Preparation of lights finished", 2);
 }
 
-const sLight *cLights::GetLight(const int index) const
+const cLight *cLights::GetLight(const int index) const
 {
 	if (lightsReady)
 	{
@@ -201,5 +201,5 @@ const sLight *cLights::GetLight(const int index) const
 	{
 		qCritical() << "Lights not initialized";
 	}
-	return const_cast<sLight *>(&dummyLight);
+	return const_cast<cLight *>(&dummyLight);
 }

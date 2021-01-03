@@ -51,6 +51,7 @@ public:
 		lightDecay1R3 = 2,
 	};
 
+	bool enabled = false;
 	bool castShadows = false;
 	bool penetrating = false;
 	bool relativePosition = false;
