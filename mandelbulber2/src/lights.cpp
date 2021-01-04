@@ -186,10 +186,15 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			double distanceLimited = max(0.1 * params->auxLightRandomMaxDistanceFromFractal, distance);
 			double intensity = params->auxLightRandomIntensity * distanceLimited * distanceLimited;
 
-			lights[i + params->auxLightNumber].position = position;
-			lights[i + params->auxLightNumber].color = colour;
-			lights[i + params->auxLightNumber].intensity = float(intensity);
-			lights[i + params->auxLightNumber].enabled = true;
+			cLight newLight;
+
+			newLight.position = position;
+			newLight.color = colour;
+			newLight.intensity = float(intensity);
+			newLight.enabled = true;
+
+			lights.push_back(newLight);
+
 			isAnyLight = true;
 
 			emit updateProgressAndStatus(QObject::tr("Positioning random lights"),
