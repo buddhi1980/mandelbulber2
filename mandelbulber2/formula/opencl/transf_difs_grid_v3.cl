@@ -17,32 +17,29 @@
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
-	
+
 	if (fractal->transformCommon.functionEnabledFalse)
-	
 	{
 		for (int n = 0; n < fractal->transformCommon.int8X; n++)
 		{
-			REAL4 limit = fractal->transformCommon.additionConstant000;
+			REAL4 limit = fractal->transformCommon.offset111;
 	
 			if (fractal->transformCommon.functionEnabledAx
-					&& aux->i >= fractal->transformCommon.startIterationsA
-					&& aux->i < fractal->transformCommon.stopIterationsA)
+					&& n >= fractal->transformCommon.startIterationsA
+					&& n < fractal->transformCommon.stopIterationsA)
 				zc.x = fabs(zc.x + limit.x) - fabs(zc.x - limit.x) - zc.x;
 	
 			if (fractal->transformCommon.functionEnabledAy
-					&& aux->i >= fractal->transformCommon.startIterationsB
-					&& aux->i < fractal->transformCommon.stopIterationsB)
+					&& n >= fractal->transformCommon.startIterationsB
+					&& n < fractal->transformCommon.stopIterationsB)
 				zc.y = fabs(zc.y + limit.y) - fabs(zc.y - limit.y) - zc.y;
 	
 			if (fractal->transformCommon.functionEnabledAzFalse
-					&& aux->i >= fractal->transformCommon.startIterationsC
-					&& aux->i < fractal->transformCommon.stopIterationsC)
+					&& n >= fractal->transformCommon.startIterationsC
+					&& n < fractal->transformCommon.stopIterationsC)
 				zc.z = fabs(zc.z + limit.z) - fabs(zc.z - limit.z) - zc.z;
 		}
 	}
-
-
 
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
@@ -73,7 +70,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabled) tD = zc.x - round(zc.x);
 
-	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offset0;
+	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 		tD = max(
@@ -81,12 +78,39 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	//tD = max((z.z)+ .003, tD);
 
-	aux->dist = min(aux->dist, tD / (aux->DE + 1.0f));
+	REAL plD = 1000.0f;
+	if (fractal->transformCommon.functionEnabledRFalse)
+		plD = fabs(z.z - fractal->transformCommon.offsetF0);
 
+	aux->dist = min(plD, tD / (aux->DE + 1.0f));
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (aux->dist == plD) aux->color = fractal->foldColor.difs0000.x;
+		else aux->color = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z * zc.z;
+		aux->color *= 256.0f;
+	}
+
+	// clip
+	if (fractal->transformCommon.functionEnabledTFalse)
+	{
+		REAL e = fractal->transformCommon.offset4;
+		if (!fractal->transformCommon.functionEnabledSFalse)
+		{
+			REAL4 f = fabs(aux->const_c) - (REAL4)(e, e, e, 0.0);
+			 e = max(f.x, max(f.y, f.z));
+		}
+		else
+		{
+			e = clamp(length(aux->const_c) - e, 0.0f, 100.0); // circle
+		}
+		aux->dist = max(aux->dist, e);
+	}
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
-
+	return z;
 
 
 	/*REAL size = fractal->transformCommon.scale1;
@@ -147,5 +171,5 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		grid = max(fabs(gridXY), fabs(zc.z));*/
 
 	//aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
-	return z;
+
 }
