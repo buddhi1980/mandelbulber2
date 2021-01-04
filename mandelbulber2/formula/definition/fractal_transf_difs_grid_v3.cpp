@@ -53,15 +53,19 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			}
 		}
 	}
-	
 
+	if (fractal->transformCommon.rotationEnabled)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
 
+	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		zc.x += fractal->transformCommon.offsetA000.x;
 		zc.x = fabs(z.x) - fractal->transformCommon.offsetA000.x;
 	}
-
+	// abs offset y
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		zc.y += fractal->transformCommon.offsetA000.y;
@@ -74,24 +78,30 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledBFalse)
 		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
 
-	if (fractal->transformCommon.functionEnabledCFalse) zc.x = max(fabs(zc.x), fabs(zc.y));
 
-	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
-
-
+	zc.x *= fractal->transformCommon.scaleA1;
+	zc.y *= fractal->transformCommon.scaleB1;
 	zc.z /= fractal->transformCommon.scaleF1;
 
+	//if (fractal->transformCommon.functionEnabledKFalse)
+		//zc.x *= fractal->transformCommon.scaleG1 * zc.y;
+
+	// square
+	if (fractal->transformCommon.functionEnabledBx) zc.x = max(fabs(zc.x), fabs(zc.y));
+	// circle
+	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
 	double tD = 1000.0;
 
-	if (fractal->transformCommon.functionEnabled) tD = zc.x - round(zc.x);
+	//if (fractal->transformCommon.functionEnabled)
+	tD = zc.x - round(zc.x);
 
 	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 		tD = max(
 			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
-
+	// plane
 	double plD = 1000.0;
 	if (fractal->transformCommon.functionEnabledRFalse)
 		plD = fabs(z.z - fractal->transformCommon.offsetF0);
@@ -102,12 +112,13 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (aux.dist == plD) aux.color = fractal->foldColor.difs0000.x;
-		else aux.color = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z * zc.z;
+		else aux.color = fractal->foldColor.difs0000.y
+				+ fractal->foldColor.difs0000.z * zc.z
+				+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 		aux.color *= 256.0;
 	}
 
-
-	// clip
+	// clip plane
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
 		double e = fractal->transformCommon.offset4;

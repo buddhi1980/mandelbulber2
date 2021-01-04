@@ -40,13 +40,19 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				zc.z = fabs(zc.z + limit.z) - fabs(zc.z - limit.z) - zc.z;
 		}
 	}
+	if (fractal->transformCommon.rotationEnabled)
+	{
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
+	}
 
+
+	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		zc.x += fractal->transformCommon.offsetA000.x;
 		zc.x = fabs(z.x) - fractal->transformCommon.offsetA000.x;
 	}
-
+	// abs offset y
 	if (fractal->transformCommon.functionEnabledNFalse)
 	{
 		zc.y += fractal->transformCommon.offsetA000.y;
@@ -59,17 +65,23 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledBFalse)
 		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
 
-	if (fractal->transformCommon.functionEnabledCFalse) zc.x = max(fabs(zc.x), fabs(zc.y));
-
-	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
-
+	zc.x *= fractal->transformCommon.scaleA1;
+	zc.y *= fractal->transformCommon.scaleB1;
 	zc.z /= fractal->transformCommon.scaleF1;
 
+	//if (fractal->transformCommon.functionEnabledKFalse)
+		//zc.x *= fractal->transformCommon.scaleG1 * zc.y;
 
-	REAL tD = 1000.;
+	// square
+	if (fractal->transformCommon.functionEnabledBx) zc.x = max(fabs(zc.x), fabs(zc.y));
+	// circle
+	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
-	if (fractal->transformCommon.functionEnabled) tD = zc.x - round(zc.x);
 
+	REAL tD = 1000.0f;
+
+	//if (fractal->transformCommon.functionEnabled)
+	tD = zc.x - round(zc.x);
 	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
@@ -78,6 +90,8 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	//tD = max((z.z)+ .003, tD);
 
+
+	// plane
 	REAL plD = 1000.0f;
 	if (fractal->transformCommon.functionEnabledRFalse)
 		plD = fabs(z.z - fractal->transformCommon.offsetF0);
@@ -88,7 +102,8 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (aux->dist == plD) aux->color = fractal->foldColor.difs0000.x;
-		else aux->color = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z * zc.z;
+		else aux->color = fractal->foldColor.difs0000.y
+			+ fractal->foldColor.difs0000.z * zc.z + fractal->foldColor.difs0000.w * zc.z * zc.z;
 		aux->color *= 256.0f;
 	}
 
@@ -140,7 +155,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (!fractal->transformCommon.functionEnabledOFalse)
 			swap = zc.x;
 		else
-			swap = zc.z;
+			swap = zc.z;functionEnabledCFalse
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
 		REAL c = native_cos(k * zc.y);
