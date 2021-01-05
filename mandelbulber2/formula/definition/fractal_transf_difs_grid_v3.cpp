@@ -79,28 +79,39 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
 
 
-	zc.x *= fractal->transformCommon.scaleA1;
-	zc.y *= fractal->transformCommon.scaleB1;
-	zc.z /= fractal->transformCommon.scaleF1;
+	zc.x *= fractal->transformCommon.scale3D111.x;
+	zc.y *= fractal->transformCommon.scale3D111.y;
+	zc.z /= fractal->transformCommon.scale3D111.z;
 
-	//if (fractal->transformCommon.functionEnabledKFalse)
-		//zc.x *= fractal->transformCommon.scaleG1 * zc.y;
+
+	if (fractal->transformCommon.functionEnabledFFalse)
+		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
+	if (fractal->transformCommon.functionEnabledGFalse)
+		zc.y = zc.y + sin(zc.x) * fractal->transformCommon.scale3D000.y;
 
 	// square
 	if (fractal->transformCommon.functionEnabledBx) zc.x = max(fabs(zc.x), fabs(zc.y));
 	// circle
 	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
-	double tD = 1000.0;
 
-	//if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabledKFalse)
+		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
+
+
+
+	double tD = 1000.0;
 	tD = zc.x - round(zc.x);
+
 
 	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 		tD = max(
 			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
+
+
+
 	// plane
 	double plD = 1000.0;
 	if (fractal->transformCommon.functionEnabledRFalse)
@@ -166,22 +177,14 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			k *= aux.i + fractal->transformCommon.offset1;
 
 		double swap;
-		if (!fractal->transformCommon.functionEnabledOFalse)
+		if (!fractal->transformCommon.functionEnabledFalse)
 			swap = zc.x;
-		else
-			swap = zc.z;
 
 		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
 		double c = cos(k * zc.y);
 		double s = sin(k * zc.y);
 		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			zc.x = c * swap + -s * zc.y;
-		}
-		else
-		{
-			zc.z = c * swap + -s * zc.y;
-		}
+		zc.x = c * swap + -s * zc.y;
 		zc.y = s * swap + c * zc.y;
 	}
 

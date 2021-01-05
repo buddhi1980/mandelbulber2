@@ -65,30 +65,30 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledBFalse)
 		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
 
-	zc.x *= fractal->transformCommon.scaleA1;
-	zc.y *= fractal->transformCommon.scaleB1;
-	zc.z /= fractal->transformCommon.scaleF1;
+	zc.x *= fractal->transformCommon.scale3D111.x;
+	zc.y *= fractal->transformCommon.scale3D111.y;
+	zc.z /= fractal->transformCommon.scale3D111.z;
 
-	//if (fractal->transformCommon.functionEnabledKFalse)
-		//zc.x *= fractal->transformCommon.scaleG1 * zc.y;
+	if (fractal->transformCommon.functionEnabledFFalse)
+		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
+	if (fractal->transformCommon.functionEnabledGFalse)
+		zc.y = zc.y + sin(zc.x) * fractal->transformCommon.scale3D000.y;
 
 	// square
 	if (fractal->transformCommon.functionEnabledBx) zc.x = max(fabs(zc.x), fabs(zc.y));
 	// circle
 	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
+	if (fractal->transformCommon.functionEnabledKFalse)
+		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
+
 
 	REAL tD = 1000.0f;
-
-	//if (fractal->transformCommon.functionEnabled)
 	tD = zc.x - round(zc.x);
 	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
-
 	if (fractal->transformCommon.functionEnabledOFalse)
 		tD = max(
 			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
-
-	//tD = max((z.z)+ .003, tD);
 
 
 	// plane
