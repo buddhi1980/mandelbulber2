@@ -45,16 +45,28 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	REAL4 zCol = z;
 
-	z += fractal->transformCommon.offsetA000;
-	REAL rr = dot(z, z);
-	REAL rrCol = rr;
-	REAL MinRR = fractal->transformCommon.minR2p25;
-	REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
+	if (aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
+			z += fractal->transformCommon.offsetA000;
+
+	REAL rrCol = 0.0;
+	// spherical fold
+	if (aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		REAL rr = dot(z, z);
+		rrCol = rr;
+		REAL MinRR = fractal->transformCommon.minR2p25;
+		REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
+		dividend = 1.0 / dividend;
+		z *= dividend;
+		aux->DE *= dividend;
+	}
 
 	// scale
 	REAL useScale = 1.0f;
 
-	useScale = (aux->actualScaleA + fractal->transformCommon.scale015) / dividend;
+	useScale = (aux->actualScaleA + fractal->transformCommon.scale015);
 	z *= useScale;
 	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 	if (fractal->transformCommon.functionEnabledKFalse)

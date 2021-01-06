@@ -56,16 +56,32 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	CVector4 zCol = z;
 
-	z += fractal->transformCommon.offsetA000;
-	double rr = z.Dot(z);
-	double rrCol = rr;
-	double MinRR = fractal->transformCommon.minR2p25;
-	double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
+
+	if (aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+			z += fractal->transformCommon.offsetA000;
+
+
+
+	double rrCol = 0.0;
+	// spherical fold
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+
+		double rr = z.Dot(z);
+		rrCol = rr;
+		double MinRR = fractal->transformCommon.minR2p25;
+		double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
+		dividend = 1.0 / dividend;
+		z *= dividend;
+		aux.DE *= dividend;
+	}
 
 	// scale
 	double useScale = 1.0;
 
-	useScale = (aux.actualScaleA + fractal->transformCommon.scale015) / dividend;
+	useScale = (aux.actualScaleA + fractal->transformCommon.scale015); //  / dividend;
 	z *= useScale;
 	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 	if (fractal->transformCommon.functionEnabledKFalse)

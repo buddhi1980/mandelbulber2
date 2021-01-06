@@ -86,7 +86,7 @@ void cFractalAboxMod14::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE *= m;
 	}
 
-	double useScale =  fractal->transformCommon.scale2;
+	double useScale = fractal->transformCommon.scale2;
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
