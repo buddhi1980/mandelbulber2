@@ -27,6 +27,11 @@ private:
 	void AddLight();
 
 	Ui::cLightSourcesManager *ui;
+
+private slots:
+	void slotButtonAddLight();
+	void slotButtonDuplicateLight();
+	void slotButtonDeleteLight();
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_SOURCES_MANAGER_H_ */

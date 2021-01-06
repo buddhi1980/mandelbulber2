@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
 	}
 
 	// FIXME ---------------- temporary code for testing lights UI -----
-	InitLightParams(1, gPar);
+	// InitLightParams(1, gPar);
 	//-----------------------------------------------------------
 
 	// Define list of fractal formulas

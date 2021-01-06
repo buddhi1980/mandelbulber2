@@ -8,7 +8,6 @@
 #include "light_editor.h"
 #include "ui_light_editor.h"
 #include "src/automated_widgets.hpp"
-#include "src/synchronize_interface.hpp"
 
 #include <QDebug>
 
@@ -51,7 +50,5 @@ void cLightEditor::AssignLight(std::shared_ptr<cParameterContainer> params, int 
 				}
 			}
 		}
-
-		SynchronizeInterfaceWindow(this, parameterContainer, qInterface::write);
 	}
 }
