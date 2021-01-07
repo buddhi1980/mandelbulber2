@@ -3,8 +3,14 @@ v2.25 (???? 2021)
 - Added new fractal formulas
 
 
+   transfDIFSGearV1
+   transfPolyFoldAtan2Iter
+
+
 - modified fractal formulas
-   add hollow option to T>DIFS cylinder
+   T>DIFS cylinder, added hollow option to T>DIFS cylinder
+   amazing box mod14, corrected rrCol color
+
 
 
 

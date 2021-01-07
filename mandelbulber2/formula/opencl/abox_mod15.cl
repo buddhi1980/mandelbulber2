@@ -74,7 +74,7 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		// update actualScaleA for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
 								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-		aux->actualScaleA -= vary;
+		aux->actualScaleA = -vary;
 	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
@@ -87,43 +87,53 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 	z += fractal->transformCommon.additionConstantA000;
 
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+	if (aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		if (aux->i >= fractal->transformCommon.startIterations
+				&& aux->i < fractal->transformCommon.stopIterations)
 		{
-			case multi_OrderOfXYZCl_xyz:
-			default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
-			case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
-			case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
-			case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
-			case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
-			case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
+			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 		}
-		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+
+		if (aux->i >= fractal->transformCommon.startIterationsT
+				&& aux->i < fractal->transformCommon.stopIterationsT)
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZCl_xyz:
+				default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
+				case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
+				case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
+				case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
+				case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
+				case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+			if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+			if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+		}
 	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
+			colorAdd += fractal->foldColor.difs0000.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
+			colorAdd += fractal->foldColor.difs0000.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
+			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0f;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0f;
 		aux->color += colorAdd;
 	}
 	return z;

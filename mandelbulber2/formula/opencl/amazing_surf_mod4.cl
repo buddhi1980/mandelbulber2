@@ -90,7 +90,7 @@ REAL4 AmazingSurfMod4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0f;
+				fractal->mandelbox.color.factorSp2 * (rrCol - fractal->transformCommon.minR2p25) / 100.0f;
 		aux->color += colorAdd;
 	}
 	return z;

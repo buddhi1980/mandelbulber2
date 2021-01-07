@@ -74,8 +74,6 @@ void cFractalAboxTetra::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (z.y - z.z < 0.0) swap(z.z, z.y);
 	}
 
-
-
 	// tglad fold
 	if (fractal->transformCommon.functionEnabledAFalse
 			&&aux.i >= fractal->transformCommon.startIterationsA

@@ -89,7 +89,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		// update actualScaleA for next iteration
 		double vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-		aux.actualScaleA -= vary;
+		aux.actualScaleA = -vary;
 	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
@@ -104,46 +104,59 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 	z += fractal->transformCommon.additionConstantA000;
 
-	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+
+	if (aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		//z += fractal->transformCommon.additionConstant000;
-
-		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-		//z += fractal->transformCommon.offsetA000;
-		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		if (aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations)
 		{
-			case multi_OrderOfXYZ_xyz:
-			default: z = CVector4(z.x, z.y, z.z, z.w); break;
-			case multi_OrderOfXYZ_xzy: z = CVector4(z.x, z.z, z.y, z.w); break;
-			case multi_OrderOfXYZ_yxz: z = CVector4(z.y, z.x, z.z, z.w); break;
-			case multi_OrderOfXYZ_yzx: z = CVector4(z.y, z.z, z.x, z.w); break;
-			case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
-			case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
+
+			//z += fractal->transformCommon.additionConstant000;
+
+			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 		}
-		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+
+		if (aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+		{
+			//z += fractal->transformCommon.offsetA000;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: z = CVector4(z.x, z.y, z.z, z.w); break;
+				case multi_OrderOfXYZ_xzy: z = CVector4(z.x, z.z, z.y, z.w); break;
+				case multi_OrderOfXYZ_yxz: z = CVector4(z.y, z.x, z.z, z.w); break;
+				case multi_OrderOfXYZ_yzx: z = CVector4(z.y, z.z, z.x, z.w); break;
+				case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
+				case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+			if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+			if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+		}
 	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
+			colorAdd += fractal->foldColor.difs0000.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
+			colorAdd += fractal->foldColor.difs0000.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
+			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.minR2p25 - rrCol) / 100.0;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
 		aux.color += colorAdd;
 	}
 }

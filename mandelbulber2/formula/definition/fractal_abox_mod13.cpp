@@ -145,7 +145,7 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (fractal->transformCommon.functionEnabledMFalse)
 			aux.actualScaleA = -vary;
 		else
-			aux.actualScaleA = aux.actualScaleA - vary;
+			aux.actualScaleA -= vary;
 	}
 	else
 	{
