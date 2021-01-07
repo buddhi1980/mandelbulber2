@@ -17,7 +17,47 @@
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
+	if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		for (int m = 0; m < fractal->transformCommon.int8Y; m++)
+		{
+			double t;
+			zc.x = fabs(zc.x);
+			zc.y = fabs(zc.y);
+			if (fractal->transformCommon.functionEnabledSwFalse)
+			{
+				t = zc.x;
+				zc.x = zc.y;
+				zc.y = t;
+			}
+			t = zc.x;
+			zc.x = zc.x + zc.y - fractal->transformCommon.offset0;
+			zc.y = t - zc.y - fractal->transformCommon.offsetC0;
+			if (fractal->transformCommon.functionEnabledCxFalse
+					&& m >= fractal->transformCommon.startIterationsO
+					&& m < fractal->transformCommon.stopIterationsO)
+						zc.x = -fabs(zc.x);
+			if (fractal->transformCommon.functionEnabledCx
+					&& m >= fractal->transformCommon.startIterationsP
+					&& m < fractal->transformCommon.stopIterationsP)
+						zc.y = -fabs(zc.y);
 
+			double foldX = fractal->transformCommon.offset1;
+			double foldY = fractal->transformCommon.offsetA1;
+
+			t = zc.x;
+			zc.x = (zc.x + zc.y) * 0.5;
+			zc.y = (t - zc.y) * 0.5;
+			if (fractal->transformCommon.functionEnabledCy
+					&& m >= fractal->transformCommon.startIterationsR
+					&& m < fractal->transformCommon.stopIterationsR)
+						zc.x = foldX - fabs(zc.x + foldX);
+			if (fractal->transformCommon.functionEnabledCyFalse
+					&& m >= fractal->transformCommon.startIterationsRV
+					&& m < fractal->transformCommon.stopIterationsRV)
+						zc.y = foldY - fabs(zc.y + foldY);
+		}
+	}
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		for (int n = 0; n < fractal->transformCommon.int8X; n++)
@@ -128,62 +168,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	return z;
 
 
-	/*REAL size = fractal->transformCommon.scale1;
-	REAL grid = 0.0f;
 
-	zc.z /= fractal->transformCommon.scaleF1;
-
-	if (fractal->transformCommon.functionEnabledMFalse
-			&& aux->i >= fractal->transformCommon.startIterationsM
-			&& aux->i < fractal->transformCommon.stopIterationsM)
-	{
-		REAL temp = zc.x;
-		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scaleA0;
-		zc.y = zc.y + native_sin(temp) * fractal->transformCommon.scaleB0;
-	}
-
-	if (fractal->transformCommon.functionEnabledNFalse
-			&& aux->i >= fractal->transformCommon.startIterationsN
-			&& aux->i < fractal->transformCommon.stopIterationsN)
-	{
-		REAL k = fractal->transformCommon.angle0;
-
-		if (fractal->transformCommon.functionEnabledAxFalse)
-			k *= aux->i + fractal->transformCommon.offset1;
-
-		REAL swap;
-		if (!fractal->transformCommon.functionEnabledOFalse)
-			swap = zc.x;
-		else
-			swap = zc.z;functionEnabledCFalse
-
-		if (fractal->transformCommon.functionEnabledAzFalse) swap = fabs(swap);
-		REAL c = native_cos(k * zc.y);
-		REAL s = native_sin(k * zc.y);
-		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			zc.x = c * swap + -s * zc.y;
-		}
-		else
-		{
-			zc.z = c * swap + -s * zc.y;
-		}
-		zc.y = s * swap + c * zc.y;
-	}
-
-	if (fractal->transformCommon.rotationEnabled)
-	{
-		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
-	}
-
-	REAL xFloor = fabs(zc.x - size * floor(zc.x / size + 0.5f));
-	REAL yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5f));
-	REAL gridXY = min(xFloor, yFloor);
-
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		grid = native_sqrt(gridXY * gridXY + zc.z * zc.z);
-	else
-		grid = max(fabs(gridXY), fabs(zc.z));*/
 
 	//aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 

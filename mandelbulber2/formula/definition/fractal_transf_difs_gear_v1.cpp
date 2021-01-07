@@ -35,7 +35,7 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	double angle = M_PI_2x / (fractal->transformCommon.int16);
-	double sector = round(atan2(z.x , z.y) / angle) + fractal->transformCommon.intA *1.0;
+	double sector = round(atan2(z.x, z.y) / angle) + fractal->transformCommon.intA * 1.0;
 	CVector4 zc = z;
 	double an = sector * angle;
 	double sinan = sin(an);
@@ -113,6 +113,15 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+
+		if (zcd > sdTor) aux.color = fractal->foldColor.difs0000.y;
+		else aux.color = fractal->foldColor.difs0000.x;
+
+	}
 
 	aux.dist = min(aux.dist, d / (aux.DE + 1.0));
 

@@ -24,7 +24,7 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
-	REAL sector = round(atan2(z.x , z.y) / angle) + (fractal->transformCommon.intA * 1.0f);
+	REAL sector = round(atan2(z.x, z.y) / angle) + (fractal->transformCommon.intA * 1.0f);
 	REAL4 zc = z;
 	REAL an = sector * angle;
 	REAL sinan = sin(an);
@@ -100,6 +100,15 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+
+		if (zcd > sdTor) aux.color = fractal->foldColor.difs0000.y;
+		else aux.color = fractal->foldColor.difs0000.x;
+
+	}
 
 	aux->dist = min(aux->dist, d / (aux->DE + 1.0));
 

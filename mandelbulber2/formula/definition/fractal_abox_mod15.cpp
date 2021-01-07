@@ -56,12 +56,9 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	CVector4 zCol = z;
 
-
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 			z += fractal->transformCommon.offsetA000;
-
-
 
 	double rrCol = 0.0;
 	// spherical fold
@@ -100,11 +97,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
 
-
-
 	z += fractal->transformCommon.additionConstantA000;
-
-
 
 	if (aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
