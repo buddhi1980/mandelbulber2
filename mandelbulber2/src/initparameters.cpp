@@ -1579,8 +1579,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 
 void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 {
-	//*********** NOTE: every material parameter have to be listed in QStringList
-	// cMaterial::paramsList in material.cpp file
+	//*********** NOTE: every light parameter have to be listed in QStringList
+	// cMaterial::lightsList in lights.cpp file
 
 	par->addParam(cLight::Name("is_defined", lightId), false, morphNone, paramStandard);
 	par->addParam(cLight::Name("enabled", lightId), false, morphNone, paramStandard);
@@ -1693,6 +1693,18 @@ void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par)
 	for (auto &parameterName : list)
 	{
 		if (parameterName.leftRef(3) == "mat")
+		{
+			par->DeleteParameter(parameterName);
+		}
+	}
+}
+
+void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par)
+{
+	QList<QString> list = par->GetListOfParameters();
+	for (auto &parameterName : list)
+	{
+		if (parameterName.leftRef(5) == "light")
 		{
 			par->DeleteParameter(parameterName);
 		}

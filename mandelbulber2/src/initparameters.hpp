@@ -50,6 +50,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	std::shared_ptr<cParameterContainer> par);
 void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par);
 void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par);
+void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par);
 void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par);
 void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par);
 

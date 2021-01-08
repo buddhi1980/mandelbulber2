@@ -22,10 +22,12 @@ class cLightSourcesManager : public QWidget
 public:
 	explicit cLightSourcesManager(QWidget *parent = nullptr);
 	~cLightSourcesManager() override;
+	void Regenerate();
 
 private:
-	void AddLight();
+	void AddLight(bool init, int indexInParameters);
 
+	QList<int> lightIndexOnTab;
 	Ui::cLightSourcesManager *ui;
 
 private slots:

@@ -271,3 +271,8 @@ void cDockEffects::slotPressedButtonCloudsRandomize()
 	int rnd = random.Random(100000);
 	ui->spinboxInt_clouds_random_seed->setValue(rnd);
 }
+
+void cDockEffects::RegenerateLights()
+{
+	ui->widget_light_sources_manager->Regenerate();
+}

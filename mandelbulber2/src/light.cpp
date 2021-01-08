@@ -22,7 +22,9 @@ cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, b
 cLight::~cLight() = default;
 
 // this static list will be use to optimize usage of material parameters
-QStringList cLight::paramsList = {"light_color", "TODO list of parameters....."};
+QStringList cLight::paramsList = {"enabled", "cast_shadows", "penetrating", "relative_position",
+	"volumetric", "cone_angle", "cone_soft_angle", "intensity", "visibility", "volumetric_visibility",
+	"size", "soft_shadow_cone", "position", "rotation", "color", "type", "decayFunction"};
 
 void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 	bool loadTextures, bool quiet, bool useNetRender)
@@ -57,3 +59,5 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	// TODO rest of parameters
 }
+
+

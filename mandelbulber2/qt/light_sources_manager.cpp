@@ -21,7 +21,7 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	AddLight();
+	// AddLight(true, -1);
 
 	connect(ui->pushButton_newLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonAddLight);
@@ -36,34 +36,82 @@ cLightSourcesManager::~cLightSourcesManager()
 	delete ui;
 }
 
-void cLightSourcesManager::AddLight()
+void cLightSourcesManager::AddLight(bool init, int indexInParameters)
 {
 	cLightEditor *newEditor = new cLightEditor;
-	int newIndex = ui->tabWidget_lightSources->count() + 1;
+	int newTabIndex = ui->tabWidget_lightSources->count() + 1;
 
-	InitLightParams(newIndex, gPar);
+	if (init)
+	{
+		if (lightIndexOnTab.isEmpty())
+		{
+			indexInParameters = 1;
+		}
+		else
+		{
+			indexInParameters = lightIndexOnTab.last() + 1;
+		}
+		InitLightParams(indexInParameters, gPar);
+	}
 
-	QString name = QString("# %1").arg(newIndex);
+	if (!init && indexInParameters < 0)
+	{
+		qCritical() << "cLightSourcesManager::AddLight(): Wrong light index!";
+		return;
+	}
+
+	QString name = QString("# %1").arg(indexInParameters);
 	ui->tabWidget_lightSources->addTab(newEditor, name);
 
 	auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_lightSources->tabBar());
-	tabBar->AddCheckBox(newIndex - 1, QString("checkBox_light%1_enabled").arg(newIndex));
+	tabBar->AddCheckBox(newTabIndex - 1, QString("checkBox_light%1_enabled").arg(indexInParameters));
 
 	if (gPar->Get<bool>("ui_colorize"))
-		cInterface::ColorizeGroupBoxes(ui->tabWidget_lightSources->widget(newIndex - 1),
-			gPar->Get<int>("ui_colorize_random_seed") + newIndex);
+		cInterface::ColorizeGroupBoxes(ui->tabWidget_lightSources->widget(newTabIndex - 1),
+			gPar->Get<int>("ui_colorize_random_seed") + newTabIndex);
 
-	gPar->Set(cLight::Name("is_defined", newIndex), true);
-	gPar->Set(cLight::Name("enabled", newIndex), true);
+	if (init)
+	{
+		gPar->Set(cLight::Name("is_defined", indexInParameters), true);
+		gPar->Set(cLight::Name("enabled", indexInParameters), true);
+	}
 
-	newEditor->AssignLight(gPar, newIndex);
+	newEditor->AssignLight(gPar, indexInParameters);
+
+	lightIndexOnTab.append(indexInParameters);
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
 }
 
+void cLightSourcesManager::Regenerate()
+{
+	int count = ui->tabWidget_lightSources->count();
+	for (int i = count - 1; i >= 0; i--)
+	{
+		delete ui->tabWidget_lightSources->widget(i);
+		ui->tabWidget_lightSources->removeTab(i);
+	}
+
+	lightIndexOnTab.clear();
+
+	QList<QString> list = gPar->GetListOfParameters();
+	for (auto &parameterName : list)
+	{
+		if (parameterName.left(5) == "light")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int lightIndex = parameterName.midRef(5, positionOfDash - 5).toInt();
+			if (lightIndexOnTab.indexOf(lightIndex) < 0)
+			{
+				AddLight(false, lightIndex);
+			}
+		}
+	}
+}
+
 void cLightSourcesManager::slotButtonAddLight()
 {
-	AddLight();
+	AddLight(true, -1);
 }
 
 void cLightSourcesManager::slotButtonDuplicateLight() {}

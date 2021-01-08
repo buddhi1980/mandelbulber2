@@ -46,6 +46,7 @@
 #include "fractal_enums.h"
 #include "initparameters.hpp"
 #include "keyframes.hpp"
+#include "light.h"
 #include "material.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
@@ -523,6 +524,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 			DeleteAllPrimitiveParams(par);
 			listOfLoadedPrimitives.clear();
 			DeleteAllMaterialParams(par);
+			DeleteAllLightParams(par);
 
 			if (frames)
 			{
@@ -828,6 +830,30 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 				InitMaterialParams(matIndex, par);
 				PreCompatibilityMaterials(matIndex, par);
 				par->Set(QString("mat%1_is_defined").arg(matIndex), true);
+			}
+			else
+			{
+				if (!quiet)
+				{
+					cErrorMessage::showMessage(
+						QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+				}
+				return false;
+			}
+		}
+	}
+
+	if (parameterName.left(5) == "light")
+	{
+		if (!par->IfExists(parameterName))
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int matIndex = parameterName.mid(5, positionOfDash - 5).toInt();
+			QString shortName = parameterName.mid(positionOfDash + 1);
+			if (cLight::paramsList.indexOf(shortName) >= 0)
+			{
+				InitLightParams(matIndex, par);
+				par->Set(QString("light%1_is_defined").arg(matIndex), true);
 			}
 			else
 			{

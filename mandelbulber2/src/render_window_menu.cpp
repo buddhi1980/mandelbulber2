@@ -461,6 +461,7 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
+	ui->widgetEffects->RegenerateLights();
 	gInterfaceReadyForSynchronization = true;
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
