@@ -5,9 +5,10 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- *
- * transfDIFSGridV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and Buddhi
+ * references:
+ * fragmentarium code, by knighty
+ * Inigo Quilez, https://www.iquilezles.org/
+ * darkbeams rec_fold fractalforums.org
  */
 
 #include "all_fractal_definitions.h"
@@ -28,6 +29,14 @@ cFractalTransfDIFSGridV3::cFractalTransfDIFSGridV3() : cAbstractFractal()
 void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+	}
+
+
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
 		for (int m = 0; m < fractal->transformCommon.int8Y; m++)
@@ -35,7 +44,9 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			double t;
 			zc.x = fabs(zc.x);
 			zc.y = fabs(zc.y);
-			if (fractal->transformCommon.functionEnabledSwFalse)
+			if (fractal->transformCommon.functionEnabledSwFalse
+				&& m >= fractal->transformCommon.startIterationsN
+				&& m < fractal->transformCommon.stopIterationsN)
 			{
 				t = zc.x;
 				zc.x = zc.y;
@@ -69,34 +80,37 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 						zc.y = foldY - fabs(zc.y + foldY);
 		}
 	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		if (fractal->transformCommon.functionEnabledFalse)
+		for (int n = 0; n < fractal->transformCommon.int8X; n++)
 		{
-			for (int n = 0; n < fractal->transformCommon.int8X; n++)
-			{
-				CVector4 limit = fractal->transformCommon.offset111;
+			CVector4 limit = fractal->transformCommon.offset111;
 
-				if (fractal->transformCommon.functionEnabledAx
-						&& n >= fractal->transformCommon.startIterationsA
-						&& n < fractal->transformCommon.stopIterationsA)
-					zc.x = fabs(zc.x + limit.x) - fabs(zc.x - limit.x) - zc.x;
+			if (fractal->transformCommon.functionEnabledAx
+					&& n >= fractal->transformCommon.startIterationsA
+					&& n < fractal->transformCommon.stopIterationsA)
+				zc.x = fabs(zc.x + limit.x) - fabs(zc.x - limit.x) - zc.x;
 
-				if (fractal->transformCommon.functionEnabledAy
-						&& n >= fractal->transformCommon.startIterationsB
-						&& n < fractal->transformCommon.stopIterationsB)
-					zc.y = fabs(zc.y + limit.y) - fabs(zc.y - limit.y) - zc.y;
+			if (fractal->transformCommon.functionEnabledAy
+					&& n >= fractal->transformCommon.startIterationsB
+					&& n < fractal->transformCommon.stopIterationsB)
+				zc.y = fabs(zc.y + limit.y) - fabs(zc.y - limit.y) - zc.y;
 
-				if (fractal->transformCommon.functionEnabledAzFalse
-						&& n >= fractal->transformCommon.startIterationsC
-						&& n < fractal->transformCommon.stopIterationsC)
-					zc.z = fabs(zc.z + limit.z) - fabs(zc.z - limit.z) - zc.z;
-			}
+			if (fractal->transformCommon.functionEnabledAzFalse
+					&& n >= fractal->transformCommon.startIterationsC
+					&& n < fractal->transformCommon.stopIterationsC)
+				zc.z = fabs(zc.z + limit.z) - fabs(zc.z - limit.z) - zc.z;
 		}
 	}
 
-	if (fractal->transformCommon.rotationEnabled)
+	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+		double sinan = sin(fractal->transformCommon.offsetA000.z);
+		double cosan = cos(fractal->transformCommon.offsetA000.z);
+		double temp = zc.x;
+		zc.x = zc.x * cosan - zc.y * sinan;
+		zc.y = temp * sinan + zc.y * cosan;
 	}
 
 	// abs offset x
@@ -118,11 +132,9 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledBFalse)
 		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
 
-
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
 	zc.z /= fractal->transformCommon.scale3D111.z;
-
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -134,11 +146,8 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// circle
 	if (fractal->transformCommon.functionEnabledDFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
-
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
-
-
 
 	double tD = 1000.0;
 	tD = zc.x - round(zc.x);
@@ -149,8 +158,6 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledOFalse)
 		tD = max(
 			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
-
-
 
 	// plane
 	double plD = 1000.0;

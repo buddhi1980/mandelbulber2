@@ -102,11 +102,11 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 
-		if (zcd > sdTor) aux.color = fractal->foldColor.difs0000.y;
-		else aux.color = fractal->foldColor.difs0000.x;
+		if (zcd > sdTor) aux->color = fractal->foldColor.difs0000.y;
+		else aux->color = fractal->foldColor.difs0000.x;
 
 	}
 

@@ -1233,7 +1233,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">
+    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
       <string>aux color c&amp;omponents</string>
      </property>

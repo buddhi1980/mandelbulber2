@@ -115,7 +115,7 @@ void cFractalTransfDIFSGearV1::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double d = min(zcd, sdTor) - fractal->transformCommon.offset0005;
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 
 		if (zcd > sdTor) aux.color = fractal->foldColor.difs0000.y;

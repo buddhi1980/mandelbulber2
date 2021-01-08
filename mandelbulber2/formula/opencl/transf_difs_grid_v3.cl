@@ -17,6 +17,13 @@
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+	}
+
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
 		for (int m = 0; m < fractal->transformCommon.int8Y; m++)
@@ -24,7 +31,9 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			double t;
 			zc.x = fabs(zc.x);
 			zc.y = fabs(zc.y);
-			if (fractal->transformCommon.functionEnabledSwFalse)
+			if (fractal->transformCommon.functionEnabledSwFalse
+				&& m >= fractal->transformCommon.startIterationsN
+				&& m < fractal->transformCommon.stopIterationsN)
 			{
 				t = zc.x;
 				zc.x = zc.y;
@@ -58,6 +67,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 						zc.y = foldY - fabs(zc.y + foldY);
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		for (int n = 0; n < fractal->transformCommon.int8X; n++)
@@ -80,11 +90,15 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				zc.z = fabs(zc.z + limit.z) - fabs(zc.z - limit.z) - zc.z;
 		}
 	}
-	if (fractal->transformCommon.rotationEnabled)
-	{
-		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
-	}
 
+	if (fractal->transformCommon.functionEnabledIFalse)
+	{
+		REAL sinan = sin(fractal->transformCommon.offsetA000.z);
+		REAL cosan = cos(fractal->transformCommon.offsetA000.z);
+		REAL temp = zc.x;
+		zc.x = zc.x * cosan - zc.y * sinan;
+		zc.y = temp * sinan + zc.y * cosan;
+	}
 
 	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
