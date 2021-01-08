@@ -267,6 +267,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSTorusV2());
 	fractalList->append(new cFractalTransfDIFSTorusV3());
 	fractalList->append(new cFractalTransfDIFSTorusGrid());
+	fractalList->append(new cFractalTransfDIFSClipPlane());
 	fractalList->append(new cFractalTransfDIFSHybridColor());
 
 	// ---- custom DE - non-dIFS Formulas----
