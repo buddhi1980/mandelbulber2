@@ -137,12 +137,14 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
 
-	REAL tD = 1000.0f;
-	tD = zc.x - round(zc.x);
-	tD = sqrt(tD * tD + zc.z * zc.z) - fractal->transformCommon.offsetp05;
-	if (fractal->transformCommon.functionEnabledOFalse)
+	// DE
+	REAL tD = 1000.0;
+	REAL bb = zc.x - round(zc.x);
+	if (!fractal->transformCommon.functionEnabledOFalse)
+		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
+	else
 		tD = max(
-			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
+			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
 
 
 	// plane
@@ -150,39 +152,39 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledRFalse)
 		plD = fabs(z.z - fractal->transformCommon.offsetF0);
 
-	aux->dist = min(plD, tD / (aux->DE + 1.0f));
+	REAL d = min(plD, tD / (aux->DE + 1.0f));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		if (aux->dist == plD) aux->color = fractal->foldColor.difs0000.x;
+		if (d == plD) aux->color = fractal->foldColor.difs0000.x;
 		else aux->color = fractal->foldColor.difs0000.y
 			+ fractal->foldColor.difs0000.z * zc.z + fractal->foldColor.difs0000.w * zc.z * zc.z;
-		aux->color *= 256.0f;
 	}
 
 	// clip
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
+		REAL4 c = aux.const_c;
 		REAL e = fractal->transformCommon.offset4;
 		if (!fractal->transformCommon.functionEnabledSFalse)
 		{
-			REAL4 f = fabs(aux->const_c) - (REAL4)(e, e, e, 0.0);
+			REAL4 f = fabs(c) - (REAL4)(e, e, e, 0.0);
 			 e = max(f.x, max(f.y, f.z));
 		}
 		else
 		{
-			e = clamp(length(aux->const_c) - e, 0.0f, 100.0); // circle
+			e = clamp(native_sqrt(c.x * c.x + c.y * c.y) - e, 0.0f, 100.0); // circle
 		}
-		aux->dist = max(aux->dist, e);
+		d = max(d, e);
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
-
+	if (fractal->analyticDE.enabledFalse)
+		aux->dist = d;
+	else
+		aux->dist = min(aux->dist, d);
 	return z;
-
-
-
 
 	//aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 

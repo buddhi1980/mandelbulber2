@@ -141,16 +141,20 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 		f -= fractal->transformCommon.offset111;
 		double d = max(f.x, max(f.y, f.z));
 
-
 		double e = fractal->transformCommon.offset3;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
-		e = clamp(cir.Length() - e, 0.0, 100.0); // circle, well a sphere
-
+		//e = clamp(cir.Length() - e, 0.0, 100.0); // circle, well a sphere
+		e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
 		e = min(e, d);
-		//if (fractal->transformCommon.functionEnabledSFalse)
-		//e = max(e, d);
+
+
+
+		// discs
+		if (fractal->transformCommon.functionEnabledSFalse)
+			e = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offset3;
+
 
 
 
