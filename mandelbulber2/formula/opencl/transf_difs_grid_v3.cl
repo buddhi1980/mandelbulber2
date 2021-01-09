@@ -136,7 +136,6 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
-
 	// DE
 	REAL tD = 1000.0;
 	REAL bb = zc.x - round(zc.x);
@@ -165,7 +164,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// clip
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
-		REAL4 c = aux.const_c;
+		REAL4 c = aux->const_c;
 		REAL e = fractal->transformCommon.offset4;
 		if (!fractal->transformCommon.functionEnabledSFalse)
 		{
