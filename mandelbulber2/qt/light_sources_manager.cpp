@@ -94,18 +94,29 @@ void cLightSourcesManager::Regenerate()
 
 	lightIndexOnTab.clear();
 
-	QList<QString> list = gPar->GetListOfParameters();
-	for (auto &parameterName : list)
+
+	//finding lights in whole parameter set
+	QList<int> listOfFoundLights;
+
+	QList<QString> listOfParameters = gPar->GetListOfParameters();
+	for (auto &parameterName : listOfParameters)
 	{
 		if (parameterName.left(5) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int lightIndex = parameterName.midRef(5, positionOfDash - 5).toInt();
-			if (lightIndexOnTab.indexOf(lightIndex) < 0)
+			if (listOfFoundLights.indexOf(lightIndex) < 0)
 			{
-				AddLight(false, lightIndex);
+				listOfFoundLights.append(lightIndex);
 			}
 		}
+	}
+
+	//add lights in sorted order
+	std::sort(listOfFoundLights.begin(), listOfFoundLights.end());
+	for(int index : listOfFoundLights)
+	{
+		AddLight(false, index);
 	}
 }
 
