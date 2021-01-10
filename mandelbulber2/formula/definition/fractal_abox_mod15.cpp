@@ -33,6 +33,36 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
 
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations)
+		{
+			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+		}
+
+		if (aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: z = CVector4(z.x, z.y, z.z, z.w); break;
+				case multi_OrderOfXYZ_xzy: z = CVector4(z.x, z.z, z.y, z.w); break;
+				case multi_OrderOfXYZ_yxz: z = CVector4(z.y, z.x, z.z, z.w); break;
+				case multi_OrderOfXYZ_yzx: z = CVector4(z.y, z.z, z.x, z.w); break;
+				case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
+				case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+			if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+			if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+		}
+	}
+
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -103,14 +133,11 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
-	if (fractal->transformCommon.functionEnabledFalse)
+/*	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (aux.i >= fractal->transformCommon.startIterations
 				&& aux.i < fractal->transformCommon.stopIterations)
 		{
-
-			//z += fractal->transformCommon.additionConstant000;
-
 			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
 			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
 			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
@@ -119,7 +146,6 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (aux.i >= fractal->transformCommon.startIterationsT
 				&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
-			//z += fractal->transformCommon.offsetA000;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case multi_OrderOfXYZ_xyz:
@@ -134,7 +160,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 			if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 		}
-	}
+	}*/
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

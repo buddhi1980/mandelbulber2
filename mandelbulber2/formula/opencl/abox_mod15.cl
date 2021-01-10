@@ -22,6 +22,35 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 
+if (fractal->transformCommon.functionEnabledFalse)
+{
+	if (aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations)
+	{
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+	}
+
+	if (aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT)
+	{
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZCl_xyz:
+			default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
+			case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
+		}
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+	}
+}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -91,34 +120,7 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		if (aux->i >= fractal->transformCommon.startIterations
-				&& aux->i < fractal->transformCommon.stopIterations)
-		{
-			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-		}
 
-		if (aux->i >= fractal->transformCommon.startIterationsT
-				&& aux->i < fractal->transformCommon.stopIterationsT)
-		{
-			switch (fractal->mandelbulbMulti.orderOfXYZ)
-			{
-				case multi_OrderOfXYZCl_xyz:
-				default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
-				case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
-				case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
-				case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
-				case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
-				case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
-			}
-			if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
-			if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
-			if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
-		}
-	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

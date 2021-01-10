@@ -121,7 +121,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-	zc.z /= fractal->transformCommon.scale3D111.z;
+	// zc.z *= fractal->transformCommon.scale3D111.z;
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -136,20 +136,28 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
+
 	// DE
 	REAL tD = 1000.0;
 	REAL bb = zc.x - round(zc.x);
+	if (fractal->transformCommon.functionEnabledXFalse)
+		bb = fabs(bb) - fractal->transformCommon.offsetA0;
+
 	if (!fractal->transformCommon.functionEnabledOFalse)
-		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
+	{
+		tD = sqrt(bb * bb + (zc.z * zc.z / fractal->transformCommon.scaleB1)) - fractal->transformCommon.offsetp05;
+	}
 	else
+	{
 		tD = max(
 			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
-
+	}
 
 	// plane
+	REAL4 c = aux->const_c;
 	REAL plD = 1000.0f;
 	if (fractal->transformCommon.functionEnabledRFalse)
-		plD = fabs(z.z - fractal->transformCommon.offsetF0);
+		plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
 	REAL d = min(plD, tD / (aux->DE + 1.0f));
 
@@ -164,7 +172,6 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// clip
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
-		REAL4 c = aux->const_c;
 		REAL e = fractal->transformCommon.offset4;
 		if (!fractal->transformCommon.functionEnabledSFalse)
 		{
