@@ -201,21 +201,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
 				const cLight *light = data->lights.GetLight(i - 1);
-				if (light->enabled && params->volumetricLightEnabled[i])
+				if (light->enabled && light->volumetric)
 				{
 					CVector3 lightVectorTemp = light->position - point;
 					float distanceLight = lightVectorTemp.Length();
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
 					float lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
-					output.R += lightShadow * light->color.R * params->volumetricLightIntensity[i]
-											* float(step) / distanceLight2;
-					output.G += lightShadow * light->color.G * params->volumetricLightIntensity[i]
-											* float(step) / distanceLight2;
-					output.B += lightShadow * light->color.B * params->volumetricLightIntensity[i]
-											* float(step) / distanceLight2;
-					output.A +=
-						lightShadow * params->volumetricLightIntensity[i] * float(step) / distanceLight2;
+					output.R += lightShadow * light->color.R * light->volumetricVisibility * float(step)
+											/ distanceLight2;
+					output.G += lightShadow * light->color.G * light->volumetricVisibility * float(step)
+											/ distanceLight2;
+					output.B += lightShadow * light->color.B * light->volumetricVisibility * float(step)
+											/ distanceLight2;
+					output.A += lightShadow * light->volumetricVisibility * float(step) / distanceLight2;
 				}
 			}
 		}
@@ -449,7 +448,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					{
 						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
 						double lightDist = lightDistVect.Length();
-						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
+						double lightSize = sqrt(light->intensity) * light->size;
 
 						double distToLightSurface = lightDist - lightSize;
 						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
@@ -460,7 +459,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						double r2 = lightDist / lightSize;
 						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
-						float lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
+						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 
 						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
 
