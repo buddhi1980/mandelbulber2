@@ -105,13 +105,18 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 		tD = max(
 			fabs(tD) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);*/
 
+
 	// plane
 	double plD = 1000.0;
+	double d = 1000.0;
 	if (fractal->transformCommon.functionEnabled)
 		plD = fabs(zc.z - fractal->transformCommon.offsetF0);
 
 //	aux.dist = (plD /(aux.DE + 1.0f));
 	aux.dist = min(aux.dist, plD);
+
+
+
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
@@ -119,50 +124,49 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 		//else aux.color = fractal->foldColor.difs0000.y
 		//		+ fractal->foldColor.difs0000.z * zc.z
 		//		+ fractal->foldColor.difs0000.w * zc.z * zc.z;
-		aux.color *= 256.0;
 	}
+
+	// clip plane
 	CVector4 cir = zc;
 	CVector4 rec = zc;
-	// clip plane
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
-
-		//if (!fractal->transformCommon.functionEnabledSFalse)
-		//{
-
+	// rec
 		if (fractal->transformCommon.functionEnabledEFalse)
 		rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
-
 
 		if (fractal->transformCommon.functionEnabledXFalse)
 		rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.constantMultiplier000.z);
 
 		CVector4 f = fabs(rec);
 		f -= fractal->transformCommon.offset111;
-		double d = max(f.x, max(f.y, f.z));
+		d = max(f.x, max(f.y, f.z));
 
+		// cir
 		double e = fractal->transformCommon.offset3;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
+		else
+			e = clamp(cir.Length() - e, 0.0, 100.0); //a sphere
 
-		//e = clamp(cir.Length() - e, 0.0, 100.0); // circle, well a sphere
-		e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
 		e = min(e, d);
-
-
 
 		// discs
 		if (fractal->transformCommon.functionEnabledSFalse)
 			e = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offset3;
 
-
-
-
-		aux.dist = max(aux.dist, e);
+		d = max(aux.dist, e);
+		//d = max(d, e);
 	}
 
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
+	if (fractal->analyticDE.enabledFalse)
+		aux.dist = d;
+	else
+		aux.dist = min(aux.dist, d);
 
 
 

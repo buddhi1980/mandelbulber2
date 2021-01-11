@@ -62,7 +62,6 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		}
 	}
 
-
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -76,6 +75,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
+
 	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;

@@ -134,6 +134,7 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
+	zc.z *= fractal->transformCommon.scale3D111.z;
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -148,20 +149,39 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
-
+	// DE
 	double tD = 1000.0;
 	double bb = zc.x - round(zc.x);
 	if (fractal->transformCommon.functionEnabledXFalse)
 		bb = fabs(bb) - fractal->transformCommon.offsetA0;
+	zc.z /= fractal->transformCommon.scaleB1;
+
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
-		tD = sqrt(bb * bb + (zc.z * zc.z / fractal->transformCommon.scaleB1)) - fractal->transformCommon.offsetp05;
+		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 	}
 	else
 	{
-		tD = max(
-			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			tD = max(
+				fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+		else
+			tD = max(
+				fabs(sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05) - fractal->transformCommon.offsetA0,
+						fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
+
+	//tD = max(
+	//	fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+
+
+	//if (fractal->transformCommon.functionEnabledYFalse)
+	//tD = max(
+	// fabs(sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05) - fractal->transformCommon.offsetA0, fabs(zc.z) - fractal->transformCommon.offsetB0);
+
+
+
+
 
 	CVector4 c = aux.const_c;
 	// plane

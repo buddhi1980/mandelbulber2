@@ -142,15 +142,21 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL bb = zc.x - round(zc.x);
 	if (fractal->transformCommon.functionEnabledXFalse)
 		bb = fabs(bb) - fractal->transformCommon.offsetA0;
+	zc.z /= fractal->transformCommon.scaleB1;
 
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
-		tD = sqrt(bb * bb + (zc.z * zc.z / fractal->transformCommon.scaleB1)) - fractal->transformCommon.offsetp05;
+		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
 	}
 	else
 	{
+	if (!fractal->transformCommon.functionEnabledYFalse)
 		tD = max(
 			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+	else
+		tD = max(
+			fabs(sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05) - fractal->transformCommon.offsetA0,
+					fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
 
 	// plane
