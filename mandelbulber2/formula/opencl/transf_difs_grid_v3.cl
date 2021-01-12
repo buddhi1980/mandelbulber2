@@ -179,7 +179,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				aux->color = addColor;
 			else
 				aux->color += addColor;
-
+		}
 	}
 
 	// clip
