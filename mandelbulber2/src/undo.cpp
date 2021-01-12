@@ -125,7 +125,14 @@ void cUndo::Store(std::shared_ptr<cParameterContainer> par,
 	}
 	record.isLoaded = true;
 	undoBuffer.append(record);
-	level++;
+	if(undoBuffer.size() > 100)
+	{
+		undoBuffer.removeFirst();
+	}
+	else
+	{
+		level++;
+	}
 	fileIndex = (fileIndex + 1 + 100) % 100;
 	WriteLog("cUndo::Store() finished", 2);
 }

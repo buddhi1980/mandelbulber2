@@ -100,7 +100,7 @@ enumVarType cMultiVal::Store(double val)
 {
 	dVal[0] = val;
 	iVal[0] = int(val);
-	sVal = QString("%L1").arg(val, 0, 'g', 15);
+	// sVal = QString("%L1").arg(val, 0, 'g', 15);
 
 	if (!typeDefined) type = typeDouble;
 	return typeDouble;
@@ -110,7 +110,7 @@ enumVarType cMultiVal::Store(int val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	sVal = QString::number(val);
+	// sVal = QString::number(val);
 
 	if (!typeDefined) type = typeInt;
 	return typeInt;
@@ -168,8 +168,8 @@ enumVarType cMultiVal::Store(CVector3 val)
 	iVal[0] = int(val.x);
 	iVal[1] = int(val.y);
 	iVal[2] = int(val.z);
-	sVal =
-		QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 15).arg(val.y, 0, 'g', 15).arg(val.z, 0, 'g', 15);
+	//	sVal =
+	//		QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 15).arg(val.y, 0, 'g', 15).arg(val.z, 0, 'g', 15);
 
 	if (!typeDefined) type = typeVector3;
 	return type;
@@ -185,11 +185,11 @@ enumVarType cMultiVal::Store(CVector4 val)
 	iVal[1] = int(val.y);
 	iVal[2] = int(val.z);
 	iVal[3] = int(val.w);
-	sVal = QString("%L1 %L2 %L3 %L4")
-					 .arg(val.x, 0, 'g', 15)
-					 .arg(val.y, 0, 'g', 15)
-					 .arg(val.z, 0, 'g', 15)
-					 .arg(val.w, 0, 'g', 15);
+	//	sVal = QString("%L1 %L2 %L3 %L4")
+	//					 .arg(val.x, 0, 'g', 15)
+	//					 .arg(val.y, 0, 'g', 15)
+	//					 .arg(val.z, 0, 'g', 15)
+	//					 .arg(val.w, 0, 'g', 15);
 
 	if (!typeDefined) type = typeVector4;
 	return type;
@@ -203,10 +203,10 @@ enumVarType cMultiVal::Store(sRGB val)
 	iVal[0] = val.R;
 	iVal[1] = val.G;
 	iVal[2] = val.B;
-	sVal = QString("%1 %2 %3")
-					 .arg(val.R, 4, 16, QChar('0'))
-					 .arg(val.G, 4, 16, QChar('0'))
-					 .arg(val.B, 4, 16, QChar('0'));
+	//	sVal = QString("%1 %2 %3")
+	//					 .arg(val.R, 4, 16, QChar('0'))
+	//					 .arg(val.G, 4, 16, QChar('0'))
+	//					 .arg(val.B, 4, 16, QChar('0'));
 
 	if (!typeDefined) type = typeRgb;
 	return typeRgb;
@@ -216,7 +216,7 @@ enumVarType cMultiVal::Store(bool val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	sVal = QString::number(val);
+	//	sVal = QString::number(val);
 
 	if (!typeDefined) type = typeBool;
 	return typeBool;
@@ -248,7 +248,31 @@ enumVarType cMultiVal::Get(CVector4 &val) const
 
 enumVarType cMultiVal::Get(QString &val) const
 {
-	val = sVal;
+	switch (type)
+	{
+		case typeInt: val = QString::number(iVal[0]); break;
+		case typeDouble: val = QString("%L1").arg(dVal[0], 0, 'g', 15); break;
+		case typeString: val = sVal; break;
+		case typeVector3:
+			val = QString("%L1 %L2 %L3")
+							.arg(dVal[0], 0, 'g', 15)
+							.arg(dVal[1], 0, 'g', 15)
+							.arg(dVal[2], 0, 'g', 15);
+			break;
+		case typeVector4:
+			val = QString("%L1 %L2 %L3 %L4")
+							.arg(dVal[0], 0, 'g', 15)
+							.arg(dVal[1], 0, 'g', 15)
+							.arg(dVal[2], 0, 'g', 15)
+							.arg(dVal[3], 0, 'g', 15);
+			break;
+		case typeRgb:
+			val = QString("%1 %2 %3")
+							.arg(iVal[0], 4, 16, QChar('0'))
+							.arg(iVal[1], 4, 16, QChar('0'))
+							.arg(iVal[2], 4, 16, QChar('0'));
+	}
+
 	return typeString;
 }
 
