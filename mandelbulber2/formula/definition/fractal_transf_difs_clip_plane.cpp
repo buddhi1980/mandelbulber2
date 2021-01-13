@@ -26,9 +26,10 @@ cFractalTransfDIFSClipPlane::cFractalTransfDIFSClipPlane() : cAbstractFractal()
 
 void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 zc = aux.const_c;
-
-	if (fractal->transformCommon.functionEnabledJFalse)
+	//CVector4 zc = z;
+	CVector4 c = aux.const_c;
+	CVector4 zc = c;
+	if (fractal->transformCommon.functionEnabledTFalse)
 	{
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
@@ -67,10 +68,10 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 
 
 	if (fractal->transformCommon.functionEnabledAFalse)
-		zc.x = zc.x + sign(zc.y) * .5 * fractal->transformCommon.intA;
+		zc.x = zc.x + sign(zc.y) * 0.5 * fractal->transformCommon.intA;
 
 	if (fractal->transformCommon.functionEnabledBFalse)
-		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
+		zc.y = zc.y + sign(zc.x) * 0.5 * fractal->transformCommon.intB;
 
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
@@ -109,8 +110,9 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	// plane
 	double plD = 1000.0;
 	double d = 1000.0;
+	double e = fractal->transformCommon.offset3;
 	if (fractal->transformCommon.functionEnabled)
-		plD = fabs(zc.z - fractal->transformCommon.offsetF0);
+		plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
 //	aux.dist = (plD /(aux.DE + 1.0f));
 	aux.dist = min(aux.dist, plD);
@@ -121,41 +123,48 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (aux.dist == plD) aux.color = fractal->foldColor.difs0000.x;
-		//else aux.color = fractal->foldColor.difs0000.y
-		//		+ fractal->foldColor.difs0000.z * zc.z
-		//		+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+		else aux.color = fractal->foldColor.difs0000.y
+				+ fractal->foldColor.difs0000.z * zc.z
+				+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 	}
 
 	// clip plane
 	CVector4 cir = zc;
 	CVector4 rec = zc;
-	if (fractal->transformCommon.functionEnabledTFalse)
+	if (fractal->transformCommon.functionEnabledCx)
 	{
-	// rec
+			// rec
+		//if (fractal->transformCommon.functionEnabledCy)
+
 		if (fractal->transformCommon.functionEnabledEFalse)
-		rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
+			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
 
 		if (fractal->transformCommon.functionEnabledXFalse)
-		rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.constantMultiplier000.z);
+			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.constantMultiplier000.z);
 
 		CVector4 f = fabs(rec);
 		f -= fractal->transformCommon.offset111;
 		d = max(f.x, max(f.y, f.z));
 
-		// cir
-		double e = fractal->transformCommon.offset3;
-		if (fractal->transformCommon.functionEnabledCFalse)
-			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
-		if (!fractal->transformCommon.functionEnabledYFalse)
-			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
-		else
-			e = clamp(cir.Length() - e, 0.0, 100.0); //a sphere
-
-		e = min(e, d);
-
 		// discs
 		if (fractal->transformCommon.functionEnabledSFalse)
-			e = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offset3;
+			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
+
+			// cir
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			//e = fractal->transformCommon.offset3;
+			if (fractal->transformCommon.functionEnabledCFalse)
+				cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
+
+			if (!fractal->transformCommon.functionEnabledYFalse)
+				e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
+			else
+				e = clamp(cir.Length() - e, 0.0, 100.0); //a sphere
+		}
+		e = min(e, d);
+
+
 
 		d = max(aux.dist, e);
 		//d = max(d, e);
@@ -163,7 +172,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
-	if (fractal->analyticDE.enabledFalse)
+	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = d;
 	else
 		aux.dist = min(aux.dist, d);
