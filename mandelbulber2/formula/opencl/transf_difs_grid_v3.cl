@@ -114,10 +114,10 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
-		zc.x = zc.x + sign(zc.y) * .5 * fractal->transformCommon.intA;
+		zc.x = zc.x + sign(zc.y) * 0.5f * fractal->transformCommon.offsetD0;
 
 	if (fractal->transformCommon.functionEnabledBFalse)
-		zc.y = zc.y + sign(zc.x) * .5 * fractal->transformCommon.intB;
+		zc.y = zc.y + sign(zc.x) * 0.5f * fractal->transformCommon.offsetE0;
 
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
@@ -147,17 +147,16 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
 		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
+		if (fractal->transformCommon.functionEnabledYFalse)
+			tD = max(
+				fabs(tD) - fractal->transformCommon.offsetA0,
+					fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
 	else
 	{
 		tD = max(
 			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
-	if (fractal->transformCommon.functionEnabledYFalse)
-		tD = max(
-			fabs(sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05) - fractal->transformCommon.offsetA0,
-				fabs(zc.z) - fractal->transformCommon.offsetB0);
-
 
 	// plane
 	REAL4 c = aux->const_c;
@@ -175,7 +174,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			REAL addColor = fractal->foldColor.difs0000.y
 				+ fractal->foldColor.difs0000.z * zc.z + fractal->foldColor.difs0000.w * zc.z * zc.z;
-			if (fractal->transformCommon.functionEnabledJFalse)
+			if (!fractal->transformCommon.functionEnabledJFalse)
 				aux->color = addColor;
 			else
 				aux->color += addColor;
@@ -205,7 +204,4 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	else
 		aux->dist = min(aux->dist, d);
 	return z;
-
-	//aux->dist = min(aux->dist, (grid - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
-
 }
