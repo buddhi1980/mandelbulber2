@@ -16,7 +16,7 @@
 
 REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux.const_c;
+	REAL4 c = aux->const_c;
 	REAL4 zc = c;
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
@@ -82,18 +82,32 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	// plane
 	REAL plD = 1000.0;
-	REAL d = 1000.0;
-	REAL e = fractal->transformCommon.offset3;
 	if (fractal->transformCommon.functionEnabled)
 		plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
-	//	aux.dist = (plD /(aux.DE + 1.0f));
 	aux->dist = min(aux->dist, plD);
 
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (aux->dist == plD) aux->color = fractal->foldColor.difs0000.x;
+		else
+		{
+			REAL addColor = fractal->foldColor.difs0000.y
+				+ fractal->foldColor.difs0000.z * zc.z
+				+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+			if (!fractal->transformCommon.functionEnabledJFalse)
+				aux->color = addColor;
+			else
+				aux->color += addColor;
+		}
+	}
 
 	// clip plane
 	REAL4 cir = zc;
 	REAL4 rec = zc;
+	REAL d = 1000.0;
+	REAL e = fractal->transformCommon.offset3;
 	if (fractal->transformCommon.functionEnabledCx)
 	{
 			// rec
@@ -126,8 +140,11 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 				e = clamp(length(cir) - e, 0.0, 100.0); //a sphere
 		}
 		e = min(e, d);
-		d = max(aux.dist, e);
 	}
+
+
+	d = max(aux->dist, e);
+
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 	if (!fractal->analyticDE.enabledFalse)
