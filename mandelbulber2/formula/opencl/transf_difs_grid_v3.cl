@@ -93,8 +93,8 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-		REAL sinan = sin(fractal->transformCommon.offsetA000.z);
-		REAL cosan = cos(fractal->transformCommon.offsetA000.z);
+		REAL sinan = native_sin(fractal->transformCommon.offsetA000.z);
+		REAL cosan = native_cos(fractal->transformCommon.offsetA000.z);
 		REAL temp = zc.x;
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
@@ -195,13 +195,13 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			e = clamp(native_sqrt(c.x * c.x + c.y * c.y) - e, 0.0f, 100.0); // circle
 		}
-		d = max(d, e) / (aux->DE + fractal->analyticDE.offset0);
+		d = max(d, e);
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
-	if (fractal->analyticDE.enabledFalse)
+	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = d;
 	else
-		aux->dist = min(aux->dist, d);
+		aux->dist = min(aux->dist, d / (aux->DE + fractal->analyticDE.offset0));
 	return z;
 }

@@ -206,13 +206,13 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			e = clamp(sqrt(c.x * c.x + c.y * c.y) - e, 0.0, 100.0); // circle
 		}
-		d = max(d, e) / (aux.DE + fractal->analyticDE.offset0);
+		d = max(d, e);
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
-	if (fractal->analyticDE.enabledFalse)
+	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = d;
 	else
-		aux.dist = min(aux.dist, d);
+		aux.dist = min(aux.dist, d / (aux.DE + fractal->analyticDE.offset0));
 
 }
