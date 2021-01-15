@@ -174,7 +174,7 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledPFalse)
 		plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
-	double d = min(plD, tD);
+	double d = min(plD, tD / (aux.DE + fractal->analyticDE.offset0));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
@@ -213,6 +213,6 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = d;
 	else
-		aux.dist = min(aux.dist, d / (aux.DE + fractal->analyticDE.offset0));
+		aux.dist = min(aux.dist, d);
 
 }

@@ -164,7 +164,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledPFalse)
 		plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
-	REAL d = min(plD, tD);
+	REAL d = min(plD, tD / (aux->DE + fractal->analyticDE.offset0));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
@@ -202,6 +202,6 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = d;
 	else
-		aux->dist = min(aux->dist, d / (aux->DE + fractal->analyticDE.offset0));
+		aux->dist = min(aux->dist, d);
 	return z;
 }
