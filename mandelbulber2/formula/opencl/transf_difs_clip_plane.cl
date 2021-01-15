@@ -81,16 +81,14 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 
 	// plane
-	REAL plD = 1000.0;
-	if (fractal->transformCommon.functionEnabled)
-		plD = fabs(c.z - fractal->transformCommon.offsetF0);
+	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0);
 
-	aux->dist = min(aux->dist, plD);
+	REAL b =  min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		if (aux->dist == plD) aux->color = fractal->foldColor.difs0000.x;
+		if (b == plD) aux->color = fractal->foldColor.difs0000.x;
 		else
 		{
 			REAL addColor = fractal->foldColor.difs0000.y
@@ -108,11 +106,10 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL4 rec = zc;
 	REAL d = 1000.0;
 	REAL e = fractal->transformCommon.offset3;
-	if (fractal->transformCommon.functionEnabledCx)
-	{
-			// rec
-		//if (fractal->transformCommon.functionEnabledCy)
 
+		// rec
+	if (fractal->transformCommon.functionEnabledCy)
+	{
 		if (fractal->transformCommon.functionEnabledEFalse)
 			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
 
@@ -126,30 +123,27 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		// discs
 		if (fractal->transformCommon.functionEnabledSFalse)
 			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
-
-			// cir
-		if (fractal->transformCommon.functionEnabledCxFalse)
-		{
-			//e = fractal->transformCommon.offset3;
-			if (fractal->transformCommon.functionEnabledCFalse)
-				cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
-
-			if (!fractal->transformCommon.functionEnabledYFalse)
-				e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
-			else
-				e = clamp(length(cir) - e, 0.0, 100.0); //a sphere
-		}
-		e = min(e, d);
 	}
+		// cir
+	if (fractal->transformCommon.functionEnabledCxFalse)
+	{
+		//e = fractal->transformCommon.offset3;
+		if (fractal->transformCommon.functionEnabledCFalse)
+			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
+		else
+			e = clamp(length(cir) - e, 0.0, 100.0); //a sphere
+	}
+	e = min(e, d);
 
-	d = max(aux->dist, e);
-
+	d = max(b, e);
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = d;
 	else
-		aux->dist = min(aux->dist, d / (aux->DE + fractal->analyticDE.offset0));
+		aux->dist = min(aux->dist, d);
 	return z;
 }
