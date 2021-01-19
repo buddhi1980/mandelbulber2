@@ -89,13 +89,16 @@ void cLightSourcesManager::Regenerate()
 	for (int i = count - 1; i >= 0; i--)
 	{
 		delete ui->tabWidget_lightSources->widget(i);
+
+		//checkbox is not deleted with tab, so need to be deleted separately
+		qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_lightSources->tabBar())->RemoveCheckBox(i);
+
 		ui->tabWidget_lightSources->removeTab(i);
 	}
 
 	lightIndexOnTab.clear();
 
-
-	//finding lights in whole parameter set
+	// finding lights in whole parameter set
 	QList<int> listOfFoundLights;
 
 	QList<QString> listOfParameters = gPar->GetListOfParameters();
@@ -112,9 +115,9 @@ void cLightSourcesManager::Regenerate()
 		}
 	}
 
-	//add lights in sorted order
+	// add lights in sorted order
 	std::sort(listOfFoundLights.begin(), listOfFoundLights.end());
-	for(int index : listOfFoundLights)
+	for (int index : listOfFoundLights)
 	{
 		AddLight(false, index);
 	}

@@ -34,6 +34,8 @@ public:
 		return QString("light%1_").arg(materialId) + name;
 	}
 
+	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }
+
 	static QStringList paramsList;
 
 	enum enumLightType

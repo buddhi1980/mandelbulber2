@@ -52,7 +52,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where number of light was always 24
-	float intensity = 100.0f * light->intensity / (distance * distance) / number / 6;
+	float intensity = 100.0f * light->intensity / light->Decay(distance) / number / 6;
 	float shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
 	shade = 1.0f - input.material->shading + shade * input.material->shading;

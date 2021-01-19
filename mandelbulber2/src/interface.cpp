@@ -76,6 +76,7 @@
 #include "write_log.hpp"
 
 #include "qt/detached_window.h"
+#include "qt/dock_effects.h"
 #include "qt/material_editor.h"
 #include "qt/my_group_box.h"
 #include "qt/my_progress_bar.h"
@@ -1738,6 +1739,7 @@ void cInterface::Undo()
 	{
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
+		mainWindow->ui->widgetEffects->RegenerateLights();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -1758,6 +1760,7 @@ void cInterface::Redo()
 	{
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
+		mainWindow->ui->widgetEffects->RegenerateLights();
 		gInterfaceReadyForSynchronization = true;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -2384,6 +2387,7 @@ void cInterface::AutoRecovery() const
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
 			materialListModel->Regenerate();
+			mainWindow->ui->widgetEffects->RegenerateLights();
 			gInterfaceReadyForSynchronization = true;
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();

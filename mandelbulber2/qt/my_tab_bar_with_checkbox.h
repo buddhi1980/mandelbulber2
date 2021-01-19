@@ -45,6 +45,7 @@ class MyTabBarWithCheckBox : public QTabBar
 public:
 	MyTabBarWithCheckBox(QWidget *parent = nullptr);
 	void AddCheckBox(int i, const QString &checkBoxName);
+	void RemoveCheckBox(int i);
 
 private:
 	QMap<QString, int> listOfCheboxes; // tab indexes

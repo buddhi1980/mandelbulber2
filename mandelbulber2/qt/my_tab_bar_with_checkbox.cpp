@@ -59,3 +59,11 @@ void MyTabBarWithCheckBox::slotToggleActive(int state)
 	// setTabEnabled(index, state == Qt::Checked);
 	emit toggledEnable(index + 1, state == Qt::Checked);
 }
+
+void MyTabBarWithCheckBox::RemoveCheckBox(int i)
+{
+	QString checkBoxName = listOfCheboxes.key(i);
+	QWidget *checkBox = findChild<MyCheckBox *>(checkBoxName);
+	delete checkBox;
+	listOfCheboxes.remove(checkBoxName);
+}
