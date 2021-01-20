@@ -75,6 +75,8 @@ bool InitSystem()
 
 	systemData.globalTimer.start();
 
+	QThreadPool::globalInstance()->setExpiryTimeout(1000);
+
 	systemDirectories.homeDir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 #ifdef _WIN32 /* WINDOWS */
 	systemDirectories.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());

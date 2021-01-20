@@ -6,6 +6,8 @@
  */
 
 #include "light.h"
+
+#include "camera_target.hpp"
 #include "parameters.hpp"
 
 cLight::cLight()
@@ -47,7 +49,25 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	size = lightParam->Get<double>(Name("size", id));
 	softShadowCone = lightParam->Get<double>(Name("soft_shadow_cone", id)) * 180.0 / M_PI;
 
-	position = lightParam->Get<CVector3>(Name("position", id));
+	if (relativePosition)
+	{
+		CVector3 camera = lightParam->Get<CVector3>("camera");
+		CVector3 target = lightParam->Get<CVector3>("target");
+		CVector3 top = lightParam->Get<CVector3>("camera_top");
+		cCameraTarget cameraTarget(camera, target, top);
+
+		//qDebug() << camera.Debug() << target.Debug() << top.Debug();
+
+		CVector3 deltaPosition = lightParam->Get<CVector3>(Name("position", id));
+		CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * deltaPosition.z
+							 + cameraTarget.GetTopVector() * deltaPosition.y
+							 + cameraTarget.GetRightVector() * deltaPosition.x;
+		position = camera + deltaPositionRotated;
+	}
+	else
+	{
+		position = lightParam->Get<CVector3>(Name("position", id));
+	}
 	rotation = lightParam->Get<CVector3>(Name("rotation", id));
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
@@ -59,5 +79,3 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	// TODO rest of parameters
 }
-
-

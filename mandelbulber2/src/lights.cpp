@@ -80,6 +80,9 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	std::unique_ptr<const cNineFractals> fractals(new cNineFractals(_fractal, _params));
 
 	lights.clear();
+	numberOfLights = 0;
+	isAnyLight = false;
+
 	QList<QString> listOfParameters = _params->GetListOfParameters();
 	for (auto &parameterName : listOfParameters)
 	{
@@ -98,41 +101,6 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 		}
 	}
 
-	/*
-	numberOfLights = params->auxLightNumber;
-
-	if (params->auxLightRandomEnabled)
-	{
-		lights.resize(numberOfLights + params->auxLightRandomNumber);
-	}
-	else
-	{
-		lights.resize(numberOfLights);
-	}
-
-	// custom user defined lights
-	if (params->auxLightNumber > 0)
-	{
-		for (int i = 0; i < params->auxLightNumber; i++)
-		{
-			if (params->auxLightPreEnabled[i])
-			{
-				lights[i].position = params->auxLightPre[i];
-				lights[i].intensity = params->auxLightPreIntensity[i];
-				lights[i].color = params->auxLightPreColour[i];
-				lights[i].enabled = true;
-				isAnyLight = true;
-			}
-			else
-			{
-				lights[i].position = CVector3(0.0, 0.0, 0.0);
-				lights[i].intensity = 0.0;
-				lights[i].color = sRGBFloat(0.0, 0.0, 0.0);
-				lights[i].enabled = false;
-			}
-		}
-	}
-	*/
 
 	// auto generated random lights
 	if (params->auxLightRandomEnabled && params->auxLightRandomNumber > 0)
