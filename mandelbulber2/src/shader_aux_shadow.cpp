@@ -37,11 +37,11 @@
 #include "render_worker.hpp"
 
 double cRenderWorker::AuxShadow(
-	const sShaderInputData &input, double distance, CVector3 lightVector, double intensity) const
+	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
 	// double step = input.delta;
 	double dist;
-	double light;
+	double lightShaded;
 
 	double opacity;
 	double shadowTemp = 1.0;
@@ -56,12 +56,12 @@ double cRenderWorker::AuxShadow(
 	double softRange;
 	if (params->monteCarloSoftShadows)
 	{
-		double lightSize = sqrt(intensity) * params->auxLightVisibilitySize;
+		double lightSize = sqrt(light->intensity) * light->size;
 		softRange = lightSize / distance;
 	}
 	else
 	{
-		softRange = tan(params->shadowConeAngle);
+		softRange = tan(light->softShadowCone);
 	}
 
 	double maxSoft = 0.0;
@@ -119,7 +119,7 @@ double cRenderWorker::AuxShadow(
 			if (angle < 0) angle = 0;
 			if (dist < dist_thresh) angle = 0;
 			double softShadow = 1.0 - angle / softRange;
-			if (params->penetratingLights) softShadow *= (distance - i) / distance;
+			if (light->penetrating) softShadow *= (distance - i) / distance;
 			if (softShadow < 0) softShadow = 0;
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}
@@ -151,7 +151,7 @@ double cRenderWorker::AuxShadow(
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
-			if (params->penetratingLights)
+			if (light->penetrating)
 			{
 				shadowTemp -= (distance - i) / distance;
 				if (shadowTemp < 0.0) shadowTemp = 0.0;
@@ -172,11 +172,11 @@ double cRenderWorker::AuxShadow(
 
 	if (!bSoft)
 	{
-		light = shadowTemp;
+		lightShaded = shadowTemp;
 	}
 	else
 	{
-		light = 1.0f - maxSoft;
+		lightShaded = 1.0f - maxSoft;
 	}
-	return light;
+	return lightShaded;
 }
