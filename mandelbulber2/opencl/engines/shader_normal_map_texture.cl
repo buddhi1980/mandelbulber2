@@ -48,8 +48,14 @@ float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
 
 		float3 n = input->normal;
 		// tangent vectors:
-		float3 t = normalize(cross(n, textureVectorX));
-		float3 b = normalize(cross(n, textureVectorY));
+		float3 t = cross(n, textureVectorX);
+		if (length(t) < 1e-15) return input->normal;
+		t = normalize(t);
+
+		float3 b = cross(n, textureVectorY);
+		if (length(b) < 1e-15) return input->normal;
+		b = normalize(b);
+
 		matrix33 tbn;
 		tbn.m1 = b;
 		tbn.m2 = t;

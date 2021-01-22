@@ -65,8 +65,10 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	CVector3 n = input.normal;
 	// tangent vectors:
 	CVector3 t = n.Cross(texX);
+	if(t.Length() < 1e-30) return input.normal;
 	t.Normalize();
 	CVector3 b = n.Cross(texY);
+	if(b.Length() < 1e-30) return input.normal;
 	b.Normalize();
 	CMatrix33 tbn(b, t, n);
 
