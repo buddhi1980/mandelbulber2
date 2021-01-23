@@ -49,6 +49,10 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	size = lightParam->Get<double>(Name("size", id));
 	softShadowCone = lightParam->Get<double>(Name("soft_shadow_cone", id)) / 180.0 * M_PI;
 
+	rotation =
+		lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI * CVector3(-1.0, 1.0, 1.0);
+	rotMatrix.SetRotation(rotation);
+
 	if (relativePosition)
 	{
 		CVector3 camera = lightParam->Get<CVector3>("camera");
@@ -63,20 +67,25 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 																		+ cameraTarget.GetTopVector() * deltaPosition.y
 																		+ cameraTarget.GetRightVector() * deltaPosition.x;
 		position = camera + deltaPositionRotated;
+		lightDirection = (-1.0) * cameraTarget.GetForwardVector();
+		lightDirection =
+			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
+		lightDirection =
+			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
+		lightDirection =
+			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
 	}
 	else
 	{
 		position = lightParam->Get<CVector3>(Name("position", id));
+		lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
 	}
-	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
 
 	type = enumLightType(lightParam->Get<int>(Name("type", id)));
 	decayFunction = enumLightDecayFunction(lightParam->Get<int>(Name("decayFunction", id)));
 
-	rotMatrix.SetRotation(rotation);
-	lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
 	coneRatio = cos(coneAngle);
 	coneSoftRatio = cos(coneSoftAngle + coneAngle);
 

@@ -1588,9 +1588,10 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(cLight::Name("penetrating", lightId), true, morphLinear, paramStandard);
 	par->addParam(cLight::Name("relative_position", lightId), false, morphLinear, paramStandard);
 	par->addParam(cLight::Name("volumetric", lightId), false, morphLinear, paramStandard);
-	par->addParam(cLight::Name("cone_angle", lightId), 5.0, 1e-15, 180.0, morphLinear, paramStandard);
 	par->addParam(
-		cLight::Name("cone_soft_angle", lightId), 4.0, 1e-15, 180.0, morphLinear, paramStandard);
+		cLight::Name("cone_angle", lightId), 10.0, 1e-15, 180.0, morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("cone_soft_angle", lightId), 1.0, 1e-15, 180.0, morphLinear, paramStandard);
 	par->addParam(cLight::Name("intensity", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(cLight::Name("visibility", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(
@@ -1599,8 +1600,7 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		cLight::Name("soft_shadow_cone", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(cLight::Name("position", lightId), CVector3(0, 0, 0), morphAkima, paramStandard);
-	par->addParam(
-		cLight::Name("rotation", lightId), CVector3(0, 0, 0), morphLinear, paramStandard);
+	par->addParam(cLight::Name("rotation", lightId), CVector3(0, 0, 0), morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("color", lightId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam(
