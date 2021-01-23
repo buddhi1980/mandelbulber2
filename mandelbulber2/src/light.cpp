@@ -68,7 +68,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	{
 		position = lightParam->Get<CVector3>(Name("position", id));
 	}
-	rotation = lightParam->Get<CVector3>(Name("rotation", id));
+	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
 
@@ -76,6 +76,33 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	decayFunction = enumLightDecayFunction(lightParam->Get<int>(Name("decayFunction", id)));
 
 	rotMatrix.SetRotation(rotation);
+	lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
+	coneRatio = cos(coneAngle);
+	coneSoftRatio = cos(coneSoftAngle + coneAngle);
 
 	// TODO rest of parameters
+}
+
+double cLight::CalculateCone(const CVector3 &lightVector) const
+{
+	double intensity = 1.0;
+
+	if (type == lightConical)
+	{
+		double axiality = lightVector.Dot(lightDirection);
+
+		if (axiality > coneRatio)
+		{
+			intensity = 1.0;
+		}
+		else if (axiality > coneSoftRatio)
+		{
+			intensity = (axiality - coneSoftRatio) / (coneRatio - coneSoftRatio);
+		}
+		else
+		{
+			intensity = 0.0f;
+		}
+	}
+	return intensity;
 }

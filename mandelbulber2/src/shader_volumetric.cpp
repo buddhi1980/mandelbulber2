@@ -453,6 +453,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						double r2 = lightDist / lightSize;
 						double bellFunction = 1.0 / (1.0 + pow(r2, double((light->decayFunction + 1) * 2)));
+
+						CVector3 lightDirection = lightDistVect;
+						lightDirection.Normalize();
+						bellFunction *= light->CalculateCone((-1.0)*lightDirection);
+
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 
 						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;

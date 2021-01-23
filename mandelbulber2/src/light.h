@@ -35,6 +35,7 @@ public:
 	}
 
 	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }
+	double CalculateCone(const CVector3 &lightVector) const;
 
 	static QStringList paramsList;
 
@@ -71,6 +72,10 @@ public:
 
 	CVector3 position;
 	CVector3 rotation;
+	CVector3 lightDirection;
+
+	double coneRatio = 0.0;
+	double coneSoftRatio = 0.0;
 
 	sRGBFloat color;
 
