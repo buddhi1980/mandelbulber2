@@ -218,7 +218,7 @@ void cFractalMandelboxVariable::FormulaCode(CVector4 &z, const sFractal *fractal
 			// update actualScaleA for next iteration
 			double vary = fractal->transformCommon.scaleVary0
 										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-			if (fractal->transformCommon.functionEnabledMFalse)
+			if (fractal->transformCommon.functionEnabledNFalse)
 				aux.actualScaleA = -vary;
 			else
 				aux.actualScaleA = aux.actualScaleA - vary;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbox_variable</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -2270,7 +2270,7 @@ offset:</string>
             <number>2</number>
            </property>
            <item row="3" column="0" colspan="2">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
              <property name="text">
               <string>enable var&amp;y scale mode B</string>
              </property>
