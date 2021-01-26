@@ -9,6 +9,12 @@ __author__ = "Adrian Meyer @Animationsinstitut Filmakademie Baden-Wuerttemberg"
 __copyright__ = "2019 All rights reserved. See LICENSE for more details."
 __status__ = "Prototype"
 
+# global
+folder_name = "Mandelbulber Animation"
+
+
+
+#helper function to quickly create mandelbulber render dir
 def create_render_dir():
 	input = hou.ui.readInput("Path to Create", buttons=('OK',))
 	path = input[1]
@@ -16,7 +22,6 @@ def create_render_dir():
 	print "{}\nDirectory created.".format(path)
 
 
-folder_name = "Mandelbulber Animation"
 
 #imports animation curves from mandelbulber .fract files into houdini for editing
 def import_animation():
@@ -26,10 +31,8 @@ def import_animation():
 	print "_" * 50
 	print "\n"
 
-
-	# precision fixing
+	# scale up and down for easier display in houdini
 	precision_scale = 1000000.0
-
 
 	fract_filepath = hou.ui.selectFile(title="Source .fract File", pattern="*.fract")
 	if fract_filepath == "":
@@ -49,8 +52,7 @@ def import_animation():
 	precision_scale = float(precision_scale[1])
 
 	print "Mandelbulber File:\n{}\n".format(fract_filepath)
-
-	print "Precision Scale fior Import: {}\n".format(precision_scale)
+	print "Precision Scale for Import: {}\n".format(precision_scale)
 
 	fract_file = open(fract_filepath, "r")
 	fract_string = fract_file.read()
@@ -129,10 +131,6 @@ def import_animation():
 		flight_anim_out = flight_anim_out.split("\n")[2:-2]
 		flight_anim_out = "\n".join(flight_anim_out)
 
-		# print "Flight Animation String:"
-		# print flight_anim_out
-		# print "End Flight Animation String"
-
 		if "flight_first_to_render" in fract_string:
 			anim_start = int((fract_string.split("flight_first_to_render ")[-1]).split(";")[0])
 		anim_end = int((fract_string.split("flight_last_to_render ")[-1]).split(";")[0]) - 1
@@ -166,15 +164,6 @@ def import_animation():
 		keyframes_anim_out = keyframes_anim_out.split("\n")[1:-1]
 		keyframes_anim_out = "\n".join(keyframes_anim_out)
 
-		'''
-		print "Keyframes Animation String:"
-		print keyframes_anim_out
-		print "Keyframes Anim Parms:"
-		print keyframes_anim_parms
-		print "Keyframes Interpolation"
-		print keyframes_anim_interpolation
-		print "End Strings\n"
-		'''
 
 		if "keyframe_first_to_render" in fract_string:
 			anim_start = int((fract_string.split("keyframe_first_to_render ")[-1]).split(";")[0])
@@ -285,7 +274,6 @@ def import_animation():
 			parm.setKeyframe(hou.Keyframe(0))
 			parm_pattern.append(parm.path())
 	parm_pattern = " ".join(parm_pattern)
-	#print "\nParm Pattern: " + parm_pattern
 
 	# load data from .chan file
 
@@ -340,6 +328,7 @@ def import_animation():
 	print "\n"
 
 
+
 #exports edited animation curves back from houdini to mandelbulber .fract file
 def export_animation():
 	print "\n"
@@ -364,7 +353,6 @@ def export_animation():
 	fract_file = open(fract_filepath, "r")
 	fract_string = fract_file.read()
 	fract_file.close()
-	# print fract_string
 
 	# export edited anim as .chan file
 
@@ -384,7 +372,6 @@ def export_animation():
 			parm.setKeyframe(hou.Keyframe(0))
 			parm_pattern.append(parm.path())
 	parm_pattern = " ".join(parm_pattern)
-	# print "\nParm Pattern: " + parm_pattern
 
 	chan_filepath = fract_filepath_edit.replace(".fract", ".chan")
 
@@ -399,9 +386,7 @@ def export_animation():
 	chan_file = open(chan_filepath, "r")
 	chan_string = chan_file.read()
 	chan_file.close()
-
 	chan_string_lines = chan_string.split("\n")[:-1]
-
 	chan_string_out = []
 
 	i = 0
@@ -423,10 +408,6 @@ def export_animation():
 		i += 1
 		
 	flight_anim_out = "\n".join(chan_string_out)
-
-	# print "\n.chan String:"
-	# print chan_string_out
-	# print "\n"
 
 	# check if flight anim present in file
 	fract_string_edit = ""
@@ -517,7 +498,7 @@ def create_cam():
 	pad = len(mid)
 	start_frame = int(mid)
 	num_frames = len(os.listdir(dir))
-	end_frame = num_frames-1
+	end_frame = start_frame + num_frames-1
 	
 	print "Start Frame: {}".format(start_frame)
 	print "End Frame: {}".format(end_frame)
@@ -528,7 +509,7 @@ def create_cam():
 	hou.hscript("fps {}".format(fps))
 	hou.hscript("tset {} {}".format(float(-1) / float(fps), float(end_frame) / float(fps)))
 	hou.hscript("frange {} {}".format(start_frame, end_frame))
-	hou.hscript("fcur 0")
+	hou.hscript("fcur {}".format(start_frame))
 	
 	#static metadata
 	fileparm.set(seq)
@@ -542,7 +523,6 @@ def create_cam():
 	perspective_type = meta["perspective_type"] #"persp_three_point", "persp_equirectangular", 
 	stereo_enabled = meta["stereo_enabled"] #"yes", "no"
 	stereo_infinite_correction = int(meta["stereo_infinite_correction"]) #[0, 1]
-
 
 	print "Perspective Type: {}".format(perspective_type)
 	print "Stereo Enabled: {}".format(stereo_enabled)
@@ -620,7 +600,6 @@ def create_cam():
 	for i in range(num_frames):
 		frame = str(i).zfill(pad)
 		file = "{}/{}_{}.{}".format(dir, start, frame, end)
-		#print "Current File: {}".format(file)
 		fileparm.set(file)
 
 		meta = cop.getMetaDataString("attributes")
@@ -642,13 +621,7 @@ def create_cam():
 		keys_tz.append(key_tz)
 
 		#camera rotation / not correctly exported from mandelbulber
-		#thus cam xform matrix calculated from cam vectors
-		'''
-		#correct mandelbulber meta output
-		rotate_x = 90 - float(meta["camera_rotation.y"])
-		rotate_y = float(meta["camera_rotation.z"])
-		rotate_z = float(meta["camera_rotation.x"])
-		'''
+		#thus cam xform matrix calculated from cam vectors...
 
 		#calculate rotations from cam vectors
 
@@ -664,7 +637,6 @@ def create_cam():
 		top_z = float(meta["top.z"])
 		top = hou.Vector3(top_x, top_y, top_z)
 
-		
 		# calculate vectors
 		forward = (translate - target).normalized();
 		right = top.normalized().cross(forward);
@@ -685,14 +657,12 @@ def create_cam():
 		rotate_y = rotate.y()
 		rotate_z = rotate.z()
 
-
 		key_rx = hou.Keyframe(rotate_x, hou.frameToTime(i))
 		keys_rx.append(key_rx)
 		key_ry = hou.Keyframe(rotate_y, hou.frameToTime(i))
 		keys_ry.append(key_ry)
 		key_rz = hou.Keyframe(rotate_z, hou.frameToTime(i))
 		keys_rz.append(key_rz)
-
 
 		fov = float(meta["fov"])
 		#calulate focal length based on fov and "cam_aperture_base"
@@ -703,11 +673,6 @@ def create_cam():
 		stereo_eye_distance = 2 * float(meta["stereo_eye_distance"])
 		key_stereo = hou.Keyframe(stereo_eye_distance, hou.frameToTime(i))
 		keys_stereo.append(key_stereo)
-
-		#print "\nFrame: {}".format(frame)
-		#print "Translate: ({}, {}, {})".format(translate_x, translate_y, translate_z)
-		#print "Rotate: ({}, {}, {})".format(rotate_x, rotate_y, rotate_z)
-		#print "Stereo Distance: {}".format(stereo_eye_distance)
 
 		
 	#set keyframes
@@ -742,10 +707,170 @@ def create_cam():
 			parm_stereo = cam.parm("interaxial")
 			parm_stereo.setKeyframes(keys_stereo)
 		
-	
 	#delete img node
 	img.destroy()
 
 	#select camera
 	cam.setSelected(1, 1)
 	print "\nCamera successfully created from Mandelbulber EXR Image Sequence.\n\n"
+
+
+
+#function to import lights from .fract file to houdini
+def import_lights():
+
+	print "\nStart importing of Light Data from Madenlbulber .fract File...\n"
+
+	fract_filepath = hou.ui.selectFile(title="Source .fract File", pattern="*.fract")
+	if fract_filepath == "":
+		print "Please choose .fract File. Import cancelled."
+		sys.exit()
+
+	fract_file = open(fract_filepath, "r")
+	fract_string = fract_file.read()
+	fract_file.close()
+
+	#### get data from .fract file
+
+	#main light
+	print "\n\nMain Light Data:\n"
+
+	main_light_enable = 1
+	if "main_light_enable" in fract_string:
+		main_light_enable = 0	
+	print "Main Light Enabled: {}".format(main_light_enable)
+
+	main_light_position_relative = 1
+	if "main_light_position_relative" in fract_string:
+		main_light_position_relative = 0
+	print "Main Light Position Relative: {}".format(main_light_position_relative)
+
+	#get houdini camera for relative position
+	cam = None
+	if main_light_position_relative:
+		cam = hou.ui.selectNode(
+			node_type_filter=None,
+			title="Choose Camera Node (Should be Camera imported with 'Create MDB Cam' Shelf)",
+			width=800,
+			height=600,
+			custom_node_filter_callback=None)
+
+		if cam == None:
+			print "Please choose a Camera Node for relative positioning. Cancelled..."
+			sys.exit()
+
+		cam = hou.node(cam)
+		print "\nHoudini Camera Object: {}".format(cam.path())
+
+	main_light_intensity = 1.0
+	if "main_light_intensity" in fract_string:
+		main_light_intensity = fract_string.split("main_light_intensity")[-1].split(";")[0][1:]
+		main_light_intensity = float(main_light_intensity.replace(",", "."))
+	print "Main Light Intensity: {}".format(main_light_intensity)
+
+	light_shadows_cone_angle = 1.0
+	if "shadows_cone_angle" in fract_string:
+		light_shadows_cone_angle = fract_string.split("shadows_cone_angle")[-1].split(";")[0][1:]
+		light_shadows_cone_angle = float(light_shadows_cone_angle.replace(",", "."))
+	print "Light Shadows Cone Angle: {}".format(light_shadows_cone_angle)
+
+	main_light_visibility_size = 1.0
+	if "main_light_visibility_size" in fract_string:
+		main_light_visibility_size = fract_string.split("main_light_visibility_size")[-1].split(";")[0][1:]
+		main_light_visibility_size = float(main_light_visibility_size.replace(",", "."))
+	print "Main Light Size: {}".format(main_light_visibility_size)
+
+	main_light_colour = (1.0, 1.0, 1.0)
+	if "main_light_colour" in fract_string:
+		main_light_colour = fract_string.split("main_light_colour")[-1].split(";")[0][1:]
+		main_light_colour = main_light_colour.split(" ")
+		main_light_colour = main_light_colour[0][:-2] + main_light_colour[1][:-2] + main_light_colour[2][:-2]
+		main_light_colour = tuple(int(main_light_colour[i:i+2], 16) / 255.0 for i in (0, 2, 4))
+	print "Main Light Color: {}".format(main_light_colour)
+	
+	main_light_alpha = -45.0
+	if "main_light_alpha" in fract_string:
+		main_light_alpha = fract_string.split("main_light_alpha")[-1].split(";")[0][1:]
+		main_light_alpha = float(main_light_alpha.replace(",", "."))
+	print "Main Light Alpha (Angle): {}".format(main_light_alpha)
+
+	main_light_beta = 45.0
+	if "main_light_beta" in fract_string:
+		main_light_beta = fract_string.split("main_light_beta")[-1].split(";")[0][1:]
+		main_light_beta = float(main_light_beta.replace(",", "."))
+	print "Main Light Beta (Angle): {}".format(main_light_beta)
+
+	#create main light in houdini
+	root = hou.node("/obj")
+	if main_light_enable:
+		main_light = root.createNode("hlight", "mdb_main_light")
+		main_light.parm("light_intensity").set(main_light_intensity)
+		main_light.parmTuple("light_color").set(main_light_colour)
+		main_light.parmTuple("areasize").set((main_light_visibility_size, main_light_visibility_size))
+		main_light.parm("vm_envangle").set(light_shadows_cone_angle)
+		main_light.parm("light_type").set(7)
+	
+		if main_light_position_relative:
+			main_light.parm("ry").set(main_light_alpha)
+			main_light.parm("rx").set(-main_light_beta)
+			main_light.setInput(0, cam, 0)
+			main_light.moveToGoodPosition()
+			main_light.move([0, -3])
+		else:
+			main_light.parm("rz").set(main_light_alpha)
+			main_light.parm("rx").set(90 - main_light_beta)
+
+		main_light.setSelected(1, 1)
+
+	#aux lights
+	print "\nAUX Light Data:"
+	aux_light_visibility_size = 1.0
+	if "aux_light_visibility_size" in fract_string:
+		aux_light_visibility_size = fract_string.split("aux_light_visibility_size")[-1].split(";")[0][1:]
+		aux_light_visibility_size = float(aux_light_visibility_size.replace(",", "."))
+	print "AUX Lights Size: {}".format(aux_light_visibility_size)
+
+	#loop over 4 possible aux lights
+	for i in range(1, 5):
+		aux_light_enabled = 0
+		if "aux_light_enabled_{}".format(i) in fract_string:
+			aux_light_enabled = fract_string.split("aux_light_enabled_{}".format(i))[-1].split(";")[0][1:]
+			if aux_light_enabled == "true":
+				aux_light_enabled = 1
+
+			if aux_light_enabled:
+				print "\nAUX Light {} Data:\n".format(i)
+				print "AUX Light {} Enabled: {}".format(i, aux_light_enabled)
+
+				aux_light_position = (3.0, -3.0, 3.0)
+				if "aux_light_position" in fract_string:
+					aux_light_position = fract_string.split("aux_light_position_{}".format(i))[-1].split(";")[0][1:]
+					comps = aux_light_position.split(" ")
+					aux_light_position = []
+					for comp in comps:
+						aux_light_position.append(float(comp.replace(",", ".")))
+					aux_light_position = tuple(aux_light_position)
+				print "AUX Light {} Position: {}".format(i, aux_light_position)
+
+				aux_light_intensity = 1.0
+				if "aux_light_intensity" in fract_string:
+					aux_light_intensity = fract_string.split("aux_light_intensity_{}".format(i))[-1].split(";")[0][1:]
+					aux_light_intensity = float(aux_light_intensity.replace(",", "."))
+				print "AUX Light {} Intensity: {}".format(i, aux_light_intensity)
+
+				aux_light_colour = (1.0, 1.0, 1.0) # not exactly correct, actually different colored defaults for each aux light in mandelbulber
+				if "aux_light_colour" in fract_string:
+					aux_light_colour = fract_string.split("aux_light_colour_{}".format(i))[-1].split(";")[0][1:]
+					aux_light_colour = aux_light_colour.split(" ")
+					aux_light_colour = aux_light_colour[0][:-2] + aux_light_colour[1][:-2] + aux_light_colour[2][:-2]
+					aux_light_colour = tuple(int(aux_light_colour[i:i+2], 16) / 255.0 for i in (0, 2, 4))
+				print "AUX Light {} Color: {}".format(i, aux_light_colour)
+
+				#create aux lights in houdini
+				aux_light = root.createNode("hlight", "mdb_aux_light_{}".format(i))
+				aux_light.parmTuple("t").set(aux_light_position)
+				aux_light.parm("light_intensity").set(aux_light_intensity)
+				aux_light.parmTuple("light_color").set(aux_light_colour)
+				aux_light.parmTuple("areasize").set((aux_light_visibility_size, aux_light_visibility_size))
+				aux_light.moveToGoodPosition()
+				aux_light.setSelected(1)
