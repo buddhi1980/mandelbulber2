@@ -11,6 +11,7 @@
     <memberTool name="export_anim"/>
     <memberTool name="create_render_dir"/>
     <memberTool name="create_mdb_cam0"/>
+    <memberTool name="import_mdb_lights0"/>
   </toolshelf>
 
   <tool name="reload_som_mandelbulber" label="Reload Module" icon="SOP_python">
@@ -44,5 +45,11 @@ hou_mandelbulber.create_render_dir()]]></script>
     <script scriptType="python"><![CDATA[import hou_mandelbulber
 
 hou_mandelbulber.create_cam()]]></script>
+  </tool>
+
+  <tool name="import_mdb_lights0" label="Import MDB Lights" icon="OBJ_light">
+    <script scriptType="python"><![CDATA[import hou_mandelbulber
+
+hou_mandelbulber.import_lights()]]></script>
   </tool>
 </shelfDocument>
