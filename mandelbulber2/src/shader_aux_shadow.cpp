@@ -36,22 +36,22 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-double cRenderWorker::AuxShadow(
+sRGBAfloat cRenderWorker::AuxShadow(
 	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
-	// double step = input.delta;
-	double dist;
-	double lightShaded;
-
-	double opacity;
-	double shadowTemp = 1.0;
+	sRGBAfloat lightShaded(1.0, 1.0, 1.0, 1.0);
 	double iterFogSum = 0.0f;
+	double shadowTemp = 1.0;
 
 	bool cloudMode = params->cloudsEnable;
 
-	double DE_factor = params->DEFactor;
-	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
-	if (cloudMode) DE_factor = params->DEFactor * params->volumetricLightDEFactor;
+	double DEFactor = params->DEFactor;
+	if (params->iterFogEnabled || light->volumetric) DEFactor = 1.0;
+	if (cloudMode) DEFactor = params->DEFactor * params->volumetricLightDEFactor;
+
+	// remark: for aux light was: i = input.delta;
+	double start = input.distThresh;
+	if (params->interiorMode) start = input.distThresh * DEFactor;
 
 	double softRange;
 	if (params->monteCarloSoftShadows)
@@ -67,7 +67,7 @@ double cRenderWorker::AuxShadow(
 	double maxSoft = 0.0;
 
 	const bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
-										 && softRange > 0.0
+										 && !params->interiorMode && softRange > 0.0
 										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -85,7 +85,7 @@ double cRenderWorker::AuxShadow(
 	int count = 0;
 	double step = 0.0f;
 
-	for (double i = input.delta; i < distance; i += step)
+	for (double i = start; i < distance; i += step)
 	{
 		CVector3 point2 = input.point + lightVector * i;
 
@@ -99,7 +99,7 @@ double cRenderWorker::AuxShadow(
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
-		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		bool limitsReached = false;
@@ -126,7 +126,7 @@ double cRenderWorker::AuxShadow(
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
 			opacity *= (distance - i) / distance;
@@ -136,15 +136,11 @@ double cRenderWorker::AuxShadow(
 		else if (cloudMode)
 		{
 			double distanceToClouds = 0.0f;
-			opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
+			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
 			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
-		}
-		else
-		{
-			opacity = 0.0;
 		}
 
 		shadowTemp = 1.0 - iterFogSum;
@@ -163,7 +159,7 @@ double cRenderWorker::AuxShadow(
 			break;
 		}
 
-		step = std::min(dist, lastDistanceToClouds) * DE_factor;
+		step = std::min(dist, lastDistanceToClouds) * DEFactor;
 		step = std::max(step, 1e-15);
 
 		count++;
@@ -172,11 +168,15 @@ double cRenderWorker::AuxShadow(
 
 	if (!bSoft)
 	{
-		lightShaded = shadowTemp;
+		lightShaded.R = shadowTemp;
+		lightShaded.G = shadowTemp;
+		lightShaded.B = shadowTemp;
 	}
 	else
 	{
-		lightShaded = 1.0f - maxSoft;
+		lightShaded.R = 1.0f - maxSoft;
+		lightShaded.G = 1.0f - maxSoft;
+		lightShaded.B = 1.0f - maxSoft;
 	}
 	return lightShaded;
 }

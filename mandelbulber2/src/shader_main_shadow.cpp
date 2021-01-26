@@ -46,8 +46,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 	bool cloudMode = params->cloudsEnable;
 
-	double factor = input.delta / params->resolution;
-	if (!params->penetratingLights) factor = params->viewDistanceMax;
+	double distance = input.delta / params->resolution;
+	if (!params->penetratingLights) distance = params->viewDistanceMax;
 	double dist;
 
 	double DEFactor = params->DEFactor;
@@ -84,7 +84,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double step = 0.0f;
 	double lastDistanceToClouds = 1e6f;
 
-	for (double i = start; i < factor; i += step)
+	for (double i = start; i < distance; i += step)
 	{
 		point2 = input.point + shadowVect * i;
 
@@ -118,7 +118,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 			if (angle < 0) angle = 0;
 			if (dist < dist_thresh) angle = 0;
 			double softShadow = 1.0 - angle / softRange;
-			if (params->penetratingLights) softShadow *= (factor - i) / factor;
+			if (params->penetratingLights) softShadow *= (distance - i) / distance;
 			if (softShadow < 0) softShadow = 0;
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}
@@ -127,7 +127,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		{
 			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-			opacity *= (factor - i) / factor;
+			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
@@ -136,7 +136,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 			double distanceToClouds = 0.0f;
 			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
 			lastDistanceToClouds = distanceToClouds;
-			opacity *= (factor - i) / factor;
+			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
@@ -145,7 +145,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
-			shadowTemp -= (factor - i) / factor;
+			shadowTemp -= (distance - i) / distance;
 			if (!params->penetratingLights) shadowTemp = 0.0;
 			if (shadowTemp < 0.0) shadowTemp = 0.0;
 			break;

@@ -207,14 +207,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					float distanceLight = lightVectorTemp.Length();
 					float distanceLight2 = light->Decay(distanceLight);
 					lightVectorTemp.Normalize();
-					float lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
-					output.R += lightShadow * light->color.R * light->volumetricVisibility * float(step)
+					sRGBAfloat lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+					output.R += lightShadow.R * light->color.R * light->volumetricVisibility * float(step)
 											/ distanceLight2;
-					output.G += lightShadow * light->color.G * light->volumetricVisibility * float(step)
+					output.G += lightShadow.G * light->color.G * light->volumetricVisibility * float(step)
 											/ distanceLight2;
-					output.B += lightShadow * light->color.B * light->volumetricVisibility * float(step)
+					output.B += lightShadow.B * light->color.B * light->volumetricVisibility * float(step)
 											/ distanceLight2;
-					output.A += lightShadow * light->volumetricVisibility * float(step) / distanceLight2;
+					output.A += lightShadow.A * light->volumetricVisibility * float(step) / distanceLight2;
 				}
 			}
 		}
@@ -307,18 +307,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						float distanceLight2 = light->Decay(distanceLight);
 						lightVectorTemp.Normalize();
 
-						float lightShadow = 1.0;
+						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 
 						if (params->cloudsCastShadows)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}
-						lightShadow = lightShadow * nAmbient + ambient;
+						lightShadow.R = lightShadow.R * nAmbient + ambient;
+						lightShadow.G = lightShadow.G * nAmbient + ambient;
+						lightShadow.B = lightShadow.B * nAmbient + ambient;
 
 						float intensity = light->intensity;
-						newColour.R += lightShadow * light->color.R / distanceLight2 * intensity;
-						newColour.G += lightShadow * light->color.G / distanceLight2 * intensity;
-						newColour.B += lightShadow * light->color.B / distanceLight2 * intensity;
+						newColour.R += lightShadow.R * light->color.R / distanceLight2 * intensity;
+						newColour.G += lightShadow.G * light->color.G / distanceLight2 * intensity;
+						newColour.B += lightShadow.B * light->color.B / distanceLight2 * intensity;
 					}
 				}
 			}
@@ -396,15 +398,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						float distanceLight2 = light->Decay(distanceLight);
 						lightVectorTemp.Normalize();
 
-						float lightShadow = 1.0;
+						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 						if (params->iterFogShadows)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}
 						float intensity = light->intensity * params->iterFogBrightnessBoost;
-						newColour.R += lightShadow * light->color.R / distanceLight2 * intensity;
-						newColour.G += lightShadow * light->color.G / distanceLight2 * intensity;
-						newColour.B += lightShadow * light->color.B / distanceLight2 * intensity;
+						newColour.R += lightShadow.R * light->color.R / distanceLight2 * intensity;
+						newColour.G += lightShadow.G * light->color.G / distanceLight2 * intensity;
+						newColour.B += lightShadow.B * light->color.B / distanceLight2 * intensity;
 					}
 				}
 
@@ -433,7 +435,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			for (int i = 0; i < data->lights.GetNumberOfLights(); ++i)
 			{
 				const cLight *light = data->lights.GetLight(i);
-				if (light->enabled && light->intensity > 0)
+				if (light->enabled && light->intensity > 0 && light->type != cLight::lightGlobal)
 				{
 					double lastMiniSteps = -1.0;
 					double miniStep;
@@ -456,7 +458,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						CVector3 lightDirection = lightDistVect;
 						lightDirection.Normalize();
-						bellFunction *= light->CalculateCone((-1.0)*lightDirection);
+						bellFunction *= light->CalculateCone((-1.0) * lightDirection);
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 

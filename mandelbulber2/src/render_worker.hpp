@@ -243,11 +243,10 @@ private:
 	sRGBAfloat EnvMapping(const sShaderInputData &input) const;
 	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat surfaceColor,
 		sGradientsCollection *gradients, sRGBAfloat *specularOut) const;
-	double AuxShadow(const sShaderInputData &input, const cLight *light, double distance,
+	sRGBAfloat AuxShadow(const sShaderInputData &input, const cLight *light, double distance,
 		CVector3 lightVector) const;
 	sRGBAfloat LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-		const cLight *light, int number, sGradientsCollection *gradients,
-		sRGBAfloat *outSpecular) const;
+		const cLight *light, sGradientsCollection *gradients, sRGBAfloat *outSpecular) const;
 	sRGBAfloat BackgroundShader(const sShaderInputData &input) const;
 	sRGBAfloat FakeLights(
 		const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const;

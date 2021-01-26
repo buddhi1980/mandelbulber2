@@ -38,21 +38,44 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-	const cLight *light, int number, sGradientsCollection *gradients, sRGBAfloat *outSpecular) const
+	const cLight *light, sGradientsCollection *gradients, sRGBAfloat *outSpecular) const
 {
 	sRGBAfloat shading;
 
-	CVector3 d = light->position - input.point;
-
-	float distance = d.Length();
-
-	// angle of incidence
-	CVector3 lightVector = d;
-	lightVector.Normalize();
+	CVector3 lightVector;
+	float distance;
+	if (light->type == cLight::lightGlobal)
+	{
+		lightVector = light->lightDirection;
+		if (light->penetrating)
+		{
+			distance = input.delta / params->resolution;
+		}
+		else
+		{
+			distance = params->viewDistanceMax;
+		}
+	}
+	else
+	{
+		CVector3 d = light->position - input.point;
+		lightVector = d;
+		lightVector.Normalize();
+		distance = d.Length();
+	}
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where number of light was always 24
-	float intensity = 100.0f * light->intensity / light->Decay(distance) / number / 6;
+	// float intensity = 100.0f * light->intensity / light->Decay(distance) / number / 6;
+	float intensity;
+	if (light->type == cLight::lightGlobal)
+	{
+		intensity = light->intensity;
+	}
+	else
+	{
+		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0;
+	}
 
 	intensity *= light->CalculateCone(lightVector);
 
@@ -80,26 +103,29 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	float specularMax = dMax(specular.R, specular.G, specular.B);
 
 	// calculate shadow
-	if ((shade > 0.01f || specularMax > 0.01f) && params->shadow)
+	sRGBAfloat auxShadow(1.0, 1.0, 1.0, 1.0);
+	if (light->castShadows)
 	{
-		double auxShadow = AuxShadow(input, light, distance, lightVector);
-		shade *= auxShadow;
-		specular.R *= auxShadow;
-		specular.G *= auxShadow;
-		specular.B *= auxShadow;
-	}
-	else
-	{
-		if (params->shadow)
+		if (shade > 0.001f || specularMax > 0.001f)
 		{
-			shade = 0;
-			specular = sRGBAfloat();
+			auxShadow = AuxShadow(input, light, distance, lightVector);
+			specular.R *= auxShadow.R;
+			specular.G *= auxShadow.G;
+			specular.B *= auxShadow.B;
+		}
+		else
+		{
+			if (params->shadow)
+			{
+				auxShadow = sRGBAfloat();
+				specular = sRGBAfloat();
+			}
 		}
 	}
 
-	shading.R = shade * light->color.R;
-	shading.G = shade * light->color.G;
-	shading.B = shade * light->color.B;
+	shading.R = shade * light->color.R * auxShadow.R;
+	shading.G = shade * light->color.G * auxShadow.G;
+	shading.B = shade * light->color.B * auxShadow.B;
 
 	outSpecular->R = specular.R * light->color.R;
 	outSpecular->G = specular.G * light->color.G;

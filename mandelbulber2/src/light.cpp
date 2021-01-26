@@ -36,6 +36,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	int frameNo = lightParam->Get<int>("frame_no");
 
 	enabled = lightParam->Get<bool>(Name("enabled", id));
+	type = enumLightType(lightParam->Get<int>(Name("type", id)));
 	castShadows = lightParam->Get<bool>(Name("cast_shadows", id));
 	penetrating = lightParam->Get<bool>(Name("penetrating", id));
 	relativePosition = lightParam->Get<bool>(Name("relative_position", id));
@@ -49,8 +50,16 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	size = lightParam->Get<double>(Name("size", id));
 	softShadowCone = lightParam->Get<double>(Name("soft_shadow_cone", id)) / 180.0 * M_PI;
 
-	rotation =
-		lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI * CVector3(-1.0, 1.0, 1.0);
+	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
+	if (type == lightGlobal)
+	{
+		rotation *= CVector3(1.0, -1.0, 1.0);
+	}
+	else
+	{
+		rotation *= CVector3(-1.0, 1.0, 1.0);
+	}
+
 	rotMatrix.SetRotation(rotation);
 
 	if (relativePosition)
@@ -83,7 +92,6 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
 
-	type = enumLightType(lightParam->Get<int>(Name("type", id)));
 	decayFunction = enumLightDecayFunction(lightParam->Get<int>(Name("decayFunction", id)));
 
 	coneRatio = cos(coneAngle);
