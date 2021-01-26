@@ -16,21 +16,34 @@ All the code is developed during my studies at Animationsinstitut at Filmakademi
 **Mandelbulber VFX Tools** is in a work in progress, prototype stage and for experimental use.
 It may contain bugs and the code is not fully cleaned up. Feel free to customize and enhance to your needs.
 
-*Compatible with **Houdini 17.+ | Tested with 17.5.425***
+*Compatible with **Houdini 17.+ | Tested with 17.5.425***<br/>
+*Compatible with **Nuke 12.+ | Tested with 12.0v3***<br/>
 *Compatible with **Mandelbulber 2.22+ | Tested with 2.22***
 
 <br>
 
 ## Installation
+#### Houdini
 * Clone or copy repository.
-Add path to repository into **HOUDINI_PATH** environment variable (e.g. in *houdini.env* file)
+Add path to repository into **HOUDINI_PATH** environment variable (e.g. in *houdini.env* file or startup scripts)
     ```
-    HOUDINI_PATH = &;C:/Users/ameyer/Documents/git/mandelbulber_vfx_tools/houdini
+    HOUDINI_PATH = &;<PATH_TO_FOLDER>/mandelbulber_vfx_tools/houdini
     ```
 * Add **HOU Mandelbulber** shelf to Houdini shelfes
 
-* Nuke Tools not yet released...
+#### Nuke
+* In startup script, add to NUKE_PATH and NUKE_MENU_PATH
+	```
+	set "NUKE_PATH=&;<PATH_TO_FOLDER>/mandelbulber_vfx_tools/nuke/src/nuke;<PATH_TO_FOLDER>/mandelbulber_vfx_tools/nuke/gizmos"
+	set "NUKE_MENU_PATH=&;<PATH_TO_FOLDER>/mandelbulber_vfx_tools/nuke"
+	```
 
+* Add to menu.py
+	```
+	<MY_MENU>.addCommand("Import Mandelbulber Cam", "nuke_mandelbulber.createExrCamMandelbulber()")
+	```
+
+#### Git SVN
 * Optional: Git SVN
 Download SVN
 Run the following command:
@@ -52,6 +65,18 @@ Run the following command:
 * Click on *Create MDB Cam* Shelf Tool and select first Frame of Mandelbulber .exr Sequence
 * A animated Houdini Camera matching the Mandelbulber Camera will be created based on .exr Metadata
 * Can be used within Houdini or exported as Alembic
+* Supports Perspective, Stereo, Equirectangular and Stereo Equirectangular Cameras
+
+#### Import Mandelbulber Lights to Houdini
+* Open Houdini / Open Python Shell / Open *HOU Mandelbulber Shelf*
+* Click on *Create MDB Lights* Shelf Tool and select Mandelbulber .fract File
+* Only enabled Lights from Mandelbulber will be imported
+* Limited to 1 Main Light and 4 Auxiliary Lights available in Mandelbulber
+
+#### Import Mandelbulber Camera to Nuke
+* Select Read Node with rendered Mandelbulber EXR Sequence
+* Click *Import Mandelbulber Cam* in the menu you set up
+* A animated Camera matching the Mandelbulber Camera will be created based on .exr Metadata
 * Supports Perspective, Stereo, Equirectangular and Stereo Equirectangular Cameras
 
 <br>
