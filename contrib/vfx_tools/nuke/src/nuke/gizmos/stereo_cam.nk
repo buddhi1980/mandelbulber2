@@ -1,0 +1,199 @@
+#! C:/Program Files/Nuke12.0v3/nuke-12.0.3.dll -nx
+version 12.0 v3
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1919" y="-8" w="1920" h="1057" maximized="1" screen="1">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1013"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="-1" y="-8" w="1920" h="1057" maximized="1" screen="0">
+        <splitter orientation="2">
+            <split size="1057"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name S:/_pipeline/mandelbulber_vfx_tools/nuke/src/nuke/gizmos/SoM_stereo_cam_custom.nk
+ fps 60
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+ views "left #ff0000
+right #00ff00"
+}
+Group {
+ inputs 0
+ name StereoCam
+ xpos -202
+ ypos -452
+ addUserKnob {20 stereo l Stereo}
+ addUserKnob {7 stereo_width l "Stereo Width"}
+ stereo_width 0.064
+ addUserKnob {20 projection l Projection}
+ addUserKnob {41 projection_mode l projection T cam_center.projection_mode}
+ addUserKnob {41 focal l "focal length" T cam_center.focal}
+ addUserKnob {41 haperture l "horiz aperture" T cam_center.haperture}
+ addUserKnob {41 vaperture l "vert aperture" T cam_center.vaperture}
+ addUserKnob {41 near T cam_center.near}
+ addUserKnob {41 far T cam_center.far}
+ addUserKnob {41 win_translate l "window translate" T cam_center.win_translate}
+ addUserKnob {41 win_scale l "window scale" T cam_center.win_scale}
+ addUserKnob {41 winroll l "window roll" T cam_center.winroll}
+ addUserKnob {41 focal_point l "focal distance" T cam_center.focal_point}
+ addUserKnob {41 fstop T cam_center.fstop}
+ addUserKnob {20 camera l Camera}
+ addUserKnob {41 read_from_file l "read from file" T cam_center.read_from_file}
+ addUserKnob {41 display T cam_center.display}
+ addUserKnob {41 selectable T cam_center.selectable}
+ addUserKnob {41 transform T cam_center.transform}
+ addUserKnob {41 file_menu l @FolderIcon T cam_center.file_menu}
+ addUserKnob {41 snap_menu l @AxisIcon T cam_center.snap_menu}
+ addUserKnob {41 xform_order l "transform order" T cam_center.xform_order}
+ addUserKnob {41 rot_order l "rotation order" T cam_center.rot_order}
+ addUserKnob {41 translate T cam_center.translate}
+ addUserKnob {41 rotate T cam_center.rotate}
+ addUserKnob {41 scaling l scale T cam_center.scaling}
+ addUserKnob {41 uniform_scale l "uniform scale" T cam_center.uniform_scale}
+ addUserKnob {41 skew T cam_center.skew}
+ addUserKnob {41 pivot T cam_center.pivot}
+ addUserKnob {20 "" l "Local matrix" n 2}
+ addUserKnob {41 useMatrix l "specify matrix" T cam_center.useMatrix}
+ addUserKnob {41 matrix l "" -STARTLINE T cam_center.matrix}
+ addUserKnob {20 "" l "World matrix" n 2}
+ addUserKnob {41 world_matrix l "" -STARTLINE T cam_center.world_matrix}
+ addUserKnob {20 export l Export}
+ addUserKnob {41 file T export_cam.file}
+ addUserKnob {41 Execute T export_cam.Execute}
+ addUserKnob {41 first l "frame range" T export_cam.first}
+ addUserKnob {41 last l "" -STARTLINE T export_cam.last}
+ addUserKnob {41 use_limit l "limit to range" T export_cam.use_limit}
+ addUserKnob {41 views T export_cam.views}
+ addUserKnob {41 file_type l "file type" T export_cam.file_type}
+ addUserKnob {26 "" l "ABC Options"}
+ addUserKnob {41 writeGeometries l geometries T export_cam.writeGeometries}
+ addUserKnob {41 writePointClouds l pointClouds T export_cam.writePointClouds}
+ addUserKnob {41 writeCameras l cameras T export_cam.writeCameras}
+ addUserKnob {41 writeAxes l axes T export_cam.writeAxes}
+ addUserKnob {41 storageFormat l "storage format" T export_cam.storageFormat}
+}
+ Camera2 {
+  inputs 0
+  projection_mode spherical
+  focal 18
+  haperture 36
+  vaperture 36
+  name cam_center
+  label Center
+  xpos 289
+  ypos -404
+ }
+set N93d05c00 [stack 0]
+ Camera2 {
+  translate {{"stereo_width / 2"} 0 0}
+  projection_mode {{cam_center.projection_mode}}
+  focal {{cam_center.focal}}
+  haperture {{cam_center.haperture}}
+  vaperture {{cam_center.vaperture}}
+  near {{cam_center.near}}
+  far {{cam_center.far}}
+  win_translate {{cam_center.win_translate.u} {cam_center.win_translate.v}}
+  win_scale {{cam_center.win_scale.u} {cam_center.win_scale.v}}
+  winroll {{cam_center.winroll}}
+  focal_point {{cam_center.focal_point}}
+  fstop {{cam_center.fstop}}
+  name cam_right
+  label Right
+  xpos 381
+  ypos -296
+ }
+set N93d05800 [stack 0]
+push $N93d05c00
+ Camera2 {
+  translate {{"-stereo_width / 2"} 0 0}
+  projection_mode {{cam_center.projection_mode}}
+  focal {{cam_center.focal}}
+  haperture {{cam_center.haperture}}
+  vaperture {{cam_center.vaperture}}
+  near {{cam_center.near}}
+  far {{cam_center.far}}
+  win_translate {{cam_center.win_translate.u} {cam_center.win_translate.v}}
+  win_scale {{cam_center.win_scale.u} {cam_center.win_scale.v}}
+  winroll {{cam_center.winroll}}
+  focal_point {{cam_center.focal_point}}
+  fstop {{cam_center.fstop}}
+  name cam_left
+  label Left
+  xpos 197
+  ypos -295
+ }
+set N93d05400 [stack 0]
+ JoinViews {
+  inputs 2
+  name JoinViews1
+  xpos 279
+  ypos -190
+  viewassoc "left\nright"
+  addUserKnob {20 caravr l CaraVR}
+  addUserKnob {22 joinSelection l "Auto Join Selected" t "Use this to automatically connect JoinViews inputs to the selected nodes. <p>When selecting <b>separate</b> nodes (that is, belonging to pipes that operate on one view only), this assigns the inputs based on the views defined by upstream OneView and CameraSolver nodes.</p><p>When a <b>joined</b> node is selected (that is, one operating on multiple views), this assigns all unconnected inputs to it.</p>" -STARTLINE T jve.joinSelected(nuke.thisNode())}
+  addUserKnob {22 addSplit l "Add Split On Selected" t "Add one or more OneView nodes connected to the selected node." -STARTLINE T "jve.splitViews(nuke.thisNode(), jve.showViewSelectionPanel(), jve.getSelectedParent()) "}
+ }
+ Output {
+  name Output1
+  xpos 279
+  ypos -53
+ }
+push $N93d05800
+push $N93d05400
+push $N93d05c00
+ Dot {
+  name Dot1
+  xpos 579
+  ypos -380
+ }
+ Scene {
+  inputs 3
+  name Scene1
+  xpos 555
+  ypos -196
+ }
+ WriteGeo {
+  file cam.abc
+  views {left}
+  file_type abc
+  writeGeometries false
+  writePointClouds false
+  writeAxes false
+  name export_cam
+  xpos 545
+  ypos -64
+ }
+end_group
