@@ -162,17 +162,32 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		pixel2.A = 0.0;
 	}
 
+	CVector3 viewVectorNorm = input.viewVector;
+	viewVectorNorm.Normalize();
+
 	if (params->mainLightEnable)
 	{
-		CVector3 viewVectorNorm = input.viewVector;
-		viewVectorNorm.Normalize();
-		double light =
+		double intensity =
 			-(viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0 / params->mainLightVisibilitySize;
-		light = 1.0 / (1.0 + pow(light, 6.0 * params->mainLightContourSharpness))
-						* params->mainLightVisibility * params->mainLightIntensity;
-		pixel2.R += light * params->mainLightColour.R;
-		pixel2.G += light * params->mainLightColour.G;
-		pixel2.B += light * params->mainLightColour.B;
+		intensity = 1.0 / (1.0 + pow(intensity, 6.0 * params->mainLightContourSharpness))
+								* params->mainLightVisibility * params->mainLightIntensity;
+		pixel2.R += intensity * params->mainLightColour.R;
+		pixel2.G += intensity * params->mainLightColour.G;
+		pixel2.B += intensity * params->mainLightColour.B;
+	}
+
+	for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
+	{
+		const cLight *light = data->lights.GetLight(i);
+		if (light->enabled)
+		{
+			double intensity = -(viewVectorNorm.Dot(light->lightDirection) - 1.0) * 360.0 / light->size;
+			intensity = 1.0 / (1.0 + pow(intensity, 6.0 * params->mainLightContourSharpness))
+									* light->visibility * light->intensity;
+			pixel2.R += intensity * light->color.R;
+			pixel2.G += intensity * light->color.G;
+			pixel2.B += intensity * light->color.B;
+		}
 	}
 
 	return pixel2;
