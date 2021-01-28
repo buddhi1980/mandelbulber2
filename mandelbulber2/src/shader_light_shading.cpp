@@ -115,11 +115,8 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		}
 		else
 		{
-			if (params->shadow)
-			{
-				auxShadow = sRGBAfloat();
-				specular = sRGBAfloat();
-			}
+			auxShadow = sRGBAfloat();
+			specular = sRGBAfloat();
 		}
 	}
 

@@ -174,7 +174,6 @@ private:
 		CVector3 point;
 		CVector3 viewVector;
 		CVector3 normal;
-		CVector3 lightVect;
 		double distThresh; // distance threshold depend on 'detailLevel'
 		double lastDist;
 		double delta; // initial step distance for shaders based on distance form camera
@@ -275,7 +274,7 @@ private:
 	CVector3 baseY;
 	CVector3 baseZ;
 	CVector3 viewAngle;
-	CVector3 shadowVector;
+	// CVector3 shadowVector;
 	float actualHue;
 	int AOVectorsCount;
 	int reflectionsMax;

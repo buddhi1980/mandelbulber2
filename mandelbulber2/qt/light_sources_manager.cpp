@@ -21,7 +21,7 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	// AddLight(true, -1);
+	AddLight(true, -1);
 
 	connect(ui->pushButton_newLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonAddLight);
@@ -126,6 +126,7 @@ void cLightSourcesManager::Regenerate()
 void cLightSourcesManager::slotButtonAddLight()
 {
 	AddLight(true, -1);
+	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
 void cLightSourcesManager::slotButtonDuplicateLight() {}

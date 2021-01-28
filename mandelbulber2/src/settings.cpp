@@ -848,12 +848,12 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		if (!par->IfExists(parameterName))
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int matIndex = parameterName.mid(5, positionOfDash - 5).toInt();
+			int lightIndex = parameterName.mid(5, positionOfDash - 5).toInt();
 			QString shortName = parameterName.mid(positionOfDash + 1);
 			if (cLight::paramsList.indexOf(shortName) >= 0)
 			{
-				InitLightParams(matIndex, par);
-				par->Set(QString("light%1_is_defined").arg(matIndex), true);
+				InitLightParams(lightIndex, par);
+				par->Set(QString("light%1_is_defined").arg(lightIndex), true);
 			}
 			else
 			{
@@ -1104,6 +1104,46 @@ void cSettings::Compatibility(QString &name, QString &value) const
 
 		if (name.contains("coloring_saturation")) name = "skip";
 	}
+
+	if (fileVersion < 2.25)
+	{
+		if (name.contains("main_light_intensity"))
+			name.replace("main_light_intensity", "light1_intensity");
+
+		if (name == QString("main_light_visibility"))
+			name.replace("main_light_visibility", "light1_visibility");
+
+		if (name.contains("main_light_visibility_size"))
+			name.replace("main_light_visibility_size", "light1_size");
+
+		if (name.contains("main_light_contour_sharpness"))
+			name.replace("main_light_contour_sharpness", "light1_contour_sharpness");
+
+		if (name.contains("main_light_alpha")) name.replace("main_light_alpha", "light1_alpha");
+
+		if (name.contains("main_light_beta")) name.replace("main_light_beta", "light1_beta");
+
+		if (name.contains("main_light_colour")) name.replace("main_light_colour", "light1_color");
+
+		if (name.contains("penetrating_lights"))
+			name.replace("penetrating_lights", "light1_penetrating");
+
+		if (name.contains("shadows_enabled")) name.replace("shadows_enabled", "light1_cast_shadows");
+
+		if (name.contains("shadows_cone_angle"))
+			name.replace("shadows_cone_angle", "light1_soft_shadow_cone");
+
+		if (name.contains("main_light_enable")) name.replace("main_light_enable", "light1_enabled");
+
+		if (name.contains("main_light_position_relative"))
+			name.replace("main_light_position_relative", "light1_relative_position");
+
+		if (name.contains("main_light_volumetric_intensity"))
+			name.replace("main_light_volumetric_intensity", "light1_volumetric_visibility");
+
+		if (name.contains("main_light_volumetric_enabled"))
+			name.replace("main_light_volumetric_enabled", "light1_volumetric");
+	}
 }
 
 void cSettings::Compatibility2(
@@ -1258,6 +1298,21 @@ void cSettings::Compatibility2(
 					fract->at(i)->Set("IFS_edge_enabled", true);
 				}
 			}
+		}
+	}
+
+	if (fileVersion < 2.25)
+	{
+		if (par->IfExists("light1_is_defined"))
+		{
+			par->Set("light1_rotation",
+				CVector3(par->Get<double>("light1_alpha"), par->Get<double>("light1_beta"), 0.0));
+		}
+		else
+		{
+			InitLightParams(1, par);
+			par->Set("light1_enabled", true);
+			par->Set("light1_is_defined", true);
 		}
 	}
 }

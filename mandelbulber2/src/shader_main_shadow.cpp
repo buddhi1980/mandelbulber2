@@ -39,135 +39,135 @@
 
 sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 {
-	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
-
-	// starting point
-	CVector3 point2;
-
-	bool cloudMode = params->cloudsEnable;
-
-	double distance = input.delta / params->resolution;
-	if (!params->penetratingLights) distance = params->viewDistanceMax;
-	double dist;
-
-	double DEFactor = params->DEFactor;
-	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
-	if (cloudMode) DEFactor = params->DEFactor * params->volumetricLightDEFactor;
-
-	// double start = input.delta;
-	double start = input.distThresh;
-	if (params->interiorMode) start = input.distThresh * DEFactor;
-
-	double shadowTemp = 1.0;
-	double iterFogSum = 0.0f;
-
-	double softRange = tan(params->shadowConeAngle);
-	double maxSoft = 0.0;
-
-	bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
-							 && !params->interiorMode && softRange > 0.0
-							 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
-
-	CVector3 shadowVect = input.lightVect;
-	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
-	{
-		CVector3 randomVector;
-		randomVector.x = Random(10000) / 5000.0 - 1.0;
-		randomVector.y = Random(10000) / 5000.0 - 1.0;
-		randomVector.z = Random(10000) / 5000.0 - 1.0;
-		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
-		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
-		shadowVect += randomSphere;
-	}
-
-	int count = 0;
-	double step = 0.0f;
-	double lastDistanceToClouds = 1e6f;
-
-	for (double i = start; i < distance; i += step)
-	{
-		point2 = input.point + shadowVect * i;
-
-		double dist_thresh;
-		if (params->iterFogEnabled || params->volumetricLightEnabled[0] || cloudMode)
-		{
-			dist_thresh = CalcDistThresh(point2);
-		}
-		else
-			dist_thresh = input.distThresh;
-
-		sDistanceOut distanceOut;
-		sDistanceIn distanceIn(point2, dist_thresh, false);
-		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
-		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
-
-		bool limitsReached = false;
-		if (params->limitsEnabled)
-		{
-			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
-					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
-					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
-			{
-				limitsReached = true;
-			}
-		}
-
-		if (bSoft && !limitsReached)
-		{
-			double angle = (dist - dist_thresh) / i;
-			if (angle < 0) angle = 0;
-			if (dist < dist_thresh) angle = 0;
-			double softShadow = 1.0 - angle / softRange;
-			if (params->penetratingLights) softShadow *= (distance - i) / distance;
-			if (softShadow < 0) softShadow = 0;
-			if (softShadow > maxSoft) maxSoft = softShadow;
-		}
-
-		if (params->iterFogEnabled)
-		{
-			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
-				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-			opacity *= (distance - i) / distance;
-			opacity = qMin(opacity, 1.0);
-			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
-		}
-		if (cloudMode)
-		{
-			double distanceToClouds = 0.0f;
-			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
-			lastDistanceToClouds = distanceToClouds;
-			opacity *= (distance - i) / distance;
-			opacity = qMin(opacity, 1.0);
-			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
-		}
-
-		shadowTemp = 1.0 - iterFogSum;
-
-		if (dist < dist_thresh || shadowTemp < 0.0)
-		{
-			shadowTemp -= (distance - i) / distance;
-			if (!params->penetratingLights) shadowTemp = 0.0;
-			if (shadowTemp < 0.0) shadowTemp = 0.0;
-			break;
-		}
-
-		step = std::min(dist, lastDistanceToClouds) * DEFactor;
-		step = std::max(step, 1e-15);
-
-		count++;
-		if (count > MAX_RAYMARCHING) break;
-	}
-	if (!bSoft)
-	{
-		shadow.R = shadowTemp;
-		shadow.G = shadowTemp;
-		shadow.B = shadowTemp;
-	}
-	else
-	{
-		shadow.R = 1.0 - maxSoft;
-		shadow.G = 1.0 - maxSoft;
-		shadow.B = 1.0 - maxSoft;
-	}
-	return shadow;
+//	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
+//
+//	// starting point
+//	CVector3 point2;
+//
+//	bool cloudMode = params->cloudsEnable;
+//
+//	double distance = input.delta / params->resolution;
+//	if (!params->penetratingLights) distance = params->viewDistanceMax;
+//	double dist;
+//
+//	double DEFactor = params->DEFactor;
+//	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
+//	if (cloudMode) DEFactor = params->DEFactor * params->volumetricLightDEFactor;
+//
+//	// double start = input.delta;
+//	double start = input.distThresh;
+//	if (params->interiorMode) start = input.distThresh * DEFactor;
+//
+//	double shadowTemp = 1.0;
+//	double iterFogSum = 0.0f;
+//
+//	double softRange = tan(params->shadowConeAngle);
+//	double maxSoft = 0.0;
+//
+//	bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
+//							 && !params->interiorMode && softRange > 0.0
+//							 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
+//
+//	CVector3 shadowVect = input.lightVect;
+//	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
+//	{
+//		CVector3 randomVector;
+//		randomVector.x = Random(10000) / 5000.0 - 1.0;
+//		randomVector.y = Random(10000) / 5000.0 - 1.0;
+//		randomVector.z = Random(10000) / 5000.0 - 1.0;
+//		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
+//		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
+//		shadowVect += randomSphere;
+//	}
+//
+//	int count = 0;
+//	double step = 0.0f;
+//	double lastDistanceToClouds = 1e6f;
+//
+//	for (double i = start; i < distance; i += step)
+//	{
+//		point2 = input.point + shadowVect * i;
+//
+//		double dist_thresh;
+//		if (params->iterFogEnabled || params->volumetricLightEnabled[0] || cloudMode)
+//		{
+//			dist_thresh = CalcDistThresh(point2);
+//		}
+//		else
+//			dist_thresh = input.distThresh;
+//
+//		sDistanceOut distanceOut;
+//		sDistanceIn distanceIn(point2, dist_thresh, false);
+//		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+//		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+//
+//		bool limitsReached = false;
+//		if (params->limitsEnabled)
+//		{
+//			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
+//					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
+//					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
+//			{
+//				limitsReached = true;
+//			}
+//		}
+//
+//		if (bSoft && !limitsReached)
+//		{
+//			double angle = (dist - dist_thresh) / i;
+//			if (angle < 0) angle = 0;
+//			if (dist < dist_thresh) angle = 0;
+//			double softShadow = 1.0 - angle / softRange;
+//			if (params->penetratingLights) softShadow *= (distance - i) / distance;
+//			if (softShadow < 0) softShadow = 0;
+//			if (softShadow > maxSoft) maxSoft = softShadow;
+//		}
+//
+//		if (params->iterFogEnabled)
+//		{
+//			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+//				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+//			opacity *= (distance - i) / distance;
+//			opacity = qMin(opacity, 1.0);
+//			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+//		}
+//		if (cloudMode)
+//		{
+//			double distanceToClouds = 0.0f;
+//			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
+//			lastDistanceToClouds = distanceToClouds;
+//			opacity *= (distance - i) / distance;
+//			opacity = qMin(opacity, 1.0);
+//			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+//		}
+//
+//		shadowTemp = 1.0 - iterFogSum;
+//
+//		if (dist < dist_thresh || shadowTemp < 0.0)
+//		{
+//			shadowTemp -= (distance - i) / distance;
+//			if (!params->penetratingLights) shadowTemp = 0.0;
+//			if (shadowTemp < 0.0) shadowTemp = 0.0;
+//			break;
+//		}
+//
+//		step = std::min(dist, lastDistanceToClouds) * DEFactor;
+//		step = std::max(step, 1e-15);
+//
+//		count++;
+//		if (count > MAX_RAYMARCHING) break;
+//	}
+//	if (!bSoft)
+//	{
+//		shadow.R = shadowTemp;
+//		shadow.G = shadowTemp;
+//		shadow.B = shadowTemp;
+//	}
+//	else
+//	{
+//		shadow.R = 1.0 - maxSoft;
+//		shadow.G = 1.0 - maxSoft;
+//		shadow.B = 1.0 - maxSoft;
+//	}
+//	return shadow;
 }

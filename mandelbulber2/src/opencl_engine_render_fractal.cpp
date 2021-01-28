@@ -541,7 +541,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 {
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
-	if (paramRender->shadow) definesCollector += " -DSHADOWS";
+	// if (paramRender->shadow) definesCollector += " -DSHADOWS";
 
 	if (paramRender->ambientOcclusionEnabled)
 	{

@@ -54,30 +54,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	fillLight.G = params->fillLightColor.G;
 	fillLight.B = params->fillLightColor.B;
 
-	// main light
-	sRGBAfloat mainLight;
-	mainLight.R = params->mainLightIntensity * params->mainLightColour.R;
-	mainLight.G = params->mainLightIntensity * params->mainLightColour.G;
-	mainLight.B = params->mainLightIntensity * params->mainLightColour.B;
-
-	// calculate shading based on angle of incidence
-	sRGBAfloat shade;
-	if (params->mainLightEnable)
-	{
-		shade = MainShading(input);
-		shade.R = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.R);
-		shade.G = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.G);
-		shade.B = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.B);
-	}
-
-	// calculate shadow
-	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
-	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 	if (params->allPrimitivesInvisibleAlpha)
 	{
 		if (input.objectId >= NUMBER_OF_FRACTALS)
 		{
-			alpha = 1.0f - (shadow.R + shadow.G + shadow.B) / 3.0f;
+			//	alpha = 1.0f - (shadow.R + shadow.G + shadow.B) / 3.0f;
 		}
 	}
 
@@ -91,19 +72,6 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	colour.G *= input.texColor.G * texColInt + texColIntN;
 	colour.B *= input.texColor.B * texColInt + texColIntN;
 	*surfaceColour = colour;
-
-	// calculate specular highlight
-	sRGBAfloat specular;
-	if (params->mainLightEnable)
-	{
-		specular = SpecularHighlightCombined(input, input.lightVect, colour, gradients->diffuse);
-		if (mat->useColorsFromPalette && mat->specularGradientEnable)
-		{
-			specular.R *= gradients->specular.R;
-			specular.G *= gradients->specular.G;
-			specular.B *= gradients->specular.B;
-		}
-	}
 
 	// ambient occlusion
 	sRGBAfloat ambient(0.0, 0.0, 0.0, 0.0);
@@ -176,12 +144,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	*iridescenceOut = iridescence;
 
 	// total shader
-	output.R =
-		envMapping.R + (fillLight.R + ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
-	output.G =
-		envMapping.G + (fillLight.G + ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
-	output.B =
-		envMapping.B + (fillLight.B + ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
+	output.R = envMapping.R + (fillLight.R + ambient2.R) * colour.R;
+	output.G = envMapping.G + (fillLight.G + ambient2.G) * colour.G;
+	output.B = envMapping.B + (fillLight.B + ambient2.B) * colour.B;
 
 	output.R += (auxLights.R + fakeLights.R) * colour.R;
 	output.G += (auxLights.G + fakeLights.G) * colour.G;
@@ -193,15 +158,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	output.A = alpha;
 
-	specularOut->R =
-		(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R)
-		* iridescence.R;
-	specularOut->G =
-		(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G)
-		* iridescence.G;
-	specularOut->B =
-		(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B)
-		* iridescence.B;
+	specularOut->R = (auxLightsSpecular.R + fakeLightsSpecular.R) * iridescence.R;
+	specularOut->G = (auxLightsSpecular.G + fakeLightsSpecular.G) * iridescence.G;
+	specularOut->B = (auxLightsSpecular.B + fakeLightsSpecular.B) * iridescence.B;
 	specularOut->A = output.A;
 
 	return output;

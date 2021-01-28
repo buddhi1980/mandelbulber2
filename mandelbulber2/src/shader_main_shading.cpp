@@ -35,11 +35,11 @@
 
 sRGBAfloat cRenderWorker::MainShading(const sShaderInputData &input)
 {
-	sRGBAfloat shading;
-	double shade = input.normal.Dot(input.lightVect);
-	if (shade < 0) shade = 0;
-	shading.R = shade;
-	shading.G = shade;
-	shading.B = shade;
-	return shading;
+	//	sRGBAfloat shading;
+	//	double shade = input.normal.Dot(input.lightVect);
+	//	if (shade < 0) shade = 0;
+	//	shading.R = shade;
+	//	shading.G = shade;
+	//	shading.B = shade;
+	//	return shading;
 }

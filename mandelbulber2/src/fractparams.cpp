@@ -171,29 +171,17 @@ sParamRender::sParamRender(
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
 	limitsEnabled = container->Get<bool>("limits_enabled");
-	mainLightAlpha = container->Get<double>("main_light_alpha");
-	mainLightBeta = container->Get<double>("main_light_beta");
-	mainLightColour = toRGBFloat(container->Get<sRGB>("main_light_colour"));
-	mainLightContourSharpness = container->Get<double>("main_light_contour_sharpness");
-	mainLightEnable = container->Get<bool>("main_light_enable");
-	mainLightIntensity = container->Get<float>("main_light_intensity");
-	mainLightPositionAsRelative = container->Get<bool>("main_light_position_relative");
-	mainLightVisibility = container->Get<double>("main_light_visibility");
-	mainLightVisibilitySize = container->Get<double>("main_light_visibility_size");
 	minN = container->Get<int>("minN");
 	monteCarloSoftShadows = container->Get<bool>("MC_soft_shadows_enable");
 	monteCarloGIRadianceLimit = container->Get<float>("MC_GI_radiance_limit");
 	monteCarloGIVolumetric = container->Get<bool>("MC_global_illumination_volumetric");
 	N = container->Get<int>("N");
-	penetratingLights = container->Get<bool>("penetrating_lights");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");
 	relMinMarchingStep = container->Get<double>("rel_min_marching_step");
 	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
-	shadow = container->Get<bool>("shadows_enabled");
-	shadowConeAngle = container->Get<double>("shadows_cone_angle") / 180.0 * M_PI;
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
@@ -221,8 +209,6 @@ sParamRender::sParamRender(
 	volFogDistanceFactor = container->Get<double>("volumetric_fog_distance_factor");
 	volFogDistanceFromSurface = container->Get<double>("volumetric_fog_distance_from_surface");
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
-	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
-	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
 	volumetricLightDEFactor = container->Get<double>("volumetric_light_DE_Factor");
 
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);

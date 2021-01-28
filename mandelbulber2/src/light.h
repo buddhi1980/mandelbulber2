@@ -37,7 +37,7 @@ public:
 	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }
 	double CalculateCone(const CVector3 &lightVector) const;
 
-	static QStringList paramsList;
+	static const QStringList paramsList;
 
 	enum enumLightType
 	{
@@ -69,6 +69,7 @@ public:
 	float volumetricVisibility = 0.0f;
 	float size = 0.0f;
 	float softShadowCone = 0.0f;
+	float contourSharpness = 0.0f;
 
 	CVector3 position;
 	CVector3 rotation;

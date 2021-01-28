@@ -126,6 +126,7 @@ void cMaterialWidget::InitializeData()
 			InitFractalParams(fractal->at(i));
 		}
 		InitMaterialParams(1, params);
+		InitLightParams(1, params);
 
 		if (paramsCopy.IfExists(cMaterial::Name("is_defined", actualMaterialIndex)))
 		{
@@ -150,8 +151,7 @@ void cMaterialWidget::InitializeData()
 					systemDirectories.sharedDir + "textures" + QDir::separator() + "grid.png"));
 			params->Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
 			params->Set("mat1_displacement_texture_height", 0.01);
-			params->Set("main_light_intensity", 1.2);
-			params->Set("shadows_enabled", false);
+			params->Set("light1_is_defined", true);
 		}
 		else
 		{

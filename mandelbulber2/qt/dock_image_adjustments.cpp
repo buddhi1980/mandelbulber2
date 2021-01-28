@@ -266,7 +266,7 @@ void cDockImageAdjustments::slotQualityPresetVeryLow()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", false);
-	gPar->Set("shadows_enabled", false);
+	gPar->Set("light1_cast_shadows", false);
 	gPar->Set("raytraced_reflections", false);
 	gPar->Set("detail_level", 0.5);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -275,7 +275,7 @@ void cDockImageAdjustments::slotQualityPresetLow()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", false);
-	gPar->Set("shadows_enabled", true);
+	gPar->Set("light1_cast_shadows", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -286,7 +286,7 @@ void cDockImageAdjustments::slotQualityPresetNormal()
 	gPar->Set("ambient_occlusion_enabled", true);
 	gPar->Set("ambient_occlusion_mode", int(params::AOModeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
-	gPar->Set("shadows_enabled", true);
+	gPar->Set("light1_cast_shadows", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -303,7 +303,7 @@ void cDockImageAdjustments::slotQualityPresetHigh()
 	gPar->Set("ambient_occlusion_enabled", true);
 	gPar->Set("ambient_occlusion_mode", int(params::AOModeMultipleRays));
 	gPar->Set("ambient_occlusion_quality", 4);
-	gPar->Set("shadows_enabled", true);
+	gPar->Set("light1_cast_shadows", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);

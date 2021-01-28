@@ -272,8 +272,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("background_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
-	par->addParam("shadows_enabled", true, morphLinear, paramStandard);
-	par->addParam("penetrating_lights", true, morphLinear, paramStandard);
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
 	par->addParam("reflections_max", 5, 0, 10, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
@@ -360,20 +358,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("DOF_MC_CA_camera_dispersion", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);
 	par->addParam("MC_soft_shadows_enable", false, morphLinear, paramStandard);
 	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
-
-	// main light
-	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("main_light_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("main_light_visibility_size", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("main_light_contour_sharpness", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("main_light_alpha", -45.0, morphAkimaAngle, paramStandard);
-	par->addParam("main_light_beta", 45.0, morphAkimaAngle, paramStandard);
-	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
-	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, morphLinear, paramStandard);
-	par->addParam("main_light_enable", true, morphLinear, paramStandard);
-	par->addParam("main_light_position_relative", true, morphLinear, paramStandard);
-	par->addParam("main_light_volumetric_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("main_light_volumetric_enabled", false, morphLinear, paramStandard);
 
 	// aux lights
 	par->addParam("aux_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -601,7 +585,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		"opencl_mode", 3, morphNone, paramApp, QStringList({"none", "fast", "limited", "full"}));
 	par->addParam("opencl_precision", 0, morphNone, paramApp, QStringList({"single", "double"}));
-	par->addParam("opencl_memory_limit", 512, 1, 10000, morphNone, paramApp);
+	par->addParam("opencl_memory_limit", 512, 1, 100000, morphNone, paramApp);
 	par->addParam("opencl_disable_build_cache", false, morphNone, paramApp);
 	par->addParam("opencl_use_fast_relaxed_math", true, morphNone, paramApp);
 	par->addParam("opencl_job_size_multiplier", 2, morphNone, paramApp);
@@ -1583,10 +1567,14 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	// cMaterial::lightsList in lights.cpp file
 
 	par->addParam(cLight::Name("is_defined", lightId), false, morphNone, paramStandard);
-	par->addParam(cLight::Name("enabled", lightId), false, morphNone, paramStandard);
+	par->addParam(
+		cLight::Name("enabled", lightId), (lightId == 1) ? true : false, morphNone, paramStandard);
 	par->addParam(cLight::Name("cast_shadows", lightId), true, morphLinear, paramStandard);
 	par->addParam(cLight::Name("penetrating", lightId), true, morphLinear, paramStandard);
-	par->addParam(cLight::Name("relative_position", lightId), false, morphLinear, paramStandard);
+
+	par->addParam(cLight::Name("relative_position", lightId), (lightId == 1) ? true : false,
+		morphLinear, paramStandard);
+
 	par->addParam(cLight::Name("volumetric", lightId), false, morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("cone_angle", lightId), 10.0, 1e-15, 180.0, morphLinear, paramStandard);
@@ -1599,12 +1587,25 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(cLight::Name("size", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("soft_shadow_cone", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
-	par->addParam(cLight::Name("position", lightId), CVector3(0, 0, 0), morphAkima, paramStandard);
-	par->addParam(cLight::Name("rotation", lightId), CVector3(0, 0, 0), morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("contour_sharpness", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(
+		cLight::Name("position", lightId), CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+
+	par->addParam(cLight::Name("rotation", lightId),
+		(lightId == 1) ? CVector3(-45.0, 45.0, 0.0) : CVector3(0.0, 0.0, 0.0), morphLinear,
+		paramStandard);
+
+	// rotation parameters to keep compatibility with version <2.25
+	par->addParam(cLight::Name("alpha", lightId), 0.0, morphNone, paramNoSave);
+	par->addParam(cLight::Name("beta", lightId), 0.0, morphNone, paramNoSave);
+
 	par->addParam(
 		cLight::Name("color", lightId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
-	par->addParam(
-		cLight::Name("type", lightId), int(cLight::lightGlobal), morphLinear, paramStandard);
+
+	par->addParam(cLight::Name("type", lightId),
+		(lightId == 1) ? int(cLight::lightGlobal) : int(cLight::lightSpot), morphLinear, paramStandard);
+
 	par->addParam(
 		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);
 	par->addParam(cLight::Name("file_texture", lightId), QString("superDuperLightTexture.jpg"),

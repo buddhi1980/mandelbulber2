@@ -490,22 +490,6 @@ void cRenderWorker::PrepareMainVectors()
 	baseY = mRot.RotateVector(baseY);
 	baseZ = mRot.RotateVector(baseZ);
 
-	// main shadow direction vector
-	double alpha = params->mainLightAlpha / 180.0 * M_PI;
-	double beta = params->mainLightBeta / 180.0 * M_PI;
-	vector.x = cos(alpha - 0.5 * M_PI) * cos(beta);
-	vector.y = sin(alpha - 0.5 * M_PI) * cos(beta);
-	vector.z = sin(beta);
-
-	if (params->mainLightPositionAsRelative)
-	{
-		shadowVector = mRot.RotateVector(vector);
-	}
-	else
-	{
-		shadowVector = vector;
-	}
-
 	mRot.RotateZ(-params->sweetSpotHAngle);
 	mRot.RotateX(params->sweetSpotVAngle);
 
@@ -822,11 +806,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			CVector3 point = rayMarchingOut.point;
 
 			// prepare data for texture shaders
-			CVector3 lightVector = shadowVector;
 			sShaderInputData shaderInputData;
 			shaderInputData.distThresh = rayMarchingOut.distThresh;
 			shaderInputData.delta = CalcDelta(point);
-			shaderInputData.lightVect = lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
@@ -1055,11 +1037,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			inOut.rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
 
 			// prepare data for shaders
-			CVector3 lightVector = shadowVector;
 			sShaderInputData shaderInputData;
 			shaderInputData.distThresh = rayMarchingOut.distThresh;
 			shaderInputData.delta = CalcDelta(point);
-			shaderInputData.lightVect = lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.lastDist = rayMarchingOut.lastDist;

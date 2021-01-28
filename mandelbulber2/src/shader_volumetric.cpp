@@ -184,23 +184,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		//---------------------- volumetric lights with shadows in fog
 
-		for (int i = 0; i < data->lights.GetNumberOfLights() + 1; i++)
+		for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 		{
-			if (i == 0 && params->volumetricLightEnabled[0] && params->mainLightEnable)
+			if (data->lights.IsAnyLightEnabled())
 			{
-				sRGBAfloat shadowOutputTemp = MainShadow(input2);
-				output.R += shadowOutputTemp.R * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.R;
-				output.G += shadowOutputTemp.G * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.G;
-				output.B += shadowOutputTemp.B * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.B;
-				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0f
-										* float(step) * params->volumetricLightIntensity[0];
-			}
-			if (data->lights.IsAnyLightEnabled() && i > 0)
-			{
-				const cLight *light = data->lights.GetLight(i - 1);
+				const cLight *light = data->lights.GetLight(i);
 				if (light->enabled && light->volumetric)
 				{
 					CVector3 lightVectorTemp = light->position - point;
@@ -283,20 +271,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			if (opacity > 0)
 			{
-				if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
-				{
-					if (params->cloudsCastShadows)
-					{
-						shadowOutputTemp = MainShadow(input2);
-					}
-					newColour.R += (shadowOutputTemp.R * nAmbient + ambient) * params->mainLightColour.R
-												 * params->mainLightIntensity;
-					newColour.G += (shadowOutputTemp.G * nAmbient + ambient) * params->mainLightColour.G
-												 * params->mainLightIntensity;
-					newColour.B += (shadowOutputTemp.B * nAmbient + ambient) * params->mainLightColour.B
-												 * params->mainLightIntensity;
-				}
-
 				for (int l = 0; l < data->lights.GetNumberOfLights(); l++)
 				{
 					const cLight *light = data->lights.GetLight(l);
@@ -366,27 +340,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				fogColG = fogColG * kn + params->iterFogColour3.G * k2;
 				fogColB = fogColB * kn + params->iterFogColour3.B * k2;
 				//----
-
-				if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
-				{
-					sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
-					if (params->iterFogShadows)
-					{
-						shadowOutputTemp = MainShadow(input2);
-					}
-					else
-					{
-						shadowOutputTemp.R *= params->iterFogBrightnessBoost;
-						shadowOutputTemp.G *= params->iterFogBrightnessBoost;
-						shadowOutputTemp.B *= params->iterFogBrightnessBoost;
-					}
-					newColour.R +=
-						shadowOutputTemp.R * params->mainLightColour.R * params->mainLightIntensity;
-					newColour.G +=
-						shadowOutputTemp.G * params->mainLightColour.G * params->mainLightIntensity;
-					newColour.B +=
-						shadowOutputTemp.B * params->mainLightColour.B * params->mainLightIntensity;
-				}
 
 				for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 				{

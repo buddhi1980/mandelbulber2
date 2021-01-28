@@ -129,13 +129,9 @@ struct sParamRender
 	bool iterFogShadows;
 	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)
-	bool mainLightEnable;
-	bool mainLightPositionAsRelative;
 	bool monteCarloSoftShadows;
 	bool monteCarloGIVolumetric;
-	bool penetratingLights;
 	bool raytracedReflections;
-	bool shadow;			// enable shadows
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;
 	bool stereoSwapEyes;
@@ -160,7 +156,6 @@ struct sParamRender
 	sRGBFloat iterFogColour1;
 	sRGBFloat iterFogColour2;
 	sRGBFloat iterFogColour3;
-	sRGBFloat mainLightColour;
 	sRGBFloat volFogColour1;
 	sRGBFloat volFogColour2;
 	sRGBFloat volFogColour3;
@@ -221,17 +216,10 @@ struct sParamRender
 	float iterFogOpacityTrim;
 	float iterFogOpacityTrimHigh;
 	float iterFogBrightnessBoost;
-	double mainLightAlpha;
-	double mainLightBeta;
-	double mainLightContourSharpness;
-	float mainLightIntensity;
-	double mainLightVisibility;
-	double mainLightVisibilitySize;
 	float monteCarloGIRadianceLimit;
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates
-	double shadowConeAngle;
 	double smoothness;
 	double stereoEyeDistance;
 	double stereoInfiniteCorrection;

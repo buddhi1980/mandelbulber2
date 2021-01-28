@@ -24,9 +24,10 @@ cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, b
 cLight::~cLight() = default;
 
 // this static list will be use to optimize usage of material parameters
-QStringList cLight::paramsList = {"enabled", "cast_shadows", "penetrating", "relative_position",
-	"volumetric", "cone_angle", "cone_soft_angle", "intensity", "visibility", "volumetric_visibility",
-	"size", "soft_shadow_cone", "position", "rotation", "color", "type", "decayFunction"};
+const QStringList cLight::paramsList = {"is_defined", "enabled", "cast_shadows", "penetrating",
+	"relative_position", "volumetric", "cone_angle", "cone_soft_angle", "intensity", "visibility",
+	"volumetric_visibility", "size", "soft_shadow_cone", "contour_sharpness", "position", "rotation",
+	"alpha", "beta", "color", "type", "decayFunction", "file_texture"};
 
 void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 	bool loadTextures, bool quiet, bool useNetRender)
@@ -49,6 +50,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	volumetricVisibility = lightParam->Get<double>(Name("volumetric_visibility", id));
 	size = lightParam->Get<double>(Name("size", id));
 	softShadowCone = lightParam->Get<double>(Name("soft_shadow_cone", id)) / 180.0 * M_PI;
+	contourSharpness = lightParam->Get<double>(Name("contour_sharpness", id));
 
 	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
 	if (type == lightGlobal)

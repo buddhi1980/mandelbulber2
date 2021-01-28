@@ -2475,7 +2475,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	*tempFractal = *gParFractal;
 
 	// disabling all slow effects
-	tempParam->Set("shadows_enabled", false);
+	tempParam->Set("light1_cast_shadows", false);
 	tempParam->Set("ambient_occlusion", false);
 	tempParam->Set("DOF_enabled", false);
 	tempParam->Set("iteration_threshold_mode", false);
@@ -2724,7 +2724,6 @@ void cInterface::StartupDefaultSettings()
 	gPar->Set("ambient_occlusion_enabled", true);
 	gPar->Set("ambient_occlusion_mode", int(params::AOModeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
-	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 }
