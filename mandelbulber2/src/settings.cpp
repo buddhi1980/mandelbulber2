@@ -1107,6 +1107,8 @@ void cSettings::Compatibility(QString &name, QString &value) const
 
 	if (fileVersion < 2.25)
 	{
+		// conversion of main light to light #1
+
 		if (name.contains("main_light_intensity"))
 			name.replace("main_light_intensity", "light1_intensity");
 
@@ -1143,6 +1145,49 @@ void cSettings::Compatibility(QString &name, QString &value) const
 
 		if (name.contains("main_light_volumetric_enabled"))
 			name.replace("main_light_volumetric_enabled", "light1_volumetric");
+
+		if (name.contains("aux_light"))
+		{
+			// TODO: copy size and visibility to all another lights
+
+			if (name.contains("visibility_size"))
+				name.replace("aux_light_visibility_size", "light2_size");
+
+			else if (name.contains("visibility"))
+				name.replace("aux_light_visibility", "light2_visibility");
+
+			else if (name.contains("aux_light_place_behind"))
+			{
+			} // do nothing
+
+			else
+			{
+				QStringList split = name.split("_");
+				int lightIndex = split.last().toInt();
+				QString prefix =
+					QString("light%1").arg(lightIndex + 1); // aux lights will start from index = 2
+
+				if (split.at(2) == "intensity")
+					name = QString("%1_intensity").arg(prefix);
+				else if (split.at(2) == "position")
+					name = QString("%1_position").arg(prefix);
+				if (split.at(2) == "position")
+					name = QString("%1_position").arg(prefix);
+				else if (split.at(2) == "intensity")
+					name = QString("%1_intensity").arg(prefix);
+				else if (split.at(2) == "enabled")
+					name = QString("%1_enabled").arg(prefix);
+				else if (split.at(2) == "colour")
+					name = QString("%1_color").arg(prefix);
+				else if (split.at(2) == "volumetric")
+				{
+					if (split.at(3) == "intensity")
+						name = QString("%1_volumetric_visibility").arg(prefix);
+					else if (split.at(3) == "enabled")
+						name = QString("%1_volumetric").arg(prefix);
+				}
+			}
+		}
 	}
 }
 
@@ -1313,6 +1358,32 @@ void cSettings::Compatibility2(
 			InitLightParams(1, par);
 			par->Set("light1_enabled", true);
 			par->Set("light1_is_defined", true);
+		}
+
+		// copy light visibility and intensity to all another lights
+		if (par->IfExists("light2_is_defined"))
+		{
+			for (int i = 3; i < 5; i++)
+			{
+				if (par->IfExists(QString("light%1_is_defined").arg(i)))
+				{
+					par->Set(QString("light%1_visibility").arg(i), par->Get<double>("light2_visibility"));
+					par->Set(QString("light%1_size").arg(i), par->Get<double>("light2_size"));
+				}
+			}
+		}
+
+		// correct intensity of lights
+		for (int i = 2; i < 5; i++)
+		{
+			if (par->IfExists(QString("light%1_is_defined").arg(i)))
+			{
+				par->Set(QString("light%1_intensity").arg(i),
+					par->Get<double>(QString("light%1_intensity").arg(i)) / 4.0);
+
+				par->Set(QString("light%1_size").arg(i),
+					par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
+			}
 		}
 	}
 }
