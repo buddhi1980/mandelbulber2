@@ -73,7 +73,6 @@ struct sParamRender
 	int antialiasingSize;
 	int antialiasingOclDepth;
 	int ambientOcclusionQuality; // ambient occlusion quality
-	int auxLightNumber;
 	int auxLightRandomNumber;
 	int auxLightRandomSeed;
 	int cloudsIterations;
@@ -102,7 +101,6 @@ struct sParamRender
 	bool antialiasingEnabled;
 	bool antialiasingAdaptive;
 	bool ambientOcclusionEnabled; // enable global illumination
-	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
 	bool auxLightRandomInOneColor;
 	bool background3ColorsEnable;
@@ -137,12 +135,9 @@ struct sParamRender
 	bool stereoSwapEyes;
 	bool texturedBackground; // enable textured background
 	bool useDefaultBailout;
-	bool volumetricLightEnabled[5];
-	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;
 
 	sRGBFloat ambientOcclusionColor;
-	sRGBFloat auxLightPreColour[4];
 	sRGBFloat auxLightRandomColor;
 	sRGBFloat background_color1; // background colour
 	sRGBFloat background_color2;
@@ -164,9 +159,6 @@ struct sParamRender
 	double absMinMarchingStep;
 	float ambientOcclusion;
 	double ambientOcclusionFastTune;
-	float auxLightPreIntensity[4];
-	double auxLightVisibility;
-	double auxLightVisibilitySize;
 	double auxLightRandomRadius;
 	double auxLightRandomMaxDistanceFromFractal;
 	double auxLightRandomIntensity;
@@ -233,11 +225,9 @@ struct sParamRender
 	double volFogDistanceFactor;
 	double volFogDistanceFromSurface;
 	double volumetricLightDEFactor;
-	float volumetricLightIntensity[5];
 
 	sImageAdjustments imageAdjustments;
 
-	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
 	CVector3 backgroundRotation;
 	CVector3 cloudsCenter;

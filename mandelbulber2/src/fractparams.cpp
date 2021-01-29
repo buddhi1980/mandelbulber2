@@ -55,7 +55,6 @@ sParamRender::sParamRender(
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
-	auxLightNumber = 4;
 	auxLightRandomNumber = container->Get<int>("random_lights_number");
 	auxLightRandomSeed = container->Get<int>("random_lights_random_seed");
 	auxLightRandomCenter = container->Get<CVector3>("random_lights_distribution_center");
@@ -66,8 +65,6 @@ sParamRender::sParamRender(
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightRandomInOneColor = container->Get<bool>("random_lights_one_color_enable");
 	auxLightRandomColor = toRGBFloat(container->Get<sRGB>("random_lights_color"));
-	auxLightVisibility = container->Get<double>("aux_light_visibility");
-	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");
 	background_color1 = toRGBFloat(container->Get<sRGB>("background_color", 1));
 	background_color2 = toRGBFloat(container->Get<sRGB>("background_color", 2));
@@ -213,26 +210,6 @@ sParamRender::sParamRender(
 
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 	mRotCloudsRotation.SetRotation2(cloudsRotation * M_PI / 180.0);
-
-	for (int i = 0; i < 4; ++i)
-	{
-		auxLightPre[i] = container->Get<CVector3>("aux_light_position", i + 1);
-		auxLightPreIntensity[i] = container->Get<float>("aux_light_intensity", i + 1);
-		auxLightPreEnabled[i] = container->Get<bool>("aux_light_enabled", i + 1);
-		auxLightPreColour[i] = toRGBFloat(container->Get<sRGB>("aux_light_colour", i + 1));
-	}
-
-	for (int i = 1; i <= 4; i++)
-	{
-		volumetricLightIntensity[i] = container->Get<double>("aux_light_volumetric_intensity", i);
-		volumetricLightEnabled[i] = container->Get<bool>("aux_light_volumetric_enabled", i);
-	}
-
-	volumetricLightAnyEnabled = false;
-	for (int i = 0; i <= 4; i++)
-	{
-		if (volumetricLightEnabled[i]) volumetricLightAnyEnabled = true;
-	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{

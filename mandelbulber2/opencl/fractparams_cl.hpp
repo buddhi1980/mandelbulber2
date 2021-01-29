@@ -285,7 +285,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.antialiasingSize = source.antialiasingSize;
 	target.antialiasingOclDepth = source.antialiasingOclDepth;
 	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
-	target.auxLightNumber = source.auxLightNumber;
 	target.auxLightRandomNumber = source.auxLightRandomNumber;
 	target.auxLightRandomSeed = source.auxLightRandomSeed;
 	target.cloudsIterations = source.cloudsIterations;
@@ -318,10 +317,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.antialiasingAdaptive = source.antialiasingAdaptive;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
-	for (int i = 0; i < 4; i++)
-	{
-		target.auxLightPreEnabled[i] = source.auxLightPreEnabled[i];
-	}
+
 	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
 	target.auxLightRandomInOneColor = source.auxLightRandomInOneColor;
 	target.background3ColorsEnable = source.background3ColorsEnable;
@@ -356,17 +352,9 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.stereoSwapEyes = source.stereoSwapEyes;
 	target.texturedBackground = source.texturedBackground;
 	target.useDefaultBailout = source.useDefaultBailout;
-	for (int i = 0; i < 5; i++)
-	{
-		target.volumetricLightEnabled[i] = source.volumetricLightEnabled[i];
-	}
-	target.volumetricLightAnyEnabled = source.volumetricLightAnyEnabled;
 	target.volFogEnabled = source.volFogEnabled;
 	target.ambientOcclusionColor = toClFloat3(source.ambientOcclusionColor);
-	for (int i = 0; i < 4; i++)
-	{
-		target.auxLightPreColour[i] = toClFloat3(source.auxLightPreColour[i]);
-	}
+
 	target.auxLightRandomColor = toClFloat3(source.auxLightRandomColor);
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
@@ -387,12 +375,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.absMinMarchingStep = source.absMinMarchingStep;
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
-	for (int i = 0; i < 4; i++)
-	{
-		target.auxLightPreIntensity[i] = source.auxLightPreIntensity[i];
-	}
-	target.auxLightVisibility = source.auxLightVisibility;
-	target.auxLightVisibilitySize = source.auxLightVisibilitySize;
+
 	target.auxLightRandomRadius = source.auxLightRandomRadius;
 	target.auxLightRandomMaxDistanceFromFractal = source.auxLightRandomMaxDistanceFromFractal;
 	target.auxLightRandomIntensity = source.auxLightRandomIntensity;
@@ -462,15 +445,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogDistanceFactor = source.volFogDistanceFactor;
 	target.volFogDistanceFromSurface = source.volFogDistanceFromSurface;
 	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
-	for (int i = 0; i < 5; i++)
-	{
-		target.volumetricLightIntensity[i] = source.volumetricLightIntensity[i];
-	}
 	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
-	for (int i = 0; i < 4; i++)
-	{
-		target.auxLightPre[i] = toClFloat3(source.auxLightPre[i]);
-	}
+
 	target.auxLightRandomCenter = toClFloat3(source.auxLightRandomCenter);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);

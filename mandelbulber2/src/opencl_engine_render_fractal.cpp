@@ -555,17 +555,17 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	if (renderData->lights.IsAnyLightEnabled())
 	{
 		definesCollector += " -DAUX_LIGHTS";
-		if (paramRender->auxLightVisibility > 0.0)
-		{
-			definesCollector += " -DVISIBLE_AUX_LIGHTS";
-			anyVolumetricShaderUsed = true;
-		}
+		//		if (paramRender->auxLightVisibility > 0.0)
+		//		{
+		//			definesCollector += " -DVISIBLE_AUX_LIGHTS";
+		//			anyVolumetricShaderUsed = true;
+		//		}
 	}
 	bool isVolumetricLight = false;
-	for (bool i : paramRender->volumetricLightEnabled)
-	{
-		if (i) isVolumetricLight = true;
-	}
+	//	for (bool i : paramRender->volumetricLightEnabled)
+	//	{
+	//		if (i) isVolumetricLight = true;
+	//	}
 	if (isVolumetricLight)
 	{
 		definesCollector += " -DVOLUMETRIC_LIGHTS";

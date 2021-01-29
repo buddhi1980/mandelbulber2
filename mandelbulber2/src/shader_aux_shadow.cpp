@@ -90,7 +90,7 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		CVector3 point2 = input.point + lightVector * i;
 
 		float dist_thresh;
-		if (params->iterFogEnabled || params->volumetricLightAnyEnabled || cloudMode)
+		if (params->iterFogEnabled || light->volumetric || cloudMode)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}

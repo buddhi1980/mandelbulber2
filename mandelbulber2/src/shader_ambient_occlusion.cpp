@@ -86,7 +86,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			float dist_thresh;
-			if (params->iterFogEnabled || params->volumetricLightEnabled[0])
+			if (params->iterFogEnabled) // there was  || params->volumetricLightEnabled[0]
 			{
 				dist_thresh = CalcDistThresh(point2);
 			}

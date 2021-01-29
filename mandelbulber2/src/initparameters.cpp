@@ -360,34 +360,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
 
 	// aux lights
-	par->addParam("aux_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_visibility_size", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 
-	par->addParam("aux_light_position", 1, CVector3(3.0, -3.0, 3.0), morphAkima, paramStandard);
-	par->addParam("aux_light_position", 2, CVector3(-3.0, -3.0, 0.0), morphAkima, paramStandard);
-	par->addParam("aux_light_position", 3, CVector3(-3.0, 3.0, -1.0), morphAkima, paramStandard);
-	par->addParam("aux_light_position", 4, CVector3(0.0, -1.0, -3.0), morphAkima, paramStandard);
-	par->addParam("aux_light_intensity", 1, 1.3, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 2, 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 3, 3.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 4, 2.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("aux_light_enabled", 1, false, morphLinear, paramStandard);
-	par->addParam("aux_light_enabled", 2, false, morphLinear, paramStandard);
-	par->addParam("aux_light_enabled", 3, false, morphLinear, paramStandard);
-	par->addParam("aux_light_enabled", 4, false, morphLinear, paramStandard);
-	par->addParam("aux_light_colour", 1, sRGB(45761, 53633, 59498), morphLinear, paramStandard);
-	par->addParam("aux_light_colour", 2, sRGB(62875, 55818, 50083), morphLinear, paramStandard);
-	par->addParam("aux_light_colour", 3, sRGB(64884, 64928, 48848), morphLinear, paramStandard);
-	par->addParam("aux_light_colour", 4, sRGB(52704, 62492, 45654), morphLinear, paramStandard);
 	par->addParam("aux_light_place_behind", false, morphNone, paramStandard);
-
 	par->addParam("volumetric_light_DE_Factor", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
-	for (int i = 1; i <= 4; i++)
-	{
-		par->addParam("aux_light_volumetric_intensity", i, 1.0, 0.0, 1e15, morphLinear, paramStandard);
-		par->addParam("aux_light_volumetric_enabled", i, false, morphLinear, paramStandard);
-	}
 
 	// random aux light
 	par->addParam("random_lights_number", 20, 0, 99999, morphLinear, paramStandard);

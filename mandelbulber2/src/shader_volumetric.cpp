@@ -383,12 +383,13 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//------------------ visible light
-		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
+		if (data->lights.IsAnyLightEnabled())
 		{
 			for (int i = 0; i < data->lights.GetNumberOfLights(); ++i)
 			{
 				const cLight *light = data->lights.GetLight(i);
-				if (light->enabled && light->intensity > 0 && light->type != cLight::lightGlobal)
+				if (light->enabled && light->intensity > 0.0 && light->visibility > 0.0
+						&& light->type != cLight::lightGlobal)
 				{
 					double lastMiniSteps = -1.0;
 					double miniStep;
