@@ -191,18 +191,31 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				const cLight *light = data->lights.GetLight(i);
 				if (light->enabled && light->volumetric)
 				{
-					CVector3 lightVectorTemp = light->position - point;
-					float distanceLight = lightVectorTemp.Length();
-					float distanceLight2 = light->Decay(distanceLight);
-					lightVectorTemp.Normalize();
-					sRGBAfloat lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
-					output.R += lightShadow.R * light->color.R * light->volumetricVisibility * float(step)
-											/ distanceLight2;
-					output.G += lightShadow.G * light->color.G * light->volumetricVisibility * float(step)
-											/ distanceLight2;
-					output.B += lightShadow.B * light->color.B * light->volumetricVisibility * float(step)
-											/ distanceLight2;
-					output.A += lightShadow.A * light->volumetricVisibility * float(step) / distanceLight2;
+					double distanceLight = 0.0;
+					CVector3 lightVectorTemp = light->CalculateLightVector(
+						point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+
+					float intensity;
+					if (light->type == cLight::lightGlobal)
+						intensity = light->intensity;
+					else
+						intensity = light->intensity / light->Decay(distanceLight);
+
+					intensity *= light->CalculateCone(lightVectorTemp);
+
+					sRGBAfloat lightShadow;
+					if (intensity > 1e-3)
+						lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+					else
+						lightShadow = sRGBAfloat();
+
+					output.R +=
+						lightShadow.R * light->color.R * light->volumetricVisibility * float(step) * intensity;
+					output.G +=
+						lightShadow.G * light->color.G * light->volumetricVisibility * float(step) * intensity;
+					output.B +=
+						lightShadow.B * light->color.B * light->volumetricVisibility * float(step) * intensity;
+					output.A += lightShadow.A * light->volumetricVisibility * float(step) / intensity;
 				}
 			}
 		}
@@ -276,25 +289,32 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					const cLight *light = data->lights.GetLight(l);
 					if (light->enabled)
 					{
-						CVector3 lightVectorTemp = light->position - point;
-						float distanceLight = lightVectorTemp.Length();
-						float distanceLight2 = light->Decay(distanceLight);
-						lightVectorTemp.Normalize();
+						double distanceLight = 0.0;
+						CVector3 lightVectorTemp = light->CalculateLightVector(
+							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+
+						float intensity;
+						if (light->type == cLight::lightGlobal)
+							intensity = light->intensity;
+						else
+							intensity = 100.0f * light->intensity / light->Decay(distanceLight) / 6.0;
+
+						intensity *= light->CalculateCone((-1.0) * lightVectorTemp);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 
-						if (params->cloudsCastShadows)
+						if (params->cloudsCastShadows && intensity > 1e-3)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}
+
 						lightShadow.R = lightShadow.R * nAmbient + ambient;
 						lightShadow.G = lightShadow.G * nAmbient + ambient;
 						lightShadow.B = lightShadow.B * nAmbient + ambient;
 
-						float intensity = light->intensity;
-						newColour.R += lightShadow.R * light->color.R / distanceLight2 * intensity;
-						newColour.G += lightShadow.G * light->color.G / distanceLight2 * intensity;
-						newColour.B += lightShadow.B * light->color.B / distanceLight2 * intensity;
+						newColour.R += lightShadow.R * light->color.R * intensity;
+						newColour.G += lightShadow.G * light->color.G * intensity;
+						newColour.B += lightShadow.B * light->color.B * intensity;
 					}
 				}
 			}
@@ -346,20 +366,27 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					const cLight *light = data->lights.GetLight(i);
 					if (light->enabled)
 					{
-						CVector3 lightVectorTemp = light->position - point;
-						float distanceLight = lightVectorTemp.Length();
-						float distanceLight2 = light->Decay(distanceLight);
-						lightVectorTemp.Normalize();
+						double distanceLight = 0.0;
+						CVector3 lightVectorTemp = light->CalculateLightVector(
+							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+
+						float intensity;
+						if (light->type == cLight::lightGlobal)
+							intensity = light->intensity;
+						else
+							intensity = light->intensity / light->Decay(distanceLight)
+													* params->iterFogBrightnessBoost;
+
+						intensity *= light->CalculateCone((-1.0) * lightVectorTemp);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
-						if (params->iterFogShadows)
+						if (params->iterFogShadows && intensity > 1e-3)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}
-						float intensity = light->intensity * params->iterFogBrightnessBoost;
-						newColour.R += lightShadow.R * light->color.R / distanceLight2 * intensity;
-						newColour.G += lightShadow.G * light->color.G / distanceLight2 * intensity;
-						newColour.B += lightShadow.B * light->color.B / distanceLight2 * intensity;
+						newColour.R += lightShadow.R * light->color.R * intensity;
+						newColour.G += lightShadow.G * light->color.G * intensity;
+						newColour.B += lightShadow.B * light->color.B * intensity;
 					}
 				}
 

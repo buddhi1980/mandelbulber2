@@ -36,6 +36,8 @@ public:
 
 	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }
 	double CalculateCone(const CVector3 &lightVector) const;
+	CVector3 CalculateLightVector(const CVector3 &point, double delta, double resolution,
+		double viewDistanceMax, double &outDistance) const;
 
 	static const QStringList paramsList;
 

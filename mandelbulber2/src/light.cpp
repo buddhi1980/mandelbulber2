@@ -125,3 +125,30 @@ double cLight::CalculateCone(const CVector3 &lightVector) const
 	}
 	return intensity;
 }
+
+CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, double resolution,
+	double viewDistanceMax, double &outDistance) const
+{
+	CVector3 lightVector;
+	if (type == cLight::lightGlobal)
+	{
+		lightVector = lightDirection;
+		if (penetrating)
+		{
+			outDistance = delta / resolution;
+		}
+		else
+		{
+			outDistance = viewDistanceMax;
+		}
+	}
+	else
+	{
+		CVector3 d = position - point;
+		lightVector = d;
+		lightVector.Normalize();
+		outDistance = d.Length();
+	}
+
+	return lightVector;
+}

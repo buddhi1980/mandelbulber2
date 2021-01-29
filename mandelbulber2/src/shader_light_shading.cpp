@@ -42,27 +42,9 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 {
 	sRGBAfloat shading;
 
-	CVector3 lightVector;
-	float distance;
-	if (light->type == cLight::lightGlobal)
-	{
-		lightVector = light->lightDirection;
-		if (light->penetrating)
-		{
-			distance = input.delta / params->resolution;
-		}
-		else
-		{
-			distance = params->viewDistanceMax;
-		}
-	}
-	else
-	{
-		CVector3 d = light->position - input.point;
-		lightVector = d;
-		lightVector.Normalize();
-		distance = d.Length();
-	}
+	double distance = 0.0;
+	CVector3 lightVector = light->CalculateLightVector(
+		input.point, input.delta, params->resolution, params->viewDistanceMax, distance);
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where number of light was always 24
