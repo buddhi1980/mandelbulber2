@@ -230,8 +230,6 @@ private:
 	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
 		sRGBAfloat *specularOut, sRGBFloat *iridescence, sGradientsCollection *gradients) const;
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
-	static sRGBAfloat MainShading(const sShaderInputData &input);
-	sRGBAfloat MainShadow(const sShaderInputData &input) const;
 	sRGBAfloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
 		float specularWidth, float roughness, sRGBFloat diffuseGradient) const;
 	sRGBAfloat SpecularHighlightCombined(const sShaderInputData &input, CVector3 lightVector,

@@ -305,28 +305,28 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>alpha:</string>
+           <string>horizontal:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Direction:</string>
+           <string>Angle:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_25">
           <property name="text">
-           <string>beta:</string>
+           <string>vertical:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_26">
           <property name="text">
-           <string>gamma:</string>
+           <string>roll:</string>
           </property>
          </widget>
         </item>
