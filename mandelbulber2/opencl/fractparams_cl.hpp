@@ -108,7 +108,6 @@ typedef struct
 	cl_int antialiasingEnabled;
 	cl_int antialiasingAdaptive;
 	cl_int ambientOcclusionEnabled; // enable global illumination
-	cl_int auxLightPreEnabled[4];
 	cl_int auxLightRandomEnabled;
 	cl_int auxLightRandomInOneColor;
 	cl_int background3ColorsEnable;
@@ -135,11 +134,8 @@ typedef struct
 	cl_int iterFogShadows;
 	cl_int legacyCoordinateSystem;
 	cl_int limitsEnabled; // enable limits (intersections)
-	cl_int mainLightEnable;
-	cl_int mainLightPositionAsRelative;
 	cl_int monteCarloSoftShadows;
 	cl_int monteCarloGIVolumetric;
-	cl_int penetratingLights;
 	cl_int raytracedReflections;
 	cl_int shadow;			// enable shadows
 	cl_int slowShading; // enable fake gradient calculation for shading
@@ -152,7 +148,6 @@ typedef struct
 	cl_int volFogEnabled;
 
 	cl_float3 ambientOcclusionColor;
-	cl_float3 auxLightPreColour[4];
 	cl_float3 auxLightRandomColor;
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
@@ -166,7 +161,6 @@ typedef struct
 	cl_float3 iterFogColour1;
 	cl_float3 iterFogColour2;
 	cl_float3 iterFogColour3;
-	cl_float3 mainLightColour;
 	cl_float3 volFogColour1;
 	cl_float3 volFogColour2;
 	cl_float3 volFogColour3;
@@ -175,9 +169,6 @@ typedef struct
 	cl_float absMinMarchingStep;
 	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
-	cl_float auxLightPreIntensity[4];
-	cl_float auxLightVisibility;
-	cl_float auxLightVisibilitySize;
 	cl_float auxLightRandomRadius;
 	cl_float auxLightRandomMaxDistanceFromFractal;
 	cl_float auxLightRandomIntensity;
@@ -227,12 +218,6 @@ typedef struct
 	cl_float iterFogOpacityTrim;
 	cl_float iterFogOpacityTrimHigh;
 	cl_float iterFogBrightnessBoost;
-	cl_float mainLightAlpha;
-	cl_float mainLightBeta;
-	cl_float mainLightContourSharpness;
-	cl_float mainLightIntensity;
-	cl_float mainLightVisibility;
-	cl_float mainLightVisibilitySize;
 	cl_float monteCarloGIRadianceLimit;
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
@@ -255,7 +240,6 @@ typedef struct
 
 	sImageAdjustmentsCl imageAdjustments;
 
-	cl_float3 auxLightPre[4];
 	cl_float3 auxLightRandomCenter;
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;

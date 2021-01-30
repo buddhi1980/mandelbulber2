@@ -126,37 +126,33 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #endif // GLOW
 
 #ifdef VOLUMETRIC_LIGHTS
-		for (int i = 0; i < 5; i++)
-		{
-			if (i == 0 && consts->params.volumetricLightEnabled[0] && consts->params.mainLightEnable)
-			{
-				float3 shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
-				output += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]
-									* consts->params.mainLightColour;
-				out4.s3 += (shadowOutputTemp.s0 + shadowOutputTemp.s1 + shadowOutputTemp.s2) / 3.0f * step
-									 * consts->params.volumetricLightIntensity[0];
-			}
 #ifdef AUX_LIGHTS
-			if (i > 0)
+		for (int i = 0; i < numberOfLights; i++)
+		{
+			__global sLightCl *light = &renderData->lights[i];
+			if (light->enabled && light->volumetric)
 			{
-				__global sLightCl *light = &renderData->lights[i - 1];
-				if (light->enabled && consts->params.volumetricLightEnabled[i])
-				{
-					float3 lightVectorTemp = light->position - point;
-					float distanceLight = length(lightVectorTemp);
-					float distanceLight2 = distanceLight * distanceLight;
-					lightVectorTemp = normalize(lightVectorTemp);
-					float lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
-						calcParam, light->intensity);
+				float distanceLight = 0.0f;
 
-					output += lightShadow * light->colour * consts->params.volumetricLightIntensity[i] * step
-										/ distanceLight2;
-					out4.s3 +=
-						lightShadow * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
-				}
+				float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
+					consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+
+				float intensity = 0.0f;
+				if (light->type == lightGlobal)
+					intensity = light->intensity;
+				else
+					intensity = light->intensity / LightDecay(distanceLight, light->decayFunction);
+
+				intensity *= CalculateLightCone(light, lightVectorTemp);
+
+				float3 lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+					lightVectorTemp, calcParam, light->intensity);
+
+				output += lightShadow * light->color * light->volumetricVisibility * step * intensity;
+				out4.s3 += lightShadow.s0 * light->volumetricVisibility * step * intensity;
 			}
-#endif // AUX_LIGHTS
 		}
+#endif // AUX_LIGHTS
 #endif // VOLUMETRIC_LIGHTS
 
 //----------------------- basic fog
@@ -241,7 +237,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				for (int l = 1; l < 5; l++)
 				{
 					__global sLightCl *light = &renderData->lights[l - 1];
-					if (light->enabled)
+					if (light->enabled && light->volumetric)
 					{
 						float3 lightVectorTemp = light->position - point;
 						float distanceLight = length(lightVectorTemp);
@@ -365,11 +361,11 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef VISIBLE_AUX_LIGHTS
 		//------------------ visible light
 		{
-
 			for (int i = 0; i < numberOfLights; ++i)
 			{
 				__global sLightCl *light = &renderData->lights[i];
-				if (light->enabled && light->intensity > 0.0f)
+				if (light->enabled && light->intensity > 0.0f && light->visibility > 0.0f
+						&& light->type != lightGlobal)
 				{
 					float lastMiniSteps = -1.0f;
 					float miniStep = 0.0f;
@@ -378,7 +374,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
 						float lightDist = fast_length(lightDistVect);
-						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+						float lightSize = native_sqrt(light->intensity) * light->size;
 
 						float distToLightSurface = lightDist - lightSize;
 						distToLightSurface = max(distToLightSurface, 0.0f);
@@ -387,16 +383,20 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						miniStep = clamp(miniStep, step * 0.01f, step - miniSteps);
 						miniStep = max(miniStep, 1e-6f);
 
-						float r2 = native_divide(lightDist, lightSize);
-						float bellFunction = native_divide(1.0f, (1.0f + native_powr(r2, 4.0f)));
-						float lightDensity =
-							native_divide(miniStep * bellFunction * consts->params.auxLightVisibility, lightSize);
+						float r2 = lightDist / lightSize;
+						float bellFunction =
+							1.0f / (1.0f + native_powr(r2, (float)(((int)light->decayFunction + 1) * 2)));
+
+						float3 lightDirection = normalize(lightDistVect);
+						bellFunction *= CalculateLightCone(light, (-1.0f) * lightDirection);
+
+						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 
 #ifdef CLOUDS
 						lightDensity *= 1.0f + consts->params.cloudsLightsBoost * cloudsOpacity;
 #endif
 
-						output += lightDensity * light->colour;
+						output += lightDensity * light->color;
 						out4.s3 += lightDensity;
 
 						if (miniSteps == lastMiniSteps)

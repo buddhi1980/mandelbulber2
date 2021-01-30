@@ -109,7 +109,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			if (angle < 0.0f) angle = 0.0f;
 			if (dist < dist_thresh) angle = 0.0f;
 			float softShadow = 1.0f - angle / softRange;
-			if (consts->params.penetratingLights) softShadow *= (distance - i) / distance;
+			if (light->penetrating) softShadow *= (distance - i) / distance;
 			if (softShadow < 0.0f) softShadow = 0.0f;
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}

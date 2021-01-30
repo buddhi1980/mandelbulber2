@@ -94,10 +94,10 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 {
 	float3 shading = 0.0f;
 
-	float distance = 0.0f;
+	float dist = 0.0f;
 
 	float3 lightVector = CalculateLightVector(light, input->point, input->delta,
-		consts->params.resolution, consts->params.viewDistanceMax, &distance);
+		consts->params.resolution, consts->params.viewDistanceMax, &dist);
 
 	float intensity = 0.0f;
 	if (light->type == lightGlobal)
@@ -106,7 +106,7 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 	else
 	{
-		intensity = 100.0f * light->intensity / LightDecay(distance, light->decayFunction) / 6.0f;
+		intensity = 100.0f * light->intensity / LightDecay(dist, light->decayFunction) / 6.0f;
 	}
 
 	intensity *= CalculateLightCone(light, lightVector);
@@ -139,8 +139,8 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	{
 		if (shade > 0.001f || specularMax > 0.001f)
 		{
-			auxShadow = AuxShadow(
-				consts, renderData, input, light, distance, lightVector, calcParam, light->intensity);
+			auxShadow =
+				AuxShadow(consts, renderData, input, light, dist, lightVector, calcParam, light->intensity);
 			specular *= auxShadow;
 		}
 		else

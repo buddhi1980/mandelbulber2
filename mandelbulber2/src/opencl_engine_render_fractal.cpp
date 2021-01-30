@@ -237,10 +237,8 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_hsv2rgb.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_background.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_surface_color.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_main_shading.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight_combined.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_main_shadow.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fast_ambient_occlusion.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_ambient_occlusion.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_aux_shadow.cl");
@@ -557,22 +555,34 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	if (renderData->lights.IsAnyLightEnabled())
 	{
 		definesCollector += " -DAUX_LIGHTS";
-		//		if (paramRender->auxLightVisibility > 0.0)
-		//		{
-		//			definesCollector += " -DVISIBLE_AUX_LIGHTS";
-		//			anyVolumetricShaderUsed = true;
-		//		}
+
+		bool anyLightVolumetric = false;
+		bool anyLightVisible = false;
+
+		for (int l = 0; l < renderData->lights.GetNumberOfLights(); l++)
+		{
+			const cLight *light = renderData->lights.GetLight(l);
+
+			if (light->enabled)
+			{
+				if (light->volumetric)
+				{
+					anyLightVolumetric = true;
+					anyVolumetricShaderUsed = true;
+				}
+
+				if (light->visibility > 0.0)
+				{
+					anyLightVisible = true;
+					anyVolumetricShaderUsed = true;
+				}
+			}
+		}
+
+		if (anyLightVolumetric) definesCollector += " -DVOLUMETRIC_LIGHTS";
+		if (anyLightVisible) definesCollector += " -DVISIBLE_AUX_LIGHTS";
 	}
-	bool isVolumetricLight = false;
-	//	for (bool i : paramRender->volumetricLightEnabled)
-	//	{
-	//		if (i) isVolumetricLight = true;
-	//	}
-	if (isVolumetricLight)
-	{
-		definesCollector += " -DVOLUMETRIC_LIGHTS";
-		anyVolumetricShaderUsed = true;
-	}
+
 	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
 
 	if (paramRender->fogEnabled)

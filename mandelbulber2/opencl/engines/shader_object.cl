@@ -37,7 +37,6 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 *iridescenceOut, float *alphaOut, sClGradientsCollection *gradients)
 {
 	float3 color = 0.7f;
-	float3 mainLight = consts->params.mainLightColour * consts->params.mainLightIntensity;
 
 	float3 shade = 0.0f;
 	float3 specular = 0.0f;
@@ -126,8 +125,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 	*iridescenceOut = iridescence;
 
-	float3 totalSpecular =
-		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
+	float3 totalSpecular = (fakeLightsSpecular + auxSpecular) * iridescence;
 
 	float3 luminosity;
 #ifdef USE_LUMINOSITY_GRADIENT
@@ -147,8 +145,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 #endif
 
-	color = surfaceColor * (fillLight + mainLight * shadow * shade + auxLights + fakeLights + AO)
-					+ totalSpecular + luminosity;
+	color = surfaceColor * (fillLight + auxLights + fakeLights + AO) + totalSpecular + luminosity;
 	*outSpecular = totalSpecular;
 
 	*outSurfaceColor = surfaceColor;
