@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.25-dev001
+#define MANDELBULBER_VERSION 2.25 - dev001
 
 int GetInteger(int byte, __global char *array)
 {
@@ -249,14 +249,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		rot = RotateX(rot, consts->params.viewAngle.y);
 		rot = RotateY(rot, consts->params.viewAngle.z);
 
-		// main light vector
-		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
-		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
-		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
-			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
-		if (consts->params.mainLightPositionAsRelative)
-			lightVector = Matrix33MulFloat3(rot, lightVector);
-
 		// sweet spot rotation
 		rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
 		rot = RotateX(rot, consts->params.sweetSpotVAngle);
@@ -373,7 +365,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		if (!consts->params.raytracedReflections) reflectionsMax = 0;
 
 		sRenderData renderData;
-		renderData.lightVector = lightVector;
 		renderData.viewVectorNotRotated = viewVectorNotRotated;
 		renderData.materials = materials;
 		renderData.palettes = palettes;

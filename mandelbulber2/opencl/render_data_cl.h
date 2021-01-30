@@ -38,7 +38,6 @@
 typedef struct
 {
 #if !defined(MESH_EXPORT) || 1
-	float3 lightVector;
 	float3 viewVectorNotRotated;
 #endif
 

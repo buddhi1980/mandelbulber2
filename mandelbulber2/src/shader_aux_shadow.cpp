@@ -40,7 +40,7 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
 	sRGBAfloat lightShaded(1.0, 1.0, 1.0, 1.0);
-	double iterFogSum = 0.0f;
+	double iterFogSum = 0.0;
 	double shadowTemp = 1.0;
 
 	bool cloudMode = params->cloudsEnable;

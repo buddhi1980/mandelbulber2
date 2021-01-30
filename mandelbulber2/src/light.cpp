@@ -120,7 +120,7 @@ double cLight::CalculateCone(const CVector3 &lightVector) const
 		}
 		else
 		{
-			intensity = 0.0f;
+			intensity = 0.0;
 		}
 	}
 	return intensity;

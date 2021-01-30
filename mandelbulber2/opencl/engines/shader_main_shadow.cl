@@ -36,140 +36,139 @@
 float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
-	float3 shadow = (float3){1.0f, 1.0f, 1.0f};
-
-	// starting point
-	float3 point2;
-
-	bool cloudMode = consts->params.cloudsEnable;
-
-	float factor = input->delta / consts->params.resolution;
-	if (!consts->params.penetratingLights) factor = consts->params.viewDistanceMax;
-	float dist;
-
-	float DEFactor = consts->params.DEFactor;
-	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor = 1.0f;
-#ifdef CLOUDS
-	DEFactor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
-#endif
-
-	// float start = input->delta;
-	float start = input->distThresh;
-	if (consts->params.interiorMode) start = input->distThresh * DEFactor;
-
-	float shadowTemp = 1.0f;
-	float iterFogSum = 0.0f;
-
-	float softRange = tan(consts->params.shadowConeAngle);
-	float maxSoft = 0.0f;
-
-	const bool bSoft = !cloudMode && !consts->params.iterFogEnabled
-										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
-										 && softRange > 0.0f
-										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
-
-	float3 shadowVect = input->lightVect;
-
-#ifdef MC_SOFT_SHADOWS
-	float3 randomVector;
-	randomVector.x = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
-	randomVector.y = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
-	randomVector.z = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
-	float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
-	float3 randomSphere = randomVector * (softRange * randomSphereRadius / length(randomVector));
-	shadowVect += randomSphere;
-#endif // MC_SOFT_SHADOWS
-
-	float lastDistanceToClouds = 1e6f;
-	int count = 0;
-	float step = 0.0f;
-	for (float i = start; i < factor; i += step)
-	{
-		point2 = input->point + shadowVect * i;
-
-		float dist_thresh;
-		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0] || cloudMode)
-		{
-			dist_thresh = CalcDistThresh(point2, consts);
-		}
-		else
-			dist_thresh = input->distThresh;
-
-		calcParam->distThresh = dist_thresh;
-		calcParam->detailSize = dist_thresh;
-		formulaOut outF;
-
-		outF = CalculateDistance(consts, point2, calcParam, renderData);
-		dist = outF.distance;
-
-		bool limitsAcheved = false;
-#ifdef LIMITS_ENABLED
-		limitsAcheved = any(isless(point2, consts->params.limitMin))
-										|| any(isgreater(point2, consts->params.limitMax));
-#endif // LIMITS_ENABLED
-
-		if (bSoft && !limitsAcheved)
-		{
-			float angle = (dist - dist_thresh) / i;
-			if (angle < 0.0f) angle = 0.0f;
-			if (dist < dist_thresh) angle = 0;
-			float softShadow = 1.0f - angle / softRange;
-			if (consts->params.penetratingLights) softShadow *= (factor - i) / factor;
-			if (softShadow < 0.0f) softShadow = 0.0f;
-			if (softShadow > maxSoft) maxSoft = softShadow;
-		}
-
-#ifdef ITER_FOG
-		{
-			float opacity =
-				IterOpacity(step, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
-					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
-			opacity *= (factor - i) / factor;
-			opacity = min(opacity, 1.0f);
-			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-		}
-#endif
-#ifdef CLOUDS
-		{
-			float distanceToClouds = 0.0f;
-			float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, dist_thresh,
-												&distanceToClouds)
-											* step;
-			lastDistanceToClouds = distanceToClouds;
-			opacity *= (factor - i) / factor;
-			opacity = min(opacity, 1.0f);
-			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
-		}
-#endif
-
-		shadowTemp = 1.0f - iterFogSum;
-
-		if (dist < dist_thresh || shadowTemp <= 0.0f)
-		{
-			shadowTemp -= (factor - i) / factor;
-			if (!consts->params.penetratingLights) shadowTemp = 0.0f;
-			if (shadowTemp < 0.0f) shadowTemp = 0.0f;
-			break;
-		}
-
-		step = min(dist, lastDistanceToClouds) * DEFactor;
-		step = max(step, 1e-6f);
-
-		count++;
-		if (count > MAX_RAYMARCHING) break;
-	}
-	if (!bSoft)
-	{
-		shadow.s0 = shadowTemp;
-		shadow.s1 = shadowTemp;
-		shadow.s2 = shadowTemp;
-	}
-	else
-	{
-		shadow.s0 = 1.0f - maxSoft;
-		shadow.s1 = 1.0f - maxSoft;
-		shadow.s2 = 1.0f - maxSoft;
-	}
-	return shadow;
+	//	float3 shadow = (float3){1.0f, 1.0f, 1.0f};
+	//
+	//	// starting point
+	//	float3 point2;
+	//
+	//	bool cloudMode = consts->params.cloudsEnable;
+	//
+	//	float factor = input->delta / consts->params.resolution;
+	//	if (!consts->params.penetratingLights) factor = consts->params.viewDistanceMax;
+	//	float dist;
+	//
+	//	float DEFactor = consts->params.DEFactor;
+	//	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor
+	//= 1.0f; #ifdef CLOUDS 	DEFactor = consts->params.DEFactor *
+	// consts->params.volumetricLightDEFactor; #endif
+	//
+	//	// float start = input->delta;
+	//	float start = input->distThresh;
+	//	if (consts->params.interiorMode) start = input->distThresh * DEFactor;
+	//
+	//	float shadowTemp = 1.0f;
+	//	float iterFogSum = 0.0f;
+	//
+	//	float softRange = tan(consts->params.shadowConeAngle);
+	//	float maxSoft = 0.0f;
+	//
+	//	const bool bSoft = !cloudMode && !consts->params.iterFogEnabled
+	//										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
+	//										 && softRange > 0.0f
+	//										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
+	//
+	//	float3 shadowVect = input->lightVect;
+	//
+	//#ifdef MC_SOFT_SHADOWS
+	//	float3 randomVector;
+	//	randomVector.x = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	//	randomVector.y = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	//	randomVector.z = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	//	float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
+	//	float3 randomSphere = randomVector * (softRange * randomSphereRadius / length(randomVector));
+	//	shadowVect += randomSphere;
+	//#endif // MC_SOFT_SHADOWS
+	//
+	//	float lastDistanceToClouds = 1e6f;
+	//	int count = 0;
+	//	float step = 0.0f;
+	//	for (float i = start; i < factor; i += step)
+	//	{
+	//		point2 = input->point + shadowVect * i;
+	//
+	//		float dist_thresh;
+	//		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0] || cloudMode)
+	//		{
+	//			dist_thresh = CalcDistThresh(point2, consts);
+	//		}
+	//		else
+	//			dist_thresh = input->distThresh;
+	//
+	//		calcParam->distThresh = dist_thresh;
+	//		calcParam->detailSize = dist_thresh;
+	//		formulaOut outF;
+	//
+	//		outF = CalculateDistance(consts, point2, calcParam, renderData);
+	//		dist = outF.distance;
+	//
+	//		bool limitsAcheved = false;
+	//#ifdef LIMITS_ENABLED
+	//		limitsAcheved = any(isless(point2, consts->params.limitMin))
+	//										|| any(isgreater(point2, consts->params.limitMax));
+	//#endif // LIMITS_ENABLED
+	//
+	//		if (bSoft && !limitsAcheved)
+	//		{
+	//			float angle = (dist - dist_thresh) / i;
+	//			if (angle < 0.0f) angle = 0.0f;
+	//			if (dist < dist_thresh) angle = 0;
+	//			float softShadow = 1.0f - angle / softRange;
+	//			if (consts->params.penetratingLights) softShadow *= (factor - i) / factor;
+	//			if (softShadow < 0.0f) softShadow = 0.0f;
+	//			if (softShadow > maxSoft) maxSoft = softShadow;
+	//		}
+	//
+	//#ifdef ITER_FOG
+	//		{
+	//			float opacity =
+	//				IterOpacity(step, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
+	//					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
+	//			opacity *= (factor - i) / factor;
+	//			opacity = min(opacity, 1.0f);
+	//			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+	//		}
+	//#endif
+	//#ifdef CLOUDS
+	//		{
+	//			float distanceToClouds = 0.0f;
+	//			float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist,
+	// dist_thresh, 												&distanceToClouds)
+	//											* step;
+	//			lastDistanceToClouds = distanceToClouds;
+	//			opacity *= (factor - i) / factor;
+	//			opacity = min(opacity, 1.0f);
+	//			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+	//		}
+	//#endif
+	//
+	//		shadowTemp = 1.0f - iterFogSum;
+	//
+	//		if (dist < dist_thresh || shadowTemp <= 0.0f)
+	//		{
+	//			shadowTemp -= (factor - i) / factor;
+	//			if (!consts->params.penetratingLights) shadowTemp = 0.0f;
+	//			if (shadowTemp < 0.0f) shadowTemp = 0.0f;
+	//			break;
+	//		}
+	//
+	//		step = min(dist, lastDistanceToClouds) * DEFactor;
+	//		step = max(step, 1e-6f);
+	//
+	//		count++;
+	//		if (count > MAX_RAYMARCHING) break;
+	//	}
+	//	if (!bSoft)
+	//	{
+	//		shadow.s0 = shadowTemp;
+	//		shadow.s1 = shadowTemp;
+	//		shadow.s2 = shadowTemp;
+	//	}
+	//	else
+	//	{
+	//		shadow.s0 = 1.0f - maxSoft;
+	//		shadow.s1 = 1.0f - maxSoft;
+	//		shadow.s2 = 1.0f - maxSoft;
+	//	}
+	return 0.0f;
 }
 #endif

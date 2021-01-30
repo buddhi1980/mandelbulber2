@@ -56,7 +56,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	}
 	else
 	{
-		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0;
+		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0f;
 	}
 
 	intensity *= light->CalculateCone(lightVector);

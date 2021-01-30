@@ -140,17 +140,17 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 	pixel *= consts->params.background_brightness;
 
-	if (consts->params.mainLightEnable)
+	for (int i = 0; i < renderData->numberOfLights; i++)
 	{
-
-		float light = -(dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
-									/ consts->params.mainLightVisibilitySize;
-		light = 1.0f / (1.0f + pow(light, 6.0f * consts->params.mainLightContourSharpness))
-						* consts->params.mainLightVisibility * consts->params.mainLightIntensity;
-		pixel += light * consts->params.mainLightColour;
+		__global sLightCl *light = &renderData->lights[i];
+		if (light->enabled && light->type == lightGlobal)
+		{
+			float intensity = -(dot(viewVectorNorm, light->lightDirection) - 1.0f) * 360.0f / light->size;
+			intensity = 1.0f / (1.0f + pow(intensity, 6.0f * light->contourSharpness)) * light->visibility
+									* light->intensity;
+			pixel += intensity * light->color;
+		}
 	}
-
-	// pixel = (exp(pixel * 5.0f) - 1.0f);
 
 	return pixel;
 }

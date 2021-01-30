@@ -46,26 +46,26 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 fillLight = consts->params.fillLightColor;
 
-	if (consts->params.mainLightEnable)
-	{
-		shade = MainShading(input);
-		shade = consts->params.mainLightIntensity
-						* ((float3)1.0f - input->material->shading + input->material->shading * shade);
-
-#ifdef SHADOWS
-		if (consts->params.shadow)
-		{
-			shadow = MainShadow(consts, renderData, input, calcParam);
-			if (consts->params.allPrimitivesInvisibleAlpha)
-			{
-				if (input->objectId >= 9) // if not fractal
-				{
-					*alphaOut = 1.0f - (shadow.s0 + shadow.s1 + shadow.s2) / 3.0f;
-				}
-			}
-		}
-#endif
-	}
+	//	if (consts->params.mainLightEnable)
+	//	{
+	//		shade = MainShading(input);
+	//		shade = consts->params.mainLightIntensity
+	//						* ((float3)1.0f - input->material->shading + input->material->shading * shade);
+	//
+	//#ifdef SHADOWS
+	//		if (consts->params.shadow)
+	//		{
+	//			shadow = MainShadow(consts, renderData, input, calcParam);
+	//			if (consts->params.allPrimitivesInvisibleAlpha)
+	//			{
+	//				if (input->objectId >= 9) // if not fractal
+	//				{
+	//					*alphaOut = 1.0f - (shadow.s0 + shadow.s1 + shadow.s2) / 3.0f;
+	//				}
+	//			}
+	//		}
+	//#endif
+	//	}
 
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam, gradients);
 
@@ -77,18 +77,18 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 #endif
 
-	if (consts->params.mainLightEnable)
-	{
-		specular =
-			SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor, gradients);
-
-#ifdef USE_SPECULAR_GRADIENT
-		if (input->material->useColorsFromPalette && input->material->specularGradientEnable)
-		{
-			specular *= gradients->specular;
-		}
-#endif
-	}
+	//	if (consts->params.mainLightEnable)
+	//	{
+	//		specular =
+	//			SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor, gradients);
+	//
+	//#ifdef USE_SPECULAR_GRADIENT
+	//		if (input->material->useColorsFromPalette && input->material->specularGradientEnable)
+	//		{
+	//			specular *= gradients->specular;
+	//		}
+	//#endif
+	//	}
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)

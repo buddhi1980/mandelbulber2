@@ -34,28 +34,29 @@
 
 #ifdef AUX_LIGHTS
 #if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
-float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShaderInputDataCl *input,
-	float distance, float3 lightVector, sClCalcParams *calcParam, float intensity)
+float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, __global sLightCl *light, float distance, float3 lightVector,
+	sClCalcParams *calcParam, float intensity)
 {
-	// float step = input.delta;
-	float dist;
-	float light;
-
+	float3 lightShaded = 1.0;
+	float iterFogSum = 0.0f;
 	float shadowTemp = 1.0f;
 
 	bool cloudMode = consts->params.cloudsEnable;
 
-	float DE_factor = consts->params.DEFactor;
-	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
+	float DEFactor = consts->params.DEFactor;
+	if (consts->params.iterFogEnabled || light->volumetric) DEFactor = 1.0f;
 #ifdef CLOUDS
-	DE_factor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
+	DEFactor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 #endif
 
+	float start = input->distThresh;
+
 #ifdef MC_SOFT_SHADOWS
-	float lightSize = sqrt(intensity) * consts->params.auxLightVisibilitySize;
+	float lightSize = sqrt(intensity) * light->size;
 	float softRange = lightSize / distance;
 #else
-	float softRange = tan(consts->params.shadowConeAngle);
+	float softRange = tan(light->softShadowCone);
 #endif
 
 	float maxSoft = 0.0f;
@@ -78,14 +79,12 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	int count = 0;
 	float step = 0.0f;
 
-	float iterFogSum = 0.0f;
-
-	for (float i = input->delta; i < distance; i += step)
+	for (float i = start; i < distance; i += step)
 	{
 		float3 point2 = input->point + lightVector * i;
 
 		float dist_thresh;
-		if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled || cloudMode)
+		if (consts->params.iterFogEnabled || light->volumetric || cloudMode)
 		{
 			dist_thresh = CalcDistThresh(point2, consts);
 		}
@@ -96,7 +95,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 		formulaOut outF;
 
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
-		dist = outF.distance;
+		float dist = outF.distance;
 
 		bool limitsAcheved = false;
 #ifdef LIMITS_ENABLED
@@ -144,7 +143,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 
 		if (dist < dist_thresh || shadowTemp <= 0.0f)
 		{
-			if (consts->params.penetratingLights)
+			if (light->penetrating)
 			{
 				shadowTemp -= (distance - i) / distance;
 				if (shadowTemp < 0.0f) shadowTemp = 0.0f;
@@ -155,7 +154,7 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 			}
 			break;
 		}
-		step = min(dist, lastDistanceToClouds) * DE_factor;
+		step = min(dist, lastDistanceToClouds) * DEFactor;
 		step = max(step, 1e-6f);
 
 		count++;
@@ -164,14 +163,14 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 
 	if (!bSoft)
 	{
-		light = shadowTemp;
+		lightShaded = shadowTemp;
 	}
 	else
 	{
-		light = 1.0f - maxSoft;
+		lightShaded = 1.0f - maxSoft;
 	}
 
-	return light;
+	return lightShaded;
 }
 #endif // SHADOWS
 #endif // AUX_LIGHTS

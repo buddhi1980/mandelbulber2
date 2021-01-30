@@ -154,6 +154,7 @@ void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFi
 	clHeaderFiles.append("object_data_cl.h");
 	clHeaderFiles.append("primitives_cl.h");
 	clHeaderFiles.append("input_data_structures.h");
+	clHeaderFiles.append("light_cl.h");
 	clHeaderFiles.append("render_data_cl.h");
 }
 
@@ -541,7 +542,8 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 {
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
-	// if (paramRender->shadow) definesCollector += " -DSHADOWS";
+	// FIXME: if (paramRender->shadow) definesCollector += " -DSHADOWS";
+	definesCollector += " -DSHADOWS";
 
 	if (paramRender->ambientOcclusionEnabled)
 	{

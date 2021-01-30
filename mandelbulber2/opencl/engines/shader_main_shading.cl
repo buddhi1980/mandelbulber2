@@ -34,7 +34,7 @@
 
 float3 MainShading(sShaderInputDataCl *input)
 {
-	float shade = dot(input->normal, input->lightVect);
-	if (shade < 0.0f) shade = 0.0f;
-	return shade;
+	//	float shade = dot(input->normal, input->lightVect);
+	//	if (shade < 0.0f) shade = 0.0f;
+	return 0.0f;
 }

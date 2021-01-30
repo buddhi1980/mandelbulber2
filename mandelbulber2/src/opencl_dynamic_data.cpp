@@ -49,6 +49,7 @@
 #include "opencl/material_cl.h"
 #include "opencl/input_data_structures.h"
 #include "opencl/primitives_cl.h"
+#include "opencl/light_cl.h"
 #endif
 
 #ifdef USE_OPENCL
@@ -493,10 +494,33 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 
 		sLightCl lightCl;
 		const cLight *light = lights->GetLight(i);
-		lightCl.position = toClFloat3(light->position);
-		lightCl.colour = toClFloat3(light->color);
-		lightCl.intensity = light->intensity;
 		lightCl.enabled = light->enabled;
+		lightCl.castShadows = light->castShadows;
+		lightCl.penetrating = light->penetrating;
+		lightCl.relativePosition = light->relativePosition;
+		lightCl.volumetric = light->volumetric;
+
+		lightCl.coneAngle = light->coneAngle;
+		lightCl.coneSoftAngle = light->coneSoftAngle;
+		lightCl.intensity = light->intensity;
+		lightCl.visibility = light->visibility;
+		lightCl.volumetricVisibility = light->volumetricVisibility;
+		lightCl.size = light->size;
+		lightCl.softShadowCone = light->softShadowCone;
+		lightCl.contourSharpness = light->contourSharpness;
+		lightCl.coneRatio = light->coneRatio;
+		lightCl.coneSoftRatio = light->coneSoftRatio;
+
+		lightCl.position = toClFloat3(light->position);
+		lightCl.rotation = toClFloat3(light->rotation);
+		lightCl.lightDirection = toClFloat3(light->lightDirection);
+
+		lightCl.color = toClFloat3(light->color);
+
+		lightCl.rotMatrix = toClMatrix33(light->rotMatrix);
+
+		lightCl.type = static_cast<enumLightTypeCl>(light->type);
+		lightCl.decayFunction = static_cast<enumLightDecayFunctionCl>(light->decayFunction);
 
 		data.append(reinterpret_cast<char *>(&lightCl), sizeof(lightCl));
 		totalDataOffset += sizeof(lightCl);

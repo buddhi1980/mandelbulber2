@@ -38,7 +38,6 @@ typedef struct
 	float3 viewVector;
 	float3 viewVectorNotRotated;
 	float3 normal;
-	float3 lightVect;
 
 #ifdef USE_TEXTURES
 	float3 texColor;

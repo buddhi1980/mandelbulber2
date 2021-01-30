@@ -72,13 +72,12 @@ public:
 	float size = 0.0f;
 	float softShadowCone = 0.0f;
 	float contourSharpness = 0.0f;
+	float coneRatio = 0.0;
+	float coneSoftRatio = 0.0;
 
 	CVector3 position;
 	CVector3 rotation;
 	CVector3 lightDirection;
-
-	double coneRatio = 0.0;
-	double coneSoftRatio = 0.0;
 
 	sRGBFloat color;
 

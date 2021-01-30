@@ -33,24 +33,84 @@
  */
 
 #ifdef AUX_LIGHTS
+
+float3 CalculateLightVector(__global sLightCl *light, float3 point, float delta, float resolution,
+	float viewDistanceMax, float *outDistance)
+{
+	float3 lightVector;
+	if (light->type == lightGlobal)
+	{
+		lightVector = light->lightDirection;
+		if (light->penetrating)
+		{
+			*outDistance = delta / resolution;
+		}
+		else
+		{
+			*outDistance = viewDistanceMax;
+		}
+	}
+	else
+	{
+		float3 d = light->position - point;
+		lightVector = normalize(d);
+		*outDistance = length(d);
+	}
+	return lightVector;
+}
+
+float LightDecay(float dist, enumLightDecayFunctionCl decayFunction)
+{
+	return pow(dist, (float)((int)decayFunction + 1));
+}
+
+float CalculateLightCone(__global sLightCl *light, float3 lightVector)
+{
+	float intensity = 1.0f;
+
+	if (light->type == lightConical)
+	{
+		float axiality = dot(lightVector, light->lightDirection);
+
+		if (axiality > light->coneRatio)
+		{
+			intensity = 1.0f;
+		}
+		else if (axiality > light->coneSoftRatio)
+		{
+			intensity = (axiality - light->coneSoftRatio) / (light->coneRatio - light->coneSoftRatio);
+		}
+		else
+		{
+			intensity = 0.0f;
+		}
+	}
+	return intensity;
+}
+
 float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor,
 	__global sLightCl *light, sClGradientsCollection *gradients, float3 *outSpecular)
 {
 	float3 shading = 0.0f;
 
-	float3 d = light->position - input->point;
+	float distance = 0.0f;
 
-	float distance = length(d);
+	float3 lightVector = CalculateLightVector(light, input->point, input->delta,
+		consts->params.resolution, consts->params.viewDistanceMax, &distance);
 
-	// angle of incidence
-	float3 lightVector = d;
-	lightVector = normalize(lightVector);
+	float intensity = 0.0f;
+	if (light->type == lightGlobal)
+	{
+		intensity = light->intensity;
+	}
+	else
+	{
+		intensity = 100.0f * light->intensity / LightDecay(distance, light->decayFunction) / 6.0f;
+	}
 
-	// intensity of lights is divided by 6 because of backward compatibility. There was an error
-	// where numberOfLights of light was always 24
-	float intensity =
-		100.0f * light->intensity / (distance * distance) / renderData->numberOfLights / 6.0f;
+	intensity *= CalculateLightCone(light, lightVector);
+
 	float shade = dot(input->normal, lightVector);
 	if (shade < 0.0f) shade = 0.0f;
 	shade = 1.0f - input->material->shading + shade * input->material->shading;
@@ -72,30 +132,27 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	float specularMax = max(max(specular.s0, specular.s1), specular.s2);
 
 	// calculate shadow
-	if ((shade > 0.01f || specularMax > 0.01f) && consts->params.shadow)
-	{
-		float auxShadow = 1.0f;
+
+	float3 auxShadow = 1.0f;
 #ifdef SHADOWS
-		auxShadow =
-			AuxShadow(consts, renderData, input, distance, lightVector, calcParam, light->intensity);
-#endif
-		shade *= auxShadow;
-		specular *= auxShadow;
-	}
-	else
+	if (light->castShadows)
 	{
-		if (consts->params.shadow)
+		if (shade > 0.001f || specularMax > 0.001f)
 		{
-			shade = 0.0f;
+			auxShadow = AuxShadow(
+				consts, renderData, input, light, distance, lightVector, calcParam, light->intensity);
+			specular *= auxShadow;
+		}
+		else
+		{
+			auxShadow = 0.0f;
 			specular = 0.0f;
 		}
 	}
+#endif // SHADOWS
 
-	shading = shade * light->colour;
-
-	specular *= light->colour;
-
-	*outSpecular = specular;
+	shading = shade * light->color * auxShadow;
+	*outSpecular = specular * light->color;
 
 	return shading;
 }

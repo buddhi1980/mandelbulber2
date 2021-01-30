@@ -40,14 +40,14 @@ float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderDat
 {
 
 	int numberOfLights = renderData->numberOfLights;
-	if (numberOfLights < 4) numberOfLights = 4;
+
 	float3 shadeAuxSum = 0.0f;
 	float3 specularAuxSum = 0.0f;
 	for (int i = 0; i < numberOfLights; i++)
 	{
 		__global sLightCl *light = &renderData->lights[i];
 
-		if (i < consts->params.auxLightNumber || light->enabled)
+		if (light->enabled)
 		{
 			float3 specularAuxOutTemp;
 			float3 shadeAux = LightShading(

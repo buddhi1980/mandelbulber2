@@ -292,7 +292,6 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
 			shaderInputData.delta = CalcDelta(point, consts);
-			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.viewVectorNotRotated = renderData->viewVectorNotRotated;
@@ -589,7 +588,6 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
 			shaderInputData.delta = CalcDelta(point, consts);
-			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.viewVectorNotRotated = renderData->viewVectorNotRotated;
