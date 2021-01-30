@@ -144,8 +144,17 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 				intensity *= CalculateLightCone(light, lightVectorTemp);
 
-				float3 lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
-					lightVectorTemp, calcParam, light->intensity);
+				float3 lightShadow = 1.0f;
+
+				if (intensity > 1e-3)
+				{
+					lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+						lightVectorTemp, calcParam, light->intensity);
+				}
+				else
+				{
+					lightShadow = 0.0f;
+				}
 
 				output += lightShadow * light->color * light->volumetricVisibility * step * intensity;
 				out4.s3 += lightShadow.s0 * light->volumetricVisibility * step * intensity;
