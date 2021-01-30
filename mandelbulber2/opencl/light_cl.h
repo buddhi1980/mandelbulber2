@@ -52,11 +52,11 @@ typedef struct
 	cl_float coneRatio;
 	cl_float coneSoftRatio;
 
+	cl_float3 color;
+
 	cl_float3 position;
 	cl_float3 rotation;
 	cl_float3 lightDirection;
-
-	cl_float3 color;
 
 	matrix33 rotMatrix;
 

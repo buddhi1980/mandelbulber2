@@ -43,7 +43,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 	// visible lights init
 	int numberOfLights = renderData->numberOfLights;
-	if (numberOfLights < 4) numberOfLights = 4;
 
 #ifdef GLOW
 	// glow init
@@ -223,37 +222,36 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 			if (opacity > 0.0f)
 			{
-				if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
-				{
-					if (consts->params.cloudsCastShadows)
-					{
-						shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
-					}
-					newColour += (shadowOutputTemp * nAmbient + ambient) * consts->params.mainLightColour
-											 * consts->params.mainLightIntensity;
-				}
-
 #ifdef AUX_LIGHTS
-				for (int l = 1; l < 5; l++)
+				for (int l = 0; l < numberOfLights; l++)
 				{
-					__global sLightCl *light = &renderData->lights[l - 1];
-					if (light->enabled && light->volumetric)
+					__global sLightCl *light = &renderData->lights[l];
+					if (light->enabled)
 					{
-						float3 lightVectorTemp = light->position - point;
-						float distanceLight = length(lightVectorTemp);
-						float distanceLight2 = distanceLight * distanceLight;
-						lightVectorTemp = normalize(lightVectorTemp);
-						float lightShadow = 1.0f;
-						if (consts->params.cloudsCastShadows)
+						float distanceLight = 0.0f;
+
+						float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
+							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+
+						float intensity = 0.0f;
+						if (light->type == lightGlobal)
+							intensity = light->intensity;
+						else
+							intensity =
+								100.0f * light->intensity / LightDecay(distanceLight, light->decayFunction) / 6.0f;
+
+						intensity *= CalculateLightCone(light, lightVectorTemp);
+
+						float3 lightShadow = 1.0f;
+						if (consts->params.cloudsCastShadows && light->castShadows && intensity > 1e-3f)
 						{
 							calcParam->distThresh = input2.distThresh;
 							calcParam->detailSize = input2.distThresh;
-							lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
-								calcParam, light->intensity);
-							lightShadow = lightShadow * nAmbient.s0 + ambient.s0;
+							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+								lightVectorTemp, calcParam, light->intensity);
 						}
-						float intensity = light->intensity;
-						newColour += lightShadow * light->colour / distanceLight2 * intensity;
+						lightShadow = lightShadow * nAmbient.s0 + ambient.s0;
+						newColour += lightShadow * light->color * intensity;
 					}
 				}
 #endif // AUX_LIGTS
@@ -299,50 +297,39 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				fogCol = fogCol * kn + consts->params.iterFogColour3 * k2;
 				//----
 
-				for (int i = 0; i < 5; i++)
-				{
-					if (i == 0)
-					{
-						if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
-						{
-							float3 shadowOutputTemp = 1.0f;
-							if (consts->params.iterFogShadows)
-							{
-								shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
-							}
-							else
-							{
-								shadowOutputTemp *= consts->params.iterFogBrightnessBoost;
-							}
-							newColour += shadowOutputTemp * consts->params.mainLightColour
-													 * consts->params.mainLightIntensity;
-						}
-					}
-
 #ifdef AUX_LIGHTS
-					if (i > 0)
+				for (int i = 0; i < numberOfLights; i++)
+				{
+					__global sLightCl *light = &renderData->lights[i];
+					if (light->enabled)
 					{
-						__global sLightCl *light = &renderData->lights[i - 1];
-						if (light->enabled)
+						float distanceLight = 0.0f;
+
+						float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
+							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+
+						float intensity = 0.0f;
+						if (light->type == lightGlobal)
+							intensity = light->intensity;
+						else
+							intensity = light->intensity / LightDecay(distanceLight, light->decayFunction)
+													* consts->params.iterFogBrightnessBoost;
+
+						intensity *= CalculateLightCone(light, lightVectorTemp);
+
+						float3 lightShadow = 1.0f;
+						if (consts->params.iterFogShadows && light->castShadows && intensity > 1e-3f)
 						{
-							float3 lightVectorTemp = light->position - point;
-							float distanceLight = length(lightVectorTemp);
-							float distanceLight2 = distanceLight * distanceLight;
-							lightVectorTemp = normalize(lightVectorTemp);
-							float lightShadow = 1.0f;
-							if (consts->params.iterFogShadows)
-							{
-								calcParam->distThresh = input2.distThresh;
-								calcParam->detailSize = input2.distThresh;
-								lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
-									calcParam, light->intensity);
-							}
-							float intensity = light->intensity * consts->params.iterFogBrightnessBoost;
-							newColour += lightShadow * light->colour / distanceLight2 * intensity;
+							calcParam->distThresh = input2.distThresh;
+							calcParam->detailSize = input2.distThresh;
+							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+								lightVectorTemp, calcParam, light->intensity);
 						}
+
+						newColour += lightShadow * light->color * intensity;
 					}
-#endif // AUX_LIGHTS
 				}
+#endif // AUX_LIGHTS
 
 #ifdef AO_MODE_MULTIPLE_RAYS
 				float3 AO = AmbientOcclusion(consts, renderData, &input2, calcParam);

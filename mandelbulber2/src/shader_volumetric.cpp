@@ -299,11 +299,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						else
 							intensity = 100.0f * light->intensity / light->Decay(distanceLight) / 6.0;
 
-						intensity *= light->CalculateCone((-1.0) * lightVectorTemp);
+						intensity *= light->CalculateCone(lightVectorTemp);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 
-						if (params->cloudsCastShadows && intensity > 1e-3)
+						if (params->cloudsCastShadows && light->castShadows && intensity > 1e-3)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}

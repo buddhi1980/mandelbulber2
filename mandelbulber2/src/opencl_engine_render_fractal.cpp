@@ -541,7 +541,6 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
 	// FIXME: if (paramRender->shadow) definesCollector += " -DSHADOWS";
-	definesCollector += " -DSHADOWS";
 
 	if (paramRender->ambientOcclusionEnabled)
 	{
@@ -558,6 +557,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 
 		bool anyLightVolumetric = false;
 		bool anyLightVisible = false;
+		bool anyLightCastShadows = false;
 
 		for (int l = 0; l < renderData->lights.GetNumberOfLights(); l++)
 		{
@@ -576,11 +576,17 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 					anyLightVisible = true;
 					anyVolumetricShaderUsed = true;
 				}
+
+				if (light->castShadows)
+				{
+					anyLightCastShadows = true;
+				}
 			}
 		}
 
 		if (anyLightVolumetric) definesCollector += " -DVOLUMETRIC_LIGHTS";
 		if (anyLightVisible) definesCollector += " -DVISIBLE_AUX_LIGHTS";
+		if (anyLightCastShadows) definesCollector += " -DSHADOWS";
 	}
 
 	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
