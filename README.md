@@ -9,8 +9,8 @@
     <td><a href="https://scan.coverity.com/projects/mandelbulber-v2">
         <img alt="Coverity Scan" src="https://scan.coverity.com/projects/4723/badge.svg?flat=1"></a></td>
     <td>
-        Linux: <a href="https://travis-ci.org/buddhi1980/mandelbulber2">
-                <img alt="Build Status Linux" src="https://travis-ci.org/buddhi1980/mandelbulber2.svg"></a></br>
+        Linux: <a href="https://travis-ci.com/github/buddhi1980/mandelbulber2">
+                <img alt="Build Status Linux" src="https://travis-ci.com/buddhi1980/mandelbulber2.svg?branch=master"></a></br>
         Windows: <a href="https://ci.appveyor.com/project/buddhi1980/mandelbulber2">
                 <img alt="Build Status Windows" src="https://ci.appveyor.com/api/projects/status/urd2h30tu7reg4mp?svg=true"></a></br>
         OSX: <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
