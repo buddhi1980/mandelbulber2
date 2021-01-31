@@ -3310,15 +3310,192 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_random_lights" columnstretch="0,2,1">
+               <layout class="QGridLayout" name="gridLayout_random_lights" columnstretch="0,0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_random_lights_center_of_distribution">
+                  <property name="text">
+                   <string>Center of distribution:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_random_lights_number">
                   <property name="text">
                    <string>Number of random
 lights:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_random_lights_distribution_radius">
+                  <property name="text">
+                   <string>Distribution radius
+of lights:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_visibility"/>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLabel" name="label_distribution_y">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>y:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="0" colspan="3">
+                 <widget class="MyCheckBox" name="checkBox_random_lights_penetrating">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Penetrating</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="0" colspan="3">
+                 <widget class="MyCheckBox" name="checkBox_random_lights_cast_shadows">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Cast shadows</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_3">
+                  <property name="text">
+                   <string>Visibility:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_z">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_intensity"/>
+                </item>
+                <item row="3" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
+                </item>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_2">
+                  <property name="text">
+                   <string>Size:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_y">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity">
+                  <property name="text">
+                   <string>Intensity:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
+                </item>
+                <item row="7" column="0" colspan="3">
+                 <widget class="QPushButton" name="pushButton_place_random_lights_by_mouse">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Place random light center by mouse</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1" colspan="2">
+                 <widget class="MySpinBox" name="spinboxInt_random_lights_random_seed">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximum">
+                   <number>999999</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLabel" name="label_distribution_z">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>z:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
+                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_x">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_random_lights_max_distance_from_fractal">
+                  <property name="text">
+                   <string>Maximum distance
+from fractal:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLabel" name="label_distribution_x">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>x:</string>
                   </property>
                  </widget>
                 </item>
@@ -3342,139 +3519,18 @@ lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1" colspan="2">
-                 <widget class="MySpinBox" name="spinboxInt_random_lights_random_seed">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>999999</number>
-                  </property>
-                 </widget>
+                <item row="9" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_size"/>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_random_lights_max_distance_from_fractal">
+                <item row="11" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone"/>
+                </item>
+                <item row="11" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_4">
                   <property name="text">
-                   <string>Maximum distance
-from fractal:</string>
+                   <string>Soft shadow cone:</string>
                   </property>
                  </widget>
-                </item>
-                <item row="2" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_random_lights_distribution_radius">
-                  <property name="text">
-                   <string>Distribution radius
-of lights:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_random_lights_center_of_distribution">
-                  <property name="text">
-                   <string>Center of distribution:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLabel" name="label_distribution_x">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>x:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="2">
-                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_x">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QLabel" name="label_distribution_y">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>y:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="2">
-                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_y">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QLabel" name="label_distribution_z">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>z:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="2">
-                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_z">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0" colspan="3">
-                 <widget class="QPushButton" name="pushButton_place_random_lights_by_mouse">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Place random light center by mouse</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity">
-                  <property name="text">
-                   <string>Intensity:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_intensity"/>
                 </item>
                </layout>
               </item>

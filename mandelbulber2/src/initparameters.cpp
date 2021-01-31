@@ -369,13 +369,18 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("random_lights_random_seed", 1234, 0, 99999, morphLinear, paramStandard);
 	par->addParam(
 		"random_lights_max_distance_from_fractal", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
-	par->addParam("random_lights_intensity", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("random_lights_distribution_radius", 3.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam(
 		"random_lights_distribution_center", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("random_lights_group", false, morphLinear, paramStandard);
 	par->addParam("random_lights_one_color_enable", false, morphLinear, paramStandard);
 	par->addParam("random_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("random_lights_intensity", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_size", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_visibility", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_soft_shadow_cone", 1.0, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam("random_lights_penetrating", true, morphLinear, paramStandard);
+	par->addParam("random_lights_cast_shadows", true, morphLinear, paramStandard);
 
 	// fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);

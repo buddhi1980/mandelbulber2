@@ -80,8 +80,6 @@ typedef struct
 	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
 	cl_int auxLightNumber;
-	cl_int auxLightRandomNumber;
-	cl_int auxLightRandomSeed;
 	cl_int cloudsIterations;
 	cl_int cloudsRandomSeed;
 	cl_int frameNo;
@@ -108,8 +106,6 @@ typedef struct
 	cl_int antialiasingEnabled;
 	cl_int antialiasingAdaptive;
 	cl_int ambientOcclusionEnabled; // enable global illumination
-	cl_int auxLightRandomEnabled;
-	cl_int auxLightRandomInOneColor;
 	cl_int background3ColorsEnable;
 	cl_int booleanOperatorsEnabled;
 	cl_int cloudsCastShadows;
@@ -148,7 +144,6 @@ typedef struct
 	cl_int volFogEnabled;
 
 	cl_float3 ambientOcclusionColor;
-	cl_float3 auxLightRandomColor;
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
 	cl_float3 background_color3;
@@ -169,9 +164,6 @@ typedef struct
 	cl_float absMinMarchingStep;
 	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
-	cl_float auxLightRandomRadius;
-	cl_float auxLightRandomMaxDistanceFromFractal;
-	cl_float auxLightRandomIntensity;
 	cl_float background_brightness;
 	cl_float backgroundHScale;
 	cl_float backgroundVScale;
@@ -240,7 +232,6 @@ typedef struct
 
 	sImageAdjustmentsCl imageAdjustments;
 
-	cl_float3 auxLightRandomCenter;
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;
 	cl_float3 cloudsRotation;
@@ -269,8 +260,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.antialiasingSize = source.antialiasingSize;
 	target.antialiasingOclDepth = source.antialiasingOclDepth;
 	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
-	target.auxLightRandomNumber = source.auxLightRandomNumber;
-	target.auxLightRandomSeed = source.auxLightRandomSeed;
 	target.cloudsIterations = source.cloudsIterations;
 	target.cloudsRandomSeed = source.cloudsRandomSeed;
 	target.frameNo = source.frameNo;
@@ -302,8 +291,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.antialiasingAdaptive = source.antialiasingAdaptive;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
 
-	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
-	target.auxLightRandomInOneColor = source.auxLightRandomInOneColor;
 	target.background3ColorsEnable = source.background3ColorsEnable;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
 	target.cloudsCastShadows = source.cloudsCastShadows;
@@ -339,7 +326,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogEnabled = source.volFogEnabled;
 	target.ambientOcclusionColor = toClFloat3(source.ambientOcclusionColor);
 
-	target.auxLightRandomColor = toClFloat3(source.auxLightRandomColor);
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
 	target.background_color3 = toClFloat3(source.background_color3);
@@ -360,9 +346,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
 
-	target.auxLightRandomRadius = source.auxLightRandomRadius;
-	target.auxLightRandomMaxDistanceFromFractal = source.auxLightRandomMaxDistanceFromFractal;
-	target.auxLightRandomIntensity = source.auxLightRandomIntensity;
 	target.background_brightness = source.background_brightness;
 	target.backgroundHScale = source.backgroundHScale;
 	target.backgroundVScale = source.backgroundVScale;
@@ -431,7 +414,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
 	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
 
-	target.auxLightRandomCenter = toClFloat3(source.auxLightRandomCenter);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);

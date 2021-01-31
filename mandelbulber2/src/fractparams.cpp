@@ -55,16 +55,6 @@ sParamRender::sParamRender(
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
-	auxLightRandomNumber = container->Get<int>("random_lights_number");
-	auxLightRandomSeed = container->Get<int>("random_lights_random_seed");
-	auxLightRandomCenter = container->Get<CVector3>("random_lights_distribution_center");
-	auxLightRandomRadius = container->Get<double>("random_lights_distribution_radius");
-	auxLightRandomMaxDistanceFromFractal =
-		container->Get<double>("random_lights_max_distance_from_fractal");
-	auxLightRandomIntensity = container->Get<double>("random_lights_intensity");
-	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
-	auxLightRandomInOneColor = container->Get<bool>("random_lights_one_color_enable");
-	auxLightRandomColor = toRGBFloat(container->Get<sRGB>("random_lights_color"));
 	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");
 	background_color1 = toRGBFloat(container->Get<sRGB>("background_color", 1));
 	background_color2 = toRGBFloat(container->Get<sRGB>("background_color", 2));

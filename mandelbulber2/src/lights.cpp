@@ -101,16 +101,32 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 		}
 	}
 
+	int numberOfRandomLights = _params->Get<int>("random_lights_number");
+	bool randomLightsEnabled = _params->Get<bool>("random_lights_group");
 
 	// auto generated random lights
-	if (params->auxLightRandomEnabled && params->auxLightRandomNumber > 0)
+	if (randomLightsEnabled && numberOfRandomLights > 0)
 	{
-		numberOfLights += params->auxLightRandomNumber;
+		numberOfLights += numberOfRandomLights;
+
+		int randomSeed = _params->Get<int>("random_lights_random_seed");
+		double maxDistanceFromFractal = _params->Get<double>("random_lights_max_distance_from_fractal");
+		CVector3 randomLightsCenter = _params->Get<CVector3>("random_lights_distribution_center");
+		double distributionRadius = _params->Get<double>("random_lights_distribution_radius");
+		bool allLightsInOneColor = _params->Get<bool>("random_lights_one_color_enable");
+		sRGBFloat commonColor = toRGBFloat(_params->Get<sRGB>("random_lights_color"));
+		float lightsIntensity = _params->Get<double>("random_lights_intensity");
+		float lightsSize = _params->Get<double>("random_lights_size");
+		float lightsVisibility = _params->Get<double>("random_lights_visibility");
+		float lightsSoftShadowCone = _params->Get<double>("random_lights_soft_shadow_cone");
+		bool lightsPenetrating = _params->Get<bool>("random_lights_penetrating");
+		bool lightsCastShadows = _params->Get<bool>("random_lights_cast_shadows");
+
 		sDistanceOut distanceOut;
 		cRandom random;
-		random.Initialize(params->auxLightRandomSeed);
+		random.Initialize(randomSeed);
 
-		for (int i = 0; i < params->auxLightRandomNumber; i++)
+		for (int i = 0; i < numberOfRandomLights; i++)
 		{
 			int trialNumber = 0;
 			double radiusMultiplier = 1.0;
@@ -118,15 +134,13 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			CVector3 position;
 
 			// try random positioning of light, until distance to surface satisfies
-			while (distance <= 0
-						 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
+			while (distance <= 0 || distance >= maxDistanceFromFractal * radiusMultiplier)
 			{
 				CVector3 rv;
 				rv.x = random.DoubleRandom(-1.0, 1.0);
 				rv.y = random.DoubleRandom(-1.0, 1.0);
 				rv.z = random.DoubleRandom(-1.0, 1.0);
-				position =
-					params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
+				position = randomLightsCenter + rv * distributionRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
 				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
@@ -137,9 +151,9 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			}
 
 			sRGBFloat colour;
-			if (params->auxLightRandomInOneColor)
+			if (allLightsInOneColor)
 			{
-				colour = params->auxLightRandomColor;
+				colour = commonColor;
 			}
 			else
 			{
@@ -151,8 +165,8 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 				colour.B *= convertColorRatio;
 			}
 
-			double distanceLimited = max(0.1 * params->auxLightRandomMaxDistanceFromFractal, distance);
-			double intensity = params->auxLightRandomIntensity * distanceLimited * distanceLimited;
+			double distanceLimited = max(0.1 * maxDistanceFromFractal, distance);
+			double intensity = lightsIntensity * distanceLimited * distanceLimited;
 
 			cLight newLight;
 
@@ -160,6 +174,12 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			newLight.color = colour;
 			newLight.intensity = float(intensity);
 			newLight.enabled = true;
+			newLight.type = cLight::lightSpot;
+			newLight.size = lightsSize;
+			newLight.visibility = lightsVisibility;
+			newLight.softShadowCone = lightsSoftShadowCone;
+			newLight.penetrating = lightsPenetrating;
+			newLight.castShadows = lightsCastShadows;
 
 			lights.push_back(newLight);
 
@@ -167,8 +187,8 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 
 			emit updateProgressAndStatus(QObject::tr("Positioning random lights"),
 				QObject::tr("Positioned light %1 of %2")
-					.arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
-				((i + 1.0) / params->auxLightRandomNumber));
+					.arg(QString::number(i + 1), QString::number(numberOfRandomLights)),
+				((i + 1.0) / numberOfRandomLights));
 			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i),
 			// position.Debug(), QString::number(distance));
 
