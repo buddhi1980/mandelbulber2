@@ -1663,7 +1663,8 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 
 	for (int i = 1; i <= 4; i++)
 		animationPathData.lightPathEnable[i - 1] =
-			params->Get<bool>("show_light_path", i) && params->Get<bool>("aux_light_enabled", i);
+			params->Get<bool>("show_light_path", i)
+			&& params->Get<bool>(QString("light%1_enabled").arg(i));
 
 	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
 	{
@@ -1677,10 +1678,13 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 			point.target = tempPar->Get<CVector3>("target");
 			for (int l = 0; l < 4; l++)
 			{
-				point.lights[l] = tempPar->Get<CVector3>("aux_light_position", l + 1);
-				sRGB color16 = tempPar->Get<sRGB>("aux_light_colour", l + 1);
-				sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
-				point.lightColor[l] = color8;
+				if (params->IfExists(QString("light%1_is_defined").arg(l + 1)))
+				{
+					point.lights[l] = tempPar->Get<CVector3>(QString("light%1_position").arg(l + 1));
+					sRGB color16 = tempPar->Get<sRGB>(QString("light%1_color").arg(l + 1));
+					sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
+					point.lightColor[l] = color8;
+				}
 			}
 			animationPathData.animationPath.append(point);
 		}

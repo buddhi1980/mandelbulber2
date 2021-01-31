@@ -252,6 +252,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						intensity *= CalculateLightCone(light, lightVectorTemp);
 
 						float3 lightShadow = 1.0f;
+#ifdef SHADOWS
 						if (consts->params.cloudsCastShadows && light->castShadows && intensity > 1e-3f)
 						{
 							calcParam->distThresh = input2.distThresh;
@@ -259,6 +260,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
 								lightVectorTemp, calcParam, light->intensity);
 						}
+#endif
 						lightShadow = lightShadow * nAmbient.s0 + ambient.s0;
 						newColour += lightShadow * light->color * intensity;
 					}
@@ -327,6 +329,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						intensity *= CalculateLightCone(light, lightVectorTemp);
 
 						float3 lightShadow = 1.0f;
+#ifdef SHADOWS
 						if (consts->params.iterFogShadows && light->castShadows && intensity > 1e-3f)
 						{
 							calcParam->distThresh = input2.distThresh;
@@ -334,6 +337,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
 								lightVectorTemp, calcParam, light->intensity);
 						}
+#endif
 
 						newColour += lightShadow * light->color * intensity;
 					}
