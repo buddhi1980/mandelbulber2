@@ -64,49 +64,65 @@ if (fractal->transformCommon.functionEnabledFalse)
 		z *= fractal->transformCommon.scaleA1;
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
+
+
 	REAL4 oldZ = z;
-	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	if (fractal->transformCommon.functionEnabled)
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	if (aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabled)
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	}
 	REAL4 zCol = z;
 
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 			z += fractal->transformCommon.offsetA000;
 
-	REAL rrCol = 0.0;
 	// spherical fold
+	REAL rrCol = 0.0;
+	REAL m = 1.0f;
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		REAL rr = dot(z, z);
 		rrCol = rr;
-		REAL MinRR = fractal->transformCommon.minR2p25;
-		REAL dividend = rr < MinRR ? MinRR : min(rr, 1.0f);
-		dividend = 1.0 / dividend;
-		z *= dividend;
-		aux->DE *= dividend;
+		if (rr < fractal->transformCommon.invert0)
+			m = fractal->transformCommon.inv0;
+		else if (rr < fractal->transformCommon.invert1)
+			m = 1.0f / rr;
+		else
+			m = fractal->transformCommon.inv1;
+		z *= m;
+		aux->DE *= m;
 	}
 
 	// scale
-	REAL useScale = 1.0f;
-
-	useScale = (aux->actualScaleA + fractal->transformCommon.scale015);
-	z *= useScale;
-	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
-	if (fractal->transformCommon.functionEnabledKFalse)
+	if (aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		// update actualScaleA for next iteration
-		REAL vary = fractal->transformCommon.scaleVary0
-								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-		aux->actualScaleA = -vary;
+		REAL useScale = 1.0f;
+
+		useScale = (aux->actualScaleA + fractal->transformCommon.scale015);
+		z *= useScale;
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA = -vary;
+		}
 	}
 
-	if (fractal->transformCommon.rotation2EnabledFalse)
+	if (fractal->transformCommon.rotation2EnabledFalse
+		&& aux->i >= fractal->transformCommon.startIterationsC
+		&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
@@ -120,7 +136,48 @@ if (fractal->transformCommon.functionEnabledFalse)
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux->i >= fractal->transformCommon.startIterationsN
+			&& aux->i < fractal->transformCommon.stopIterationsN)
+	{
+		REAL foldX = fractal->transformCommon.offset1;
+		REAL foldY = fractal->transformCommon.offsetA1;
 
+		REAL t;
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAFalse)
+		{
+			t = z.x;
+			z.x = z.y;
+			z.y = t;
+		}
+		t = z.x;
+		z.x = z.x + z.y - fractal->transformCommon.offset0;
+		z.y = t - z.y - fractal->transformCommon.offsetA0;
+		if (fractal->transformCommon.functionEnabledBxFalse
+				&& aux->i >= fractal->transformCommon.startIterationsO
+				&& aux->i < fractal->transformCommon.stopIterationsO)
+			z.x = -fabs(z.x);
+		if (fractal->transformCommon.functionEnabledBx
+				&& aux->i >= fractal->transformCommon.startIterationsP
+				&& aux->i < fractal->transformCommon.stopIterationsP)
+			z.y = -fabs(z.y);
+
+		t = z.x;
+		z.x = z.x + z.y;
+		z.y = t - z.y;
+		z.x *= 0.5f;
+		z.y *= 0.5f;
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD)
+			z.x = foldX - fabs(z.x + foldX);
+		if (fractal->transformCommon.functionEnabledAxFalse
+				&& aux->i >= fractal->transformCommon.startIterationsRV
+				&& aux->i < fractal->transformCommon.stopIterationsRV)
+			z.y = foldY - fabs(z.y + foldY);
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -133,9 +190,9 @@ if (fractal->transformCommon.functionEnabledFalse)
 		if (zCol.z != oldZ.z)
 			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-		if (rrCol > fractal->transformCommon.minR2p25)
+		if (rrCol > fractal->transformCommon.invert0)
 			colorAdd +=
-				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0f;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.invert0) / 100.0f;
 		aux->color += colorAdd;
 	}
 	return z;
