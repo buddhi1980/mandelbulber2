@@ -180,6 +180,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			newLight.softShadowCone = lightsSoftShadowCone;
 			newLight.penetrating = lightsPenetrating;
 			newLight.castShadows = lightsCastShadows;
+			newLight.decayFunction = cLight::lightDecay1R2;
 
 			lights.push_back(newLight);
 

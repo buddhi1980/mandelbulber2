@@ -1381,9 +1381,19 @@ void cSettings::Compatibility2(
 				par->Set(QString("light%1_intensity").arg(i),
 					par->Get<double>(QString("light%1_intensity").arg(i)) / 4.0);
 
-				par->Set(QString("light%1_size").arg(i),
-					par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
+				par->Set(
+					QString("light%1_size").arg(i), par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
 			}
+		}
+
+		// correct intensity of random lights
+		if (par->Get<bool>("random_lights_group"))
+		{
+			int numberOfRandomLights = par->Get<int>("random_lights_number");
+			par->Set("random_lights_intensity",
+				par->Get<double>("random_lights_intensity") / (numberOfRandomLights / 4 + 4));
+			par->Set(
+				"random_lights_size", par->Get<double>("light2_size") * (sqrt(numberOfRandomLights) / 4));
 		}
 	}
 }
