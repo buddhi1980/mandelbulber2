@@ -123,17 +123,17 @@
          <widget class="QComboBox" name="comboBox_type">
           <item>
            <property name="text">
-            <string>Global light</string>
+            <string>Directional light</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Point light</string>
            </property>
           </item>
           <item>
            <property name="text">
             <string>Spot light</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Conical light</string>
            </property>
           </item>
           <item>

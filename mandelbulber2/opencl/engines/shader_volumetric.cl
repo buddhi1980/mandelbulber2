@@ -137,7 +137,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
 
 				float intensity = 0.0f;
-				if (light->type == lightGlobal)
+				if (light->type == lightDirectional)
 					intensity = light->intensity;
 				else
 					intensity = light->intensity / LightDecay(distanceLight, light->decayFunction);
@@ -243,7 +243,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
 
 						float intensity = 0.0f;
-						if (light->type == lightGlobal)
+						if (light->type == lightDirectional)
 							intensity = light->intensity;
 						else
 							intensity =
@@ -320,7 +320,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
 
 						float intensity = 0.0f;
-						if (light->type == lightGlobal)
+						if (light->type == lightDirectional)
 							intensity = light->intensity;
 						else
 							intensity = light->intensity / LightDecay(distanceLight, light->decayFunction)
@@ -365,7 +365,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			{
 				__global sLightCl *light = &renderData->lights[i];
 				if (light->enabled && light->intensity > 0.0f && light->visibility > 0.0f
-						&& light->type != lightGlobal)
+						&& light->type != lightDirectional)
 				{
 					float lastMiniSteps = -1.0f;
 					float miniStep = 0.0f;

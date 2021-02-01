@@ -50,7 +50,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	// where number of light was always 24
 	// float intensity = 100.0f * light->intensity / light->Decay(distance) / number / 6;
 	float intensity;
-	if (light->type == cLight::lightGlobal)
+	if (light->type == cLight::lightDirectional)
 	{
 		intensity = light->intensity;
 	}

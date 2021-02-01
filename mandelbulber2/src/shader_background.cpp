@@ -179,7 +179,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 	for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 	{
 		const cLight *light = data->lights.GetLight(i);
-		if (light->enabled && light->type == cLight::lightGlobal)
+		if (light->enabled && light->type == cLight::lightDirectional)
 		{
 			double intensity = -(viewVectorNorm.Dot(light->lightDirection) - 1.0) * 360.0 / light->size;
 			intensity = 1.0 / (1.0 + pow(intensity, 6.0 * light->contourSharpness))

@@ -174,7 +174,7 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			newLight.color = colour;
 			newLight.intensity = float(intensity);
 			newLight.enabled = true;
-			newLight.type = cLight::lightSpot;
+			newLight.type = cLight::lightPoint;
 			newLight.size = lightsSize;
 			newLight.visibility = lightsVisibility;
 			newLight.softShadowCone = lightsSoftShadowCone;

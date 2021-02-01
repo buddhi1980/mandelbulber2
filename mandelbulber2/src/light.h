@@ -43,8 +43,8 @@ public:
 
 	enum enumLightType
 	{
-		lightGlobal = 0,
-		lightSpot = 1,
+		lightDirectional = 0,
+		lightPoint = 1,
 		lightConical = 2,
 		lightProjection = 3
 	};
@@ -83,7 +83,7 @@ public:
 
 	CRotationMatrix rotMatrix;
 
-	enumLightType type = lightGlobal;
+	enumLightType type = lightDirectional;
 	enumLightDecayFunction decayFunction = lightDecay1R;
 
 	cTexture colorTexture;

@@ -53,7 +53,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	contourSharpness = lightParam->Get<double>(Name("contour_sharpness", id));
 
 	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
-	if (type == lightGlobal)
+	if (type == lightDirectional)
 	{
 		rotation *= CVector3(1.0, -1.0, 1.0);
 	}
@@ -130,7 +130,7 @@ CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, doubl
 	double viewDistanceMax, double &outDistance) const
 {
 	CVector3 lightVector;
-	if (type == cLight::lightGlobal)
+	if (type == cLight::lightDirectional)
 	{
 		lightVector = lightDirection;
 		if (penetrating)

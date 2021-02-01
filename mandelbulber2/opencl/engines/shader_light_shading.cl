@@ -38,7 +38,7 @@ float3 CalculateLightVector(__global sLightCl *light, float3 point, float delta,
 	float viewDistanceMax, float *outDistance)
 {
 	float3 lightVector;
-	if (light->type == lightGlobal)
+	if (light->type == lightDirectional)
 	{
 		lightVector = light->lightDirection;
 		if (light->penetrating)
@@ -100,7 +100,7 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 		consts->params.resolution, consts->params.viewDistanceMax, &dist);
 
 	float intensity = 0.0f;
-	if (light->type == lightGlobal)
+	if (light->type == lightDirectional)
 	{
 		intensity = light->intensity;
 	}

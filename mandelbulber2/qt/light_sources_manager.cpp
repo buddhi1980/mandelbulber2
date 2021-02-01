@@ -90,7 +90,7 @@ void cLightSourcesManager::Regenerate()
 	{
 		delete ui->tabWidget_lightSources->widget(i);
 
-		//checkbox is not deleted with tab, so need to be deleted separately
+		// checkbox is not deleted with tab, so need to be deleted separately
 		qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_lightSources->tabBar())->RemoveCheckBox(i);
 
 		ui->tabWidget_lightSources->removeTab(i);
@@ -129,6 +129,12 @@ void cLightSourcesManager::slotButtonAddLight()
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
-void cLightSourcesManager::slotButtonDuplicateLight() {}
+void cLightSourcesManager::slotButtonDuplicateLight()
+{
+	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
+	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
+
+	AddLight(true, -1);
+}
 
 void cLightSourcesManager::slotButtonDeleteLight() {}

@@ -14,8 +14,8 @@
 
 typedef enum
 {
-	lightGlobal = 0,
-	lightSpot = 1,
+	lightDirectional = 0,
+	lightPoint = 1,
 	lightConical = 2,
 	lightProjection = 3
 } enumLightTypeCl;

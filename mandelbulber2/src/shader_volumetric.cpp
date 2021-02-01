@@ -196,7 +196,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
 
 					float intensity;
-					if (light->type == cLight::lightGlobal)
+					if (light->type == cLight::lightDirectional)
 						intensity = light->intensity;
 					else
 						intensity = light->intensity / light->Decay(distanceLight);
@@ -294,7 +294,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
 
 						float intensity;
-						if (light->type == cLight::lightGlobal)
+						if (light->type == cLight::lightDirectional)
 							intensity = light->intensity;
 						else
 							intensity = 100.0f * light->intensity / light->Decay(distanceLight) / 6.0;
@@ -371,7 +371,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
 
 						float intensity;
-						if (light->type == cLight::lightGlobal)
+						if (light->type == cLight::lightDirectional)
 							intensity = light->intensity;
 						else
 							intensity = light->intensity / light->Decay(distanceLight)
@@ -416,7 +416,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			{
 				const cLight *light = data->lights.GetLight(i);
 				if (light->enabled && light->intensity > 0.0 && light->visibility > 0.0
-						&& light->type != cLight::lightGlobal)
+						&& light->type != cLight::lightDirectional)
 				{
 					double lastMiniSteps = -1.0;
 					double miniStep;

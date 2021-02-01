@@ -1584,7 +1584,7 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 		cLight::Name("color", lightId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 
 	par->addParam(cLight::Name("type", lightId),
-		(lightId == 1) ? int(cLight::lightGlobal) : int(cLight::lightSpot), morphLinear, paramStandard);
+		(lightId == 1) ? int(cLight::lightDirectional) : int(cLight::lightPoint), morphLinear, paramStandard);
 
 	par->addParam(
 		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);

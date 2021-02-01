@@ -143,7 +143,7 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	for (int i = 0; i < renderData->numberOfLights; i++)
 	{
 		__global sLightCl *light = &renderData->lights[i];
-		if (light->enabled && light->type == lightGlobal)
+		if (light->enabled && light->type == lightDirectional)
 		{
 			float intensity = -(dot(viewVectorNorm, light->lightDirection) - 1.0f) * 360.0f / light->size;
 			intensity = 1.0f / (1.0f + pow(intensity, 6.0f * light->contourSharpness)) * light->visibility
