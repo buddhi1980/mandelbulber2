@@ -6,11 +6,12 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * amazing surf Mod4 based on Mandelbulber3D. Formula proposed by Kali, with features added by
- * DarkBeam
+ * ABoxMod15,
+ * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * Variations from DarkBeam, Buddhi and mclarekin
  * This formula has a c.x c.y SWAP
  * @reference
- * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 
 #include "all_fractal_definitions.h"
@@ -105,9 +106,10 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		double rr = z.Dot(z);
 		rrCol = rr;
-		if (rr < fractal->transformCommon.invert0) m = fractal->transformCommon.inv0;
-		else if (rr < fractal->transformCommon.invert1) m = 1.0 / rr;
-		else m = fractal->transformCommon.inv1;
+		if (rr < fractal->transformCommon.minR2p25)
+			m = fractal->transformCommon.maxMinR2factor;
+		else if (rr < fractal->transformCommon.maxR2d1)
+			m = fractal->transformCommon.maxR2d1 / rr;
 		z *= m;
 		aux.DE *= m;
 	}
@@ -118,7 +120,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		double useScale = 1.0;
 
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale015); //  / dividend;
+		useScale = (aux.actualScaleA + fractal->transformCommon.scale015);
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledKFalse)
@@ -137,10 +139,19 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-		z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
+	if (fractal->transformCommon.addCpixelEnabled
+			&& aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		if (!fractal->transformCommon.addCpixelEnabledFalse)
+			z += c * fractal->transformCommon.constantMultiplier111;
+		else
+			z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
+	}
 
-	z += fractal->transformCommon.additionConstantA000;
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
+		z += fractal->transformCommon.additionConstantA000;
 
 	if (aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
@@ -191,18 +202,25 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (zCol.x != oldZ.x)
-			colorAdd += fractal->foldColor.difs0000.x
-									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-		if (zCol.y != oldZ.y)
-			colorAdd += fractal->foldColor.difs0000.y
-									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-		if (zCol.z != oldZ.z)
-			colorAdd += fractal->foldColor.difs0000.z
-									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-		if (rrCol > fractal->transformCommon.invert0)
+
+		if (aux.i >= fractal->foldColor.startIterationsA
+				&& aux.i < fractal->foldColor.stopIterationsA)
+		{
+			zCol = fabs(zCol - oldZ);
+			if (zCol.x > 0.0)
+				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+			if (zCol.y > 0.0)
+				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+			if (zCol.z > 0.0)
+				colorAdd += fractal->foldColor.difs0000.z * zCol.z;
+		}
+
+		if (rrCol > fractal->transformCommon.maxR2d1)
 			colorAdd +=
-				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.invert0) / 100.0;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.maxR2d1) / 100.0;
+
+		colorAdd += fractal->mandelbox.color.factorSp1 * m;
+
 		aux.color += colorAdd;
 	}
 }

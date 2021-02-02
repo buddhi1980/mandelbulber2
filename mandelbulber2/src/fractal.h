@@ -111,6 +111,8 @@ struct sFoldColor
 	bool auxColorEnabledA;
 	bool auxColorEnabledFalse;
 	bool auxColorEnabledAFalse;
+	int startIterationsA;
+	int stopIterationsA;
 };
 
 struct sFractalGeneralizedFoldBox

@@ -121,6 +121,8 @@ typedef struct
 	cl_int auxColorEnabledA;
 	cl_int auxColorEnabledFalse;
 	cl_int auxColorEnabledAFalse;
+	cl_int startIterationsA;
+	cl_int stopIterationsA;
 } sFoldColorCl;
 
 typedef struct
@@ -881,6 +883,8 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.auxColorEnabledA = source.auxColorEnabledA;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	target.auxColorEnabledAFalse = source.auxColorEnabledAFalse;
+	target.startIterationsA = source.startIterationsA;
+	target.stopIterationsA = source.stopIterationsA;
 	return target;
 }
 

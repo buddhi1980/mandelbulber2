@@ -262,6 +262,9 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	foldColor.auxColorEnabledAFalse = container->Get<bool>("fold_color_aux_color_enabledA_false");
 	foldColor.difs1 = container->Get<double>("fold_color_difs1");
 	foldColor.difs0000 = container->Get<CVector4>("fold_color_difs_0000");
+	foldColor.startIterationsA = container->Get<int>("fold_color_start_iterations_A");
+	foldColor.stopIterationsA = container->Get<int>("fold_color_stop_iterations_A");
+
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");

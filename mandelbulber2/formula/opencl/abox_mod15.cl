@@ -92,12 +92,10 @@ if (fractal->transformCommon.functionEnabledFalse)
 	{
 		REAL rr = dot(z, z);
 		rrCol = rr;
-		if (rr < fractal->transformCommon.invert0)
-			m = fractal->transformCommon.inv0;
-		else if (rr < fractal->transformCommon.invert1)
-			m = 1.0f / rr;
-		else
-			m = fractal->transformCommon.inv1;
+		if (rr < fractal->transformCommon.minR2p25)
+			m = fractal->transformCommon.maxMinR2factor;
+		else if (rr < fractal->transformCommon.maxR2d1)
+			m = fractal->transformCommon.maxR2d1 / rr;
 		z *= m;
 		aux->DE *= m;
 	}
@@ -127,10 +125,19 @@ if (fractal->transformCommon.functionEnabledFalse)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-		z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
+	if (fractal->transformCommon.addCpixelEnabled
+		&& aux->i >= fractal->transformCommon.startIterationsG
+		&& aux->i < fractal->transformCommon.stopIterationsG)
+	{
+		if (!fractal->transformCommon.addCpixelEnabledFalse)
+			z += c * fractal->transformCommon.constantMultiplier111;
+		else
+			z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
+	}
 
-	z += fractal->transformCommon.additionConstantA000;
+	if (aux->i >= fractal->transformCommon.startIterationsF
+			&& aux->i < fractal->transformCommon.stopIterationsF)
+			z += fractal->transformCommon.additionConstantA000;
 
 	if (aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
@@ -181,18 +188,21 @@ if (fractal->transformCommon.functionEnabledFalse)
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (zCol.x != oldZ.x)
-			colorAdd += fractal->foldColor.difs0000.x
-									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-		if (zCol.y != oldZ.y)
-			colorAdd += fractal->foldColor.difs0000.y
-									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-		if (zCol.z != oldZ.z)
-			colorAdd += fractal->foldColor.difs0000.z
-									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
-		if (rrCol > fractal->transformCommon.invert0)
+		if (aux->i >= fractal->foldColor.startIterationsA
+				&& aux->i < fractal->foldColor.stopIterationsA)
+		{
+			zCol = fabs(zCol - oldZ);
+			if (zCol.x > 0.0)
+				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+			if (zCol.y > 0.0)
+				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+			if (zCol.z > 0.0)
+				colorAdd += fractal->foldColor.difs0000.z * zCol.z;
+		}
+		if (rrCol > fractal->transformCommon.maxR2d1)
 			colorAdd +=
-				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.invert0) / 100.0f;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.maxR2d1) / 100.0;
+		colorAdd += fractal->mandelbox.color.factorSp1 * m;
 		aux->color += colorAdd;
 	}
 	return z;

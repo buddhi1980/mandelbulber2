@@ -796,6 +796,9 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fold_color_aux_color_enabledA_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_difs1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_difs_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fold_color_start_iterations_A", 0, morphLinear, paramStandard);
+	par->addParam("fold_color_stop_iterations_A", 250, morphLinear, paramStandard);
+
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
