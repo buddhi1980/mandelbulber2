@@ -16,7 +16,7 @@
 
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux.const_c;
+	REAL4 c = aux->const_c;
 	REAL4 zc = c;
 	if (fractal->transformCommon.functionEnabledyFalse)
 		zc = z;
