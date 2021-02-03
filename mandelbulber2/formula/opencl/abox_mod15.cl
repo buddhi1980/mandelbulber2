@@ -108,7 +108,7 @@ if (fractal->transformCommon.functionEnabledFalse)
 
 		useScale = (aux->actualScaleA + fractal->transformCommon.scale2);
 		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset1;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
