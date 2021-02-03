@@ -23,7 +23,7 @@ cFractalAboxMod15::cFractalAboxMod15() : cAbstractFractal()
 	internalID = fractal::aboxMod15;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
-	cpixelAddition = cpixelDisabledByDefault;
+	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionABox;
@@ -120,7 +120,7 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	{
 		double useScale = 1.0;
 
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale015);
+		useScale = (aux.actualScaleA + fractal->transformCommon.scale2);
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledKFalse)
@@ -139,14 +139,11 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (fractal->transformCommon.addCpixelEnabled
+	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		if (!fractal->transformCommon.addCpixelEnabledFalse)
-			z += c * fractal->transformCommon.constantMultiplier111;
-		else
-			z += CVector4(c.y, c.x, c.z, c.w) * fractal->transformCommon.constantMultiplier111;
+		z += c * fractal->transformCommon.constantMultiplier111;
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsF

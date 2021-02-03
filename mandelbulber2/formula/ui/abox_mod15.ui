@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>3626</height>
+    <height>3809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1355,7 +1355,7 @@ offset:</string>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_015">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1700,7 +1700,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -1778,13 +1778,6 @@ offset:</string>
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled_false">
-        <property name="text">
-         <string> c.x c.y swap</string>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_24" columnstretch="0,0,1">
@@ -3292,7 +3285,7 @@ Multiplier:</string>
  <tabstops>
   <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
   <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
-  <tabstop>groupCheck_transf_addCpixel_enabled</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>

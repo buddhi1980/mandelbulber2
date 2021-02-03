@@ -106,7 +106,7 @@ if (fractal->transformCommon.functionEnabledFalse)
 	{
 		REAL useScale = 1.0f;
 
-		useScale = (aux->actualScaleA + fractal->transformCommon.scale015);
+		useScale = (aux->actualScaleA + fractal->transformCommon.scale2);
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledKFalse)
@@ -125,14 +125,11 @@ if (fractal->transformCommon.functionEnabledFalse)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (fractal->transformCommon.addCpixelEnabled
+	if (fractal->transformCommon.addCpixelEnabledFalse
 		&& aux->i >= fractal->transformCommon.startIterationsG
 		&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		if (!fractal->transformCommon.addCpixelEnabledFalse)
-			z += c * fractal->transformCommon.constantMultiplier111;
-		else
-			z += (REAL4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
+		z += c * fractal->transformCommon.constantMultiplier111;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsF
