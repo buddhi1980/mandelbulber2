@@ -16,7 +16,11 @@
 
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 zc = z;
+	REAL4 c = aux.const_c;
+	REAL4 zc = c;
+	if (fractal->transformCommon.functionEnabledyFalse)
+		zc = z;
+	zc.z += fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
@@ -159,7 +163,6 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	// plane
-	REAL4 c = aux->const_c;
 	REAL plD = 1000.0f;
 	if (fractal->transformCommon.functionEnabledPFalse)
 		plD = fabs(c.z - fractal->transformCommon.offsetF0);

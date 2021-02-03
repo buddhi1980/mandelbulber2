@@ -28,8 +28,11 @@ cFractalTransfDIFSGridV3::cFractalTransfDIFSGridV3() : cAbstractFractal()
 
 void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 zc = z;
 	CVector4 c = aux.const_c;
+	CVector4 zc = c;
+	if (fractal->transformCommon.functionEnabledyFalse)
+		zc = z;
+	zc.z += fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{

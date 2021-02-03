@@ -30,6 +30,55 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+     <property name="text">
+      <string>zc = z</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_46">
+       <property name="text">
+        <string notr="true"> zc.z offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledT_false">
      <property name="toolTip">
       <string/>
@@ -1185,31 +1234,10 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="4" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-          <property name="text">
-           <string notr="true">parallel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-          <property name="text">
-           <string notr="true">rectangle</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_26">
-          <property name="text">
-           <string>radius or width:</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_p05">
           <property name="sizePolicy">
@@ -1365,6 +1393,27 @@
           </property>
          </widget>
         </item>
+        <item row="4" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+          <property name="text">
+           <string notr="true">parallel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+          <property name="text">
+           <string notr="true">rectangle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_26">
+          <property name="text">
+           <string>radius or width:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -1385,7 +1434,7 @@
      <item>
       <widget class="QLabel" name="label_42">
        <property name="text">
-        <string notr="true"> height:</string>
+        <string notr="true">c.z offset:</string>
        </property>
       </widget>
      </item>
