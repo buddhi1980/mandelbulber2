@@ -156,4 +156,17 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
 }
 
-void cLightSourcesManager::slotButtonDeleteLight() {}
+void cLightSourcesManager::slotButtonDeleteLight()
+{
+	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
+	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
+
+	for (QString parameterName : cLight::paramsList)
+	{
+		QString fullParameterName = QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
+
+		gPar->DeleteParameter(fullParameterName);
+	}
+
+	Regenerate();
+}
