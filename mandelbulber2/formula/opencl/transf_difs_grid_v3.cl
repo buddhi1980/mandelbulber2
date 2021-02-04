@@ -17,9 +17,8 @@
 REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-	REAL4 zc = c;
-	if (fractal->transformCommon.functionEnabledyFalse)
-		zc = z;
+	REAL4 zc = z;
+	if (fractal->transformCommon.functionEnabledyFalse) zc = c;
 	zc.z += fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -142,25 +141,23 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 
 	// DE
-	REAL tD = 1000.0;
-	REAL bb = zc.x - round(zc.x);
-	if (fractal->transformCommon.functionEnabledXFalse)
-		bb = fabs(bb) - fractal->transformCommon.offsetA0;
+	REAL tD = zc.x - round(zc.x);
+
 	zc.z /= fractal->transformCommon.scale3D111.z;
+
+	tD = fabs(tD) - fractal->transformCommon.offsetA0;
 
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
-		if (fractal->transformCommon.functionEnabledYFalse)
-			tD = max(
-				fabs(tD) - fractal->transformCommon.offsetA0,
-					fabs(zc.z) - fractal->transformCommon.offsetB0);
+		tD = sqrt(tD * tD + zc.z * zc.z);
+		tD = max(tD, fabs(zc.z) + fractal->transformCommon.offsetB0);
 	}
 	else
 	{
 		tD = max(
-			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+			fabs(tD) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
+	tD -= fractal->transformCommon.offsetp05;
 
 	// plane
 	REAL plD = 1000.0f;

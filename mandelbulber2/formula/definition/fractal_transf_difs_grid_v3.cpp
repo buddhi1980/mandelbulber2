@@ -29,9 +29,9 @@ cFractalTransfDIFSGridV3::cFractalTransfDIFSGridV3() : cAbstractFractal()
 void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	CVector4 zc = c;
-	if (fractal->transformCommon.functionEnabledyFalse)
-		zc = z;
+	CVector4 zc = z;
+	if (fractal->transformCommon.functionEnabledyFalse) zc = c;
+
 	zc.z += fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -151,26 +151,24 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
-	// DE
-	double tD = 1000.0;
-	double bb = zc.x - round(zc.x);
-	if (fractal->transformCommon.functionEnabledXFalse)
-		bb = fabs(bb) - fractal->transformCommon.offsetA0;
+	// DE cross section
+	double tD = zc.x - round(zc.x);
+
 	zc.z /= fractal->transformCommon.scale3D111.z;
 
-	if (!fractal->transformCommon.functionEnabledDFalse)
+	tD = fabs(tD) - fractal->transformCommon.offsetA0;
+
+	if (!fractal->transformCommon.functionEnabledDFalse) // circle
 	{
-		tD = sqrt(bb * bb + zc.z * zc.z) - fractal->transformCommon.offsetp05;
-		if (fractal->transformCommon.functionEnabledYFalse)
-			tD = max(
-				fabs(tD) - fractal->transformCommon.offsetA0,
-						fabs(zc.z) - fractal->transformCommon.offsetB0);
+		tD = sqrt(tD * tD + zc.z * zc.z);
+		tD = max(tD, fabs(zc.z) + fractal->transformCommon.offsetB0);
 	}
-	else
+	else // rectangle
 	{
 		tD = max(
-			fabs(bb) - fractal->transformCommon.offsetp05, fabs(zc.z) - fractal->transformCommon.offsetB0);
+			fabs(tD), fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
+	tD -= fractal->transformCommon.offsetp05;
 
 	// plane
 	double plD = 1000.0;
