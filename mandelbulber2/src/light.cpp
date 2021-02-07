@@ -21,7 +21,7 @@ cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, b
 	setParameters(_id, lightParam, loadTextures, quiet, useNetRender);
 }
 
-cLight::~cLight() = default;
+// cLight::~cLight() = default;
 
 // this static list will be use to optimize usage of material parameters
 const QStringList cLight::paramsList = {"is_defined", "enabled", "cast_shadows", "penetrating",

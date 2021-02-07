@@ -66,7 +66,7 @@ public:
 	cTexture &operator=(cTexture &&tex);
 	cTexture(cTexture &&other);
 
-	~cTexture();
+	~cTexture() = default;
 	int Height() const { return height; }
 	int Width() const { return width; }
 	sRGBFloat Pixel(float x, float y, float pixelSize = 0.0) const;
@@ -92,6 +92,8 @@ private:
 	QString originalFileName;
 	QList<QVector<sRGBFloat>> mipmaps;
 	QList<CVector2<int>> mipmapSizes;
+
+	static const int defaultSize = 5;
 };
 
 #endif /* MANDELBULBER2_SRC_TEXTURE_HPP_ */

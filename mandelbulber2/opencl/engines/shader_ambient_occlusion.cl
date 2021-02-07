@@ -75,7 +75,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			float dist_thresh;
-			if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0])
+			if (consts->params.iterFogEnabled)
 			{
 				dist_thresh = CalcDistThresh(point2, consts);
 			}

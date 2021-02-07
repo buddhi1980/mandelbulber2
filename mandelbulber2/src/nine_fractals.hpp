@@ -60,7 +60,6 @@ class cNineFractals
 public:
 	cNineFractals(std::shared_ptr<const cFractalContainer> fractalPar,
 		std::shared_ptr<const cParameterContainer> generalPar);
-	~cNineFractals();
 	sFractal *GetFractal(int index) const { return fractals[index].get(); }
 	int GetSequence(const int i) const;
 	bool IsHybrid() const { return isHybrid; }

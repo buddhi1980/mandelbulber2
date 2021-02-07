@@ -135,10 +135,10 @@ cTexture::cTexture(
 		if (!beQuiet && !useNetRender)
 			gErrorMessage->showMessageFromOtherThread(
 				QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
-		width = 100;
-		height = 100;
+		width = defaultSize;
+		height = defaultSize;
 		loaded = false;
-		bitmap.resize(100 * 100);
+		bitmap.resize(defaultSize * defaultSize);
 		std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
 	}
 
@@ -191,6 +191,7 @@ cTexture &cTexture::operator=(cTexture &&other)
 	originalFileName = std::move(other.originalFileName);
 	mipmaps = std::move(other.mipmaps);
 	mipmapSizes = std::move(other.mipmapSizes);
+
 	return *this;
 }
 
@@ -226,31 +227,21 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	{
 		cErrorMessage::showMessage(
 			QObject::tr("Can't load texture from QByteArray!\n"), cErrorMessage::errorMessage);
-		width = 100;
-		height = 100;
+		width = defaultSize;
+		height = defaultSize;
 		loaded = false;
-		bitmap.resize(100 * 100);
+		bitmap.resize(defaultSize * defaultSize);
 		std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
 	}
 }
 
 cTexture::cTexture()
 {
-	width = 100;
-	height = 100;
+	width = defaultSize;
+	height = defaultSize;
 	loaded = false;
-	bitmap.resize(100 * 100);
+	bitmap.resize(defaultSize * defaultSize);
 	std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
-}
-
-// destructor
-cTexture::~cTexture()
-{
-	//	if (bitmap)
-	//	{
-	//		delete[] bitmap;
-	//		bitmap = nullptr;
-	//	}
 }
 
 // read pixel

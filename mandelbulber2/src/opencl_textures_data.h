@@ -38,6 +38,7 @@
 #ifdef USE_OPENCL
 
 #include "opencl_abstract_dynamic_data.h"
+#include <map>
 
 struct sTextures;
 class cMaterial;
@@ -50,8 +51,8 @@ public:
 	~cOpenClTexturesData();
 
 	static int CheckNumberOfTextures(
-		const sTextures &textures, const QMap<int, cMaterial> &materials);
-	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials,
+		const sTextures &textures, const std::map<int, cMaterial> &materials);
+	void BuildAllTexturesData(const sTextures &textures, const std::map<int, cMaterial> &materials,
 		QMap<QString, int> *textureIndexes);
 	QString GetDefinesCollector() const;
 

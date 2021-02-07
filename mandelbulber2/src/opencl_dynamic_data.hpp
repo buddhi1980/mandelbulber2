@@ -37,6 +37,7 @@
 
 #include "include_header_wrapper.hpp"
 #include "opencl_abstract_dynamic_data.h"
+#include <map>
 
 class cMaterial;
 struct sVectorsAround;
@@ -51,7 +52,7 @@ public:
 	cOpenClDynamicData();
 	~cOpenClDynamicData();
 
-	int BuildMaterialsData(const QMap<int, cMaterial> &materials,
+	int BuildMaterialsData(const std::map<int, cMaterial> &materials,
 		const QMap<QString, int> &textureIndexes); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);

@@ -37,6 +37,7 @@
 
 #include <functional>
 #include <memory>
+#include <map>
 
 #include <QtAlgorithms>
 
@@ -743,8 +744,10 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasReflectanceGradient = false;
 	bool anyMaterialHasTransparencyGradient = false;
 
-	foreach (cMaterial material, renderData->materials)
+	for (auto const &materialPair : renderData->materials) // for each material from materials
 	{
+		cMaterial const &material = materialPair.second;
+
 		if (material.reflectance > 0.0f) anyMaterialIsReflective = true;
 		if (material.transparencyOfSurface > 0.0f) anyMaterialIsRefractive = true;
 		if (material.fractalColoring.coloringAlgorithm != fractalColoring_Standard)

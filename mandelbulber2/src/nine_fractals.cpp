@@ -46,11 +46,6 @@
 #include "opencl/opencl_algebra.h"
 #endif
 
-cNineFractals::~cNineFractals()
-{
-	// nothing to delete
-}
-
 cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 	std::shared_ptr<const cParameterContainer> generalPar)
 {

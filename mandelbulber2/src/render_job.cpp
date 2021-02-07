@@ -849,7 +849,12 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 	QSet<QString> listOfTextures;
 	if (renderData)
 	{
-		QList<int> keys = renderData->materials.keys();
+		QList<int> keys;
+		for (auto const &element : renderData->materials)
+		{
+			keys.push_back(element.first);
+		}
+
 		for (int matIndex : keys)
 		{
 			if (renderData->materials[matIndex].colorTexture.IsLoaded())

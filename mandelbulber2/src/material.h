@@ -54,7 +54,7 @@ public:
 	cMaterial();
 	cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam, bool loadTextures,
 		bool quiet, bool useNetRender);
-	~cMaterial();
+	//~cMaterial();
 	void setParameters(int _id, const std::shared_ptr<cParameterContainer> materialParam,
 		bool loadTextures, bool quiet, bool useNetRender);
 
@@ -62,6 +62,8 @@ public:
 	{
 		return QString("mat%1_").arg(materialId) + name;
 	}
+
+	// cMaterial(cMaterial &&) = default;
 
 	static QStringList paramsList;
 
@@ -156,6 +158,6 @@ public:
 };
 
 void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
-	QMap<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender);
+	std::map<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender);
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

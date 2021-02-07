@@ -71,15 +71,16 @@ cOpenClTexturesData::~cOpenClTexturesData()
 }
 
 int cOpenClTexturesData::CheckNumberOfTextures(
-	const sTextures &textures, const QMap<int, cMaterial> &materials)
+	const sTextures &textures, const std::map<int, cMaterial> &materials)
 {
 	int numberOfTextures = 0;
 	QSet<QString> listOfTextures;
 
 	CountTexture(&textures.envmapTexture, false, &listOfTextures, &numberOfTextures);
 
-	for (const cMaterial &material : materials) // for each material from materials
+	for (auto const &materialPair : materials) // for each material from materials
 	{
+		cMaterial const &material = materialPair.second;
 		CountTexture(&material.colorTexture, false, &listOfTextures, &numberOfTextures);
 		CountTexture(&material.diffusionTexture, false, &listOfTextures, &numberOfTextures);
 		CountTexture(&material.displacementTexture, true, &listOfTextures,
@@ -116,7 +117,7 @@ bool cOpenClTexturesData::CountTexture(
 }
 
 void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
-	const QMap<int, cMaterial> &materials, QMap<QString, int> *textureIndexes)
+	const std::map<int, cMaterial> &materials, QMap<QString, int> *textureIndexes)
 {
 	WriteLog("OpenCL - BuildAllTexturesData()", 2);
 
@@ -145,8 +146,9 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	useSphericalMapping = false;
 	useCubicMapping = false;
 
-	for (const cMaterial &material : materials) // for each material from materials
+	for (auto const &materialPair : materials) // for each material from materials
 	{
+		cMaterial const &material = materialPair.second;
 		if (material.colorTexture.IsLoaded()) useColorTexture = true;
 		if (CountTexture(&material.colorTexture, false, &listOfTextures, &textureIndex))
 		{

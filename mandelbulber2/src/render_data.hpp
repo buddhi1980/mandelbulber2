@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_RENDER_DATA_HPP_
 
 #include <QDebug>
+#include <map>
 
 #include "lights.hpp"
 #include "material.h"
@@ -77,7 +78,7 @@ struct sRenderData
 	QVector<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;
 
-	QMap<int, cMaterial> materials; // 'int' is an ID
+	std::map<int, cMaterial> materials; // 'int' is an ID
 	QVector<cObjectData> objectData;
 	cStereo stereo;
 
@@ -91,12 +92,16 @@ struct sRenderData
 			if (materials.size() == 0)
 			{
 				qCritical() << "No materials defined! Adding empty material";
-				materials.insert(1, cMaterial());
+				materials.emplace(1, cMaterial());
 			}
 
-			if (!materials.contains(materialId))
+			if (materials.find(materialId) == materials.end())
 			{
-				QList<int> keys = materials.keys();
+				QList<int> keys;
+				for (auto const &element : materials)
+				{
+					keys.push_back(element.first);
+				}
 				std::sort(keys.begin(), keys.end());
 				int substituteMaterialId = keys.first();
 				qCritical() << QString("Material #%1 is not defined. Will be substitubed by material #%2")

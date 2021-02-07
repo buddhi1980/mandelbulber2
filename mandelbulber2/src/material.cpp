@@ -101,7 +101,7 @@ cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materia
 	setParameters(_id, materialParam, loadTextures, quiet, useNetRender);
 }
 
-cMaterial::~cMaterial() = default;
+//cMaterial::~cMaterial() = default;
 
 // this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {
@@ -580,7 +580,7 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 }
 
 void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
-	QMap<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender)
+	std::map<int, cMaterial> *materials, bool loadTextures, bool quiet, bool useNetRender)
 {
 	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();
@@ -592,7 +592,8 @@ void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
 			int matIndex = parameterName.midRef(3, positionOfDash - 3).toInt();
 			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
 			{
-				materials->insert(matIndex, cMaterial(matIndex, params, loadTextures, quiet, useNetRender));
+				materials->emplace(
+					matIndex, std::move(cMaterial(matIndex, params, loadTextures, quiet, useNetRender)));
 			}
 		}
 	}

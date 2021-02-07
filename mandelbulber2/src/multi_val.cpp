@@ -54,48 +54,6 @@ cMultiVal::cMultiVal()
 	type = typeNull;
 }
 
-cMultiVal::~cMultiVal()
-{
-	// nothing
-}
-
-void cMultiVal::copy(const cMultiVal &other)
-{
-	for (int i = 0; i < 4; i++)
-	{
-		iVal[i] = other.iVal[i];
-		dVal[i] = other.dVal[i];
-	}
-	type = other.type;
-	typeDefined = other.typeDefined;
-}
-
-cMultiVal::cMultiVal(const cMultiVal &other)
-{
-	copy(other);
-	sVal = other.sVal;
-}
-
-cMultiVal::cMultiVal(cMultiVal &&other)
-{
-	copy(other);
-	sVal = std::move(other.sVal);
-}
-
-cMultiVal &cMultiVal::operator=(const cMultiVal &other)
-{
-	copy(other);
-	sVal = other.sVal;
-	return *this;
-}
-
-cMultiVal &cMultiVal::operator=(cMultiVal &&other)
-{
-	copy(other);
-	sVal = std::move(other.sVal);
-	return *this;
-}
-
 enumVarType cMultiVal::Store(double val)
 {
 	dVal[0] = val;

@@ -35,6 +35,7 @@
 #include "opencl_dynamic_data.hpp"
 
 #include <vector>
+#include <map>
 
 #include "color_gradient.h"
 #include "light.h"
@@ -62,7 +63,7 @@ cOpenClDynamicData::cOpenClDynamicData()
 cOpenClDynamicData::~cOpenClDynamicData() = default;
 
 int cOpenClDynamicData::BuildMaterialsData(
-	const QMap<int, cMaterial> &materials, const QMap<QString, int> &textureIndexes)
+	const std::map<int, cMaterial> &materials, const QMap<QString, int> &textureIndexes)
 {
 	/* material dynamic data structure
 
@@ -99,7 +100,11 @@ int cOpenClDynamicData::BuildMaterialsData(
 
 	// number of materials is a maximum material index
 	// Empty material indexes will be filled with zero data
-	QList<int> keys = materials.keys();
+	QList<int> keys;
+	for (auto const &element : materials)
+	{
+		keys.push_back(element.first);
+	}
 
 	std::sort(keys.begin(), keys.end());
 	cl_int numberOfMaterials = keys.last() + 1;
@@ -142,9 +147,9 @@ int cOpenClDynamicData::BuildMaterialsData(
 		cl_int paletteOffsetTransparency;
 		cl_int paletteSizeTransparency;
 
-		if (materials.contains(materialIndex))
+		if (materials.find(materialIndex) != materials.end())
 		{
-			cMaterial material = materials[materialIndex];
+			const cMaterial &material = materials.at(materialIndex);
 			materialCl = clCopySMaterialCl(material);
 
 			QString textureName;

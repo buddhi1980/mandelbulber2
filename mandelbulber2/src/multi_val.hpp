@@ -59,11 +59,6 @@ class cMultiVal
 {
 public:
 	cMultiVal();
-	~cMultiVal();
-	cMultiVal(const cMultiVal &other);
-	cMultiVal(cMultiVal &&other);
-	cMultiVal &operator=(const cMultiVal &other);
-	cMultiVal &operator=(cMultiVal &&other);
 
 	enumVarType Store(double val);
 	enumVarType Store(int val);
@@ -84,7 +79,6 @@ public:
 
 private:
 	bool isEqual(const cMultiVal &m) const;
-	void copy(const cMultiVal &other);
 
 	double dVal[4];
 	int iVal[4];

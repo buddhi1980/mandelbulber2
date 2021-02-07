@@ -24,7 +24,10 @@ public:
 	cLight();
 	cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, bool loadTextures,
 		bool quiet, bool useNetRender);
-	~cLight();
+	//	~cLight();
+	//	cLight(cLight &&) = default;
+	//	cLight(const cLight &) = default;
+	//	cLight
 
 	void setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 		bool loadTextures, bool quiet, bool useNetRender);

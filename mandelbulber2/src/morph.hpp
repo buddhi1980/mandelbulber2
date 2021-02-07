@@ -57,7 +57,7 @@ public:
 		{
 		}
 		int keyframe;
-		const cOneParameter parameter;
+		cOneParameter parameter;
 	};
 
 	cMorph();
