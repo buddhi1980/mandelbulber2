@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <QString>
+#include <QStringList>
 
 #include "algebra.hpp"
 #include "color_structures.hpp"

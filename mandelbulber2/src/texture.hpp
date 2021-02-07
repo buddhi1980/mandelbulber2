@@ -41,9 +41,10 @@
 #ifndef MANDELBULBER2_SRC_TEXTURE_HPP_
 #define MANDELBULBER2_SRC_TEXTURE_HPP_
 
-#include <qbytearray.h>
-#include <qlist.h>
-#include <qstring.h>
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QVector>
 
 #include <vector>
 
