@@ -145,61 +145,54 @@ cTexture::cTexture(
 	WriteLogString("Loading texture - finished", filename, 3);
 }
 
-/*
 // copy constructor
 cTexture::cTexture(const cTexture &tex)
 {
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
+	bitmap = tex.bitmap;
 	originalFileName = tex.originalFileName;
-	bitmap = new sRGBA16[width * height];
-	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
+}
+
+// move cotructor
+cTexture::cTexture(cTexture &&other)
+{
+	width = other.width;
+	height = other.height;
+	loaded = other.loaded;
+	bitmap = std::move(other.bitmap);
+	originalFileName = std::move(other.originalFileName);
+	mipmaps = std::move(other.mipmaps);
+	mipmapSizes = std::move(other.mipmapSizes);
 }
 
 cTexture &cTexture::operator=(const cTexture &tex)
 {
-	if (bitmap)
-	{
-		delete[] bitmap;
-		bitmap = nullptr;
-	}
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
-	originalFileName = tex.originalFileName;
-	bitmap = new sRGBA16[width * height];
-	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
-	mipmaps = tex.mipmaps;
-	mipmapSizes = tex.mipmapSizes;
-
-	return *this;
-}
-
-cTexture &cTexture::operator=(cTexture &&tex)
-{
-	if (bitmap)
-	{
-		delete[] bitmap;
-		bitmap = nullptr;
-	}
-	width = tex.width;
-	height = tex.height;
-	loaded = tex.loaded;
-	originalFileName = tex.originalFileName;
-	mipmaps = tex.mipmaps;
-	mipmapSizes = tex.mipmapSizes;
-
-	// move
 	bitmap = tex.bitmap;
-	tex.bitmap = nullptr;
-	tex.loaded = false;
+	originalFileName = tex.originalFileName;
+	mipmaps = tex.mipmaps;
+	mipmapSizes = tex.mipmapSizes;
 
 	return *this;
 }
-*/
+
+cTexture &cTexture::operator=(cTexture &&other)
+{
+	width = other.width;
+	height = other.height;
+	loaded = other.loaded;
+	bitmap = std::move(other.bitmap);
+	originalFileName = std::move(other.originalFileName);
+	mipmaps = std::move(other.mipmaps);
+	mipmapSizes = std::move(other.mipmapSizes);
+	return *this;
+}
 
 void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 {

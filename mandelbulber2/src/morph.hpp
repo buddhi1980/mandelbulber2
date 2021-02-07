@@ -52,12 +52,12 @@ class cMorph
 public:
 	struct sMorphParameter
 	{
-		sMorphParameter(int _keyframe, cOneParameter _parameter)
-				: keyframe(_keyframe), parameter(std::move(_parameter))
+		sMorphParameter(int _keyframe, const cOneParameter &_parameter)
+				: keyframe(_keyframe), parameter(_parameter)
 		{
 		}
 		int keyframe;
-		cOneParameter parameter;
+		const cOneParameter parameter;
 	};
 
 	cMorph();

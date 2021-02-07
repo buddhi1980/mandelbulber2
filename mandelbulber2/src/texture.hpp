@@ -61,9 +61,10 @@ public:
 
 	cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet, bool useNetRender);
 	cTexture();
-	//	cTexture(const cTexture &tex);
-	//	cTexture &operator=(const cTexture &tex);
-	//	cTexture &operator=(cTexture &&tex);
+	cTexture(const cTexture &tex);
+	cTexture &operator=(const cTexture &tex);
+	cTexture &operator=(cTexture &&tex);
+	cTexture(cTexture &&other);
 
 	~cTexture();
 	int Height() const { return height; }
