@@ -79,7 +79,6 @@ typedef struct
 	cl_int antialiasingSize;
 	cl_int antialiasingOclDepth;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
-	cl_int auxLightNumber;
 	cl_int cloudsIterations;
 	cl_int cloudsRandomSeed;
 	cl_int frameNo;

@@ -66,7 +66,7 @@ public:
 		sRGBFloat color;
 		unsigned int done;
 		bool stopRequest;
-		QList<int> *list;
+		QList<int> list;
 		cRegion<int> region;
 	};
 

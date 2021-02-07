@@ -34,6 +34,7 @@
 
 #include "render_ssao.h"
 
+#include <QList>
 #include <vector>
 
 #include "cimage.hpp"
@@ -124,9 +125,9 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		threadData[i].region = region;
 
 		if (list)
-			threadData[i].list = &lists[i];
+			threadData[i].list = lists[i];
 		else
-			threadData[i].list = nullptr;
+			threadData[i].list = QList<int>();
 	}
 
 	QString statusText;

@@ -98,13 +98,13 @@ void cSSAOWorker::doWork()
 
 	for (int y = startLineInit; y < endLine; y += threadData->noOfThreads)
 	{
-		if (threadData->list)
+		if (!threadData->list.isEmpty())
 		{
-			if (listIndex >= threadData->list->size())
+			if (listIndex >= threadData->list.size())
 			{
 				continue;
 			}
-			if (y < threadData->list->at(listIndex))
+			if (y < threadData->list.at(listIndex))
 			{
 				continue;
 			}
