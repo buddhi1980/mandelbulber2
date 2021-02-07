@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -132,14 +132,11 @@ typedef struct
 	cl_int monteCarloSoftShadows;
 	cl_int monteCarloGIVolumetric;
 	cl_int raytracedReflections;
-	cl_int shadow;			// enable shadows
 	cl_int slowShading; // enable fake gradient calculation for shading
 	cl_int SSAO_random_mode;
 	cl_int stereoSwapEyes;
 	cl_int texturedBackground; // enable textured background
 	cl_int useDefaultBailout;
-	cl_int volumetricLightEnabled[5];
-	cl_int volumetricLightAnyEnabled;
 	cl_int volFogEnabled;
 
 	cl_float3 ambientOcclusionColor;
@@ -213,7 +210,6 @@ typedef struct
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
-	cl_float shadowConeAngle;
 	cl_float smoothness;
 	cl_float stereoEyeDistance;
 	cl_float stereoInfiniteCorrection;
@@ -227,7 +223,6 @@ typedef struct
 	cl_float volFogDistanceFactor;
 	cl_float volFogDistanceFromSurface;
 	cl_float volumetricLightDEFactor;
-	cl_float volumetricLightIntensity[5];
 
 	sImageAdjustmentsCl imageAdjustments;
 
@@ -289,7 +284,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.antialiasingAdaptive = source.antialiasingAdaptive;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
-
 	target.background3ColorsEnable = source.background3ColorsEnable;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
 	target.cloudsCastShadows = source.cloudsCastShadows;
@@ -324,7 +318,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.useDefaultBailout = source.useDefaultBailout;
 	target.volFogEnabled = source.volFogEnabled;
 	target.ambientOcclusionColor = toClFloat3(source.ambientOcclusionColor);
-
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
 	target.background_color3 = toClFloat3(source.background_color3);
@@ -344,7 +337,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.absMinMarchingStep = source.absMinMarchingStep;
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
-
 	target.background_brightness = source.background_brightness;
 	target.backgroundHScale = source.backgroundHScale;
 	target.backgroundVScale = source.backgroundVScale;
@@ -412,7 +404,6 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogDistanceFromSurface = source.volFogDistanceFromSurface;
 	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
 	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
-
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);

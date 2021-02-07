@@ -5,7 +5,7 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- * references:
+ *
  * fragmentarium code, by knighty
  */
 
@@ -24,9 +24,10 @@ cFractalTransfDIFSClipPlane::cFractalTransfDIFSClipPlane() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfDIFSClipPlane::FormulaCode(
+	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	//CVector4 zc = z;
+	// CVector4 zc = z;
 	CVector4 c = aux.const_c;
 	CVector4 zc = c;
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -52,7 +53,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;
 
-
 	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
@@ -74,7 +74,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-		zc.z *= fractal->transformCommon.scale3D111.z;
+	zc.z *= fractal->transformCommon.scale3D111.z;
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -89,7 +89,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
-
 	// plane
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
@@ -97,12 +96,12 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		if (b == plD) aux.color = fractal->foldColor.difs0000.x;
+		if (b == plD)
+			aux.color = fractal->foldColor.difs0000.x;
 		else
 		{
-			double addColor = fractal->foldColor.difs0000.y
-				+ fractal->foldColor.difs0000.z * zc.z
-				+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+			double addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
+												+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 			if (!fractal->transformCommon.functionEnabledJFalse)
 				aux.color = addColor;
 			else
@@ -116,7 +115,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 	double d = 1000.0;
 	double e = fractal->transformCommon.offset3;
 
-		// rec
+	// rec
 	if (fractal->transformCommon.functionEnabledCy)
 	{
 		if (fractal->transformCommon.functionEnabledEFalse)
@@ -133,7 +132,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 		if (fractal->transformCommon.functionEnabledSFalse)
 			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
 	}
-		// cir
+	// cir
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
 		if (fractal->transformCommon.functionEnabledCFalse)
@@ -142,7 +141,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(CVector4 &z, const sFractal *fract
 		if (!fractal->transformCommon.functionEnabledYFalse)
 			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
 		else
-			e = clamp(cir.Length() - e, 0.0, 100.0); //a sphere
+			e = clamp(cir.Length() - e, 0.0, 100.0); // a sphere
 	}
 	e = min(e, d);
 

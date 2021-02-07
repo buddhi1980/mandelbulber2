@@ -28,7 +28,7 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL cylR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 	if (fractal->transformCommon.functionEnabledFalse)
-		cylR = fabs(cylR ) - fractal->transformCommon.offset0;
+		cylR = fabs(cylR) - fractal->transformCommon.offset0;
 	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 
 	cylR = max(cylR, 0.0f);

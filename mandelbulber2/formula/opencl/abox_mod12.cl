@@ -208,7 +208,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fractal->transformCommon.functionEnabledMFalse)
 			aux->actualScaleA = -vary;
 		else
-			aux->actualScaleA = aux->actualScaleA - vary;
+			aux->actualScaleA -= vary;
 	}
 	else
 	{

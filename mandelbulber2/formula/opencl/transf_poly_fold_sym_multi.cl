@@ -27,6 +27,9 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 	int order = fractal->transformCommon.int6;
 	REAL div2PI = (REAL)order / M_PI_2x_F;
 	REAL temp = 0.0f;
+	REAL sAng = 0.0f;
+	REAL cAng = 0.0f;
+	REAL angle = 0.0f;
 	int sector;
 	if (fractal->transformCommon.functionEnabledCx)
 	{
@@ -36,10 +39,12 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 		else
 			sector = (int)(-div2PI * atan2(z.x, z.y));
 		if (sector & 1) cy = true;
-		REAL angle = (REAL)(sector / div2PI);
+		angle = (REAL)(sector / div2PI);
 		temp = z.x;
-		z.x = z.x * native_cos(angle) - z.y * native_sin(angle);
-		z.y = temp * native_sin(angle) + z.y * native_cos(angle);
+		sAng = native_sin(angle);
+		cAng = native_cos(angle);
+		z.x = z.x * cAng - z.y * sAng;
+		z.y = temp * sAng + z.y * cAng;
 		if (cy == true) z.y = -z.y;
 		/*if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -56,10 +61,12 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 		else
 			sector = (int)(-div2PI * atan2(z.y, z.z));
 		if (sector & 1) cz = true;
-		REAL angle = (REAL)(sector / div2PI);
+		angle = (REAL)(sector / div2PI);
 		temp = z.y;
-		z.y = z.y * native_cos(angle) - z.z * native_sin(angle);
-		z.z = temp * native_sin(angle) + z.z * native_cos(angle);
+		sAng = native_sin(angle);
+		cAng = native_cos(angle);
+		z.y = z.y * cAng - z.z * sAng;
+		z.z = temp * sAng + z.z * cAng;
 		if (cz == true) z.z = -z.z;
 	}
 	if (fractal->transformCommon.functionEnabledCzFalse)
@@ -70,10 +77,12 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 		else
 			sector = (int)(-div2PI * atan2(z.z, z.x));
 		if (sector & 1) cx = true;
-		REAL angle = (REAL)(sector / div2PI);
+		angle = (REAL)(sector / div2PI);
 		temp = z.z;
-		z.z = z.z * native_cos(angle) - z.x * native_sin(angle);
-		z.x = temp * native_sin(angle) + z.x * native_cos(angle);
+		sAng = native_sin(angle);
+		cAng = native_cos(angle);
+		z.z = z.z * cAng - z.x * sAng;
+		z.x = temp * sAng + z.x * cAng;
 		if (cx == true) z.x = -z.x;
 	}
 

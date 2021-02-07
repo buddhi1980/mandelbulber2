@@ -210,6 +210,8 @@ foldColor.auxColorEnabledFalse bool fold_color_aux_color_enabled_false
 foldColor.auxColorEnabledAFalse bool fold_color_aux_color_enabledA_false
 foldColor.difs1 REAL fold_color_difs1
 foldColor.difs0000 REAL4 fold_color_difs_0000
+foldColor.startIterationsA int fold_color_start_iterations_A
+foldColor.stopIterationsA int fold_color_stop_iterations_A
 
 transformCommon.angle0 REAL transf_angle_0
 transformCommon.angle72 REAL transf_angle_72
@@ -238,6 +240,7 @@ transformCommon.offsetR0 REAL transf_offsetR_0
 transformCommon.offset0005 REAL transf_offset_0005
 transformCommon.offsetp05 REAL transf_offset_p05
 transformCommon.offset01 REAL transf_offset_01
+transformCommon.offset02 REAL transf_offset_02
 transformCommon.offset05 REAL transf_offset_05
 transformCommon.offsetA05 REAL transf_offsetA_05
 transformCommon.offsetB05 REAL transf_offsetB_05
@@ -300,6 +303,7 @@ transformCommon.int6 int transf_int_6
 transformCommon.int8X int transf_int8_X
 transformCommon.int8Y int transf_int8_Y
 transformCommon.int8Z int transf_int8_Z
+transformCommon.int16 int transf_int_16
 transformCommon.startIterations int transf_start_iterations
 transformCommon.startIterations250 int transf_start_iterations_250
 transformCommon.stopIterations int transf_stop_iterations

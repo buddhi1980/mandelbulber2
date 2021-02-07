@@ -99,7 +99,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->DE *= fabs(length(z) / tempL);
+		aux->DE *= length(z) / tempL;
 
 		if (fabs(z.x) < fabs(z.z))
 		{

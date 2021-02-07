@@ -37,8 +37,10 @@ REAL4 TransfPolyFoldSymXYIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL angle = (REAL)(sector / div2PI);
 	// z.xy = rotate(z.xy,angle); // sin
 	REAL tempZx = z.x;
-	z.x = z.x * native_cos(angle) - z.y * native_sin(angle);
-	z.y = tempZx * native_sin(angle) + z.y * native_cos(angle);
+	REAL sAng = native_sin(angle);
+	REAL cAng = native_cos(angle);
+	z.x = z.x * cAng - z.y * sAng;
+	z.y = tempZx * sAng + z.y * cAng;
 	if (cy) z.y = -z.y;
 	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
 

@@ -5,7 +5,7 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
- * references:
+ *
  * fragmentarium code, by knighty
  * Inigo Quilez, https://www.iquilezles.org/
  * darkbeams rec_fold fractalforums.org
@@ -48,8 +48,8 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			zc.x = fabs(zc.x);
 			zc.y = fabs(zc.y);
 			if (fractal->transformCommon.functionEnabledSwFalse
-				&& m >= fractal->transformCommon.startIterationsN
-				&& m < fractal->transformCommon.stopIterationsN)
+					&& m >= fractal->transformCommon.startIterationsN
+					&& m < fractal->transformCommon.stopIterationsN)
 			{
 				t = zc.x;
 				zc.x = zc.y;
@@ -61,11 +61,11 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (fractal->transformCommon.functionEnabledCxFalse
 					&& m >= fractal->transformCommon.startIterationsO
 					&& m < fractal->transformCommon.stopIterationsO)
-						zc.x = -fabs(zc.x);
+				zc.x = -fabs(zc.x);
 			if (fractal->transformCommon.functionEnabledCx
 					&& m >= fractal->transformCommon.startIterationsP
 					&& m < fractal->transformCommon.stopIterationsP)
-						zc.y = -fabs(zc.y);
+				zc.y = -fabs(zc.y);
 
 			double foldX = fractal->transformCommon.offset1;
 			double foldY = fractal->transformCommon.offsetA1;
@@ -76,11 +76,11 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 			if (fractal->transformCommon.functionEnabledCy
 					&& m >= fractal->transformCommon.startIterationsR
 					&& m < fractal->transformCommon.stopIterationsR)
-						zc.x = foldX - fabs(zc.x + foldX);
+				zc.x = foldX - fabs(zc.x + foldX);
 			if (fractal->transformCommon.functionEnabledCyFalse
 					&& m >= fractal->transformCommon.startIterationsRV
 					&& m < fractal->transformCommon.stopIterationsRV)
-						zc.y = foldY - fabs(zc.y + foldY);
+				zc.y = foldY - fabs(zc.y + foldY);
 		}
 	}
 
@@ -165,8 +165,7 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 	else // rectangle
 	{
-		tD = max(
-			fabs(tD), fabs(zc.z) - fractal->transformCommon.offsetB0);
+		tD = max(fabs(tD), fabs(zc.z) - fractal->transformCommon.offsetB0);
 	}
 	tD -= fractal->transformCommon.offsetp05;
 
@@ -180,12 +179,12 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
-		if (d == plD) aux.color = fractal->foldColor.difs0000.x;
+		if (d == plD)
+			aux.color = fractal->foldColor.difs0000.x;
 		else
 		{
-			double addColor = fractal->foldColor.difs0000.y
-				+ fractal->foldColor.difs0000.z * zc.z
-				+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+			double addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
+												+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 			if (!fractal->transformCommon.functionEnabledJFalse)
 				aux.color = addColor;
 			else
@@ -215,5 +214,4 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.dist = d;
 	else
 		aux.dist = min(aux.dist, d);
-
 }
