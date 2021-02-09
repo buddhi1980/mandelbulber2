@@ -262,6 +262,7 @@ enum enumFractalFormula
 	// 2.25
 	josKleinianV3 = 225,
 	aboxMod15 = 226,
+	kochV4 = 227,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

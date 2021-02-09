@@ -115,14 +115,15 @@ void cFractalKochV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	else
 	{
 		double e = fractal->transformCommon.offset1;
+		CVector4 c = aux.const_c;
 		if (!fractal->transformCommon.functionEnabledEFalse)
 		{
-			CVector4 f = fabs(aux.c) - CVector4(e, e, e, 0.0);
+			CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
 			e = max(f.x, max(f.y, f.z));
 		}
 		else
 		{
-			e = clamp(aux.c.Length() - e, 0.0, 100.0); // circle
+			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
 		}
 		aux.dist = fabs(z.z - Offset.z);
 		aux.dist = aux.dist / aux.DE;
