@@ -76,7 +76,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x -= FRAC_1_3_F;
 
 	zc.x -= FRAC_1_3_F;
-	if (zc.zc > zc.x)
+	if (zc.z > zc.x)
 	{
 		REAL temp = zc.x;
 		zc.x = zc.z;
@@ -137,6 +137,25 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	d = max(d, e);
 	g = min(g, d) / aux->DE;
 	aux->dist = min(g, aux->dist);
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (aux->dist == g)
+			aux->color = fractal->foldColor.difs0000.x;
+		else
+		{
+			double addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
+					+ fractal->foldColor.difs0000.z * fabs(zc.z)
+					+ fractal->foldColor.difs0000.w * d;
+			if (!fractal->transformCommon.functionEnabledJFalse)
+				aux=>color = addColor;
+			else
+				aux->color += addColor;
+		}
+	}
+
+
 	z = zc;
 	return z;
 }

@@ -135,5 +135,22 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	//aux.dist = g;
 	aux.dist = min(g, aux.dist);
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (aux.dist == g)
+			aux.color = fractal->foldColor.difs0000.x;
+		else
+		{
+			double addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
+					+ fractal->foldColor.difs0000.z * fabs(zc.z)
+					+ fractal->foldColor.difs0000.w * d;
+			if (!fractal->transformCommon.functionEnabledJFalse)
+				aux.color = addColor;
+			else
+				aux.color += addColor;
+		}
+	}
 	z = zc;
 }
