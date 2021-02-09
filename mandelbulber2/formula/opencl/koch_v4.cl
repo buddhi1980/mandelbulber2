@@ -67,7 +67,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.y = YOff - fabs(zc.y - YOff);
 
 	zc.x += FRAC_1_3_F;
-	if (zc.zc > zc.x)
+	if (zc.z > zc.x)
 	{
 		REAL temp = zc.x;
 		zc.x = zc.z;
