@@ -98,7 +98,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc += fractal->transformCommon.offset000;
 
 	// aux.dist
-	REAL4 c = aux.const_c;
+	REAL4 c = aux->const_c;
 	REAL e = fractal->transformCommon.offset2;
 	REAL d = 10000.0;
 
@@ -149,7 +149,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 					+ fractal->foldColor.difs0000.z * fabs(zc.z)
 					+ fractal->foldColor.difs0000.w * d;
 			if (!fractal->transformCommon.functionEnabledJFalse)
-				aux=>color = addColor;
+				aux->color = addColor;
 			else
 				aux->color += addColor;
 		}
