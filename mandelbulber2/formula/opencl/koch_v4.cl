@@ -99,7 +99,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 	// aux.dist
 	REAL4 c = aux->const_c;
-	REAL e = fractal->transformCommon.offset2;
+
 	REAL d;
 
 	REAL a = fractal->transformCommon.offsetA0;
@@ -116,9 +116,10 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	// plane
 	REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
 
-	g = min(g, d);
+	d = min(g, d);
 
 	// clip
+	REAL e = fractal->transformCommon.offset2;
 	if (!fractal->transformCommon.functionEnabledEFalse)
 	{
 		REAL4 f = fabs(c) - (REAL4){e, e, e, 0.0f};
@@ -135,19 +136,19 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
 	}
 
-	g = max(g, e) / aux->DE;
-	aux->dist = min(g, aux->dist);
+	d = max(d, e) / aux->DE;
+	aux->dist = min(d, aux->dist);
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (aux->dist == g)
+		if (aux->dist == d)
 			aux->color = fractal->foldColor.difs0000.x;
 		else
 		{
 			double addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
 					+ fractal->foldColor.difs0000.z * fabs(zc.z)
-					+ fractal->foldColor.difs0000.w * d;
+					+ fractal->foldColor.difs0000.w * g;
 			if (!fractal->transformCommon.functionEnabledJFalse)
 				aux->color = addColor;
 			else

@@ -91,7 +91,6 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 	//aux.dist
 	CVector4 c = aux.const_c;
-	double e = fractal->transformCommon.offset2;
 	double d;
 
 	double a = fractal->transformCommon.offsetA0;
@@ -111,6 +110,7 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	g = min(g, d);
 
 	// clip
+	double e = fractal->transformCommon.offset2;
 	if (!fractal->transformCommon.functionEnabledEFalse)
 	{
 		CVector4 f = fabs(c) - CVector4(e, e, e, 0.0);
@@ -127,21 +127,24 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
 	}
 
-	g = max(g, e) / aux.DE;
+	d = max(g, e) / aux.DE;
 
-	//aux.dist = g;
-	aux.dist = min(g, aux.dist);
+	//aux.dist = d;
+	aux.dist = min(d, aux.dist);
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (aux.dist == g)
+		double addColor = 0.0;
+		if (aux.dist == d)
 			aux.color = fractal->foldColor.difs0000.x;
+
 		else
 		{
-			double addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
+			addColor = fractal->foldColor.difs0000.y * fabs(zc.x)
 					+ fractal->foldColor.difs0000.z * fabs(zc.z)
-					+ fractal->foldColor.difs0000.w * d;
+					+ fractal->foldColor.difs0000.w * g;
+
 			if (!fractal->transformCommon.functionEnabledJFalse)
 				aux.color = addColor;
 			else

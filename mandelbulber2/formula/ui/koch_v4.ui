@@ -1108,7 +1108,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_53">
           <property name="text">
-           <string>g</string>
+           <string>d</string>
           </property>
          </widget>
         </item>
@@ -1122,14 +1122,14 @@ offset:</string>
         <item row="4" column="0">
          <widget class="QLabel" name="label_57">
           <property name="text">
-           <string>d</string>
+           <string>g</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
           <property name="text">
-           <string>hybrid aux.dist</string>
+           <string>iteration add</string>
           </property>
          </widget>
         </item>
