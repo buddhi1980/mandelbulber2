@@ -7,7 +7,10 @@
 
 #include "light_editor.h"
 #include "ui_light_editor.h"
+
+#include "my_combo_box.h"
 #include "src/automated_widgets.hpp"
+#include "src/light.h"
 
 #include <QDebug>
 
@@ -17,6 +20,9 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+
+	connect(ui->comboBox_type, qOverload<int>(&MyComboBox::currentIndexChanged), this,
+		&cLightEditor::slotChangedLightType);
 }
 
 cLightEditor::~cLightEditor()
@@ -51,4 +57,12 @@ void cLightEditor::AssignLight(std::shared_ptr<cParameterContainer> params, int 
 			}
 		}
 	}
+}
+
+void cLightEditor::slotChangedLightType(int index)
+{
+	cLight::enumLightType lightType = static_cast<cLight::enumLightType>(index);
+
+	ui->groupBox_cone_options->setEnabled(lightType == cLight::lightConical);
+	ui->groupBox_projection_options->setEnabled(lightType == cLight::lightProjection);
 }

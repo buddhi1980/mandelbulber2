@@ -36,6 +36,9 @@ private:
 
 	std::shared_ptr<cParameterContainer> parameterContainer;
 	cAutomatedWidgets *automatedWidgets;
+
+private slots:
+	void slotChangedLightType(int index);
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_EDITOR_H_ */

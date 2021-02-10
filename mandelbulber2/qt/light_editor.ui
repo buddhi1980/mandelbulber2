@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>cLightEditor</class>
  <widget class="QWidget" name="cLightEditor">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -120,7 +123,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox_type">
+         <widget class="MyComboBox" name="comboBox_type">
           <item>
            <property name="text">
             <string>Directional light</string>
@@ -165,7 +168,7 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <widget class="QComboBox" name="comboBox_decayFunction">
+         <widget class="MyComboBox" name="comboBox_decayFunction">
           <item>
            <property name="text">
             <string>1/r</string>
@@ -577,7 +580,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBox_cone_options">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>Cone options</string>
      </property>
@@ -633,7 +639,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_5">
+    <widget class="QGroupBox" name="groupBox_projection_options">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>Projection options</string>
      </property>
@@ -777,6 +786,11 @@
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
