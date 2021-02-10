@@ -799,7 +799,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fold_color_start_iterations_A", 0, morphLinear, paramStandard);
 	par->addParam("fold_color_stop_iterations_A", 250, morphLinear, paramStandard);
 
-
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_angle_72", 72.0, morphAkimaAngle, paramStandard);
@@ -1587,12 +1586,19 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 		cLight::Name("color", lightId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 
 	par->addParam(cLight::Name("type", lightId),
-		(lightId == 1) ? int(cLight::lightDirectional) : int(cLight::lightPoint), morphLinear, paramStandard);
+		(lightId == 1) ? int(cLight::lightDirectional) : int(cLight::lightPoint), morphLinear,
+		paramStandard);
 
 	par->addParam(
 		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);
 	par->addParam(cLight::Name("file_texture", lightId), QString("superDuperLightTexture.jpg"),
 		morphLinear, paramStandard);
+
+	par->addParam(cLight::Name("repeat_texture", lightId), false, morphNone, paramStandard);
+	par->addParam(cLight::Name("projection_horizonal_angle", lightId), 60.0, 0.0, 179.9, morphLinear,
+		paramStandard);
+	par->addParam(cLight::Name("projection_vertical_angle", lightId), 60.0, 0.0, 179.9, morphLinear,
+		paramStandard);
 }
 
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,

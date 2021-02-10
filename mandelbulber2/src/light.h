@@ -39,7 +39,7 @@ public:
 	}
 
 	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }
-	double CalculateCone(const CVector3 &lightVector) const;
+	float CalculateCone(const CVector3 &lightVector, sRGBFloat &outColor) const;
 	CVector3 CalculateLightVector(const CVector3 &point, double delta, double resolution,
 		double viewDistanceMax, double &outDistance) const;
 
@@ -64,6 +64,7 @@ public:
 	bool castShadows = false;
 	bool penetrating = false;
 	bool relativePosition = false;
+	bool repeatTexture = false;
 	bool volumetric = false;
 
 	int id = -1;
@@ -78,10 +79,14 @@ public:
 	float contourSharpness = 0.0f;
 	float coneRatio = 0.0;
 	float coneSoftRatio = 0.0;
+	float projectionHorizontalRatio = 0.0;
+	float projectionVerticalRatio = 0.0;
 
 	CVector3 position;
 	CVector3 rotation;
 	CVector3 lightDirection;
+	CVector3 lightTopVector;
+	CVector3 lightRightVector;
 
 	sRGBFloat color;
 

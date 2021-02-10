@@ -201,7 +201,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					else
 						intensity = light->intensity / light->Decay(distanceLight);
 
-					intensity *= light->CalculateCone(lightVectorTemp);
+					sRGBFloat textureColor;
+					intensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
 					sRGBAfloat lightShadow;
 					if (intensity > 1e-3)
@@ -209,12 +210,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					else
 						lightShadow = sRGBAfloat();
 
-					output.R +=
-						lightShadow.R * light->color.R * light->volumetricVisibility * float(step) * intensity;
-					output.G +=
-						lightShadow.G * light->color.G * light->volumetricVisibility * float(step) * intensity;
-					output.B +=
-						lightShadow.B * light->color.B * light->volumetricVisibility * float(step) * intensity;
+					output.R += lightShadow.R * light->color.R * light->volumetricVisibility * float(step)
+											* intensity * textureColor.R;
+					output.G += lightShadow.G * light->color.G * light->volumetricVisibility * float(step)
+											* intensity * textureColor.G;
+					output.B += lightShadow.B * light->color.B * light->volumetricVisibility * float(step)
+											* intensity * textureColor.B;
 					output.A += lightShadow.A * light->volumetricVisibility * float(step) / intensity;
 				}
 			}
@@ -299,7 +300,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						else
 							intensity = 100.0f * light->intensity / light->Decay(distanceLight) / 6.0;
 
-						intensity *= light->CalculateCone(lightVectorTemp);
+						sRGBFloat textureColor;
+						intensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 
@@ -312,9 +314,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						lightShadow.G = lightShadow.G * nAmbient + ambient;
 						lightShadow.B = lightShadow.B * nAmbient + ambient;
 
-						newColour.R += lightShadow.R * light->color.R * intensity;
-						newColour.G += lightShadow.G * light->color.G * intensity;
-						newColour.B += lightShadow.B * light->color.B * intensity;
+						newColour.R += lightShadow.R * light->color.R * intensity * textureColor.R;
+						newColour.G += lightShadow.G * light->color.G * intensity * textureColor.G;
+						newColour.B += lightShadow.B * light->color.B * intensity * textureColor.B;
 					}
 				}
 			}
@@ -374,19 +376,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (light->type == cLight::lightDirectional)
 							intensity = light->intensity;
 						else
-							intensity = light->intensity / light->Decay(distanceLight)
-													* params->iterFogBrightnessBoost;
+							intensity =
+								light->intensity / light->Decay(distanceLight) * params->iterFogBrightnessBoost;
 
-						intensity *= light->CalculateCone((-1.0) * lightVectorTemp);
+						sRGBFloat textureColor;
+						intensity *= light->CalculateCone((-1.0) * lightVectorTemp, textureColor);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 						if (params->iterFogShadows && intensity > 1e-3)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 						}
-						newColour.R += lightShadow.R * light->color.R * intensity;
-						newColour.G += lightShadow.G * light->color.G * intensity;
-						newColour.B += lightShadow.B * light->color.B * intensity;
+						newColour.R += lightShadow.R * light->color.R * intensity * textureColor.R;
+						newColour.G += lightShadow.G * light->color.G * intensity * textureColor.G;
+						newColour.B += lightShadow.B * light->color.B * intensity * textureColor.B;
 					}
 				}
 
@@ -439,15 +442,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						CVector3 lightDirection = lightDistVect;
 						lightDirection.Normalize();
-						bellFunction *= light->CalculateCone((-1.0) * lightDirection);
+						sRGBFloat textureColor;
+						bellFunction *= light->CalculateCone((-1.0) * lightDirection, textureColor);
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 
 						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
 
-						output.R += lightDensity * light->color.R;
-						output.G += lightDensity * light->color.G;
-						output.B += lightDensity * light->color.B;
+						output.R += lightDensity * light->color.R * textureColor.R;
+						output.G += lightDensity * light->color.G * textureColor.G;
+						output.B += lightDensity * light->color.B * textureColor.B;
 						output.A += lightDensity;
 
 						if (miniSteps == lastMiniSteps)

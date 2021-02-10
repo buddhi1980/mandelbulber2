@@ -27,7 +27,8 @@ cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, b
 const QStringList cLight::paramsList = {"is_defined", "enabled", "cast_shadows", "penetrating",
 	"relative_position", "volumetric", "cone_angle", "cone_soft_angle", "intensity", "visibility",
 	"volumetric_visibility", "size", "soft_shadow_cone", "contour_sharpness", "position", "rotation",
-	"alpha", "beta", "color", "type", "decayFunction", "file_texture"};
+	"alpha", "beta", "color", "type", "decayFunction", "file_texture", "repeat_texture",
+	"projection_horizonal_angle", "projection_vertical_angle"};
 
 void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 	bool loadTextures, bool quiet, bool useNetRender)
@@ -41,6 +42,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	castShadows = lightParam->Get<bool>(Name("cast_shadows", id));
 	penetrating = lightParam->Get<bool>(Name("penetrating", id));
 	relativePosition = lightParam->Get<bool>(Name("relative_position", id));
+	repeatTexture = lightParam->Get<bool>(Name("repeat_texture", id));
 	volumetric = lightParam->Get<bool>(Name("volumetric", id));
 
 	coneAngle = lightParam->Get<double>(Name("cone_angle", id)) / 180.0 * M_PI;
@@ -85,11 +87,23 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
 		lightDirection =
 			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
+
+		lightTopVector = cameraTarget.GetTopVector();
+		lightTopVector =
+			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
+		lightTopVector =
+			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
+		lightTopVector =
+			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
+
+		lightRightVector = lightDirection.Cross(lightTopVector);
 	}
 	else
 	{
 		position = lightParam->Get<CVector3>(Name("position", id));
 		lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
+		lightTopVector = rotMatrix.RotateVector(CVector3(0.0, 0.0, 1.0));
+		lightRightVector = rotMatrix.RotateVector(CVector3(1.0, 0.0, 0.0));
 	}
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
@@ -98,13 +112,25 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 
 	coneRatio = cos(coneAngle);
 	coneSoftRatio = cos(coneSoftAngle + coneAngle);
+	projectionHorizontalRatio =
+		tan(lightParam->Get<double>(Name("projection_horizonal_angle", id)) / 360.0 * M_PI) * 2.0;
+	projectionVerticalRatio =
+		tan(lightParam->Get<double>(Name("projection_vertical_angle", id)) / 360.0 * M_PI) * 2.0;
 
-	// TODO rest of parameters
+	if (loadTextures)
+	{
+		if (type == lightProjection)
+		{
+			colorTexture = cTexture(lightParam->Get<QString>(Name("file_texture", id)),
+				cTexture::doNotUseMipmaps, frameNo, quiet, useNetRender);
+		}
+	}
 }
 
-double cLight::CalculateCone(const CVector3 &lightVector) const
+float cLight::CalculateCone(const CVector3 &lightVector, sRGBFloat &outColor) const
 {
-	double intensity = 1.0;
+	outColor = {1.0, 1.0, 1.0};
+	float intens = 1.0;
 
 	if (type == lightConical)
 	{
@@ -112,18 +138,44 @@ double cLight::CalculateCone(const CVector3 &lightVector) const
 
 		if (axiality > coneRatio)
 		{
-			intensity = 1.0;
+			intens = 1.0;
 		}
 		else if (axiality > coneSoftRatio)
 		{
-			intensity = (axiality - coneSoftRatio) / (coneRatio - coneSoftRatio);
+			intens = (axiality - coneSoftRatio) / (coneRatio - coneSoftRatio);
 		}
 		else
 		{
-			intensity = 0.0;
+			intens = 0.0;
 		}
 	}
-	return intensity;
+	else if (type == lightProjection)
+	{
+		double axiality = lightVector.Dot(lightDirection);
+		if (axiality > 0 && projectionHorizontalRatio > 0.0 && projectionVerticalRatio > 0.0)
+		{
+			double texX = lightRightVector.Dot(lightVector) / projectionHorizontalRatio / axiality + 0.5;
+			double texY = lightTopVector.Dot(lightVector) / projectionVerticalRatio / axiality + 0.5;
+
+			if (repeatTexture || (texX > 0.0 && texX < 1.0 && texY > 0.0 && texY < 1.0))
+			{
+				sRGBFloat pixel = colorTexture.Pixel(CVector2<float>(texX, texY), 0.0);
+				outColor = pixel;
+				intens = 1.0;
+			}
+			else
+			{
+				outColor = {0.0, 0.0, 0.0};
+				intens = 0.0;
+			}
+		}
+		else
+		{
+			outColor = {0.0, 0.0, 0.0};
+			intens = 0.0;
+		}
+	}
+	return intens;
 }
 
 CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, double resolution,

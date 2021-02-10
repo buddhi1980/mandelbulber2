@@ -59,7 +59,8 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		intensity = 100.0f * light->intensity / light->Decay(distance) / 6.0f;
 	}
 
-	intensity *= light->CalculateCone(lightVector);
+	sRGBFloat textureColor;
+	intensity *= light->CalculateCone(lightVector, textureColor);
 
 	float shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
@@ -102,13 +103,13 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		}
 	}
 
-	shading.R = shade * light->color.R * auxShadow.R;
-	shading.G = shade * light->color.G * auxShadow.G;
-	shading.B = shade * light->color.B * auxShadow.B;
+	shading.R = shade * light->color.R * auxShadow.R * textureColor.R;
+	shading.G = shade * light->color.G * auxShadow.G * textureColor.G;
+	shading.B = shade * light->color.B * auxShadow.B * textureColor.B;
 
-	outSpecular->R = specular.R * light->color.R;
-	outSpecular->G = specular.G * light->color.G;
-	outSpecular->B = specular.B * light->color.B;
+	outSpecular->R = specular.R * light->color.R * textureColor.R;
+	outSpecular->G = specular.G * light->color.G * textureColor.G;
+	outSpecular->B = specular.B * light->color.B * textureColor.B;
 
 	return shading;
 }
