@@ -93,14 +93,30 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
 	}
 	zc += fractal->transformCommon.offset000;
 
 	// aux.dist
 	REAL4 c = aux->const_c;
 	REAL e = fractal->transformCommon.offset2;
-	REAL d = 10000.0;
+	REAL d;
+
+	REAL a = fractal->transformCommon.offsetA0;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
+		d = max(b.x, max(b.y, b.z));
+	}
+	else
+	{
+		d = fabs(length(zc) - a);
+	}
+
+	// plane
+	REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+
+	g = min(g, d);
 
 	// clip
 	if (!fractal->transformCommon.functionEnabledEFalse)
@@ -119,27 +135,11 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
 	}
 
-	// plane
-	REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
-	g = max(g, e);
-
-
-	REAL a = fractal->transformCommon.offsetA0;
-	if (!fractal->transformCommon.functionEnabledFFalse)
-	{
-		REAL4 b = fabs(zc) - (REAL4){a, a, a, 0.0f};
-		d = max(b.x, max(b.y, b.z));
-	}
-	else
-	{
-		d = fabs(length(zc) - length(Offset) - a);
-	}
-	d = max(d, e);
-	g = min(g, d) / aux->DE;
+	g = max(g, e) / aux->DE;
 	aux->dist = min(g, aux->dist);
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (aux->dist == g)
 			aux->color = fractal->foldColor.difs0000.x;

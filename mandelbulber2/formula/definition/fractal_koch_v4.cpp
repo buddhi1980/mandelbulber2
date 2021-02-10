@@ -85,17 +85,30 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
-		zc = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 	}
 	zc += fractal->transformCommon.offset000;
-
-
 
 	//aux.dist
 	CVector4 c = aux.const_c;
 	double e = fractal->transformCommon.offset2;
-	double d = 10000.0;
+	double d;
 
+	double a = fractal->transformCommon.offsetA0;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
+		d = max(b.x, max(b.y, b.z));
+	}
+	else
+	{
+		d = fabs(zc.Length() - a);
+	}
+
+	// plane
+	double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
+
+	g = min(g, d);
 
 	// clip
 	if (!fractal->transformCommon.functionEnabledEFalse)
@@ -114,30 +127,13 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
 	}
 
-	// plane
-	double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;
-	g = max(g, e);
-
-	double a = fractal->transformCommon.offsetA0;
-	if (!fractal->transformCommon.functionEnabledFFalse)
-	{
-		CVector4 b = fabs(zc) - CVector4(a, a, a, 0.0);
-		d = max(b.x, max(b.y, b.z));
-	}
-	else
-	{
-		d = fabs(zc.Length() - a); // - Offset.Length()
-	}
-
-	d = max(d, e);
-
-	g = min(g, d) / aux.DE;
+	g = max(g, e) / aux.DE;
 
 	//aux.dist = g;
 	aux.dist = min(g, aux.dist);
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (aux.dist == g)
 			aux.color = fractal->foldColor.difs0000.x;
