@@ -85,8 +85,19 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x += FRAC_1_3_F;
 
 	REAL4 Offset = fractal->transformCommon.offset100;
-	zc = fractal->transformCommon.scale3 * (zc - Offset) + Offset;
-	aux->DE = aux->DE * fractal->transformCommon.scale3;
+	REAL useScale = 1.0f;
+	useScale = (aux->actualScaleA + fractal->transformCommon.scale3);
+	//z *= useScale;
+	//aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+		aux->actualScaleA = -vary;
+	}
+	zc = useScale * (zc - Offset) + Offset;
+	aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -112,6 +123,10 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	{
 		d = fabs(length(zc) - a);
 	}
+
+	if (fractal->transformCommon.functionEnabledBFalse)
+		d -= length(Offset);
+
 
 	// plane
 	REAL g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;

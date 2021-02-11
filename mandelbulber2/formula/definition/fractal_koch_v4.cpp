@@ -77,8 +77,17 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	zc.x += FRAC_1_3;
 
 	CVector4 Offset = fractal->transformCommon.offset100;
-	zc = fractal->transformCommon.scale3 * (zc - Offset) + Offset;
-	aux.DE = aux.DE * fractal->transformCommon.scale3;
+	double useScale = 1.0;
+	useScale = (aux.actualScaleA + fractal->transformCommon.scale3);
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA = -vary;
+	}
+	zc = useScale * (zc - Offset) + Offset;
+	aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -103,6 +112,9 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		d = fabs(zc.Length() - a);
 	}
+
+	if (fractal->transformCommon.functionEnabledBFalse)
+		d -= Offset.Length();
 
 	// plane
 	double g = fabs(zc.z - fractal->transformCommon.offsetR0) - fractal->transformCommon.offsetF0;

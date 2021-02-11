@@ -107,10 +107,10 @@ void cFractalKochV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	}
 	z += fractal->transformCommon.offset000;
 
+	double d;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		aux.dist = fabs(z.Length() - Offset.Length());
-		aux.dist = aux.dist / aux.DE;
+		d = fabs(z.Length() - Offset.Length());
 	}
 	else
 	{
@@ -125,8 +125,8 @@ void cFractalKochV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		{
 			e = clamp(c.Length() - e, 0.0, 100.0); // sphere
 		}
-		aux.dist = fabs(z.z - Offset.z);
-		aux.dist = aux.dist / aux.DE;
-		aux.dist = max(aux.dist, e);
+		d = fabs(z.z - Offset.z);
+		d = max(d, e);
 	}
+	aux.dist = d / aux.DE;
 }
