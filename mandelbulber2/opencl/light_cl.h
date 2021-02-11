@@ -34,11 +34,14 @@ typedef struct
 	cl_int castShadows;
 	cl_int penetrating;
 	cl_int relativePosition;
+	cl_int repeatTexture;
 	cl_int volumetric;
 
 	// enums
 	enumLightTypeCl type;
 	enumLightDecayFunctionCl decayFunction;
+
+	cl_int colorTextureIndex;
 
 	cl_float coneAngle;
 	cl_float coneSoftAngle;
@@ -52,11 +55,16 @@ typedef struct
 	cl_float coneRatio;
 	cl_float coneSoftRatio;
 
+	cl_float projectionHorizontalRatio;
+	cl_float projectionVerticalRatio;
+
 	cl_float3 color;
 
 	cl_float3 position;
 	cl_float3 rotation;
 	cl_float3 lightDirection;
+	cl_float3 lightTopVector;
+	cl_float3 lightRightVector;
 
 	matrix33 rotMatrix;
 

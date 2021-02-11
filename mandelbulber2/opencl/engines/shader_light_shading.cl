@@ -64,8 +64,10 @@ float LightDecay(float dist, enumLightDecayFunctionCl decayFunction)
 	return pow(dist, (float)((int)decayFunction + 1));
 }
 
-float CalculateLightCone(__global sLightCl *light, float3 lightVector)
+float CalculateLightCone(
+	__global sLightCl *light, sRenderData *renderData, float3 lightVector, float3 *outColor)
 {
+	float3 color = 1.0f;
 	float intensity = 1.0f;
 
 	if (light->type == lightConical)
@@ -85,6 +87,51 @@ float CalculateLightCone(__global sLightCl *light, float3 lightVector)
 			intensity = 0.0f;
 		}
 	}
+	else if (light->type == lightProjection)
+	{
+#ifdef USE_LIGHT_TEXTURE
+		if (light->colorTextureIndex >= 0)
+		{
+			float axiality = dot(lightVector, light->lightDirection);
+			if (axiality > 0.0f && light->projectionHorizontalRatio > 0.0f
+					&& light->projectionVerticalRatio > 0.0f)
+			{
+				float texX =
+					dot(light->lightRightVector, lightVector) / light->projectionHorizontalRatio / axiality
+					+ 0.5f;
+				float texY =
+					dot(light->lightTopVector, lightVector) / light->projectionVerticalRatio / axiality
+					+ 0.5f;
+
+				if (light->repeatTexture || (texX > 0.0f && texX < 1.0f && texY > 0.0f && texY < 1.0f))
+				{
+					float2 texturePoint = (float2){texX, texY};
+
+					int2 textureSize = renderData->textureSizes[light->colorTextureIndex];
+					__global uchar4 *texture = renderData->textures[light->colorTextureIndex];
+
+					float3 texOut = BicubicInterpolation(
+						texturePoint.x, texturePoint.y, texture, textureSize.x, textureSize.y);
+
+					color = texOut;
+					intensity = 1.0f;
+				}
+				else
+				{
+					color = 0.0f;
+					intensity = 0.0f;
+				}
+			}
+			else
+			{
+				color = 0.0f;
+				intensity = 0.0f;
+			}
+		}
+#endif // USE_LIGHT_TEXTURE
+	}
+
+	*outColor = color;
 	return intensity;
 }
 
@@ -109,7 +156,8 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 		intensity = 100.0f * light->intensity / LightDecay(dist, light->decayFunction) / 6.0f;
 	}
 
-	intensity *= CalculateLightCone(light, lightVector);
+	float3 textureColor;
+	intensity *= CalculateLightCone(light, renderData, lightVector, &textureColor);
 
 	float shade = dot(input->normal, lightVector);
 	if (shade < 0.0f) shade = 0.0f;
@@ -151,8 +199,8 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 #endif // SHADOWS
 
-	shading = shade * light->color * auxShadow;
-	*outSpecular = specular * light->color;
+	shading = shade * light->color * auxShadow * textureColor;
+	*outSpecular = specular * light->color * textureColor;
 
 	return shading;
 }

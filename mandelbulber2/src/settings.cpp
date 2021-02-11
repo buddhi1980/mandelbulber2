@@ -1348,6 +1348,8 @@ void cSettings::Compatibility2(
 
 	if (fileVersion < 2.25)
 	{
+		// FIXME: correct default lights parameters of aux lights
+
 		if (par->IfExists("light1_is_defined"))
 		{
 			par->Set("light1_rotation",

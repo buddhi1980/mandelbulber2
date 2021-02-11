@@ -462,7 +462,8 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 		sizeof(arrayOffset));
 }
 
-void cOpenClDynamicData::BuildLightsData(const cLights *lights)
+void cOpenClDynamicData::BuildLightsData(
+	const cLights *lights, const QMap<QString, int> &textureIndexes)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
 	 *
@@ -499,10 +500,12 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 
 		sLightCl lightCl;
 		const cLight *light = lights->GetLight(i);
+
 		lightCl.enabled = light->enabled;
 		lightCl.castShadows = light->castShadows;
 		lightCl.penetrating = light->penetrating;
 		lightCl.relativePosition = light->relativePosition;
+		lightCl.repeatTexture = light->repeatTexture;
 		lightCl.volumetric = light->volumetric;
 
 		lightCl.coneAngle = light->coneAngle;
@@ -515,10 +518,14 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		lightCl.contourSharpness = light->contourSharpness;
 		lightCl.coneRatio = light->coneRatio;
 		lightCl.coneSoftRatio = light->coneSoftRatio;
+		lightCl.projectionHorizontalRatio = light->projectionHorizontalRatio;
+		lightCl.projectionVerticalRatio = light->projectionVerticalRatio;
 
 		lightCl.position = toClFloat3(light->position);
 		lightCl.rotation = toClFloat3(light->rotation);
 		lightCl.lightDirection = toClFloat3(light->lightDirection);
+		lightCl.lightTopVector = toClFloat3(light->lightTopVector);
+		lightCl.lightRightVector = toClFloat3(light->lightRightVector);
 
 		lightCl.color = toClFloat3(light->color);
 
@@ -526,6 +533,10 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 
 		lightCl.type = static_cast<enumLightTypeCl>(light->type);
 		lightCl.decayFunction = static_cast<enumLightDecayFunctionCl>(light->decayFunction);
+
+		QString textureName = light->colorTexture.GetFileName();
+		lightCl.colorTextureIndex =
+			textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
 		data.append(reinterpret_cast<char *>(&lightCl), sizeof(lightCl));
 		totalDataOffset += sizeof(lightCl);

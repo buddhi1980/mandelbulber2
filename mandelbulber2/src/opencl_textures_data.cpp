@@ -43,6 +43,8 @@
 #include "material.h"
 #include "render_data.hpp"
 #include "write_log.hpp"
+#include "lights.hpp"
+#include "light.h"
 
 cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 		: cOpenClAbstractDynamicData(_numberOfTextures)
@@ -59,6 +61,8 @@ cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 	useTransparencyTexture = false;
 	useRoughnessTexture = false;
 
+	useLightTexture = false;
+
 	usePlanarMapping = false;
 	useCylindicalMapping = false;
 	useSphericalMapping = false;
@@ -71,28 +75,34 @@ cOpenClTexturesData::~cOpenClTexturesData()
 }
 
 int cOpenClTexturesData::CheckNumberOfTextures(
-	const sTextures &textures, const std::map<int, cMaterial> &materials)
+	const sTextures &textures, const std::map<int, cMaterial> &materials, const cLights &lights)
 {
-	int numberOfTextures = 0;
+	int texturesCounter = 0;
 	QSet<QString> listOfTextures;
 
-	CountTexture(&textures.envmapTexture, false, &listOfTextures, &numberOfTextures);
+	CountTexture(&textures.envmapTexture, false, &listOfTextures, &texturesCounter);
 
 	for (auto const &materialPair : materials) // for each material from materials
 	{
 		cMaterial const &material = materialPair.second;
-		CountTexture(&material.colorTexture, false, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.diffusionTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.colorTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.diffusionTexture, false, &listOfTextures, &texturesCounter);
 		CountTexture(&material.displacementTexture, true, &listOfTextures,
-			&numberOfTextures); // will be stored as 16bit grey texture
-		CountTexture(&material.luminosityTexture, false, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.normalMapTexture, false, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.reflectanceTexture, false, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.transparencyTexture, false, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.roughnessTexture, false, &listOfTextures, &numberOfTextures);
+			&texturesCounter); // will be stored as 16bit grey texture
+		CountTexture(&material.luminosityTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.normalMapTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.reflectanceTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.transparencyTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.roughnessTexture, false, &listOfTextures, &texturesCounter);
 	}
 
-	return numberOfTextures;
+	for (int i = 0; i < lights.GetNumberOfLights(); i++)
+	{
+		cLight const *light = lights.GetLight(i);
+		CountTexture(&light->colorTexture, false, &listOfTextures, &texturesCounter);
+	}
+
+	return texturesCounter;
 }
 
 bool cOpenClTexturesData::CountTexture(
@@ -117,7 +127,8 @@ bool cOpenClTexturesData::CountTexture(
 }
 
 void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
-	const std::map<int, cMaterial> &materials, QMap<QString, int> *textureIndexes)
+	const std::map<int, cMaterial> &materials, const cLights &lights,
+	QMap<QString, int> *textureIndexes)
 {
 	WriteLog("OpenCL - BuildAllTexturesData()", 2);
 
@@ -140,6 +151,8 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	useReflectanceTexture = false;
 	useTransparencyTexture = false;
 	useRoughnessTexture = false;
+
+	useLightTexture = false;
 
 	usePlanarMapping = false;
 	useCylindicalMapping = false;
@@ -215,6 +228,17 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 			case texture::mappingCylindrical: useCylindicalMapping = true; break;
 			case texture::mappingSpherical: useSphericalMapping = true; break;
 			case texture::mappingCubic: useCubicMapping = true; break;
+		}
+	}
+
+	for (int i = 0; i < lights.GetNumberOfLights(); i++)
+	{
+		cLight const *light = lights.GetLight(i);
+		if (light->colorTexture.IsLoaded()) useLightTexture = true;
+		if (CountTexture(&light->colorTexture, false, &listOfTextures, &textureIndex))
+		{
+			BuildTextureData(&light->colorTexture, textureIndex, false);
+			textureIndexes->insert(light->colorTexture.GetFileName(), textureIndex);
 		}
 	}
 
@@ -323,6 +347,7 @@ QString cOpenClTexturesData::GetDefinesCollector() const
 	if (useReflectanceTexture) definesCollector += " -DUSE_REFLECTANCE_TEXTURE";
 	if (useTransparencyTexture) definesCollector += " -DUSE_TRANSPARENCY_TEXTURE";
 	if (useRoughnessTexture) definesCollector += " -DUSE_ROUGHNESS_TEXTURE";
+	if (useLightTexture) definesCollector += " -DUSE_LIGHT_TEXTURE";
 	if (usePlanarMapping) definesCollector += " -DUSE_PLANAR_MAPPING";
 	if (useCylindicalMapping) definesCollector += " -DUSE_CYLINDRICAL_MAPPING";
 	if (useSphericalMapping) definesCollector += " -DUSE_SPHERICAL_MAPPING";

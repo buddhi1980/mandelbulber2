@@ -43,6 +43,7 @@
 struct sTextures;
 class cMaterial;
 class cTexture;
+class cLights;
 
 class cOpenClTexturesData : public cOpenClAbstractDynamicData
 {
@@ -51,9 +52,9 @@ public:
 	~cOpenClTexturesData();
 
 	static int CheckNumberOfTextures(
-		const sTextures &textures, const std::map<int, cMaterial> &materials);
+		const sTextures &textures, const std::map<int, cMaterial> &materials, const cLights &lights);
 	void BuildAllTexturesData(const sTextures &textures, const std::map<int, cMaterial> &materials,
-		QMap<QString, int> *textureIndexes);
+		const cLights &lights, QMap<QString, int> *textureIndexes);
 	QString GetDefinesCollector() const;
 
 private:
@@ -71,6 +72,8 @@ private:
 	bool useReflectanceTexture;
 	bool useTransparencyTexture;
 	bool useRoughnessTexture;
+
+	bool useLightTexture;
 
 	bool usePlanarMapping;
 	bool useCylindicalMapping;

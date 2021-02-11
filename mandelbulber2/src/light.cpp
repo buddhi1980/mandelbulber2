@@ -152,7 +152,7 @@ float cLight::CalculateCone(const CVector3 &lightVector, sRGBFloat &outColor) co
 	else if (type == lightProjection)
 	{
 		double axiality = lightVector.Dot(lightDirection);
-		if (axiality > 0 && projectionHorizontalRatio > 0.0 && projectionVerticalRatio > 0.0)
+		if (axiality > 0.0 && projectionHorizontalRatio > 0.0 && projectionVerticalRatio > 0.0)
 		{
 			double texX = lightRightVector.Dot(lightVector) / projectionHorizontalRatio / axiality + 0.5;
 			double texY = lightTopVector.Dot(lightVector) / projectionVerticalRatio / axiality + 0.5;

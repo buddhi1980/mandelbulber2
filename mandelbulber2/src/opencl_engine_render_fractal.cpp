@@ -572,7 +572,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 					anyVolumetricShaderUsed = true;
 				}
 
-				if (light->visibility > 0.0)
+				if (light->visibility > 0.0 && light->type != cLight::lightDirectional)
 				{
 					anyLightVisible = true;
 					anyVolumetricShaderUsed = true;
@@ -704,12 +704,12 @@ QMap<QString, int> cOpenClEngineRenderFractal::SetParametersAndDataForTextures(
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
 		WriteLog(QString("Creating dynamic data for textures"), 2);
-		int numberOfTextures =
-			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, renderData->materials);
+		int numberOfTextures = cOpenClTexturesData::CheckNumberOfTextures(
+			renderData->textures, renderData->materials, renderData->lights);
 		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
 		texturesData->ReserveHeader();
 		texturesData->BuildAllTexturesData(
-			renderData->textures, renderData->materials, &textureIndexes);
+			renderData->textures, renderData->materials, renderData->lights, &textureIndexes);
 		texturesData->FillHeader();
 		inTextureBuffer = texturesData->GetData();
 		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
@@ -905,7 +905,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 		DynamicDataForAOVectors(paramRender, fractals, renderData);
 
 		// random lights
-		dynamicData->BuildLightsData(&renderData->lights);
+		dynamicData->BuildLightsData(&renderData->lights, textureIndexes);
 	}
 
 	definesCollector += dynamicData->BuildPrimitivesData(&paramRender->primitives);
