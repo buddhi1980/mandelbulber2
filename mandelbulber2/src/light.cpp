@@ -103,7 +103,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 		position = lightParam->Get<CVector3>(Name("position", id));
 		lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
 		lightTopVector = rotMatrix.RotateVector(CVector3(0.0, 0.0, 1.0));
-		lightRightVector = rotMatrix.RotateVector(CVector3(1.0, 0.0, 0.0));
+		lightRightVector = rotMatrix.RotateVector(CVector3(-1.0, 0.0, 0.0));
 	}
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));
