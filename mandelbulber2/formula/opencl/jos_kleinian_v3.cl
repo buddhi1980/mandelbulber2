@@ -116,6 +116,18 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.z = -z.z + a;
 		}
 
+		REAL useScale = 1.0f;
+		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
+		z *= useScale;
+		aux->DE = aux->DE * fabs(useScale);
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA = -vary;
+		}
+
 		rr = dot(z, z);
 
 		REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};

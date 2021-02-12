@@ -122,8 +122,19 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.z = -z.z + a;
 		}
 
-		rr = z.Dot(z);
+		double useScale = 1.0;
+		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale);
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			aux.actualScaleA = -vary;
+		}
 
+		rr = z.Dot(z);
 		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
 		aux.color = min(aux.color, colorVector.Length()); // For coloring
 
