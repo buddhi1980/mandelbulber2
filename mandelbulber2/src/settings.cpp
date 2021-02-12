@@ -1385,6 +1385,13 @@ void cSettings::Compatibility2(
 
 				par->Set(
 					QString("light%1_size").arg(i), par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
+
+				if (par->Get<double>(QString("light%1_volumetric").arg(i)))
+				{
+					par->Set(QString("light%1_volumetric_visibility").arg(i),
+						par->Get<double>(QString("light%1_volumetric_visibility").arg(i))
+							/ par->Get<double>(QString("light%1_intensity").arg(i)));
+				}
 			}
 		}
 
