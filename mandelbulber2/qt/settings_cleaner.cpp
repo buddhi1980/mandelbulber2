@@ -168,6 +168,7 @@ void cSettingsCleaner::runCleaner()
 			if (parameterName.contains("mat") && parameterName.contains("rough_surface")) continue;
 			if (parameterName.contains("mat") && parameterName.contains("use_colors_from_palette"))
 				continue;
+			if (parameterName.contains("light") && parameterName.contains("is_defined")) continue;
 
 			sDefaultedParameter par;
 			par.parameterName = parameterName;
