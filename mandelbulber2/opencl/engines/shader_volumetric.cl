@@ -388,8 +388,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						miniStep = max(miniStep, 1e-6f);
 
 						float r2 = lightDist / lightSize;
-						float bellFunction =
-							1.0f / (1.0f + native_powr(r2, (float)(((int)light->decayFunction + 1) * 2)));
+						float bellFunction = 1.0f / (1.0f + pown(r2, ((int)light->decayFunction + 1) * 2));
 
 						float3 lightDirection = normalize(lightDistVect);
 

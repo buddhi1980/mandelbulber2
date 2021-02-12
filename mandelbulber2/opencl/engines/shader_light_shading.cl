@@ -61,7 +61,7 @@ float3 CalculateLightVector(__global sLightCl *light, float3 point, float delta,
 
 float LightDecay(float dist, enumLightDecayFunctionCl decayFunction)
 {
-	return pow(dist, (float)((int)decayFunction + 1));
+	return pown(dist, (int)decayFunction + 1);
 }
 
 float CalculateLightCone(
@@ -72,6 +72,7 @@ float CalculateLightCone(
 
 	if (light->type == lightConical)
 	{
+#ifdef LIGHT_CONICAL
 		float axiality = dot(lightVector, light->lightDirection);
 
 		if (axiality > light->coneRatio)
@@ -86,6 +87,7 @@ float CalculateLightCone(
 		{
 			intensity = 0.0f;
 		}
+#endif // LIGHT_CONICAL
 	}
 	else if (light->type == lightProjection)
 	{
