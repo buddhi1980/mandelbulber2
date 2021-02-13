@@ -1376,15 +1376,21 @@ void cSettings::Compatibility2(
 		}
 
 		// correct intensity of lights
-		for (int i = 2; i < 5; i++)
+		for (int i = 2; i <= 5; i++)
 		{
 			if (par->IfExists(QString("light%1_is_defined").arg(i)))
 			{
-				par->Set(QString("light%1_intensity").arg(i),
-					par->Get<double>(QString("light%1_intensity").arg(i)) / 4.0);
+				if (!par->isDefaultValue(QString("light%1_intensity").arg(i)))
+				{
+					par->Set(QString("light%1_intensity").arg(i),
+						par->Get<double>(QString("light%1_intensity").arg(i)) / 4.0);
+				}
 
-				par->Set(
-					QString("light%1_size").arg(i), par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
+				if (!par->isDefaultValue(QString("light%1_size").arg(i)))
+				{
+					par->Set(
+						QString("light%1_size").arg(i), par->Get<double>(QString("light%1_size").arg(i)) * 2.0);
+				}
 
 				if (par->Get<double>(QString("light%1_volumetric").arg(i)))
 				{

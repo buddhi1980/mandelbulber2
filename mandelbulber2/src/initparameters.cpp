@@ -1617,7 +1617,7 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 	par->addParam(cLight::Name("visibility", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("volumetric_visibility", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
-	par->addParam(cLight::Name("size", lightId), 0.25, 0.0, 1e10, morphLinear, paramStandard);
+	par->addParam(cLight::Name("size", lightId), 0.5, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(
 		cLight::Name("soft_shadow_cone", lightId), 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam(

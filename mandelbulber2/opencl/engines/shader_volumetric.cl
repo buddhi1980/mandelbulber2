@@ -145,6 +145,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				float3 textureColor;
 				intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
 
+				intensity *= light->volumetricVisibility;
+
 				float3 lightShadow = 1.0f;
 
 				if (intensity > 1e-3)
@@ -157,9 +159,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					lightShadow = 0.0f;
 				}
 
-				output += lightShadow * light->color * light->volumetricVisibility * step * intensity
-									* textureColor;
-				out4.s3 += lightShadow.s0 * light->volumetricVisibility * step * intensity;
+				output += lightShadow * light->color * step * intensity * textureColor;
+				out4.s3 += lightShadow.s0 * step * intensity;
 			}
 		}
 #endif // AUX_LIGHTS
@@ -327,7 +328,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							intensity = light->intensity;
 						else
 							intensity = light->intensity / LightDecay(distanceLight, light->decayFunction)
-													* consts->params.iterFogBrightnessBoost;
+													* consts->params.iterFogBrightnessBoost * 4.0f;
 
 						float3 textureColor;
 						intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);

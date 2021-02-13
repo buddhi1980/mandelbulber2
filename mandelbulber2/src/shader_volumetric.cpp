@@ -201,6 +201,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					else
 						intensity = light->intensity / light->Decay(distanceLight);
 
+					intensity *= light->volumetricVisibility;
+
 					sRGBFloat textureColor;
 					intensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
@@ -210,13 +212,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					else
 						lightShadow = sRGBAfloat();
 
-					output.R += lightShadow.R * light->color.R * light->volumetricVisibility * float(step)
-											* intensity * textureColor.R;
-					output.G += lightShadow.G * light->color.G * light->volumetricVisibility * float(step)
-											* intensity * textureColor.G;
-					output.B += lightShadow.B * light->color.B * light->volumetricVisibility * float(step)
-											* intensity * textureColor.B;
-					output.A += lightShadow.A * light->volumetricVisibility * float(step) / intensity;
+					output.R += lightShadow.R * light->color.R * float(step) * intensity * textureColor.R;
+					output.G += lightShadow.G * light->color.G * float(step) * intensity * textureColor.G;
+					output.B += lightShadow.B * light->color.B * float(step) * intensity * textureColor.B;
+					output.A += lightShadow.A * float(step) * intensity;
 				}
 			}
 		}
@@ -376,8 +375,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (light->type == cLight::lightDirectional)
 							intensity = light->intensity;
 						else
-							intensity =
-								light->intensity / light->Decay(distanceLight) * params->iterFogBrightnessBoost;
+							intensity = light->intensity / light->Decay(distanceLight)
+													* params->iterFogBrightnessBoost * 4.0;
 
 						sRGBFloat textureColor;
 						intensity *= light->CalculateCone((-1.0) * lightVectorTemp, textureColor);
