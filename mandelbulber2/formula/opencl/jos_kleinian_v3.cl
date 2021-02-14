@@ -154,7 +154,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
-	if (aux.i >= fractal->transformCommon.startIterationsG)
+	if (aux->i >= fractal->transformCommon.startIterationsG)
 	{
 		aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
 								/ max(aux->DE, fractal->analyticDE.offset1);
