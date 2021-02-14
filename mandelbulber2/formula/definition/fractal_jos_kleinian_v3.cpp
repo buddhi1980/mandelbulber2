@@ -122,7 +122,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.z = -z.z + a;
 		}
 
-		double useScale = 1.0;
+/*		double useScale = 1.0;
 		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale);
@@ -132,7 +132,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			double vary = fractal->transformCommon.scaleVary0
 										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
 			aux.actualScaleA = -vary;
-		}
+		}*/
 
 		rr = z.Dot(z);
 		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
@@ -159,18 +159,18 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	if (fractal->transformCommon.spheresEnabled)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
-	aux.dist =
-		min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
-		/ max(aux.DE, fractal->analyticDE.offset1);
-
-
+	if (aux.i >= fractal->transformCommon.startIterationsG)
+	{
+		aux.dist =
+			min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
+			/ max(aux.DE, fractal->analyticDE.offset1);
+	}
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		z.z = Ztemp;
 	}
-
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabledFalse)
