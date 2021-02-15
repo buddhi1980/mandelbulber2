@@ -1365,7 +1365,7 @@ void cSettings::Compatibility2(
 		// copy light visibility and intensity to all another lights
 		if (par->IfExists("light2_is_defined"))
 		{
-			for (int i = 3; i < 5; i++)
+			for (int i = 3; i <= 5; i++)
 			{
 				if (par->IfExists(QString("light%1_is_defined").arg(i)))
 				{
@@ -1398,6 +1398,9 @@ void cSettings::Compatibility2(
 						par->Get<double>(QString("light%1_volumetric_visibility").arg(i))
 							/ par->Get<double>(QString("light%1_intensity").arg(i)));
 				}
+
+				par->Set(QString("light%1_penetrating").arg(i), par->Get<bool>("light1_penetrating"));
+				par->Set(QString("light%1_cast_shadows").arg(i), par->Get<bool>("light1_cast_shadows"));
 			}
 		}
 

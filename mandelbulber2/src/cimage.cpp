@@ -826,128 +826,88 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 	{
 		float deltaX = x2 - x1;
 		float deltaY = y2 - y1;
+		float l2 = deltaX * deltaX + deltaY * deltaY;
+
 		if (deltaX != 0.0f || deltaY != 0.0f)
 		{
-			float a_deltaX = fabsf(deltaX);
-			float a_deltaY = fabsf(deltaY);
+			float minX = std::min(x1, x2);
+			float maxX = std::max(x1, x2);
 
-			float A = y1 - y2;
-			float B = x2 - x1;
-			float C = y2 * x1 - x2 * y1;
-			float denominator = 1.0f / sqrtf(A * A + B * B);
+			float lineThickness = 1.0;
+			float halfThickness = lineThickness;
 
-			if (a_deltaX > a_deltaY)
+			qint64 xStart = qint64(minX - halfThickness);
+			if (xStart < 0L) xStart = 0;
+			qint64 xEnd = qint64(maxX + halfThickness);
+			if (xEnd > qint64(previewWidth)) xEnd = qint64(previewWidth);
+
+			bool vertical = false;
+			float k = 0.0;
+			float kz = 0.0;
+			if (deltaX != 0.0)
 			{
-				x1 += 0.5f;
-				x2 += 0.5f;
+				k = deltaY / deltaX;
+				kz = (z2 - z1) / (x2 - x1);
 			}
 			else
 			{
-				y1 += 0.5f;
-				y2 += 0.5f;
+				vertical = true;
 			}
 
-			if (a_deltaX > a_deltaY)
-			{
-				float k = (y2 - y1) / (x2 - x1);
-				float kz = (z2 - z1) / (x2 - x1);
+			//		  vec3 pa = p - a, ba = b - a;
+			//		  float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+			//		  return length( pa - ba*h ) - r;
 
-				float xx1;
-				float xx2;
-				if (x1 < x2)
+			for (qint64 ix = xStart; ix <= xEnd; ix++)
+			{
+				float yLow = k * (ix - x1 - halfThickness) + y1;
+				float yHigh = k * (ix - x1 + halfThickness) + y1;
+				qint64 yStart;
+				qint64 yEnd;
+				if (vertical)
 				{
-					xx1 = x1;
-					xx2 = x2;
+					yStart = std::min(y1, y2) - halfThickness;
+					yEnd = std::max(y1, y2) + halfThickness;
 				}
 				else
 				{
-					xx1 = x2;
-					xx2 = x1;
+					yStart = std::min(yLow, yHigh) - halfThickness;
+					yEnd = std::max(yLow, yHigh) + halfThickness;
 				}
 
-				qint64 start = qint64(xx1);
-				if (start < 0L) start = 0;
-				qint64 end = qint64(xx2);
-				if (end > qint64(previewWidth)) end = qint64(previewWidth);
-
-				for (qint64 intX = start; intX <= end; intX++)
+				if (yStart < 0L) yStart = 0;
+				if (yEnd > qint64(previewHeight)) yEnd = qint64(previewHeight);
+				for (qint64 iy = yStart; iy <= yEnd; iy++)
 				{
-					float x = intX;
-					float y = k * (x - x1) + y1;
-					float z = kz * (x - x1) + z1;
-					qint64 xx = qint64(0.5f + x);
-					for (float d = -1; d <= 1; d++)
+					float pax = ix - x1;
+					float pay = iy - y1;
+
+					float dot = pax * deltaX + pay * deltaY;
+
+					float h = clamp(dot / l2, 0.0f, 1.0f);
+
+					float dx = pax - deltaX * h;
+					float dy = pay - deltaY * h;
+
+					float dist = sqrtf(dx * dx + dy * dy);
+
+					float z;
+					if (vertical)
 					{
-						qint64 yy = qint64(0.5f + y + d);
-						float distance = 1.0f * fabsf(A * x + B * yy + C) * denominator;
-						if (distance >= 1.0f) distance = 1.0f;
-						float opacity2;
-						opacity2 = (1.0f - distance);
-						if (intX == start)
-						{
-							opacity2 = (1.0f - (xx1 - x)) * (1.0f - distance);
-						}
-						if (intX == end)
-						{
-							opacity2 = ((xx2 - x)) * (1.0f - distance);
-						}
-						sRGBFloat opacity3;
-						opacity3.R = opacity2 * opacity.R;
-						opacity3.G = opacity2 * opacity.G;
-						opacity3.B = opacity2 * opacity.B;
-						PutPixelAlfa(xx, yy, z, color, opacity3, layer);
+						z = (iy - y1) / deltaY * (z2 - z1) + z1;
 					}
-				}
-			}
-			else
-			{
-				float k = (x2 - x1) / (y2 - y1);
-				float kz = (z2 - z1) / (y2 - y1);
-				float yy1;
-				float yy2;
-				if (y1 < y2)
-				{
-					yy1 = y1;
-					yy2 = y2;
-				}
-				else
-				{
-					yy1 = y2;
-					yy2 = y1;
-				}
-
-				qint64 start = qint64(yy1);
-				if (start < 0) start = 0;
-				qint64 end = qint64(yy2);
-				if (end > qint64(previewHeight)) end = qint64(previewHeight);
-
-				for (qint64 intY = start; intY <= end; intY++)
-				{
-					float y = intY;
-					float x = k * (y - y1) + x1;
-					float z = kz * (y - y1) + z1;
-					qint64 yy = qint64(0.5f + y);
-					for (int d = -1; d <= 1; d++)
+					else
 					{
-						qint64 xx = qint64(0.5f + x + d);
-						float distance = fabsf(A * xx + B * y + C) * denominator;
-						if (distance >= 1.0f) distance = 1.0f;
-						float opacity2;
-						opacity2 = (1.0f - distance);
-						if (intY == start)
-						{
-							opacity2 = (1.0f - (yy1 - (y))) * (1.0f - distance);
-						}
-						if (intY == end)
-						{
-							opacity2 = ((yy2 - (y))) * (1.0f - distance);
-						}
-						sRGBFloat opacity3;
-						opacity3.R = opacity2 * opacity.R;
-						opacity3.G = opacity2 * opacity.G;
-						opacity3.B = opacity2 * opacity.B;
-						PutPixelAlfa(xx, yy, z, color, opacity3, layer);
+						z = kz * (ix - x1) + z1;
 					}
+
+					float opacity2 = clamp(halfThickness - dist, 0.0f, 1.0f);
+
+					sRGBFloat opacity3;
+					opacity3.R = opacity2 * opacity.R;
+					opacity3.G = opacity2 * opacity.G;
+					opacity3.B = opacity2 * opacity.B;
+					PutPixelAlfa(ix, iy, z, color, opacity3, layer);
 				}
 			}
 		}
