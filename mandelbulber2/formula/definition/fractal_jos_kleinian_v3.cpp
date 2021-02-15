@@ -92,59 +92,57 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	// kleinian
-	if (aux.i >= fractal->transformCommon.startIterationsF
-			&& aux.i < fractal->transformCommon.stopIterationsF)
+
+	double a = fractal->transformCommon.foldingValue;
+	double b = fractal->transformCommon.offset;
+	double f = sign(b);
+
+	// wrap
+	CVector4 box_size = fractal->transformCommon.offset111;
+	//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
+	//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
+	//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+
+	//z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
 	{
-		double a = fractal->transformCommon.foldingValue;
-		double b = fractal->transformCommon.offset;
-		double f = sign(b);
+		z.x += box_size.x;
+		z.y += box_size.y;
+		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+		z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
+		z.z += box_size.z - 1.0;
+		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+		z.z -= (box_size.z - 1.0);
+	}
 
-		// wrap
-		CVector4 box_size = fractal->transformCommon.offset111;
-		//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-		//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-		//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
-
-		//z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
-		{
-			z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
-			z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
-			z.z += box_size.z - 1.0;
-			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
-			z.z -= (box_size.z - 1.0);
-		}
-
-		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-		{
-			z.x = -z.x - b;
-			z.z = -z.z + a;
-		}
+	if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+	{
+		z.x = -z.x - b;
+		z.z = -z.z + a;
+	}
 
 /*		double useScale = 1.0;
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale);
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			// update actualScaleA for next iteration
-			double vary = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			aux.actualScaleA = -vary;
-		}*/
+	useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
+	z *= useScale;
+	aux.DE = aux.DE * fabs(useScale);
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		aux.actualScaleA = -vary;
+	}*/
 
-		rr = z.Dot(z);
-		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
-		aux.color = min(aux.color, colorVector.Length()); // For coloring
+	rr = z.Dot(z);
+	CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
 
-		double iR = 1.0 / rr;
-		z *= -iR; // invert and mirror
-		z.x = -z.x - b;
-		z.z = a + z.z;
 
-		aux.DE *= fabs(iR);
-	}
+	double iR = 1.0 / rr;
+	aux.DE *= iR;
+	z *= -iR; // invert and mirror
+	z.x = -z.x - b;
+	z.z = a + z.z;
+
+
 
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -178,10 +176,14 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		double colorAdd = 0.0;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
-		colorAdd += fractal->foldColor.difs0000.z * rr;
-		colorAdd += fractal->foldColor.difs0000.w * z.z;
-		colorAdd += fractal->foldColor.difs1;
-		aux.color += colorAdd;
+		colorAdd += fractal->foldColor.difs0000.z * z.z;
+		//colorAdd += fractal->foldColor.difs0000.w * z.z;
+		//colorAdd += fractal->foldColor.difs1;
+		//aux.color = colorAdd;
+
+		aux.pseudoKleinianDE = min(aux.pseudoKleinianDE, colorVector.Length())
+				* fractal->foldColor.difs1; // For coloring
+		aux.color = colorAdd + aux.pseudoKleinianDE;
 	}
 
 }

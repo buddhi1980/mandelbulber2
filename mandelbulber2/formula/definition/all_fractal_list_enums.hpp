@@ -427,6 +427,7 @@ enum enumFractalFormula
 
 	// 2.25
 	transfPolyFoldAtan2Iter = 1126,
+	transfSinTan = 1127,
 
 	// mandelbulber transfdIFS
 	// 2.20

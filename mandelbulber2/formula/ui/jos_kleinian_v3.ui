@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4203</height>
+    <height>4237</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1915,7 +1915,7 @@ offset:</string>
         <item row="4" column="0">
          <widget class="QLabel" name="label_56">
           <property name="text">
-           <string>rr:</string>
+           <string>z.z:</string>
           </property>
          </widget>
         </item>
@@ -1950,7 +1950,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_54">
           <property name="text">
-           <string>iteration color</string>
+           <string>orbit trap</string>
           </property>
          </widget>
         </item>
@@ -2027,7 +2027,7 @@ offset:</string>
         <item row="5" column="0">
          <widget class="QLabel" name="label_57">
           <property name="text">
-           <string notr="true">z.z</string>
+           <string notr="true">www</string>
           </property>
          </widget>
         </item>

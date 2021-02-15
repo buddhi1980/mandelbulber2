@@ -86,60 +86,57 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	// kleinian
-	if (aux->i >= fractal->transformCommon.startIterationsF
-			&& aux->i < fractal->transformCommon.stopIterationsF)
+
+	REAL a = fractal->transformCommon.foldingValue;
+	REAL b = fractal->transformCommon.offset;
+	REAL f = sign(b);
+
+	// wrap
+	REAL4 box_size = fractal->transformCommon.offset111;
+	// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
+	// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
+	// REAL3 wrapped = wrap(z.xyz, box1, box2);
+
+	// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
 	{
-		REAL a = fractal->transformCommon.foldingValue;
-		REAL b = fractal->transformCommon.offset;
-		REAL f = sign(b);
-
-		// wrap
-		REAL4 box_size = fractal->transformCommon.offset111;
-		// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
-		// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
-		// REAL3 wrapped = wrap(z.xyz, box1, box2);
-
-		// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
-		{
-			z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
-			z.z += box_size.z - 1.0f;
-			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
-			z.z -= (box_size.z - 1.0f);
-		}
-
-		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
-		{
-			z.x = -z.x - b;
-			z.z = -z.z + a;
-		}
-
-		REAL useScale = 1.0f;
-		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
-		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale);
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			// update actualScaleA for next iteration
-			REAL vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA = -vary;
-		}
-
-		rr = dot(z, z);
-
-		REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
-		aux->color = min(aux->color, length(colorVector)); // For coloring
-
-		REAL iR = 1.0f / rr;
-		z *= -iR; // invert and mirror
-		z.x = -z.x - b;
-		z.z = a + z.z;
-
-		aux->DE *= fabs(iR);
+		z.x += box_size.x;
+		z.y += box_size.y;
+		z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
+		z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
+		z.z += box_size.z - 1.0f;
+		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+		z.z -= (box_size.z - 1.0f);
 	}
+
+	if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
+	{
+		z.x = -z.x - b;
+		z.z = -z.z + a;
+	}
+
+	REAL useScale = 1.0f;
+	useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
+	z *= useScale;
+	aux->DE = aux->DE * fabs(useScale);
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// update actualScaleA for next iteration
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+		aux->actualScaleA = -vary;
+	}
+
+	rr = dot(z, z);
+
+	REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
+
+
+	REAL iR = 1.0f / rr;
+	aux->DE *= iR;
+	z *= -iR; // invert and mirror
+	z.x = -z.x - b;
+	z.z = a + z.z;
+
 
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -173,10 +170,15 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL colorAdd = 0.0f;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
-		colorAdd += fractal->foldColor.difs0000.z * rr;
-		colorAdd += fractal->foldColor.difs0000.w * z.z;
-		colorAdd += fractal->foldColor.difs1;
-		aux->color += colorAdd;
+		colorAdd += fractal->foldColor.difs0000.z * z.z;
+		//colorAdd += fractal->foldColor.difs0000.w * z.z;
+		//colorAdd += fractal->foldColor.difs1;
+
+
+		aux->pseudoKleinianDE = min(aux->pseudoKleinianDE, length(colorVector))
+				* fractal->foldColor.difs1; // For coloring
+		aux->color = colorAdd + aux->pseudoKleinianDE;
+
 	}
 
 	return z;
