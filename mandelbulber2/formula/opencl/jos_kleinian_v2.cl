@@ -125,12 +125,11 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->color = min(aux->color, length(colorVector)); // For coloring
 
 		REAL iR = 1.0f / rr;
+		aux->DE *= iR;
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.y = a + z.y;
 		z.z = -z.z - c;
-
-		aux->DE *= fabs(iR);
 	}
 
 	if (fractal->transformCommon.functionEnabledEFalse

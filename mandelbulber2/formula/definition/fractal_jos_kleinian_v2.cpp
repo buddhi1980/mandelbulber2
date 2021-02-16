@@ -131,12 +131,11 @@ void cFractalJosKleinianV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.color = min(aux.color, colorVector.Length()); // For coloring
 
 		double iR = 1.0 / rr;
+		aux.DE *= iR;
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.y = a + z.y;
 		z.z = -z.z - c;
-
-		aux.DE *= fabs(iR);
 	}
 
 	if (fractal->transformCommon.functionEnabledEFalse

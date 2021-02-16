@@ -26,25 +26,14 @@ cFractalTransfSinTan::cFractalTransfSinTan() : cAbstractFractal()
 
 void cFractalTransfSinTan::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 v;
-	switch (fractal->mandelbulbMulti.orderOfXYZ)
-	{
-		case multi_OrderOfXYZ_xyz:
-		default: v = CVector4(z.x, z.y, z.z, z.w); break;
-		case multi_OrderOfXYZ_xzy: v = CVector4(z.x, z.z, z.y, z.w); break;
-		case multi_OrderOfXYZ_yxz: v = CVector4(z.y, z.x, z.z, z.w); break;
-		case multi_OrderOfXYZ_yzx: v = CVector4(z.y, z.z, z.x, z.w); break;
-		case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
-		case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
-	}
 	if (fractal->transformCommon.functionEnabledAx)
-		z.x = tan(sin((v.x - fractal->transformCommon.offset000.x) * fractal->transformCommon.constantMultiplierA111.x))
+		z.x = tan(sin((z.x - fractal->transformCommon.offset000.x) * fractal->transformCommon.constantMultiplierA111.x))
 				* fractal->transformCommon.constantMultiplierB111.x + fractal->transformCommon.offsetA000.x;
 	if (fractal->transformCommon.functionEnabledAyFalse)
-		z.y = tan(sin((v.y - fractal->transformCommon.offset000.y) * fractal->transformCommon.constantMultiplierA111.y))
+		z.y = tan(sin((z.y - fractal->transformCommon.offset000.y) * fractal->transformCommon.constantMultiplierA111.y))
 				* fractal->transformCommon.constantMultiplierB111.y + fractal->transformCommon.offsetA000.y;
 	if (fractal->transformCommon.functionEnabledAzFalse)
-		z.z = tan(sin((v.z - fractal->transformCommon.offset000.z) * fractal->transformCommon.constantMultiplierA111.z))
+		z.z = tan(sin((z.z - fractal->transformCommon.offset000.z) * fractal->transformCommon.constantMultiplierA111.z))
 				* fractal->transformCommon.constantMultiplierB111.z + fractal->transformCommon.offsetA000.z;
 
 	// DE tweak

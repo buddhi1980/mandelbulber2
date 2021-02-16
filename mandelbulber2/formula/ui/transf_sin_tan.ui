@@ -33,61 +33,9 @@
     <widget class="QLabel" name="label_141">
      <property name="text">
       <string notr="true">e.g.  new_z.x =  
-  tan( sin((v1 - offsetA) * scaleA) )* scaleB + offsetB</string>
+  tan( sin((z.x - offsetA)  * scaleA) ) * scaleB + offsetB</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_77" rowstretch="0" columnstretch="0,0,1">
-     <property name="topMargin">
-      <number>5</number>
-     </property>
-     <property name="verticalSpacing">
-      <number>2</number>
-     </property>
-     <item row="0" column="2">
-      <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
-       <item>
-        <property name="text">
-         <string notr="true">xyz</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">xzy</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">yxz</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">yzx</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">zxy</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">zyx</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>function order of v vector 
- (v1, v2, v3)</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx">
@@ -801,11 +749,6 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

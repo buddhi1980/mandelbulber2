@@ -16,29 +16,18 @@
 
 REAL4 TransfSinTanIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 v;
-	switch (fractal->mandelbulbMulti.orderOfXYZ)
-	{
-		case multi_OrderOfXYZCl_xyz:
-		default: v = (REAL4){z.x, z.y, z.z, z.w}; break;
-		case multi_OrderOfXYZCl_xzy: v = (REAL4){z.x, z.z, z.y, z.w}; break;
-		case multi_OrderOfXYZCl_yxz: v = (REAL4){z.y, z.x, z.z, z.w}; break;
-		case multi_OrderOfXYZCl_yzx: v = (REAL4){z.y, z.z, z.x, z.w}; break;
-		case multi_OrderOfXYZCl_zxy: v = (REAL4){z.z, z.x, z.y, z.w}; break;
-		case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
-	}
 	if (fractal->transformCommon.functionEnabledAx)
-		z.x = native_tan(native_sin((v.x - fractal->transformCommon.offset000.x)
+		z.x = native_tan(native_sin((z.x - fractal->transformCommon.offset000.x)
 											* fractal->transformCommon.constantMultiplierA111.x))
 						 * fractal->transformCommon.constantMultiplierB111.x
 					 + fractal->transformCommon.offsetA000.x;
 	if (fractal->transformCommon.functionEnabledAyFalse)
-		z.y = native_tan(native_sin((v.y - fractal->transformCommon.offset000.y)
+		z.y = native_tan(native_sin((z.y - fractal->transformCommon.offset000.y)
 											* fractal->transformCommon.constantMultiplierA111.y))
 						 * fractal->transformCommon.constantMultiplierB111.y
 					 + fractal->transformCommon.offsetA000.y;
 	if (fractal->transformCommon.functionEnabledAzFalse)
-		z.z = native_tan(native_sin((v.z - fractal->transformCommon.offset000.z)
+		z.z = native_tan(native_sin((z.z - fractal->transformCommon.offset000.z)
 											* fractal->transformCommon.constantMultiplierA111.z))
 						 * fractal->transformCommon.constantMultiplierB111.z
 					 + fractal->transformCommon.offsetA000.z;
