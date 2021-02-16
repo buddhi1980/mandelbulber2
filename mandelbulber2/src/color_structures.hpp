@@ -118,4 +118,9 @@ inline sRGBFloat toRGBFloat(sRGB8 c)
 	return sRGBFloat(c.R / 256.0, c.G / 256.0, c.B / 256.0);
 }
 
+inline sRGB8 toRGB8(sRGB c)
+{
+	return sRGB8(c.R / 256, c.G / 256, c.B / 256);
+}
+
 #endif /* MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_ */

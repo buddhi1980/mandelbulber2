@@ -112,6 +112,11 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 				if (!anaglyphMode) DisplayCrosshair();
 			}
 
+			if (isFocus)
+			{
+				DisplayAllLights();
+			}
+
 			if (cursorVisible && isFocus)
 			{
 				if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
@@ -389,9 +394,9 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 	{
 		// draw small cross
 		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 	}
 	lastDepth = z;
 }
@@ -446,8 +451,8 @@ void RenderedImage::Draw3DBox(
 				R = G = B = 255;
 				// opacity = 1.0;
 			}
-			image->AntiAliasedLine(
-				xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
+			image->AntiAliasedLine(xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2,
+				sRGB8(R, G, B), opacity, 1.0f, 1);
 		}
 
 		float xx1 = ((p.x + n * boxWidth) / (1.0f - boxDepth * iz * fov) / aspectRatio + 0.5f) * sw;
@@ -475,8 +480,8 @@ void RenderedImage::Draw3DBox(
 				// opacity = 1.0;
 			}
 
-			image->AntiAliasedLine(
-				xx1, yyn1, xx2, yyn1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
+			image->AntiAliasedLine(xx1, yyn1, xx2, yyn1, z - iz * boxDepth2, z - iz * boxDepth2,
+				sRGB8(R, G, B), opacity, 1.0f, 1);
 		}
 
 		if (iz < n)
@@ -512,7 +517,7 @@ void RenderedImage::Draw3DBox(
 					}
 
 					image->AntiAliasedLine(xxn1, yyn1, xxn2, yyn2, z - iz * boxDepth2,
-						z - (iz + 1) * boxDepth2, sRGB8(R, G, B), opacity, 1);
+						z - (iz + 1) * boxDepth2, sRGB8(R, G, B), opacity, 1.0f, 1);
 				}
 			}
 		}
@@ -520,19 +525,19 @@ void RenderedImage::Draw3DBox(
 		{
 			CVector2<float> sPoint((p.x / aspectRatio + 0.5f) * sw, (p.y + 0.5f) * sh);
 			image->AntiAliasedLine(sPoint.x - sw * 0.3f, sPoint.y, sPoint.x + sw * 0.3f, sPoint.y, z, z,
-				sRGB8(255, 255, 255), opacity, 1);
+				sRGB8(255, 255, 255), opacity, 1.0f, 1);
 			image->AntiAliasedLine(sPoint.x, sPoint.y - sh * 0.3f, sPoint.x, sPoint.y + sh * 0.3f, z, z,
-				sRGB8(255, 255, 255), opacity, 1);
+				sRGB8(255, 255, 255), opacity, 1.0f, 1);
 			if (anaglyphMode)
 			{
 				image->AntiAliasedLine(sPoint.x - sw * 0.05f, sPoint.y - sh * 0.05f, sPoint.x + sw * 0.05f,
-					sPoint.y - sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1);
+					sPoint.y - sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1.0f, 1);
 				image->AntiAliasedLine(sPoint.x + sw * 0.05f, sPoint.y - sh * 0.05f, sPoint.x + sw * 0.05f,
-					sPoint.y + sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1);
+					sPoint.y + sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1.0f, 1);
 				image->AntiAliasedLine(sPoint.x + sw * 0.05f, sPoint.y + sh * 0.05f, sPoint.x - sw * 0.05f,
-					sPoint.y + sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1);
+					sPoint.y + sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1.0f, 1);
 				image->AntiAliasedLine(sPoint.x - sw * 0.05f, sPoint.y + sh * 0.05f, sPoint.x - sw * 0.05f,
-					sPoint.y - sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1);
+					sPoint.y - sh * 0.05f, z, z, sRGB8(0, 0, 0), opacity, 1.0f, 1);
 			}
 
 			if (clickMode == clickPlaceLight)
@@ -879,11 +884,11 @@ void RenderedImage::DisplayCrosshair() const
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
 		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 		image->AntiAliasedLine(crossCenter.x * 1.5f, 0, crossCenter.x * 1.5f, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+			sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 	}
 	else
 	{
@@ -891,20 +896,20 @@ void RenderedImage::DisplayCrosshair() const
 		{
 			case gridTypeCrosshair:
 				image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 
 			case gridTypeThirds:
 				image->AntiAliasedLine(sw * 0.3333f, 0, sw * 0.3333f, sh, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(sw * 0.6666f, 0, sw * 0.6666f, sh, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(0, sh * 0.3333f, sw, sh * 0.3333f, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(0, sh * 0.6666f, sw, sh * 0.6666f, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 
 			case gridTypeGolden:
@@ -912,13 +917,13 @@ void RenderedImage::DisplayCrosshair() const
 				float ratio1 = goldenRatio - 1.0f;
 				float ratio2 = 1.0f - ratio1;
 				image->AntiAliasedLine(sw * ratio1, 0, sw * ratio1, sh, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(sw * ratio2, 0, sw * ratio2, sh, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(0, sh * ratio1, sw, sh * ratio1, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				image->AntiAliasedLine(0, sh * ratio2, sw, sh * ratio2, -1, -1, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 		}
 	}
@@ -1144,7 +1149,7 @@ void RenderedImage::DrawAnimationPath()
 			if (pointTarget1.z > 0 && pointTarget2.z > 0)
 			{
 				image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y,
-					pointTarget1.z, pointTarget2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1);
+					pointTarget1.z, pointTarget2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1.0f, 1);
 			}
 		}
 
@@ -1168,7 +1173,7 @@ void RenderedImage::DrawAnimationPath()
 			if (pointCamera1.z > 0 && pointCamera2.z > 0)
 			{
 				image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y,
-					pointCamera1.z, pointCamera2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1);
+					pointCamera1.z, pointCamera2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1.0f, 1);
 			}
 		}
 
@@ -1179,7 +1184,8 @@ void RenderedImage::DrawAnimationPath()
 				if (f * 4 % framesPerKey == 0)
 				{
 					image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
-						pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2f, 0.2f, 0.2f), 1);
+						pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2f, 0.2f, 0.2f), 1.0f,
+						1);
 				}
 			}
 		}
@@ -1216,7 +1222,7 @@ void RenderedImage::DrawAnimationPath()
 				if (pointTarget1.z > 0 && pointTarget2.z > 0)
 				{
 					image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y,
-						pointTarget1.z, pointTarget2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1);
+						pointTarget1.z, pointTarget2.z, color, sRGBFloat(1.0, 1.0, 1.0), 1.0f, 1);
 				}
 			}
 		}
@@ -1276,4 +1282,43 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 		}
 	}
 	listOfRenderedTilesData.clear();
+}
+
+void RenderedImage::DisplayAllLights()
+{
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 rotation = params->Get<CVector3>("camera_rotation");
+	params::enumPerspectiveType perspectiveType =
+		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
+	double fov = CalcFOV(params->Get<double>("fov"), perspectiveType);
+	int width = image->GetPreviewWidth();
+	int height = image->GetPreviewHeight();
+
+	CRotationMatrix mRotInv;
+	mRotInv.RotateY(-rotation.z / 180.0 * M_PI);
+	mRotInv.RotateX(-rotation.y / 180.0 * M_PI);
+	mRotInv.RotateZ(-rotation.x / 180.0 * M_PI);
+
+	QList<QString> listOfParameters = params->GetListOfParameters();
+	for (auto &parameterName : listOfParameters)
+	{
+		const int lengthOfPrefix = 5;
+		if (parameterName.leftRef(lengthOfPrefix) == "light")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int lightIndex =
+				parameterName.midRef(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
+			{
+				CVector3 lightPosition = params->Get<CVector3>(QString("light%1_position").arg(lightIndex));
+				sRGB8 color = toRGB8(params->Get<sRGB>(QString("light%1_color").arg(lightIndex)));
+
+				CVector3 lightCenter =
+					InvProjection3D(lightPosition, camera, mRotInv, perspectiveType, fov, width, height);
+
+				image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color, 4.0,
+					sRGBFloat(1.0, 1.0, 1.0), 1);
+			}
+		}
+	}
 }

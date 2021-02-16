@@ -150,6 +150,7 @@ private:
 	static QPointF CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 	void DrawAnimationPath();
 	void PaintLastRenderedTilesInfo();
+	void DisplayAllLights();
 
 	bool anaglyphMode;
 	bool cursorVisible;

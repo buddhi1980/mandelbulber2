@@ -818,7 +818,7 @@ void cImage::AntiAliasedPoint(float x, float y, float z, sRGB8 color, sRGBFloat 
 }
 
 void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, float z2,
-	sRGB8 color, sRGBFloat opacity, int layer)
+	sRGB8 color, sRGBFloat opacity, float thickness, int layer)
 {
 	previewMutex.lock();
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)
@@ -833,8 +833,7 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 			float minX = std::min(x1, x2);
 			float maxX = std::max(x1, x2);
 
-			float lineThickness = 1.0;
-			float halfThickness = lineThickness;
+			float halfThickness = thickness;
 
 			qint64 xStart = qint64(minX - halfThickness);
 			if (xStart < 0L) xStart = 0;

@@ -311,7 +311,7 @@ public:
 	void PutPixelAlfa(quint64 x, quint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer);
 	void AntiAliasedPoint(float x, float y, float z, sRGB8 color, sRGBFloat opacity, int layer);
 	void AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, float z2, sRGB8 color,
-		sRGBFloat opacity, int layer);
+		sRGBFloat opacity, float thickness, int layer);
 	void CircleBorder(float x, float y, float z, float r, sRGB8 border, float borderWidth,
 		sRGBFloat opacity, int layer);
 
