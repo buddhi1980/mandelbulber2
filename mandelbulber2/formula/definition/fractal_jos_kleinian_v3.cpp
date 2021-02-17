@@ -29,6 +29,27 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledYFalse
+			&& aux.i >= fractal->transformCommon.startIterationsTM
+			&& aux.i < fractal->transformCommon.stopIterationsTM1)
+	{
+		z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+		z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+
+		// square
+		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
+		// circle
+		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
+
+
+
+	}
+
+
+
+
+
+
 	double rr = 0.0;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse

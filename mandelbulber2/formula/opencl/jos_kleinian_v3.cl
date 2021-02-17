@@ -19,6 +19,26 @@
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
+
+if (fractal->transformCommon.functionEnabledYFalse
+		&& aux->i >= fractal->transformCommon.startIterationsTM
+		&& aux->i < fractal->transformCommon.stopIterationsTM1)
+{
+	z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+	z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+
+	// square
+	if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
+	// circle
+	if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
+
+
+
+}
+
+
+
+
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
