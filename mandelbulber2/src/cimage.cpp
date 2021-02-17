@@ -818,7 +818,7 @@ void cImage::AntiAliasedPoint(float x, float y, float z, sRGB8 color, sRGBFloat 
 }
 
 void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, float z2,
-	sRGB8 color, sRGBFloat opacity, float thickness, int layer)
+	const sRGB8 &color, const sRGBFloat &opacity, float thickness, int layer)
 {
 	previewMutex.lock();
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)

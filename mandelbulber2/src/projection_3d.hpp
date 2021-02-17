@@ -52,8 +52,9 @@ enum enumPerspectiveType
 
 double CalcFOV(double fovDeegres, params::enumPerspectiveType perspType);
 
-CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotInv,
-	params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight);
+CVector3 InvProjection3D(const CVector3 &point, const CVector3 &camera,
+	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+	double imgWidth, double imgHeight);
 CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 	params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
 

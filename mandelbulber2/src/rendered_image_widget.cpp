@@ -1312,13 +1312,74 @@ void RenderedImage::DisplayAllLights()
 			{
 				CVector3 lightPosition = params->Get<CVector3>(QString("light%1_position").arg(lightIndex));
 				sRGB8 color = toRGB8(params->Get<sRGB>(QString("light%1_color").arg(lightIndex)));
+				double size = params->Get<double>(QString("light%1_size").arg(lightIndex));
+				double intensity = params->Get<double>(QString("light%1_intensity").arg(lightIndex));
 
 				CVector3 lightCenter =
 					InvProjection3D(lightPosition, camera, mRotInv, perspectiveType, fov, width, height);
 
 				image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color, 4.0,
 					sRGBFloat(1.0, 1.0, 1.0), 1);
+
+				double visibleSize = sqrt(intensity) * size / lightCenter.z / fov * height;
+
+				image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, visibleSize, color, 2.0,
+					sRGBFloat(0.5, 0.5, 0.5), 1);
+
+				double crossSize = height * 0.5;
+
+				//				image->AntiAliasedLine(lightCenter.x - crossSize, lightCenter.y, lightCenter.x +
+				// crossSize, 					lightCenter.y, lightCenter.z, lightCenter.z, color, sRGBFloat(0.7,
+				// 0.7, 0.7), 1.0, 1);
+				//
+				//				image->AntiAliasedLine(lightCenter.x, lightCenter.y - crossSize, lightCenter.x,
+				//					lightCenter.y + crossSize, lightCenter.z, lightCenter.z, color, sRGBFloat(0.7,
+				// 0.7, 0.7), 					1.0, 1);
+				//
+				//				image->AntiAliasedLine(lightCenter.x - crossSize * 0.5, lightCenter.y - crossSize
+				//* 0.5, 					lightCenter.x + crossSize * 0.5, lightCenter.y + crossSize * 0.5,
+				// lightCenter.z, 					lightCenter.z, color, sRGBFloat(0.7, 0.7, 0.7), 1.0, 1);
+				//
+				//				image->AntiAliasedLine(lightCenter.x + crossSize * 0.5, lightCenter.y - crossSize
+				//* 0.5, 					lightCenter.x - crossSize * 0.5, lightCenter.y + crossSize * 0.5,
+				// lightCenter.z, 					lightCenter.z, color, sRGBFloat(0.7, 0.7, 0.7), 1.0, 1);
+
+				line3D(lightPosition - CVector3(size * 5.0, 0.0, 0.0),
+					lightPosition + CVector3(size * 5.0, 0.0, 0.0), camera, mRotInv, perspectiveType, fov,
+					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
+
+				line3D(lightPosition - CVector3(0.0, size * 5.0, 0.0),
+					lightPosition + CVector3(0.0, size * 5.0, 0.0), camera, mRotInv, perspectiveType, fov,
+					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
+
+				line3D(lightPosition - CVector3(0.0, 0.0, size * 5.0),
+					lightPosition + CVector3(0.0, 0.0, size * 5.0), camera, mRotInv, perspectiveType, fov,
+					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
 			}
 		}
+	}
+}
+
+void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
+	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+	double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity, int layer)
+{
+	int sections = 10;
+	for (int i = 0; i < sections; i++)
+	{
+		double k1 = double(i) / sections;
+		double kn1 = 1.0 - k1;
+
+		double k2 = double(i + 1) / sections;
+		double kn2 = 1.0 - k2;
+
+		CVector3 p1Projected = InvProjection3D(
+			p1 * kn1 + p2 * k1, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+
+		CVector3 p2Projected = InvProjection3D(
+			p1 * kn2 + p2 * k2, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+
+		image->AntiAliasedLine(p1Projected.x, p1Projected.y, p2Projected.x, p2Projected.y,
+			p1Projected.z, p2Projected.z, color, opacity, thickness, layer);
 	}
 }

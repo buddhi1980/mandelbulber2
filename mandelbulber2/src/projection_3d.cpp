@@ -86,8 +86,9 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 	return viewVector;
 }
 
-CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotInv,
-	params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight)
+CVector3 InvProjection3D(const CVector3 &point, const CVector3 &camera,
+	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
+	double imgWidth, double imgHeight)
 {
 	CVector3 screenPoint;
 	CVector3 baseZ(0.0, 1.0, 0.0);
@@ -116,12 +117,12 @@ CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotIn
 	}
 	else
 	{
-
+		double length = viewVector.Length();
 		viewVector.x /= viewVector.y;
 		viewVector.z /= viewVector.y;
 		x = viewVector.x / fov;
 		y = viewVector.z / fov;
-		z = viewVector.y;
+		z = length;
 	}
 	screenPoint.x = (x / aspectRatio + 0.5) * imgWidth;
 	screenPoint.y = (-y + 0.5) * imgHeight;
