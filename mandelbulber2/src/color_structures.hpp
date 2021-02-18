@@ -103,24 +103,29 @@ using sRGBA8 = tsRGBA<quint8>;
 using sRGBA16 = tsRGBA<quint16>;
 using sRGBAfloat = tsRGBA<float>;
 
-inline sRGBFloat toRGBFloat(sRGB c)
+inline sRGBFloat toRGBFloat(const sRGB &c)
 {
 	return sRGBFloat(c.R / 65536.0, c.G / 65536.0, c.B / 65536.0);
 }
 
-inline sRGBFloat toRGBFloat(sRGB16 c)
+inline sRGBFloat toRGBFloat(const sRGB16 &c)
 {
 	return sRGBFloat(c.R / 65536.0, c.G / 65536.0, c.B / 65536.0);
 }
 
-inline sRGBFloat toRGBFloat(sRGB8 c)
+inline sRGBFloat toRGBFloat(const sRGB8 &c)
 {
 	return sRGBFloat(c.R / 256.0, c.G / 256.0, c.B / 256.0);
 }
 
-inline sRGB8 toRGB8(sRGB c)
+inline sRGB8 toRGB8(const sRGB &c)
 {
 	return sRGB8(c.R / 256, c.G / 256, c.B / 256);
+}
+
+inline sRGB8 toRGB8(const sRGBFloat &c)
+{
+	return sRGB8(int(c.R * 255.0), int(c.G * 255.0), int(c.B * 255.0));
 }
 
 #endif /* MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_ */

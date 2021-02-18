@@ -153,7 +153,8 @@ private:
 	void DisplayAllLights();
 	void line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
 		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
-		double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity, int layer);
+		double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity,
+		int numberOfSegments, int layer);
 
 	bool anaglyphMode;
 	bool cursorVisible;

@@ -47,6 +47,7 @@
 #include "cimage.hpp"
 #include "common_math.h"
 #include "fractparams.hpp"
+#include "light.h"
 #include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "primitives.h"
@@ -1310,67 +1311,109 @@ void RenderedImage::DisplayAllLights()
 				parameterName.midRef(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
 			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
 			{
-				CVector3 lightPosition = params->Get<CVector3>(QString("light%1_position").arg(lightIndex));
-				sRGB8 color = toRGB8(params->Get<sRGB>(QString("light%1_color").arg(lightIndex)));
-				double size = params->Get<double>(QString("light%1_size").arg(lightIndex));
-				double intensity = params->Get<double>(QString("light%1_intensity").arg(lightIndex));
+				const cLight light(lightIndex, params, false, true, false);
 
-				CVector3 lightCenter =
-					InvProjection3D(lightPosition, camera, mRotInv, perspectiveType, fov, width, height);
+				if (light.enabled)
+				{
 
-				image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color, 4.0,
-					sRGBFloat(1.0, 1.0, 1.0), 1);
+					if (light.type != cLight::lightDirectional)
+					{
+						CVector3 lightCenter =
+							InvProjection3D(light.position, camera, mRotInv, perspectiveType, fov, width, height);
 
-				double visibleSize = sqrt(intensity) * size / lightCenter.z / fov * height;
+						sRGB8 color = toRGB8(light.color);
 
-				image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, visibleSize, color, 2.0,
-					sRGBFloat(0.5, 0.5, 0.5), 1);
+						image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color, 4.0,
+							sRGBFloat(1.0, 1.0, 1.0), 1);
 
-				double crossSize = height * 0.5;
+						if (light.type == cLight::lightPoint)
+						{
+							double visibleSize =
+								sqrt(light.intensity) * light.size / lightCenter.z / fov * height;
 
-				//				image->AntiAliasedLine(lightCenter.x - crossSize, lightCenter.y, lightCenter.x +
-				// crossSize, 					lightCenter.y, lightCenter.z, lightCenter.z, color, sRGBFloat(0.7,
-				// 0.7, 0.7), 1.0, 1);
-				//
-				//				image->AntiAliasedLine(lightCenter.x, lightCenter.y - crossSize, lightCenter.x,
-				//					lightCenter.y + crossSize, lightCenter.z, lightCenter.z, color, sRGBFloat(0.7,
-				// 0.7, 0.7), 					1.0, 1);
-				//
-				//				image->AntiAliasedLine(lightCenter.x - crossSize * 0.5, lightCenter.y - crossSize
-				//* 0.5, 					lightCenter.x + crossSize * 0.5, lightCenter.y + crossSize * 0.5,
-				// lightCenter.z, 					lightCenter.z, color, sRGBFloat(0.7, 0.7, 0.7), 1.0, 1);
-				//
-				//				image->AntiAliasedLine(lightCenter.x + crossSize * 0.5, lightCenter.y - crossSize
-				//* 0.5, 					lightCenter.x - crossSize * 0.5, lightCenter.y + crossSize * 0.5,
-				// lightCenter.z, 					lightCenter.z, color, sRGBFloat(0.7, 0.7, 0.7), 1.0, 1);
+							image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, visibleSize, color,
+								2.0, sRGBFloat(0.5, 0.5, 0.5), 1);
 
-				line3D(lightPosition - CVector3(size * 5.0, 0.0, 0.0),
-					lightPosition + CVector3(size * 5.0, 0.0, 0.0), camera, mRotInv, perspectiveType, fov,
-					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
+							double sizeFactor = sqrt(light.intensity) * light.size * 20.0;
 
-				line3D(lightPosition - CVector3(0.0, size * 5.0, 0.0),
-					lightPosition + CVector3(0.0, size * 5.0, 0.0), camera, mRotInv, perspectiveType, fov,
-					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
+							line3D(light.position - CVector3(sizeFactor, 0.0, 0.0),
+								light.position + CVector3(sizeFactor, 0.0, 0.0), camera, mRotInv, perspectiveType,
+								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
 
-				line3D(lightPosition - CVector3(0.0, 0.0, size * 5.0),
-					lightPosition + CVector3(0.0, 0.0, size * 5.0), camera, mRotInv, perspectiveType, fov,
-					width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 1);
-			}
-		}
-	}
+							line3D(light.position - CVector3(0.0, sizeFactor, 0.0),
+								light.position + CVector3(0.0, sizeFactor, 0.0), camera, mRotInv, perspectiveType,
+								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+
+							line3D(light.position - CVector3(0.0, 0.0, sizeFactor),
+								light.position + CVector3(0.0, 0.0, sizeFactor), camera, mRotInv, perspectiveType,
+								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+						}
+
+						if (light.type == cLight::lightConical)
+						{
+							double sizeFactor = sqrt(light.intensity) * light.size * 2.0;
+							double coneRatio = sin(light.coneAngle);
+
+							for (int i = 0; i < 8; i++)
+							{
+								double r1 = (i + 1) * light.size * coneRatio * sizeFactor;
+								double r2 = i * light.size * coneRatio * sizeFactor;
+
+								CVector3 previousPoint;
+
+								for (int j = 0; j <= 16; j++)
+								{
+									double angle = j / 16.0 * 2.0 * M_PI;
+
+									CVector3 dx1 = r1 * cos(angle) * light.lightRightVector;
+									CVector3 dy1 = r1 * sin(angle) * light.lightTopVector;
+									CVector3 dz1 =
+										(-1.0) * (light.size * (i + 1) * sizeFactor) * light.lightDirection;
+
+									CVector3 point1 = light.position + dx1 + dy1 + dz1;
+
+									// draw lines
+									if (j % 4 == 0)
+									{
+										CVector3 dx2 = r2 * cos(angle) * light.lightRightVector;
+										CVector3 dy2 = r2 * sin(angle) * light.lightTopVector;
+										CVector3 dz2 = (-1.0) * (light.size * i * sizeFactor) * light.lightDirection;
+
+										CVector3 point2 = light.position + dx2 + dy2 + dz2;
+
+										line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height,
+											color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									}
+
+									// draw circles
+									if (j > 0)
+									{
+										line3D(point1, previousPoint, camera, mRotInv, perspectiveType, fov, width,
+											height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									}
+
+									previousPoint = point1;
+								} // for j
+							}		// for i
+						}			// if conical
+					}				// if not directional
+				}					// if enabled
+			}						// if is defined
+		}							// if parameter is light
+	}								// for parameterName
 }
 
 void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
 	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
-	double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity, int layer)
+	double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity,
+	int numberOfSegments, int layer)
 {
-	int sections = 10;
-	for (int i = 0; i < sections; i++)
+	for (int i = 0; i < numberOfSegments; i++)
 	{
-		double k1 = double(i) / sections;
+		double k1 = double(i) / numberOfSegments;
 		double kn1 = 1.0 - k1;
 
-		double k2 = double(i + 1) / sections;
+		double k2 = double(i + 1) / numberOfSegments;
 		double kn2 = 1.0 - k2;
 
 		CVector3 p1Projected = InvProjection3D(
