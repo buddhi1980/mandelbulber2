@@ -19,25 +19,37 @@
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		REAL rr = 1.0f;
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							 * fractal->transformCommon.scaleA1;
+	}
 
-if (fractal->transformCommon.functionEnabledYFalse
-		&& aux->i >= fractal->transformCommon.startIterationsTM
-		&& aux->i < fractal->transformCommon.stopIterationsTM1)
-{
-	z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-	z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+	if (aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
+	{
+		z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+		z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+	}
 
-	// square
-	if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
-	// circle
-	if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
-
-
-
-}
-
-
-
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC1)
+	{
+		// square
+		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
+		// circle
+		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
+	}
 
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
@@ -78,85 +90,58 @@ if (fractal->transformCommon.functionEnabledYFalse
 		z += fractal->transformCommon.offsetF000;
 	}
 
-	// sphere inversion
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
-	{
-		REAL rr = 1.0f;
-		z += fractal->transformCommon.offset000;
-		rr = dot(z, z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-		z *= fractal->transformCommon.scaleA1;
-		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							 * fractal->transformCommon.scaleA1;
-	}
-
-	if (fractal->transformCommon.functionEnabledCFalse
-			&& aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC1)
-	{
-		if (z.y > z.x)
-		{
-			REAL temp = z.x;
-			z.x = z.y;
-			z.y = temp;
-		}
-	}
-
 	// kleinian
-
-	REAL a = fractal->transformCommon.foldingValue;
-	REAL b = fractal->transformCommon.offset;
-	REAL f = sign(b);
-
-	// wrap
-	REAL4 box_size = fractal->transformCommon.offset111;
-	// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
-	// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
-	// REAL3 wrapped = wrap(z.xyz, box1, box2);
-
-	// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
+	REAL4 colorVector = (REAL4){0.0, 0.0, 0.0, 0.0};
+	if (aux->i >= fractal->transformCommon.startIterationsF
+			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
-		z.x += box_size.x;
-		z.y += box_size.y;
-		z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-		z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
-		z.z += box_size.z - 1.0f;
-		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
-		z.z -= (box_size.z - 1.0f);
-	}
+		REAL a = fractal->transformCommon.foldingValue;
+		REAL b = fractal->transformCommon.offset;
+		REAL f = sign(b);
 
-	if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
-	{
+		// wrap
+		REAL4 box_size = fractal->transformCommon.offset111;
+		// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
+		// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
+		// REAL3 wrapped = wrap(z.xyz, box1, box2);
+
+		// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
+
+		/*	z.x += box_size.x;
+			z.y += box_size.y;
+			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
+			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;*/
+			z.z += box_size.z - 1.0f;
+			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+			z.z -= (box_size.z - 1.0f);
+
+		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
+		{
+			z.x = -z.x - b;
+			z.z = -z.z + a;
+		}
+
+		REAL useScale = 1.0f;
+		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
+		z *= useScale;
+		aux->DE = aux->DE * fabs(useScale);
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA = -vary;
+		}
+
+		rr = dot(z, z);
+		colorVector = (REAL4){z.x, z.y, z.z, rr};
+
+		REAL iR = 1.0f / rr;
+		aux->DE *= iR;
+		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
-		z.z = -z.z + a;
+		z.z = a + z.z;
 	}
-
-	REAL useScale = 1.0f;
-	useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
-	z *= useScale;
-	aux->DE = aux->DE * fabs(useScale);
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		// update actualScaleA for next iteration
-		REAL vary = fractal->transformCommon.scaleVary0
-								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-		aux->actualScaleA = -vary;
-	}
-
-	rr = dot(z, z);
-
-	REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
-
-
-	REAL iR = 1.0f / rr;
-	aux->DE *= iR;
-	z *= -iR; // invert and mirror
-	z.x = -z.x - b;
-	z.z = a + z.z;
-
 
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE

@@ -29,28 +29,39 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledYFalse
-			&& aux.i >= fractal->transformCommon.startIterationsTM
-			&& aux.i < fractal->transformCommon.stopIterationsTM1)
+	double rr = 0.0;
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		rr = 1.0;
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							* fractal->transformCommon.scaleA1;
+	}
+
+	if (aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
 		z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+	}
 
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
+	{
 		// square
 		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
 		// circle
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
-
-
-
 	}
 
-
-
-
-
-
-	double rr = 0.0;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -90,79 +101,64 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z += fractal->transformCommon.offsetF000;
 	}
 
-	// sphere inversion
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		double rr = 1.0;
-		z += fractal->transformCommon.offset000;
-		rr = z.Dot(z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-		z *= fractal->transformCommon.scaleA1;
-		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							* fractal->transformCommon.scaleA1;
-	}
 
-	if (fractal->transformCommon.functionEnabledCFalse
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC1)
-	{
-		if (z.y > z.x) swap(z.x, z.y);
-	}
 
 	// kleinian
-
-	double a = fractal->transformCommon.foldingValue;
-	double b = fractal->transformCommon.offset;
-	double f = sign(b);
-
-	// wrap
-	CVector4 box_size = fractal->transformCommon.offset111;
-	//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-	//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-	//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
-
-	//z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+	CVector4 colorVector = CVector4(0.0, 0.0, 0.0, 0.0);
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
-		z.x += box_size.x;
-		z.y += box_size.y;
-		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
-		z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
-		z.z += box_size.z - 1.0;
-		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
-		z.z -= (box_size.z - 1.0);
-	}
+		double a = fractal->transformCommon.foldingValue;
+		double b = fractal->transformCommon.offset;
+		double f = sign(b);
 
-	if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-	{
+		// wrap
+		CVector4 box_size = fractal->transformCommon.offset111;
+		//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
+		//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
+		//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+
+		//z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+
+			/*z.x += box_size.x;
+			z.y += box_size.y;
+			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+			z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;*/
+			z.z += box_size.z - 1.0;
+			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+			z.z -= (box_size.z - 1.0);
+
+
+		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+		{
+			z.x = -z.x - b;
+			z.z = -z.z + a;
+		}
+
+			double useScale = 1.0;
+		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale);
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			aux.actualScaleA = -vary;
+		}
+
+		rr = z.Dot(z);
+		colorVector = CVector4(z.x, z.y, z.z, rr);
+
+
+
+		double iR = 1.0 / rr;
+		aux.DE *= iR;
+		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
-		z.z = -z.z + a;
+		z.z = a + z.z;
+
 	}
-
-/*		double useScale = 1.0;
-	useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
-	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale);
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		// update actualScaleA for next iteration
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-		aux.actualScaleA = -vary;
-	}*/
-
-	rr = z.Dot(z);
-	CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
-
-
-	double iR = 1.0 / rr;
-	aux.DE *= iR;
-	z *= -iR; // invert and mirror
-	z.x = -z.x - b;
-	z.z = a + z.z;
-
 
 
 	if (fractal->transformCommon.functionEnabledEFalse
