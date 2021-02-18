@@ -44,12 +44,12 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							* fractal->transformCommon.scaleA1;
 	}
-
+	CVector4 box_size = fractal->transformCommon.constantMultiplier221;
 	if (aux.i >= fractal->transformCommon.startIterationsO
 			&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
-		z.x -= round(z.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-		z.y -= round(z.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
+		z.x -= round(z.x / box_size.x) * box_size.x;
+		z.y -= round(z.y / box_size.y) * box_size.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse
@@ -113,7 +113,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		double f = sign(b);
 
 		// wrap
-		CVector4 box_size = fractal->transformCommon.offset111;
+		//CVector4 box_size = fractal->transformCommon.offset111;
 		//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
 		//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
 		//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
@@ -124,18 +124,17 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.y += box_size.y;
 			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
 			z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;*/
-			z.z += box_size.z - 1.0;
-			z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
-			z.z -= (box_size.z - 1.0);
+		z.z += box_size.z - 1.0;
+		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
+		z.z -= (box_size.z - 1.0);
 
-
-		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI_2x * (z.x + b * 0.5) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
 		}
 
-			double useScale = 1.0;
+		double useScale = 1.0;
 		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale);
