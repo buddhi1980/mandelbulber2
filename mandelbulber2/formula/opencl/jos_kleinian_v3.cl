@@ -16,43 +16,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 Polyfold(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL rr = 0.0f;
-	// sphere inversion
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
-	{
-		REAL rr = 1.0f;
-		z += fractal->transformCommon.offset000;
-		rr = dot(z, z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-		z *= fractal->transformCommon.scaleA1;
-		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							 * fractal->transformCommon.scaleA1;
-	}
-
-	REAL4 box_size = fractal->transformCommon.constantMultiplier221;
-	if (aux->i >= fractal->transformCommon.startIterationsO
-			&& aux->i < fractal->transformCommon.stopIterationsO)
-	{
-		z.x -= round(z.x / box_size.x) * box_size.x;
-		z.y -= round(z.y / box_size.y) * box_size.y;
-	}
-
-	if (fractal->transformCommon.functionEnabledCFalse
-			&& aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC1)
-	{
-		// square
-		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
-		// circle
-		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
-	}
-
-	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -90,6 +55,52 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		// addition constant
 		z += fractal->transformCommon.offsetF000;
 	}
+	return z;
+}
+
+
+
+
+REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+{
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = Polyfold(z, fractal, aux);
+
+	REAL rr = 0.0f;
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							 * fractal->transformCommon.scaleA1;
+	}
+
+	REAL4 box_size = fractal->transformCommon.constantMultiplier221;
+	if (aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
+	{
+		z.x -= round(z.x / box_size.x) * box_size.x;
+		z.y -= round(z.y / box_size.y) * box_size.y;
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC1)
+	{
+		// square
+		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
+		// circle
+		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
+	}
+
+	if (!fractal->transformCommon.functionEnabledIFalse)
+		z = Polyfold(z, fractal, aux);
 
 	// kleinian
 	REAL4 colorVector = (REAL4){0.0, 0.0, 0.0, 0.0};

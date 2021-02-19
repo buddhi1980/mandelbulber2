@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4434</height>
+    <height>4445</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,6 +46,13 @@
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
+     <property name="text">
+      <string notr="true">inline</string>
      </property>
     </widget>
    </item>

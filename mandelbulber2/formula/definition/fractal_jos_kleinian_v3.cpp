@@ -27,42 +27,8 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+CVector4 Polyfold(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double rr = 0.0;
-	// sphere inversion
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		rr = 1.0;
-		z += fractal->transformCommon.offset000;
-		rr = z.Dot(z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-		z *= fractal->transformCommon.scaleA1;
-		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							* fractal->transformCommon.scaleA1;
-	}
-	CVector4 box_size = fractal->transformCommon.constantMultiplier221;
-	if (aux.i >= fractal->transformCommon.startIterationsO
-			&& aux.i < fractal->transformCommon.stopIterationsO)
-	{
-		z.x -= round(z.x / box_size.x) * box_size.x;
-		z.y -= round(z.y / box_size.y) * box_size.y;
-	}
-
-	if (fractal->transformCommon.functionEnabledCFalse
-			&& aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC1)
-	{
-		// square
-		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
-		// circle
-		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
-	}
-
-	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -100,6 +66,48 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		// addition constant
 		z += fractal->transformCommon.offsetF000;
 	}
+	return z;
+}
+
+void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = Polyfold(z, fractal, aux);
+
+	double rr = 0.0;
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							* fractal->transformCommon.scaleA1;
+	}
+	CVector4 box_size = fractal->transformCommon.constantMultiplier221;
+	if (aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
+	{
+		z.x -= round(z.x / box_size.x) * box_size.x;
+		z.y -= round(z.y / box_size.y) * box_size.y;
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
+	{
+		// square
+		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
+		// circle
+		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
+	}
+
+	if (!fractal->transformCommon.functionEnabledIFalse)
+		z = Polyfold(z, fractal, aux);
 
 
 
