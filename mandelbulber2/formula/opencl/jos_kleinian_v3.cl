@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 Polyfold(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -63,8 +63,8 @@ REAL4 Polyfold(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledIFalse)
-		z = Polyfold(z, fractal, aux);
+	if (!fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
 
 	REAL rr = 0.0f;
 	// sphere inversion
@@ -99,8 +99,8 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
-	if (!fractal->transformCommon.functionEnabledIFalse)
-		z = Polyfold(z, fractal, aux);
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
 
 	// kleinian
 	REAL4 colorVector = (REAL4){0.0, 0.0, 0.0, 0.0};

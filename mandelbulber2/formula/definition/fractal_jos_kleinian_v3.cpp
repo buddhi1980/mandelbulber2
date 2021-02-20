@@ -27,7 +27,7 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-CVector4 Polyfold(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+CVector4 PolyfoldAbs(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -71,8 +71,8 @@ CVector4 Polyfold(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledIFalse)
-		z = Polyfold(z, fractal, aux);
+	if (!fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
 
 	double rr = 0.0;
 	// sphere inversion
@@ -106,8 +106,8 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
-	if (!fractal->transformCommon.functionEnabledIFalse)
-		z = Polyfold(z, fractal, aux);
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
 
 
 
