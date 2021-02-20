@@ -126,6 +126,7 @@ public:
 	void GlobalStopRequest();
 	void ResetGlobalStopRequest();
 	void CleanSettings();
+	void UpdateMainImagePreview();
 
 	QSettings settings;
 

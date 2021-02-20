@@ -30,10 +30,14 @@ private:
 	QList<int> lightIndexOnTab;
 	Ui::cLightSourcesManager *ui;
 
+	QTimer *autoRefreshTimer;
+	QString autoRefreshLastHash;
+
 private slots:
 	void slotButtonAddLight();
 	void slotButtonDuplicateLight();
 	void slotButtonDeleteLight();
+	void slotPeriodicRefresh();
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_SOURCES_MANAGER_H_ */

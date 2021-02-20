@@ -3062,3 +3062,8 @@ void cInterface::slotAutoSaveImage(double timeSeconds)
 		mainWindow->ui->statusbar->showMessage(tr("Image auto-saved to %1").arg(filename), 0);
 	}
 }
+
+void cInterface::UpdateMainImagePreview()
+{
+	renderedImage->update();
+}

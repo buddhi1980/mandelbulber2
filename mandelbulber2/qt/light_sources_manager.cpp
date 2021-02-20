@@ -7,6 +7,7 @@
 
 #include "light_sources_manager.h"
 
+#include "../src/settings.hpp"
 #include "ui_light_sources_manager.h"
 
 #include "light_editor.h"
@@ -29,6 +30,11 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 		&cLightSourcesManager::slotButtonDeleteLight);
 	connect(ui->pushButton_duplicateLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonDuplicateLight);
+
+	autoRefreshTimer = new QTimer(this);
+	autoRefreshTimer->setSingleShot(true);
+	connect(autoRefreshTimer, &QTimer::timeout, this, &cLightSourcesManager::slotPeriodicRefresh);
+	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 cLightSourcesManager::~cLightSourcesManager()
@@ -169,4 +175,23 @@ void cLightSourcesManager::slotButtonDeleteLight()
 	}
 
 	Regenerate();
+}
+
+void cLightSourcesManager::slotPeriodicRefresh()
+{
+	if (!visibleRegion().isEmpty())
+	{
+		SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::read);
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(gPar, nullptr);
+		QString newHash = tempSettings.GetHashCode();
+
+		if (newHash != autoRefreshLastHash)
+		{
+			autoRefreshLastHash = newHash;
+			gMainInterface->UpdateMainImagePreview();
+		}
+	}
+
+	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
 }

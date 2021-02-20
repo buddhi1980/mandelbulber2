@@ -113,7 +113,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 				if (!anaglyphMode) DisplayCrosshair();
 			}
 
-			if (isFocus)
+			// if (isFocus)
 			{
 				DisplayAllLights();
 			}
@@ -1396,11 +1396,53 @@ void RenderedImage::DisplayAllLights()
 								} // for j
 							}		// for i
 						}			// if conical
-					}				// if not directional
-				}					// if enabled
-			}						// if is defined
-		}							// if parameter is light
-	}								// for parameterName
+
+						if (light.type == cLight::lightProjection)
+						{
+							double sizeFactor = sqrt(light.intensity) * light.size * 2.0;
+
+							for (int i = 1; i <= 8; i++)
+							{
+								double w = i * light.size * light.projectionHorizontalRatio * sizeFactor * 0.5;
+								double h = i * light.size * light.projectionVerticalRatio * sizeFactor * 0.5;
+
+								CVector3 dx = w * light.lightRightVector;
+								CVector3 dy = h * light.lightTopVector;
+								CVector3 dz = (-1.0) * light.size * i * sizeFactor * light.lightDirection;
+
+								CVector3 point1 = light.position + dx + dy + dz;
+								CVector3 point2 = light.position - dx + dy + dz;
+								CVector3 point3 = light.position - dx - dy + dz;
+								CVector3 point4 = light.position + dx - dy + dz;
+
+								line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height, color,
+									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point2, point3, camera, mRotInv, perspectiveType, fov, width, height, color,
+									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point3, point4, camera, mRotInv, perspectiveType, fov, width, height, color,
+									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point4, point1, camera, mRotInv, perspectiveType, fov, width, height, color,
+									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+
+								if (i == 8)
+								{
+									line3D(point1, light.position, camera, mRotInv, perspectiveType, fov, width,
+										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point2, light.position, camera, mRotInv, perspectiveType, fov, width,
+										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point3, light.position, camera, mRotInv, perspectiveType, fov, width,
+										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point4, light.position, camera, mRotInv, perspectiveType, fov, width,
+										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+								}
+
+							} // for i
+						}		// if projection
+					}			// if not directional
+				}				// if enabled
+			}					// if is defined
+		}						// if parameter is light
+	}							// for parameterName
 }
 
 void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
