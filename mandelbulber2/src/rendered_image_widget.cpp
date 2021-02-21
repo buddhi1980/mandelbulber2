@@ -1353,50 +1353,58 @@ void RenderedImage::DisplayAllLights()
 						if (light.type == cLight::lightConical)
 						{
 							double sizeFactor = sqrt(light.intensity) * light.size * 2.0;
-							double coneRatio = sin(light.coneAngle);
-
-							for (int i = 0; i < 8; i++)
+							for (int s = 0; s < 2; s++)
 							{
-								double r1 = (i + 1) * light.size * coneRatio * sizeFactor;
-								double r2 = i * light.size * coneRatio * sizeFactor;
 
-								CVector3 previousPoint;
+								double coneRatio =
+									sin((s == 0) ? light.coneAngle : light.coneAngle + light.coneSoftAngle);
 
-								for (int j = 0; j <= 16; j++)
+								sRGBFloat opacity =
+									((s == 0) ? sRGBFloat(0.7, 0.7, 0.7) : sRGBFloat(0.2, 0.2, 0.2));
+
+								for (int i = 0; i < 8; i++)
 								{
-									double angle = j / 16.0 * 2.0 * M_PI;
+									double r1 = (i + 1) * light.size * coneRatio * sizeFactor;
+									double r2 = i * light.size * coneRatio * sizeFactor;
 
-									CVector3 dx1 = r1 * cos(angle) * light.lightRightVector;
-									CVector3 dy1 = r1 * sin(angle) * light.lightTopVector;
-									CVector3 dz1 =
-										(-1.0) * (light.size * (i + 1) * sizeFactor) * light.lightDirection;
+									CVector3 previousPoint;
 
-									CVector3 point1 = light.position + dx1 + dy1 + dz1;
-
-									// draw lines
-									if (j % 4 == 0)
+									for (int j = 0; j <= 16; j++)
 									{
-										CVector3 dx2 = r2 * cos(angle) * light.lightRightVector;
-										CVector3 dy2 = r2 * sin(angle) * light.lightTopVector;
-										CVector3 dz2 = (-1.0) * (light.size * i * sizeFactor) * light.lightDirection;
+										double angle = j / 16.0 * 2.0 * M_PI;
 
-										CVector3 point2 = light.position + dx2 + dy2 + dz2;
+										CVector3 dx1 = r1 * cos(angle) * light.lightRightVector;
+										CVector3 dy1 = r1 * sin(angle) * light.lightTopVector;
+										CVector3 dz1 =
+											(-1.0) * (light.size * (i + 1) * sizeFactor) * light.lightDirection;
 
-										line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height,
-											color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
-									}
+										CVector3 point1 = light.position + dx1 + dy1 + dz1;
 
-									// draw circles
-									if (j > 0)
-									{
-										line3D(point1, previousPoint, camera, mRotInv, perspectiveType, fov, width,
-											height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
-									}
+										// draw lines
+										if (j % 4 == 0)
+										{
+											CVector3 dx2 = r2 * cos(angle) * light.lightRightVector;
+											CVector3 dy2 = r2 * sin(angle) * light.lightTopVector;
+											CVector3 dz2 = (-1.0) * (light.size * i * sizeFactor) * light.lightDirection;
 
-									previousPoint = point1;
-								} // for j
-							}		// for i
-						}			// if conical
+											CVector3 point2 = light.position + dx2 + dy2 + dz2;
+
+											line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height,
+												color, 1.0, opacity, 10, 1);
+										}
+
+										// draw circles
+										if (j > 0)
+										{
+											line3D(point1, previousPoint, camera, mRotInv, perspectiveType, fov, width,
+												height, color, 1.0, opacity, 10, 1);
+										}
+
+										previousPoint = point1;
+									} // for j
+								}		// for i
+							}			// for s
+						}				// if conical
 
 						if (light.type == cLight::lightProjection)
 						{

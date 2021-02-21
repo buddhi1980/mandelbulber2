@@ -1637,10 +1637,10 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 
 	par->addParam(cLight::Name("type", lightId),
 		(lightId == 1) ? int(cLight::lightDirectional) : int(cLight::lightPoint), morphLinear,
-		paramStandard);
+		paramStandard, QStringList({"directional", "point", "spot", "projection"}));
 
-	par->addParam(
-		cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear, paramStandard);
+	par->addParam(cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear,
+		paramStandard, QStringList({"1/r", "1/r2", "1/r3"}));
 	par->addParam(cLight::Name("file_texture", lightId), QString("superDuperLightTexture.jpg"),
 		morphLinear, paramStandard);
 
