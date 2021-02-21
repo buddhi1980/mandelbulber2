@@ -96,9 +96,21 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z.y -= round(z.y / box_size.y) * box_size.y;
 	}
 
+	// diagonal fold
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
+	{
+		if (z.y > z.x) swap(z.x, z.y);
+	}
+
+	// alternative polyfold position
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
+
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
 		// square
 		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
@@ -106,13 +118,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
-	if (fractal->transformCommon.functionEnabledIFalse)
-		z = PolyfoldAbs(z, fractal, aux);
-
-
-
 	// kleinian
-	CVector4 colorVector = CVector4(0.0, 0.0, 0.0, 0.0);
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
@@ -155,10 +161,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		}
 
 		rr = z.Dot(z);
-		colorVector = CVector4(z.x, z.y, z.z, rr);
-
-
-
 		double iR = 1.0 / rr;
 		aux.DE *= iR;
 		z *= -iR; // invert and mirror
@@ -197,8 +199,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	// aux.color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		aux.temp1000 = min(aux.temp1000, colorVector.Length())
-				* fractal->foldColor.difs0000.x; // orbit trap coloring
 		double colorAdd = 0.0;
 
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
@@ -207,15 +207,15 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		//colorAdd += fractal->foldColor.difs1;
 		//aux.color = colorAdd;
 
-		//if (!fractal->transformCommon.functionEnabledMFalse)
-			aux.colorHybrid = aux.temp1000;
-			aux.colorHybrid += colorAdd;
-		//else
+		if (!fractal->transformCommon.functionEnabledMFalse)
+			aux.color += colorAdd;
+		else
+			aux.color = colorAdd;
 
-			if (!fractal->transformCommon.functionEnabledJFalse)
-				aux.color = aux.colorHybrid;
-			else
-				aux.color = max(aux.color, aux.colorHybrid);
+
+			//if (!fractal->transformCommon.functionEnabledJFalse)
+			//	aux.color = min(aux.color;
+
 	}
 
 }

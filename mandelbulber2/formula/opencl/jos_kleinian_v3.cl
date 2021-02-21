@@ -93,17 +93,27 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
+	if (z.y > z.x)
+	{
+		REAL temp = z.x;
+		z.x = z.y;
+		z.y = temp;
+	}
+
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
+
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
 		// square
 		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
 		// circle
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
-	if (fractal->transformCommon.functionEnabledIFalse)
-		z = PolyfoldAbs(z, fractal, aux);
-
 	// kleinian
-	REAL4 colorVector = (REAL4){0.0, 0.0, 0.0, 0.0};
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
@@ -146,8 +156,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 
 		rr = dot(z, z);
-		colorVector = (REAL4){z.x, z.y, z.z, rr};
-
 		REAL iR = 1.0f / rr;
 		aux->DE *= iR;
 		z *= -iR; // invert and mirror
@@ -184,9 +192,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		aux->temp1000 = min(aux->temp1000, length(colorVector))
-			* fractal->foldColor.difs0000.x; // For coloring
-
 		REAL colorAdd = 0.0f;
 
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
@@ -195,15 +200,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		//colorAdd += fractal->foldColor.difs1;
 
 
-		//if (!fractal->transformCommon.functionEnabledMFalse)
-			aux->colorHybrid = aux->temp1000;
-			aux->colorHybrid += colorAdd;
-		//else
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			aux->color = aux->colorHybrid;
+		if (!fractal->transformCommon.functionEnabledMFalse)
+			aux->color += colorAdd;
 		else
-			aux->color = max(aux->color, aux->colorHybrid);
+			aux->color = colorAdd;
+
 	}
 	return z;
 }
