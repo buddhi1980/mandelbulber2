@@ -93,11 +93,12 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
-	if (z.y > z.x)
-	{
-		REAL temp = z.x;
-		z.x = z.y;
-		z.y = temp;
+		if (z.y > z.x)
+		{
+			REAL temp = z.x;
+			z.x = z.y;
+			z.y = temp;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledIFalse)
@@ -121,18 +122,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL b = fractal->transformCommon.offset;
 		REAL f = sign(b);
 
-		// wrap
-		// REAL size = fractal->transformCommon.offset222.x) * fractal->transformCommon.offset222.x;
-		// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
-		// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
-		// REAL3 wrapped = wrap(z.xyz, box1, box2);
 
-		// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
-
-		/*	z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;*/
 		z.z += box_size.z - 1.0f;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);

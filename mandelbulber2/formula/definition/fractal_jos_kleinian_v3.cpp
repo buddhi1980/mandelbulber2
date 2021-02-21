@@ -126,18 +126,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		double b = fractal->transformCommon.offset;
 		double f = sign(b);
 
-		// wrap
-		//CVector4 box_size = fractal->transformCommon.offset111;
-		//CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-		//CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-		//CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
-
-		//z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
-
-			/*z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
-			z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;*/
 		z.z += box_size.z - 1.0;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0);
