@@ -65,6 +65,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	params = nullptr;
 	fractals = nullptr;
 	cursorVisible = true;
+	lightsVisible = false;
 	smoothLastZMouse = 0.0;
 	redrawed = true;
 	isFocus = false;
@@ -113,7 +114,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 				if (!anaglyphMode) DisplayCrosshair();
 			}
 
-			// if (isFocus)
+			if (lightsVisible)
 			{
 				DisplayAllLights();
 			}

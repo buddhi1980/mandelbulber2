@@ -127,6 +127,7 @@ public:
 	void ResetGlobalStopRequest();
 	void CleanSettings();
 	void UpdateMainImagePreview();
+	void ChangeLightWireframeVisibility(bool enable);
 
 	QSettings settings;
 

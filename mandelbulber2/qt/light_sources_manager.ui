@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
    <property name="spacing">
     <number>2</number>
    </property>
@@ -29,6 +29,13 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_show_wireframe_lights">
+     <property name="text">
+      <string>Show wire-frame preview of lights</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -69,6 +76,11 @@
    <extends>QTabWidget</extends>
    <header>my_tab_widget_with_checkboxes.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

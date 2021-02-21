@@ -38,6 +38,7 @@ private slots:
 	void slotButtonDuplicateLight();
 	void slotButtonDeleteLight();
 	void slotPeriodicRefresh();
+	void slorChangedWireframeVisibikity(int);
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_SOURCES_MANAGER_H_ */

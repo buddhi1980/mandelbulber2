@@ -30,6 +30,8 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 		&cLightSourcesManager::slotButtonDeleteLight);
 	connect(ui->pushButton_duplicateLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonDuplicateLight);
+	connect(ui->checkBox_show_wireframe_lights, &MyCheckBox::stateChanged, this,
+		&cLightSourcesManager::slorChangedWireframeVisibikity);
 
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
@@ -179,7 +181,7 @@ void cLightSourcesManager::slotButtonDeleteLight()
 
 void cLightSourcesManager::slotPeriodicRefresh()
 {
-	if (!visibleRegion().isEmpty())
+	if (ui->checkBox_show_wireframe_lights->isChecked() && !visibleRegion().isEmpty())
 	{
 		SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::read);
 		cSettings tempSettings(cSettings::formatCondensedText);
@@ -194,4 +196,9 @@ void cLightSourcesManager::slotPeriodicRefresh()
 	}
 
 	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
+}
+
+void cLightSourcesManager::slorChangedWireframeVisibikity(int enabled)
+{
+	gMainInterface->ChangeLightWireframeVisibility(static_cast<bool>(enabled));
 }

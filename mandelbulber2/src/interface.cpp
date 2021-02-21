@@ -3067,3 +3067,9 @@ void cInterface::UpdateMainImagePreview()
 {
 	renderedImage->update();
 }
+
+void cInterface::ChangeLightWireframeVisibility(bool enable)
+{
+	renderedImage->SetLightsVisibility(enable);
+	renderedImage->update();
+}

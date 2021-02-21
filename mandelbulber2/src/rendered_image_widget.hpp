@@ -109,6 +109,7 @@ public:
 	bool GetEnableClickModes() const { return clickModesEnables; }
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
+	void SetLightsVisibility(bool enable) { lightsVisible = enable; }
 	void SetGridType(enumGridType gridType);
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
 	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
@@ -158,6 +159,7 @@ private:
 
 	bool anaglyphMode;
 	bool cursorVisible;
+	bool lightsVisible;
 	bool isFocus;
 	bool isOnObject;
 	bool placeLightBehind;

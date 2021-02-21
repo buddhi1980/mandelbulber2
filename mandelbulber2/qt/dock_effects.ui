@@ -83,7 +83,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1156,8 +1156,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
-            <height>1410</height>
+            <width>267</width>
+            <height>1425</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2475,8 +2475,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4122,8 +4122,8 @@ from fractal:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1070</height>
+            <width>165</width>
+            <height>110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
