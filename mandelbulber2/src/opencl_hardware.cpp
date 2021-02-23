@@ -36,10 +36,12 @@
 
 #include <QCryptographicHash>
 #include <QDebug>
+#include <QSettings>
 
 #include "error_message.hpp"
 #include "opencl_device.h"
 #include "write_log.hpp"
+#include "system_directories.hpp"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
@@ -200,6 +202,31 @@ void cOpenClHardware::CreateContext(
 
 					if (contextIndex == 0)
 					{
+
+#ifdef _WIN32
+						QSettings registry(
+							"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\GraphicsDrivers",
+							QSettings::Registry32Format);
+						int tdrDelay = registry.value("TdrDelay").toInt();
+						int tdrLevel = registry.value("TdrLevel").toInt();
+						bool tdrLevelIsSet = registry.contains("TdrLevel");
+
+						if (!tdrLevelIsSet || (tdrLevelIsSet && tdrLevel > 0))
+						{
+							if (tdrDelay < 5)
+							{
+								cErrorMessage::showMessage(
+									tr("Timeout detection in graphics driver is not disabled\n"
+										 "Run TDR__disable script from %1\n"
+										 "as administrator\n"
+										 "Timeout detection can cause graphics driver restarts\n"
+										 "during rendering of difficult fractals or effects.")
+										.arg(systemDirectories.sharedDir),
+									cErrorMessage::warningMessage);
+							}
+						}
+#endif
+
 						// get number of needed contexts (the same number as discovered devices)
 						// number of devices is got from first context
 						numberOfContexts = clDevices[0].size();
