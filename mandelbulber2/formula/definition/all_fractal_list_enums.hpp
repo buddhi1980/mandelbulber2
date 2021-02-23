@@ -458,6 +458,7 @@ enum enumFractalFormula
 	transfDIFSGearV1 = 1619,
 	transfDIFSGridV3 = 1620,
 	transfDIFSClipPlane = 1621,
+	transfAddConstantMod3 = 1622,
 
 
 	// hybrid color

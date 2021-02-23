@@ -93,17 +93,28 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
+		if (z.y > z.x)
+		{
+			REAL temp = z.x;
+			z.x = z.y;
+			z.y = temp;
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledIFalse)
+		z = PolyfoldAbs(z, fractal, aux);
+
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
 		// square
 		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
 		// circle
 		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
-	if (fractal->transformCommon.functionEnabledIFalse)
-		z = PolyfoldAbs(z, fractal, aux);
-
 	// kleinian
-	REAL4 colorVector = (REAL4){0.0, 0.0, 0.0, 0.0};
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
@@ -111,18 +122,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL b = fractal->transformCommon.offset;
 		REAL f = sign(b);
 
-		// wrap
-		// REAL size = fractal->transformCommon.offset222.x) * fractal->transformCommon.offset222.x;
-		// REAL3 box1 = (REAL3) {2.0f * box_size.x, a * box_size.y, 2.0f * box_size.z};
-		// REAL3 box2 = (REAL3) {-box_size.x, -box_size.y + 1.0f, -box_size.z};
-		// REAL3 wrapped = wrap(z.xyz, box1, box2);
 
-		// z = (REAL4) {wrapped.x, wrapped.y, wrapped.z, z.w};
-
-		/*	z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;*/
 		z.z += box_size.z - 1.0f;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);
@@ -146,8 +146,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 
 		rr = dot(z, z);
-		colorVector = (REAL4){z.x, z.y, z.z, rr};
-
 		REAL iR = 1.0f / rr;
 		aux->DE *= iR;
 		z *= -iR; // invert and mirror
@@ -184,9 +182,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		aux->temp1000 = min(aux->temp1000, length(colorVector))
-			* fractal->foldColor.difs0000.x; // For coloring
-
 		REAL colorAdd = 0.0f;
 
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
@@ -195,15 +190,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		//colorAdd += fractal->foldColor.difs1;
 
 
-		//if (!fractal->transformCommon.functionEnabledMFalse)
-			aux->colorHybrid = aux->temp1000;
-			aux->colorHybrid += colorAdd;
-		//else
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			aux->color = aux->colorHybrid;
+		if (!fractal->transformCommon.functionEnabledMFalse)
+			aux->color += colorAdd;
 		else
-			aux->color = max(aux->color, aux->colorHybrid);
+			aux->color = colorAdd;
+
 	}
 	return z;
 }
