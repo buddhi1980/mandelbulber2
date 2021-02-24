@@ -141,6 +141,8 @@ protected:
 private:
 	std::vector<cl::Platform> clPlatforms;
 
+	static bool tdrMessageShown;
+
 #endif
 
 protected:

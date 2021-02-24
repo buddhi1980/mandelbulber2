@@ -43,6 +43,8 @@
 #include "write_log.hpp"
 #include "system_directories.hpp"
 
+bool cOpenClHardware::tdrMessageShown = false;
+
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
 	openClAvailable = false;
@@ -202,7 +204,6 @@ void cOpenClHardware::CreateContext(
 
 					if (contextIndex == 0)
 					{
-
 #ifdef _WIN32
 						QSettings registry(
 							"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\GraphicsDrivers",
@@ -215,14 +216,18 @@ void cOpenClHardware::CreateContext(
 						{
 							if (tdrDelay < 5)
 							{
-								cErrorMessage::showMessage(
-									tr("Timeout detection in graphics driver is not disabled\n"
-										 "Run TDR__disable script from %1\n"
-										 "as administrator\n"
-										 "Timeout detection can cause graphics driver restarts\n"
-										 "during rendering of difficult fractals or effects.")
-										.arg(systemDirectories.sharedDir),
-									cErrorMessage::warningMessage);
+								if (!tdrMessageShown)
+								{
+									cErrorMessage::showMessage(
+										tr("Timeout detection in graphics driver is not disabled\n"
+											 "Run TDR__disable script from %1\n"
+											 "as administrator\n"
+											 "Timeout detection can cause graphics driver restarts\n"
+											 "during rendering of difficult fractals or effects.")
+											.arg(systemDirectories.sharedDir),
+										cErrorMessage::warningMessage);
+									tdrMessageShown = true;
+								}
 							}
 						}
 #endif
