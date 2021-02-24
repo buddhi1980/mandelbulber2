@@ -188,22 +188,19 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0;
-
+		aux.temp1000 = min(aux.temp1000, rr) * fractal->foldColor.difs0000.x;
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
-		//colorAdd += fractal->foldColor.difs0000.w * z.z;
+		colorAdd += fractal->foldColor.difs0000.w * rr;
 		//colorAdd += fractal->foldColor.difs1;
-		//aux.color = colorAdd;
 
-		if (!fractal->transformCommon.functionEnabledMFalse)
-			aux.color += colorAdd;
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			if (!fractal->transformCommon.functionEnabledMFalse)
+				aux.color = colorAdd;
+			else
+				aux.color += colorAdd;
 		else
-			aux.color = colorAdd;
-
-
-			//if (!fractal->transformCommon.functionEnabledJFalse)
-			//	aux.color = min(aux.color;
+			aux.color = max(aux.color, colorAdd);
 
 	}
-
 }
