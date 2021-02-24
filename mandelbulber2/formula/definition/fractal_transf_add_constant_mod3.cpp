@@ -28,27 +28,30 @@ cFractalTransfAddConstantMod3::cFractalTransfAddConstantMod3() : cAbstractFracta
 void cFractalTransfAddConstantMod3::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 signs = CVector4(1.0, 1.0, 1.0, 1.0);
+	signs.x *= sign(aux.const_c.x);
+	signs.y *= sign(aux.const_c.y);
+	signs.z *= sign(aux.const_c.z);
+
 	CVector4 offset = fractal->transformCommon.additionConstantA000;
+	if (fractal->transformCommon.functionEnabledDFalse) offset *= signs;
+
 	CVector4 t;
 	if (!fractal->transformCommon.functionEnabledBFalse) t = aux.const_c - offset;
 	else t = z - offset;
+
 	double r;
 	if (!fractal->transformCommon.functionEnabledAFalse) r = t.Length();
 	else r = t.Dot(t);
 
-	CVector4 offset1 = fractal->transformCommon.offset111;
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		offset1.x *= sign(aux.const_c.x);
-		offset1.y *= sign(aux.const_c.y);
-		offset1.z *= sign(aux.const_c.z);
-	}
+	CVector4 offset1 = fractal->transformCommon.offset000;
+	if (fractal->transformCommon.functionEnabledCFalse) offset1 *= signs;
 
-	double m = ( (1.0 - fractal->transformCommon.radius1 / r));
+	double m = (1.0 - fractal->transformCommon.radius1 / r) * fractal->transformCommon.scale1;
 
 	if (r > fractal->transformCommon.radius1)
 	{
-		 offset1 =  offset1 + t * m;
+		offset1 =  offset1 + t * m;
 		z +=  offset1;
 	}
 	// plus iter control and alternate offset
