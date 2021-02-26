@@ -221,3 +221,25 @@ const cLight *cLights::GetLight(const int index) const
 	}
 	return const_cast<cLight *>(&dummyLight);
 }
+
+QList<int> cLights::GetListOfLights(std::shared_ptr<cParameterContainer> params)
+{
+	QList<QString> listOfParameters = params->GetListOfParameters();
+
+	static QList<int> listOfFoundLights;
+	listOfFoundLights.clear();
+
+	for (auto &parameterName : listOfParameters)
+	{
+		if (parameterName.left(5) == "light")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int lightIndex = parameterName.midRef(5, positionOfDash - 5).toInt();
+			if (listOfFoundLights.indexOf(lightIndex) < 0)
+			{
+				listOfFoundLights.append(lightIndex);
+			}
+		}
+	}
+	return listOfFoundLights;
+}

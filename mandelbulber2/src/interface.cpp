@@ -50,6 +50,7 @@
 #include "global_data.hpp"
 #include "headless.h"
 #include "initparameters.hpp"
+#include "lights.hpp"
 #include "material_item_model.h"
 #include "my_ui_loader.h"
 #include "netrender.hpp"
@@ -2241,25 +2242,15 @@ void cInterface::ComboMouseClickUpdate() const
 	item.append(int(RenderedImage::clickGetJuliaConstant));
 	combo->addItem(QObject::tr("Get Julia constant"), item);
 
-	item.clear();
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(1);
-	combo->addItem(QObject::tr("Place light #1"), item);
+	QList<int> listOfLights = cLights::GetListOfLights(gPar);
 
-	item.clear();
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(2);
-	combo->addItem(QObject::tr("Place light #2"), item);
-
-	item.clear();
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(3);
-	combo->addItem(QObject::tr("Place light #3"), item);
-
-	item.clear();
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(4);
-	combo->addItem(QObject::tr("Place light #4"), item);
+	for (int lightIndex : listOfLights)
+	{
+		item.clear();
+		item.append(int(RenderedImage::clickPlaceLight));
+		item.append(lightIndex);
+		combo->addItem(QObject::tr("Place light #%1").arg(lightIndex), item);
+	}
 
 	item.clear();
 	item.append(int(RenderedImage::clickPlaceRandomLightCenter));

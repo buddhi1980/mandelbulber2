@@ -72,6 +72,7 @@ public:
 	const cLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }
 	int IsAnyLightEnabled() const { return isAnyLight; };
+	static QList<int> GetListOfLights(std::shared_ptr<cParameterContainer> params);
 
 private:
 	void Copy(const cLights &);

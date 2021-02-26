@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
+    <width>352</width>
     <height>440</height>
    </rect>
   </property>
@@ -41,21 +41,32 @@
      <item>
       <widget class="QPushButton" name="pushButton_newLight">
        <property name="text">
-        <string>New light</string>
+        <string>New
+light</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_duplicateLight">
        <property name="text">
-        <string>Duplicate light</string>
+        <string>Duplicate
+light</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_deleteLight">
        <property name="text">
-        <string>Delete light</string>
+        <string>Delete
+light</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_placeLight">
+       <property name="text">
+        <string>Place/move
+light</string>
        </property>
       </widget>
      </item>

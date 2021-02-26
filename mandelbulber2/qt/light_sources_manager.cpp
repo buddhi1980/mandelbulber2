@@ -7,7 +7,6 @@
 
 #include "light_sources_manager.h"
 
-#include "../src/settings.hpp"
 #include "ui_light_sources_manager.h"
 
 #include "light_editor.h"
@@ -15,7 +14,11 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/light.h"
+#include "src/lights.hpp"
 #include "src/synchronize_interface.hpp"
+#include "src/rendered_image_widget.hpp"
+#include "src/render_window.hpp"
+#include "src/settings.hpp"
 
 cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cLightSourcesManager)
@@ -30,6 +33,9 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 		&cLightSourcesManager::slotButtonDeleteLight);
 	connect(ui->pushButton_duplicateLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonDuplicateLight);
+	connect(ui->pushButton_placeLight, &QPushButton::clicked, this,
+		&cLightSourcesManager::slotButtonPlaceLight);
+
 	connect(ui->checkBox_show_wireframe_lights, &MyCheckBox::stateChanged, this,
 		&cLightSourcesManager::slorChangedWireframeVisibikity);
 
@@ -107,21 +113,7 @@ void cLightSourcesManager::Regenerate()
 	lightIndexOnTab.clear();
 
 	// finding lights in whole parameter set
-	QList<int> listOfFoundLights;
-
-	QList<QString> listOfParameters = gPar->GetListOfParameters();
-	for (auto &parameterName : listOfParameters)
-	{
-		if (parameterName.left(5) == "light")
-		{
-			int positionOfDash = parameterName.indexOf('_');
-			int lightIndex = parameterName.midRef(5, positionOfDash - 5).toInt();
-			if (listOfFoundLights.indexOf(lightIndex) < 0)
-			{
-				listOfFoundLights.append(lightIndex);
-			}
-		}
-	}
+	QList<int> listOfFoundLights = cLights::GetListOfLights(gPar);
 
 	// add lights in sorted order
 	std::sort(listOfFoundLights.begin(), listOfFoundLights.end());
@@ -129,6 +121,7 @@ void cLightSourcesManager::Regenerate()
 	{
 		AddLight(false, index);
 	}
+	gMainInterface->ComboMouseClickUpdate();
 }
 
 void cLightSourcesManager::slotButtonAddLight()
@@ -162,6 +155,8 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 	}
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
+
+	gMainInterface->ComboMouseClickUpdate();
 }
 
 void cLightSourcesManager::slotButtonDeleteLight()
@@ -201,4 +196,21 @@ void cLightSourcesManager::slotPeriodicRefresh()
 void cLightSourcesManager::slorChangedWireframeVisibikity(int enabled)
 {
 	gMainInterface->ChangeLightWireframeVisibility(static_cast<bool>(enabled));
+}
+
+void cLightSourcesManager::slotButtonPlaceLight()
+{
+	QList<QVariant> item;
+	item.append(int(RenderedImage::clickPlaceLight));
+
+	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
+	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
+	item.append(currentLightIndex); // light number
+
+	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
+	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
+	gMainInterface->renderedImage->setClickMode(item);
+	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	gPar->Set("aux_light_manual_placement_dist", distance * 0.1);
+	// ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }

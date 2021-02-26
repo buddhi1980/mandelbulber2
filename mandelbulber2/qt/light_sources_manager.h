@@ -9,6 +9,9 @@
 #define MANDELBULBER2_QT_LIGHT_SOURCES_MANAGER_H_
 
 #include <QWidget>
+#include <memory>
+
+class cParameterContainer;
 
 namespace Ui
 {
@@ -37,6 +40,7 @@ private slots:
 	void slotButtonAddLight();
 	void slotButtonDuplicateLight();
 	void slotButtonDeleteLight();
+	void slotButtonPlaceLight();
 	void slotPeriodicRefresh();
 	void slorChangedWireframeVisibikity(int);
 };
