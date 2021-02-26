@@ -43,7 +43,9 @@
 #include "write_log.hpp"
 #include "system_directories.hpp"
 
+#ifdef USE_OPENCL
 bool cOpenClHardware::tdrMessageShown = false;
+#endif
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
