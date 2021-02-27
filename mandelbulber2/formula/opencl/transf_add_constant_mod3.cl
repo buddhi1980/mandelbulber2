@@ -41,7 +41,7 @@ REAL4 TransfAddConstantMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		 offset1 =  offset1 + t * m;
 		z +=  offset1;
 	}
-	if (fractal->transformCommon.functionEnabledPFalse
+	if (fractal->transformCommon.functionEnabledPFalse // temp
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP)
 	{
