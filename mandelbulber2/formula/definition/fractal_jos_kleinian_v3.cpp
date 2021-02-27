@@ -154,9 +154,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.z = a + z.z;
-
 	}
-
 
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -168,11 +166,11 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	double Ztemp = z.z;
-	if (fractal->transformCommon.spheresEnabled)
-		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
-
 	if (aux.i >= fractal->transformCommon.startIterationsG)
 	{
+		if (fractal->transformCommon.spheresEnabled)
+			Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
+
 		aux.dist =
 			min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
 			/ max(aux.DE, fractal->analyticDE.offset1);
@@ -189,6 +187,7 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	{
 		double colorAdd = 0.0;
 		aux.temp1000 = min(aux.temp1000, rr) * fractal->foldColor.difs0000.x;
+		colorAdd += aux.temp1000; // temp
 		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
 		colorAdd += fractal->foldColor.difs0000.w * rr;

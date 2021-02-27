@@ -1581,7 +1581,7 @@ offset:</string>
         <item row="1" column="1">
          <widget class="QLabel" name="label_250">
           <property name="text">
-           <string>temp start at iteration:</string>
+           <string>DE start at iteration:</string>
           </property>
          </widget>
         </item>
