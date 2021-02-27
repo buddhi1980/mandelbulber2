@@ -1365,8 +1365,8 @@ void cInterface::SetByMouse(
 					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
 					double intensity = estDistance * estDistance;
 					int lightNumber = mode.at(1).toInt();
-					gPar->Set("aux_light_position", lightNumber, pointCorrected);
-					gPar->Set("aux_light_intensity", lightNumber, intensity);
+					gPar->Set(cLight::Name("position", lightNumber), pointCorrected);
+					gPar->Set(cLight::Name("intensity", lightNumber), intensity);
 					mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
 					StartRender();
 					break;

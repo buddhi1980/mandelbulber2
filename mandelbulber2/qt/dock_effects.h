@@ -71,10 +71,6 @@ private slots:
 	static void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	static void slotPressedButtonSetDOFByMouse();
 	static void slotPressedButtonSetFogByMouse();
-	void slotPressedButtonSetLight1ByMouse() const;
-	static void slotPressedButtonSetLight2ByMouse();
-	static void slotPressedButtonSetLight3ByMouse();
-	static void slotPressedButtonSetLight4ByMouse();
 	static void slotPressedButtonUpdatePostEffects();
 	static void slotPressedButtonPlaceRandomLightsByMouse();
 	void slotChangedPlaceLightBehindObjects(int state);

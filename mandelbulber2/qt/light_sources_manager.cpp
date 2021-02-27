@@ -128,6 +128,7 @@ void cLightSourcesManager::slotButtonAddLight()
 {
 	AddLight(true, -1);
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
+	gMainInterface->ComboMouseClickUpdate();
 }
 
 void cLightSourcesManager::slotButtonDuplicateLight()

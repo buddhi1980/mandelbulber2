@@ -79,18 +79,6 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->pushButton_hdr_blur_update, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonUpdatePostEffects()));
 
-	// FIXME temporary disabled code until new buttons will be added
-	/*
-	connect(ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonSetLight1ByMouse()));
-	connect(ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonSetLight2ByMouse()));
-	connect(ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonSetLight3ByMouse()));
-	connect(ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonSetLight4ByMouse()));
-	 */
-
 	connect(ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetFogByMouse()));
 	connect(ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()), this,
@@ -129,38 +117,6 @@ void cDockEffects::SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterCo
 	SynchronizeInterfaceWindow(ui->groupCheck_random_lights_group, par, qInterface::write);
 }
 
-void cDockEffects::slotPressedButtonSetLight1ByMouse() const
-{
-	QList<QVariant> item;
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(1); // light number
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
-	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
-}
-
-void cDockEffects::slotPressedButtonSetLight2ByMouse()
-{
-	QList<QVariant> item;
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(2); // light number
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void cDockEffects::slotPressedButtonSetLight3ByMouse()
-{
-	QList<QVariant> item;
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(3); // light number
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
 double cDockEffects::GetAuxLightManualPlacementDistance() const
 {
 	return systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
@@ -169,16 +125,6 @@ double cDockEffects::GetAuxLightManualPlacementDistance() const
 void cDockEffects::SetAuxLightManualPlacementDistance(double dist) const
 {
 	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(dist));
-}
-
-void cDockEffects::slotPressedButtonSetLight4ByMouse()
-{
-	QList<QVariant> item;
-	item.append(int(RenderedImage::clickPlaceLight));
-	item.append(4); // light number
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void cDockEffects::slotEditedLineEditManualLightPlacementDistance(const QString &text)
