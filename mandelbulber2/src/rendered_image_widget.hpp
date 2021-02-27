@@ -115,6 +115,7 @@ public:
 	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
 	void SetCameraMovementMode(int index) { cameraMovementMode = index; }
 	void SetAnimationPath(const sAnimationPathData &_animationPath);
+	void SetCurrentLightIndex(int index) { currentLightIndex = index; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -188,6 +189,7 @@ private:
 	sFlightData flightData;
 	sAnimationPathData animationPathData;
 	QList<sRenderedTileData> listOfRenderedTilesData;
+	int currentLightIndex;
 
 signals:
 	void mouseMoved(int x, int y);

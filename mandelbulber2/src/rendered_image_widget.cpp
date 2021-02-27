@@ -81,6 +81,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	draggingStarted = false;
 	draggingInitStarted = false;
 	buttonsPressed = 0;
+	currentLightIndex = 0;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
@@ -1316,6 +1317,8 @@ void RenderedImage::DisplayAllLights()
 
 				if (light.enabled)
 				{
+					bool bold = lightIndex == currentLightIndex;
+					double thickness = (bold) ? 2.0 : 1.0;
 
 					if (light.type != cLight::lightDirectional)
 					{
@@ -1324,8 +1327,8 @@ void RenderedImage::DisplayAllLights()
 
 						sRGB8 color = toRGB8(light.color);
 
-						image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color, 4.0,
-							sRGBFloat(1.0, 1.0, 1.0), 1);
+						image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color,
+							thickness * 4.0, sRGBFloat(1.0, 1.0, 1.0), 1);
 
 						if (light.type == cLight::lightPoint)
 						{
@@ -1333,21 +1336,21 @@ void RenderedImage::DisplayAllLights()
 								sqrt(light.intensity) * light.size / lightCenter.z / fov * height;
 
 							image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, visibleSize, color,
-								2.0, sRGBFloat(0.5, 0.5, 0.5), 1);
+								thickness * 2.0, sRGBFloat(0.5, 0.5, 0.5), 1);
 
 							double sizeFactor = sqrt(light.intensity) * light.size * 20.0;
 
 							line3D(light.position - CVector3(sizeFactor, 0.0, 0.0),
 								light.position + CVector3(sizeFactor, 0.0, 0.0), camera, mRotInv, perspectiveType,
-								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
 
 							line3D(light.position - CVector3(0.0, sizeFactor, 0.0),
 								light.position + CVector3(0.0, sizeFactor, 0.0), camera, mRotInv, perspectiveType,
-								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
 
 							line3D(light.position - CVector3(0.0, 0.0, sizeFactor),
 								light.position + CVector3(0.0, 0.0, sizeFactor), camera, mRotInv, perspectiveType,
-								fov, width, height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
 						}
 
 						if (light.type == cLight::lightConical)
@@ -1390,14 +1393,14 @@ void RenderedImage::DisplayAllLights()
 											CVector3 point2 = light.position + dx2 + dy2 + dz2;
 
 											line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height,
-												color, 1.0, opacity, 10, 1);
+												color, thickness, opacity, 10, 1);
 										}
 
 										// draw circles
 										if (j > 0)
 										{
 											line3D(point1, previousPoint, camera, mRotInv, perspectiveType, fov, width,
-												height, color, 1.0, opacity, 10, 1);
+												height, color, thickness, opacity, 10, 1);
 										}
 
 										previousPoint = point1;
@@ -1425,24 +1428,24 @@ void RenderedImage::DisplayAllLights()
 								CVector3 point4 = light.position + dx - dy + dz;
 
 								line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height, color,
-									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 								line3D(point2, point3, camera, mRotInv, perspectiveType, fov, width, height, color,
-									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 								line3D(point3, point4, camera, mRotInv, perspectiveType, fov, width, height, color,
-									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 								line3D(point4, point1, camera, mRotInv, perspectiveType, fov, width, height, color,
-									1.0, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 
 								if (i == 8)
 								{
 									line3D(point1, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
 									line3D(point2, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
 									line3D(point3, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
 									line3D(point4, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, 1.0, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
 								}
 
 							} // for i

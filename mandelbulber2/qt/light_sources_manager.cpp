@@ -39,6 +39,9 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 	connect(ui->checkBox_show_wireframe_lights, &MyCheckBox::stateChanged, this,
 		&cLightSourcesManager::slorChangedWireframeVisibikity);
 
+	connect(ui->tabWidget_lightSources, &MyTabWidgetWithCheckboxes::currentChanged, this,
+		&cLightSourcesManager::slotChangedCurrentTab);
+
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
 	connect(autoRefreshTimer, &QTimer::timeout, this, &cLightSourcesManager::slotPeriodicRefresh);
@@ -214,4 +217,10 @@ void cLightSourcesManager::slotButtonPlaceLight()
 	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
 	gPar->Set("aux_light_manual_placement_dist", distance * 0.1);
 	// ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
+}
+
+void cLightSourcesManager::slotChangedCurrentTab(int index)
+{
+	gMainInterface->renderedImage->SetCurrentLightIndex(index + 1);
+	gMainInterface->UpdateMainImagePreview();
 }
