@@ -161,10 +161,12 @@ public:
 	bool repeatRequest; // request to repeat start loop
 	int numberOfStartedRenders;
 
-	struct sCameraDragData
+	struct sMouseDragData
 	{
-		sCameraDragData() {}
-		bool cameraDraggingStarted{false};
+		sMouseDragData() {}
+		bool draggingStarted{false};
+		bool cameraDrag{false};
+		bool lightDrag{false};
 		CVector2<double> startScreenPoint;
 		CVector2<double> startNormalizedPoint;
 		double startZ{0.0};
@@ -175,7 +177,9 @@ public:
 		Qt::MouseButtons button{Qt::NoButton};
 		QElapsedTimer lastRefreshTime;
 		qint64 lastStartRenderingTime{0};
-	} cameraDragData;
+		int lightIndex = -1;
+		CVector3 lightStartPosition;
+	} mouseDragData;
 
 private slots:
 	void slotAutoSaveImage(double timeSeconds);

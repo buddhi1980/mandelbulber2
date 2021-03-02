@@ -33,9 +33,9 @@ public:
 	void setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 		bool loadTextures, bool quiet, bool useNetRender);
 
-	static QString Name(const QString &name, int materialId)
+	static QString Name(const QString &name, int lightId)
 	{
-		return QString("light%1_").arg(materialId) + name;
+		return QString("light%1_").arg(lightId) + name;
 	}
 
 	inline float Decay(float distance) const { return pow(distance, float(decayFunction + 1)); }

@@ -145,6 +145,7 @@ void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons)
 	switch (clickMode)
 	{
 		case RenderedImage::clickMoveCamera:
+		case RenderedImage::clickPlaceLight:
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
