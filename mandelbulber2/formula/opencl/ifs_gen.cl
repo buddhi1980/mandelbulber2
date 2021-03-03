@@ -15,15 +15,15 @@
 
 REAL4 IfsGenIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledAx z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAy z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAz z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
 
 	// subtract offset
 	z -= fractal->transformCommon.offset111;
 
 	// scale
-	REAL useScale = fractal->transformCommon.scale2 - aux.actualScaleA;
+	REAL useScale = fractal->transformCommon.scale2 - aux->actualScaleA;
 	z *= useScale;
 	aux->DE *=fabs(useScale);
 
