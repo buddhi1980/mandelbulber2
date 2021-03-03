@@ -136,16 +136,16 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.z = -z.z + a;
 		}
 
-		double useScale = 1.0;
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale1);
+		//double useScale = 1.0;
+		double useScale = (1.0 - aux.actualScaleA);
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale);
+		aux.DE = aux.DE * fabs(useScale) * fractal->transformCommon.scale1;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
-			double vary = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			aux.actualScaleA = -vary;
+			aux.actualScaleA  = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.offsetA1);
+			//aux.actualScaleA = -vary;
 		}
 
 		rr = z.Dot(z);
@@ -154,6 +154,11 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z *= -iR; // invert and mirror
 		z.x = -z.x - b;
 		z.z = a + z.z;
+
+
+
+
+
 	}
 
 	if (fractal->transformCommon.functionEnabledEFalse

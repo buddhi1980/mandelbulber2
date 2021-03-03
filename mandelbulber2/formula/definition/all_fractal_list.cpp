@@ -178,6 +178,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// Folds and IFS
 	fractalList->append(new cFractalFoldBoxMod1());
 	fractalList->append(new cFractalGeneralizedFoldBox());
+	fractalList->append(new cFractalIfsGen());
 	fractalList->append(new cFractalIfsXY());
 	fractalList->append(new cFractalKaleidoscopicIfs());
 	fractalList->append(new cFractalKalisets1());

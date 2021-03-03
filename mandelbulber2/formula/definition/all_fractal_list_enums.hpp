@@ -263,6 +263,7 @@ enum enumFractalFormula
 	josKleinianV3 = 225,
 	aboxMod15 = 226,
 	kochV4 = 227,
+	ifsGen = 228,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -377,7 +378,7 @@ enum enumFractalFormula
 	transfAddCpixelSinOrCos = 1087,
 	// 2.16
 	transfSurfBoxFoldV2 = 1088,
-	// transfSurfBoxFoldV24d = 1089,
+
 	// 2.17
 	transfBoxWrap4d = 1089,
 	transfSphericalInvV2 = 1090,

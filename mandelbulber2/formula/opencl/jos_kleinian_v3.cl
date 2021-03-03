@@ -134,15 +134,15 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 
 		REAL useScale = 1.0f;
-		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
+		useScale = 1.0f - aux->actualScaleA;
 		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale);
+		aux->DE = aux->DE * fabs(useScale) * fractal->transformCommon.scale1;
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
-			REAL vary = fractal->transformCommon.scaleVary0
+			aux->actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA = -vary;
+			// aux->actualScaleA = -vary;
 		}
 
 		rr = dot(z, z);
