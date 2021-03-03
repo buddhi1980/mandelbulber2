@@ -222,6 +222,36 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float cloud = CloudOpacity(
 				consts, renderData->perlinNoiseSeeds, point, distance, input2.delta, &distanceToClouds);
 
+			float3 deltaCloud = 0.0f;
+
+#ifndef CLOUDSSHADOWS
+			{
+				float delta =
+					consts->params.cloudsPeriod / pown(2.0f, consts->params.cloudsIterations) * 5.0f;
+				float distanceToCloudsDummy = 0.0f;
+
+				deltaCloud.x =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){delta, 0.0f, 0.0f},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				deltaCloud.y =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){0.0f, delta, 0.0f},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				deltaCloud.z =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){0.0f, 0.0f, delta},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				if (length(deltaCloud) > 0.0f)
+				{
+					deltaCloud = normalize(deltaCloud);
+				}
+			}
+#endif // CLOUDSSHADOWS
+
 			float opacity = cloud * step;
 
 			lastCloudDistance = distanceToClouds;
@@ -264,7 +294,16 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
 								lightVectorTemp, calcParam, light->intensity);
 						}
-#endif
+#endif // SHADOWS
+
+#ifndef CLOUDSSHADOWS
+						if (length(deltaCloud) > 0)
+						{
+							float shade = clamp(-dot(lightVectorTemp, deltaCloud), 0.0f, 1.0f);
+							lightShadow *= shade;
+						}
+#endif // CLOUDSSHADOWS
+
 						lightShadow = lightShadow * nAmbient.s0 + ambient.s0;
 						newColour += lightShadow * light->color * intensity * textureColor;
 					}

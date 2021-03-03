@@ -271,6 +271,28 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		{
 			double distanceToClouds = 0.0;
 			double cloud = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
+
+			CVector3 deltaCloud;
+			if (!params->cloudsCastShadows)
+			{
+				double delta = params->cloudsPeriod / pow(2.0, params->cloudsIterations) * 5.0f;
+				double distanceToCloudsDummy = 0.0;
+				deltaCloud.x = CloudOpacity(point + CVector3(delta, 0.0, 0.0), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloud;
+				deltaCloud.y = CloudOpacity(point + CVector3(0.0, delta, 0.0), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloud;
+				deltaCloud.z = CloudOpacity(point + CVector3(0.0, 0.0, delta), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloud;
+
+				if (deltaCloud.Length() > 0.0)
+				{
+					deltaCloud.Normalize();
+				}
+			}
+
 			double opacity = cloud * step;
 			// qDebug() << cloud;
 
@@ -307,6 +329,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (params->cloudsCastShadows && light->castShadows && intensity > 1e-3)
 						{
 							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+						}
+						else
+						{
+							if (deltaCloud.Length() > 0)
+							{
+								double shade = clamp(-lightVectorTemp.Dot(deltaCloud), 0.0, 1.0);
+								lightShadow.R *= shade;
+								lightShadow.G *= shade;
+								lightShadow.B *= shade;
+							}
 						}
 
 						lightShadow.R = lightShadow.R * nAmbient + ambient;

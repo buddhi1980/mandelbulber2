@@ -633,6 +633,11 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	{
 		definesCollector += " -DCLOUDS";
 		anyVolumetricShaderUsed = true;
+
+		if(paramRender->cloudsCastShadows)
+		{
+			definesCollector += " -DCLOUDSSHADOWS";
+		}
 	}
 
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
