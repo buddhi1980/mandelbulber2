@@ -81,12 +81,15 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 							 * fractal->transformCommon.scaleA1;
 	}
 
-	REAL4 box_size = fractal->transformCommon.constantMultiplier221;
-	if (aux->i >= fractal->transformCommon.startIterationsO
+
+	if (fractal->transformCommon.functionEnabledOFalse
+			&& aux->i >= fractal->transformCommon.startIterationsO
 			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
-		z.x -= round(z.x / box_size.x) * box_size.x;
-		z.y -= round(z.y / box_size.y) * box_size.y;
+		REAL4 temp = fractal->transformCommon.constantMultiplier221;
+		z.x -= round(z.x / temp.x) * temp.x;
+		z.y -= round(z.y / temp.y) * temp.y;
+		z.z -= round(z.z / temp.z) * temp.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse
@@ -118,16 +121,21 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
+		REAL4 box_size = fractal->transformCommon.offset111;
 		REAL a = fractal->transformCommon.foldingValue;
 		REAL b = fractal->transformCommon.offset;
 		REAL f = sign(b);
 
+		z.x += box_size.x;
+		z.y += box_size.y;
+		z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
+		z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
 
 		z.z += box_size.z - 1.0f;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);
 
-		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_2x_F * (z.x + b * 0.5f) / box_size.x)))
+		if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
@@ -141,8 +149,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			// update actualScaleA for next iteration
 			aux->actualScaleA = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			// aux->actualScaleA = -vary;
+									* (fabs(aux->actualScaleA) + 1.0f);
 		}
 
 		rr = dot(z, z);

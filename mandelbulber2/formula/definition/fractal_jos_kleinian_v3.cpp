@@ -88,12 +88,15 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							* fractal->transformCommon.scaleA1;
 	}
-	CVector4 box_size = fractal->transformCommon.constantMultiplier221;
-	if (aux.i >= fractal->transformCommon.startIterationsO
+
+	if (fractal->transformCommon.functionEnabledOFalse
+			&& aux.i >= fractal->transformCommon.startIterationsO
 			&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
-		z.x -= round(z.x / box_size.x) * box_size.x;
-		z.y -= round(z.y / box_size.y) * box_size.y;
+			CVector4 temp = fractal->transformCommon.constantMultiplier221;
+		z.x -= round(z.x / temp.x) * temp.x;
+		z.y -= round(z.y / temp.y) * temp.y;
+				z.z -= round(z.z / temp.z) * temp.z;
 	}
 
 	// diagonal fold
@@ -122,15 +125,22 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
+		CVector4 box_size = fractal->transformCommon.offset111;
 		double a = fractal->transformCommon.foldingValue;
 		double b = fractal->transformCommon.offset;
 		double f = sign(b);
+
+		z.x += box_size.x;
+		z.y += box_size.y;
+		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+		z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
+
 
 		z.z += box_size.z - 1.0;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0);
 
-		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI_2x * (z.x + b * 0.5) / box_size.x)))
+		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
@@ -143,9 +153,8 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			// update actualScaleA for next iteration
-			aux.actualScaleA  = fractal->transformCommon.scaleVary0
-										* (fabs(aux.actualScaleA) - fractal->transformCommon.offsetA1);
-			//aux.actualScaleA = -vary;
+			aux.actualScaleA = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) + 1.0);
 		}
 
 		rr = z.Dot(z);
