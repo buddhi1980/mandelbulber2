@@ -135,7 +135,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);
 
-		if (z.y >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
+		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
