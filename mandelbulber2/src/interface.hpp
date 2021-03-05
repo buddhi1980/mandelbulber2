@@ -90,6 +90,7 @@ public:
 	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
+	void MoveLightByWheel(double deltaWheel);
 	void MovementStepModeChanged(int mode) const;
 	void CameraMovementModeChanged(int index);
 	void Undo();

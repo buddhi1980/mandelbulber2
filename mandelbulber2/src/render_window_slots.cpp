@@ -352,7 +352,8 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
 	}
 }
 
-void RenderWindow::slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta) const
+void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
+	int x, int y, int delta, Qt::KeyboardModifiers keyModifiers) const
 {
 	if (gMainInterface->renderedImage->GetEnableClickModes())
 	{
@@ -363,10 +364,17 @@ void RenderWindow::slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta)
 		{
 			case RenderedImage::clickPlaceLight:
 			{
-				double deltaLog = exp(delta * 0.001);
-				double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
-				dist *= deltaLog;
-				ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
+				if (keyModifiers & Qt::AltModifier)
+				{
+					double deltaLog = exp(delta * 0.001);
+					double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
+					dist *= deltaLog;
+					ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
+				}
+				else if (keyModifiers & Qt::ControlModifier)
+				{
+					gMainInterface->MoveLightByWheel(delta);
+				}
 				break;
 			}
 			case RenderedImage::clickMoveCamera:

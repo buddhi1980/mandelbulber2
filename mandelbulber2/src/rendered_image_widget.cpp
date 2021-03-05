@@ -215,6 +215,7 @@ void RenderedImage::DisplayCoordinates()
 		case clickPlaceLight:
 			text = tr("Place light #") + QString::number(clickModeData.at(1).toInt());
 			text += tr("\nCtrl + Mouse wheel - light fov / bkw");
+			text += tr("\nAlt + Mouse wheel - placement fov / bkw");
 			break;
 		case clickPlacePrimitive:
 			text = tr("Place ") + PrimitiveNames(fractal::enumObjectType(clickModeData.at(1).toInt()))
@@ -793,15 +794,16 @@ void RenderedImage::wheelEvent(QWheelEvent *event)
 {
 	if (clickModesEnables || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 	{
-		if ((event->modifiers() & Qt::ControlModifier) != 0)
+		if ((event->modifiers() & (Qt::ControlModifier | Qt::AltModifier)) != 0)
 		{
 			event->accept(); // do not propagate event to parent widgets - prevents from scrolling
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-			emit mouseWheelRotatedWithCtrl(event->x(), event->y(), event->delta());
+			emit mouseWheelRotatedWithKey(event->x(), event->y(), event->delta(), event->modifiers());
 #else
-			emit mouseWheelRotatedWithCtrl(
-				int(event->position().x()), int(event->position().y()), event->angleDelta().y());
+			emit mouseWheelRotatedWithKey(int(event->position().x()), int(event->position().y()),
+				event->angleDelta().y() + event->angleDelta().x(), event->modifiers());
+			// with alt key there is modified delta.x
 #endif
 			if (params)
 			{

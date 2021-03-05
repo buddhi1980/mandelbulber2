@@ -425,8 +425,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotKeyPressOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
-	connect(renderedImage, SIGNAL(mouseWheelRotatedWithCtrl(int, int, int)), mainWindow,
-		SLOT(slotMouseWheelRotatedWithCtrlOnImage(int, int, int)));
+	connect(renderedImage, &RenderedImage::mouseWheelRotatedWithKey, mainWindow,
+		&RenderWindow::slotMouseWheelRotatedWithKeyOnImage);
 	connect(
 		renderedImage, &RenderedImage::mouseDragStart, mainWindow, &RenderWindow::slotMouseDragStart);
 	connect(
@@ -1776,6 +1776,20 @@ void cInterface::MouseDragDelta(int dx, int dy)
 			}
 		}
 	}
+}
+
+void cInterface::MoveLightByWheel(double deltaWheel)
+{
+	double deltaLog = exp(deltaWheel * 0.0001);
+	CVector3 lightPosition =
+		gPar->Get<CVector3>(cLight::Name("position", renderedImage->GetCurrentLightIndex()));
+	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
+	CVector3 lightVector = lightPosition - cameraPosition;
+	CVector3 newLightVector = lightVector * deltaLog;
+	CVector3 newLightPosition = cameraPosition + newLightVector;
+	gPar->Set(cLight::Name("position", renderedImage->GetCurrentLightIndex()), newLightPosition);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	renderedImage->update();
 }
 
 void cInterface::MovementStepModeChanged(int mode) const

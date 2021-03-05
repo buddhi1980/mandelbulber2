@@ -116,6 +116,7 @@ public:
 	void SetCameraMovementMode(int index) { cameraMovementMode = index; }
 	void SetAnimationPath(const sAnimationPathData &_animationPath);
 	void SetCurrentLightIndex(int index) { currentLightIndex = index; }
+	int GetCurrentLightIndex() { return currentLightIndex; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -196,7 +197,7 @@ signals:
 	void singleClick(int x, int y, Qt::MouseButton button);
 	void keyPress(QKeyEvent *event);
 	void keyRelease(QKeyEvent *event);
-	void mouseWheelRotatedWithCtrl(int x, int y, int delta);
+	void mouseWheelRotatedWithKey(int x, int y, int delta, Qt::KeyboardModifiers keyModifiers);
 	void mouseDragStart(int x, int y, Qt::MouseButtons button);
 	void mouseDragFinish();
 	void mouseDragDelta(int dx, int dy);

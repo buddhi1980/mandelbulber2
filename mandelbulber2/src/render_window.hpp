@@ -193,7 +193,8 @@ private slots:
 	void slotKeyReleaseOnImage(QKeyEvent *event);
 	void slotButtonLongPress();
 	void slotKeyHandle();
-	void slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta) const;
+	void slotMouseWheelRotatedWithKeyOnImage(
+		int x, int y, int delta, Qt::KeyboardModifiers keyModifiers) const;
 	void slotMouseDragStart(int x, int y, Qt::MouseButtons buttons);
 	void slotMouseDragFinish();
 	void slotMouseDragDelta(int dx, int dy);
