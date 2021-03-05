@@ -16,7 +16,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+/*REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -56,7 +56,7 @@ REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 		z += fractal->transformCommon.offsetF000;
 	}
 	return z;
-}
+}*/
 
 
 
@@ -64,7 +64,45 @@ REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (!fractal->transformCommon.functionEnabledIFalse)
-		z = PolyfoldAbs(z, fractal, aux);
+	{
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& aux->i >= fractal->transformCommon.startIterationsP
+				&& aux->i < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+			if (fractal->transformCommon.functionEnabledCx)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8X;
+				psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+				z.x = native_cos(psi) * len;
+				z.y = native_sin(psi) * len;
+			}
+
+			if (fractal->transformCommon.functionEnabledCyFalse)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+				psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+				z.y = native_cos(psi) * len;
+				z.z = native_sin(psi) * len;
+			}
+
+			if (fractal->transformCommon.functionEnabledCzFalse)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+				psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+				z.z = native_cos(psi) * len;
+				z.x = native_sin(psi) * len;
+			}
+			// addition constant
+			z += fractal->transformCommon.offsetF000;
+		}
+	}
 
 	REAL rr = 0.0f;
 	// sphere inversion
@@ -81,15 +119,16 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 							 * fractal->transformCommon.scaleA1;
 	}
 
-
-	if (fractal->transformCommon.functionEnabledOFalse
+	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsO
 			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
-		REAL4 temp = fractal->transformCommon.constantMultiplier221;
-		z.x -= round(z.x / temp.x) * temp.x;
-		z.y -= round(z.y / temp.y) * temp.y;
-		z.z -= round(z.z / temp.z) * temp.z;
+		if (fractal->transformCommon.functionEnabledAwFalse)
+			z.x -= round(z.x / fractal->transformCommon.offset2)
+					* fractal->transformCommon.offset2;
+		if (fractal->transformCommon.functionEnabledAw)
+			z.y -= round(z.y / fractal->transformCommon.offsetA2)
+					* fractal->transformCommon.offsetA2;
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse
@@ -105,7 +144,45 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	if (fractal->transformCommon.functionEnabledIFalse)
-		z = PolyfoldAbs(z, fractal, aux);
+	{
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& aux->i >= fractal->transformCommon.startIterationsP
+				&& aux->i < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+			if (fractal->transformCommon.functionEnabledCx)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8X;
+				psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+				z.x = native_cos(psi) * len;
+				z.y = native_sin(psi) * len;
+			}
+
+			if (fractal->transformCommon.functionEnabledCyFalse)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+				psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+				z.y = native_cos(psi) * len;
+				z.z = native_sin(psi) * len;
+			}
+
+			if (fractal->transformCommon.functionEnabledCzFalse)
+			{
+				REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+				psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+				REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+				z.z = native_cos(psi) * len;
+				z.x = native_sin(psi) * len;
+			}
+			// addition constant
+			z += fractal->transformCommon.offsetF000;
+		}
+	}
 
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterations
@@ -125,32 +202,25 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL a = fractal->transformCommon.foldingValue;
 		REAL b = fractal->transformCommon.offset;
 		REAL f = sign(b);
-
 		z.x += box_size.x;
 		z.y += box_size.y;
 		z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
 		z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
-
 		z.z += box_size.z - 1.0f;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);
-
 		if (z.z >= a * (0.5f + 0.2f * native_sin(f * M_PI_F * (z.x + b * 0.5f) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
 		}
 
-		REAL useScale = 1.0f;
-		useScale = 1.0f - aux->actualScaleA;
+		REAL useScale = 1.0f - aux->actualScaleA;
 		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) * fractal->transformCommon.scale1;
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			// update actualScaleA for next iteration
+		aux->DE = aux->DE * fabs(useScale);
+		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 			aux->actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) + 1.0f);
-		}
 
 		rr = dot(z, z);
 		REAL iR = 1.0f / rr;

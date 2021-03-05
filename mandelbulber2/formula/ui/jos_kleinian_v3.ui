@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4487</height>
+    <height>4592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -872,7 +872,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledO_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledN_false">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;bailout may need to be increased for this option&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -951,7 +951,7 @@ offset:</string>
          <number>2</number>
         </property>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_y">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -981,25 +981,11 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_58">
-          <property name="text">
-           <string notr="true">z.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_55">
-          <property name="text">
-           <string notr="true">z.x</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_x">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1032,37 +1018,29 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
-          <property name="prefix">
-           <string/>
+          <property name="text">
+           <string>z.x</string>
           </property>
-          <property name="suffix">
-           <string/>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw">
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
           </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
+          <property name="text">
+           <string>z.y</string>
           </property>
          </widget>
         </item>
