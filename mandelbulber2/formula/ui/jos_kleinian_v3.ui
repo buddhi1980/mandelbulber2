@@ -1984,6 +1984,53 @@ offset:</string>
        <number>2</number>
       </property>
       <item>
+       <layout class="QGridLayout" name="gridLayout_67">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_N">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_251">
+          <property name="text">
+           <string>start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_N">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_266">
+          <property name="text">
+           <string>stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_84" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
@@ -2131,21 +2178,21 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="7" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-          <property name="text">
-           <string>hybrid max aux.color</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" rowspan="3" colspan="2">
+        <item row="1" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
           <property name="text">
            <string>add color each iteration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+          <property name="text">
+           <string>hybrid max aux.color</string>
           </property>
          </widget>
         </item>
