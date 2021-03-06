@@ -260,14 +260,15 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
 	{
 		double colorAdd = 0.0;
-		aux.temp1000 = min(aux.temp1000, rr) * fractal->foldColor.difs0000.x;
-		colorAdd += aux.temp1000; // temp
-		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
+		colorAdd += fractal->foldColor.difs0000.x * z.Dot(z);
+		colorAdd += fractal->foldColor.difs0000.y * max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
-		colorAdd += fractal->foldColor.difs0000.w * rr;
+		if (-z.x * z.y > 0.0) colorAdd += fractal->foldColor.difs0000.w;
 		//colorAdd += fractal->foldColor.difs1;
 
 		if (!fractal->transformCommon.functionEnabledJFalse)

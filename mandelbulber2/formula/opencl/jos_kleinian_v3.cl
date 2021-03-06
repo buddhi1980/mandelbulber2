@@ -260,11 +260,10 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		REAL colorAdd = 0.0f;
-		aux->temp1000 = min(aux->temp1000, rr) * fractal->foldColor.difs0000.x;
-		colorAdd += fractal->foldColor.difs0000.y * max(fabs(z.x), fabs(z.y));
-		colorAdd += aux->temp1000; // temp
+		colorAdd += fractal->foldColor.difs0000.x * dot(z, z);
+		colorAdd += fractal->foldColor.difs0000.y * max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
-		colorAdd += fractal->foldColor.difs0000.w * rr;
+		if (-z.x * z.y > 0.0) colorAdd += fractal->foldColor.difs0000.w;
 		//colorAdd += fractal->foldColor.difs1;
 
 		if (!fractal->transformCommon.functionEnabledJFalse)
