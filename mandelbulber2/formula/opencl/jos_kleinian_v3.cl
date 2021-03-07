@@ -257,7 +257,9 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsN
+			&& aux->i < fractal->transformCommon.stopIterationsN)
 	{
 		REAL colorAdd = 0.0f;
 		colorAdd += fractal->foldColor.difs0000.x * dot(z, z);
