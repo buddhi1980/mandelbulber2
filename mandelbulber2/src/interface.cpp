@@ -421,10 +421,9 @@ void cInterface::ConnectSignals() const
 		renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
 	connect(
 		renderedImage, &RenderedImage::singleClick, mainWindow, &RenderWindow::slotMouseClickOnImage);
-	connect(renderedImage, SIGNAL(keyPress(QKeyEvent *)), mainWindow,
-		SLOT(slotKeyPressOnImage(QKeyEvent *)));
-	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
-		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
+	connect(renderedImage, &RenderedImage::keyPress, mainWindow, &RenderWindow::slotKeyPressOnImage);
+	connect(
+		renderedImage, &RenderedImage::keyRelease, mainWindow, &RenderWindow::slotKeyReleaseOnImage);
 	connect(renderedImage, &RenderedImage::mouseWheelRotatedWithKey, mainWindow,
 		&RenderWindow::slotMouseWheelRotatedWithKeyOnImage);
 	connect(
@@ -1349,25 +1348,40 @@ void cInterface::SetByMouse(
 				}
 				case RenderedImage::clickPlaceLight:
 				{
+					int lightIndex = mode.at(1).toInt();
 					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
 					bool placeBehind = gPar->Get<bool>("aux_light_place_behind");
 					double distanceLimit = gPar->Get<double>("view_distance_max");
+					bool relativePosition = gPar->Get<bool>(cLight::Name("relative_position", lightIndex));
+
 					CVector3 pointCorrected;
+
 					if (!placeBehind)
 					{
 						pointCorrected = point - viewVector * frontDist;
 					}
 					else
 					{
-						double distanceBehind = traceBehindFractal(gPar, gParFractal, frontDist, viewVector,
-							depth, 1.0 / mainImage->GetHeight(), distanceLimit);
-						pointCorrected = point + viewVector * distanceBehind;
+						frontDist = traceBehindFractal(gPar, gParFractal, frontDist, viewVector,
+							depth, 1.0 / mainImage->GetHeight(), distanceLimit) * (-1.0);
+						pointCorrected = point - viewVector * frontDist;
 					}
+
 					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
 					double intensity = estDistance * estDistance;
-					int lightNumber = mode.at(1).toInt();
-					gPar->Set(cLight::Name("position", lightNumber), pointCorrected);
-					gPar->Set(cLight::Name("intensity", lightNumber), intensity);
+
+					if (relativePosition)
+					{
+						// without rotation
+						CVector3 viewVectorTemp =
+							CalculateViewVector(normalizedPoint, fov, perspType, CRotationMatrix());
+
+						CVector3 point2 = viewVectorTemp * (depth - frontDist);
+						pointCorrected = CVector3(point2.x, point2.z, point2.y);
+					}
+
+					gPar->Set(cLight::Name("position", lightIndex), pointCorrected);
+					gPar->Set(cLight::Name("intensity", lightIndex), intensity);
 					mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
 					StartRender();
 					break;
