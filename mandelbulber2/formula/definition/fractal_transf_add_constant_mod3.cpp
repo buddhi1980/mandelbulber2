@@ -80,7 +80,7 @@ void cFractalTransfAddConstantMod3::FormulaCode(
 			{
 				z.x += fractal->transformCommon.additionConstant000.x;
 			}
-		}
+		}:
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse)

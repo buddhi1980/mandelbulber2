@@ -72,9 +72,9 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double rr = 0.0;
-	if (!fractal->transformCommon.functionEnabledIFalse)
+	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-		// sphere inversion
+		// alternative sphere inversion position
 		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux.i >= fractal->transformCommon.startIterationsD
 				&& aux.i < fractal->transformCommon.stopIterationsD1)
@@ -88,7 +88,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 								* fractal->transformCommon.scaleA1;
 		}
 	}
-
 
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -130,8 +129,8 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z += fractal->transformCommon.offsetF000;
 	}
 
-	// alternative sphere inversion position
-	if (fractal->transformCommon.functionEnabledIFalse)
+	// sphere inversion position
+	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
 		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux.i >= fractal->transformCommon.startIterationsD

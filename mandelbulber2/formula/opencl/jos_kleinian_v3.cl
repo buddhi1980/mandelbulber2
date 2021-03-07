@@ -64,7 +64,7 @@
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
-	if (!fractal->transformCommon.functionEnabledIFalse)
+	if (fractal->transformCommon.functionEnabledIFalse)
 	{
 		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -80,7 +80,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 								 * fractal->transformCommon.scaleA1;
 		}
 	}
-
 
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -126,7 +125,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 
 		// sphere inversion
-		if (fractal->transformCommon.sphereInversionEnabledFalse
+		if (!fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux->i >= fractal->transformCommon.startIterationsD
 				&& aux->i < fractal->transformCommon.stopIterationsD1)
 		{
