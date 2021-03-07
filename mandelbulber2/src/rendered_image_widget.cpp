@@ -81,7 +81,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	draggingStarted = false;
 	draggingInitStarted = false;
 	buttonsPressed = 0;
-	currentLightIndex = 0;
+	currentLightIndex = 1;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));

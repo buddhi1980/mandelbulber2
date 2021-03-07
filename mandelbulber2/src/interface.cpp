@@ -1753,7 +1753,7 @@ void cInterface::MouseDragDelta(int dx, int dy)
 
 						CVector3 lightPosition = mouseDragData.lightStartPosition;
 
-						if(relativePosition)
+						if (relativePosition)
 						{
 							CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * lightPosition.z
 																							+ cameraTarget.GetTopVector() * lightPosition.y
@@ -1767,9 +1767,8 @@ void cInterface::MouseDragDelta(int dx, int dy)
 						mRotInv.RotateX(-rotation.y);
 						mRotInv.RotateZ(-rotation.x);
 
-						CVector3 lightScreenPosition =
-							InvProjection3D(lightPosition, mouseDragData.startCamera, mRotInv,
-								perspType, fov, mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
+						CVector3 lightScreenPosition = InvProjection3D(lightPosition, mouseDragData.startCamera,
+							mRotInv, perspType, fov, mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
 
 						CVector3 newLightScreenPosition = lightScreenPosition + CVector3(dx, dy, 0.0);
 
@@ -1822,12 +1821,27 @@ void cInterface::MouseDragDelta(int dx, int dy)
 void cInterface::MoveLightByWheel(double deltaWheel)
 {
 	double deltaLog = exp(deltaWheel * 0.0001);
+
 	CVector3 lightPosition =
 		gPar->Get<CVector3>(cLight::Name("position", renderedImage->GetCurrentLightIndex()));
-	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
-	CVector3 lightVector = lightPosition - cameraPosition;
-	CVector3 newLightVector = lightVector * deltaLog;
-	CVector3 newLightPosition = cameraPosition + newLightVector;
+
+	bool relativePosition =
+		gPar->Get<bool>(cLight::Name("relative_position", renderedImage->GetCurrentLightIndex()));
+
+	CVector3 newLightPosition;
+
+	if (relativePosition)
+	{
+		newLightPosition = lightPosition * deltaLog;
+	}
+	else
+	{
+		CVector3 cameraPosition = gPar->Get<CVector3>("camera");
+		CVector3 lightVector = lightPosition - cameraPosition;
+		CVector3 newLightVector = lightVector * deltaLog;
+		newLightPosition = cameraPosition + newLightVector;
+	}
+
 	gPar->Set(cLight::Name("position", renderedImage->GetCurrentLightIndex()), newLightPosition);
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	renderedImage->update();
