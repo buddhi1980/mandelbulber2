@@ -1362,8 +1362,9 @@ void cInterface::SetByMouse(
 					}
 					else
 					{
-						frontDist = traceBehindFractal(gPar, gParFractal, frontDist, viewVector,
-							depth, 1.0 / mainImage->GetHeight(), distanceLimit) * (-1.0);
+						frontDist = traceBehindFractal(gPar, gParFractal, frontDist, viewVector, depth,
+													1.0 / mainImage->GetHeight(), distanceLimit)
+												* (-1.0);
 						pointCorrected = point - viewVector * frontDist;
 					}
 
@@ -1744,8 +1745,21 @@ void cInterface::MouseDragDelta(int dx, int dy)
 				{
 					case Qt::LeftButton:
 					{
+						bool relativePosition =
+							gPar->Get<bool>(cLight::Name("relative_position", mouseDragData.lightIndex));
+
 						cCameraTarget cameraTarget(
 							mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+						CVector3 lightPosition = mouseDragData.lightStartPosition;
+
+						if(relativePosition)
+						{
+							CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * lightPosition.z
+																							+ cameraTarget.GetTopVector() * lightPosition.y
+																							+ cameraTarget.GetRightVector() * lightPosition.x;
+							lightPosition = mouseDragData.startCamera + deltaPositionRotated;
+						}
 
 						CRotationMatrix mRotInv;
 						CVector3 rotation = cameraTarget.GetRotation();
@@ -1754,7 +1768,7 @@ void cInterface::MouseDragDelta(int dx, int dy)
 						mRotInv.RotateZ(-rotation.x);
 
 						CVector3 lightScreenPosition =
-							InvProjection3D(mouseDragData.lightStartPosition, mouseDragData.startCamera, mRotInv,
+							InvProjection3D(lightPosition, mouseDragData.startCamera, mRotInv,
 								perspType, fov, mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
 
 						CVector3 newLightScreenPosition = lightScreenPosition + CVector3(dx, dy, 0.0);
@@ -1770,8 +1784,21 @@ void cInterface::MouseDragDelta(int dx, int dy)
 
 						CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 
-						CVector3 newLightPosition =
-							mouseDragData.startCamera + viewVector * lightScreenPosition.z;
+						CVector3 newLightPosition;
+
+						if (relativePosition)
+						{
+							// without rotation
+							CVector3 viewVectorTemp =
+								CalculateViewVector(normalizedPoint, fov, perspType, CRotationMatrix());
+
+							CVector3 point2 = viewVectorTemp * lightScreenPosition.z;
+							newLightPosition = CVector3(point2.x, point2.z, point2.y);
+						}
+						else
+						{
+							newLightPosition = mouseDragData.startCamera + viewVector * lightScreenPosition.z;
+						}
 
 						gPar->Set(cLight::Name("position", mouseDragData.lightIndex), newLightPosition);
 
