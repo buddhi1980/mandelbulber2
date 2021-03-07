@@ -63,60 +63,81 @@
 
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL rr = 0.0f;
 	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
-		if (fractal->transformCommon.functionEnabledPFalse
-				&& aux->i >= fractal->transformCommon.startIterationsP
-				&& aux->i < fractal->transformCommon.stopIterationsP1)
+		// sphere inversion
+		if (fractal->transformCommon.sphereInversionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
 		{
-			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-			if (fractal->transformCommon.functionEnabledCx)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8X;
-				psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.x * z.x + z.y * z.y);
-				z.x = native_cos(psi) * len;
-				z.y = native_sin(psi) * len;
-			}
-
-			if (fractal->transformCommon.functionEnabledCyFalse)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8Y;
-				psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.y * z.y + z.z * z.z);
-				z.y = native_cos(psi) * len;
-				z.z = native_sin(psi) * len;
-			}
-
-			if (fractal->transformCommon.functionEnabledCzFalse)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8Z;
-				psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.z * z.z + z.x * z.x);
-				z.z = native_cos(psi) * len;
-				z.x = native_sin(psi) * len;
-			}
-			// addition constant
-			z += fractal->transformCommon.offsetF000;
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			z *= fractal->transformCommon.scaleA1;
+			aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+								 * fractal->transformCommon.scaleA1;
 		}
 	}
 
-	REAL rr = 0.0f;
-	// sphere inversion
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
+
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-		z += fractal->transformCommon.offset000;
-		rr = dot(z, z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-		z *= fractal->transformCommon.scaleA1;
-		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							 * fractal->transformCommon.scaleA1;
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * len;
+			z.y = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+			z.y = native_cos(psi) * len;
+			z.z = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCzFalse)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+			z.z = native_cos(psi) * len;
+			z.x = native_sin(psi) * len;
+		}
+		// addition constant
+		z += fractal->transformCommon.offsetF000;
+	}
+
+	if (fractal->transformCommon.functionEnabledIFalse)
+	{
+
+		// sphere inversion
+		if (fractal->transformCommon.sphereInversionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
+		{
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			z *= fractal->transformCommon.scaleA1;
+			aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+								 * fractal->transformCommon.scaleA1;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledNFalse
@@ -140,47 +161,6 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			REAL temp = z.x;
 			z.x = z.y;
 			z.y = temp;
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledIFalse)
-	{
-		if (fractal->transformCommon.functionEnabledPFalse
-				&& aux->i >= fractal->transformCommon.startIterationsP
-				&& aux->i < fractal->transformCommon.stopIterationsP1)
-		{
-			if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-			if (fractal->transformCommon.functionEnabledCx)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8X;
-				psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.x * z.x + z.y * z.y);
-				z.x = native_cos(psi) * len;
-				z.y = native_sin(psi) * len;
-			}
-
-			if (fractal->transformCommon.functionEnabledCyFalse)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8Y;
-				psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.y * z.y + z.z * z.z);
-				z.y = native_cos(psi) * len;
-				z.z = native_sin(psi) * len;
-			}
-
-			if (fractal->transformCommon.functionEnabledCzFalse)
-			{
-				REAL psi = M_PI_F / fractal->transformCommon.int8Z;
-				psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
-				REAL len = native_sqrt(z.z * z.z + z.x * z.x);
-				z.z = native_cos(psi) * len;
-				z.x = native_sin(psi) * len;
-			}
-			// addition constant
-			z += fractal->transformCommon.offsetF000;
 		}
 	}
 
