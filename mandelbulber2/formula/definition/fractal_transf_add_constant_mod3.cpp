@@ -6,8 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Adds c constant to z vector
- * This formula contains aux.pos_neg
+ * based on darkbeams _PartlyJuiliaRoff transform from Mandelbulb3D.
  */
 
 #include "all_fractal_definitions.h"
@@ -63,56 +62,4 @@ void cFractalTransfAddConstantMod3::FormulaCode(
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
 	}
-
-
-
-	// plus iter control and alternate offset
-	/*if (fractal->transformCommon.functionEnabledAxFalse)
-	{
-		if (aux.i >= fractal->transformCommon.startIterationsA
-				&& aux.i < fractal->transformCommon.stopIterationsA)
-		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-			{
-				z.x += aux.pos_neg * fractal->transformCommon.additionConstant000.x;
-			}
-			else
-			{
-				z.x += fractal->transformCommon.additionConstant000.x;
-			}
-		}:
-	}
-
-	if (fractal->transformCommon.functionEnabledAyFalse)
-	{
-		if (aux.i >= fractal->transformCommon.startIterationsB
-				&& aux.i < fractal->transformCommon.stopIterationsB)
-		{
-			if (fractal->transformCommon.functionEnabledByFalse)
-			{
-				z.y += aux.pos_neg * fractal->transformCommon.additionConstant000.y;
-			}
-			else
-			{
-				z.y += fractal->transformCommon.additionConstant000.y;
-			}
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledAzFalse)
-	{
-		if (aux.i >= fractal->transformCommon.startIterationsC
-				&& aux.i < fractal->transformCommon.stopIterationsC)
-		{
-			if (fractal->transformCommon.functionEnabledBzFalse)
-			{
-				z.z += aux.pos_neg * fractal->transformCommon.additionConstant000.z;
-			}
-			else
-			{
-				z.z += fractal->transformCommon.additionConstant000.z;
-			}
-		}
-	}
-	aux.pos_neg *= fractal->transformCommon.scaleNeg1;*/
 }

@@ -181,7 +181,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_261">
        <property name="text">
-        <string>radrus condition:</string>
+        <string>radius condition:</string>
        </property>
       </widget>
      </item>

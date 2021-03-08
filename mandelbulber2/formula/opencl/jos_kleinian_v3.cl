@@ -121,11 +121,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z += fractal->transformCommon.offsetF000;
 	}
 
-	if (fractal->transformCommon.functionEnabledIFalse)
+	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
 
 		// sphere inversion
-		if (!fractal->transformCommon.sphereInversionEnabledFalse
+		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux->i >= fractal->transformCommon.startIterationsD
 				&& aux->i < fractal->transformCommon.stopIterationsD1)
 		{
