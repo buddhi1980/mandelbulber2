@@ -252,6 +252,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSBoxV3());
 	fractalList->append(new cFractalTransfDIFSCylinder());
 	fractalList->append(new cFractalTransfDIFSCylinderV2());
+	fractalList->append(new cFractalTransfDIFSDiamond());
 	fractalList->append(new cFractalTransfDIFSEllipsoid());
 	fractalList->append(new cFractalTransfDIFSGearV1());
 	fractalList->append(new cFractalTransfDIFSGrid());

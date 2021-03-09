@@ -429,6 +429,7 @@ enum enumFractalFormula
 	// 2.25
 	transfPolyFoldAtan2Iter = 1126,
 	transfSinTan = 1127,
+	transfAddConstantMod3 = 1128,
 
 	// mandelbulber transfdIFS
 	// 2.20
@@ -459,8 +460,7 @@ enum enumFractalFormula
 	transfDIFSGearV1 = 1619,
 	transfDIFSGridV3 = 1620,
 	transfDIFSClipPlane = 1621,
-	transfAddConstantMod3 = 1622,
-
+	transfDIFSDiamond = 1622,
 
 	// hybrid color
 	transfHybridColor = 2000,
