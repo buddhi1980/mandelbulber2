@@ -52,6 +52,7 @@
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "light.h"
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "render_window.hpp"
@@ -1662,9 +1663,17 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	animationPathData.targetPathEnable = params->Get<bool>("show_target_path");
 
 	for (int i = 1; i <= 4; i++)
-		animationPathData.lightPathEnable[i - 1] =
-			params->Get<bool>("show_light_path", i)
-			&& params->Get<bool>(QString("light%1_enabled").arg(i));
+	{
+		if (params->IfExists(cLight::Name("is_defined", i)))
+		{
+			animationPathData.lightPathEnable[i - 1] =
+				params->Get<bool>("show_light_path", i) && params->Get<bool>(cLight::Name("enabled", i));
+		}
+		else
+		{
+			animationPathData.lightPathEnable[i - 1] = false;
+		}
+	}
 
 	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
 	{
@@ -1676,12 +1685,26 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 			sAnimationPathPoint point;
 			point.camera = tempPar->Get<CVector3>("camera");
 			point.target = tempPar->Get<CVector3>("target");
+			CVector3 top = tempPar->Get<CVector3>("camera_top");
+			cCameraTarget cameraTarget(point.camera, point.target, top);
+
 			for (int l = 0; l < 4; l++)
 			{
-				if (params->IfExists(QString("light%1_is_defined").arg(l + 1)))
+				if (params->IfExists(cLight::Name("is_defined", l + 1)))
 				{
-					point.lights[l] = tempPar->Get<CVector3>(QString("light%1_position").arg(l + 1));
-					sRGB color16 = tempPar->Get<sRGB>(QString("light%1_color").arg(l + 1));
+					if(params->Get<bool>(cLight::Name("relative_position", l+1)))
+					{
+						CVector3 deltaPosition = tempPar->Get<CVector3>(cLight::Name("position", l+1));
+						CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * deltaPosition.z
+																						+ cameraTarget.GetTopVector() * deltaPosition.y
+																						+ cameraTarget.GetRightVector() * deltaPosition.x;
+						point.lights[l] = point.camera + deltaPositionRotated;
+					}
+					else
+					{
+						point.lights[l] = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
+					}
+					sRGB color16 = tempPar->Get<sRGB>(cLight::Name("color", l + 1));
 					sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
 					point.lightColor[l] = color8;
 				}
