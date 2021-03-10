@@ -59,7 +59,7 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		REAL4 col = fabs(q);
 		aux->color += fractal->foldColor.difs0000.x * col.x * col.y;
-		aux->color += fractal->foldColor.difs0000.y * col.x * col.z);
+		aux->color += fractal->foldColor.difs0000.y * col.x * col.z;
 		aux->color += fractal->foldColor.difs0000.z * q.z;
 		aux->color += fractal->foldColor.difs0000.w * max(col.x, col.y);
 	}

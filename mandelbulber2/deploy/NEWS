@@ -6,6 +6,8 @@ v2.25 (???? 2021)
    kochV4
    ifsGen
 
+   transfAddConstantMod3
+   transfDIFSDiamond
    transfDIFSGearV1
    transfDIFSGridV3
    transfPolyFoldAtan2Iter
