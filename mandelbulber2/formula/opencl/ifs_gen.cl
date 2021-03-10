@@ -36,6 +36,21 @@ REAL4 IfsGenIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.offsetA1);
 	}
 
+	// spherical fold
+	REAL m = 1.0f;
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		REAL rr = dot(z, z);
+		if (rr < fractal->transformCommon.minR2p25)
+			m = fractal->transformCommon.maxMinR2factor;
+		else if (rr < fractal->transformCommon.maxR2d1)
+			m = fractal->transformCommon.maxR2d1 / rr;
+		z *= m;
+		aux->DE *= m;
+	}
+
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	// offset2

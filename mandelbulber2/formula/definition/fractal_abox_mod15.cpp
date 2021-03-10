@@ -199,7 +199,6 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-
 		if (aux.i >= fractal->foldColor.startIterationsA
 				&& aux.i < fractal->foldColor.stopIterationsA)
 		{

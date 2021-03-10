@@ -47,6 +47,21 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL bottomB = dot (q, normalBottomB) - fractal->transformCommon.offsetF2 + 0.1f;
 
 	aux->DE0 = max (topCut, max (topA, max (topB, max (topC, max (bottomA, bottomB)))));
-	aux->dist = min(aux->dist, aux->DE0 / aux->DE);
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux->dist = aux->DE0;
+	else
+		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
+
+	if(fractal->transformCommon.functionEnabledzFalse) z = q;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		REAL4 col = fabs(q);
+		aux->color += fractal->foldColor.difs0000.x * col.x * col.y;
+		aux->color += fractal->foldColor.difs0000.y * col.x * col.z);
+		aux->color += fractal->foldColor.difs0000.z * q.z;
+		aux->color += fractal->foldColor.difs0000.w * max(col.x, col.y);
+	}
 	return z;
 }

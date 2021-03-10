@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -58,7 +58,21 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	double topB = q.Dot(normalTopB) - fractal->transformCommon.offsetE2 + 0.15;
 	double bottomB = q.Dot(normalBottomB) - fractal->transformCommon.offsetF2 + 0.1;
 
-
 	aux.DE0 = max (topCut, max (topA, max (topB, max (topC, max (bottomA, bottomB)))));
-	aux.dist = min(aux.dist, aux.DE0 / aux.DE);
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.dist = aux.DE0;
+	else
+		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
+
+	if(fractal->transformCommon.functionEnabledzFalse) z = q;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		CVector4 col = fabs(q);
+		aux.color += fractal->foldColor.difs0000.x * col.x * col.y;
+		aux.color += fractal->foldColor.difs0000.y * col.x * col.z;
+		aux.color += fractal->foldColor.difs0000.z * q.z;
+		aux.color += fractal->foldColor.difs0000.w * max(col.x, col.y);
+	}
 }

@@ -58,12 +58,31 @@ void cFractalIfsGen::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i < fractal->transformCommon.stopIterationsO)
 		z += fractal->transformCommon.offset000;
 
+	// spherical fold
+	double m = 1.0;
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		double rr = z.Dot(z);
+		if (rr < fractal->transformCommon.minR2p25)
+			m = fractal->transformCommon.maxMinR2factor;
+		else if (rr < fractal->transformCommon.maxR2d1)
+			m = fractal->transformCommon.maxR2d1 / rr;
+		z *= m;
+		aux.DE *= m;
+	}
+
+
+
 	// rotation2
 	if (aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 	}
+
+
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
