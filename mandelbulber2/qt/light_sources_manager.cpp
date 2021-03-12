@@ -221,7 +221,7 @@ void cLightSourcesManager::slotButtonPlaceLight()
 
 void cLightSourcesManager::slotChangedCurrentTab(int index)
 {
-	if (index > 0)
+	if (index >= 0)
 	{
 		gMainInterface->renderedImage->SetCurrentLightIndex(index + 1);
 		gMainInterface->UpdateMainImagePreview();

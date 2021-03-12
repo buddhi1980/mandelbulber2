@@ -39,7 +39,9 @@
 #include <QtWidgets/QtWidgets>
 
 #include "algebra.hpp"
+#include "camera_target.hpp"
 #include "primitives.h"
+#include "projection_3d.hpp"
 #include "synchronize_interface.hpp"
 
 // forward declarations
@@ -59,6 +61,42 @@ class cDetachedWindow;
 class cInterface : public QObject
 {
 	Q_OBJECT
+
+	struct sMouseDragInitData
+	{
+		sMouseDragInitData() {}
+		bool draggingStarted{false};
+		bool cameraDrag{false};
+		bool lightDrag{false};
+		CVector2<double> startScreenPoint;
+		CVector2<double> startNormalizedPoint;
+		double startZ{0.0};
+		CVector3 startCamera;
+		CVector3 startTarget;
+		CVector3 startTopVector;
+		CVector3 startIndicatedPoint;
+		Qt::MouseButtons button{Qt::NoButton};
+		QElapsedTimer lastRefreshTime;
+		qint64 lastStartRenderingTime{0};
+		int lightIndex = -1;
+		CVector3 lightStartPosition;
+	} mouseDragData;
+
+	struct sMouseDragTempData
+	{
+		params::enumPerspectiveType perspType;
+		double sweetSpotHAngle;
+		double sweetSpotVAngle;
+		bool legacyCoordinateSystem;
+		double reverse;
+		double fov;
+		cCameraTarget::enumRotationMode rollMode;
+		CVector2<double> newScreenPoint;
+		CVector2<double> imagePoint;
+		int width;
+		int height;
+		double aspectRatio;
+	};
 
 public:
 	cInterface(QObject *parent = nullptr);
@@ -90,6 +128,11 @@ public:
 	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
+	void MouseDragCameraLeftButton(const sMouseDragTempData &dragTempData);
+	void MouseDragCaneraRightButton(int dx, int dy, const sMouseDragTempData &dragTempData);
+	void MouseDragCameraMiddleButton(int dx);
+	void MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData);
+	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
 	void MovementStepModeChanged(int mode) const;
 	void CameraMovementModeChanged(int index);
@@ -161,26 +204,6 @@ public:
 	bool stopRequest;
 	bool repeatRequest; // request to repeat start loop
 	int numberOfStartedRenders;
-
-	struct sMouseDragData
-	{
-		sMouseDragData() {}
-		bool draggingStarted{false};
-		bool cameraDrag{false};
-		bool lightDrag{false};
-		CVector2<double> startScreenPoint;
-		CVector2<double> startNormalizedPoint;
-		double startZ{0.0};
-		CVector3 startCamera;
-		CVector3 startTarget;
-		CVector3 startTopVector;
-		CVector3 startIndicatedPoint;
-		Qt::MouseButtons button{Qt::NoButton};
-		QElapsedTimer lastRefreshTime;
-		qint64 lastStartRenderingTime{0};
-		int lightIndex = -1;
-		CVector3 lightStartPosition;
-	} mouseDragData;
 
 private slots:
 	void slotAutoSaveImage(double timeSeconds);

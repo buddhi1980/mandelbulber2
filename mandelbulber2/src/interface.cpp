@@ -1461,7 +1461,7 @@ void cInterface::SetByMouse(
 void cInterface::MouseDragStart(
 	CVector2<double> screenPoint, Qt::MouseButtons button, const QList<QVariant> &mode)
 {
-	mouseDragData = sMouseDragData();
+	mouseDragData = sMouseDragInitData();
 
 	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 
@@ -1549,6 +1549,207 @@ void cInterface::MouseDragFinish()
 	mouseDragData.draggingStarted = false;
 }
 
+void cInterface::MouseDragCameraLeftButton(const sMouseDragTempData &dragTempData)
+{
+	CVector3 camera = mouseDragData.startCamera;
+	cCameraTarget cameraTarget(camera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+	CVector3 angles = cameraTarget.GetRotation();
+	CRotationMatrix mRot;
+	mRot.SetRotation(angles);
+	mRot.RotateZ(-dragTempData.sweetSpotHAngle);
+	mRot.RotateX(dragTempData.sweetSpotVAngle);
+
+	CVector2<double> normalizedPoint;
+	normalizedPoint.x =
+		(dragTempData.imagePoint.x / dragTempData.width - 0.5) * dragTempData.aspectRatio;
+	normalizedPoint.y =
+		(dragTempData.imagePoint.y / dragTempData.height - 0.5) * (-1.0) * dragTempData.reverse;
+
+	CVector3 viewVector =
+		CalculateViewVector(normalizedPoint, dragTempData.fov, dragTempData.perspType, mRot);
+
+	CVector3 point = camera + viewVector * mouseDragData.startZ;
+	CVector3 deltaPoint = point - mouseDragData.startIndicatedPoint;
+	CVector3 pointCamera = camera - point;
+	pointCamera.Normalize();
+
+	CVector3 relativeVector;
+	relativeVector.z = pointCamera.Dot(deltaPoint);
+	relativeVector.x = pointCamera.Cross(cameraTarget.GetTopVector()).Dot(deltaPoint);
+	relativeVector.y = pointCamera.Cross(cameraTarget.GetRightVector()).Dot(deltaPoint);
+
+	double ratio = (camera - mouseDragData.startTarget).Length() / (camera - point).Length();
+	if (dragTempData.perspType == params::perspThreePoint)
+	{
+		ratio /= -pointCamera.Dot(cameraTarget.GetForwardVector());
+	}
+	relativeVector *= ratio;
+
+	CVector3 newTarget = mouseDragData.startTarget;
+	newTarget -= relativeVector.x * cameraTarget.GetRightVector();
+	newTarget += relativeVector.y * cameraTarget.GetTopVector();
+	newTarget += relativeVector.z * cameraTarget.GetForwardVector();
+
+	cameraTarget.SetTarget(newTarget, dragTempData.rollMode);
+
+	gPar->Set("camera", camera);
+	gPar->Set("target", newTarget);
+	CVector3 topVector = cameraTarget.GetTopVector();
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+}
+
+void cInterface::MouseDragCaneraRightButton(int dx, int dy, const sMouseDragTempData &dragTempData)
+{
+	cCameraTarget cameraTarget(
+		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+	CVector3 shiftedCamera = mouseDragData.startCamera - mouseDragData.startIndicatedPoint;
+	CVector3 shiftedTarget = mouseDragData.startTarget - mouseDragData.startIndicatedPoint;
+	shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
+		cameraTarget.GetTopVector(), (double)(dx) / mainImage->GetPreviewWidth() * M_PI_2);
+	shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
+		cameraTarget.GetTopVector(), (double)(dx) / mainImage->GetPreviewWidth() * M_PI_2);
+
+	CVector3 newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
+	CVector3 newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
+	cameraTarget.SetCamera(newCamera, dragTempData.rollMode);
+	cameraTarget.SetTarget(newTarget, dragTempData.rollMode);
+
+	shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
+		cameraTarget.GetRightVector(), (double)(dy) / mainImage->GetPreviewHeight() * M_PI_2);
+	shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
+		cameraTarget.GetRightVector(), (double)(dy) / mainImage->GetPreviewHeight() * M_PI_2);
+
+	newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
+	newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
+
+	cameraTarget.SetCamera(newCamera, dragTempData.rollMode);
+	cameraTarget.SetTarget(newTarget, dragTempData.rollMode);
+
+	gPar->Set("camera", cameraTarget.GetCamera());
+	gPar->Set("target", cameraTarget.GetTarget());
+	CVector3 topVector = cameraTarget.GetTopVector();
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+}
+
+void cInterface::MouseDragCameraMiddleButton(int dx)
+{
+	double angle = -(double)(dx) / mainImage->GetPreviewHeight() * M_PI_2;
+	cCameraTarget cameraTarget(
+		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
+	CVector3 newTopVector =
+		mouseDragData.startTopVector.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), angle);
+	cameraTarget.SetCameraTargetTop(
+		mouseDragData.startCamera, mouseDragData.startTarget, newTopVector);
+	gPar->Set("camera_top", newTopVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+}
+
+void cInterface::MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData)
+{
+	CVector3 camera = mouseDragData.startCamera;
+	cCameraTarget cameraTarget(camera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+	CVector3 angles = cameraTarget.GetRotation();
+	CRotationMatrix mRot;
+	mRot.SetRotation(angles);
+	mRot.RotateZ(-dragTempData.sweetSpotHAngle);
+	mRot.RotateX(dragTempData.sweetSpotVAngle);
+
+	CVector2<double> normalizedPoint;
+	normalizedPoint.x =
+		(dragTempData.imagePoint.x / dragTempData.width - 0.5) * dragTempData.aspectRatio;
+	normalizedPoint.y =
+		(dragTempData.imagePoint.y / dragTempData.height - 0.5) * (-1.0) * dragTempData.reverse;
+
+	CVector3 viewVector =
+		CalculateViewVector(normalizedPoint, dragTempData.fov, dragTempData.perspType, mRot);
+
+	CVector3 point = camera + viewVector * mouseDragData.startZ;
+	CVector3 deltaPoint = point - mouseDragData.startIndicatedPoint;
+	CVector3 newTarget = mouseDragData.startTarget + deltaPoint;
+	CVector3 newCamera = mouseDragData.startCamera + deltaPoint;
+
+	cameraTarget.SetCameraTargetTop(newCamera, newTarget, cameraTarget.GetTopVector());
+
+	gPar->Set("camera", newCamera);
+	gPar->Set("target", newTarget);
+	CVector3 topVector = cameraTarget.GetTopVector();
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+}
+
+void cInterface::LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy)
+{
+	bool relativePosition =
+		gPar->Get<bool>(cLight::Name("relative_position", mouseDragData.lightIndex));
+
+	cCameraTarget cameraTarget(
+		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+	CVector3 lightPosition = mouseDragData.lightStartPosition;
+
+	if (relativePosition)
+	{
+		CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * lightPosition.z
+																		+ cameraTarget.GetTopVector() * lightPosition.y
+																		+ cameraTarget.GetRightVector() * lightPosition.x;
+		lightPosition = mouseDragData.startCamera + deltaPositionRotated;
+	}
+
+	CRotationMatrix mRotInv;
+	CVector3 rotation = cameraTarget.GetRotation();
+	mRotInv.RotateY(-rotation.z);
+	mRotInv.RotateX(-rotation.y);
+	mRotInv.RotateZ(-rotation.x);
+
+	CVector3 lightScreenPosition =
+		InvProjection3D(lightPosition, mouseDragData.startCamera, mRotInv, dragTempData.perspType,
+			dragTempData.fov, mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
+	CVector3 newLightScreenPosition = lightScreenPosition + CVector3(dx, dy, 0.0);
+
+	CRotationMatrix mRot;
+	mRot.SetRotation(rotation);
+
+	CVector2<double> normalizedPoint;
+	normalizedPoint.x =
+		(newLightScreenPosition.x / mainImage->GetPreviewWidth() - 0.5) * dragTempData.aspectRatio;
+	normalizedPoint.y = (newLightScreenPosition.y / mainImage->GetPreviewHeight() - 0.5) * (-1.0)
+											* dragTempData.reverse;
+
+	CVector3 viewVector =
+		CalculateViewVector(normalizedPoint, dragTempData.fov, dragTempData.perspType, mRot);
+
+	CVector3 newLightPosition;
+	if (relativePosition)
+	{
+		// without rotation
+		CVector3 viewVectorTemp = CalculateViewVector(
+			normalizedPoint, dragTempData.fov, dragTempData.perspType, CRotationMatrix());
+		CVector3 point2 = viewVectorTemp * lightScreenPosition.z;
+		newLightPosition = CVector3(point2.x, point2.z, point2.y);
+	}
+	else
+	{
+		newLightPosition = mouseDragData.startCamera + viewVector * lightScreenPosition.z;
+	}
+
+	gPar->Set(cLight::Name("position", mouseDragData.lightIndex), newLightPosition);
+}
+
 void cInterface::MouseDragDelta(int dx, int dy)
 {
 	if (mouseDragData.draggingStarted)
@@ -1559,25 +1760,27 @@ void cInterface::MouseDragDelta(int dx, int dy)
 					> gPar->Get<double>("auto_refresh_period") * 1000 + mouseDragData.lastStartRenderingTime
 				&& numberOfStartedRenders < 2)
 		{
+			sMouseDragTempData dragTempData;
+
 			mouseDragData.lastRefreshTime.restart();
-			params::enumPerspectiveType perspType =
-				params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
-			double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
-			double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
-			bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
-			double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
-			double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
-			cCameraTarget::enumRotationMode rollMode =
+			dragTempData.perspType = params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
+			dragTempData.sweetSpotHAngle =
+				gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+			dragTempData.sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+			dragTempData.legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+			dragTempData.reverse = dragTempData.legacyCoordinateSystem ? -1.0 : 1.0;
+			dragTempData.fov = CalcFOV(gPar->Get<double>("fov"), dragTempData.perspType);
+			dragTempData.rollMode =
 				cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 
-			CVector2<double> newScreenPoint(
+			dragTempData.newScreenPoint = CVector2<double>(
 				mouseDragData.startScreenPoint.x - dx, mouseDragData.startScreenPoint.y - dy);
-			CVector2<double> imagePoint = newScreenPoint / mainImage->GetPreviewScale();
+			dragTempData.imagePoint = dragTempData.newScreenPoint / mainImage->GetPreviewScale();
 
-			int width = mainImage->GetWidth();
-			int height = mainImage->GetHeight();
-			double aspectRatio = double(width) / height;
-			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
+			dragTempData.width = mainImage->GetWidth();
+			dragTempData.height = mainImage->GetHeight();
+			dragTempData.aspectRatio = double(dragTempData.width) / dragTempData.height;
+			if (dragTempData.perspType == params::perspEquirectangular) dragTempData.aspectRatio = 2.0;
 
 			if (mouseDragData.cameraDrag)
 			{
@@ -1585,148 +1788,23 @@ void cInterface::MouseDragDelta(int dx, int dy)
 				{
 					case Qt::LeftButton:
 					{
-						CVector3 camera = mouseDragData.startCamera;
-
-						cCameraTarget cameraTarget(
-							camera, mouseDragData.startTarget, mouseDragData.startTopVector);
-
-						CVector3 angles = cameraTarget.GetRotation();
-						CRotationMatrix mRot;
-						mRot.SetRotation(angles);
-						mRot.RotateZ(-sweetSpotHAngle);
-						mRot.RotateX(sweetSpotVAngle);
-
-						CVector2<double> normalizedPoint;
-						normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
-						normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
-
-						CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
-
-						CVector3 point = camera + viewVector * mouseDragData.startZ;
-						CVector3 deltaPoint = point - mouseDragData.startIndicatedPoint;
-
-						CVector3 pointCamera = camera - point;
-						pointCamera.Normalize();
-						CVector3 relativeVector;
-						relativeVector.z = pointCamera.Dot(deltaPoint);
-						relativeVector.x = pointCamera.Cross(cameraTarget.GetTopVector()).Dot(deltaPoint);
-						relativeVector.y = pointCamera.Cross(cameraTarget.GetRightVector()).Dot(deltaPoint);
-						double ratio =
-							(camera - mouseDragData.startTarget).Length() / (camera - point).Length();
-
-						if (perspType == params::perspThreePoint)
-						{
-							ratio /= -pointCamera.Dot(cameraTarget.GetForwardVector());
-						}
-						relativeVector *= ratio;
-
-						CVector3 newTarget = mouseDragData.startTarget;
-						newTarget -= relativeVector.x * cameraTarget.GetRightVector();
-						newTarget += relativeVector.y * cameraTarget.GetTopVector();
-						newTarget += relativeVector.z * cameraTarget.GetForwardVector();
-						cameraTarget.SetTarget(newTarget, rollMode);
-
-						gPar->Set("camera", camera);
-						gPar->Set("target", newTarget);
-
-						CVector3 topVector = cameraTarget.GetTopVector();
-						gPar->Set("camera_top", topVector);
-						CVector3 rotation = cameraTarget.GetRotation();
-						gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
-						double dist = cameraTarget.GetDistance();
-						gPar->Set("camera_distance_to_target", dist);
+						MouseDragCameraLeftButton(dragTempData);
 						break;
 					}
 					case Qt::RightButton:
 					{
-						cCameraTarget cameraTarget(
-							mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
-
-						CVector3 shiftedCamera = mouseDragData.startCamera - mouseDragData.startIndicatedPoint;
-						CVector3 shiftedTarget = mouseDragData.startTarget - mouseDragData.startIndicatedPoint;
-
-						shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
-							cameraTarget.GetTopVector(), (double)dx / mainImage->GetPreviewWidth() * M_PI_2);
-						shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
-							cameraTarget.GetTopVector(), (double)dx / mainImage->GetPreviewWidth() * M_PI_2);
-
-						CVector3 newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
-						CVector3 newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
-						cameraTarget.SetCamera(newCamera, rollMode);
-						cameraTarget.SetTarget(newTarget, rollMode);
-
-						shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
-							cameraTarget.GetRightVector(), (double)dy / mainImage->GetPreviewHeight() * M_PI_2);
-						shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
-							cameraTarget.GetRightVector(), (double)dy / mainImage->GetPreviewHeight() * M_PI_2);
-
-						newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
-						newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
-						cameraTarget.SetCamera(newCamera, rollMode);
-						cameraTarget.SetTarget(newTarget, rollMode);
-
-						gPar->Set("camera", cameraTarget.GetCamera());
-						gPar->Set("target", cameraTarget.GetTarget());
-
-						CVector3 topVector = cameraTarget.GetTopVector();
-						gPar->Set("camera_top", topVector);
-						CVector3 rotation = cameraTarget.GetRotation();
-						gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
-						double dist = cameraTarget.GetDistance();
-						gPar->Set("camera_distance_to_target", dist);
+						MouseDragCaneraRightButton(dx, dy, dragTempData);
 						break;
 					}
 					case Qt::MiddleButton:
 					{
-						double angle = -(double)dx / mainImage->GetPreviewHeight() * M_PI_2;
-						cCameraTarget cameraTarget(
-							mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
-						CVector3 newTopVector = mouseDragData.startTopVector.RotateAroundVectorByAngle(
-							cameraTarget.GetForwardVector(), angle);
-						cameraTarget.SetCameraTargetTop(
-							mouseDragData.startCamera, mouseDragData.startTarget, newTopVector);
-						gPar->Set("camera_top", newTopVector);
-						CVector3 rotation = cameraTarget.GetRotation();
-						gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+						MouseDragCameraMiddleButton(dx);
 						break;
 					}
 
 					case (Qt::LeftButton | Qt::RightButton):
 					{
-						CVector3 camera = mouseDragData.startCamera;
-
-						cCameraTarget cameraTarget(
-							camera, mouseDragData.startTarget, mouseDragData.startTopVector);
-
-						CVector3 angles = cameraTarget.GetRotation();
-						CRotationMatrix mRot;
-						mRot.SetRotation(angles);
-						mRot.RotateZ(-sweetSpotHAngle);
-						mRot.RotateX(sweetSpotVAngle);
-
-						CVector2<double> normalizedPoint;
-						normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
-						normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
-
-						CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
-
-						CVector3 point = camera + viewVector * mouseDragData.startZ;
-						CVector3 deltaPoint = point - mouseDragData.startIndicatedPoint;
-
-						CVector3 newTarget = mouseDragData.startTarget + deltaPoint;
-						CVector3 newCamera = mouseDragData.startCamera + deltaPoint;
-
-						cameraTarget.SetCameraTargetTop(newCamera, newTarget, cameraTarget.GetTopVector());
-
-						gPar->Set("camera", newCamera);
-						gPar->Set("target", newTarget);
-
-						CVector3 topVector = cameraTarget.GetTopVector();
-						gPar->Set("camera_top", topVector);
-						CVector3 rotation = cameraTarget.GetRotation();
-						gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
-						double dist = cameraTarget.GetDistance();
-						gPar->Set("camera_distance_to_target", dist);
+						MouseDragLeftRightButtons(dragTempData);
 						break;
 					}
 
@@ -1745,62 +1823,7 @@ void cInterface::MouseDragDelta(int dx, int dy)
 				{
 					case Qt::LeftButton:
 					{
-						bool relativePosition =
-							gPar->Get<bool>(cLight::Name("relative_position", mouseDragData.lightIndex));
-
-						cCameraTarget cameraTarget(
-							mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
-
-						CVector3 lightPosition = mouseDragData.lightStartPosition;
-
-						if (relativePosition)
-						{
-							CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * lightPosition.z
-																							+ cameraTarget.GetTopVector() * lightPosition.y
-																							+ cameraTarget.GetRightVector() * lightPosition.x;
-							lightPosition = mouseDragData.startCamera + deltaPositionRotated;
-						}
-
-						CRotationMatrix mRotInv;
-						CVector3 rotation = cameraTarget.GetRotation();
-						mRotInv.RotateY(-rotation.z);
-						mRotInv.RotateX(-rotation.y);
-						mRotInv.RotateZ(-rotation.x);
-
-						CVector3 lightScreenPosition = InvProjection3D(lightPosition, mouseDragData.startCamera,
-							mRotInv, perspType, fov, mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
-
-						CVector3 newLightScreenPosition = lightScreenPosition + CVector3(dx, dy, 0.0);
-
-						CRotationMatrix mRot;
-						mRot.SetRotation(rotation);
-
-						CVector2<double> normalizedPoint;
-						normalizedPoint.x =
-							(newLightScreenPosition.x / mainImage->GetPreviewWidth() - 0.5) * aspectRatio;
-						normalizedPoint.y =
-							(newLightScreenPosition.y / mainImage->GetPreviewHeight() - 0.5) * (-1.0) * reverse;
-
-						CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
-
-						CVector3 newLightPosition;
-
-						if (relativePosition)
-						{
-							// without rotation
-							CVector3 viewVectorTemp =
-								CalculateViewVector(normalizedPoint, fov, perspType, CRotationMatrix());
-
-							CVector3 point2 = viewVectorTemp * lightScreenPosition.z;
-							newLightPosition = CVector3(point2.x, point2.z, point2.y);
-						}
-						else
-						{
-							newLightPosition = mouseDragData.startCamera + viewVector * lightScreenPosition.z;
-						}
-
-						gPar->Set(cLight::Name("position", mouseDragData.lightIndex), newLightPosition);
-
+						LightDragLeftButton(dragTempData, dx, dy);
 						break;
 					}
 					default:
