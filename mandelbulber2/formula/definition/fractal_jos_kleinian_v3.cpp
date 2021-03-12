@@ -198,9 +198,9 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.z = -z.z + a;
 		}
 
-		double useScale = (1.0 - aux.actualScaleA);
+		double useScale = fractal->transformCommon.scale1 - aux.actualScaleA;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) * fractal->transformCommon.scale1;
+		aux.DE = aux.DE * fabs(useScale);
 		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 			aux.actualScaleA = fractal->transformCommon.scaleVary0
 										* (fabs(aux.actualScaleA) + 1.0);

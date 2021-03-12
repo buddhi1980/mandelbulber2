@@ -194,7 +194,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.z = -z.z + a;
 		}
 
-		REAL useScale = 1.0f - aux->actualScaleA;
+		REAL useScale = fractal->transformCommon.scale1 - aux->actualScaleA;
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale);
 		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
