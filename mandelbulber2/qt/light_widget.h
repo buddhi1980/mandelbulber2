@@ -20,14 +20,16 @@ class cLightWidget : public QWidget
 public:
 	cLightWidget(QWidget *parent = nullptr);
 	~cLightWidget() override;
-	void SetLightParameters(CVector3 _angle, sRGB8 _color);
+	void SetLightAngle(CVector3 _angle);
+	void SetLightColor(sRGBFloat _color);
+	void Render();
 
 private:
 	void paintEvent(QPaintEvent *event) override;
 
 	CVector3 lightAngle;
-	sRGB8 lightColor;
-	std::vector<sRGB8> image8;
+	sRGBFloat lightColor;
+	std::vector<sRGBA8> image8;
 	int size = 0;
 };
 

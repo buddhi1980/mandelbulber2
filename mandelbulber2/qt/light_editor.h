@@ -33,12 +33,17 @@ private:
 	int lightIndex = -1;
 
 	bool isLightAssigned = false;
+	double lightAngleAlpha = 0.0;
+	double lightAngleBeta = 0.0;
 
 	std::shared_ptr<cParameterContainer> parameterContainer;
 	cAutomatedWidgets *automatedWidgets;
 
 private slots:
 	void slotChangedLightType(int index);
+	void slotChangedLightAngleX(double angle);
+	void slotChangedLightAngleY(double angle);
+	void slotChangedLightColor();
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_EDITOR_H_ */

@@ -91,6 +91,7 @@ void MyColorButton::SetColor(sRGB newColor)
 {
 	currentValue = newColor;
 	UpdateColor();
+	emit valueChanged();
 }
 
 void MyColorButton::UpdateColor()
@@ -137,6 +138,7 @@ void MyColorButton::mousePressEvent(QMouseEvent *event)
 			color = colorDialog.currentColor();
 			colorRGB = sRGB(color.red() * 256, color.green() * 256, color.blue() * 256);
 			SetColor(colorRGB);
+			emit valueChanged();
 		}
 	}
 }

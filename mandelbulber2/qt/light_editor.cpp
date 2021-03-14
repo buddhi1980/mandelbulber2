@@ -23,6 +23,12 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 
 	connect(ui->comboBox_type, qOverload<int>(&MyComboBox::currentIndexChanged), this,
 		&cLightEditor::slotChangedLightType);
+	connect(ui->spinboxd3_rotation_x, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+		&cLightEditor::slotChangedLightAngleX);
+	connect(ui->spinboxd3_rotation_y, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+		&cLightEditor::slotChangedLightAngleY);
+	connect(ui->colorButton_color, &MyColorButton::valueChanged, this,
+		&cLightEditor::slotChangedLightColor);
 }
 
 cLightEditor::~cLightEditor()
@@ -65,4 +71,33 @@ void cLightEditor::slotChangedLightType(int index)
 
 	ui->groupBox_cone_options->setEnabled(lightType == cLight::lightConical);
 	ui->groupBox_projection_options->setEnabled(lightType == cLight::lightProjection);
+}
+
+void cLightEditor::slotChangedLightAngleX(double angle)
+{
+	double newLightAngle = angle / 180.0 * M_PI;
+	if (newLightAngle != lightAngleAlpha)
+	{
+		lightAngleAlpha = newLightAngle;
+		CVector3 lightAngle(-lightAngleAlpha, -lightAngleBeta, 0.0);
+		ui->widget_angle_preview->SetLightAngle(lightAngle);
+	}
+}
+
+void cLightEditor::slotChangedLightAngleY(double angle)
+{
+	double newLightAngle = angle / 180.0 * M_PI;
+	if (newLightAngle != lightAngleBeta)
+	{
+		lightAngleBeta = newLightAngle;
+		CVector3 lightAngle(-lightAngleAlpha, -lightAngleBeta, 0.0);
+		ui->widget_angle_preview->SetLightAngle(lightAngle);
+	}
+}
+
+void cLightEditor::slotChangedLightColor()
+{
+	sRGB color = ui->colorButton_color->GetColor();
+	sRGBFloat fColor(color.R / 65535.0, color.G / 65535.0, color.B / 65535.0);
+	ui->widget_angle_preview->SetLightColor(fColor);
 }
