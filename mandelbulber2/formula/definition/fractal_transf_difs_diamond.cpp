@@ -32,6 +32,45 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	CVector4 normalTopC = CVector4(0.0, 0.4472135955, 0.8944272, 0.0);
 	CVector4 normalBottomA = CVector4(0.0, SQRT_1_2, -SQRT_1_2, 0.0);
 	CVector4 normalBottomB = CVector4(0.0, 0.848, -0.53, 0.0);
+
+	if (fractal->transformCommon.functionEnabledPFalse
+		&& aux.i >= fractal->transformCommon.startIterationsP
+		&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		// pre abs
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			double psi = M_PI / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			double psi = M_PI / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
+			double len = sqrt(z.y * z.y + z.z * z.z);
+			z.y = cos(psi) * len;
+			z.z = sin(psi) * len;
+		}
+
+		// addition constant
+		z += fractal->transformCommon.additionConstant000;
+
+		// rotation
+		if (fractal->transformCommon.rotation2EnabledFalse)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
+	}
+
+
 	CVector4 zc = z;
 
 	double topCut = zc.z - fractal->transformCommon.offset1;
@@ -40,6 +79,7 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	double co = cos(angle);
 	double si = sin(angle);
 	CVector4 q = zc;
+	q.z -= fractal->transformCommon.offset0;
 	q.x = (co * zc.x - si * zc.y);
 	q.y = (co * zc.y + si * zc.x);
 	double topA = q.Dot(normalTopA) - fractal->transformCommon.offset2;
@@ -65,7 +105,7 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	else
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 
-	if(fractal->transformCommon.functionEnabledzFalse) z = q;
+	if(fractal->transformCommon.functionEnabledYFalse) z = q;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

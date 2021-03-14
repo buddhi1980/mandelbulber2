@@ -20,6 +20,56 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 normalTopC = (REAL4)(0.0, 0.4472135955, 0.8944272, 0.0);
 	REAL4 normalBottomA = (REAL4)(0.0, SQRT_1_2_F, -SQRT_1_2_F, 0.0);
 	REAL4 normalBottomB = (REAL4) (0.0, 0.848, -0.53, 0.0);
+
+
+	if (fractal->transformCommon.functionEnabledPFalse
+		&& aux->i >= fractal->transformCommon.startIterationsP
+		&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		// pre abs
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * len;
+			z.y = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+			z.y = native_cos(psi) * len;
+			z.z = native_sin(psi) * len;
+		}
+
+		// addition constant
+		z += fractal->transformCommon.additionConstant000;
+
+		// rotation
+		if (fractal->transformCommon.rotation2EnabledFalse)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	REAL4 zc = z;
 
 	REAL topCut = zc.z - fractal->transformCommon.offset1;
@@ -53,7 +103,7 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	else
 		aux->dist = min(aux->dist, aux->DE0 / aux->DE);
 
-	if(fractal->transformCommon.functionEnabledzFalse) z = q;
+	if(fractal->transformCommon.functionEnabledYFalse) z = q;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
