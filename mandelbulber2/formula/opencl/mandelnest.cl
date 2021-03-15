@@ -16,12 +16,6 @@
 
 REAL4 MandelnestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
-	double Power = fractal->bulb.power;
-	double r = aux.r;
-
-	//if (fractal->transformCommon.functionEnabledFalse && aux->pos_neg < 0.0f)
-
 	REAL Power = fractal->bulb.power;
 	REAL r = aux->r;
 
@@ -29,7 +23,6 @@ REAL4 MandelnestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	REAL rN =  1.0f / r;
 	aux->DE *= rN;
-
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
@@ -62,9 +55,6 @@ REAL4 MandelnestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	aux->dist = 0.5 * fractal->analyticDE.offset1 * log(r) * r / aux->DE;
-
-
-
 
 	return z;
 }
