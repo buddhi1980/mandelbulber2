@@ -264,6 +264,7 @@ enum enumFractalFormula
 	aboxMod15 = 226,
 	kochV4 = 227,
 	ifsGen = 228,
+	mandelnest = 229,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
