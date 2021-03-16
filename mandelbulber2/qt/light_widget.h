@@ -26,11 +26,22 @@ public:
 
 private:
 	void paintEvent(QPaintEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
 
 	CVector3 lightAngle;
 	sRGBFloat lightColor;
 	std::vector<sRGBA8> image8;
 	int size = 0;
+
+	bool draggingInitStarted = false;
+	bool draggingStarted = false;
+	CVector3 lightAngleBeforeDrag;
+	CVector2<int> dragStartPosition;
+
+signals:
+	void angleChanged(double alpha, double beta);
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_WIDGET_H_ */

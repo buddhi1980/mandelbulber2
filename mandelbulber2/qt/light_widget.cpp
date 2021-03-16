@@ -13,11 +13,12 @@
 #include <QPainter>
 #include <QImage>
 #include <QPaintEvent>
+#include <QDebug>
 
 cLightWidget::cLightWidget(QWidget *parent) : QWidget(parent)
 {
 	size = systemData.GetPreferredThumbnailSize() * 0.7;
-	//SetLightAngle(CVector3(0.0, 0.5, 0.5), sRGBFloat(0.9, 0.4, 0.1));
+	// SetLightAngle(CVector3(0.0, 0.5, 0.5), sRGBFloat(0.9, 0.4, 0.1));
 	SetLightColor(sRGBFloat(0.9, 0.4, 0.1));
 	setMinimumWidth(size);
 	setMinimumHeight(size);
@@ -86,7 +87,12 @@ void cLightWidget::Render()
 
 				// shading
 				double shade = sphereVect.Dot(lightDirection);
-				if (shade < 0.0) shade = 0.0;
+				shade = shade + 0.4;
+				if (shade < 0.4)
+				{
+					shade = 0.0;
+				}
+				shade *= 0.7;
 
 				// specular highlight
 				CVector3 halfVector = lightDirection - CVector3(0.0, -1.0, 0.0);
@@ -113,4 +119,48 @@ void cLightWidget::Render()
 		}
 	}
 	update();
+}
+
+void cLightWidget::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		dragStartPosition = CVector2<int>(event->x(), event->y());
+		draggingInitStarted = true;
+		lightAngleBeforeDrag = lightAngle;
+	}
+}
+
+void cLightWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+	Q_UNUSED(event);
+	draggingStarted = false;
+	draggingInitStarted = false;
+	emit angleChanged(lightAngle.x, lightAngle.y);
+}
+
+void cLightWidget::mouseMoveEvent(QMouseEvent *event)
+{
+	CVector2<int> screenPoint(event->x(), event->y());
+
+	if (abs(screenPoint.x - dragStartPosition.x) > 1 || abs(screenPoint.y - dragStartPosition.y) > 1)
+	{
+		draggingInitStarted = false;
+		draggingStarted = true;
+	}
+
+	if (draggingStarted)
+	{
+		double dx = double(screenPoint.x - dragStartPosition.x) / size;
+		double dy = double(screenPoint.y - dragStartPosition.y) / size;
+
+		double alpha = lightAngleBeforeDrag.x - dx * 1.5;
+		double beta = lightAngleBeforeDrag.y + dy * 1.5;
+
+		beta = clamp(beta, -M_PI * 0.5, M_PI * 0.5);
+
+		lightAngle = CVector3(alpha, beta, 0.0);
+
+		Render();
+	}
 }

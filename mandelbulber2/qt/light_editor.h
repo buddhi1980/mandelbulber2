@@ -44,6 +44,7 @@ private slots:
 	void slotChangedLightAngleX(double angle);
 	void slotChangedLightAngleY(double angle);
 	void slotChangedLightColor();
+	void slotChangedLightAngles(double alpha, double beta);
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_EDITOR_H_ */

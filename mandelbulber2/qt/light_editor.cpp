@@ -29,6 +29,8 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 		&cLightEditor::slotChangedLightAngleY);
 	connect(ui->colorButton_color, &MyColorButton::valueChanged, this,
 		&cLightEditor::slotChangedLightColor);
+	connect(ui->widget_angle_preview, &cLightWidget::angleChanged, this,
+		&cLightEditor::slotChangedLightAngles);
 }
 
 cLightEditor::~cLightEditor()
@@ -100,4 +102,10 @@ void cLightEditor::slotChangedLightColor()
 	sRGB color = ui->colorButton_color->GetColor();
 	sRGBFloat fColor(color.R / 65535.0, color.G / 65535.0, color.B / 65535.0);
 	ui->widget_angle_preview->SetLightColor(fColor);
+}
+
+void cLightEditor::slotChangedLightAngles(double alpha, double beta)
+{
+	ui->spinboxd3_rotation_x->setValue(-alpha * 180.0 / M_PI);
+	ui->spinboxd3_rotation_y->setValue(-beta * 180.0 / M_PI);
 }
