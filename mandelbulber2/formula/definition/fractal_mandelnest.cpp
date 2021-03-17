@@ -64,19 +64,22 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	z *=  pow(r, Power - fractal->transformCommon.offset1);
-
-			z += fractal->transformCommon.offsetF000;
-
+	z += fractal->transformCommon.offsetF000;
 
 	//aux.pos_neg *= -1.0f;
 	//z+=aux.c;
 	r = z.Length();
 
 	aux.DE = aux.DE * Power * r + 1.0;
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		if (fractal->transformCommon.functionEnabledBFalse)
+			aux.DE = max(aux.DE, fractal->analyticDE.offset1);
 
-	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-	aux.dist = 0.5 * fractal->analyticDE.offset1 * log(r) * r / aux.DE;
+		aux.dist = 0.5 * log(r) * r / aux.DE;
+		aux.dist = min(aux.dist, fractal->analyticDE.offset1);
+	}
 	/*const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
