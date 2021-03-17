@@ -28,6 +28,7 @@ cFractalMandelnest::cFractalMandelnest() : cAbstractFractal()
 void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double Power = fractal->bulb.power;
+	double shift = fractal->transformCommon.offset0 * M_PI;
 	double r = aux.r;
 
 //if (fractal->transformCommon.functionEnabledFalse && aux->pos_neg < 0.0f)
@@ -38,15 +39,21 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
-		z.x = (sin(Power * asin(z.x * rN)));
-		z.y = (sin(Power * asin(z.y * rN)));
-		z.z = (sin(Power * asin(z.z * rN)));
+		z.x = (sin(shift + Power * asin(z.x * rN)));
+		z.y = (sin(shift + Power * asin(z.y * rN)));
+		z.z = (sin(shift + Power * asin(z.z * rN)));
 	}
 	else
 	{
-		z.x = (cos(Power * acos(z.x * rN)));
-		z.y = (cos(Power * acos(z.y * rN)));
-		z.z = (cos(Power * acos(z.z * rN)));
+		z.x = (cos(shift + Power * acos(z.x * rN)));
+		z.y = (cos(shift + Power * acos(z.y * rN)));
+		z.z = (cos(shift + Power * acos(z.z * rN)));
+	}
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		z *= fractal->transformCommon.scale1;
+		aux.DE *= fabs(fractal->transformCommon.scale1);
 	}
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
@@ -57,6 +64,9 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	z *=  pow(r, Power - fractal->transformCommon.offset1);
+
+			z += fractal->transformCommon.offsetF000;
+
 
 	//aux.pos_neg *= -1.0f;
 	//z+=aux.c;
