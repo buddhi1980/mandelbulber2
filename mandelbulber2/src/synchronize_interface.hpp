@@ -56,6 +56,7 @@ class cMaterialSelector;
 class QPlainTextEdit;
 class cGradientEditWidget;
 class QTextEdit;
+class cLightWidget;
 
 namespace qInterface
 {
@@ -103,6 +104,8 @@ void SynchronizeInterfaceMaterialSelector(QList<cMaterialSelector *> widgets,
 void SynchronizeInterfaceQPlainTextEdit(QList<QPlainTextEdit *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQTextEdit(QList<QTextEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // utility functions

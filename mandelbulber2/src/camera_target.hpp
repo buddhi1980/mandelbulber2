@@ -46,6 +46,7 @@ public:
 		constantTop
 	};
 
+	cCameraTarget();
 	cCameraTarget(CVector3 _camera, CVector3 _target, CVector3 _top);
 	void SetCameraTargetRotation(CVector3 _camera, CVector3 _target, double roll);
 	void SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVector3 _top);

@@ -58,6 +58,7 @@
 #include "qt/my_line_edit.h"
 #include "qt/my_spin_box.h"
 #include "qt/my_text_edit.h"
+#include "qt/light_widget.h"
 
 #include "formula/definition/all_fractal_list.hpp"
 
@@ -104,6 +105,9 @@ void SynchronizeInterfaceWindow(
 
 	WriteLog("cInterface::SynchronizeInterface: QTextEdit", 3);
 	SynchronizeInterfaceQTextEdit(window->findChildren<QTextEdit *>(), par, mode);
+
+	WriteLog("cInterface::SynchronizeInterface: cLightWidget", 3);
+	SynchronizeInterfaceLightWidget(window->findChildren<cLightWidget *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
@@ -591,6 +595,27 @@ void SynchronizeInterfaceColorGradientWidget(QList<cGradientEditWidget *> widget
 					QString palette = par->Get<QString>(props.paramName);
 					colorGradientWidget->SetColors(palette);
 				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode)
+{
+	QList<cLightWidget *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		widgetProperties props = parseWidgetProperties((*it), {"cLightWidget"});
+
+		if (props.allowed)
+		{
+			cLightWidget *lightWidget = static_cast<cLightWidget *>(*it);
+
+			if (mode == qInterface::write)
+			{
+				lightWidget->SetCameraTarget(par->Get<CVector3>("camera"), par->Get<CVector3>("target"),
+					par->Get<CVector3>("camera_top"));
 			}
 		}
 	}

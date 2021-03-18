@@ -31,6 +31,8 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 		&cLightEditor::slotChangedLightColor);
 	connect(ui->widget_angle_preview, &cLightWidget::angleChanged, this,
 		&cLightEditor::slotChangedLightAngles);
+	connect(ui->checkBox_relative_position, &MyCheckBox::stateChanged, this,
+		&cLightEditor::slotChangedRelativeMode);
 }
 
 cLightEditor::~cLightEditor()
@@ -81,7 +83,7 @@ void cLightEditor::slotChangedLightAngleX(double angle)
 	if (newLightAngle != lightAngleAlpha)
 	{
 		lightAngleAlpha = newLightAngle;
-		CVector3 lightAngle(-lightAngleAlpha, -lightAngleBeta, 0.0);
+		CVector3 lightAngle(-lightAngleAlpha, lightAngleBeta, 0.0);
 		ui->widget_angle_preview->SetLightAngle(lightAngle);
 	}
 }
@@ -92,7 +94,7 @@ void cLightEditor::slotChangedLightAngleY(double angle)
 	if (newLightAngle != lightAngleBeta)
 	{
 		lightAngleBeta = newLightAngle;
-		CVector3 lightAngle(-lightAngleAlpha, -lightAngleBeta, 0.0);
+		CVector3 lightAngle(-lightAngleAlpha, lightAngleBeta, 0.0);
 		ui->widget_angle_preview->SetLightAngle(lightAngle);
 	}
 }
@@ -108,4 +110,9 @@ void cLightEditor::slotChangedLightAngles(double alpha, double beta)
 {
 	ui->spinboxd3_rotation_x->setValue(-alpha * 180.0 / M_PI);
 	ui->spinboxd3_rotation_y->setValue(-beta * 180.0 / M_PI);
+}
+
+void cLightEditor::slotChangedRelativeMode(int state)
+{
+	ui->widget_angle_preview->SetRelativeMode(bool(state));
 }

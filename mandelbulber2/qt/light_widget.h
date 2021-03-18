@@ -13,15 +13,17 @@
 
 #include "src/algebra.hpp"
 #include "src/color_structures.hpp"
+#include "src/camera_target.hpp"
 
 class cLightWidget : public QWidget
 {
 	Q_OBJECT
 public:
 	cLightWidget(QWidget *parent = nullptr);
-	~cLightWidget() override;
 	void SetLightAngle(CVector3 _angle);
 	void SetLightColor(sRGBFloat _color);
+	void SetCameraTarget(CVector3 camera, CVector3 target, CVector3 top);
+	void SetRelativeMode(bool relativeRotationMode);
 	void Render();
 
 private:
@@ -32,6 +34,8 @@ private:
 
 	CVector3 lightAngle;
 	sRGBFloat lightColor;
+	cCameraTarget cameraTarget;
+	bool relativeRotationMode = false;
 	std::vector<sRGBA8> image8;
 	int size = 0;
 

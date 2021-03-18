@@ -25,11 +25,6 @@ cLightWidget::cLightWidget(QWidget *parent) : QWidget(parent)
 	updateGeometry();
 }
 
-cLightWidget::~cLightWidget()
-{
-	// TODO Auto-generated destructor stub
-}
-
 void cLightWidget::SetLightAngle(CVector3 _angle)
 {
 	lightAngle = _angle;
@@ -39,6 +34,18 @@ void cLightWidget::SetLightAngle(CVector3 _angle)
 void cLightWidget::SetLightColor(sRGBFloat _color)
 {
 	lightColor = _color;
+	Render();
+}
+
+void cLightWidget::SetCameraTarget(CVector3 camera, CVector3 target, CVector3 top)
+{
+	cameraTarget = cCameraTarget(camera, target, top);
+	Render();
+}
+
+void cLightWidget::SetRelativeMode(bool _relativeRotationMode)
+{
+	relativeRotationMode = _relativeRotationMode;
 	Render();
 }
 
@@ -65,7 +72,19 @@ void cLightWidget::Render()
 	double radius = center * 0.9;
 
 	CRotationMatrix rotMatrix;
-	rotMatrix.SetRotation(lightAngle);
+
+	if (!relativeRotationMode)
+	{
+		CVector3 cameraRotation = cameraTarget.GetRotation();
+		rotMatrix.RotateY(-cameraRotation.z);
+		rotMatrix.RotateX(cameraRotation.y);
+		rotMatrix.RotateZ(cameraRotation.x);
+	}
+
+	rotMatrix.RotateZ(lightAngle.x);
+	rotMatrix.RotateX(lightAngle.y);
+	rotMatrix.RotateY(lightAngle.z);
+
 	CVector3 lightDirection = rotMatrix.RotateVector(CVector3(0.0, 1.0, 0.0));
 
 	for (int y = 0; y < size; y++)
@@ -74,7 +93,7 @@ void cLightWidget::Render()
 		{
 			CVector3 sphereVect;
 			sphereVect.x = double(x) - center;
-			sphereVect.z = double(y) - center;
+			sphereVect.z = -(double(y) - center);
 			double r2D = sqrt(sphereVect.x * sphereVect.x + sphereVect.z * sphereVect.z);
 
 			sRGBFloat color;
@@ -136,7 +155,7 @@ void cLightWidget::mouseReleaseEvent(QMouseEvent *event)
 	Q_UNUSED(event);
 	draggingStarted = false;
 	draggingInitStarted = false;
-	emit angleChanged(lightAngle.x, lightAngle.y);
+	emit angleChanged(lightAngle.x, -lightAngle.y);
 }
 
 void cLightWidget::mouseMoveEvent(QMouseEvent *event)
@@ -155,7 +174,7 @@ void cLightWidget::mouseMoveEvent(QMouseEvent *event)
 		double dy = double(screenPoint.y - dragStartPosition.y) / size;
 
 		double alpha = lightAngleBeforeDrag.x - dx * 1.5;
-		double beta = lightAngleBeforeDrag.y + dy * 1.5;
+		double beta = lightAngleBeforeDrag.y - dy * 1.5;
 
 		beta = clamp(beta, -M_PI * 0.5, M_PI * 0.5);
 
