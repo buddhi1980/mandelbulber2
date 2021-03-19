@@ -28,7 +28,16 @@ cFractalMandelnest::cFractalMandelnest() : cAbstractFractal()
 void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double Power = fractal->bulb.power;
-	double shift = fractal->transformCommon.offset0 * M_PI;
+	double shift = fractal->transformCommon.offset0;
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		if (aux.pos_neg < 0.0) shift += 1.0;
+	}
+
+	shift *= M_PI;
+
+
 	double r = aux.r;
 
 //if (fractal->transformCommon.functionEnabledFalse && aux->pos_neg < 0.0f)
@@ -36,25 +45,9 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double rN =  1.0 / r;
 	aux.DE *= rN;
 
-
-	if (!fractal->transformCommon.functionEnabledFalse)
-	{
-		z.x = (sin(shift + Power * asin(z.x * rN)));
-		z.y = (sin(shift + Power * asin(z.y * rN)));
-		z.z = (sin(shift + Power * asin(z.z * rN)));
-	}
-	else
-	{
-		z.x = (cos(shift + Power * acos(z.x * rN)));
-		z.y = (cos(shift + Power * acos(z.y * rN)));
-		z.z = (cos(shift + Power * acos(z.z * rN)));
-	}
-	if (aux.i >= fractal->transformCommon.startIterationsS
-			&& aux.i < fractal->transformCommon.stopIterationsS)
-	{
-		z *= fractal->transformCommon.scale1;
-		aux.DE *= fabs(fractal->transformCommon.scale1);
-	}
+	z.x = (cos(shift + Power * acos(z.x * rN)));
+	z.y = (cos(shift + Power * acos(z.y * rN)));
+	z.z = (cos(shift + Power * acos(z.z * rN)));
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -64,9 +57,24 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	z *=  pow(r, Power - fractal->transformCommon.offset1);
-	z += fractal->transformCommon.offsetF000;
 
-	//aux.pos_neg *= -1.0f;
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		if (!fractal->transformCommon.functionEnabledFalse)
+		{
+			z += fractal->transformCommon.offsetF000;
+		}
+		else
+		{
+			z.x += sign(z.x) * fractal->transformCommon.offsetF000.x;
+			z.y += sign(z.y) * fractal->transformCommon.offsetF000.y;
+			z.z += sign(z.z) * fractal->transformCommon.offsetF000.z;
+		}
+	}
+
+
+	aux.pos_neg *= -1.0f;
 	//z+=aux.c;
 	r = z.Length();
 
@@ -75,7 +83,7 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledBFalse)
-			aux.DE = max(aux.DE, fractal->analyticDE.offset1);
+			aux.DE = max(aux.DE, fractal->analyticDE.offset2);
 
 		aux.dist = 0.5 * log(r) * r / aux.DE;
 		aux.dist = min(aux.dist, fractal->analyticDE.offset1);
