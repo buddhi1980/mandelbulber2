@@ -76,6 +76,7 @@ void cLightWidget::Render()
 	if (!relativeRotationMode)
 	{
 		CVector3 cameraRotation = cameraTarget.GetRotation();
+		// inverse rotation matrix for camera
 		rotMatrix.RotateY(-cameraRotation.z);
 		rotMatrix.RotateX(cameraRotation.y);
 		rotMatrix.RotateZ(cameraRotation.x);
@@ -173,13 +174,46 @@ void cLightWidget::mouseMoveEvent(QMouseEvent *event)
 		double dx = double(screenPoint.x - dragStartPosition.x) / size;
 		double dy = double(screenPoint.y - dragStartPosition.y) / size;
 
-		double alpha = lightAngleBeforeDrag.x - dx * 1.5;
-		double beta = lightAngleBeforeDrag.y - dy * 1.5;
+		if (relativeRotationMode)
+		{
+			double alpha = lightAngleBeforeDrag.x - dx * 1.5;
+			double beta = lightAngleBeforeDrag.y - dy * 1.5;
 
-		beta = clamp(beta, -M_PI * 0.5, M_PI * 0.5);
+			beta = clamp(beta, -M_PI * 0.5, M_PI * 0.5);
 
-		lightAngle = CVector3(alpha, beta, 0.0);
+			lightAngle = CVector3(alpha, beta, 0.0);
+		}
+		else
+		{
+			CVector3 cameraRotation = cameraTarget.GetRotation();
+			// inverse rotation matrix for camera
+			CRotationMatrix dragRotMatrix;
 
+			dragRotMatrix.RotateZ(-cameraRotation.x);
+			dragRotMatrix.RotateX(-cameraRotation.y);
+			dragRotMatrix.RotateY(cameraRotation.z);
+
+			dragRotMatrix.RotateZ(-dx * 1.5);
+			dragRotMatrix.RotateX(-dy * 1.5);
+
+			dragRotMatrix.RotateY(-cameraRotation.z);
+			dragRotMatrix.RotateX(cameraRotation.y);
+			dragRotMatrix.RotateZ(cameraRotation.x);
+
+			CRotationMatrix rotMatrix;
+			rotMatrix.RotateZ(lightAngleBeforeDrag.x);
+			rotMatrix.RotateX(lightAngleBeforeDrag.y);
+			rotMatrix.RotateY(lightAngleBeforeDrag.z);
+			CVector3 lightDirection = rotMatrix.RotateVector(CVector3(0.0, 1.0, 0.0));
+
+			lightDirection = dragRotMatrix.RotateVector(lightDirection);
+
+			lightAngle.x = -atan2(lightDirection.x, lightDirection.y);
+			lightAngle.y = atan2(lightDirection.z,
+				sqrt(lightDirection.x * lightDirection.x + lightDirection.y * lightDirection.y));
+
+			// CVector3 lightDirectionTemp = cameraInvRotMatrix.RotateVector(ligh)
+		}
 		Render();
 	}
 }
