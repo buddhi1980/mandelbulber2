@@ -135,6 +135,11 @@ void cLightWidget::Render()
 			}
 
 			int address = y * size + x;
+
+			if (!isEnabled())
+			{
+				if(opacity > 30) opacity = 30;
+			}
 			image8[address] = sRGBA8(color.R * 255, color.G * 255, color.B * 255, opacity);
 		}
 	}
@@ -216,4 +221,13 @@ void cLightWidget::mouseMoveEvent(QMouseEvent *event)
 		}
 		Render();
 	}
+}
+
+void cLightWidget::changeEvent(QEvent *event)
+{
+	if (event->type() == QEvent::EnabledChange)
+	{
+		Render();
+	}
+	QWidget::changeEvent(event);
 }

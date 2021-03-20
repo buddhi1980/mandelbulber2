@@ -75,6 +75,7 @@ void cLightEditor::slotChangedLightType(int index)
 
 	ui->groupBox_cone_options->setEnabled(lightType == cLight::lightConical);
 	ui->groupBox_projection_options->setEnabled(lightType == cLight::lightProjection);
+	ui->widget_angle_preview->setEnabled(lightType == cLight::lightDirectional);
 }
 
 void cLightEditor::slotChangedLightAngleX(double angle)

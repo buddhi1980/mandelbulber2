@@ -31,6 +31,7 @@ private:
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
+	void changeEvent(QEvent *event) override;
 
 	CVector3 lightAngle;
 	sRGBFloat lightColor;
