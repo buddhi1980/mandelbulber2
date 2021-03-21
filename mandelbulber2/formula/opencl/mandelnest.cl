@@ -20,10 +20,15 @@ REAL4 MandelnestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL shift = fractal->transformCommon.offset0 * M_PI;
 	REAL r = aux->r;
 
-	//if (fractal->transformCommon.functionEnabledFalse && aux->pos_neg < 0.0f)
-
 	REAL rN =  1.0f / r;
 	aux->DE *= rN;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 
 	z.x = (cos(shift + Power * acos(z.x * rN)));
 	z.y = (cos(shift + Power * acos(z.y * rN)));
@@ -40,21 +45,8 @@ REAL4 MandelnestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
-	{
-		if (!fractal->transformCommon.functionEnabledFalse)
-		{
 			z += fractal->transformCommon.offsetF000;
-		}
-		else
-		{
-			z.x += sign(z.x) * fractal->transformCommon.offsetF000.x;
-			z.y += sign(z.y) * fractal->transformCommon.offsetF000.y;
-			z.z += sign(z.z) * fractal->transformCommon.offsetF000.z;
-		}
-	}
 
-	//aux->pos_neg *= -1.0f;
-	//z+=aux->c;
 	r = length(z);
 
 	aux->DE = aux->DE * Power * r + 1.0f;

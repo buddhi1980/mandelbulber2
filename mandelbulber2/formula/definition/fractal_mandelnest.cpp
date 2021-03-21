@@ -28,22 +28,18 @@ cFractalMandelnest::cFractalMandelnest() : cAbstractFractal()
 void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double Power = fractal->bulb.power;
-	double shift = fractal->transformCommon.offset0;
-
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		if (aux.pos_neg < 0.0) shift += 1.0;
-	}
-
-	shift *= M_PI;
-
+	double shift = fractal->transformCommon.offset0 * M_PI;
 
 	double r = aux.r;
-
-//if (fractal->transformCommon.functionEnabledFalse && aux->pos_neg < 0.0f)
-
-	double rN =  1.0 / r;
+	double rN = 1.0 / r;
 	aux.DE *= rN;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 
 	z.x = (cos(shift + Power * acos(z.x * rN)));
 	z.y = (cos(shift + Power * acos(z.y * rN)));
@@ -56,26 +52,12 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		aux.DE *= rN;
 	}
 
-	z *=  pow(r, Power - fractal->transformCommon.offset1);
+	z *= pow(r, Power - fractal->transformCommon.offset1);
 
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
-	{
-		if (!fractal->transformCommon.functionEnabledFalse)
-		{
 			z += fractal->transformCommon.offsetF000;
-		}
-		else
-		{
-			z.x += sign(z.x) * fractal->transformCommon.offsetF000.x;
-			z.y += sign(z.y) * fractal->transformCommon.offsetF000.y;
-			z.z += sign(z.z) * fractal->transformCommon.offsetF000.z;
-		}
-	}
 
-
-	aux.pos_neg *= -1.0f;
-	//z+=aux.c;
 	r = z.Length();
 
 	aux.DE = aux.DE * Power * r + 1.0;
@@ -88,15 +70,4 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		aux.dist = 0.5 * log(r) * r / aux.DE;
 		aux.dist = min(aux.dist, fractal->analyticDE.offset1);
 	}
-	/*const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
-	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	const double th = th0 * fractal->bulb.power;
-	const double ph = ph0 * fractal->bulb.power;
-	const double cth = cos(th);
-	aux.DE = (rp * aux.DE) * fractal->bulb.power + 1.0;
-	rp *= aux.r;
-	z.x = cth * cos(ph) * rp;
-	z.y = cth * sin(ph) * rp;
-	z.z = sin(th) * rp;*/
 }
