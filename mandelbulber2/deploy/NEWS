@@ -3,8 +3,10 @@ v2.25 (???? 2021)
 - Added new fractal formulas
 
    aboxMod15
-   kochV4
    ifsGen
+
+   kochV4
+   mandelnest
 
    transfAddConstantMod3
    transfDIFSDiamond
