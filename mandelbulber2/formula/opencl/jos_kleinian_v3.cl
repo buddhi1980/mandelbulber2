@@ -16,50 +16,6 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-/*REAL4 PolyfoldAbs(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-{
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP1)
-	{
-		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-		if (fractal->transformCommon.functionEnabledCx)
-		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8X;
-			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
-			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
-			z.x = native_cos(psi) * len;
-			z.y = native_sin(psi) * len;
-		}
-
-		if (fractal->transformCommon.functionEnabledCyFalse)
-		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
-			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
-			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
-			z.y = native_cos(psi) * len;
-			z.z = native_sin(psi) * len;
-		}
-
-		if (fractal->transformCommon.functionEnabledCzFalse)
-		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
-			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
-			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
-			z.z = native_cos(psi) * len;
-			z.x = native_sin(psi) * len;
-		}
-		// addition constant
-		z += fractal->transformCommon.offsetF000;
-	}
-	return z;
-}*/
-
-
-
 
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
@@ -219,11 +175,11 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	REAL Ztemp = z.z;
+	if (fractal->transformCommon.spheresEnabled)
+		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
+
 	if (aux->i >= fractal->transformCommon.startIterationsG)
 	{
-		if (fractal->transformCommon.spheresEnabled)
-			Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
-
 		aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
 								/ max(aux->DE, fractal->analyticDE.offset1);
 	}

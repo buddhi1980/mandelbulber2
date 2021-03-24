@@ -27,48 +27,6 @@ cFractalJosKleinianV3::cFractalJosKleinianV3() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-/*CVector4 PolyfoldAbs(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux.i >= fractal->transformCommon.startIterationsP
-			&& aux.i < fractal->transformCommon.stopIterationsP1)
-	{
-		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-		if (fractal->transformCommon.functionEnabledCx)
-		{
-			double psi = M_PI / fractal->transformCommon.int8X;
-			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
-			double len = sqrt(z.x * z.x + z.y * z.y);
-			z.x = cos(psi) * len;
-			z.y = sin(psi) * len;
-		}
-
-		if (fractal->transformCommon.functionEnabledCyFalse)
-		{
-			double psi = M_PI / fractal->transformCommon.int8Y;
-			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
-			double len = sqrt(z.y * z.y + z.z * z.z);
-			z.y = cos(psi) * len;
-			z.z = sin(psi) * len;
-		}
-
-		if (fractal->transformCommon.functionEnabledCzFalse)
-		{
-			double psi = M_PI / fractal->transformCommon.int8Z;
-			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
-			double len = sqrt(z.z * z.z + z.x * z.x);
-			z.z = cos(psi) * len;
-			z.x = sin(psi) * len;
-		}
-		// addition constant
-		z += fractal->transformCommon.offsetF000;
-	}
-	return z;
-}*/
-
 void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double rr = 0.0;
@@ -223,10 +181,11 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	double Ztemp = z.z;
+	if (fractal->transformCommon.spheresEnabled)
+		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
+
 	if (aux.i >= fractal->transformCommon.startIterationsG)
 	{
-		if (fractal->transformCommon.spheresEnabled)
-			Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 		aux.dist =
 			min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
 			/ max(aux.DE, fractal->analyticDE.offset1);
@@ -235,7 +194,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT)
 				z.z = Ztemp;
-
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabledFalse
@@ -256,6 +214,5 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 				aux.color += colorAdd;
 		else
 			aux.color = max(aux.color, colorAdd);
-
 	}
 }
