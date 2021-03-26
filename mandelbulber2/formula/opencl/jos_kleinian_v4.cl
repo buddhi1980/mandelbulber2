@@ -17,7 +17,7 @@
  */
 
 
-REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 JosKleinianV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
 	if (!fractal->transformCommon.functionEnabledIFalse)
@@ -35,6 +35,18 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 								 * fractal->transformCommon.scaleA1;
 		}
+	}
+
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
+	{
+		if (fractal->transformCommon.functionEnabledAwFalse)
+			z.x -= round(z.x / fractal->transformCommon.offset2)
+					* fractal->transformCommon.offset2;
+		if (fractal->transformCommon.functionEnabledAw)
+			z.y -= round(z.y / fractal->transformCommon.offsetA2)
+					* fractal->transformCommon.offsetA2;
 	}
 
 	if (fractal->transformCommon.functionEnabledPFalse
@@ -124,10 +136,13 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL a = fractal->transformCommon.foldingValue;
 		REAL b = fractal->transformCommon.offset;
 		REAL f = sign(b);
-		z.x += box_size.x;
-		z.y += box_size.y;
-		z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
-		z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
+		if (!fractal->transformCommon.functionEnabledXFalse)
+		{
+			z.x += box_size.x;
+			z.y += box_size.y;
+			z.x = z.x - 2.0f * box_size.x * floor(z.x / 2.0f * box_size.x) - box_size.x;
+			z.y = z.y - 2.0f * box_size.y * floor(z.y / 2.0f * box_size.y) - box_size.y;
+		}
 		z.z += box_size.z - 1.0f;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0f);

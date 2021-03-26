@@ -477,13 +477,14 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfHybridColor());
 	fractalList->append(new cFractalTransfHybridColor2());
 
-	// ------------------ experimental  -----------------------
+	// ---------- experimental do not use -----------------------
 	fractalList->append(new cFractalTesting());
 	fractalList->append(new cFractalTestingLog());
 	fractalList->append(new cFractalTesting4d());
 	fractalList->append(new cFractalTransfBlockifyV2());
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
+	fractalList->append(new cFractalJosKleinianV4());
 	//====================== FRACTAL LIST - END ==================
 
 	for (cAbstractFractal *fractal : newFractalList)

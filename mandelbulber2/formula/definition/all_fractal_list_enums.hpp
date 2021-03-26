@@ -265,6 +265,7 @@ enum enumFractalFormula
 	kochV4 = 227,
 	ifsGen = 228,
 	mandelnest = 229,
+	josKleinianV4 = 230,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
