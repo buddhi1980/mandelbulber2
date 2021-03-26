@@ -76,7 +76,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
         <property name="text">
-         <string notr="true">sphere inversion before polyfold </string>
+         <string notr="true">sphere inversion after polyfold </string>
         </property>
        </widget>
       </item>

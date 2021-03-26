@@ -195,7 +195,8 @@ void cFractalJosKleinianV4::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT)
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
 				z.z = Ztemp;
 
 	// aux.color

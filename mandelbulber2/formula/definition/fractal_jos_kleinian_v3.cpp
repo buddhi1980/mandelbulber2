@@ -131,10 +131,10 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		double a = fractal->transformCommon.foldingValue;
 		double b = fractal->transformCommon.offset;
 		double f = sign(b);
-			z.x += box_size.x;
-			z.y += box_size.y;
-			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
-			z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
+		z.x += box_size.x;
+		z.y += box_size.y;
+		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+		z.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y) - box_size.y;
 		z.z += box_size.z - 1.0;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0);
@@ -180,7 +180,8 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT)
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
 				z.z = Ztemp;
 
 	// aux.color
