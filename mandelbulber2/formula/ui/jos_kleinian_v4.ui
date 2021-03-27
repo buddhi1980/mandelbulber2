@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4625</height>
+    <height>4653</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -156,7 +156,7 @@
         <item row="0" column="0" rowspan="3">
          <widget class="QLabel" name="label_282">
           <property name="text">
-           <string>Reverse
+           <string>reverse
 offset</string>
           </property>
          </widget>
@@ -298,7 +298,7 @@ offset</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_22">
           <property name="text">
-           <string>InvertR2:</string>
+           <string>invertR2:</string>
           </property>
          </widget>
         </item>
@@ -410,7 +410,7 @@ offset</string>
         <item row="0" column="0" rowspan="3">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Post
+           <string>post
 offset:</string>
           </property>
          </widget>
@@ -457,7 +457,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_23">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -496,7 +496,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_25">
           <property name="text">
-           <string>Analytic DE scale1:</string>
+           <string>analytic DE scale1:</string>
           </property>
          </widget>
         </item>
@@ -880,21 +880,21 @@ offset:</string>
         <item row="0" column="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
-           <string>PreAbs(z)</string>
+           <string>preAbs(z)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
-           <string>PreAbs(y)</string>
+           <string>preAbs(y)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
-           <string>PreAbs(x)</string>
+           <string>preAbs(x)</string>
           </property>
          </widget>
         </item>
@@ -917,7 +917,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>EnableYZ</string>
+           <string>enableYZ</string>
           </property>
          </widget>
         </item>
@@ -933,7 +933,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Enable ZX</string>
+           <string>enable ZX</string>
           </property>
          </widget>
         </item>
@@ -962,7 +962,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Enable XY</string>
+           <string>enable XY</string>
           </property>
          </widget>
         </item>
@@ -1026,7 +1026,7 @@ offset:</string>
         <item row="0" column="0" rowspan="3">
          <widget class="QLabel" name="label_276">
           <property name="text">
-           <string>Offset:</string>
+           <string>offset:</string>
           </property>
          </widget>
         </item>
@@ -1391,7 +1391,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -1695,17 +1695,58 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="3">
+        <item row="7" column="0" colspan="3">
          <widget class="MyCheckBox" name="checkBox_transf_spheres_enabled">
           <property name="text">
            <string>Spheres enabled</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="3">
+        <item row="6" column="0" colspan="3">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
           <property name="text">
            <string notr="true">disable box size x y wrap</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_02">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QLabel" name="label_26">
+          <property name="text">
+           <string>sine scale:</string>
           </property>
          </widget>
         </item>

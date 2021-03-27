@@ -124,7 +124,6 @@ void cFractalJosKleinianV4::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (z.y > z.x) swap(z.x, z.y);
 	}
 
-
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
@@ -153,7 +152,8 @@ void cFractalJosKleinianV4::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z.z += box_size.z - 1.0;
 		z.z = z.z - a * box_size.z * floor(z.z / a * box_size.z);
 		z.z -= (box_size.z - 1.0);
-		if (z.z >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+		if (z.z >= a * (0.5 + fractal->transformCommon.offset02
+						* sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		{
 			z.x = -z.x - b;
 			z.z = -z.z + a;
