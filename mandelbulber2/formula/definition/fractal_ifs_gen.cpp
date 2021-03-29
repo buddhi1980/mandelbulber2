@@ -46,7 +46,7 @@ void cFractalIfsGen::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i < fractal->transformCommon.stopIterationsK)
 	{
 		// update actualScaleA for next iteration
-		aux.actualScaleA  = fractal->transformCommon.scaleVary0
+		aux.actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux.actualScaleA) - fractal->transformCommon.offsetA1);
 	}
 
@@ -65,15 +65,13 @@ void cFractalIfsGen::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		double rr = z.Dot(z);
-		if (rr < fractal->transformCommon.minR2p25)
-			m = fractal->transformCommon.maxMinR2factor;
+		if (rr < fractal->transformCommon.minR2p25);
+			//m = fractal->transformCommon.maxMinR2factor;
 		else if (rr < fractal->transformCommon.maxR2d1)
 			m = fractal->transformCommon.maxR2d1 / rr;
 		z *= m;
 		aux.DE *= m;
 	}
-
-
 
 	// rotation2
 	if (aux.i >= fractal->transformCommon.startIterationsR
@@ -81,8 +79,6 @@ void cFractalIfsGen::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 	}
-
-
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

@@ -60,7 +60,7 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z.x = z.y;
 		z.y = temp;
 	}
-	if (z.z > z.y)
+	if (fractal->transformCommon.functionEnabledM && z.z > z.y)
 	{
 		REAL temp = z.y;
 		z.y = z.z;
@@ -162,9 +162,11 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->color += colorAdd;
 	}
 
-	// temp code
-	p = fabs(z);
-	aux->dist = max(p.x, max(p.y, p.z));
-	aux->dist = aux->dist / aux->DE;
+	if (fractal->transformCommon.functionEnabledXFalse)
+	{
+		p = fabs(z);
+		aux->dist = max(p.x, max(p.y, p.z));
+		aux->dist = aux->dist / aux->DE;
+	}
 	return z;
 }

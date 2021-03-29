@@ -54,7 +54,7 @@ void cFractalMandalayKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
 	}
-	else
+	else // transformCommon.functionEnabledM
 	{
 		z = fabs(z);
 	}
@@ -66,7 +66,9 @@ void cFractalMandalayKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	// Kifs Octahedral fold:
 	if (z.y > z.x) swap(z.x, z.y);
-	if (z.z > z.y) swap(z.y, z.z);
+
+	if (fractal->transformCommon.functionEnabledM && z.z > z.y) swap(z.y, z.z);
+
 	if (z.y > z.x) swap(z.x, z.y);
 
 	// ABoxKali-like abs folding:
@@ -155,8 +157,10 @@ void cFractalMandalayKIFS::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.color += colorAdd;
 	}
 
-	// temp code
-	p = fabs(z);
-	aux.dist = max(p.x, max(p.y, p.z));
-	aux.dist = aux.dist / aux.DE;
+	if (fractal->transformCommon.functionEnabledXFalse)
+	{
+		p = fabs(z);
+		aux.dist = max(p.x, max(p.y, p.z));
+		aux.dist = aux.dist / aux.DE;
+	}
 }

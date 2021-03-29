@@ -32,7 +32,7 @@ REAL4 IfsGenIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 			&& aux->i < fractal->transformCommon.stopIterationsK)
 	{
 		// update actualScaleA for next iteration
-		aux->actualScaleA  = fractal->transformCommon.scaleVary0
+		aux->actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.offsetA1);
 	}
 
