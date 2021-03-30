@@ -45,12 +45,16 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	repeatTexture = lightParam->Get<bool>(Name("repeat_texture", id));
 	volumetric = lightParam->Get<bool>(Name("volumetric", id));
 
+	double allLightsIntensity = lightParam->Get<double>("all_lights_intensity");
+	double allLightsVisibility = lightParam->Get<double>("all_lights_visibility");
+	double allLightsSize = lightParam->Get<double>("all_lights_size");
+
 	coneAngle = lightParam->Get<double>(Name("cone_angle", id)) / 180.0 * M_PI;
 	coneSoftAngle = lightParam->Get<double>(Name("cone_soft_angle", id)) / 180.0 * M_PI;
-	intensity = lightParam->Get<double>(Name("intensity", id));
-	visibility = lightParam->Get<double>(Name("visibility", id));
+	intensity = lightParam->Get<double>(Name("intensity", id)) * allLightsIntensity;
+	visibility = lightParam->Get<double>(Name("visibility", id)) * allLightsVisibility;
 	volumetricVisibility = lightParam->Get<double>(Name("volumetric_visibility", id));
-	size = lightParam->Get<double>(Name("size", id));
+	size = lightParam->Get<double>(Name("size", id)) * allLightsSize;
 	softShadowCone = lightParam->Get<double>(Name("soft_shadow_cone", id)) / 180.0 * M_PI;
 	contourSharpness = lightParam->Get<double>(Name("contour_sharpness", id));
 

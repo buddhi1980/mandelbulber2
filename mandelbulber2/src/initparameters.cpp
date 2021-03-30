@@ -333,6 +333,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("hdr_blur_intensity", 0.1, 0.0, 1000.0, morphLinear, paramStandard);
 
 	par->addParam("fill_light_color", sRGB(0, 0, 0), morphLinear, paramStandard);
+	par->addParam("all_lights_intensity", 1.0, 0.0, 100000.0, morphLinear, paramStandard);
+	par->addParam("all_lights_visibility", 1.0, 0.0, 100000.0, morphLinear, paramStandard);
+	par->addParam("all_lights_size", 1.0, 0.0, 100000.0, morphLinear, paramStandard);
 
 	// fog
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
