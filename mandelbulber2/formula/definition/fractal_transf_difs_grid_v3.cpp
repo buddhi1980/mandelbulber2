@@ -32,7 +32,7 @@ void cFractalTransfDIFSGridV3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	CVector4 zc = z;
 	if (fractal->transformCommon.functionEnabledyFalse) zc = c;
 
-	zc.z += fractal->transformCommon.offsetR0;
+	zc.z -= fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{

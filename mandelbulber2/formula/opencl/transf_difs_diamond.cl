@@ -59,17 +59,6 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	REAL4 zc = z;
 
 	REAL topCut = zc.z - fractal->transformCommon.offset1;
@@ -78,6 +67,7 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL co = cos(angle);
 	REAL si = sin(angle);
 	REAL4 q = zc;
+	q.z -= fractal->transformCommon.offset0;
 	q.x = (co * zc.x - si * zc.y);
 	q.y = (co * zc.y + si * zc.x);
 	REAL topA = dot (q, normalTopA) - fractal->transformCommon.offset2;

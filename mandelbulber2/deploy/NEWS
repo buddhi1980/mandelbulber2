@@ -18,9 +18,10 @@ v2.25 (???? 2021)
 
 
 - modified fractal formulas
-   T>DIFS cylinder, added hollow option to T>DIFS cylinder
+   T>DIFS cylinder, added hollow option
    amazing box mod14, corrected rrCol color
    mandelbox variable, fix vary scale mode 2
+   mandalay KIFS updated
 
 
 

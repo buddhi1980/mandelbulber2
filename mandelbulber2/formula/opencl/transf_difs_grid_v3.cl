@@ -21,7 +21,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL4 zc = z;
 	if (fractal->transformCommon.functionEnabledyFalse) zc = c;
 
-	zc.z += fractal->transformCommon.offsetR0;
+	zc.z -= fractal->transformCommon.offsetR0;
 
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
