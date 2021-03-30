@@ -472,6 +472,41 @@ bool cGradientEditWidget::DecodeGradientFromFile(QString string)
 		gradient.SetColorsFromString(gradientText);
 		return true;
 	}
+	else if (string.contains("https://coolors.co/"))
+	{
+		int lastSlashPosition = string.lastIndexOf('/');
+		QString colorsString = string.mid(lastSlashPosition + 1);
+		QStringList splited = colorsString.split('-');
+		if (splited.size() > 1)
+		{
+			gradient.DeleteAll();
+
+			for (int i = 0; i < splited.size(); i++)
+			{
+				int colorHex = splited[i].toInt(nullptr, 16);
+				sRGB color;
+				color.R = colorHex / 65536;
+				color.G = (colorHex / 256) % 256;
+				color.B = colorHex % 256;
+				float position = float(i) / splited.size();
+
+				if (i == 0)
+				{
+					gradient.AddColor(color, 0.0f);
+					gradient.AddColor(color, 1.0f);
+				}
+				else
+				{
+					gradient.AddColor(color, position);
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+	}
 	return false;
 }
 
