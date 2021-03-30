@@ -45,9 +45,18 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			REAL rNorm = length(z); // dot(z, z);
 			z /= rNorm;
-			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			if (!fractal->transformCommon.functionEnabledDFalse)
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
+			}
+			else
+			{
+				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
+				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
+				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
+			}
 			z *= rNorm;
 		}
 	}
