@@ -160,6 +160,8 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
 
+	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
+
 	gMainInterface->ComboMouseClickUpdate();
 }
 

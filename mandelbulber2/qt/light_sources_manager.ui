@@ -40,6 +40,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButton_newLight">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add new light source to the scene. This new light will aprrear as a new tab below. There is no limit for number of light sources.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>New
 light</string>
@@ -48,6 +51,9 @@ light</string>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_duplicateLight">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate actually selected light source. All parameters will be copied to new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Duplicate
 light</string>
@@ -56,6 +62,9 @@ light</string>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_deleteLight">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete actually selected light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Delete
 light</string>
@@ -64,6 +73,9 @@ light</string>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_placeLight">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows to place light sources using mouse pointer.&lt;/p&gt;&lt;p&gt;Light of actually selected tab can be manipulated in folowing ways:&lt;/p&gt;&lt;p&gt;- left mouse button click on the image moves light in front of selected point. Front distance from point can be adjusted using mouse wheel + alt key.&lt;/p&gt;&lt;p&gt;- dragging of light using mouse pointer (holding left mouse button)&lt;/p&gt;&lt;p&gt;- rotating mouse wheel while holding control key moves light forward/backward&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Place/move
 light</string>
