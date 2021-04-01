@@ -124,41 +124,6 @@ pre-transform, slot#1 for 1 iteration</string>
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0,0">
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
-       <property name="text">
-        <string notr="true">x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
-       <property name="text">
-        <string notr="true">z</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
-       <property name="text">
-        <string notr="true">y</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_105">
-       <property name="text">
-        <string>mode2</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
@@ -628,14 +593,14 @@ pre-transform, slot#1 for 1 iteration</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
