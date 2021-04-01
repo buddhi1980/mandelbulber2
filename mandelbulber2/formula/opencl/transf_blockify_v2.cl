@@ -25,7 +25,9 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (!fractal->transformCommon.functionEnabledEFalse)
+
+
+			/*if (!fractal->transformCommon.functionEnabledEFalse)
 			{
 				if (fractal->transformCommon.functionEnabledCx)
 					z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
@@ -39,13 +41,37 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
 				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
 				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
+			}*/
+
+
+
+			if (fractal->transformCommon.functionEnabledCx)
+			{
+				if (!fractal->transformCommon.functionEnabledAxFalse)
+					z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+				else z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
+			}
+			if (fractal->transformCommon.functionEnabledCy)
+			{
+				if (!fractal->transformCommon.functionEnabledAyFalse)
+					z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+				else z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
+			}
+			if (fractal->transformCommon.functionEnabledCz)
+			{
+				if (!fractal->transformCommon.functionEnabledAzFalse)
+					 z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+				else z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
 			}
 		}
+
+
+
 		else // normalize
 		{
 			REAL rNorm = length(z); // dot(z, z);
 			z /= rNorm;
-			if (!fractal->transformCommon.functionEnabledEFalse)
+			/*if (!fractal->transformCommon.functionEnabledEFalse)
 			{
 				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
 				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
@@ -56,7 +82,28 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
 				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
 				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
+			}*/
+
+			if (fractal->transformCommon.functionEnabledCx)
+			{
+				if (!fractal->transformCommon.functionEnabledAxFalse)
+					z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+				else z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
 			}
+			if (fractal->transformCommon.functionEnabledCy)
+			{
+				if (!fractal->transformCommon.functionEnabledAyFalse)
+					z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+				else z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
+			}
+			if (fractal->transformCommon.functionEnabledCz)
+			{
+				if (!fractal->transformCommon.functionEnabledAzFalse)
+					 z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+				else z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
+			}
+
+
 			z *= rNorm;
 		}
 	}
