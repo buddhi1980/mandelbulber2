@@ -21,7 +21,7 @@ cFractalMenger4dMod2::cFractalMenger4dMod2() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionIFS;
 	coloringFunction = coloringFunctionDefault;
 }
@@ -36,6 +36,11 @@ void cFractalMenger4dMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		{
 			z = CVector4(z.x, z.y, z.z, z.Length());
 			aux.DE += 0.5;
+		}
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			z = CVector4(z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z);
+			aux.DE *= z.Length() / aux.r;
 		}
 		z = fabs(z - fractal->transformCommon.offsetA0000);
 	}

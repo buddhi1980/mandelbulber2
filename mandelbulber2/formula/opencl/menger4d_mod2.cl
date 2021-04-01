@@ -26,6 +26,11 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			z = (REAL4){z.x, z.y, z.z, length(z)};
 			aux->DE += 0.5f;
 		}
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			z = (REAL4){z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z};
+			aux->DE *= length(z) / aux->r;
+		}
 		z = fabs(z - fractal->transformCommon.offsetA0000);
 	}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger4d_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -37,7 +37,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -103,7 +103,14 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
         <property name="text">
-         <string>enable z.w = length z</string>
+         <string>enable z.w = length z mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+        <property name="text">
+         <string>enable quadray mode</string>
         </property>
        </widget>
       </item>
