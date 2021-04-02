@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>392</width>
-    <height>785</height>
+    <height>858</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,7 +61,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of the light source. Sthength how objects are illuminated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of the light source. Strength of  illumination.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -111,7 +111,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility of the light sourrce. It simulates illuminated fog around the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility of the light source. It simulates illuminated fog around the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -125,7 +125,7 @@
         <item row="0" column="1">
          <widget class="MyComboBox" name="comboBox_type">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of light source type&lt;/p&gt;&lt;p&gt;- Directional light - light source emiting from infinite distance at angle defined by user&lt;/p&gt;&lt;p&gt;- Point light - light source emiting evenly around from user defined point&lt;/p&gt;&lt;p&gt;- Spot light - light source emiting conical beam&lt;/p&gt;&lt;p&gt;- Projection - light source emiting beam of light colorized by texture image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of light source type&lt;/p&gt;&lt;p&gt;- Directional light - light source emitting from infinite distance at the angle defined by user&lt;/p&gt;&lt;p&gt;- Point light - light source emitting evenly around  user defined point&lt;/p&gt;&lt;p&gt;- Spot light - light source emitting conical beam&lt;/p&gt;&lt;p&gt;- Projection - light source emitting beam of light colorized by texture image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -173,7 +173,7 @@
         <item row="6" column="1">
          <widget class="MyComboBox" name="comboBox_decayFunction">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Decay function defines how light intensity decays with distance from the light. Decay fuction 1/r² complies with the laws of physics. 1/r reduces decaying of light intenity. 1/r³ makes strong decaying. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Decay function defines how light intensity decays with distance from the light. Decay function 1/r² complies with the laws of physics. 1/r reduces the decaying of light intensity. 1/r³ increases the decaying of light intensity. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -463,7 +463,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Enabling this option makes coordinates and rotation of the light in relation to the camera. </string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enabling this option makes coordinates and rotation of the light relative to the camera. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Position and rotation relative to camera</string>
@@ -811,15 +811,20 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
@@ -827,9 +832,9 @@
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
@@ -840,11 +845,6 @@
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
   </customwidget>
   <customwidget>
    <class>cLightWidget</class>
