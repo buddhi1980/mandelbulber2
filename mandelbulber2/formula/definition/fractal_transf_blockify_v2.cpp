@@ -30,25 +30,10 @@ void cFractalTransfBlockifyV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 {
 	double master = fractal->transformCommon.scale / 100.0;
 	CVector4 bSize = fractal->transformCommon.constantMultiplier111 * master;
-
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			/*if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
-			}
-			else
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
-			}*/
-
-			//if (!fractal->transformCommon.functionEnabledEFalse)
 			if (fractal->transformCommon.functionEnabledCx)
 			{
 				if (!fractal->transformCommon.functionEnabledAxFalse)
@@ -70,21 +55,8 @@ void cFractalTransfBlockifyV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		}
 		else // normalize
 		{
-			double rNorm = z.Length(); //z.Dot(z);
+			double rNorm = z.Length();
 			z /= rNorm;
-			/*if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
-			}
-			else
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
-			}*/
-
 			if (fractal->transformCommon.functionEnabledCx)
 			{
 				if (!fractal->transformCommon.functionEnabledAxFalse)
@@ -108,19 +80,30 @@ void cFractalTransfBlockifyV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 	else // radial
 	{
-		double rr = z.Dot(z);
-		if (fractal->transformCommon.functionEnabledRFalse) rr = sqrt(rr); // z.Length();
-		if (fractal->transformCommon.functionEnabledBxFalse) rr = z.x * z.x + z.y * z.y;
-		if (fractal->transformCommon.functionEnabledByFalse) rr = z.y * z.y + z.z * z.z;
-		if (fractal->transformCommon.functionEnabledBzFalse) rr = z.z * z.z + z.x * z.x;
-		z /= rr;
-		rr = floor(rr / master) * master;
-		z *= rr;
+		CVector4 zz = z * z;
+		double rr = zz.x + zz.y + zz.z;
+		if (fractal->transformCommon.functionEnabledRFalse) rr = sqrt(rr);
+		if (fractal->transformCommon.functionEnabledBxFalse) rr = zz.x + zz.y;
+		if (fractal->transformCommon.functionEnabledByFalse) rr = zz.y + zz.z;
+		if (fractal->transformCommon.functionEnabledBzFalse) rr = zz.z + zz.x;
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			z /= rr;
+			rr = floor(rr / master) * master;
+			z *= rr;
+		}
+		else
+		{
+			z *= rr;
+			rr = floor(rr / master) * master;
+			z /= rr;
+		}
 	}
 
 	// post scale
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
 							 + fractal->analyticDE.offset0;
-	aux.DE = aux.DE - 0.001;
+	//aux.DE = aux.DE - 0.001;
+	//aux.DE *= z.Length() / oldZ.Length();
 }

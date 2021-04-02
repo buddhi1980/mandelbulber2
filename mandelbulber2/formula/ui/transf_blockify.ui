@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_blockify</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -33,7 +33,7 @@
     <widget class="QLabel" name="label_94">
      <property name="text">
       <string>Testing Transform,  DE problematic;
-pre-transform, slot#1 for 1 iteration</string>
+often use as pre-transform, slot#1 for 1 iteration</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -575,14 +575,14 @@ pre-transform, slot#1 for 1 iteration</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

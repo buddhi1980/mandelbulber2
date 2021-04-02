@@ -25,26 +25,6 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-
-
-			/*if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				if (fractal->transformCommon.functionEnabledCx)
-					z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy)
-					z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz)
-					z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
-			}
-			else
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
-			}*/
-
-
-
 			if (fractal->transformCommon.functionEnabledCx)
 			{
 				if (!fractal->transformCommon.functionEnabledAxFalse)
@@ -64,26 +44,10 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				else z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
 			}
 		}
-
-
-
 		else // normalize
 		{
-			REAL rNorm = length(z); // dot(z, z);
+			REAL rNorm = length(z);
 			z /= rNorm;
-			/*if (!fractal->transformCommon.functionEnabledEFalse)
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5f) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5f) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5f) * bSize.z;
-			}
-			else
-			{
-				if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x + 0.5f) * bSize.x;
-				if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y + 0.5f) * bSize.y;
-				if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z + 0.5f) * bSize.z;
-			}*/
-
 			if (fractal->transformCommon.functionEnabledCx)
 			{
 				if (!fractal->transformCommon.functionEnabledAxFalse)
@@ -102,21 +66,29 @@ REAL4 TransfBlockifyV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 					 z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
 				else z.z = floor(z.z / bSize.z + 0.5) * bSize.z;
 			}
-
-
 			z *= rNorm;
 		}
 	}
 	else // radial
 	{
-		REAL rr = dot(z, z);
+		REAL4 zz = z * z;
+		REAL rr = zz.x + zz.y + zz.z;
 		if (fractal->transformCommon.functionEnabledRFalse) rr = native_sqrt(rr); // length(z);
-		if (fractal->transformCommon.functionEnabledBxFalse) rr = z.x * z.x + z.y * z.y;
-		if (fractal->transformCommon.functionEnabledByFalse) rr = z.y * z.y + z.z * z.z;
-		if (fractal->transformCommon.functionEnabledBzFalse) rr = z.z * z.z + z.x * z.x;
-		z /= rr;
-		rr = floor(rr / master) * master;
-		z *= rr;
+		if (fractal->transformCommon.functionEnabledBxFalse) rr = zz.x + zz.y;
+		if (fractal->transformCommon.functionEnabledByFalse) rr = zz.y + zz.z;
+		if (fractal->transformCommon.functionEnabledBzFalse) rr = zz.z + zz.x;
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			z /= rr;
+			rr = floor(rr / master) * master;
+			z *= rr;
+		}
+		else
+		{
+			z *= rr;
+			rr = floor(rr / master) * master;
+			z /= rr;
+		}
 	}
 
 	// post scale
