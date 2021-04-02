@@ -367,6 +367,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfBenesiMagBackward());
 
 	fractalList->append(new cFractalTransfBlockify());
+	fractalList->append(new cFractalTransfBlockifyV2());
 
 	// Box Fold Transforms
 	fractalList->append(new cFractalTransfBoxFold());
@@ -481,7 +482,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTesting());
 	fractalList->append(new cFractalTestingLog());
 	fractalList->append(new cFractalTesting4d());
-	fractalList->append(new cFractalTransfBlockifyV2());
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 	fractalList->append(new cFractalJosKleinianV4());

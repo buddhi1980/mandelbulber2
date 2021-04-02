@@ -248,6 +248,9 @@ often use as pre-transform, slot#1 for 1 iteration</string>
        <property name="text">
         <string>size:</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <property name="wordWrap">
         <bool>true</bool>
        </property>
@@ -591,6 +594,11 @@ often use as pre-transform, slot#1 for 1 iteration</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -600,11 +608,6 @@ often use as pre-transform, slot#1 for 1 iteration</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -623,8 +626,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>217</y>
     </hint>
     <hint type="destinationlabel">
-     <x>217</x>
-     <y>108</y>
+     <x>318</x>
+     <y>146</y>
     </hint>
    </hints>
   </connection>
@@ -639,8 +642,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>220</y>
     </hint>
     <hint type="destinationlabel">
-     <x>221</x>
-     <y>140</y>
+     <x>322</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>
@@ -655,8 +658,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>225</y>
     </hint>
     <hint type="destinationlabel">
-     <x>261</x>
-     <y>159</y>
+     <x>362</x>
+     <y>210</y>
     </hint>
    </hints>
   </connection>
@@ -671,8 +674,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>226</x>
-     <y>77</y>
+     <x>36</x>
+     <y>144</y>
     </hint>
    </hints>
   </connection>
@@ -687,8 +690,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>467</x>
-     <y>88</y>
+     <x>36</x>
+     <y>176</y>
     </hint>
    </hints>
   </connection>
@@ -703,8 +706,8 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>748</x>
-     <y>87</y>
+     <x>36</x>
+     <y>208</y>
     </hint>
    </hints>
   </connection>
@@ -719,8 +722,56 @@ often use as pre-transform, slot#1 for 1 iteration</string>
      <y>220</y>
     </hint>
     <hint type="destinationlabel">
-     <x>173</x>
-     <y>197</y>
+     <x>175</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>53</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>68</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>64</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>

@@ -10,6 +10,7 @@ v2.25 (???? 2021)
    mandelnest
 
    transfAddConstantMod3
+   transfBlockifyV2
    transfDIFSDiamond
    transfDIFSGearV1
    transfDIFSGridV3
