@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>858</height>
+    <width>557</width>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -603,7 +603,7 @@
       <item row="0" column="1">
        <widget class="MyLineEdit" name="logedit_volumetric_visibility">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of volumetric effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of volumetric effect. &lt;/p&gt;&lt;p&gt;When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Effects&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;/ Volumetric / Custom DE multiplier for volumetric effect&lt;/span&gt; parameter (lower value - better quality).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
