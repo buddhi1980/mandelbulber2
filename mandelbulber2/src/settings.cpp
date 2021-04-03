@@ -498,7 +498,7 @@ void cSettings::Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
 		for (const auto &animatedParameter : listOfAnimatedParameters)
 		{
 			QString parameterName = animatedParameter.parameterName;
-			qDebug() << parameterName;
+
 			if (parameterName == "light1_alpha" || parameterName == "light1_beta")
 			{
 				keyframes->AddAnimatedParameter("main_light1_rotation", par, fractPar);
