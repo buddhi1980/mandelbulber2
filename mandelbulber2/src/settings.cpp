@@ -485,6 +485,40 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 	}
 }
 
+void cSettings::Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
+	const std::shared_ptr<cParameterContainer> &par,
+	const std::shared_ptr<cFractalContainer> &fractPar)
+{
+	if (fileVersion < 2.25 && keyframes)
+	{
+		// conversion of old light rotation parameters to new parameters
+		// conversion of old light rotation parameters to new parameters
+		QList<cAnimationFrames::sParameterDescription> listOfAnimatedParameters =
+			keyframes->GetListOfParameters();
+		for (const auto &animatedParameter : listOfAnimatedParameters)
+		{
+			QString parameterName = animatedParameter.parameterName;
+			qDebug() << parameterName;
+			if (parameterName == "light1_alpha" || parameterName == "light1_beta")
+			{
+				keyframes->AddAnimatedParameter("main_light1_rotation", par, fractPar);
+				int numberOfKeyframes = keyframes->GetNumberOfFrames();
+				for (int i = 0; i < numberOfKeyframes; i++)
+				{
+					cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(i);
+					frame.parameters.Set(
+						"main_light1_rotation", CVector3(frame.parameters.Get<double>("main_light1_alpha"),
+																			frame.parameters.Get<double>("main_light1_beta"), 0.0));
+					keyframes->ModifyFrame(i, frame);
+				}
+				keyframes->RemoveAnimatedParameter("main_light1_alpha");
+				keyframes->RemoveAnimatedParameter("main_light1_beta");
+				break;
+			}
+		}
+	}
+}
+
 bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> fractPar, std::shared_ptr<cAnimationFrames> frames,
 	std::shared_ptr<cKeyframes> keyframes)
@@ -749,6 +783,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 		if (format != formatAppSettings)
 		{
 			Compatibility2(par, fractPar);
+
+			Compatibility3(keyframes, par, fractPar);
 		}
 
 		if (listOfParametersToProcess.isEmpty())

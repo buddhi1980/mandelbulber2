@@ -89,6 +89,9 @@ private:
 	void Compatibility(QString &name, QString &value) const;
 	void Compatibility2(
 		std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> fract);
+	void Compatibility3(const std::shared_ptr<cKeyframes> &keyframes,
+		const std::shared_ptr<cParameterContainer> &par,
+		const std::shared_ptr<cFractalContainer> &fractPar);
 	void PreCompatibilityMaterials(int matIndex, std::shared_ptr<cParameterContainer> par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const std::shared_ptr<cAnimationFrames> frames) const;
