@@ -1,0 +1,58 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+camera -0,59375813934338 -0,816495110131289 -0,123093942640199;
+camera_distance_to_target 0,0503762662410736;
+camera_rotation 73,8016994864626 67,3053482317329 -138,525504943049;
+camera_top -0,848551573479426 -0,44316520647057 -0,289075815175687;
+clouds_color f000 f000 f000;
+clouds_density 0,197;
+clouds_enable true;
+clouds_lights_boost 1,52645868277486;
+clouds_noise_iterations 8;
+clouds_opacity 327680;
+clouds_period 0,00048828125;
+fake_lights_color f500 2300 0700;
+fake_lights_enabled true;
+fake_lights_intensity 0,0572995565210031;
+fake_lights_max_iter 12;
+fake_lights_min_iter 4;
+fake_lights_orbit_trap 0,176957289767845 0,154776345843197 -1,50110535873798;
+fake_lights_visibility 619,74063050765;
+fake_lights_visibility_size 1,7;
+flight_last_to_render 0;
+formula_1 10;
+fov 53,130102354156;
+hdr true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+raytraced_reflections true;
+target -0,612422728969697 -0,811073145920981 -0,076618103771225;
+view_distance_max 0,05;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_3 1,3568 0,262 0,18;
+IFS_direction_5 1 -1 0;
+IFS_direction_6 1 0 -1;
+IFS_direction_7 0 1 -1;
+IFS_distance_7 0,3295;
+IFS_edge 0 0,4425 0,214;
+IFS_edge_enabled true;
+IFS_enabled_3 true;
+IFS_enabled_4 true;
+IFS_enabled_5 true;
+IFS_enabled_6 true;
+IFS_enabled_7 true;
+IFS_intensity_3 2,3147;
+IFS_rotation -13,45 54,25 -63,5;
+IFS_rotation_enabled true;
+IFS_rotations_4 44,8 -6,85 -18,15;

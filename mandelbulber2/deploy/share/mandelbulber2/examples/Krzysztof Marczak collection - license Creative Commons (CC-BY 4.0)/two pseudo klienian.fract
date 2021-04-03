@@ -1,0 +1,66 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+boolean_operators true;
+camera -0,306858039726021 -2,09568073605415 1,9859146528589;
+camera_distance_to_target 0,737511172294611;
+camera_rotation -24,3213843363508 -30,7366664002206 -2,41213267042193e-11;
+camera_top 0,210495978025367 0,465733373120905 0,859525373910839;
+detail_level 0,5;
+DOF_monte_carlo true;
+flight_last_to_render 0;
+formula_1 103;
+formula_2 103;
+formula_material_id_1 2;
+formula_material_id_2 3;
+fov 53,130102354156;
+image_height 1440;
+image_proportion 1;
+image_width 1440;
+keyframe_last_to_render 0;
+light1_intensity 1,2;
+light1_is_defined true;
+light1_rotation 0 0 0;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_is_defined true;
+mat2_name red;
+mat2_reflectance 1;
+mat2_reflections_color ff00 9e00 7d00;
+mat2_rough_surface true;
+mat2_specular 6,97;
+mat2_specular_color ff00 2600 0a00;
+mat2_surface_color 5e00 0000 0000;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_transparency_index_of_refraction 8,96;
+mat2_use_colors_from_palette false;
+mat3_fresnel_reflectance true;
+mat3_is_defined true;
+mat3_name silver;
+mat3_reflectance 1,2;
+mat3_reflections_color ca00 e000 ff00;
+mat3_rough_surface true;
+mat3_specular_color ff00 ff00 ff00;
+mat3_specular_metallic_roughness 0,2;
+mat3_specular_width 0,053;
+mat3_surface_color 5f00 6400 6700;
+mat3_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat3_transparency_index_of_refraction 10;
+mat3_use_colors_from_palette false;
+N 31;
+raytraced_reflections true;
+reflections_max 2;
+target -0,0457795384604514 -1,51803088172371 1,60897779975442;
+view_distance_max 26,5863598068337;
+[fractal_1]
+analyticDE_scale_1 0,726219;
+mandelbox_scale -1,5;
+[fractal_2]
+analyticDE_scale_1 0,8;
+mandelbox_scale -1,6;
+transf_minimum_radius_05 0,48;

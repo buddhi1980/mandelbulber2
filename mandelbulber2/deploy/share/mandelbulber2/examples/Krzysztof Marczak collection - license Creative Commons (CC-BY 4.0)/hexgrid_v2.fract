@@ -1,0 +1,59 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+camera -2,45132091092972 7,94615158925979 -2,77277560165734;
+camera_distance_to_target 0,376555206946955;
+camera_rotation 72,20267755194 21,5111218936593 2,01519944617528e-11;
+camera_top 0,349133782827812 -0,112076597169233 0,930346407557587;
+DE_factor 0,277100132752172;
+DOF_max_noise 0,788746058939186;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_samples 200;
+flight_last_to_render 0;
+fog_color_1 df00 d700 ad00;
+fog_color_2 eb00 ce00 bd00;
+fog_color_3 ff00 e800 8c00;
+formula_1 103;
+formula_2 608;
+formula_iterations_1 2;
+fov 71,3680396990524;
+hybrid_fractal_enable true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_enabled false;
+light1_is_defined true;
+light1_rotation 0 0 0;
+mat1_is_defined true;
+mat1_surface_color ff00 ff00 ff00;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+mat2_is_defined true;
+mat2_luminosity 2;
+mat2_luminosity_color ff00 6b00 2700;
+mat2_surface_color 0000 0000 0000;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_use_colors_from_palette false;
+MC_global_illumination_volumetric true;
+primitive_water_1_enabled true;
+primitive_water_1_length 0,00625;
+primitive_water_1_material_id 2;
+primitive_water_1_position -2,60716091852963 8,00638857277555 -2,80067113148077;
+reflections_max 2;
+target -2,78488234339779 8,05322925443228 -2,63469965056549;
+view_distance_max 13,3995170424341;
+volumetric_fog_colour_1_distance 0,054243105215008;
+volumetric_fog_colour_2_distance 0,108486210430016;
+volumetric_fog_density 0,125;
+volumetric_fog_distance_factor 0,108486210430016;
+volumetric_fog_enabled true;
+[fractal_1]
+transf_minimum_radius_05 0,6;
+[fractal_2]
+transf_function_enabledJ_false true;
+transf_offset_001 0 0 0;
+transf_scale_1 0,3;
+transf_scale_2 1,1;

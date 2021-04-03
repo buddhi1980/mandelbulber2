@@ -1,0 +1,53 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+camera -1,67138241769674 -1,85482063422938 1,65885181673218;
+camera_distance_to_target 0,000216589421064959;
+camera_rotation -25,6434488397956 16,5441246000882 -111,213367957011;
+camera_top -0,795827337222413 0,496332089635385 -0,346862085168812;
+DOF_enabled true;
+DOF_focus 0,000268715695710853;
+DOF_max_noise 0,5;
+DOF_min_samples 40;
+DOF_monte_carlo true;
+DOF_radius 40;
+DOF_samples 400;
+flight_last_to_render 0;
+formula_1 8;
+fov 53,130102354156;
+hdr true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_enabled false;
+light1_is_defined true;
+light2_is_defined true;
+light3_is_defined true;
+mat1_coloring_speed 4;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_plastic_enable false;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 2c5487 522 5d1452 1419 277421 2113 ddbe77 2228 be3a8f 2692 451672 3847 bcb9aa 3955 154d96 4251 f57f69 5456 273c04 5552 be9231 7050 9fc879 7166 5181d8 8540 3e5bfa 8687 f80a3c 9746 538671;
+MC_soft_shadows_enable true;
+random_lights_distribution_center -1,67127734684315 -1,85457358389398 1,65890473570267;
+random_lights_distribution_radius 0,000136815724545158;
+random_lights_group true;
+random_lights_intensity 0,368519686426587;
+random_lights_max_distance_from_fractal 2,73631449090317e-05;
+random_lights_number 40;
+random_lights_one_color_enable true;
+random_lights_penetrating false;
+random_lights_random_seed 1236;
+random_lights_size 0,05;
+random_lights_soft_shadow_cone 0,25;
+random_lights_visibility 16;
+target -1,67129256489034 -1,85463346134058 1,6589134913639;
+view_distance_max 1;
+[fractal_1]
+mandelbox_folding_min_radius 0,1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main 3 -5 3;
+mandelbox_scale -1,32;

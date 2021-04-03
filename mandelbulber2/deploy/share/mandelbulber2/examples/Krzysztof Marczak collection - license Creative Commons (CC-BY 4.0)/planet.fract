@@ -1,0 +1,53 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+boolean_operator_1 2;
+boolean_operators true;
+camera -2,18776871723964 1,20879872260292 2,35348704326048;
+camera_distance_to_target 2,55416781425476;
+camera_rotation -119,566657695999 -43,2697585505082 105,404005111935;
+camera_top -0,634069026089116 -0,748698314712788 -0,193409678404755;
+clouds_cast_shadows false;
+clouds_color ff00 4300 ff00;
+clouds_density 0,233;
+clouds_enable true;
+clouds_opacity 0,507702387372564;
+clouds_period 2;
+DE_factor 0,25;
+flight_last_to_render 0;
+fog_color_3 8f00 ff00 fb00;
+formula_2 146;
+formula_scale_2 1,45668693194108;
+fov 53,130102354156;
+glow_enabled false;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+julia_mode_1 true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_coloring_speed 0,25;
+mat1_fractal_coloring_algorithm 1;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 b98b73 1111 cb997e 2222 ddbea9 3333 ffe8d6 4444 d4c7b0 5554 b7b7a4 6666 a5a58d 7777 6b705c 8888 3f4238;
+N 15;
+random_lights_color c200 f200 ff00;
+random_lights_group true;
+random_lights_intensity 0,00390625;
+random_lights_max_distance_from_fractal 6,4;
+random_lights_number 160;
+random_lights_one_color_enable true;
+random_lights_size 0,05;
+raytraced_reflections true;
+target -0,570166819600081 0,291117655703133 0,602773250665731;
+view_distance_max 9,05752241383875;
+volumetric_fog_colour_1_distance 0,015625;
+volumetric_fog_colour_2_distance 0,03125;
+volumetric_fog_distance_factor 0,015625;
+volumetric_fog_enabled true;

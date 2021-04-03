@@ -1,0 +1,63 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+abs_min_marching_step 2e-06;
+advanced_quality true;
+basic_fog_enabled true;
+basic_fog_visibility 0,0163187980651855;
+camera -1,36211636391705 -0,54052567863007 0,0490459017315941;
+camera_distance_to_target 0,0108350594015695;
+camera_rotation -17,3620346334505 8,69308601328816 -1,85075752929921;
+camera_top -0,0759031051724959 -0,134542557023706 0,987996467086141;
+clouds_ambient_light 0,21;
+clouds_density 0,354;
+clouds_distance 1,52587890625e-05;
+clouds_distance_layer 1,52587890625e-05;
+clouds_distance_mode true;
+clouds_enable true;
+clouds_opacity 327680;
+clouds_period 6,103515625e-05;
+constant_DE_threshold true;
+DE_factor 0,5;
+DE_thresh 9,765625e-06;
+flight_last_to_render 0;
+fog_color_1 8400 8800 9500;
+fog_color_2 d900 eb00 ff00;
+formula_1 77;
+gamma 0,6;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_metallic false;
+mat2_specular_width 0,013;
+mat2_surface_color 7800 7e00 8c00;
+mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat2_use_colors_from_palette false;
+primitive_water_1_enabled true;
+primitive_water_1_length 0,00078125;
+primitive_water_1_material_id 2;
+primitive_water_1_position -1,36242240782583 -0,531803979164116 0,0488226105148732;
+primitive_water_1_relative_amplitude 0,1;
+primitive_water_1_rotation 0 0 126,87;
+target -1,35892023429336 -0,530303083862802 0,0506835292497867;
+view_distance_max 1;
+volumetric_fog_colour_1_distance 8,89256530621375e-05;
+volumetric_fog_colour_2_distance 0,000177851306124275;
+volumetric_fog_density 0,25;
+volumetric_fog_distance_factor 0,000177851306124275;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_scale 1,1;
+transf_addition_constant_111 0,8 1,3 1;
+transf_minimum_radius_05 0,1;
+transf_rotation 4,102165 -3,814075 13,29857;
