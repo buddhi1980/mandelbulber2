@@ -1644,7 +1644,9 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 
 	par->addParam(cLight::Name("decayFunction", lightId), int(cLight::lightDecay1R2), morphLinear,
 		paramStandard, QStringList({"1/r", "1/r2", "1/r3"}));
-	par->addParam(cLight::Name("file_texture", lightId), QString("superDuperLightTexture.jpg"),
+	par->addParam(cLight::Name("file_texture", lightId),
+		QDir::toNativeSeparators(
+			systemDirectories.sharedDir + "textures" + QDir::separator() + "water_caustics.jpg"),
 		morphLinear, paramStandard);
 
 	par->addParam(cLight::Name("repeat_texture", lightId), false, morphNone, paramStandard);
