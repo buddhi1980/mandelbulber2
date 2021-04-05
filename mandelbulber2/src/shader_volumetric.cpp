@@ -469,7 +469,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (miniStep < step * 0.001) miniStep = step * 0.001;
 
 						double r2 = lightDist / lightSize;
-						double bellFunction = 1.0 / (1.0 + pow(r2, double((light->decayFunction + 1) * 2)));
+
+						double bellFunction;
+						if (light->type == cLight::lightConical)
+						{
+							bellFunction = 1.0 / (0.01 + pow(r2, double((light->decayFunction + 1) * 2)));
+						}
+						else
+						{
+							bellFunction = 1.0 / (1.0 + pow(r2, double((light->decayFunction + 1) * 2)));
+						}
 
 						CVector3 lightDirection = lightDistVect;
 						lightDirection.Normalize();

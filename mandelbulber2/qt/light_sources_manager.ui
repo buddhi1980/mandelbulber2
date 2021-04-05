@@ -74,7 +74,7 @@ light</string>
      <item>
       <widget class="QPushButton" name="pushButton_placeLight">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Place a light source using the mouse pointer.&lt;/p&gt;&lt;p&gt;Light position (for  selected light tab) can be manipulated in following ways:&lt;/p&gt;&lt;p&gt;- left mouse button click on the image places light in front of selected point (offset by placement distance.)  Placement distance from the selected point can be adjusted using mouse wheel + alt key.&lt;/p&gt;&lt;p&gt;- move light by dragging the mouse pointer while holding left mouse button. Moves light while maintaining placement distance&lt;/p&gt;&lt;p&gt;- rotating mouse wheel while holding control key moves light forward/backward&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Place a light source using the mouse pointer.&lt;/p&gt;&lt;p&gt;Light position (for selected light tab) can be manipulated in following ways:&lt;/p&gt;&lt;p&gt;- mouse click on the image places light in front of selected point (offset by placement distance.) Placement distance from the selected point can be adjusted using mouse wheel + alt key.&lt;/p&gt;&lt;p&gt;- move light by dragging the mouse pointer while holding left mouse button. Moves light while maintaining placement distance&lt;/p&gt;&lt;p&gt;- rotating mouse wheel while holding control key moves light forward/backward&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Place/move
