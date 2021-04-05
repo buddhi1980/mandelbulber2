@@ -233,6 +233,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinianMod2());
 	fractalList->append(new cFractalPseudoKleinianMod4());
 
+
+
 	// ----- custom DE - dIFS formulas------
 	fractalList->append(new cFractalDIFSBoxV1());
 	fractalList->append(new cFractalDIFSBoxDiagonalV1());
@@ -485,6 +487,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 	fractalList->append(new cFractalJosKleinianV4());
+	fractalList->append(new cFractalPseudoKleinianMod5());
 	//====================== FRACTAL LIST - END ==================
 
 	for (cAbstractFractal *fractal : newFractalList)

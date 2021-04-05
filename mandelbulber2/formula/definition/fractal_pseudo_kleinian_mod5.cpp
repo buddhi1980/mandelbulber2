@@ -14,11 +14,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalPseudoKleinianMod4::cFractalPseudoKleinianMod4() : cAbstractFractal()
+cFractalPseudoKleinianMod5::cFractalPseudoKleinianMod5() : cAbstractFractal()
 {
-	nameInComboBox = "Pseudo Kleinian - Mod 4";
-	internalName = "pseudo_kleinian_mod4";
-	internalID = fractal::pseudoKleinianMod4;
+	nameInComboBox = "Pseudo Kleinian - Mod 5";
+	internalName = "pseudo_kleinian_mod5";
+	internalID = fractal::pseudoKleinianMod5;
 	DEType = analyticDEType;
 	DEFunctionType = pseudoKleinianDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -27,10 +27,10 @@ cFractalPseudoKleinianMod4::cFractalPseudoKleinianMod4() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalPseudoKleinianMod4::FormulaCode(
+void cFractalPseudoKleinianMod5::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
+	//double colorAdd = 0.0;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -47,32 +47,68 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 	}
 
 	// box offset
-	if (aux.i >= fractal->transformCommon.startIterationsM
+	/*if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
 		z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
 		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
-	}
+	}*/
 
 	// Pseudo kleinian
-	double k = 0.0;
-	z = fabs(z + fractal->transformCommon.additionConstant0777)
-			- fabs(z - fractal->transformCommon.additionConstant0777) - z;
 
-	k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-	z *= k;
-	aux.DE *= k + fractal->analyticDE.tweak005;
+	if (fractal->transformCommon.functionEnabledCx)
+		z.x = z.x - fractal->transformCommon.additionConstant222.x
+			* round(z.x / fractal->transformCommon.additionConstant222.x);
+	if (fractal->transformCommon.functionEnabledCy)
+		z.y = z.y - fractal->transformCommon.additionConstant222.y
+			* round(z.y / fractal->transformCommon.additionConstant222.y);
+	if (fractal->transformCommon.functionEnabledCz)
+		z.z = z.z - fractal->transformCommon.additionConstant222.z
+			* round(z.z / fractal->transformCommon.additionConstant222.z);
+
+	if (fractal->transformCommon.functionEnabledCxFalse)
+		z.x = fabs(z.x + fractal->transformCommon.offset111.x)
+			- fabs(z.x - fractal->transformCommon.offset111.x) - z.x;
+	if (fractal->transformCommon.functionEnabledCyFalse)
+		z.y = fabs(z.y + fractal->transformCommon.offset111.y)
+			- fabs(z.y - fractal->transformCommon.offset111.y) - z.y;
+	if (fractal->transformCommon.functionEnabledCzFalse)
+		z.z = fabs(z.z + fractal->transformCommon.offset111.z)
+			- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
+
+	CVector4 lpN = fabs(z);
+	double pr = fractal->transformCommon.pwr4;
+	lpN.x = pow(lpN.x, pr);
+	lpN.y = pow(lpN.y, pr);
+	lpN.z = pow(lpN.z, pr);
+	double pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
+
+	pNorm = pow(pNorm, fractal->transformCommon.scale015);
+	pNorm = max(pNorm, fractal->transformCommon.offset02);
+	double r2 = fractal->transformCommon.scale1p1 / pNorm;
+	z *= r2;
+	aux.DE = aux.DE * r2;
+
+
+
+
+	//	double k = 0.0;
+//k = max(1.1 / pNorm, 1.0);
+	//k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+	//z *= k;
+	//aux.DE *= k + fractal->analyticDE.tweak005;
 
 	z += fractal->transformCommon.additionConstant000;
 
-	if (fractal->transformCommon.functionEnabledGFalse
+/*	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
 		z.x += aux.pos_neg * fractal->transformCommon.additionConstantA000.x;
 		z.y += aux.pos_neg * fractal->transformCommon.additionConstantA000.y;
 		z.z += aux.pos_neg * fractal->transformCommon.additionConstantA000.z;
+
 		aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 	}
 
@@ -126,12 +162,53 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 					z.y = foldY - fabs(z.y + foldY);
 	}
 
+
+
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
-	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;*/
 
-	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
-	// color
+	double len = z.Length();
+
+	/*if (fractal->transformCommon.functionEnabledDFalse)
+	{ // if (fractal->transformCommon.spheresEnabled)
+		z.z = min(z.z, fractal->transformCommon.foldingValue - z.z);
+	}*/
+
+	/*if (aux->i >= fractal->transformCommon.startIterationsG)
+	{
+		aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
+							/ max(aux->DE, fractal->analyticDE.offset1);
+	}	*/
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+		z *= k;
+		aux.DE *= k;
+	}
+
+	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
+
+	 len = z.Length();
+	if (!fractal->transformCommon.functionEnabledBFalse)
+	//&& aux->i >= fractal->transformCommon.startIterationsB
+	//&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		aux.DE0 = len / aux.DE;
+		//	aux->dist = min(z.z, aux->DE0);
+	}
+	else
+	{
+		double rxy = sqrt(z.x * z.x + z.y * z.y);
+		aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
+	}
+
+	aux.dist = aux.DE0;
+
+	//aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
+	//aux.dist = z.Length() / aux.DE;
+/*	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
@@ -140,5 +217,5 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.w * k;
 
 		aux.color += colorAdd;
-	}
+	}*/
 }

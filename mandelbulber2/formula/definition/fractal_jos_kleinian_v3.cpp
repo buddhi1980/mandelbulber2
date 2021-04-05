@@ -112,7 +112,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (z.y > z.x) swap(z.x, z.y);
 	}
 
-
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
@@ -194,7 +193,6 @@ void cFractalJosKleinianV3::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		colorAdd += fractal->foldColor.difs0000.y * max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
 		if (-z.x * z.y > 0.0) colorAdd += fractal->foldColor.difs0000.w;
-		//colorAdd += fractal->foldColor.difs1;
 
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			if (!fractal->transformCommon.functionEnabledMFalse)
