@@ -67,7 +67,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
 
 
-	CVector4 lpN = fabs(z);
+	REAL4 lpN = fabs(z);
 	REAL pr = fractal->transformCommon.pwr4;
 	lpN.x = pow(lpN.x, pr);
 	lpN.y = pow(lpN.y, pr);
