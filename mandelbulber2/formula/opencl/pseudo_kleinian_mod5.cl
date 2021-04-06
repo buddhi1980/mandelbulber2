@@ -78,14 +78,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 	REAL r2 = fractal->transformCommon.scale1p1 / pNorm;
 	z *= r2;
-	aux->DE = aux->DE * r2;
-
-
-
-
-	/*k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-	z *= k;
-	aux->DE *= k + fractal->analyticDE.tweak005;*/
+	aux->DE = aux->DE * r2 + fractal->analyticDE.tweak005;
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -155,18 +148,9 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 	*/
 
+	// DE options
+
 	REAL len = length(z);
-
-	/*if (fractal->transformCommon.functionEnabledDFalse)
-	{ // if (fractal->transformCommon.spheresEnabled)
-		len = min(len, fractal->transformCommon.foldingValue - len);
-	}*/
-
-	/*if (aux->i >= fractal->transformCommon.startIterationsG)
-	{
-		aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
-							/ max(aux->DE, fractal->analyticDE.offset1);
-	}	*/
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -175,27 +159,36 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->DE *= k;
 	}
 
-	aux->DE *= 1.0 + fractal->analyticDE.tweak005;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{ // if (fractal->transformCommon.spheresEnabled)
+		z.z = min(z.z, fractal->transformCommon.foldingValue - z.z);
+	}
 
+	// aux->DE *= 1.0 + fractal->analyticDE.tweak005;
+	len = length(z);
 
-	// len = length(z);
 	if (!fractal->transformCommon.functionEnabledBFalse)
-	//&& aux->i >= fractal->transformCommon.startIterationsB
-	//&& aux->i < fractal->transformCommon.stopIterationsB
 	{
-		aux->DE0= len / aux->DE;
-	//	aux->dist = min(z.z, aux->DE0);
+		if (!fractal->transformCommon.functionEnabledXFalse)
+		{
+			aux->DE0= len / aux->DE;
+			//aux->DE *= 1.0 + fractal->analyticDE.tweak005;
+		}
+		else
+		{
+			aux->dist = min(len + fractal->analyticDE.offset0,  fractal->transformCommon.offsetF0)
+					/ max(aux->DE, fractal->analyticDE.offset1);
+		}
 	}
 	else
 	{
 		REAL rxy = length(z.xy);
 		aux->DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux->DE;
 	}
-
 	aux->dist = aux->DE0;
 
-	//aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
-	//aux.dist = z.Length() / aux.DE;
+	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
+
 
 	// color
 	/*if (fractal->foldColor.auxColorEnabledFalse)

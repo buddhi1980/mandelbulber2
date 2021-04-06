@@ -47,16 +47,15 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	}
 
 	// box offset
-	/*if (aux.i >= fractal->transformCommon.startIterationsM
+	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
 		z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
 		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
-	}*/
+	}
 
 	// Pseudo kleinian
-
 	if (fractal->transformCommon.functionEnabledCx)
 		z.x = z.x - fractal->transformCommon.additionConstant222.x
 			* round(z.x / fractal->transformCommon.additionConstant222.x);
@@ -88,16 +87,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 	double r2 = fractal->transformCommon.scale1p1 / pNorm;
 	z *= r2;
-	aux.DE = aux.DE * r2;
-
-
-
-
-	//	double k = 0.0;
-//k = max(1.1 / pNorm, 1.0);
-	//k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-	//z *= k;
-	//aux.DE *= k + fractal->analyticDE.tweak005;
+	aux.DE = aux.DE * r2 + fractal->analyticDE.tweak005;
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -170,17 +160,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 	double len = z.Length();
 
-	/*if (fractal->transformCommon.functionEnabledDFalse)
-	{ // if (fractal->transformCommon.spheresEnabled)
-		z.z = min(z.z, fractal->transformCommon.foldingValue - z.z);
-	}*/
-
-	/*if (aux->i >= fractal->transformCommon.startIterationsG)
-	{
-		aux->dist = min(Ztemp + fractal->analyticDE.offset0, fractal->analyticDE.tweak005)
-							/ max(aux->DE, fractal->analyticDE.offset1);
-	}	*/
-
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
@@ -188,14 +167,27 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		aux.DE *= k;
 	}
 
-	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{ // if (fractal->transformCommon.spheresEnabled)
+		z.z = min(z.z, fractal->transformCommon.foldingValue - z.z);
+	}
+
+	// DE options
+	//aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
 	 len = z.Length();
 	if (!fractal->transformCommon.functionEnabledBFalse)
-	//&& aux->i >= fractal->transformCommon.startIterationsB
-	//&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
-		aux.DE0 = len / aux.DE;
+		if (!fractal->transformCommon.functionEnabledXFalse)
+		{
+			aux.DE0 = len / aux.DE;
+			// aux.DE *= 1.0 + fractal->analyticDE.tweak005;
+		}
+		else
+		{
+			aux.DE0 = min(len + fractal->analyticDE.offset0, fractal->transformCommon.offsetF0)
+							/ max(aux.DE, fractal->analyticDE.offset1);
+		}
 		//	aux->dist = min(z.z, aux->DE0);
 	}
 	else
@@ -206,8 +198,8 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 	aux.dist = aux.DE0;
 
-	//aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
-	//aux.dist = z.Length() / aux.DE;
+	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
+
 /*	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
