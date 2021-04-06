@@ -78,9 +78,9 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 
 	if (input.material->useColorsFromPalette && input.material->specularGradientEnable)
 	{
-		specular.R *= gradients->specular.R / 256.0;
-		specular.G *= gradients->specular.G / 256.0;
-		specular.B *= gradients->specular.B / 256.0;
+		specular.R *= gradients->specular.R;
+		specular.G *= gradients->specular.G;
+		specular.B *= gradients->specular.B;
 	}
 
 	float specularMax = dMax(specular.R, specular.G, specular.B);

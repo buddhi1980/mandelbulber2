@@ -1,13 +1,7 @@
 # Mandelbulber settings file
-# version 2.23
+# version 2.25
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 e800 8e00 3300;
-aux_light_enabled_1 true;
-aux_light_intensity_1 27,7361017687358;
-aux_light_position_1 -3,72679043801341 -1,60136545092347 0,195338051249349;
-aux_light_visibility 16;
-aux_light_visibility_size 0,03125;
 background_3_colors_enable false;
 background_brightness 2;
 basic_fog_color 8000 d700 ff00;
@@ -36,13 +30,14 @@ image_height 720;
 image_proportion 4;
 image_width 1280;
 keyframe_last_to_render 0;
-main_light_alpha -74,68;
-main_light_beta 17,06;
-main_light_colour ff00 ff00 ff00;
-main_light_enable false;
-main_light_intensity 4;
-main_light_position_relative false;
-main_light_volumetric_intensity 0,0625;
+light2_color e800 8e00 3300;
+light2_enabled true;
+light2_intensity 3,46701272109198;
+light2_is_defined true;
+light2_penetrating false;
+light2_position -3,72679043801341 -1,60136545092347 0,195338051249349;
+light2_size 0,0625;
+light2_visibility 16;
 mat1_is_defined true;
 mat1_surface_color c300 5300 1a00;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
@@ -51,7 +46,6 @@ mat2_is_defined true;
 mat2_surface_color 4200 4200 4200;
 mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat2_use_colors_from_palette false;
-penetrating_lights false;
 primitive_plane_1_enabled true;
 primitive_plane_1_material_id 2;
 primitive_plane_1_position 0 0 -1;

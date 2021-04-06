@@ -1,13 +1,7 @@
 # Mandelbulber settings file
-# version 2.23
+# version 2.25
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 e800 8e00 3300;
-aux_light_enabled_1 true;
-aux_light_intensity_1 55,4722035374716;
-aux_light_position_1 0 0 0;
-aux_light_visibility 4;
-aux_light_visibility_size 0,0625;
 background_3_colors_enable false;
 background_brightness 2;
 basic_fog_color 8000 d700 ff00;
@@ -16,10 +10,8 @@ camera 1,09715018594616 -3,25896863741439 3,38098768054407;
 camera_distance_to_target 4,04216013242353;
 camera_rotation 16,6675120209537 -43,0295746356248 0;
 camera_top -0,195717223281995 0,653705948820923 0,73100157386077;
-clouds_ambient_light 0,29;
 clouds_center 0,192667642033277 0,295076409822046 0;
 clouds_color ff00 ff00 ff00;
-clouds_DE_multiplier 0,5;
 clouds_density 0,195;
 clouds_detail_accuracy 2;
 clouds_enable true;
@@ -40,13 +32,21 @@ image_height 1080;
 image_proportion 4;
 image_width 1920;
 keyframe_last_to_render 0;
-main_light_alpha -74,68;
-main_light_beta 17,06;
-main_light_colour ff00 ff00 ff00;
-main_light_enable false;
-main_light_intensity 4;
-main_light_position_relative false;
-main_light_volumetric_intensity 0,0625;
+light1_color ff00 ff00 ff00;
+light1_enabled false;
+light1_intensity 4;
+light1_is_defined true;
+light1_penetrating false;
+light1_relative_position false;
+light1_rotation -74,68 17,06 0;
+light1_volumetric_visibility 0,0625;
+light2_color e800 8e00 3300;
+light2_enabled true;
+light2_intensity 13,8680508843679;
+light2_is_defined true;
+light2_position 0 0 0;
+light2_size 0,125;
+light2_visibility 4;
 mat1_is_defined true;
 mat1_surface_color 9600 3c00 1200;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
