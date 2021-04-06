@@ -176,7 +176,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		else
 		{
-			aux->dist = min(len + fractal->analyticDE.offset0,  fractal->transformCommon.offsetF0)
+			aux->dist = min(len + fractal->analyticDE.offset0, fractal->transformCommon.offset01)
 					/ max(aux->DE, fractal->analyticDE.offset1);
 		}
 	}
@@ -187,7 +187,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	aux->dist = aux->DE0;
 
-	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
+	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
 
 
 	// color

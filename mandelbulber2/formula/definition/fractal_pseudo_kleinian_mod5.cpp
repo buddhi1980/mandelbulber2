@@ -173,7 +173,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	}
 
 	// DE options
-	//aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
 	 len = z.Length();
 	if (!fractal->transformCommon.functionEnabledBFalse)
@@ -185,7 +184,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		}
 		else
 		{
-			aux.DE0 = min(len + fractal->analyticDE.offset0, fractal->transformCommon.offsetF0)
+			aux.DE0 = min(len + fractal->analyticDE.offset0, fractal->transformCommon.offset01)
 							/ max(aux.DE, fractal->analyticDE.offset1);
 		}
 		//	aux->dist = min(z.z, aux->DE0);
