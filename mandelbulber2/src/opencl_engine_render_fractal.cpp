@@ -250,6 +250,8 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_normal_map_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_roughness_texture.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_fresnel.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_env_mapping.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_object.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_volumetric.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_global_illumination.cl");
@@ -634,7 +636,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		definesCollector += " -DCLOUDS";
 		anyVolumetricShaderUsed = true;
 
-		if(paramRender->cloudsCastShadows)
+		if (paramRender->cloudsCastShadows)
 		{
 			definesCollector += " -DCLOUDSSHADOWS";
 		}
@@ -683,6 +685,11 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	if (paramRender->antialiasingEnabled && !paramRender->DOFMonteCarlo)
 	{
 		definesCollector += " -DANTIALIASING";
+	}
+
+	if (paramRender->envMappingEnable)
+	{
+		definesCollector += " -DUSE_ENV_MAPPING";
 	}
 }
 

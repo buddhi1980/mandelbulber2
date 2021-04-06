@@ -45,27 +45,6 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 fillLight = consts->params.fillLightColor;
 
-	//	if (consts->params.mainLightEnable)
-	//	{
-	//		shade = MainShading(input);
-	//		shade = consts->params.mainLightIntensity
-	//						* ((float3)1.0f - input->material->shading + input->material->shading * shade);
-	//
-	//#ifdef SHADOWS
-	//		if (consts->params.shadow)
-	//		{
-	//			shadow = MainShadow(consts, renderData, input, calcParam);
-	//			if (consts->params.allPrimitivesInvisibleAlpha)
-	//			{
-	//				if (input->objectId >= 9) // if not fractal
-	//				{
-	//					*alphaOut = 1.0f - (shadow.s0 + shadow.s1 + shadow.s2) / 3.0f;
-	//				}
-	//			}
-	//		}
-	//#endif
-	//	}
-
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam, gradients);
 
 #ifdef USE_TEXTURES
@@ -75,19 +54,6 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	surfaceColor *= input->texColor * texColInt + texColIntN;
 #endif
 #endif
-
-	//	if (consts->params.mainLightEnable)
-	//	{
-	//		specular =
-	//			SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor, gradients);
-	//
-	//#ifdef USE_SPECULAR_GRADIENT
-	//		if (input->material->useColorsFromPalette && input->material->specularGradientEnable)
-	//		{
-	//			specular *= gradients->specular;
-	//		}
-	//#endif
-	//	}
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
@@ -100,6 +66,20 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 		AO *= consts->params.ambientOcclusion * consts->params.ambientOcclusionColor;
 	}
+
+	float3 envMapping = 0.0f;
+#ifdef USE_ENV_MAPPING
+	if (consts->params.envMappingEnable)
+	{
+		envMapping = EnvMappingShader(consts, renderData, input);
+		envMapping *= input->material->reflectance;
+#ifdef USE_TEXTURES
+#ifdef USE_DIFFUSION_TEXTURE
+		envMapping *= input->texDiffuse;
+#endif
+#endif
+	}
+#endif
 
 	float3 auxLights = 0.0f;
 	float3 auxSpecular = 0.0f;
@@ -145,7 +125,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 #endif
 
-	color = surfaceColor * (fillLight + auxLights + fakeLights + AO) + totalSpecular + luminosity;
+	color = surfaceColor * (fillLight + auxLights + fakeLights + AO) + envMapping + totalSpecular
+					+ luminosity;
 	*outSpecular = totalSpecular;
 
 	*outSurfaceColor = surfaceColor;

@@ -102,32 +102,6 @@ float3 ReflectionVector(const float3 normal, const float3 incident)
 }
 #endif
 
-#ifdef USE_REFRACTION
-float3 RefractVector(const float3 normal, const float3 incident, float n1, float n2)
-{
-	const float n = n1 / n2;
-	const float cosI = -dot(normal, incident);
-	const float sinT2 = n * n * (1.0f - cosI * cosI);
-	if (sinT2 > 1.0f) return (float3){0.0f, 0.0f, 0.0f}; // total internal reflection
-	const float cosT = sqrt(1.0f - sinT2);
-	return incident * n + normal * (n * cosI - cosT);
-}
-#endif
-
-#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
-float Reflectance(const float3 normal, const float3 incident, float n1, float n2)
-{
-	const float n = n1 / n2;
-	const float cosI = -dot(normal, incident);
-	const float sinT2 = n * n * (1.0f - cosI * cosI);
-	if (sinT2 > 1.0f) return 1.0f; // total internal reflection
-	const float cosT = sqrt(1.0f - sinT2);
-	const float r0rth = (n1 * cosI - n2 * cosT) / (n1 * cosI + n2 * cosT);
-	const float rPar = (n2 * cosI - n1 * cosT) / (n2 * cosI + n1 * cosT);
-	return (r0rth * r0rth + rPar * rPar) / 2.0f;
-}
-#endif
-
 void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts,
 	sRenderData *renderData, int *randomSeed)
 {
