@@ -69,16 +69,14 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 envMapping = 0.0f;
 #ifdef USE_ENV_MAPPING
-	if (consts->params.envMappingEnable)
-	{
-		envMapping = EnvMappingShader(consts, renderData, input);
-		envMapping *= input->material->reflectance;
+	envMapping = EnvMappingShader(consts, renderData, input);
+	envMapping *= input->material->reflectance;
 #ifdef USE_TEXTURES
 #ifdef USE_DIFFUSION_TEXTURE
-		envMapping *= input->texDiffuse;
+	envMapping *= input->texDiffuse;
 #endif
 #endif
-	}
+
 #endif
 
 	float3 auxLights = 0.0f;

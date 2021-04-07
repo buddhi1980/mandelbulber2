@@ -687,7 +687,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		definesCollector += " -DANTIALIASING";
 	}
 
-	if (paramRender->envMappingEnable)
+	if (paramRender->envMappingEnable && renderEngineMode == clRenderEngineTypeFull)
 	{
 		definesCollector += " -DUSE_ENV_MAPPING";
 	}
