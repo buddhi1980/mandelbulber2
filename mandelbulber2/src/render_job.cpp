@@ -91,9 +91,6 @@ cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 		hasQWidget = false;
 	}
 
-	systemData.numberOfThreads = paramsContainer->Get<int>("limit_CPU_cores");
-	systemData.threadsPriority =
-		enumRenderingThreadPriority(paramsContainer->Get<int>("threads_priority"));
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = nullptr;
 	useSizeFromImage = false;

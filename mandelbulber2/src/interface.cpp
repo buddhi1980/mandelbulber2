@@ -291,6 +291,9 @@ void cInterface::ShowUi()
 	// change some default settings with keeping compatibility with older versions
 	StartupDefaultSettings();
 
+	systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
+	systemData.threadsPriority = enumRenderingThreadPriority(gPar->Get<int>("threads_priority"));
+
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateRecentSettings();
