@@ -727,47 +727,6 @@ offset:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="4" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
-          <property name="text">
-           <string notr="true">y</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
           <property name="text">
@@ -826,13 +785,6 @@ offset:</string>
           </property>
           <property name="text">
            <string>round:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="Line" name="line_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -904,40 +856,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx">
           <property name="text">
@@ -945,68 +863,267 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
-          <property name="text">
-           <string notr="true">x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_270">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>limit:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
-          <property name="text">
-           <string notr="true">z</string>
-          </property>
-         </widget>
-        </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_transf_function_enabledF_false">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="title">
+         <string>box fold&amp;</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_20">
+           <item row="0" column="3">
+            <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_F">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>250</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_255">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>stop at iteration:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_F">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>250</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_75">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>start at iteration:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,1">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item row="0" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
+             <property name="text">
+              <string notr="true">x</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
+             <property name="text">
+              <string notr="true">y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
+             <property name="text">
+              <string notr="true">z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_52">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>offset</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_274">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>limit:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1">
@@ -1078,7 +1195,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>pow 2:</string>
+           <string>pow A:</string>
           </property>
          </widget>
         </item>
@@ -1119,7 +1236,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>,2</string>
+           <string>limit:</string>
           </property>
          </widget>
         </item>
@@ -1132,14 +1249,14 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>pow 2:</string>
+           <string>pow B:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_43">
           <property name="text">
-           <string>scale 1.1</string>
+           <string>inv scale:</string>
           </property>
          </widget>
         </item>
@@ -2237,7 +2354,7 @@ offset:</string>
         <item row="4" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
           <property name="text">
-           <string notr="true">D</string>
+           <string notr="true">analyticDE fold</string>
           </property>
          </widget>
         </item>
@@ -2422,7 +2539,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>off D0</string>
+           <string>len offset:</string>
           </property>
          </widget>
         </item>
@@ -2601,6 +2718,13 @@ offset:</string>
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+     <property name="text">
+      <string notr="true">customDE  hybid aux,dist</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
       <string>aux color components</string>
@@ -2650,7 +2774,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_40">
           <property name="text">
-           <string>Size RR:</string>
+           <string>Size P:</string>
           </property>
          </widget>
         </item>
