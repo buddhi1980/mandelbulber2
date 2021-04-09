@@ -60,7 +60,8 @@ REAL4 TransfDIFSDiamondIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	REAL4 zc = z;
-
+	zc *= fractal->transformCommon.scale1;
+	aux->DE *= fractal->transformCommon.scale1;
 	REAL topCut = zc.z - fractal->transformCommon.offset1;
 	REAL angleStep = M_PI_F / (REAL)(fractal->transformCommon.int16);
 	REAL angle = angleStep * (0.5 + floor (atan2 (zc.x, zc.y) / angleStep));

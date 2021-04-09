@@ -70,9 +70,9 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-
 	CVector4 zc = z;
-
+	zc *= fractal->transformCommon.scale1;
+	aux.DE *= fractal->transformCommon.scale1;
 	double topCut = zc.z - fractal->transformCommon.offset1;
 	double angleStep = M_PI / double(fractal->transformCommon.int16);
 	double angle = angleStep * (0.5 + floor (atan2 (zc.x, zc.y) / angleStep));
@@ -101,7 +101,7 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	aux.DE0 = max (topCut, max (topA, max (topB, max (topC, max (bottomA, bottomB)))));
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = aux.DE0;
+		aux.dist = aux.DE0 / aux.DE;
 	else
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 

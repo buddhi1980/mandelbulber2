@@ -90,9 +90,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 	pNorm = fractal->transformCommon.scale1p1 / pNorm;
 	z *= pNorm;
-	aux.DE = aux.DE * pNorm;
-
-	z += fractal->transformCommon.additionConstant000;
+	aux.DE *= fabs(pNorm);
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
