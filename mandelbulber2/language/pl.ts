@@ -239,7 +239,7 @@
         <translation type="vanished">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
     <message>
-        <location filename="../qt/my_color_button.cpp" line="134"/>
+        <location filename="../qt/my_color_button.cpp" line="135"/>
         <source>Edit color: %1</source>
         <translation>Edycja koloru: %1</translation>
     </message>
@@ -297,17 +297,17 @@
 <context>
     <name>MyLineEdit</name>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="234"/>
+        <location filename="../qt/my_line_edit.cpp" line="239"/>
         <source>Copy vector</source>
         <translation>Kopiuj wektor</translation>
     </message>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="235"/>
+        <location filename="../qt/my_line_edit.cpp" line="240"/>
         <source>Paste vector</source>
         <translation>Wklej wektor</translation>
     </message>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="236"/>
+        <location filename="../qt/my_line_edit.cpp" line="241"/>
         <source>Reset vector to default</source>
         <translation>Zresetuj wektor</translation>
     </message>
@@ -516,34 +516,34 @@
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="88"/>
+        <location filename="../src/error_message.cpp" line="95"/>
         <source>Mandelbulber warning</source>
         <translation>Ostrzeżenie Mandelbulbera</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="93"/>
+        <location filename="../src/error_message.cpp" line="100"/>
         <source>Mandelbulber error</source>
         <translation>Błąd Mandelbulbera</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="98"/>
+        <location filename="../src/error_message.cpp" line="105"/>
         <source>Mandelbulber information</source>
         <translation>Informacja Mandelbulbera</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="111"/>
+        <location filename="../src/error_message.cpp" line="118"/>
         <source>
 Warning: </source>
         <translation>Ostrzeżenie: </translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="118"/>
+        <location filename="../src/error_message.cpp" line="125"/>
         <source>
 Error: </source>
         <translation>Błąd: </translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="124"/>
+        <location filename="../src/error_message.cpp" line="131"/>
         <source>
 Note: </source>
         <translation>Uwaga: </translation>
@@ -600,7 +600,7 @@ Note: </source>
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2141"/>
+        <location filename="../src/interface.cpp" line="2311"/>
         <source>Can&apos;t open file </source>
         <translation>Nie można otworzyć pliku</translation>
     </message>
@@ -609,13 +609,13 @@ Note: </source>
         <translation type="vanished"> Plik ui nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="565"/>
+        <location filename="../src/interface.cpp" line="570"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>Nie można zainicjować renderowania. Zobacz log aby uzyskać więcej informacji.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="982"/>
-        <location filename="../src/interface.cpp" line="1105"/>
+        <location filename="../src/interface.cpp" line="987"/>
+        <location filename="../src/interface.cpp" line="1110"/>
         <source>You cannot apply changes during rendering. You will do this after rendering.</source>
         <translation>Nie możesz nanosić zmian podczas rendowania. Zrobisz to później po renderowaniu.</translation>
     </message>
@@ -624,13 +624,13 @@ Note: </source>
         <translation type="vanished">Reset widoku</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1823"/>
+        <location filename="../src/interface.cpp" line="1993"/>
         <source>Fractal size calculation</source>
         <translation>Obliczanie wielkości fraktala</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1858"/>
-        <location filename="../src/interface.cpp" line="2015"/>
+        <location filename="../src/interface.cpp" line="2028"/>
+        <location filename="../src/interface.cpp" line="2185"/>
         <source>Done</source>
         <translation>Gotowe</translation>
     </message>
@@ -745,54 +745,54 @@ Note: </source>
         <translation>Nie dodawaj globalnej stałej C</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1026"/>
+        <location filename="../src/interface.cpp" line="1031"/>
         <source>Not enough free memory in OpenCL device to render SSAO effect!</source>
         <translation>Nie wystarczająca ilość pamięci w urządzeniu OpenCL do zrenderowania efektu SSAO!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1822"/>
-        <location filename="../src/interface.cpp" line="1858"/>
+        <location filename="../src/interface.cpp" line="1992"/>
+        <location filename="../src/interface.cpp" line="2028"/>
         <source>Resetting view</source>
         <translation>Resetowanie widoku</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1953"/>
-        <location filename="../src/interface.cpp" line="1962"/>
-        <location filename="../src/interface.cpp" line="1971"/>
-        <location filename="../src/interface.cpp" line="1980"/>
-        <location filename="../src/interface.cpp" line="1989"/>
-        <location filename="../src/interface.cpp" line="1998"/>
-        <location filename="../src/interface.cpp" line="2015"/>
+        <location filename="../src/interface.cpp" line="2123"/>
+        <location filename="../src/interface.cpp" line="2132"/>
+        <location filename="../src/interface.cpp" line="2141"/>
+        <location filename="../src/interface.cpp" line="2150"/>
+        <location filename="../src/interface.cpp" line="2159"/>
+        <location filename="../src/interface.cpp" line="2168"/>
+        <location filename="../src/interface.cpp" line="2185"/>
         <source>bounding box as limit</source>
         <translation>Otaczający prostopadłościan jako ograniczenie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1953"/>
+        <location filename="../src/interface.cpp" line="2123"/>
         <source>Negative X Limit</source>
         <translation>Ograniczenie dla ujemnych X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1962"/>
+        <location filename="../src/interface.cpp" line="2132"/>
         <source>Negative Y Limit</source>
         <translation>Ograniczenie dla ujemnych Y</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1971"/>
+        <location filename="../src/interface.cpp" line="2141"/>
         <source>Negative Z Limit</source>
         <translation>Ograniczenie dla ujemnych X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1980"/>
+        <location filename="../src/interface.cpp" line="2150"/>
         <source>Positive X Limit</source>
         <translation>Ograniczenie dla dodatnich X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1989"/>
+        <location filename="../src/interface.cpp" line="2159"/>
         <source>Positive Y Limit</source>
         <translation>Ograniczenie dla dodatnich Y</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1998"/>
+        <location filename="../src/interface.cpp" line="2168"/>
         <source>Positive Z Limit</source>
         <translation>Ograniczenie dla dodatnich Z</translation>
     </message>
@@ -805,7 +805,7 @@ Note: </source>
         <translation type="vanished">Skasuj </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2064"/>
+        <location filename="../src/interface.cpp" line="2234"/>
         <source>Set position of
 %1 # %2
 by mouse pointer</source>
@@ -814,94 +814,95 @@ by mouse pointer</source>
 wskaźnikiem myszy</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2070"/>
+        <location filename="../src/interface.cpp" line="2240"/>
         <source>Delete
 </source>
         <translation>Usuń
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2077"/>
+        <location filename="../src/interface.cpp" line="2247"/>
         <source>Align rotation to camera</source>
         <translation>Dopasuj obrót do kamery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2142"/>
+        <location filename="../src/interface.cpp" line="2312"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation> Plik ui prymitywu nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2223"/>
+        <location filename="../src/interface.cpp" line="2393"/>
         <source>No action</source>
         <translation>Brak akcji</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2227"/>
+        <location filename="../src/interface.cpp" line="2397"/>
         <source>Move the camera</source>
         <translation>Przesuń kamerę</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2231"/>
+        <location filename="../src/interface.cpp" line="2401"/>
         <source>Set fog visibility</source>
         <translation>Ustaw widoczność mgły</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2235"/>
+        <location filename="../src/interface.cpp" line="2405"/>
         <source>Set DOF focus</source>
         <translation>Ustaw głębię ostrości</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2239"/>
+        <location filename="../src/interface.cpp" line="2409"/>
         <source>Get Julia constant</source>
         <translation>Pobierz stałą Julia</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2244"/>
         <source>Place light #1</source>
-        <translation>Umieść światło #1</translation>
+        <translation type="vanished">Umieść światło #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2249"/>
         <source>Place light #2</source>
-        <translation>Umieść światło #2</translation>
+        <translation type="vanished">Umieść światło #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2254"/>
         <source>Place light #3</source>
-        <translation>Umieść światło #3</translation>
+        <translation type="vanished">Umieść światło #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2259"/>
         <source>Place light #4</source>
-        <translation>Umieść światło #4</translation>
+        <translation type="vanished">Umieść światło #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2263"/>
+        <location filename="../src/interface.cpp" line="2418"/>
+        <source>Place light #%1</source>
+        <translation>Umieść światło #%1</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="2423"/>
         <source>Place random light center</source>
         <translation>Umieść centrum losowych świateł</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2267"/>
+        <location filename="../src/interface.cpp" line="2427"/>
         <source>Get point coordinates</source>
         <translation>Pobierz współrzędne punktu</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2271"/>
+        <location filename="../src/interface.cpp" line="2431"/>
         <source>Wrap Limits around object</source>
         <translation>Dopasowanie granic do obiektu</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2280"/>
+        <location filename="../src/interface.cpp" line="2440"/>
         <source>Place </source>
         <translation>Umieść </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2317"/>
+        <location filename="../src/interface.cpp" line="2477"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Tak, ale już więcej nie pytaj</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2409"/>
+        <location filename="../src/interface.cpp" line="2570"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
@@ -910,28 +911,28 @@ Zamiast trzymać wszystkie pliki i foldery robocze w ~/.mandelbulber, są one te
 Czy chcesz teraz zaktualizować na nową strukturę plików? Program zostanie zrestartowany po aktualizacji.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2419"/>
+        <location filename="../src/interface.cpp" line="2580"/>
         <source>Data folder upgrade</source>
         <translation>Aktualizacja folderów danych</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2424"/>
+        <location filename="../src/interface.cpp" line="2585"/>
         <source>No, don&apos;t ask again</source>
         <translation>Nie pytaj ponownie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2517"/>
-        <location filename="../src/interface.cpp" line="2562"/>
+        <location filename="../src/interface.cpp" line="2678"/>
+        <location filename="../src/interface.cpp" line="2723"/>
         <source>Looking for optimal DE factor</source>
         <translation>Poszukiwanie optymalnego współczynnika estymacji dystansu</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2563"/>
+        <location filename="../src/interface.cpp" line="2724"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Procent nieprawidłowych estymacji dystansu: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2573"/>
+        <location filename="../src/interface.cpp" line="2734"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optymalny współczynnik estymacji dystansu wynosi %1 i daje %2% nieprawidłowych estymacji</translation>
     </message>
@@ -941,27 +942,27 @@ Czy chcesz teraz zaktualizować na nową strukturę plików? Program zostanie zr
         <translation>Dodawaj globalną stałą C</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="480"/>
+        <location filename="../src/render_window_slots.cpp" line="489"/>
         <source>Toolbar settings: </source>
         <translation>Plik ustawień:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2310"/>
+        <location filename="../src/interface.cpp" line="2470"/>
         <source>Are you sure to close the application?</source>
         <translation>Czy jesteś pewny, że chcesz zamknąć aplikację?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2312"/>
+        <location filename="../src/interface.cpp" line="2472"/>
         <source>Quit?</source>
         <translation>Wyjść?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2374"/>
+        <location filename="../src/interface.cpp" line="2534"/>
         <source>Auto recovery</source>
         <translation>Auto odzyskiwanie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2375"/>
+        <location filename="../src/interface.cpp" line="2535"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Aplikacja nie została poprawnie zamknięta
@@ -1017,125 +1018,126 @@ Czy chcesz odzyskać swoją ostatnią pracę?</translation>
     </message>
     <message>
         <location filename="../src/render_image.cpp" line="160"/>
-        <location filename="../src/render_job.cpp" line="354"/>
+        <location filename="../src/render_job.cpp" line="352"/>
         <source>Rendering image</source>
         <translation>Renderowanie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2572"/>
-        <location filename="../src/render_image.cpp" line="518"/>
-        <location filename="../src/render_ssao.cpp" line="206"/>
+        <location filename="../src/interface.cpp" line="2733"/>
+        <location filename="../src/render_image.cpp" line="522"/>
+        <location filename="../src/render_ssao.cpp" line="207"/>
         <source>Idle</source>
         <translation>Bezczynność</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="157"/>
-        <location filename="../src/render_job.cpp" line="294"/>
+        <location filename="../src/render_job.cpp" line="154"/>
+        <location filename="../src/render_job.cpp" line="291"/>
         <source>Initialization</source>
         <translation>Inicjowanie</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="157"/>
+        <location filename="../src/render_job.cpp" line="154"/>
         <source>Setting up image buffers</source>
         <translation>Przygotowywanie buforów dla obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="294"/>
+        <location filename="../src/render_job.cpp" line="291"/>
         <source>Loading textures</source>
         <translation>Wczytywanie tekstur</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="354"/>
+        <location filename="../src/render_job.cpp" line="352"/>
         <source>Starting rendering of image</source>
         <translation>Rozpoczynanie renderowania obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_ssao.cpp" line="188"/>
+        <location filename="../src/render_ssao.cpp" line="189"/>
         <source>Rendering SSAO effect in progress</source>
         <translation>Renderowanie efektu SSAO w toku</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="430"/>
+        <location filename="../src/settings.cpp" line="431"/>
         <source>It&apos;s not valid Mandelbulber settings file. No header</source>
         <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak nagłówka</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="435"/>
+        <location filename="../src/settings.cpp" line="436"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong header</source>
         <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Niewłaściwy nagłówek</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="441"/>
+        <location filename="../src/settings.cpp" line="442"/>
         <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
         <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak informacji o numerze wersji</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="450"/>
+        <location filename="../src/settings.cpp" line="451"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong file version number</source>
         <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Niewłaściwy numer wersji</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="453"/>
+        <location filename="../src/settings.cpp" line="454"/>
         <source>File was saved in newer version of Mandelbulber
 File version: </source>
         <translation>Plik został zapisany w nowszej wersji Mandelbulbera
 Wersja pliku: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="471"/>
+        <location filename="../src/settings.cpp" line="472"/>
         <source>It&apos;s not valid Mandelbulber settings file. Format not specified in the header</source>
         <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Format nie został wyspecyfikowany w nagłówku</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="671"/>
-        <location filename="../src/settings.cpp" line="723"/>
+        <location filename="../src/settings.cpp" line="713"/>
+        <location filename="../src/settings.cpp" line="765"/>
         <source>Error in settings file. Line: </source>
         <translation>Błąd w pliku z ustawieniami. Linia: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="681"/>
-        <location filename="../src/settings.cpp" line="732"/>
+        <location filename="../src/settings.cpp" line="723"/>
+        <location filename="../src/settings.cpp" line="774"/>
         <source>Too many errors in settings file</source>
         <translation>Zbyt dużo błędów w pliku z ustawieniami</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="831"/>
-        <location filename="../src/settings.cpp" line="861"/>
+        <location filename="../src/settings.cpp" line="875"/>
+        <location filename="../src/settings.cpp" line="899"/>
+        <location filename="../src/settings.cpp" line="929"/>
         <source>Unknown parameter: </source>
         <translation>Nieznany parametr: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="874"/>
+        <location filename="../src/settings.cpp" line="942"/>
         <source>Missing value for parameter %1</source>
         <translation>Brakuje wartości dla parametru %1</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1243"/>
+        <location filename="../src/settings.cpp" line="1465"/>
         <source>Missing column &apos;frame&apos; in list of animation frames</source>
         <translation>Brakuje kolumny &apos;frame&apos; na liście klatek animacji</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1327"/>
+        <location filename="../src/settings.cpp" line="1549"/>
         <source>Unknown parameter in animation frames: </source>
         <translation>Nieznany parametr na liście klatek animacji: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1333"/>
+        <location filename="../src/settings.cpp" line="1555"/>
         <source>No valid list of parameters for animation frames</source>
         <translation>Brak prawidłowej listy parametrów dla klatek animacji</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1382"/>
+        <location filename="../src/settings.cpp" line="1604"/>
         <source>Wrong number of interpolation columns</source>
         <translation>Nieprawidłowa ilość interpolowanych kolumn</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1446"/>
+        <location filename="../src/settings.cpp" line="1668"/>
         <source>Missing frame no </source>
         <translation>Brakuje klatki nr </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1451"/>
+        <location filename="../src/settings.cpp" line="1673"/>
         <source>Wrong number of columns</source>
         <translation>Nieprawidłowa liczba kolumn</translation>
     </message>
@@ -1147,35 +1149,35 @@ Wersja pliku: </translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="235"/>
+        <location filename="../src/texture.cpp" line="229"/>
         <source>Can&apos;t load texture from QByteArray!
 </source>
         <translation>Nie mogę załadować tekstury z QByteArray!</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="168"/>
+        <location filename="../src/undo.cpp" line="175"/>
         <source>Missing undo data in disk cache</source>
         <translation>Brak danych przywracania na dysku</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="194"/>
+        <location filename="../src/undo.cpp" line="201"/>
         <source>No more undo</source>
         <translation>Nie ma więcej cofnięć</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="233"/>
+        <location filename="../src/undo.cpp" line="240"/>
         <source>No more redo</source>
         <translation>Nie ma więcej przywróceń</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="227"/>
-        <location filename="../src/animation_keyframes.cpp" line="333"/>
+        <location filename="../src/animation_keyframes.cpp" line="334"/>
         <source>No frames to render</source>
         <translation>Brak klatek do zrenderowania</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="233"/>
-        <location filename="../src/animation_keyframes.cpp" line="339"/>
+        <location filename="../src/animation_keyframes.cpp" line="340"/>
         <source>The folder %1 does not exist. Please specify a valid location.</source>
         <translation>Folder %1 nie istnieje. Proszę wprowadzić prawidłową ścieżkę.</translation>
     </message>
@@ -1188,8 +1190,8 @@ Wersja pliku: </translation>
         <location filename="../src/animation_flight.cpp" line="262"/>
         <location filename="../src/animation_flight.cpp" line="836"/>
         <location filename="../src/animation_flight.cpp" line="1418"/>
-        <location filename="../src/animation_keyframes.cpp" line="693"/>
-        <location filename="../src/animation_keyframes.cpp" line="1269"/>
+        <location filename="../src/animation_keyframes.cpp" line="694"/>
+        <location filename="../src/animation_keyframes.cpp" line="1270"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Spowoduje to usunięcie z folderu wszystkich wcześniej zrenderowanych klatek.
@@ -1203,7 +1205,7 @@ Kontynuować?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="288"/>
         <location filename="../src/animation_flight.cpp" line="995"/>
-        <location filename="../src/interface.cpp" line="2460"/>
+        <location filename="../src/interface.cpp" line="2621"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Silnik renderowania jest zajęty. Zatrzymaj wcześniej uruchomione renderowanie zanim zaczniesz nowe</translation>
     </message>
@@ -1220,14 +1222,14 @@ Kontynuować?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="830"/>
         <location filename="../src/animation_flight.cpp" line="1417"/>
-        <location filename="../src/animation_keyframes.cpp" line="688"/>
-        <location filename="../src/animation_keyframes.cpp" line="1268"/>
+        <location filename="../src/animation_keyframes.cpp" line="689"/>
+        <location filename="../src/animation_keyframes.cpp" line="1269"/>
         <source>Truncate Image Folder</source>
         <translation>Opróżnianie folderu z animacją</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="832"/>
-        <location filename="../src/animation_keyframes.cpp" line="690"/>
+        <location filename="../src/animation_keyframes.cpp" line="691"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
@@ -1254,38 +1256,38 @@ Czy chcesz opróżnić folder z klatkami animacji?
     <message>
         <location filename="../src/animation_flight.cpp" line="1132"/>
         <location filename="../src/animation_flight.cpp" line="1135"/>
-        <location filename="../src/animation_keyframes.cpp" line="1002"/>
-        <location filename="../src/animation_keyframes.cpp" line="1006"/>
+        <location filename="../src/animation_keyframes.cpp" line="1003"/>
+        <location filename="../src/animation_keyframes.cpp" line="1007"/>
         <source>Animation finished</source>
         <translation>Animacja ukończona</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1151"/>
-        <location filename="../src/animation_keyframes.cpp" line="1021"/>
+        <location filename="../src/animation_keyframes.cpp" line="1022"/>
         <source>Rendering terminated</source>
         <translation>Renderowanie przerwane</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1152"/>
-        <location filename="../src/animation_keyframes.cpp" line="1022"/>
+        <location filename="../src/animation_keyframes.cpp" line="1023"/>
         <source>Error occured, see log output</source>
         <translation>Wystąpił błąd. Sprawdź plik dziennika (mandelbulber_log.txt)</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1217"/>
-        <location filename="../src/animation_keyframes.cpp" line="1089"/>
+        <location filename="../src/animation_keyframes.cpp" line="1090"/>
         <source>Refreshing animation</source>
         <translation>Odświeżanie animacji</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1319"/>
-        <location filename="../src/animation_keyframes.cpp" line="1167"/>
+        <location filename="../src/animation_keyframes.cpp" line="1168"/>
         <source>Animation Image Folder</source>
         <translation>Folder na klatki animacji</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1322"/>
-        <location filename="../src/animation_keyframes.cpp" line="1170"/>
+        <location filename="../src/animation_keyframes.cpp" line="1171"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wybór folderu na klatki animacji</translation>
     </message>
@@ -1328,8 +1330,8 @@ Is there already a mandelbulber server instance running on this port?</source>
  Adres klienta: </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="259"/>
-        <location filename="../src/animation_keyframes.cpp" line="277"/>
+        <location filename="../src/animation_keyframes.cpp" line="260"/>
+        <location filename="../src/animation_keyframes.cpp" line="278"/>
         <source>No keyframe selected</source>
         <translation>Klatka kluczowa nie wybrana</translation>
     </message>
@@ -1340,58 +1342,58 @@ Is there already a mandelbulber server instance running on this port?</source>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="783"/>
-        <location filename="../src/animation_keyframes.cpp" line="610"/>
+        <location filename="../src/animation_keyframes.cpp" line="611"/>
         <source>There is no frame to render: first frame to render and last frame to render are equals.</source>
         <translation>Nie ma klatek do zrenderowania. Numer pierwszej i ostatniej jest taki sam. </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="648"/>
-        <location filename="../src/animation_keyframes.cpp" line="1572"/>
+        <location filename="../src/animation_keyframes.cpp" line="649"/>
+        <location filename="../src/animation_keyframes.cpp" line="1573"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Kamera koliduje z fraktalem na następujących klatkach:
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="833"/>
+        <location filename="../src/animation_keyframes.cpp" line="834"/>
         <source>Rendering animation</source>
         <translation>Renderowanie animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="834"/>
+        <location filename="../src/animation_keyframes.cpp" line="835"/>
         <source>Frame %1 of %2 (key %3)</source>
         <translation>Klatka %1 z %2 (kluczowa %3)</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="846"/>
+        <location filename="../src/animation_keyframes.cpp" line="847"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting rendering animation</source>
         <translation>Silnik renderowania jest zajęty. Zatrzymaj wcześniej uruchomione renderowanie zanim zaczniesz renderować animację</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1448"/>
+        <location filename="../src/animation_keyframes.cpp" line="1449"/>
         <source>Export keyframes to flight</source>
         <translation>Eksport klatek kluczowych do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1449"/>
+        <location filename="../src/animation_keyframes.cpp" line="1450"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Istnieją już zdefiniowane klatki animacji lotu.
 Czy usunąć istniejące klatki?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1472"/>
+        <location filename="../src/animation_keyframes.cpp" line="1473"/>
         <source>Exporting</source>
         <translation>Eksportowanie</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1526"/>
-        <location filename="../src/animation_keyframes.cpp" line="1546"/>
+        <location filename="../src/animation_keyframes.cpp" line="1527"/>
+        <location filename="../src/animation_keyframes.cpp" line="1547"/>
         <source>Checking for collisions</source>
         <translation>Sprawdzanie kolizji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1527"/>
+        <location filename="../src/animation_keyframes.cpp" line="1528"/>
         <source>Checking for collisions on keyframe # %1</source>
         <translation>Sprawdzanie kolizji na klatce kluczowej # %1</translation>
     </message>
@@ -1404,7 +1406,7 @@ Czy usunąć istniejące klatki?</translation>
         <translation type="vanished">Sprawdzanie kolizji na klatce kluczowej # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1631"/>
+        <location filename="../src/animation_keyframes.cpp" line="1632"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Nie można zmienić odległości celu. Brakuje parametrów kamery w animacji</translation>
     </message>
@@ -1413,12 +1415,12 @@ Czy usunąć istniejące klatki?</translation>
         <translation type="vanished">Sprawdzanie kolizji na klatce kluczowej # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1547"/>
+        <location filename="../src/animation_keyframes.cpp" line="1548"/>
         <source>Checking for collisions finished</source>
         <translation>Sprawdzanie kolizji zakończone</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1577"/>
+        <location filename="../src/animation_keyframes.cpp" line="1578"/>
         <source>No collisions detected
 </source>
         <translation>Kolizji nie znaleziono</translation>
@@ -1444,22 +1446,22 @@ Czy usunąć istniejące klatki?</translation>
         <translation>OK, ale już więcej nie pytaj</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="749"/>
+        <location filename="../src/render_window_menu.cpp" line="755"/>
         <source>Settings saved to clipboard</source>
         <translation>Ustawienia zapisane w schowku</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="500"/>
+        <location filename="../src/render_window_menu.cpp" line="506"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Nie można wczytać ustawień ze schowka!</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="202"/>
+        <location filename="../qt/preferences_dialog.cpp" line="204"/>
         <source>Are you sure to clear the thumbnail cache?</source>
         <translation>Czy na pewno chcesz wyczyść bufor miniatur?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="203"/>
+        <location filename="../qt/preferences_dialog.cpp" line="205"/>
         <source>Are you sure to clear the thumbnail cache?
 There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
  Clear now?</source>
@@ -1468,29 +1470,29 @@ Aktualnie jest zbuforowane %1 miniatur. Zostaną one skasowane ale będą odtwor
 Czyścić teraz?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="224"/>
+        <location filename="../qt/preferences_dialog.cpp" line="226"/>
         <source>Are you sure to load the thumbnail cache from the server?</source>
         <translation>Czy na pewno chcesz pobrać miniatury z serwera?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="225"/>
+        <location filename="../qt/preferences_dialog.cpp" line="227"/>
         <source>This will try to load missing common thumbnails from the server.
 Proceed?</source>
         <translation>To spróbuje pobrać brakujące miniatury z serwera (mandelbulber.org)
 Czy wykonać?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="256"/>
+        <location filename="../qt/preferences_dialog.cpp" line="258"/>
         <source>Are you sure to generate all example thumbnail cache files?</source>
         <translation>Czy chcesz wygenerować miniatury do wszystkich przykładów?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="369"/>
+        <location filename="../qt/preferences_dialog.cpp" line="371"/>
         <source>Retrieve toolbar</source>
         <translation>Przywracanie paska narzędzi</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="370"/>
+        <location filename="../qt/preferences_dialog.cpp" line="372"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
@@ -1499,12 +1501,12 @@ To może spowodować nadpisanie niektórych istniejących ikon.
 Czy kontynuować?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="383"/>
+        <location filename="../qt/preferences_dialog.cpp" line="385"/>
         <source>Retrieve materials</source>
         <translation>Przywrócenie materiałów</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="384"/>
+        <location filename="../qt/preferences_dialog.cpp" line="386"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
@@ -1747,81 +1749,81 @@ List of fractal parameters:
         <translation>Nie można wczytać pliku!</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="960"/>
+        <location filename="../src/command_line_interface.cpp" line="966"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
         <translation>Podana rozdzielczość nie jest prawidłowa.
 Oba wymiary muszą być większe od zera.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="970"/>
+        <location filename="../src/command_line_interface.cpp" line="976"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
         <translation>Podana rozdzielczość nie jest prawidłową. Musi być w formacie SZEROKOŚĆxWYSOKOŚĆ</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="983"/>
+        <location filename="../src/command_line_interface.cpp" line="989"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
         <translation>Podana ilość klatek na klucz nie jest prawidłowa
 Musi być większa od zera</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="996"/>
+        <location filename="../src/command_line_interface.cpp" line="1002"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
         <translation>Podany imageFileFormat nie jest prawidłowy. Dopuszczalne formaty obrazu to: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1022"/>
+        <location filename="../src/command_line_interface.cpp" line="1028"/>
         <source>There are no flight animation frames in specified settings file</source>
         <translation>We wskazanym pliku z ustawieniami nie ma klatek z animacją lotu</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1033"/>
+        <location filename="../src/command_line_interface.cpp" line="1039"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
         <translation>Nie możesz jednocześnie renderować animacji z klatkami kluczowymi i animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1046"/>
+        <location filename="../src/command_line_interface.cpp" line="1052"/>
         <source>There are no keyframes in specified settings file</source>
         <translation>We wskazanym pliku z ustawieniami nie ma zdefiniowanych klatek kluczowych</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1066"/>
-        <location filename="../src/command_line_interface.cpp" line="1084"/>
-        <location filename="../src/command_line_interface.cpp" line="1115"/>
-        <location filename="../src/command_line_interface.cpp" line="1144"/>
+        <location filename="../src/command_line_interface.cpp" line="1072"/>
+        <location filename="../src/command_line_interface.cpp" line="1090"/>
+        <location filename="../src/command_line_interface.cpp" line="1121"/>
+        <location filename="../src/command_line_interface.cpp" line="1150"/>
         <source>Animation has only %1 frames</source>
         <translation>Animacja ma tylko %1 klatek</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1106"/>
-        <location filename="../src/command_line_interface.cpp" line="1136"/>
+        <location filename="../src/command_line_interface.cpp" line="1112"/>
+        <location filename="../src/command_line_interface.cpp" line="1142"/>
         <source>End frame has to be greater than start frame which is %1</source>
         <translation>Numer końcowej klatki musi być większy niż numer pierwszej klatki, który jest %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1158"/>
+        <location filename="../src/command_line_interface.cpp" line="1164"/>
         <source>Specified voxel format is not valid
 allowed formats are: </source>
         <translation>Podany format voxeli nie jest prawidłowy. Dopuszczalne formaty to: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1195"/>
-        <location filename="../src/command_line_interface.cpp" line="1233"/>
+        <location filename="../src/command_line_interface.cpp" line="1201"/>
+        <location filename="../src/command_line_interface.cpp" line="1239"/>
         <source>No opencl platforms found</source>
         <translation>Nie została znaleziona żadna platforma OpenCL</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1204"/>
-        <location filename="../src/command_line_interface.cpp" line="1242"/>
+        <location filename="../src/command_line_interface.cpp" line="1210"/>
+        <location filename="../src/command_line_interface.cpp" line="1248"/>
         <source>No opencl devices found</source>
         <translation>Nie znalezione żadne urządzenie OpenCL</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1213"/>
-        <location filename="../src/command_line_interface.cpp" line="1257"/>
+        <location filename="../src/command_line_interface.cpp" line="1219"/>
+        <location filename="../src/command_line_interface.cpp" line="1263"/>
         <source>Not compiled for opencl</source>
         <translation>Brak kompilatora OpenCL</translation>
     </message>
@@ -1831,7 +1833,7 @@ allowed formats are: </source>
         <translation>Musisz wyspecyfikować plik z ustawieniami dla tej konfiguracji!</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="589"/>
+        <location filename="../src/queue.cpp" line="595"/>
         <source>No queue items to render</source>
         <translation>Brak elementów do zrenderowania w kolejce</translation>
     </message>
@@ -1851,12 +1853,12 @@ allowed formats are: </source>
         <translation>Kolejka zrobiona</translation>
     </message>
     <message>
-        <location filename="../src/lights.cpp" line="171"/>
+        <location filename="../src/lights.cpp" line="189"/>
         <source>Positioning random lights</source>
         <translation>Rozmieszczanie losowych świateł</translation>
     </message>
     <message>
-        <location filename="../src/lights.cpp" line="172"/>
+        <location filename="../src/lights.cpp" line="190"/>
         <source>Positioned light %1 of %2</source>
         <translation>Rozmieszczone światło %1 z %2</translation>
     </message>
@@ -1881,7 +1883,7 @@ allowed formats are: </source>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="117"/>
-        <location filename="../src/command_line_interface.cpp" line="1170"/>
+        <location filename="../src/command_line_interface.cpp" line="1176"/>
         <source>Cannot start voxel export. Specified folder (%1) does not exist.</source>
         <translation>Nie można wystartować eksportu voxeli. Podany folder (%1) nie istnieje.</translation>
     </message>
@@ -1941,12 +1943,12 @@ allowed formats are: </source>
         <location filename="../src/opencl_engine.cpp" line="467"/>
         <location filename="../src/opencl_engine.cpp" line="484"/>
         <location filename="../src/opencl_engine.cpp" line="500"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1001"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1018"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1034"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1052"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1070"/>
-        <location filename="../src/opencl_hardware.cpp" line="213"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1036"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1053"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1069"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1087"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1105"/>
+        <location filename="../src/opencl_hardware.cpp" line="247"/>
         <source>OpenCL %1 cannot be created!</source>
         <translation>OpenCL %1 nie może być utworzony!</translation>
     </message>
@@ -2014,7 +2016,7 @@ allowed formats are: </source>
     </message>
     <message>
         <location filename="../src/opencl_engine.cpp" line="510"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1080"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1115"/>
         <source>OpenCL context is not ready</source>
         <translation>OpenCL context nie jest gotowy</translation>
     </message>
@@ -2049,14 +2051,14 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <location filename="../src/opencl_engine.cpp" line="685"/>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="161"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="164"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1620"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1632"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1644"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1658"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1673"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1687"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1699"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1710"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1659"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1671"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1683"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1697"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1712"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1726"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1738"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1749"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="165"/>
         <source>Cannot set OpenCL argument for %1</source>
         <translation>Nie można ustawić parametru OpenCL dla %1</translation>
@@ -2081,11 +2083,11 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
     <message>
         <location filename="../src/opencl_engine.cpp" line="560"/>
         <location filename="../src/opencl_engine.cpp" line="584"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1733"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1756"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1778"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1800"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1822"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1772"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1795"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1817"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1839"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1861"/>
         <source>Cannot enqueue writing OpenCL %1</source>
         <translation>Błąd kolejkowania zapisu do OpenCL %1</translation>
     </message>
@@ -2094,11 +2096,11 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation type="vanished">input z buffers</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1742"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1765"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1787"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1809"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1831"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1781"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1804"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1826"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1848"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1870"/>
         <source>Cannot finish writing OpenCL %1</source>
         <translation>Cannot finish writing OpenCL %1</translation>
     </message>
@@ -2109,7 +2111,7 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="183"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="198"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1857"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1896"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="198"/>
         <location filename="../src/opencl_worker_thread.cpp" line="237"/>
         <source>Cannot enqueue OpenCL rendering jobs</source>
@@ -2144,13 +2146,13 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation>Nie można prawidłowo zakończyć renderowania SSAO</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1001"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1018"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1036"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1053"/>
         <source>buffer for constants</source>
         <translation>buffer for constants</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1034"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1069"/>
         <source>buffer for variable data</source>
         <translation>buffer for variable data</translation>
     </message>
@@ -2159,17 +2161,17 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation type="vanished">Nie można ustawić parametru OpenCL dla %0</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1052"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1087"/>
         <source>buffer for texture data</source>
         <translation>bufor na dane tekstur</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1620"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1659"/>
         <source>input data</source>
         <translation>input data</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1632"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1671"/>
         <source>input texture data</source>
         <translation>dane wejściowe tekstur</translation>
     </message>
@@ -2178,17 +2180,17 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation type="vanished">Nie można ustawić parametru OpenCL dla %2</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1644"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1683"/>
         <source>constant data</source>
         <translation>constant data</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1658"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1697"/>
         <source>constant mesh data</source>
         <translation>dane exportu siatki</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1673"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1712"/>
         <source>background image</source>
         <translation></translation>
     </message>
@@ -2197,78 +2199,78 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation type="vanished">Nie można ustawić parametru OpenCL dla %3</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="506"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="504"/>
         <source>Custom formula %1 has missing function name CustomIteration()!</source>
         <translation>Własna formuła %1 nie ma nazwy funkcji CustomIteration()!</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1071"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1106"/>
         <source>buffer for perlin noise seeds</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1687"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1778"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1787"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1726"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1817"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1826"/>
         <source>perlin noise seeds</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1699"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1738"/>
         <source>random seed</source>
         <translation>random seed</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1711"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1750"/>
         <source>pointToCalculateDistance</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1733"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1742"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1772"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1781"/>
         <source>input buffers</source>
         <translation>input buffers</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1756"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1765"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1795"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1804"/>
         <source>input texture buffers</source>
         <translation>bufory wejściowe tekstur</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1800"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1809"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1839"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1848"/>
         <source>constant buffers</source>
         <translation>constant buffers</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1823"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1832"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1862"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1871"/>
         <source>constant mesh export buffers</source>
         <translation>stałe dane eksportu siatki</translation>
     </message>
     <message>
-        <location filename="../src/opencl_hardware.cpp" line="126"/>
+        <location filename="../src/opencl_hardware.cpp" line="132"/>
         <source>There are no valid OpenCl platforms in the system</source>
         <translation>Brak prawidłowych platform OpenCL w systemie</translation>
     </message>
     <message>
-        <location filename="../src/opencl_hardware.cpp" line="134"/>
+        <location filename="../src/opencl_hardware.cpp" line="140"/>
         <source>Missing OpenCL.dll in the system</source>
         <translation>Brakuje OpenCL.dll w systemie</translation>
     </message>
     <message>
-        <location filename="../src/opencl_hardware.cpp" line="213"/>
+        <location filename="../src/opencl_hardware.cpp" line="247"/>
         <source>context</source>
         <translation>context</translation>
     </message>
     <message>
-        <location filename="../src/opencl_hardware.cpp" line="328"/>
+        <location filename="../src/opencl_hardware.cpp" line="362"/>
         <source>There are no available devices for selected OpenCL platform</source>
         <translation>Brak dostępnych urządzeń dla wybranej platfromy OpenCL</translation>
     </message>
     <message>
-        <location filename="../src/opencl_hardware.cpp" line="334"/>
+        <location filename="../src/opencl_hardware.cpp" line="368"/>
         <source>Cannot list devices from selected OpenCL platform</source>
         <translation>Nie można wylistować urządzeń dla wybranej platformy OpenCL</translation>
     </message>
@@ -2278,7 +2280,7 @@ Obliczenia prawdopodobnie trwały za długo i wywołały błąd timeout sterowni
         <translation>Wybrany plik nie zawiera prawidłowego gradienu kolorów</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="517"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="552"/>
         <source>Clipboard doesn&apos;t contain valid gradient of colors</source>
         <translation>Schowek nie zawiera prawidłowego gradienu kolorów</translation>
     </message>
@@ -2551,7 +2553,7 @@ Aktualna ścieżka do clang-format jest: %1</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1274"/>
         <location filename="../qt/ui_render_window.h" line="1118"/>
-        <location filename="../src/interface.cpp" line="183"/>
+        <location filename="../src/interface.cpp" line="185"/>
         <source>About &amp;User Manual</source>
         <translation></translation>
     </message>
@@ -5751,7 +5753,7 @@ iteracji fraktala:</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="203"/>
-        <location filename="../src/render_window_menu.cpp" line="441"/>
+        <location filename="../src/render_window_menu.cpp" line="445"/>
         <source>Load settings...</source>
         <translation>Wczytaj ustawienia...</translation>
     </message>
@@ -5869,9 +5871,9 @@ iteracji fraktala:</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="65"/>
-        <location filename="../src/render_window_menu.cpp" line="413"/>
-        <location filename="../src/render_window_menu.cpp" line="436"/>
-        <location filename="../src/render_window_menu.cpp" line="717"/>
+        <location filename="../src/render_window_menu.cpp" line="417"/>
+        <location filename="../src/render_window_menu.cpp" line="440"/>
+        <location filename="../src/render_window_menu.cpp" line="723"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
@@ -5886,7 +5888,7 @@ iteracji fraktala:</translation>
         <translation>Ruch tylko na boki</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="615"/>
+        <location filename="../src/render_window_menu.cpp" line="621"/>
         <source>TIFF images (*.tiff)</source>
         <translation>Obrazy TIFF (*.tiff)</translation>
     </message>
@@ -5900,7 +5902,7 @@ iteracji fraktala:</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="208"/>
-        <location filename="../src/render_window_menu.cpp" line="723"/>
+        <location filename="../src/render_window_menu.cpp" line="729"/>
         <source>Save settings...</source>
         <translation>Zapisz ustawienia...</translation>
     </message>
@@ -6184,56 +6186,56 @@ iteracji fraktala:</translation>
         <translation>Przejdź do poprzedniej klatki kluczowej</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="418"/>
+        <location filename="../src/render_window_menu.cpp" line="422"/>
         <source>Load example settings...</source>
         <translation>Wczytaj przykładowe ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="573"/>
+        <location filename="../src/render_window_menu.cpp" line="579"/>
         <source>images (*.jpg *.jpeg *.png *.exr *.tiff)</source>
         <translation>obrazy (*.jpg *.jpeg *.png *.exr *.tiff)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="578"/>
+        <location filename="../src/render_window_menu.cpp" line="584"/>
         <source>Save image to file...</source>
         <translation>Zapisz obraz do pliku...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="596"/>
+        <location filename="../src/render_window_menu.cpp" line="602"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>Obrazy JPEG(*.jpg *.jpeg) </translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="628"/>
-        <location filename="../src/render_window_menu.cpp" line="650"/>
-        <location filename="../src/render_window_menu.cpp" line="683"/>
+        <location filename="../src/render_window_menu.cpp" line="634"/>
+        <location filename="../src/render_window_menu.cpp" line="656"/>
+        <location filename="../src/render_window_menu.cpp" line="689"/>
         <source>Save image to %1 file...</source>
         <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="657"/>
-        <location filename="../src/render_window_menu.cpp" line="668"/>
-        <location filename="../src/render_window_menu.cpp" line="690"/>
-        <location filename="../src/render_window_menu.cpp" line="701"/>
+        <location filename="../src/render_window_menu.cpp" line="663"/>
+        <location filename="../src/render_window_menu.cpp" line="674"/>
+        <location filename="../src/render_window_menu.cpp" line="696"/>
+        <location filename="../src/render_window_menu.cpp" line="707"/>
         <source>Saving %1 image</source>
         <translation>Zapis obrazu %1</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="658"/>
-        <location filename="../src/render_window_menu.cpp" line="691"/>
+        <location filename="../src/render_window_menu.cpp" line="664"/>
+        <location filename="../src/render_window_menu.cpp" line="697"/>
         <source>Saving image started</source>
         <translation>Rozpoczęte zapisywanie obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="669"/>
-        <location filename="../src/render_window_menu.cpp" line="702"/>
+        <location filename="../src/render_window_menu.cpp" line="675"/>
+        <location filename="../src/render_window_menu.cpp" line="708"/>
         <source>Saving image finished</source>
         <translation>Zapisywanie obrazu zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="601"/>
-        <location filename="../src/render_window_menu.cpp" line="646"/>
-        <location filename="../src/render_window_menu.cpp" line="679"/>
+        <location filename="../src/render_window_menu.cpp" line="607"/>
+        <location filename="../src/render_window_menu.cpp" line="652"/>
+        <location filename="../src/render_window_menu.cpp" line="685"/>
         <source>PNG images (*.png)</source>
         <translation>Obrazy PNG (*.png)</translation>
     </message>
@@ -6246,7 +6248,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapis obrazu PNG zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="607"/>
+        <location filename="../src/render_window_menu.cpp" line="613"/>
         <source>EXR images (*.exr)</source>
         <translation>Obrazy EXR (*.exr)</translation>
     </message>
@@ -6323,37 +6325,37 @@ iteracji fraktala:</translation>
         <translation type="vanished">Używany algorytm estymacji dystansu: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="181"/>
+        <location filename="../src/interface.cpp" line="183"/>
         <source>Info &amp;Qt</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="185"/>
+        <location filename="../src/interface.cpp" line="187"/>
         <source>&amp;Info Mandelbulber</source>
         <translation>O Mandelbulber...</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="187"/>
+        <location filename="../src/interface.cpp" line="189"/>
         <source>Info &amp;Third Party</source>
         <translation>O osobach trzecich...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="622"/>
+        <location filename="../src/render_window_slots.cpp" line="632"/>
         <source>Add window settings</source>
         <translation>Dodaj układ okna</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="623"/>
+        <location filename="../src/render_window_slots.cpp" line="633"/>
         <source>Enter a name for the new window settings</source>
         <translation>Podaj nazwę dla nowego układu okna</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="683"/>
+        <location filename="../src/render_window_slots.cpp" line="694"/>
         <source>Remove window settings</source>
         <translation>Usuń układ okna...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="684"/>
+        <location filename="../src/render_window_slots.cpp" line="695"/>
         <source>Select window setting to remove</source>
         <translation>Wybierz układ okna do usunięcia</translation>
     </message>
@@ -6361,32 +6363,32 @@ iteracji fraktala:</translation>
 <context>
     <name>RenderedImage</name>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="199"/>
+        <location filename="../src/rendered_image_widget.cpp" line="207"/>
         <source>Move camera and target</source>
         <translation>Przemieść kamerę i cel</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="200"/>
+        <location filename="../src/rendered_image_widget.cpp" line="208"/>
         <source>Move camera</source>
         <translation>Przesuń kamerę</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="201"/>
+        <location filename="../src/rendered_image_widget.cpp" line="209"/>
         <source>Move target</source>
         <translation>Przemieść cel</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="205"/>
+        <location filename="../src/rendered_image_widget.cpp" line="213"/>
         <source>Change fog visibility</source>
         <translation>Zmień widoczność mgły</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="206"/>
+        <location filename="../src/rendered_image_widget.cpp" line="214"/>
         <source>Change DOF focus</source>
         <translation>Zmień głębię ostrości</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="208"/>
+        <location filename="../src/rendered_image_widget.cpp" line="216"/>
         <source>Place light #</source>
         <translation>Umieść światło #</translation>
     </message>
@@ -6397,29 +6399,29 @@ Mouse wheel - light fov / bkw</source>
 Rolka myszy - światło przód / tył</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="212"/>
+        <location filename="../src/rendered_image_widget.cpp" line="221"/>
         <source>Place </source>
         <translation>Umieść </translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="215"/>
+        <location filename="../src/rendered_image_widget.cpp" line="224"/>
         <source>Get Julia constant</source>
         <translation>Pobierz stałą Julia</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="217"/>
+        <location filename="../src/rendered_image_widget.cpp" line="226"/>
         <source>LMB - increase speed</source>
         <translation>Lewy - zwiększ prędkość</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="218"/>
+        <location filename="../src/rendered_image_widget.cpp" line="227"/>
         <source>
 RMB - decrease speed</source>
         <translation>
 Prawy - zmniejsz prędkość</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="219"/>
+        <location filename="../src/rendered_image_widget.cpp" line="228"/>
         <source>
 arrow keys - sidewards</source>
         <translation>
@@ -6432,14 +6434,14 @@ arrow keys - strafe</source>
 Klawisze strzałek - na boki</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="220"/>
+        <location filename="../src/rendered_image_widget.cpp" line="229"/>
         <source>
 z, x keys - roll</source>
         <translation>
 klaw. z,x - pochylanie</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="221"/>
+        <location filename="../src/rendered_image_widget.cpp" line="230"/>
         <source>
 spacebar - pause</source>
         <translation>
@@ -6452,65 +6454,78 @@ hold shift key - orthogonal strafe</source>
 klawisz shift - prostopadły ruch </translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="209"/>
         <source>
 Ctrl + Mouse wheel - light fov / bkw</source>
-        <translation>
+        <translation type="vanished">
 Ctrl+Rolka myszy - światło przód / tył</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="222"/>
+        <location filename="../src/rendered_image_widget.cpp" line="217"/>
+        <source>
+Ctrl + Mouse wheel - light fwd/bkwd </source>
+        <translation>
+Ctrl+Rolka myszy - światło przód/tył</translation>
+    </message>
+    <message>
+        <location filename="../src/rendered_image_widget.cpp" line="218"/>
+        <source>
+Alt + Mouse wheel - placement fwd/bkwd </source>
+        <translation>
+Ctrl+Rolka myszy - wstawianie przód/tył</translation>
+    </message>
+    <message>
+        <location filename="../src/rendered_image_widget.cpp" line="231"/>
         <source>
 hold shift key - orthogonal move</source>
         <translation>
 klawisz shift - prostopadły ruch</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="226"/>
+        <location filename="../src/rendered_image_widget.cpp" line="235"/>
         <source>Place center of random light</source>
         <translation>Umieść centrum losowych świateł</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="227"/>
+        <location filename="../src/rendered_image_widget.cpp" line="236"/>
         <source>
 also calculates</source>
         <translation>
 oblicza także</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="228"/>
+        <location filename="../src/rendered_image_widget.cpp" line="237"/>
         <source>
 distribution radius of lights to 50%,</source>
         <translation>
 promień dystrybucji jako 50%, </translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="229"/>
+        <location filename="../src/rendered_image_widget.cpp" line="238"/>
         <source>
 max distance from fractal to 10%</source>
         <translation>
 maks. dystans od fraktala jako 10%</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="230"/>
+        <location filename="../src/rendered_image_widget.cpp" line="239"/>
         <source>
 of distance [center to camera position]</source>
         <translation>dystansu kamery do fraktala</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="233"/>
+        <location filename="../src/rendered_image_widget.cpp" line="242"/>
         <source>Get coordinates</source>
         <translation>Pobierz współrzędne</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="234"/>
+        <location filename="../src/rendered_image_widget.cpp" line="243"/>
         <source>
 and distance</source>
         <translation>
 oraz odległość</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="236"/>
+        <location filename="../src/rendered_image_widget.cpp" line="245"/>
         <source>Wrap limits
 around object</source>
         <translation>Opisz granice
@@ -7670,19 +7685,19 @@ wszystkich klatek</translation>
     <name>cDockEffects</name>
     <message>
         <location filename="../qt/dock_effects.ui" line="14"/>
-        <location filename="../qt/ui_dock_effects.h" line="3493"/>
+        <location filename="../qt/ui_dock_effects.h" line="2786"/>
         <source>Form</source>
         <translation>Formularz</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="96"/>
-        <location filename="../qt/ui_dock_effects.h" line="3653"/>
+        <location filename="../qt/ui_dock_effects.h" line="2948"/>
         <source>Ray-tracing</source>
         <translation>Śledzenie promieni</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="192"/>
-        <location filename="../qt/ui_dock_effects.h" line="3503"/>
+        <location filename="../qt/ui_dock_effects.h" line="2796"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate calculation of ray-traced reflections and transparency. Reflectance can be set by &lt;span style=&quot; font-style:italic;&quot;&gt;Material/Reflection. &lt;/span&gt;Transparency settings are in the same tab as reflection.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnienie obliczania odbić i przezroczystości algorytmem śledzenia promieni. Reflektancja może być ustawiona parametrem&lt;span style=&quot; font-style:italic;&quot;&gt;Materiał/Odbicia. &lt;/span&gt;Ustawienia przezroczystości są na tej samej zakładce co parametry odbicia.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -7696,7 +7711,7 @@ wszystkich klatek</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="240"/>
-        <location filename="../qt/ui_dock_effects.h" line="3509"/>
+        <location filename="../qt/ui_dock_effects.h" line="2802"/>
         <source>Reflections depth:</source>
         <translation>Głębokość odbić:</translation>
     </message>
@@ -7706,31 +7721,31 @@ wszystkich klatek</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="255"/>
-        <location filename="../qt/ui_dock_effects.h" line="3513"/>
+        <location filename="../qt/ui_dock_effects.h" line="2806"/>
         <source>Depth of field</source>
         <translation>Głębia ostrości</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="284"/>
-        <location filename="../qt/ui_dock_effects.h" line="3514"/>
+        <location filename="../qt/ui_dock_effects.h" line="2807"/>
         <source>Focus distance:</source>
         <translation>Ogniskowa:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="291"/>
-        <location filename="../qt/ui_dock_effects.h" line="3515"/>
+        <location filename="../qt/ui_dock_effects.h" line="2808"/>
         <source>Radius:</source>
         <translation>Promień rozmycia:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="298"/>
-        <location filename="../qt/ui_dock_effects.h" line="3517"/>
+        <location filename="../qt/ui_dock_effects.h" line="2810"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It&apos;s the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To jest dystans dla którego obiekty wyglądają ostro.&lt;/p&gt;&lt;p&gt;Dystans może być ustawiony przyciskiem &lt;span style=&quot; font-style:italic;&quot;&gt;Ustaw ogniskową za pomocą myszy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;mały dystans ostrości&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;duży dystans ostrości&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="311"/>
-        <location filename="../qt/ui_dock_effects.h" line="3520"/>
+        <location filename="../qt/ui_dock_effects.h" line="2813"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu głębi ostrości (średni promień rozmycia)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;promień = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;promień = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -7748,13 +7763,13 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="339"/>
-        <location filename="../qt/ui_dock_effects.h" line="3524"/>
+        <location filename="../qt/ui_dock_effects.h" line="2817"/>
         <source>Number of passes:</source>
         <translation>Ilość przebiegów:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="365"/>
-        <location filename="../qt/ui_dock_effects.h" line="3528"/>
+        <location filename="../qt/ui_dock_effects.h" line="2821"/>
         <source>Blur opacity:</source>
         <translation>Intensywność efektu rozmycia:</translation>
     </message>
@@ -7776,29 +7791,29 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="455"/>
-        <location filename="../qt/dock_effects.ui" line="5454"/>
-        <location filename="../qt/ui_dock_effects.h" line="3541"/>
-        <location filename="../qt/ui_dock_effects.h" line="4234"/>
+        <location filename="../qt/dock_effects.ui" line="4327"/>
+        <location filename="../qt/ui_dock_effects.h" line="2834"/>
+        <location filename="../qt/ui_dock_effects.h" line="3339"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of DOF settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktualizacja obrazu po zmianie ustawień głębi ostrości. Może być aktualizowane po zakończeniu renderowania obrazu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="458"/>
-        <location filename="../qt/dock_effects.ui" line="5457"/>
-        <location filename="../qt/ui_dock_effects.h" line="3543"/>
-        <location filename="../qt/ui_dock_effects.h" line="4236"/>
+        <location filename="../qt/dock_effects.ui" line="4330"/>
+        <location filename="../qt/ui_dock_effects.h" line="2836"/>
+        <location filename="../qt/ui_dock_effects.h" line="3341"/>
         <source>Update image</source>
         <translation>Aktualizuj obraz</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="471"/>
-        <location filename="../qt/ui_dock_effects.h" line="3545"/>
+        <location filename="../qt/ui_dock_effects.h" line="2838"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting of focus distance by mouse pointer. &lt;/p&gt;&lt;p&gt;Click on this button and then point the object on image which you want to appear in focus.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawianie ostrości za pomocą wskaźnika myszy. &lt;/p&gt;&lt;p&gt;Kliknij na tym przycisku a następnie wskaż obiekt, który ma wyglądać ostro.&lt;/p&gt;&lt;p&gt;Po użyciu tej funkcji nie zapomnij zmienić funkcji przycisku myszy (&lt;span style=&quot; font-style:italic;&quot;&gt;Dół okna renderowania&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Funkcja przycisku myszy&lt;/span&gt;) aby kontynuować pracę z kamerą.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="474"/>
-        <location filename="../qt/ui_dock_effects.h" line="3547"/>
+        <location filename="../qt/ui_dock_effects.h" line="2840"/>
         <source>Set focus distance by mouse</source>
         <translation>Ustaw ogniskową za pomocą myszy</translation>
     </message>
@@ -7812,101 +7827,91 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="779"/>
-        <location filename="../qt/ui_dock_effects.h" line="3608"/>
+        <location filename="../qt/ui_dock_effects.h" line="2901"/>
         <source>Quality:</source>
         <translation>Jakość:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="786"/>
-        <location filename="../qt/ui_dock_effects.h" line="3609"/>
+        <location filename="../qt/ui_dock_effects.h" line="2902"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="799"/>
-        <location filename="../qt/ui_dock_effects.h" line="3611"/>
+        <location filename="../qt/ui_dock_effects.h" line="2904"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality increases rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jakość efektu światła rozproszonego. Wyższa wartość wydłuża czas renderowania.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="815"/>
-        <location filename="../qt/ui_dock_effects.h" line="3614"/>
+        <location filename="../qt/ui_dock_effects.h" line="2907"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls brightness of fast ambient occlusion effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr kontroluje jasność Szybkiego efektu światła rozproszonego&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="888"/>
-        <location filename="../qt/ui_dock_effects.h" line="3630"/>
+        <location filename="../qt/ui_dock_effects.h" line="2923"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór metody obliczania światła rozproszonego&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="892"/>
-        <location filename="../qt/ui_dock_effects.h" line="3625"/>
+        <location filename="../qt/ui_dock_effects.h" line="2918"/>
         <source>Fast</source>
         <translation>Szybki</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="897"/>
-        <location filename="../qt/ui_dock_effects.h" line="3626"/>
+        <location filename="../qt/ui_dock_effects.h" line="2919"/>
         <source>Multiple rays with light map</source>
         <translation>Wiele promieni z mapą światła</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="902"/>
-        <location filename="../qt/ui_dock_effects.h" line="3627"/>
+        <location filename="../qt/ui_dock_effects.h" line="2920"/>
         <source>Screen space</source>
         <translation>Przestrzeń obrazu (SSAO)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="840"/>
-        <location filename="../qt/ui_dock_effects.h" line="3618"/>
+        <location filename="../qt/ui_dock_effects.h" line="2911"/>
         <source>Fast AO tune:</source>
         <translation>Dostrojenie szybkiego:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="847"/>
-        <location filename="../qt/dock_effects.ui" line="1344"/>
-        <location filename="../qt/dock_effects.ui" line="3569"/>
-        <location filename="../qt/dock_effects.ui" line="3884"/>
-        <location filename="../qt/dock_effects.ui" line="4051"/>
-        <location filename="../qt/dock_effects.ui" line="4218"/>
-        <location filename="../qt/dock_effects.ui" line="4385"/>
-        <location filename="../qt/dock_effects.ui" line="4723"/>
-        <location filename="../qt/dock_effects.ui" line="5410"/>
-        <location filename="../qt/ui_dock_effects.h" line="3619"/>
-        <location filename="../qt/ui_dock_effects.h" line="3689"/>
-        <location filename="../qt/ui_dock_effects.h" line="3973"/>
-        <location filename="../qt/ui_dock_effects.h" line="4024"/>
-        <location filename="../qt/ui_dock_effects.h" line="4050"/>
-        <location filename="../qt/ui_dock_effects.h" line="4076"/>
-        <location filename="../qt/ui_dock_effects.h" line="4102"/>
-        <location filename="../qt/ui_dock_effects.h" line="4147"/>
-        <location filename="../qt/ui_dock_effects.h" line="4230"/>
+        <location filename="../qt/dock_effects.ui" line="1355"/>
+        <location filename="../qt/dock_effects.ui" line="3496"/>
+        <location filename="../qt/dock_effects.ui" line="4283"/>
+        <location filename="../qt/ui_dock_effects.h" line="2912"/>
+        <location filename="../qt/ui_dock_effects.h" line="2984"/>
+        <location filename="../qt/ui_dock_effects.h" line="3245"/>
+        <location filename="../qt/ui_dock_effects.h" line="3335"/>
         <source>Intensity:</source>
         <translation>Intensywność:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="860"/>
-        <location filename="../qt/ui_dock_effects.h" line="3621"/>
+        <location filename="../qt/ui_dock_effects.h" line="2914"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of scattered light&lt;/p&gt;&lt;p&gt;example of effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność światła rozproszonego&lt;/p&gt;&lt;p&gt;przykład efektu:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="941"/>
-        <location filename="../qt/ui_dock_effects.h" line="3638"/>
+        <location filename="../qt/ui_dock_effects.h" line="2931"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables random directions of ray vectors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia losowe kierunki wektorów symulowanych promieni światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="944"/>
-        <location filename="../qt/ui_dock_effects.h" line="3640"/>
+        <location filename="../qt/ui_dock_effects.h" line="2933"/>
         <source>SSAO random mode</source>
         <translation>Tryb losowych promieni dla SSAO</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="978"/>
-        <location filename="../qt/ui_dock_effects.h" line="3641"/>
+        <location filename="../qt/ui_dock_effects.h" line="2934"/>
         <source>Light map texture:</source>
         <translation>Tekstura mapy światła:</translation>
     </message>
@@ -7916,7 +7921,7 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1011"/>
-        <location filename="../qt/ui_dock_effects.h" line="3646"/>
+        <location filename="../qt/ui_dock_effects.h" line="2939"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust effect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mapowanie środowiskowe jest techniką oświetlenia bazującą na obrazie, do symulowania wyglądu odblaskowej powierzchni poprzez użycie wcześniej przygotowanej tekstury. Tekstura jest używana do przechowywania wyglądu odległego otoczenia renderowanego obiektu.&lt;/p&gt;&lt;p&gt;Do regulacji intensywności efektu użyj parametru&lt;span style=&quot; font-style:italic;&quot;&gt;Odbicia&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -7925,10 +7930,10 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">Mapowanie środowiskowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1043"/>
-        <location filename="../qt/dock_effects.ui" line="3089"/>
-        <location filename="../qt/ui_dock_effects.h" line="3649"/>
-        <location filename="../qt/ui_dock_effects.h" line="3926"/>
+        <location filename="../qt/dock_effects.ui" line="1054"/>
+        <location filename="../qt/dock_effects.ui" line="2941"/>
+        <location filename="../qt/ui_dock_effects.h" line="2944"/>
+        <location filename="../qt/ui_dock_effects.h" line="3190"/>
         <source>Texture path:</source>
         <translation>Ścieżka tekstury:</translation>
     </message>
@@ -7937,20 +7942,20 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do pliku z obrazem mapy odbicia.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1086"/>
-        <location filename="../qt/ui_dock_effects.h" line="3866"/>
+        <location filename="../qt/dock_effects.ui" line="1097"/>
+        <location filename="../qt/ui_dock_effects.h" line="3130"/>
         <source>Volumetric</source>
         <translation>Objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1204"/>
-        <location filename="../qt/ui_dock_effects.h" line="3664"/>
+        <location filename="../qt/dock_effects.ui" line="1215"/>
+        <location filename="../qt/ui_dock_effects.h" line="2959"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables fog effect. Density of fog is constant over entire space.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - fog.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia efekt mgły. Gęstość mgły jest taka sama w całej przestrzeni.&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - fog.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1207"/>
-        <location filename="../qt/ui_dock_effects.h" line="3666"/>
+        <location filename="../qt/dock_effects.ui" line="1218"/>
+        <location filename="../qt/ui_dock_effects.h" line="2961"/>
         <source>Basic fog</source>
         <translation>Prosta mgła</translation>
     </message>
@@ -7960,81 +7965,61 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="926"/>
-        <location filename="../qt/dock_effects.ui" line="1246"/>
-        <location filename="../qt/dock_effects.ui" line="3555"/>
-        <location filename="../qt/dock_effects.ui" line="3911"/>
-        <location filename="../qt/dock_effects.ui" line="4078"/>
-        <location filename="../qt/dock_effects.ui" line="4245"/>
-        <location filename="../qt/dock_effects.ui" line="4412"/>
-        <location filename="../qt/dock_effects.ui" line="5012"/>
-        <location filename="../qt/ui_dock_effects.h" line="3636"/>
-        <location filename="../qt/ui_dock_effects.h" line="3670"/>
-        <location filename="../qt/ui_dock_effects.h" line="3971"/>
-        <location filename="../qt/ui_dock_effects.h" line="4028"/>
-        <location filename="../qt/ui_dock_effects.h" line="4054"/>
-        <location filename="../qt/ui_dock_effects.h" line="4080"/>
-        <location filename="../qt/ui_dock_effects.h" line="4106"/>
-        <location filename="../qt/ui_dock_effects.h" line="4193"/>
+        <location filename="../qt/dock_effects.ui" line="1257"/>
+        <location filename="../qt/dock_effects.ui" line="3885"/>
+        <location filename="../qt/ui_dock_effects.h" line="2929"/>
+        <location filename="../qt/ui_dock_effects.h" line="2965"/>
+        <location filename="../qt/ui_dock_effects.h" line="3298"/>
         <source>Color:</source>
         <translation>Kolor:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1260"/>
-        <location filename="../qt/ui_dock_effects.h" line="3673"/>
+        <location filename="../qt/dock_effects.ui" line="1271"/>
+        <location filename="../qt/ui_dock_effects.h" line="2968"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor efektu mgły&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="919"/>
-        <location filename="../qt/dock_effects.ui" line="1263"/>
-        <location filename="../qt/dock_effects.ui" line="1354"/>
-        <location filename="../qt/dock_effects.ui" line="1364"/>
-        <location filename="../qt/dock_effects.ui" line="1497"/>
-        <location filename="../qt/dock_effects.ui" line="1514"/>
-        <location filename="../qt/dock_effects.ui" line="1524"/>
-        <location filename="../qt/dock_effects.ui" line="1648"/>
-        <location filename="../qt/dock_effects.ui" line="1665"/>
-        <location filename="../qt/dock_effects.ui" line="1773"/>
-        <location filename="../qt/dock_effects.ui" line="1960"/>
-        <location filename="../qt/dock_effects.ui" line="2689"/>
-        <location filename="../qt/dock_effects.ui" line="2734"/>
-        <location filename="../qt/dock_effects.ui" line="2758"/>
-        <location filename="../qt/dock_effects.ui" line="3449"/>
-        <location filename="../qt/dock_effects.ui" line="3613"/>
-        <location filename="../qt/dock_effects.ui" line="3921"/>
-        <location filename="../qt/dock_effects.ui" line="4088"/>
-        <location filename="../qt/dock_effects.ui" line="4255"/>
-        <location filename="../qt/dock_effects.ui" line="4422"/>
-        <location filename="../qt/dock_effects.ui" line="4771"/>
-        <location filename="../qt/dock_effects.ui" line="5022"/>
-        <location filename="../qt/ui_dock_effects.h" line="3635"/>
-        <location filename="../qt/ui_dock_effects.h" line="3675"/>
-        <location filename="../qt/ui_dock_effects.h" line="3693"/>
-        <location filename="../qt/ui_dock_effects.h" line="3697"/>
-        <location filename="../qt/ui_dock_effects.h" line="3727"/>
-        <location filename="../qt/ui_dock_effects.h" line="3732"/>
-        <location filename="../qt/ui_dock_effects.h" line="3736"/>
-        <location filename="../qt/ui_dock_effects.h" line="3758"/>
-        <location filename="../qt/ui_dock_effects.h" line="3763"/>
-        <location filename="../qt/ui_dock_effects.h" line="3784"/>
-        <location filename="../qt/ui_dock_effects.h" line="3804"/>
-        <location filename="../qt/ui_dock_effects.h" line="3875"/>
-        <location filename="../qt/ui_dock_effects.h" line="3884"/>
-        <location filename="../qt/ui_dock_effects.h" line="3890"/>
-        <location filename="../qt/ui_dock_effects.h" line="3960"/>
-        <location filename="../qt/ui_dock_effects.h" line="3982"/>
-        <location filename="../qt/ui_dock_effects.h" line="4032"/>
-        <location filename="../qt/ui_dock_effects.h" line="4058"/>
-        <location filename="../qt/ui_dock_effects.h" line="4084"/>
-        <location filename="../qt/ui_dock_effects.h" line="4110"/>
-        <location filename="../qt/ui_dock_effects.h" line="4153"/>
-        <location filename="../qt/ui_dock_effects.h" line="4197"/>
+        <location filename="../qt/dock_effects.ui" line="1274"/>
+        <location filename="../qt/dock_effects.ui" line="1365"/>
+        <location filename="../qt/dock_effects.ui" line="1375"/>
+        <location filename="../qt/dock_effects.ui" line="1508"/>
+        <location filename="../qt/dock_effects.ui" line="1525"/>
+        <location filename="../qt/dock_effects.ui" line="1535"/>
+        <location filename="../qt/dock_effects.ui" line="1659"/>
+        <location filename="../qt/dock_effects.ui" line="1676"/>
+        <location filename="../qt/dock_effects.ui" line="1784"/>
+        <location filename="../qt/dock_effects.ui" line="2013"/>
+        <location filename="../qt/dock_effects.ui" line="2541"/>
+        <location filename="../qt/dock_effects.ui" line="2586"/>
+        <location filename="../qt/dock_effects.ui" line="2610"/>
+        <location filename="../qt/dock_effects.ui" line="3218"/>
+        <location filename="../qt/dock_effects.ui" line="3647"/>
+        <location filename="../qt/dock_effects.ui" line="3895"/>
+        <location filename="../qt/ui_dock_effects.h" line="2928"/>
+        <location filename="../qt/ui_dock_effects.h" line="2970"/>
+        <location filename="../qt/ui_dock_effects.h" line="2988"/>
+        <location filename="../qt/ui_dock_effects.h" line="2992"/>
+        <location filename="../qt/ui_dock_effects.h" line="3022"/>
+        <location filename="../qt/ui_dock_effects.h" line="3027"/>
+        <location filename="../qt/ui_dock_effects.h" line="3031"/>
+        <location filename="../qt/ui_dock_effects.h" line="3053"/>
+        <location filename="../qt/ui_dock_effects.h" line="3058"/>
+        <location filename="../qt/ui_dock_effects.h" line="3079"/>
+        <location filename="../qt/ui_dock_effects.h" line="3101"/>
+        <location filename="../qt/ui_dock_effects.h" line="3139"/>
+        <location filename="../qt/ui_dock_effects.h" line="3148"/>
+        <location filename="../qt/ui_dock_effects.h" line="3154"/>
+        <location filename="../qt/ui_dock_effects.h" line="3209"/>
+        <location filename="../qt/ui_dock_effects.h" line="3258"/>
+        <location filename="../qt/ui_dock_effects.h" line="3302"/>
         <source>PushButton</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1253"/>
-        <location filename="../qt/ui_dock_effects.h" line="3671"/>
+        <location filename="../qt/dock_effects.ui" line="1264"/>
+        <location filename="../qt/ui_dock_effects.h" line="2966"/>
         <source>Visibility distance:</source>
         <translation>Zasięg widoczności:</translation>
     </message>
@@ -8043,14 +8028,14 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawianie zasięgu widoczności za pomocą wskaźnika myszy. Wskaż obiekt, które ma być najdalej widocznym.&lt;/p&gt;&lt;p&gt;Po użyciu nie zapomnij zmienić &lt;span style=&quot; font-style:italic;&quot;&gt;Nawigacja&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Funkcja przycisku myszy&lt;/span&gt; aby kontynuować pracę z kamerą.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1281"/>
-        <location filename="../qt/ui_dock_effects.h" line="3679"/>
+        <location filename="../qt/dock_effects.ui" line="1292"/>
+        <location filename="../qt/ui_dock_effects.h" line="2974"/>
         <source>Set visibility distance by mouse</source>
         <translation>Ustaw zasięg widoczności za pomocą myszy</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1291"/>
-        <location filename="../qt/ui_dock_effects.h" line="3681"/>
+        <location filename="../qt/dock_effects.ui" line="1302"/>
+        <location filename="../qt/ui_dock_effects.h" line="2976"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glow effect based on ray-marching step count&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - glow.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Efekt poświaty bazujący na ilości kroków algorytmu śledzenia promieni&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - glow.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8059,44 +8044,44 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">Poświata</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1323"/>
-        <location filename="../qt/dock_effects.ui" line="1504"/>
-        <location filename="../qt/dock_effects.ui" line="1672"/>
-        <location filename="../qt/dock_effects.ui" line="2696"/>
-        <location filename="../qt/ui_dock_effects.h" line="3684"/>
-        <location filename="../qt/ui_dock_effects.h" line="3728"/>
-        <location filename="../qt/ui_dock_effects.h" line="3764"/>
-        <location filename="../qt/ui_dock_effects.h" line="3876"/>
+        <location filename="../qt/dock_effects.ui" line="1334"/>
+        <location filename="../qt/dock_effects.ui" line="1515"/>
+        <location filename="../qt/dock_effects.ui" line="1683"/>
+        <location filename="../qt/dock_effects.ui" line="2548"/>
+        <location filename="../qt/ui_dock_effects.h" line="2979"/>
+        <location filename="../qt/ui_dock_effects.h" line="3023"/>
+        <location filename="../qt/ui_dock_effects.h" line="3059"/>
+        <location filename="../qt/ui_dock_effects.h" line="3140"/>
         <source>Color #1:</source>
         <translation>Kolor #1:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1330"/>
-        <location filename="../qt/dock_effects.ui" line="1464"/>
-        <location filename="../qt/dock_effects.ui" line="1655"/>
-        <location filename="../qt/dock_effects.ui" line="2741"/>
-        <location filename="../qt/ui_dock_effects.h" line="3685"/>
-        <location filename="../qt/ui_dock_effects.h" line="3718"/>
-        <location filename="../qt/ui_dock_effects.h" line="3759"/>
-        <location filename="../qt/ui_dock_effects.h" line="3885"/>
+        <location filename="../qt/dock_effects.ui" line="1341"/>
+        <location filename="../qt/dock_effects.ui" line="1475"/>
+        <location filename="../qt/dock_effects.ui" line="1666"/>
+        <location filename="../qt/dock_effects.ui" line="2593"/>
+        <location filename="../qt/ui_dock_effects.h" line="2980"/>
+        <location filename="../qt/ui_dock_effects.h" line="3013"/>
+        <location filename="../qt/ui_dock_effects.h" line="3054"/>
+        <location filename="../qt/ui_dock_effects.h" line="3149"/>
         <source>Color #2:</source>
         <translation>Kolor #2:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1361"/>
-        <location filename="../qt/ui_dock_effects.h" line="3695"/>
+        <location filename="../qt/dock_effects.ui" line="1372"/>
+        <location filename="../qt/ui_dock_effects.h" line="2990"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of bright areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor jasnych obszarów&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1351"/>
-        <location filename="../qt/ui_dock_effects.h" line="3691"/>
+        <location filename="../qt/dock_effects.ui" line="1362"/>
+        <location filename="../qt/ui_dock_effects.h" line="2986"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of dark areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor ciemnych obszarów&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1337"/>
-        <location filename="../qt/ui_dock_effects.h" line="3687"/>
+        <location filename="../qt/dock_effects.ui" line="1348"/>
+        <location filename="../qt/ui_dock_effects.h" line="2982"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8113,20 +8098,20 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gęstość mgły. Większa wartość daje gęstszą mgłę. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1422"/>
-        <location filename="../qt/ui_dock_effects.h" line="3708"/>
+        <location filename="../qt/dock_effects.ui" line="1433"/>
+        <location filename="../qt/ui_dock_effects.h" line="3003"/>
         <source>Fog distance factor:</source>
         <translation>Wsp. odległości mgły:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1429"/>
-        <location filename="../qt/ui_dock_effects.h" line="3709"/>
+        <location filename="../qt/dock_effects.ui" line="1440"/>
+        <location filename="../qt/ui_dock_effects.h" line="3004"/>
         <source>Distance of color #2:</source>
         <translation>Odległość koloru #2:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1436"/>
-        <location filename="../qt/ui_dock_effects.h" line="3710"/>
+        <location filename="../qt/dock_effects.ui" line="1447"/>
+        <location filename="../qt/ui_dock_effects.h" line="3005"/>
         <source>Distance of color #1:</source>
         <translation>Odległość koloru #1:</translation>
     </message>
@@ -8135,8 +8120,8 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalna odległość of powierzchni fraktala, gdzie jest używany kolor #2 i minimalna, gdzie jest używany kolor #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1494"/>
-        <location filename="../qt/ui_dock_effects.h" line="3725"/>
+        <location filename="../qt/dock_effects.ui" line="1505"/>
+        <location filename="../qt/ui_dock_effects.h" line="3020"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor mgły, który jest używany od powierzchni fraktala do dystansu #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8145,32 +8130,32 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalny dystans od powierzchni fraktala, gdzie jest używany kolor #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1457"/>
-        <location filename="../qt/dock_effects.ui" line="1930"/>
-        <location filename="../qt/ui_dock_effects.h" line="3717"/>
-        <location filename="../qt/ui_dock_effects.h" line="3802"/>
+        <location filename="../qt/dock_effects.ui" line="1468"/>
+        <location filename="../qt/dock_effects.ui" line="1955"/>
+        <location filename="../qt/ui_dock_effects.h" line="3012"/>
+        <location filename="../qt/ui_dock_effects.h" line="3097"/>
         <source>Density:</source>
         <translation>Gęstość:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1521"/>
-        <location filename="../qt/ui_dock_effects.h" line="3734"/>
+        <location filename="../qt/dock_effects.ui" line="1532"/>
+        <location filename="../qt/ui_dock_effects.h" line="3029"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor mgły, który jest używany między dystansem #1 i #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1471"/>
-        <location filename="../qt/dock_effects.ui" line="1610"/>
-        <location filename="../qt/dock_effects.ui" line="2748"/>
-        <location filename="../qt/ui_dock_effects.h" line="3719"/>
-        <location filename="../qt/ui_dock_effects.h" line="3749"/>
-        <location filename="../qt/ui_dock_effects.h" line="3886"/>
+        <location filename="../qt/dock_effects.ui" line="1482"/>
+        <location filename="../qt/dock_effects.ui" line="1621"/>
+        <location filename="../qt/dock_effects.ui" line="2600"/>
+        <location filename="../qt/ui_dock_effects.h" line="3014"/>
+        <location filename="../qt/ui_dock_effects.h" line="3044"/>
+        <location filename="../qt/ui_dock_effects.h" line="3150"/>
         <source>Color #3:</source>
         <translation>Kolor #3:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1511"/>
-        <location filename="../qt/ui_dock_effects.h" line="3730"/>
+        <location filename="../qt/dock_effects.ui" line="1522"/>
+        <location filename="../qt/ui_dock_effects.h" line="3025"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor mgły, który jest używany dalej niż dystans #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8179,14 +8164,14 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawia gęstość mgły zależną od odległości od powierzchni fraktala. Wyższa wartość daje mgłę, która sięga dalej od powierzchni fraktala.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1484"/>
-        <location filename="../qt/ui_dock_effects.h" line="3721"/>
+        <location filename="../qt/dock_effects.ui" line="1495"/>
+        <location filename="../qt/ui_dock_effects.h" line="3016"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates optimal settings for fog effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Obliczanie optymalnych ustawień dla efektu mgły.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1487"/>
-        <location filename="../qt/ui_dock_effects.h" line="3723"/>
+        <location filename="../qt/dock_effects.ui" line="1498"/>
+        <location filename="../qt/ui_dock_effects.h" line="3018"/>
         <source>Optimal distances calculation</source>
         <translation>Obliczenie optymalnych odległości</translation>
     </message>
@@ -8199,108 +8184,108 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">Mgła bazująca na ilości iteracji</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1645"/>
-        <location filename="../qt/ui_dock_effects.h" line="3756"/>
+        <location filename="../qt/dock_effects.ui" line="1656"/>
+        <location filename="../qt/ui_dock_effects.h" line="3051"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor #1 efektu mgły&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1713"/>
-        <location filename="../qt/dock_effects.ui" line="1741"/>
-        <location filename="../qt/ui_dock_effects.h" line="3771"/>
-        <location filename="../qt/ui_dock_effects.h" line="3776"/>
+        <location filename="../qt/dock_effects.ui" line="1724"/>
+        <location filename="../qt/dock_effects.ui" line="1752"/>
+        <location filename="../qt/ui_dock_effects.h" line="3066"/>
+        <location filename="../qt/ui_dock_effects.h" line="3071"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There is no fog in volume where iteration count is lower than this value. When this parameter is high then fog is only just by fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;trim = 4&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 6&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 8&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 6 - 30000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 8 - 40000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nie ma mgły w przestrzeni, gdzie ilość iteracji fraktala jest mniejsza niż ta wartość. Kiedy ta wartość jest wysoka wtedy mgła występuje tylko przy powierzchni fraktala .&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;przycięcie = 4&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;przycięcie = 6&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;przycięcie = 8&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 6 - 30000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 8 - 40000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1685"/>
-        <location filename="../qt/ui_dock_effects.h" line="3766"/>
+        <location filename="../qt/dock_effects.ui" line="1696"/>
+        <location filename="../qt/ui_dock_effects.h" line="3061"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 is used for iteration count lower than this value&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor #1 jest używany dla ilości iteracji większej niż ta wartość&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1794"/>
-        <location filename="../qt/ui_dock_effects.h" line="3788"/>
+        <location filename="../qt/dock_effects.ui" line="1805"/>
+        <location filename="../qt/ui_dock_effects.h" line="3083"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of fog. Higher value gives denser fog.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;opacity = 1000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 4000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 16000&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 1000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 4000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nieprzezroczystość mgły. Wyższa wartość daje gęstszą mgłę&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;nieprzezroczystość = 1000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;nieprzezroczystość = 4000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;nieprzezroczystość = 16000&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 1000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 4000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1770"/>
-        <location filename="../qt/ui_dock_effects.h" line="3782"/>
+        <location filename="../qt/dock_effects.ui" line="1781"/>
+        <location filename="../qt/ui_dock_effects.h" line="3077"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #3 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor #3 efektu mgły&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1662"/>
-        <location filename="../qt/ui_dock_effects.h" line="3761"/>
+        <location filename="../qt/dock_effects.ui" line="1673"/>
+        <location filename="../qt/ui_dock_effects.h" line="3056"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor #2 efektu mgły&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1807"/>
-        <location filename="../qt/ui_dock_effects.h" line="3791"/>
+        <location filename="../qt/dock_effects.ui" line="1818"/>
+        <location filename="../qt/ui_dock_effects.h" line="3086"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 is used for iteration count lower than this value. &lt;/p&gt;&lt;p&gt;Color #3 is used for iteration count greater than this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor #2 jest używany dla ilości iteracji mniejszych niż ta wartość. &lt;/p&gt;&lt;p&gt;Kolor #3 jest używany dla ilości iteracji większych niż ta wartość&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1763"/>
-        <location filename="../qt/dock_effects.ui" line="1920"/>
-        <location filename="../qt/ui_dock_effects.h" line="3780"/>
-        <location filename="../qt/ui_dock_effects.h" line="3801"/>
+        <location filename="../qt/dock_effects.ui" line="1774"/>
+        <location filename="../qt/dock_effects.ui" line="2027"/>
+        <location filename="../qt/ui_dock_effects.h" line="3075"/>
+        <location filename="../qt/ui_dock_effects.h" line="3103"/>
         <source>Opacity:</source>
         <translation>Nieprzezroczystość:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1787"/>
-        <location filename="../qt/ui_dock_effects.h" line="3786"/>
+        <location filename="../qt/dock_effects.ui" line="1798"/>
+        <location filename="../qt/ui_dock_effects.h" line="3081"/>
         <source>Low iterations trim:</source>
         <translation>Przycięcie pierwszych iteracji:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1585"/>
-        <location filename="../qt/ui_dock_effects.h" line="3745"/>
+        <location filename="../qt/dock_effects.ui" line="1596"/>
+        <location filename="../qt/ui_dock_effects.h" line="3040"/>
         <source>Max iter. for color#2:</source>
         <translation>Maks. iteracji dla koloru #2:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1592"/>
-        <location filename="../qt/ui_dock_effects.h" line="3746"/>
+        <location filename="../qt/dock_effects.ui" line="1603"/>
+        <location filename="../qt/ui_dock_effects.h" line="3041"/>
         <source>Max iter. for color#1:</source>
         <translation>Maks. iteracji dla koloru #2:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2564"/>
-        <location filename="../qt/ui_dock_effects.h" line="3936"/>
+        <location filename="../qt/dock_effects.ui" line="2416"/>
+        <location filename="../qt/ui_dock_effects.h" line="3200"/>
         <source>Background</source>
         <translation>Tło</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2660"/>
-        <location filename="../qt/ui_dock_effects.h" line="3871"/>
+        <location filename="../qt/dock_effects.ui" line="2512"/>
+        <location filename="../qt/ui_dock_effects.h" line="3135"/>
         <source>Colored background</source>
         <translation>Kolorowe tło</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2755"/>
-        <location filename="../qt/ui_dock_effects.h" line="3888"/>
+        <location filename="../qt/dock_effects.ui" line="2607"/>
+        <location filename="../qt/ui_dock_effects.h" line="3152"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at horizon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor tła na horyzoncie&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2686"/>
-        <location filename="../qt/ui_dock_effects.h" line="3873"/>
+        <location filename="../qt/dock_effects.ui" line="2538"/>
+        <location filename="../qt/ui_dock_effects.h" line="3137"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at zenith&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor tła w zenicie&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2731"/>
-        <location filename="../qt/ui_dock_effects.h" line="3882"/>
+        <location filename="../qt/dock_effects.ui" line="2583"/>
+        <location filename="../qt/ui_dock_effects.h" line="3146"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at nadir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor tła w nadirze&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2818"/>
-        <location filename="../qt/ui_dock_effects.h" line="3898"/>
+        <location filename="../qt/dock_effects.ui" line="2670"/>
+        <location filename="../qt/ui_dock_effects.h" line="3162"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables covering of background sphere with selected image.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - backhround texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia pokrywanie kulistego tła wybranym obrazem&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - backhround texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8313,32 +8298,32 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka do obrazu tła.Akceptowalne formaty obrazu to: BMP, GIF, JPG, PNG&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2856"/>
-        <location filename="../qt/ui_dock_effects.h" line="3901"/>
+        <location filename="../qt/dock_effects.ui" line="2708"/>
+        <location filename="../qt/ui_dock_effects.h" line="3165"/>
         <source>Map type:</source>
         <translation>Typ mapowania:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2882"/>
-        <location filename="../qt/ui_dock_effects.h" line="3908"/>
+        <location filename="../qt/dock_effects.ui" line="2734"/>
+        <location filename="../qt/ui_dock_effects.h" line="3172"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It determines, how texture will be mapped on background sphere&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Equirectangular: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Texture has to be created used equirectangular projection. It&apos;s the most popular format for textures dedicated for sphere mapping.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Double hemisphere:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Texture has to be created as a pair of images of hemispheres. Mapping has to be the same as &lt;span style=&quot; font-style:italic;&quot;&gt;Full dome projection&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;Fish eye&lt;/span&gt;)&lt;br/&gt;Example texture with indicated axes and directions:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór jak tekstura będzie mapowana na kulistym tle&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Odwzorowanie walcowe równoodległościowe: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Tekstura musi być przygotowana w odwzorowaniu walcowym równoodległościowym (equirectangular). Jest to najpopularniejszy format tekstur dedykowanych do mapowania na sferze.&lt;br/&gt;Przykład:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Podwójna półsfera:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Tekstura musi być przygotowana jako para obrazów półsfer. Mapowanie jest takie samo jak &lt;span style=&quot; font-style:italic;&quot;&gt;Kopuła (Fulldome)&lt;/span&gt; (lub &lt;span style=&quot; font-style:italic;&quot;&gt;Rybie oko&lt;/span&gt;)&lt;br/&gt;Przykładowa tekstura z naniesionymi osiami i kierunkami:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2886"/>
-        <location filename="../qt/ui_dock_effects.h" line="3903"/>
+        <location filename="../qt/dock_effects.ui" line="2738"/>
+        <location filename="../qt/ui_dock_effects.h" line="3167"/>
         <source>Equirectangular</source>
         <translation>Odwzorowanie walcowe równoodległościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2891"/>
-        <location filename="../qt/ui_dock_effects.h" line="3904"/>
+        <location filename="../qt/dock_effects.ui" line="2743"/>
+        <location filename="../qt/ui_dock_effects.h" line="3168"/>
         <source>Double hemisphere</source>
         <translation>Podwójna półsfera</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2896"/>
-        <location filename="../qt/ui_dock_effects.h" line="3905"/>
+        <location filename="../qt/dock_effects.ui" line="2748"/>
+        <location filename="../qt/ui_dock_effects.h" line="3169"/>
         <source>Flat</source>
         <translation>Płaskie</translation>
     </message>
@@ -8347,46 +8332,40 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność obrazu tła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2778"/>
-        <location filename="../qt/ui_dock_effects.h" line="3891"/>
+        <location filename="../qt/dock_effects.ui" line="2630"/>
+        <location filename="../qt/ui_dock_effects.h" line="3155"/>
         <source>Brightness:</source>
         <translation>Jasność:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3241"/>
-        <location filename="../qt/ui_dock_effects.h" line="4221"/>
+        <location filename="../qt/dock_effects.ui" line="3093"/>
+        <location filename="../qt/ui_dock_effects.h" line="3326"/>
         <source>Lights</source>
         <translation>Światła</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3337"/>
-        <location filename="../qt/ui_dock_effects.h" line="3941"/>
+        <location filename="../qt/dock_effects.ui" line="3189"/>
+        <location filename="../qt/ui_dock_effects.h" line="3205"/>
         <source>Common light options</source>
         <translation>Wspólne ustawienia</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3364"/>
-        <location filename="../qt/ui_dock_effects.h" line="3943"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables casting shadows from all light sources&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia rzucanie cieni przez wszystkie źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia rzucanie cieni przez wszystkie źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3367"/>
-        <location filename="../qt/ui_dock_effects.h" line="3945"/>
+        <location filename="../qt/dock_effects.ui" line="3449"/>
+        <location filename="../qt/ui_dock_effects.h" line="3242"/>
         <source>Cast shadows</source>
         <translation>Rzucanie cieni</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3380"/>
-        <location filename="../qt/ui_dock_effects.h" line="3947"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes light rays penetrate all the objects. When it&apos;s enabled, then even inside the fractal it will not be completely dark. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprawia, że promienie światła penetrują wszystkie obiekty. Kiedy jest aktywne, to nawet w środku fraktala nie będzie zupełnie ciemno. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprawia, że promienie światła penetrują wszystkie obiekty. Kiedy jest aktywne, to nawet w środku fraktala nie będzie zupełnie ciemno. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3383"/>
-        <location filename="../qt/ui_dock_effects.h" line="3949"/>
         <source>Penetrating lights</source>
-        <translation>Penetrujące światło</translation>
+        <translation type="vanished">Penetrujące światło</translation>
     </message>
     <message>
         <source>Main light source</source>
@@ -8394,25 +8373,25 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="195"/>
-        <location filename="../qt/ui_dock_effects.h" line="3505"/>
+        <location filename="../qt/ui_dock_effects.h" line="2798"/>
         <source>Ray-&amp;traced reflections and transparency</source>
         <translation>Śledzenie promieni światła dla odbić i przezroczystości</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="252"/>
-        <location filename="../qt/ui_dock_effects.h" line="3511"/>
+        <location filename="../qt/ui_dock_effects.h" line="2804"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Depth of field is the effect in which objects within some range of distances in a scene appear in focus, and objects nearer or farther than this range appear out of focus.&lt;/p&gt;&lt;p&gt;note: using DOF prevents one-pass anaglyph rendering, unless Monte carlo algorithm mode is selected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Głębia ostrości jest efektem, który powoduje, że tylko w pewnym zakresie odległości scena wygląda na ostrą, a obiekty położone dalej lub bliżej wyglądają na nieostre.&lt;/p&gt;&lt;p&gt;Uwaga: użycie efektu głębi ostrości powoduje, że obrazy stereoskopowe będą renderowane w dwóch przejściach, chyba że aktywny jest tryb Monte Carlo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="406"/>
-        <location filename="../qt/ui_dock_effects.h" line="3534"/>
+        <location filename="../qt/ui_dock_effects.h" line="2827"/>
         <source>Maximum blur radius:</source>
         <translation>Maksymalny promień rozmycia:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="419"/>
-        <location filename="../qt/ui_dock_effects.h" line="3536"/>
+        <location filename="../qt/ui_dock_effects.h" line="2829"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum radius of generated blur. Lower value can speed up rendering but effect will be less realistic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalby promień generowanego rozmycia. Niższa wartość może przyspieszyć renderowanie ale efekt może być mniej realistyczny.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -8439,7 +8418,7 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="592"/>
-        <location filename="../qt/ui_dock_effects.h" line="3574"/>
+        <location filename="../qt/ui_dock_effects.h" line="2867"/>
         <source>Average noise:</source>
         <translation>Średni szum:</translation>
     </message>
@@ -8449,51 +8428,51 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="705"/>
-        <location filename="../qt/ui_dock_effects.h" line="3596"/>
+        <location filename="../qt/ui_dock_effects.h" line="2889"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refracted light more vsible on transparent objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wyższa wartość powoduje, że dyspersja światła jest bardziej intensywna w przezroczystych obiektach.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="747"/>
-        <location filename="../qt/ui_dock_effects.h" line="3604"/>
+        <location filename="../qt/ui_dock_effects.h" line="2897"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SSAO&lt;/span&gt; - relatively fast post-effect based on z-Buffer&lt;br/&gt;note: using SSAO prevents one-pass anaglyph rendering&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Multiple rays&lt;/span&gt; - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Fast&lt;/span&gt; - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawienia efektu światła rozproszonego&lt;/p&gt;&lt;p&gt;Rodzaje efektu swiatła rozproszonego:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Przestrzeń obrazu (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Wiele promieni&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Szybki&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SSAO&lt;/span&gt; - relatywnie szybki efekt bazujacy na buforze-Z&lt;br/&gt;uwaga: użycie SSAO blokuje jedno-przebiegowe renderowanie anaglyfów&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wiele promieni&lt;/span&gt; - bazuje na obliczaniu promieni światła w wielu różnuch kierunkach. Używa tekstury do stworzenia kolorowej mapy swiatła. Ten efekt spowalnia renderowanie.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Szybki&lt;/span&gt; - szybki i prosty tryb obczania światła rozproszonego. Jest to najmniej dokładny efekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="750"/>
-        <location filename="../qt/ui_dock_effects.h" line="3607"/>
+        <location filename="../qt/ui_dock_effects.h" line="2900"/>
         <source>Ambient occl&amp;usion</source>
         <translation>Światło rozproszone</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="1014"/>
-        <location filename="../qt/ui_dock_effects.h" line="3648"/>
+        <location filename="../qt/ui_dock_effects.h" line="2941"/>
         <source>Environment mappin&amp;g</source>
         <translation>Mapowanie środowiskowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1194"/>
-        <location filename="../qt/ui_dock_effects.h" line="3661"/>
+        <location filename="../qt/dock_effects.ui" line="1205"/>
+        <location filename="../qt/ui_dock_effects.h" line="2956"/>
         <source>Custom DE Step multiplier
 for volumetric effects:</source>
         <translation>Własny mnożnik kroku (DE step)
 dla efektów objętościowych:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1294"/>
-        <location filename="../qt/ui_dock_effects.h" line="3683"/>
+        <location filename="../qt/dock_effects.ui" line="1305"/>
+        <location filename="../qt/ui_dock_effects.h" line="2978"/>
         <source>&amp;Glow</source>
         <translation>Poświata</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1379"/>
-        <location filename="../qt/ui_dock_effects.h" line="3701"/>
+        <location filename="../qt/dock_effects.ui" line="1390"/>
+        <location filename="../qt/ui_dock_effects.h" line="2996"/>
         <source>Fog based on dis&amp;tance</source>
         <translation>Mgła bazująca na odległości</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1556"/>
-        <location filename="../qt/ui_dock_effects.h" line="3744"/>
+        <location filename="../qt/dock_effects.ui" line="1567"/>
+        <location filename="../qt/ui_dock_effects.h" line="3039"/>
         <source>Fog based on iteration co&amp;unt</source>
         <translation>Mgła bazująca na ilości iteracji</translation>
     </message>
@@ -8502,145 +8481,119 @@ dla efektów objętościowych:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy akywne, mgła będzie odbierała i rzucała cielnie, dzięki czemu efekt będzie bardziej realistyczny (renderowanie będzie znaczne wolniejsze)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2416"/>
-        <location filename="../qt/ui_dock_effects.h" line="3842"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables effect for main light source. It&apos;s good to place the light source almost in front of the camera (horizontal angle about 180, vertical angle about 0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia efekt dla głównego źródła światła. Aby efekt był bardziej widowiskowy, zalecane jest umieszczenie źródła światła na przeciwko kamery (kąt poziomy około 180 stopni a kąt pionowy około zera)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia efekt dla głównego źródła światła. Aby efekt był bardziej widowiskowy, zalecane jest umieszczenie źródła światła na przeciwko kamery (kąt poziomy około 180 stopni a kąt pionowy około zera)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Te&amp;xtured background</source>
         <translation type="vanished">Teksturowane tło</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2904"/>
-        <location filename="../qt/ui_dock_effects.h" line="3910"/>
+        <location filename="../qt/dock_effects.ui" line="2756"/>
+        <location filename="../qt/ui_dock_effects.h" line="3174"/>
         <source>Beta:</source>
         <translation>Beta:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2965"/>
-        <location filename="../qt/ui_dock_effects.h" line="3917"/>
+        <location filename="../qt/dock_effects.ui" line="2817"/>
+        <location filename="../qt/ui_dock_effects.h" line="3181"/>
         <source>Gamma:</source>
         <translation>Gamma:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2869"/>
-        <location filename="../qt/ui_dock_effects.h" line="3902"/>
+        <location filename="../qt/dock_effects.ui" line="2721"/>
+        <location filename="../qt/ui_dock_effects.h" line="3166"/>
         <source>Vertical scale:</source>
         <translation>Skala pionowa:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3022"/>
-        <location filename="../qt/ui_dock_effects.h" line="3921"/>
+        <location filename="../qt/dock_effects.ui" line="2874"/>
+        <location filename="../qt/ui_dock_effects.h" line="3185"/>
         <source>Rotation:</source>
         <translation>Obrót:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3076"/>
-        <location filename="../qt/ui_dock_effects.h" line="3925"/>
+        <location filename="../qt/dock_effects.ui" line="2928"/>
+        <location filename="../qt/ui_dock_effects.h" line="3189"/>
         <source>Horizontal scale:</source>
         <translation>Skala pozioma:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2955"/>
-        <location filename="../qt/ui_dock_effects.h" line="3916"/>
+        <location filename="../qt/dock_effects.ui" line="2807"/>
+        <location filename="../qt/ui_dock_effects.h" line="3180"/>
         <source>Alpha:</source>
         <translation>Alfa:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="230"/>
-        <location filename="../qt/ui_dock_effects.h" line="3507"/>
+        <location filename="../qt/ui_dock_effects.h" line="2800"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for a given pixel.&lt;/p&gt;&lt;p&gt;This value affects reflections, refraction and MC Global Illumination &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalna ilość odbić promienia światła, która będzie obliczana dla danego piksela.&lt;/p&gt;&lt;p&gt;Ta wartość ma wpływ na odbicia światła, przezroczystości oraz MC globalne światło.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="352"/>
-        <location filename="../qt/ui_dock_effects.h" line="3526"/>
+        <location filename="../qt/ui_dock_effects.h" line="2819"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of passes of rendering DOF effect. One pass is enough for most of cases. But for more realistic blur it can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ilość przebiegów renderowania efektu głębi ostrości. Jeden przebieg w większości przypadków jest wystarczający. Jednakże dla bardziej realistycznego wygladu może być zwiększona (np. do 4) a &lt;i&gt;intensywność efektu rozmycia&lt;/i&gt; powinna być jednocześnie zmniejszona (np. do 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="487"/>
-        <location filename="../qt/ui_dock_effects.h" line="3551"/>
+        <location filename="../qt/ui_dock_effects.h" line="2844"/>
         <source>&amp;Monte Carlo algorithm</source>
         <translation>Algorytm Monte Carlo</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2981"/>
-        <location filename="../qt/ui_dock_effects.h" line="3918"/>
+        <location filename="../qt/dock_effects.ui" line="2833"/>
+        <location filename="../qt/ui_dock_effects.h" line="3182"/>
         <source>Texture offset:</source>
         <translation>Przesunięcie
 tekstury:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3461"/>
-        <location filename="../qt/ui_dock_effects.h" line="3961"/>
         <source>&amp;Main light source</source>
-        <translation>Główne źródło światła</translation>
+        <translation type="vanished">Główne źródło światła</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3562"/>
-        <location filename="../qt/ui_dock_effects.h" line="3972"/>
         <source>Horizontal angle:</source>
-        <translation>Kąt poziomy:</translation>
+        <translation type="vanished">Kąt poziomy:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3582"/>
-        <location filename="../qt/ui_dock_effects.h" line="3975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter moves the light source to the left / right. &lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is off and angle is zero then light is set on Y axis.&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is on and angle is zero then light is set behind the camera. When it&apos;s +90, then is on the right side of the camera. When it&apos;s -90, then is on the left side of the camera. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr przemieszcza źródło światła w lewo / prawo&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest wyłączona a kąt jest zero, to światło znajduje się na osi Y&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest włączona a kąt jest zero, to światło znajduje się przed kamerą. Kiedy jest +90, światło jest po prawej stronie kamery. Kiedy jest -90, światło jest po lewej stronie kamery. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr przemieszcza źródło światła w lewo / prawo&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest wyłączona a kąt jest zero, to światło znajduje się na osi Y&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest włączona a kąt jest zero, to światło znajduje się przed kamerą. Kiedy jest +90, światło jest po prawej stronie kamery. Kiedy jest -90, światło jest po lewej stronie kamery. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3682"/>
-        <location filename="../qt/dock_effects.ui" line="3710"/>
-        <location filename="../qt/ui_dock_effects.h" line="3994"/>
-        <location filename="../qt/ui_dock_effects.h" line="3999"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter sets size of main light which is visible on a &amp;quot;sky&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr ustala wielkość głównego źródła światła widocznego na &amp;quot;niebie&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr ustala wielkość głównego źródła światła widocznego na &amp;quot;niebie&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3626"/>
-        <location filename="../qt/ui_dock_effects.h" line="3984"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it&apos;s higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność głównego źródła światła. Kiedy jest większa to obiekty oświetlane przez główne źródło światła są jaśniejsze.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność głównego źródła światła. Kiedy jest większa to obiekty oświetlane przez główne źródło światła są jaśniejsze.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3654"/>
-        <location filename="../qt/ui_dock_effects.h" line="3989"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter sets brightness of the light which is visible on a &amp;quot;sky&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr ustala jasność głównego źródła światła widocznego na &amp;quot;niebie&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr ustala jasność głównego źródła światła widocznego na &amp;quot;niebie&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3504"/>
-        <location filename="../qt/dock_effects.ui" line="4492"/>
-        <location filename="../qt/ui_dock_effects.h" line="3964"/>
-        <location filename="../qt/ui_dock_effects.h" line="4122"/>
+        <location filename="../qt/dock_effects.ui" line="3479"/>
+        <location filename="../qt/ui_dock_effects.h" line="3244"/>
         <source>Size:</source>
         <translation>Wielkość:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3408"/>
-        <location filename="../qt/ui_dock_effects.h" line="3952"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls angle of shadows cone. It simulates &amp;quot;soft shadow&amp;quot; effect. When it&apos;s zero, then shadows are very sharp.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shadow cone 0 degrees&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shadow cone 5 degrees &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 0.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr kontroluje kąt rozwarcia stożka cienia. ten efekt symuluje &amp;quot;miękkie cienie&amp;quot;. Kiedy jest zero to cienie są bardzo ostre&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;stożek cienia 0 stopni&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;stożek cienia 5 stopni &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 0.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr kontroluje kąt rozwarcia stożka cienia. ten efekt symuluje &amp;quot;miękkie cienie&amp;quot;. Kiedy jest zero to cienie są bardzo ostre&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;stożek cienia 0 stopni&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;stożek cienia 5 stopni &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 0.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3497"/>
-        <location filename="../qt/ui_dock_effects.h" line="3963"/>
         <source>Vertical angle:</source>
-        <translation>Kąt pionowy:</translation>
+        <translation type="vanished">Kąt pionowy:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3524"/>
-        <location filename="../qt/ui_dock_effects.h" line="3967"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter moves main light source higher / lower. &lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is off and angle is zero then light is set on X-Y plane (horizon).&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is on and angle is zero then light is on local horizon. When it&apos;s +90, then is over the camera. When it&apos;s -90, then is under the camera. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr przemieszcza światło wyżej / niżej. &lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest wyłączona a kąt jest zero, to światło znajduje się na płaszczyźnie X-Y.&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest włączona a kąt jest zero, to światło znajduje się na lokalnym horyzoncie. Kiedy jest +90, to światło znajduje się nad kamerą. Kiedy jest -90, to światło jest pod kamerą. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr przemieszcza światło wyżej / niżej. &lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest wyłączona a kąt jest zero, to światło znajduje się na płaszczyźnie X-Y.&lt;/p&gt;&lt;p&gt;Kiedy &lt;span style=&quot; font-style:italic;&quot;&gt;Pozycja względem kamery&lt;/span&gt; jest włączona a kąt jest zero, to światło znajduje się na lokalnym horyzoncie. Kiedy jest +90, to światło znajduje się nad kamerą. Kiedy jest -90, to światło jest pod kamerą. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3395"/>
-        <location filename="../qt/ui_dock_effects.h" line="3950"/>
         <source>Soft shadow cone angle:</source>
-        <translation>Kąt stożka miękkiego cienia:</translation>
+        <translation type="vanished">Kąt stożka miękkiego cienia:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithm for rendering the depth of field (DOF) effect. This effect is extremely slow for rendering, but gives a very realistic DOF appearance. &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8648,7 +8601,7 @@ tekstury:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="548"/>
-        <location filename="../qt/ui_dock_effects.h" line="3558"/>
+        <location filename="../qt/ui_dock_effects.h" line="2851"/>
         <source>Max number of samples
 per pixel:</source>
         <translation>Maksymalna ilość próbek 
@@ -8656,7 +8609,7 @@ na piksel:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="556"/>
-        <location filename="../qt/ui_dock_effects.h" line="3560"/>
+        <location filename="../qt/ui_dock_effects.h" line="2853"/>
         <source>Min number of samples
 per pixel:</source>
         <translation>Minimalna ilość próbek
@@ -8664,7 +8617,7 @@ na piksel:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="571"/>
-        <location filename="../qt/ui_dock_effects.h" line="3565"/>
+        <location filename="../qt/ui_dock_effects.h" line="2858"/>
         <source>Max noise level
 (percentage)</source>
         <translation>Maksymalny poziom 
@@ -8672,309 +8625,323 @@ szumu (procentowo)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="582"/>
-        <location filename="../qt/ui_dock_effects.h" line="3570"/>
+        <location filename="../qt/ui_dock_effects.h" line="2863"/>
         <source>Average number of MC samples:</source>
         <translation>Średnia ilość próbek algorytmu MC:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="589"/>
-        <location filename="../qt/ui_dock_effects.h" line="3572"/>
+        <location filename="../qt/ui_dock_effects.h" line="2865"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Szacowana wartość średnia szumu powodowanego przez efekty Monte Carlo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="607"/>
         <location filename="../qt/dock_effects.ui" line="647"/>
-        <location filename="../qt/ui_dock_effects.h" line="3576"/>
-        <location filename="../qt/ui_dock_effects.h" line="3584"/>
+        <location filename="../qt/ui_dock_effects.h" line="2869"/>
+        <location filename="../qt/ui_dock_effects.h" line="2877"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Włącza obliczanie relistycznego oświetlenia globalnego przy użyciu algorytmu Monte Carlo&lt;/p&gt;&lt;p&gt;Ilość odbić promienia światła jest definiowana przez parametr&amp;quot;głębokość odbić&amp;quot; (znajduje się na górze zakładki)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="610"/>
-        <location filename="../qt/ui_dock_effects.h" line="3578"/>
+        <location filename="../qt/ui_dock_effects.h" line="2871"/>
         <source>Calculate MC global illumination</source>
         <translation>MC Globalne oświetlenie</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="622"/>
-        <location filename="../qt/ui_dock_effects.h" line="3579"/>
+        <location filename="../qt/ui_dock_effects.h" line="2872"/>
         <source>Radiance limit for GI</source>
         <translation>Ograniczenie promieniowania
 światła rozproszonego</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="629"/>
-        <location filename="../qt/ui_dock_effects.h" line="3581"/>
+        <location filename="../qt/ui_dock_effects.h" line="2874"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit for intensity of bounced light. Lower value reduces noise caused by very bright spots on HDR background textures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ograniczenie intensywności rozproszonego światła. Niższa wartość redukuje szum spowodowany bardzo jasnymi pikselami na teksturach HDR&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="650"/>
-        <location filename="../qt/ui_dock_effects.h" line="3586"/>
+        <location filename="../qt/ui_dock_effects.h" line="2879"/>
         <source>Global illumination by volumetric effects</source>
         <translation>Globale oświetlenie przez efekty objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="663"/>
-        <location filename="../qt/ui_dock_effects.h" line="3588"/>
+        <location filename="../qt/ui_dock_effects.h" line="2881"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow code angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by C&lt;span style=&quot; font-style:italic;&quot;&gt;ustom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywania obliczanie realistycznych miękkich cieni przy użyciu algorytmu Monte Carlo.&lt;/p&gt;&lt;p&gt;Stożek miękkiego cienia jest zdefiniowany przez &lt;span style=&quot; font-style:italic;&quot;&gt;Kąt stożka miękkiego cienia&lt;/span&gt; (zakładka &lt;span style=&quot; font-style:italic;&quot;&gt;Światła&lt;/span&gt;)&lt;/p&gt;&lt;p&gt;Stożek miękkich cieni dla dodatkowych świateł jest zdefiniowany przez &lt;span style=&quot; font-style:italic;&quot;&gt;Opcje własnych świateł&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Wielkość.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="666"/>
-        <location filename="../qt/ui_dock_effects.h" line="3590"/>
+        <location filename="../qt/ui_dock_effects.h" line="2883"/>
         <source>Calculate MC soft shadows</source>
         <translation>MC Miękkie cienie</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="673"/>
-        <location filename="../qt/ui_dock_effects.h" line="3592"/>
+        <location filename="../qt/ui_dock_effects.h" line="2885"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of chromatic aberration. This effect simulates the way an actual lens refracts light slightly differently based on wavelength.&lt;/p&gt;&lt;p&gt;It will give a &quot;rainbow&quot; type effect that gets stronger closer to the edges of the image. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia renderowanie aberracji chromatycznych. Ten efekt symuluje załamanie światła pod różnym kątem w zalezności od długości fali światła.&lt;/p&gt;&lt;p&gt;Uzyskuje się efekt w rodzaju tęczy, który jest bardziej widoczny bliżej krawędzi obrazu lub na przezroczystych obiektach. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="676"/>
-        <location filename="../qt/ui_dock_effects.h" line="3594"/>
+        <location filename="../qt/ui_dock_effects.h" line="2887"/>
         <source>Calculate chromatic aberration</source>
         <translation>MC Aberracje chromatyczne</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="712"/>
-        <location filename="../qt/ui_dock_effects.h" line="3598"/>
+        <location filename="../qt/ui_dock_effects.h" line="2891"/>
         <source>Dispersion gain of light refraction:</source>
         <translation>Zwiększenie dyspersji załamywanego światła:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="722"/>
-        <location filename="../qt/ui_dock_effects.h" line="3599"/>
+        <location filename="../qt/ui_dock_effects.h" line="2892"/>
         <source>Camera lenses dispersion:</source>
         <translation>Dyspersja soczewek kamery:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="732"/>
-        <location filename="../qt/ui_dock_effects.h" line="3601"/>
+        <location filename="../qt/ui_dock_effects.h" line="2894"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes simulated dispersion of camera lenses more visible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Większa wartość powoduje, że symulowana dyspersja światła powodowana przez soczewki obietywu jest bardziej widoczna.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="996"/>
-        <location filename="../qt/ui_dock_effects.h" line="3643"/>
+        <location filename="../qt/ui_dock_effects.h" line="2936"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to light map image. For ambient occlusion effect based on multiple rays&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do mapy światła. Ma zastosowanie dla efektu światła rozproszonego bazującego na wielu promieniach&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;textura0001.jpg&lt;br/&gt;textura0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: textura%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1056"/>
-        <location filename="../qt/ui_dock_effects.h" line="3651"/>
+        <location filename="../qt/dock_effects.ui" line="1038"/>
+        <location filename="../qt/ui_dock_effects.h" line="2942"/>
+        <source>Remark: It is simple reflections mapping.
+To do mapping of radiance use HDRI texture as a background texture.</source>
+        <translation>Uwaga: To jest proste mapowanie odbić światła.
+Aby użyć efektu mapowania promieniowania, użyj tekstury HDRI jako tło.</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="1067"/>
+        <location filename="../qt/ui_dock_effects.h" line="2946"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do mapy odbić światła.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;textura0001.jpg&lt;br/&gt;textura0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: textura%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1187"/>
-        <location filename="../qt/ui_dock_effects.h" line="3659"/>
+        <location filename="../qt/dock_effects.ui" line="1198"/>
+        <location filename="../qt/ui_dock_effects.h" line="2954"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This value controls the quality of the volumetric light effect.  The step for volumetric light is calculated in each iteration as: &lt;/p&gt;&lt;p&gt;step = DE * DE_FACTOR[global] * DE_FACTOR[volumetric].&lt;/p&gt;&lt;p&gt;A higher value gives a faster render but of poorer quality.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1236"/>
-        <location filename="../qt/ui_dock_effects.h" line="3668"/>
+        <location filename="../qt/dock_effects.ui" line="1247"/>
+        <location filename="../qt/ui_dock_effects.h" line="2963"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility distance of fog. Visibility can be set by using &apos;&lt;span style=&quot; font-style:italic;&quot;&gt;Set visibility distance by mouse&apos;&lt;/span&gt; button&lt;/p&gt;&lt;p&gt;Lower values produce denser fog,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zasięg widoczności mgły. Widoczność może być ustawiona przyciskiem &apos;&lt;span style=&quot; font-style:italic;&quot;&gt;Ustaw zasięg widoczności za pomocą myszy&apos;&lt;/span&gt; &lt;/p&gt;&lt;p&gt;Niższa wartość daje gęstszą mgłę,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1278"/>
-        <location filename="../qt/ui_dock_effects.h" line="3677"/>
+        <location filename="../qt/dock_effects.ui" line="1289"/>
+        <location filename="../qt/ui_dock_effects.h" line="2972"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets visibility distance using mouse pointer. Point the object which should be the farthest visible.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawianie zasięgu widoczności za pomocą wskaźnika myszy. Wskaż obiekt, które ma być najdalej widocznym.&lt;/p&gt;&lt;p&gt;Po użyciu nie zapomnij zmienić &lt;span style=&quot; font-style:italic;&quot;&gt;Nawigacja&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Funkcja przycisku myszy&lt;/span&gt; aby kontynuować pracę z kamerą.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1376"/>
-        <location filename="../qt/ui_dock_effects.h" line="3699"/>
+        <location filename="../qt/dock_effects.ui" line="1387"/>
+        <location filename="../qt/ui_dock_effects.h" line="2994"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog where density depends on the distance from the fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example of high values of distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Examples of low values of distance &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mgła, której gęstośc zależy od odległości od powierzchni fraktala.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Przykład dla dużych wartości odległości&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Przykład dla małych wartości odległości &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1408"/>
-        <location filename="../qt/dock_effects.ui" line="1541"/>
-        <location filename="../qt/ui_dock_effects.h" line="3703"/>
-        <location filename="../qt/ui_dock_effects.h" line="3739"/>
+        <location filename="../qt/dock_effects.ui" line="1419"/>
+        <location filename="../qt/dock_effects.ui" line="1552"/>
+        <location filename="../qt/ui_dock_effects.h" line="2998"/>
+        <location filename="../qt/ui_dock_effects.h" line="3034"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawia gęstość mgły zależną od odległości od powierzchni fraktala. Wyższa wartość daje mgłę, która sięga dalej od powierzchni fraktala.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1415"/>
-        <location filename="../qt/ui_dock_effects.h" line="3706"/>
+        <location filename="../qt/dock_effects.ui" line="1426"/>
+        <location filename="../qt/ui_dock_effects.h" line="3001"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Density of fog. Higher values produce denser fog. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gęstość mgły. Większa wartość daje gęstszą mgłę. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1443"/>
-        <location filename="../qt/ui_dock_effects.h" line="3712"/>
+        <location filename="../qt/dock_effects.ui" line="1454"/>
+        <location filename="../qt/ui_dock_effects.h" line="3007"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum fog distance of color #2 from the fractal surface, and minimum fog distance for color #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalna odległość of powierzchni fraktala, gdzie jest używany kolor #2 i minimalna, gdzie jest używany kolor #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1450"/>
-        <location filename="../qt/ui_dock_effects.h" line="3715"/>
+        <location filename="../qt/dock_effects.ui" line="1461"/>
+        <location filename="../qt/ui_dock_effects.h" line="3010"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum fog distance of color #1 from the fractal surface, and minimum fog distance for color #2.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalna odległość of powierzchni fraktala, gdzie jest używany kolor #2 i minimalna, gdzie jest używany kolor #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1531"/>
-        <location filename="../qt/ui_dock_effects.h" line="3737"/>
+        <location filename="../qt/dock_effects.ui" line="1542"/>
+        <location filename="../qt/ui_dock_effects.h" line="3032"/>
         <source>Distance from fractal surface:</source>
         <translation>Odległość od powierzchni fraktala:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1553"/>
-        <location filename="../qt/ui_dock_effects.h" line="3742"/>
+        <location filename="../qt/dock_effects.ui" line="1564"/>
+        <location filename="../qt/ui_dock_effects.h" line="3037"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog effect, where the density of the fog is dependent on the iteration count of the fractal formula. Fog is denser in areas of higher iteration count.&lt;/p&gt;&lt;p&gt;Fog receives shadows, and casts shadows on fractal surface and on itself.&lt;/p&gt;&lt;p&gt;Example of fog with additional light sources:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - lights.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Efekt mgły, w którym gęstość mgły zależy od ilości iteracji funkcji fraktala. Mgła jest gęstsza tam, gdzie jest większa ilość iteracji.&lt;/p&gt;&lt;p&gt;Na mgle są widoczne cienie i sama też rzuca cień na powierzchnię fraktala i na samą siebie.&lt;/p&gt;&lt;p&gt;Przykład mgły z dodatkowymi źródłami światła:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - lights.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1623"/>
-        <location filename="../qt/ui_dock_effects.h" line="3751"/>
+        <location filename="../qt/dock_effects.ui" line="1634"/>
+        <location filename="../qt/ui_dock_effects.h" line="3046"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter can be used to increase brightness of fog illuminated by auxiliary light sources.&lt;/p&gt;&lt;p&gt;In Mandelbulber version &amp;lt;= 2.12 this value was hardcoded and default value was 100. &lt;/p&gt;&lt;p&gt;When brightness boost is 1.0 then there is correct proportion of illuminating fractal surface and fog.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy nie jest aktywne, program automatycznie redukuje ilość detali w odległych regionach fraktala. Jak tylko zbliżasz kamerę do powierzchni fraktala, program zwiększa ilość detali.&lt;/p&gt;&lt;p&gt;Jeśli wybrane, to w każdym regionie fraktala poziom detali (ich wielkość), będzie taka sama.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1599"/>
-        <location filename="../qt/ui_dock_effects.h" line="3747"/>
+        <location filename="../qt/dock_effects.ui" line="1610"/>
+        <location filename="../qt/ui_dock_effects.h" line="3042"/>
         <source>Brightness boost.
 Set 100 to keep compatibility with version &lt;=2.12</source>
         <translation>Wzmocnienie jasności
 Ustaw na 100 aby zachować kompatybilność z wersjami &lt;=2.12</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1847"/>
-        <location filename="../qt/ui_dock_effects.h" line="3796"/>
+        <location filename="../qt/dock_effects.ui" line="1858"/>
+        <location filename="../qt/ui_dock_effects.h" line="3091"/>
         <source>Clouds</source>
         <translation>Chmury</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1879"/>
-        <location filename="../qt/ui_dock_effects.h" line="3797"/>
+        <location filename="../qt/dock_effects.ui" line="1890"/>
+        <location filename="../qt/ui_dock_effects.h" line="3092"/>
         <source>Color</source>
         <translation>Kolor</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1899"/>
-        <location filename="../qt/ui_dock_effects.h" line="3798"/>
+        <location filename="../qt/dock_effects.ui" line="2034"/>
+        <location filename="../qt/ui_dock_effects.h" line="3104"/>
         <source>Random seed:</source>
         <translation>Zarodek losowy:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1906"/>
-        <location filename="../qt/ui_dock_effects.h" line="3799"/>
+        <location filename="../qt/dock_effects.ui" line="1945"/>
+        <location filename="../qt/ui_dock_effects.h" line="3096"/>
         <source>Period:</source>
         <translation>Okres:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1953"/>
-        <location filename="../qt/ui_dock_effects.h" line="3803"/>
+        <location filename="../qt/dock_effects.ui" line="1913"/>
+        <location filename="../qt/ui_dock_effects.h" line="3093"/>
         <source>Noise iterations:</source>
         <translation>Ilość iteracji szumu:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2020"/>
-        <location filename="../qt/ui_dock_effects.h" line="3809"/>
+        <location filename="../qt/dock_effects.ui" line="2044"/>
+        <location filename="../qt/ui_dock_effects.h" line="3105"/>
         <source>Ambient light:</source>
         <translation>Światło rozproszone:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2027"/>
-        <location filename="../qt/ui_dock_effects.h" line="3810"/>
+        <location filename="../qt/dock_effects.ui" line="2000"/>
+        <location filename="../qt/ui_dock_effects.h" line="3100"/>
         <source>Visible light and trap light boost:</source>
         <translation>Wzmocnienie widoczności świateł pułapek orbit:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1835"/>
-        <location filename="../qt/ui_dock_effects.h" line="3795"/>
+        <location filename="../qt/dock_effects.ui" line="1846"/>
+        <location filename="../qt/ui_dock_effects.h" line="3090"/>
         <source>Cast/receive shadows</source>
         <translation>Rzucanie/odbieranie cieni</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="1780"/>
-        <location filename="../qt/ui_dock_effects.h" line="3785"/>
+        <location filename="../qt/dock_effects.ui" line="1791"/>
+        <location filename="../qt/ui_dock_effects.h" line="3080"/>
         <source>High iterations trim:</source>
         <translation>Przycięcie ostatnich iteracji:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2042"/>
-        <location filename="../qt/ui_dock_effects.h" line="3811"/>
+        <location filename="../qt/dock_effects.ui" line="2057"/>
+        <location filename="../qt/ui_dock_effects.h" line="3106"/>
+        <source>Receive shadows</source>
+        <translation>Odbieranie cieni</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="2066"/>
+        <location filename="../qt/ui_dock_effects.h" line="3107"/>
         <source>Plane shape</source>
         <translation>Płaszczyzna</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2071"/>
-        <location filename="../qt/ui_dock_effects.h" line="3812"/>
+        <location filename="../qt/dock_effects.ui" line="2095"/>
+        <location filename="../qt/ui_dock_effects.h" line="3108"/>
         <source>alpha</source>
         <translation>alfa</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2084"/>
-        <location filename="../qt/ui_dock_effects.h" line="3813"/>
+        <location filename="../qt/dock_effects.ui" line="2108"/>
+        <location filename="../qt/ui_dock_effects.h" line="3109"/>
         <source>gamma</source>
         <translation>gamma</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2131"/>
-        <location filename="../qt/ui_dock_effects.h" line="3816"/>
+        <location filename="../qt/dock_effects.ui" line="2155"/>
+        <location filename="../qt/ui_dock_effects.h" line="3112"/>
         <source>x</source>
         <translation>x</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2141"/>
-        <location filename="../qt/ui_dock_effects.h" line="3817"/>
+        <location filename="../qt/dock_effects.ui" line="2165"/>
+        <location filename="../qt/ui_dock_effects.h" line="3113"/>
         <source>y</source>
         <translation>y</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2151"/>
-        <location filename="../qt/ui_dock_effects.h" line="3818"/>
+        <location filename="../qt/dock_effects.ui" line="2175"/>
+        <location filename="../qt/ui_dock_effects.h" line="3114"/>
         <source>z</source>
         <translation>z</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2161"/>
-        <location filename="../qt/ui_dock_effects.h" line="3819"/>
+        <location filename="../qt/dock_effects.ui" line="2185"/>
+        <location filename="../qt/ui_dock_effects.h" line="3115"/>
         <source>Clouds center:</source>
         <translation>Środek chmur:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2171"/>
-        <location filename="../qt/ui_dock_effects.h" line="3820"/>
+        <location filename="../qt/dock_effects.ui" line="2195"/>
+        <location filename="../qt/ui_dock_effects.h" line="3116"/>
         <source>beta</source>
         <translation>beta</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2181"/>
-        <location filename="../qt/ui_dock_effects.h" line="3821"/>
+        <location filename="../qt/dock_effects.ui" line="2205"/>
+        <location filename="../qt/ui_dock_effects.h" line="3117"/>
         <source>Clouds layer height:</source>
         <translation>Grubość płaszczyzny 
 chmur:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2188"/>
-        <location filename="../qt/ui_dock_effects.h" line="3822"/>
+        <location filename="../qt/dock_effects.ui" line="2212"/>
+        <location filename="../qt/ui_dock_effects.h" line="3118"/>
         <source>Geometry rotation:</source>
         <translation>Obrót płaszczyzny:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2262"/>
-        <location filename="../qt/ui_dock_effects.h" line="3827"/>
+        <location filename="../qt/dock_effects.ui" line="2286"/>
+        <location filename="../qt/ui_dock_effects.h" line="3123"/>
         <source>Clouds at distance from fractal</source>
         <translation>Chmury oddalone od fraktala</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2288"/>
-        <location filename="../qt/ui_dock_effects.h" line="3828"/>
+        <location filename="../qt/dock_effects.ui" line="2312"/>
+        <location filename="../qt/ui_dock_effects.h" line="3124"/>
         <source>Distance from fractal</source>
         <translation>Odległość od fraktala</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2298"/>
-        <location filename="../qt/ui_dock_effects.h" line="3829"/>
+        <location filename="../qt/dock_effects.ui" line="2322"/>
+        <location filename="../qt/ui_dock_effects.h" line="3125"/>
         <source>Clouds layer height</source>
         <translation>Grubość warstwy chmur</translation>
     </message>
@@ -8983,193 +8950,219 @@ chmur:</translation>
         <translation type="vanished">Kontrola dokładności</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2339"/>
-        <location filename="../qt/ui_dock_effects.h" line="3831"/>
+        <location filename="../qt/dock_effects.ui" line="2363"/>
+        <location filename="../qt/ui_dock_effects.h" line="3127"/>
         <source>Details accuracy</source>
         <translation>Dokładność detali</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2349"/>
-        <location filename="../qt/ui_dock_effects.h" line="3832"/>
+        <location filename="../qt/dock_effects.ui" line="2373"/>
+        <location filename="../qt/ui_dock_effects.h" line="3128"/>
         <source>Approaching DE multiplier</source>
         <translation>Krok zbliżania
 promienia do chmur</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2356"/>
-        <location filename="../qt/ui_dock_effects.h" line="3833"/>
+        <location filename="../qt/dock_effects.ui" line="2380"/>
+        <location filename="../qt/ui_dock_effects.h" line="3129"/>
         <source>Clouds DE multiplier</source>
         <translation>Krok w chmurach</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2705"/>
-        <location filename="../qt/ui_dock_effects.h" line="3878"/>
+        <location filename="../qt/dock_effects.ui" line="2557"/>
+        <location filename="../qt/ui_dock_effects.h" line="3142"/>
         <source>Enables colored gradient on background. When disabled only color #1 is used.</source>
         <translation>Uaktywnia gradient kolorów na tle. Kiedy jest nieaktywny, to jest używany tylko kolor #1</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2708"/>
-        <location filename="../qt/ui_dock_effects.h" line="3880"/>
+        <location filename="../qt/dock_effects.ui" line="2560"/>
+        <location filename="../qt/ui_dock_effects.h" line="3144"/>
         <source>&amp;3-color gradient</source>
         <translation>Gradient koloru</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2791"/>
-        <location filename="../qt/ui_dock_effects.h" line="3893"/>
+        <location filename="../qt/dock_effects.ui" line="2643"/>
+        <location filename="../qt/ui_dock_effects.h" line="3157"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of background&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność tła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2821"/>
-        <location filename="../qt/ui_dock_effects.h" line="3900"/>
+        <location filename="../qt/dock_effects.ui" line="2673"/>
+        <location filename="../qt/ui_dock_effects.h" line="3164"/>
         <source>Text&amp;ured background</source>
         <translation>Teksturowane tło</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2920"/>
-        <location filename="../qt/ui_dock_effects.h" line="3912"/>
+        <location filename="../qt/dock_effects.ui" line="2772"/>
+        <location filename="../qt/ui_dock_effects.h" line="3176"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the background image. Acceptable formats are BMP, GIF, JPG, PNG&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do obrazu z tłem.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;textura0001.jpg&lt;br/&gt;textura0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: textura%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3439"/>
-        <location filename="../qt/ui_dock_effects.h" line="3956"/>
+        <location filename="../qt/dock_effects.ui" line="3252"/>
+        <location filename="../qt/ui_dock_effects.h" line="3215"/>
         <source>Fill light color:</source>
         <translation>Kolor światła
 dopełniającego:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3490"/>
-        <location filename="../qt/dock_effects.ui" line="4506"/>
-        <location filename="../qt/ui_dock_effects.h" line="3962"/>
-        <location filename="../qt/ui_dock_effects.h" line="4126"/>
+        <location filename="../qt/dock_effects.ui" line="3456"/>
+        <location filename="../qt/ui_dock_effects.h" line="3243"/>
         <source>Visibility:</source>
         <translation>Widoczność:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3511"/>
-        <location filename="../qt/ui_dock_effects.h" line="3965"/>
         <source>Contour sharpness:</source>
-        <translation>Ostrość konturu:</translation>
+        <translation type="vanished">Ostrość konturu:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3610"/>
-        <location filename="../qt/ui_dock_effects.h" line="3980"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of main light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor głównego źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor głównego źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3740"/>
-        <location filename="../qt/ui_dock_effects.h" line="4004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this is checked, then the position of the light changes with camera rotation. When it is unchecked, then main light source position is set with angles relative to scene coordinate system.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy jest aktywne, to pozycja światła podąża za obrotem kamery. Kiedy jest nieaktywne, to pozycja głównego źródła światła jest odniesiona do globalnego układu współrzędnych.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy jest aktywne, to pozycja światła podąża za obrotem kamery. Kiedy jest nieaktywne, to pozycja głównego źródła światła jest odniesiona do globalnego układu współrzędnych.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3743"/>
-        <location filename="../qt/ui_dock_effects.h" line="4006"/>
         <source>Position relative to the camera</source>
-        <translation>Pozycja względem kamery</translation>
+        <translation type="vanished">Pozycja względem kamery</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3753"/>
-        <location filename="../qt/ui_dock_effects.h" line="4008"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Freely configurable light sources&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swobodnie konfigurowalne źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swobodnie konfigurowalne źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3756"/>
-        <location filename="../qt/ui_dock_effects.h" line="4010"/>
         <source>Custom lights</source>
-        <translation>Własne światła</translation>
+        <translation type="vanished">Własne światła</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3949"/>
-        <location filename="../qt/ui_dock_effects.h" line="4037"/>
         <source>Light #&amp;1</source>
-        <translation>Światło #1</translation>
+        <translation type="vanished">Światło #1</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4571"/>
-        <location filename="../qt/ui_dock_effects.h" line="4135"/>
+        <location filename="../qt/dock_effects.ui" line="3398"/>
+        <location filename="../qt/ui_dock_effects.h" line="3236"/>
         <source>Number of random
 lights:</source>
         <translation>Ilość losowych 
 świateł:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4612"/>
-        <location filename="../qt/ui_dock_effects.h" line="4138"/>
+        <location filename="../qt/dock_effects.ui" line="3555"/>
+        <location filename="../qt/ui_dock_effects.h" line="3248"/>
         <source>Maximum distance
 from fractal:</source>
         <translation>Maksymalna odległość 
 od fraktala:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4623"/>
-        <location filename="../qt/ui_dock_effects.h" line="4140"/>
+        <location filename="../qt/dock_effects.ui" line="3406"/>
+        <location filename="../qt/ui_dock_effects.h" line="3238"/>
         <source>Distribution radius
 of lights:</source>
         <translation>Promień rozmieszczania 
 świateł:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4735"/>
-        <location filename="../qt/ui_dock_effects.h" line="4149"/>
+        <location filename="../qt/dock_effects.ui" line="3225"/>
+        <location filename="../qt/ui_dock_effects.h" line="3210"/>
+        <source>All lights visibility</source>
+        <translation>Widoczność wszystkich świateł</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3245"/>
+        <location filename="../qt/ui_dock_effects.h" line="3214"/>
+        <source>All lights intensity</source>
+        <translation>Intensywność wszystkich świateł</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3272"/>
+        <location filename="../qt/ui_dock_effects.h" line="3219"/>
+        <source>All lights size</source>
+        <translation>Wielkość wszystkich świateł</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3297"/>
+        <location filename="../qt/ui_dock_effects.h" line="3223"/>
+        <source>Light placement options</source>
+        <translation>Opcje umieszczania świateł</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3323"/>
+        <location filename="../qt/ui_dock_effects.h" line="3225"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from the fractal surface where the light will be placed with mouse pointer. When it&apos;s zero, the light will be set on fractal surface. A higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse wheel + alt key.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontroluje odległość od powierzchni fraktala, w jakiej są umieszczanie źródła światła za pomocą wskaźnika myszy. Jest jest zero, to światło jest umieszczanie na powierzchni fraktala. Większa wartość przesuwa światło w kierunku kamery.&lt;/p&gt;&lt;p&gt;Ten parametr może być zmieniany rolką myszy z przytrzymanym klawiszem Alt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3436"/>
+        <location filename="../qt/ui_dock_effects.h" line="3241"/>
+        <source>Penetrating</source>
+        <translation>Penetrujące</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3602"/>
+        <location filename="../qt/ui_dock_effects.h" line="3252"/>
+        <source>Soft shadow cone:</source>
+        <translation>Kąt stożka miękkiego cienia:</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_effects.ui" line="3611"/>
+        <location filename="../qt/ui_dock_effects.h" line="3254"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled then all random light sources have the same color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gdy włączone, wtedy wszystkie losowe światła mają ten sam kolor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4738"/>
-        <location filename="../qt/ui_dock_effects.h" line="4151"/>
+        <location filename="../qt/dock_effects.ui" line="3614"/>
+        <location filename="../qt/ui_dock_effects.h" line="3256"/>
         <source>Single color random lights</source>
         <translation>Losowe światła w jednym kolorze</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4761"/>
-        <location filename="../qt/ui_dock_effects.h" line="4152"/>
+        <location filename="../qt/dock_effects.ui" line="3637"/>
+        <location filename="../qt/ui_dock_effects.h" line="3257"/>
         <source>Single color:</source>
         <translation>Pojedyńczy kolor:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4789"/>
-        <location filename="../qt/ui_dock_effects.h" line="4155"/>
+        <location filename="../qt/dock_effects.ui" line="3662"/>
+        <location filename="../qt/ui_dock_effects.h" line="3260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Simulates a large amount of lights and is relatively fast to render.&lt;/p&gt;&lt;p&gt;An orbit trap is a point, a 2D, or 3D shape defined in 3D space. The brightness of the point is dependent on how close the point&apos;s orbit gets to the orbit trap shape during the chosen iterations.&lt;/p&gt;&lt;p&gt;This effect is difficult to setup and often you need to try many different orbit trap settings.&lt;/p&gt;&lt;p&gt;These light sources illuminate the fractal surface, but do not cast shadows.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Symuluje dużą ilość źródeł światła. Te źródła światła praktycznie nie spowalniają renderowania, ponieważ nie muszą być oddzielenie obliczane. Są wyliczane ze wzoru na fraktal, z wykorzystaniem techniki &lt;i&gt;orbit trap&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;Pozycje świateł są ustalone przez współrzędne punktu pułapki orbit. Kiedy iterowana funkcja przebiega blisko wybranego punktu, to punkt staje się jaśniejszy.&lt;/p&gt;&lt;p&gt;Ten efekt jest dość trudny do ustawienia i często wymaga wielu prób z różnymi współrzędnymi pułapki orbity.&lt;/p&gt;&lt;p&gt;Te źródła światła oświetlają powierzchnię fraktala ale nie generują cieni.&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4792"/>
-        <location filename="../qt/ui_dock_effects.h" line="4157"/>
+        <location filename="../qt/dock_effects.ui" line="3665"/>
+        <location filename="../qt/ui_dock_effects.h" line="3262"/>
         <source>Orbit &amp;trap lights</source>
         <translation>Światła z pułapek orbit</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4821"/>
-        <location filename="../qt/ui_dock_effects.h" line="4158"/>
+        <location filename="../qt/dock_effects.ui" line="3694"/>
+        <location filename="../qt/ui_dock_effects.h" line="3263"/>
         <source>Orbit trap center:</source>
         <translation>Środek pułapki orbit:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4844"/>
-        <location filename="../qt/ui_dock_effects.h" line="4162"/>
+        <location filename="../qt/dock_effects.ui" line="3717"/>
+        <location filename="../qt/ui_dock_effects.h" line="3267"/>
         <source>Softness:</source>
         <translation>Miękkość:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4867"/>
-        <location filename="../qt/ui_dock_effects.h" line="4167"/>
+        <location filename="../qt/dock_effects.ui" line="3740"/>
+        <location filename="../qt/ui_dock_effects.h" line="3272"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of illumination of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność oświetlania powierzchni fraktala&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4881"/>
-        <location filename="../qt/ui_dock_effects.h" line="4170"/>
+        <location filename="../qt/dock_effects.ui" line="3754"/>
+        <location filename="../qt/ui_dock_effects.h" line="3275"/>
         <source>Intensity on surface:</source>
         <translation>Intensywność
 na powierzchni:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4949"/>
-        <location filename="../qt/ui_dock_effects.h" line="4181"/>
+        <location filename="../qt/dock_effects.ui" line="3822"/>
+        <location filename="../qt/ui_dock_effects.h" line="3286"/>
         <source>Visibility of glow (volumetric effect):</source>
         <translation>Widoczność poświaty: (efekt objętościowy):</translation>
     </message>
@@ -9178,396 +9171,308 @@ na powierzchni:</translation>
         <translation type="vanished">Widoczność poświaty:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5029"/>
-        <location filename="../qt/ui_dock_effects.h" line="4198"/>
+        <location filename="../qt/dock_effects.ui" line="3902"/>
+        <location filename="../qt/ui_dock_effects.h" line="3303"/>
         <source>Shape:</source>
         <translation>Kształt:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5095"/>
-        <location filename="../qt/ui_dock_effects.h" line="4203"/>
+        <location filename="../qt/dock_effects.ui" line="3968"/>
+        <location filename="../qt/ui_dock_effects.h" line="3308"/>
         <source>Shape size:</source>
         <translation>Wielkość kształtu:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5103"/>
-        <location filename="../qt/ui_dock_effects.h" line="4204"/>
+        <location filename="../qt/dock_effects.ui" line="3976"/>
+        <location filename="../qt/ui_dock_effects.h" line="3309"/>
         <source>Point</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5108"/>
-        <location filename="../qt/ui_dock_effects.h" line="4205"/>
+        <location filename="../qt/dock_effects.ui" line="3981"/>
+        <location filename="../qt/ui_dock_effects.h" line="3310"/>
         <source>Line</source>
         <translation>Linia</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5113"/>
-        <location filename="../qt/ui_dock_effects.h" line="4206"/>
+        <location filename="../qt/dock_effects.ui" line="3986"/>
+        <location filename="../qt/ui_dock_effects.h" line="3311"/>
         <source>Circle</source>
         <translation>Okręg</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5118"/>
-        <location filename="../qt/ui_dock_effects.h" line="4207"/>
+        <location filename="../qt/dock_effects.ui" line="3991"/>
+        <location filename="../qt/ui_dock_effects.h" line="3312"/>
         <source>Square</source>
         <translation>Kwadrat</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5123"/>
-        <location filename="../qt/ui_dock_effects.h" line="4208"/>
+        <location filename="../qt/dock_effects.ui" line="3996"/>
+        <location filename="../qt/ui_dock_effects.h" line="3313"/>
         <source>Sphere</source>
         <translation>Kula</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5128"/>
-        <location filename="../qt/ui_dock_effects.h" line="4209"/>
+        <location filename="../qt/dock_effects.ui" line="4001"/>
+        <location filename="../qt/ui_dock_effects.h" line="3314"/>
         <source>Cube</source>
         <translation>Sześcian</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5212"/>
-        <location filename="../qt/ui_dock_effects.h" line="4216"/>
+        <location filename="../qt/dock_effects.ui" line="4085"/>
+        <location filename="../qt/ui_dock_effects.h" line="3321"/>
         <source>Shape rotation:</source>
         <translation>Obrót kształtu:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5219"/>
-        <location filename="../qt/ui_dock_effects.h" line="4217"/>
+        <location filename="../qt/dock_effects.ui" line="4092"/>
+        <location filename="../qt/ui_dock_effects.h" line="3322"/>
         <source>Relative thickness:</source>
         <translation>Względna grubość:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5256"/>
-        <location filename="../qt/ui_dock_effects.h" line="4237"/>
+        <location filename="../qt/dock_effects.ui" line="4129"/>
+        <location filename="../qt/ui_dock_effects.h" line="3342"/>
         <source>Post effects</source>
         <translation>Efekty końcowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5343"/>
-        <location filename="../qt/ui_dock_effects.h" line="4226"/>
+        <location filename="../qt/dock_effects.ui" line="4216"/>
+        <location filename="../qt/ui_dock_effects.h" line="3331"/>
         <source>HDR Bl&amp;ur</source>
         <translation>Rozmycie HDR</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5403"/>
-        <location filename="../qt/ui_dock_effects.h" line="4229"/>
+        <location filename="../qt/dock_effects.ui" line="4276"/>
+        <location filename="../qt/ui_dock_effects.h" line="3334"/>
         <source>Blur radius:</source>
         <translation>Promień rozmycia:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3029"/>
-        <location filename="../qt/dock_effects.ui" line="3817"/>
-        <location filename="../qt/dock_effects.ui" line="3984"/>
-        <location filename="../qt/dock_effects.ui" line="4151"/>
-        <location filename="../qt/dock_effects.ui" line="4318"/>
-        <location filename="../qt/dock_effects.ui" line="4647"/>
-        <location filename="../qt/dock_effects.ui" line="4972"/>
-        <location filename="../qt/dock_effects.ui" line="5202"/>
-        <location filename="../qt/ui_dock_effects.h" line="3922"/>
-        <location filename="../qt/ui_dock_effects.h" line="4012"/>
-        <location filename="../qt/ui_dock_effects.h" line="4038"/>
-        <location filename="../qt/ui_dock_effects.h" line="4064"/>
-        <location filename="../qt/ui_dock_effects.h" line="4090"/>
-        <location filename="../qt/ui_dock_effects.h" line="4143"/>
-        <location filename="../qt/ui_dock_effects.h" line="4185"/>
-        <location filename="../qt/ui_dock_effects.h" line="4215"/>
+        <location filename="../qt/dock_effects.ui" line="2881"/>
+        <location filename="../qt/dock_effects.ui" line="3569"/>
+        <location filename="../qt/dock_effects.ui" line="3845"/>
+        <location filename="../qt/dock_effects.ui" line="4075"/>
+        <location filename="../qt/ui_dock_effects.h" line="3186"/>
+        <location filename="../qt/ui_dock_effects.h" line="3250"/>
+        <location filename="../qt/ui_dock_effects.h" line="3290"/>
+        <location filename="../qt/ui_dock_effects.h" line="3320"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3830"/>
-        <location filename="../qt/dock_effects.ui" line="3850"/>
-        <location filename="../qt/dock_effects.ui" line="3870"/>
-        <location filename="../qt/dock_effects.ui" line="3997"/>
-        <location filename="../qt/dock_effects.ui" line="4017"/>
-        <location filename="../qt/dock_effects.ui" line="4037"/>
-        <location filename="../qt/dock_effects.ui" line="4164"/>
-        <location filename="../qt/dock_effects.ui" line="4184"/>
-        <location filename="../qt/dock_effects.ui" line="4204"/>
-        <location filename="../qt/dock_effects.ui" line="4331"/>
-        <location filename="../qt/dock_effects.ui" line="4351"/>
-        <location filename="../qt/dock_effects.ui" line="4371"/>
-        <location filename="../qt/ui_dock_effects.h" line="4014"/>
-        <location filename="../qt/ui_dock_effects.h" line="4018"/>
-        <location filename="../qt/ui_dock_effects.h" line="4022"/>
-        <location filename="../qt/ui_dock_effects.h" line="4040"/>
-        <location filename="../qt/ui_dock_effects.h" line="4044"/>
-        <location filename="../qt/ui_dock_effects.h" line="4048"/>
-        <location filename="../qt/ui_dock_effects.h" line="4066"/>
-        <location filename="../qt/ui_dock_effects.h" line="4070"/>
-        <location filename="../qt/ui_dock_effects.h" line="4074"/>
-        <location filename="../qt/ui_dock_effects.h" line="4092"/>
-        <location filename="../qt/ui_dock_effects.h" line="4096"/>
-        <location filename="../qt/ui_dock_effects.h" line="4100"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;współrzędne źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;współrzędne źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3208"/>
-        <location filename="../qt/dock_effects.ui" line="3837"/>
-        <location filename="../qt/dock_effects.ui" line="4004"/>
-        <location filename="../qt/dock_effects.ui" line="4171"/>
-        <location filename="../qt/dock_effects.ui" line="4338"/>
-        <location filename="../qt/dock_effects.ui" line="4670"/>
-        <location filename="../qt/dock_effects.ui" line="4932"/>
-        <location filename="../qt/dock_effects.ui" line="5186"/>
-        <location filename="../qt/ui_dock_effects.h" line="3935"/>
-        <location filename="../qt/ui_dock_effects.h" line="4016"/>
-        <location filename="../qt/ui_dock_effects.h" line="4042"/>
-        <location filename="../qt/ui_dock_effects.h" line="4068"/>
-        <location filename="../qt/ui_dock_effects.h" line="4094"/>
-        <location filename="../qt/ui_dock_effects.h" line="4144"/>
-        <location filename="../qt/ui_dock_effects.h" line="4179"/>
-        <location filename="../qt/ui_dock_effects.h" line="4214"/>
+        <location filename="../qt/dock_effects.ui" line="3060"/>
+        <location filename="../qt/dock_effects.ui" line="3423"/>
+        <location filename="../qt/dock_effects.ui" line="3805"/>
+        <location filename="../qt/dock_effects.ui" line="4059"/>
+        <location filename="../qt/ui_dock_effects.h" line="3199"/>
+        <location filename="../qt/ui_dock_effects.h" line="3240"/>
+        <location filename="../qt/ui_dock_effects.h" line="3284"/>
+        <location filename="../qt/ui_dock_effects.h" line="3319"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3857"/>
-        <location filename="../qt/dock_effects.ui" line="4024"/>
-        <location filename="../qt/dock_effects.ui" line="4191"/>
-        <location filename="../qt/dock_effects.ui" line="4358"/>
-        <location filename="../qt/dock_effects.ui" line="4693"/>
-        <location filename="../qt/dock_effects.ui" line="4995"/>
-        <location filename="../qt/dock_effects.ui" line="5170"/>
-        <location filename="../qt/ui_dock_effects.h" line="4020"/>
-        <location filename="../qt/ui_dock_effects.h" line="4046"/>
-        <location filename="../qt/ui_dock_effects.h" line="4072"/>
-        <location filename="../qt/ui_dock_effects.h" line="4098"/>
-        <location filename="../qt/ui_dock_effects.h" line="4145"/>
-        <location filename="../qt/ui_dock_effects.h" line="4189"/>
-        <location filename="../qt/ui_dock_effects.h" line="4213"/>
+        <location filename="../qt/dock_effects.ui" line="3538"/>
+        <location filename="../qt/dock_effects.ui" line="3868"/>
+        <location filename="../qt/dock_effects.ui" line="4043"/>
+        <location filename="../qt/ui_dock_effects.h" line="3247"/>
+        <location filename="../qt/ui_dock_effects.h" line="3294"/>
+        <location filename="../qt/ui_dock_effects.h" line="3318"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3897"/>
-        <location filename="../qt/dock_effects.ui" line="4064"/>
-        <location filename="../qt/dock_effects.ui" line="4231"/>
-        <location filename="../qt/dock_effects.ui" line="4398"/>
-        <location filename="../qt/ui_dock_effects.h" line="4026"/>
-        <location filename="../qt/ui_dock_effects.h" line="4052"/>
-        <location filename="../qt/ui_dock_effects.h" line="4078"/>
-        <location filename="../qt/ui_dock_effects.h" line="4104"/>
+        <location filename="../qt/dock_effects.ui" line="3238"/>
+        <location filename="../qt/dock_effects.ui" line="3265"/>
+        <location filename="../qt/dock_effects.ui" line="3285"/>
+        <location filename="../qt/ui_dock_effects.h" line="3212"/>
+        <location filename="../qt/ui_dock_effects.h" line="3217"/>
+        <location filename="../qt/ui_dock_effects.h" line="3221"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;jasność źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="916"/>
-        <location filename="../qt/dock_effects.ui" line="3446"/>
-        <location filename="../qt/dock_effects.ui" line="3918"/>
-        <location filename="../qt/dock_effects.ui" line="4085"/>
-        <location filename="../qt/dock_effects.ui" line="4252"/>
-        <location filename="../qt/dock_effects.ui" line="4419"/>
-        <location filename="../qt/dock_effects.ui" line="5019"/>
-        <location filename="../qt/ui_dock_effects.h" line="3633"/>
-        <location filename="../qt/ui_dock_effects.h" line="3958"/>
-        <location filename="../qt/ui_dock_effects.h" line="4030"/>
-        <location filename="../qt/ui_dock_effects.h" line="4056"/>
-        <location filename="../qt/ui_dock_effects.h" line="4082"/>
-        <location filename="../qt/ui_dock_effects.h" line="4108"/>
-        <location filename="../qt/ui_dock_effects.h" line="4195"/>
+        <location filename="../qt/dock_effects.ui" line="3215"/>
+        <location filename="../qt/dock_effects.ui" line="3892"/>
+        <location filename="../qt/ui_dock_effects.h" line="2926"/>
+        <location filename="../qt/ui_dock_effects.h" line="3207"/>
+        <location filename="../qt/ui_dock_effects.h" line="3300"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3936"/>
-        <location filename="../qt/dock_effects.ui" line="4103"/>
-        <location filename="../qt/dock_effects.ui" line="4270"/>
-        <location filename="../qt/dock_effects.ui" line="4437"/>
-        <location filename="../qt/ui_dock_effects.h" line="4034"/>
-        <location filename="../qt/ui_dock_effects.h" line="4060"/>
-        <location filename="../qt/ui_dock_effects.h" line="4086"/>
-        <location filename="../qt/ui_dock_effects.h" line="4112"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables placing of the light source by mouse pointer. Light source is placed in front of fractal surface by distance defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Placement distance &lt;/span&gt;parameter. &lt;/p&gt;&lt;p&gt;Placement distance can be changed using mouse scroll. &lt;/p&gt;&lt;p&gt;When the light is already placed, don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to e.g. &amp;quot;Move the camera&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia umieszczanie źródła światła wskaźnikiem myszy. Źródło światła jest umieszczane przed powierzchnią fraktala w odległości od powierzchni zdefiniowanej parametrem &lt;span style=&quot; font-style:italic;&quot;&gt;Odległość umieszczania&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Odległość umieszczania światła może być zmieniana rolką myszy. &lt;/p&gt;&lt;p&gt;Kiedy już umieścisz źródło światła, nie zapomnij zmienić z powrotem  &lt;span style=&quot; font-style:italic;&quot;&gt;Funkcji przycisku myszy&lt;/span&gt; na np &amp;quot;Przesuń kamerę&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia umieszczanie źródła światła wskaźnikiem myszy. Źródło światła jest umieszczane przed powierzchnią fraktala w odległości od powierzchni zdefiniowanej parametrem &lt;span style=&quot; font-style:italic;&quot;&gt;Odległość umieszczania&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Odległość umieszczania światła może być zmieniana rolką myszy. &lt;/p&gt;&lt;p&gt;Kiedy już umieścisz źródło światła, nie zapomnij zmienić z powrotem  &lt;span style=&quot; font-style:italic;&quot;&gt;Funkcji przycisku myszy&lt;/span&gt; na np &amp;quot;Przesuń kamerę&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3939"/>
-        <location filename="../qt/dock_effects.ui" line="4106"/>
-        <location filename="../qt/dock_effects.ui" line="4273"/>
-        <location filename="../qt/dock_effects.ui" line="4440"/>
-        <location filename="../qt/ui_dock_effects.h" line="4036"/>
-        <location filename="../qt/ui_dock_effects.h" line="4062"/>
-        <location filename="../qt/ui_dock_effects.h" line="4088"/>
-        <location filename="../qt/ui_dock_effects.h" line="4114"/>
         <source>Place by mouse</source>
-        <translation>Umieść myszą</translation>
+        <translation type="vanished">Umieść myszą</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="3782"/>
-        <location filename="../qt/ui_dock_effects.h" line="4011"/>
         <source>Light #&amp;2</source>
-        <translation>Światło #2</translation>
+        <translation type="vanished">Światło #2</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="34"/>
         <location filename="../qt/dock_effects.ui" line="119"/>
-        <location filename="../qt/dock_effects.ui" line="1109"/>
-        <location filename="../qt/dock_effects.ui" line="2587"/>
-        <location filename="../qt/dock_effects.ui" line="3264"/>
-        <location filename="../qt/dock_effects.ui" line="5273"/>
-        <location filename="../qt/ui_dock_effects.h" line="3494"/>
-        <location filename="../qt/ui_dock_effects.h" line="3498"/>
-        <location filename="../qt/ui_dock_effects.h" line="3654"/>
-        <location filename="../qt/ui_dock_effects.h" line="3867"/>
-        <location filename="../qt/ui_dock_effects.h" line="3937"/>
-        <location filename="../qt/ui_dock_effects.h" line="4222"/>
+        <location filename="../qt/dock_effects.ui" line="1120"/>
+        <location filename="../qt/dock_effects.ui" line="2439"/>
+        <location filename="../qt/dock_effects.ui" line="3116"/>
+        <location filename="../qt/dock_effects.ui" line="4146"/>
+        <location filename="../qt/ui_dock_effects.h" line="2787"/>
+        <location filename="../qt/ui_dock_effects.h" line="2791"/>
+        <location filename="../qt/ui_dock_effects.h" line="2949"/>
+        <location filename="../qt/ui_dock_effects.h" line="3131"/>
+        <location filename="../qt/ui_dock_effects.h" line="3201"/>
+        <location filename="../qt/ui_dock_effects.h" line="3327"/>
         <source>Load</source>
         <translation>Wczytaj</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="41"/>
         <location filename="../qt/dock_effects.ui" line="126"/>
-        <location filename="../qt/dock_effects.ui" line="1116"/>
-        <location filename="../qt/dock_effects.ui" line="2594"/>
-        <location filename="../qt/dock_effects.ui" line="3271"/>
-        <location filename="../qt/dock_effects.ui" line="5280"/>
-        <location filename="../qt/ui_dock_effects.h" line="3495"/>
-        <location filename="../qt/ui_dock_effects.h" line="3499"/>
-        <location filename="../qt/ui_dock_effects.h" line="3655"/>
-        <location filename="../qt/ui_dock_effects.h" line="3868"/>
-        <location filename="../qt/ui_dock_effects.h" line="3938"/>
-        <location filename="../qt/ui_dock_effects.h" line="4223"/>
+        <location filename="../qt/dock_effects.ui" line="1127"/>
+        <location filename="../qt/dock_effects.ui" line="2446"/>
+        <location filename="../qt/dock_effects.ui" line="3123"/>
+        <location filename="../qt/dock_effects.ui" line="4153"/>
+        <location filename="../qt/ui_dock_effects.h" line="2788"/>
+        <location filename="../qt/ui_dock_effects.h" line="2792"/>
+        <location filename="../qt/ui_dock_effects.h" line="2950"/>
+        <location filename="../qt/ui_dock_effects.h" line="3132"/>
+        <location filename="../qt/ui_dock_effects.h" line="3202"/>
+        <location filename="../qt/ui_dock_effects.h" line="3328"/>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="48"/>
         <location filename="../qt/dock_effects.ui" line="133"/>
-        <location filename="../qt/dock_effects.ui" line="1123"/>
-        <location filename="../qt/dock_effects.ui" line="2601"/>
-        <location filename="../qt/dock_effects.ui" line="3278"/>
-        <location filename="../qt/dock_effects.ui" line="5287"/>
-        <location filename="../qt/ui_dock_effects.h" line="3496"/>
-        <location filename="../qt/ui_dock_effects.h" line="3500"/>
-        <location filename="../qt/ui_dock_effects.h" line="3656"/>
-        <location filename="../qt/ui_dock_effects.h" line="3869"/>
-        <location filename="../qt/ui_dock_effects.h" line="3939"/>
-        <location filename="../qt/ui_dock_effects.h" line="4224"/>
+        <location filename="../qt/dock_effects.ui" line="1134"/>
+        <location filename="../qt/dock_effects.ui" line="2453"/>
+        <location filename="../qt/dock_effects.ui" line="3130"/>
+        <location filename="../qt/dock_effects.ui" line="4160"/>
+        <location filename="../qt/ui_dock_effects.h" line="2789"/>
+        <location filename="../qt/ui_dock_effects.h" line="2793"/>
+        <location filename="../qt/ui_dock_effects.h" line="2951"/>
+        <location filename="../qt/ui_dock_effects.h" line="3133"/>
+        <location filename="../qt/ui_dock_effects.h" line="3203"/>
+        <location filename="../qt/ui_dock_effects.h" line="3329"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="55"/>
         <location filename="../qt/dock_effects.ui" line="140"/>
-        <location filename="../qt/dock_effects.ui" line="1130"/>
-        <location filename="../qt/dock_effects.ui" line="1913"/>
-        <location filename="../qt/dock_effects.ui" line="2608"/>
-        <location filename="../qt/dock_effects.ui" line="3285"/>
-        <location filename="../qt/dock_effects.ui" line="5294"/>
-        <location filename="../qt/ui_dock_effects.h" line="3497"/>
-        <location filename="../qt/ui_dock_effects.h" line="3501"/>
-        <location filename="../qt/ui_dock_effects.h" line="3657"/>
-        <location filename="../qt/ui_dock_effects.h" line="3800"/>
-        <location filename="../qt/ui_dock_effects.h" line="3870"/>
-        <location filename="../qt/ui_dock_effects.h" line="3940"/>
-        <location filename="../qt/ui_dock_effects.h" line="4225"/>
+        <location filename="../qt/dock_effects.ui" line="1141"/>
+        <location filename="../qt/dock_effects.ui" line="2020"/>
+        <location filename="../qt/dock_effects.ui" line="2460"/>
+        <location filename="../qt/dock_effects.ui" line="3137"/>
+        <location filename="../qt/dock_effects.ui" line="4167"/>
+        <location filename="../qt/ui_dock_effects.h" line="2790"/>
+        <location filename="../qt/ui_dock_effects.h" line="2794"/>
+        <location filename="../qt/ui_dock_effects.h" line="2952"/>
+        <location filename="../qt/ui_dock_effects.h" line="3102"/>
+        <location filename="../qt/ui_dock_effects.h" line="3134"/>
+        <location filename="../qt/ui_dock_effects.h" line="3204"/>
+        <location filename="../qt/ui_dock_effects.h" line="3330"/>
         <source>Randomize</source>
         <translation>Losowanie</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="378"/>
-        <location filename="../qt/ui_dock_effects.h" line="3530"/>
+        <location filename="../qt/ui_dock_effects.h" line="2823"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of blur effect used during second phase of rendering the DOF effect. 4.0 is correct for most of cases. But for more realistic blur the number of passes can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu rozmycia podczas renderowania drugiej fazy efektu DOF. Wartość 4.0 jest właściwa w większoci przypadków. Dla bardziej realistycznego wygladu ilość przebiegów może być zwiększona (np. do 4) a &lt;i&gt;intensywność efektu rozmycia&lt;/i&gt; powinna być jednocześnie zmniejszona (np. do 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="484"/>
-        <location filename="../qt/ui_dock_effects.h" line="3549"/>
+        <location filename="../qt/ui_dock_effects.h" line="2842"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithms for rendering the depth of field (DOF), global illumination, ambient occlusion (with multiple rays) and soft shadows effects. This mode is extremely slow for rendering, but gives a very realistic appearance of effects.&lt;/p&gt;&lt;p&gt;In addition Monte Carlo algorithm provides high quality adaptive anti-aliasing.&lt;/p&gt;&lt;p&gt;Every pixed (or tile) of the image is rendered multiple times with randomly changed parameters. Every repeat reduces noise. Sampling of each pixel (or tile) is stopped when noise is reduced to defined level (defined by &amp;quot;Max noise level&amp;quot; parameter&amp;quot;) or when maximum number of repeats is reached (defined by &amp;quot;Max number of samples&amp;quot;). &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywania algorytm Monte Carlo dla renderowania efektów głębi ostrości (DOF), globalnego oświetlenia, światła rozproszonego (z wieloma promieniami światła) i miękkich cieni. Ten tryb jest ekstremalnie powolny do renderowania, ale oferuje bardzo realistyczny wygląd efektów.&lt;/p&gt;&lt;p&gt;Dodatkowo algorytm Monte Carlo oferuje bardzo dobrą jakość wygładzania krawędzi.&lt;/p&gt;&lt;p&gt;Każdy piksel (lub fragment) jest renderowany wielokrotnie z jednoczesną losową zmianą parametrów. Każde powtórzenie redukuje szum. Próbkowanie dla każdego piksela (lub fragmentu) jest zatrzymywane gdy szum zostanie zredukowany do ustalonego pozomu (zdefiniowanego przez parametr &lt;i&gt;Maksymalny poziom szumu&lt;/i&gt;) lub gdy zostanie osiągnięta maksymalna ilość powtórzeń (zdefiniowana przez &lt;i&gt;Maksymalna ilość próbek na piksel&lt;/i&gt;). &lt;/p&gt;&lt;p&gt;Uwaga: Ten efekt nie działa prawidłowo gdy jest włączony efekt światła rozproszonego SSAO.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="522"/>
-        <location filename="../qt/ui_dock_effects.h" line="3553"/>
+        <location filename="../qt/ui_dock_effects.h" line="2846"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum number of MC samples calculated for each image pixel. Increasing this parameter can reduce visible noise, ( by improving calculation of noise level estimation).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimalna ilość próbek MC obliczanych dla każego piksela obrazu. Zwiększenie tego parametru może zredukować szum, (przez zwiększenie dokładności szacowania poziomu szumu).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="538"/>
-        <location filename="../qt/ui_dock_effects.h" line="3556"/>
+        <location filename="../qt/ui_dock_effects.h" line="2849"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maksymalna ilość próbek MC obliczanych dla każdego piksela obrazu. Większa wartość redukuje szum na obrazie, ale zwiększa czas renderowania.&lt;/p&gt;&lt;p&gt;Dla przykładu, gdy ilość próbek wynosi 100, to renderowanie obrazu może trwać nawet 100 razy dłużej niż jak efekty MC są wyłączone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="564"/>
-        <location filename="../qt/ui_dock_effects.h" line="3563"/>
+        <location filename="../qt/ui_dock_effects.h" line="2856"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit of noise level for each image pixel. Every pixel is calculated multiple times until estimated noise reaches maximum noise level percentage.&lt;/p&gt;&lt;p&gt;A lower value reduces visible noise on the final image, but increases rendering time. Decreasing the maximum noise level by half, increases the rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ograniczenie poziomu szumu dla każdego piksela obrazu. Każdy piksel obrazu jest obliczany wiele razy, zanim poziom szumu osiągnie wymagany poziom.&lt;/p&gt;&lt;p&gt;Niższa wartość redukuje widoczny szum na końcowym obrazie, ale zwiększa czas renderowania. Zmniejszenie poziomu szumu o połowę zwiększa czas renderowania czterokrotnie.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="579"/>
-        <location filename="../qt/ui_dock_effects.h" line="3568"/>
+        <location filename="../qt/ui_dock_effects.h" line="2861"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of MC samples that have been calculated  for each image pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Śrenia ilość próbek MC, która została obliczona dla każdego piksela obrazu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2313"/>
-        <location filename="../qt/ui_dock_effects.h" line="3830"/>
+        <location filename="../qt/dock_effects.ui" line="2337"/>
+        <location filename="../qt/ui_dock_effects.h" line="3126"/>
         <source>Accuracy control</source>
         <translation>Kontrola dokładności</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4116"/>
-        <location filename="../qt/ui_dock_effects.h" line="4063"/>
         <source>Light #&amp;3</source>
-        <translation>Światło #3</translation>
+        <translation type="vanished">Światło #3</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4283"/>
-        <location filename="../qt/ui_dock_effects.h" line="4089"/>
         <source>Light #&amp;4</source>
-        <translation>Światło #4</translation>
+        <translation type="vanished">Światło #4</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4452"/>
-        <location filename="../qt/ui_dock_effects.h" line="4115"/>
         <source>Custom lights options</source>
-        <translation>Opcje dla własnych świateł</translation>
+        <translation type="vanished">Opcje dla własnych świateł</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4478"/>
-        <location filename="../qt/ui_dock_effects.h" line="4117"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility of additional light sources. Higher value gives brighter appearance of light sources. It doesn&apos;t control luminosity of light sources.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje widoczność dodatkowych źródeł światła. Większa wartość daje jaśniejszy wygląd światła. Ten parametr nie zmienia światłości źródła światła.&lt;/p&gt;&lt;p&gt;Ten parametr wpływa także na losowe światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje widoczność dodatkowych źródeł światła. Większa wartość daje jaśniejszy wygląd światła. Ten parametr nie zmienia światłości źródła światła.&lt;/p&gt;&lt;p&gt;Ten parametr wpływa także na losowe światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4485"/>
-        <location filename="../qt/ui_dock_effects.h" line="4120"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it&apos;s higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje wielkość widocznych źródeł światła. Kiedy wartość jest duża, to światła wyglądają na większe.&lt;/p&gt;&lt;p&gt;Ten parametr wpływa także na losowe światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje wielkość widocznych źródeł światła. Kiedy wartość jest duża, to światła wyglądają na większe.&lt;/p&gt;&lt;p&gt;Ten parametr wpływa także na losowe światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4513"/>
-        <location filename="../qt/ui_dock_effects.h" line="4127"/>
+        <location filename="../qt/dock_effects.ui" line="3343"/>
+        <location filename="../qt/ui_dock_effects.h" line="3228"/>
         <source>Placement distance
 (by mouse):</source>
         <translation>Odległość umieszczania
 (myszą):</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4499"/>
-        <location filename="../qt/ui_dock_effects.h" line="4124"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it&apos;s zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontroluje odległość od powierzchni fraktala, w jakiej są umieszczanie źródła światła za pomocą wskaźnika myszy. Jest jest zero, to światło jest umieszczanie na powierzchni fraktala. Większa wartość przesuwa światło w kierunku kamery.&lt;/p&gt;&lt;p&gt;Ten parametr może być zmieniany rolką myszy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontroluje odległość od powierzchni fraktala, w jakiej są umieszczanie źródła światła za pomocą wskaźnika myszy. Jest jest zero, to światło jest umieszczanie na powierzchni fraktala. Większa wartość przesuwa światło w kierunku kamery.&lt;/p&gt;&lt;p&gt;Ten parametr może być zmieniany rolką myszy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4527"/>
-        <location filename="../qt/ui_dock_effects.h" line="4129"/>
+        <location filename="../qt/dock_effects.ui" line="3336"/>
+        <location filename="../qt/ui_dock_effects.h" line="3227"/>
         <source>Place light behind the object</source>
         <translation>Umieść światło za obiektem</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4539"/>
-        <location filename="../qt/ui_dock_effects.h" line="4131"/>
+        <location filename="../qt/dock_effects.ui" line="3359"/>
+        <location filename="../qt/ui_dock_effects.h" line="3231"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/random lights placement.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Random seed: &lt;/span&gt;random seed for lights distribution &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Maximum distance from the fractal: &lt;/span&gt;random lights are placed within this distance from the fractal surface &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Centre of distribution X, Y, Z: &lt;/span&gt;the centre point for random light distribution. To set this point by mouse pointer, select &amp;quot;Set position of centre for random lights&amp;quot; in Mouse click function combo box in Mandelbulber Render Window &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Distribution radius of lights: &lt;/span&gt;maximum distance from Centre of distribution where lights can be placed. The random lights appear in the region that matches the condition of being both within this radius and also within the maximum distance from fractal surface.&lt;/p&gt;&lt;p&gt;If this radius is too small to generate random lights, then the program will automatically increase this radius. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/random lights placement.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zarodek losowy: &lt;/span&gt;zarodek losowy dla rozmieszczenia świateł &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Maksymalna odległość od fraktala: &lt;/span&gt;losowe światła są rozmieszczane w obszarze wyznaczonym przez ten dystans od powierzchni fraktala &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Środek rozmieszczania X, Y, Z: &lt;/span&gt;punkt środkowy rozmieszczania świateł. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Promień rozmieszczenia świateł: &lt;/span&gt;Maksymalna odległość od centrum, gdzie światła mogą być rozmieszczane. Losowe światła zostaną umieszczone w regionie, który spełnia warunek odległości od fraktala i odległości od wyznaczonego centrum.&lt;/p&gt;&lt;p&gt;Jeżeli ten promień jest za mały do rozmieszczenia świateł, to program automatycznie go zwiększy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4542"/>
-        <location filename="../qt/ui_dock_effects.h" line="4134"/>
+        <location filename="../qt/dock_effects.ui" line="3362"/>
+        <location filename="../qt/ui_dock_effects.h" line="3234"/>
         <source>Random li&amp;ghts options</source>
         <translation>Opcje losowych świateł</translation>
     </message>
@@ -9584,8 +9489,8 @@ na powierzchni:</translation>
         <translation type="vanished">Ilość losowych świateł:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4592"/>
-        <location filename="../qt/ui_dock_effects.h" line="4137"/>
+        <location filename="../qt/dock_effects.ui" line="3589"/>
+        <location filename="../qt/ui_dock_effects.h" line="3251"/>
         <source>Random Seed:</source>
         <translation>Zarodek losowy:</translation>
     </message>
@@ -9598,106 +9503,72 @@ na powierzchni:</translation>
         <translation type="vanished">Promień rozmieszczania świateł:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4634"/>
-        <location filename="../qt/ui_dock_effects.h" line="4142"/>
+        <location filename="../qt/dock_effects.ui" line="3391"/>
+        <location filename="../qt/ui_dock_effects.h" line="3235"/>
         <source>Center of distribution:</source>
         <translation>Środek rozmieszczania:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4716"/>
-        <location filename="../qt/ui_dock_effects.h" line="4146"/>
+        <location filename="../qt/dock_effects.ui" line="3512"/>
+        <location filename="../qt/ui_dock_effects.h" line="3246"/>
         <source>Place random light center by mouse</source>
         <translation>Umieść środek rozmieszczania za pomocą myszy</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2374"/>
-        <location filename="../qt/ui_dock_effects.h" line="3835"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameters of visible light rays, often named  quot;God Raysquot; effect.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parametry widocznych promieni światła. Efekt ten jest często nazywany &amp;quot;Promieniami Boga&amp;quot;&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parametry widocznych promieni światła. Efekt ten jest często nazywany &amp;quot;Promieniami Boga&amp;quot;&lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2377"/>
-        <location filename="../qt/ui_dock_effects.h" line="3837"/>
         <source>Volumetric lights</source>
-        <translation>Światła objętościowe</translation>
+        <translation type="vanished">Światła objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2480"/>
-        <location filename="../qt/ui_dock_effects.h" line="3855"/>
         <source>Visibility of light #2:</source>
-        <translation>Widoczność światła #2:</translation>
+        <translation type="vanished">Widoczność światła #2:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2453"/>
-        <location filename="../qt/ui_dock_effects.h" line="3850"/>
         <source>Visibility of light #1:</source>
-        <translation>Widoczność światła #1:</translation>
+        <translation type="vanished">Widoczność światła #1:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2426"/>
-        <location filename="../qt/ui_dock_effects.h" line="3845"/>
         <source>Visibility of main light:</source>
-        <translation>Widoczność głównego światła:</translation>
+        <translation type="vanished">Widoczność głównego światła:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2403"/>
-        <location filename="../qt/dock_effects.ui" line="2446"/>
-        <location filename="../qt/dock_effects.ui" line="2460"/>
-        <location filename="../qt/dock_effects.ui" line="2487"/>
-        <location filename="../qt/dock_effects.ui" line="2514"/>
-        <location filename="../qt/ui_dock_effects.h" line="3839"/>
-        <location filename="../qt/ui_dock_effects.h" line="3848"/>
-        <location filename="../qt/ui_dock_effects.h" line="3852"/>
-        <location filename="../qt/ui_dock_effects.h" line="3857"/>
-        <location filename="../qt/ui_dock_effects.h" line="3862"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn&apos;t depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu. Kiedy efekt nie jest widoczny, to zwiększ znacznie intensywność. Jeżeli obraz jest cały biały to znacznie zmniejsz intensywność.&lt;/p&gt;&lt;p&gt;Intensywność efektu nie zależy od jasności źródła światła&lt;/p&gt;&lt;p&gt;Aby kontrolować jakość efektu zmieniaj parametr &lt;span style=&quot; font-style:italic;&quot;&gt;Silnik renderowania / Mnożnik kroku śledzenia promieni&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu. Kiedy efekt nie jest widoczny, to zwiększ znacznie intensywność. Jeżeli obraz jest cały biały to znacznie zmniejsz intensywność.&lt;/p&gt;&lt;p&gt;Intensywność efektu nie zależy od jasności źródła światła&lt;/p&gt;&lt;p&gt;Aby kontrolować jakość efektu zmieniaj parametr &lt;span style=&quot; font-style:italic;&quot;&gt;Silnik renderowania / Mnożnik kroku śledzenia promieni&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2507"/>
-        <location filename="../qt/ui_dock_effects.h" line="3860"/>
         <source>Visibility of light #3:</source>
-        <translation>Widoczność światła #3:</translation>
+        <translation type="vanished">Widoczność światła #3:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2534"/>
-        <location filename="../qt/ui_dock_effects.h" line="3865"/>
         <source>Visibility of light #4:</source>
-        <translation>Widoczność światła #4:</translation>
+        <translation type="vanished">Widoczność światła #4:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables effect for main light source. It&apos;s good to place light source almost in front of the camera (horizontal angle about 180, vertcal angle about 0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia efekt dla głównego źródła światła. Aby efekt był bardziej widowiskowy, zalecane jest umieszczenie źródła światła na przeciwko kamery (kąt poziomy około 180 stopni a kąt pionowy około zera)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2419"/>
-        <location filename="../qt/ui_dock_effects.h" line="3844"/>
         <source>Main light as volumetric</source>
-        <translation>Główne światło jako objętościowe</translation>
+        <translation type="vanished">Główne światło jako objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2439"/>
-        <location filename="../qt/ui_dock_effects.h" line="3846"/>
         <source>Light #1 as volumetric</source>
-        <translation>Światło #1 jako objętościowe</translation>
+        <translation type="vanished">Światło #1 jako objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2473"/>
-        <location filename="../qt/ui_dock_effects.h" line="3854"/>
         <source>Light #2 as volumetric</source>
-        <translation>Światło #2 jako objętościowe</translation>
+        <translation type="vanished">Światło #2 jako objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2500"/>
-        <location filename="../qt/ui_dock_effects.h" line="3859"/>
         <source>Light #3 as volumetric</source>
-        <translation>Światło #3 jako objętościowe</translation>
+        <translation type="vanished">Światło #3 jako objętościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="2527"/>
-        <location filename="../qt/ui_dock_effects.h" line="3864"/>
         <source>Light #4 as volumetric</source>
-        <translation>Światło #4 jako objętościowe</translation>
+        <translation type="vanished">Światło #4 jako objętościowe</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Simulates big amount of lights. These light sources are fast for rendering because they don&apos;t need to be calculated separately. They came from fractal equation.&lt;/p&gt;&lt;p&gt;Positions of lights are set by coordinates of orbit trap point. Where iterated function goes near selected point then this point is brighter.&lt;/p&gt;&lt;p&gt;This effect is difficult to setup and often you need to try many different orbit trap coordinates.&lt;/p&gt;&lt;p&gt;These light sources illuminate the fractal surface, but do not cast shadows.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -9708,14 +9579,14 @@ na powierzchni:</translation>
         <translation type="vanished">Udawane światła na podstawie pułapek orbit</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4834"/>
-        <location filename="../qt/ui_dock_effects.h" line="4160"/>
+        <location filename="../qt/dock_effects.ui" line="3707"/>
+        <location filename="../qt/ui_dock_effects.h" line="3265"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;First iteration taken for orbit trap calculation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pierwsza iteracja brana do obliczania pułapki orbity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4857"/>
-        <location filename="../qt/ui_dock_effects.h" line="4164"/>
+        <location filename="../qt/dock_effects.ui" line="3730"/>
+        <location filename="../qt/ui_dock_effects.h" line="3269"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Last iteration taken for orbit trap calculation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ostatnia iteracja brana do obliczania pułapki orbity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -9724,20 +9595,20 @@ na powierzchni:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność oświetlania powierzchni fraktala&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4874"/>
-        <location filename="../qt/ui_dock_effects.h" line="4169"/>
+        <location filename="../qt/dock_effects.ui" line="3747"/>
+        <location filename="../qt/ui_dock_effects.h" line="3274"/>
         <source>Minimum iteration:</source>
         <translation>Minimalna iteracja:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4894"/>
-        <location filename="../qt/ui_dock_effects.h" line="4172"/>
+        <location filename="../qt/dock_effects.ui" line="3767"/>
+        <location filename="../qt/ui_dock_effects.h" line="3277"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of visible lights (scale is logarithmic)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wielkość widocznych świateł (skala jest logarytmiczna)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4919"/>
-        <location filename="../qt/ui_dock_effects.h" line="4177"/>
+        <location filename="../qt/dock_effects.ui" line="3792"/>
+        <location filename="../qt/ui_dock_effects.h" line="3282"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights. It is volumetric effect.&lt;/p&gt;&lt;p&gt;Quality of this effect can by controled by &lt;span style=&quot; font-style:italic;&quot;&gt;Effects / Volumetric / Custom DE step multiplier for volumetric effects&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność widocznych świateł. Jest to efekt objętościowy.&lt;/p&gt;&lt;p&gt;Jakość tego efektu może być kontrolowana przez &lt;span style=&quot; font-style:italic;&quot;&gt;Efekty / Objętościowe / Własny mnożnik kroku (DE Step) dla efektów objętościowych&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -9746,14 +9617,14 @@ na powierzchni:</translation>
         <translation type="vanished">Widoczność poświaty: (efekt objętościowy)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="5226"/>
-        <location filename="../qt/ui_dock_effects.h" line="4219"/>
+        <location filename="../qt/dock_effects.ui" line="4099"/>
+        <location filename="../qt/ui_dock_effects.h" line="3324"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność widocznych świateł&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4942"/>
-        <location filename="../qt/ui_dock_effects.h" line="4180"/>
+        <location filename="../qt/dock_effects.ui" line="3815"/>
+        <location filename="../qt/ui_dock_effects.h" line="3285"/>
         <source>Maximum iteration:</source>
         <translation>Maksymalna iteracja:</translation>
     </message>
@@ -9762,12 +9633,12 @@ na powierzchni:</translation>
         <translation type="vanished">Pułapka orbity:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_effects.ui" line="4959"/>
-        <location filename="../qt/dock_effects.ui" line="4982"/>
-        <location filename="../qt/dock_effects.ui" line="5005"/>
-        <location filename="../qt/ui_dock_effects.h" line="4183"/>
-        <location filename="../qt/ui_dock_effects.h" line="4187"/>
-        <location filename="../qt/ui_dock_effects.h" line="4191"/>
+        <location filename="../qt/dock_effects.ui" line="3832"/>
+        <location filename="../qt/dock_effects.ui" line="3855"/>
+        <location filename="../qt/dock_effects.ui" line="3878"/>
+        <location filename="../qt/ui_dock_effects.h" line="3288"/>
+        <location filename="../qt/ui_dock_effects.h" line="3292"/>
+        <location filename="../qt/ui_dock_effects.h" line="3296"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of orbit trap point&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pozycja punktu pułapki orbity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -10491,103 +10362,103 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
     <name>cDockImageAdjustments</name>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="14"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="666"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="672"/>
         <source>Form</source>
         <translation>Formularz</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="70"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="670"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="676"/>
         <source>Image resolution</source>
         <translation>Rozdzielczość obrazu</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="149"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="678"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="684"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of rendered image in pixel&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wysokość renderowanego obrazu w pikselach&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="172"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="681"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="687"/>
         <source>Image width:</source>
         <translation>Szerokość obrazu:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="136"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="676"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="682"/>
         <source>Image height:</source>
         <translation>Wysokość obrazu:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="120"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="674"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="680"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of rendered image in pixel&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Szerokość renderowanego obrazu w pikselach&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="165"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="680"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="686"/>
         <source>Image proportion:</source>
         <translation>Proporcje obrazu:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="98"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="671"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="677"/>
         <source>×2</source>
         <translation>×2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="105"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="672"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="678"/>
         <source>÷2</source>
         <translation>÷2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="185"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="691"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="697"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wymuszenie proporcji obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="189"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="682"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="688"/>
         <source>Free</source>
         <translation>Dowolne</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="194"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="683"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="689"/>
         <source>1:1</source>
         <translation>1:1</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="199"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="684"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="690"/>
         <source>4:3</source>
         <translation>4:3</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="204"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="685"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="691"/>
         <source>3:2</source>
         <translation>3:2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="209"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="686"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="692"/>
         <source>16:9</source>
         <translation>16:9</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="214"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="687"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="693"/>
         <source>16:10</source>
         <translation>16:10</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="219"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="688"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="694"/>
         <source>2:1</source>
         <translation>2:1</translation>
     </message>
@@ -10597,31 +10468,31 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="258"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="694"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="700"/>
         <source>Number of samples (n x n):</source>
         <translation>Ilość próbek (n x n)</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="349"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="705"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="711"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy ta opcja jest włączona, jest zachowany taki sam wygląd fraktala dla każdej rozdzielczości. &lt;/p&gt;&lt;p&gt;&apos;Ilość detali&apos; będzie automatycznie dostosowana do zmiany rozdzielczości obrazu. &lt;/p&gt;&lt;p&gt;Na przykład, gdy rozdzielczość obrazu jest podwojona to &apos;Ilośc detali&apos; będzie zredukowana o połowę.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="352"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="707"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="713"/>
         <source>Connect fractal detail level with image resolution</source>
         <translation>Połącz &apos;ilość detali&apos; fraktala z rozdzielczością obrazu</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="359"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="709"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="715"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wstępne ustawienia wielkości renderowanego obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="362"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="711"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="717"/>
         <source>Presets</source>
         <translation>Predefiniowane</translation>
     </message>
@@ -10663,7 +10534,7 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="516"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="722"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="728"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations for viewing with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Włącza renderowanie stereoskopowych obrazów i animacji dedykowanych do oglądania przez okulary 3D.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -10673,13 +10544,13 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="519"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="724"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="730"/>
         <source>S&amp;tereoscopic rendering</source>
         <translation>Renderowanie stereoskopowe</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="548"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="725"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="731"/>
         <source>Distance between eyes</source>
         <translation>Odległość między oczami</translation>
     </message>
@@ -10689,59 +10560,61 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="559"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="726"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="732"/>
         <source>Left - right</source>
         <translation>Lewa - prawa</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="564"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="727"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="733"/>
         <source>Top - bottom</source>
         <translation>Góra - dół</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="569"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="728"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="734"/>
         <source>Anaglyph - red/cyan</source>
         <translation>Anaglif - czerwono-turkusowy</translation>
     </message>
     <message>
+        <location filename="../qt/dock_image_adjustments.ui" line="607"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="746"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The distance between two virtual eyes. Higher values make the 3D effect more intense. &lt;/p&gt;&lt;p&gt;The optimal distance between eyes is about 1%-5% of the distance to the viewed object. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Odległość między dwoma wirtualnymi oczami. Większa wartość daje bardziej intensywny efekt 3D &lt;/p&gt;&lt;p&gt;Optymalna odległość między oczami wynosi około 1%-5% odległości do obserwowanego obiektu. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Odległość między dwoma wirtualnymi oczami. Większa wartość daje bardziej intensywny efekt 3D &lt;/p&gt;&lt;p&gt;Optymalna odległość między oczami wynosi około 1%-5% odległości do obserwowanego obiektu. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="577"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="733"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="739"/>
         <source>Mode:</source>
         <translation>Tryb:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="590"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="735"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="741"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swaps left and right eye on rendered image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zamienia lewe i prawe oko na renderowanym obrazie.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="593"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="737"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="743"/>
         <source>Swap eyes</source>
         <translation>Zamień oczy</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="600"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="738"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="744"/>
         <source>Infinite distance correction</source>
         <translation>Korekcja dla nieskończonej odległości</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="613"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="740"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="620"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="749"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the appearance of the 3D effect for the furthest objects (or background). If the value of this parameter is higher then the background objects will appear further away. &lt;/p&gt;&lt;p&gt;As an example, the optimal value of this parameter for a 24 inch display could be about 0.4. For bigger display this value should be lower. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reguluje wygląd efektu 3D dla najdalszych obiektów (lub tła). Gdy wartość tego parametru jest większa to obiekty w tle będą sprawiały wrażenie bardziej odległych &lt;/p&gt;&lt;p&gt;Przykładowo optymalną wartością tego parametru dla 24-calowego monitora będzie około 0,4. Dla większego wyświetlacza ta wartość powinna być mniejsza. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="654"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="746"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="661"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="755"/>
         <source>Image quality presets</source>
         <translation>Predefiniowane ustawienia jakości obrazu</translation>
     </message>
@@ -10750,34 +10623,34 @@ Czy chcesz aktywować fraktale hybrydowe lub operacje boolowskie?</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normalna jakość.&lt;/p&gt;&lt;p&gt;Światło rozproszone jest włączone w trybie Przestrzeń Obrazu (SSAO).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="692"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="750"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="699"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="759"/>
         <source>Normal</source>
         <translation>Normalna</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="705"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="752"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="712"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="761"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A fast preset but with low quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Szybkie renderowanie z małą jakością.&lt;/p&gt;&lt;p&gt;Światło rozproszone jest wyłączone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="708"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="754"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="715"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="763"/>
         <source>Low
 (no ambient occlusion)</source>
         <translation>Niska
 (bez światła rozproszonego)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="722"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="757"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="729"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="766"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest quality preset and the slowest.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Najwyższa jakość ale najwolniejsze renderowanie.&lt;/p&gt;&lt;p&gt;Światło rozproszone jest włączone w trybie &apos;Wiele promieni z mapą światła&apos;. &apos;Mnożnik kroku śledzenia promieni&apos; jest obniżony do 0.2 w celu zredukowania błędów obliczeniowych.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="725"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="759"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="732"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="768"/>
         <source> High
 (HQ ambient occlusion
 accurate raymarching)</source>
@@ -10786,14 +10659,14 @@ accurate raymarching)</source>
 dokładne śledzenie promieni)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="740"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="763"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="747"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="772"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;Shadows, ambient occlusion and raytraced reflections are turned off. Detail level is decreased to 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Najszybsze renderowanie ale z najniższą jakością.&lt;/p&gt;&lt;p&gt;Cienie, światło rozproszone oraz &apos;Śledzenie promieni światła dla odbić i przezroczystości&apos; są wyłączone. Ilość detali jest zredukowana do 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="743"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="765"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="750"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="774"/>
         <source>Very low
 (no shadows
 no ambient occlusion)</source>
@@ -10802,180 +10675,180 @@ no ambient occlusion)</source>
 bez światła rozproszonego)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="757"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="769"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="764"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="778"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjustments for image colors. Can be changed after rendering&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ustawienia obrazu. Mogą być zmienione po zakończeniu renderowania.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="760"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="771"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="767"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="780"/>
         <source>Picture</source>
         <translation>Korekcja obrazu</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="792"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="773"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="799"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="782"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrast obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="820"/>
-        <location filename="../qt/dock_image_adjustments.ui" line="904"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="778"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="792"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="827"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="911"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="787"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="801"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="870"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="787"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="877"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="796"/>
         <source>Gamma:</source>
         <translation>Gamma:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="848"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="783"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="855"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="792"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="34"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="667"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="673"/>
         <source>Load</source>
         <translation>Wczytaj</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="41"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="668"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="674"/>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="48"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="669"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="675"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="229"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="693"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="699"/>
         <source>Anti-aliasin&amp;g</source>
         <translation>Antyaliasing</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="291"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="695"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="701"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="296"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="696"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="702"/>
         <source>9</source>
         <translation>9</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="301"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="697"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="703"/>
         <source>45</source>
         <translation>45</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="306"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="698"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="704"/>
         <source>81</source>
         <translation>81</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="311"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="699"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="705"/>
         <source>405</source>
         <translation>405</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="316"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="700"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="706"/>
         <source>729</source>
         <translation>729</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="327"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="702"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="708"/>
         <source>Number of samples (OpenCL mode):</source>
         <translation>Ilość próbek (tryb OpenCL):</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="337"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="703"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="709"/>
         <source>Adaptive (faster)</source>
         <translation>Adaptacyjny (szybszy)</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="555"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="731"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="737"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as an anaglyph dedicated for red/cyan 3D glasses. Using this option it is possible to edit the fractal with 3D view directly in the application window using regular display.  Cheap 3D glasses are all that is required. For fractal exploration it is recommended to not use SSAO ambient occlusion, because it is rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje jak stereoskopowy obraz ma zostać zrederowany.&lt;/p&gt;&lt;p&gt;Lewa-prawa - Widok dla lewego oka będzie zrederowany po lewej stronie obrazu. Widok dla prawego oka będzie po prawej stronie.&lt;/p&gt;&lt;p&gt;Góra-dół - Widok dla lewego oka będzie zrederowany na górnej połowie obrazu. Widok dla prawego oka będzie na dolnej połowie.&lt;/p&gt;&lt;p&gt;Anaglif czerwono-turkusowy - Obraz będzie zrenderowany jako anaglif dedykowany dla czerwono-turkusowych okularów 3D. Używając ten tryb jest możliwa edycja fraktala z widokiem 3D w oknie aplikacji wykorzystując zwykły monitor. Są tylko potrzebne okulary 3D. Podczas eksplorowania fraktala nie jest rekomendowane używanie światła rozproszonego SSAO, gdyz jest renderowane dwuprzebiegowo (spróbuj używać &amp;quot;Szybkie&amp;quot; światło rozproszone).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="643"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="744"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="650"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="753"/>
         <source>Calculate optimal distance
 between eyes</source>
         <translation>Oblicz optymalną odległość
 między oczami</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="689"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="748"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="696"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="757"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal quality preset.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Screen Space Ambient Occlusion (SSAO) mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normalna jakość.&lt;/p&gt;&lt;p&gt;Światło rozproszone jest włączone w trybie Przestrzeń Obrazu (SSAO).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="877"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="788"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="884"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="797"/>
         <source>Brightness:</source>
         <translation>Jasność:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="884"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="789"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="891"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="798"/>
         <source>Contrast:</source>
         <translation>Kontrast:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="891"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="790"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="898"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="799"/>
         <source>Saturation</source>
         <translation>Nasycenie:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="928"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="797"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="935"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="806"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range effect. Reduces brightness of the brightest pixels to prevent oversaturation.&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Efekt HDR (High dynamic range). Redukuje jasność najjaśniejszych pikseli aby zapobiec prześwietleniu.&lt;/p&gt;&lt;p&gt;Użyj przycisk &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="931"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="799"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="938"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="808"/>
         <source>High Dynamic Range (HDR)</source>
         <translation>Duża dynamika obrazu (HDR)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="938"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="801"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="945"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="810"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply changes of image colors&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nanieś zmiany ustawień obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="941"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="803"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="948"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="812"/>
         <source>Apply changes</source>
         <translation>Nanieś zmiany</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="955"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="804"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="962"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="813"/>
         <source>Camera</source>
         <translation>Kamera</translation>
     </message>
@@ -10984,62 +10857,62 @@ między oczami</translation>
         <translation type="vanished">Pole widzenia:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="988"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="807"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="995"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="816"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pole widzenia kamery. Wyższa wartość daje szersze pole widzenia.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1008"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="816"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1015"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="825"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of perspective projection.&lt;/p&gt;&lt;p&gt;- Three-point perspective  projection, has two vanishing points on the horizon line and one on zenith or nadir&lt;/p&gt;&lt;p&gt;- Fish eye - simulates fish eye camera. &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0 corresponds to 180 degree&lt;/p&gt;&lt;p&gt;- Equirectangular - is dedicated to render 360 degree panoramas. Image proportion should be set to 2:1 and &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Fulldome - is dedicated to render images for displaying in fulldome.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rodzaj projekcji perspektywistycznej.&lt;/p&gt;&lt;p&gt;- Perspektywa 3-punktowa -  projekcja, która posiada 2 znikające punkty na horyzoncie i jeden na zenicie lub nadirze&lt;/p&gt;&lt;p&gt;- Rybie oko - symuluje obiektyw typu &quot;rybie oko&quot;. &lt;span style=&quot; font-style:italic;&quot;&gt;Pole widzenia&lt;/span&gt; = 1.0 odpowiada kątowi 180 stopni&lt;/p&gt;&lt;p&gt;- Odwzorowanie walcowe równoodległościowe - jest dedykowane do renderowania panoram 360 stopni. Proporcje obrazu powinny być ustawione na 2:1 a &lt;span style=&quot; font-style:italic;&quot;&gt;Pole widzenia&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Fulldome - jest dedykowane do renderowania obrazów wyświetlanych w planetariach.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="978"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="805"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="985"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="814"/>
         <source>Field of view (degrees):</source>
         <translation>Pole widzenia (stopnie):</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1012"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="810"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1019"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="819"/>
         <source>Three-point perspective</source>
         <translation>Perspektywa 3-punktowa</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1017"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="811"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1024"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="820"/>
         <source>Fish eye</source>
         <translation>Rybie oko</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1022"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="812"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1029"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="821"/>
         <source>Equirectangular</source>
         <translation>Odwzorowanie walcowe równoodległościowe</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1027"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="813"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1034"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="822"/>
         <source>Fulldome</source>
         <translation>Kopuła (Fulldome)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="995"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="809"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1002"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="818"/>
         <source>Perspective type:</source>
         <translation>Typ perspektywy:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1037"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="819"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1044"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="828"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For compatibility of coordinate system with old Mandelbulber v. 1.21 .fract files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>Potrzebne do zachowania kompatybilności z układem współrzędnych ze starego Mandelbulber v. 1.21</translation>
     </message>
     <message>
-        <location filename="../qt/dock_image_adjustments.ui" line="1040"/>
-        <location filename="../qt/ui_dock_image_adjustments.h" line="821"/>
+        <location filename="../qt/dock_image_adjustments.ui" line="1047"/>
+        <location filename="../qt/ui_dock_image_adjustments.h" line="830"/>
         <source>Coordinate system like in Mandelbulber v1.21</source>
         <translation>Układ współrzędnych jak w Mandelbulber v1.21</translation>
     </message>
@@ -12948,7 +12821,7 @@ z rozdzielczością obrazu</translation>
     </message>
     <message>
         <location filename="../qt/gradient_edit_widget.cpp" line="430"/>
-        <location filename="../qt/gradient_edit_widget.cpp" line="483"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="518"/>
         <source>Gradients (*.gradient *.txt)</source>
         <translation>Gradienty (*.gradient *.txt)</translation>
     </message>
@@ -12958,52 +12831,52 @@ z rozdzielczością obrazu</translation>
         <translation>Wczytywanie gradientu...</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="489"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="524"/>
         <source>Save gradient...</source>
         <translation>Zapis gradientu...</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="533"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="568"/>
         <source>Add color</source>
         <translation>Dodaj kolor</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="534"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="569"/>
         <source>Remove color</source>
         <translation>Usuń kolor</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="536"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="571"/>
         <source>Delete all colors</source>
         <translation>Skasuj wszystkie kolory</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="537"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="572"/>
         <source>Change number of colors ...</source>
         <translation>Zmień ilość kolorów ...</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="538"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="573"/>
         <source>Grab colors from image ...</source>
         <translation>Pobierz kolory z obrazka...</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="539"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="574"/>
         <source>Load colors from file ...</source>
         <translation>Wczytaj kolory z pliku ...</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="540"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="575"/>
         <source>Save colors to file ...</source>
         <translation>Zapisz kolory do pliku</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="541"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="576"/>
         <source>Copy</source>
         <translation>Kopiuj</translation>
     </message>
     <message>
-        <location filename="../qt/gradient_edit_widget.cpp" line="542"/>
+        <location filename="../qt/gradient_edit_widget.cpp" line="577"/>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
@@ -13345,35 +13218,35 @@ w oddzielnych plikach
 <context>
     <name>cInterface</name>
     <message>
-        <location filename="../src/interface.cpp" line="2881"/>
-        <location filename="../src/interface.cpp" line="2904"/>
+        <location filename="../src/interface.cpp" line="3041"/>
+        <location filename="../src/interface.cpp" line="3064"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2886"/>
+        <location filename="../src/interface.cpp" line="3046"/>
         <source>Save settings from %1</source>
         <translation>Zapisz ustawienia z %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2909"/>
+        <location filename="../src/interface.cpp" line="3069"/>
         <source>Load settings to %1</source>
         <translation>Wczytaj ustawienia do %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="3033"/>
+        <location filename="../src/interface.cpp" line="3197"/>
         <source>Cleaning up</source>
         <translation>Czyszczenie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="3034"/>
+        <location filename="../src/interface.cpp" line="3198"/>
         <source>Do you want to clean up settings?
 It will take a while</source>
         <translation>Czy chcesz oczyścić ustawienia?
 Trochę to potrwa.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="3055"/>
+        <location filename="../src/interface.cpp" line="3219"/>
         <source>Image auto-saved to %1</source>
         <translation>Obraz zapisany automatycznie do %1</translation>
     </message>
@@ -13385,32 +13258,482 @@ Trochę to potrwa.</translation>
         <translation type="vanished">podgląd</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="384"/>
-        <location filename="../src/animation_keyframes.cpp" line="386"/>
+        <location filename="../src/animation_keyframes.cpp" line="385"/>
+        <location filename="../src/animation_keyframes.cpp" line="387"/>
         <source>Keyframe
 previews</source>
         <translation>Miniatury
 klatek</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1090"/>
+        <location filename="../src/animation_keyframes.cpp" line="1091"/>
         <source>Refreshing animation frames</source>
         <translation>Odświeżenie klatek animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1472"/>
+        <location filename="../src/animation_keyframes.cpp" line="1473"/>
         <source>Exporting keyframes to flight</source>
         <translation>Eksport klatek kluczowych do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1643"/>
+        <location filename="../src/animation_keyframes.cpp" line="1644"/>
         <source>Audio</source>
         <translation>Dźwięk</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1718"/>
+        <location filename="../src/animation_keyframes.cpp" line="1745"/>
         <source>Camera distance from selected keyframe: %1</source>
         <translation>Odległość kamery od wybranej klatki kluczowej: %1</translation>
+    </message>
+</context>
+<context>
+    <name>cLightEditor</name>
+    <message>
+        <location filename="../qt/light_editor.ui" line="17"/>
+        <location filename="../qt/ui_light_editor.h" line="529"/>
+        <source>Form</source>
+        <translation>Formularz</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="35"/>
+        <location filename="../qt/ui_light_editor.h" line="530"/>
+        <source>Parameters</source>
+        <translation>Parametry</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="64"/>
+        <location filename="../qt/ui_light_editor.h" line="532"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of the light source. Strength of  illumination.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność źródła światła. Siła z jaką światło oświetla powierchnię obiektów.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="71"/>
+        <location filename="../qt/ui_light_editor.h" line="535"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="74"/>
+        <location filename="../qt/ui_light_editor.h" line="537"/>
+        <source>PushButton</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="81"/>
+        <location filename="../qt/ui_light_editor.h" line="538"/>
+        <source>Intensity:</source>
+        <translation>Intensywność:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="88"/>
+        <location filename="../qt/ui_light_editor.h" line="539"/>
+        <source>Size:</source>
+        <translation>Wielkość:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="101"/>
+        <location filename="../qt/ui_light_editor.h" line="541"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of illuminated fog around the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wielkość poświaty wokół światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="114"/>
+        <location filename="../qt/ui_light_editor.h" line="544"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility of the light source. It simulates illuminated fog around the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność poświaty wokół światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="121"/>
+        <location filename="../qt/light_editor.ui" line="613"/>
+        <location filename="../qt/ui_light_editor.h" line="546"/>
+        <location filename="../qt/ui_light_editor.h" line="628"/>
+        <source>Visibility:</source>
+        <translation>Widoczność:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="128"/>
+        <location filename="../qt/ui_light_editor.h" line="553"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of light source type&lt;/p&gt;&lt;p&gt;- Directional light - light source emitting from infinite distance at the angle defined by user&lt;/p&gt;&lt;p&gt;- Point light - light source emitting evenly around  user defined point&lt;/p&gt;&lt;p&gt;- Spot light - light source emitting conical beam&lt;/p&gt;&lt;p&gt;- Projection - light source emitting beam of light colorized by texture image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór rodzaju źródła światła.&lt;/p&gt;&lt;p&gt;- Światło kierunkowe - świeci z nieskończenie dużej odległości pod kątem zdefiniowanym przez użytkownika.&lt;/p&gt;&lt;p&gt;- Światło punktowe - światło emitujące równomiernie we wszystkie strony z punktu zdefiniowanego przez użytkownika.&lt;/p&gt;&lt;p&gt;- Reflektor - światło emitowane jako stożkowy strumień&lt;/p&gt;&lt;p&gt;- Projektor - emitowane światło jest pokolorowane teksturą&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="132"/>
+        <location filename="../qt/ui_light_editor.h" line="547"/>
+        <source>Directional light</source>
+        <translation>Światło kierunkowe</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="137"/>
+        <location filename="../qt/ui_light_editor.h" line="548"/>
+        <source>Point light</source>
+        <translation>Światło punktowe</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="142"/>
+        <location filename="../qt/ui_light_editor.h" line="549"/>
+        <source>Spot light</source>
+        <translation>Reflektor</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="147"/>
+        <location filename="../qt/ui_light_editor.h" line="550"/>
+        <source>Projection</source>
+        <translation>Projektor</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="155"/>
+        <location filename="../qt/ui_light_editor.h" line="555"/>
+        <source>Decay function</source>
+        <translation>Funkcja zanikania</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="162"/>
+        <location filename="../qt/ui_light_editor.h" line="556"/>
+        <source>Type:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="169"/>
+        <location filename="../qt/ui_light_editor.h" line="557"/>
+        <source>Color:</source>
+        <translation>Kolor:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="176"/>
+        <location filename="../qt/ui_light_editor.h" line="563"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Decay function defines how light intensity decays with distance from the light. Decay function 1/r² complies with the laws of physics. 1/r reduces the decaying of light intensity. 1/r³ increases the decaying of light intensity. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fukcja zanikania definiuje jak intensywność światła się zmniejsza wraz ze zwiększaniem odległości od źródła światła. Funcja zanikania 1/r² jest zgodna z prawami fizyki. 1/r osłabia zanikanie intensywności świałta a 1/r³ je umacnia. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="180"/>
+        <location filename="../qt/ui_light_editor.h" line="558"/>
+        <source>1/r</source>
+        <translation>1/r</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="185"/>
+        <location filename="../qt/ui_light_editor.h" line="559"/>
+        <source>1/r²</source>
+        <translation>1/r²</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="190"/>
+        <location filename="../qt/ui_light_editor.h" line="560"/>
+        <source>1/r³</source>
+        <translation>1/r³</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="204"/>
+        <location filename="../qt/ui_light_editor.h" line="566"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sharpness of contour of the light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ostrość konturu źródła światła (tylko dla światła kierunkowego).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="211"/>
+        <location filename="../qt/ui_light_editor.h" line="568"/>
+        <source>Contour sharpness:</source>
+        <translation>Ostrość konturu:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="223"/>
+        <location filename="../qt/ui_light_editor.h" line="569"/>
+        <source>Position</source>
+        <translation>Pozycja</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="252"/>
+        <location filename="../qt/light_editor.ui" line="265"/>
+        <location filename="../qt/light_editor.ui" line="278"/>
+        <location filename="../qt/ui_light_editor.h" line="571"/>
+        <location filename="../qt/ui_light_editor.h" line="574"/>
+        <location filename="../qt/ui_light_editor.h" line="577"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Współrzędnie źródła światła&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="285"/>
+        <location filename="../qt/ui_light_editor.h" line="579"/>
+        <source>x:</source>
+        <translation>x:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="292"/>
+        <location filename="../qt/ui_light_editor.h" line="580"/>
+        <source>Position:</source>
+        <translation>Pozycja:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="299"/>
+        <location filename="../qt/ui_light_editor.h" line="581"/>
+        <source>y:</source>
+        <translation>y:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="306"/>
+        <location filename="../qt/ui_light_editor.h" line="582"/>
+        <source>z:</source>
+        <translation>z:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="325"/>
+        <location filename="../qt/ui_light_editor.h" line="583"/>
+        <source>Angle:</source>
+        <translation>Kąt:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="332"/>
+        <location filename="../qt/ui_light_editor.h" line="584"/>
+        <source>horizontal:</source>
+        <translation>poziomy:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="345"/>
+        <location filename="../qt/light_editor.ui" line="390"/>
+        <location filename="../qt/light_editor.ui" line="421"/>
+        <location filename="../qt/ui_light_editor.h" line="586"/>
+        <location filename="../qt/ui_light_editor.h" line="593"/>
+        <location filename="../qt/ui_light_editor.h" line="598"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of light source.&lt;/p&gt;&lt;p&gt;For directional lights it can be controlled with ball widget.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kąt obtoru/nachylenia źródła światła.&lt;/p&gt;&lt;p&gt;Kąt można ustawiać za pomocą kulistego widżetu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="370"/>
+        <location filename="../qt/ui_light_editor.h" line="590"/>
+        <source>roll:</source>
+        <translation>przechylenie:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="377"/>
+        <location filename="../qt/ui_light_editor.h" line="591"/>
+        <source>vertical:</source>
+        <translation>pionowy:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="466"/>
+        <location filename="../qt/ui_light_editor.h" line="603"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enabling this option makes coordinates and rotation of the light relative to the camera. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnienie tej opcji spowoduje, że pozycja i kąt będą w odniesieniu do pozycji i obrotu kamery. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="469"/>
+        <location filename="../qt/ui_light_editor.h" line="605"/>
+        <source>Position and rotation relative to camera</source>
+        <translation>Pozycja i obrót względem kamery</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="479"/>
+        <location filename="../qt/ui_light_editor.h" line="606"/>
+        <source>Shadows</source>
+        <translation>Cienie</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="506"/>
+        <location filename="../qt/ui_light_editor.h" line="608"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables casting shadows from the light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia rzucanie cieni przez źródło światła. Wyłączenie cieni może przyspieszyć renderowanie.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="509"/>
+        <location filename="../qt/ui_light_editor.h" line="610"/>
+        <source>Cast shadows</source>
+        <translation>Rzucanie cieni</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="522"/>
+        <location filename="../qt/ui_light_editor.h" line="612"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes light rays penetrate all the objects. When it&apos;s enabled, then even inside the fractal it will not be completely dark. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprawia, że promienie światła penetrują wszystkie obiekty. Kiedy jest aktywne, to nawet w środku fraktala nie będzie zupełnie ciemno. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="525"/>
+        <location filename="../qt/ui_light_editor.h" line="614"/>
+        <source>Penetrating light</source>
+        <translation>Penetrujące światło</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="532"/>
+        <location filename="../qt/ui_light_editor.h" line="615"/>
+        <source>Soft shadow cone angle:</source>
+        <translation>Kąt stożka miękkiego cienia:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="545"/>
+        <location filename="../qt/ui_light_editor.h" line="617"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls angle of shadows cone. It simulates &amp;quot;soft shadow&amp;quot; effect. When it&apos;s zero, then shadows are very sharp.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shadow cone 0 degrees&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shadow cone 5 degrees &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 0.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr kontroluje kąt rozwarcia stożka cienia. ten efekt symuluje &amp;quot;miękkie cienie&amp;quot;. Kiedy jest zero to cienie są bardzo ostre&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;stożek cienia 0 stopni&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;stożek cienia 5 stopni &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 0.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shadow cone 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="579"/>
+        <location filename="../qt/ui_light_editor.h" line="622"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables volumetric visibility of the light source with calculation of shadows on it. It can be used to simulate &amp;quot;god rays&amp;quot; effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktywacja widoczności światła w przestrzeni wraz z kalkulacją cieni w tej przestrzeni. Tym efektem można zasymulować promienie światła przeświecające przez warstwę mgły.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="582"/>
+        <location filename="../qt/ui_light_editor.h" line="624"/>
+        <source>Volumetric</source>
+        <translation>Objętościowe</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="606"/>
+        <location filename="../qt/ui_light_editor.h" line="626"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of volumetric effect. &lt;/p&gt;&lt;p&gt;When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Effects&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;/ Volumetric / Custom DE multiplier for volumetric effect&lt;/span&gt; parameter (lower value - better quality).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensywność efektu. Kiedy efekt nie jest widoczny, to zwiększ znacznie intensywność. Jeżeli obraz jest cały biały to znacznie zmniejsz intensywność.&lt;/p&gt;&lt;p&gt;Intensywność efektu nie zależy od jasności źródła światła&lt;/p&gt;&lt;p&gt;Aby kontrolować jakość efektu zmieniaj parametr &lt;span style=&quot; font-style:italic;&quot;&gt;Efekty / Objętościowe / Właśny mnożnik kroku dla efektów objętościowych&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="626"/>
+        <location filename="../qt/ui_light_editor.h" line="629"/>
+        <source>Cone options</source>
+        <translation>Parametry stożka</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="647"/>
+        <location filename="../qt/ui_light_editor.h" line="631"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opening angle of conical shape of spot light&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kąt rozwarcia stożka refletora&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="660"/>
+        <location filename="../qt/ui_light_editor.h" line="633"/>
+        <source>Opening angle</source>
+        <translation>Kąt rozwarcia</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="673"/>
+        <location filename="../qt/ui_light_editor.h" line="634"/>
+        <source>Soft angle</source>
+        <translation>Kąt łagodnego przejścia</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="680"/>
+        <location filename="../qt/ui_light_editor.h" line="636"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Additional opening angle of conical shape of spot light with soft transition from full brightness to dark.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dodatkowy kąt rozwarcia gdzie jastość jest stopniowo redukowana z pełnej do zupełnej ciemności.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="693"/>
+        <location filename="../qt/ui_light_editor.h" line="638"/>
+        <source>Projection options</source>
+        <translation>Opcje projektora</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="722"/>
+        <location filename="../qt/ui_light_editor.h" line="640"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the light projection texture image. Acceptable formats are BMP, GIF, JPG, PNG&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ścieżka dostępu do wyświetlanej tekstury.&lt;/p&gt;&lt;p&gt;Aby użyć animowaną teksturę (sekwencję obrazów), zamień cyfry na symbol &apos;%&apos;. Przykład: Jeżeli sekwencja obrazów jest taka jak poniżej: &lt;br/&gt;textura0001.jpg&lt;br/&gt;textura0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;wtedy użyj następującej nazwy pliku: textura%%%%.jpg&lt;br/&gt;W ten sposób program zostanie poinformowany, że ma potraktować obrazy jako sekwencję z 4-cyfrowym numerem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="735"/>
+        <location filename="../qt/ui_light_editor.h" line="642"/>
+        <source>Texture path:</source>
+        <translation>Ścieżka tekstury:</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="746"/>
+        <location filename="../qt/ui_light_editor.h" line="644"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vertical opening angle of projected image &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pionowy kąt rozwarcia wyświetlanej tekstury &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="753"/>
+        <location filename="../qt/ui_light_editor.h" line="647"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Horizontal opening angle of projected image &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Poziomy kąt rozwarcia wyświetlanej tekstury &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="766"/>
+        <location filename="../qt/ui_light_editor.h" line="649"/>
+        <source>Horizontal opening angle</source>
+        <translation>Poziomy kąt rozwarcia</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="782"/>
+        <location filename="../qt/ui_light_editor.h" line="650"/>
+        <source>Vertical opening angle</source>
+        <translation>Pionowy kąt rozwarcia</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="798"/>
+        <location filename="../qt/ui_light_editor.h" line="652"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Repeats projected texture. Recommended to use seamless texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Powtarzanie wyświetlanej tekstury.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_editor.ui" line="801"/>
+        <location filename="../qt/ui_light_editor.h" line="654"/>
+        <source>Repeat texture</source>
+        <translation>Powtarzanie tekstury</translation>
+    </message>
+</context>
+<context>
+    <name>cLightSourcesManager</name>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="14"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="90"/>
+        <source>Form</source>
+        <translation>Formularz</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="35"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="91"/>
+        <source>Show wire-frame preview of lights</source>
+        <translation>Pokaż szkieletowy podgląd świateł</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="44"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="93"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a new light source to the scene. This new light will appear as a new tab below. There is no limit to the number of light sources.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dodaje nowe źródło światła so sceny. To nowe śwtało pojawi się poniżej jako kolejna zakładka. Nie ma ograniczenia ilości źródeł światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="47"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="95"/>
+        <source>New
+light</source>
+        <translation>Nowe
+światło</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="55"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="98"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate the selected light source. All parameters will be copied to the new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Powiela aktualnie wybrane źródło światła. Wszystkie parametry będą skopiowane do nowego.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="58"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="100"/>
+        <source>Duplicate
+light</source>
+        <translation>Duplikuj
+światło</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="66"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="103"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usuwa wybrane źródło światła.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="69"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="105"/>
+        <source>Delete
+light</source>
+        <translation>Usuń
+światło</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="77"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="108"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Place a light source using the mouse pointer.&lt;/p&gt;&lt;p&gt;Light position (for selected light tab) can be manipulated in following ways:&lt;/p&gt;&lt;p&gt;- mouse click on the image places light in front of selected point (offset by placement distance.) Placement distance from the selected point can be adjusted using mouse wheel + alt key.&lt;/p&gt;&lt;p&gt;- move light by dragging the mouse pointer while holding left mouse button. Moves light while maintaining placement distance&lt;/p&gt;&lt;p&gt;- rotating mouse wheel while holding control key moves light forward/backward&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umieszczanie źródła światła przy użyciu wskaźnika myszy.&lt;/p&gt;&lt;p&gt;Pozycja światła (dla aktualnie wybranej zakładki) może być modyfikowane w następujące sposoby:&lt;/p&gt;&lt;p&gt;- kliknięcie na obrazie umieszcza światło przed wskazanym punktem (odległość zdefiniowana parametrem &lt;i&gt;odległość umieszczania&lt;/i&gt;). Odległość umieszczania światła od wskazanego punktu może być regulowana rolką myszy przy jednoczesnym przytrzymywaniu klawisza Alt.&lt;/p&gt;&lt;p&gt;- Przeciąganie światła poprzez przytrzymywanie lewego przycisku myszy pozwala na przemieszczanie światła na boki i góra/dół.&lt;/p&gt;&lt;p&gt;- obracanie rolki myszy z jednoczesnym przytrzymaniem klawisza Crtl pozwala na przemieszczanie światła przód/tył&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/light_sources_manager.ui" line="80"/>
+        <location filename="../qt/ui_light_sources_manager.h" line="110"/>
+        <source>Place/move
+light</source>
+        <translation>Umieść/Przesuń
+światło</translation>
     </message>
 </context>
 <context>
@@ -15477,27 +15800,27 @@ wielkości obiektu)</translation>
 <context>
     <name>cOpenClEngineRenderFractal</name>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="318"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="315"/>
         <source>OpenCl - initializing</source>
         <translation>OpenCL - inicjowanie</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="318"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="315"/>
         <source>Compiling OpenCL programs</source>
         <translation>Kompilowanie programów OpenCL</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1221"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1256"/>
         <source>OpenCl - rendering image (workgroup %1 pixels)</source>
         <translation>OpenCL - renderowanie obrazu (grupa robocza %1 pikseli)</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1544"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1579"/>
         <source>OpenCL - rendering image finished</source>
         <translation>OpenCL - renderowanie zakończone</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1491"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1526"/>
         <source>OpenCl - rendering image</source>
         <translation>OpenCL - renderowanie obrazu</translation>
     </message>
@@ -15532,6 +15855,23 @@ wielkości obiektu)</translation>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="322"/>
         <source>OpenCl - rendering SSAO finished</source>
         <translation>OpenCL - renderowanie SSAO zakończone</translation>
+    </message>
+</context>
+<context>
+    <name>cOpenClHardware</name>
+    <message>
+        <location filename="../src/opencl_hardware.cpp" line="224"/>
+        <source>Timeout detection in graphics driver is not disabled
+Run TDR__disable script from %1
+as administrator
+Timeout detection can cause graphics driver restarts
+during rendering of difficult fractals or effects.</source>
+        <translation>Wykrywanie przekroczenia przez sterownik karty graficznej dopuszczalnego czasu obliczeń nie jest wyłączone
+Uruchom skrypt TDR__disable.bat z %1
+jako administrator.
+Wykrywanie przekroczenia czasu może powodować restartowanie sterownika graficznego
+podczas renderowania fraktali, które są powoli obliczane lub gdy są używane
+efekty, które wymagają długiego przetwarzania.</translation>
     </message>
 </context>
 <context>
@@ -16387,37 +16727,37 @@ w oddzielnych plikach
         <translation>Ścieżka do pliku logu: %1</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="164"/>
+        <location filename="../qt/preferences_dialog.cpp" line="166"/>
         <source>Select default directory for images</source>
         <translation>Wybierz domyślny folder dla obrazów</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="175"/>
+        <location filename="../qt/preferences_dialog.cpp" line="177"/>
         <source>Select default directory for settings files</source>
         <translation>Wybierz domyślny folder dla plików ustawień</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="186"/>
+        <location filename="../qt/preferences_dialog.cpp" line="188"/>
         <source>Select default directory for textures</source>
         <translation>Wybierz domyślny folder dla tekstur</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="308"/>
+        <location filename="../qt/preferences_dialog.cpp" line="310"/>
         <source>rendering %1, %2 of %3</source>
         <translation>renderowanie %1, %2 of %3</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="523"/>
+        <location filename="../qt/preferences_dialog.cpp" line="525"/>
         <source>Suggested memory limit (based on CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="535"/>
+        <location filename="../qt/preferences_dialog.cpp" line="537"/>
         <source>clang-format executable (clang-format.exe clang-format-*.exe clang-format-* clang-format)</source>
         <translation>clang-format executable (clang-format.exe clang-format-*.exe clang-format-* clang-format)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="539"/>
+        <location filename="../qt/preferences_dialog.cpp" line="541"/>
         <source>Select clang-format executable (exe on windows, program name on MacOS / Linux)...</source>
         <translation>Wybierz plik uruchamialny z clang-format (exe na Windows, nazwa programu na MacOS / Linux)...</translation>
     </message>
@@ -16438,48 +16778,48 @@ w oddzielnych plikach
 <context>
     <name>cQueue</name>
     <message>
-        <location filename="../src/queue.cpp" line="459"/>
-        <location filename="../src/queue.cpp" line="463"/>
+        <location filename="../src/queue.cpp" line="465"/>
+        <location filename="../src/queue.cpp" line="469"/>
         <source>STILL</source>
         <translation>OBRAZ</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="460"/>
+        <location filename="../src/queue.cpp" line="466"/>
         <source>FLIGHT</source>
         <translation>LOT</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="461"/>
+        <location filename="../src/queue.cpp" line="467"/>
         <source>KEYFRAME</source>
         <translation>KLATKI KLUCZOWE</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="605"/>
+        <location filename="../src/queue.cpp" line="611"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="609"/>
+        <location filename="../src/queue.cpp" line="615"/>
         <source>Add file to queue...</source>
         <translation>Dodaj plik do kolejki...</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="668"/>
+        <location filename="../src/queue.cpp" line="674"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="668"/>
+        <location filename="../src/queue.cpp" line="674"/>
         <source>Preview</source>
         <translation>Podgląd</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="668"/>
+        <location filename="../src/queue.cpp" line="674"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="668"/>
+        <location filename="../src/queue.cpp" line="674"/>
         <source>Action</source>
         <translation>Akcja</translation>
     </message>
@@ -16720,32 +17060,32 @@ w oddzielnych plikach
         <translation>Losowanie (dla parametrów z %1)</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="363"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="362"/>
         <source>Randomizer (for parameters from keyframe animation)</source>
         <translation>Losowanie (dla parametrów z animacji)</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="999"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="998"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="1005"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="1004"/>
         <source>Save settings...</source>
         <translation>Zapisz ustawienia...</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="1163"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="1162"/>
         <source>Close Confirmation</source>
         <translation>Potwierdzenie zamknięcia</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="1163"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="1162"/>
         <source>Exit Randomizer?</source>
         <translation>Czy wyjść z Losowania?</translation>
     </message>
     <message>
-        <location filename="../qt/randomizer_dialog.cpp" line="1222"/>
+        <location filename="../qt/randomizer_dialog.cpp" line="1221"/>
         <source>Version %1, time %2s</source>
         <translation>Wersja %1, czas %2s</translation>
     </message>
@@ -16753,27 +17093,27 @@ w oddzielnych plikach
 <context>
     <name>cRenderJob</name>
     <message>
-        <location filename="../src/render_job.cpp" line="667"/>
+        <location filename="../src/render_job.cpp" line="665"/>
         <source>OpenCl - rendering finished</source>
         <translation>OpenCL - renderowanie zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="735"/>
+        <location filename="../src/render_job.cpp" line="733"/>
         <source>OpenCl - rendering SSAO finished</source>
         <translation>OpenCL - renderowanie SSAO zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="483"/>
+        <location filename="../src/render_job.cpp" line="481"/>
         <source>OpenCl - rendering - all finished</source>
         <translation>OpenCL - renderowanie - wszystko zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="505"/>
+        <location filename="../src/render_job.cpp" line="503"/>
         <source>Finished Render</source>
         <translation>Renderowanie zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="505"/>
+        <location filename="../src/render_job.cpp" line="503"/>
         <source>The image has been rendered completely.</source>
         <translation>Renderowanie obrazu zostało zakończone</translation>
     </message>
@@ -16842,7 +17182,7 @@ w oddzielnych plikach
         <translation>Inicjowanie</translation>
     </message>
     <message>
-        <location filename="../qt/settings_cleaner.cpp" line="218"/>
+        <location filename="../qt/settings_cleaner.cpp" line="219"/>
         <source>Trying parameter: %1:%2</source>
         <translation>Sprawdzanie parametru: %1:%2</translation>
     </message>
