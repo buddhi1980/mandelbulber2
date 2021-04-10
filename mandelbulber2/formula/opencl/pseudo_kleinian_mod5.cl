@@ -77,7 +77,19 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
-	pNorm = fractal->transformCommon.scale1p1 / pNorm;
+
+	REAL useScale = fractal->transformCommon.scale1p1 - aux->actualScaleA;
+	z *= useScale;
+	aux->DE = aux->DE * fabs(useScale);
+	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
+		aux->actualScaleA = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) + 1.0f);
+
+	pNorm = useScale / pNorm;
+
+
+
+	// pNorm = fractal->transformCommon.scale1p1 / pNorm;
 	z *= pNorm;
 	aux->DE *= fabs(pNorm);
 
@@ -156,18 +168,15 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
+		len -= fractal->transformCommon.offsetD0;
 		if (!fractal->transformCommon.functionEnabledXFalse)
 		{
-			len -= fractal->transformCommon.offsetD0;
-			if (!fractal->transformCommon.functionEnabledXFalse)
-			{
-				aux->DE0= len / aux->DE;
-			}
-			else
-			{
-				aux->DE0 = min(len, fractal->analyticDE.offset1)
-						/ max(aux->DE, fractal->analyticDE.offset0);
-			}
+			aux->DE0= len / aux->DE;
+		}
+		else
+		{
+			aux->DE0 = min(len, fractal->analyticDE.offset1)
+					/ max(aux->DE, fractal->analyticDE.offset0);
 		}
 	}
 	if (fractal->transformCommon.functionEnabledJFalse)
