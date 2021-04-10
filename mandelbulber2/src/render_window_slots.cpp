@@ -369,7 +369,7 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 					double deltaLog = exp(delta * 0.001);
 					double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
 					dist *= deltaLog;
-					ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
+					ui->widgetEffects->slotSetAuxLightManualPlacementDistance(dist);
 				}
 				else if (keyModifiers & Qt::ControlModifier)
 				{

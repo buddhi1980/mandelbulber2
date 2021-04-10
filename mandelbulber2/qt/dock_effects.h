@@ -60,10 +60,13 @@ public:
 	void SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
 
 	double GetAuxLightManualPlacementDistance() const;
-	void SetAuxLightManualPlacementDistance(double dist) const;
+
 	void UpdateLabelAverageDOFSamples(const QString &avg);
 	void UpdateLabelAverageDOFNoise(const QString &avg);
 	void RegenerateLights();
+
+public slots:
+	void slotSetAuxLightManualPlacementDistance(double dist) const;
 
 private slots:
 	static void slotPressedButtonAutoFog();

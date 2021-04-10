@@ -44,6 +44,9 @@ private slots:
 	void slotPeriodicRefresh();
 	void slorChangedWireframeVisibikity(int);
 	void slotChangedCurrentTab(int);
+
+signals:
+	void signalChangeLightPlacementDistance(double);
 };
 
 #endif /* MANDELBULBER2_QT_LIGHT_SOURCES_MANAGER_H_ */

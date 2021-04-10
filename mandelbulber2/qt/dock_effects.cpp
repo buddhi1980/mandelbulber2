@@ -94,6 +94,10 @@ void cDockEffects::ConnectSignals() const
 
 	connect(ui->pushButton_clouds_randomize, &QPushButton::clicked, this,
 		&cDockEffects::slotPressedButtonCloudsRandomize);
+
+	connect(ui->widget_light_sources_manager,
+		&cLightSourcesManager::signalChangeLightPlacementDistance, this,
+		&cDockEffects::slotSetAuxLightManualPlacementDistance);
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(
@@ -122,7 +126,7 @@ double cDockEffects::GetAuxLightManualPlacementDistance() const
 	return systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
 }
 
-void cDockEffects::SetAuxLightManualPlacementDistance(double dist) const
+void cDockEffects::slotSetAuxLightManualPlacementDistance(double dist) const
 {
 	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(dist));
 }

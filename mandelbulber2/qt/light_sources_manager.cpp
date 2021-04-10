@@ -217,7 +217,9 @@ void cLightSourcesManager::slotButtonPlaceLight()
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
-	gPar->Set("aux_light_manual_placement_dist", distance * 0.1);
+	double optimalDistance = distance * 0.1;
+	gPar->Set("aux_light_manual_placement_dist", optimalDistance);
+	emit signalChangeLightPlacementDistance(optimalDistance);
 	// ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }
 
