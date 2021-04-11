@@ -150,15 +150,20 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 				&& aux.i < fractal->transformCommon.stopIterationsRV)
 					z.y = foldY - fabs(z.y + foldY);
 	}
-
-	double len = z.Length();
+	double len;
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+		len = z.Length();
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+		double k = max(fractal->transformCommon.minR05 / z.Dot(z), fractal->transformCommon.scale1); //nnnnn
 		z *= k;
 		aux.DE *= k;
 	}
+
+	if (fractal->transformCommon.functionEnabledSwFalse)
+		len = z.Length();
+
 
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
@@ -172,15 +177,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		len -= fractal->transformCommon.offsetD0;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
-			if (!fractal->transformCommon.functionEnabledXFalse)
-			{
-				aux.DE0 = len / aux.DE;
-			}
-			else
-			{
-				aux.DE0 = min(len, fractal->analyticDE.offset1)
-								/ max(aux.DE, fractal->analyticDE.offset0);
-			}
+			aux.DE0 = len / aux.DE;
 		}
 		else
 		{
@@ -190,7 +187,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 		if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
 		else aux.dist = min(aux.dist, aux.DE0);
-		aux.dist -= fractal->transformCommon.offset0005;
 	}
 
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
