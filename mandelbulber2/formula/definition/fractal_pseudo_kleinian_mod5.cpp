@@ -169,37 +169,41 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		len = min(len, fractal->transformCommon.foldingValue - len);
-	}
+
 
 	// DE options
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		len -= fractal->transformCommon.offsetD0;
-		if (!fractal->transformCommon.functionEnabledXFalse)
+		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			aux.DE0 = len / aux.DE;
+			len = min(len, fractal->transformCommon.foldingValue - len);
+		}
+		len -= fractal->transformCommon.offsetD0;
+
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+		{
+			if (!fractal->transformCommon.functionEnabledXFalse)
+			{
+				aux.DE0 = len / aux.DE;
+			}
+			else
+			{
+				aux.DE0 = min(len, fractal->analyticDE.offset1)
+								/ max(aux.DE, fractal->analyticDE.offset0);
+			}
 		}
 		else
 		{
-			aux.DE0 = min(len, fractal->analyticDE.offset1)
-							/ max(aux.DE, fractal->analyticDE.offset0);
+			double rxy = sqrt(z.x * z.x + z.y * z.y);
+			aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
 		}
-		aux.dist = aux.DE0;
+		aux.dist -= fractal->transformCommon.offset0005;
+		if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
+		else aux.dist = min(aux.dist, aux.DE0);
 	}
 
-	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		double rxy = sqrt(z.x * z.x + z.y * z.y);
-
-		aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
-		aux.dist = aux.DE0;
-	}
-	if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
-	else aux.dist = min(aux.dist, aux.DE0);
 
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
 
