@@ -89,18 +89,11 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 
-
 	double useScale = fractal->transformCommon.scale1p1 - aux.actualScaleA;
-	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale);
 	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 		aux.actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux.actualScaleA) + 1.0);
-
-		pNorm = useScale / pNorm;
-
-
-	// pNorm = fractal->transformCommon.scale1p1 / pNorm;
+	pNorm = useScale / pNorm;
 	z *= pNorm;
 	aux.DE *= fabs(pNorm);
 
@@ -169,10 +162,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
-
-
 	// DE options
-
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		if (fractal->transformCommon.functionEnabledDFalse)
@@ -180,8 +170,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 			len = min(len, fractal->transformCommon.foldingValue - len);
 		}
 		len -= fractal->transformCommon.offsetD0;
-
-
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
 			if (!fractal->transformCommon.functionEnabledXFalse)
@@ -199,15 +187,14 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 			double rxy = sqrt(z.x * z.x + z.y * z.y);
 			aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
 		}
-		aux.dist -= fractal->transformCommon.offset0005;
+
 		if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
 		else aux.dist = min(aux.dist, aux.DE0);
+		aux.dist -= fractal->transformCommon.offset0005;
 	}
-
 
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
 
-	// color +z.z * z.z * fractal->transformCommon.scale1
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0;
@@ -215,7 +202,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.w * pNorm;
-
 		aux.color += colorAdd;
 	}
 }

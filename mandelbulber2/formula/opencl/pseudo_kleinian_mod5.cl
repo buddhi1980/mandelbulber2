@@ -79,17 +79,11 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 
 	REAL useScale = fractal->transformCommon.scale1p1 - aux->actualScaleA;
-	z *= useScale;
-	aux->DE = aux->DE * fabs(useScale);
 	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 		aux->actualScaleA = fractal->transformCommon.scaleVary0
 								* (fabs(aux->actualScaleA) + 1.0f);
 
 	pNorm = useScale / pNorm;
-
-
-
-	// pNorm = fractal->transformCommon.scale1p1 / pNorm;
 	z *= pNorm;
 	aux->DE *= fabs(pNorm);
 
@@ -103,7 +97,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		aux->pos_neg *= fractal->transformCommon.scaleNeg1;
 	}
-
 
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
@@ -187,15 +180,12 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL rxy = length(z.xy);
 			aux->DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux->DE;
 		}
-		aux->dist -= fractal->transformCommon.offset0005;
+
 
 		if (!fractal->transformCommon.functionEnabledYFalse) aux->dist = aux->DE0;
 		else aux->dist = min(aux->dist, aux->DE0);
-
+		aux->dist -= fractal->transformCommon.offset0005;
 	}
-
-
-
 
 	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
 
@@ -207,7 +197,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.w * pNorm;
-
 		aux->color += colorAdd;
 	}
 	return z;
