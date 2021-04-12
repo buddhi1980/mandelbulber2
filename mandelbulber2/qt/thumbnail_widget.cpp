@@ -85,6 +85,7 @@ void cThumbnailWidget::Init(QWidget *parent)
 	params.reset(new cParameterContainer);
 	fractal.reset(new cFractalContainer);
 	useOneCPUCore = false;
+	useForrandomizer = false;
 
 	timer = new QTimer(this);
 	timer->setSingleShot(true);
