@@ -39,13 +39,15 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		double rr = z.Dot(z);
 		z *= fractal->transformCommon.scaleG1 / rr;
 		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
-		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
+		z += fractal->transformCommon.additionConstantP000
+				- fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
 	// box offset
-	if (aux.i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
@@ -89,18 +91,11 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset02);
 
-
 	double useScale = fractal->transformCommon.scale1p1 - aux.actualScaleA;
-	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale);
 	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 		aux.actualScaleA = fractal->transformCommon.scaleVary0
 									* (fabs(aux.actualScaleA) + 1.0);
-
-		pNorm = useScale / pNorm;
-
-
-	// pNorm = fractal->transformCommon.scale1p1 / pNorm;
+	pNorm = useScale / pNorm;
 	z *= pNorm;
 	aux.DE *= fabs(pNorm);
 
@@ -157,53 +152,43 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 				&& aux.i < fractal->transformCommon.stopIterationsRV)
 					z.y = foldY - fabs(z.y + foldY);
 	}
-
-	double len = z.Length();
+	double len;
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+		len = z.Length();
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+		double k = max(fractal->transformCommon.minR05
+					/ z.Dot(z), fractal->transformCommon.scale1);
 		z *= k;
 		aux.DE *= k;
 	}
 
+	if (fractal->transformCommon.functionEnabledSwFalse)
+		len = z.Length();
+
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		len = min(len, fractal->transformCommon.foldingValue - len);
-	}
-
 	// DE options
-
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
 		len -= fractal->transformCommon.offsetD0;
-		if (!fractal->transformCommon.functionEnabledXFalse)
+		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
 			aux.DE0 = len / aux.DE;
 		}
 		else
 		{
-			aux.DE0 = min(len, fractal->analyticDE.offset1)
-							/ max(aux.DE, fractal->analyticDE.offset0);
+			double rxy = sqrt(z.x * z.x + z.y * z.y);
+			aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
 		}
-		aux.dist = aux.DE0;
-	}
 
-	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		double rxy = sqrt(z.x * z.x + z.y * z.y);
-
-		aux.DE0 = max(rxy - fractal->analyticDE.scale1, fabs(rxy * z.z) / len) / aux.DE;
-		aux.dist = aux.DE0;
+		if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
+		else aux.dist = min(aux.dist, aux.DE0);
 	}
-	if (!fractal->transformCommon.functionEnabledYFalse) aux.dist = aux.DE0;
-	else aux.dist = min(aux.dist, aux.DE0);
 
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // for pK DE
 
-	// color +z.z * z.z * fractal->transformCommon.scale1
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0;
@@ -211,7 +196,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.w * pNorm;
-
 		aux.color += colorAdd;
 	}
 }
