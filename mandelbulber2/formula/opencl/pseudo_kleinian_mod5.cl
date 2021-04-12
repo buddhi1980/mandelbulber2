@@ -34,7 +34,8 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 
 	// box offset
-	if (aux->i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
@@ -162,10 +163,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			len = min(len, fractal->transformCommon.foldingValue - len);
-		}
 		len -= fractal->transformCommon.offsetD0;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		{

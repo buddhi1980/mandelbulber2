@@ -39,13 +39,15 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		double rr = z.Dot(z);
 		z *= fractal->transformCommon.scaleG1 / rr;
 		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
-		z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
+		z += fractal->transformCommon.additionConstantP000
+				- fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
 	// box offset
-	if (aux.i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
@@ -156,7 +158,8 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		double k = max(fractal->transformCommon.minR05 / z.Dot(z), fractal->transformCommon.scale1); //nnnnn
+		double k = max(fractal->transformCommon.minR05
+					/ z.Dot(z), fractal->transformCommon.scale1);
 		z *= k;
 		aux.DE *= k;
 	}
@@ -164,16 +167,11 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	if (fractal->transformCommon.functionEnabledSwFalse)
 		len = z.Length();
 
-
 	aux.DE *= 1.0 + fractal->analyticDE.tweak005;
 
 	// DE options
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			len = min(len, fractal->transformCommon.foldingValue - len);
-		}
 		len -= fractal->transformCommon.offsetD0;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
