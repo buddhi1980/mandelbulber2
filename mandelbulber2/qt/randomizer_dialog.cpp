@@ -129,17 +129,20 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	ui->previewwidget_actual->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	ui->previewwidget_actual->DisableThumbnailCache();
 	ui->previewwidget_actual->AssignParameters(actualParams, actualFractParams);
+	ui->previewwidget_actual->UseForandomizer(true);
 	ui->previewwidget_actual->update();
 
 	referenceSkyPreview.reset(new cThumbnailWidget());
 	referenceSkyPreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceSkyPreview->DisableThumbnailCache();
 	referenceSkyPreview->DisableTimer();
+	referenceSkyPreview->UseForandomizer(true);
 
 	referenceNoisePreview.reset(new cThumbnailWidget());
 	referenceNoisePreview->SetSize(previewWidth, previewHeight, qualityMultiplier);
 	referenceNoisePreview->DisableThumbnailCache();
 	referenceNoisePreview->DisableTimer();
+	referenceNoisePreview->UseForandomizer(true);
 
 	for (int i = 0; i < numberOfVersions; i++)
 	{
@@ -148,6 +151,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		previewWidget->SetSize(previewWidth, previewHeight, qualityMultiplier);
 		previewWidget->DisableThumbnailCache();
 		previewWidget->UseOneCPUCore(true);
+		previewWidget->UseForandomizer(true);
 
 		connect(previewWidget, &cThumbnailWidget::thumbnailRendered, this,
 			&cRandomizerDialog::slotPreviewRendered);

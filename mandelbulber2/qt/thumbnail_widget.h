@@ -64,6 +64,7 @@ public:
 	void AssignParameters(std::shared_ptr<const cParameterContainer> _params,
 		std::shared_ptr<const cFractalContainer> _fractal);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
+	void UseForandomizer(bool _useForrandomizer) { useForrandomizer = _useForrandomizer; }
 	void DisableTimer() { disableTimer = true; }
 	void DisableRenderOnPaint() { disableRenderOnPaint = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
@@ -104,6 +105,7 @@ private:
 	bool disableTimer;
 	bool disableRenderOnPaint = false;
 	bool disableThumbnailCache;
+	bool useForrandomizer;
 	// timer for random trigger for rendering (renders thumbnail even when is not visible)
 	QTimer *timer;
 	QElapsedTimer renderingTimeTimer;

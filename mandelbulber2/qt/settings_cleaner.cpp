@@ -67,10 +67,12 @@ cSettingsCleaner::cSettingsCleaner(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->previewwidget_actual->DisableThumbnailCache();
 	ui->previewwidget_actual->DisableTimer();
 	ui->previewwidget_actual->DisableRenderOnPaint();
+	ui->previewwidget_actual->UseForandomizer(true);
 	ui->previewwidget_cleaned->SetSize(previewWidth, previewHeight, 1);
 	ui->previewwidget_cleaned->DisableThumbnailCache();
 	ui->previewwidget_cleaned->DisableTimer();
 	ui->previewwidget_cleaned->DisableRenderOnPaint();
+	ui->previewwidget_cleaned->UseForandomizer(true);
 
 	connect(ui->pushButton_stop, &QPushButton::clicked, this, &cSettingsCleaner::slotPressedStop);
 	connect(ui->pushButton_ok, &QPushButton::clicked, this, &cSettingsCleaner::slotPressedOK);

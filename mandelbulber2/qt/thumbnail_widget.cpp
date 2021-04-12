@@ -176,12 +176,12 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 			{
 				double distance =
 					cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
-				if (distance < 1e-5)
+				if (distance < 1e-5 && !useForrandomizer)
 				{
 					params->Set("opencl_mode", 0);
 				}
 
-				if (distance < 1e-15)
+				if (distance < 1e-5 && useForrandomizer)
 				{
 					isRendered = true;
 					isFullyRendered = true;
