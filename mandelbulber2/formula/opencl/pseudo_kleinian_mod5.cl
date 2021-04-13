@@ -33,14 +33,27 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& z.x > z.y
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	{
+		REAL temp = z.y;
+		z.y = z.x;
+		z.x = temp;
+	}
+
 	// box offset
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
-		z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
-		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
+		REAL4 tempB = z;
+		if (fractal->transformCommon.functionEnabledIFalse) tempB = aux->const_c;
+		z.x -= aux->pos_neg * fractal->transformCommon.constantMultiplier000.x * sign(tempB.x);
+		z.y -= aux->pos_neg * fractal->transformCommon.constantMultiplier000.y * sign(tempB.y);
+		z.z -= aux->pos_neg * fractal->transformCommon.constantMultiplier000.z * sign(tempB.z);
+		aux->pos_neg *= fractal->transformCommon.scaleD1;
 	}
 
 	// Pseudo kleinian
@@ -69,34 +82,28 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
 	}
 
-	REAL4 lpN = fabs(z);
-	REAL pr = fractal->transformCommon.scale2;
-	lpN.x = pow(lpN.x, pr);
-	lpN.y = pow(lpN.y, pr);
-	lpN.z = pow(lpN.z, pr);
-	REAL pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
-
-	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
-	pNorm = max(pNorm, fractal->transformCommon.offset02);
-
-	REAL useScale = fractal->transformCommon.scale1p1 - aux->actualScaleA;
-	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-		aux->actualScaleA = fractal->transformCommon.scaleVary0
-								* (fabs(aux->actualScaleA) + 1.0f);
-
-	pNorm = useScale / pNorm;
-	z *= pNorm;
-	aux->DE *= fabs(pNorm);
-
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux->i >= fractal->transformCommon.startIterationsG
-			&& aux->i < fractal->transformCommon.stopIterationsG)
+	REAL pNorm = 1.0;
+	if (aux->i >= fractal->transformCommon.startIterationsG
+			&& aux=>i < fractal->transformCommon.stopIterationsG)
 	{
-		z.x += aux->pos_neg * fractal->transformCommon.additionConstantA000.x;
-		z.y += aux->pos_neg * fractal->transformCommon.additionConstantA000.y;
-		z.z += aux->pos_neg * fractal->transformCommon.additionConstantA000.z;
+		REAL4 lpN = fabs(z);
+		REAL pr = fractal->transformCommon.scale2;
+		lpN.x = pow(lpN.x, pr);
+		lpN.y = pow(lpN.y, pr);
+		lpN.z = pow(lpN.z, pr);
+		REAL pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
 
-		aux->pos_neg *= fractal->transformCommon.scaleNeg1;
+		pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
+		pNorm = max(pNorm, fractal->transformCommon.offset02);
+
+		REAL useScale = fractal->transformCommon.scale1p1 - aux->actualScaleA;
+		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
+			aux->actualScaleA = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) + 1.0f);
+
+		pNorm = useScale / pNorm;
+		z *= pNorm;
+		aux->DE *= fabs(pNorm);
 	}
 
 	if (fractal->transformCommon.functionEnabledNFalse
@@ -149,9 +156,11 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		len = length(z);
 
 
-	if (fractal->transformCommon.functionEnabledCFalse)
+	if (fractal->transformCommon.functionEnabledCFalse
+		&& aux->i >= fractal->transformCommon.startIterationsC
+		&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL k = max(fractal->transformCommon.minR05 / dot(z, z), fractal->transformCommon.scale1); //nnnnn
+		REAL k = max(fractal->transformCommon.minR05 / dot(z, z), fractal->transformCommon.scale1);
 		z *= k;
 		aux->DE *= k;
 	}

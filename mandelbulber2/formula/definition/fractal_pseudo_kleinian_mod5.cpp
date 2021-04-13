@@ -45,14 +45,28 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& z.x > z.y
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
+	{
+		swap(z.y, z.x);
+	}
+
 	// box offset
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		z.x -= fractal->transformCommon.constantMultiplier000.x * sign(z.x);
-		z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
-		z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
+		CVector4 tempB = z;
+		if (fractal->transformCommon.functionEnabledIFalse) tempB = aux.const_c;
+		z.x -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.x * sign(tempB.x);
+		z.y -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.y * sign(tempB.y);
+		z.z -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.z * sign(tempB.z);
+		// z.x -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.x * sign(z.x);
+		// z.y -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.y * sign(z.y);
+		// z.z -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.z * sign(z.z);
+		aux.pos_neg *= fractal->transformCommon.scaleD1;
 	}
 
 	// Pseudo kleinian
@@ -81,33 +95,27 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 				- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
 	}
 
-	CVector4 lpN = fabs(z);
-	double pr = fractal->transformCommon.scale2;
-	lpN.x = pow(lpN.x, pr);
-	lpN.y = pow(lpN.y, pr);
-	lpN.z = pow(lpN.z, pr);
-	double pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
-
-	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
-	pNorm = max(pNorm, fractal->transformCommon.offset02);
-
-	double useScale = fractal->transformCommon.scale1p1 - aux.actualScaleA;
-	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-		aux.actualScaleA = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) + 1.0);
-	pNorm = useScale / pNorm;
-	z *= pNorm;
-	aux.DE *= fabs(pNorm);
-
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux.i >= fractal->transformCommon.startIterationsG
+	double pNorm = 1.0;
+	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		z.x += aux.pos_neg * fractal->transformCommon.additionConstantA000.x;
-		z.y += aux.pos_neg * fractal->transformCommon.additionConstantA000.y;
-		z.z += aux.pos_neg * fractal->transformCommon.additionConstantA000.z;
+		CVector4 lpN = fabs(z);
+		double pr = fractal->transformCommon.scale2;
+		lpN.x = pow(lpN.x, pr);
+		lpN.y = pow(lpN.y, pr);
+		lpN.z = pow(lpN.z, pr);
+		double pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
 
-		aux.pos_neg *= fractal->transformCommon.scaleNeg1;
+		pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
+		pNorm = max(pNorm, fractal->transformCommon.offset02);
+
+		double useScale = fractal->transformCommon.scale1p1 - aux.actualScaleA;
+		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
+			aux.actualScaleA = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) + 1.0);
+		pNorm = useScale / pNorm;
+		z *= pNorm;
+		aux.DE *= fabs(pNorm);
 	}
 
 	if (fractal->transformCommon.functionEnabledNFalse
@@ -152,11 +160,14 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 				&& aux.i < fractal->transformCommon.stopIterationsRV)
 					z.y = foldY - fabs(z.y + foldY);
 	}
+
 	double len;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 		len = z.Length();
 
-	if (fractal->transformCommon.functionEnabledCFalse)
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		double k = max(fractal->transformCommon.minR05
 					/ z.Dot(z), fractal->transformCommon.scale1);
