@@ -84,7 +84,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL pNorm = 1.0;
 	if (aux->i >= fractal->transformCommon.startIterationsG
-			&& aux=>i < fractal->transformCommon.stopIterationsG)
+			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
 		REAL4 lpN = fabs(z);
 		REAL pr = fractal->transformCommon.scale2;
