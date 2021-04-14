@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_clip_plane</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -458,14 +458,14 @@
      <item row="0" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
        <property name="text">
-        <string notr="true">xy rotate</string>
+        <string notr="true">TT xy rotate</string>
        </property>
       </widget>
      </item>
      <item row="14" column="0" rowspan="3">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
        <property name="text">
-        <string notr="true">sin zx</string>
+        <string notr="true">TTempsin zx</string>
        </property>
       </widget>
      </item>
@@ -1529,6 +1529,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1538,11 +1543,6 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

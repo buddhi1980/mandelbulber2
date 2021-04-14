@@ -57,29 +57,33 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 
 	// Pseudo kleinian
-	if (fractal->transformCommon.functionEnabledCx)
-		z.x = z.x - fractal->transformCommon.additionConstant222.x
-			* round(z.x / fractal->transformCommon.additionConstant222.x);
-	if (fractal->transformCommon.functionEnabledCy)
-		z.y = z.y - fractal->transformCommon.additionConstant222.y
-			* round(z.y / fractal->transformCommon.additionConstant222.y);
-	if (fractal->transformCommon.functionEnabledCz)
-		z.z = z.z - fractal->transformCommon.additionConstant222.z
-			* round(z.z / fractal->transformCommon.additionConstant222.z);
+	if (aux->i >= fractal->transformCommon.startIterationsH
+			&& aux->i < fractal->transformCommon.stopIterationsH)
+	{
+		if (fractal->transformCommon.functionEnabledCx)
+			z.x = z.x - fractal->transformCommon.additionConstant222.x
+				* round(z.x / fractal->transformCommon.additionConstant222.x);
+		if (fractal->transformCommon.functionEnabledCy)
+			z.y = z.y - fractal->transformCommon.additionConstant222.y
+				* round(z.y / fractal->transformCommon.additionConstant222.y);
+		if (fractal->transformCommon.functionEnabledCz)
+			z.z = z.z - fractal->transformCommon.additionConstant222.z
+				* round(z.z / fractal->transformCommon.additionConstant222.z);
+	}
 
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)
-			z.x = fabs(z.x + fractal->transformCommon.offset111.x)
-				- fabs(z.x - fractal->transformCommon.offset111.x) - z.x;
+			z.x = fabs(z.x + fractal->transformCommon.additionConstant0777.x)
+				- fabs(z.x - fractal->transformCommon.additionConstant0777.x) - z.x;
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			z.y = fabs(z.y + fractal->transformCommon.offset111.y)
-				- fabs(z.y - fractal->transformCommon.offset111.y) - z.y;
+			z.y = fabs(z.y + fractal->transformCommon.additionConstant0777.y)
+				- fabs(z.y - fractal->transformCommon.additionConstant0777.y) - z.y;
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
-				- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant0777.z)
+				- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
 
 	REAL pNorm = 1.0;
@@ -148,7 +152,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				&& aux->i < fractal->transformCommon.stopIterationsRV)
 			z.y = foldY - fabs(z.y + foldY);
 	}
-
 
 	// DE options
 	REAL len;

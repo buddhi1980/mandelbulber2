@@ -63,36 +63,37 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		z.x -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.x * sign(tempB.x);
 		z.y -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.y * sign(tempB.y);
 		z.z -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.z * sign(tempB.z);
-		// z.x -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.x * sign(z.x);
-		// z.y -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.y * sign(z.y);
-		// z.z -= aux.pos_neg * fractal->transformCommon.constantMultiplier000.z * sign(z.z);
 		aux.pos_neg *= fractal->transformCommon.scaleD1;
 	}
 
 	// Pseudo kleinian
-	if (fractal->transformCommon.functionEnabledCx)
-		z.x = z.x - fractal->transformCommon.additionConstant222.x
-			* round(z.x / fractal->transformCommon.additionConstant222.x);
-	if (fractal->transformCommon.functionEnabledCy)
-		z.y = z.y - fractal->transformCommon.additionConstant222.y
-			* round(z.y / fractal->transformCommon.additionConstant222.y);
-	if (fractal->transformCommon.functionEnabledCz)
-		z.z = z.z - fractal->transformCommon.additionConstant222.z
-			* round(z.z / fractal->transformCommon.additionConstant222.z);
+	if (aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+	{
+		if (fractal->transformCommon.functionEnabledCx)
+			z.x = z.x - fractal->transformCommon.additionConstant222.x
+				* round(z.x / fractal->transformCommon.additionConstant222.x);
+		if (fractal->transformCommon.functionEnabledCy)
+			z.y = z.y - fractal->transformCommon.additionConstant222.y
+				* round(z.y / fractal->transformCommon.additionConstant222.y);
+		if (fractal->transformCommon.functionEnabledCz)
+			z.z = z.z - fractal->transformCommon.additionConstant222.z
+				* round(z.z / fractal->transformCommon.additionConstant222.z);
+	}
 
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)
-			z.x = fabs(z.x + fractal->transformCommon.offset111.x)
-				- fabs(z.x - fractal->transformCommon.offset111.x) - z.x;
+			z.x = fabs(z.x + fractal->transformCommon.additionConstant0777.x)
+				- fabs(z.x - fractal->transformCommon.additionConstant0777.x) - z.x;
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			z.y = fabs(z.y + fractal->transformCommon.offset111.y)
-				- fabs(z.y - fractal->transformCommon.offset111.y) - z.y;
+			z.y = fabs(z.y + fractal->transformCommon.additionConstant0777.y)
+				- fabs(z.y - fractal->transformCommon.additionConstant0777.y) - z.y;
 		if (fractal->transformCommon.functionEnabledCzFalse)
-			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
-				- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant0777.z)
+				- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
 
 	double pNorm = 1.0;

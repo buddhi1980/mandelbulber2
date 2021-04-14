@@ -38,7 +38,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-
 		double angle = M_PI_2x / (fractal->transformCommon.int16);
 		double sector = round(atan2(zc.x, zc.y) / angle);
 		double an = sector * angle;
