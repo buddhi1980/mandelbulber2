@@ -116,26 +116,27 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	}
 	z += fractal->transformCommon.offset000;
 
+	REAL d;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		aux->dist = fabs(length(z) - length(Offset));
-		aux->dist = aux->dist / aux->DE;
+		d = fabs(length(z) - length(Offset));
 	}
 	else
 	{
 		REAL e = fractal->transformCommon.offset1;
+		REAL4 c = aux->const_c;
 		if (!fractal->transformCommon.functionEnabledEFalse)
 		{
-			REAL4 f = fabs(aux->c) - (REAL4){e, e, e, 0.0f};
+			REAL4 f = fabs(c) - (REAL4){e, e, e, 0.0f};
 			e = max(f.x, max(f.y, f.z));
 		}
 		else
 		{
-			e = clamp(length(aux->c) - e, 0.0f, 100.0f); // circle
+			e = clamp(length(c) - e, 0.0f, 100.0f); // sphere
 		}
-		aux->dist = fabs(z.z - Offset.z);
-		aux->dist = aux->dist / aux->DE;
-		aux->dist = max(aux->dist, e);
+		d = fabs(z.z - Offset.z);
+		d = max(d, e);
 	}
+	aux->dist = d / aux->DE;
 	return z;
 }

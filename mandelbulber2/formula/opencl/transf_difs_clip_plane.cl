@@ -26,7 +26,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-
 		REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
 		REAL sector = round(atan2(zc.x, zc.y) / angle);
 		REAL an = sector * angle;

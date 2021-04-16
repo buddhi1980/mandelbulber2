@@ -1,12 +1,12 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * JosLeys-Kleinian V2 formula
+ * JosLeys-Kleinian V3 formula
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
  * This formula contains aux.color and aux.DE
@@ -16,13 +16,12 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-
 REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL rr = 0.0f;
+	// sphere inversion position
 	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
-		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux->i >= fractal->transformCommon.startIterationsD
 				&& aux->i < fractal->transformCommon.stopIterationsD1)
@@ -77,9 +76,9 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z += fractal->transformCommon.offsetF000;
 	}
 
+	// alternative sphere inversion position
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
-		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& aux->i >= fractal->transformCommon.startIterationsD
 				&& aux->i < fractal->transformCommon.stopIterationsD1)
@@ -94,6 +93,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 	}
 
+	// diagonal fold
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
@@ -113,7 +113,8 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		// square
 		if (fractal->transformCommon.functionEnabledBx) z.x = max(fabs(z.x), fabs(z.y));
 		// circle
-		if (fractal->transformCommon.functionEnabledOFalse) z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
+		if (fractal->transformCommon.functionEnabledOFalse)
+			z.x = native_sqrt((z.x * z.x) + (z.y * z.y));
 	}
 
 	// kleinian
@@ -141,8 +142,7 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale);
 		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-			aux->actualScaleA = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) + 1.0f);
+			aux->actualScaleA = fractal->transformCommon.scaleVary0 * (fabs(aux->actualScaleA) + 1.0f);
 
 		rr = dot(z, z);
 		REAL iR = 1.0f / rr;
@@ -174,21 +174,17 @@ REAL4 JosKleinianV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
-	{
 		z.z = Ztemp;
-	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsN
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->transformCommon.startIterationsN
 			&& aux->i < fractal->transformCommon.stopIterationsN)
 	{
 		REAL colorAdd = 0.0f;
 		colorAdd += fractal->foldColor.difs0000.x * dot(z, z);
 		colorAdd += fractal->foldColor.difs0000.y * max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
 		colorAdd += fractal->foldColor.difs0000.z * z.z;
-		if (-z.x * z.y > 0.0) colorAdd += fractal->foldColor.difs0000.w;
-		//colorAdd += fractal->foldColor.difs1;
+		if (-z.x * z.y > 0.0f) colorAdd += fractal->foldColor.difs0000.w;
 
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			if (!fractal->transformCommon.functionEnabledMFalse)

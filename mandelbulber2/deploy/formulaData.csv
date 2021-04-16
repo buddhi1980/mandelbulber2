@@ -66,11 +66,13 @@ generalizedFoldBox,"Generalized Fold Box",analyticDEType,linearDEFunction,cpixel
 hypercomplex,Hypercomplex,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 ides,Ides,deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionNone,coloringFunctionDefault
 ides2,"Ides 2",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionNone,coloringFunctionDefault
+ifsGen,"Ifs - Gen",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 ifsXY,"Ifs - XY",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 iqBulb,"IQ Bulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 josKleinian,JosLeys-Kleinian,analyticDEType,josKleinianDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionJosKleinian,coloringFunctionDefault
 josKleinianV2,"JosLeys-Kleinian V2",analyticDEType,josKleinianDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionJosKleinian,coloringFunctionDefault
 josKleinianV3,"JosLeys-Kleinian V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionCustomDE,coloringFunctionDefault
+josKleinianV4,"JosLeys-Kleinian V4",analyticDEType,customDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionCustomDE,coloringFunctionDefault
 kaleidoscopicIfs,"Kaleidoscopic IFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionIFS,coloringFunctionIFS
 kalisets1,"Kalisets1 Mod",analyticDEType,linearDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLinear,coloringFunctionDefault
 knotV1,"Knot V1",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
@@ -78,6 +80,7 @@ knotV2,"Knot V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,a
 koch,Koch,analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV2,"Koch V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 kochV3,"Koch V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+kochV4,"Koch V4",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 lkmitch,Lkmitch,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 makin3d2,Makin3D-2,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandalayBoxV1,"Mandalay Box V1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
@@ -113,12 +116,13 @@ mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpi
 mandelbulbQuat,"Mandelbulb - Quat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbVaryPowerV1,"Mandelbulb - Vary Power V1",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelcup,Mandelcup,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelnest,Mandelnest,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandeltorus,Mandeltorus,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandeltorusV2,"Mandeltorus V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 menger3,Menger3,analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionIFS
 menger4d,"Menger 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionDefault
 menger4dMod1,"Menger 4D Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionDefault
-menger4dMod2,"Menger 4D Mod2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionDefault
+menger4dMod2,"Menger 4D Mod2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionIFS,coloringFunctionDefault
 mengerChebyshev,"Menger - Chebyshev",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionIFS
 mengerCrossKIFS,"Menger - Cross KIFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionDefault
 mengerCrossMod1,"Menger - Cross Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionDefault
@@ -154,6 +158,7 @@ pseudoKleinianMod1,"Pseudo Kleinian - Mod 1",analyticDEType,pseudoKleinianDEFunc
 pseudoKleinianMod2,"Pseudo Kleinian - Mod 2",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod3,"Pseudo Kleinian - Mod 3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 pseudoKleinianMod4,"Pseudo Kleinian - Mod 4",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
+pseudoKleinianMod5,"Pseudo Kleinian - Mod 5",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 quaternion,Quaternion,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 quaternion3d,Quaternion3D,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -199,6 +204,7 @@ transfAddConstant,"T>Add Constant",analyticDEType,withoutDEFunction,cpixelDisabl
 transfAddConstant4d,"T>Add Constant 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantMod1,"T>Add Constant Mod1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantMod2,"T>Add Constant Mod2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfAddConstantMod3,"T>Add Constant Mod3",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantRotV1,"T>Add Constant Rot V1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantVaryV1,"T>Add Constant VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixel,"T>Add Cpixel",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -243,6 +249,7 @@ transfDIFSBoxV3,"T>DIFS Box V3",analyticDEType,customDEFunction,cpixelDisabledBy
 transfDIFSClipPlane,"T>DIFS Clip Plane",analyticDEType,customDEFunction,cpixelDisabledByDefault,1000.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSCylinder,"T>DIFS Cylinder",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSCylinderV2,"T>DIFS Cylinder V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+transfDIFSDiamond,"T>DIFS Diamond",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSEllipsoid,"T>DIFS Ellipsoid",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSGearV1,"T>DIFS Gear V1",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSGrid,"T>DIFS Grid",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
@@ -311,6 +318,7 @@ transfSinAdd,"T>Sin Add",analyticDEType,withoutDEFunction,cpixelDisabledByDefaul
 transfSinAndCos,"T>Sin And Cos",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSinAndCosMax,"T>Sin And Cos - Max",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSinOrCos,"T>Sin Or Cos",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfSinTan,"T>Sin Tan",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSmooth,T>Smooth,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSmoothV2,T>SmoothV2,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfSphericalFold,"T>Spherical Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault

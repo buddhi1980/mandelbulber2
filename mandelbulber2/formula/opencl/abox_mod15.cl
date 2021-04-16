@@ -186,7 +186,6 @@ REAL4 AboxMod15Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-
 		if (aux->i >= fractal->foldColor.startIterationsA
 				&& aux->i < fractal->foldColor.stopIterationsA)
 		{

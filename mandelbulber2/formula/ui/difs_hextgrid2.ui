@@ -1601,7 +1601,7 @@ offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and  darkbeams optimized verion @reference&lt;br&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;&quot;Beautiful iso-surface made of a hexagonal grid of tubes.&lt;br&gt;Taken from K3DSurf forum, posted by user abdelhamid belaid.&quot;&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Hextgrid2 sphInv.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Polyhedra_hexgrid.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v3 hexgridDIFS.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Hextgrid2 sphInv.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Polyhedra_hexgrid.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod_kali_v3 hexgridDIFS.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hexgrid_v2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

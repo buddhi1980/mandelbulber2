@@ -34,8 +34,8 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	CVector4 normalBottomB = CVector4(0.0, 0.848, -0.53, 0.0);
 
 	if (fractal->transformCommon.functionEnabledPFalse
-		&& aux.i >= fractal->transformCommon.startIterationsP
-		&& aux.i < fractal->transformCommon.stopIterationsP1)
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
 		// pre abs
 		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
@@ -74,8 +74,8 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	zc *= fractal->transformCommon.scale1;
 	aux.DE *= fractal->transformCommon.scale1;
 	double topCut = zc.z - fractal->transformCommon.offset1;
-	double angleStep = M_PI / double(fractal->transformCommon.int16);
-	double angle = angleStep * (0.5 + floor (atan2 (zc.x, zc.y) / angleStep));
+	double angleStep = M_PI / fractal->transformCommon.int16;
+	double angle = angleStep * (0.5 + floor(atan2(zc.x, zc.y) / angleStep));
 	double co = cos(angle);
 	double si = sin(angle);
 	CVector4 q = zc;
@@ -84,13 +84,13 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	q.y = (co * zc.y + si * zc.x);
 	double topA = q.Dot(normalTopA) - fractal->transformCommon.offset2;
 	double topC = q.Dot(normalTopC) - fractal->transformCommon.offset105;
-	double bottomA = q.Dot( normalBottomA) - fractal->transformCommon.offsetA2 + 0.3;
+	double bottomA = q.Dot(normalBottomA) - fractal->transformCommon.offsetA2 + 0.3;
 	angle = -angleStep * 0.5;
 	co = cos(angle);
 	si = sin(angle);
 	q.x = (co * zc.x - si * zc.y);
 	q.y = (co * zc.y + si * zc.x);
-	angle = angleStep * floor (atan2 (q.x, q.y) / angleStep);
+	angle = angleStep * floor(atan2(q.x, q.y) / angleStep);
 	co = cos(angle);
 	si = sin(angle);
 	q.x = (co * zc.x - si * zc.y);
@@ -98,14 +98,14 @@ void cFractalTransfDIFSDiamond::FormulaCode(CVector4 &z, const sFractal *fractal
 	double topB = q.Dot(normalTopB) - fractal->transformCommon.offsetE2 + 0.15;
 	double bottomB = q.Dot(normalBottomB) - fractal->transformCommon.offsetF2 + 0.1;
 
-	aux.DE0 = max (topCut, max (topA, max (topB, max (topC, max (bottomA, bottomB)))));
+	aux.DE0 = max(topCut, max(topA, max(topB, max(topC, max(bottomA, bottomB)))));
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0 / aux.DE;
 	else
 		aux.dist = min(aux.dist, aux.DE0 / aux.DE);
 
-	if(fractal->transformCommon.functionEnabledYFalse) z = q;
+	if (fractal->transformCommon.functionEnabledYFalse) z = q;
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

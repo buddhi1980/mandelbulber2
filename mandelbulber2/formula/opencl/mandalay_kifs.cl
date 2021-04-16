@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -43,7 +43,7 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
 	}
-	else
+	else // transformCommon.functionEnabledM
 	{
 		z = fabs(z);
 	}
@@ -60,12 +60,14 @@ REAL4 MandalayKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z.x = z.y;
 		z.y = temp;
 	}
+
 	if (fractal->transformCommon.functionEnabledM && z.z > z.y)
 	{
 		REAL temp = z.y;
 		z.y = z.z;
 		z.z = temp;
 	}
+
 	if (z.y > z.x)
 	{
 		REAL temp = z.x;

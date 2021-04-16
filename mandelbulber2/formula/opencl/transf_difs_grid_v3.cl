@@ -175,7 +175,7 @@ REAL4 TransfDIFSGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		else
 		{
 			addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
-											+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+								 + fractal->foldColor.difs0000.w * zc.z * zc.z;
 		}
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			aux->color = addColor;
