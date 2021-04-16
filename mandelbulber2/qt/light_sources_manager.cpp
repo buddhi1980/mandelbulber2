@@ -130,8 +130,8 @@ void cLightSourcesManager::Regenerate()
 void cLightSourcesManager::slotButtonAddLight()
 {
 	AddLight(true, -1);
-	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 	gMainInterface->ComboMouseClickUpdate();
+	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
 void cLightSourcesManager::slotButtonDuplicateLight()
@@ -160,24 +160,26 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
 
-	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
-
 	gMainInterface->ComboMouseClickUpdate();
+	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
 void cLightSourcesManager::slotButtonDeleteLight()
 {
 	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
-	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
-
-	for (QString parameterName : cLight::paramsList)
+	if (currentTabIndex >= 0)
 	{
-		QString fullParameterName = QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
+		int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
 
-		gPar->DeleteParameter(fullParameterName);
+		for (QString parameterName : cLight::paramsList)
+		{
+			QString fullParameterName = QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
+
+			gPar->DeleteParameter(fullParameterName);
+		}
+
+		Regenerate();
 	}
-
-	Regenerate();
 }
 
 void cLightSourcesManager::slotPeriodicRefresh()
