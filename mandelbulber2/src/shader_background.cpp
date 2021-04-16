@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -182,8 +182,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		if (light->enabled && light->type == cLight::lightDirectional)
 		{
 			double intensity = -(viewVectorNorm.Dot(light->lightDirection) - 1.0) * 360.0 / light->size;
-			intensity = 1.0 / (1.0 + pow(intensity, 6.0 * light->contourSharpness))
-									* light->visibility * light->intensity;
+			intensity = 1.0 / (1.0 + pow(intensity, 6.0 * light->contourSharpness)) * light->visibility
+									* light->intensity;
 			pixel2.R += intensity * light->color.R;
 			pixel2.G += intensity * light->color.G;
 			pixel2.B += intensity * light->color.B;

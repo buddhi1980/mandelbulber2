@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -1692,9 +1692,9 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 			{
 				if (params->IfExists(cLight::Name("is_defined", l + 1)))
 				{
-					if(params->Get<bool>(cLight::Name("relative_position", l+1)))
+					if (params->Get<bool>(cLight::Name("relative_position", l + 1)))
 					{
-						CVector3 deltaPosition = tempPar->Get<CVector3>(cLight::Name("position", l+1));
+						CVector3 deltaPosition = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
 						CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * deltaPosition.z
 																						+ cameraTarget.GetTopVector() * deltaPosition.y
 																						+ cameraTarget.GetRightVector() * deltaPosition.x;

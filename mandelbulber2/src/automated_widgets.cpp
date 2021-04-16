@@ -299,8 +299,7 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 	}
 	else
 	{
-		qWarning() << "slotSpinBox4Changed() error: slider " << dialName << " doesn't exists"
-							 ;
+		qWarning() << "slotSpinBox4Changed() error: slider " << dialName << " doesn't exists";
 	}
 }
 

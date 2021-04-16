@@ -923,8 +923,7 @@ void cCommandLineInterface::handleOverrideParameters() const
 	QStringList overrideParameters =
 		cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
 #else
-	QStringList overrideParameters =
-		cliData.overrideParametersText.split("#", Qt::SkipEmptyParts);
+	QStringList overrideParameters = cliData.overrideParametersText.split("#", Qt::SkipEmptyParts);
 #endif
 
 	for (int i = 0; i < overrideParameters.size(); i++)

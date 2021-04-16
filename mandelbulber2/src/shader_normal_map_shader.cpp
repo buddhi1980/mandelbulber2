@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -65,10 +65,10 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	CVector3 n = input.normal;
 	// tangent vectors:
 	CVector3 t = n.Cross(texX);
-	if(t.Length() < 1e-30) return input.normal;
+	if (t.Length() < 1e-30) return input.normal;
 	t.Normalize();
 	CVector3 b = n.Cross(texY);
-	if(b.Length() < 1e-30) return input.normal;
+	if (b.Length() < 1e-30) return input.normal;
 	b.Normalize();
 	CMatrix33 tbn(b, t, n);
 
