@@ -227,9 +227,10 @@ void cLightSourcesManager::slotButtonPlaceLight()
 
 void cLightSourcesManager::slotChangedCurrentTab(int index)
 {
-	if (index >= 0)
+	if (index >= 0 && lightIndexOnTab.size() > 0)
 	{
-		gMainInterface->renderedImage->SetCurrentLightIndex(index + 1);
+		int currentLightIndex = lightIndexOnTab.at(index);
+		gMainInterface->renderedImage->SetCurrentLightIndex(currentLightIndex);
 		gMainInterface->UpdateMainImagePreview();
 
 		RenderedImage::enumClickMode actualClickMode =
@@ -245,7 +246,6 @@ void cLightSourcesManager::slotChangedCurrentTab(int index)
 			item.append(int(RenderedImage::clickPlaceLight));
 			if (index < lightIndexOnTab.size())
 			{
-				int currentLightIndex = lightIndexOnTab.at(index);
 				item.append(currentLightIndex);
 				int comboIndex =
 					gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
