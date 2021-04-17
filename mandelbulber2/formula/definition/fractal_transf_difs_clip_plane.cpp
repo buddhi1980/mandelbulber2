@@ -27,7 +27,6 @@ cFractalTransfDIFSClipPlane::cFractalTransfDIFSClipPlane() : cAbstractFractal()
 void cFractalTransfDIFSClipPlane::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// CVector4 zc = z;
 	CVector4 c = aux.const_c;
 	CVector4 zc = c;
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -143,7 +142,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			e = clamp(cir.Length() - e, 0.0, 100.0); // a sphere
 	}
 	e = min(e, d);
-
 	d = max(b, e);
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
