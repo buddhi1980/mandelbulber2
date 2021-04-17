@@ -140,25 +140,8 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		REAL t;
 		z.x = fabs(z.x);
-		z.y = fabs(z.y);	if (fractal->transformCommon.functionEnabledPFalse
-		&& aux.i >= fractal->transformCommon.startIterationsTM
-		&& aux.i < fractal->transformCommon.stopIterationsTM1)
-{
-	z.x = fabs(z.x);
-	z.y = fabs(z.y);
-	double psi = M_PI / fractal->transformCommon.int8X;
-	psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
-	double len = sqrt(z.x * z.x + z.y * z.y);
-	z.x = cos(psi) * len;
-	z.y = sin(psi) * len;
-	z += fractal->transformCommon.offsetF000;
-	double an = fractal->transformCommon.angle0 * M_PI_180;
-	double sinan = sin(an);
-	double cosan = cos(an);
-	double temp = z.x;
-	z.x = z.x * cosan - z.y * sinan;
-	z.y = temp * sinan + z.y * cosan;
-}
+		z.y = fabs(z.y);
+
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			t = z.x;

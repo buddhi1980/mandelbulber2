@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_constant_mod3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
+    <width>862</width>
     <height>1825</height>
    </rect>
   </property>
@@ -149,7 +149,7 @@
      <item row="5" column="1" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
        <property name="text">
-        <string notr="true">signs</string>
+        <string notr="true">signs1</string>
        </property>
       </widget>
      </item>
@@ -335,7 +335,7 @@
      <item row="6" column="1" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
        <property name="text">
-        <string notr="true">signs</string>
+        <string notr="true">signs2</string>
        </property>
       </widget>
      </item>
@@ -379,7 +379,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="title">
-      <string>&amp;Pre-Abs</string>
+      <string>&amp;Post Abs</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
