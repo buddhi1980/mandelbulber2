@@ -30,6 +30,26 @@ cFractalPseudoKleinianMod5::cFractalPseudoKleinianMod5() : cAbstractFractal()
 void cFractalPseudoKleinianMod5::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsTM
+			&& aux.i < fractal->transformCommon.stopIterationsTM1)
+	{
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int8X;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+		z += fractal->transformCommon.offsetF000;
+		double an = fractal->transformCommon.angle0 * M_PI_180;
+		double sinan = sin(an);
+		double cosan = cos(an);
+		double temp = z.x;
+		z.x = z.x * cosan - z.y * sinan;
+		z.y = temp * sinan + z.y * cosan;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -96,7 +116,6 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 				- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
 
-	double pNorm = 1.0;
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
@@ -207,7 +226,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * pNorm;
+		colorAdd += fractal->foldColor.difs0000.w * aux.DE;
 		aux.color += colorAdd;
 	}
 }

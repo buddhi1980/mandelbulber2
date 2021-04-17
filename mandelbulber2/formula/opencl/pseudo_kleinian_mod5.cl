@@ -18,6 +18,26 @@
 
 REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsTM
+			&& aux->i < fractal->transformCommon.stopIterationsTM1)
+	{
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int8X;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+		z += fractal->transformCommon.offsetF000;
+		REAL an = fractal->transformCommon.angle0 * M_PI_180_F;
+		REAL sinan = native_sin(an);
+		REAL cosan = native_cos(an);
+		REAL temp = z.x;
+		z.x = z.x * cosan - z.y * sinan;
+		z.y = temp * sinan + z.y * cosan;
+	}
+
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -120,7 +140,25 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		REAL t;
 		z.x = fabs(z.x);
-		z.y = fabs(z.y);
+		z.y = fabs(z.y);	if (fractal->transformCommon.functionEnabledPFalse
+		&& aux.i >= fractal->transformCommon.startIterationsTM
+		&& aux.i < fractal->transformCommon.stopIterationsTM1)
+{
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	double psi = M_PI / fractal->transformCommon.int8X;
+	psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+	double len = sqrt(z.x * z.x + z.y * z.y);
+	z.x = cos(psi) * len;
+	z.y = sin(psi) * len;
+	z += fractal->transformCommon.offsetF000;
+	double an = fractal->transformCommon.angle0 * M_PI_180;
+	double sinan = sin(an);
+	double cosan = cos(an);
+	double temp = z.x;
+	z.x = z.x * cosan - z.y * sinan;
+	z.y = temp * sinan + z.y * cosan;
+}
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			t = z.x;
@@ -198,7 +236,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * pNorm;
+		colorAdd += fractal->foldColor.difs0000.w * aux->DE;
 		aux->color += colorAdd;
 	}
 	return z;
