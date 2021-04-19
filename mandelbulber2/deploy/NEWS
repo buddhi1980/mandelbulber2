@@ -24,7 +24,7 @@ v2.25 (April 2021)
    mandalay KIFS updated
    menger4D mod2, add quadray
 
-- Lights: possible to define unlimited number of lights   
+- Lights: possible to define an unlimited number of lights
 - Lights: light sources organized as a tabs in UI
 - Lights: added New, Duplicate, Delete, Place buttons for lights
 - Lights: added selection of light decay function
@@ -32,24 +32,24 @@ v2.25 (April 2021)
 - Lights: added texture projection
 - Lights: position of the light can be absolute or relative to the camera
 - Lights: shadow parameters can be individually controlled for every light
-- Lights: every light can be used as a directional light (substitution for main light source)
+- Lights: every light can be used as a directional light (substitution for Main light source)
 - Lights: removed UI elements for Main light source 
 - Lights: volumetric light UI elements moved to light source tab
 - Lights: light sources defined in old Mandelbulber versions are converted to new structures
 - Lights: random lights updated to work with new lights
 - Lights: added wire-frame preview of light sources
-- Lights: actually selected light is displayed as a bold lines
+- Lights: actual selected light is displayed as bold lines
 - Lights: lights can be dragged using mouse pointer and moved forward/backward using ctrl+mouse wheel
 - Lights: added ball widget to control and preview light source direction (for directional lights)
 - Lights: added default texture for light projection (thanks to Stephen Sink for the texture)
-- Lights: intensity of random lights doesn't depend on number of them
+- Lights: intensity of random lights doesn't depend on the number of them
 - OpenCL: Added detection of missing TdrLevel and TdrDelay settings in Windows registry.
 - OpenCL: Implemented environment mapping effect to OpenCL code
 - Shaders: Added fast shading for clouds when "receive shadows" option is off
-- Randomizer: If OpenCL is enable, Randomizer will not use CPU for rendering trials. It improves performance of randomizing.
+- Randomizer: If OpenCL is enabled, Randomizer will not use CPU for rendering trials. It improves performance of randomizing.
 - UI: added importing of color palettes from https://coolors.co/ (copy/paste way)
 - UI: fixed bug: added missing "distance between eyes" editbox
-- Shaders: Fixed problem with application crashes caused by not-a-number results of NormalMap vector transformation
+- Shaders: Fixed problem with application crashing caused by not-a-number results of NormalMap vector transformation
 - Shaders: Fixed problem with wrong rendering of specular highlight gradients in CPU mode
 - Performance: Reduced high memory usage caused by parameter containers and undo buffer
 - Performance: Reduced memory usage by textures

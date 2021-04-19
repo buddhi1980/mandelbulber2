@@ -1,0 +1,33 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -5.573627821857 -9.65380656993578 6.43587104662386;
+camera_distance_to_target 12.8717420932477;
+camera_rotation -30 -30 0;
+camera_top 0.25 0.433012701892219 0.866025403784439;
+DE_factor 0.903296296296297;
+detail_level 0.375;
+flight_last_to_render 0;
+formula_1 207;
+formula_2 228;
+formula_stop_iteration_1 1;
+hybrid_fractal_enable true;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_metallic false;
+[fractal_1]
+transf_offset_111 3 3 4;
+transf_rotation2 0 0 14;
+[fractal_2]
+transf_offset_000 -1 -1.4 0;
+transf_offset_111 1 1.2 1;
+transf_rotation 42 5 -10;
+transf_rotation2 -7.352379 100 90;
+transf_scale_2 -1.4;
+transf_stop_iterations_R 2;

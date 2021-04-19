@@ -43,7 +43,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		double sinan = sin(an);
 		double cosan = cos(an);
 		double temp = zc.x;
-
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
@@ -72,7 +71,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-	zc.z *= fractal->transformCommon.scale3D111.z;
+	// zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -88,6 +87,10 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
 	// plane
+
+
+
+
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
 

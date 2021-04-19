@@ -118,7 +118,7 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		lpN.x = native_powr(lpN.x, pr);
 		lpN.y = native_powr(lpN.y, pr);
 		lpN.z = native_powr(lpN.z, pr);
-		REAL pNorm = native_powr((lpN.x + lpN.y + lpN.z), 1.0f / pr);
+		pNorm = native_powr((lpN.x + lpN.y + lpN.z), 1.0f / pr);
 
 		pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
 		pNorm = max(pNorm, fractal->transformCommon.offset02);
@@ -217,9 +217,9 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		REAL colorAdd = 0.0f;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
-		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
+		colorAdd += fractal->foldColor.difs0000.y * aux->DE * 0.001f;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * aux->DE;
+		colorAdd += fractal->foldColor.difs0000.w * pNorm;
 		aux->color += colorAdd;
 	}
 	return z;

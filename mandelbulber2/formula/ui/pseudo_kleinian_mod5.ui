@@ -2847,14 +2847,14 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_39">
           <property name="text">
-           <string>abs(z.y):</string>
+           <string>aux.DE:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_40">
           <property name="text">
-           <string>aux.DE:</string>
+           <string>pNorm:</string>
           </property>
          </widget>
         </item>

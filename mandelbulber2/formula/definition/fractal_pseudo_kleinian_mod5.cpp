@@ -115,7 +115,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant0777.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
-
+	double pNorm = 1.0;
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
@@ -124,7 +124,7 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 		lpN.x = pow(lpN.x, pr);
 		lpN.y = pow(lpN.y, pr);
 		lpN.z = pow(lpN.z, pr);
-		double pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
+		pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
 
 		pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 		pNorm = max(pNorm, fractal->transformCommon.offset02);
@@ -224,9 +224,9 @@ void cFractalPseudoKleinianMod5::FormulaCode(
 	{
 		double colorAdd = 0.0;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
-		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
+		colorAdd += fractal->foldColor.difs0000.y * aux.DE * 0.001;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * aux.DE;
+		colorAdd += fractal->foldColor.difs0000.w * pNorm;
 		aux.color += colorAdd;
 	}
 }

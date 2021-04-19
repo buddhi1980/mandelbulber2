@@ -1,0 +1,46 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 aa00 ff00 ff00;
+camera 0.808685836820175 -12.8505651779871 8.19025623791145;
+camera_distance_to_target 15.5145297393138;
+camera_rotation 3.60087401650451 -33.9083748167978 0;
+camera_top -0.0350372157714032 0.556765067997273 0.829930751670873;
+constant_DE_threshold true;
+flight_last_to_render 0;
+formula_1 1620;
+fov 22.6198649480404;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_fractal_coloring_extra_color_options_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_is_defined true;
+mat1_name fractal;
+mat1_surface_color_gradient 0 550000 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+mat2_is_defined true;
+mat2_name gold;
+N 1;
+target 0 0 -0.464778993425465;
+volumetric_fog_density 0.0625;
+volumetric_fog_distance_factor 4;
+volumetric_fog_enabled true;
+[fractal_1]
+fold_color_difs_0000 0 1.6 0 0;
+transf_function_enabledB_false true;
+transf_function_enabledC_false true;
+transf_function_enabledD_false true;
+transf_function_enabledP_false true;
+transf_function_enabledR_false true;
+transf_function_enabledS_false true;
+transf_offset_p05 0.0925;
+transf_offsetB_0 0.36;
+transf_offsetE_0 1;

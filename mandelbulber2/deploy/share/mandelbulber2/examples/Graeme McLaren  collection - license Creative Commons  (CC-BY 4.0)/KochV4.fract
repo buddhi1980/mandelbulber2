@@ -1,0 +1,45 @@
+# Mandelbulber settings file
+# version 2.25
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 2600 5500 2b00;
+camera 1.5175753686826e-16 -9.07409253406777 5.83716706530337;
+camera_distance_to_target 10.2613531834451;
+camera_rotation 0 -29.9999999999999 0;
+camera_top 0 0.499999999999998 0.86602540378444;
+constant_DE_threshold true;
+DE_thresh 0.0025;
+detail_level 0.5;
+flight_last_to_render 0;
+formula_1 227;
+fov 26.565;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation 0 22.38 0;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_is_defined true;
+mat1_specular_gradient 0 aa0000 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9000 aba53c;
+mat1_specular_gradient_enable true;
+mat1_surface_color_gradient 0 aa0000 1000 000000 2000 fff59b 2935 000000 4000 0b5e87 5000 000000 6000 a51c64 7000 000000 8000 d4ffd4 9000 000000;
+N 4;
+target 2.14542588628075e-15 -0.187499999999986 0.706490473580842;
+view_distance_max 91.4622317556704;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 0 0 0 0.1;
+transf_function_enabled_false true;
+transf_function_enabledCx_false true;
+transf_function_enabledK_false true;
+transf_offset_100 1.9 -1.5 0;
+transf_offset_2 1.5;
+transf_offsetA_0 1.8;
+transf_scale_3 2.3;
+transf_scale_vary_0 1.27;
+transf_scaleC_1 1.6;
