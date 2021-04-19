@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.24
+                              MANDELBULBER 2.25
 
 1. What is Mandelbulber
 -----------------------

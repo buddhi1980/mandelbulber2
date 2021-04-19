@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.24
+                              MANDELBULBER 2.25
 
 1. What is Mandelbulber
 -----------------------
@@ -48,15 +48,14 @@ packages needed to RUN
     libqt5multimedia5-plugins libsndfile1 liblzo2-2
 
 packages needed to COMPILE
-    build-essential qt5-default libpng-dev qttools5-dev qttools5-dev-tools
-    libgsl-dev libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins
-    libsndfile1-dev liblzo2-dev
+	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev  
+	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev
 
 Installing packages on Ubuntu, Debian stable (jessie) or Mint: 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 \
-    libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev \
-    libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 \
-    liblzo2-dev
+sudo apt-get install build-essential qtbase5-dev \
+	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
+	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins \
+	liblzo2-2 liblzo2-dev
 
 Compiling from source:
 cd makefiles
@@ -109,6 +108,9 @@ Install all needed packages to compile the program listed in section 4.1 and 4.3
 
 5.1 Compile the program and install to /usr (/usr/bin, /usr/share...)
 
+Clone git repository
+git clone https://github.com/buddhi1980/mandelbulber2.git
+
 Compiling from source:
 cd mandelbulber2/mandelbulber2/qmake
 qmake mandelbulber.pro (or qmake mandelbulber-opencl.pro for OpenCL version)
@@ -149,13 +151,13 @@ make install
 ------------
 
 - Debian Buster x64
-- Ubuntu 19.04
+- Ubuntu 20.10
 
-- gcc 10.2.0
-- clang 9.0.1-14
+- gcc 10.2.1
+- clang 11.0.1
 - msvc17
 
-- Qt 5.14.2
+- Qt 5.15.2
 
 7. USAGE
 --------
