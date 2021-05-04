@@ -1,7 +1,7 @@
 # Travis build configuration
 # https://docs.travis-ci.com/user/customizing-the-build/
 sudo: required
-dist: trusty
+dist: xenial
 
 language: cpp
 
