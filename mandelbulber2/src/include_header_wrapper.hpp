@@ -81,8 +81,15 @@
 
 #if defined(CL_NEW_HEADERS) || __has_include("CL/opencl.hpp")
 #include <CL/opencl.hpp>
+
 #else
+
+#if __has_include("CL/cl.hpp")
 #include <CL/cl.hpp>
+#else
+#include <CL/cl2.hpp>
+#endif
+
 #endif
 #endif // if macos or linux or windows
 
