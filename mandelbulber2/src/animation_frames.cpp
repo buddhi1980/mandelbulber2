@@ -54,7 +54,7 @@ cAnimationFrames::cAnimationFrames() = default;
 cAnimationFrames::~cAnimationFrames() = default;
 
 void cAnimationFrames::AddFrame(const std::shared_ptr<cParameterContainer> params,
-	const std::shared_ptr<cFractalContainer> fractal, int index)
+	const std::shared_ptr<cFractalContainer> fractal, int numberOfSumFrames, int index)
 {
 	sAnimationFrame frame;
 
@@ -82,6 +82,7 @@ void cAnimationFrames::AddFrame(const std::shared_ptr<cParameterContainer> param
 
 			oneParameter.SetMorphType(morphType);
 			frame.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
+			frame.numberOfSubFrames = numberOfSumFrames;
 		}
 		else
 		{

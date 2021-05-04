@@ -495,7 +495,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		// add new frame to container
-		frames->AddFrame(params, fractalParams);
+		frames->AddFrame(params, fractalParams, 0);
 
 		// add column to table
 		const int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));

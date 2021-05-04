@@ -72,7 +72,9 @@ class cKeyframeAnimation : public QObject
 
 public:
 	static const int reservedColumns = 1;
+	static const int reservedRows = 2;
 	static const int animSoundColumn = 0;
+	static const int framesPerKeyframeRow = 1;
 
 	struct sFrameRanges
 	{

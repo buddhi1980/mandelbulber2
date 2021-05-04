@@ -227,7 +227,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 	if (keyframes)
 	{
 		// add new frame to container
-		keyframes->AddFrame(params, fractalParams, index);
+		keyframes->AddFrame(params, fractalParams, params->Get<int>("frames_per_keyframe"), index);
 
 		params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
@@ -243,6 +243,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			thumbWidget->AssignParameters(params, fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
+
 		UpdateLimitsForFrameRange();
 
 		UpdateAnimationPath();
@@ -286,9 +287,11 @@ void cKeyframeAnimation::slotModifyKeyframe()
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			gUndo->Store(params, fractalParams, nullptr, keyframes);
 
+			int framesPerKeyframe = keyframes->GetFrame(index).numberOfSubFrames;
+
 			// add new frame to container
 			keyframes->DeleteFrames(index, index);
-			keyframes->AddFrame(params, fractalParams, index);
+			keyframes->AddFrame(params, fractalParams, framesPerKeyframe, index);
 
 			// add column to table
 			table->removeColumn(index + reservedColumns);
@@ -385,9 +388,13 @@ void cKeyframeAnimation::CreateRowsInTable()
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("Keyframe\npreviews")));
 	table->setRowHeight(0, previewSize.height());
 	tableRowNames.append(tr("Keyframe\npreviews"));
+	table->insertRow(framesPerKeyframeRow);
+	table->setVerticalHeaderItem(framesPerKeyframeRow, new QTableWidgetItem(tr("Frames/keyframe")));
+	tableRowNames.append(tr("Frames/keyframe"));
 
 	rowParameter.clear();
-	rowParameter.append(-1);
+	rowParameter.append(-1); // prevuew
+	rowParameter.append(-1); // frames per keyframe
 
 	parameterRows.clear();
 	for (int i = 0; i < parList.size(); ++i)
@@ -486,6 +493,9 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 																 .arg(seconds, 2, 10, QChar('0'))
 																 .arg(milliseconds, 3, 10, QChar('0'));
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
+
+	table->setItem(framesPerKeyframeRow, newColumn,
+		new QTableWidgetItem(QString::number(frame.numberOfSubFrames)));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 

@@ -59,6 +59,7 @@ public:
 
 		cParameterContainer parameters;
 		QImage thumbnail;
+		int numberOfSubFrames = 0;
 	};
 
 	struct sParameterDescription
@@ -81,7 +82,7 @@ public:
 	cAnimationFrames();
 	virtual ~cAnimationFrames();
 	void AddFrame(const std::shared_ptr<cParameterContainer> params,
-		const std::shared_ptr<cFractalContainer> fractal, int index = -1);
+		const std::shared_ptr<cFractalContainer> fractal, int numberOfSumFrames, int index = -1);
 	void AddFrame(const sAnimationFrame &frame);
 	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, std::shared_ptr<cParameterContainer> params,

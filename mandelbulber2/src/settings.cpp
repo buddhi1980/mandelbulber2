@@ -1680,7 +1680,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 	}
 
 	Compatibility2(par, fractPar);
-	frames->AddFrame(par, fractPar);
+	frames->AddFrame(par, fractPar, 0); //FIXME: loading frames per keyframe
 
 	return true;
 }
