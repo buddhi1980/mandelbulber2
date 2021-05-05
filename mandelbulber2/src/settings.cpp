@@ -151,11 +151,16 @@ void cSettings::CreateAnimationString(
 	{
 		if (frames->GetNumberOfFrames() > 0)
 		{
+			// write section header
 			text += "[" + headerText + "]\n";
+
+			// create first row of csv structure (column names)
 			QList<cAnimationFrames::sParameterDescription> parameterList =
 				frames->GetListOfUsedParameters();
 			// header
 			text += "frame;";
+			text += "framesPerKeyframe;";
+
 			for (int i = 0; i < parameterList.size(); ++i)
 			{
 				if (parameterList[i].varType == parameterContainer::typeVector3)
@@ -190,7 +195,12 @@ void cSettings::CreateAnimationString(
 			text += "\n";
 			for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
 			{
+				// keyframe index
 				text += QString::number(f) + ";";
+
+				// frames per keyframe
+				text += QString::number(frames->GetFrame(f).numberOfSubFrames) + ";";
+
 				for (int i = 0; i < parameterList.size(); ++i)
 				{
 					if (parameterList[i].varType == parameterContainer::typeVector3)
@@ -1680,7 +1690,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 	}
 
 	Compatibility2(par, fractPar);
-	frames->AddFrame(par, fractPar, 0); //FIXME: loading frames per keyframe
+	frames->AddFrame(par, fractPar, 0); // FIXME: loading frames per keyframe
 
 	return true;
 }

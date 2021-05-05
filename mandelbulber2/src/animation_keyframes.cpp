@@ -1192,9 +1192,10 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir() const
 
 void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 {
-	if (row > 0)
+	table->blockSignals(true);
+
+	if (row >= reservedRows)
 	{
-		table->blockSignals(true);
 		QTableWidgetItem *cell = table->item(row, column);
 		QString cellText = cell->text();
 
@@ -1263,11 +1264,25 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 				thumbWidget->AssignParameters(tempPar, tempFract);
 			}
 		}
-
-		table->blockSignals(false);
-
 		UpdateAnimationPath();
 	}
+	else
+	{
+		if (row == framesPerKeyframeRow)
+		{
+			QTableWidgetItem *cell = table->item(row, column);
+			QString cellText = cell->text();
+			int newFramesPerKey = cellText.toInt();
+			if (newFramesPerKey < 1) newFramesPerKey = 1;
+
+			const int index = column - reservedColumns;
+			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
+			frame.numberOfSubFrames = newFramesPerKey;
+			keyframes->ModifyFrame(index, frame);
+		}
+	}
+
+	table->blockSignals(false);
 }
 
 void cKeyframeAnimation::slotDeleteAllImages() const
