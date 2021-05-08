@@ -146,7 +146,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 		if (params && animationPathData.animationPath.length() > 0)
 		{
-			DrawAnimationPath();
+			// DrawAnimationPath(); FIXME: need to be updated for variable frame rate
 		}
 
 		image->RedrawInWidget();

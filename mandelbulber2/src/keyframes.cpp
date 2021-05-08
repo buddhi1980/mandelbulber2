@@ -43,10 +43,7 @@
 
 std::shared_ptr<cKeyframes> gKeyframes;
 
-cKeyframes::cKeyframes() : cAnimationFrames()
-{
-	framesPerKeyframe = 5;
-}
+cKeyframes::cKeyframes() : cAnimationFrames() {}
 
 cKeyframes::~cKeyframes()
 {
@@ -72,17 +69,19 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	}
 	frames = source.frames;
 	listOfParameters = source.listOfParameters;
-	framesPerKeyframe = source.framesPerKeyframe;
 	audioTracks = source.audioTracks;
+	keyframesIndexesTable = source.keyframesIndexesTable;
+	framesIndexesTable = source.framesIndexesTable;
+
 	return *this;
 }
 
-cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index,
+cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameIndex,
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
 	Q_UNUSED(fractal);
-	int keyframe = index / framesPerKeyframe;
-	int subIndex = index % framesPerKeyframe;
+	int keyframe = GetKeyframeIndex(frameIndex);
+	int subIndex = GetSubIndex(frameIndex);
 
 	// if(subIndex == 0)
 	//{
@@ -111,12 +110,12 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index,
 		}
 		// interpolate each parameter
 		cOneParameter oneParameter =
-			morph[i]->Interpolate(keyframe, 1.0 * subIndex / framesPerKeyframe);
+			morph[i]->Interpolate(keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
 
 		// apply audio animation
 
 		oneParameter =
-			ApplyAudioAnimation(index, oneParameter, listOfParameters[i].parameterName, params);
+			ApplyAudioAnimation(frameIndex, oneParameter, listOfParameters[i].parameterName, params);
 		interpolated.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 	}
 	return interpolated;
@@ -125,7 +124,7 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index,
 void cKeyframes::GetInterpolatedFrameAndConsolidate(int index,
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
-	if (index >= 0 && index < frames.count() * framesPerKeyframe)
+	if (index >= 0 && index < GetTotalNumberOfFrames())
 	{
 		sAnimationFrame frame = GetInterpolatedFrame(index, params, fractal);
 
@@ -190,4 +189,71 @@ void cKeyframes::RemoveAnimatedParameter(const QString &fullParameterName)
 void cKeyframes::setAudioParameterPrefix()
 {
 	audioTracks.SetPrefix("animsound");
+}
+
+void cKeyframes::UpdateFramesIndexesTable()
+{
+	int globalFrameCounter = 0;
+	keyframesIndexesTable.clear();
+	framesIndexesTable.clear();
+
+	if (frames.count() > 0)
+	{
+		for (int k = 0; k < frames.count(); k++)
+		{
+			int numberOfSubframes = frames.at(k).numberOfSubFrames;
+
+			framesIndexesTable.push_back(globalFrameCounter);
+
+			for (int f = 0; f < numberOfSubframes; f++)
+			{
+				keyframesIndexesTable.push_back(k);
+				globalFrameCounter++;
+			}
+		}
+	}
+}
+
+int cKeyframes::GetTotalNumberOfFrames() const
+{
+	return keyframesIndexesTable.size();
+}
+
+int cKeyframes::GetFramesPerKeyframe(int keyframeIndex) const
+{
+	return frames.at(keyframeIndex).numberOfSubFrames;
+}
+
+int cKeyframes::GetKeyframeIndex(int frameIndex) const
+{
+	if (frameIndex < keyframesIndexesTable.size())
+	{
+		return keyframesIndexesTable.at(frameIndex);
+	}
+	else
+	{
+		qCritical() << "GetKeyframeIndex(int frameIndex): wrong frame index: " << frameIndex;
+		return 0;
+	}
+}
+
+int cKeyframes::GetFrameIndexForKeyframe(int keyframeIndex) const
+{
+	if (keyframeIndex < keyframesIndexesTable.size())
+	{
+		return framesIndexesTable.at(keyframeIndex);
+	}
+	else
+	{
+		qCritical() << "GetFrameIndexForKeyframe(int keyframeIndex): wrong keyframe index: "
+								<< keyframeIndex;
+		return 0;
+	}
+}
+
+int cKeyframes::GetSubIndex(int frameIndex) const
+{
+	int keyFrameIndex = GetKeyframeIndex(frameIndex);
+	int frameIndexForKeyframe = framesIndexesTable.at(keyFrameIndex);
+	return frameIndex - frameIndexForKeyframe;
 }

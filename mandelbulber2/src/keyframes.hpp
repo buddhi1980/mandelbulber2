@@ -56,12 +56,11 @@ public:
 	~cKeyframes() override;
 	cKeyframes(const cKeyframes &source);
 	cKeyframes &operator=(const cKeyframes &source);
-	sAnimationFrame GetInterpolatedFrame(int index, std::shared_ptr<cParameterContainer> params,
+	sAnimationFrame GetInterpolatedFrame(int frameIndex, std::shared_ptr<cParameterContainer> params,
 		std::shared_ptr<cFractalContainer> fractal);
 	void GetInterpolatedFrameAndConsolidate(int index, std::shared_ptr<cParameterContainer> params,
 		std::shared_ptr<cFractalContainer> fractal);
-	void SetFramesPerKeyframe(int frPerKey) { framesPerKeyframe = frPerKey; }
-	int GetFramesPerKeyframe() const { return framesPerKeyframe; }
+	int GetFramesPerKeyframe(int keyframeIndex) const;
 	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
 	void ClearMorphCache() { morph.clear(); }
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
@@ -71,10 +70,16 @@ public:
 		std::shared_ptr<cFractalContainer> fractal) override;
 	void RemoveAnimatedParameter(const QString &fullParameterName) override;
 	void setAudioParameterPrefix() override;
+	void UpdateFramesIndexesTable();
+	int GetTotalNumberOfFrames() const;
+	int GetKeyframeIndex(int frameIndex) const;
+	int GetFrameIndexForKeyframe(int keyframeIndex) const;
+	int GetSubIndex(int frameIndex) const;
 
 private:
-	int framesPerKeyframe;
 	QList<cMorph *> morph;
+	std::vector<int> keyframesIndexesTable;
+	std::vector<int> framesIndexesTable;
 };
 
 extern std::shared_ptr<cKeyframes> gKeyframes;

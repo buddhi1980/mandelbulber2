@@ -80,7 +80,6 @@ public:
 	{
 		int startFrame;
 		int endFrame;
-		int framesPerKeyframe;
 		int totalFrames;
 		int unrenderedTotalBeforeRender;
 	};

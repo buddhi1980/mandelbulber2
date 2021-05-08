@@ -209,6 +209,8 @@ void cKeyframeAnimation::slotAddKeyframe()
 	gUndo->Store(params, fractalParams, nullptr, keyframes);
 
 	NewKeyframe(keyframes->GetNumberOfFrames());
+
+	keyframes->UpdateFramesIndexesTable();
 }
 
 void cKeyframeAnimation::slotInsertKeyframe()
@@ -228,8 +230,9 @@ void cKeyframeAnimation::NewKeyframe(int index)
 	{
 		// add new frame to container
 		keyframes->AddFrame(params, fractalParams, params->Get<int>("frames_per_keyframe"), index);
+		keyframes->UpdateFramesIndexesTable();
 
-		params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
+		params->Set("frame_no", keyframes->GetFrameIndexForKeyframe(index));
 
 		// add column to table
 		const int newColumn = AddColumn(keyframes->GetFrame(index), index);
@@ -293,6 +296,8 @@ void cKeyframeAnimation::slotModifyKeyframe()
 			keyframes->DeleteFrames(index, index);
 			keyframes->AddFrame(params, fractalParams, framesPerKeyframe, index);
 
+			keyframes->UpdateFramesIndexesTable();
+
 			// add column to table
 			table->removeColumn(index + reservedColumns);
 			const int newColumn = AddColumn(keyframes->GetFrame(index), index);
@@ -320,6 +325,8 @@ void cKeyframeAnimation::slotDeleteKeyframe() const
 {
 	const int index = table->currentColumn() - reservedColumns;
 	DeleteKeyframe(index);
+
+	keyframes->UpdateFramesIndexesTable();
 }
 
 bool cKeyframeAnimation::slotRenderKeyframes()
@@ -609,8 +616,7 @@ bool cKeyframeAnimation::InitFrameRanges(sFrameRanges *frameRanges)
 	// range of keyframes to render
 	frameRanges->startFrame = params->Get<int>("keyframe_first_to_render");
 	frameRanges->endFrame = params->Get<int>("keyframe_last_to_render");
-	frameRanges->framesPerKeyframe = params->Get<int>("frames_per_keyframe");
-	frameRanges->totalFrames = (keyframes->GetNumberOfFrames() - 1) * frameRanges->framesPerKeyframe;
+	frameRanges->totalFrames = keyframes->GetTotalNumberOfFrames();
 	if (frameRanges->totalFrames < 1) frameRanges->totalFrames = 1;
 
 	if (frameRanges->endFrame == 0) frameRanges->endFrame = frameRanges->totalFrames;
@@ -668,10 +674,10 @@ void cKeyframeAnimation::CheckWhichFramesAreAlreadyRendered(const sFrameRanges &
 	// Check if frames have already been rendered
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
+		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
 		{
 			const QString filename = GetKeyframeFilename(index, subIndex, false);
-			const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
+			const int frameNo = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
 			alreadyRenderedFrames[frameNo] = (QFile(filename).exists() || frameNo < frameRanges.startFrame
 																				|| frameNo >= frameRanges.endFrame);
 			if (gNetRender->IsClient())
@@ -880,6 +886,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	keyframes->UpdateFramesIndexesTable();
+
 	// range of keyframes to render
 	sFrameRanges frameRanges;
 	if (!InitFrameRanges(&frameRanges)) return false;
@@ -900,8 +908,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			gUndo->Store(params, fractalParams, nullptr, keyframes);
 		}
-
-		keyframes->SetFramesPerKeyframe(frameRanges.framesPerKeyframe);
 
 		keyframes->RefreshAllAudioTracks(params);
 
@@ -939,9 +945,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
 			//-------------- rendering of interpolated keyframes ----------------
-			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
+			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
 			{
-				const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+				const int frameIndex = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
 
 				// skip already rendered frame
 				if (alreadyRenderedFrames[frameIndex]) continue;
@@ -1065,6 +1071,9 @@ void cKeyframeAnimation::RefreshTable()
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
+	keyframes->UpdateFramesIndexesTable();
+
 	keyframes->RefreshAllAudioTracks(params);
 
 	int lastSelectedColumn = table->currentColumn();
@@ -1072,16 +1081,14 @@ void cKeyframeAnimation::RefreshTable()
 	PrepareTable();
 	gApplication->processEvents();
 
-	const int noOfFrames = keyframes->GetNumberOfFrames();
-
-	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
+	const int noOfKeyframes = keyframes->GetNumberOfFrames();
 
 	auto tempPar = std::make_shared<cParameterContainer>();
 	*tempPar = *params;
 	auto tempFract = std::make_shared<cFractalContainer>();
 	*tempFract = *fractalParams;
 
-	for (int i = 0; i < noOfFrames; i++)
+	for (int i = 0; i < noOfKeyframes; i++)
 	{
 		const int newColumn = AddColumn(keyframes->GetFrame(i));
 
@@ -1091,14 +1098,14 @@ void cKeyframeAnimation::RefreshTable()
 				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, tempPar, tempFract);
-			tempPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
+			tempPar->Set("frame_no", keyframes->GetFrameIndexForKeyframe(i));
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		if (i % 100 == 0)
 		{
 			emit updateProgressAndStatus(QObject::tr("Refreshing animation"),
-				tr("Refreshing animation frames"), double(i) / noOfFrames,
+				tr("Refreshing animation frames"), double(i) / noOfKeyframes,
 				cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
@@ -1148,7 +1155,7 @@ void cKeyframeAnimation::RenderFrame(int index) const
 
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
-	params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
+	params->Set("frame_no", keyframes->GetFrameIndexForKeyframe(index));
 
 	mainInterface->StartRender();
 }
@@ -1159,6 +1166,9 @@ void cKeyframeAnimation::DeleteFramesFrom(int index) const
 	for (int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--)
 		table->removeColumn(index + reservedColumns);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
+
+	keyframes->UpdateFramesIndexesTable();
+
 	UpdateLimitsForFrameRange();
 }
 
@@ -1168,6 +1178,9 @@ void cKeyframeAnimation::DeleteFramesTo(int index) const
 	for (int i = 0; i <= index; i++)
 		table->removeColumn(reservedColumns);
 	keyframes->DeleteFrames(0, index);
+
+	keyframes->UpdateFramesIndexesTable();
+
 	UpdateLimitsForFrameRange();
 }
 
@@ -1279,6 +1292,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 			frame.numberOfSubFrames = newFramesPerKey;
 			keyframes->ModifyFrame(index, frame);
+
+			keyframes->UpdateFramesIndexesTable();
 		}
 	}
 
@@ -1426,7 +1441,7 @@ void cKeyframeAnimation::slotRefreshTable()
 
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const
 {
-	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+	const int frameIndex = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
 
 	QString dir;
 	if (netRenderCache)
@@ -1466,7 +1481,8 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo->Store(params, fractalParams, gAnimFrames, keyframes);
-	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
+
+	keyframes->UpdateFramesIndexesTable();
 
 	if (gAnimFrames->GetFrames().size() > 0)
 	{
@@ -1488,9 +1504,9 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
+		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
 		{
-			const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+			const int frameIndex = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
 			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
 		}
 		if (index % 10 == 0)
@@ -1509,7 +1525,7 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 {
 	const int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
 
-	int noOfFrames = (keyframes->GetNumberOfFrames() - 1) * framesPerKey;
+	int noOfFrames = (keyframes->GetTotalNumberOfFrames() - 1);
 	if (noOfFrames < 0) noOfFrames = 0;
 
 	ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
@@ -1545,6 +1561,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 
 	*stopRequest = false;
 
+	keyframes->UpdateFramesIndexesTable();
+
 	keyframes->ClearMorphCache();
 
 	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
@@ -1553,11 +1571,11 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 			QObject::tr("Checking for collisions on keyframe # %1").arg(key),
 			double(key) / (keyframes->GetNumberOfFrames() - 1.0), cProgressText::progress_ANIMATION);
 
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
+		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(key); subIndex++)
 		{
 			gApplication->processEvents();
 			if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
-			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
+			int frameIndex = keyframes->GetFrameIndexForKeyframe(key) + subIndex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
 			tempPar->Set("frame_no", frameIndex);
 			const CVector3 point = tempPar->Get<CVector3>("camera");
@@ -1580,8 +1598,6 @@ void cKeyframeAnimation::slotValidate()
 	// updating parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo->Store(params, fractalParams, nullptr, keyframes);
-
-	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	// checking for collisions
 	QList<int> listOfCollisions = CheckForCollisions(
@@ -1672,7 +1688,6 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 void cKeyframeAnimation::UpdateAnimationPath() const
 {
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
-	int framesPerKey = keyframes->GetFramesPerKeyframe();
 
 	auto tempPar = std::make_shared<cParameterContainer>();
 	*tempPar = *params;
@@ -1680,7 +1695,7 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	*tempFractPar = *fractalParams;
 
 	sAnimationPathData animationPathData;
-	animationPathData.framesPeyKey = framesPerKey;
+	animationPathData.framesPeyKey = 100; // FIXME correct number of frames per keyframe
 	animationPathData.numberOfKeyframes = numberOfKeyframes;
 	animationPathData.actualSelectedFrameNo = table->currentColumn() - reservedColumns;
 	if (animationPathData.actualSelectedFrameNo < 0) animationPathData.actualSelectedFrameNo = 0;
@@ -1702,9 +1717,9 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 
 	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
 	{
-		for (int interFrame = 0; interFrame < framesPerKey; interFrame++)
+		for (int interFrame = 0; interFrame < keyframes->GetFramesPerKeyframe(keyframe); interFrame++)
 		{
-			int frame = keyframe * framesPerKey + interFrame;
+			int frame = keyframes->GetFrameIndexForKeyframe(keyframe) + interFrame;
 
 			keyframes->GetInterpolatedFrameAndConsolidate(frame, tempPar, tempFractPar);
 			sAnimationPathPoint point;
