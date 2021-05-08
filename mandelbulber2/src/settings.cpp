@@ -1472,9 +1472,20 @@ bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterConta
 		{
 			if (lineSplit[0] != "frame")
 			{
-				throw QObject::tr("Missing column 'frame' in list of animation frames");
+				throw QObject::tr("Missing column 'frame' in the list of animation frames");
 			}
-			for (int i = 1; i < lineSplit.size(); ++i)
+
+			int firstParameterColumn = 1;
+			if (fileVersion >= 2.26)
+			{
+				if (lineSplit[1] != "framesPerKeyframe")
+				{
+					throw QObject::tr("Missing column 'framesPerKeyframe' in the list of animation frames");
+				}
+				firstParameterColumn = 2;
+			}
+
+			for (int i = firstParameterColumn; i < lineSplit.size(); ++i)
 			{
 				QString fullParameterName = lineSplit[i];
 				if (fullParameterName.length() > 2)
@@ -1581,6 +1592,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 	QStringList lineSplit = line.split(';');
 	QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
 	int column = 0;
+	int numberOfSubFrames = 0;
 
 	try
 	{
@@ -1617,6 +1629,13 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 		else if (lineSplit.size() == csvNoOfColumns)
 		{
 			int frameCount = lineSplit[0].toInt();
+
+			if (fileVersion >= 2.26)
+			{
+				numberOfSubFrames = lineSplit[1].toInt();
+				column++;
+			}
+
 			if (frameCount == frames->GetNumberOfFrames())
 			{
 				column++;
@@ -1690,7 +1709,7 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 	}
 
 	Compatibility2(par, fractPar);
-	frames->AddFrame(par, fractPar, 0); // FIXME: loading frames per keyframe
+	frames->AddFrame(par, fractPar, numberOfSubFrames);
 
 	return true;
 }
