@@ -1343,7 +1343,7 @@ offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;KochV2Iteration&lt;br&gt;Based on Knighty's Kaleidoscopic IFS 3D Fractals, described here:&lt;br&gt;http://www.fractalforums.com/3d-fractal-generation/kaleidoscopic-%28escape-time-ifs%29/&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/KochV4.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

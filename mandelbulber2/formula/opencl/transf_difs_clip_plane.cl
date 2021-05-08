@@ -15,7 +15,6 @@
 
 REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// REAL4 zc = z;
 	REAL4 c = aux->const_c;
 	REAL4 zc = c;
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -32,7 +31,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL sinan = native_sin(an);
 		REAL cosan = native_cos(an);
 		REAL temp = zc.x;
-
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
@@ -61,7 +59,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-	zc.z *= fractal->transformCommon.scale3D111.z;
+	// zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -78,6 +76,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
 	// plane
+
 	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
@@ -132,7 +131,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			e = clamp(length(cir) - e, 0.0f, 100.0f); // a sphere
 	}
 	e = min(e, d);
-
 	d = max(b, e);
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;

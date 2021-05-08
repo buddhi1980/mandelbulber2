@@ -108,7 +108,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant0777.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant0777.z) - z.z;
 	}
-
 	REAL pNorm = 1.0f;
 	if (aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
@@ -141,7 +140,6 @@ REAL4 PseudoKleinianMod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL t;
 		z.x = fabs(z.x);
 		z.y = fabs(z.y);
-
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			t = z.x;
