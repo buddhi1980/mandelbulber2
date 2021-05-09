@@ -54,7 +54,7 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	if (params->interiorMode) start = input.distThresh * DEFactor;
 
 	double softRange;
-	if (params->monteCarloSoftShadows)
+	if (params->monteCarloSoftShadows && light->type != cLight::lightDirectional)
 	{
 		double lightSize = sqrt(light->intensity) * light->size;
 		softRange = lightSize / distance;

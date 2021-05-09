@@ -53,8 +53,16 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float start = input->distThresh;
 
 #ifdef MC_SOFT_SHADOWS
-	float lightSize = sqrt(intensity) * light->size;
-	float softRange = lightSize / distance;
+	float softRange;
+	if (light->type == lightDirectional)
+	{
+		softRange = tan(light->softShadowCone);
+	}
+	else
+	{
+		float lightSize = sqrt(intensity) * light->size;
+		softRange = lightSize / distance;
+	}
 #else
 	float softRange = tan(light->softShadowCone);
 #endif
