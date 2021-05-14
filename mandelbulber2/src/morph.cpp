@@ -39,25 +39,26 @@
 
 #include "color_gradient.h"
 #include "common_math.h"
+#include <QDebug>
 
 cMorph::cMorph()
 {
 	listSize = 6;
 	interpolationAccelerator = gsl_interp_accel_alloc();
-	splineAkimaPeriodic = gsl_spline_alloc(gsl_interp_akima_periodic, size_t(listSize));
+	splineAkima = gsl_spline_alloc(gsl_interp_akima, size_t(listSize));
 }
 
 cMorph::~cMorph()
 {
-	gsl_spline_free(splineAkimaPeriodic);
+	gsl_spline_free(splineAkima);
 	gsl_interp_accel_free(interpolationAccelerator);
-	splineAkimaPeriodic = nullptr;
+	splineAkima = nullptr;
 	interpolationAccelerator = nullptr;
 }
 
 cMorph::cMorph(const cMorph &source)
 {
-	splineAkimaPeriodic = nullptr;
+	splineAkima = nullptr;
 	interpolationAccelerator = nullptr;
 	*this = source;
 }
@@ -68,17 +69,17 @@ cMorph &cMorph::operator=(const cMorph &source)
 	{
 		listSize = source.listSize;
 		interpolationAccelerator = gsl_interp_accel_alloc();
-		splineAkimaPeriodic = gsl_spline_alloc(gsl_interp_akima_periodic, size_t(listSize));
+		splineAkima = gsl_spline_alloc(gsl_interp_akima, size_t(listSize));
 		dataSets = source.dataSets;
 	}
 	return *this;
 }
 
-void cMorph::AddData(const int keyFrame, const cOneParameter &val)
+void cMorph::AddData(const int keyFrame, const int noOfSubFrames, const cOneParameter &val)
 {
 	int key = findInMorph(keyFrame);
 	if (key != -1) return;
-	sMorphParameter mVal(keyFrame, val);
+	sMorphParameter mVal(keyFrame, noOfSubFrames, val);
 	dataSets.append(mVal);
 
 	if (dataSets.size() > listSize)
@@ -384,6 +385,19 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 	else
 		k[5] = dataSets.size() - 1;
 
+	double baseFramesPerKeyframe = double(dataSets[k[2]].numberOfSubFrames);
+	double x[6];
+
+	x[2] = 0.0;
+	x[3] = 1.0;
+	x[4] = x[3] + dataSets[k[3]].numberOfSubFrames / baseFramesPerKeyframe;
+	x[5] = x[4] + dataSets[k[4]].numberOfSubFrames / baseFramesPerKeyframe;
+
+	x[1] = x[2] - dataSets[k[1]].numberOfSubFrames / baseFramesPerKeyframe;
+	x[0] = x[1] - dataSets[k[0]].numberOfSubFrames / baseFramesPerKeyframe;
+
+	// double x[] = {-2, -1, 0, 1, 2, 3};
+
 	cOneParameter interpolated = dataSets[key].parameter;
 	cMultiVal val;
 
@@ -412,24 +426,24 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 				for (int i = 0; i < maxGradient; i++)
 				{
 					double pos = qBound(0.0,
-						AkimaInterpolate(factor, g[0].GetPositionByIndex(i), g[1].GetPositionByIndex(i),
+						AkimaInterpolate(factor, x, g[0].GetPositionByIndex(i), g[1].GetPositionByIndex(i),
 							g[2].GetPositionByIndex(i), g[3].GetPositionByIndex(i), g[4].GetPositionByIndex(i),
 							g[5].GetPositionByIndex(i), angular),
 						1.0);
 
 					sRGB color;
 					color.R = qBound(0,
-						int(AkimaInterpolate(factor, g[0].GetColorByIndex(i).R, g[1].GetColorByIndex(i).R,
+						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).R, g[1].GetColorByIndex(i).R,
 							g[2].GetColorByIndex(i).R, g[3].GetColorByIndex(i).R, g[4].GetColorByIndex(i).R,
 							g[5].GetColorByIndex(i).R, angular)),
 						255);
 					color.G = qBound(0,
-						int(AkimaInterpolate(factor, g[0].GetColorByIndex(i).G, g[1].GetColorByIndex(i).G,
+						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).G, g[1].GetColorByIndex(i).G,
 							g[2].GetColorByIndex(i).G, g[3].GetColorByIndex(i).G, g[4].GetColorByIndex(i).G,
 							g[5].GetColorByIndex(i).G, angular)),
 						255);
 					color.B = qBound(0,
-						int(AkimaInterpolate(factor, g[0].GetColorByIndex(i).B, g[1].GetColorByIndex(i).B,
+						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).B, g[1].GetColorByIndex(i).B,
 							g[2].GetColorByIndex(i).B, g[3].GetColorByIndex(i).B, g[4].GetColorByIndex(i).B,
 							g[5].GetColorByIndex(i).B, angular)),
 						255);
@@ -453,7 +467,7 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(AkimaInterpolate(factor, v[0], v[1], v[2], v[3], v[4], v[5], angular));
+			val.Store(AkimaInterpolate(factor, x, v[0], v[1], v[2], v[3], v[4], v[5], angular));
 			break;
 		}
 		case typeRgb:
@@ -462,10 +476,10 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(
-				sRGB(int(AkimaInterpolate(factor, v[0].R, v[1].R, v[2].R, v[3].R, v[4].R, v[5].R, angular)),
-					int(AkimaInterpolate(factor, v[0].G, v[1].G, v[2].G, v[3].G, v[4].G, v[5].G, angular)),
-					int(AkimaInterpolate(factor, v[0].B, v[1].B, v[2].B, v[3].B, v[4].B, v[5].B, angular))));
+			val.Store(sRGB(
+				int(AkimaInterpolate(factor, x, v[0].R, v[1].R, v[2].R, v[3].R, v[4].R, v[5].R, angular)),
+				int(AkimaInterpolate(factor, x, v[0].G, v[1].G, v[2].G, v[3].G, v[4].G, v[5].G, angular)),
+				int(AkimaInterpolate(factor, x, v[0].B, v[1].B, v[2].B, v[3].B, v[4].B, v[5].B, angular))));
 			break;
 		}
 		case typeVector3:
@@ -474,10 +488,10 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(
-				CVector3(AkimaInterpolate(factor, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
-					AkimaInterpolate(factor, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
-					AkimaInterpolate(factor, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular)));
+			val.Store(CVector3(
+				AkimaInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
+				AkimaInterpolate(factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
+				AkimaInterpolate(factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular)));
 			break;
 		}
 		case typeVector4:
@@ -485,11 +499,11 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			CVector4 v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
-			val.Store(
-				CVector4(AkimaInterpolate(factor, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
-					AkimaInterpolate(factor, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
-					AkimaInterpolate(factor, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular),
-					AkimaInterpolate(factor, v[0].w, v[1].w, v[2].w, v[3].w, v[4].w, v[5].w, angular)));
+			val.Store(CVector4(
+				AkimaInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
+				AkimaInterpolate(factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
+				AkimaInterpolate(factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular),
+				AkimaInterpolate(factor, x, v[0].w, v[1].w, v[2].w, v[3].w, v[4].w, v[5].w, angular)));
 			break;
 		}
 	}
@@ -573,8 +587,8 @@ double cMorph::CatmullRomInterpolate(
 	}
 }
 
-double cMorph::AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4,
-	double v5, double v6, const bool angular) const
+double cMorph::AkimaInterpolate(const double factor, const double domain[6], double v1, double v2,
+	double v3, double v4, double v5, double v6, const bool angular) const
 {
 	if (angular)
 	{
@@ -583,11 +597,10 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 		NearestNeighbourAngle(vals);
 	}
 
-	double x[] = {-2, -1, 0, 1, 2, 3};
 	double y[] = {v1, v2, v3, v4, v5, v6};
 	// more information: http://www.alglib.net/interpolation/spline3.php
-	gsl_spline_init(splineAkimaPeriodic, x, y, size_t(listSize));
-	double value = gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
+	gsl_spline_init(splineAkima, domain, y, size_t(listSize));
+	double value = gsl_spline_eval(splineAkima, factor, interpolationAccelerator);
 
 	if (angular)
 	{

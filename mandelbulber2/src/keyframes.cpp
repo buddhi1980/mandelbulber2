@@ -105,7 +105,8 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameInde
 		{
 			if (morph[i]->findInMorph(k) == -1)
 			{
-				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(fullParameterName));
+				morph[i]->AddData(k, frames.at(k).numberOfSubFrames,
+					frames.at(k).parameters.GetAsOneParameter(fullParameterName));
 			}
 		}
 		// interpolate each parameter

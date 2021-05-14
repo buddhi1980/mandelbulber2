@@ -52,11 +52,12 @@ class cMorph
 public:
 	struct sMorphParameter
 	{
-		sMorphParameter(int _keyframe, const cOneParameter &_parameter)
-				: keyframe(_keyframe), parameter(_parameter)
+		sMorphParameter(int _keyframe, int _noOfSubFrames, const cOneParameter &_parameter)
+				: keyframe(_keyframe), numberOfSubFrames(_noOfSubFrames), parameter(_parameter)
 		{
 		}
 		int keyframe;
+		int numberOfSubFrames;
 		cOneParameter parameter;
 	};
 
@@ -64,7 +65,7 @@ public:
 	~cMorph();
 	cMorph(const cMorph &source);
 	cMorph &operator=(const cMorph &source);
-	void AddData(const int keyframe, const cOneParameter &val);
+	void AddData(const int keyframe, const int noOfSubFrames, const cOneParameter &val);
 	int findInMorph(const int keyframe);
 	void Clear() { dataSets.clear(); }
 	cOneParameter Interpolate(const int keyframe, double factor);
@@ -76,14 +77,14 @@ public:
 	static double LinearInterpolate(const double factor, double v1, double v2, bool const angular);
 	static double CatmullRomInterpolate(
 		const double factor, double v1, double v2, double v3, double v4, bool const angular);
-	double AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4,
-		double v5, double v6, const bool angular) const;
+	double AkimaInterpolate(const double factor, const double domain[6], double v1, double v2,
+		double v3, double v4, double v5, double v6, const bool angular) const;
 	static void NearestNeighbourAngle(QList<double *> vals);
 
 private:
 	int listSize;
 	gsl_interp_accel *interpolationAccelerator;
-	gsl_spline *splineAkimaPeriodic;
+	gsl_spline *splineAkima;
 	QList<sMorphParameter> dataSets;
 };
 
