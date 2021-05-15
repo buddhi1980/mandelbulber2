@@ -36,15 +36,18 @@
 
 #include <QtWidgets/QtWidgets>
 
+#include "src/system_data.hpp"
 #include "src/animation_flight.hpp"
 
 MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent), CommonMyWidgetWrapper(this)
 {
+	int size = systemData.GetPreferredThumbnailSize() * 0.6;
+
 	defaultValue = sRGB();
 	currentValue = sRGB();
 	setText("");
-	w = 40;
-	h = 15;
+	w = size;
+	h = size / 4;
 	SetupColor();
 }
 

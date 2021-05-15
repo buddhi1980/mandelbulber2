@@ -46,6 +46,7 @@
 #include "src/radiance_hdr.h"
 #include "src/render_window.hpp"
 #include "src/settings.hpp"
+#include "src/system_data.hpp"
 #include "src/system_directories.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
@@ -62,14 +63,16 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	preview->setAlignment(Qt::AlignCenter);
 	preview->setObjectName("label_preview");
 
-	thumbWidget = new cThumbnailWidget(200, 200, 1, this);
+	thumbnailSize = systemData.GetPreferredThumbnailSize() * 1.5;
+
+	thumbWidget = new cThumbnailWidget(thumbnailSize, thumbnailSize, 1, this);
 
 	description = new QLabel("", this);
 	description->setAlignment(Qt::AlignCenter);
 	description->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	info = new QLabel("", this);
 	info->setWordWrap(true);
-	info->setMaximumWidth(200);
+	info->setMaximumWidth(thumbnailSize);
 
 	progressBar = new MyProgressBar(this);
 	progressBar->setMaximum(1000);
@@ -193,7 +196,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		}
 		else
 		{
-			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+			preview->setPixmap(pixmap.scaled(thumbnailSize, thumbnailSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 			QString text =
 				QString::number(pixmap.width()) + QString(" x ") + QString::number(pixmap.height());
 			info->setText(text);

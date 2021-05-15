@@ -66,6 +66,7 @@ private:
 	QPushButton *presetAddButton;
 	QPushButton *queueAddButton;
 	QString filename;
+	int thumbnailSize;
 
 protected:
 	QLabel *preview;
