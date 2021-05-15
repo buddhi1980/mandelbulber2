@@ -18,6 +18,7 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	REAL Power = fractal->bulb.power;
 	REAL4 shift = fractal->transformCommon.offset000 * M_PI_F;
+	REAL4 dual = fractal->transformCommon.scale3D111;
 
 	REAL r = aux->r;
 	REAL rN = 1.0f / r;
@@ -30,9 +31,18 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	z.x = (native_cos(shift.x + Power * acos(z.x * rN)));
-	z.y = (native_cos(shift.y + Power * acos(z.y * rN)));
-	z.z = (native_cos(shift.z + Power * acos(z.z * rN)));
+	if (!fractal->transformCommon.functionEnabledCFalse)
+	{
+		z.x = native_sin(shift.x + Power * dual.x * asin(z.x * rN));
+		z.y = native_sin(shift.y + Power * dual.y * asin(z.y * rN));
+		z.z = native_sin(shift.z + Power * dual.z * asin(z.z * rN));
+	}
+	else
+	{
+		z.x = native_cos(shift.x + Power * dual.x * acos(z.x * rN));
+		z.y = native_cos(shift.y + Power * dual.y * acos(z.y * rN));
+		z.z = native_cos(shift.z + Power * dual.z * acos(z.z * rN));
+	}
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{

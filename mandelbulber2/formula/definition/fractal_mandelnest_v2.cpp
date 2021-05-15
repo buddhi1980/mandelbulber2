@@ -29,6 +29,7 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 {
 	double Power = fractal->bulb.power;
 	CVector4 shift = fractal->transformCommon.offset000 * M_PI;
+	CVector4 dual = fractal->transformCommon.scale3D111;
 
 	double r = aux.r;
 	double rN = 1.0 / r;
@@ -43,15 +44,15 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		z.x = sin(shift.x + Power * asin(z.x * rN));
-		z.y = sin(shift.y + Power * asin(z.y * rN));
-		z.z = sin(shift.z + Power * asin(z.z * rN));
+		z.x = sin(shift.x + Power * dual.x * asin(z.x * rN));
+		z.y = sin(shift.y + Power * dual.y * asin(z.y * rN));
+		z.z = sin(shift.z + Power * dual.z * asin(z.z * rN));
 	}
 	else
 	{
-		z.x = cos(shift.x + Power * acos(z.x * rN));
-		z.y = cos(shift.y + Power * acos(z.y * rN));
-		z.z = cos(shift.z + Power * acos(z.z * rN));
+		z.x = cos(shift.x + Power * dual.x * acos(z.x * rN));
+		z.y = cos(shift.y + Power * dual.y * acos(z.y * rN));
+		z.z = cos(shift.z + Power * dual.z * acos(z.z * rN));
 	}
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
