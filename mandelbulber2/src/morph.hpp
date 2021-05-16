@@ -61,6 +61,13 @@ public:
 		cOneParameter parameter;
 	};
 
+	enum gslSplineType
+	{
+		gslSplineAkima,
+		gslSplineCubic,
+		gslSplineSteffen
+	};
+
 	cMorph();
 	~cMorph();
 	cMorph(const cMorph &source);
@@ -72,19 +79,21 @@ public:
 	cOneParameter None(const int key) const;
 	cOneParameter Linear(const int key, const double factor, bool const angular);
 	cOneParameter CatmullRom(const int key, const double factor, bool const angular);
-	cOneParameter Akima(const int key, const double factor, bool const angular);
+	cOneParameter Spline(const int key, const double factor, gslSplineType type, bool const angular);
 
 	static double LinearInterpolate(const double factor, double v1, double v2, bool const angular);
 	static double CatmullRomInterpolate(
 		const double factor, double v1, double v2, double v3, double v4, bool const angular);
-	double AkimaInterpolate(const double factor, const double domain[6], double v1, double v2,
-		double v3, double v4, double v5, double v6, const bool angular) const;
+	double GslSplineInterpolate(const double factor, const double domain[6], double v1, double v2,
+		double v3, double v4, double v5, double v6, gslSplineType type, const bool angular) const;
 	static void NearestNeighbourAngle(QList<double *> vals);
 
 private:
 	int listSize;
 	gsl_interp_accel *interpolationAccelerator;
 	gsl_spline *splineAkima;
+	gsl_spline *splineCubic;
+	gsl_spline *splineSteffen;
 	QList<sMorphParameter> dataSets;
 };
 

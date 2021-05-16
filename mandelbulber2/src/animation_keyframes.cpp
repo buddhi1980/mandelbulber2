@@ -581,13 +581,17 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 	QColor color;
 	switch (morphType)
 	{
-		case morphNone: color = QColor(255, 255, 255); break;
-		case morphLinear: color = QColor(200, 200, 200); break;
-		case morphLinearAngle: color = QColor(200, 200, 255); break;
-		case morphCatMullRom: color = QColor(200, 255, 200); break;
-		case morphCatMullRomAngle: color = QColor(200, 255, 255); break;
-		case morphAkima: color = QColor(255, 200, 200); break;
-		case morphAkimaAngle: color = QColor(255, 200, 255); break;
+		case morphNone: color = QColor(255, 255, 255); break;						 // white
+		case morphLinear: color = QColor(200, 200, 200); break;					 // gray
+		case morphLinearAngle: color = QColor(200, 200, 255); break;		 // gray/blue
+		case morphCatMullRom: color = QColor(200, 255, 200); break;			 // green
+		case morphCatMullRomAngle: color = QColor(200, 255, 255); break; // green/blue
+		case morphAkima: color = QColor(255, 200, 200); break;					 // red
+		case morphAkimaAngle: color = QColor(255, 200, 255); break;			 // red/blue
+		case morphCubic: color = QColor(255, 255, 200); break;					 // yellow
+		case morphCubicAngle: color = QColor(255, 200, 255); break;			 // yellow/blue
+		case morphSteffen: color = QColor(150, 150, 200); break;				 // blue
+		case morphSteffenAngle: color = QColor(150, 150, 255); break;		 // blue
 	}
 	return color;
 }

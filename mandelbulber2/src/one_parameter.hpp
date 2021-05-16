@@ -58,7 +58,11 @@ enum enumMorphType
 	morphCatMullRom,
 	morphCatMullRomAngle,
 	morphAkima,
-	morphAkimaAngle
+	morphAkimaAngle,
+	morphCubic,
+	morphCubicAngle,
+	morphSteffen,
+	morphSteffenAngle
 };
 
 enum enumValueSelection

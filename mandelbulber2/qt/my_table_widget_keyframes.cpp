@@ -156,6 +156,10 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 		QAction *actionCatMulRomAngleInterpolation = menu->addAction(tr("CatMulRom angle"));
 		QAction *actionAkimaInterpolation = menu->addAction(tr("Akima"));
 		QAction *actionAkimaAngleInterpolation = menu->addAction(tr("Akima angle"));
+		QAction *actionCubicInterpolation = menu->addAction(tr("Cubic"));
+		QAction *actionCubicAngleInterpolation = menu->addAction(tr("Cubic angle"));
+		QAction *actionSteffenInterpolation = menu->addAction(tr("Steffen"));
+		QAction *actionSteffenAngleInterpolation = menu->addAction(tr("Steffen angle"));
 		QActionGroup actionGroupInterpolation(menu.get());
 		actionGroupInterpolation.addAction(actionNoInterpolation);
 		actionGroupInterpolation.addAction(actionLinearInterpolation);
@@ -164,6 +168,10 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 		actionGroupInterpolation.addAction(actionCatMulRomAngleInterpolation);
 		actionGroupInterpolation.addAction(actionAkimaInterpolation);
 		actionGroupInterpolation.addAction(actionAkimaAngleInterpolation);
+		actionGroupInterpolation.addAction(actionCubicInterpolation);
+		actionGroupInterpolation.addAction(actionCubicAngleInterpolation);
+		actionGroupInterpolation.addAction(actionSteffenInterpolation);
+		actionGroupInterpolation.addAction(actionSteffenAngleInterpolation);
 		actionGroupInterpolation.setExclusive(true);
 
 		actionNoInterpolation->setCheckable(true);
@@ -173,6 +181,10 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 		actionCatMulRomAngleInterpolation->setCheckable(true);
 		actionAkimaInterpolation->setCheckable(true);
 		actionAkimaAngleInterpolation->setCheckable(true);
+		actionCubicInterpolation->setCheckable(true);
+		actionCubicAngleInterpolation->setCheckable(true);
+		actionSteffenInterpolation->setCheckable(true);
+		actionSteffenAngleInterpolation->setCheckable(true);
 
 		using namespace parameterContainer;
 		enumMorphType morphType = gKeyframeAnimation->GetMorphType(row);
@@ -185,6 +197,10 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 			case morphCatMullRomAngle: actionCatMulRomAngleInterpolation->setChecked(true); break;
 			case morphAkima: actionAkimaInterpolation->setChecked(true); break;
 			case morphAkimaAngle: actionAkimaAngleInterpolation->setChecked(true); break;
+			case morphCubic: actionCubicInterpolation->setChecked(true); break;
+			case morphCubicAngle: actionCubicAngleInterpolation->setChecked(true); break;
+			case morphSteffen: actionSteffenInterpolation->setChecked(true); break;
+			case morphSteffenAngle: actionSteffenAngleInterpolation->setChecked(true); break;
 		}
 
 		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
@@ -210,6 +226,14 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 				gKeyframeAnimation->ChangeMorphType(row, morphAkima);
 			else if (selectedItem == actionAkimaAngleInterpolation)
 				gKeyframeAnimation->ChangeMorphType(row, morphAkimaAngle);
+			else if (selectedItem == actionCubicInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphCubic);
+			else if (selectedItem == actionCubicAngleInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphCubicAngle);
+			else if (selectedItem == actionSteffenInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphSteffen);
+			else if (selectedItem == actionSteffenAngleInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphSteffenAngle);
 		}
 	}
 	else

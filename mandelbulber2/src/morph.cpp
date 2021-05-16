@@ -46,19 +46,27 @@ cMorph::cMorph()
 	listSize = 6;
 	interpolationAccelerator = gsl_interp_accel_alloc();
 	splineAkima = gsl_spline_alloc(gsl_interp_akima, size_t(listSize));
+	splineCubic = gsl_spline_alloc(gsl_interp_cspline, size_t(listSize));
+	splineSteffen = gsl_spline_alloc(gsl_interp_steffen, size_t(listSize));
 }
 
 cMorph::~cMorph()
 {
 	gsl_spline_free(splineAkima);
+	gsl_spline_free(splineCubic);
+	gsl_spline_free(splineSteffen);
 	gsl_interp_accel_free(interpolationAccelerator);
 	splineAkima = nullptr;
+	splineCubic = nullptr;
+	splineSteffen = nullptr;
 	interpolationAccelerator = nullptr;
 }
 
 cMorph::cMorph(const cMorph &source)
 {
 	splineAkima = nullptr;
+	splineCubic = nullptr;
+	splineSteffen = nullptr;
 	interpolationAccelerator = nullptr;
 	*this = source;
 }
@@ -70,6 +78,8 @@ cMorph &cMorph::operator=(const cMorph &source)
 		listSize = source.listSize;
 		interpolationAccelerator = gsl_interp_accel_alloc();
 		splineAkima = gsl_spline_alloc(gsl_interp_akima, size_t(listSize));
+		splineCubic = gsl_spline_alloc(gsl_interp_cspline, size_t(listSize));
+		splineSteffen = gsl_spline_alloc(gsl_interp_steffen, size_t(listSize));
 		dataSets = source.dataSets;
 	}
 	return *this;
@@ -116,8 +126,12 @@ cOneParameter cMorph::Interpolate(const int keyframe, double factor)
 		case morphLinearAngle: return Linear(key, factor, true);
 		case morphCatMullRom: return CatmullRom(key, factor, false);
 		case morphCatMullRomAngle: return CatmullRom(key, factor, true);
-		case morphAkima: return Akima(key, factor, false);
-		case morphAkimaAngle: return Akima(key, factor, true);
+		case morphAkima: return Spline(key, factor, gslSplineAkima, false);
+		case morphAkimaAngle: return Spline(key, factor, gslSplineAkima, true);
+		case morphCubic: return Spline(key, factor, gslSplineCubic, false);
+		case morphCubicAngle: return Spline(key, factor, gslSplineCubic, true);
+		case morphSteffen: return Spline(key, factor, gslSplineSteffen, false);
+		case morphSteffenAngle: return Spline(key, factor, gslSplineSteffen, true);
 		default: return None(key);
 	}
 }
@@ -354,7 +368,8 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 	return interpolated;
 }
 
-cOneParameter cMorph::Akima(int const key, double const factor, bool const angular)
+cOneParameter cMorph::Spline(
+	int const key, double const factor, gslSplineType type, bool const angular)
 {
 	int k[6];
 
@@ -426,26 +441,26 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 				for (int i = 0; i < maxGradient; i++)
 				{
 					double pos = qBound(0.0,
-						AkimaInterpolate(factor, x, g[0].GetPositionByIndex(i), g[1].GetPositionByIndex(i),
+						GslSplineInterpolate(factor, x, g[0].GetPositionByIndex(i), g[1].GetPositionByIndex(i),
 							g[2].GetPositionByIndex(i), g[3].GetPositionByIndex(i), g[4].GetPositionByIndex(i),
-							g[5].GetPositionByIndex(i), angular),
+							g[5].GetPositionByIndex(i), type, angular),
 						1.0);
 
 					sRGB color;
 					color.R = qBound(0,
-						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).R, g[1].GetColorByIndex(i).R,
-							g[2].GetColorByIndex(i).R, g[3].GetColorByIndex(i).R, g[4].GetColorByIndex(i).R,
-							g[5].GetColorByIndex(i).R, angular)),
+						int(GslSplineInterpolate(factor, x, g[0].GetColorByIndex(i).R,
+							g[1].GetColorByIndex(i).R, g[2].GetColorByIndex(i).R, g[3].GetColorByIndex(i).R,
+							g[4].GetColorByIndex(i).R, g[5].GetColorByIndex(i).R, type, angular)),
 						255);
 					color.G = qBound(0,
-						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).G, g[1].GetColorByIndex(i).G,
-							g[2].GetColorByIndex(i).G, g[3].GetColorByIndex(i).G, g[4].GetColorByIndex(i).G,
-							g[5].GetColorByIndex(i).G, angular)),
+						int(GslSplineInterpolate(factor, x, g[0].GetColorByIndex(i).G,
+							g[1].GetColorByIndex(i).G, g[2].GetColorByIndex(i).G, g[3].GetColorByIndex(i).G,
+							g[4].GetColorByIndex(i).G, g[5].GetColorByIndex(i).G, type, angular)),
 						255);
 					color.B = qBound(0,
-						int(AkimaInterpolate(factor, x, g[0].GetColorByIndex(i).B, g[1].GetColorByIndex(i).B,
-							g[2].GetColorByIndex(i).B, g[3].GetColorByIndex(i).B, g[4].GetColorByIndex(i).B,
-							g[5].GetColorByIndex(i).B, angular)),
+						int(GslSplineInterpolate(factor, x, g[0].GetColorByIndex(i).B,
+							g[1].GetColorByIndex(i).B, g[2].GetColorByIndex(i).B, g[3].GetColorByIndex(i).B,
+							g[4].GetColorByIndex(i).B, g[5].GetColorByIndex(i).B, type, angular)),
 						255);
 
 					outG.AddColor(color, pos);
@@ -467,7 +482,7 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(AkimaInterpolate(factor, x, v[0], v[1], v[2], v[3], v[4], v[5], angular));
+			val.Store(GslSplineInterpolate(factor, x, v[0], v[1], v[2], v[3], v[4], v[5], type, angular));
 			break;
 		}
 		case typeRgb:
@@ -476,10 +491,12 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(sRGB(
-				int(AkimaInterpolate(factor, x, v[0].R, v[1].R, v[2].R, v[3].R, v[4].R, v[5].R, angular)),
-				int(AkimaInterpolate(factor, x, v[0].G, v[1].G, v[2].G, v[3].G, v[4].G, v[5].G, angular)),
-				int(AkimaInterpolate(factor, x, v[0].B, v[1].B, v[2].B, v[3].B, v[4].B, v[5].B, angular))));
+			val.Store(sRGB(int(GslSplineInterpolate(
+											 factor, x, v[0].R, v[1].R, v[2].R, v[3].R, v[4].R, v[5].R, type, angular)),
+				int(GslSplineInterpolate(
+					factor, x, v[0].G, v[1].G, v[2].G, v[3].G, v[4].G, v[5].G, type, angular)),
+				int(GslSplineInterpolate(
+					factor, x, v[0].B, v[1].B, v[2].B, v[3].B, v[4].B, v[5].B, type, angular))));
 			break;
 		}
 		case typeVector3:
@@ -488,10 +505,12 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
 
-			val.Store(CVector3(
-				AkimaInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
-				AkimaInterpolate(factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
-				AkimaInterpolate(factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular)));
+			val.Store(CVector3(GslSplineInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x,
+													 v[5].x, type, angular),
+				GslSplineInterpolate(
+					factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, type, angular),
+				GslSplineInterpolate(
+					factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, type, angular)));
 			break;
 		}
 		case typeVector4:
@@ -499,11 +518,14 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			CVector4 v[6];
 			for (int ds = 0; ds < 6; ds++)
 				dataSets[k[ds]].parameter.GetMultiVal(valueActual).Get(v[ds]);
-			val.Store(CVector4(
-				AkimaInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x, v[5].x, angular),
-				AkimaInterpolate(factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, angular),
-				AkimaInterpolate(factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, angular),
-				AkimaInterpolate(factor, x, v[0].w, v[1].w, v[2].w, v[3].w, v[4].w, v[5].w, angular)));
+			val.Store(CVector4(GslSplineInterpolate(factor, x, v[0].x, v[1].x, v[2].x, v[3].x, v[4].x,
+													 v[5].x, type, angular),
+				GslSplineInterpolate(
+					factor, x, v[0].y, v[1].y, v[2].y, v[3].y, v[4].y, v[5].y, type, angular),
+				GslSplineInterpolate(
+					factor, x, v[0].z, v[1].z, v[2].z, v[3].z, v[4].z, v[5].z, type, angular),
+				GslSplineInterpolate(
+					factor, x, v[0].w, v[1].w, v[2].w, v[3].w, v[4].w, v[5].w, type, angular)));
 			break;
 		}
 	}
@@ -587,8 +609,9 @@ double cMorph::CatmullRomInterpolate(
 	}
 }
 
-double cMorph::AkimaInterpolate(const double factor, const double domain[6], double v1, double v2,
-	double v3, double v4, double v5, double v6, const bool angular) const
+double cMorph::GslSplineInterpolate(const double factor, const double domain[6], double v1,
+	double v2, double v3, double v4, double v5, double v6, gslSplineType type,
+	const bool angular) const
 {
 	if (angular)
 	{
@@ -599,8 +622,30 @@ double cMorph::AkimaInterpolate(const double factor, const double domain[6], dou
 
 	double y[] = {v1, v2, v3, v4, v5, v6};
 	// more information: http://www.alglib.net/interpolation/spline3.php
-	gsl_spline_init(splineAkima, domain, y, size_t(listSize));
-	double value = gsl_spline_eval(splineAkima, factor, interpolationAccelerator);
+
+	double value = 0.0;
+	switch (type)
+	{
+		case gslSplineAkima:
+		{
+			gsl_spline_init(splineAkima, domain, y, size_t(listSize));
+			value = gsl_spline_eval(splineAkima, factor, interpolationAccelerator);
+			break;
+		}
+		case gslSplineCubic:
+		{
+			gsl_spline_init(splineCubic, domain, y, size_t(listSize));
+			value = gsl_spline_eval(splineCubic, factor, interpolationAccelerator);
+			break;
+		}
+		case gslSplineSteffen:
+		{
+			gsl_spline_init(splineSteffen, domain, y, size_t(listSize));
+			value = gsl_spline_eval(splineSteffen, factor, interpolationAccelerator);
+			break;
+		}
+		default: value = 0.0; break;
+	}
 
 	if (angular)
 	{

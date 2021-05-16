@@ -255,6 +255,10 @@ void cSettings::CreateAnimationString(
 						case morphCatMullRomAngle: text += "morphCatMullRomAngle"; break;
 						case morphAkima: text += "morphAkima"; break;
 						case morphAkimaAngle: text += "morphAkimaAngle"; break;
+						case morphCubic: text += "morphCubic"; break;
+						case morphCubicAngle: text += "morphCubicAngle"; break;
+						case morphSteffen: text += "morphSteffen"; break;
+						case morphSteffenAngle: text += "morphSteffenAngle"; break;
 					}
 					if (i != parameterList.size() - 1)
 					{
@@ -1617,6 +1621,14 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 						morphType = morphAkima;
 					else if (lineSplit[column] == "morphAkimaAngle")
 						morphType = morphAkimaAngle;
+					else if (lineSplit[column] == "morphCubic")
+						morphType = morphCubic;
+					else if (lineSplit[column] == "morphCubicAngle")
+						morphType = morphCubicAngle;
+					else if (lineSplit[column] == "morphSteffen")
+						morphType = morphSteffen;
+					else if (lineSplit[column] == "morphSteffenAngle")
+						morphType = morphSteffenAngle;
 					static_pointer_cast<cKeyframes>(frames)->ChangeMorphType(i, morphType);
 				}
 				return true;
