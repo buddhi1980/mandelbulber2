@@ -35,6 +35,7 @@
  */
 
 #include "projection_3d.hpp"
+#include "common_math.h"
 
 CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 	params::enumPerspectiveType perspType, const CRotationMatrix &mRot)
@@ -122,7 +123,7 @@ CVector3 InvProjection3D(const CVector3 &point, const CVector3 &camera,
 		viewVector.z /= viewVector.y;
 		x = viewVector.x / fov;
 		y = viewVector.z / fov;
-		z = length;
+		z = length * sign(viewVector.y);
 	}
 	screenPoint.x = (x / aspectRatio + 0.5) * imgWidth;
 	screenPoint.y = (-y + 0.5) * imgHeight;

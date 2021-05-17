@@ -206,6 +206,11 @@ void cKeyframes::UpdateFramesIndexesTable()
 
 			framesIndexesTable.push_back(globalFrameCounter);
 
+			if (k == frames.count() - 1) // last keyframe
+			{
+				numberOfSubframes = 1;
+			}
+
 			for (int f = 0; f < numberOfSubframes; f++)
 			{
 				keyframesIndexesTable.push_back(k);

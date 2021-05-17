@@ -53,7 +53,8 @@ struct sAnimationPathData
 {
 	QList<sAnimationPathPoint> animationPath;
 	int numberOfKeyframes;
-	int framesPeyKey;
+	int numberOfFrames;
+	QList<int> framesPeyKey;
 	int actualSelectedFrameNo;
 	bool cameraPathEnable;
 	bool targetPathEnable;

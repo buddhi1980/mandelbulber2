@@ -486,13 +486,12 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	table->insertColumn(newColumn);
 	table->setColumnWidth(newColumn, previewSize.width());
 
-	const double time = params->Get<double>("frames_per_keyframe")
-											/ params->Get<double>("keyframe_frames_per_second")
-											* (newColumn - reservedColumns);
+	const int frameNo = keyframes->GetFrameIndexForKeyframe(newColumn - reservedColumns);
+	const double time = double(frameNo) / params->Get<double>("keyframe_frames_per_second");
 	const int minutes = int(time / 60);
 	const int seconds = int(time) % 60;
 	const int milliseconds = int(time * 1000.0) % 1000;
-	const int frameNo = (newColumn - reservedColumns) * params->Get<int>("frames_per_keyframe");
+
 	const QString columnHeader = QString("%1 (%2)\n(%3:%4.%5)")
 																 .arg(newColumn - reservedColumns)
 																 .arg(frameNo)
@@ -676,23 +675,24 @@ void cKeyframeAnimation::VerifyAnimation(bool *stopRequest)
 void cKeyframeAnimation::CheckWhichFramesAreAlreadyRendered(const sFrameRanges &frameRanges)
 {
 	// Check if frames have already been rendered
-	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+
+	for (int frameNo = 0; frameNo < keyframes->GetTotalNumberOfFrames(); frameNo++)
 	{
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
+		int index = keyframes->GetKeyframeIndex(frameNo);
+		int subIndex = keyframes->GetSubIndex(frameNo);
+
+		const QString filename = GetKeyframeFilename(index, subIndex, false);
+
+		alreadyRenderedFrames[frameNo] = (QFile(filename).exists() || frameNo < frameRanges.startFrame
+																			|| frameNo >= frameRanges.endFrame);
+		if (gNetRender->IsClient())
 		{
-			const QString filename = GetKeyframeFilename(index, subIndex, false);
-			const int frameNo = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
-			alreadyRenderedFrames[frameNo] = (QFile(filename).exists() || frameNo < frameRanges.startFrame
-																				|| frameNo >= frameRanges.endFrame);
-			if (gNetRender->IsClient())
+			if (netRenderListOfFramesToRender.size() > 0)
 			{
-				if (netRenderListOfFramesToRender.size() > 0)
-				{
-					if (frameNo < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[frameNo] = true;
-				}
+				if (frameNo < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[frameNo] = true;
 			}
-			reservedFrames[frameNo] = alreadyRenderedFrames[frameNo];
 		}
+		reservedFrames[frameNo] = alreadyRenderedFrames[frameNo];
 	}
 }
 
@@ -946,79 +946,76 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		// main loop for rendering of frames
 		renderedFramesCount = 0;
-		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+		for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 		{
-			//-------------- rendering of interpolated keyframes ----------------
-			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
+			int index = keyframes->GetKeyframeIndex(frameIndex);
+			int subIndex = keyframes->GetSubIndex(frameIndex);
+
+			// skip already rendered frame
+			if (alreadyRenderedFrames[frameIndex]) continue;
+			if (reservedFrames[frameIndex]) continue;
+
+			if (gNetRender->IsClient())
 			{
-				const int frameIndex = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
+				//					//waiting for new jobs when list is empty
+				//					while (gNetRender->IsClient() && !animationStopRequest &&
+				// netRenderListOfFramesToRender.size() == 0)
+				//					{
+				//						gApplication->processEvents();
+				//					}
 
-				// skip already rendered frame
-				if (alreadyRenderedFrames[frameIndex]) continue;
-				if (reservedFrames[frameIndex]) continue;
-
-				if (gNetRender->IsClient())
+				bool frameFound = false;
+				for (int f = 0; f < netRenderListOfFramesToRender.size(); f++)
 				{
-					//					//waiting for new jobs when list is empty
-					//					while (gNetRender->IsClient() && !animationStopRequest &&
-					// netRenderListOfFramesToRender.size() == 0)
-					//					{
-					//						gApplication->processEvents();
-					//					}
-
-					bool frameFound = false;
-					for (int f = 0; f < netRenderListOfFramesToRender.size(); f++)
+					if (netRenderListOfFramesToRender[f] == frameIndex)
 					{
-						if (netRenderListOfFramesToRender[f] == frameIndex)
-						{
-							frameFound = true;
-							break;
-						}
+						frameFound = true;
+						break;
 					}
-					if (!frameFound) continue;
 				}
-
-				if (gNetRender->IsServer())
-				{
-					reservedFrames[frameIndex] = true;
-				}
-
-				UpadeProgressInformation(frameRanges, &progressText, frameIndex, index);
-
-				if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
-
-				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
-
-				// recalculation of camera rotation and distance (just for display purposes)
-				UpdateCameraAndTarget();
-
-				// render frame
-				params->Set("frame_no", frameIndex);
-				renderJob->UpdateParameters(params, fractalParams);
-				result = renderJob->Execute();
-				if (!result) throw false;
-
-				// save frame
-				QStringList listOfSavedFiles;
-				const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
-				const ImageFileSave::enumImageFileType fileType =
-					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
-				listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
-
-				renderedFramesCount++;
-				alreadyRenderedFrames[frameIndex] = true;
-
-				// qDebug() << "Finished rendering frame" << frameIndex;
-
-				if (gNetRender->IsClient())
-				{
-					ConfirmAndSendRenderedFrames(frameIndex, listOfSavedFiles);
-				}
-
-				gApplication->processEvents();
+				if (!frameFound) continue;
 			}
-			//--------------------------------------------------------------------
+
+			if (gNetRender->IsServer())
+			{
+				reservedFrames[frameIndex] = true;
+			}
+
+			UpadeProgressInformation(frameRanges, &progressText, frameIndex, index);
+
+			if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
+
+			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
+
+			// recalculation of camera rotation and distance (just for display purposes)
+			UpdateCameraAndTarget();
+
+			// render frame
+			params->Set("frame_no", frameIndex);
+			renderJob->UpdateParameters(params, fractalParams);
+			result = renderJob->Execute();
+			if (!result) throw false;
+
+			// save frame
+			QStringList listOfSavedFiles;
+			const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
+			const ImageFileSave::enumImageFileType fileType =
+				ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
+			listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+			renderedFramesCount++;
+			alreadyRenderedFrames[frameIndex] = true;
+
+			// qDebug() << "Finished rendering frame" << frameIndex;
+
+			if (gNetRender->IsClient())
+			{
+				ConfirmAndSendRenderedFrames(frameIndex, listOfSavedFiles);
+			}
+
+			gApplication->processEvents();
 		}
+		//--------------------------------------------------------------------
 
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_IMAGE);
@@ -1506,14 +1503,13 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 	keyframes->RefreshAllAudioTracks(params);
 
-	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 	{
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(index); subIndex++)
-		{
-			const int frameIndex = keyframes->GetFrameIndexForKeyframe(index) + subIndex;
-			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
-		}
-		if (index % 10 == 0)
+		int index = keyframes->GetKeyframeIndex(frameIndex);
+		int subIndex = keyframes->GetSubIndex(frameIndex);
+		gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
+
+		if (frameIndex % 100 == 0)
 		{
 			emit updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"),
 				double(index) / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
@@ -1569,25 +1565,29 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 
 	keyframes->ClearMorphCache();
 
-	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
+	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 	{
-		emit updateProgressAndStatus(QObject::tr("Checking for collisions"),
-			QObject::tr("Checking for collisions on keyframe # %1").arg(key),
-			double(key) / (keyframes->GetNumberOfFrames() - 1.0), cProgressText::progress_ANIMATION);
+		int index = keyframes->GetKeyframeIndex(frameIndex);
+		int subIndex = keyframes->GetSubIndex(frameIndex);
 
-		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(key); subIndex++)
+		gApplication->processEvents();
+		if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
+
+		keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
+		tempPar->Set("frame_no", frameIndex);
+		const CVector3 point = tempPar->Get<CVector3>("camera");
+		const double dist = mainInterface->GetDistanceForPoint(point, tempPar, tempFractPar);
+		if (dist < minDist)
 		{
-			gApplication->processEvents();
-			if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
-			int frameIndex = keyframes->GetFrameIndexForKeyframe(key) + subIndex;
-			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
-			tempPar->Set("frame_no", frameIndex);
-			const CVector3 point = tempPar->Get<CVector3>("camera");
-			const double dist = mainInterface->GetDistanceForPoint(point, tempPar, tempFractPar);
-			if (dist < minDist)
-			{
-				listOfCollisions.append(frameIndex);
-			}
+			listOfCollisions.append(frameIndex);
+		}
+
+		if (frameIndex % 100 == 0)
+		{
+			emit updateProgressAndStatus(QObject::tr("Checking for collisions"),
+				QObject::tr("Checking for collisions on keyframe # %1").arg(index),
+				double(frameIndex) / keyframes->GetTotalNumberOfFrames(),
+				cProgressText::progress_ANIMATION);
 		}
 	}
 
@@ -1699,8 +1699,8 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	*tempFractPar = *fractalParams;
 
 	sAnimationPathData animationPathData;
-	animationPathData.framesPeyKey = 100; // FIXME correct number of frames per keyframe
 	animationPathData.numberOfKeyframes = numberOfKeyframes;
+	animationPathData.numberOfFrames = keyframes->GetTotalNumberOfFrames();
 	animationPathData.actualSelectedFrameNo = table->currentColumn() - reservedColumns;
 	if (animationPathData.actualSelectedFrameNo < 0) animationPathData.actualSelectedFrameNo = 0;
 	animationPathData.cameraPathEnable = params->Get<bool>("show_camera_path");
@@ -1719,42 +1719,45 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 		}
 	}
 
-	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
+	for (int key = 0; key < keyframes->GetNumberOfFrames(); key++)
 	{
-		for (int interFrame = 0; interFrame < keyframes->GetFramesPerKeyframe(keyframe); interFrame++)
+		animationPathData.framesPeyKey.append(keyframes->GetFrame(key).numberOfSubFrames);
+	}
+
+	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
+	{
+		int index = keyframes->GetKeyframeIndex(frameIndex);
+		int subIndex = keyframes->GetSubIndex(frameIndex);
+
+		keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
+		sAnimationPathPoint point;
+		point.camera = tempPar->Get<CVector3>("camera");
+		point.target = tempPar->Get<CVector3>("target");
+		CVector3 top = tempPar->Get<CVector3>("camera_top");
+		cCameraTarget cameraTarget(point.camera, point.target, top);
+
+		for (int l = 0; l < 4; l++)
 		{
-			int frame = keyframes->GetFrameIndexForKeyframe(keyframe) + interFrame;
-
-			keyframes->GetInterpolatedFrameAndConsolidate(frame, tempPar, tempFractPar);
-			sAnimationPathPoint point;
-			point.camera = tempPar->Get<CVector3>("camera");
-			point.target = tempPar->Get<CVector3>("target");
-			CVector3 top = tempPar->Get<CVector3>("camera_top");
-			cCameraTarget cameraTarget(point.camera, point.target, top);
-
-			for (int l = 0; l < 4; l++)
+			if (params->IfExists(cLight::Name("is_defined", l + 1)))
 			{
-				if (params->IfExists(cLight::Name("is_defined", l + 1)))
+				if (params->Get<bool>(cLight::Name("relative_position", l + 1)))
 				{
-					if (params->Get<bool>(cLight::Name("relative_position", l + 1)))
-					{
-						CVector3 deltaPosition = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
-						CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * deltaPosition.z
-																						+ cameraTarget.GetTopVector() * deltaPosition.y
-																						+ cameraTarget.GetRightVector() * deltaPosition.x;
-						point.lights[l] = point.camera + deltaPositionRotated;
-					}
-					else
-					{
-						point.lights[l] = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
-					}
-					sRGB color16 = tempPar->Get<sRGB>(cLight::Name("color", l + 1));
-					sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
-					point.lightColor[l] = color8;
+					CVector3 deltaPosition = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
+					CVector3 deltaPositionRotated = cameraTarget.GetForwardVector() * deltaPosition.z
+																					+ cameraTarget.GetTopVector() * deltaPosition.y
+																					+ cameraTarget.GetRightVector() * deltaPosition.x;
+					point.lights[l] = point.camera + deltaPositionRotated;
 				}
+				else
+				{
+					point.lights[l] = tempPar->Get<CVector3>(cLight::Name("position", l + 1));
+				}
+				sRGB color16 = tempPar->Get<sRGB>(cLight::Name("color", l + 1));
+				sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
+				point.lightColor[l] = color8;
 			}
-			animationPathData.animationPath.append(point);
 		}
+		animationPathData.animationPath.append(point);
 	}
 	imageWidget->SetAnimationPath(animationPathData);
 	imageWidget->update();
