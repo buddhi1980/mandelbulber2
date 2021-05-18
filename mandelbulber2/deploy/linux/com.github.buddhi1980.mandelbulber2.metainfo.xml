@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
     <id>com.github.buddhi1980.mandelbulber2</id>
-    <launchable type="desktop-id">mandelbulber2.desktop</launchable>
+    <launchable type="desktop-id">com.github.buddhi1980.mandelbulber2.desktop</launchable>
     <name>Mandelbulber2</name>
     <summary>Free and open source 3D fractals generator</summary>
     <metadata_license>CC0-1.0</metadata_license>
@@ -15,22 +15,22 @@
 
         <p>
             Features:
-            High-Performance computing with multiple graphics accelerator cards (multi-GPU support via OpenCL)
-            Mathematical Models and Monte Carlo Algorithms for photo-realistic scenes
-            Enlightening Documentation
-            Renders trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals
-            Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency and refraction, etc.
-            Rich GUI in Qt 5 environment
-            Unlimited image resolution on 64-bit systems
-            Program developed for ARM (experimental), x86 and x64 CPUs (Linux, Windows, macOS)
-            Simple 3D navigator
-            Distributed Network Rendering
-            Key-frame animation for all parameters with different interpolations
-            Material management
-            Texture mapping (color, luminosity, diffusion, normal maps, displacement)
-            Exporting of 3D objects
-            Rendering queue
-            Command line interface for headless systems
+            <li>High-Performance computing with multiple graphics accelerator cards (multi-GPU support via OpenCL)</li>
+            <li>Mathematical Models and Monte Carlo Algorithms for photo-realistic scenes</li>
+            <li>Enlightening Documentation</li>
+            <li>Renders trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals</li>
+            <li>Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency and refraction, etc.</li>
+            <li>Rich GUI in Qt 5 environment</li>
+            <li>Unlimited image resolution on 64-bit systems</li>
+            <li>Program developed for ARM (experimental), x86 and x64 CPUs (Linux, Windows, macOS)</li>
+            <li>Simple 3D navigator</li>
+            <li>Distributed Network Rendering</li>
+            <li>Key-frame animation for all parameters with different interpolations</li>
+            <li>Material management</li>
+            <li>Texture mapping (color, luminosity, diffusion, normal maps, displacement)</li>
+            <li>Exporting of 3D objects</li>
+            <li>Rendering queue</li>
+            <li>Command line interface for headless systems</li>
         </p>
     </description>
     <url type="homepage">https://mandelbulber.com/</url>
