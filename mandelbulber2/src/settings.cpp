@@ -1647,6 +1647,10 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 				numberOfSubFrames = lineSplit[1].toInt();
 				column++;
 			}
+			else
+			{
+				numberOfSubFrames = par->Get<int>("frames_per_keyframe");
+			}
 
 			if (frameCount == frames->GetNumberOfFrames())
 			{
