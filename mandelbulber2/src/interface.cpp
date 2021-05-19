@@ -1952,30 +1952,45 @@ void cInterface::ResetView()
 	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
 	double DEFactor = gPar->Get<double>("DE_factor");
 
-	cParameterContainer parTemp = *gPar;
-	parTemp.Set("limits_enabled", false);
-	parTemp.Set("interior_mode", false);
+	std::shared_ptr<cParameterContainer> parTemp(new cParameterContainer);
+	*parTemp = *gPar;
+	parTemp->Set("limits_enabled", false);
+	parTemp->Set("interior_mode", false);
+
+	QStringList listOfParameters = parTemp->GetListOfParameters();
+	for (const QString &parameterName : listOfParameters)
+	{
+		if (parameterName.contains("primitive_plane") && parameterName.contains("enabled"))
+		{
+			parTemp->Set(parameterName, false);
+		}
+
+		if (parameterName.contains("primitive_water") && parameterName.contains("enabled"))
+		{
+			parTemp->Set(parameterName, false);
+		}
+	}
 
 	// calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
-	std::shared_ptr<sParamRender> params(new sParamRender(gPar));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, parTemp));
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
-	openClEnabled = gPar->Get<bool>("opencl_enabled") && gParFractal->isUsedCustomFormula();
+	openClEnabled = parTemp->Get<bool>("opencl_enabled") && gParFractal->isUsedCustomFormula();
 
 	if (openClEnabled)
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetDistanceMode();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params, fractals, nullptr, false);
-		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
+			parTemp, gParFractal, params, fractals, nullptr, false);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(parTemp))
 		{
-			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(gPar);
-			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(gPar);
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(parTemp);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(parTemp);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 		}
 		else
