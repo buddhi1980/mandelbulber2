@@ -468,6 +468,9 @@ enum enumFractalFormula
 	transfDIFSClipPlane = 1621,
 	transfDIFSDiamond = 1622,
 
+	// 2.26
+	transfDIFSSpring= 1623,
+
 	// hybrid color
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
