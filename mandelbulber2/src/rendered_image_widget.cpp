@@ -1196,7 +1196,7 @@ void RenderedImage::DrawAnimationPath()
 			{
 				if (pointCamera1.z > 0 && pointTarget1.z > 0)
 				{
-					if (subframe % 4 == 0)
+					if (subframe % (numberOfSubframes / 4) == 0)
 					{
 						image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
 							pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2f, 0.2f, 0.2f), 1.0f,

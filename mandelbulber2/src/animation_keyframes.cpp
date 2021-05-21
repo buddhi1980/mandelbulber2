@@ -1881,6 +1881,62 @@ void cKeyframeAnimation::slotAnimationStopRequest()
 	animationStopRequest = true;
 }
 
+void cKeyframeAnimation::InsertKeyframeInBetween(int index)
+{
+	if (keyframes)
+	{
+		auto tempPar = std::make_shared<cParameterContainer>();
+		*tempPar = *params;
+		auto tempFractPar = std::make_shared<cFractalContainer>();
+		*tempFractPar = *fractalParams;
+
+		keyframes->UpdateFramesIndexesTable();
+		keyframes->ClearMorphCache();
+
+		int frameIndex =
+			keyframes->GetFrameIndexForKeyframe(index) - keyframes->GetFramesPerKeyframe(index) / 2;
+
+		keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
+
+		// add new frame to container
+		keyframes->AddFrame(
+			tempPar, tempFractPar, keyframes->GetFramesPerKeyframe(index - 1) / 2, index);
+		keyframes->UpdateFramesIndexesTable();
+
+		params->Set("frame_no", keyframes->GetFrameIndexForKeyframe(index));
+
+		// add column to table
+		const int newColumn = AddColumn(keyframes->GetFrame(index), index);
+		table->selectColumn(newColumn);
+
+		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
+		{
+			cThumbnailWidget *thumbWidget =
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+			thumbWidget->UseOneCPUCore(false);
+			thumbWidget->AssignParameters(tempPar, tempFractPar);
+			table->setCellWidget(0, newColumn, thumbWidget);
+		}
+
+		// change frames per keyframe in previous keyframe
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index - 1);
+		frame.numberOfSubFrames = frame.numberOfSubFrames / 2;
+		keyframes->ModifyFrame(index - 1, frame);
+
+		keyframes->UpdateFramesIndexesTable();
+
+		UpdateLimitsForFrameRange();
+
+		UpdateAnimationPath();
+
+		RefreshTable();
+	}
+	else
+	{
+		qCritical() << "gAnimFrames not allocated";
+	}
+}
+
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
 {
 	settingsText = _settingsText;

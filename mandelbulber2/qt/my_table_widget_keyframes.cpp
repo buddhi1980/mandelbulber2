@@ -108,11 +108,17 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 		QAction *actionDelete;
 		QAction *actionDeleteTo;
 		QAction *actionDeleteFrom;
+		QAction *actionInsertInBetween = nullptr;
 
 		actionRender = menu->addAction(tr("Render this keyframe"));
 		actionDelete = menu->addAction(tr("Delete this keyframe"));
 		actionDeleteTo = menu->addAction(tr("Delete all keyframes to here"));
 		actionDeleteFrom = menu->addAction(tr("Delete all keyframes from here"));
+
+		if (column > cKeyframeAnimation::reservedColumns)
+		{
+			actionInsertInBetween = menu->addAction(tr("Insert keyframe in between"));
+		}
 
 		QAction *selectedItem = menu->exec(horizontalHeader()->viewport()->mapToGlobal(point));
 
@@ -133,6 +139,10 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 			else if (selectedItem == actionDeleteTo)
 			{
 				gKeyframeAnimation->DeleteFramesTo(column - cKeyframeAnimation::reservedColumns);
+			}
+			else if (selectedItem == actionInsertInBetween)
+			{
+				gKeyframeAnimation->InsertKeyframeInBetween(column - cKeyframeAnimation::reservedColumns);
 			}
 		}
 	}

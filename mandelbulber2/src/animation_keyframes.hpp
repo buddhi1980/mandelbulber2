@@ -102,6 +102,7 @@ public:
 	QList<int> CheckForCollisions(double minDist, bool *stopRequest);
 	void UpdateActualCameraPosition(const CVector3 &cameraPosition);
 	void SetNetRenderStartingFrames(const QVector<int> &startingFrames);
+	void InsertKeyframeInBetween(int index);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;
