@@ -41,10 +41,8 @@ REAL4 TransfDIFSSpringIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL L = fabs(zc.z) - ht1 - ht2;
 	REAL P;
-	if (fabs(zc.z) < ht1)
-		P = pit1;
-	else
-		P = pit2;
+	if (fabs(zc.z) < ht1) P = pit1;
+	else P = pit2;
 
 	zc.z += atan2(zc.y, zc.x) / M_PI_F * P;
 	zc.z = (zc.z - P * 2.0f * floor(zc.z / (P * 2.0f))) - P;
@@ -69,14 +67,10 @@ REAL4 TransfDIFSSpringIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
 
-
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		// REAL4 col = fabs(q);
 		if (P == pit1) aux->color = fractal->foldColor.difs0000.x;
 		else aux->color = fractal->foldColor.difs0000.y;
-		// aux->color += fractal->foldColor.difs0000.z * q.z;
-		// aux->color += fractal->foldColor.difs0000.w * max(col.x, col.y);
 	}
 	return z;
 }
