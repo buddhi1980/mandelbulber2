@@ -78,13 +78,13 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
 
-	/*
+
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		CVector4 col = fabs(q);
-		aux.color += fractal->foldColor.difs0000.x * col.x * col.y;
-		aux.color += fractal->foldColor.difs0000.y * col.x * col.z;
-		aux.color += fractal->foldColor.difs0000.z * q.z;
-		aux.color += fractal->foldColor.difs0000.w * max(col.x, col.y);
-	}*/
+		// CVector4 col = fabs(q);
+		if (P == pit1) aux.color = fractal->foldColor.difs0000.x;
+		else aux.color = fractal->foldColor.difs0000.y;
+		// aux.color += fractal->foldColor.difs0000.z * q.z;
+		// aux.color += fractal->foldColor.difs0000.w * max(col.x, col.y);
+	}
 }

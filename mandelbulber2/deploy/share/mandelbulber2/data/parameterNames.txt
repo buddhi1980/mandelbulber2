@@ -238,6 +238,7 @@ transformCommon.offsetE0 REAL transf_offsetE_0
 transformCommon.offsetF0 REAL transf_offsetF_0
 transformCommon.offsetR0 REAL transf_offsetR_0
 transformCommon.offset0005 REAL transf_offset_0005
+transformCommon.offsetp01 REAL transf_offset_p01
 transformCommon.offsetp05 REAL transf_offset_p05
 transformCommon.offset01 REAL transf_offset_01
 transformCommon.offset02 REAL transf_offset_02

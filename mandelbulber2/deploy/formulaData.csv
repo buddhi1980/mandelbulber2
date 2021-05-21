@@ -117,6 +117,7 @@ mandelbulbQuat,"Mandelbulb - Quat",analyticDEType,logarithmicDEFunction,cpixelEn
 mandelbulbVaryPowerV1,"Mandelbulb - Vary Power V1",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelcup,Mandelcup,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelnest,Mandelnest,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelnestV2,"Mandelnest V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandeltorus,Mandeltorus,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandeltorusV2,"Mandeltorus V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 menger3,Menger3,analyticDEType,linearDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionIFS,coloringFunctionIFS
@@ -263,6 +264,7 @@ transfDIFSPolyhedraV2,"T>DIFS Polyhedra V2",analyticDEType,customDEFunction,cpix
 transfDIFSPrism,"T>DIFS Prism",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSPrismV2,"T>DIFS Prism V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSSphere,"T>DIFS Sphere",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+transfDIFSSpring,"T>DIFS Spring",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSTorus,"T>DIFS Torus",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSTorusGrid,"T>DIFS Torus Grid",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSTorusV2,"T>DIFS Torus V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
