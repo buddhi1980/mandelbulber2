@@ -97,6 +97,8 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 [Arch Linux AUR Package (Current git snapshot)](https://aur.archlinux.org/packages/mandelbulber2-git/)
 
+[Arch Linux AUR Package (Current git snapshot with opencl support)](https://aur.archlinux.org/packages/mandelbulber2-opencl-git/)
+
 In addition, there exists an MSVC Solution located in this git package. The solution accommodates all dependencies with NUGET for autonomous compilation of OpenCL accelerated binary.
 
 The system requires the QT5 framework in conjunction with LZO for real-time data compression and GSL for scientific resources.
@@ -108,6 +110,7 @@ The system requires the QT5 framework in conjunction with LZO for real-time data
 [![I-love-chaos](http://ilc.fractalforums.com/img/thumbnail/img/ilc-128x128.png)](http://ilc.fractalforums.com)
 
 ## Resources
+
 [Video tutorials](https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql)
 
 [Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
