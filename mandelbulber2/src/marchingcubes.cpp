@@ -162,7 +162,7 @@ void MarchingCubes::RunMarchingCube()
 	// numx, numy and numz are the numbers of evaluations in each direction
 	for (long long i = 0; i < numx; ++i)
 	{
-		emit signalUpdateProgressAndStatus(i, polygons.size());
+		emit signalUpdateProgressAndStatus(i, polygons.size() / 3);
 
 		// shift voxel planes
 		if (i > 0)

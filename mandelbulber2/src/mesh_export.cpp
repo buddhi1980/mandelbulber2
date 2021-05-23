@@ -193,7 +193,7 @@ void cMeshExport::ProcessVolume()
 	else
 		statusText = tr("Mesh Export finished - Processed %1 layers and got %2 polygons")
 									 .arg(w)
-									 .arg(polygons.size());
+									 .arg(polygons.size() / 3);
 	emit signalUpdateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 	emit finished();
 }
