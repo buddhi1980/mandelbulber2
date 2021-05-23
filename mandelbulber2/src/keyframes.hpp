@@ -75,6 +75,7 @@ public:
 	int GetKeyframeIndex(int frameIndex) const;
 	int GetFrameIndexForKeyframe(int keyframeIndex) const;
 	int GetSubIndex(int frameIndex) const;
+	const std::vector<int> &getFramesIndexesTable() const { return framesIndexesTable; }
 
 private:
 	QList<cMorph *> morph;

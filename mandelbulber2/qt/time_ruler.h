@@ -51,14 +51,15 @@ public:
 	cTimeRuler(QWidget *parent);
 	~cTimeRuler() override;
 
-	void SetParameters(std::shared_ptr<cAudioTrack> audioTrack, int _framesPerKeyframe);
+	void SetParameters(
+		std::shared_ptr<cAudioTrack> audioTrack, const std::vector<int> &framesIndexesTable);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
 
 	int frames;
 	double framesPerSecond;
-	int framesPerKeyframe;
+	std::vector<int> framesIndexesTable;
 	double soundLength;
 };
 

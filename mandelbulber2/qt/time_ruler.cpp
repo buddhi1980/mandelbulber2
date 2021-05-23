@@ -46,18 +46,18 @@
 cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 {
 	frames = 0;
-	framesPerKeyframe = 0;
 	framesPerSecond = 30.0;
 	soundLength = 0.0;
 }
 
 cTimeRuler::~cTimeRuler() = default;
 
-void cTimeRuler::SetParameters(std::shared_ptr<cAudioTrack> audioTrack, int _framesPerKeyframe)
+void cTimeRuler::SetParameters(
+	std::shared_ptr<cAudioTrack> audioTrack, const std::vector<int> &_framesIndexesTable)
 {
 	frames = audioTrack->getNumberOfFrames();
 	framesPerSecond = audioTrack->getFramesPerSecond();
-	framesPerKeyframe = _framesPerKeyframe;
+	framesIndexesTable = _framesIndexesTable;
 	soundLength = frames / framesPerSecond;
 	update();
 }
@@ -102,13 +102,12 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 			}
 		}
 
-		int numberOfKeyframes = frames / framesPerKeyframe;
 		pen.setColor(Qt::red);
 		painter.setPen(pen);
 
-		for (int key = 0; key <= numberOfKeyframes; key++)
+		for (int key = 0; key < framesIndexesTable.size(); key++)
 		{
-			int x = key * framesPerKeyframe;
+			int x = framesIndexesTable.at(key);
 			if (x >= xStart - 50 && x <= xEnd + 50)
 			{
 				painter.drawLine(x, 0, x, 60);

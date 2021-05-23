@@ -43,6 +43,7 @@
 #include "src/audio_track.h"
 #include "src/automated_widgets.hpp"
 #include "src/initparameters.hpp"
+#include "src/keyframes.hpp"
 #include "src/synchronize_interface.hpp"
 
 cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cAudioSelector)
@@ -105,7 +106,7 @@ void cAudioSelector::slotAudioLoaded()
 	audio->calculateFFT();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
+	ui->timeRuler->SetParameters(audio, gKeyframes->getFramesIndexesTable());
 	slotFreqChanged();
 	audioSetup();
 	SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
@@ -297,7 +298,7 @@ void cAudioSelector::AssignAnimation(std::shared_ptr<cAnimationFrames> _animatio
 			audio->calculateFFT();
 			ui->waveForm->AssignAudioTrack(audio);
 			ui->fft->AssignAudioTrack(audio);
-			ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
+			ui->timeRuler->SetParameters(audio, gKeyframes->getFramesIndexesTable());
 			slotFreqChanged();
 			audioSetup();
 			SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
@@ -310,7 +311,7 @@ void cAudioSelector::slotDeleteAudioTrack()
 	audio->Clear();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
+	ui->timeRuler->SetParameters(audio, gKeyframes->getFramesIndexesTable());
 	ui->text_animsound_soundfile->setText("");
 	slotFreqChanged();
 	slotPlaybackStop();
