@@ -1893,8 +1893,8 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 		keyframes->UpdateFramesIndexesTable();
 		keyframes->ClearMorphCache();
 
-		int frameIndex =
-			keyframes->GetFrameIndexForKeyframe(index) - keyframes->GetFramesPerKeyframe(index) / 2;
+		int frameIndex = keyframes->GetFrameIndexForKeyframe(index - 1)
+										 + keyframes->GetFramesPerKeyframe(index - 1) / 2;
 
 		keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
 
@@ -1927,9 +1927,9 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 
 		UpdateLimitsForFrameRange();
 
-		UpdateAnimationPath();
-
 		RefreshTable();
+
+		UpdateAnimationPath();
 	}
 	else
 	{
