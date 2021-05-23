@@ -269,6 +269,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 		gUndo->Store(params, fractalParams, nullptr, keyframes);
 		keyframes->DeleteFrames(index, index);
 		table->removeColumn(index + reservedColumns);
+		keyframes->UpdateFramesIndexesTable();
 		UpdateLimitsForFrameRange();
 		UpdateAnimationPath();
 	}
@@ -1506,7 +1507,6 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 	{
 		int index = keyframes->GetKeyframeIndex(frameIndex);
-		int subIndex = keyframes->GetSubIndex(frameIndex);
 		gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
 
 		if (frameIndex % 100 == 0)
@@ -1523,8 +1523,6 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 {
-	const int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
-
 	int noOfFrames = (keyframes->GetTotalNumberOfFrames() - 1);
 	if (noOfFrames < 0) noOfFrames = 0;
 
@@ -1568,7 +1566,6 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 	{
 		int index = keyframes->GetKeyframeIndex(frameIndex);
-		int subIndex = keyframes->GetSubIndex(frameIndex);
 
 		gApplication->processEvents();
 		if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
@@ -1724,11 +1721,10 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 		animationPathData.framesPeyKey.append(keyframes->GetFrame(key).numberOfSubFrames);
 	}
 
+	keyframes->ClearMorphCache();
+
 	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
 	{
-		int index = keyframes->GetKeyframeIndex(frameIndex);
-		int subIndex = keyframes->GetSubIndex(frameIndex);
-
 		keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, tempPar, tempFractPar);
 		sAnimationPathPoint point;
 		point.camera = tempPar->Get<CVector3>("camera");
