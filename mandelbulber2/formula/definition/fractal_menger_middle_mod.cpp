@@ -80,7 +80,8 @@ void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{ // fabsBoxFold
-		CVector4 tempA, tempB;
+		CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
+		CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);
 
 		if (fractal->transformCommon.functionEnabledx)
 			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);

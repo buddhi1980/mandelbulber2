@@ -106,7 +106,8 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
-		REAL4 tempA, tempB;
+		REAL4 tempA = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+		REAL4 tempB = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 
 		if (fractal->transformCommon.functionEnabledAx)
 			tempA.x = fabs(z.x + fractal->transformCommon.offsetF000.x);

@@ -107,7 +107,8 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
-		CVector4 tempA, tempB;
+		CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
+		CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);
 
 		if (fractal->transformCommon.functionEnabledAx)
 			tempA.x = fabs(z.x + fractal->transformCommon.offsetF000.x);

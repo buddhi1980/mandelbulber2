@@ -20,7 +20,9 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL4 tempA, tempB;
+		REAL4 tempA = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+		REAL4 tempB = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+
 		REAL4 oldZ = z;
 		if (fractal->transformCommon.functionEnabledx)
 			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);

@@ -84,7 +84,8 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{ // fabsBoxFold
-		REAL4 tempA, tempB;
+		REAL4 tempA = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+		REAL4 tempB = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 
 		if (fractal->transformCommon.functionEnabledx)
 			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
