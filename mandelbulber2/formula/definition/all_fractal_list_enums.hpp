@@ -268,8 +268,8 @@ enum enumFractalFormula
 	josKleinianV4 = 230,
 	pseudoKleinianMod5 = 231,
 
-    // 2.26
-    mandelnestV2 = 232,
+	// 2.26
+	mandelnestV2 = 232,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -405,8 +405,8 @@ enum enumFractalFormula
 	transfAddConstantMod2 = 1102,
 	transfAddConstantRotV1 = 1103,
 	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
-	transfScaleOffset = 1105, // fix DE v2.23
-	transfScaleOffsetV2 = 1106, // fix DE v2.23
+	transfScaleOffset = 1105,			// fix DE v2.23
+	transfScaleOffsetV2 = 1106,		// fix DE v2.23
 	// 2.21
 	transfDEControls = 1107, // pk offset default = 1
 	transfMandalayFoldV1 = 1108,
@@ -469,7 +469,7 @@ enum enumFractalFormula
 	transfDIFSDiamond = 1622,
 
 	// 2.26
-	transfDIFSSpring= 1623,
+	transfDIFSSpring = 1623,
 
 	// hybrid color
 	transfHybridColor = 2000,

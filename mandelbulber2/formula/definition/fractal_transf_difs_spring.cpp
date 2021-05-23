@@ -5,6 +5,8 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
+ *
+ * TransfDIFSSpring
  */
 
 #include "all_fractal_definitions.h"
@@ -49,8 +51,10 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double L = fabs(zc.z) - ht1 - ht2;
 	double P;
-	if (fabs(zc.z) < ht1) P = pit1;
-	else P = pit2;
+	if (fabs(zc.z) < ht1)
+		P = pit1;
+	else
+		P = pit2;
 	zc.z += atan2(zc.y, zc.x) / M_PI * P;
 	zc.z = (zc.z - P * 2.0 * floor(zc.z / (P * 2.0))) - P;
 
@@ -60,7 +64,8 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double dd;
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		dd = sqrt(T * T + zc.z * zc.z);
-	else dd = max(fabs(T), fabs(zc.z));
+	else
+		dd = max(fabs(T), fabs(zc.z));
 
 	dd = max(L, dd);
 	if (!fractal->analyticDE.enabledFalse)
@@ -74,7 +79,9 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (P == pit1) aux.color = fractal->foldColor.difs0000.x;
-		else aux.color = fractal->foldColor.difs0000.y;
+		if (P == pit1)
+			aux.color = fractal->foldColor.difs0000.x;
+		else
+			aux.color = fractal->foldColor.difs0000.y;
 	}
 }
