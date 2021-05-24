@@ -31,7 +31,30 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	REAL4 temp = z * rN;
+	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
+	else temp.x = acos(temp.x);
+	if (!fractal->transformCommon.functionEnabledByFalse) temp.y = asin(temp.y);
+	else temp.y = acos(temp.y);
+	if (!fractal->transformCommon.functionEnabledBzFalse) temp.z = asin(temp.z);
+	else temp.z = acos(temp.z);
+
+	//temp.x = shift.x + Power * dual.x * temp.x;
+	//temp.y = shift.y + Power * dual.y * temp.y;
+	//temp.z = shift.z + Power * dual.z * temp.z;
+
+	temp = shift + Power * dual * temp;
+
+	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
+	else z.x = cos(temp.x);
+	if (!fractal->transformCommon.functionEnabledCyFalse) z.y = sin(temp.y);
+	else z.y = cos(temp.y);
+	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
+	else z.z = cos(temp.z);
+
+
+
+/*	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		z.x = native_sin(shift.x + Power * dual.x * asin(z.x * rN));
 		z.y = native_sin(shift.y + Power * dual.y * asin(z.y * rN));
@@ -42,7 +65,7 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z.x = native_cos(shift.x + Power * dual.x * acos(z.x * rN));
 		z.y = native_cos(shift.y + Power * dual.y * acos(z.y * rN));
 		z.z = native_cos(shift.z + Power * dual.z * acos(z.z * rN));
-	}
+	}*/
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{

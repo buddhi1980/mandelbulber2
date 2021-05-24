@@ -42,7 +42,32 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	CVector4 temp = z * rN;
+	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
+	else temp.x = acos(temp.x);
+	if (!fractal->transformCommon.functionEnabledByFalse) temp.y = asin(temp.y);
+	else temp.y = acos(temp.y);
+	if (!fractal->transformCommon.functionEnabledBzFalse) temp.z = asin(temp.z);
+	else temp.z = acos(temp.z);
+
+	//temp.x = shift.x + Power * dual.x * temp.x;
+	//temp.y = shift.y + Power * dual.y * temp.y;
+	//temp.z = shift.z + Power * dual.z * temp.z;
+
+	temp = shift + Power * dual * temp;
+
+	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
+	else z.x = cos(temp.x);
+	if (!fractal->transformCommon.functionEnabledCyFalse) z.y = sin(temp.y);
+	else z.y = cos(temp.y);
+	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
+	else z.z = cos(temp.z);
+
+
+
+
+
+/*	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		z.x = sin(shift.x + Power * dual.x * asin(z.x * rN));
 		z.y = sin(shift.y + Power * dual.y * asin(z.y * rN));
@@ -50,10 +75,14 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 	else
 	{
-		z.x = cos(shift.x + Power * dual.x * acos(z.x * rN));
-		z.y = cos(shift.y + Power * dual.y * acos(z.y * rN));
-		z.z = cos(shift.z + Power * dual.z * acos(z.z * rN));
-	}
+		z.x = sin(shift.x + Power * dual.x * acos(z.x * rN));
+		z.y = sin(shift.y + Power * dual.y * acos(z.y * rN));
+		z.z = sin(shift.z + Power * dual.z * acos(z.z * rN));
+	}*/
+
+
+
+
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
