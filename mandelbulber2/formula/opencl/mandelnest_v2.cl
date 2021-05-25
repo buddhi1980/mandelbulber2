@@ -39,33 +39,14 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (!fractal->transformCommon.functionEnabledBzFalse) temp.z = asin(temp.z);
 	else temp.z = acos(temp.z);
 
-	//temp.x = shift.x + Power * dual.x * temp.x;
-	//temp.y = shift.y + Power * dual.y * temp.y;
-	//temp.z = shift.z + Power * dual.z * temp.z;
-
 	temp = shift + Power * dual * temp;
 
-	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
-	else z.x = cos(temp.x);
-	if (!fractal->transformCommon.functionEnabledCyFalse) z.y = sin(temp.y);
-	else z.y = cos(temp.y);
-	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
-	else z.z = cos(temp.z);
-
-
-
-/*	if (!fractal->transformCommon.functionEnabledCFalse)
-	{
-		z.x = native_sin(shift.x + Power * dual.x * asin(z.x * rN));
-		z.y = native_sin(shift.y + Power * dual.y * asin(z.y * rN));
-		z.z = native_sin(shift.z + Power * dual.z * asin(z.z * rN));
-	}
-	else
-	{
-		z.x = native_cos(shift.x + Power * dual.x * acos(z.x * rN));
-		z.y = native_cos(shift.y + Power * dual.y * acos(z.y * rN));
-		z.z = native_cos(shift.z + Power * dual.z * acos(z.z * rN));
-	}*/
+	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = native_sin(temp.x);
+	else z.x = native_cos(temp.x);
+	if (!fractal->transformCommon.functionEnabledCyFalse) z.y = native_sin(temp.y);
+	else z.y = native_cos(temp.y);
+	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = native_sin(temp.z);
+	else z.z = native_cos(temp.z);
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -89,8 +70,15 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledBFalse)
 			aux->DE = max(aux->DE, fractal->analyticDE.offset2);
 
-		aux->dist = 0.5f * log(r) * r / aux->DE;
-		aux->dist = min(aux->dist, fractal->analyticDE.offset1);
+		// aux.dist
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			aux->DE0 = 0.5f * log(r) * r / aux->DE;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+				aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
+			else
+				aux->dist = min(aux->dist, aux->DE0);
+		}
 	}
 	return z;
 }

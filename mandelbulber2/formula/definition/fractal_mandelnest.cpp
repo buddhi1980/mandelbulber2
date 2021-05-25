@@ -67,7 +67,10 @@ void cFractalMandelnest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledBFalse)
 			aux.DE = max(aux.DE, fractal->analyticDE.offset2);
 
-		aux.dist = 0.5 * log(r) * r / aux.DE;
-		aux.dist = min(aux.dist, fractal->analyticDE.offset1);
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			aux.dist = 0.5 * log(r) * r / aux.DE;
+			aux.dist = min(aux.dist, fractal->analyticDE.offset1);
+		}
 	}
 }

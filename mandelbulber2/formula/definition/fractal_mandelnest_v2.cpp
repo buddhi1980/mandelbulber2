@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -50,10 +50,6 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (!fractal->transformCommon.functionEnabledBzFalse) temp.z = asin(temp.z);
 	else temp.z = acos(temp.z);
 
-	//temp.x = shift.x + Power * dual.x * temp.x;
-	//temp.y = shift.y + Power * dual.y * temp.y;
-	//temp.z = shift.z + Power * dual.z * temp.z;
-
 	temp = shift + Power * dual * temp;
 
 	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
@@ -62,27 +58,6 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	else z.y = cos(temp.y);
 	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
 	else z.z = cos(temp.z);
-
-
-
-
-
-/*	if (!fractal->transformCommon.functionEnabledCFalse)
-	{
-		z.x = sin(shift.x + Power * dual.x * asin(z.x * rN));
-		z.y = sin(shift.y + Power * dual.y * asin(z.y * rN));
-		z.z = sin(shift.z + Power * dual.z * asin(z.z * rN));
-	}
-	else
-	{
-		z.x = sin(shift.x + Power * dual.x * acos(z.x * rN));
-		z.y = sin(shift.y + Power * dual.y * acos(z.y * rN));
-		z.z = sin(shift.z + Power * dual.z * acos(z.z * rN));
-	}*/
-
-
-
-
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -105,8 +80,14 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledBFalse)
 			aux.DE = max(aux.DE, fractal->analyticDE.offset2);
-
-		aux.dist = 0.5 * log(r) * r / aux.DE;
-		aux.dist = min(aux.dist, fractal->analyticDE.offset1);
+	// aux.dist
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			aux.DE0 = 0.5 * log(r) * r / aux.DE;
+			if (!fractal->transformCommon.functionEnabledEFalse)
+				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
+			else
+				aux.dist = min(aux.dist, aux.DE0);
+		}
 	}
 }
