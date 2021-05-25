@@ -72,9 +72,10 @@ class cKeyframeAnimation : public QObject
 
 public:
 	static const int reservedColumns = 1;
-	static const int reservedRows = 2;
+	static const int reservedRows = 3;
 	static const int animSoundColumn = 0;
 	static const int framesPerKeyframeRow = 1;
+	static const int cameraSpeedRow = 2;
 
 	struct sFrameRanges
 	{
@@ -157,6 +158,8 @@ private:
 	void ConfirmAndSendRenderedFrames(const int frameIndex, const QStringList &listOfSavedFiles);
 	void UpadeProgressInformation(
 		const sFrameRanges &frameRanges, cProgressText *progressText, const int frameIndex, int index);
+	double GetCameraSpeed(const cAnimationFrames::sAnimationFrame &frame,
+		const cAnimationFrames::sAnimationFrame &previousFrame);
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;

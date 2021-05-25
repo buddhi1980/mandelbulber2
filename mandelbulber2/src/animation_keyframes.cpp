@@ -396,13 +396,20 @@ void cKeyframeAnimation::CreateRowsInTable()
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("Keyframe\npreviews")));
 	table->setRowHeight(0, previewSize.height());
 	tableRowNames.append(tr("Keyframe\npreviews"));
+
 	table->insertRow(framesPerKeyframeRow);
 	table->setVerticalHeaderItem(framesPerKeyframeRow, new QTableWidgetItem(tr("Frames/keyframe")));
 	tableRowNames.append(tr("Frames/keyframe"));
 
+	table->insertRow(cameraSpeedRow);
+	table->setVerticalHeaderItem(
+		cameraSpeedRow, new QTableWidgetItem(tr("Camera speed [units/frame]")));
+	tableRowNames.append(tr("Camera speed [units/frame]"));
+
 	rowParameter.clear();
 	rowParameter.append(-1); // prevuew
 	rowParameter.append(-1); // frames per keyframe
+	rowParameter.append(-1); // camera speed
 
 	parameterRows.clear();
 	for (int i = 0; i < parList.size(); ++i)
@@ -483,7 +490,11 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 {
 	table->blockSignals(true);
 	int newColumn = index + reservedColumns;
-	if (index == -1) newColumn = table->columnCount();
+	if (index == -1)
+	{
+		newColumn = table->columnCount();
+		index = newColumn - reservedColumns;
+	}
 	table->insertColumn(newColumn);
 	table->setColumnWidth(newColumn, previewSize.width());
 
@@ -503,6 +514,12 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 
 	table->setItem(framesPerKeyframeRow, newColumn,
 		new QTableWidgetItem(QString::number(frame.numberOfSubFrames)));
+
+	int previousIndex = max(index - 1, 0);
+	const cAnimationFrames::sAnimationFrame &previousFrame = keyframes->GetFrame(previousIndex);
+	double cameraSpeed = GetCameraSpeed(frame, previousFrame);
+	table->setItem(cameraSpeedRow, newColumn, new QTableWidgetItem(QString::number(cameraSpeed)));
+	table->item(cameraSpeedRow, newColumn)->setFlags(Qt::NoItemFlags);
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
@@ -1300,6 +1317,12 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 	}
 
 	table->blockSignals(false);
+
+	const int index = min(column + 1 - reservedColumns, keyframes->GetNumberOfFrames() - 1);
+	int previousIndex = max(index - 1, 0);
+	double speed = GetCameraSpeed(keyframes->GetFrame(index), keyframes->GetFrame(previousIndex));
+	QTableWidgetItem *speedCell = table->item(cameraSpeedRow, index + reservedColumns);
+	speedCell->setText(QString::number(speed));
 }
 
 void cKeyframeAnimation::slotDeleteAllImages() const
@@ -1931,6 +1954,16 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 	{
 		qCritical() << "gAnimFrames not allocated";
 	}
+}
+
+double cKeyframeAnimation::GetCameraSpeed(const cAnimationFrames::sAnimationFrame &frame,
+	const cAnimationFrames::sAnimationFrame &previousFrame)
+{
+	CVector3 camera = frame.parameters.Get<CVector3>("main_camera");
+	CVector3 previousCamera = previousFrame.parameters.Get<CVector3>("main_camera");
+	double distance = (camera - previousCamera).Length();
+	double speed = distance / previousFrame.numberOfSubFrames;
+	return speed;
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
