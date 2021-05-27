@@ -20,7 +20,7 @@ cFractalMandelnestV2::cFractalMandelnestV2() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }
@@ -31,9 +31,14 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 shift = fractal->transformCommon.offset000 * M_PI;
 	CVector4 dual = fractal->transformCommon.scale3D111;
 
-	double r = aux.r;
-	double rN = 1.0 / r;
-	aux.DE *= rN;
+	CVector4 limit = fractal->transformCommon.offsetA000;
+	z = z + fabs(z - limit) - fabs(z + limit);
+	//	z = fabs(z + limit) - fabs(z - limit) - z;
+
+	// double r = aux.r;
+	double r = z.Length();
+	double rN = fractal->transformCommon.scale1 / r;
+	aux.DE *= fabs(rN);
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -41,6 +46,10 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+
+	// CVector4 limit = fractal->transformCommon.offsetA000;
+	// z = z + fabs(z - limit) - fabs(z + limit);
+	//	z = fabs(z + limit) - fabs(z - limit) - z;
 
 	CVector4 temp = z * rN;
 	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
@@ -84,10 +93,17 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			aux.DE0 = 0.5 * log(r) * r / aux.DE;
-			if (!fractal->transformCommon.functionEnabledEFalse)
+
+			if (aux.DE < fractal->transformCommon.startIterationsE)
+				aux.dist = min(aux.dist, aux.DE0);
+			else
+				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
+
+
+			/*if (!fractal->transformCommon.functionEnabledEFalse)
 				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
 			else
-				aux.dist = min(aux.dist, aux.DE0);
+				aux.dist = min(aux.dist, aux.DE0);*/
 		}
 	}
 }

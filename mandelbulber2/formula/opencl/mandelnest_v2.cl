@@ -20,9 +20,15 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 shift = fractal->transformCommon.offset000 * M_PI_F;
 	REAL4 dual = fractal->transformCommon.scale3D111;
 
-	REAL r = aux->r;
-	REAL rN = 1.0f / r;
-	aux->DE *= rN;
+	REAL4 limit = fractal->transformCommon.offsetA000;
+	z = z + fabs(z - limit) - fabs(z + limit);
+	//	z = fabs(z + limit) - fabs(z - limit) - z;
+
+
+	//  REAL r = aux->r;
+	REAL r = length(z);
+	REAL rN = fractal->transformCommon.scale1/ r;
+	aux->DE *= fabs(rN);
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -30,6 +36,11 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+
+	//REAL4 limit = fractal->transformCommon.offsetA000;
+	//z = z + fabs(z - limit) - fabs(z + limit);
+	//	z = fabs(z + limit) - fabs(z - limit) - z;
+
 
 	REAL4 temp = z * rN;
 	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
@@ -74,10 +85,16 @@ REAL4 MandelnestV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			aux->DE0 = 0.5f * log(r) * r / aux->DE;
-			if (!fractal->transformCommon.functionEnabledEFalse)
+
+			if (aux->DE < fractal->transformCommon.startIterationsE)
+				aux->dist = min(aux->dist, aux->DE0);
+			else
+				aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
+
+			/*if (!fractal->transformCommon.functionEnabledEFalse)
 				aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
 			else
-				aux->dist = min(aux->dist, aux->DE0);
+				aux->dist = min(aux->dist, aux->DE0);*/
 		}
 	}
 	return z;
