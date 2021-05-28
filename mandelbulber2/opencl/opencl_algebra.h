@@ -89,6 +89,12 @@ inline cl_float4 toClFloat4(CVector4 v)
 	cl_float4 retVal = {{cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)}};
 	return retVal;
 }
+inline cl_float4 toClFloat4(sRGBAfloat v)
+{
+	cl_float4 retVal = {{cl_float(v.R), cl_float(v.G), cl_float(v.B), cl_float(v.A)}};
+	return retVal;
+}
+
 #endif
 
 #ifdef OPENCL_KERNEL_CODE
