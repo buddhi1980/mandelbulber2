@@ -361,6 +361,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("DOF_MC_CA_camera_dispersion", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);
 	par->addParam("MC_soft_shadows_enable", false, morphLinear, paramStandard);
 	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
+	par->addParam("MC_denoiser_enable", false, morphLinear, paramStandard);
 
 	// aux lights
 

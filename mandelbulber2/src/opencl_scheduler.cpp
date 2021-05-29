@@ -78,9 +78,9 @@ void cOpenClScheduler::DisableTile(int tileIndex)
 	tiles[tileIndex].enabled = false;
 }
 
-void cOpenClScheduler::ReserveTile(int tileIndex)
+void cOpenClScheduler::ReserveTile(int tileIndex, int monteCarloIteration)
 {
-	tiles[tileIndex].reserved = true;
+	tiles[tileIndex].reserved = monteCarloIteration;
 }
 
 int cOpenClScheduler::GetNextTileToRender(int lastTile, int monteCarloIteration)

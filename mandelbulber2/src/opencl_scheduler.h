@@ -53,7 +53,7 @@ public:
 	~cOpenClScheduler();
 	void EnableAllTiles();
 	void DisableTile(int tileIndex);
-	void ReserveTile(int tileIndex);
+	void ReserveTile(int tileIndex, int monteCarloIteration);
 	bool IsTileEnabled(int tileIndex) { return tiles[tileIndex].enabled; }
 	void Clear();
 	int GetNextTileToRender(int lastTile, int monteCarloIteration);

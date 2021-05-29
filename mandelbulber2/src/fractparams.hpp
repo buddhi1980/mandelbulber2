@@ -125,6 +125,7 @@ struct sParamRender
 	bool limitsEnabled; // enable limits (intersections)
 	bool monteCarloSoftShadows;
 	bool monteCarloGIVolumetric;
+	bool monteCarloDenoiserEnable;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;

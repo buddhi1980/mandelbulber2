@@ -1295,6 +1295,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 													 && renderEngineMode == clRenderEngineTypeFull
 													 && !constantInBuffer->params.DOFMonteCarlo;
 
+		bool useDenoiser = monteCarlo && constantInBuffer->params.monteCarloDenoiserEnable
+											 && !useAntiAlaising && renderEngineMode == clRenderEngineTypeFull;
+
 		QVector<int> aaSampleNumberTable;
 		if (useAntiAlaising)
 		{
@@ -1350,6 +1353,17 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// create output FIFO buffer
 		std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
+		std::vector<sRGBFloat> blurBuffer;
+		std::vector<float> blurRadiusBuffer;
+		bool firstBlurcalculated = false;
+		bool autoRefreshBlurResetDone = false;
+
+		if (useDenoiser)
+		{
+			blurBuffer.resize(width * height);
+			blurRadiusBuffer.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
+		}
+
 		// initializing and starting of all workers
 
 		WriteLog(QString("Creating threads for OpenCL workers"), 2);
@@ -1368,8 +1382,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		do
 		{
 			// repeat loop until there is something in output queue
-			while (!outputQueue->isEmpty())
+			int queueCounter = 0;
+			while (!outputQueue->isEmpty() && queueCounter < 100)
 			{
+				queueCounter++;
 				// getting image data from queue
 				cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
 
@@ -1437,6 +1453,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness);
 
+								if (useDenoiser)
+								{
+									float filterRadius = min(sqrt(noise * 5000.0) + 0.3, 10.0);
+									// qDebug() << filterRadius;
+									blurRadiusBuffer[x + y * jobWidth] = filterRadius;
+									blurBuffer[xx + yy * width] = image->GetPixelImage(xx, yy);
+								}
+
 								monteCarloNoiseSum += noise;
 								if (noise > maxNoise) maxNoise = noise;
 							}
@@ -1447,6 +1471,63 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							}
 						} // next y
 					}		// next x
+
+					// denoiser
+
+					if (useDenoiser)
+					{
+						if (output.monteCarloLoop > 2)
+						{
+							firstBlurcalculated = true;
+
+#pragma omp parallel for schedule(dynamic, 1)
+							for (quint64 x = 0; x < jobWidth; x++)
+							{
+								for (quint64 y = 0; y < jobHeight; y++)
+								{
+									size_t xx = x + jobX;
+									size_t yy = y + jobY;
+
+									float filterRadius = blurRadiusBuffer[x + y * jobWidth];
+									int delta = int(filterRadius + 1.0);
+									sRGBFloat averagePixel;
+									double totalWeight = 0.0;
+									for (int dy = -delta; dy <= delta; dy++)
+									{
+										for (int dx = -delta; dx <= delta; dx++)
+										{
+											int fx = xx + dx;
+											int fy = yy + dy;
+
+											if (fx >= 0 && fx < width && fy >= 0 && fy < height)
+											{
+												double radius = sqrt(double(dx * dx + dy * dy));
+												double fweight = clamp(filterRadius - radius, 0.0, 1.0);
+
+												if (fweight > 0.0)
+												{
+													sRGBFloat inputPixel = blurBuffer[fx + fy * width];
+													averagePixel.R += inputPixel.R * fweight;
+													averagePixel.G += inputPixel.G * fweight;
+													averagePixel.B += inputPixel.B * fweight;
+													totalWeight += fweight;
+												}
+											}
+										}
+									}
+									if (totalWeight > 0.0)
+									{
+										averagePixel.R /= totalWeight;
+										averagePixel.G /= totalWeight;
+										averagePixel.B /= totalWeight;
+										image->PutPixelImage(xx, yy, averagePixel);
+									}
+								}
+							}
+						}
+					}
+
+					//-----------
 
 					// total noise in last rectangle
 					if (monteCarlo)
@@ -1543,6 +1624,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			{
 				lastRefreshTime = PeriodicRefreshOfTiles(
 					lastRefreshTime, timerImageRefresh, image, lastRenderedRects, listOfRenderedTilesData);
+				if (firstBlurcalculated & !autoRefreshBlurResetDone)
+				{
+					lastRefreshTime = 0;
+					autoRefreshBlurResetDone = true;
+				}
 			}
 
 			// processing application events

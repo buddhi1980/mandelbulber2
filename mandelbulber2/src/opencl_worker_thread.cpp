@@ -95,8 +95,6 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 		return;
 	}
 
-	scheduler->ReserveTile(startTile);
-
 	QElapsedTimer openclProcessingTime;
 	qint64 openclprocessingTimeNanoSeconds = 0;
 
@@ -105,6 +103,8 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 	for (int monteCarloLoop = 1; monteCarloLoop <= maxMonteCarloSamples; monteCarloLoop++)
 	{
+		scheduler->ReserveTile(startTile, monteCarloLoop);
+
 		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
 				 tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
 		{
