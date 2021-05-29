@@ -39,6 +39,7 @@
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
+#include "opencl_engine_render_post_filter.h"
 #include "opencl_hardware.h"
 
 cGlobalOpenCl *gOpenCl = nullptr;
@@ -51,6 +52,7 @@ cGlobalOpenCl::cGlobalOpenCl(QObject *parent) : QObject(parent)
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
 	openclEngineRenderDOF = new cOpenClEngineRenderDOF(openClHardware);
+	openclEngineRenderPostFilter = new cOpenClEngineRenderPostFilter(openClHardware);
 #endif
 }
 
@@ -65,6 +67,7 @@ void cGlobalOpenCl::Reset()
 	openClEngineRenderFractal->Reset();
 	openClEngineRenderSSAO->Reset();
 	openclEngineRenderDOF->Reset();
+	openclEngineRenderPostFilter->Reset();
 }
 
 void cGlobalOpenCl::InitPlatfromAndDevices()

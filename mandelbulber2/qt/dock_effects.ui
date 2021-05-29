@@ -1167,8 +1167,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>267</width>
-            <height>1425</height>
+            <width>551</width>
+            <height>1410</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2486,8 +2486,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>272</width>
-            <height>381</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3163,7 +3163,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>287</width>
+            <width>551</width>
             <height>1092</height>
            </rect>
           </property>
@@ -4193,8 +4193,8 @@ from fractal:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>165</width>
-            <height>110</height>
+            <width>569</width>
+            <height>1070</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -4254,13 +4254,13 @@ from fractal:</string>
                    <string/>
                   </property>
                   <property name="decimals">
-                   <number>2</number>
+                   <number>3</number>
                   </property>
                   <property name="minimum">
-                   <double>0.010000000000000</double>
+                   <double>0.001000000000000</double>
                   </property>
                   <property name="maximum">
-                   <double>5000.000000000000000</double>
+                   <double>1000.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>1.000000000000000</double>
@@ -4299,7 +4299,7 @@ from fractal:</string>
                    <string/>
                   </property>
                   <property name="decimals">
-                   <number>2</number>
+                   <number>4</number>
                   </property>
                   <property name="minimum">
                    <double>0.000000000000000</double>
@@ -4308,7 +4308,7 @@ from fractal:</string>
                    <double>100.000000000000000</double>
                   </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                   <property name="value">
                    <double>0.100000000000000</double>

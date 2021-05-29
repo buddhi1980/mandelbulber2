@@ -74,7 +74,7 @@ cOpenClEngineRenderPostFilter::~cOpenClEngineRenderPostFilter()
 
 QString cOpenClEngineRenderPostFilter::GetKernelName()
 {
-	return QString("SSAO");
+	return QString("HDRBlur");
 }
 
 void cOpenClEngineRenderPostFilter::SetParameters(
@@ -95,7 +95,7 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
-		tr("OpenCl SSAO - initializing"), tr("Compiling sources for SSAO"), 0.0);
+		tr("OpenCl HDR Blur - initializing"), tr("Compiling sources for HDR Blur"), 0.0);
 
 	QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
@@ -106,14 +106,14 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 
 	QStringList clHeaderFiles;
 	clHeaderFiles.append("opencl_typedefs.h"); // definitions of common opencl types
-	clHeaderFiles.append("ssao_cl.h");				 // main data structures
+	clHeaderFiles.append("hdr_blur_cl.h");		 // main data structures
 	clHeaderFiles.append("opencl_algebra.h");	 // definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
 	}
 
-	QString engineFileName = "ssao.cl";
+	QString engineFileName = "hdr_blur.cl";
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
@@ -137,7 +137,7 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 	if (compilerErrorOutput) *compilerErrorOutput = errorString;
 
 	WriteLogDouble(
-		"cOpenClEngineRenderSSAO: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
+		"cOpenClEngineRenderHDRBlur: Opencl HDRBlur build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }
@@ -230,7 +230,7 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 			{
 				quint64 i = x + y * width;
 
-				sRGBFloat color = image->GetPixelImage(x + imageRegion.x1, y + imageRegion.y1);
+				sRGBFloat color = image->GetPixelPostImage(x + imageRegion.x1, y + imageRegion.y1);
 				float alpha = image->GetPixelAlpha(x + imageRegion.x1, y + imageRegion.y1) / 65536;
 				cl_float4 colorCl = {
 					{cl_float(color.R), cl_float(color.G), cl_float(color.B), cl_float(alpha)}};
@@ -284,7 +284,7 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 					int alpha = int(colorCl.s3 * 65535);
 
 					image->PutPixelPostImage(xx, yy, color);
-					image->PutPixelAlpha(x, y, alpha);
+					image->PutPixelAlpha(xx, yy, alpha);
 				}
 			}
 

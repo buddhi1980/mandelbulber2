@@ -29,40 +29,56 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cGlobalOpenCl - OpenCL setup code
+ * SSAO shader function optimized for opencl
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_GLOBAL_H_
-#define MANDELBULBER2_SRC_OPENCL_GLOBAL_H_
-
-#include <QObject>
-
-class cOpenClHardware;
-class cOpenClEngineRenderFractal;
-class cOpenClEngineRenderSSAO;
-class cOpenClEngineRenderDOF;
-class cOpenClEngineRenderPostFilter;
-
-class cGlobalOpenCl : public QObject
+//------------------ MAIN RENDER FUNCTION --------------------
+kernel void HDRBlur(__global float4 *inputImage, __global float4 *out, sParamsHDRBlur p)
 {
-	Q_OBJECT
+	const unsigned int i = get_global_id(0);
+	const int2 scr = (int2){i % p.width, i / p.width};
 
-public:
-	cGlobalOpenCl(QObject *parent);
-	~cGlobalOpenCl();
+	const float2 scr_f = convert_float2(scr);
 
-#ifdef USE_OPENCL
-	void Reset();
-	void InitPlatfromAndDevices();
-#endif
+	const float blurSize = p.radius * (p.width + p.height) * 0.001f;
+	const float blurSize2 = blurSize * blurSize;
+	const int intBlurSize = (int)(blurSize + 1);
 
-	cOpenClEngineRenderFractal *openClEngineRenderFractal;
-	cOpenClEngineRenderSSAO *openClEngineRenderSSAO;
-	cOpenClEngineRenderDOF *openclEngineRenderDOF;
-	cOpenClEngineRenderPostFilter *openclEngineRenderPostFilter;
-	cOpenClHardware *openClHardware;
-};
+	const float limiter = p.intensity;
 
-extern cGlobalOpenCl *gOpenCl;
+	float weight = 0.0f;
+	int yStart = max(0, scr.y - intBlurSize);
+	int yEnd = min(p.height, scr.y + intBlurSize);
 
-#endif /* MANDELBULBER2_SRC_OPENCL_GLOBAL_H_ */
+	float4 newPixel = 0.0f;
+
+	for (int yy = yStart; yy < yEnd; yy++)
+	{
+		int xStart = max(0, scr.x - intBlurSize);
+		int xEnd = min(p.width, scr.x + intBlurSize);
+		for (int xx = xStart; xx < xEnd; xx++)
+		{
+			float dx = scr.x - xx;
+			float dy = scr.y - yy;
+			float r2 = dx * dx + dy * dy;
+			if (r2 < blurSize2)
+			{
+				float value = 1.0f / (r2 / (0.2f * blurSize) + limiter);
+				// if(dx == 0 && dy == 0) value = 10.0;
+				weight += value;
+
+				int inBuffIndex = xx + yy * p.width;
+				float4 oldPixel = clamp(inputImage[inBuffIndex], 0.0f, 100.0f);
+
+				newPixel += oldPixel * value;
+			}
+		}
+	}
+
+	if (weight > 0.0f)
+	{
+		newPixel /= weight;
+	}
+
+	out[i] = newPixel;
+}

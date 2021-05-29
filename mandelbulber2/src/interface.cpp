@@ -58,6 +58,7 @@
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
+#include "opencl_engine_render_post_filter.h"
 #include "opencl_global.h"
 #include "post_effect_hdr_blur.h"
 #include "queue.hpp"
@@ -1088,14 +1089,53 @@ void cInterface::RefreshPostEffects()
 
 		if (gPar->Get<bool>("hdr_blur_enabled"))
 		{
-			std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(mainImage));
-			double blurRadius = gPar->Get<double>("hdr_blur_radius");
-			double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
-			hdrBlur->SetParameters(blurRadius, blurIntensity);
-			QObject::connect(hdrBlur.get(),
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-			hdrBlur->Render(&stopRequest);
+			if (gPar->Get<bool>("opencl_enabled")
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+			{
+#ifdef USE_OPENCL
+
+				connect(gOpenCl->openclEngineRenderPostFilter,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
+				sParamRender params(gPar);
+				gOpenCl->openclEngineRenderPostFilter->Lock();
+				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				gOpenCl->openclEngineRenderPostFilter->SetParameters(&params, region);
+				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
+				{
+					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
+					size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
+					{
+						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
+						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
+							cErrorMessage::errorMessage, mainWindow);
+					}
+				}
+				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+				gOpenCl->openclEngineRenderPostFilter->Unlock();
+#endif
+			}
+			else
+			{
+				std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(mainImage));
+				double blurRadius = gPar->Get<double>("hdr_blur_radius");
+				double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
+				hdrBlur->SetParameters(blurRadius, blurIntensity);
+				QObject::connect(hdrBlur.get(),
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+				hdrBlur->Render(&stopRequest);
+			}
 		}
 
 		mainImage->CompileImage();

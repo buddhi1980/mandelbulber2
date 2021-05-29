@@ -48,6 +48,7 @@
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
+#include "opencl_engine_render_post_filter.h"
 #include "opencl_global.h"
 #include "progress_text.hpp"
 #include "render_data.hpp"
@@ -442,13 +443,17 @@ bool cRenderJob::Execute()
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 				RenderSSAOWithOpenCl(params, region, &progressText, &result);
+				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
+
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 				RenderSSAOWithOpenCl(params, region, &progressText, &result);
+				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
 			}
 			else
 			{
 				RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+				RenderPostFiltersWithOpenCl(params, renderData->screenRegion, &progressText, &result);
 			}
 
 			RenderDOFWithOpenCl(params, &result);
@@ -731,6 +736,76 @@ void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
 
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering SSAO finished"), progressText->getText(1.0), 1.0);
+		}
+	}
+}
+
+void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> params,
+	const cRegion<int> &region, cProgressText *progressText, bool *result)
+{
+	if (!*renderData->stopRequest && *result == true)
+	{
+		if (params->hdrBlurEnabled
+				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
+		{
+			connect(gOpenCl->openclEngineRenderPostFilter, &cOpenClEngineRenderPostFilter::updateImage,
+				this, &cRenderJob::updateImage);
+			connect(gOpenCl->openclEngineRenderPostFilter,
+				&cOpenClEngineRenderPostFilter::updateProgressAndStatus, this,
+				&cRenderJob::updateProgressAndStatus);
+
+			gOpenCl->openclEngineRenderPostFilter->Lock();
+			gOpenCl->openclEngineRenderPostFilter->SetParameters(params.get(), region);
+			if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
+			{
+				gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
+				qint64 neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+				WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+				if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+				{
+					gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
+					gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+					*result = gOpenCl->openclEngineRenderPostFilter->Render(image, renderData->stopRequest);
+				}
+				else
+				{
+					qCritical() << "Not enough GPU mem!";
+					*result = false;
+				}
+
+				if (!*result)
+				{
+					//					cRenderSSAO rendererSSAO(params, renderData, image);
+					//					connect(&rendererSSAO,
+					//						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+					// this, 						SIGNAL(updateProgressAndStatus(const QString &, const QString &,
+					// double))); 					connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+					//					rendererSSAO.SetRegion(region);
+					//					rendererSSAO.RenderSSAO();
+					//
+					//					// refresh image at end
+					//					WriteLog("image->CompileImage()", 2);
+					//					image->CompileImage();
+					//
+					//					if (image->IsPreview())
+					//					{
+					//						WriteLog("image->ConvertTo8bit()", 2);
+					//						image->ConvertTo8bitChar();
+					//						WriteLog("image->UpdatePreview()", 2);
+					//						image->UpdatePreview();
+					//						WriteLog("image->GetImageWidget()->update()", 2);
+					//						emit updateImage();
+					//					}
+					//					*result = true;
+				}
+			}
+			gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+			gOpenCl->openclEngineRenderPostFilter->Unlock();
+
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering Post Filter finished"), progressText->getText(1.0), 1.0);
 		}
 	}
 }
