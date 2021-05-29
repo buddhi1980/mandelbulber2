@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Mandelnest by Jeannoc, adapted by pupukuusikko
+ * Mandelnest by Jeannoc
  * https://fractalforums.org/share-a-fractal/22/mandelbrot-3d-mandelnest/4028/
  */
 
@@ -31,11 +31,9 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 shift = fractal->transformCommon.offset000 * M_PI;
 	CVector4 dual = fractal->transformCommon.scale3D111;
 
-	CVector4 limit = fractal->transformCommon.offsetA000;
-	z = z + fabs(z - limit) - fabs(z + limit);
-	//	z = fabs(z + limit) - fabs(z - limit) - z;
+	z = z + fabs(z - fractal->transformCommon.offsetA000)
+			- fabs(z + fractal->transformCommon.offsetA000);
 
-	// double r = aux.r;
 	double r = z.Length();
 	double rN = fractal->transformCommon.scale1 / r;
 	aux.DE *= fabs(rN);
@@ -46,10 +44,6 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
-	// CVector4 limit = fractal->transformCommon.offsetA000;
-	// z = z + fabs(z - limit) - fabs(z + limit);
-	//	z = fabs(z + limit) - fabs(z - limit) - z;
 
 	CVector4 temp = z * rN;
 	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
@@ -87,23 +81,16 @@ void cFractalMandelnestV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		if (fractal->transformCommon.functionEnabledBFalse)
-			aux.DE = max(aux.DE, fractal->analyticDE.offset2);
+
 	// aux.dist
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			aux.DE0 = 0.5 * log(r) * r / aux.DE;
 
-			if (aux.DE < fractal->transformCommon.startIterationsE)
-				aux.dist = min(aux.dist, aux.DE0);
-			else
-				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
-
-
-			/*if (!fractal->transformCommon.functionEnabledEFalse)
+			if (aux.i <= fractal->transformCommon.startIterationsE)
 				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
 			else
-				aux.dist = min(aux.dist, aux.DE0);*/
+				aux.dist = min(aux.dist, aux.DE0); // hybrid
 		}
 	}
 }
