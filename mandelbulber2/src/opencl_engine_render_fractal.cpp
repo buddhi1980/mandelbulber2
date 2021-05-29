@@ -1361,7 +1361,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		if (useDenoiser)
 		{
 			blurBuffer.resize(width * height);
-			blurRadiusBuffer.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
+			blurRadiusBuffer.resize(width * height);
 		}
 
 		// initializing and starting of all workers
@@ -1457,7 +1457,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								{
 									float filterRadius = min(sqrt(noise * 5000.0) + 0.3, 10.0);
 									// qDebug() << filterRadius;
-									blurRadiusBuffer[x + y * jobWidth] = filterRadius;
+									blurRadiusBuffer[xx + yy * width] = filterRadius;
 									blurBuffer[xx + yy * width] = image->GetPixelImage(xx, yy);
 								}
 
@@ -1488,7 +1488,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 									size_t xx = x + jobX;
 									size_t yy = y + jobY;
 
-									float filterRadius = blurRadiusBuffer[x + y * jobWidth];
+									float filterRadius = blurRadiusBuffer[xx + yy * width];
 									int delta = int(filterRadius + 1.0);
 									sRGBFloat averagePixel;
 									double totalWeight = 0.0;
@@ -1503,6 +1503,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 											{
 												double radius = sqrt(double(dx * dx + dy * dy));
 												double fweight = clamp(filterRadius - radius, 0.0, 1.0);
+
+												float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
+												float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
+												fweight *= noiseWeight;
 
 												if (fweight > 0.0)
 												{
