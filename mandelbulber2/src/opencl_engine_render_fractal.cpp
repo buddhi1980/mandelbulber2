@@ -1451,7 +1451,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 									image->PutPixelImage(xx, yy, sRGBFloat());
 								}
 
-								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness);
+								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
 
 								if (useDenoiser)
 								{
@@ -1481,9 +1481,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							firstBlurcalculated = true;
 
 #pragma omp parallel for schedule(dynamic, 1)
-							for (quint64 x = 0; x < jobWidth; x++)
+							for (int x = 0; x < int(jobWidth); x++)
 							{
-								for (quint64 y = 0; y < jobHeight; y++)
+								for (int y = 0; y < int(jobHeight); y++)
 								{
 									size_t xx = x + jobX;
 									size_t yy = y + jobY;
