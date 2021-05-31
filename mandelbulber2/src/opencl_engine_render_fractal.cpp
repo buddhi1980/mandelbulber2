@@ -1429,6 +1429,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								pixel.R = min(pixel.R, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
 								pixel.G = min(pixel.G, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
 								pixel.B = min(pixel.B, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
+
 								sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);

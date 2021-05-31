@@ -78,6 +78,14 @@ void cDenoiser::Denoise(
 			size_t yy = y + boxY;
 
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
+
+			if (loopCounter == 3)
+			{
+				sRGBFloat pixel = blurBuffer[xx + yy * width];
+				float sum = pixel.R + pixel.G + pixel.B;
+				filterRadius = filterRadius + clamp(0.1 / (sum * sum + 0.0000001), 0.0, 10.0);
+			}
+
 			int delta = int(filterRadius + 1.0);
 			sRGBFloat averagePixel;
 			double totalWeight = 0.0;
@@ -96,7 +104,11 @@ void cDenoiser::Denoise(
 
 						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
 						float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
-						fweight *= noiseWeight;
+
+						if (loopCounter > 3)
+						{
+							fweight *= noiseWeight;
+						}
 
 						if (fweight > 0.0)
 						{
