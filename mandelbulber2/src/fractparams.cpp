@@ -163,6 +163,7 @@ sParamRender::sParamRender(
 	monteCarloGIRadianceLimit = container->Get<float>("MC_GI_radiance_limit");
 	monteCarloGIVolumetric = container->Get<bool>("MC_global_illumination_volumetric");
 	monteCarloDenoiserEnable = container->Get<bool>("MC_denoiser_enable");
+	monteCarloDenoiserStrength = container->Get<int>("MC_denoiser_strength");
 	N = container->Get<int>("N");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");

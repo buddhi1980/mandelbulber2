@@ -92,6 +92,7 @@ typedef struct
 	cl_int DOFNumberOfPasses;
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
+	cl_int monteCarloDenoiserStrength;
 
 	cl_int perspectiveType;
 	cl_int ambientOcclusionMode;
@@ -271,6 +272,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;
+	target.monteCarloDenoiserStrength = source.monteCarloDenoiserStrength;
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;

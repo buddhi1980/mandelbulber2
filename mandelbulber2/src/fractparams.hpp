@@ -86,6 +86,7 @@ struct sParamRender
 	int DOFNumberOfPasses;
 	int DOFSamples;
 	int DOFMinSamples;
+	int monteCarloDenoiserStrength;
 
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;

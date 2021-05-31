@@ -44,6 +44,7 @@
 #include "camera_target.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
+#include "denoiser.h"
 #include "files.h"
 #include "fractal.h"
 #include "fractparams.hpp"
@@ -1353,15 +1354,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// create output FIFO buffer
 		std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
-		std::vector<sRGBFloat> blurBuffer;
-		std::vector<float> blurRadiusBuffer;
+		std::unique_ptr<cDenoiser> denoiser(new cDenoiser(
+			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
+
 		bool firstBlurcalculated = false;
 		bool autoRefreshBlurResetDone = false;
 
 		if (useDenoiser)
 		{
-			blurBuffer.resize(width * height);
-			blurRadiusBuffer.resize(width * height);
+			denoiser->AllocMem();
 		}
 
 		// initializing and starting of all workers
@@ -1425,6 +1426,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							{
 								// painting pixels with reduced opacity (averaging of MC samples)
 								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
+								pixel.R = min(pixel.R, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
+								pixel.G = min(pixel.G, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
+								pixel.B = min(pixel.B, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
 								sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
@@ -1455,10 +1459,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								if (useDenoiser)
 								{
-									float filterRadius = min(sqrt(noise * 5000.0) + 0.6, 10.0);
-									// qDebug() << filterRadius;
-									blurRadiusBuffer[xx + yy * width] = filterRadius;
-									blurBuffer[xx + yy * width] = image->GetPixelImage(xx, yy);
+									denoiser->UpdatePixel(xx, yy, newPixel, noise);
 								}
 
 								monteCarloNoiseSum += noise;
@@ -1479,106 +1480,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						if (output.monteCarloLoop > 2)
 						{
 							firstBlurcalculated = true;
-
-							#pragma omp parallel for schedule(dynamic, 1)
-							for (int x = 0; x < int(jobWidth); x++)
-							{
-								for (int y = 0; y < int(jobHeight); y++)
-								{
-									size_t xx = x + jobX;
-									size_t yy = y + jobY;
-
-									float filterRadius = blurRadiusBuffer[xx + yy * width];
-									int delta = int(filterRadius + 1.0);
-									sRGBFloat averagePixel;
-									double totalWeight = 0.0;
-
-									std::vector<float> medianRInput;
-									std::vector<float> medianGInput;
-									std::vector<float> medianBInput;
-
-									for (int dy = -delta; dy <= delta; dy++)
-									{
-										for (int dx = -delta; dx <= delta; dx++)
-										{
-											int fx = xx + dx;
-											int fy = yy + dy;
-
-											if (fx >= 0 && fx < width && fy >= 0 && fy < height)
-											{
-												double radius = sqrt(double(dx * dx + dy * dy));
-												double fweight = clamp(filterRadius - radius, 0.0, 1.0);
-
-												float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
-												float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
-												fweight *= noiseWeight;
-
-												if (fweight > 0.0)
-												{
-													sRGBFloat inputPixel = blurBuffer[fx + fy * width];
-													averagePixel.R += inputPixel.R * fweight;
-													averagePixel.G += inputPixel.G * fweight;
-													averagePixel.B += inputPixel.B * fweight;
-													totalWeight += fweight;
-
-													if (filterRadius <= 2)
-													{
-														medianRInput.push_back(inputPixel.R);
-														medianGInput.push_back(inputPixel.G);
-														medianBInput.push_back(inputPixel.B);
-													}
-												}
-											}
-										}
-									}
-									if (totalWeight > 0.0)
-									{
-										averagePixel.R /= totalWeight;
-										averagePixel.G /= totalWeight;
-										averagePixel.B /= totalWeight;
-										image->PutPixelImage(xx, yy, averagePixel);
-
-										if (filterRadius <= 2)
-										{
-											sRGBFloat newPixel = averagePixel;
-											if (medianRInput.size() > 2)
-											{
-												std::vector<float> h(medianRInput.size() / 2 + 1);
-												std::partial_sort_copy(
-													medianRInput.begin(), medianRInput.end(), h.begin(), h.end());
-												newPixel.R = h.back();
-											}
-
-											if (medianGInput.size() > 2)
-											{
-												std::vector<float> h(medianGInput.size() / 2 + 1);
-												std::partial_sort_copy(
-													medianGInput.begin(), medianGInput.end(), h.begin(), h.end());
-												newPixel.G = h.back();
-											}
-
-											if (medianBInput.size() > 2)
-											{
-												std::vector<float> h(medianBInput.size() / 2 + 1);
-												std::partial_sort_copy(
-													medianBInput.begin(), medianBInput.end(), h.begin(), h.end());
-												newPixel.B = h.back();
-											}
-
-											image->PutPixelImage(xx, yy, newPixel);
-										}
-									}
-
-								} // for y
-							}		// for x
-
-							std::vector<unsigned short> v{4, 2, 5, 1, 3};
-							std::vector<unsigned short> h(v.size() / 2 + 1);
-							std::partial_sort_copy(v.begin(), v.end(), h.begin(), h.end());
-							int median = h.back();
+							denoiser->Denoise(jobX, jobY, jobWidth, jobHeight, image, output.monteCarloLoop);
 						}
 					}
-
 					//-----------
 
 					// total noise in last rectangle
