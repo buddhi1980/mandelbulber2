@@ -24,11 +24,12 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	aux->actualScale =
 			fractal->transformCommon.scale015
 				+ fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
-
+	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	REAL4 zCol = z;
 	// no z fold
 
 	REAL rr;
@@ -69,5 +70,21 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z.y = z.y * cosan - z.z * sinan;
 	z.z = temp * sinan + z.z * cosan;
 
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		REAL colorAdd = 0.0;
+		if (aux->i >= fractal->foldColor.startIterationsA
+				&& aux->i < fractal->foldColor.stopIterationsA)
+		{
+			zCol = fabs(zCol - oldZ);
+			if (zCol.x > 0.0)
+				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+			if (zCol.y > 0.0)
+				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
+			colorAdd += fractal->foldColor.difs0000.w * m;
+		}
+		aux->color += colorAdd;
+	}
 	return z;
 }

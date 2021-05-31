@@ -462,13 +462,11 @@ enum enumFractalFormula
 	// 2.23
 	transfDIFSPolyhedra = 1617,
 	transfDIFSPolyhedraV2 = 1618,
-
 	// 2.25
 	transfDIFSGearV1 = 1619,
 	transfDIFSGridV3 = 1620,
 	transfDIFSClipPlane = 1621,
 	transfDIFSDiamond = 1622,
-
 	// 2.26
 	transfDIFSSpring = 1623,
 

@@ -1,5 +1,20 @@
 Version history
 
+v2.26 (????l 2021)
+
+- Added new fractal formulas
+   amazingSurfM3d
+   mandelnestV2
+   transfDIFSSpring
+
+
+- modified fractal formulas
+   mandelnest, added checkbox for aux.dist
+
+
+
+
+
 v2.25 (April 2021)
 
 - Added new fractal formulas

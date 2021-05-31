@@ -24,7 +24,7 @@ cFractalAmazingSurfM3d::cFractalAmazingSurfM3d() : cAbstractFractal()
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLinear;
-	coloringFunction = coloringFunctionAmazingSurf;
+	coloringFunction = coloringFunctionABox;
 }
 
 void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -33,11 +33,12 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	aux.actualScale =
 			fractal->transformCommon.scale015
 				+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-
+	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	CVector4 zCol = z;
 	// no z fold
 
 	double rr;
@@ -77,4 +78,21 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	temp = z.y;
 	z.y = z.y * cosan - z.z * sinan;
 	z.z = temp * sinan + z.z * cosan;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		double colorAdd = 0.0;
+		if (aux.i >= fractal->foldColor.startIterationsA
+				&& aux.i < fractal->foldColor.stopIterationsA)
+		{
+			zCol = fabs(zCol - oldZ);
+			if (zCol.x > 0.0)
+				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+			if (zCol.y > 0.0)
+				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
+			colorAdd += fractal->foldColor.difs0000.w * m;
+		}
+		aux.color += colorAdd;
+	}
 }
