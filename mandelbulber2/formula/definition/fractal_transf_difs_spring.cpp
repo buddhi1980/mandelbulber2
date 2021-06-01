@@ -44,17 +44,15 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 	int int8x = fractal->transformCommon.int8X;
 	int int2 = fractal->transformCommon.int8Y;
 
-	double pit1 = fractal->transformCommon.offset01;
-	double pit2 = fractal->transformCommon.offsetp01;
-	double ht1 = int8x * pit1;
-	double ht2 = int2 * pit2;
+	double ht1 = int8x * fractal->transformCommon.offset01;
+	double ht2 = int2 * fractal->transformCommon.offsetp01;
 
 	double L = fabs(zc.z) - ht1 - ht2;
 	double P;
 	if (fabs(zc.z) < ht1)
-		P = pit1;
+		P = fractal->transformCommon.offset01;
 	else
-		P = pit2;
+		P = fractal->transformCommon.offsetp01;
 	zc.z += atan2(zc.y, zc.x) / M_PI * P;
 	zc.z = (zc.z - P * 2.0 * floor(zc.z / (P * 2.0))) - P;
 
@@ -79,7 +77,7 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (P == pit1)
+		if (P == fractal->transformCommon.offset01)
 			aux.color = fractal->foldColor.difs0000.x;
 		else
 			aux.color = fractal->foldColor.difs0000.y;

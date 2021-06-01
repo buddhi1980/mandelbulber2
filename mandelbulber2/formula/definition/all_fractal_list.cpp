@@ -293,6 +293,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalOctahedron());
 	fractalList->append(new cFractalPseudoKleinianStdDE());
 	fractalList->append(new cFractalPseudoKleinianMod3());
+	fractalList->append(new cFractalPseudoKleinian4d());
 	fractalList->append(new cFractalScatorPower2());
 	fractalList->append(new cFractalSpheretree());
 	fractalList->append(new cFractalSpheretreeV2());
