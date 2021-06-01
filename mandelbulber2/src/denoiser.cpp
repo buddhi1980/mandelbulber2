@@ -26,20 +26,20 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 	{
 		case light:
 			maxBlurRadius = 5.0;
-			minBlurRadius = 0.5;
-			maxMedianSize = 1.5;
+			minBlurRadius = 0.4;
+			maxMedianSize = 1.1;
 			noiseMultiplier = 2500.0;
 			break;
 		case medium:
 			maxBlurRadius = 10.0;
 			minBlurRadius = 0.6;
-			maxMedianSize = 2;
+			maxMedianSize = 2.0;
 			noiseMultiplier = 5000.0;
 			break;
 		case strong:
 			maxBlurRadius = 15.0;
 			minBlurRadius = 0.7;
-			maxMedianSize = 4;
+			maxMedianSize = 4.0;
 			noiseMultiplier = 15000.0;
 			break;
 	}
@@ -105,6 +105,10 @@ void cDenoiser::Denoise(
 						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
 						float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
 
+						if (filterRadius <= maxMedianSize) noiseWeight *= 0.2;
+
+						if (dx == 0 && dy == 0) noiseWeight = 1.0;
+
 						if (loopCounter > 3)
 						{
 							fweight *= noiseWeight;
@@ -158,6 +162,14 @@ void cDenoiser::Denoise(
 
 			if (filterRadius <= maxMedianSize)
 			{
+				float weight = 1.0;
+				if (filterRadius < 1.0 + minBlurRadius)
+				{
+					weight = filterRadius - minBlurRadius;
+					if (weight < 0.0) weight = 0.0;
+					filterRadius = 1.0;
+				}
+
 				int delta = int(filterRadius + 1.0);
 
 				int pixelCount = 0;
@@ -213,7 +225,7 @@ void cDenoiser::Denoise(
 					sRGBFloat oldPixel = blurBuffer[xx + yy * width];
 					sRGBFloat newPixelMixed;
 
-					float mixFactor = 1.0f / (loopCounter / 50.0 + 1.0);
+					float mixFactor = 1.0f / (loopCounter / 50.0 + 1.0) * weight;
 
 					newPixelMixed.R = oldPixel.R * (1.0f - mixFactor) + newPixel.R * mixFactor;
 					newPixelMixed.G = oldPixel.G * (1.0f - mixFactor) + newPixel.G * mixFactor;
