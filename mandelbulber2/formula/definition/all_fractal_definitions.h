@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -316,6 +316,7 @@ FRACTAL_CLASS(cFractalTransfReciprocal3)
 FRACTAL_CLASS(cFractalTransfReciprocal4d)
 FRACTAL_CLASS(cFractalTransfRotateAboutVec3)
 FRACTAL_CLASS(cFractalTransfRotation)
+FRACTAL_CLASS(cFractalTransfRotationM3d)
 FRACTAL_CLASS(cFractalTransfRotation4d)
 FRACTAL_CLASS(cFractalTransfRotationChebyshev)
 FRACTAL_CLASS(cFractalTransfRotationFolding)

@@ -387,7 +387,6 @@ enum enumFractalFormula
 	transfAddCpixelSinOrCos = 1087,
 	// 2.16
 	transfSurfBoxFoldV2 = 1088,
-
 	// 2.17
 	transfBoxWrap4d = 1089,
 	transfSphericalInvV2 = 1090,
@@ -431,14 +430,16 @@ enum enumFractalFormula
 	transfInitial4d = 1122,
 	transfAddCpixel4d = 1123,
 	transfSphericalFold4dV2 = 1124,
-
 	// 2.24
 	transfBlockifyV2 = 1125,
-
 	// 2.25
 	transfPolyFoldAtan2Iter = 1126,
 	transfSinTan = 1127,
 	transfAddConstantMod3 = 1128,
+
+	// 2.26
+	transfRotationM3d = 1129,
+
 
 	// mandelbulber transfdIFS
 	// 2.20

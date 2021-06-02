@@ -420,6 +420,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	// Rotation Transforms
 	fractalList->append(new cFractalTransfRotation());
+	fractalList->append(new cFractalTransfRotationM3d());
 	fractalList->append(new cFractalTransfRotation4d());
 	fractalList->append(new cFractalTransfRotateAboutVec3());
 	fractalList->append(new cFractalTransfRotationChebyshev());
