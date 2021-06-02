@@ -269,6 +269,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.viewVectorNotRotated = renderData->viewVectorNotRotated;
+			shaderInputData.normal = shaderInputData.viewVector; // initial value
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
@@ -565,6 +566,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
 			shaderInputData.viewVectorNotRotated = renderData->viewVectorNotRotated;
+			shaderInputData.normal = shaderInputData.viewVector; // initial value
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
@@ -838,6 +840,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				resultShader.xyz = backgroundShader;
 				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;
+				shaderInputData.normal = shaderInputData.viewVector;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 

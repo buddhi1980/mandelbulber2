@@ -420,7 +420,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		float4 resultShader = 0.0f;
 		float3 objectColour = 0.0f;
-		float3 normal = 0.0f;
+		float3 normal = viewVector;
 		float opacity = 0.0f;
 
 #ifdef PERSP_FISH_EYE_CUT
