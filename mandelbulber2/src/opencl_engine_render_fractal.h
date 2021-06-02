@@ -148,7 +148,8 @@ private:
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
-		unsigned short newAlpha, sRGB8 color, unsigned short opacity, std::shared_ptr<cImage> &image);
+		unsigned short newAlpha, sRGB8 color, float zDepth, const sRGBFloat &normal,
+		unsigned short opacity, std::shared_ptr<cImage> &image);
 	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh,
 		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
 		QList<sRenderedTileData> &listOfRenderedTilesData);

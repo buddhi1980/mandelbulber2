@@ -48,6 +48,8 @@ private:
 	float minBlurRadius;
 	int maxMedianSize;
 	float noiseMultiplier;
+	float zDepthFilterfactor;
+	float normalFilterFactor;
 };
 
 #endif /* MANDELBULBER2_SRC_DENOISER_H_ */

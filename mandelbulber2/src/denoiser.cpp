@@ -29,18 +29,24 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 			minBlurRadius = 0.4;
 			maxMedianSize = 1.1;
 			noiseMultiplier = 2500.0;
+			zDepthFilterfactor = 100.0;
+			normalFilterFactor = 10.0;
 			break;
 		case medium:
 			maxBlurRadius = 10.0;
 			minBlurRadius = 0.6;
 			maxMedianSize = 2.0;
 			noiseMultiplier = 5000.0;
+			zDepthFilterfactor = 100.0;
+			normalFilterFactor = 10.0;
 			break;
 		case strong:
 			maxBlurRadius = 15.0;
 			minBlurRadius = 0.7;
 			maxMedianSize = 4.0;
 			noiseMultiplier = 15000.0;
+			zDepthFilterfactor = 10.0;
+			normalFilterFactor = 3.0;
 			break;
 	}
 }
@@ -130,7 +136,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 								filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
 							float normalDiff = (normal - filterNormal).Length();
-							float normalWeight = clamp(1.0 - normalDiff * 10.0, 0.0, 1.0);
+							float normalWeight = clamp(1.0 - normalDiff * normalFilterFactor, 0.0, 1.0);
 
 							noiseWeight *= normalWeight;
 
@@ -139,7 +145,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							float deltaZ = fabs((z - z2) / z);
 							if (deltaZ > 0.0)
 							{
-								noiseWeight *= clamp(1.0f / (deltaZ * 100.0f), 0.0f, 1.0f);
+								noiseWeight *= clamp(1.0f / (deltaZ * zDepthFilterfactor), 0.0f, 1.0f);
 							}
 						}
 
@@ -260,10 +266,10 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
 								float normalDiff = (normal - filterNormal).Length();
-								normalWeight = clamp(1.0 - normalDiff * 10.0, 0.0, 1.0);
+								normalWeight = clamp(1.0 - normalDiff * normalFilterFactor, 0.0, 1.0);
 							}
 
-							if (radius <= filterRadius && normalWeight > 0.5 && deltaZ < 0.01)
+							if (radius <= filterRadius && normalWeight > 0.5 && deltaZ < 1.0 / zDepthFilterfactor)
 							{
 								sRGBFloat inputPixel = blurBuffer[fx + fy * width];
 								medianRInput.push_back(inputPixel.R);

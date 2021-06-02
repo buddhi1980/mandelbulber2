@@ -1185,19 +1185,17 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 }
 
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
-	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, unsigned short opacity,
-	std::shared_ptr<cImage> &image)
+	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, float zDepth,
+	const sRGBFloat &normal, unsigned short opacity, std::shared_ptr<cImage> &image)
 {
 	image->PutPixelImage(xx, yy, newPixel);
-	image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
+	image->PutPixelZBuffer(xx, yy, zDepth);
 	image->PutPixelAlpha(xx, yy, newAlpha);
 	image->PutPixelColor(xx, yy, color);
 	image->PutPixelOpacity(xx, yy, opacity);
 	if (image->GetImageOptional()->optionalDiffuse)
 		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
-	if (image->GetImageOptional()->optionalNormalWorld)
-		image->PutPixelNormalWorld(
-			xx, yy, sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2));
+	if (image->GetImageOptional()->optionalNormalWorld) image->PutPixelNormalWorld(xx, yy, normal);
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
@@ -1436,12 +1434,47 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
 
+								float zDepthOld = image->GetPixelZBuffer(xx, yy);
+								float zDepth = zDepthOld;
+
+								sRGBFloat nornalOld;
+								sRGBFloat normal;
+
+								if (constantInBuffer->params.monteCarloDenoiserEnable)
+								{
+									if (output.monteCarloLoop == 1)
+									{
+										zDepth = pixelCl.zBuffer;
+										normal = sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+									}
+									else
+									{
+
+										zDepth = zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
+														 + pixelCl.zBuffer * (1.0f / output.monteCarloLoop);
+
+										sRGBFloat normalNew =
+											sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+
+										if (image->GetImageOptional()->optionalNormalWorld)
+											nornalOld = image->GetPixelNormalWorld(xx, yy);
+
+										normal.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+															 + normalNew.R * (1.0f / output.monteCarloLoop);
+										normal.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+															 + normalNew.G * (1.0f / output.monteCarloLoop);
+										normal.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+															 + normalNew.B * (1.0f / output.monteCarloLoop);
+									}
+								}
+
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 								unsigned short newAlpha =
 									ushort(double(oldAlpha) * (1.0 - 1.0 / output.monteCarloLoop)
 												 + alpha * (1.0 / output.monteCarloLoop));
 
-								PutMultiPixel(xx, yy, newPixel, pixelCl, newAlpha, color, opacity, image);
+								PutMultiPixel(
+									xx, yy, newPixel, pixelCl, newAlpha, color, zDepth, normal, opacity, image);
 
 								// noise estimation
 								float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
@@ -1473,7 +1506,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if not MC then just paint pixels
 							else
 							{
-								PutMultiPixel(xx, yy, pixel, pixelCl, alpha, color, opacity, image);
+								sRGBFloat normal(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+
+								PutMultiPixel(
+									xx, yy, pixel, pixelCl, alpha, color, pixelCl.zBuffer, normal, opacity, image);
 							}
 						} // next y
 					}		// next x
