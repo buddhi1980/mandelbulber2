@@ -29,7 +29,6 @@ cFractalPseudoKleinian4d::cFractalPseudoKleinian4d() : cAbstractFractal()
 
 void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
 
 	// sphere inversion
@@ -82,21 +81,21 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
-		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+		k = max(fractal->transformCommon.scale015/ z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
 	}
 				aux.pseudoKleinianDE = fractal->analyticDE.scale1;
-	z += fractal->transformCommon.additionConstant0000;//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		z.x += aux.pos_neg * fractal->transformCommon.additionConstantA000.x;
-		z.y += aux.pos_neg * fractal->transformCommon.additionConstantA000.y;
-		z.z += aux.pos_neg * fractal->transformCommon.additionConstantA000.z;
-
+		z.x += aux.pos_neg * fractal->transformCommon.additionConstant0000.x;
+		z.y += aux.pos_neg * fractal->transformCommon.additionConstant0000.y;
+		z.z += aux.pos_neg * fractal->transformCommon.additionConstant0000.z;
+		z.w += aux.pos_neg * fractal->transformCommon.additionConstant0000.w;
 		aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 	}
 
@@ -105,8 +104,8 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
-		z = fabs(z + fractal->transformCommon.offsetA000)
-				- fabs(z - fractal->transformCommon.offsetA000) - z;
+		z = fabs(z + fractal->transformCommon.offsetB1111)
+				- fabs(z - fractal->transformCommon.offsetB1111) - z;
 	}
 
 
