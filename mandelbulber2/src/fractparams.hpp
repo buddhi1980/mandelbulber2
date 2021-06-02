@@ -127,6 +127,7 @@ struct sParamRender
 	bool monteCarloSoftShadows;
 	bool monteCarloGIVolumetric;
 	bool monteCarloDenoiserEnable;
+	bool monteCarloDenoiserPreserveGeometry;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;

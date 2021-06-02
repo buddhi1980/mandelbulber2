@@ -64,12 +64,12 @@ void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat color, float noise)
 	blurBuffer[x + y * width] = color;
 }
 
-void cDenoiser::Denoise(
-	int boxX, int boxY, int boxWidth, int boxHeight, std::shared_ptr<cImage> image, int loopCounter)
+void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool preserveGeometry,
+	std::shared_ptr<cImage> image, int loopCounter)
 {
 
+	// lens blur
 #pragma omp parallel for schedule(dynamic, 1)
-
 	for (int x = 0; x < int(boxWidth); x++)
 	{
 		for (int y = 0; y < int(boxHeight); y++)
@@ -79,6 +79,18 @@ void cDenoiser::Denoise(
 
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
 
+			float z = 0;
+			CVector3 normal;
+			if (preserveGeometry)
+			{
+				z = image->GetPixelZBuffer(xx, yy);
+
+				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
+				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
+			}
+
+			// strong blur of low noise regions at first use of denoiser
+			// it prevents from black spots
 			if (loopCounter == 3)
 			{
 				sRGBFloat pixel = blurBuffer[xx + yy * width];
@@ -100,11 +112,38 @@ void cDenoiser::Denoise(
 					if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 					{
 						double radius = sqrt(double(dx * dx + dy * dy));
+
+						// anti-aliased circle
 						double fweight = clamp(filterRadius - radius, 0.0, 1.0);
 
+						// take samples mostly from places of high noise
+						// it improves edges
 						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
 						float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
 
+						if (preserveGeometry)
+						{
+							// use surface normals to select samples from similar surface direction
+
+							sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+							CVector3 filterNormal(
+								filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+
+							float normalDiff = (normal - filterNormal).Length();
+							float normalWeight = clamp(1.0 - normalDiff * 10.0, 0.0, 1.0);
+
+							noiseWeight *= normalWeight;
+
+							// use samples form similar depth
+							float z2 = image->GetPixelZBuffer(fx, fy);
+							float deltaZ = fabs((z - z2) / z);
+							if (deltaZ > 0.0)
+							{
+								noiseWeight *= clamp(1.0f / (deltaZ * 100.0f), 0.0f, 1.0f);
+							}
+						}
+
+						// use less blur when median is used
 						if (filterRadius <= maxMedianSize) noiseWeight *= 0.2;
 
 						if (dx == 0 && dy == 0) noiseWeight = 1.0;
@@ -117,6 +156,15 @@ void cDenoiser::Denoise(
 						if (fweight > 0.0)
 						{
 							sRGBFloat inputPixel = blurBuffer[fx + fy * width];
+
+							// limit pixel brightness at first strong blur
+							if (loopCounter == 3)
+							{
+								inputPixel.R = min(inputPixel.R, 1.5f);
+								inputPixel.G = min(inputPixel.G, 1.5f);
+								inputPixel.B = min(inputPixel.B, 1.5f);
+							}
+
 							averagePixel.R += inputPixel.R * fweight;
 							averagePixel.G += inputPixel.G * fweight;
 							averagePixel.B += inputPixel.B * fweight;
@@ -149,8 +197,8 @@ void cDenoiser::Denoise(
 		}
 	}
 
+	// median filter
 #pragma omp parallel for schedule(dynamic, 1)
-
 	for (int x = 0; x < int(boxWidth); x++)
 	{
 		for (int y = 0; y < int(boxHeight); y++)
@@ -159,6 +207,16 @@ void cDenoiser::Denoise(
 			size_t yy = y + boxY;
 
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
+
+			float z = 0;
+			CVector3 normal;
+			if (preserveGeometry)
+			{
+				z = image->GetPixelZBuffer(xx, yy);
+
+				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
+				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
+			}
 
 			if (filterRadius <= maxMedianSize)
 			{
@@ -188,7 +246,24 @@ void cDenoiser::Denoise(
 						if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 						{
 							double radius = sqrt(double(dx * dx + dy * dy));
-							if (radius <= filterRadius)
+
+							float deltaZ = 0.0;
+							float normalWeight = 1.0;
+
+							if (preserveGeometry)
+							{
+								float z2 = image->GetPixelZBuffer(fx, fy);
+								deltaZ = fabs((z - z2) / z);
+
+								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+								CVector3 filterNormal(
+									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+
+								float normalDiff = (normal - filterNormal).Length();
+								normalWeight = clamp(1.0 - normalDiff * 10.0, 0.0, 1.0);
+							}
+
+							if (radius <= filterRadius && normalWeight > 0.5 && deltaZ < 0.01)
 							{
 								sRGBFloat inputPixel = blurBuffer[fx + fy * width];
 								medianRInput.push_back(inputPixel.R);

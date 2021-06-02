@@ -510,18 +510,44 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="0" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_DOF_samples">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_360">
+                  <property name="text">
+                   <string>Max noise level
+(percentage)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="QLabel" name="label_average_DOF_samples">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of MC samples that have been calculated  for each image pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Average number of MC samples:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="2" column="1">
                  <widget class="MyLineEdit" name="logedit_DOF_max_noise">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit of noise level for each image pixel. Every pixel is calculated multiple times until estimated noise reaches maximum noise level percentage.&lt;/p&gt;&lt;p&gt;A lower value reduces visible noise on the final image, but increases rendering time. Decreasing the maximum noise level by half, increases the rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_358">
-                  <property name="text">
-                   <string>Max number of samples
-per pixel:</string>
                   </property>
                  </widget>
                 </item>
@@ -549,21 +575,11 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_360">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_358">
                   <property name="text">
-                   <string>Max noise level
-(percentage)</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0" colspan="2">
-                 <widget class="QLabel" name="label_average_DOF_samples">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of MC samples that have been calculated  for each image pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>Average number of MC samples:</string>
+                   <string>Max number of samples
+per pixel:</string>
                   </property>
                  </widget>
                 </item>
@@ -577,64 +593,79 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_DOF_samples">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="MyCheckBox" name="checkBox_MC_denoiser_enable">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string>Use denoiser</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="MyComboBox" name="comboBox_MC_denoiser_strength">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Light</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Medium</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Strong</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                </layout>
+              </item>
+              <item>
+               <widget class="MyGroupBox" name="groupCheck_MC_denoiser_enable">
+                <property name="title">
+                 <string>Denoiser</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="1">
+                  <widget class="MyComboBox" name="comboBox_MC_denoiser_strength">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Light</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Medium</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Strong</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Strength</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0" colspan="2">
+                  <widget class="MyCheckBox" name="checkBox_MC_denoiser_preserve_geometry">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keeps sharp edges and object details.&lt;/p&gt;&lt;p&gt;This option can give wrong appearance when strong DOF is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="text">
+                    <string>Preserve geometry</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </item>
               <item>
                <widget class="MyCheckBox" name="checkBox_DOF_MC_global_illumination">
@@ -1208,8 +1239,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
-            <height>1410</height>
+            <width>267</width>
+            <height>1425</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2527,8 +2558,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3204,7 +3235,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
+            <width>287</width>
             <height>1092</height>
            </rect>
           </property>
@@ -4234,8 +4265,8 @@ from fractal:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1070</height>
+            <width>171</width>
+            <height>110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.26dev002
+#define MANDELBULBER_VERSION 2.26dev003
 
 int GetInteger(int byte, __global char *array)
 {
@@ -420,7 +420,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 		float4 resultShader = 0.0f;
 		float3 objectColour = 0.0f;
-		float3 normal;
+		float3 normal = 0.0f;
 		float opacity = 0.0f;
 
 #ifdef PERSP_FISH_EYE_CUT
@@ -487,6 +487,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			pixel.colB = objectColour.s2 * 256.0f;
 			pixel.opacity = opacity * 65535;
 			pixel.alpha = resultShader.s3 * 65535;
+			pixel.normal = normalize(normal);
 
 			out[buffIndex] = pixel;
 		}
@@ -510,6 +511,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.colB = objectColour.s2 * 256.0f;
 	pixel.opacity = opacity * 65535;
 	pixel.alpha = resultShader.s3 * 65535;
+	pixel.normal = normalize(normal);
 
 	out[buffIndex] = pixel;
 #endif // STEREO_REYCYAN

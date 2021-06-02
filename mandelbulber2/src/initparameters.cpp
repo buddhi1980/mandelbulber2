@@ -363,6 +363,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
 	par->addParam("MC_denoiser_enable", false, morphLinear, paramStandard);
 	par->addParam("MC_denoiser_strength", 1, morphLinear, paramStandard);
+	par->addParam("MC_denoiser_preserve_geometry", true, morphLinear, paramStandard);
 
 	// aux lights
 

@@ -1195,6 +1195,9 @@ void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRG
 	image->PutPixelOpacity(xx, yy, opacity);
 	if (image->GetImageOptional()->optionalDiffuse)
 		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
+	if (image->GetImageOptional()->optionalNormalWorld)
+		image->PutPixelNormalWorld(
+			xx, yy, sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2));
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
@@ -1418,6 +1421,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
 							unsigned short opacity = pixelCl.opacity;
 							unsigned short alpha = pixelCl.alpha;
+
 							size_t xx = x + jobX;
 							size_t yy = y + jobY;
 
@@ -1456,7 +1460,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 									image->PutPixelImage(xx, yy, sRGBFloat());
 								}
 
-								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness);
+								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
 
 								if (useDenoiser)
 								{
@@ -1481,7 +1485,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						if (output.monteCarloLoop > 2)
 						{
 							firstBlurcalculated = true;
-							denoiser->Denoise(jobX, jobY, jobWidth, jobHeight, image, output.monteCarloLoop);
+							denoiser->Denoise(jobX, jobY, jobWidth, jobHeight,
+								constantInBuffer->params.monteCarloDenoiserPreserveGeometry, image,
+								output.monteCarloLoop);
 						}
 					}
 					//-----------

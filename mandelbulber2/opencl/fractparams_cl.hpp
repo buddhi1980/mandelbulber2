@@ -133,6 +133,7 @@ typedef struct
 	cl_int monteCarloSoftShadows;
 	cl_int monteCarloGIVolumetric;
 	cl_int monteCarloDenoiserEnable;
+	cl_int monteCarloDenoiserPreserveGeometry;
 	cl_int raytracedReflections;
 	cl_int slowShading; // enable fake gradient calculation for shading
 	cl_int SSAO_random_mode;
@@ -314,6 +315,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
 	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
+	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
 	target.raytracedReflections = source.raytracedReflections;
 	target.slowShading = source.slowShading;
 	target.SSAO_random_mode = source.SSAO_random_mode;

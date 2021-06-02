@@ -151,6 +151,9 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	imageOptional.optionalWorld = paramsContainer->Get<bool>("world_enabled");
 	imageOptional.optionalDiffuse = paramsContainer->Get<bool>("diffuse_enabled");
 
+	// FIXME: option for optionalNormal (denoiser)
+	imageOptional.optionalNormalWorld = true;
+
 	emit updateProgressAndStatus(
 		QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
 	// gApplication->processEvents();
@@ -781,7 +784,8 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 					//					connect(&rendererSSAO,
 					//						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					// this, 						SIGNAL(updateProgressAndStatus(const QString &, const QString &,
-					// double))); 					connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+					// double))); 					connect(&rendererSSAO, SIGNAL(updateImage()), this,
+					// SIGNAL(updateImage()));
 					//					rendererSSAO.SetRegion(region);
 					//					rendererSSAO.RenderSSAO();
 					//

@@ -52,6 +52,7 @@ typedef struct
 	cl_uchar colR;
 	cl_uchar colG;
 	cl_uchar colB;
+	cl_float3 normal;
 } sClPixel;
 
 typedef struct
