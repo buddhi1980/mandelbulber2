@@ -439,7 +439,7 @@ enum enumFractalFormula
 
 	// 2.26
 	transfRotationM3d = 1129,
-
+	transfSphericalInvPnorm = 1130,
 
 	// mandelbulber transfdIFS
 	// 2.20

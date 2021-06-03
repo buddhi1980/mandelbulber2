@@ -20,6 +20,15 @@
 
 REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+	}
+
 	// update aux->actualScale
 	aux->actualScale =
 			fractal->transformCommon.scale015
@@ -42,7 +51,7 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	else if (rr < 1.0f) m = m / rr;
 
 	z *= m;
-	aux->DE = aux->DE * fabs(m) + 1.0f;
+	aux->DE = aux->DE * fabs(m) + fractal->analyticDE.offset1;
 
 	if (fractal->transformCommon.addCpixelEnabled)
 		z += aux->const_c * fractal->transformCommon.constantMultiplier111;
