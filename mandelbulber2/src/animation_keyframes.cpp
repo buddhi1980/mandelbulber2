@@ -515,9 +515,9 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	table->setItem(framesPerKeyframeRow, newColumn,
 		new QTableWidgetItem(QString::number(frame.numberOfSubFrames)));
 
-	int previousIndex = max(index - 1, 0);
-	const cAnimationFrames::sAnimationFrame &previousFrame = keyframes->GetFrame(previousIndex);
-	double cameraSpeed = GetCameraSpeed(frame, previousFrame);
+	int nextIndex = min(index + 1, keyframes->GetNumberOfFrames() - 1);
+	const cAnimationFrames::sAnimationFrame &nextFrame = keyframes->GetFrame(nextIndex);
+	double cameraSpeed = GetCameraSpeed(frame, nextFrame);
 	table->setItem(cameraSpeedRow, newColumn, new QTableWidgetItem(QString::number(cameraSpeed)));
 	table->item(cameraSpeedRow, newColumn)->setFlags(Qt::NoItemFlags);
 
@@ -1318,11 +1318,12 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 	table->blockSignals(false);
 
-	const int index = min(column + 1 - reservedColumns, keyframes->GetNumberOfFrames() - 1);
-	int previousIndex = max(index - 1, 0);
-	double speed = GetCameraSpeed(keyframes->GetFrame(index), keyframes->GetFrame(previousIndex));
+	const int index = min(column - reservedColumns, keyframes->GetNumberOfFrames() - 1);
+	int nextIndex = min(index + 1, keyframes->GetNumberOfFrames() - 1);
+	double speed = GetCameraSpeed(keyframes->GetFrame(index), keyframes->GetFrame(nextIndex));
 	QTableWidgetItem *speedCell = table->item(cameraSpeedRow, index + reservedColumns);
 	speedCell->setText(QString::number(speed));
+	table->update();
 }
 
 void cKeyframeAnimation::slotDeleteAllImages() const
@@ -1957,12 +1958,12 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 }
 
 double cKeyframeAnimation::GetCameraSpeed(const cAnimationFrames::sAnimationFrame &frame,
-	const cAnimationFrames::sAnimationFrame &previousFrame)
+	const cAnimationFrames::sAnimationFrame &nextFrame)
 {
 	CVector3 camera = frame.parameters.Get<CVector3>("main_camera");
-	CVector3 previousCamera = previousFrame.parameters.Get<CVector3>("main_camera");
+	CVector3 previousCamera = nextFrame.parameters.Get<CVector3>("main_camera");
 	double distance = (camera - previousCamera).Length();
-	double speed = distance / previousFrame.numberOfSubFrames;
+	double speed = distance / frame.numberOfSubFrames;
 	return speed;
 }
 

@@ -73,7 +73,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	{
 		actionRender = menu->addAction(tr("Render this keyframe"));
 	}
-	else
+	else if (row >= cKeyframeAnimation::reservedRows)
 	{
 		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColumns)
 		{
@@ -154,7 +154,7 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 
 	std::unique_ptr<QMenu> menu(new QMenu);
 
-	if (row > 0)
+	if (row >= cKeyframeAnimation::reservedRows)
 	{
 		QString name = gKeyframeAnimation->GetParameterName(row);
 		QAction *actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
