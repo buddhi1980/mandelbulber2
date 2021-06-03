@@ -21,7 +21,10 @@ REAL4 TransfSphericalInvPnormIteration(REAL4 z, __constant sFractalCl *fractal, 
 	lpN.x = native_powr(lpN.x, pr);
 	lpN.y = native_powr(lpN.y, pr);
 	lpN.z = native_powr(lpN.z, pr);
-	REAL pNorm = native_powr((lpN.x + lpN.y + lpN.z), 1.0f / pr);
+
+	REAL pNorm = lpN.x + lpN.y + lpN.z;
+	if (fractal->transformCommon.functionEnabledFalse) pNorm += native_powr(lpN.w, pr);
+	pNorm = native_powr(pNorm, 1.0 / pr);
 
 	pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset0);
@@ -32,9 +35,6 @@ REAL4 TransfSphericalInvPnormIteration(REAL4 z, __constant sFractalCl *fractal, 
 	pNorm = useScale / pNorm;
 	z *= pNorm;
 	aux->DE *= fabs(pNorm);
-
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	return z;
 }

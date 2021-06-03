@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfSphericalInvPnorm  using p-norm
+ * TransfSphericalInvPnorm using p-norm
  */
 
 #include "all_fractal_definitions.h"
@@ -31,7 +31,10 @@ void cFractalTransfSphericalInvPnorm::FormulaCode(CVector4 &z, const sFractal *f
 	lpN.x = pow(lpN.x, pr);
 	lpN.y = pow(lpN.y, pr);
 	lpN.z = pow(lpN.z, pr);
-	double pNorm = pow((lpN.x + lpN.y + lpN.z), 1.0 / pr);
+
+	double pNorm = lpN.x + lpN.y + lpN.z;
+	if (fractal->transformCommon.functionEnabledFalse) pNorm += pow(lpN.w, pr);
+	pNorm = pow(pNorm, 1.0 / pr);
 
 	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset0);

@@ -16,27 +16,25 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 lpN = fabs(z);
+	REAL pr = fractal->transformCommon.scale2;
+	lpN.x = native_powr(lpN.x, pr);
+	lpN.y = native_powr(lpN.y, pr);
+	lpN.z = native_powr(lpN.z, pr);
 
-	REAL pNorm = 1.0f;
-	if (aux->i >= fractal->transformCommon.startIterationsG
-			&& aux->i < fractal->transformCommon.stopIterationsG)
-	{
-		REAL4 lpN = fabs(z);
-		REAL pr = fractal->transformCommon.scale2;
-		lpN.x = native_powr(lpN.x, pr);
-		lpN.y = native_powr(lpN.y, pr);
-		lpN.z = native_powr(lpN.z, pr);
-		pNorm = native_powr((lpN.x + lpN.y + lpN.z), 1.0f / pr);
+	REAL pNorm = lpN.x + lpN.y + lpN.z;
+	if (fractal->transformCommon.functionEnabledFalse) pNorm += native_powr(lpN.w, pr);
+	pNorm = native_powr(pNorm, 1.0 / pr);
 
-		pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
-		pNorm = max(pNorm, fractal->transformCommon.offset02);
+	pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
+	pNorm = max(pNorm, fractal->transformCommon.offset0);
 
-		REAL useScale = fractal->transformCommon.scale1p1 - aux->actualScaleA;
-		if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-			aux->actualScaleA = fractal->transformCommon.scaleVary0 * (fabs(aux->actualScaleA) + 1.0f);
-		pNorm = useScale / pNorm;
-		z *= pNorm;
-		aux->DE *= fabs(pNorm);
-	}
+	REAL useScale = fractal->transformCommon.scale1 - aux->actualScaleA;
+	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
+		aux->actualScaleA = fractal->transformCommon.scaleVary0 * (fabs(aux->actualScaleA) + 1.0f);
+	pNorm = useScale / pNorm;
+	z *= pNorm;
+	aux->DE *= fabs(pNorm);
+
 	return z;
 }
