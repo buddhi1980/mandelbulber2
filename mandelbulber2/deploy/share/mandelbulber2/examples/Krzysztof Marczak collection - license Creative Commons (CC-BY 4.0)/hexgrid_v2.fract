@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 camera -2,45132091092972 7,94615158925979 -2,77277560165734;
@@ -7,7 +7,7 @@ camera_distance_to_target 0,376555206946955;
 camera_rotation 72,20267755194 21,5111218936593 2,01519944617528e-11;
 camera_top 0,349133782827812 -0,112076597169233 0,930346407557587;
 DE_factor 0,277100132752172;
-DOF_max_noise 0,788746058939186;
+DOF_max_noise 2;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;
 DOF_samples 200;
@@ -37,6 +37,7 @@ mat2_luminosity_color ff00 6b00 2700;
 mat2_surface_color 0000 0000 0000;
 mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat2_use_colors_from_palette false;
+MC_denoiser_enable true;
 MC_global_illumination_volumetric true;
 primitive_water_1_enabled true;
 primitive_water_1_length 0,00625;

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.26
 # only modified parameters
 [description]
 This settings file uses Monte Carlo Depth Of Field effect.
@@ -10,12 +10,12 @@ ambient_occlusion 2;
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 10;
-camera -0,05587384079316522 -0,8334627751739854 0,07891679167859178;
-camera_distance_to_target 0,4322588926774263;
-camera_rotation 56,73687028422202 -24,0097450681592 13,30616257629297;
+camera -0,0558738407931652 -0,833462775173985 0,0789167916785918;
+camera_distance_to_target 0,432258892677426;
+camera_rotation 56,736870284222 -24,0097450681592 13,306162576293;
 camera_top -0,2048571270233541 0,4096288268308035 0,8889531943454374;
 DOF_enabled true;
-DOF_focus 0,4738484621047974;
+DOF_focus 0,473848462104797;
 DOF_max_noise 0,954993;
 DOF_monte_carlo true;
 DOF_radius 26,63;
@@ -23,13 +23,15 @@ DOF_samples 250;
 flight_last_to_render 0;
 formula_1 7;
 image_height 1200;
-image_width 1600;
+image_width 2133;
 keyframe_last_to_render 0;
-main_light_alpha -122,01;
-main_light_beta 17,35;
-main_light_intensity 2;
+light1_intensity 2;
+light1_is_defined true;
+light1_penetrating false;
+light1_rotation -122,01 17,35 0;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
-penetrating_lights false;
-target -0,386038698827877 -0,6168890109698603 -0,09696590069359524;
+MC_denoiser_enable true;
+MC_denoiser_preserve_geometry false;
+target -0,386038698827877 -0,61688901096986 -0,0969659006935952;

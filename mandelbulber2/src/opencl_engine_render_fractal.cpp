@@ -1482,7 +1482,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 															+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 								noise *= 0.3333f;
 
-								float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.33333f;
+								float sumBrightness = (newPixel.R + newPixel.G + newPixel.B);
 								maxBrightness = max(sumBrightness, maxBrightness);
 								minBrightness = min(sumBrightness, minBrightness);
 

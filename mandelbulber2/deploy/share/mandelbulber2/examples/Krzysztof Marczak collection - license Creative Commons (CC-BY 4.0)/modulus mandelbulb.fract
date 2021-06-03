@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 camera -1,16779802248591 1,81917739242743 2,01322312353248;
@@ -28,6 +28,8 @@ mat1_is_defined true;
 mat1_specular 1;
 mat1_specular_width 0,063;
 mat1_surface_color_gradient 0 56381c 370 161d0b 740 121a0b 1111 44a531 1481 e3e093 1850 1b602a 2222 333f33 2592 4c3025 2962 393124 3333 3f1f20 3703 1a4d14 4073 09130b 4444 040404 4814 1d3d2e 5184 061d03 5554 afac5b 5924 c9cc65 6296 e5deb2 6666 b6bc58 7037 284737 7407 55711a 7777 9caf60 8147 f79e20 8518 519355 8888 2f5a2f 9259 557536 9629 18171d;
+MC_denoiser_enable true;
+MC_denoiser_strength 2;
 raytraced_reflections true;
 target -1,10996727451351 1,33585791402619 1,91579500918299;
 view_distance_max 27,7764791293558;

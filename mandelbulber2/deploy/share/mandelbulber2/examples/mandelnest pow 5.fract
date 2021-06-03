@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 background_3_colors_enable false;
@@ -10,6 +10,7 @@ camera_rotation -170,166017560741 -23,7489989092758 -142,268190130878;
 camera_top 0,548574342144675 0,418353347115874 -0,723910676877667;
 detail_level 0,5;
 DOF_focus 0,843840062618256;
+DOF_max_noise 5;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;
 flight_last_to_render 0;
@@ -89,6 +90,7 @@ mat1_is_defined true;
 mat1_specular_plastic_enable false;
 mat1_surface_color_gradient 0 4c25f1 817 271d36 5223 f53dad 9098 5e2c5a;
 mat1_use_colors_from_palette false;
+MC_denoiser_enable true;
 MC_soft_shadows_enable true;
 raytraced_reflections true;
 target 0,0181098375318474 0,624791162527758 -0,0322704259982206;

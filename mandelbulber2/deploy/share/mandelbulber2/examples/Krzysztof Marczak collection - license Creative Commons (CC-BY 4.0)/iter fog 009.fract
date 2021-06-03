@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 ambient_occlusion 6,3;
@@ -13,11 +13,12 @@ camera_distance_to_target 1,82905183792114;
 camera_rotation 83,5717343313143 -24,5229143243507 -0,415643533976733;
 camera_top -0,413248917637868 0,0392595549485278 0,909771410529246;
 DE_factor 0,762454523641213;
+DOF_max_noise 2;
 DOF_monte_carlo true;
 flight_last_to_render 0;
 formula_1 3;
 image_height 1600;
-image_width 1600;
+image_width 2844;
 interior_mode true;
 iteration_fog_enable true;
 iteration_fog_opacity 271,613518567902;
@@ -34,6 +35,7 @@ light1_visibility 0;
 mat1_is_defined true;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
+MC_denoiser_enable true;
 N 13;
 raytraced_reflections true;
 target 0,730263731306988 -0,102838411825529 0,372241789812681;

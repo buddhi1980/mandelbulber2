@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.21
+# version 2.26
 # only modified parameters
 [description]
 This settings file uses Monte Carlo Depth Of Field effect.
@@ -7,22 +7,14 @@ To render this image it's highly recommended to use fast graphics card by enabli
 Rendering using CPU can be enormously long.
 [main_parameters]
 ambient_occlusion_mode 0;
-aux_light_enabled_2 true;
-aux_light_enabled_3 true;
-aux_light_intensity_2 0,040738;
-aux_light_intensity_3 4,571401384574096e-05;
-aux_light_position_2 2,704132572774964 -4,146808219539279 1,430423530112395;
-aux_light_position_3 2,658955974342212 -4,285806442088396 1,417245791365041;
-aux_light_visibility 15,4882;
-aux_light_visibility_size 0,0977237;
-camera 2,657685741680431 -4,324030300153532 1,407946373012533;
+camera 2,65768574168043 -4,32403030015353 1,40794637301253;
 camera_distance_to_target 0,0365776142673498;
-camera_rotation -14,42469505013367 0,9392446414076596 2,156319298127784;
+camera_rotation -14,4246950501337 0,93924464140766 2,15631929812778;
 camera_top 0,03235934177243675 -0,02523709634061225 0,9991576261873543;
 DOF_enabled true;
-DOF_focus 0,04385440051555634;
+DOF_focus 0,0438544005155563;
+DOF_max_noise 2;
 DOF_monte_carlo true;
-DOF_samples 150;
 flight_last_to_render 0;
 fog_color_2 ff00 f600 7000;
 fog_color_3 5700 3700 8400;
@@ -30,17 +22,35 @@ formula_1 103;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
+light1_is_defined true;
+light2_is_defined true;
+light2_size 0,1954474;
+light2_visibility 15,4882;
+light3_enabled true;
+light3_intensity 0,0101845;
+light3_is_defined true;
+light3_position 2,70413257277496 -4,14680821953928 1,4304235301124;
+light3_size 0,1954474;
+light3_visibility 15,4882;
+light4_enabled true;
+light4_intensity 1,14285034614352e-05;
+light4_is_defined true;
+light4_position 2,65895597434221 -4,2858064420884 1,41724579136504;
+light4_size 0,1954474;
+light4_visibility 15,4882;
 mat1_coloring_speed 5;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1,34;
 mat1_surface_color_gradient 0 000000 5000 ff0000;
 mat1_transparency_index_of_refraction 3,77;
+MC_denoiser_enable true;
+MC_denoiser_strength 2;
 MC_soft_shadows_enable true;
 raytraced_reflections true;
 reflections_max 1;
-target 2,666796269356724 -4,288610522532904 1,40854595975007;
-volumetric_fog_colour_1_distance 0,003221412576632463;
-volumetric_fog_colour_2_distance 0,006442825153264927;
-volumetric_fog_distance_factor 0,006442825153264927;
+target 2,66679626935672 -4,2886105225329 1,40854595975007;
+volumetric_fog_colour_1_distance 0,00322141257663246;
+volumetric_fog_colour_2_distance 0,00644282515326493;
+volumetric_fog_distance_factor 0,00644282515326493;
 volumetric_fog_enabled true;

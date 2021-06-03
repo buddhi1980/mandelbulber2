@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 background_3_colors_enable false;
@@ -11,9 +11,10 @@ camera 0,176770089356357 -0,33498410834148 0,693464572668651;
 camera_distance_to_target 1,23439004946401;
 camera_rotation -1,66297975863058 2,56276487858969 91,0042387710651;
 camera_top 0,999448027976481 -0,0282325994256667 -0,0175088464380899;
+DOF_max_noise 3;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;
-DOF_samples 400;
+DOF_samples 200;
 fake_lights_color 2500 7c00 ff00;
 fake_lights_enabled true;
 fake_lights_intensity 0,14328234333206;
@@ -40,6 +41,7 @@ mat1_specular 4;
 mat1_specular_width 0,063;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
+MC_denoiser_enable true;
 MC_global_illumination_volumetric true;
 raytraced_reflections true;
 target 0,212556750665372 0,897651971557017 0,748658808061331;

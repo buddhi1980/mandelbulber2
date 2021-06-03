@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.26
 # only modified parameters
 [main_parameters]
 ambient_occlusion 4;
@@ -17,7 +17,7 @@ camera_rotation 3,02255737704628 27,5998490499265 -44,8847522302574;
 camera_top -0,687392661560862 -0,365009790066244 0,627900614737771;
 DE_factor 0,5;
 DOF_monte_carlo true;
-DOF_samples 400;
+DOF_samples 200;
 flight_last_to_render 0;
 fov 53,130102354156;
 gamma 0,6;
@@ -51,6 +51,8 @@ mat2_surface_color 2300 4800 6800;
 mat2_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat2_transparency_index_of_refraction 3;
 mat2_use_colors_from_palette false;
+MC_denoiser_enable true;
+MC_denoiser_preserve_geometry false;
 N 29;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 6;
