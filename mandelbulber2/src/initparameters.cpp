@@ -1638,8 +1638,16 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 		paramStandard);
 
 	// rotation parameters to keep compatibility with version <2.25
-	par->addParam(cLight::Name("alpha", lightId), 0.0, morphNone, paramNoSave);
-	par->addParam(cLight::Name("beta", lightId), 0.0, morphNone, paramNoSave);
+	if (lightId == 1)
+	{
+		par->addParam(cLight::Name("alpha", lightId), -45.0, morphNone, paramNoSave);
+		par->addParam(cLight::Name("beta", lightId), 45.0, morphNone, paramNoSave);
+	}
+	else
+	{
+		par->addParam(cLight::Name("alpha", lightId), 0.0, morphNone, paramNoSave);
+		par->addParam(cLight::Name("beta", lightId), 0.0, morphNone, paramNoSave);
+	}
 
 	par->addParam(cLight::Name("color", lightId), newLightColor, morphLinear, paramStandard);
 
