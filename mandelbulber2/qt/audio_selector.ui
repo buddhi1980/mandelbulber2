@@ -531,6 +531,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Note: you can drag keyframes on the ruler to align them with audio</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -566,8 +576,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1012</width>
-            <height>639</height>
+            <width>977</width>
+            <height>672</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -742,16 +752,6 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -827,22 +827,5 @@
  <resources>
   <include location="icons.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>cAudioSelector</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1230</x>
-     <y>709</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1250</x>
-     <y>697</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

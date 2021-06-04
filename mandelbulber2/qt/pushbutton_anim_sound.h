@@ -59,6 +59,9 @@ private slots:
 	void slotUpdateButton();
 	void slotLoadAudio();
 
+signals:
+	void signalAudioSelectorClosed();
+
 private:
 	QString parameterName;
 	std::shared_ptr<cAnimationFrames> animationFrames;

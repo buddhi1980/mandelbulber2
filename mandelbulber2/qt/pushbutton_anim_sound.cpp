@@ -88,4 +88,6 @@ void cPushButtonAnimSound::slotLoadAudio()
 	audioSelectorDialog->setWindowModality(Qt::ApplicationModal);
 	connect(audioSelectorDialog, SIGNAL(audioLoaded()), this, SLOT(slotUpdateButton()));
 	audioSelectorDialog->show();
+
+	connect(audioSelectorDialog, &QWidget::destroyed, this, &cPushButtonAnimSound::signalAudioSelectorClosed);
 }

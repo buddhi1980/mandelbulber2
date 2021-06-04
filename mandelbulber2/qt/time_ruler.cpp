@@ -42,6 +42,7 @@
 #include <QPainter>
 
 #include "src/audio_track.h"
+#include "src/keyframes.hpp"
 
 cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 {
@@ -53,11 +54,12 @@ cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 cTimeRuler::~cTimeRuler() = default;
 
 void cTimeRuler::SetParameters(
-	std::shared_ptr<cAudioTrack> audioTrack, const std::vector<int> &_framesIndexesTable)
+	std::shared_ptr<cAudioTrack> audioTrack, std::shared_ptr<cKeyframes> _keyframes)
 {
+	keyframes = _keyframes;
 	frames = audioTrack->getNumberOfFrames();
 	framesPerSecond = audioTrack->getFramesPerSecond();
-	framesIndexesTable = _framesIndexesTable;
+	framesIndexesTable = keyframes->getFramesIndexesTable();
 	soundLength = frames / framesPerSecond;
 	update();
 }
@@ -105,7 +107,7 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 		pen.setColor(Qt::red);
 		painter.setPen(pen);
 
-		for (int key = 0; key < framesIndexesTable.size(); key++)
+		for (size_t key = 0; key < framesIndexesTable.size(); key++)
 		{
 			int x = framesIndexesTable.at(key);
 			if (x >= xStart - 50 && x <= xEnd + 50)
@@ -115,5 +117,78 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 				painter.drawText(x + 3, 52, QString::number(key));
 			}
 		}
+	}
+}
+
+int cTimeRuler::FindKeyAtPosition(int mouseX)
+{
+	for (size_t key = 0; key < framesIndexesTable.size(); key++)
+	{
+		if (mouseX > framesIndexesTable[key] - 2 && mouseX < framesIndexesTable[key] + 2)
+		{
+			return key;
+		}
+	}
+	return -1;
+}
+
+void cTimeRuler::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+
+		int mouseX = event->x();
+
+		int index = FindKeyAtPosition(mouseX);
+
+		dragStartX = mouseX;
+		pressedKeyIndex = index;
+	}
+}
+
+void cTimeRuler::mouseMoveEvent(QMouseEvent *event)
+{
+	Q_UNUSED(event);
+
+	if (pressedKeyIndex > 0)
+	{
+		if (event->x() != dragStartX)
+		{
+			mouseDragStarted = true;
+		}
+
+		if (mouseDragStarted)
+		{
+			ModifyKeyframePosition(pressedKeyIndex, event->x());
+			emit update();
+		}
+	}
+}
+
+void cTimeRuler::mouseReleaseEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		pressedKeyIndex = -1;
+		mouseDragStarted = false;
+	}
+}
+
+void cTimeRuler::ModifyKeyframePosition(int key, int position)
+{
+	if (key > 0)
+	{
+		int framesPerKeyframe = position - framesIndexesTable.at(key - 1);
+		if (framesPerKeyframe < 1) framesPerKeyframe = 1;
+
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(key - 1);
+		frame.numberOfSubFrames = framesPerKeyframe;
+		keyframes->ModifyFrame(key - 1, frame);
+
+		keyframes->UpdateFramesIndexesTable();
+
+		framesIndexesTable = keyframes->getFramesIndexesTable();
+
+		update();
 	}
 }

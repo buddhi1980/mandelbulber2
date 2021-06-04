@@ -479,9 +479,14 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 	table->insertRow(row);
 	table->setVerticalHeaderItem(row, new QTableWidgetItem(fullParameterName));
 	rowParameter.append(index);
-	table->setCellWidget(row, animSoundColumn, new cPushButtonAnimSound(table));
-	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
-		->AssignParameterName(fullParameterName);
+
+	cPushButtonAnimSound *audioSelectorButton = new cPushButtonAnimSound(table);
+	table->setCellWidget(row, animSoundColumn, audioSelectorButton);
+	connect(audioSelectorButton, &cPushButtonAnimSound::signalAudioSelectorClosed, this,
+		&cKeyframeAnimation::slotRefreshTable);
+
+		static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
+			->AssignParameterName(fullParameterName);
 	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignAnimation(keyframes);
 }

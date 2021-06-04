@@ -42,6 +42,7 @@
 
 // forward declarations
 class cAudioTrack;
+class cKeyframes;
 
 class cTimeRuler : public QWidget
 {
@@ -52,15 +53,27 @@ public:
 	~cTimeRuler() override;
 
 	void SetParameters(
-		std::shared_ptr<cAudioTrack> audioTrack, const std::vector<int> &framesIndexesTable);
+		std::shared_ptr<cAudioTrack> audioTrack, std::shared_ptr<cKeyframes> keyframes);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+
+	int FindKeyAtPosition(int mouseX);
+	void ModifyKeyframePosition(int key, int position);
+
+	std::shared_ptr<cKeyframes> keyframes;
 
 	int frames;
 	double framesPerSecond;
 	std::vector<int> framesIndexesTable;
 	double soundLength;
+
+	bool mouseDragStarted = false;
+	int dragStartX = 0;
+	int pressedKeyIndex = 0;
 };
 
 #endif /* MANDELBULBER2_QT_TIME_RULER_H_ */
