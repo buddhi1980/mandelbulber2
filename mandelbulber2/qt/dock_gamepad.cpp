@@ -100,7 +100,7 @@ void cDockGamepad::ConnectSignals() const
 void cDockGamepad::slotChangeGamepadIndex(int index)
 {
 	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
-	if (deviceIds.size() > index - 1)
+	if (index < deviceIds.size() && index >= 0)
 	{
 		gamepad.setDeviceId(deviceIds[index]);
 		WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
