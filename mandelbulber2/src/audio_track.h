@@ -65,6 +65,8 @@ public:
 	double getFramesPerSecond() const { return framesPerSecond; }
 	float getMaxFft() const { return maxFft; }
 	float getMaxVolume() const { return maxVolume; }
+	int getSoundDelay() const { return soundDelay; }
+	void setSoundDelay(int soundDelay) { this->soundDelay = soundDelay; }
 	int freq2FftPos(double freq) const;
 	void calculateAnimation(double midFreq, double bandwidth, bool pitchMode);
 	float getAnimation(int frame) const;
@@ -92,6 +94,7 @@ private:
 
 	double framesPerSecond;
 	int numberOfFrames;
+	int soundDelay;
 
 	float maxVolume;
 	float maxFft;

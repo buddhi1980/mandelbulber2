@@ -70,6 +70,7 @@ private:
 	double framesPerSecond;
 	std::vector<int> framesIndexesTable;
 	double soundLength;
+	int soundDelay = 0;
 
 	bool mouseDragStarted = false;
 	int dragStartX = 0;

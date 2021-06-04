@@ -519,16 +519,26 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSuffix));
 		const double multFactor =
 			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSuffix));
-		const double animSound =
-			double(audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(frame));
 
-		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSuffix)))
+		int soundDelay = audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getSoundDelay();
+
+		int soundFrame = frame - soundDelay;
+
+		if (soundFrame >= 0
+				&& soundFrame
+						 < audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getNumberOfFrames())
 		{
-			newVal = oldVal / (1.0 + multFactor * animSound) - additionFactor * animSound;
-		}
-		else
-		{
-			newVal = oldVal * (1.0 + multFactor * animSound) + additionFactor * animSound;
+			const double animSound =
+				double(audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(soundFrame));
+
+			if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSuffix)))
+			{
+				newVal = oldVal / (1.0 + multFactor * animSound) - additionFactor * animSound;
+			}
+			else
+			{
+				newVal = oldVal * (1.0 + multFactor * animSound) + additionFactor * animSound;
+			}
 		}
 	}
 	return newVal;

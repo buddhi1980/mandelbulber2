@@ -72,6 +72,7 @@ private slots:
 	void slotPlayPositionChanged(bool updateSlider = true);
 	void slotPlaybackStateChanged(QAudio::State state) const;
 	void slotChangedFrequencyBand(double midFreq, double bandWidth) const;
+	void slotUpdateSoundDelay(int delay);
 
 private:
 	void audioSetup();

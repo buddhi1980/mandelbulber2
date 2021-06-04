@@ -152,6 +152,9 @@ void cAudioTrackCollection::AddParameters(
 		params->addParam(
 			FullParameterName("binarylength", parameterName), 1, 1, 1000, morphNone, paramStandard);
 
+		params->addParam(FullParameterName("sounddelay", parameterName), 0, -1000000, 1000000,
+			morphNone, paramStandard);
+
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("soundfile", parameterName), QString(""), morphNone, paramStandard);
@@ -178,6 +181,7 @@ void cAudioTrackCollection::RemoveParameters(
 		params->DeleteParameter(FullParameterName("binaryfilter", parameterName));
 		params->DeleteParameter(FullParameterName("binarythresh", parameterName));
 		params->DeleteParameter(FullParameterName("binarylength", parameterName));
+		params->DeleteParameter(FullParameterName("sounddelay", parameterName));
 	}
 }
 
@@ -221,6 +225,9 @@ void cAudioTrackCollection::RefreshAllAudioTracks(std::shared_ptr<cParameterCont
 		{
 			audioTracks[parameterName]->setFramesPerSecond(
 				params->Get<double>("keyframe_frames_per_second"));
+			audioTracks[parameterName]->setSoundDelay(
+				params->Get<int>(FullParameterName("sounddelay", parameterName)));
+
 			audioTracks[parameterName]->calculateFFT();
 
 			const double midFreq = params->Get<double>(FullParameterName("midfreq", parameterName));

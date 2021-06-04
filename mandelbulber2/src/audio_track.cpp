@@ -72,6 +72,7 @@ void cAudioTrack::Clear()
 	fftCalculated = false;
 	framesPerSecond = 30.0;
 	numberOfFrames = 0;
+	soundDelay = 0;
 	maxVolume = 0.0;
 	maxFft = 0.0;
 	rawAudio.clear();

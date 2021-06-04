@@ -40,6 +40,7 @@
 #include <QApplication>
 #include <QPaintEvent>
 #include <QPainter>
+#include <QDebug>
 
 #include "src/audio_track.h"
 #include "src/keyframes.hpp"
@@ -61,6 +62,7 @@ void cTimeRuler::SetParameters(
 	framesPerSecond = audioTrack->getFramesPerSecond();
 	framesIndexesTable = keyframes->getFramesIndexesTable();
 	soundLength = frames / framesPerSecond;
+	soundDelay = audioTrack->getSoundDelay();
 	update();
 }
 
@@ -83,7 +85,7 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 
 		for (int second = 0; second < soundLength; second++)
 		{
-			int x = int(second * framesPerSecond);
+			int x = int(second * framesPerSecond) - soundDelay;
 			if (x >= xStart - 50 && x <= xEnd + 50)
 			{
 				if (second % 60 == 0)
@@ -109,7 +111,7 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 
 		for (size_t key = 0; key < framesIndexesTable.size(); key++)
 		{
-			int x = framesIndexesTable.at(key);
+			int x = framesIndexesTable.at(key) - soundDelay;
 			if (x >= xStart - 50 && x <= xEnd + 50)
 			{
 				painter.drawLine(x, 0, x, 60);

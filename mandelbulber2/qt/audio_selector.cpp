@@ -103,6 +103,7 @@ void cAudioSelector::slotLoadAudioFile()
 void cAudioSelector::slotAudioLoaded()
 {
 	audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));
+	audio->setSoundDelay(gPar->Get<int>(FullParameterName("sounddelay")));
 	audio->calculateFFT();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
@@ -166,6 +167,8 @@ void cAudioSelector::ConnectSignals() const
 	connect(ui->audio_position_slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSeekTo(int)));
 	connect(ui->fft, SIGNAL(newFrequencySelected(double, double)), this,
 		SLOT(slotChangedFrequencyBand(double, double)));
+	connect(ui->spinboxInt_animsound_sounddelay, SIGNAL(valueChanged(int)), this,
+		SLOT(slotUpdateSoundDelay(int)));
 }
 
 void cAudioSelector::RenameWidget(QWidget *widget) const
@@ -295,6 +298,7 @@ void cAudioSelector::AssignAnimation(std::shared_ptr<cAnimationFrames> _animatio
 		if (audio->isLoaded())
 		{
 			audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));
+			audio->setSoundDelay(gPar->Get<int>(FullParameterName("sounddelay")));
 			audio->calculateFFT();
 			ui->waveForm->AssignAudioTrack(audio);
 			ui->fft->AssignAudioTrack(audio);
@@ -311,6 +315,7 @@ void cAudioSelector::slotDeleteAudioTrack()
 	audio->Clear();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
+	audio->setSoundDelay(gPar->Get<int>(FullParameterName("sounddelay")));
 	ui->timeRuler->SetParameters(audio, gKeyframes);
 	ui->text_animsound_soundfile->setText("");
 	slotFreqChanged();
@@ -373,4 +378,14 @@ void cAudioSelector::slotChangedFrequencyBand(double midFreq, double bandWidth) 
 {
 	ui->spinbox_animsound_midfreq->setValue(midFreq);
 	ui->spinbox_animsound_bandwidth->setValue(bandWidth);
+}
+
+void cAudioSelector::slotUpdateSoundDelay(int delay)
+{
+	if (audio)
+	{
+		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
+		audio->setSoundDelay(delay);
+		ui->timeRuler->SetParameters(audio, gKeyframes);
+	}
 }
