@@ -20,7 +20,7 @@
 
 REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse
+	if (fractal->transformCommon.functionEnabledSwFalse
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{

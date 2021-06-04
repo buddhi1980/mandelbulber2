@@ -29,7 +29,7 @@ cFractalAmazingSurfM3d::cFractalAmazingSurfM3d() : cAbstractFractal()
 
 void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse
+	if (fractal->transformCommon.functionEnabledSwFalse
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
 	{

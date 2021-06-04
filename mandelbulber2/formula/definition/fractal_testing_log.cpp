@@ -34,16 +34,35 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAwFalse) z.w = fabs(z.w);
 	}
 
-	aux.DE *= 2.0 * aux.r;
-	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w,
-		z.x * z.y - z.z * z.w,
-		z.x * z.z + z.y * z.w,
-		z.x * z.w - z.y * z.z);
+	CVector4 dd = fractal->transformCommon.constantMultiplier1220;
+	dd.w = fractal->transformCommon.scale2;
 
-	// z *= CVector4(1., 2., 2., 2);
+	aux.DE = aux.DE * 2.0 * aux.r;
 
-	z *= fractal->transformCommon.constantMultiplier1220;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z - z.w * z.w;
+		dd.y = 2.0 * z.x * z.y - dd.y * z.w * z.z;
+		dd.z = 2.0 * z.x * z.z - dd.z * z.y * z.w;
+		dd.w = 2.0 * z.x * z.w - dd.w * z.z * z.y;
+		z = dd;
+	}
+	else // old
+	{
+		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w,
+				z.x * z.y - z.z * z.w,
+				z.x * z.z + z.y * z.w,
+				z.x * z.w - z.y * z.z);
+		z *= dd;
+	}
+
+	// offset (Julia)
 	z += fractal->transformCommon.additionConstant0000;
+
+	 // DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse

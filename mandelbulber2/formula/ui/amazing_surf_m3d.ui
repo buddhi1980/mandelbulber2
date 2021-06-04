@@ -44,7 +44,7 @@ Mandelbulber ldefault along the Y axis</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledSw_false">
      <property name="title">
       <string>swap sign</string>
      </property>
