@@ -31,86 +31,27 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
-		if (fractal->transformCommon.functionEnabledAwFalse) z.w = fabs(z.w);
 	}
 
-	CVector4 dd = fractal->transformCommon.constantMultiplier1220;
-	dd.w = fractal->transformCommon.scale2;
+	CVector4 dd = fractal->transformCommon.constantMultiplier122;
 
 	aux.DE = aux.DE * 2.0 * aux.r;
 
-	if (!fractal->transformCommon.functionEnabledAFalse)
-	{
-		dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z - z.w * z.w;
-		dd.y = 2.0 * z.x * z.y - dd.y * z.w * z.z;
-		dd.z = 2.0 * z.x * z.z - dd.z * z.y * z.w;
-		dd.w = 2.0 * z.x * z.w - dd.w * z.z * z.y;
-		z = dd;
-	}
-	else // old
-	{
-		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w,
-				z.x * z.y - z.z * z.w,
-				z.x * z.z + z.y * z.w,
-				z.x * z.w - z.y * z.z);
-		z *= dd;
-	}
+	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
+	dd.y = dd.y * z.x * z.y;
+	dd.z = dd.z * z.x * z.z;
+
+	z = dd;
 
 	// offset (Julia)
-	z += fractal->transformCommon.additionConstant0000;
+	z += fractal->transformCommon.additionConstant000;
+
+	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	 // DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
-	// 6 plane rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		CVector4 tp;
-		if (fractal->transformCommon.rotation44a.x != 0)
-		{
-			tp = z;
-			double alpha = fractal->transformCommon.rotation44a.x * M_PI_180;
-			z.x = tp.x * cos(alpha) + tp.y * sin(alpha);
-			z.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
-		}
-		if (fractal->transformCommon.rotation44a.y != 0)
-		{
-			tp = z;
-			double beta = fractal->transformCommon.rotation44a.y * M_PI_180;
-			z.y = tp.y * cos(beta) + tp.z * sin(beta);
-			z.z = tp.y * -sin(beta) + tp.z * cos(beta);
-		}
-		if (fractal->transformCommon.rotation44a.z != 0)
-		{
-			tp = z;
-			double gamma = fractal->transformCommon.rotation44a.z * M_PI_180;
-			z.x = tp.x * cos(gamma) + tp.z * sin(gamma);
-			z.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
-		}
-		if (fractal->transformCommon.rotation44b.x != 0)
-		{
-			tp = z;
-			double delta = fractal->transformCommon.rotation44b.x * M_PI_180;
-			z.x = tp.x * cos(delta) + tp.w * sin(delta);
-			z.w = tp.x * -sin(delta) + tp.w * cos(delta);
-		}
-		if (fractal->transformCommon.rotation44b.y != 0)
-		{
-			tp = z;
-			double epsilon = fractal->transformCommon.rotation44b.y * M_PI_180;
-			z.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
-			z.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
-		}
-		if (fractal->transformCommon.rotation44b.z != 0)
-		{
-			tp = z;
-			double zeta = fractal->transformCommon.rotation44b.z * M_PI_180;
-			z.z = tp.z * cos(zeta) + tp.w * sin(zeta);
-			z.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
-		}
-	}
+
 }
