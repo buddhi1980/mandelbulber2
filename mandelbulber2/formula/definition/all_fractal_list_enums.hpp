@@ -272,7 +272,7 @@ enum enumFractalFormula
 	mandelnestV2 = 232,
 	amazingSurfM3d = 233,
 	pseudoKleinian4d = 234,
-
+	hypercomplexV2 = 235,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

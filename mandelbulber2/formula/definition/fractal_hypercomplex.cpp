@@ -9,8 +9,7 @@
  * 3D Mandelbrot formula invented by David Makin
  * http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  * @reference
- *
- http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
+ * http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
  */
 
 #include "all_fractal_definitions.h"
