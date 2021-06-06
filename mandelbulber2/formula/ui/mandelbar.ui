@@ -30,6 +30,13 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="QLabel" name="label_92">
+     <property name="text">
+      <string>Mandelbar  (aka Tricorn)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="toolTip">
       <string/>

@@ -13,10 +13,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelbarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->DE *= 2.0f * aux->r;
-
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -24,6 +22,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
+	aux->DE *= 2.0f * aux->r;
 	REAL4 dd = fractal->transformCommon.constantMultiplier122;
 	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
 	dd.y = -dd.y * z.x * z.y;
@@ -34,7 +33,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z += fractal->transformCommon.additionConstant000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
 
 	 // DE tweak
 	if (fractal->analyticDE.enabledFalse)

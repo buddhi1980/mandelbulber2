@@ -6,16 +6,17 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Quaternion4D
+ * Mandelbar or Tricorn
+ * ref: https://en.wikipedia.org/wiki/Tricorn_(mathematics)
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
+cFractalMandelbar::cFractalMandelbar() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Log";
-	internalName = "testing_log";
-	internalID = fractal::testingLog;
+	nameInComboBox = "Mandelbar";
+	internalName = "mandelbar";
+	internalID = fractal::mandelbar;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -24,7 +25,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelbar::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -33,14 +34,11 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	CVector4 dd = fractal->transformCommon.constantMultiplier122;
-
 	aux.DE = aux.DE * 2.0 * aux.r;
-
+	CVector4 dd = fractal->transformCommon.constantMultiplier122;
 	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
 	dd.y = -dd.y * z.x * z.y;
 	dd.z = dd.z * z.x * z.z;
-
 	z = dd;
 
 	// offset (Julia)
@@ -48,10 +46,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	 // DE tweak
+	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-
-
 }

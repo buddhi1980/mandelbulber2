@@ -54,7 +54,8 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	aux->DE = aux->DE * fabs(m) + fractal->analyticDE.offset1;
 
 	if (fractal->transformCommon.addCpixelEnabled)
-		z += aux->const_c * fractal->transformCommon.constantMultiplier111;
+		z += (REAL4){aux->const_c.y, aux->const_c.x, aux->const_c.z, aux->const_c.w} * fractal->transformCommon.constantMultiplier111;
+		//z -= aux->const_c * fractal->transformCommon.constantMultiplier111;
 
 	z += fractal->transformCommon.offsetA000;
 

@@ -73,11 +73,13 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	// hypercomlex
 	fractalList->append(new cFractalHypercomplex());
+	fractalList->append(new cFractalHypercomplexV2());
 	fractalList->append(new cFractalIqBulb());
 	fractalList->append(new cFractalLkmitch());
 	fractalList->append(new cFractalMakin3d2());
 
 	// Mandelbulb formulas
+	fractalList->append(new cFractalMandelbar());
 	fractalList->append(new cFractalMandelbulb());
 	fractalList->append(new cFractalMandelbulb2());
 	fractalList->append(new cFractalMandelbulb3());
