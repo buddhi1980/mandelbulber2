@@ -1408,9 +1408,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					float minBrightness = 100.0;
 
 					// processing pixels of tile
-					for (quint64 x = 0; x < jobWidth; x++)
+					for (quint64 y = 0; y < jobHeight; y++)
 					{
-						for (quint64 y = 0; y < jobHeight; y++)
+						for (quint64 x = 0; x < jobWidth; x++)
 						{
 							// getting pixel from output buffer
 							sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
@@ -1516,7 +1516,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 					// denoiser
 
-					if (useDenoiser)
+					if (monteCarlo && useDenoiser)
 					{
 						if (output.monteCarloLoop > 2)
 						{
