@@ -91,7 +91,7 @@ add_executable(mandelbulber2 WIN32
 	${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
 
 # Link qt libraries.
-qt5_use_modules(mandelbulber2 Core Widgets Network Gui UiTools Test Multimedia Concurrent)
+qt5_use_modules(mandelbulber2 Core Widgets Network Gui UiTools Test Multimedia)
 
 # Link other required libraries.
 include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS} ${LZO_INCLUDE_DIR})

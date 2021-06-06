@@ -8,7 +8,6 @@
 #include "denoiser.h"
 
 #include <cmath>
-#include <QtConcurrent>
 
 #include "common_math.h"
 #include "cimage.hpp"
@@ -74,128 +73,125 @@ void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat color, float noise)
 void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool preserveGeometry,
 	std::shared_ptr<cImage> image, int loopCounter)
 {
-	QThreadPool pool;
-
 	// lens blur
-	//#pragma omp parallel for schedule(dynamic, 1)
+
+	// Qt Concurrect is not used because this module is not available in ppa:beiner repository
+
+#pragma omp parallel for schedule(dynamic, 1)
 	for (int y = 0; y < int(boxHeight); y++)
 	{
-		QFuture<void> future = QtConcurrent::run(&pool, [=] {
-			for (int x = 0; x < int(boxWidth); x++)
+		for (int x = 0; x < int(boxWidth); x++)
+		{
+			size_t xx = x + boxX;
+			size_t yy = y + boxY;
+
+			float filterRadius = blurRadiusBuffer[xx + yy * width];
+
+			float z = 0;
+			CVector3 normal;
+			if (preserveGeometry)
 			{
-				size_t xx = x + boxX;
-				size_t yy = y + boxY;
+				z = image->GetPixelZBuffer(xx, yy);
 
-				float filterRadius = blurRadiusBuffer[xx + yy * width];
+				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
+				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
+			}
 
-				float z = 0;
-				CVector3 normal;
-				if (preserveGeometry)
+			// strong blur of low noise regions at first use of denoiser
+			// it prevents from black spots
+			if (loopCounter == 3)
+			{
+				sRGBFloat pixel = blurBuffer[xx + yy * width];
+				float sum = pixel.R + pixel.G + pixel.B;
+				filterRadius = filterRadius + clamp(0.1f / (sum * sum + 0.0000001f), 0.0f, 10.0f);
+			}
+
+			int delta = int(filterRadius + 1.0f);
+			sRGBFloat averagePixel;
+			float totalWeight = 0.0f;
+
+			for (int dy = -delta; dy <= delta; dy++)
+			{
+				for (int dx = -delta; dx <= delta; dx++)
 				{
-					z = image->GetPixelZBuffer(xx, yy);
+					int fx = xx + dx;
+					int fy = yy + dy;
 
-					sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
-					normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
-				}
-
-				// strong blur of low noise regions at first use of denoiser
-				// it prevents from black spots
-				if (loopCounter == 3)
-				{
-					sRGBFloat pixel = blurBuffer[xx + yy * width];
-					float sum = pixel.R + pixel.G + pixel.B;
-					filterRadius = filterRadius + clamp(0.1f / (sum * sum + 0.0000001f), 0.0f, 10.0f);
-				}
-
-				int delta = int(filterRadius + 1.0f);
-				sRGBFloat averagePixel;
-				float totalWeight = 0.0f;
-
-				for (int dy = -delta; dy <= delta; dy++)
-				{
-					for (int dx = -delta; dx <= delta; dx++)
+					if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 					{
-						int fx = xx + dx;
-						int fy = yy + dy;
+						float radius = sqrtf(float(dx * dx + dy * dy));
 
-						if (fx >= 0 && fx < width && fy >= 0 && fy < height)
+						// anti-aliased circle
+						float fweight = clamp(filterRadius - radius, 0.0f, 1.0f);
+
+						// take samples mostly from places of high noise
+						// it improves edges
+						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
+						float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
+
+						if (preserveGeometry)
 						{
-							float radius = sqrtf(float(dx * dx + dy * dy));
+							// use surface normals to select samples from similar surface direction
 
-							// anti-aliased circle
-							float fweight = clamp(filterRadius - radius, 0.0f, 1.0f);
+							sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+							CVector3 filterNormal(
+								filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
-							// take samples mostly from places of high noise
-							// it improves edges
-							float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
-							float noiseWeight = clamp(filterRadiusForWeight / filterRadius, 0.0f, 1.0f);
+							float normalDiff = (normal - filterNormal).Length();
+							float normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
 
-							if (preserveGeometry)
+							noiseWeight *= normalWeight;
+
+							// use samples form similar depth
+							float z2 = image->GetPixelZBuffer(fx, fy);
+							float deltaZ = fabsf((z - z2) / z);
+							if (deltaZ > 0.0)
 							{
-								// use surface normals to select samples from similar surface direction
+								noiseWeight *= clamp(1.0f / (deltaZ * zDepthFilterfactor), 0.0f, 1.0f);
+							}
+						}
 
-								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
-								CVector3 filterNormal(
-									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+						// use less blur when median is used
+						if (filterRadius <= maxMedianSize) noiseWeight *= 0.2f;
 
-								float normalDiff = (normal - filterNormal).Length();
-								float normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
+						if (dx == 0 && dy == 0) noiseWeight = 1.0f;
 
-								noiseWeight *= normalWeight;
+						if (loopCounter > 3)
+						{
+							fweight *= noiseWeight;
+						}
 
-								// use samples form similar depth
-								float z2 = image->GetPixelZBuffer(fx, fy);
-								float deltaZ = fabsf((z - z2) / z);
-								if (deltaZ > 0.0)
-								{
-									noiseWeight *= clamp(1.0f / (deltaZ * zDepthFilterfactor), 0.0f, 1.0f);
-								}
+						if (fweight > 0.0f)
+						{
+							sRGBFloat inputPixel = blurBuffer[fx + fy * width];
+
+							// limit pixel brightness at first strong blur
+							if (loopCounter == 3)
+							{
+								inputPixel.R = min(inputPixel.R, 1.5f);
+								inputPixel.G = min(inputPixel.G, 1.5f);
+								inputPixel.B = min(inputPixel.B, 1.5f);
 							}
 
-							// use less blur when median is used
-							if (filterRadius <= maxMedianSize) noiseWeight *= 0.2f;
-
-							if (dx == 0 && dy == 0) noiseWeight = 1.0f;
-
-							if (loopCounter > 3)
-							{
-								fweight *= noiseWeight;
-							}
-
-							if (fweight > 0.0f)
-							{
-								sRGBFloat inputPixel = blurBuffer[fx + fy * width];
-
-								// limit pixel brightness at first strong blur
-								if (loopCounter == 3)
-								{
-									inputPixel.R = min(inputPixel.R, 1.5f);
-									inputPixel.G = min(inputPixel.G, 1.5f);
-									inputPixel.B = min(inputPixel.B, 1.5f);
-								}
-
-								averagePixel.R += inputPixel.R * fweight;
-								averagePixel.G += inputPixel.G * fweight;
-								averagePixel.B += inputPixel.B * fweight;
-								totalWeight += fweight;
-							}
+							averagePixel.R += inputPixel.R * fweight;
+							averagePixel.G += inputPixel.G * fweight;
+							averagePixel.B += inputPixel.B * fweight;
+							totalWeight += fweight;
 						}
 					}
 				}
+			}
 
-				if (totalWeight > 0.0f)
-				{
-					averagePixel.R /= totalWeight;
-					averagePixel.G /= totalWeight;
-					averagePixel.B /= totalWeight;
+			if (totalWeight > 0.0f)
+			{
+				averagePixel.R /= totalWeight;
+				averagePixel.G /= totalWeight;
+				averagePixel.B /= totalWeight;
 
-					image->PutPixelImage(xx, yy, averagePixel);
-				}
-			} // for x
-		}); // Qt Concurrent
-	}			// for y
-
-	// pool.waitForDone(1000);
+				image->PutPixelImage(xx, yy, averagePixel);
+			}
+		} // for x
+	}		// for y
 
 	// copy buffer
 	for (int y = 0; y < int(boxHeight); y++)
@@ -213,118 +209,115 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 #pragma omp parallel for schedule(dynamic, 1)
 	for (int y = 0; y < int(boxHeight); y++)
 	{
-		QFuture<void> future = QtConcurrent::run(&pool, [=] {
-			for (int x = 0; x < int(boxWidth); x++)
+		for (int x = 0; x < int(boxWidth); x++)
+		{
+			size_t xx = x + boxX;
+			size_t yy = y + boxY;
+
+			float filterRadius = blurRadiusBuffer[xx + yy * width];
+
+			float z = 0.0f;
+			CVector3 normal;
+			if (preserveGeometry)
 			{
-				size_t xx = x + boxX;
-				size_t yy = y + boxY;
+				z = image->GetPixelZBuffer(xx, yy);
 
-				float filterRadius = blurRadiusBuffer[xx + yy * width];
+				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
+				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
+			}
 
-				float z = 0.0f;
-				CVector3 normal;
-				if (preserveGeometry)
+			if (filterRadius <= maxMedianSize)
+			{
+				float weight = 1.0f;
+				if (filterRadius < 1.0f + minBlurRadius)
 				{
-					z = image->GetPixelZBuffer(xx, yy);
-
-					sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
-					normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
+					weight = filterRadius - minBlurRadius;
+					if (weight < 0.0f) weight = 0.0f;
+					filterRadius = 1.0f;
 				}
 
-				if (filterRadius <= maxMedianSize)
+				int delta = int(filterRadius + 1.0f);
+
+				int pixelCount = 0;
+
+				std::vector<float> medianRInput;
+				std::vector<float> medianGInput;
+				std::vector<float> medianBInput;
+
+				for (int dy = -delta; dy <= delta; dy++)
 				{
-					float weight = 1.0f;
-					if (filterRadius < 1.0f + minBlurRadius)
+					for (int dx = -delta; dx <= delta; dx++)
 					{
-						weight = filterRadius - minBlurRadius;
-						if (weight < 0.0f) weight = 0.0f;
-						filterRadius = 1.0f;
-					}
+						int fx = xx + dx;
+						int fy = yy + dy;
 
-					int delta = int(filterRadius + 1.0f);
-
-					int pixelCount = 0;
-
-					std::vector<float> medianRInput;
-					std::vector<float> medianGInput;
-					std::vector<float> medianBInput;
-
-					for (int dy = -delta; dy <= delta; dy++)
-					{
-						for (int dx = -delta; dx <= delta; dx++)
+						if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 						{
-							int fx = xx + dx;
-							int fy = yy + dy;
+							float radius = sqrtf(float(dx * dx + dy * dy));
 
-							if (fx >= 0 && fx < width && fy >= 0 && fy < height)
+							float deltaZ = 0.0f;
+							float normalWeight = 1.0f;
+
+							if (preserveGeometry)
 							{
-								float radius = sqrtf(float(dx * dx + dy * dy));
+								float z2 = image->GetPixelZBuffer(fx, fy);
+								deltaZ = fabs((z - z2) / z);
 
-								float deltaZ = 0.0f;
-								float normalWeight = 1.0f;
+								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+								CVector3 filterNormal(
+									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
 
-								if (preserveGeometry)
-								{
-									float z2 = image->GetPixelZBuffer(fx, fy);
-									deltaZ = fabs((z - z2) / z);
+								float normalDiff = (normal - filterNormal).Length();
+								normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
+							}
 
-									sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
-									CVector3 filterNormal(
-										filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
-
-									float normalDiff = (normal - filterNormal).Length();
-									normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
-								}
-
-								if (radius <= filterRadius && normalWeight > 0.5f
-										&& deltaZ < 1.0f / zDepthFilterfactor)
-								{
-									sRGBFloat inputPixel = blurBuffer[fx + fy * width];
-									medianRInput.push_back(inputPixel.R);
-									medianGInput.push_back(inputPixel.G);
-									medianBInput.push_back(inputPixel.B);
-									pixelCount++;
-								}
+							if (radius <= filterRadius && normalWeight > 0.5f
+									&& deltaZ < 1.0f / zDepthFilterfactor)
+							{
+								sRGBFloat inputPixel = blurBuffer[fx + fy * width];
+								medianRInput.push_back(inputPixel.R);
+								medianGInput.push_back(inputPixel.G);
+								medianBInput.push_back(inputPixel.B);
+								pixelCount++;
 							}
 						}
 					}
-
-					if (pixelCount > 2)
-					{
-						sRGBFloat newPixel = blurBuffer[xx + yy * width];
-
-						{
-							std::vector<float> h(medianRInput.size() / 2 + 1);
-							std::partial_sort_copy(medianRInput.begin(), medianRInput.end(), h.begin(), h.end());
-							newPixel.R = h.back();
-						}
-
-						{
-							std::vector<float> h(medianGInput.size() / 2 + 1);
-							std::partial_sort_copy(medianGInput.begin(), medianGInput.end(), h.begin(), h.end());
-							newPixel.G = h.back();
-						}
-
-						{
-							std::vector<float> h(medianBInput.size() / 2 + 1);
-							std::partial_sort_copy(medianBInput.begin(), medianBInput.end(), h.begin(), h.end());
-							newPixel.B = h.back();
-						}
-
-						sRGBFloat oldPixel = blurBuffer[xx + yy * width];
-						sRGBFloat newPixelMixed;
-
-						float mixFactor = 1.0f / (loopCounter / 50.0f + 1.0f) * weight;
-
-						newPixelMixed.R = oldPixel.R * (1.0f - mixFactor) + newPixel.R * mixFactor;
-						newPixelMixed.G = oldPixel.G * (1.0f - mixFactor) + newPixel.G * mixFactor;
-						newPixelMixed.B = oldPixel.B * (1.0f - mixFactor) + newPixel.B * mixFactor;
-
-						image->PutPixelImage(xx, yy, newPixelMixed);
-					}
 				}
-			} // for x
-		}); // Qt Concurrent
-	}			// for y
-	pool.waitForDone(1000);
+
+				if (pixelCount > 2)
+				{
+					sRGBFloat newPixel = blurBuffer[xx + yy * width];
+
+					{
+						std::vector<float> h(medianRInput.size() / 2 + 1);
+						std::partial_sort_copy(medianRInput.begin(), medianRInput.end(), h.begin(), h.end());
+						newPixel.R = h.back();
+					}
+
+					{
+						std::vector<float> h(medianGInput.size() / 2 + 1);
+						std::partial_sort_copy(medianGInput.begin(), medianGInput.end(), h.begin(), h.end());
+						newPixel.G = h.back();
+					}
+
+					{
+						std::vector<float> h(medianBInput.size() / 2 + 1);
+						std::partial_sort_copy(medianBInput.begin(), medianBInput.end(), h.begin(), h.end());
+						newPixel.B = h.back();
+					}
+
+					sRGBFloat oldPixel = blurBuffer[xx + yy * width];
+					sRGBFloat newPixelMixed;
+
+					float mixFactor = 1.0f / (loopCounter / 50.0f + 1.0f) * weight;
+
+					newPixelMixed.R = oldPixel.R * (1.0f - mixFactor) + newPixel.R * mixFactor;
+					newPixelMixed.G = oldPixel.G * (1.0f - mixFactor) + newPixel.G * mixFactor;
+					newPixelMixed.B = oldPixel.B * (1.0f - mixFactor) + newPixel.B * mixFactor;
+
+					image->PutPixelImage(xx, yy, newPixelMixed);
+				}
+			}
+		} // for x
+	}		// for y
 }

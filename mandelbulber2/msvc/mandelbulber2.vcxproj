@@ -66,7 +66,7 @@
     <IntDir>$(SourceDir)build-win\mandelbulber2.dir\$(Configuration)\$(Platform)\</IntDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
-    <PreProcs>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;USE_SNDFILE;USE_TIFF;USE_GAMEPAD=1;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_CONCURRENT_LIB;QT_MULTIMEDIA_LIB;QT_GAMEPAD_LIB;QT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
+    <PreProcs>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;USE_SNDFILE;USE_TIFF;USE_GAMEPAD=1;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;QT_GAMEPAD_LIB;QT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
     <TargetName>mandelbulber2</TargetName>
     <PreProcsE>$(PreProcs);USE_EXR</PreProcsE>
     <PreProcsO>$(PreProcsE);USE_OPENCL=1</PreProcsO>
