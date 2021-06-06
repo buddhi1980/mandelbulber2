@@ -212,7 +212,6 @@ enum enumFractalFormula
 	riemannSphereHoboldMulti = 184,
 	mandelbulbLambda = 185,
 	amazingSurfMod4 = 186,
-
 	// 2.21
 	aboxSphere4d = 187,
 	aboxTetra4d = 188,
@@ -228,7 +227,6 @@ enum enumFractalFormula
 	mandalayBoxV1 = 198,
 	mandalayBoxV2 = 199,
 	mandalayKIFS = 200,
-
 	// 2.22
 	sierpinski3dV2 = 201,
 	sierpinski3dV3 = 202,
@@ -239,14 +237,12 @@ enum enumFractalFormula
 	menger3 = 207,
 	mandelcup = 208,
 	spheretree = 209,
-
 	// 2.23
 	spheretreeV2 = 210,
 	sierpinski3dV4 = 211,
 	mandeltorusV2 = 212,
 	aexion4dV2 = 213,
 	menger4dMod2 = 214,
-
 	// 2.24
 	mandelbulbPlusZ = 215,
 	mandelbulbAbs = 216,
@@ -273,6 +269,7 @@ enum enumFractalFormula
 	amazingSurfM3d = 233,
 	pseudoKleinian4d = 234,
 	hypercomplexV2 = 235,
+	mandelbar = 236,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

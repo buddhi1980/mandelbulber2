@@ -36,5 +36,8 @@ REAL4 TransfSphericalInvPnormIteration(REAL4 z, __constant sFractalCl *fractal, 
 	z *= pNorm;
 	aux->DE *= fabs(pNorm);
 
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	return z;
 }
