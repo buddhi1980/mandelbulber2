@@ -36,7 +36,7 @@ void cFractalMandelbar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 	aux.DE = aux.DE * 2.0 * aux.r;
 	CVector4 dd = fractal->transformCommon.constantMultiplier122;
-	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
+	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z;
 	dd.y = -dd.y * z.x * z.y;
 	dd.z = dd.z * z.x * z.z;
 	z = dd;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -53,11 +53,12 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z *= m;
 	aux->DE = aux->DE * fabs(m) + fractal->analyticDE.offset1;
 
+
 	if (fractal->transformCommon.addCpixelEnabled)
-		z += (REAL4){aux->const_c.y, aux->const_c.x, aux->const_c.z, aux->const_c.w} * fractal->transformCommon.constantMultiplier111;
-		//z -= aux->const_c * fractal->transformCommon.constantMultiplier111;
+		z += aux->const_c * fractal->transformCommon.constantMultiplier111;
 
 	z += fractal->transformCommon.offsetA000;
+
 
 	REAL temp = fractal->transformCommon.rotation.z * M_PI_180_F;
 	REAL sinan = sin(temp);
@@ -79,6 +80,8 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	temp = z.y;
 	z.y = z.y * cosan - z.z * sinan;
 	z.z = temp * sinan + z.z * cosan;
+
+
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

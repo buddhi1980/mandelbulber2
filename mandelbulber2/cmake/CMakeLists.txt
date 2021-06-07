@@ -40,6 +40,7 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5UiTools REQUIRED)
 find_package(Qt5Test REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
+find_package(Qt5Concurrent REQUIRED)
 
 # Find other required libraries.
 find_package(PNG REQUIRED)
