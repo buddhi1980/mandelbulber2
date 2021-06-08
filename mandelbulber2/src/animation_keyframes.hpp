@@ -104,6 +104,7 @@ public:
 	void UpdateActualCameraPosition(const CVector3 &cameraPosition);
 	void SetNetRenderStartingFrames(const QVector<int> &startingFrames);
 	void InsertKeyframeInBetween(int index);
+	void DeleteRenderedFramesForKeyframe(int keyframeInxed);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;

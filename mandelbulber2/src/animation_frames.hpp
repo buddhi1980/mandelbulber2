@@ -141,6 +141,7 @@ public:
 
 	virtual void setAudioParameterPrefix();
 	static void WipeFramesFromFolder(QString folder);
+	static void WipeFramesFromFolder(QString folder, int start, int end);
 
 protected:
 	QList<sAnimationFrame> frames;

@@ -40,6 +40,7 @@
 #include <memory>
 
 #include <QDir>
+#include <QDirIterator>
 
 #include "audio_track.h"
 #include "audio_track_collection.h"
@@ -591,4 +592,24 @@ void cAnimationFrames::WipeFramesFromFolder(QString folder)
 		folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
 	DeleteAllFilesFromDirectory(
 		folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
+}
+
+void cAnimationFrames::WipeFramesFromFolder(QString folder, int start, int end)
+{
+	// frames start with the string "frame_" followed by a number sequence
+	// then an optional suffix (e.g. "_alpha") followed by the image file extension
+	for (int i = start; i <= end; i++)
+	{
+
+		QString regex = QString("^frame_%1+(?:_[a-z]+)?\\..+$").arg(i, 7, 10, QChar('0'));
+		DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
+		DeleteAllFilesFromDirectory(
+			folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
+		DeleteAllFilesFromDirectory(
+			folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
+		DeleteAllFilesFromDirectory(
+			folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
+		DeleteAllFilesFromDirectory(
+			folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
+	}
 }

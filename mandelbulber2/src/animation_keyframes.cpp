@@ -485,8 +485,8 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 	connect(audioSelectorButton, &cPushButtonAnimSound::signalAudioSelectorClosed, this,
 		&cKeyframeAnimation::slotRefreshTable);
 
-		static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
-			->AssignParameterName(fullParameterName);
+	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
+		->AssignParameterName(fullParameterName);
 	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignAnimation(keyframes);
 }
@@ -1959,6 +1959,36 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 	else
 	{
 		qCritical() << "gAnimFrames not allocated";
+	}
+}
+
+void cKeyframeAnimation::DeleteRenderedFramesForKeyframe(int keyframeIndex)
+{
+	if (keyframeIndex < keyframes->GetNumberOfFrames() - 1)
+	{
+		int startFrame = keyframes->GetFrameIndexForKeyframe(keyframeIndex);
+		int endFrame = keyframes->GetFrameIndexForKeyframe(keyframeIndex + 1) - 1;
+
+		SynchronizeInterfaceWindow(
+			ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
+
+		QString folder = params->Get<QString>("anim_keyframe_dir");
+
+		const QMessageBox::StandardButton reply = QMessageBox::question(
+			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Deleting rendered frames"),
+			QObject::tr("This will delete rendered frames from %1 to %2\n"
+									"in the image folder.\n"
+									"%3\n"
+									"Proceed?")
+				.arg(startFrame)
+				.arg(endFrame)
+				.arg(folder),
+			QMessageBox::Yes | QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			cAnimationFrames::WipeFramesFromFolder(folder, startFrame, endFrame);
+		}
 	}
 }
 
