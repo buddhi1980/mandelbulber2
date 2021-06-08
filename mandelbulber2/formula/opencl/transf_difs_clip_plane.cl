@@ -51,10 +51,10 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.y = fabs(z.y) - fractal->transformCommon.offsetA000.y;
 	}
 	// steps
-	if (fractal->transformCommon.functionEnabledAFalse)
+/*	if (fractal->transformCommon.functionEnabledAFalse)
 		zc.x = zc.x + sign(zc.y) * 0.5f * fractal->transformCommon.offsetD0;
 	if (fractal->transformCommon.functionEnabledBFalse)
-		zc.y = zc.y + sign(zc.x) * 0.5f * fractal->transformCommon.offsetE0;
+		zc.y = zc.y + sign(zc.x) * 0.5f * fractal->transformCommon.offsetE0;*/
 
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
@@ -80,21 +80,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
-	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (b == plD)
-			aux->color = fractal->foldColor.difs0000.x;
-		else
-		{
-			REAL addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
-											+ fractal->foldColor.difs0000.w * zc.z * zc.z;
-			if (!fractal->transformCommon.functionEnabledJFalse)
-				aux->color = addColor;
-			else
-				aux->color += addColor;
-		}
-	}
+
 
 	// clip plane
 	REAL4 cir = zc;
@@ -128,10 +114,26 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (!fractal->transformCommon.functionEnabledYFalse)
 			e = clamp(native_sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0f, 100.0f); // circle,
 		else
-			e = clamp(length(cir) - e, 0.0f, 100.0f); // a sphere
+			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y + cir.z * cir.z
+						* fractal->transformCommon.scaleA1) - e, 0.0, 100.0); // sphere
+	}
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		REAL addColor = 0.0f;
+		if (e > d) addColor += fractal->foldColor.difs0000.x;
+		if (e < d) addColor += fractal->foldColor.difs0000.y;
+
+			//addColor += fractal->foldColor.difs0000.z * zc.z
+			//									+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			aux->color = addColor;
+		else
+			aux->color += addColor;
 	}
 	e = min(e, d);
-	d = max(b, e);
+	d = max(b, e) - fractal->transformCommon.offset0005;
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 	if (!fractal->analyticDE.enabledFalse)

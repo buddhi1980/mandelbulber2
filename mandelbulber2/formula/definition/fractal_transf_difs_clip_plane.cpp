@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -63,10 +63,10 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y = fabs(z.y) - fractal->transformCommon.offsetA000.y;
 	}
 	// steps
-	if (fractal->transformCommon.functionEnabledAFalse)
-		zc.x = zc.x + sign(zc.y) * 0.5 * fractal->transformCommon.offsetD0;
-	if (fractal->transformCommon.functionEnabledBFalse)
-		zc.y = zc.y + sign(zc.x) * 0.5 * fractal->transformCommon.offsetE0;
+//	if (fractal->transformCommon.functionEnabledAFalse)
+//		zc.x = zc.x + sign(zc.y) * 0.5 * fractal->transformCommon.offsetD0;
+//	if (fractal->transformCommon.functionEnabledBFalse)
+//		zc.y = zc.y + sign(zc.x) * 0.5 * fractal->transformCommon.offsetE0;
 
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
@@ -94,25 +94,13 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
 
-	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (b == plD)
-			aux.color = fractal->foldColor.difs0000.x;
-		else
-		{
-			double addColor = fractal->foldColor.difs0000.y + fractal->foldColor.difs0000.z * zc.z
-												+ fractal->foldColor.difs0000.w * zc.z * zc.z;
-			if (!fractal->transformCommon.functionEnabledJFalse)
-				aux.color = addColor;
-			else
-				aux.color += addColor;
-		}
-	}
+
 
 	// clip plane
 	CVector4 cir = zc;
 	CVector4 rec = zc;
+
+
 	double d = 1000.0;
 	double e = fractal->transformCommon.offset3;
 
@@ -133,6 +121,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		if (fractal->transformCommon.functionEnabledSFalse)
 			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
 	}
+
 	// cir
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
@@ -142,14 +131,33 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		if (!fractal->transformCommon.functionEnabledYFalse)
 			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0, 100.0); // circle,
 		else
-			e = clamp(cir.Length() - e, 0.0, 100.0); // a sphere
+			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y + cir.z * cir.z * fractal->transformCommon.scaleA1) - e, 0.0, 100.0); // sphere
 	}
-	e = min(e, d);
-	d = max(b, e);
 
-	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
+	//d = min(d2, d);
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		double addColor = 0.0;
+		if (e > d) addColor += fractal->foldColor.difs0000.x;
+		if (e < d) addColor += fractal->foldColor.difs0000.y;
+
+			//addColor += fractal->foldColor.difs0000.z * zc.z
+			//									+ fractal->foldColor.difs0000.w * zc.z * zc.z;
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			aux.color = addColor;
+		else
+			aux.color += addColor;
+	}
+
+	e = min(e, d);
+	d = max(b, e) - fractal->transformCommon.offset0005;
+
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = d;
 	else
 		aux.dist = min(aux.dist, d);
+
+	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 }
