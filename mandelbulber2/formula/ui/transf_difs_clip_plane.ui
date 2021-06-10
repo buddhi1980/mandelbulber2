@@ -30,6 +30,13 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+     <property name="text">
+      <string notr="true">zc = z (default zc = c)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledT_false">
      <property name="toolTip">
       <string/>
@@ -265,7 +272,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -1566,11 +1573,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1580,6 +1582,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

@@ -28,12 +28,42 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	CVector4 zc = c;
+	CVector4 zc;
+	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
+	else zc = z;
+
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
+		zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
+
+	/*if (fractal->transformCommon.functionEnabledDFalse)
+	{
+
+// ietate offset??
+		CVector4 repeatPos = fractal->transformCommon.offsetA111;
+		CVector4 repeatNeg = fractal->transformCommon.offsetB111;
+
+		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * sizeX
+				&& z.x > (repeatNeg.x + 0.5) * -sizeX && sizeX != 0.0)
+		{
+			double sizeX = fractal->transformCommon.offset2;
+			z.x -= round(z.x / sizeX) * sizeX;
+			z.x = clamp(fabs(z.x), -t.x, t.x);
+		}
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * sizeY
+				&& z.y > (repeatNeg.y + 0.5) * -sizeY && sizeY != 0.0)
+		{
+			double sizeY = fractal->transformCommon.offsetA2;
+			z.y -= round(z.y / sizeY) * sizeY;
+			z.y = clamp(fabs(z.y), -t.y, t.y);
+		}
+	}*/
+
+
+
 
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
@@ -49,6 +79,8 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;
+
+	zc.x -= fractal->transformCommon.offsetE0;
 
 	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)

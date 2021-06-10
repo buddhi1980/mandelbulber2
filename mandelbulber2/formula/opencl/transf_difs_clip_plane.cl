@@ -16,7 +16,14 @@
 REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-	REAL4 zc = c;
+
+
+	REAL4 zc;
+	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
+	else zc = z;
+
+
+
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
