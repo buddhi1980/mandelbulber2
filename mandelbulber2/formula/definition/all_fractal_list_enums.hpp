@@ -261,7 +261,7 @@ enum enumFractalFormula
 	kochV4 = 227,
 	ifsGen = 228,
 	mandelnest = 229,
-	josKleinianV4 = 230,
+	josKleinianV4 = 230, // still beta
 	pseudoKleinianMod5 = 231,
 
 	// 2.26
@@ -270,6 +270,7 @@ enum enumFractalFormula
 	pseudoKleinian4d = 234,
 	hypercomplexV2 = 235,
 	mandelbar = 236,
+	boxFoldBulbV4 = 237,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -465,7 +466,7 @@ enum enumFractalFormula
 	// 2.25
 	transfDIFSGearV1 = 1619,
 	transfDIFSGridV3 = 1620,
-	transfDIFSClipPlane = 1621,
+	transfDIFSClipPlane = 1621, // still beta
 	transfDIFSDiamond = 1622,
 	// 2.26
 	transfDIFSSpring = 1623,

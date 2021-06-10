@@ -63,6 +63,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalBoxFoldBulbMenger());
 	fractalList->append(new cFractalBoxFoldQuat());
 	fractalList->append(new cFractalBoxFold4dBulbPow2());
+	fractalList->append(new cFractalBoxFoldBulbV4());
+
 	fractalList->append(new cFractalBristorbrot());
 	fractalList->append(new cFractalBristorbrot2());
 	fractalList->append(new cFractalBristorbrot4d());
