@@ -59,17 +59,27 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	z += fractal->transformCommon.offsetA000;
 
-	REAL temp = z.x;
-	z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-	z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
+	REAL temp = 0.0;
+	if (fractal->transformCommon.angleDegC != 0.0)
+	{
+		temp = z.x;
+		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
+		z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
+	}
 
-	temp = z.z;
-	z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-	z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
+	if (fractal->transformCommon.angleDegB != 0.0)
+	{
+		temp = z.z;
+		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
+		z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
+	}
 
-	temp = z.y;
-	z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-	z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
+	if (fractal->transformCommon.angleDegA != 0.0)
+	{
+		temp = z.y;
+		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
+		z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

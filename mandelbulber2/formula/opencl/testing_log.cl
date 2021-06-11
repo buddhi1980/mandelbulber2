@@ -15,7 +15,7 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->DE *= 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r + 1.0f;
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -24,17 +24,23 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	REAL4 dd = fractal->transformCommon.constantMultiplier122;
-	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
-	dd.y = -dd.y * z.x * z.y;
-	dd.z = dd.z * z.x * z.z;
-	z = dd;
+	REAL4 Mul = fractal->transformCommon.constantMultiplier122;
+	REAL temp = z.x * z.x + z.y * z.y;
+	if (temp == 0.0f) z = aux->const_c;
+	else
+	{
+		REAL ZR  = fractal->transformCommon.offset1;
+		Mul.z = -Mul.z * z.z * sqrt(temp);
+		temp = ZR - z.z * z.z / temp;
+		Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
+		Mul.y = Mul.y * z.x * z.y * temp;
+		z = Mul;
+	}
 
 	// offset (Julia)
 	z += fractal->transformCommon.additionConstant000;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
 
 	 // DE tweak
 	if (fractal->analyticDE.enabledFalse)

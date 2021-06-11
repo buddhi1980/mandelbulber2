@@ -94,7 +94,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,1">
      <item row="5" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -122,7 +122,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_constant_multiplier_122_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -164,7 +164,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -206,7 +206,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_constant_multiplier_122_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -248,7 +248,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_constant_multiplier_122_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -283,7 +283,7 @@
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -685,11 +685,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -699,6 +694,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

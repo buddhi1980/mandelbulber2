@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Quaternion4D
+ * https://nylander.wordpress.com/2009/07/03/3d-mandelbrot-set-2/
  */
 
 #include "all_fractal_definitions.h"
@@ -33,15 +33,19 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	CVector4 dd = fractal->transformCommon.constantMultiplier122;
-
-	aux.DE = aux.DE * 2.0 * aux.r;
-
-	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z ;
-	dd.y = -dd.y * z.x * z.y;
-	dd.z = dd.z * z.x * z.z;
-
-	z = dd;
+	aux.DE = aux.DE * 2.0 * aux.r + 1.0;
+	CVector4 Mul = fractal->transformCommon.constantMultiplier122;
+	double temp = z.x * z.x + z.y * z.y;
+	if (temp == 0.0) z = aux.const_c;
+	else
+	{
+		double ZR  = fractal->transformCommon.offset1;
+		Mul.z = -Mul.z * z.z * sqrt(temp);
+		temp = ZR - z.z * z.z / temp;
+		Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
+		Mul.y = Mul.y * z.x * z.y * temp;
+		z = Mul;
+	}
 
 	// offset (Julia)
 	z += fractal->transformCommon.additionConstant000;
@@ -51,7 +55,4 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	 // DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-
-
 }
