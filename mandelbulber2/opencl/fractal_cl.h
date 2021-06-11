@@ -502,6 +502,17 @@ typedef struct
 typedef struct
 {
 	cl_float angle0;
+
+	cl_float angleDegA;
+	cl_float angleDegB;
+	cl_float angleDegC;
+	cl_float cosA;
+	cl_float cosB;
+	cl_float cosC;
+	cl_float sinA;
+	cl_float sinB;
+	cl_float sinC;
+
 	cl_float angle72;
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
@@ -1255,6 +1266,17 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 {
 	sFractalTransformCommonCl target;
 	target.angle0 = source.angle0;
+
+	target.angleDegA = source.angleDegA;
+	target.angleDegB = source.angleDegB;
+	target.angleDegC = source.angleDegC;
+	target.cosA = source.cosA;
+	target.cosB = source.cosB;
+	target.cosC = source.cosC;
+	target.sinA = source.sinA;
+	target.sinB = source.sinB;
+	target.sinC = source.sinC;
+
 	target.angle72 = source.angle72;
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;

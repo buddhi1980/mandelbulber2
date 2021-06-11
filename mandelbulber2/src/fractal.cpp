@@ -267,6 +267,9 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");
+	transformCommon.angleDegA = container->Get<double>("transf_angle_deg_A");
+	transformCommon.angleDegB = container->Get<double>("transf_angle_deg_B");
+	transformCommon.angleDegC = container->Get<double>("transf_angle_deg_C");
 	transformCommon.angle72 = container->Get<double>("transf_angle_72");
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
@@ -628,16 +631,31 @@ void sFractal::RecalculateFractalParams()
 	mandelbox.mR2 = mandelbox.foldingSphericalMin * mandelbox.foldingSphericalMin;
 	mandelbox.mboxFactor1 = mandelbox.fR2 / mandelbox.mR2;
 
-	bulb.alphaAngleOffset *= M_PI / 180.0;
-	bulb.betaAngleOffset *= M_PI / 180.0;
-	transformCommon.alphaAngleOffset *= M_PI / 180.0;
-	transformCommon.betaAngleOffset *= M_PI / 180.0;
+	bulb.alphaAngleOffset *= M_PI_180;
+	bulb.betaAngleOffset *= M_PI_180;
+	transformCommon.alphaAngleOffset *= M_PI_180;
+	transformCommon.betaAngleOffset *= M_PI_180;
+	transformCommon.angleDegA *= M_PI_180;
+	transformCommon.angleDegB *= M_PI_180;
+	transformCommon.angleDegC *= M_PI_180;
+	transformCommon.cosA = cos(transformCommon.angleDegA);
+	transformCommon.cosB = cos(transformCommon.angleDegB);
+	transformCommon.cosC = cos(transformCommon.angleDegC);
+	transformCommon.sinA = sin(transformCommon.angleDegA);
+	transformCommon.sinB = sin(transformCommon.angleDegB);
+	transformCommon.sinC = sin(transformCommon.angleDegC);
+
+
+
 
 	transformCommon.rotationMatrix44.SetRotation44a(
-		transformCommon.rotation44a * (M_PI / 180.0)); // ..........................
+		transformCommon.rotation44a * M_PI_180); // ..........................
 	transformCommon.rotationMatrix44.SetRotation44b(
-		transformCommon.rotation44b * (M_PI / 180.0)); // ...............................
-	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI_180)); // T>Rotation
+		transformCommon.rotation44b * M_PI_180); // ...............................
+
+
+
+	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180); // T>Rotation
 	transformCommon.rotationMatrix2.SetRotation2(
 		transformCommon.rotation2 * (M_PI_180)); // T>Rotation2
 	transformCommon.rotationMatrixVary.SetRotation2(

@@ -808,6 +808,9 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("transf_angle_deg_A", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("transf_angle_deg_B", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("transf_angle_deg_C", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_angle_72", 72.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -831,7 +834,6 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_offsetD_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetE_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetF_0", 0.0, morphAkima, paramStandard);
-
 	par->addParam("transf_offsetR_0", 0.0, morphAkima, paramStandard);
 
 	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);

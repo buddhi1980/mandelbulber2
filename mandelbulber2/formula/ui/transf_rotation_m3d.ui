@@ -42,7 +42,7 @@
       <number>2</number>
      </property>
      <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_B">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_x">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_A">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -118,7 +118,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_z">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_C">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

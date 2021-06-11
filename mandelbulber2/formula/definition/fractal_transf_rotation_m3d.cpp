@@ -28,24 +28,38 @@ void cFractalTransfRotationM3d::FormulaCode(CVector4 &z, const sFractal *fractal
 {
 	Q_UNUSED(aux);
 
-	double temp = fractal->transformCommon.rotation.z * M_PI_180;
-	double sinan = sin(temp);
-	double cosan = cos(temp);
-	temp = z.x;
-	z.x = z.x * cosan - z.y * sinan;
-	z.y = temp * sinan + z.y * cosan;
+	// double temp = fractal->transformCommon.angleDegC;
+	// double sinan = fractal->transformCommon.sinC;
+	// double cosan = fractal->transformCommon.cosC;
+	// double sinan = sin(temp);
+	// double cosan = cos(temp);
+	double temp = z.x;
+	z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
+	z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
 
-	temp = fractal->transformCommon.rotation.y * M_PI_180;
-	sinan = sin(temp);
-	cosan = cos(temp);
+	// z.x = z.x * cosan - z.y * sinan;
+	// z.y = temp * sinan + z.y * cosan;
+
+	//temp = fractal->transformCommon.angleDegB;
+	// sinan = fractal->transformCommon.sinB;
+	// cosan = fractal->transformCommon.cosB;
+	// sinan = sin(temp);
+	// cosan = cos(temp);
 	temp = z.z;
-	z.z = z.z * cosan - z.x * sinan;
-	z.x = temp * sinan + z.x * cosan;
+	z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
+	z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
 
-	temp = fractal->transformCommon.rotation.x * M_PI_180;
-	sinan = sin(temp);
-	cosan = cos(temp);
+	// z.z = z.z * cosan - z.x * sinan;
+	// z.x = temp * sinan + z.x * cosan;
+
+	// temp = fractal->transformCommon.angleDegA;
+	// sinan = fractal->transformCommon.sinA;
+	// cosan = fractal->transformCommon.cosA;
+	// cosan = cos(temp);
 	temp = z.y;
-	z.y = z.y * cosan - z.z * sinan;
-	z.z = temp * sinan + z.z * cosan;
+	z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
+	z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
+
+	// z.y = z.y * cosan - z.z * sinan;
+	// z.z = temp * sinan + z.z * cosan;
 }

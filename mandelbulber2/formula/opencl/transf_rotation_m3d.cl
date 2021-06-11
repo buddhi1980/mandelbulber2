@@ -17,26 +17,17 @@ REAL4 TransfRotationM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	REAL temp = fractal->transformCommon.rotation.z * M_PI_180_F;
-	REAL sinan = sin(temp);
-	REAL cosan = cos(temp);
-	temp = z.x;
-	z.x = z.x * cosan - z.y * sinan;
-	z.y = temp * sinan + z.y * cosan;
+	REAL temp = z.x;
+	z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
+	z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
 
-	temp = fractal->transformCommon.rotation.y * M_PI_180_F;
-	sinan = sin(temp);
-	cosan = cos(temp);
 	temp = z.z;
-	z.z = z.z * cosan - z.x * sinan;
-	z.x = temp * sinan + z.x * cosan;
+	z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
+	z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
 
-	temp = fractal->transformCommon.rotation.x * M_PI_180_F;
-	sinan = sin(temp);
-	cosan = cos(temp);
 	temp = z.y;
-	z.y = z.y * cosan - z.z * sinan;
-	z.z = temp * sinan + z.z * cosan;
+	z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
+	z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
 
 	return z;
 }

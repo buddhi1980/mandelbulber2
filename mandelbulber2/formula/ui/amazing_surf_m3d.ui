@@ -647,7 +647,7 @@ offset1:</string>
       <number>2</number>
      </property>
      <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_B">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -695,7 +695,7 @@ offset1:</string>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_x">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_A">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -723,7 +723,7 @@ offset1:</string>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_z">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_C">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1154,11 +1154,6 @@ offset1:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1168,6 +1163,11 @@ offset1:</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -1185,7 +1185,7 @@ offset1:</string>
   <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
-  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd_transf_angle_deg_B</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
