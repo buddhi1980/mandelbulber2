@@ -32,10 +32,13 @@ void cFractalTransfSphericalFoldPnorm::FormulaCode(
 	lpN.y = pow(lpN.y, fractal->transformCommon.scale2);
 	lpN.z = pow(lpN.z, fractal->transformCommon.scale2);
 	double pNorm = lpN.x + lpN.y + lpN.z;
+	// if (fractal->transformCommon.functionEnabledFalse)
+	//	pNorm +=  pow(lpN.w, fractal->transformCommon.scale2);
 	if (fractal->transformCommon.scaleA1 != 1.0)
 		pNorm = pow(pNorm, fractal->transformCommon.scaleA1);
 	double rr = pNorm;
 	double useScale = 1.0;
+
 	useScale = fractal->transformCommon.scale1 - aux.actualScaleA;
 	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
 		aux.actualScaleA = fractal->transformCommon.scaleVary0
@@ -50,23 +53,24 @@ void cFractalTransfSphericalFoldPnorm::FormulaCode(
 		temp = useScale / minR;
 		z *= temp;
 		aux.DE *= temp;
+		minR = minR - rr;
 	}
 	else if (rr < useScale)
 	{
-
 		z *= pNorm;
 		aux.DE *= pNorm;
+		useScale = useScale - rr;
 	}
 	z -= fractal->transformCommon.offset000;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		aux.color += fractal->foldColor.difs0000.x * temp;
 		aux.color += fractal->foldColor.difs0000.y * pNorm;
+		aux.color += fractal->foldColor.difs0000.z * minR;
+		aux.color += fractal->foldColor.difs0000.w * useScale;
 	}
-
 }

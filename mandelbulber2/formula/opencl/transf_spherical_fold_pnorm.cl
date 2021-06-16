@@ -39,25 +39,26 @@ REAL4 TransfSphericalFoldPnormIteration(REAL4 z, __constant sFractalCl *fractal,
 		temp = useScale / minR;
 		z *= temp;
 		aux->DE *= temp;
+		minR = minR - rr;
 	}
 	else if (rr < useScale)
 	{
 		z *= pNorm;
 		aux->DE *= pNorm;
+		useScale = useScale - rr;
 	}
 	z -= fractal->transformCommon.offset000;
 
-
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		aux->color += fractal->foldColor.difs0000.x * temp;
 		aux->color += fractal->foldColor.difs0000.y * pNorm;
+		aux->color += fractal->foldColor.difs0000.z * minR;
+		aux->color += fractal->foldColor.difs0000.w * useScale;
 	}
-
 
 	return z;
 }
