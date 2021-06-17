@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_norm</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
+    <width>934</width>
     <height>1079</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_76">
      <property name="text">
-      <string>z += scale * rotate (z / length(z))</string>
+      <string>z += scale * rotate * normalized z vec</string>
      </property>
     </widget>
    </item>
@@ -293,10 +293,11 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1" rowspan="3">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset:</string>
+        <string>reverse
+offset:</string>
        </property>
       </widget>
      </item>

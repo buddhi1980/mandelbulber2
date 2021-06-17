@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -34,18 +34,43 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	aux.DE = aux.DE * 2.0 * aux.r + 1.0;
+
+
 	CVector4 Mul = fractal->transformCommon.constantMultiplier122;
-	double temp = z.x * z.x + z.y * z.y;
-	if (temp == 0.0) z = aux.const_c;
+
+
+
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		double temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
+		if (temp == 0.0) z = aux.const_c;
+		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
+		else
+		{
+			double ZR  = fractal->transformCommon.offset1;
+			Mul.z = -Mul.z * z.z * sqrt(temp);
+			temp = ZR - z.z * z.z / temp;
+			Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
+			Mul.y = Mul.y * z.x * z.y * temp;
+			z = Mul;
+		}
+	}
 	else
 	{
-		double ZR  = fractal->transformCommon.offset1;
-		Mul.z = -Mul.z * z.z * sqrt(temp);
-		temp = ZR - z.z * z.z / temp;
-		Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
-		Mul.y = Mul.y * z.x * z.y * temp;
-		z = Mul;
+		double temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offset0;
+		if (temp == 0.0) z = aux.const_c;
+		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
+		else
+		{
+			double ZR  = fractal->transformCommon.offset1;
+			Mul.x = -Mul.x * z.x * sqrt(temp);
+			temp = ZR - z.x * z.x / temp;
+			Mul.z = Mul.z * (z.z * z.z - z.y * z.y) * temp;
+			Mul.y = Mul.y * z.z * z.y * temp;
+			z = Mul;
+		}
 	}
+
 
 	// offset (Julia)
 	z += fractal->transformCommon.additionConstant000;

@@ -27,56 +27,46 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	//CVector4 lpN = fabs(z);
-	CVector4 lpN = z;
-	lpN = fabs(lpN);
-	double pr = fractal->transformCommon.scale2;
-	lpN.x = pow(lpN.x, pr);
-	lpN.y = pow(lpN.y, pr);
-	lpN.z = pow(lpN.z, pr);
-
-	double pNorm = lpN.x + lpN.y + lpN.z;
-	//if (fractal->transformCommon.functionEnabledFalse) pNorm += pow(lpN.w, pr);
-	//pNorm = pow(pNorm, 1.0 / pr);
-
-	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
-	//pNorm = max(pNorm, fractal->transformCommon.offset0);
-
-	double rr = pNorm;
-
-	double useScale = fractal->transformCommon.scale1 - aux.actualScaleA;
-	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-		aux.actualScaleA = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) + 1.0);
-	pNorm = useScale / pNorm;
+	CVector4 signs ;
+	signs.x = sign(aux.const_c.x);
+	signs.y = sign(aux.const_c.y);
+	signs.z = sign(aux.const_c.z);
+	signs.w = 0.0;
 
 
-	//double rr = z.Dot(z);
-	z += fractal->transformCommon.offset000;
-	double minR = fractal->transformCommon.minR0;
-	if (rr < minR)
+
+	CVector4 offset = fractal->transformCommon.offset000;
+	if (!fractal->transformCommon.functionEnabledEFalse) offset *= signs;
+
+
+	CVector4 temp;
+	if (!fractal->transformCommon.functionEnabledAFalse) temp = aux.const_c - offset;
+	else temp = z - offset;
+
+	double r =  temp.Dot(temp);
+
+	if (fractal->transformCommon.functionEnabledBFalse) r = sqrt(r);
+
+
+	//CVector4 offset1 = fractal->transformCommon.offset111;
+	//if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
+	//t = offset1 + t;
+
+	CVector4 offset1 = fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledCFalse)	offset1  *= signs;
+
+	if (r > fractal->transformCommon.radius1)
 	{
-		z *= useScale / minR ;
-		aux.DE *= useScale / minR ;
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			aux.color += fractal->mandelbox.color.factorSp1;
-		}
+		temp = (temp * (1.0 - fractal->transformCommon.radius1 / r));
+		//if (fractal->transformCommon.functionEnabledCFalse)	temp *= sign(z);
+		z += temp + offset1;
+		//	z = fabs(z);
 	}
-	else if (rr < 1.0)
+	else
 	{
-		z *= pNorm;
-		aux.DE *= pNorm;
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			aux.color += fractal->mandelbox.color.factorSp2;
-		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0);
 	}
-	z -= fractal->transformCommon.offset000;
-
-
-
-
 
 
 

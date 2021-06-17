@@ -16,25 +16,36 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 lpN = fabs(z);
-	REAL pr = fractal->transformCommon.scale2;
-	lpN.x = native_powr(lpN.x, pr);
-	lpN.y = native_powr(lpN.y, pr);
-	lpN.z = native_powr(lpN.z, pr);
+	REAL4 signs = sign(aux->const_c);
 
-	REAL pNorm = lpN.x + lpN.y + lpN.z;
-	if (fractal->transformCommon.functionEnabledFalse) pNorm += native_powr(lpN.w, pr);
-	pNorm = native_powr(pNorm, 1.0 / pr);
+	REAL4 offset = fractal->transformCommon.offset000;
+	if (!fractal->transformCommon.functionEnabledEFalse) offset *= signs;
 
-	pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
-	pNorm = max(pNorm, fractal->transformCommon.offset0);
 
-	REAL useScale = fractal->transformCommon.scale1 - aux->actualScaleA;
-	if (fractal->transformCommon.functionEnabledKFalse) // update actualScaleA
-		aux->actualScaleA = fractal->transformCommon.scaleVary0 * (fabs(aux->actualScaleA) + 1.0f);
-	pNorm = useScale / pNorm;
-	z *= pNorm;
-	aux->DE *= fabs(pNorm);
+	REAL4 temp;
+	if (!fractal->transformCommon.functionEnabledAFalse) temp = aux->const_c - offset;
+	else temp = z - offset;
 
+	REAL r = dot(temp, temp);
+	if (fractal->transformCommon.functionEnabledBFalse) r = sqrt(r);
+
+	//CVector4 offset1 = fractal->transformCommon.offset111;
+	//if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
+	//t = offset1 + t;
+	REAL4 offset1 = fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledCFalse)	offset1  *= signs;
+	if (r > fractal->transformCommon.radius1)
+	{
+		temp = temp * (1.0 - fractal->transformCommon.radius1 / r);
+		z += temp + offset1;
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledDFalse)
+			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0);
+	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

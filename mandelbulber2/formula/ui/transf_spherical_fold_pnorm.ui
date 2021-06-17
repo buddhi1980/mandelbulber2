@@ -43,7 +43,7 @@
         </font>
        </property>
        <property name="text">
-        <string>pow A:</string>
+        <string>pow p:</string>
        </property>
       </widget>
      </item>
@@ -112,7 +112,7 @@
         </font>
        </property>
        <property name="text">
-        <string>pow B:</string>
+        <string>pow:</string>
        </property>
       </widget>
      </item>
@@ -167,7 +167,7 @@
      <item row="7" column="0" colspan="2">
       <widget class="MyGroupBox" name="groupCheck_transf_function_enabledK_false">
        <property name="title">
-        <string>enable &amp;variable scale</string>
+        <string>enable &amp;variable maxRR</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -196,7 +196,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_145">
             <property name="text">
-             <string>scale vary:</string>
+             <string>vary:</string>
             </property>
            </widget>
           </item>
@@ -315,7 +315,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>Spherical folding
+        <string>reverse
 offset:</string>
        </property>
       </widget>
@@ -916,15 +916,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

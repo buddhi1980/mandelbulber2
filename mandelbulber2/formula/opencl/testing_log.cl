@@ -25,16 +25,35 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 
 	REAL4 Mul = fractal->transformCommon.constantMultiplier122;
-	REAL temp = z.x * z.x + z.y * z.y;
-	if (temp == 0.0f) z = aux->const_c;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		REAL temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
+		if (temp == 0.0) z = aux->const_c;
+		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
+		else
+		{
+			REAL ZR  = fractal->transformCommon.offset1;
+			Mul.z = -Mul.z * z.z * sqrt(temp);
+			temp = ZR - z.z * z.z / temp;
+			Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
+			Mul.y = Mul.y * z.x * z.y * temp;
+			z = Mul;
+		}
+	}
 	else
 	{
-		REAL ZR  = fractal->transformCommon.offset1;
-		Mul.z = -Mul.z * z.z * sqrt(temp);
-		temp = ZR - z.z * z.z / temp;
-		Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
-		Mul.y = Mul.y * z.x * z.y * temp;
-		z = Mul;
+		REAL temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offset0;
+		if (temp == 0.0) z = aux->const_c;
+		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
+		else
+		{
+			REAL ZR  = fractal->transformCommon.offset1;
+			Mul.x = -Mul.x * z.x * sqrt(temp);
+			temp = ZR - z.x * z.x / temp;
+			Mul.z = Mul.z * (z.z * z.z - z.y * z.y) * temp;
+			Mul.y = Mul.y * z.z * z.y * temp;
+			z = Mul;
+		}
 	}
 
 	// offset (Julia)
