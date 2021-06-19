@@ -26,54 +26,61 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	aux.DE = aux.DE * 2.0 * aux.r + 1.0;
+	CVector4 Mul;
 
-
-	CVector4 Mul = fractal->transformCommon.constantMultiplier122;
-
-
-
-	if (!fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabled)
 	{
+		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
+
 		double temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
 		if (temp == 0.0) z = aux.const_c;
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else
 		{
-			double ZR  = fractal->transformCommon.offset1;
+			Mul = fractal->transformCommon.constantMultiplier122;
+			Mul.w = 0.0;
+			double ZR = fractal->transformCommon.offset1;
 			Mul.z = -Mul.z * z.z * sqrt(temp);
 			temp = ZR - z.z * z.z / temp;
 			Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
 			Mul.y = Mul.y * z.x * z.y * temp;
 			z = Mul;
+
+			// offset (Julia)
+			z += fractal->transformCommon.additionConstant000;
 		}
 	}
-	else
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		double temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offset0;
+		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
+
+		double temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offsetA0;
 		if (temp == 0.0) z = aux.const_c;
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else
 		{
-			double ZR  = fractal->transformCommon.offset1;
+			Mul = fractal->transformCommon.constantMultiplier221;
+			Mul.w = 0.0;
+			double ZR = fractal->transformCommon.offset1;
 			Mul.x = -Mul.x * z.x * sqrt(temp);
 			temp = ZR - z.x * z.x / temp;
 			Mul.z = Mul.z * (z.z * z.z - z.y * z.y) * temp;
 			Mul.y = Mul.y * z.z * z.y * temp;
 			z = Mul;
+
+			// offset (Julia)
+			z += fractal->transformCommon.additionConstantA000;
 		}
 	}
 
 
-	// offset (Julia)
-	z += fractal->transformCommon.additionConstant000;
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 

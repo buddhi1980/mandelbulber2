@@ -17,47 +17,57 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	aux->DE = aux->DE * 2.0f * aux->r + 1.0f;
 
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	REAL4 Mul = fractal->transformCommon.constantMultiplier122;
-	if (!fractal->transformCommon.functionEnabledAFalse)
+	REAL4 Mul;
+	if (fractal->transformCommon.functionEnabled)
 	{
 		REAL temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
 		if (temp == 0.0) z = aux->const_c;
 		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
 		else
 		{
-			REAL ZR  = fractal->transformCommon.offset1;
+
+			REAL4 Mul = fractal->transformCommon.constantMultiplier122;
+			Mul.w = 0.0;
+			REAL ZR = fractal->transformCommon.offset1;
 			Mul.z = -Mul.z * z.z * sqrt(temp);
 			temp = ZR - z.z * z.z / temp;
 			Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
 			Mul.y = Mul.y * z.x * z.y * temp;
 			z = Mul;
+
+			// offset (Julia)
+			z += fractal->transformCommon.additionConstant000;
 		}
 	}
-	else
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		REAL temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offset0;
 		if (temp == 0.0) z = aux->const_c;
 		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
 		else
 		{
-			REAL ZR  = fractal->transformCommon.offset1;
+			Mul = fractal->transformCommon.constantMultiplier221;
+			Mul.w = 0.0;
+			REAL ZR = fractal->transformCommon.offset1;
 			Mul.x = -Mul.x * z.x * sqrt(temp);
 			temp = ZR - z.x * z.x / temp;
 			Mul.z = Mul.z * (z.z * z.z - z.y * z.y) * temp;
 			Mul.y = Mul.y * z.z * z.y * temp;
 			z = Mul;
+
+			// offset (Julia)
+			z += fractal->transformCommon.additionConstantA000;
 		}
 	}
 
-	// offset (Julia)
-	z += fractal->transformCommon.additionConstant000;
+
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
