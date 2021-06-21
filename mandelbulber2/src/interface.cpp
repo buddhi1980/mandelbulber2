@@ -1102,7 +1102,8 @@ void cInterface::RefreshPostEffects()
 				sParamRender params(gPar);
 				gOpenCl->openclEngineRenderPostFilter->Lock();
 				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				gOpenCl->openclEngineRenderPostFilter->SetParameters(&params, region);
+				gOpenCl->openclEngineRenderPostFilter->SetParameters(
+					&params, region, cOpenClEngineRenderPostFilter::hdrBlur);
 				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
 				{
 					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);

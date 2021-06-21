@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * ssao struct for opencl
+ * hdr blur struct for opencl
  */
 
 #ifndef MANDELBULBER2_OPENCL_HDR_BLUR_CL_H_
@@ -41,6 +41,6 @@ typedef struct
 	cl_int height;
 	cl_float radius;
 	cl_float intensity;
-} sParamsHDRBlur;
+} sParamsHDRBlurCl;
 
 #endif /* MANDELBULBER2_OPENCL_HDR_BLUR_CL_H_ */

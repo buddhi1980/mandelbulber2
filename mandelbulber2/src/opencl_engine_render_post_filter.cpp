@@ -57,9 +57,16 @@ cOpenClEngineRenderPostFilter::cOpenClEngineRenderPostFilter(cOpenClHardware *_h
 	paramsHDRBlur.intensity = 0.0f;
 	paramsHDRBlur.width = 0;
 	paramsHDRBlur.height = 0;
+
+	paramsChromaticAberration.width = 0;
+	paramsChromaticAberration.height = 0;
+	paramsChromaticAberration.radialBlurRadius = 0.0f;
+	paramsChromaticAberration.aberrationIntensity = 0.0f;
+
 	numberOfPixels = 0;
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
 	optimalJob.optimalProcessingCycle = 0.5;
+	effectType = hdrBlur;
 #endif
 }
 
@@ -74,11 +81,11 @@ cOpenClEngineRenderPostFilter::~cOpenClEngineRenderPostFilter()
 
 QString cOpenClEngineRenderPostFilter::GetKernelName()
 {
-	return QString("HDRBlur");
+	return QString("PostFilter");
 }
 
 void cOpenClEngineRenderPostFilter::SetParameters(
-	const sParamRender *paramRender, const cRegion<int> &region)
+	const sParamRender *paramRender, const cRegion<int> &region, enumPostEffectType _effectType)
 {
 	imageRegion = region;
 	paramsHDRBlur.width = region.width;
@@ -87,6 +94,13 @@ void cOpenClEngineRenderPostFilter::SetParameters(
 	paramsHDRBlur.intensity = paramRender->hdrBlurIntensity;
 	numberOfPixels = quint64(paramsHDRBlur.width) * quint64(paramsHDRBlur.height);
 	definesCollector.clear();
+	effectType = _effectType;
+
+	switch (effectType)
+	{
+		case hdrBlur: effectName = "HDR Blur"; break;
+		case chromaticAberration: effectName = "Chromatic Aberration"; break;
+	}
 }
 
 bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
@@ -94,8 +108,8 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 {
 	programsLoaded = false;
 	readyForRendering = false;
-	emit updateProgressAndStatus(
-		tr("OpenCl HDR Blur - initializing"), tr("Compiling sources for HDR Blur"), 0.0);
+	emit updateProgressAndStatus(tr("OpenCl %1 - initializing").arg(effectName),
+		tr("Compiling sources for %1").arg(effectName), 0.0);
 
 	QString openclPath = systemDirectories.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
@@ -106,14 +120,26 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 
 	QStringList clHeaderFiles;
 	clHeaderFiles.append("opencl_typedefs.h"); // definitions of common opencl types
-	clHeaderFiles.append("hdr_blur_cl.h");		 // main data structures
-	clHeaderFiles.append("opencl_algebra.h");	 // definitions of common math functions
+
+	switch (effectType)
+	{
+		case hdrBlur: clHeaderFiles.append("hdr_blur_cl.h"); break; // main data structures
+		case chromaticAberration: clHeaderFiles.append("chromatic_aberration_cl.h"); break;
+	}
+
+	clHeaderFiles.append("opencl_algebra.h"); // definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		AddInclude(programEngine, openclPath + clHeaderFiles.at(i));
 	}
 
-	QString engineFileName = "hdr_blur.cl";
+	QString engineFileName;
+	switch (effectType)
+	{
+		case hdrBlur: engineFileName = "hdr_blur.cl"; break;
+		case chromaticAberration: engineFileName = "chromatic_aberration.cl"; break;
+	}
+
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
@@ -136,8 +162,8 @@ bool cOpenClEngineRenderPostFilter::LoadSourcesAndCompile(
 
 	if (compilerErrorOutput) *compilerErrorOutput = errorString;
 
-	WriteLogDouble(
-		"cOpenClEngineRenderHDRBlur: Opencl HDRBlur build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
+	WriteLogDouble("cOpenClEngineRenderPostFilter: Opencl post filter build time [s]",
+		timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }
@@ -154,11 +180,20 @@ void cOpenClEngineRenderPostFilter::RegisterInputOutputBuffers(
 bool cOpenClEngineRenderPostFilter::AssignParametersToKernelAdditional(
 	uint argIterator, int deviceIndex)
 {
-	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsHDRBlur);
-	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsHDRBlur)"))
+	int err;
+
+	switch (effectType)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("HDR blur params")),
+		case hdrBlur: err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsHDRBlur); break;
+		case chromaticAberration:;
+			err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsChromaticAberration);
+			break;
+	}
+
+	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsPostEffect)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1")
+														.arg(QObject::tr("%1 params").arg(effectName)),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -198,8 +233,8 @@ bool cOpenClEngineRenderPostFilter::ProcessQueue(quint64 pixelsLeft, quint64 pix
 	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish rendering HDR blur"), cErrorMessage::errorMessage, nullptr);
+		emit showErrorMessage(QObject::tr("Cannot finish rendering %1").arg(effectName),
+			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 

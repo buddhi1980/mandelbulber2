@@ -45,6 +45,7 @@
 // custom includes
 #ifdef USE_OPENCL
 #include "opencl/hdr_blur_cl.h"
+#include "opencl/chromatic_aberration_cl.h"
 #endif // USE_OPENCL
 
 struct sParamRender;
@@ -59,7 +60,14 @@ public:
 	~cOpenClEngineRenderPostFilter() override;
 
 #ifdef USE_OPENCL
-	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
+	enum enumPostEffectType
+	{
+		hdrBlur = 0,
+		chromaticAberration = 1
+	};
+
+	void SetParameters(
+		const sParamRender *paramRender, const cRegion<int> &region, enumPostEffectType _effectType);
 	bool LoadSourcesAndCompile(std::shared_ptr<const cParameterContainer> params,
 		QString *compilerErrorOutput = nullptr) override;
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
@@ -74,7 +82,11 @@ private:
 
 	QString GetKernelName() override;
 
-	sParamsHDRBlur paramsHDRBlur;
+	enumPostEffectType effectType;
+	QString effectName;
+
+	sParamsHDRBlurCl paramsHDRBlur;
+	sParamsChromaticAberrationCl paramsChromaticAberration;
 	cRegion<int> imageRegion;
 	sRGBFloat aoColor;
 	quint64 numberOfPixels;

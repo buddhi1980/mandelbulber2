@@ -760,7 +760,8 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				&cRenderJob::updateProgressAndStatus);
 
 			gOpenCl->openclEngineRenderPostFilter->Lock();
-			gOpenCl->openclEngineRenderPostFilter->SetParameters(params.get(), region);
+			gOpenCl->openclEngineRenderPostFilter->SetParameters(
+				params.get(), region, cOpenClEngineRenderPostFilter::hdrBlur);
 			if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
 			{
 				gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);

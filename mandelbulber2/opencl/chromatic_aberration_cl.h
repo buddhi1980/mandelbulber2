@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,56 +29,18 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * SSAO shader function optimized for opencl
+ * chromatic aberration struct for opencl
  */
 
-//------------------ MAIN RENDER FUNCTION --------------------
-kernel void PostFilter(__global float4 *inputImage, __global float4 *out, sParamsHDRBlurCl p)
+#ifndef MANDELBULBER2_OPENCL_CHROMATIC_ABERRATION_CL_H_
+#define MANDELBULBER2_OPENCL_CHROMATIC_ABERRATION_CL_H_
+
+typedef struct
 {
-	const unsigned int i = get_global_id(0);
-	const int2 scr = (int2){i % p.width, i / p.width};
+	cl_int width;
+	cl_int height;
+	cl_float radialBlurRadius;
+	cl_float aberrationIntensity;
+} sParamsChromaticAberrationCl;
 
-	const float2 scr_f = convert_float2(scr);
-
-	const float blurSize = p.radius * (p.width + p.height) * 0.001f;
-	const float blurSize2 = blurSize * blurSize;
-	const int intBlurSize = (int)(blurSize + 1);
-
-	const float limiter = p.intensity;
-
-	float weight = 0.0f;
-	int yStart = max(0, scr.y - intBlurSize);
-	int yEnd = min(p.height, scr.y + intBlurSize);
-
-	float4 newPixel = 0.0f;
-
-	for (int yy = yStart; yy < yEnd; yy++)
-	{
-		int xStart = max(0, scr.x - intBlurSize);
-		int xEnd = min(p.width, scr.x + intBlurSize);
-		for (int xx = xStart; xx < xEnd; xx++)
-		{
-			float dx = scr.x - xx;
-			float dy = scr.y - yy;
-			float r2 = dx * dx + dy * dy;
-			if (r2 < blurSize2)
-			{
-				float value = 1.0f / (r2 / (0.2f * blurSize) + limiter);
-				// if(dx == 0 && dy == 0) value = 10.0;
-				weight += value;
-
-				int inBuffIndex = xx + yy * p.width;
-				float4 oldPixel = clamp(inputImage[inBuffIndex], 0.0f, 100.0f);
-
-				newPixel += oldPixel * value;
-			}
-		}
-	}
-
-	if (weight > 0.0f)
-	{
-		newPixel /= weight;
-	}
-
-	out[i] = newPixel;
-}
+#endif /* MANDELBULBER2_OPENCL_CHROMATIC_ABERRATION_CL_H_ */
