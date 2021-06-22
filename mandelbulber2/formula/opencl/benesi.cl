@@ -16,26 +16,18 @@
 
 REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(fractal);
-
-	REAL4 c = aux->const_c;
-	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL r1 = z.y * z.y + z.z * z.z;
-	REAL newx;
-	if (c.x < 0.0f || z.x < native_sqrt(r1))
-	{
-		newx = z.x * z.x - r1;
-	}
+	aux->DE *= 2.0f * aux->r;
+	REAL4 zz = z * z;
+	REAL r1 = zz.y + zz.z;
+	REAL4 t = z;
+	if (aux->const_c.x < 0.0f || z.x < sqrt(r1))
+		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
-	{
-		newx = -z.x * z.x + r1;
-	}
-	r1 = -1.0f / native_sqrt(r1) * 2.0f * fabs(z.x);
-	REAL newy = r1 * (z.y * z.y - z.z * z.z);
-	REAL newz = r1 * 2.0f * z.y * z.z;
+		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;
+	r1 = -pow(r1, -0.5f) * 2.0f * fabs(z.x);
+	t.y = r1 * (zz.y - zz.z) + fractal->transformCommon.offset000.y;
+	t.z = r1 * 2.0f * z.y * z.z + fractal->transformCommon.offset000.z + 1e-016;
+	z = t;
 
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
 	return z;
 }

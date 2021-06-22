@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Formula invented by Benesi
+ * Formula invented by Matt Benesi
  * @reference http://www.fractalforums.com/index.php?action=profile;u=1170
  */
 
@@ -27,25 +27,16 @@ cFractalBenesi::cFractalBenesi() : cAbstractFractal()
 
 void cFractalBenesi::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(fractal);
-
-	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
-	double r1 = z.y * z.y + z.z * z.z;
-	double newx;
-	if (c.x < 0.0 || z.x < sqrt(r1))
-	{
-		newx = z.x * z.x - r1;
-	}
+	CVector4 zz = z * z;
+	double r1 = zz.y + zz.z;
+	CVector4 t = z;
+	if (aux.const_c.x < 0.0 || z.x < sqrt(r1))
+		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
-	{
-		newx = -z.x * z.x + r1;
-	}
-	r1 = -1.0 / sqrt(r1) * 2.0 * fabs(z.x);
-	double newy = r1 * (z.y * z.y - z.z * z.z);
-	double newz = r1 * 2.0 * z.y * z.z;
-
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;
+	r1 = -pow(r1, -0.5) * 2.0 * fabs(z.x);
+	t.y = r1 * (zz.y - zz.z) + fractal->transformCommon.offset000.y;
+	t.z = r1 * 2.0 * z.y * z.z + fractal->transformCommon.offset000.z + 1e-016;
+	z = t;
 }

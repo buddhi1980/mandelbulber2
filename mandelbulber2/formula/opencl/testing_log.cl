@@ -15,7 +15,7 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->DE = aux->DE * 2.0f * aux->r + 1.0f;
+
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -32,6 +32,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
 		else
 		{
+			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
 
 			REAL4 Mul = fractal->transformCommon.constantMultiplier122;
 			Mul.w = 0.0;
@@ -53,6 +54,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
 		else
 		{
+			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
+
 			Mul = fractal->transformCommon.constantMultiplier221;
 			Mul.w = 0.0;
 			REAL ZR = fractal->transformCommon.offset1;

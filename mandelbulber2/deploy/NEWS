@@ -16,6 +16,7 @@ v2.26 (????l 2021)
 
 - modified fractal formulas
    mandelnest, added checkbox for aux.dist
+   benesi, added z.x conditional offset
 
 
 

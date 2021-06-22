@@ -456,6 +456,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSmoothV2());
 
 	// Spherical Transforms
+	fractalList->append(new cFractalTransfSphericalCoordInvs());
 	fractalList->append(new cFractalTransfSphericalFold());
 	fractalList->append(new cFractalTransfSphericalFold4d());
 	fractalList->append(new cFractalTransfSphericalFold4dV2());

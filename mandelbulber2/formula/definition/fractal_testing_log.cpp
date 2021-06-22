@@ -57,6 +57,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z += fractal->transformCommon.additionConstant000;
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;

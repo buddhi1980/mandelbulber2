@@ -60,7 +60,7 @@ enum enumFractalFormula
 	mandelboxSmooth = 17,
 	mandelboxVaryScale4d = 18, // updated V2.10, fix scaleVary v2.12
 	aexion = 19,
-	benesi = 20,
+	benesi = 20, // add conditional offset v2.26
 	bristorbrot = 21,
 	invertX = 22,
 	invertY = 23,
@@ -439,6 +439,7 @@ enum enumFractalFormula
 	transfRotationM3d = 1129,
 	transfSphericalInvPnorm = 1130,
 	transfSphericalFoldPnorm = 1131,
+	transfSphericalCoordInvs = 1132,
 
 	// mandelbulber transfdIFS
 	// 2.20
