@@ -60,7 +60,7 @@ cOpenClEngineRenderPostFilter::cOpenClEngineRenderPostFilter(cOpenClHardware *_h
 
 	paramsChromaticAberration.width = 0;
 	paramsChromaticAberration.height = 0;
-	paramsChromaticAberration.radialBlurRadius = 0.0f;
+	paramsChromaticAberration.blurRadius = 0.0f;
 	paramsChromaticAberration.aberrationIntensity = 0.0f;
 
 	numberOfPixels = 0;
@@ -92,7 +92,13 @@ void cOpenClEngineRenderPostFilter::SetParameters(
 	paramsHDRBlur.height = region.height;
 	paramsHDRBlur.radius = paramRender->hdrBlurRadius;
 	paramsHDRBlur.intensity = paramRender->hdrBlurIntensity;
-	numberOfPixels = quint64(paramsHDRBlur.width) * quint64(paramsHDRBlur.height);
+
+	paramsChromaticAberration.width = region.width;
+	paramsChromaticAberration.height = region.height;
+	paramsChromaticAberration.blurRadius = paramRender->postChromaticAberrationRadius;
+	paramsChromaticAberration.aberrationIntensity = paramRender->postChromaticAberrationIntensity;
+
+	numberOfPixels = quint64(region.width) * quint64(region.height);
 	definesCollector.clear();
 	effectType = _effectType;
 
@@ -252,7 +258,8 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 		cProgressText progressText;
 		progressText.ResetTimer();
 
-		emit updateProgressAndStatus(tr("OpenCl - rendering HDR blur"), progressText.getText(0.0), 0.0);
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering %1").arg(effectName), progressText.getText(0.0), 0.0);
 
 		QElapsedTimer timer;
 		timer.start();
@@ -289,8 +296,8 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
 
 			double percentDone = double(pixelIndex) / (width * height);
-			emit updateProgressAndStatus(
-				tr("OpenCl - rendering HDR blur"), progressText.getText(percentDone), percentDone);
+			emit updateProgressAndStatus(tr("OpenCl - rendering %1").arg(effectName),
+				progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
 
 			UpdateOptimalJobEnd();
@@ -341,7 +348,7 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 		}
 
 		emit updateProgressAndStatus(
-			tr("OpenCl - rendering HDR Blur finished"), progressText.getText(1.0), 1.0);
+			tr("OpenCl - rendering %1 finished").arg(effectName), progressText.getText(1.0), 1.0);
 
 		return true;
 	}

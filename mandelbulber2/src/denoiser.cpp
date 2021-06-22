@@ -124,6 +124,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 						// anti-aliased circle
 						float fweight = clamp(filterRadius - radius, 0.0f, 1.0f);
 
+						if (fweight < 0.001f) continue;
+
 						// take samples mostly from places of high noise
 						// it improves edges
 						float filterRadiusForWeight = blurRadiusBuffer[fx + fy * width];
@@ -254,6 +256,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 						if (fx >= 0 && fx < width && fy >= 0 && fy < height)
 						{
 							float radius = sqrtf(float(dx * dx + dy * dy));
+
+							if (radius > filterRadius) continue;
 
 							float deltaZ = 0.0f;
 							float normalWeight = 1.0f;

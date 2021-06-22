@@ -166,6 +166,9 @@ sParamRender::sParamRender(
 	monteCarloDenoiserStrength = container->Get<int>("MC_denoiser_strength");
 	monteCarloDenoiserPreserveGeometry = container->Get<bool>("MC_denoiser_preserve_geometry");
 	N = container->Get<int>("N");
+	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
+	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
+	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");

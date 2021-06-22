@@ -1099,31 +1099,35 @@ void cInterface::RefreshPostEffects()
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-				sParamRender params(gPar);
-				gOpenCl->openclEngineRenderPostFilter->Lock();
-				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				gOpenCl->openclEngineRenderPostFilter->SetParameters(
-					&params, region, cOpenClEngineRenderPostFilter::hdrBlur);
-				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
+				for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
+						 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
 				{
-					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
-					size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
-					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
-					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
+					sParamRender params(gPar);
+					gOpenCl->openclEngineRenderPostFilter->Lock();
+					cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+					gOpenCl->openclEngineRenderPostFilter->SetParameters(
+						&params, region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+					if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
 					{
-						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
-						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
-						gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
+						gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
+						size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+						WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+						if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
+						{
+							gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
+							gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+							gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
+						}
+						else
+						{
+							cErrorMessage::showMessage(
+								QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
+								cErrorMessage::errorMessage, mainWindow);
+						}
 					}
-					else
-					{
-						cErrorMessage::showMessage(
-							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
-							cErrorMessage::errorMessage, mainWindow);
-					}
+					gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+					gOpenCl->openclEngineRenderPostFilter->Unlock();
 				}
-				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
-				gOpenCl->openclEngineRenderPostFilter->Unlock();
 #endif
 			}
 			else

@@ -39,7 +39,7 @@ typedef struct
 {
 	cl_int width;
 	cl_int height;
-	cl_float radialBlurRadius;
+	cl_float blurRadius;
 	cl_float aberrationIntensity;
 } sParamsChromaticAberrationCl;
 

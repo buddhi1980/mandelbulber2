@@ -748,10 +748,8 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 {
 	if (!*renderData->stopRequest && *result == true)
 	{
-		if (params->hdrBlurEnabled
-				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
-						 paramsContainer->Get<int>("opencl_mode"))
-						 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
+		if (cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
+				!= cOpenClEngineRenderFractal::clRenderEngineTypeFast)
 		{
 			connect(gOpenCl->openclEngineRenderPostFilter, &cOpenClEngineRenderPostFilter::updateImage,
 				this, &cRenderJob::updateImage);
@@ -759,51 +757,46 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				&cOpenClEngineRenderPostFilter::updateProgressAndStatus, this,
 				&cRenderJob::updateProgressAndStatus);
 
-			gOpenCl->openclEngineRenderPostFilter->Lock();
-			gOpenCl->openclEngineRenderPostFilter->SetParameters(
-				params.get(), region, cOpenClEngineRenderPostFilter::hdrBlur);
-			if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
+			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
+					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
 			{
-				gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
-				qint64 neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
-				WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
-				if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+
+				bool skip = false;
+				switch (cOpenClEngineRenderPostFilter::enumPostEffectType(i))
 				{
-					gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
-					gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
-					*result = gOpenCl->openclEngineRenderPostFilter->Render(image, renderData->stopRequest);
-				}
-				else
-				{
-					qCritical() << "Not enough GPU mem!";
-					*result = false;
+					case cOpenClEngineRenderPostFilter::hdrBlur:
+					{
+						if (!params->hdrBlurEnabled) skip = true;
+						break;
+					}
+					case cOpenClEngineRenderPostFilter::chromaticAberration:
+					{
+						if (!params->postChromaticAberrationEnabled) skip = true;
+						break;
+					}
 				}
 
-				if (!*result)
+				if (skip) continue;
+
+				gOpenCl->openclEngineRenderPostFilter->Lock();
+				gOpenCl->openclEngineRenderPostFilter->SetParameters(
+					params.get(), region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
 				{
-					//					cRenderSSAO rendererSSAO(params, renderData, image);
-					//					connect(&rendererSSAO,
-					//						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-					// this, 						SIGNAL(updateProgressAndStatus(const QString &, const QString &,
-					// double))); 					connect(&rendererSSAO, SIGNAL(updateImage()), this,
-					// SIGNAL(updateImage()));
-					//					rendererSSAO.SetRegion(region);
-					//					rendererSSAO.RenderSSAO();
-					//
-					//					// refresh image at end
-					//					WriteLog("image->CompileImage()", 2);
-					//					image->CompileImage();
-					//
-					//					if (image->IsPreview())
-					//					{
-					//						WriteLog("image->ConvertTo8bit()", 2);
-					//						image->ConvertTo8bitChar();
-					//						WriteLog("image->UpdatePreview()", 2);
-					//						image->UpdatePreview();
-					//						WriteLog("image->GetImageWidget()->update()", 2);
-					//						emit updateImage();
-					//					}
-					//					*result = true;
+					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
+					qint64 neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+					if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+					{
+						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
+						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						*result = gOpenCl->openclEngineRenderPostFilter->Render(image, renderData->stopRequest);
+					}
+					else
+					{
+						qCritical() << "Not enough GPU mem!";
+						*result = false;
+					}
 				}
 			}
 			gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();

@@ -128,6 +128,7 @@ struct sParamRender
 	bool monteCarloGIVolumetric;
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
+	bool postChromaticAberrationEnabled;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;
@@ -204,6 +205,8 @@ struct sParamRender
 	float iterFogOpacityTrimHigh;
 	float iterFogBrightnessBoost;
 	float monteCarloGIRadianceLimit;
+	float postChromaticAberrationIntensity;
+	float postChromaticAberrationRadius;
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates

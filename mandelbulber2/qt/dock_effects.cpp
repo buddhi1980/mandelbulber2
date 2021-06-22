@@ -76,7 +76,7 @@ void cDockEffects::ConnectSignals() const
 		ui->pushButton_DOF_set_focus, SIGNAL(clicked()), this, SLOT(slotPressedButtonSetDOFByMouse()));
 	connect(
 		ui->pushButton_DOF_update, SIGNAL(clicked()), this, SLOT(slotPressedButtonUpdatePostEffects()));
-	connect(ui->pushButton_hdr_blur_update, SIGNAL(clicked()), this,
+	connect(ui->pushButton_post_effects_update, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonUpdatePostEffects()));
 
 	connect(ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), this,

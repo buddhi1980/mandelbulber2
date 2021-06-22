@@ -29,22 +29,25 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * HDR blur post effect
+ * chromatic aberration post effect
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void PostFilter(__global float4 *inputImage, __global float4 *out, sParamsHDRBlurCl p)
+kernel void PostFilter(
+	__global float4 *inputImage, __global float4 *out, sParamsChromaticAberrationCl p)
 {
 	const unsigned int i = get_global_id(0);
 	const int2 scr = (int2){i % p.width, i / p.width};
 
 	const float2 scr_f = convert_float2(scr);
+	float aspectRatio = (float)p.height / p.width;
+	scr_f.x = (scr_f.x / p.width) - 0.5f;
+	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
-	const float blurSize = p.radius * (p.width + p.height) * 0.001f;
-	const float blurSize2 = blurSize * blurSize;
+	const float blurSize = p.blurRadius * (p.width + p.height) * 0.002f * length(scr_f);
 	const int intBlurSize = (int)(blurSize + 1);
 
-	const float limiter = p.intensity;
+	const float limiter = p.aberrationIntensity;
 
 	float weight = 0.0f;
 	int yStart = max(0, scr.y - intBlurSize);
@@ -61,16 +64,19 @@ kernel void PostFilter(__global float4 *inputImage, __global float4 *out, sParam
 			float dx = scr.x - xx;
 			float dy = scr.y - yy;
 			float r2 = dx * dx + dy * dy;
-			if (r2 < blurSize2)
+			float radius = sqrt(r2);
+
+			// anti-aliased circle
+			float fweight = clamp(blurSize - radius, 0.0f, 1.0f);
+
+			if (fweight > 0)
 			{
-				float value = 1.0f / (r2 / (0.2f * blurSize) + limiter);
-				// if(dx == 0 && dy == 0) value = 10.0;
-				weight += value;
+				weight += fweight;
 
 				int inBuffIndex = xx + yy * p.width;
 				float4 oldPixel = clamp(inputImage[inBuffIndex], 0.0f, 100.0f);
 
-				newPixel += oldPixel * value;
+				newPixel += oldPixel * fweight;
 			}
 		}
 	}
