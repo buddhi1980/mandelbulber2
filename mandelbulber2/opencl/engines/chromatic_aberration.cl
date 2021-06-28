@@ -32,6 +32,28 @@
  * chromatic aberration post effect
  */
 
+float3 Hsv2rgb(float hue, float sat, float val)
+{
+	float3 rgb;
+	float h = hue / 60.0f;
+	int i = (int)h;
+	float f = h - i;
+	float p = val * (1.0f - sat);
+	float q = val * (1.0f - (sat * f));
+	float t = val * (1.0f - (sat * (1.0f - f)));
+	switch (i)
+	{
+		case 0: rgb = (float3){val, t, p}; break;
+		case 1: rgb = (float3){q, val, p}; break;
+		case 2: rgb = (float3){p, val, t}; break;
+		case 3: rgb = (float3){p, q, val}; break;
+		case 4: rgb = (float3){t, p, val}; break;
+		case 5: rgb = (float3){val, p, q}; break;
+	}
+
+	return rgb;
+}
+
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void PostFilter(
 	__global float4 *inputImage, __global float4 *out, sParamsChromaticAberrationCl p)
@@ -39,15 +61,14 @@ kernel void PostFilter(
 	const unsigned int i = get_global_id(0);
 	const int2 scr = (int2){i % p.width, i / p.width};
 
-	const float2 scr_f = convert_float2(scr);
+	float2 scr_f = convert_float2(scr);
 	float aspectRatio = (float)p.height / p.width;
 	scr_f.x = (scr_f.x / p.width) - 0.5f;
 	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
 	const float blurSize = p.blurRadius * (p.width + p.height) * 0.002f * length(scr_f);
-	const int intBlurSize = (int)(blurSize + 1);
-
-	const float limiter = p.aberrationIntensity;
+	const int intBlurSize = (int)((blurSize + 1.0f) + p.aberrationIntensity);
+	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f);
 
 	float weight = 0.0f;
 	int yStart = max(0, scr.y - intBlurSize);
@@ -61,13 +82,21 @@ kernel void PostFilter(
 		int xEnd = min(p.width, scr.x + intBlurSize);
 		for (int xx = xStart; xx < xEnd; xx++)
 		{
-			float dx = scr.x - xx;
-			float dy = scr.y - yy;
-			float r2 = dx * dx + dy * dy;
-			float radius = sqrt(r2);
+			float2 d = (float2){scr.x - xx, scr.y - yy};
+			float2 radialVector = normalize(scr_f);
+			float2 blurVector = normalize(d);
+			float radialBlurSize =
+				radialBlurSizeSp
+				* clamp(
+					(blurSize - fabs(radialVector.x * d.y - d.x * radialVector.y) / length(radialVector)),
+					0.0f, 1.0f);
+
+			float radius = length(d);
 
 			// anti-aliased circle
-			float fweight = clamp(blurSize - radius, 0.0f, 1.0f);
+			float fweight = clamp(radialBlurSize - radius, 0.0f, 1.0f);
+
+			float hue = fmod((length(scr_f) - length(scr_f + d / p.width)) * 30000.0f + 3600.0f, 360.0f);
 
 			if (fweight > 0)
 			{
@@ -75,6 +104,11 @@ kernel void PostFilter(
 
 				int inBuffIndex = xx + yy * p.width;
 				float4 oldPixel = clamp(inputImage[inBuffIndex], 0.0f, 100.0f);
+
+				float3 hsv = Hsv2rgb(hue, 1.0f, 1.0f);
+				oldPixel.s0 *= hsv.s0;
+				oldPixel.s1 *= hsv.s1;
+				oldPixel.s2 *= hsv.s2;
 
 				newPixel += oldPixel * fweight;
 			}
