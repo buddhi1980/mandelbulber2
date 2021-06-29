@@ -66,9 +66,10 @@ kernel void PostFilter(
 	scr_f.x = (scr_f.x / p.width) - 0.5f;
 	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
-	const float blurSize = p.blurRadius * (p.width + p.height) * 0.002f * length(scr_f);
-	const int intBlurSize = (int)((blurSize + 1.0f) + p.aberrationIntensity * 10.0);
-	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f) * 10.0;
+	const float blurSize = p.blurRadius * p.width * 0.002f * length(scr_f);
+	const int intBlurSize = (int)((blurSize) + p.aberrationIntensity * 10.0);
+	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f) * p.width * 0.007f;
+	float radialBlurSizeScr = p.aberrationIntensity * p.width * 0.0003f;
 
 	float3 weight = 0.0f;
 	int yStart = max(0, scr.y - intBlurSize);
@@ -76,20 +77,17 @@ kernel void PostFilter(
 
 	float4 newPixel = 0.0f;
 
-	for (int yy = yStart; yy < yEnd; yy++)
+	for (int yy = yStart; yy <= yEnd; yy++)
 	{
 		int xStart = max(0, scr.x - intBlurSize);
 		int xEnd = min(p.width, scr.x + intBlurSize);
-		for (int xx = xStart; xx < xEnd; xx++)
+		for (int xx = xStart; xx <= xEnd; xx++)
 		{
 			float2 d = (float2){scr.x - xx, scr.y - yy};
 			float2 radialVector = normalize(scr_f);
-			float2 blurVector = normalize(d);
 			float radialBlurSize =
 				radialBlurSizeSp
-				* clamp(
-					(blurSize - fabs(radialVector.x * d.y - d.x * radialVector.y) / length(radialVector)),
-					0.0f, 1.0f);
+				* clamp((blurSize - fabs(radialVector.x * d.y - d.x * radialVector.y)), 0.0f, 1.0f);
 
 			float radius = length(d);
 
@@ -100,13 +98,10 @@ kernel void PostFilter(
 
 			float3 colorWeight;
 			colorWeight.s0 =
-				clamp(1.0f - fabs(colorSelector - radialBlurSizeSp * 0.1f) / p.aberrationIntensity * 2.0f,
-					0.0f, 1.0f);
-			colorWeight.s1 =
-				clamp(1.0f - fabs(colorSelector + 0.0f) / p.aberrationIntensity * 2.0f, 0.0f, 1.0f);
+				clamp(1.0f - fabs(colorSelector - radialBlurSizeSp * 0.1f) / radialBlurSizeScr, 0.0f, 1.0f);
+			colorWeight.s1 = clamp(1.0f - fabs(colorSelector + 0.0f) / radialBlurSizeScr, 0.0f, 1.0f);
 			colorWeight.s2 =
-				clamp(1.0f - fabs(colorSelector + radialBlurSizeSp * 0.1f) / p.aberrationIntensity * 2.0f,
-					0.0f, 1.0f);
+				clamp(1.0f - fabs(colorSelector + radialBlurSizeSp * 0.1f) / radialBlurSizeScr, 0.0f, 1.0f);
 
 			fWeight *= colorWeight;
 
