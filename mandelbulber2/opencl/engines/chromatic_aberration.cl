@@ -67,10 +67,10 @@ kernel void PostFilter(
 	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
 	const float blurSize = p.blurRadius * (p.width + p.height) * 0.002f * length(scr_f);
-	const int intBlurSize = (int)((blurSize + 1.0f) + p.aberrationIntensity);
-	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f);
+	const int intBlurSize = (int)((blurSize + 1.0f) + p.aberrationIntensity * 10.0);
+	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f) * 10.0;
 
-	float weight = 0.0f;
+	float3 weight = 0.0f;
 	int yStart = max(0, scr.y - intBlurSize);
 	int yEnd = min(p.height, scr.y + intBlurSize);
 
@@ -94,31 +94,41 @@ kernel void PostFilter(
 			float radius = length(d);
 
 			// anti-aliased circle
-			float fweight = clamp(radialBlurSize - radius, 0.0f, 1.0f);
+			float3 fWeight = clamp(radialBlurSize - radius, 0.0f, 1.0f);
 
-			float hue = fmod((length(scr_f) - length(scr_f + d / p.width)) * 30000.0f + 3600.0f, 360.0f);
+			float colorSelector = 0.1 * (length(scr_f) - length(scr_f + d / p.width)) * p.width;
 
-			if (fweight > 0)
+			float3 colorWeight;
+			colorWeight.s0 =
+				clamp(1.0f - fabs(colorSelector - radialBlurSizeSp * 0.1f) / p.aberrationIntensity * 2.0f,
+					0.0f, 1.0f);
+			colorWeight.s1 =
+				clamp(1.0f - fabs(colorSelector + 0.0f) / p.aberrationIntensity * 2.0f, 0.0f, 1.0f);
+			colorWeight.s2 =
+				clamp(1.0f - fabs(colorSelector + radialBlurSizeSp * 0.1f) / p.aberrationIntensity * 2.0f,
+					0.0f, 1.0f);
+
+			fWeight *= colorWeight;
+
+			if (length(fWeight) > 0)
 			{
-				weight += fweight;
+				weight += fWeight;
 
 				int inBuffIndex = xx + yy * p.width;
 				float4 oldPixel = clamp(inputImage[inBuffIndex], 0.0f, 100.0f);
 
-				float3 hsv = Hsv2rgb(hue, 1.0f, 1.0f);
-				oldPixel.s0 *= hsv.s0;
-				oldPixel.s1 *= hsv.s1;
-				oldPixel.s2 *= hsv.s2;
+				oldPixel.s0 *= fWeight.s0;
+				oldPixel.s1 *= fWeight.s1;
+				oldPixel.s2 *= fWeight.s2;
 
-				newPixel += oldPixel * fweight;
+				newPixel += oldPixel;
 			}
 		}
 	}
 
-	if (weight > 0.0f)
-	{
-		newPixel /= weight;
-	}
+	if (weight.s0 > 0.0f) newPixel.s0 /= weight.s0;
+	if (weight.s1 > 0.0f) newPixel.s1 /= weight.s1;
+	if (weight.s2 > 0.0f) newPixel.s2 /= weight.s2;
 
 	out[i] = newPixel;
 }
