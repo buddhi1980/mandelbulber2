@@ -105,7 +105,7 @@ kernel void PostFilter(
 
 			fWeight *= colorWeight;
 
-			if (length(fWeight) > 0)
+			if (length(fWeight) > 0.0f)
 			{
 				weight += fWeight;
 

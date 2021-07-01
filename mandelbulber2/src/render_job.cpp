@@ -798,10 +798,9 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 						*result = false;
 					}
 				}
+				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+				gOpenCl->openclEngineRenderPostFilter->Unlock();
 			}
-			gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
-			gOpenCl->openclEngineRenderPostFilter->Unlock();
-
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering Post Filter finished"), progressText->getText(1.0), 1.0);
 		}

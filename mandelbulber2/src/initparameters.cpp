@@ -333,9 +333,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("hdr_blur_intensity", 0.1, 0.0, 1000.0, morphLinear, paramStandard);
 
 	par->addParam("post_chromatic_aberration_enabled", false, morphLinear, paramStandard);
-	par->addParam("post_chromatic_aberration_radius", 10.0, 0.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("post_chromatic_aberration_radius", 5.0, 0.0, 1000.0, morphLinear, paramStandard);
 	par->addParam(
-		"post_chromatic_aberration_intensity", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+		"post_chromatic_aberration_intensity", 5.0, 0.0, 1000.0, morphLinear, paramStandard);
 
 	par->addParam("fill_light_color", sRGB(0, 0, 0), morphLinear, paramStandard);
 	par->addParam("all_lights_intensity", 1.0, 0.0, 100000.0, morphLinear, paramStandard);
