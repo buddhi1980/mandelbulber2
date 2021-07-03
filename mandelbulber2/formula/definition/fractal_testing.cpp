@@ -21,7 +21,7 @@ cFractalTesting::cFractalTesting() : cAbstractFractal()
 	internalID = fractal::testing;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;

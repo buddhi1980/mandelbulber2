@@ -271,6 +271,7 @@ enum enumFractalFormula
 	hypercomplexV2 = 235,
 	mandelbar = 236,
 	boxFoldBulbV4 = 237,
+	mandelbulbQuadrat = 238,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

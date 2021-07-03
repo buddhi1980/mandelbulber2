@@ -11,12 +11,15 @@ v2.26 (????l 2021)
    pseudoKleinian4d
    transfDIFSSpring
    transfRotationM3d
+   transfSphericalCoordInvs
+   transfSphericalFoldPnorm
    transfSphericalInvPnorm
 
 
 - modified fractal formulas
    mandelnest, added checkbox for aux.dist
    benesi, added z.x conditional offset
+   transfParabFold, factorP.w = 0.0;
 
 
 

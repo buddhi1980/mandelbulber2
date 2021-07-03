@@ -35,6 +35,7 @@ void cFractalTransfParabFold::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	factorP.x = -slope2.x / (lengthAdd.x * 2.0);
 	factorP.y = -slope2.y / (lengthAdd.y * 2.0);
 	factorP.z = -slope2.z / (lengthAdd.z * 2.0);
+	factorP.w = 0.0;
 
 	if (temp.x > 0)
 	{

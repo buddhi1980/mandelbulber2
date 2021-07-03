@@ -41,11 +41,9 @@ void cFractalTransfDIFSSpring::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	double T = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.minR05;
-	int int8x = fractal->transformCommon.int8X;
-	int int2 = fractal->transformCommon.int8Y;
 
-	double ht1 = int8x * fractal->transformCommon.offset01;
-	double ht2 = int2 * fractal->transformCommon.offsetp01;
+	double ht1 = fractal->transformCommon.int8X * fractal->transformCommon.offset01;
+	double ht2 = fractal->transformCommon.int8Y * fractal->transformCommon.offsetp01;
 
 	double L = fabs(zc.z) - ht1 - ht2;
 	double P;

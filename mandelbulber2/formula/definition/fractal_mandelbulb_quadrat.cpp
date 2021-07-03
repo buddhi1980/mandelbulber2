@@ -7,15 +7,18 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * https://nylander.wordpress.com/2009/07/03/3d-mandelbrot-set-2/
+ * Found on http://bugman123.com/Hypercomplex/index.html
+ * Quadratic 3D Mandelbulb set, based on D. White's new "triplex squaring formula".
+ * Hyperbolic radius added by Darkbeam refer Quadrat3D in M3D
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
+cFractalMandelbulbQuadrat::cFractalMandelbulbQuadrat() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Log";
-	internalName = "testing_log";
-	internalID = fractal::testingLog;
+	nameInComboBox = "Mandelbulb Quadrat";
+	internalName = "mandelbulb_quadrat";
+	internalID = fractal::mandelbulbQuadrat;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -24,7 +27,7 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelbulbQuadrat::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -39,8 +42,13 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabled)
 	{
 		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
+		double temp = 0.0;
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+			temp = fractal->transformCommon.offset0;
 
-		double temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
+		temp = z.x * z.x + z.y * z.y + temp;
 		if (temp == 0.0) z = aux.const_c;
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else
@@ -62,7 +70,13 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	{
 		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
 
-		double temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offsetA0;
+		double temp = 0.0;
+		if (fractal->transformCommon.functionEnabledTFalse
+				&& aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT1)
+			temp = fractal->transformCommon.offsetA0;
+
+		temp = z.z * z.z + z.y * z.y + temp;
 		if (temp == 0.0) z = aux.const_c;
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else

@@ -24,6 +24,7 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	factorP.x = -slope2.x / (lengthAdd.x * 2.0f);
 	factorP.y = -slope2.y / (lengthAdd.y * 2.0f);
 	factorP.z = -slope2.z / (lengthAdd.z * 2.0f);
+	factorP.w = 0.0f;
 
 	if (temp.x > 0)
 	{
