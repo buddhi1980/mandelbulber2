@@ -36,9 +36,6 @@ void cFractalMandelbulbQuadrat::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	CVector4 Mul;
-	Mul.w = 0.0;
-
 	if (fractal->transformCommon.functionEnabled)
 	{
 		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
@@ -53,7 +50,8 @@ void cFractalMandelbulbQuadrat::FormulaCode(CVector4 &z, const sFractal *fractal
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else
 		{
-			Mul = fractal->transformCommon.constantMultiplier122;
+			CVector4 Mul = fractal->transformCommon.constantMultiplier122;
+			Mul.w = 0.0;
 			double ZR = fractal->transformCommon.offset1;
 			Mul.z = -Mul.z * z.z * sqrt(temp);
 			temp = ZR - z.z * z.z / temp;
@@ -81,7 +79,8 @@ void cFractalMandelbulbQuadrat::FormulaCode(CVector4 &z, const sFractal *fractal
 		else if (temp < 0.0) z = CVector4(0.0, 0.0, 0.0, 0.0);
 		else
 		{
-			Mul = fractal->transformCommon.constantMultiplier221;
+			CVector4 Mul = fractal->transformCommon.constantMultiplier221;
+			Mul.w = 0.0;
 			double ZR = fractal->transformCommon.offsetA1;
 			Mul.x = -Mul.x * z.x * sqrt(temp);
 			temp = ZR - z.x * z.x / temp;
@@ -93,8 +92,6 @@ void cFractalMandelbulbQuadrat::FormulaCode(CVector4 &z, const sFractal *fractal
 			z += fractal->transformCommon.additionConstantA000;
 		}
 	}
-
-
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 

@@ -15,67 +15,75 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// REAL colorAdd = 0.0f;
+	aux->DE = mad(2.0f * aux->DE, aux->r, 1.0f);
 
-
-	if (fractal->transformCommon.functionEnabledAFalse)
+	//  pre-abs
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	REAL4 Mul;
-	Mul.w = 0.0;
-	if (fractal->transformCommon.functionEnabled)
+	REAL4 ZZ = z * z;
+	REAL rr = dot(z, z);
+	REAL theta = atan2(z.z, native_sqrt(ZZ.x + ZZ.y));
+	//REAL theta = asin(  z.z / native_sqrt(rr));
+	REAL phi = atan2(z.y, z.x);
+	REAL thetatemp = theta;
+
+	/*if(usespin)if(spin)
+		{
+			theta = -theta;
+	if(theta > 0.0f)
 	{
-		REAL temp = z.x * z.x + z.y * z.y + fractal->transformCommon.offset0;
-		if (temp == 0.0) z = aux->const_c;
-		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
+		theta = -pi1p5 + theta;
+	}
+	else
+	{
+		REAL alpha = pi0p5 + theta;
+		theta = M_PI_F + alpha;
+	}
+	theta = theta + M_PI_F;
+	}*/
+
+	REAL phi_pow = mad(2.0f, phi, M_PI_F);
+	REAL theta_pow =
+		theta + M_PI_F + native_divide(M_PI_F, 2.0f); // piAdd;+ native_divide(M_PI_F, 2.0f)
+	if (fractal->transformCommon.functionEnabledBFalse)
+		theta_pow = theta + native_divide(M_PI_F, 4.0f);
+	// theta_pow = theta + thetatemp + native_divide(M_PI_F, 2.0f);
+	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI_F;
+
+	REAL rn_sin_theta_pow = rr * native_sin(theta_pow);
+	z.x = rn_sin_theta_pow * native_cos(phi_pow); //  + jx
+	z.y = rn_sin_theta_pow * native_sin(phi_pow); // + jy
+	z.z = rr * native_cos(theta_pow); //  + jz
+
+	// z+=(Julia ? JuliaC : pos);
+	/*if(usespin)
+	{
+		if(spin)
+		{
+			theta += thetatemp - piAdd;
+					if(theta > pi1p5) spin = !spin;
 		else
 		{
-			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
-
-			REAL4 Mul = fractal->transformCommon.constantMultiplier122;
-			REAL ZR = fractal->transformCommon.offset1;
-			Mul.z = -Mul.z * z.z * sqrt(temp);
-			temp = ZR - z.z * z.z / temp;
-			Mul.x = Mul.x * (z.x * z.x - z.y * z.y) * temp;
-			Mul.y = Mul.y * z.x * z.y * temp;
-			z = Mul;
-
-			// offset (Julia)
-			z += fractal->transformCommon.additionConstant000;
+		if(theta < pi0p5) spin = !spin;
 		}
-	}
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		REAL temp = z.z * z.z + z.y * z.y + fractal->transformCommon.offsetA0;
-		if (temp == 0.0) z = aux->const_c;
-		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
+		}
 		else
-		{
-			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
-
-			Mul = fractal->transformCommon.constantMultiplier221;
-			REAL ZR = fractal->transformCommon.offsetA1;
-			Mul.x = -Mul.x * z.x * sqrt(temp);
-			temp = ZR - z.x * z.x / temp;
-			Mul.z = Mul.z * (z.z * z.z - z.y * z.y) * temp;
-			Mul.y = Mul.y * z.z * z.y * temp;
-			z = Mul;
-
-			// offset (Julia)
-			z += fractal->transformCommon.additionConstantA000;
+	{
+			if(theta > pi0p25) spin = !spin;
+			 else if(theta < -pi0p25) spin = !spin;
 		}
-	}
+	}*/
 
-
-
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
-	 // DE tweak
+	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
+			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

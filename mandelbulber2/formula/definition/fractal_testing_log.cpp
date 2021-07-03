@@ -26,17 +26,40 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+	aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
 
-	CVector4 Mul;
-	Mul.w = 0.0;
+	CVector4 ZZ = z * z;
+	double rr = z.Dot(z);
+	double theta = atan2(z.z, sqrt(ZZ.x + ZZ.y));
+	//REAL theta = asin(  z.z / native_sqrt(rr));
+	double phi = atan2(z.y, z.x);
+	double thetatemp = theta;
 
-	if (fractal->transformCommon.functionEnabled)
+	double phi_pow = 2.0 * phi + M_PI;
+	double theta_pow =
+		theta + M_PI + (M_PI / 2.0); // piAdd;+ native_divide(M_PI_F, 2.0f)
+	if (fractal->transformCommon.functionEnabledBFalse)
+		theta_pow = theta + (M_PI / 4.0);
+	// theta_pow = theta + thetatemp + native_divide(M_PI_F, 2.0f);
+	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI;
+
+	double rn_sin_theta_pow = rr * sin(theta_pow);
+	z.x = rn_sin_theta_pow * cos(phi_pow); //  + jx
+	z.y = rn_sin_theta_pow * sin(phi_pow); // + jy
+	z.z = rr * cos(theta_pow); //  + jz
+
+
+
+
+	/*if (fractal->transformCommon.functionEnabled)
 	{
 		aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
 
@@ -78,7 +101,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			// offset (Julia)
 			z += fractal->transformCommon.additionConstantA000;
 		}
-	}
+	}*/
 
 
 

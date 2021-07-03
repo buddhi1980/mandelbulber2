@@ -22,8 +22,6 @@ REAL4 MandelbulbQuadratIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-	REAL4 Mul;
-	Mul.w = 0.0;
 	if (fractal->transformCommon.functionEnabled)
 	{
 		REAL temp = 0.0;
@@ -40,6 +38,7 @@ REAL4 MandelbulbQuadratIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
 
 			REAL4 Mul = fractal->transformCommon.constantMultiplier122;
+			Mul.w = 0.0f;
 			REAL ZR = fractal->transformCommon.offset1;
 			Mul.z = -Mul.z * z.z * sqrt(temp);
 			temp = ZR - z.z * z.z / temp;
@@ -58,13 +57,16 @@ REAL4 MandelbulbQuadratIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				&& aux->i >= fractal->transformCommon.startIterationsT
 				&& aux->i < fractal->transformCommon.stopIterationsT1)
 			temp = fractal->transformCommon.offsetA0;
+
+		temp = z.z * z.z + z.y * z.y + temp;
 		if (temp == 0.0) z = aux->const_c;
 		else if (temp < 0.0) z = (REAL4){0.0, 0.0, 0.0, 0.0};
 		else
 		{
 			aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
 
-			Mul = fractal->transformCommon.constantMultiplier221;
+			REAL4 Mul = fractal->transformCommon.constantMultiplier221;
+			Mul.w = 0.0f;
 			REAL ZR = fractal->transformCommon.offsetA1;
 			Mul.x = -Mul.x * z.x * sqrt(temp);
 			temp = ZR - z.x * z.x / temp;
