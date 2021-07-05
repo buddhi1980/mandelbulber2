@@ -59,9 +59,7 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 			z = CVector4(z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z);
 			aux.DE *= z.Length() / aux.r;
 		}
-		//z = fabs(z - fractal->transformCommon.offsetA0000);
 	}
-
 
 	// box offset
 	if (aux.i >= fractal->transformCommon.startIterationsM
@@ -76,17 +74,15 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double k = 0.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.offset1111;
-	if (fractal->transformCommon.functionEnabledAy
-			&& aux.i >= fractal->transformCommon.startIterationsC
+	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
-		k = max(fractal->transformCommon.scale015/ z.Dot(z), 1.0);
+		k = max(fractal->transformCommon.scale1 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
+		aux.pseudoKleinianDE = fractal->analyticDE.scale1;
 	}
-				aux.pseudoKleinianDE = fractal->analyticDE.scale1;
-
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
@@ -99,7 +95,6 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 	}
 
-
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
@@ -108,11 +103,10 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 				- fabs(z - fractal->transformCommon.offsetB1111) - z;
 	}
 
-
 	CVector4 zz = z * z;
-	// double d1 = sqrt(min(min( zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
-	double d1 = sqrt(min(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.w), zz.w + zz.x));
-	if (fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y + zz.w);
+	double d1 = 0.0;
+	if (!fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y + zz.w);
+	else d1 = sqrt(min(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.w), zz.w + zz.x));
 	d1 -= fractal->transformCommon.offsetR0;
 
 	double d2 = fabs(z.z);

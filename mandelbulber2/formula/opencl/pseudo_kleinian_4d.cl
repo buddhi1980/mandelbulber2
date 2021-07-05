@@ -46,7 +46,6 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z = (REAL4){z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z};
 			aux->DE *= length(z) / aux->r;
 		}
-		// z = fabs(z - fractal->transformCommon.offsetA0000);
 	}
 
 	// box offset
@@ -62,17 +61,15 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL k = 0.0f;
 	// Pseudo kleinian
 	REAL4 cSize = fractal->transformCommon.offset1111;
-	if (fractal->transformCommon.functionEnabledAy
-			&& aux->i >= fractal->transformCommon.startIterationsC
+	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
-		k = max(fractal->transformCommon.scale015 / dot(z, z), 1.0f);
+		k = max(fractal->transformCommon.scale1 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
+		aux->pseudoKleinianDE = fractal->analyticDE.scale1;
 	}
-	aux->pseudoKleinianDE = fractal->analyticDE.scale1;
-	// z += fractal->transformCommon.additionConstant0000; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux->i >= fractal->transformCommon.startIterationsG
@@ -96,8 +93,10 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL4 zz = z * z;
 	// REAL d1 = native_sqrt(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
-	REAL d1 = native_sqrt(min(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.w), zz.w + zz.x));
-	if (fractal->transformCommon.functionEnabledKFalse) d1 = native_sqrt(zz.x + zz.y + zz.w);
+	REAL d1 = 0.0f;
+	if (!fractal->transformCommon.functionEnabledKFalse) d1 = native_sqrt(zz.x + zz.y + zz.w);
+	else d1 = native_sqrt(min(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.w), zz.w + zz.x));
+
 	d1 -= fractal->transformCommon.offsetR0;
 
 	REAL d2 = fabs(z.z);

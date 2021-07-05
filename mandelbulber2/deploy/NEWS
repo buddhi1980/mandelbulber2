@@ -7,8 +7,10 @@ v2.26 (????l 2021)
    boxFoldBulbV4
    hypercomplexV2
    mandelbar
+   mandelbulbQuadrat
    mandelnestV2
    pseudoKleinian4d
+   transfAddScaleRotate
    transfDIFSSpring
    transfRotationM3d
    transfSphericalCoordInvs

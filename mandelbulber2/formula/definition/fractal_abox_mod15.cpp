@@ -77,7 +77,6 @@ void cFractalAboxMod15::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
-
 	CVector4 oldZ = z;
 	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)

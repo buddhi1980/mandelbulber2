@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>763</width>
-    <height>598</height>
+    <height>1005</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,13 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
+   <item>
+    <widget class="QLabel" name="label_33">
+     <property name="text">
+      <string>Like FoldingIntPow M3D</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QLabel" name="label_32">
      <property name="text">

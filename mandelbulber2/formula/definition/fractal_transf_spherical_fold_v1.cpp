@@ -27,7 +27,6 @@ cFractalTransfSphericalFoldV1::cFractalTransfSphericalFoldV1() : cAbstractFracta
 
 void cFractalTransfSphericalFoldV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	CVector4 signs = z;
 	signs.x = sign(z.x);
 	signs.y = sign(z.y);
@@ -35,17 +34,14 @@ void cFractalTransfSphericalFoldV1::FormulaCode(CVector4 &z, const sFractal *fra
 	signs.w = sign(z.w);
 
 	z = fabs(z);
-	CVector4 tt = fractal->mandelbox.offset;
-	z -= tt;
+	CVector4 tt = z - fractal->mandelbox.offset;
 
-	double trr = z.Dot(z);
+	double trr = tt.Dot(tt);
 	double tp = min(max(1.0 / trr, 1.0), 1.0 / fractal->transformCommon.minR2p25);
 
-	z += tt;
 	z *= tp;
 	aux.DE *= tp;
 	z *= signs;
-
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)

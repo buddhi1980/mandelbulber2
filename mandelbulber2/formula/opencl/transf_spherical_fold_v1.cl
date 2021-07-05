@@ -16,7 +16,6 @@
 
 REAL4 TransfSphericalFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL4 signs = z;
 	signs.x = sign(z.x);
 	signs.y = sign(z.y);
@@ -24,13 +23,11 @@ REAL4 TransfSphericalFoldV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	signs.w = sign(z.w);
 
 	z = fabs(z);
-	REAL4 tt = fractal->mandelbox.offset;
-	z -= tt;
+	REAL4 tt = z - fractal->mandelbox.offset;
 
-	REAL trr = dot(z, z);
+	REAL trr = dot(tt, tt);
 	REAL tp = min(max(1.0f / trr, 1.0f), 1.0f / fractal->transformCommon.minR2p25);
 
-	z += tt;
 	z *= tp;
 	aux->DE *= tp;
 	z *= signs;
