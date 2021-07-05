@@ -1087,50 +1087,68 @@ void cInterface::RefreshPostEffects()
 			}
 		}
 
-		if (gPar->Get<bool>("hdr_blur_enabled"))
+		if (gPar->Get<bool>("opencl_enabled")
+				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
+						 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 		{
-			if (gPar->Get<bool>("opencl_enabled")
-					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
-			{
 #ifdef USE_OPENCL
 
-				connect(gOpenCl->openclEngineRenderPostFilter,
-					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			connect(gOpenCl->openclEngineRenderPostFilter,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-				for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
-						 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
+			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
+					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
+			{
+
+				bool skip = false;
+				switch (cOpenClEngineRenderPostFilter::enumPostEffectType(i))
 				{
-					sParamRender params(gPar);
-					gOpenCl->openclEngineRenderPostFilter->Lock();
-					cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-					gOpenCl->openclEngineRenderPostFilter->SetParameters(
-						&params, region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
-					if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
+					case cOpenClEngineRenderPostFilter::hdrBlur:
 					{
-						gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
-						size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
-						WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
-						if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
-						{
-							gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
-							gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
-							gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
-						}
-						else
-						{
-							cErrorMessage::showMessage(
-								QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
-								cErrorMessage::errorMessage, mainWindow);
-						}
+						if (!gPar->Get<bool>("hdr_blur_enabled")) skip = true;
+						break;
 					}
-					gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
-					gOpenCl->openclEngineRenderPostFilter->Unlock();
+					case cOpenClEngineRenderPostFilter::chromaticAberration:
+					{
+						if (!gPar->Get<bool>("post_chromatic_aberration_enabled")) skip = true;
+						break;
+					}
 				}
-#endif
+
+				if (skip) continue;
+
+				sParamRender params(gPar);
+				gOpenCl->openclEngineRenderPostFilter->Lock();
+				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				gOpenCl->openclEngineRenderPostFilter->SetParameters(
+					&params, region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
+				{
+					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
+					size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
+					{
+						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
+						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
+							cErrorMessage::errorMessage, mainWindow);
+					}
+				}
+				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+				gOpenCl->openclEngineRenderPostFilter->Unlock();
 			}
-			else
+#endif
+		}
+		else
+		{
+			if (gPar->Get<bool>("hdr_blur_enabled"))
 			{
 				std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(mainImage));
 				double blurRadius = gPar->Get<double>("hdr_blur_radius");
