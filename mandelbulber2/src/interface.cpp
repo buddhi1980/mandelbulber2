@@ -2960,7 +2960,7 @@ void cInterface::StartupDefaultSettings()
 	gPar->Set("ambient_occlusion_mode", int(params::AOModeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("raytraced_reflections", true);
-	gPar->Set("detail_level", 1.0);
+	gPar->Set("detail_level", 2.0);
 }
 
 void cInterface::DisableJuliaPointMode() const
