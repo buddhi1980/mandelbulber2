@@ -103,8 +103,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 	}*/
 
-
-
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	 // DE tweak

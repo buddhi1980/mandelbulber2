@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -695,13 +695,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_91">
-          <property name="text">
-           <string>Menger Offset:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QLabel" name="label_98">
           <property name="text">
@@ -769,6 +762,13 @@
          <widget class="QLabel" name="label_90">
           <property name="text">
            <string notr="true">z.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="2">
+         <widget class="QLabel" name="label_91">
+          <property name="text">
+           <string>Menger Offset:</string>
           </property>
          </widget>
         </item>

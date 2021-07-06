@@ -12,6 +12,7 @@ v2.26 (????l 2021)
    pseudoKleinian4d
    transfAddScaleRotate
    transfDIFSSpring
+   transfQuadraticFold4d
    transfRotationM3d
    transfSphericalCoordInvs
    transfSphericalFoldPnorm

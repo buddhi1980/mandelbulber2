@@ -442,6 +442,7 @@ enum enumFractalFormula
 	transfSphericalFoldPnorm = 1131,
 	transfSphericalCoordInvs = 1132,
 	transfAddScaleRotate = 1133,
+	transfQuadraticFold4d = 1134,
 
 	// mandelbulber transfdIFS
 	// 2.20

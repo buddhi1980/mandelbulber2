@@ -416,6 +416,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfPolyFoldSymXY());
 	fractalList->append(new cFractalTransfPolyFoldSymMulti());
 	fractalList->append(new cFractalTransfPwr2Polynomial());
+	fractalList->append(new cFractalTransfQuadraticFold4d());
 	fractalList->append(new cFractalTransfQuaternionFold());
 
 	// R Power Transforms
