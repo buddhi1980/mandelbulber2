@@ -33,27 +33,26 @@ void cFractalTransfSphericalCoordInvs::FormulaCode(
 	Q_UNUSED(aux);
 
 	CVector4 t = z;
-
-	if (!fractal->transformCommon.functionEnabledFalse)
-	{
-		t.x = z.z * sin(z.x) * sin(z.y);
-		t.y = z.z * cos(z.x);
-		t.z = z.z * sin(z.x) * cos(z.y);
-	}
-	else
-	{
-		t.y = z.y * sin(z.x) * cos(z.z);
-		t.x = z.y * sin(z.x) * sin(z.z);
-		t.z = z.y * cos(z.x);
-	}
-
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabled)
 	{
 		t.x = z.x * sin(z.y) * cos(z.z);
 		t.y = z.x * sin(z.y) * sin(z.z);
 		t.z = z.x * cos(z.y);
 	}
 
-	z = t + fractal->transformCommon.offset000;
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		t.x = z.z * sin(z.x) * sin(z.y);
+		t.z = z.z * sin(z.x) * cos(z.y);
+		t.y = z.z * cos(z.x);
+	}
 
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		t.y = z.y * sin(z.x) * cos(z.z);
+		t.x = z.y * sin(z.x) * sin(z.z);
+		t.z = z.y * cos(z.x);
+	}
+
+	z = t + fractal->transformCommon.offset000;
 }
