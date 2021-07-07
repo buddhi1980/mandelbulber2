@@ -62,6 +62,7 @@ cOpenClEngineRenderPostFilter::cOpenClEngineRenderPostFilter(cOpenClHardware *_h
 	paramsChromaticAberration.height = 0;
 	paramsChromaticAberration.blurRadius = 0.0f;
 	paramsChromaticAberration.aberrationIntensity = 0.0f;
+	paramsChromaticAberration.reverse = false;
 
 	numberOfPixels = 0;
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
@@ -97,6 +98,7 @@ void cOpenClEngineRenderPostFilter::SetParameters(
 	paramsChromaticAberration.height = region.height;
 	paramsChromaticAberration.blurRadius = paramRender->postChromaticAberrationRadius;
 	paramsChromaticAberration.aberrationIntensity = paramRender->postChromaticAberrationIntensity;
+	paramsChromaticAberration.reverse = paramRender->postChromaticAberrationReverse;
 
 	numberOfPixels = quint64(region.width) * quint64(region.height);
 	definesCollector.clear();

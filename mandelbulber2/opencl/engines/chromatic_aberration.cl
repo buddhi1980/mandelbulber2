@@ -67,11 +67,12 @@ kernel void PostFilter(
 	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
 	const float blurSize = p.blurRadius * p.width * 0.002f * length(scr_f);
-	const int intBlurSize = (int)((blurSize) + p.aberrationIntensity * 10.0);
 	float radialBlurSizeSp = p.aberrationIntensity * length(scr_f) * p.width * 0.007f;
 	float radialBlurSizeScr = p.aberrationIntensity * p.width * 0.0003f;
+	const int intBlurSize = (int)((blurSize) + radialBlurSizeSp);
 
 	float3 weight = 0.0f;
+
 	int yStart = max(0, scr.y - intBlurSize);
 	int yEnd = min(p.height, scr.y + intBlurSize);
 
@@ -94,14 +95,21 @@ kernel void PostFilter(
 			// anti-aliased circle
 			float3 fWeight = clamp(radialBlurSize - radius, 0.0f, 1.0f);
 
-			float colorSelector = 0.1 * (length(scr_f) - length(scr_f + d / p.width)) * p.width;
+			float colorSelector = 0.1f
+														* (length(scr_f) - length(scr_f + d / p.width)
+															 + 0.002f * p.aberrationIntensity * length(scr_f))
+														* p.width;
+
+			float reverser = (p.reverse) ? -1.0f : 1.0f;
 
 			float3 colorWeight;
 			colorWeight.s0 =
-				clamp(1.0f - fabs(colorSelector - radialBlurSizeSp * 0.1f) / radialBlurSizeScr, 0.0f, 1.0f);
+				clamp(1.0f - fabs(colorSelector - radialBlurSizeSp * 0.1f * reverser) / radialBlurSizeScr,
+					0.0f, 1.0f);
 			colorWeight.s1 = clamp(1.0f - fabs(colorSelector + 0.0f) / radialBlurSizeScr, 0.0f, 1.0f);
 			colorWeight.s2 =
-				clamp(1.0f - fabs(colorSelector + radialBlurSizeSp * 0.1f) / radialBlurSizeScr, 0.0f, 1.0f);
+				clamp(1.0f - fabs(colorSelector + radialBlurSizeSp * 0.1f * reverser) / radialBlurSizeScr,
+					0.0f, 1.0f);
 
 			fWeight *= colorWeight;
 

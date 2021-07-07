@@ -129,6 +129,7 @@ struct sParamRender
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
 	bool postChromaticAberrationEnabled;
+	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;

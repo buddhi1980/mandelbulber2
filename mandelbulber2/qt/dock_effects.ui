@@ -1239,8 +1239,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>267</width>
-            <height>1425</height>
+            <width>551</width>
+            <height>1410</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2558,8 +2558,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>272</width>
-            <height>381</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3235,7 +3235,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>287</width>
+            <width>551</width>
             <height>1092</height>
            </rect>
           </property>
@@ -4437,13 +4437,6 @@ from fractal:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_139">
-                  <property name="text">
-                   <string>Blur radius:</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_353">
                   <property name="text">
@@ -4510,6 +4503,26 @@ from fractal:</string>
                   </property>
                   <property name="value">
                    <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_139">
+                  <property name="text">
+                   <string>Blur radius:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_post_chromatic_aberration_reverse">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Reverse color order</string>
                   </property>
                  </widget>
                 </item>
