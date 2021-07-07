@@ -168,6 +168,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAbox4d());
 
 	// Amazing Surf formulas
+	fractalList->append(new cFractalAmazingIfs());
 	fractalList->append(new cFractalAmazingSurf());
 	fractalList->append(new cFractalAmazingSurfMod1());
 	fractalList->append(new cFractalAmazingSurfMod2());
@@ -258,6 +259,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalDIFSMultiV1());
 
 	// ---- custom DE - dIFS transforms----
+	fractalList->append(new cFractalTransfDIFSAmazingIfs());
 	fractalList->append(new cFractalTransfDIFSBox());
 	fractalList->append(new cFractalTransfDIFSBoxV2());
 	fractalList->append(new cFractalTransfDIFSBoxV3());

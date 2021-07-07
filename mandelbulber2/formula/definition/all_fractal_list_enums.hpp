@@ -272,6 +272,7 @@ enum enumFractalFormula
 	mandelbar = 236,
 	boxFoldBulbV4 = 237,
 	mandelbulbQuadrat = 238,
+	amazingIfs = 239,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -475,6 +476,7 @@ enum enumFractalFormula
 	transfDIFSDiamond = 1622,
 	// 2.26
 	transfDIFSSpring = 1623,
+	transfDIFSAmazingIfs = 1624,
 
 	// hybrid color
 	transfHybridColor = 2000,
