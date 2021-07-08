@@ -46,33 +46,56 @@ void cFractalTransfDIFSAmazingIfs::FormulaCode(CVector4 &z, const sFractal *frac
 
 	double rr = z.Dot(z);
 	double rrCol = rr;
-	double MinRR = fractal->transformCommon.minR2p25;
-	double dividend = rr < MinRR ? MinRR : min(rr, 1.0);
-	z /= dividend;
-	aux.DE /= dividend;
+	double RR = fractal->transformCommon.minR2p25;
+
+	if (rr < RR)
+	{
+		RR = 1.0 / RR;
+		z *= RR;
+		aux.DE *= RR;
+	}
+	else if (rr < 1.0)
+	{
+		RR =  1.0 / rr;
+		z *= RR;
+		aux.DE *= RR;
+	}
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	double colorDist = aux.dist;
 
 	if (!fractal->analyticDE.enabledFalse) aux.DE0 = z.Length() / aux.DE;
 	else aux.DE0 = min(aux.dist, z.Length() / aux.DE);
 	aux.dist = aux.DE0;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
 	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
 		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
+			colorAdd += fractal->foldColor.difs0000.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
+			colorAdd += fractal->foldColor.difs0000.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
+			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
-		aux.color += colorAdd;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
+
+			//colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			//colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist) aux.color += colorAdd;
+		}
+		else
+			aux.color += colorAdd;
 	}
-
-
 }

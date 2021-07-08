@@ -364,6 +364,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAddCpixelAxisSwap());
 	fractalList->append(new cFractalTransfAddCpixelRotated());
 	fractalList->append(new cFractalTransfAddCpixelCxCyAxisSwap());
+	fractalList->append(new cFractalTransfAddCpixelInvert());
 	fractalList->append(new cFractalTransfAddCpixelScator());
 	fractalList->append(new cFractalTransfAddCpixelSinOrCos());
 	fractalList->append(new cFractalTransfAddCpixelSymmetrical());

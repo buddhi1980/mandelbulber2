@@ -112,7 +112,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::dIFSBoxV1, QObject::tr("Custom DE - dIFS Formulas"));
 	insertHeader << QPair<int, QString>(
-		fractal::transfDIFSBox, QObject::tr("Custom DE - dIFS Transforms"));
+		fractal::transfDIFSAmazingIfs, QObject::tr("Custom DE - dIFS Transforms"));
 	insertHeader << QPair<int, QString>(
 		fractal::foldCutCube, QObject::tr("Custom DE - non-dIFS formulas"));
 
