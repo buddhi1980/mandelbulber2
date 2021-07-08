@@ -446,20 +446,36 @@ bool cRenderJob::Execute()
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 				RenderSSAOWithOpenCl(params, region, &progressText, &result);
-				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
 
 				region = renderData->stereo.GetRegion(
 					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 				RenderSSAOWithOpenCl(params, region, &progressText, &result);
-				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
 			}
 			else
 			{
 				RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
-				RenderPostFiltersWithOpenCl(params, renderData->screenRegion, &progressText, &result);
 			}
 
 			RenderDOFWithOpenCl(params, &result);
+
+			if (renderData->stereo.isEnabled()
+					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+							|| renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+			{
+				// stereoscopic rendering of SSAO (separate for each half of image)
+				cRegion<int> region;
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
+
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+				RenderPostFiltersWithOpenCl(params, region, &progressText, &result);
+			}
+			else
+			{
+				RenderPostFiltersWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+			}
 
 			if (!*renderData->stopRequest)
 			{
