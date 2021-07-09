@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>844</width>
-    <height>1045</height>
+    <height>1057</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,28 +37,28 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_44" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout_44" columnstretch="0">
      <property name="spacing">
       <number>2</number>
      </property>
      <item row="1" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
        <property name="text">
-        <string>swap xy</string>
+        <string>mode 2</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
-        <string>M3D orientation</string>
+        <string>mode 1 (M3D)</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
        <property name="text">
-        <string>swap xz</string>
+        <string>mode 3</string>
        </property>
       </widget>
      </item>

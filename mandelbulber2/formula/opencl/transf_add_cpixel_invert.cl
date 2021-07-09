@@ -21,6 +21,13 @@ REAL4 TransfAddCpixelInvertIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (!fractal->transformCommon.functionEnabledAyFalse) pc.y = 1.0 / pc.y;
 	if (!fractal->transformCommon.functionEnabledAzFalse) pc.z = 1.0 / pc.z;
 
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		pc.x = max(pc.x, fractal->transformCommon.scale1);
+		pc.y = max(pc.y, fractal->transformCommon.scale1);
+		pc.z = max(pc.z, fractal->transformCommon.scale1);
+	}
+
 	z.x += pc.x * fractal->transformCommon.constantMultiplier111.x;
 	z.y += pc.y * fractal->transformCommon.constantMultiplier111.y;
 	z.z += pc.z * fractal->transformCommon.constantMultiplier111.z;

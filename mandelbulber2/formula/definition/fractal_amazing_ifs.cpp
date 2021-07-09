@@ -92,7 +92,7 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
-
+	double colorDist = aux.dist;
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse) aux.DE0 = z.Length() / aux.DE;
@@ -101,21 +101,28 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
 	{
+		double colorAdd = 0.0;
+		if (fractal->foldColor.auxColorEnabledA)
+			if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs1;
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
 		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
+			colorAdd += fractal->foldColor.difs0000.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
+			colorAdd += fractal->foldColor.difs0000.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
+			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
+		}
 		aux.color += colorAdd;
 	}
 

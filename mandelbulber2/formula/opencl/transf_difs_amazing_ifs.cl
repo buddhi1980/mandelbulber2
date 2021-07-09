@@ -19,7 +19,12 @@
 
 REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 
 	z += fractal->transformCommon.offsetA000;
 
@@ -52,6 +57,14 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE *= RR;
 	}
 
+	// scale
+	if (aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z *= fractal->transformCommon.scale2;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale2) + fractal->analyticDE.offset0;
+	}
+
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
 	REAL colorDist = aux->dist;
@@ -64,6 +77,10 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
 	{
+		REAL colorAdd = 0.0f;
+		if (fractal->foldColor.auxColorEnabledA)
+			if (colorDist != aux->dist) colorAdd += fractal->foldColor.difs1;
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 		if (zCol.x != oldZ.x)
@@ -78,18 +95,8 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
 				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
-
-			//colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
-			//colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
 		}
-		colorAdd += fractal->foldColor.difs1;
-		if (fractal->foldColor.auxColorEnabledA)
-		{
-			if (colorDist != aux->dist) aux->color += colorAdd;
-		}
-		else
-			aux->color += colorAdd;
+		aux->color += colorAdd;
 	}
-
 	return z;
 }
