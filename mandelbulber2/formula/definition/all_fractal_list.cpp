@@ -245,6 +245,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 
 	// ----- custom DE - dIFS formulas------
+	fractalList->append(new cFractalDIFSAmazingIfs());
 	fractalList->append(new cFractalDIFSBoxV1());
 	fractalList->append(new cFractalDIFSBoxDiagonalV1());
 	fractalList->append(new cFractalDIFSBoxDiagonalV3());

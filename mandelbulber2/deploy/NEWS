@@ -5,12 +5,15 @@ v2.26 (????l 2021)
 - Added new fractal formulas
    amazingSurfM3d
    boxFoldBulbV4
+   dIFSSAmazingIfs
    hypercomplexV2
    mandelbar
    mandelbulbQuadrat
    mandelnestV2
    pseudoKleinian4d
+   transfAddCpixelInvert
    transfAddScaleRotate
+   transfDIFSAmazingIfs
    transfDIFSSpring
    transfQuadraticFold4d
    transfRotationM3d

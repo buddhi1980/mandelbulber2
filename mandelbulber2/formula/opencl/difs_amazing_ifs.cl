@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -17,7 +17,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 DIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -27,6 +27,19 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	z += fractal->transformCommon.offsetA000;
+
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
 
 	REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant0555.x)
@@ -55,41 +68,25 @@ REAL4 TransfDIFSAmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	// scale
-	if (fractal->transformCommon.functionEnabledSFalse)
+	if (aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
-		z *= fractal->transformCommon.scale015;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale015) + fractal->analyticDE.offset0;
+		z *= fractal->transformCommon.scale2;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale2) + fractal->analyticDE.offset0;
 	}
+
+	// offset
+	z += fractal->transformCommon.offset001;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-
-	if (fractal->transformCommon.functionEnabledRFalse)
-	{
-		REAL temp = 0.0;
-		if (fractal->transformCommon.angleDegC != 0.0)
-		{
-			temp = z.x;
-			z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-			z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-		}
-		if (fractal->transformCommon.angleDegB != 0.0)
-		{
-			temp = z.z;
-			z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-			z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-		}
-		if (fractal->transformCommon.angleDegA != 0.0)
-		{
-			temp = z.y;
-			z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-			z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-		}
-	}
 
 	// DE
 	REAL colorDist = aux->dist;
 	aux->DE0 = length(z) / aux->DE;
-	if (!fractal->analyticDE.enabledFalse) aux->DE0 = min(aux->dist, aux->DE0);
+	if (!fractal->analyticDE.enabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+				aux->DE0 = min(aux->dist, aux->DE0);
 	aux->dist = aux->DE0;
 
 	// aux.color

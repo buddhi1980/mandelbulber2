@@ -71,6 +71,9 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 	}
 
+	// offset
+	z += fractal->transformCommon.offset001;
+
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
