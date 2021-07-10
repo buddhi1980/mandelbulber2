@@ -19,8 +19,8 @@
 
 REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+REAL colorDist = aux->DE;
 
-	REAL colorAdd = 0.0f;
 
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -36,19 +36,52 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
+
 	z += fractal->transformCommon.offsetA000;
 
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.x = fabs(z.x);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
+
 	REAL4 oldZ = z;
-	z.x = fabs(z.x + fractal->transformCommon.additionConstant0555.x)
+	if (fractal->transformCommon.functionEnabledCx)
+			z.x = fabs(z.x + fractal->transformCommon.additionConstant0555.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant0555.x) - z.x;
-	z.y = fabs(z.y + fractal->transformCommon.additionConstant0555.y)
+	if (fractal->transformCommon.functionEnabledCy)
+			z.y = fabs(z.y + fractal->transformCommon.additionConstant0555.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant0555.y) - z.y;
-	if (fractal->transformCommon.functionEnabledJFalse)
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant0555.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant0555.z) - z.z;
+	if (fractal->transformCommon.functionEnabledCzFalse)
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant0555.z)
+				- fabs(z.z - fractal->transformCommon.additionConstant0555.z) - z.z;
 	REAL4 zCol = z;
 
-	z += fractal->transformCommon.additionConstantA000;
+
+
+	if (fractal->transformCommon.functionEnabledBxFalse)
+		z.x = fractal->transformCommon.additionConstantA000.x - fabs(z.x);
+	if (fractal->transformCommon.functionEnabledByFalse)
+		z.y = fractal->transformCommon.additionConstantA000.y - fabs(z.y);
+	if (fractal->transformCommon.functionEnabledBzFalse)
+		z.z = fractal->transformCommon.additionConstantA000.z - fabs(z.z);
+
+
+
 	REAL rr = dot(z, z);
 	REAL rrCol = rr;
 	REAL MinRR = fractal->transformCommon.minR2p25;
@@ -71,8 +104,7 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 	}
 
-	// offset
-	z += fractal->transformCommon.offset001;
+
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{
@@ -84,28 +116,38 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
-	if (fractal->analyticDE.enabled)
+	if (fractal->transformCommon.functionEnabledGFalse)
 	{
-		if (!fractal->analyticDE.enabledFalse) aux->DE0 = length(z) / aux->DE;
-		else aux->DE0 = min(aux->dist, length(z) / aux->DE);
+		aux->DE0 = length(z) / aux->DE;
+		if (!fractal->analyticDE.enabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsC
+				&& aux->i < fractal->transformCommon.stopIterationsC)
+					aux->DE0 = min(aux->dist, aux->DE0);
 		aux->dist = aux->DE0;
 	}
 
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
 	{
+		REAL colorAdd = 0.0f;
+		if (fractal->foldColor.auxColorEnabledA)
+			if (colorDist != aux->dist) colorAdd += fractal->foldColor.difs1;
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
 		if (zCol.x != oldZ.x)
-			colorAdd += fractal->mandelbox.color.factor.x
+			colorAdd += fractal->foldColor.difs0000.x
 									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
 		if (zCol.y != oldZ.y)
-			colorAdd += fractal->mandelbox.color.factor.y
+			colorAdd += fractal->foldColor.difs0000.y
 									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
 		if (zCol.z != oldZ.z)
-			colorAdd += fractal->mandelbox.color.factor.z
+			colorAdd += fractal->foldColor.difs0000.z
 									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
 		if (rrCol > fractal->transformCommon.minR2p25)
 			colorAdd +=
-				fractal->mandelbox.color.factorSp2 * (rrCol - fractal->transformCommon.minR2p25) / 100.0f;
+				fractal->foldColor.difs0000.w * (rrCol - fractal->transformCommon.minR2p25) / 100.0;
+		}
 		aux->color += colorAdd;
 	}
 	return z;
