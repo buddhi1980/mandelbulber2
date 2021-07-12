@@ -75,7 +75,7 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.offset1111;
 	if (aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
+			&& aux.i < fractal->transformCommon.stopIterations15)
 	{
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
 		k = max(fractal->transformCommon.scale1 / z.Dot(z), 1.0);

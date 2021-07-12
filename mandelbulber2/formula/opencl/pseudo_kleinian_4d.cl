@@ -62,7 +62,7 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// Pseudo kleinian
 	REAL4 cSize = fractal->transformCommon.offset1111;
 	if (aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC)
+			&& aux->i < fractal->transformCommon.stopIterations15)
 	{
 		z = fabs(z + cSize) - fabs(z - cSize) - z;
 		k = max(fractal->transformCommon.scale1 / dot(z, z), 1.0f);

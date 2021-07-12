@@ -37,9 +37,9 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
 
 	CVector4 ZZ = z * z;
-	double rr = z.Dot(z);
-	double theta = atan2(z.z, sqrt(ZZ.x + ZZ.y));
-	//REAL theta = asin(  z.z / native_sqrt(rr));
+	double rr = ZZ.x + ZZ.y;
+	double theta = atan2(z.z, sqrt(rr));
+	rr += ZZ.z;
 	double phi = atan2(z.y, z.x);
 	double thetatemp = theta;
 

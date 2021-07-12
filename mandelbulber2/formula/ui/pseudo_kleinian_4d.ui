@@ -954,7 +954,7 @@ offset:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Pseudo Kleinian</string>
+      <string>Pseudo Kleinian (generally run for less than 60 iters)</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <property name="leftMargin">
@@ -972,7 +972,7 @@ offset:</string>
       <item>
        <layout class="QGridLayout" name="gridLayout_17">
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_15">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2645,7 +2645,7 @@ offset:</string>
  </customwidgets>
  <tabstops>
   <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
-  <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_15</tabstop>
   <tabstop>groupCheck_transf_function_enabledF_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_F</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_F</tabstop>

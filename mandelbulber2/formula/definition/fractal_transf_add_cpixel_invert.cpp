@@ -34,13 +34,16 @@ void cFractalTransfAddCpixelInvert::FormulaCode(CVector4 &z, const sFractal *fra
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		pc.x = max(pc.x, fractal->transformCommon.scale1);
-		pc.y = max(pc.y, fractal->transformCommon.scale1);
-		pc.z = max(pc.z, fractal->transformCommon.scale1);
+		pc.x = min(fabs(pc.x), fractal->transformCommon.scale1);
+		pc.y = min(fabs(pc.y), fractal->transformCommon.scale1);
+		pc.z = min(fabs(pc.z), fractal->transformCommon.scale1);
 	}
-
 
 	z.x += pc.x * fractal->transformCommon.constantMultiplier111.x;
 	z.y += pc.y * fractal->transformCommon.constantMultiplier111.y;
 	z.z += pc.z * fractal->transformCommon.constantMultiplier111.z;
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }

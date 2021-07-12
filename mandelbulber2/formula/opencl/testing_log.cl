@@ -29,9 +29,9 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 
 	REAL4 ZZ = z * z;
-	REAL rr = dot(z, z);
-	REAL theta = atan2(z.z, native_sqrt(ZZ.x + ZZ.y));
-	//REAL theta = asin(  z.z / native_sqrt(rr));
+	REAL rr = ZZ.x + ZZ.y;
+	REAL theta = atan2(z.z, native_sqrt(rr));
+	rr += ZZ.z;
 	REAL phi = atan2(z.y, z.x);
 	REAL thetatemp = theta;
 
