@@ -48,14 +48,14 @@ kernel void PostFilter(__global float4 *inputImage, __global float4 *out, sParam
 
 	float weight = 0.0f;
 	int yStart = max(0, scr.y - intBlurSize);
-	int yEnd = min(p.height, scr.y + intBlurSize);
+	int yEnd = min(p.height - 1, scr.y + intBlurSize);
 
 	float4 newPixel = 0.0f;
 
 	for (int yy = yStart; yy < yEnd; yy++)
 	{
 		int xStart = max(0, scr.x - intBlurSize);
-		int xEnd = min(p.width, scr.x + intBlurSize);
+		int xEnd = min(p.width - 1, scr.x + intBlurSize);
 		for (int xx = xStart; xx < xEnd; xx++)
 		{
 			float dx = scr.x - xx;
