@@ -45,7 +45,7 @@
 QString sSystem::GetIniFile() const
 {
 	double version = MANDELBULBER_VERSION;
-	int versionInt = int(version * 100);
+	int versionInt = int(round(version * 100));
 
 	QString iniFileName = QString("mandelbulber_%1.ini").arg(versionInt);
 	QString fullIniFileName = systemDirectories.dataDirectoryHidden + iniFileName;
