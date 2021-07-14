@@ -82,13 +82,13 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	CVector4 zCol = z;
 
 	if (fractal->transformCommon.functionEnabledBxFalse)
-		z.x = fractal->transformCommon.additionConstantA000.x - fabs(z.x);
+		z.x = fractal->transformCommon.additionConstantP000.x - fabs(z.x);
 	if (fractal->transformCommon.functionEnabledByFalse)
-		z.y = fractal->transformCommon.additionConstantA000.y - fabs(z.y);
+		z.y = fractal->transformCommon.additionConstantP000.y - fabs(z.y);
 	if (fractal->transformCommon.functionEnabledBzFalse)
-		z.z = fractal->transformCommon.additionConstantA000.z - fabs(z.z);
+		z.z = fractal->transformCommon.additionConstantP000.z - fabs(z.z);
 
-
+	z += fractal->transformCommon.additionConstantA000;
 
 	double rr = z.Dot(z);
 	double rrCol = rr;
@@ -112,10 +112,7 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 	}
 
-	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+
 
 
 

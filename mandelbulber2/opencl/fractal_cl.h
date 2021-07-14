@@ -600,6 +600,7 @@ typedef struct
 	cl_int startIterations250;
 	cl_int stopIterations;
 	cl_int stopIterations15;
+	cl_int stopIterations50;
 	cl_int startIterationsA;
 	cl_int stopIterationsA;
 	cl_int startIterationsB;
@@ -1362,6 +1363,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.startIterations250 = source.startIterations250;
 	target.stopIterations = source.stopIterations;
 	target.stopIterations15 = source.stopIterations15;
+	target.stopIterations50 = source.stopIterations50;
 	target.startIterationsA = source.startIterationsA;
 	target.stopIterationsA = source.stopIterationsA;
 	target.startIterationsB = source.startIterationsB;

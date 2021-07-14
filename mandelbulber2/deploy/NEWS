@@ -3,6 +3,7 @@ Version history
 v2.26 (????l 2021)
 
 - Added new fractal formulas
+   amazingIfs
    amazingSurfM3d
    boxFoldBulbV4
    dIFSSAmazingIfs
@@ -12,6 +13,7 @@ v2.26 (????l 2021)
    mandelnestV2
    pseudoKleinian4d
    transfAddCpixelInvert
+   transfAddCpixelSphereFold
    transfAddScaleRotate
    transfDIFSAmazingIfs
    transfDIFSSpring

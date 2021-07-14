@@ -446,6 +446,7 @@ enum enumFractalFormula
 	transfAddScaleRotate = 1133,
 	transfQuadraticFold4d = 1134,
 	transfAddCpixelInvert = 1135,
+	transfAddCpixelSphereFold = 1136,
 
 	// mandelbulber transfdIFS
 	// 2.20

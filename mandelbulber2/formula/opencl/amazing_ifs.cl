@@ -22,10 +22,10 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 REAL colorDist = aux->DE;
 
 
-	// sphere inversion
+// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsX
-			&& aux->i < fractal->transformCommon.stopIterations1)
+		&& aux->i >= fractal->transformCommon.startIterationsX
+		&& aux->i < fractal->transformCommon.stopIterations1)
 	{
 		z += fractal->transformCommon.offset000;
 		REAL rr = dot(z, z);
@@ -58,7 +58,6 @@ REAL colorDist = aux->DE;
 		z.y = native_sin(psi) * len;
 	}
 
-
 	REAL4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledCx)
 			z.x = fabs(z.x + fractal->transformCommon.additionConstant0555.x)
@@ -71,16 +70,14 @@ REAL colorDist = aux->DE;
 				- fabs(z.z - fractal->transformCommon.additionConstant0555.z) - z.z;
 	REAL4 zCol = z;
 
-
-
 	if (fractal->transformCommon.functionEnabledBxFalse)
-		z.x = fractal->transformCommon.additionConstantA000.x - fabs(z.x);
+		z.x = fractal->transformCommon.additionConstantP000.x - fabs(z.x);
 	if (fractal->transformCommon.functionEnabledByFalse)
-		z.y = fractal->transformCommon.additionConstantA000.y - fabs(z.y);
+		z.y = fractal->transformCommon.additionConstantP000.y - fabs(z.y);
 	if (fractal->transformCommon.functionEnabledBzFalse)
-		z.z = fractal->transformCommon.additionConstantA000.z - fabs(z.z);
+		z.z = fractal->transformCommon.additionConstantP000.z - fabs(z.z);
 
-
+	z += fractal->transformCommon.additionConstantA000;
 
 	REAL rr = dot(z, z);
 	REAL rrCol = rr;
@@ -106,10 +103,6 @@ REAL colorDist = aux->DE;
 
 
 
-	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}
 
 
 
