@@ -36,7 +36,7 @@
 
 #include <QDebug>
 #include <QDir>
-
+#include "common_math.h"
 #include "files.h"
 #include "system.hpp"
 #include "system_directories.hpp"
@@ -45,7 +45,7 @@
 QString sSystem::GetIniFile() const
 {
 	double version = MANDELBULBER_VERSION;
-	int versionInt = int(version * 100.0);
+	int versionInt = int(round(version * 100.0));
 
 	QString iniFileName = QString("mandelbulber_%1.ini").arg(versionInt);
 	QString fullIniFileName = systemDirectories.dataDirectoryHidden + iniFileName;
