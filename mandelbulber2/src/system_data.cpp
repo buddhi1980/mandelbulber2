@@ -36,7 +36,7 @@
 
 #include <QDebug>
 #include <QDir>
-#include "common_math.h"
+#include <cmath>
 #include "files.h"
 #include "system.hpp"
 #include "system_directories.hpp"
