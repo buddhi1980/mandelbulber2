@@ -528,8 +528,10 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
-	gInterfaceReadyForSynchronization = true;
+
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	gInterfaceReadyForSynchronization = true;
+
 	gMainInterface->ComboMouseClickUpdate();
 	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
 																+ QFileInfo(filename).fileName();

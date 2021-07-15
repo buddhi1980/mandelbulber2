@@ -462,9 +462,10 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
-	gInterfaceReadyForSynchronization = true;
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	gInterfaceReadyForSynchronization = true;
+
 	gMainInterface->ComboMouseClickUpdate();
 	systemData.lastSettingsFile = fileName;
 	SaveSettingsToRecent(fileName);
@@ -491,8 +492,10 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
 		ui->widgetEffects->RegenerateLights();
-		gInterfaceReadyForSynchronization = true;
+
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+		gInterfaceReadyForSynchronization = true;
+
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = "from clipboard";
 		setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");

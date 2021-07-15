@@ -367,10 +367,10 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 
 		WriteLog("NetRender - ProcessData(), command JOB, starting rendering", 2);
 
-		gInterfaceReadyForSynchronization = true;
 		if (!systemData.noGui)
 		{
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			gInterfaceReadyForSynchronization = true;
 			gMainInterface->StartRender(true);
 		}
 		else

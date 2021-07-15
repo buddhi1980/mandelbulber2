@@ -1991,7 +1991,7 @@ void cInterface::Redo()
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
-		gInterfaceReadyForSynchronization = true;
+		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
@@ -2623,8 +2623,8 @@ void cInterface::AutoRecovery() const
 			gMainInterface->RebuildPrimitives(gPar);
 			materialListModel->Regenerate();
 			mainWindow->ui->widgetEffects->RegenerateLights();
-			gInterfaceReadyForSynchronization = true;
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			gInterfaceReadyForSynchronization = true;
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
 		}
@@ -3172,8 +3172,10 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 			gInterfaceReadyForSynchronization = false;
 			parSettings.LoadFromFile(filename);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-			gInterfaceReadyForSynchronization = true;
+
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			gInterfaceReadyForSynchronization = true;
+
 			ComboMouseClickUpdate();
 			ReEnablePeriodicRefresh();
 		}

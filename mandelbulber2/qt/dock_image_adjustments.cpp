@@ -41,6 +41,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/fractal_container.hpp"
 #include "src/fractparams.hpp"
+#include "src/global_data.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/parameters.hpp"
@@ -137,33 +138,36 @@ double cDockImageAdjustments::ProportionEnumToRatio(enumImageProportion proporti
 
 void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 {
-	bool enableSlider = false;
-	double ratio = 1.0;
-	const enumImageProportion proportionSelection = enumImageProportion(index);
-
-	if (proportionSelection == proportionFree)
+	if (gInterfaceReadyForSynchronization)
 	{
-		enableSlider = true;
-	}
+		bool enableSlider = false;
+		double ratio = 1.0;
+		const enumImageProportion proportionSelection = enumImageProportion(index);
 
-	ratio = ProportionEnumToRatio(proportionSelection);
+		if (proportionSelection == proportionFree)
+		{
+			enableSlider = true;
+		}
 
-	ui->spinboxInt_image_width->setEnabled(enableSlider);
+		ratio = ProportionEnumToRatio(proportionSelection);
 
-	const int height = ui->spinboxInt_image_height->value();
-	int width = int(height * ratio);
+		ui->spinboxInt_image_width->setEnabled(enableSlider);
 
-	if (!enableSlider)
-	{
-		ui->spinboxInt_image_width->setValue(width);
-	}
+		const int height = ui->spinboxInt_image_height->value();
+		int width = int(height * ratio);
 
-	if (ui->checkBox_connect_detail_level->isChecked())
-	{
-		const double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
-		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
-			->SynchronizeInterfaceDistanceEstimation(gPar);
+		if (!enableSlider)
+		{
+			ui->spinboxInt_image_width->setValue(width);
+		}
+
+		if (ui->checkBox_connect_detail_level->isChecked())
+		{
+			const double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
+			gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+			gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
+				->SynchronizeInterfaceDistanceEstimation(gPar);
+		}
 	}
 }
 
