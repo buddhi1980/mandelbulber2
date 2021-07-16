@@ -122,6 +122,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotSelectKeyframeAnimImageDir);
 		connect(
 			ui->pushButton_randomize, &QPushButton::clicked, this, &cKeyframeAnimation::slotRandomize);
+		connect(ui->pushButton_add_all_parameters, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotAddAllParameters);
+
 		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellChanged, this,
 			&cKeyframeAnimation::slotTableCellChanged);
 		connect(ui->spinboxInt_keyframe_first_to_render, QOverload<int>::of(&QSpinBox::valueChanged),
@@ -1465,6 +1468,17 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	}
 }
 
+void cKeyframeAnimation::CopyToAllKeyframes(int row, int column)
+{
+	QTableWidgetItem *cell = table->item(row, column);
+	QString cellText = cell->text();
+
+	for (int i = reservedColumns; i < table->columnCount(); i++)
+	{
+		table->item(row, i)->setText(cellText);
+	}
+}
+
 void cKeyframeAnimation::slotRefreshTable()
 {
 	RefreshTable();
@@ -2000,6 +2014,77 @@ double cKeyframeAnimation::GetCameraSpeed(const cAnimationFrames::sAnimationFram
 	double distance = (camera - previousCamera).Length();
 	double speed = distance / frame.numberOfSubFrames;
 	return speed;
+}
+
+void cKeyframeAnimation::slotAddAllParameters()
+{
+
+	struct sParameterInfo
+	{
+		QString parameterName;
+		std::shared_ptr<cParameterContainer> container;
+		std::shared_ptr<cParameterContainer> containerBefore;
+	};
+
+	std::shared_ptr<cParameterContainer> parBefore(new cParameterContainer);
+	*parBefore = *params;
+	std::shared_ptr<cFractalContainer> parFractBefore(new cFractalContainer);
+	*parFractBefore = *fractalParams;
+
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
+	QList<sParameterInfo> listOfAllModifiedParameters;
+
+	QList<QString> listOfMainParameters = params->GetListOfParameters();
+	for (QString parameterName : listOfMainParameters)
+	{
+		if (!params->isDefaultValue(parameterName)
+				&& params->GetParameterType(parameterName) == paramStandard
+				&& params->GetAsOneParameter(parameterName).GetMorphType() != morphNone)
+		{
+			// exceptions
+			if (parameterName == "image_width") continue;
+			if (parameterName == "image_height") continue;
+			if (parameterName == "camera_distance_to_target") continue;
+			if (parameterName == "camera_rotation") continue;
+
+			sParameterInfo par;
+			par.parameterName = parameterName;
+			par.container = params;
+			par.containerBefore = parBefore;
+			listOfAllModifiedParameters.append(par);
+		}
+	}
+
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		QList<QString> listOfFractalParameters = fractalParams->at(i)->GetListOfParameters();
+		for (QString parameterName : listOfFractalParameters)
+		{
+			if (!fractalParams->at(i)->isDefaultValue(parameterName)
+					&& fractalParams->at(i)->GetParameterType(parameterName) == paramStandard)
+			{
+				sParameterInfo par;
+				par.parameterName = parameterName;
+				par.container = fractalParams->at(i);
+				par.containerBefore = parFractBefore->at(i);
+				listOfAllModifiedParameters.append(par);
+			}
+		}
+	}
+
+	for (const sParameterInfo &parameterInfo : listOfAllModifiedParameters)
+	{
+		QString parameterName = parameterInfo.parameterName;
+		QString containerName = parameterInfo.container->GetContainerName();
+		if (keyframes->IndexOnList(parameterName, containerName) == -1)
+		{
+			cOneParameter parameter = parameterInfo.containerBefore->GetAsOneParameter(parameterName);
+			keyframes->AddAnimatedParameter(parameterName, parameter, params);
+		}
+	}
+
+	RefreshTable();
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()

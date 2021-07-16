@@ -105,6 +105,7 @@ public:
 	void SetNetRenderStartingFrames(const QVector<int> &startingFrames);
 	void InsertKeyframeInBetween(int index);
 	void DeleteRenderedFramesForKeyframe(int keyframeInxed);
+	void CopyToAllKeyframes(int row, int column);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;
@@ -134,6 +135,7 @@ private slots:
 	void slotUpdateAnimationPathSelection();
 	void slotAnimationStopRequest();
 	void slotRandomize();
+	void slotAddAllParameters();
 
 private:
 	void PrepareTable();

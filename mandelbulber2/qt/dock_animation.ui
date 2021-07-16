@@ -913,6 +913,22 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="pushButton_add_all_parameters">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add all parameters with non-default value to the animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Add all parameters</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>

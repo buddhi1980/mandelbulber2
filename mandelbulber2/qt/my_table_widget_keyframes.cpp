@@ -67,7 +67,8 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	std::unique_ptr<QMenu> menu(new QMenu);
 
 	QAction *actionRender = nullptr;
-	QAction *interpolateForward = nullptr;
+	QAction *actionInterpolateForward = nullptr;
+	QAction *actionCopyToAll = nullptr;
 
 	if (row == 0 && column >= cKeyframeAnimation::reservedColumns)
 	{
@@ -77,7 +78,8 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	{
 		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColumns)
 		{
-			interpolateForward = menu->addAction(tr("Interpolate next keyframes"));
+			actionInterpolateForward = menu->addAction(tr("Interpolate next keyframes"));
+			actionCopyToAll = menu->addAction(tr("Copy value to all keyframes"));
 		}
 	}
 
@@ -89,9 +91,13 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 		{
 			gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColumns);
 		}
-		else if (selectedItem == interpolateForward)
+		else if (selectedItem == actionInterpolateForward)
 		{
 			gKeyframeAnimation->InterpolateForward(row, column);
+		}
+		else if (selectedItem == actionCopyToAll)
+		{
+			gKeyframeAnimation->CopyToAllKeyframes(row, column);
 		}
 	}
 }
