@@ -4,6 +4,7 @@ sudo: required
 dist: xenial
 
 language: cpp
+cache: bundler
 
 os:
   - linux
