@@ -2087,6 +2087,91 @@ void cKeyframeAnimation::slotAddAllParameters()
 	RefreshTable();
 }
 
+void cKeyframeAnimation::ModifyValueInCells(
+	const QList<QTableWidgetItem *> &selectedItemsList, enumModifyMode mode)
+{
+	bool ok;
+	const double modifier = QInputDialog::getDouble(
+		mainInterface->mainWindow, "Modify values", "Modifier:", 1.0, -1e100, 1e100, 5, &ok);
+	if (!ok) return;
+
+	for (auto cell : selectedItemsList)
+	{
+		qDebug() << cell->row() << cell->column();
+		int row = cell->row();
+		int column = cell->column();
+
+		if (row >= reservedRows && column >= reservedColumns)
+		{
+			QString cellText = cell->text();
+
+			const int index = column - reservedColumns;
+			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
+
+			const QString parameterName = GetParameterName(row);
+			const int parameterFirstRow = parameterRows[rowParameter[row]];
+			const int vectIndex = row - parameterFirstRow;
+
+			using namespace parameterContainer;
+			const enumVarType type = frame.parameters.GetVarType(parameterName);
+
+			if (type == typeVector3)
+			{
+				CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
+				if (mode == modifyModeMultiply)
+				{
+					if (vectIndex == 0) vect.x *= modifier;
+					if (vectIndex == 1) vect.y *= modifier;
+					if (vectIndex == 2) vect.z *= modifier;
+				}
+				else if (mode == modifyModeIncrease)
+				{
+					if (vectIndex == 0) vect.x += modifier;
+					if (vectIndex == 1) vect.y += modifier;
+					if (vectIndex == 2) vect.z += modifier;
+				}
+				frame.parameters.Set(parameterName, vect);
+			}
+			else if (type == typeVector4)
+			{
+				CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
+
+				if (mode == modifyModeMultiply)
+				{
+					if (vectIndex == 0) vect.x *= modifier;
+					if (vectIndex == 1) vect.y *= modifier;
+					if (vectIndex == 2) vect.z *= modifier;
+					if (vectIndex == 3) vect.w *= modifier;
+				}
+				else if (mode == modifyModeIncrease)
+				{
+					if (vectIndex == 0) vect.x += modifier;
+					if (vectIndex == 1) vect.y += modifier;
+					if (vectIndex == 2) vect.z += modifier;
+					if (vectIndex == 3) vect.w += modifier;
+				}
+				frame.parameters.Set(parameterName, vect);
+			}
+			else
+			{
+				if (mode == modifyModeMultiply)
+				{
+					frame.parameters.Set(
+						parameterName, frame.parameters.Get<double>(parameterName) * modifier);
+				}
+				else if (mode == modifyModeIncrease)
+				{
+					frame.parameters.Set(
+						parameterName, frame.parameters.Get<double>(parameterName) + modifier);
+				}
+			}
+
+			keyframes->ModifyFrame(index, frame);
+		}
+	}
+	RefreshTable();
+}
+
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
 {
 	settingsText = _settingsText;

@@ -39,6 +39,7 @@
 #include <QContextMenuEvent>
 #include <QHeaderView>
 #include <QMenu>
+#include <QDebug>
 
 #include "src/animation_keyframes.hpp"
 
@@ -64,40 +65,67 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	int row = index.row();
 	int column = index.column();
 
+	QList<QTableWidgetItem *> selectedItemsList = selectedItems();
+
 	std::unique_ptr<QMenu> menu(new QMenu);
 
 	QAction *actionRender = nullptr;
 	QAction *actionInterpolateForward = nullptr;
 	QAction *actionCopyToAll = nullptr;
+	QAction *actionMultiplyBy = nullptr;
+	QAction *actionIncreaseBy = nullptr;
 
-	if (row == 0 && column >= cKeyframeAnimation::reservedColumns)
+	if (selectedItemsList.count() > 1)
 	{
-		actionRender = menu->addAction(tr("Render this keyframe"));
+		actionMultiplyBy = menu->addAction(tr("Multipy values by..."));
+		actionIncreaseBy = menu->addAction(tr("Increase values by..."));
 	}
-	else if (row >= cKeyframeAnimation::reservedRows)
+	else
 	{
-		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColumns)
+
+		if (row == 0 && column >= cKeyframeAnimation::reservedColumns)
 		{
-			actionInterpolateForward = menu->addAction(tr("Interpolate next keyframes"));
-			actionCopyToAll = menu->addAction(tr("Copy value to all keyframes"));
+			actionRender = menu->addAction(tr("Render this keyframe"));
+		}
+		else if (row >= cKeyframeAnimation::reservedRows)
+		{
+			if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColumns)
+			{
+				actionInterpolateForward = menu->addAction(tr("Interpolate next keyframes"));
+			}
+
+			if (column >= cKeyframeAnimation::reservedColumns)
+			{
+				actionCopyToAll = menu->addAction(tr("Copy value to all keyframes"));
+			}
 		}
 	}
 
-	QAction *selectedItem = menu->exec(viewport()->mapToGlobal(point));
+	QAction *selectedAction = menu->exec(viewport()->mapToGlobal(point));
 
-	if (selectedItem)
+	if (selectedAction)
 	{
-		if (selectedItem == actionRender)
+		if (selectedAction == actionRender)
 		{
 			gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColumns);
 		}
-		else if (selectedItem == actionInterpolateForward)
+		else if (selectedAction == actionInterpolateForward)
 		{
 			gKeyframeAnimation->InterpolateForward(row, column);
 		}
-		else if (selectedItem == actionCopyToAll)
+		else if (selectedAction == actionCopyToAll)
 		{
 			gKeyframeAnimation->CopyToAllKeyframes(row, column);
+		}
+		if (selectedAction == actionMultiplyBy)
+		{
+			gKeyframeAnimation->ModifyValueInCells(
+				selectedItemsList, cKeyframeAnimation::modifyModeMultiply);
+		}
+		if (selectedAction == actionIncreaseBy)
+		{
+			gKeyframeAnimation->ModifyValueInCells(
+				selectedItemsList, cKeyframeAnimation::modifyModeIncrease);
 		}
 	}
 }

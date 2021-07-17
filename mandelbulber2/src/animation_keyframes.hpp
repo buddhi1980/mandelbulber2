@@ -60,6 +60,7 @@ class cParameterContainer;
 class MyTableWidgetKeyframes;
 class RenderedImage;
 class cRenderJob;
+class QTableWidgetItem;
 
 namespace Ui
 {
@@ -85,6 +86,12 @@ public:
 		int unrenderedTotalBeforeRender;
 	};
 
+	enum enumModifyMode
+	{
+		modifyModeMultiply,
+		modifyModeIncrease
+	};
+
 	cKeyframeAnimation(cInterface *_interface, std::shared_ptr<cKeyframes> _frames,
 		std::shared_ptr<cImage> _image, QWidget *_imageWidget,
 		std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractal,
@@ -106,6 +113,7 @@ public:
 	void InsertKeyframeInBetween(int index);
 	void DeleteRenderedFramesForKeyframe(int keyframeInxed);
 	void CopyToAllKeyframes(int row, int column);
+	void ModifyValueInCells(const QList<QTableWidgetItem *> &selectedItemsList, enumModifyMode mode);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;
