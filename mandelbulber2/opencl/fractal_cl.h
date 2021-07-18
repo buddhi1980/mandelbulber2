@@ -1267,7 +1267,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 {
 	sFractalTransformCommonCl target;
 	target.angle0 = source.angle0;
-
 	target.angleDegA = source.angleDegA;
 	target.angleDegB = source.angleDegB;
 	target.angleDegC = source.angleDegC;
@@ -1277,7 +1276,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.sinA = source.sinA;
 	target.sinB = source.sinB;
 	target.sinC = source.sinC;
-
 	target.angle72 = source.angle72;
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;

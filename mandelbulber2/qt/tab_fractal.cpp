@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -110,7 +110,8 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Linear DE"));
 	insertHeader << QPair<int, QString>(fractal::josKleinian, QObject::tr("JosLeys-Kleinian DE"));
 	insertHeader << QPair<int, QString>(fractal::pseudoKleinian, QObject::tr("Pseudo Kleinian DE"));
-	insertHeader << QPair<int, QString>(fractal::dIFSSAmazingIfs, QObject::tr("Custom DE - dIFS Formulas"));
+	insertHeader << QPair<int, QString>(
+		fractal::dIFSSAmazingIfs, QObject::tr("Custom DE - dIFS Formulas"));
 	insertHeader << QPair<int, QString>(
 		fractal::transfDIFSAmazingIfs, QObject::tr("Custom DE - dIFS Transforms"));
 	insertHeader << QPair<int, QString>(

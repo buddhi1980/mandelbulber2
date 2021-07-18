@@ -60,8 +60,12 @@ function getFormulasData()
 		// read index and name from fractal_list
 		preg_match('/cAbstractFractal\(\)\n{([\s\S]*?)\n}/', $fractalCppFile, $match);
 		$definitionPart = @$match[1];
-		$definitionPartLines = explode(PHP_EOL, trim($definitionPart));
-		if (count($definitionPartLines) != 9) die('could not read index for formula : ' . $file . ' --> ' . print_r($definitionPartLines, true));
+                $definitionPartLines = explode(PHP_EOL, trim($definitionPart));
+                // strip comment lines
+                $definitionPartLines = array_filter($definitionPartLines, function($l) {
+                    return !preg_match('/\s*\/\/.*/', $l);
+                });
+                if (count($definitionPartLines) != 9) die('could not read index for formula : ' . $file . ' --> ' . print_r($definitionPartLines, true));
 		$f = array();
 		foreach($definitionPartLines as $definitionPartLine){
 			if(!preg_match('/([a-zA-Z]+)\s*=\s*"?([\da-zA-Z\.: -_]*?)"?;/', $definitionPartLine, $matchLine)) 

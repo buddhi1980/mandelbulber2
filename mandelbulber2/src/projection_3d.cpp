@@ -35,6 +35,7 @@
  */
 
 #include "projection_3d.hpp"
+
 #include "common_math.h"
 
 CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,

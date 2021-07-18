@@ -646,15 +646,10 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.sinB = sin(transformCommon.angleDegB);
 	transformCommon.sinC = sin(transformCommon.angleDegC);
 
-
-
-
 	transformCommon.rotationMatrix44.SetRotation44a(
 		transformCommon.rotation44a * M_PI_180); // ..........................
 	transformCommon.rotationMatrix44.SetRotation44b(
 		transformCommon.rotation44b * M_PI_180); // ...............................
-
-
 
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180); // T>Rotation
 	transformCommon.rotationMatrix2.SetRotation2(

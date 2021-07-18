@@ -134,6 +134,8 @@ typedef struct
 	cl_int monteCarloGIVolumetric;
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
+	cl_int postChromaticAberrationEnabled;
+	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
 	cl_int slowShading; // enable fake gradient calculation for shading
 	cl_int SSAO_random_mode;
@@ -210,6 +212,8 @@ typedef struct
 	cl_float iterFogOpacityTrimHigh;
 	cl_float iterFogBrightnessBoost;
 	cl_float monteCarloGIRadianceLimit;
+	cl_float postChromaticAberrationIntensity;
+	cl_float postChromaticAberrationRadius;
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
@@ -316,6 +320,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
+	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
+	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
 	target.slowShading = source.slowShading;
 	target.SSAO_random_mode = source.SSAO_random_mode;
@@ -393,6 +399,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogOpacityTrimHigh = source.iterFogOpacityTrimHigh;
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
+	target.postChromaticAberrationIntensity = source.postChromaticAberrationIntensity;
+	target.postChromaticAberrationRadius = source.postChromaticAberrationRadius;
 	target.relMaxMarchingStep = source.relMaxMarchingStep;
 	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;
