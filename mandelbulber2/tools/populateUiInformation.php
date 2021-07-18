@@ -60,12 +60,12 @@ function getFormulasData()
 		// read index and name from fractal_list
 		preg_match('/cAbstractFractal\(\)\n{([\s\S]*?)\n}/', $fractalCppFile, $match);
 		$definitionPart = @$match[1];
-                $definitionPartLines = explode(PHP_EOL, trim($definitionPart));
+                $definitionPartLinesRaw = explode(PHP_EOL, trim($definitionPart));
                 // strip comment lines
-                $definitionPartLines = array_filter($definitionPartLines, function($l) {
+                $definitionPartLines = array_filter($definitionPartLinesRaw, function($l) {
                     return !preg_match('/\s*\/\/.*/', $l);
                 });
-                if (count($definitionPartLines) != 9) die('could not read index for formula : ' . $file . ' --> ' . print_r($definitionPartLines, true));
+                if (count($definitionPartLines) != 9) die('could not read index for formula : ' . $file . ' --> ' . print_r($definitionPartLinesRaw, true));
 		$f = array();
 		foreach($definitionPartLines as $definitionPartLine){
 			if(!preg_match('/([a-zA-Z]+)\s*=\s*"?([\da-zA-Z\.: -_]*?)"?;/', $definitionPartLine, $matchLine)) 
@@ -658,23 +658,39 @@ transf_scale_2 1,079812;';
 
 function upgradeInternalName($internalName, $internalNameNew)
 {
-	shell_exec('git mv'
-		. ' \'' . PROJECT_PATH . 'formula/ui/' . $internalName . '.ui\''
-		. ' \'' . PROJECT_PATH . 'formula/ui/' . $internalNameNew . '.ui\''
-	);
-	shell_exec('git mv'
-		. ' \'' . PROJECT_PATH . 'formula/img/' . $internalName . '.png\''
-		. ' \'' . PROJECT_PATH . 'formula/img/' . $internalNameNew . '.png\''
-	);
+        if (file_exists(PROJECT_PATH . 'formula/ui/' . $internalName . '.ui')) {
+            shell_exec('git mv'
+                    . ' \'' . PROJECT_PATH . 'formula/ui/' . $internalName . '.ui\''
+                    . ' \'' . PROJECT_PATH . 'formula/ui/' . $internalNameNew . '.ui\''
+            );
+        }
+        if (file_exists(PROJECT_PATH . 'formula/img/' . $internalName . '.png')) {
+            shell_exec('git mv'
+                    . ' \'' . PROJECT_PATH . 'formula/img/' . $internalName . '.png\''
+                    . ' \'' . PROJECT_PATH . 'formula/img/' . $internalNameNew . '.png\''
+            );
+        }
+        if (file_exists(PROJECT_PATH . 'formula/definition/fractal_' . $internalName . '.cpp')) {
+            shell_exec('git mv'
+                    . ' \'' . PROJECT_PATH . 'formula/definition/fractal_' . $internalName . '.cpp\''
+                    . ' \'' . PROJECT_PATH . 'formula/definition/fractal_' . $internalNameNew . '.cpp\''
+            );
+        }
+        if (file_exists(PROJECT_PATH . 'formula/opencl/' . $internalName . '.cl')) {
+            shell_exec('git mv'
+                    . ' \'' . PROJECT_PATH . 'formula/opencl/' . $internalName . '.cl\''
+                    . ' \'' . PROJECT_PATH . 'formula/opencl/' . $internalNameNew . '.cl\''
+            );
+        }
 	if (file_exists(PROJECT_PATH . 'formula/img/' . $internalName . '.fract')) {
 		shell_exec('git mv'
 			. ' \'' . PROJECT_PATH . 'formula/img/' . $internalName . '.fract\''
 			. ' \'' . PROJECT_PATH . 'formula/img/' . $internalNameNew . '.fract\''
 		);
 	}
-	$fractal_list_content = file_get_contents(PROJECT_PATH . 'formula/definition/all_fractal_list.cpp');
+        $fractal_list_content = file_get_contents(PROJECT_PATH . 'formula/definition/fractal_' . $internalNameNew . '.cpp');
 	$fractal_list_content = str_replace('"' . $internalName . '"', '"' . $internalNameNew . '"', $fractal_list_content);
-	file_put_contents(PROJECT_PATH . 'formula/definition/all_fractal_list.cpp', $fractal_list_content);
+        file_put_contents(PROJECT_PATH . 'formula/definition/fractal_' . $internalNameNew . '.cpp', $fractal_list_content);
 }
 
 function upgradeFunctionName($functionName, $functionNameNew)

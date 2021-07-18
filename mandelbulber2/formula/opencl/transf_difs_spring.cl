@@ -31,10 +31,9 @@ REAL4 TransfDIFSSpringIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL T = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.minR05;
 
-	REAL pit1 = fractal->transformCommon.offset01;
-	REAL pit2 = fractal->transformCommon.offsetp01;
 	REAL ht1 = fractal->transformCommon.int8X * fractal->transformCommon.offset01;
 	REAL ht2 = fractal->transformCommon.int8Y * fractal->transformCommon.offsetp01;
+
 	REAL L = fabs(zc.z) - ht1 - ht2;
 	REAL P;
 	if (fabs(zc.z) < ht1)

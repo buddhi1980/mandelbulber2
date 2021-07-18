@@ -106,7 +106,6 @@ REAL4 TransfDIFSGearV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-
 		if (zcd > sdTor)
 			aux->color = fractal->foldColor.difs0000.y;
 		else

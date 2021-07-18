@@ -15,7 +15,7 @@
 cFractalPseudoKleinian4d::cFractalPseudoKleinian4d() : cAbstractFractal()
 {
 	nameInComboBox = "Pseudo Kleinian - 4D";
-	internalName = "pseudo_kleinian_4d";
+	internalName = "pseudo_kleinian4d";
 	internalID = fractal::pseudoKleinian4d;
 	DEType = analyticDEType;
 	// DEFunctionType = pseudoKleinianDEFunction;

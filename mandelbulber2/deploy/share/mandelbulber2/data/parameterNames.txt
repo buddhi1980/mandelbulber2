@@ -214,6 +214,9 @@ foldColor.startIterationsA int fold_color_start_iterations_A
 foldColor.stopIterationsA int fold_color_stop_iterations_A
 
 transformCommon.angle0 REAL transf_angle_0
+transformCommon.angleDegA REAL transf_angle_deg_A
+transformCommon.angleDegB REAL transf_angle_deg_B
+transformCommon.angleDegC REAL transf_angle_deg_C
 transformCommon.angle72 REAL transf_angle_72
 transformCommon.alphaAngleOffset REAL transf_alpha_angle_offset
 transformCommon.betaAngleOffset REAL transf_beta_angle_offset
@@ -311,6 +314,7 @@ transformCommon.startIterations250 int transf_start_iterations_250
 transformCommon.stopIterations int transf_stop_iterations
 transformCommon.stopIterations1 int transf_stop_iterations_1
 transformCommon.stopIterations15 int transf_stop_iterations_15
+transformCommon.stopIterations50 int transf_stop_iterations_50
 transformCommon.startIterationsA int transf_start_iterations_A
 transformCommon.stopIterationsA int transf_stop_iterations_A
 transformCommon.startIterationsB int transf_start_iterations_B
@@ -506,6 +510,12 @@ transformCommon.spheresEnabled bool transf_spheres_enabled
 mandelbox.fR2 none none
 mandelbox.mR2 none none
 mandelbox.mboxFactor1 none none
+transformCommon.cosA none none
+transformCommon.cosB none none
+transformCommon.cosC none none
+transformCommon.sinA none none
+transformCommon.sinB none none
+transformCommon.sinC none none
 transformCommon.sqtR none none
 transformCommon.mboxFactor1 none none
 transformCommon.inv0 none none

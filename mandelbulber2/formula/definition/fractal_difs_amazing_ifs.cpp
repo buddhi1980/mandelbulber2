@@ -17,7 +17,7 @@ cFractalDIFSAmazingIfs::cFractalDIFSAmazingIfs() : cAbstractFractal()
 {
 	nameInComboBox = "DIFS Amazing IFS";
 	internalName = "difs_amazing_ifs";
-	internalID = fractal::dIFSSAmazingIfs;
+    internalID = fractal::dIFSAmazingIfs;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
