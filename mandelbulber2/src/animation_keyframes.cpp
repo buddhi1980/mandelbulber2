@@ -2097,11 +2097,22 @@ void cKeyframeAnimation::ModifyValueInCells(
 
 	for (auto cell : selectedItemsList)
 	{
-		qDebug() << cell->row() << cell->column();
 		int row = cell->row();
 		int column = cell->column();
 
-		if (row >= reservedRows && column >= reservedColumns)
+		if (row == framesPerKeyframeRow && column >= reservedColumns)
+		{
+			const int index = column - reservedColumns;
+			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
+
+			if (mode == modifyModeMultiply)
+				frame.numberOfSubFrames *= modifier;
+			else if (mode == modifyModeIncrease)
+				frame.numberOfSubFrames += modifier;
+
+			keyframes->ModifyFrame(index, frame);
+		}
+		else if (row >= reservedRows && column >= reservedColumns)
 		{
 			QString cellText = cell->text();
 
