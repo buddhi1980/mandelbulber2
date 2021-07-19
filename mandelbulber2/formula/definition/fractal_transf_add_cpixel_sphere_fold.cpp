@@ -28,7 +28,6 @@ cFractalTransfAddCpixelSphereFold::cFractalTransfAddCpixelSphereFold() : cAbstra
 void cFractalTransfAddCpixelSphereFold::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	CVector4 cv = aux.const_c;
 	double rr = cv.Dot(cv);
 	cv += fractal->mandelbox.offset;
@@ -41,17 +40,17 @@ void cFractalTransfAddCpixelSphereFold::FormulaCode(
 	{
 		cv *= fractal->transformCommon.maxR2d1 / rr;
 	}
-
+	// modes
 	if (fractal->transformCommon.functionEnabledBFalse && rr >= fractal->transformCommon.maxR2d1)
 		cv = cv * (1.0 - (fractal->transformCommon.maxR2d1 - rr) / rr);
+
+	if (fractal->transformCommon.functionEnabledDFalse && rr >= fractal->transformCommon.maxR2d1)
+		cv = cv * fractal->transformCommon.maxR2d1;
 
 	if (fractal->transformCommon.functionEnabledCFalse && rr >= fractal->transformCommon.maxR2d1)
 	{
 		cv = cv * (1.0 - (rr - fractal->transformCommon.maxR2d1) / fractal->transformCommon.scale1);
 	}
-	if (fractal->transformCommon.functionEnabledDFalse && rr >= fractal->transformCommon.maxR2d1)
-		cv = cv * fractal->transformCommon.maxR2d1;
-
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -69,13 +68,12 @@ void cFractalTransfAddCpixelSphereFold::FormulaCode(
 	if (fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fractal->analyticDE.scale1
 								+ fractal->analyticDE.offset0;
+
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		aux.color += fabs(cv.x * cv.y) * fractal->foldColor.difs0000.x;
-		aux.color += cv.y * fractal->foldColor.difs0000.y;
-		aux.color += cv.z * fractal->foldColor.difs0000.z;
+		aux.color += (cv.x * cv.x + cv.y * cv.y) * fractal->foldColor.difs0000.y;
+		aux.color += fabs(cv.z) * fractal->foldColor.difs0000.z;
 	}
-
-
 }
