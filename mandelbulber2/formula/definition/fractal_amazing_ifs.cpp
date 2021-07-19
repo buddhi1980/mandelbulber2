@@ -82,11 +82,11 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	CVector4 zCol = z;
 
 	if (fractal->transformCommon.functionEnabledBxFalse)
-		z.x = fractal->transformCommon.additionConstantP000.x - fabs(z.x);
+		z.x = fractal->transformCommon.additionConstantP000.x - sign(z.x) * fabs(z.x);
 	if (fractal->transformCommon.functionEnabledByFalse)
-		z.y = fractal->transformCommon.additionConstantP000.y - fabs(z.y);
+		z.y = fractal->transformCommon.additionConstantP000.y - sign(z.y) * fabs(z.y);
 	if (fractal->transformCommon.functionEnabledBzFalse)
-		z.z = fractal->transformCommon.additionConstantP000.z - fabs(z.z);
+		z.z = fractal->transformCommon.additionConstantP000.z - sign(z.z) * fabs(z.z);
 
 	z += fractal->transformCommon.additionConstantA000;
 
@@ -100,7 +100,7 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		useScale = (aux.actualScaleA + fractal->transformCommon.scale1) / dividend;
+		useScale = (aux.actualScaleA + fractal->transformCommon.scale2) / dividend;
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + fractal->analyticDE.offset0;
 		if (fractal->transformCommon.functionEnabledKFalse)
