@@ -103,6 +103,13 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 				- fabs(z - fractal->transformCommon.offsetB1111) - z;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	CVector4 zz = z * z;
 	double d1 = 0.0;
 	if (!fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y + zz.w);

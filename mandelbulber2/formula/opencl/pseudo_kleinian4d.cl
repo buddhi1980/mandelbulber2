@@ -90,6 +90,13 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				- fabs(z - fractal->transformCommon.offsetB1111) - z;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	REAL4 zz = z * z;
 	REAL d1 = 0.0f;
 	if (!fractal->transformCommon.functionEnabledKFalse)

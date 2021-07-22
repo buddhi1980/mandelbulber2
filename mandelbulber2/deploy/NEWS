@@ -29,6 +29,8 @@ v2.26 (????l 2021)
    mandelnest, added checkbox for aux.dist
    benesi, added z.x conditional offset
    transfParabFold, factorP.w = 0.0;
+   pseudoKleinianMod3 add rotation
+   transfDIFSHexprism add hollow
 
 
 

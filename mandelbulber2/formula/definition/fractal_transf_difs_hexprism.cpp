@@ -30,6 +30,29 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	double lenY = fractal->transformCommon.offsetA1;
 	CVector4 zc = fabs(z);
 
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		double temp = zc.x;
+		zc.x = zc.y;
+		zc.y = temp;
+	}
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		double temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
+
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
+
 	CVector4 k = CVector4(-SQRT_3_4, 0.5, SQRT_1_3, 0.0);
 
 	double tp = 2.0 * min(k.x * zc.x + k.y * zc.y, 0.0);
@@ -42,6 +65,9 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	tp = sqrt(dx * dx + dy * dy);
 	dx = tp * sign(zc.y - lenX);
 	dy =  zc.z - lenY;
+
+	if (fractal->transformCommon.functionEnabledDFalse)
+		dx = fabs(dx) - fractal->transformCommon.offset0;
 
 	double maxdx = max(dx, 0.0);
 	double maxdy = max(dy, 0.0);
