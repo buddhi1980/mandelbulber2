@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>amazing_surf_m3d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -448,7 +448,7 @@ Mandelbulber ldefault along the Y axis</string>
       <widget class="QLabel" name="label_108">
        <property name="text">
         <string>Cpixel
-multiplier1:</string>
+multiplier:</string>
        </property>
       </widget>
      </item>
@@ -536,7 +536,7 @@ multiplier1:</string>
       <widget class="QLabel" name="label_109">
        <property name="text">
         <string>Julia
-offset1:</string>
+offset:</string>
        </property>
       </widget>
      </item>
@@ -1193,15 +1193,15 @@ offset1:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>

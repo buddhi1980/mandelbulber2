@@ -41,7 +41,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL rn_sin_theta_pow = rr * native_sin(theta_pow);
 	z.x = rn_sin_theta_pow * native_cos(phi_pow); //  + jx
 	z.y = rn_sin_theta_pow * native_sin(phi_pow); // + jy
-	z.z = rr * native_cos(theta_pow);							//  + jz
+	z.z = rr * native_cos(theta_pow);	//  + jz
 
 	/*if (fractal->transformCommon.functionEnabled)
 	{

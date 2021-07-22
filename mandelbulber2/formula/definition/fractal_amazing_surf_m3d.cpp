@@ -16,7 +16,7 @@
 
 cFractalAmazingSurfM3d::cFractalAmazingSurfM3d() : cAbstractFractal()
 {
-	nameInComboBox = "Amazing Surf M3D";
+	nameInComboBox = "Amazing Surf - M3D";
 	internalName = "amazing_surf_m3d";
 	internalID = fractal::amazingSurfM3d;
 	DEType = analyticDEType;

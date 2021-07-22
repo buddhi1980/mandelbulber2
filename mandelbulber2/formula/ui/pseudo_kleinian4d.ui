@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -2190,7 +2190,7 @@ offset:</string>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
-      <string notr="true">aux.dist min(), Hybrid mode option</string>
+      <string notr="true">enable aux.dist min(), Hybrid mode option</string>
      </property>
     </widget>
    </item>

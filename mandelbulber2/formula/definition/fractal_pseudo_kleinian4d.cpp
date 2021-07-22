@@ -126,7 +126,6 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (aux.i >= fractal->foldColor.startIterationsA
 				&& aux.i < fractal->foldColor.stopIterationsA)
 		{
-
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 			colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
