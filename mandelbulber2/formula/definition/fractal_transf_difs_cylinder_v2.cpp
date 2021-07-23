@@ -30,8 +30,16 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 {
 	z += fractal->transformCommon.offset000;
 	CVector4 zc = z;
-
 	double temp;
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.y;
+		zc.y = temp;
+	}
+
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 

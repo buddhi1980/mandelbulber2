@@ -60,7 +60,7 @@ REAL4 MandelbulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL rn_sin_theta_pow = rr * native_sin(theta_pow);
 	z.x = rn_sin_theta_pow * native_cos(phi_pow);
 	z.y = rn_sin_theta_pow * native_sin(phi_pow);
-	z.z = rr * native_cos(theta_pow);
+	z.z = rr * native_cos(theta_pow) * fractal->transformCommon.scale1;
 
 	z += fractal->transformCommon.offset000;
 

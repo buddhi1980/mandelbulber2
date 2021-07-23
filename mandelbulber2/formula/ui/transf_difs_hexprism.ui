@@ -113,6 +113,9 @@
      </item>
      <item row="4" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -287,5 +290,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offset_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>193</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
