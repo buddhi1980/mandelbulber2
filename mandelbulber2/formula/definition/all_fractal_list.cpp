@@ -371,6 +371,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAddCpixelSinOrCos());
 	fractalList->append(new cFractalTransfAddCpixelSphereFold());
 	fractalList->append(new cFractalTransfAddCpixelSymmetrical());
+	fractalList->append(new cFractalTransfAddCpixelTile());
 	fractalList->append(new cFractalTransfAddCpixelVaryV1());
 
 	// Benesi Transforms

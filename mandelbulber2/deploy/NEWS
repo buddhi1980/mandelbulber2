@@ -15,6 +15,7 @@ v2.26 (????l 2021)
    pseudoKleinian4d
    transfAddCpixelInvert
    transfAddCpixelSphereFold
+   transfAddCpixelTile
    transfAddScaleRotate
    transfDIFSAmazingIfs
    transfDIFSSpring
