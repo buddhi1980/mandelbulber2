@@ -40,9 +40,9 @@ void cFractalTransfDIFSTorusV2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
 		swap(zc.x, zc.z);
-	}
+	if (fractal->transformCommon.functionEnabledSFalse)
+		swap(zc.y, zc.z);
 
 	CVector4 absZ = fabs(zc);
 	if (fractal->transformCommon.functionEnabledMFalse)

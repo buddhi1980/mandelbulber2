@@ -37,9 +37,10 @@ void cFractalTransfDIFSTorusV3::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
 		swap(zc.x, zc.z);
-	}
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+		swap(zc.y, zc.z);
 
 	double lenX = fractal->transformCommon.offset1;
 	double lenY = fractal->transformCommon.offsetA0;

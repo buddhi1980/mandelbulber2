@@ -27,11 +27,15 @@ REAL4 TransfDIFSTorusV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		REAL temp = zc.y;
+		zc.y = zc.z;
+		zc.z = temp;
 	}
 
 	REAL lenX = fractal->transformCommon.offset1;

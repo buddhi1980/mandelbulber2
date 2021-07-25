@@ -39,13 +39,30 @@ void cFractalTransfAddCpixelTile::FormulaCode(
 		cv.y = round(p.y * rs.y);
 		cv.z = round(p.z * rs.z);
 		z = (p * rs - cv) * fractal->transformCommon.scale3D444;
-		aux.c = cv * fractal->transformCommon.constantMultiplier111
+
+		cv = cv * fractal->transformCommon.constantMultiplier111
 				+ fractal->transformCommon.offset000;
+
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			cv.x *= sign(aux.const_c.x);
+			cv.y *= sign(aux.const_c.y);
+			cv.z *= sign(aux.const_c.z);
+		}
+		aux.c = cv;
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsA)
 	{
-		z += aux.c;
+		cv = aux.c;
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			cv.x *= sign(z.x);
+			cv.y *= sign(z.y);
+			cv.z *= sign(z.z);
+		}
+		z += cv;
+		aux.c = cv;
 	}
 
 	// Analytic DE tweak
@@ -58,6 +75,5 @@ void cFractalTransfAddCpixelTile::FormulaCode(
 	{
 		aux.color += fabs(cv.x * cv.y) * fractal->foldColor.difs0000.x;
 		aux.color += (cv.x * cv.x + cv.y * cv.y) * fractal->foldColor.difs0000.y;
-		aux.color += fabs(cv.z) * fractal->foldColor.difs0000.z;
 	}
 }

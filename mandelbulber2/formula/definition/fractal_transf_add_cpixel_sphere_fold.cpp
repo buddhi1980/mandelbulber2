@@ -64,7 +64,6 @@ void cFractalTransfAddCpixelSphereFold::FormulaCode(
 	z += cv * fractal->transformCommon.constantMultiplier111;
 
 	// Analytic DE tweak
-
 	if (fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fractal->analyticDE.scale1
 								+ fractal->analyticDE.offset0;

@@ -28,7 +28,18 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 {
 	CVector4 zc = z;
 	double torD;
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+		swap(zc.x, zc.z);
+	if (fractal->transformCommon.functionEnabledSFalse)
+		swap(zc.y, zc.z);
+
 	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+	else
+		torD = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offset05;
+
 	aux.dist = min(aux.dist, torD / (aux.DE + 1.0));
 }
