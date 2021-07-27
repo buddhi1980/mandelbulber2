@@ -1623,20 +1623,6 @@ offset:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="1">
-         <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-          <property name="text">
-           <string>disable aux.dist min()</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" rowspan="2">
-         <widget class="QLabel" name="label_264">
-          <property name="text">
-           <string>start at iteration:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1" rowspan="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
           <property name="sizePolicy">
@@ -1657,6 +1643,13 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="0" rowspan="2">
+         <widget class="QLabel" name="label_264">
+          <property name="text">
+           <string>start at iteration:</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="3" rowspan="2">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
           <property name="sizePolicy">
@@ -1667,6 +1660,13 @@ offset:</string>
           </property>
           <property name="maximum">
            <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
+          <property name="text">
+           <string>disable aux.dist min()</string>
           </property>
          </widget>
         </item>

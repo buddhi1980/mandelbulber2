@@ -112,12 +112,7 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 	}
 
-
-
-
-
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
 
 	if (fractal->transformCommon.functionEnabledGFalse)
 	{
@@ -128,7 +123,6 @@ void cFractalAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 					aux.DE0 = min(aux.dist, aux.DE0);
 		aux.dist = aux.DE0;
 	}
-
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)

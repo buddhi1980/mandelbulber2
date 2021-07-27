@@ -481,6 +481,7 @@ enum enumFractalFormula
 	// 2.26
 	transfDIFSSpring = 1623,
 	transfDIFSAmazingIfs = 1624,
+	transfDIFSHexprismV2 = 1625,
 
 	// hybrid color
 	transfHybridColor = 2000,
