@@ -17,18 +17,14 @@
 REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR1)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	REAL4 zc = z;
-
 	REAL temp;
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		temp = zc.x;
-		zc.x = zc.y;
-		zc.y = temp;
-	}
-
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{

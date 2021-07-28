@@ -22,6 +22,11 @@ REAL4 TransfDIFSTorusV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR1)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	REAL4 zc = z;
 
 	// swap axis

@@ -37,7 +37,7 @@ void cFractalAmazingSurfKleinV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCy) z.y = fabs(z.y);
 		double psi = M_PI / fractal->transformCommon.int8Y;
-		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
