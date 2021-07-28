@@ -410,6 +410,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.stopIterationsP1 = container->Get<int>("transf_stop_iterations_P1");
 	transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
 	transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
+	transformCommon.stopIterationsR1 = container->Get<int>("transf_stop_iterations_R1");
 	transformCommon.startIterationsRV = container->Get<int>("transf_start_iterations_RV");
 	transformCommon.stopIterationsRV = container->Get<int>("transf_stop_iterations_RV");
 	transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
@@ -596,6 +597,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.functionEnabledYFalse = container->Get<bool>("transf_function_enabledY_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
+	transformCommon.rotationEnabledFalse = container->Get<bool>("transf_rotation_enabled_false");
 	transformCommon.rotation2EnabledFalse = container->Get<bool>("transf_rotation2_enabled_false");
 	transformCommon.sphereInversionEnabledFalse =
 		container->Get<bool>("transf_sphere_inversion_enabled_false");

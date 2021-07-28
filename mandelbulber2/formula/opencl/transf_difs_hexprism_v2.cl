@@ -15,31 +15,36 @@
 
 REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 	z += fractal->transformCommon.offset000;
 
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR1)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	REAL lenX = fractal->transformCommon.offset1;
-	REAL lenY = fractal->transformCommon.offsetA1;
-	REAL H = z.z;
+
 	REAL4 zc = fabs(z);
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		REAL temp = zc.x;
-		zc.x = zc.y;
-		zc.y = temp;
-	}
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		REAL temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-
 	REAL4 k = (REAL4){-SQRT_3_4_F, 0.5f, SQRT_1_3_F, 0.0f};
-
 	REAL tp = 2.0f * min(k.x * zc.x + k.y * zc.y, 0.0f);
 	zc.x -= tp * k.x;
 	zc.y -= tp * k.y;
@@ -48,33 +53,42 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL dy = zc.y - lenX;
 
 	tp = native_sqrt(dx * dx + dy * dy);
-	dx = tp * sign(zc.y - lenX);
-	dy = zc.z - lenY;
+	dx = tp * sign(dy);
+	dy = zc.z - fractal->transformCommon.offsetA1;
 
-	if (fractal->transformCommon.functionEnabledMFalse
-			&& aux->i >= fractal->transformCommon.startIterationsM
-			&& aux->i < fractal->transformCommon.stopIterationsM)
+	k.x = 0.0f;
+	k.y = 0.0f;
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		zc.z = H;
+		if (fractal->transformCommon.functionEnabledMFalse
+				&& aux->i >= fractal->transformCommon.startIterationsM
+				&& aux->i < fractal->transformCommon.stopIterationsM)
+					zc.z = z.z;
+
+		// abs sqrd
+		if (fractal->transformCommon.functionEnabledTFalse
+				&& aux->i >= fractal->transformCommon.startIterationsT
+				&& aux->i < fractal->transformCommon.stopIterationsT)
+					zc.z *= zc.z;
+
+		if (aux->i >= fractal->transformCommon.startIterationsJ
+				&& aux->i < fractal->transformCommon.stopIterationsJ)
+					dx += fractal->transformCommon.scaleA1 * zc.z;
+
+		if (aux->i >= fractal->transformCommon.startIterationsN
+				&& aux->i < fractal->transformCommon.stopIterationsN)
+					k.x = fractal->transformCommon.offsetR0;
+
+		if (aux->i >= fractal->transformCommon.startIterationsO
+				&& aux->i < fractal->transformCommon.stopIterationsO)
+					k.y = fractal->transformCommon.offsetF0;
 	}
-
-	// abs sqrd
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT)
-	{
-		zc.z *= zc.z;
-	}
-
-	dx += fractal->transformCommon.scale0 * zc.z;
-
-
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 		dx = fabs(dx) - fractal->transformCommon.offset0;
 
-	REAL maxdx = max(dx, 0.0f);
-	REAL maxdy = max(dy, 0.0f);
+	REAL maxdx = max(dx, k.x);
+	REAL maxdy = max(dy, k.y);
 
 	tp = native_sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux->DE0 = min(max(dx, dy), 0.0f) + tp;

@@ -26,38 +26,37 @@ cFractalTransfDIFSHexprismV2::cFractalTransfDIFSHexprismV2() : cAbstractFractal(
 
 void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 	z += fractal->transformCommon.offset000;
 
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
 	double lenX = fractal->transformCommon.offset1;
-	double lenY = fractal->transformCommon.offsetA1;
-	double H = z.z;
-	CVector4 zc = fabs(z);
 
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		double temp = zc.x;
-		zc.x = zc.y;
-		zc.y = temp;
-	}
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		double temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-
-	if (fractal->transformCommon.rotation2EnabledFalse
+	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
+			&& aux.i < fractal->transformCommon.stopIterationsR1)
 	{
-		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
+	CVector4 zc = fabs(z);
 	CVector4 k = CVector4(-SQRT_3_4, 0.5, SQRT_1_3, 0.0);
-
 	double tp = 2.0 * min(k.x * zc.x + k.y * zc.y, 0.0);
 	zc.x -= tp * k.x;
 	zc.y -= tp * k.y;
@@ -66,34 +65,43 @@ void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *frac
 	double dy = zc.y - lenX;
 
 	tp = sqrt(dx * dx + dy * dy);
-	dx = tp * sign(zc.y - lenX);
-	dy =  zc.z - lenY;
+	dx = tp * sign(dy);
 
-	if (fractal->transformCommon.functionEnabledMFalse
-			&& aux.i >= fractal->transformCommon.startIterationsM
-			&& aux.i < fractal->transformCommon.stopIterationsM)
+	dy =  zc.z - fractal->transformCommon.offsetA1;
+
+	k.x = 0.0;
+	k.y = 0.0;
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		zc.z = H;
+		if (fractal->transformCommon.functionEnabledMFalse
+				&& aux.i >= fractal->transformCommon.startIterationsM
+				&& aux.i < fractal->transformCommon.stopIterationsM)
+					zc.z = z.z;
+
+		// abs sqrd
+		if (fractal->transformCommon.functionEnabledTFalse
+				&& aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+					zc.z *= zc.z;
+
+		if (aux.i >= fractal->transformCommon.startIterationsJ
+				&& aux.i < fractal->transformCommon.stopIterationsJ)
+					dx += fractal->transformCommon.scaleA1 * zc.z;
+
+		if (aux.i >= fractal->transformCommon.startIterationsN
+				&& aux.i < fractal->transformCommon.stopIterationsN)
+					k.x = fractal->transformCommon.offsetR0;
+
+		if (aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
+					k.y = fractal->transformCommon.offsetF0;
 	}
-
-	// abs sqrd
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT)
-	{
-		zc.z *= zc.z;
-	}
-
-	dx += fractal->transformCommon.scale0 * zc.z;
-
-
-
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 		dx = fabs(dx) - fractal->transformCommon.offset0;
 
-	double maxdx = max(dx, 0.0);
-	double maxdy = max(dy, 0.0);
+	double maxdx = max(dx, k.x);
+	double maxdy = max(dy, k.y);
 
 	tp = sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;

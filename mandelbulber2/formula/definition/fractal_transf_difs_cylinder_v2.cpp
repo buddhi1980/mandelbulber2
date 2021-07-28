@@ -29,17 +29,17 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z += fractal->transformCommon.offset000;
-	CVector4 zc = z;
-	double temp;
 
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR1)
 	{
-		temp = zc.x;
-		zc.x = zc.y;
-		zc.y = temp;
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
+	CVector4 zc = z;
+
+	double temp;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
