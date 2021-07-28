@@ -55,17 +55,17 @@ ENV MANDELBULBER=/usr/sbin/mandelbulber2 \
     USER_NAME=mandelbulber \
     USER_HOME=/home/mandelbulber
 
-COPY --from=builder /home/builder/src/*.pkg.tar.xz /tmp/
-RUN pacman -U /tmp/*.pkg.tar.xz  --noconfirm --noprogressbar && \
-    rm -f /tmp/*.pkg.tar.xz
+COPY --from=builder /home/builder/src/*.pkg.tar.zst /tmp/
+RUN pacman -U /tmp/*.pkg.tar.zst  --noconfirm --noprogressbar && \
+    rm -f /tmp/*.pkg.tar.zst
 
-RUN useradd -m ${USER_NAME}
+RUN useradd -m ${USER_NAME} -u ${USER_UID}
 
 RUN mkdir -p /usr/share/doc/mandelbulber2
 RUN chown "${USER_UID}:0" "${USER_HOME}" && \
     chmod ug+rwx "${USER_HOME}"
 
-USER ${USER_UID}
+USER ${USER_NAME}
 WORKDIR ${USER_HOME}
 #ENTRYPOINT ["/usr/local/bin/entrypoint"]
 #CMD ["--version"]
