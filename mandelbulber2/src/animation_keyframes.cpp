@@ -124,6 +124,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			ui->pushButton_randomize, &QPushButton::clicked, this, &cKeyframeAnimation::slotRandomize);
 		connect(ui->pushButton_add_all_parameters, &QPushButton::clicked, this,
 			&cKeyframeAnimation::slotAddAllParameters);
+		connect(ui->pushButton_set_frames_per_keyframe_to_all, &QPushButton::clicked, this,
+			&cKeyframeAnimation::slotSetFramesPerKeyframeToAllKeyframes);
 
 		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellChanged, this,
 			&cKeyframeAnimation::slotTableCellChanged);
@@ -2179,6 +2181,21 @@ void cKeyframeAnimation::ModifyValueInCells(
 
 			keyframes->ModifyFrame(index, frame);
 		}
+	}
+	RefreshTable();
+}
+
+void cKeyframeAnimation::slotSetFramesPerKeyframeToAllKeyframes(void)
+{
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
+	int framesPerKeyframe = params->Get<int>("frames_per_keyframe");
+
+	for (int i = 0; i < keyframes->GetNumberOfFrames(); i++)
+	{
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(i);
+		frame.numberOfSubFrames = framesPerKeyframe;
+		keyframes->ModifyFrame(i, frame);
 	}
 	RefreshTable();
 }

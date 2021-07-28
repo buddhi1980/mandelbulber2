@@ -144,6 +144,7 @@ private slots:
 	void slotAnimationStopRequest();
 	void slotRandomize();
 	void slotAddAllParameters();
+	void slotSetFramesPerKeyframeToAllKeyframes(void);
 
 private:
 	void PrepareTable();

@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>473</width>
-              <height>407</height>
+              <width>292</width>
+              <height>318</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -942,7 +942,7 @@
               <x>0</x>
               <y>0</y>
               <width>404</width>
-              <height>631</height>
+              <height>634</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1012,10 +1012,17 @@
                   <property name="spacing">
                    <number>2</number>
                   </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_219">
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_217">
                     <property name="text">
-                     <string>frames per keyframe:</string>
+                     <string>last frame to render:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_213">
+                    <property name="text">
+                     <string>first frame to render:</string>
                     </property>
                    </widget>
                   </item>
@@ -1026,10 +1033,63 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_150">
-                    <property name="text">
-                     <string>image type:</string>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_keyframe_frames_per_second">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>4</number>
+                    </property>
+                    <property name="maximum">
+                     <double>18000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1" colspan="2">
+                   <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>99999</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="MyLineEdit" name="text_anim_keyframe_dir">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -1066,16 +1126,10 @@
                     </item>
                    </widget>
                   </item>
-                  <item row="2" column="1">
-                   <widget class="MyLineEdit" name="text_anim_keyframe_dir">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_222">
+                    <property name="text">
+                     <string>frames per second:</string>
                     </property>
                    </widget>
                   </item>
@@ -1089,71 +1143,6 @@
                     </property>
                     <property name="text">
                      <string>Select folder</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_213">
-                    <property name="text">
-                     <string>first frame to render:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_217">
-                    <property name="text">
-                     <string>last frame to render:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_222">
-                    <property name="text">
-                     <string>frames per second:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1" colspan="2">
-                   <widget class="MyDoubleSpinBox" name="spinbox_keyframe_frames_per_second">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="prefix">
-                     <string/>
-                    </property>
-                    <property name="suffix">
-                     <string/>
-                    </property>
-                    <property name="decimals">
-                     <number>4</number>
-                    </property>
-                    <property name="maximum">
-                     <double>18000.000000000000000</double>
-                    </property>
-                    <property name="singleStep">
-                     <double>0.100000000000000</double>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" colspan="2">
-                   <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="maximum">
-                     <number>10000</number>
                     </property>
                    </widget>
                   </item>
@@ -1182,8 +1171,22 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1" colspan="2">
-                   <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_219">
+                    <property name="text">
+                     <string>frames per keyframe:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_150">
+                    <property name="text">
+                     <string>image type:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -1191,16 +1194,20 @@
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="minimum">
-                     <number>0</number>
+                     <number>1</number>
                     </property>
                     <property name="maximum">
-                     <number>99999</number>
+                     <number>10000</number>
                     </property>
-                    <property name="singleStep">
-                     <number>1</number>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QPushButton" name="pushButton_set_frames_per_keyframe_to_all">
+                    <property name="text">
+                     <string>Set to all</string>
                     </property>
                    </widget>
                   </item>
