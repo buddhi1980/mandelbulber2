@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -28,6 +28,12 @@ cFractalTransfDIFSCylinderV2::cFractalTransfDIFSCylinderV2() : cAbstractFractal(
 void cFractalTransfDIFSCylinderV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.rotationEnabledFalse
@@ -71,6 +77,7 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 		cylRm = fabs(cylRm ) - fractal->transformCommon.offset0;
 
 	cylRm += fractal->transformCommon.scale0 * absH;
+	zc.z = absH;
 
 	// tops
 	if (fractal->transformCommon.functionEnabledNFalse
@@ -97,4 +104,9 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
 
 	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+				z = zc;
 }
