@@ -93,5 +93,11 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	tp = native_sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux->DE0 = min(max(dx, dy), 0.0f) + tp;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + 1.0f));
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+				z = zc;
+
 	return z;
 }

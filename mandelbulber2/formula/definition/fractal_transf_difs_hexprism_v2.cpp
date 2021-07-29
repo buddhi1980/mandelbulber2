@@ -106,4 +106,9 @@ void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *frac
 	tp = sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+				z = zc;
 }

@@ -646,7 +646,8 @@ struct sFractalTransformCommon
 	int stopIterationsY;
 	int startIterationsZ;
 	int stopIterationsZ;
-
+	int startIterationsZc;
+	int stopIterationsZc;
 	int stopIterations1;
 
 	int intA;
@@ -805,6 +806,7 @@ struct sFractalTransformCommon
 	bool functionEnabledTFalse;
 	bool functionEnabledXFalse;
 	bool functionEnabledYFalse;
+	bool functionEnabledZcFalse;
 	bool juliaMode;
 	bool rotationEnabled;
 	bool rotationEnabledFalse;

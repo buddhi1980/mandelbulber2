@@ -656,6 +656,8 @@ typedef struct
 	cl_int stopIterationsY;
 	cl_int startIterationsZ;
 	cl_int stopIterationsZ;
+	cl_int startIterationsZc;
+	cl_int stopIterationsZc;
 
 	cl_int stopIterations1;
 
@@ -815,6 +817,7 @@ typedef struct
 	cl_int functionEnabledTFalse;
 	cl_int functionEnabledXFalse;
 	cl_int functionEnabledYFalse;
+	cl_int functionEnabledZcFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
 	cl_int rotationEnabledFalse;
@@ -1419,6 +1422,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsY = source.stopIterationsY;
 	target.startIterationsZ = source.startIterationsZ;
 	target.stopIterationsZ = source.stopIterationsZ;
+	target.startIterationsZc = source.startIterationsZc;
+	target.stopIterationsZc = source.stopIterationsZc;
 	target.stopIterations1 = source.stopIterations1;
 	target.intA = source.intA;
 	target.intB = source.intB;
@@ -1569,6 +1574,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledTFalse = source.functionEnabledTFalse;
 	target.functionEnabledXFalse = source.functionEnabledXFalse;
 	target.functionEnabledYFalse = source.functionEnabledYFalse;
+	target.functionEnabledZcFalse = source.functionEnabledZcFalse;
 	target.juliaMode = source.juliaMode;
 	target.rotationEnabled = source.rotationEnabled;
 	target.rotationEnabledFalse = source.rotationEnabledFalse;

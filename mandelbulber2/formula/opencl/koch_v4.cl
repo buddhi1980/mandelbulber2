@@ -46,7 +46,7 @@ REAL4 KochV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		{
 			zc.x = fabs(zc.x);
 			REAL psi = M_PI_F / fractal->transformCommon.int6;
-			psi = fabs(fmod(atan(zc.y / zc.x) + psi, 2.0f * psi) - psi);
+			psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
 			REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
 			zc.x = native_cos(psi) * len;
 			zc.y = native_sin(psi) * len;

@@ -47,7 +47,7 @@ void cFractalKochV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 		{
 			zc.x = fabs(zc.x);
 			double psi = M_PI / fractal->transformCommon.int6;
-			psi = fabs(fmod(atan(zc.y / zc.x) + psi, 2.0 * psi) - psi);
+			psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
 			double len = sqrt(zc.x * zc.x + zc.y * zc.y);
 			zc.x = cos(psi) * len;
 			zc.y = sin(psi) * len;

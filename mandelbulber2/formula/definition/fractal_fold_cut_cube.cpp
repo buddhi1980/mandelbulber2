@@ -59,7 +59,7 @@ void cFractalFoldCutCube::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		{
 			z.x = fabs(z.x);
 			double psi = M_PI / fractal->transformCommon.int6;
-			psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 			double len = sqrt(z.x * z.x + z.y * z.y);
 			z.x = cos(psi) * len;
 			z.y = sin(psi) * len;
