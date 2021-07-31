@@ -18,12 +18,15 @@ v2.26 (????l 2021)
    transfAddCpixelTile
    transfAddScaleRotate
    transfDIFSAmazingIfs
+   transfDIFSHexprismV2
    transfDIFSSpring
+   transfDIFSTriGrid
    transfQuadraticFold4d
    transfRotationM3d
    transfSphericalCoordInvs
    transfSphericalFoldPnorm
    transfSphericalInvPnorm
+
 
 
 - modified fractal formulas

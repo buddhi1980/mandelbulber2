@@ -15,15 +15,37 @@
 
 REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
+	z += fractal->transformCommon.offset000;
+
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR1)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	REAL4 zc = z;
+	zc.z *= fractal->transformCommon.scale1;
 	REAL4 off = fractal->transformCommon.offset111;
 	REAL a;
-	if (!fractal->transformCommon.functionEnabledAFalse)
+	if (!fractal->transformCommon.functionEnabledEFalse)
 		a = fabs(zc.x - off.x * floor(zc.x / off.x  + 0.5f));
 	else a = 1000.0f;
 
