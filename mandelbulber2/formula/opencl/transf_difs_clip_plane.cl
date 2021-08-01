@@ -108,7 +108,8 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	// plane
 
-	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0);
+	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0)
+			- fractal->transformCommon.offset0005;
 	REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
 	// clip plane
@@ -169,12 +170,12 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 
 	e = min(e, d);
-	d = max(b, e) - fractal->transformCommon.offset0005;
+	aux->DE0 = max(b, e) - fractal->transformCommon.offset0005;
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = d;
+		aux->dist = aux->DE0;
 	else
-		aux->dist = min(aux->dist, d);
+		aux->dist = min(aux->dist, aux->DE0);
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 	return z;

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_clip_plane</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>4095</height>
+    <width>1204</width>
+    <height>4294</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -464,14 +464,14 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>scaleX:</string>
+        <string>inv. scaleX:</string>
        </property>
       </widget>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>scaleY:</string>
+        <string>inv. scaleY:</string>
        </property>
       </widget>
      </item>

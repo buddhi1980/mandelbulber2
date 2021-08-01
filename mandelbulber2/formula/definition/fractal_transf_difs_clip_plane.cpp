@@ -120,10 +120,9 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	// plane
 
+	double plD = fabs(c.z + fractal->transformCommon.offsetF0)
+			- fractal->transformCommon.offset0005;
 
-
-
-	double plD = fabs(c.z - fractal->transformCommon.offsetF0);
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
 
 
@@ -184,12 +183,12 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	}
 
 	e = min(e, d);
-	d = max(b, e) - fractal->transformCommon.offset0005;
+	aux.DE0 = max(b, e);
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = d;
+		aux.dist = aux.DE0;
 	else
-		aux.dist = min(aux.dist, d);
+		aux.dist = min(aux.dist, aux.DE0);
 
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 }

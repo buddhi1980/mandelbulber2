@@ -53,7 +53,7 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR1)
 				z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
+	// tri grid
 	CVector4 zc = z;
 	zc.z *= fractal->transformCommon.scale1;
 	CVector4 off = fractal->transformCommon.offset111;
@@ -61,7 +61,6 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		a = fabs(zc.x - off.x * floor(zc.x / off.x  + 0.5));
 	else a = 1000.0f;
-
 	zc.x = zc.x * 0.5;
 	zc.y = zc.y * SQRT_3 * 0.5;
 	double b = zc.x + zc.y;
@@ -70,14 +69,19 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 	c = fabs(c - off.z * floor(c / off.z  + 0.5));
 	double tp = min(min(a, b), c) - fractal->transformCommon.offset0;
 
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		tp = sqrt((tp * tp) + (zc.z * zc.z));
+	else
+		tp = max(fabs(tp), fabs(zc.z));
+	tp -= fractal->transformCommon.offset0005;
 	// plane
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		double d = fabs(aux.const_c.z) + fractal->transformCommon.offsetA0;
+		double d = fabs(aux.const_c.z + fractal->transformCommon.offsetA0)
+				- fractal->transformCommon.offsetB0;
 		tp = min(tp, d);
-		if (tp == d) aux.color = fractal->foldColor.difs1;
+		if (tp == d) aux.color += fractal->foldColor.difs1;
 	}
-
 	// clip plane
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -87,12 +91,8 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 		e = max(f.x, max(f.y, f.z));
 		tp = max(tp, e);
 	}
+	aux.DE0 = tp;
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		aux.DE0 = sqrt((tp * tp) + (zc.z * zc.z));
-	else
-		aux.DE0 = max(fabs(tp), fabs(zc.z));
-
-	aux.dist = min(aux.dist, (aux.DE0 - fractal->transformCommon.offset0005)
+	aux.dist = min(aux.dist, aux.DE0
 					/ (aux.DE + fractal->analyticDE.offset1));
 }

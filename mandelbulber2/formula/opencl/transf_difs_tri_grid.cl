@@ -40,7 +40,7 @@ REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR1)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
+	// tri grid
 	REAL4 zc = z;
 	zc.z *= fractal->transformCommon.scale1;
 	REAL4 off = fractal->transformCommon.offset111;
@@ -57,14 +57,19 @@ REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	c = fabs(c - off.z * floor(c / off.z  + 0.5f));
 	REAL tp = min(min(a, b), c) - fractal->transformCommon.offset0;
 
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		tp = sqrt((tp * tp) + (zc.z * zc.z));
+	else
+		tp = max(fabs(tp), fabs(zc.z));
+	tp -= fractal->transformCommon.offset0005;
 	// plane
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL d = fabs(aux->const_c.z) + fractal->transformCommon.offsetA0;
+		REAL d = fabs(aux->const_c.z + fractal->transformCommon.offsetA0)
+				- fractal->transformCommon.offsetB0;
 		tp = min(tp, d);
-		if (tp == d) aux->color = fractal->foldColor.difs1;
+		if (tp == d) aux->color += fractal->foldColor.difs1;
 	}
-
 	// clip
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -74,13 +79,9 @@ REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		e = max(f.x, max(f.y, f.z));
 		tp = max(tp, e);
 	}
+	aux->DE0 = tp;
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		aux->DE0 = sqrt((tp * tp) + (zc.z * zc.z));
-	else
-		aux->DE0 = max(fabs(tp), fabs(zc.z));
-
-	aux->dist = min(aux->dist, (aux->DE0 - fractal->transformCommon.offset0005)
+	aux->dist = min(aux->dist, aux->DE0
 					/ (aux->DE + fractal->analyticDE.offset1));
 
 	return z;
