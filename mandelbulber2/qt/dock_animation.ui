@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>292</width>
-              <height>318</height>
+              <width>473</width>
+              <height>407</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -1207,7 +1207,7 @@
                   <item row="0" column="2">
                    <widget class="QPushButton" name="pushButton_set_frames_per_keyframe_to_all">
                     <property name="text">
-                     <string>Set to all</string>
+                     <string>Set in all</string>
                     </property>
                    </widget>
                   </item>
