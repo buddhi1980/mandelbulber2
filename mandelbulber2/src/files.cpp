@@ -644,12 +644,17 @@ QString AnimatedFileName(
 
 				if (fileList.length() > 0)
 				{
+					QString firstFile = fileList.first();
+					QString minIndexText = firstFile.mid(
+						firstPercent - filenameString.length() + firstFile.length(), numberOfPercents);
+					int minIndex = minIndexText.toInt();
+
 					QString lastFile = fileList.last();
 					QString maxIndexText = lastFile.mid(
 						firstPercent - filenameString.length() + lastFile.length(), numberOfPercents);
 					int maxIndex = maxIndexText.toInt();
 
-					int frameModulo = frame % (maxIndex + 1);
+					int frameModulo = (frame % (maxIndex + 1 - minIndex)) + minIndex;
 
 					// correct frame number
 					numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
