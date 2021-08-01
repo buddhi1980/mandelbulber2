@@ -16,14 +16,25 @@
 
 REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 	z += fractal->transformCommon.offset000;
-	REAL4 zc = z;
 
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR1)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
+	REAL4 zc = z;
 	REAL temp;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		REAL temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
 	}
@@ -56,7 +67,7 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
 
 	cylRm += fractal->transformCommon.scale0 * absH;
-
+	zc.z = absH;
 	// tops
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
@@ -82,5 +93,11 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 
 	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+				z = zc;
+
 	return z;
 }

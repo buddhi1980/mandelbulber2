@@ -33,6 +33,13 @@ void cFractalTransfDIFSTorusV2::FormulaCode(CVector4 &z, const sFractal *fractal
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR1)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	CVector4 zc = z;
 	double torD;
 	double lenX = 0.0;
@@ -40,9 +47,9 @@ void cFractalTransfDIFSTorusV2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
 		swap(zc.x, zc.z);
-	}
+	if (fractal->transformCommon.functionEnabledSFalse)
+		swap(zc.y, zc.z);
 
 	CVector4 absZ = fabs(zc);
 	if (fractal->transformCommon.functionEnabledMFalse)

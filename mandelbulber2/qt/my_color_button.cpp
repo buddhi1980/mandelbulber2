@@ -36,8 +36,8 @@
 
 #include <QtWidgets/QtWidgets>
 
-#include "src/system_data.hpp"
 #include "src/animation_flight.hpp"
+#include "src/system_data.hpp"
 
 MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent), CommonMyWidgetWrapper(this)
 {

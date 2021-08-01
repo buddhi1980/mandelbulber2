@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod15</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>3809</height>
+    <height>5826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,7 +64,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_72">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -90,7 +90,7 @@
         <item row="3" column="2">
          <widget class="QLabel" name="label_52">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -145,7 +145,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_74">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -171,7 +171,7 @@
         <item row="3" column="2">
          <widget class="QLabel" name="label_54">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -345,14 +345,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_262">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="2">
          <widget class="QLabel" name="label_265">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -434,7 +434,7 @@
         <item row="1" column="0" rowspan="5">
          <widget class="QLabel" name="label_46">
           <property name="text">
-           <string notr="true">Reverse
+           <string notr="true">reverse
 offset</string>
           </property>
          </widget>
@@ -562,7 +562,7 @@ offset</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_23">
           <property name="text">
-           <string>InvertR2:</string>
+           <string>invertRR:</string>
           </property>
          </widget>
         </item>
@@ -681,7 +681,7 @@ offset</string>
         <item row="0" column="0" rowspan="3">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Post
+           <string>post
 offset:</string>
           </property>
          </widget>
@@ -721,7 +721,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -738,7 +738,7 @@ offset:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_75">
        <property name="text">
-        <string>Start at iteration:</string>
+        <string>start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -764,7 +764,7 @@ offset:</string>
      <item row="3" column="2">
       <widget class="QLabel" name="label_55">
        <property name="text">
-        <string>Stop at iteration:</string>
+        <string>stop at iteration:</string>
        </property>
       </widget>
      </item>
@@ -791,7 +791,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_106">
        <property name="text">
-        <string>Fold y:</string>
+        <string>fold y:</string>
        </property>
        <property name="buddy">
         <cstring>spinbox3_transf_addition_constant_111_y</cstring>
@@ -823,7 +823,7 @@ offset:</string>
      <item row="0" column="0">
       <widget class="QLabel" name="label_105">
        <property name="text">
-        <string>Fold x:</string>
+        <string>fold x:</string>
        </property>
        <property name="buddy">
         <cstring>spinbox3_transf_addition_constant_111_x</cstring>
@@ -880,7 +880,7 @@ offset:</string>
      <item row="2" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
-        <string notr="true">Fold z:</string>
+        <string notr="true">fold z:</string>
        </property>
       </widget>
      </item>
@@ -901,7 +901,7 @@ offset:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_71">
        <property name="text">
-        <string>Start at iteration:</string>
+        <string>start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -927,7 +927,7 @@ offset:</string>
      <item row="3" column="2">
       <widget class="QLabel" name="label_51">
        <property name="text">
-        <string>Stop at iteration:</string>
+        <string>stop at iteration:</string>
        </property>
       </widget>
      </item>
@@ -954,7 +954,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>Offset1:</string>
+        <string>offset1:</string>
        </property>
       </widget>
      </item>
@@ -1118,7 +1118,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_70">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1144,7 +1144,7 @@ offset:</string>
         <item row="3" column="2">
          <widget class="QLabel" name="label_50">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1196,7 +1196,7 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_32">
           <property name="text">
-           <string>MinimumR2:</string>
+           <string>minRR:</string>
           </property>
          </widget>
         </item>
@@ -1231,7 +1231,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_25">
           <property name="text">
-           <string>MaximumR2:</string>
+           <string>maxRR:</string>
           </property>
          </widget>
         </item>
@@ -1269,7 +1269,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_86">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1295,7 +1295,7 @@ offset:</string>
         <item row="3" column="2">
          <widget class="QLabel" name="label_59">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1385,7 +1385,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -1479,14 +1479,14 @@ offset:</string>
            <item row="2" column="0">
             <widget class="QLabel" name="label_150">
              <property name="text">
-              <string>Vary offset:</string>
+              <string>vary offset:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_145">
              <property name="text">
-              <string>Scale VaryA:</string>
+              <string>scale VaryA:</string>
              </property>
             </widget>
            </item>
@@ -1530,7 +1530,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_76">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1556,7 +1556,7 @@ offset:</string>
         <item row="3" column="2">
          <widget class="QLabel" name="label_58">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1734,7 +1734,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_90">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1760,7 +1760,7 @@ offset:</string>
         <item row="3" column="2">
          <widget class="QLabel" name="label_62">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1788,7 +1788,7 @@ offset:</string>
          <widget class="QLabel" name="label_108">
           <property name="text">
            <string>Cpixel
-Multiplier:</string>
+multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1910,7 +1910,7 @@ Multiplier:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_89">
        <property name="text">
-        <string>Start at iteration:</string>
+        <string>start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -1936,7 +1936,7 @@ Multiplier:</string>
      <item row="3" column="2">
       <widget class="QLabel" name="label_61">
        <property name="text">
-        <string>Stop at iteration:</string>
+        <string>stop at iteration:</string>
        </property>
       </widget>
      </item>
@@ -1963,7 +1963,7 @@ Multiplier:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>Offset2:</string>
+        <string>offset2:</string>
        </property>
       </widget>
      </item>
@@ -2122,7 +2122,7 @@ Multiplier:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_73">
        <property name="text">
-        <string>Start at iteration:</string>
+        <string>start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -2148,7 +2148,7 @@ Multiplier:</string>
      <item row="3" column="2">
       <widget class="QLabel" name="label_53">
        <property name="text">
-        <string>Stop at iteration:</string>
+        <string>stop at iteration:</string>
        </property>
       </widget>
      </item>
@@ -3019,7 +3019,7 @@ Multiplier:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_47">
           <property name="text">
-           <string>&gt; MaxR2:</string>
+           <string>&gt; maxRR:</string>
           </property>
          </widget>
         </item>

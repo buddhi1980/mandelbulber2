@@ -19,6 +19,14 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL4 zc = z;
 
 	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		REAL temp = zc.x;
+		zc.x = zc.y;
+		zc.y = temp;
+	}
+
+	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		REAL temp = zc.x;

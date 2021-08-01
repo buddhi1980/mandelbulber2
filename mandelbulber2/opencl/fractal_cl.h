@@ -640,6 +640,7 @@ typedef struct
 	cl_int stopIterationsP1;
 	cl_int startIterationsR;
 	cl_int stopIterationsR;
+	cl_int stopIterationsR1;
 	cl_int startIterationsRV;
 	cl_int stopIterationsRV;
 	cl_int startIterationsS;
@@ -655,6 +656,8 @@ typedef struct
 	cl_int stopIterationsY;
 	cl_int startIterationsZ;
 	cl_int stopIterationsZ;
+	cl_int startIterationsZc;
+	cl_int stopIterationsZc;
 
 	cl_int stopIterations1;
 
@@ -814,8 +817,10 @@ typedef struct
 	cl_int functionEnabledTFalse;
 	cl_int functionEnabledXFalse;
 	cl_int functionEnabledYFalse;
+	cl_int functionEnabledZcFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
+	cl_int rotationEnabledFalse;
 	cl_int rotation2EnabledFalse;
 	cl_int sphereInversionEnabledFalse;
 	cl_int spheresEnabled;
@@ -1267,7 +1272,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 {
 	sFractalTransformCommonCl target;
 	target.angle0 = source.angle0;
-
 	target.angleDegA = source.angleDegA;
 	target.angleDegB = source.angleDegB;
 	target.angleDegC = source.angleDegC;
@@ -1277,7 +1281,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.sinA = source.sinA;
 	target.sinB = source.sinB;
 	target.sinC = source.sinC;
-
 	target.angle72 = source.angle72;
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;
@@ -1403,6 +1406,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsP1 = source.stopIterationsP1;
 	target.startIterationsR = source.startIterationsR;
 	target.stopIterationsR = source.stopIterationsR;
+	target.stopIterationsR1 = source.stopIterationsR1;
 	target.startIterationsRV = source.startIterationsRV;
 	target.stopIterationsRV = source.stopIterationsRV;
 	target.startIterationsS = source.startIterationsS;
@@ -1418,6 +1422,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsY = source.stopIterationsY;
 	target.startIterationsZ = source.startIterationsZ;
 	target.stopIterationsZ = source.stopIterationsZ;
+	target.startIterationsZc = source.startIterationsZc;
+	target.stopIterationsZc = source.stopIterationsZc;
 	target.stopIterations1 = source.stopIterations1;
 	target.intA = source.intA;
 	target.intB = source.intB;
@@ -1568,8 +1574,10 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledTFalse = source.functionEnabledTFalse;
 	target.functionEnabledXFalse = source.functionEnabledXFalse;
 	target.functionEnabledYFalse = source.functionEnabledYFalse;
+	target.functionEnabledZcFalse = source.functionEnabledZcFalse;
 	target.juliaMode = source.juliaMode;
 	target.rotationEnabled = source.rotationEnabled;
+	target.rotationEnabledFalse = source.rotationEnabledFalse;
 	target.rotation2EnabledFalse = source.rotation2EnabledFalse;
 	target.sphereInversionEnabledFalse = source.sphereInversionEnabledFalse;
 	target.spheresEnabled = source.spheresEnabled;

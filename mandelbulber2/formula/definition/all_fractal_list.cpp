@@ -104,6 +104,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbPower1234());
 	fractalList->append(new cFractalMandelbulbPower2());
 	fractalList->append(new cFractalMandelbulbPow2V2());
+	fractalList->append(new cFractalMandelbulbPow2V3());
 	fractalList->append(new cFractalMandelbulbQuadrat());
 	fractalList->append(new cFractalMandelbulbQuat());
 	fractalList->append(new cFractalMandelbulbVaryPowerV1());
@@ -274,6 +275,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSGridV3());
 	fractalList->append(new cFractalTransfDIFSHextgrid2());
 	fractalList->append(new cFractalTransfDIFSHexprism());
+	fractalList->append(new cFractalTransfDIFSHexprismV2());
 	fractalList->append(new cFractalTransfDIFSPolyhedra());
 	fractalList->append(new cFractalTransfDIFSPolyhedraV2());
 	fractalList->append(new cFractalTransfDIFSPrism());
@@ -284,6 +286,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSTorusV2());
 	fractalList->append(new cFractalTransfDIFSTorusV3());
 	fractalList->append(new cFractalTransfDIFSTorusGrid());
+	fractalList->append(new cFractalTransfDIFSTriGrid());
 
 	fractalList->append(new cFractalTransfDIFSHybridColor());
 
@@ -370,6 +373,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAddCpixelSinOrCos());
 	fractalList->append(new cFractalTransfAddCpixelSphereFold());
 	fractalList->append(new cFractalTransfAddCpixelSymmetrical());
+	fractalList->append(new cFractalTransfAddCpixelTile());
 	fractalList->append(new cFractalTransfAddCpixelVaryV1());
 
 	// Benesi Transforms

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,33 +16,43 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 signs = sign(aux->const_c);
+	REAL4 signs;
+	signs.x = sign(aux->const_c.x);
+	signs.y = sign(aux->const_c.y);
+	signs.z = sign(aux->const_c.z);
+	signs.w = 0.0f;
 
 	REAL4 offset = fractal->transformCommon.offset000;
 	if (!fractal->transformCommon.functionEnabledEFalse) offset *= signs;
 
-
 	REAL4 temp;
-	if (!fractal->transformCommon.functionEnabledAFalse) temp = aux->const_c - offset;
-	else temp = z - offset;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+		temp = aux->const_c - offset;
+	else
+		temp = z - offset;
 
 	REAL r = dot(temp, temp);
-	if (fractal->transformCommon.functionEnabledBFalse) r = sqrt(r);
 
-	//CVector4 offset1 = fractal->transformCommon.offset111;
-	//if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
-	//t = offset1 + t;
+	if (fractal->transformCommon.functionEnabledBFalse) r = native_sqrt(r);
+
+	// REAL4 offset1 = fractal->transformCommon.offset111;
+	// if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
+	// t = offset1 + t;
+
 	REAL4 offset1 = fractal->transformCommon.offsetA000;
-	if (fractal->transformCommon.functionEnabledCFalse)	offset1  *= signs;
+	if (fractal->transformCommon.functionEnabledCFalse) offset1 *= signs;
+
 	if (r > fractal->transformCommon.radius1)
 	{
-		temp = temp * (1.0 - fractal->transformCommon.radius1 / r);
+		temp = (temp * (1.0f - fractal->transformCommon.radius1 / r));
+		// if (fractal->transformCommon.functionEnabledCFalse)	temp *= sign(z);
 		z += temp + offset1;
+		//	z = fabs(z);
 	}
 	else
 	{
 		if (fractal->transformCommon.functionEnabledDFalse)
-			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0);
+			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0f);
 	}
 
 	if (fractal->analyticDE.enabledFalse)

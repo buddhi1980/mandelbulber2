@@ -254,7 +254,6 @@ enum enumFractalFormula
 	aboxKlein = 222,
 	aboxTetra = 223,
 	amazingSurfKleinV2 = 224,
-
 	// 2.25
 	josKleinianV3 = 225,
 	aboxMod15 = 226,
@@ -273,6 +272,7 @@ enum enumFractalFormula
 	boxFoldBulbV4 = 237,
 	mandelbulbQuadrat = 238,
 	amazingIfs = 239,
+	mandelbulbPow2V3 = 240,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -287,7 +287,7 @@ enum enumFractalFormula
 	dIFSPrism = 609,
 	dIFSMsltoeDonut = 610,
 	dIFSMultiV1 = 611,
-	dIFSSAmazingIfs = 612,
+	dIFSAmazingIfs = 612,
 
 	mandelbulbEye = 800,
 
@@ -447,6 +447,7 @@ enum enumFractalFormula
 	transfQuadraticFold4d = 1134,
 	transfAddCpixelInvert = 1135,
 	transfAddCpixelSphereFold = 1136,
+	transfAddCpixelTile = 1137,
 
 	// mandelbulber transfdIFS
 	// 2.20
@@ -480,6 +481,8 @@ enum enumFractalFormula
 	// 2.26
 	transfDIFSSpring = 1623,
 	transfDIFSAmazingIfs = 1624,
+	transfDIFSHexprismV2 = 1625,
+	transfDIFSTriGrid = 1626,
 
 	// hybrid color
 	transfHybridColor = 2000,

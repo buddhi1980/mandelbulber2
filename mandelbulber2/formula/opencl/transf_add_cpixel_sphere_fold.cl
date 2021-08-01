@@ -16,7 +16,6 @@
 
 REAL4 TransfAddCpixelSphereFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL4 cv = aux->const_c;
 	REAL rr = dot(cv, cv);
 	cv += fractal->mandelbox.offset;
@@ -33,13 +32,13 @@ REAL4 TransfAddCpixelSphereFoldIteration(REAL4 z, __constant sFractalCl *fractal
 	if (fractal->transformCommon.functionEnabledBFalse && rr >= fractal->transformCommon.maxR2d1)
 		cv = cv * (1.0 - (fractal->transformCommon.maxR2d1 - rr) / rr);
 
+	if (fractal->transformCommon.functionEnabledDFalse && rr >= fractal->transformCommon.maxR2d1)
+		cv = cv * fractal->transformCommon.maxR2d1;
+
 	if (fractal->transformCommon.functionEnabledCFalse && rr >= fractal->transformCommon.maxR2d1)
 	{
 		cv = cv * (1.0 - (rr - fractal->transformCommon.maxR2d1) / fractal->transformCommon.scale1);
 	}
-	if (fractal->transformCommon.functionEnabledDFalse && rr >= fractal->transformCommon.maxR2d1)
-		cv = cv * fractal->transformCommon.maxR2d1;
-
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -52,12 +51,18 @@ REAL4 TransfAddCpixelSphereFoldIteration(REAL4 z, __constant sFractalCl *fractal
 
 	z += cv * fractal->transformCommon.constantMultiplier111;
 
-
 	// Analytic DE tweak
-
 	if (fractal->analyticDE.enabledFalse)
 			aux->DE = aux->DE * fractal->analyticDE.scale1
 								+ fractal->analyticDE.offset0;
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux->color += fabs(cv.x * cv.y) * fractal->foldColor.difs0000.x;
+		aux->color += (cv.x * cv.x + cv.y * cv.y) * fractal->foldColor.difs0000.y;
+		aux->color += fabs(cv.z) * fractal->foldColor.difs0000.z;
+	}
 
 	return z;
 }

@@ -9,14 +9,18 @@ v2.26 (????l 2021)
    dIFSSAmazingIfs
    hypercomplexV2
    mandelbar
+   mandelbulbPow2V3
    mandelbulbQuadrat
    mandelnestV2
    pseudoKleinian4d
    transfAddCpixelInvert
    transfAddCpixelSphereFold
+   transfAddCpixelTile
    transfAddScaleRotate
    transfDIFSAmazingIfs
+   transfDIFSHexprismV2
    transfDIFSSpring
+   transfDIFSTriGrid
    transfQuadraticFold4d
    transfRotationM3d
    transfSphericalCoordInvs
@@ -24,10 +28,13 @@ v2.26 (????l 2021)
    transfSphericalInvPnorm
 
 
+
 - modified fractal formulas
    mandelnest, added checkbox for aux.dist
    benesi, added z.x conditional offset
    transfParabFold, factorP.w = 0.0;
+   pseudoKleinianMod3 add rotation
+   transfDIFSHexprism add hollow
 
 
 

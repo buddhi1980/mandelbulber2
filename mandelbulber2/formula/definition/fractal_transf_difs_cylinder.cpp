@@ -31,6 +31,14 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	CVector4 zc = z;
 
 	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		double temp = zc.x;
+		zc.x = zc.y;
+		zc.y = temp;
+	}
+
+	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
 	double cylR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;

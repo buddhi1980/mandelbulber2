@@ -26,24 +26,46 @@ cFractalTransfAddCpixelInvert::cFractalTransfAddCpixelInvert() : cAbstractFracta
 
 void cFractalTransfAddCpixelInvert::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 pc = aux.const_c;
+	CVector4 cv = aux.const_c;
 
-	if (!fractal->transformCommon.functionEnabledAxFalse) pc.x = 1.0 / pc.x;
-	if (!fractal->transformCommon.functionEnabledAyFalse) pc.y = 1.0 / pc.y;
-	if (!fractal->transformCommon.functionEnabledAzFalse) pc.z = 1.0 / pc.z;
+	if (!fractal->transformCommon.functionEnabledAxFalse) cv.x = 1.0 / cv.x;
+	if (!fractal->transformCommon.functionEnabledAyFalse) cv.y = 1.0 / cv.y;
+	if (!fractal->transformCommon.functionEnabledAzFalse) cv.z = 1.0 / cv.z;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		pc.x = min(fabs(pc.x), fractal->transformCommon.scale1);
-		pc.y = min(fabs(pc.y), fractal->transformCommon.scale1);
-		pc.z = min(fabs(pc.z), fractal->transformCommon.scale1);
+		cv.x = min(fabs(cv.x), fractal->transformCommon.scale1);
+		cv.y = min(fabs(cv.y), fractal->transformCommon.scale1);
+		cv.z = min(fabs(cv.z), fractal->transformCommon.scale1);
 	}
 
-	z.x += pc.x * fractal->transformCommon.constantMultiplier111.x;
-	z.y += pc.y * fractal->transformCommon.constantMultiplier111.y;
-	z.z += pc.z * fractal->transformCommon.constantMultiplier111.z;
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		cv.x *= sign(aux.const_c.x);
+		cv.y *= sign(aux.const_c.y);
+		cv.z *= sign(aux.const_c.z);
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		cv.x *= sign(z.x);
+		cv.y *= sign(z.y);
+		cv.z *= sign(z.z);
+	}
+
+	z.x += cv.x * fractal->transformCommon.constantMultiplier111.x;
+	z.y += cv.y * fractal->transformCommon.constantMultiplier111.y;
+	z.z += cv.z * fractal->transformCommon.constantMultiplier111.z;
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux.color += fabs(cv.x * cv.y) * fractal->foldColor.difs0000.x;
+		aux.color += (cv.x * cv.x + cv.y * cv.y) * fractal->foldColor.difs0000.y;
+		aux.color += fabs(cv.z) * fractal->foldColor.difs0000.z;
+	}
 }

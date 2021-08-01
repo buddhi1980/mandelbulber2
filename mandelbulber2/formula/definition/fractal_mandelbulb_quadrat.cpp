@@ -16,7 +16,7 @@
 
 cFractalMandelbulbQuadrat::cFractalMandelbulbQuadrat() : cAbstractFractal()
 {
-	nameInComboBox = "Mandelbulb Quadrat";
+	nameInComboBox = "Mandelbulb - Quadrat";
 	internalName = "mandelbulb_quadrat";
 	internalID = fractal::mandelbulbQuadrat;
 	DEType = analyticDEType;

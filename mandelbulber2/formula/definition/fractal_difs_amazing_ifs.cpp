@@ -17,7 +17,7 @@ cFractalDIFSAmazingIfs::cFractalDIFSAmazingIfs() : cAbstractFractal()
 {
 	nameInComboBox = "DIFS Amazing IFS";
 	internalName = "difs_amazing_ifs";
-	internalID = fractal::dIFSSAmazingIfs;
+    internalID = fractal::dIFSAmazingIfs;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -42,9 +42,9 @@ void cFractalDIFSAmazingIfs::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
-		z.x = fabs(z.x);
+		z.y = fabs(z.y);
 		double psi = M_PI / fractal->transformCommon.int6;
-		psi = fabs(fmod(atan(z.y / z.x) + psi, 2.0 * psi) - psi);
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;

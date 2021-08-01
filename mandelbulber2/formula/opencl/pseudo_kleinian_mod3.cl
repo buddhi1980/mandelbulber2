@@ -97,6 +97,13 @@ REAL4 PseudoKleinianMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.z -= sign(z.z) * tempFAB.z;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 

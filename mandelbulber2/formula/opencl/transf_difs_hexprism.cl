@@ -19,6 +19,22 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL lenY = fractal->transformCommon.offsetA1;
 	REAL4 zc = fabs(z);
 
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		REAL temp = zc.x;
+		zc.x = zc.y;
+		zc.y = temp;
+	}
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
+
 	REAL4 k = (REAL4){-SQRT_3_4_F, 0.5f, SQRT_1_3_F, 0.0f};
 
 	REAL tp = 2.0f * min(k.x * zc.x + k.y * zc.y, 0.0f);
@@ -32,9 +48,12 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	dx = tp * sign(zc.y - lenX);
 	dy = zc.z - lenY;
 
+	if (fractal->transformCommon.functionEnabledDFalse)
+		dx = fabs(dx) - fractal->transformCommon.offset0;
+
 	REAL maxdx = max(dx, 0.0f);
 	REAL maxdy = max(dy, 0.0f);
-
+//cylR = fabs(cylR) - fractal->transformCommon.offset0;
 	tp = native_sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux->DE0 = min(max(dx, dy), 0.0f) + tp;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + 1.0f));

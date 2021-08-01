@@ -15,7 +15,7 @@
 cFractalPseudoKleinian4d::cFractalPseudoKleinian4d() : cAbstractFractal()
 {
 	nameInComboBox = "Pseudo Kleinian - 4D";
-	internalName = "pseudo_kleinian_4d";
+	internalName = "pseudo_kleinian4d";
 	internalID = fractal::pseudoKleinian4d;
 	DEType = analyticDEType;
 	// DEFunctionType = pseudoKleinianDEFunction;
@@ -103,6 +103,13 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 				- fabs(z - fractal->transformCommon.offsetB1111) - z;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	CVector4 zz = z * z;
 	double d1 = 0.0;
 	if (!fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y + zz.w);
@@ -126,7 +133,6 @@ void cFractalPseudoKleinian4d::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (aux.i >= fractal->foldColor.startIterationsA
 				&& aux.i < fractal->foldColor.stopIterationsA)
 		{
-
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 			colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);

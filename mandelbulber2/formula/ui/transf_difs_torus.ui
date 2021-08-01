@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_torus</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -30,11 +30,11 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,1">
+    <layout class="QGridLayout" name="gridLayout_69" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="1">
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_05">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -62,14 +62,28 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>radius1:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+       <property name="text">
+        <string>square cross-section</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
       <widget class="QLabel" name="label_17">
        <property name="text">
         <string>tube radius:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetT_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -97,10 +111,17 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_9">
+     <item row="2" column="0" rowspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
        <property name="text">
-        <string>radius1:</string>
+        <string>swap axis XZ</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" rowspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+       <property name="text">
+        <string>swap axis YZ</string>
        </property>
       </widget>
      </item>
@@ -209,6 +230,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -1,0 +1,60 @@
+# Mandelbulber settings file
+# version 2.26
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 92,4487578690444 -19,497300061921 -3,00863693838877;
+camera_distance_to_target 12,463805987698;
+camera_rotation 87,5885631439226 11,0811414510013 -44,9999999999997;
+camera_top 0,106033263710876 -0,712198826852629 0,693923466973526;
+DE_factor 0,18197;
+flight_last_to_render 0;
+formula_1 234;
+fov 53,130102354156;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_coloring_palette_offset 0,16;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+target 80,2281588779973 -18,9826615392376 -0,613106268586146;
+view_distance_max 765,685424949238;
+[fractal_1]
+analyticDE_scale_1 0,3;
+transf_addition_constant_0000 0 -0,110639 0 0;
+transf_function_enabled_false true;
+transf_function_enabledA_false true;
+transf_function_enabledB_false true;
+transf_function_enabledD_false true;
+transf_function_enabledF_false true;
+transf_function_enabledG_false true;
+transf_function_enabledK_false true;
+transf_offset_0 0,3;
+transf_offset_1111 0,863928 1,015496 1 1;
+transf_offsetB_1111 0,968999 1,024511 1 1;
+transf_scale_0000 -0,069808 0 0,191006 0;
+transf_scale_1 0,3;
+transf_start_iterations_M 2;
+transf_stop_iterations_D1 3;
+transf_stop_iterations_M 6;
+[fractal_2]
+info true;
+mandelbox_folding_limit -0,5;
+mandelbox_folding_value 0;
+transf_addition_constant 1,935484 0 0;
+transf_addition_constant_0000 0,1 -0,5 0,1 -0,2;
+transf_constant_multiplier_111 2,934272 2,089201 1,877934;
+transf_function_enabledy_false true;
+transf_function_enabledz_false true;
+transf_int_A 5;
+transf_int_B 5;
+transf_offset 0,7;
+transf_offset_0 0,8;
+transf_scale_0 0,034722;
+transf_scale_2 1,079812;

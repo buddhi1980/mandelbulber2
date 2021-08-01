@@ -109,6 +109,13 @@ void cFractalPseudoKleinianMod3::FormulaCode(
 		z.z -= sign(z.z) * tempFAB.z;
 	}
 
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 

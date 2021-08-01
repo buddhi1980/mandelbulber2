@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * @reference
+ * @reference trans-qIFS
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
@@ -43,7 +43,7 @@ void cFractalTransfQuadraticFold4d::FormulaCode(
 		a.y = a.y - 1.0;
 		double by = 1.0 - a.y;
 		if (z.y > 0.0) z.y = a.y * z.y * z.y + by * z.y;
-	} // y = 0 -> newy = 0 and y = 1 -> newy = 1
+	}
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
