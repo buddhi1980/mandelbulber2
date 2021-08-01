@@ -22,7 +22,15 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	else
 		zc = z;
 
-	if (fractal->transformCommon.functionEnabledTFalse)
+
+
+
+
+
+
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
 		zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
@@ -63,6 +71,30 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
+
+
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(zc.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = native_cos(psi) * len;
+		zc.y = native_sin(psi) * len;
+	}
+
+
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
+	}
+	zc += fractal->transformCommon.offset000;
+
 
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;

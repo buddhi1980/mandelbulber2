@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -32,7 +32,13 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
 	else zc = z;
 
-	if (fractal->transformCommon.functionEnabledTFalse)
+
+
+
+
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
 		zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
@@ -77,6 +83,32 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = cos(psi) * len;
+		zc.y = sin(psi) * len;
+	}
+
+
+
+
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
+	}
+	zc += fractal->transformCommon.offset000;
+
+
+
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;
 
@@ -120,7 +152,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	// plane
 
-	double plD = fabs(c.z + fractal->transformCommon.offsetF0)
+	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
 			- fractal->transformCommon.offset0005;
 
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
@@ -182,8 +214,26 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			aux.color += addColor;
 	}
 
-	e = min(e, d);
+	e = min(e, d); //clip value
+	// plane
+	double a = 1000.;
+
+
+	//if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		a = fabs(aux.const_c.z - fractal->transformCommon.offsetA0)
+				- fractal->transformCommon.offsetB0;
+		//tp = min(tp, d);
+		//if (tp == d) aux.color += fractal->foldColor.difs1;
+	}
+
+
+
 	aux.DE0 = max(b, e);
+	//aux.DE0 = min(plD, a);
+
+
+	//aux.DE0 = max(aux.DE0, e);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0;

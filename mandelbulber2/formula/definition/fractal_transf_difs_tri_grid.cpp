@@ -77,7 +77,7 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 	// plane
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		double d = fabs(aux.const_c.z + fractal->transformCommon.offsetA0)
+		double d = fabs(aux.const_c.z - fractal->transformCommon.offsetA0)
 				- fractal->transformCommon.offsetB0;
 		tp = min(tp, d);
 		if (tp == d) aux.color += fractal->foldColor.difs1;

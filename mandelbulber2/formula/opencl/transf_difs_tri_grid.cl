@@ -65,7 +65,7 @@ REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// plane
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL d = fabs(aux->const_c.z + fractal->transformCommon.offsetA0)
+		REAL d = fabs(aux->const_c.z - fractal->transformCommon.offsetA0)
 				- fractal->transformCommon.offsetB0;
 		tp = min(tp, d);
 		if (tp == d) aux->color += fractal->foldColor.difs1;
