@@ -58,7 +58,7 @@
             <x>0</x>
             <y>0</y>
             <width>597</width>
-            <height>742</height>
+            <height>769</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -103,8 +103,12 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="1">
-                 <widget class="MyLineEdit" name="text_default_image_path"/>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_textures_path">
+                  <property name="text">
+                   <string>Textures:</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="1" column="2">
                  <widget class="QPushButton" name="pushButton_select_settings_path">
@@ -117,10 +121,20 @@
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="1">
+                 <widget class="MyLineEdit" name="text_default_image_path"/>
+                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_settings_path">
                   <property name="text">
                    <string>Settings:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_textures_path_2">
+                  <property name="text">
+                   <string>Toolbar</string>
                   </property>
                  </widget>
                 </item>
@@ -135,6 +149,23 @@
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="2">
+                 <widget class="QPushButton" name="pushButton_select_textures_path">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="folder" resource="icons.qrc">
+                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="MyLineEdit" name="text_default_textures_path"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="MyLineEdit" name="text_default_settings_path"/>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_image_path">
                   <property name="text">
@@ -142,21 +173,11 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="MyLineEdit" name="text_default_settings_path"/>
+                <item row="3" column="1">
+                 <widget class="MyLineEdit" name="text_toolbar_path"/>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_textures_path">
-                  <property name="text">
-                   <string>Textures:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="MyLineEdit" name="text_default_textures_path"/>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QPushButton" name="pushButton_select_textures_path">
+                <item row="3" column="2">
+                 <widget class="QPushButton" name="pushButton_select_toolbar_path">
                   <property name="text">
                    <string/>
                   </property>
@@ -702,7 +723,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
+            <width>367</width>
             <height>752</height>
            </rect>
           </property>
@@ -1371,8 +1392,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
-            <height>762</height>
+            <width>264</width>
+            <height>831</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">

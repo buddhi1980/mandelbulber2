@@ -468,6 +468,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		"default_textures_path", systemDirectories.sharedDir + "textures", morphNone, paramApp);
 	par->addParam(
 		"default_settings_path", systemDirectories.GetSettingsFolder(), morphNone, paramApp);
+	par->addParam("toolbar_path", systemDirectories.GetToolbarFolder(), morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
 	par->addParam("queue_image_format", 0, morphNone, paramApp, qslImageType);

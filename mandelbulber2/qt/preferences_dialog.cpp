@@ -193,6 +193,17 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 	}
 }
 
+void cPreferencesDialog::on_pushButton_select_toolbar_path_clicked()
+{
+	QString dir = QDir::toNativeSeparators(
+		QFileDialog::getExistingDirectory(this, tr("Select default directory for toolbar presets"),
+			QDir::toNativeSeparators(ui->text_toolbar_path->text())));
+	if (dir.length() > 0)
+	{
+		ui->text_toolbar_path->setText(dir);
+	}
+}
+
 void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 {
 	QDir thumbnailDir(systemDirectories.GetThumbnailsFolder());

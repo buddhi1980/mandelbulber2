@@ -398,7 +398,7 @@ void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 {
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started", 2);
-	QDir toolbarDir = QDir(systemDirectories.GetToolbarFolder());
+	QDir toolbarDir = QDir(gPar->Get<QString>("toolbar_path"));
 	toolbarDir.setSorting(QDir::Time);
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamplesLoad = new QSignalMapper(this);
@@ -435,8 +435,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			// already present
 			continue;
 		}
-		QString filename =
-			systemDirectories.GetToolbarFolder() + QDir::separator() + toolbarFiles.at(i);
+		QString filename = gPar->Get<QString>("toolbar_path") + QDir::separator() + toolbarFiles.at(i);
 		cThumbnailWidget *thumbWidget = nullptr;
 
 		if (QFileInfo(filename).suffix() == QString("fract"))

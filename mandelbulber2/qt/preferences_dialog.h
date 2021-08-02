@@ -58,6 +58,7 @@ private slots:
 	void on_pushButton_select_image_path_clicked();
 	void on_pushButton_select_settings_path_clicked();
 	void on_pushButton_select_textures_path_clicked();
+	void on_pushButton_select_toolbar_path_clicked();
 	void on_pushButton_clear_thumbnail_cache_clicked() const;
 	void on_pushButton_load_thumbnail_cache_clicked() const;
 	void on_pushButton_generate_thumbnail_cache_clicked();
@@ -70,6 +71,7 @@ private slots:
 	void on_groupCheck_opencl_enabled_toggled(bool state);
 	void on_comboBox_opencl_device_type_currentIndexChanged(int index);
 	void on_pushButton_select_clang_format_path_clicked();
+
 #endif
 
 private:
