@@ -129,11 +129,11 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 
 		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellChanged, this,
 			&cKeyframeAnimation::slotTableCellChanged);
-		connect(ui->spinboxInt_keyframe_first_to_render, QOverload<int>::of(&QSpinBox::valueChanged),
-			this, &cKeyframeAnimation::slotMovedSliderFirstFrame);
-		connect(ui->spinboxInt_keyframe_last_to_render, QOverload<int>::of(&QSpinBox::valueChanged),
-			this, &cKeyframeAnimation::slotMovedSliderLastFrame);
-		connect(ui->spinboxInt_frames_per_keyframe, QOverload<int>::of(&QSpinBox::valueChanged), this,
+		connect(ui->spinboxInt_keyframe_first_to_render, &QSpinBox::editingFinished, this,
+			&cKeyframeAnimation::slotMovedSliderFirstFrame);
+		connect(ui->spinboxInt_keyframe_last_to_render, &QSpinBox::editingFinished, this,
+			&cKeyframeAnimation::slotMovedSliderLastFrame);
+		connect(ui->spinboxInt_frames_per_keyframe, &QSpinBox::editingFinished, this,
 			&cKeyframeAnimation::UpdateLimitsForFrameRange);
 		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellDoubleClicked, this,
 			&cKeyframeAnimation::slotCellDoubleClicked);
@@ -1097,6 +1097,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 void cKeyframeAnimation::RefreshTable()
 {
+	keyframes->UpdateFramesIndexesTable();
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
@@ -1581,13 +1582,15 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 	}
 }
 
-void cKeyframeAnimation::slotMovedSliderFirstFrame(int value) const
+void cKeyframeAnimation::slotMovedSliderFirstFrame() const
 {
+	int value = ui->spinboxInt_keyframe_first_to_render->value();
 	if (value > ui->spinboxInt_keyframe_last_to_render->value())
 		ui->spinboxInt_keyframe_last_to_render->setValue(value);
 }
-void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
+void cKeyframeAnimation::slotMovedSliderLastFrame()
 {
+	int value = ui->spinboxInt_keyframe_last_to_render->value();
 	lastToRenderMax = (value == ui->spinboxInt_keyframe_last_to_render->maximum());
 	if (value < ui->spinboxInt_keyframe_first_to_render->value())
 		ui->spinboxInt_keyframe_first_to_render->setValue(value);

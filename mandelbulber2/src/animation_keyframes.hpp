@@ -134,8 +134,8 @@ private slots:
 	void slotShowAnimation() const;
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
-	void slotMovedSliderFirstFrame(int value) const;
-	void slotMovedSliderLastFrame(int value);
+	void slotMovedSliderFirstFrame() const;
+	void slotMovedSliderLastFrame();
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column) const;
 	void slotCellClicked(int row, int column) const;

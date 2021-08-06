@@ -298,6 +298,8 @@ void SynchronizeInterfaceQSpinBox(
 				else if (mode == qInterface::write)
 				{
 					int value = par->Get<int>(props.paramName);
+					if (value > spinbox->maximum()) spinbox->setMaximum(value);
+					if (value < spinbox->minimum()) spinbox->setMinimum(value);
 					spinbox->setValue(value);
 				}
 			}
