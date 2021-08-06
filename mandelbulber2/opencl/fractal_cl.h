@@ -658,7 +658,6 @@ typedef struct
 	cl_int stopIterationsZ;
 	cl_int startIterationsZc;
 	cl_int stopIterationsZc;
-
 	cl_int stopIterations1;
 
 	cl_int intA;
