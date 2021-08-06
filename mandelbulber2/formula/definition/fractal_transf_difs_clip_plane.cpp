@@ -33,9 +33,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	else zc = z;
 
 
-
-
-
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
@@ -96,9 +93,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y = sin(psi) * len;
 	}
 
-
-
-
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
@@ -106,8 +100,6 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
-
-
 
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;
@@ -151,18 +143,14 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
 	// plane
-
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
 			- fractal->transformCommon.offset0005;
 
 	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
 
-
-
 	// clip plane
 	CVector4 cir = zc;
 	CVector4 rec = zc;
-
 
 	double d = 1000.0;
 	double e = fractal->transformCommon.offset3;

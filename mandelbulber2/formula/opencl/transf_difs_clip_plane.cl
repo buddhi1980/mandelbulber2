@@ -17,16 +17,8 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 {
 	REAL4 c = aux->const_c;
 	REAL4 zc;
-	if (!fractal->transformCommon.functionEnabledDFalse)
-		zc = c;
-	else
-		zc = z;
-
-
-
-
-
-
+	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
+	else zc = z;
 
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
@@ -63,7 +55,11 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
 		REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
-		REAL sector = round(atan2(zc.x, zc.y) / angle);
+		REAL sector = round(atan2(zc.x, zc.y) / angle);	REAL4 c = aux->const_c;
+		REAL4 zc = z;
+		if (fractal->transformCommon.functionEnabledyFalse) zc = c;
+
+		zc.z += fractal->transformCommon.offsetR0;
 		REAL an = sector * angle;
 		REAL sinan = native_sin(an);
 		REAL cosan = native_cos(an);
