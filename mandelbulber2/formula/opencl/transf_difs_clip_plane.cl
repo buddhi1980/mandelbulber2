@@ -20,6 +20,22 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
 	else zc = z;
 
+
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = native_cos(psi) * len;
+		zc.y = native_sin(psi) * len;
+	}
+
+
+
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
@@ -55,11 +71,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
 		REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
-		REAL sector = round(atan2(zc.x, zc.y) / angle);	REAL4 c = aux->const_c;
-		REAL4 zc = z;
-		if (fractal->transformCommon.functionEnabledyFalse) zc = c;
-
-		zc.z += fractal->transformCommon.offsetR0;
+		REAL sector = round(atan2(zc.x, zc.y) / angle);
 		REAL an = sector * angle;
 		REAL sinan = native_sin(an);
 		REAL cosan = native_cos(an);
@@ -67,22 +79,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
-
-
-	// polyfold
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP1)
-	{
-		zc.y = fabs(zc.y);
-		REAL psi = M_PI_F / fractal->transformCommon.int6;
-		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
-		REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
-		zc.x = native_cos(psi) * len;
-		zc.y = native_sin(psi) * len;
-	}
-
-
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
@@ -90,6 +86,8 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
+
+
 
 
 	zc.y -= fractal->transformCommon.offset0;
@@ -135,9 +133,8 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
 	// plane
+	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0) - fractal->transformCommon.offset0005;
 
-	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0)
-			- fractal->transformCommon.offset0005;
 	REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
 	// clip plane
@@ -197,8 +194,22 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			aux->color += addColor;
 	}
 
-	e = min(e, d);
-	aux->DE0 = max(b, e) - fractal->transformCommon.offset0005;
+	e = min(e, d); // clip value
+	// plane
+	REAL a = 1000.f;
+
+	// if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		a =
+			fabs(aux->const_c.z - fractal->transformCommon.offsetA0) - fractal->transformCommon.offsetB0;
+		// tp = min(tp, d);
+		// if (tp == d) aux->color += fractal->foldColor.difs1;
+	}
+
+	aux->DE0 = max(b, e);
+	// aux->DE0 = min(plD, a);
+
+	// aux->DE0 = max(aux->DE0, e);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;

@@ -57,6 +57,5 @@ REAL4 TransfAddCpixelInvertIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		aux->color += (cv.x * cv.x + cv.y * cv.y) * fractal->foldColor.difs0000.y;
 		aux->color += fabs(cv.z) * fractal->foldColor.difs0000.z;
 	}
-
 	return z;
 }

@@ -32,6 +32,18 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
 	else zc = z;
 
+	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = cos(psi) * len;
+		zc.y = sin(psi) * len;
+	}
 
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
@@ -56,7 +68,18 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			z.x -= round(z.x / sizeX) * sizeX;
 			z.x = clamp(fabs(z.x), -t.x, t.x);
 		}
-		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * sizeY
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * sizeY	// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = cos(psi) * len;
+		zc.y = sin(psi) * len;
+	}
 				&& z.y > (repeatNeg.y + 0.5) * -sizeY && sizeY != 0.0)
 		{
 			double sizeY = fractal->transformCommon.offsetA2;
@@ -80,18 +103,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
-	// polyfold
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux.i >= fractal->transformCommon.startIterationsP
-			&& aux.i < fractal->transformCommon.stopIterationsP1)
-	{
-		zc.y = fabs(z.y);
-		double psi = M_PI / fractal->transformCommon.int6;
-		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
-		double len = sqrt(zc.x * zc.x + zc.y * zc.y);
-		zc.x = cos(psi) * len;
-		zc.y = sin(psi) * len;
-	}
+
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,14 +27,17 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR1)
+	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
 
 	REAL4 zc = z;
+
 	REAL temp;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		temp = zc.x;
+		REAL temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
 	}
@@ -68,6 +71,7 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	cylRm += fractal->transformCommon.scale0 * absH;
 	zc.z = absH;
+
 	// tops
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux->i >= fractal->transformCommon.startIterationsN
@@ -97,7 +101,6 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
-				z = zc;
-
+		z = zc;
 	return z;
 }

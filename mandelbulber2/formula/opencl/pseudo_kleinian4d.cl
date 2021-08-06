@@ -121,7 +121,6 @@ REAL4 PseudoKleinian4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (aux->i >= fractal->foldColor.startIterationsA
 				&& aux->i < fractal->foldColor.stopIterationsA)
 		{
-
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 			colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);

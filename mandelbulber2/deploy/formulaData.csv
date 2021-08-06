@@ -24,7 +24,7 @@ amazingIfs,"Amazing IFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault
 amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionAmazingSurf
 amazingSurfKlein,"Amazing Surf - Klein",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfKleinV2,"Amazing Surf - Klein V2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
-amazingSurfM3d,"Amazing Surf M3D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
+amazingSurfM3d,"Amazing Surf - M3D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod1,"Amazing Surf - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod2,"Amazing Surf - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMod3,"Amazing Surf - Mod 3",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
@@ -119,7 +119,7 @@ mandelbulbPlusZ,"Mandelbulb Plus Z",analyticDEType,logarithmicDEFunction,cpixelD
 mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower1234,"Mandelbulb - Power 1234",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
-mandelbulbQuadrat,"Mandelbulb Quadrat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbQuadrat,"Mandelbulb - Quadrat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbQuat,"Mandelbulb - Quat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbVaryPowerV1,"Mandelbulb - Vary Power V1",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelcup,Mandelcup,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -196,7 +196,6 @@ spheretree,Spheretree,analyticDEType,customDEFunction,cpixelDisabledByDefault,10
 spheretreeV2,"Spheretree V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 testing,Testing,analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
-testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 testingTransform,"Testing Transform",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100.0,analyticFunctionLinear,coloringFunctionDefault
 testingTransform2,"Testing Transform2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional,"T>Abs Add Conditional",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -226,6 +225,7 @@ transfAddCpixelScator,"T>Add Cpixel - Scator",analyticDEType,withoutDEFunction,c
 transfAddCpixelSinOrCos,"T>Add Cpixel - Sin Or Cos",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelSphereFold,"T>Add Cpixel Sphere Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelSymmetrical,"T>Add Cpixel - Symmetrical",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
+transfAddCpixelTile,"T>Add Cpixel Tile",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelVaryV1,"T>Add Cpixel - VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddExp2Z,"T>Add exp2(z)",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfAddNorm,"T>Add Norm",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
@@ -269,6 +269,7 @@ transfDIFSGrid,"T>DIFS Grid",analyticDEType,customDEFunction,cpixelDisabledByDef
 transfDIFSGridV2,"T>DIFS Grid V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSGridV3,"T>DIFS Grid V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSHexprism,"T>DIFS Hexprism",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+transfDIFSHexprismV2,"T>DIFS Hexprism V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSHextgrid2,"T>DIFS Hextgrid2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSHybridColor,"T>DIFS Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfDIFSPolyhedra,"T>DIFS Polyhedra",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
@@ -281,6 +282,7 @@ transfDIFSTorus,"T>DIFS Torus",analyticDEType,customDEFunction,cpixelDisabledByD
 transfDIFSTorusGrid,"T>DIFS Torus Grid",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSTorusV2,"T>DIFS Torus V2",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfDIFSTorusV3,"T>DIFS Torus V3",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
+transfDIFSTriGrid,"T>DIFS Tri Grid",analyticDEType,customDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionCustomDE,coloringFunctionDefault
 transfFoldingTetra3d,"T>Folding Tetra 3D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfGnarl,T>Gnarl,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
 transfHybridColor,"T>Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionNone,coloringFunctionDefault
