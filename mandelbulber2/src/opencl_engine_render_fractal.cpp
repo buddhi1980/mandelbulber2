@@ -1440,32 +1440,29 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								sRGBFloat nornalOld;
 								sRGBFloat normal;
 
-								if (constantInBuffer->params.monteCarloDenoiserEnable)
+								if (output.monteCarloLoop == 1)
 								{
-									if (output.monteCarloLoop == 1)
-									{
-										zDepth = pixelCl.zBuffer;
-										normal = sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
-									}
-									else
-									{
+									zDepth = pixelCl.zBuffer;
+									normal = sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+								}
+								else
+								{
 
-										zDepth = zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
-														 + pixelCl.zBuffer * (1.0f / output.monteCarloLoop);
+									zDepth = zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
+													 + pixelCl.zBuffer * (1.0f / output.monteCarloLoop);
 
-										sRGBFloat normalNew =
-											sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+									sRGBFloat normalNew =
+										sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
 
-										if (image->GetImageOptional()->optionalNormalWorld)
-											nornalOld = image->GetPixelNormalWorld(xx, yy);
+									if (image->GetImageOptional()->optionalNormalWorld)
+										nornalOld = image->GetPixelNormalWorld(xx, yy);
 
-										normal.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-															 + normalNew.R * (1.0f / output.monteCarloLoop);
-										normal.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-															 + normalNew.G * (1.0f / output.monteCarloLoop);
-										normal.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-															 + normalNew.B * (1.0f / output.monteCarloLoop);
-									}
+									normal.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+														 + normalNew.R * (1.0f / output.monteCarloLoop);
+									normal.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+														 + normalNew.G * (1.0f / output.monteCarloLoop);
+									normal.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+														 + normalNew.B * (1.0f / output.monteCarloLoop);
 								}
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
