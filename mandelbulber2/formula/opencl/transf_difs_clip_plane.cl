@@ -17,9 +17,10 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 {
 	REAL4 c = aux->const_c;
 	REAL4 zc;
-	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
-	else zc = z;
-
+	if (!fractal->transformCommon.functionEnabledDFalse)
+		zc = c;
+	else
+		zc = z;
 
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
@@ -33,8 +34,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = native_cos(psi) * len;
 		zc.y = native_sin(psi) * len;
 	}
-
-
 
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
@@ -59,7 +58,18 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			z.x -= round(z.x / sizeX) * sizeX;
 			z.x = clamp(fabs(z.x), -t.x, t.x);
 		}
-		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5f) * sizeY
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5f) * sizeY	//
+polyfold if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		zc.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
+		zc.x = native_cos(psi) * len;
+		zc.y = native_sin(psi) * len;
+	}
 				&& z.y > (repeatNeg.y + 0.5f) * -sizeY && sizeY != 0.0f)
 		{
 			REAL sizeY = fractal->transformCommon.offsetA2;
@@ -79,6 +89,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
+
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
@@ -86,9 +97,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
-
-
-
 
 	zc.y -= fractal->transformCommon.offset0;
 	zc.z -= fractal->transformCommon.offsetC0;

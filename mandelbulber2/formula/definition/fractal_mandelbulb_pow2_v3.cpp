@@ -5,8 +5,9 @@
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
+ *
  * mandelbulbPow2V3 reference trafassel
- *  https://fractalforums.org/fractal-mathematics-and-new-theories/28/fake-3d-mandelbrot-set/1787/msg17956#msg17956
+ * https://fractalforums.org/fractal-mathematics-and-new-theories/28/fake-3d-mandelbrot-set/1787/msg17956#msg17956
  */
 
 #include "all_fractal_definitions.h"
@@ -31,13 +32,13 @@ void cFractalMandelbulbPow2V3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		if (fractal->transformCommon.functionEnabledBxFalse)
 			z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+						- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		if (fractal->transformCommon.functionEnabledByFalse)
 			z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+						- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		if (fractal->transformCommon.functionEnabledBzFalse)
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledAFalse
@@ -57,17 +58,13 @@ void cFractalMandelbulbPow2V3::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double thetatemp = theta;
 
 	double phi_pow = 2.0 * phi + M_PI;
-	double theta_pow =
-		theta + M_PI + M_PI_2;
+	double theta_pow = theta + M_PI + M_PI_2;
 
-	if (fractal->transformCommon.functionEnabledBFalse)
-		theta_pow = theta + thetatemp + M_PI_4;
+	if (fractal->transformCommon.functionEnabledBFalse) theta_pow = theta + thetatemp + M_PI_4;
 
-	if (fractal->transformCommon.functionEnabledCFalse)
-		theta_pow = theta + thetatemp +  M_PI_2;
+	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI_2;
 
-	if (fractal->transformCommon.functionEnabledDFalse)
-		theta_pow = theta + thetatemp + M_PI;
+	if (fractal->transformCommon.functionEnabledDFalse) theta_pow = theta + thetatemp + M_PI;
 
 	double rn_sin_theta_pow = rr * sin(theta_pow);
 	z.x = rn_sin_theta_pow * cos(phi_pow);
@@ -83,8 +80,7 @@ void cFractalMandelbulbPow2V3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-
-	 // DE tweak
+	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
