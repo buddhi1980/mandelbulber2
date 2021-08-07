@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_tri_grid</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -713,7 +713,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
        <property name="text">
         <string>diamond</string>
        </property>
