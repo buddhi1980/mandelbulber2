@@ -27,6 +27,8 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	aux.DE = aux.DE * aux.r * 2.0f;
+
 	// Preparation operations
 	double fac_eff = 0.6666666666;
 	double offset = 1.0e-10;

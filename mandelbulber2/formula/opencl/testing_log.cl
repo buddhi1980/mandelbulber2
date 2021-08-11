@@ -17,6 +17,8 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	aux->DE = aux->DE * aux->r * 2.0f;
+
 	// Preparation operations
 	REAL fac_eff = 0.6666666666;
 	REAL offset = 1.0e-10;
