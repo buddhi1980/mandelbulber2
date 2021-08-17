@@ -27,39 +27,82 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledAFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
+	aux.DE = aux.DE * aux.r * 2.0f;
+
+	// Preparation operations
+	double fac_eff = 0.6666666666;
+	double offset = 1.0e-10;
+
+	double cx = 0.0;
+	double cy = 0.0;
+	double cz = 0.0;
+
+	if (fractal->transformCommon.juliaMode)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+		cx = fractal->transformCommon.constantMultiplier100.x;
+		cy = fractal->transformCommon.constantMultiplier100.y;
+		cz = fractal->transformCommon.constantMultiplier100.z;
+	}
+	else
+	{
+		cx = z.x;
+		cy = z.y;
+		cz = z.z;
 	}
 
-	aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
-	double rr = z.x * z.x + z.y * z.y;
-	double theta = atan2(z.z, sqrt(rr));
-	rr += z.z * z.z;
-	double phi = atan2(z.y, z.x);
-	double thetatemp = theta;
+	// Converting the diverging (x,y,z) back to the variable
+	// that can be used for the (converging) Newton method calculation
+	double sq_r = fractal->transformCommon.scale/(aux.r * aux.r + offset);
+	double x1 = z.x * sq_r + fractal->transformCommon.vec111.x;
+	double y1 = -z.y * sq_r + fractal->transformCommon.vec111.y;
+	double z1 = -z.z * sq_r + fractal->transformCommon.vec111.z;
 
-	double phi_pow = 2.0 * phi + M_PI;
-	double theta_pow = theta + M_PI + (M_PI / 2.0); // piAdd;+ native_divide(M_PI_F, 2.0f)
-	/*if (fractal->transformCommon.functionEnabledBFalse)
-		theta_pow = theta + (M_PI / 4.0);*/
-	// theta_pow = theta + thetatemp + native_divide(M_PI_F, 2.0f);
-	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI;
+	double x2 = x1 * x1;
+	double y2 = y1 * y1;
+	double z2 = z1 * z1;
 
-	double rn_sin_theta_pow = rr * sin(theta_pow);
-	z.x = rn_sin_theta_pow * cos(phi_pow); //  + jx
-	z.y = rn_sin_theta_pow * sin(phi_pow); // + jy
-	z.z = rr * cos(theta_pow);						 //  + jz
+	// Calculate the inverse power of t=(x,y,z),
+	// and use it for the Newton method calculations for t^power + c = 0
+	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 
-	// z.z *= -fractal->transformCommon.offset000.x;
+	sq_r = x2 + y2 + z2;
+	sq_r = 1.0 / (3.0 * sq_r * sq_r + offset);
+	double r_xy = x2 + y2;
+	double h1 = 1.0 - z2 / r_xy;
 
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	double tmpx = h1 * (x2 - y2) * sq_r;
+	double tmpy = -2.0 * h1 * x1*y1 * sq_r;
+	double tmpz = 2.0 * z1 * sqrt(r_xy) * sq_r;
 
-	// DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
+	double r_2cxy = sqrt(cx * cx + cy * cy);
+	double h2 = 1.0 - cz * tmpz / (r_2xy * r_2cxy);
+
+	double tmp2x = (cx * tmpx - cy * tmpy) * h2;
+	double tmp2y = (cy * tmpx + cx * tmpy) * h2;
+	double tmp2z = r_2cxy * tmpz + r_2xy * cz;
+
+	x1 = fac_eff * x1 - tmp2x;
+	y1 = fac_eff * y1 - tmp2y;
+	z1 = fac_eff * z1 - tmp2z;
+
+	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
+	// although the plain Newton method does always converge
+
+	double diffx = (x1 - fractal->transformCommon.vec111.x);
+	double diffy = (y1 - fractal->transformCommon.vec111.y);
+	double diffz = (z1 - fractal->transformCommon.vec111.z);
+
+	sq_r = fractal->transformCommon.scale1 / (diffx * diffx + diffy * diffy + diffz * diffz + offset);
+	z.x = diffx * sq_r;
+	z.y = -diffy * sq_r;
+	z.z = -diffz * sq_r;
+
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+
+
 }
