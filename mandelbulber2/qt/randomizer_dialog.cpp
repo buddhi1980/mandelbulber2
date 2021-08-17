@@ -123,6 +123,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 	}
 
 	// local copy of parameters
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	*actualParams = *gPar;
 	*actualFractParams = *gParFractal;
 
