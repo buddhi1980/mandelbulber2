@@ -1,6 +1,6 @@
 Version history
 
-v2.26 (????l 2021)
+v2.26 (August 2021)
 
 - Added new fractal formulas
    amazingIfs
@@ -27,8 +27,6 @@ v2.26 (????l 2021)
    transfSphericalFoldPnorm
    transfSphericalInvPnorm
 
-
-
 - modified fractal formulas
    mandelnest, added checkbox for aux.dist
    benesi, added z.x conditional offset
@@ -36,7 +34,39 @@ v2.26 (????l 2021)
    pseudoKleinianMod3 add rotation
    transfDIFSHexprism add hollow
 
-
+- Animation: Added row in keyframe table with number of frames per keyframe
+- Animation: Implemented interpolation of variable number of frames per keyframe
+- Animation: Added function to add keyframe in between two keyframes (values are interpolated)
+- Animation: Added row in keyframe table with camera speed
+- Animation: Added cubic and steffen interpolations for keyframes (work well with variable frames per keyframe)
+- Animation: Added option to delete rendered frames for chosen keyframe
+- Animation: Added button to add all parameters with non-default value to keyframe animation
+- Animation: Added option to copy value from selected cell to all keyframes
+- Animation: Added option to multiply or add value to selected range of cells in keyframe editor
+- Animation: Texture image sequences no longer need to start from 00000
+- AnimBySound: Added possibility to move keyframes in AudioSelector (dragging on the ruller)
+- AnimBySound: Added "sound delay" option in AnimBySound. Can be used to render part of animation which starts from the middle of sound
+- Shaders: Added advanced Denoiser for Monte Carlo rendering (uses zbuffer, surface normals, noise statistics)
+- Shaders: Added chromatic aberration as a post filter
+- Lights: Fixed bug in rendering of MC soft shadows for directional lights
+- OpenCL: Added rendering of HDR Blur with OpenCL
+- UI: Corrected size of color buttons and preview in load settings window for high DPI displays
+- UI: Reset View now works properly when primitive water or plane are used
+- UI: Corrected polygon counter in Mesh export function
+- UI: Added option to change path to toolbar folder (issue #813)
+- Shaders: Fixed bug in RayRecursion - there was uninitialized normal vector
+- Shaders: Fixed issue #851 - post effects were not updated when DOF was updated
+- Fractals: Changed default detail level to 2
+- Settings: Corrected loading of angle of main light from settings version <2.25
+- Settings: Fixed problem with loading wrong version of INI file
+- Settings: Fixed bug: sometimes was wrong image proportion after loading settings (issue #847)
+- Settings: First and last frame to render parameters weren't loaded properly (issue #863)
+- Randomizer: Fixed bug #867. Starting of Randomizer didn't refreshed all parameters
+- Compilation: Travis CI switched to xenial and Qt 5.91
+- Compilation: add ArchLinux docker build with OpenCL support (issue #839)
+- Files: corrected file names in cache for ResourceHttpProvider
+- Examples: Updated examples to use denoiser
+- Fixed bug: program crashed when gamepad was disconnected
 
 v2.25 (April 2021)
 
