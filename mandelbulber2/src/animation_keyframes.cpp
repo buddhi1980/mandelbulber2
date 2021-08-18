@@ -1027,9 +1027,36 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			// save frame
 			QStringList listOfSavedFiles;
 			const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
-			const ImageFileSave::enumImageFileType fileType =
-				ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
-			listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+			if (gNetRender->IsClient())
+			{
+				const ImageFileSave::enumImageFileType fileType =
+					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
+				listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+			}
+			else
+			{
+				std::shared_ptr<cImage> imageCopy(new cImage(*image.get()));
+
+				const ImageFileSave::enumImageFileType fileType =
+					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
+
+				cKeyframeSaveImageThread *savingThread =
+					new cKeyframeSaveImageThread(image, filename, fileType);
+
+				QThread *thread = new QThread();
+				thread->setObjectName("Image saving thread");
+
+				connect(thread, &QThread::started, savingThread, &cKeyframeSaveImageThread::startSaving);
+
+				connect(savingThread, &cKeyframeSaveImageThread::savingFinished, savingThread,
+					&cKeyframeSaveImageThread::deleteLater);
+				connect(savingThread, &cKeyframeSaveImageThread::savingFinished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+
+				savingThread->moveToThread(thread);
+				thread->start();
+			}
 
 			renderedFramesCount++;
 			alreadyRenderedFrames[frameIndex] = true;
@@ -2217,4 +2244,18 @@ void cKeyframeRenderThread::startAnimationRender()
 	gNetRender->SetAnimation(true);
 	gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 	emit renderingFinished();
+}
+
+cKeyframeSaveImageThread::cKeyframeSaveImageThread(std::shared_ptr<cImage> _image,
+	const QString &_filename, ImageFileSave::enumImageFileType _fileType)
+{
+	image = _image;
+	filename = _filename;
+	fileType = _fileType;
+}
+
+void cKeyframeSaveImageThread::startSaving()
+{
+	SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+	emit savingFinished();
 }

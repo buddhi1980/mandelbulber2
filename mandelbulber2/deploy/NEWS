@@ -44,6 +44,7 @@ v2.26 (August 2021)
 - Animation: Added option to copy value from selected cell to all keyframes
 - Animation: Added option to multiply or add value to selected range of cells in keyframe editor
 - Animation: Texture image sequences no longer need to start from 00000
+= Animation: Implemented saving of image frames by separate CPU thread.
 - AnimBySound: Added possibility to move keyframes in AudioSelector (dragging on the ruller)
 - AnimBySound: Added "sound delay" option in AnimBySound. Can be used to render part of animation which starts from the middle of sound
 - Shaders: Added advanced Denoiser for Monte Carlo rendering (uses zbuffer, surface normals, noise statistics)

@@ -83,6 +83,7 @@ class cImage
 {
 public:
 	cImage(int w, int h, bool _allocLater = false);
+	cImage(cImage &source);
 	void construct();
 
 	~cImage();
@@ -327,13 +328,14 @@ public:
 	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);
 
 private:
-	bool isAllocated;
 	sRGB8 Interpolation(float x, float y) const;
 	bool AllocMem();
 	void FreeImage();
 	static inline sRGB16 Black16() { return sRGB16(0, 0, 0); }
 	static inline sRGB8 Black8() { return sRGB8(0, 0, 0); }
 	static inline sRGBFloat BlackFloat() { return sRGBFloat(0, 0, 0); }
+
+	bool isAllocated;
 
 	std::vector<sRGB8> image8;
 	std::vector<sRGB16> image16;

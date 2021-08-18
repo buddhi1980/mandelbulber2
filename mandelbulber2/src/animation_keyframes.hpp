@@ -48,6 +48,7 @@
 #include <QThread>
 
 #include "error_message.hpp"
+#include "file_image.hpp"
 #include "keyframes.hpp"
 #include "progress_text.hpp"
 #include "statistics.h"
@@ -235,6 +236,26 @@ private:
 
 signals:
 	void renderingFinished();
+};
+
+class cKeyframeSaveImageThread : public QThread
+{
+	Q_OBJECT;
+
+public:
+	cKeyframeSaveImageThread(std::shared_ptr<cImage> _image, const QString &_filename,
+		ImageFileSave::enumImageFileType _fileType);
+
+public slots:
+	void startSaving();
+
+private:
+	std::shared_ptr<cImage> image;
+	QString filename;
+	ImageFileSave::enumImageFileType fileType;
+
+signals:
+	void savingFinished();
 };
 
 #endif /* MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_ */

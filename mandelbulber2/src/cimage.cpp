@@ -77,6 +77,49 @@ cImage::~cImage()
 	FreeImage();
 }
 
+cImage::cImage(cImage &source)
+{
+	isAllocated = source.isAllocated;
+	image8 = source.image8;
+	image16 = source.image16;
+	imageFloat = source.imageFloat;
+	postImageFloat = source.postImageFloat;
+
+	alphaBuffer8 = source.alphaBuffer8;
+	alphaBuffer16 = source.alphaBuffer16;
+	opacityBuffer = source.opacityBuffer;
+	colourBuffer = source.colourBuffer;
+	zBuffer = source.zBuffer;
+
+	normalFloat = source.normalFloat;
+	normalFloatWorld = source.normalFloatWorld;
+	specularFloat = source.specularFloat;
+	diffuseFloat = source.diffuseFloat;
+	worldFloat = source.worldFloat;
+
+	previewAllocated = false;
+	imageWidget = nullptr;
+
+	adj = source.adj;
+	opt = source.opt;
+	width = source.width;
+	height = source.height;
+	gammaTable = source.gammaTable;
+	previewWidth = 0;
+	previewHeight = 0;
+	previewScale = 1.0;
+	previewVisibleWidth = 0;
+	previewVisibleHeight = 0;
+	isMainImage = source.isMainImage;
+	gammaTablePrepared = source.gammaTablePrepared;
+	allocLater = source.allocLater;
+	isStereoLeftRight = source.isStereoLeftRight;
+	fastPreview = false;
+	meta = source.meta;
+
+	progressiveFactor = source.progressiveFactor;
+}
+
 bool cImage::AllocMem()
 {
 	isAllocated = false;
