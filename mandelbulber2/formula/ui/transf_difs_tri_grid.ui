@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_difs_tri_grid</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1041,7 +1041,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;based on M3D tritgridIFS&lt;br&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_DIFS Tri_Grid asurf.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

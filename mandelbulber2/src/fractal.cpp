@@ -430,7 +430,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.startIterationsZc = container->Get<int>("transf_start_iterations_Zc");
 	transformCommon.stopIterationsZc = container->Get<int>("transf_stop_iterations_Zc");
 
-
 	transformCommon.additionConstant0555 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_0555"), 0.0);
 	transformCommon.additionConstant0777 =

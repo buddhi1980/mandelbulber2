@@ -73,21 +73,26 @@ REAL4 AmazingIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
-			if (!fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
-			else z.x = sign(z.x) * fabs(z.x);
+			if (!fractal->transformCommon.functionEnabledxFalse)
+				z.x = fabs(z.x);
+			else
+				z.x = sign(z.x) * fabs(z.x);
 			z.x -= fractal->transformCommon.additionConstantP000.x;
 		}
 		if (fractal->transformCommon.functionEnabledByFalse)
 		{
-			if (!fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-			else z.y = sign(z.y) * fabs(z.y);
+			if (!fractal->transformCommon.functionEnabledyFalse)
+				z.y = fabs(z.y);
+			else
+				z.y = sign(z.y) * fabs(z.y);
 			z.y -= fractal->transformCommon.additionConstantP000.y;
-
 		}
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
-			if (!fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
-			else z.z = sign(z.z) * fabs(z.z);
+			if (!fractal->transformCommon.functionEnabledzFalse)
+				z.z = fabs(z.z);
+			else
+				z.z = sign(z.z) * fabs(z.z);
 			z.z -= fractal->transformCommon.additionConstantP000.z;
 		}
 	}
