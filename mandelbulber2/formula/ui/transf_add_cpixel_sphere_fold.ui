@@ -217,7 +217,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>sphere 
+        <string>spherell 
 fold
 offset</string>
        </property>
