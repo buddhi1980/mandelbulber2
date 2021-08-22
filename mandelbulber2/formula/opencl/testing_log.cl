@@ -21,24 +21,19 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	// Preparation operations
 	REAL fac_eff = 0.6666666666f;
-	REAL offset = 1.0e-10f;
+	REAL offset = 0.0f; //1.0e-10;
+	REAL4 c = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
 
-	REAL cx = 0.0f;
-	REAL cy = 0.0f;
-	REAL cz = 0.0f;
 
-	if (fractal->transformCommon.juliaMode)
-	{
-		cx = fractal->transformCommon.constantMultiplier100.x;
-		cy = fractal->transformCommon.constantMultiplier100.y;
-		cz = fractal->transformCommon.constantMultiplier100.z;
-	}
-	else
-	{
-		cx = z.x;
-		cy = z.y;
-		cz = z.z;
-	}
+
+		if (fractal->transformCommon.juliaMode)
+		{
+			c = fractal->transformCommon.constantMultiplier100;
+		}
+		else
+		{
+			c = z;
+		}
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
@@ -65,12 +60,12 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL tmpz = 2.0f * z1 * native_sqrt(r_xy) * sq_r;
 
 	REAL r_2xy = native_sqrt(tmpx * tmpx + tmpy * tmpy);
-	REAL r_2cxy = native_sqrt(cx * cx + cy * cy);
-	REAL h2 = 1.0f - cz * tmpz / (r_2xy * r_2cxy);
+	REAL r_2cxy = native_sqrt(c.x * c.x + c.y * c.y);
+	REAL h2 = 1.0f - c.z * tmpz / (r_2xy * r_2cxy);
 
-	REAL tmp2x = (cx * tmpx - cy * tmpy) * h2;
-	REAL tmp2y = (cy * tmpx + cx * tmpy) * h2;
-	REAL tmp2z = r_2cxy * tmpz + r_2xy * cz;
+	REAL tmp2x = (c.x * tmpx - c.y * tmpy) * h2;
+	REAL tmp2y = (c.y * tmpx + c.x * tmpy) * h2;
+	REAL tmp2z = r_2cxy * tmpz + r_2xy * c.z;
 
 	x1 = fac_eff * x1 - tmp2x;
 	y1 = fac_eff * y1 - tmp2y;
@@ -87,6 +82,10 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.x = diffx * sq_r;
 	z.y = -diffy * sq_r;
 	z.z = -diffz * sq_r;
+
+	REAL dd = length(z) / aux->r;
+	dd = dd + (aux->r * 2.0f - dd) * fractal->transformCommon.scaleA1;
+	aux->DE *= dd;
 
 	if (fractal->analyticDE.enabled)
 	{

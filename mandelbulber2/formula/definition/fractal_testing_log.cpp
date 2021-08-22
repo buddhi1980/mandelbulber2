@@ -32,22 +32,25 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// Preparation operations
 	double fac_eff = 0.6666666666;
 	double offset = 1.0e-10;
+	CVector4 c = CVector4{0.0, 0.0, 0.0, 0.0};
 
-	double cx = 0.0;
-	double cy = 0.0;
-	double cz = 0.0;
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 
 	if (fractal->transformCommon.juliaMode)
 	{
-		cx = fractal->transformCommon.constantMultiplier100.x;
-		cy = fractal->transformCommon.constantMultiplier100.y;
-		cz = fractal->transformCommon.constantMultiplier100.z;
+		c = fractal->transformCommon.constantMultiplier100;
 	}
 	else
 	{
-		cx = z.x;
-		cy = z.y;
-		cz = z.z;
+		if (!fractal->transformCommon.functionEnabledCFalse) c = aux.const_c;
+		else c = z;
+
+		c *= fractal->transformCommon.constantMultiplier100;
 	}
 
 	// Converting the diverging (x,y,z) back to the variable
@@ -75,12 +78,12 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double tmpz = 2.0 * z1 * sqrt(r_xy) * sq_r;
 
 	double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
-	double r_2cxy = sqrt(cx * cx + cy * cy);
-	double h2 = 1.0 - cz * tmpz / (r_2xy * r_2cxy);
+	double r_2cxy = sqrt(c.x * c.x + c.y * c.y);
+	double h2 = 1.0 - c.z * tmpz / (r_2xy * r_2cxy);
 
-	double tmp2x = (cx * tmpx - cy * tmpy) * h2;
-	double tmp2y = (cy * tmpx + cx * tmpy) * h2;
-	double tmp2z = r_2cxy * tmpz + r_2xy * cz;
+	double tmp2x = (c.x * tmpx - c.y * tmpy) * h2;
+	double tmp2y = (c.y * tmpx + c.x * tmpy) * h2;
+	double tmp2z = r_2cxy * tmpz + r_2xy * c.z;
 
 	x1 = fac_eff * x1 - tmp2x;
 	y1 = fac_eff * y1 - tmp2y;
@@ -97,6 +100,11 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	z.x = diffx * sq_r;
 	z.y = -diffy * sq_r;
 	z.z = -diffz * sq_r;
+
+	double dd = z.Length() / aux.r;
+	dd = dd + (aux.r * 2.0 - dd) * fractal->transformCommon.scaleA1;
+	aux.DE *= dd;
+
 
 	if (fractal->analyticDE.enabled)
 	{
