@@ -1042,7 +1042,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 
 				cKeyframeSaveImageThread *savingThread =
-					new cKeyframeSaveImageThread(image, filename, fileType);
+					new cKeyframeSaveImageThread(imageCopy, filename, fileType);
 
 				QThread *thread = new QThread();
 				thread->setObjectName("Image saving thread");
