@@ -118,6 +118,8 @@ cImage::cImage(cImage &source)
 	meta = source.meta;
 
 	progressiveFactor = source.progressiveFactor;
+
+	isUsed = false;
 }
 
 bool cImage::AllocMem()

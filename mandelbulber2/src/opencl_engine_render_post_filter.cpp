@@ -275,7 +275,7 @@ bool cOpenClEngineRenderPostFilter::Render(std::shared_ptr<cImage> image, bool *
 				quint64 i = x + y * width;
 
 				sRGBFloat color = image->GetPixelPostImage(x + imageRegion.x1, y + imageRegion.y1);
-				float alpha = image->GetPixelAlpha(x + imageRegion.x1, y + imageRegion.y1) / 65536;
+				float alpha = image->GetPixelAlpha(x + imageRegion.x1, y + imageRegion.y1) / 65536.0;
 				cl_float4 colorCl = {
 					{cl_float(color.R), cl_float(color.G), cl_float(color.B), cl_float(alpha)}};
 
