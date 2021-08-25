@@ -127,8 +127,7 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			else if (selectedItem == actionAddToKeyframeAnimation)
 			{
-				gKeyframes->AddAnimatedParameter(
-					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
+				gKeyframeAnimation->AddAnimatedParameter(getFullParameterName(), parameterContainer);
 				gKeyframeAnimation->RefreshTable();
 			}
 			else if (selectedItem == actionRemoveFromKeyframeAnimation)

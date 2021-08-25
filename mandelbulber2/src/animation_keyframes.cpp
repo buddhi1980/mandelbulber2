@@ -2230,6 +2230,14 @@ void cKeyframeAnimation::slotSetFramesPerKeyframeToAllKeyframes(void)
 	RefreshTable();
 }
 
+void cKeyframeAnimation::AddAnimatedParameter(
+	const QString &parameterName, std::shared_ptr<cParameterContainer> parameterContainer)
+{
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	keyframes->AddAnimatedParameter(
+		parameterName, parameterContainer->GetAsOneParameter(parameterName));
+}
+
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
 {
 	settingsText = _settingsText;

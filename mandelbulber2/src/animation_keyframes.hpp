@@ -115,6 +115,8 @@ public:
 	void DeleteRenderedFramesForKeyframe(int keyframeInxed);
 	void CopyToAllKeyframes(int row, int column);
 	void ModifyValueInCells(const QList<QTableWidgetItem *> &selectedItemsList, enumModifyMode mode);
+	void AddAnimatedParameter(
+		const QString &parameterName, std::shared_ptr<cParameterContainer> parameterContainer);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;
