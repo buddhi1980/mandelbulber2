@@ -122,6 +122,9 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		connect(button, &QToolButton::clicked, this, &cRandomizerDialog::slotClickedSaveButton);
 	}
 
+	gMainInterface->stopRequest = true;
+	gMainInterface->DisablePeriodicRefresh();
+
 	// local copy of parameters
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	*actualParams = *gPar;
@@ -182,6 +185,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 
 cRandomizerDialog::~cRandomizerDialog()
 {
+	gMainInterface->ReEnablePeriodicRefresh();
 	delete ui;
 }
 
