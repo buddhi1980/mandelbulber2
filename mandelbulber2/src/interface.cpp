@@ -2992,16 +2992,13 @@ void cInterface::ConnectProgressAndStatisticsSignals() const
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation,
-		SIGNAL(updateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)),
-		mainWindow,
-		SLOT(slotUpdateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
-		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
+
+	QObject::connect(gKeyframeAnimation, &cKeyframeAnimation::updateProgressAndStatus, mainWindow,
+		&RenderWindow::slotUpdateProgressAndStatus);
+	QObject::connect(gKeyframeAnimation, &cKeyframeAnimation::updateProgressHide, mainWindow,
+		&RenderWindow::slotUpdateProgressHide);
+	QObject::connect(gKeyframeAnimation, &cKeyframeAnimation::updateStatistics,
+		mainWindow->ui->widgetDockStatistics, &cDockStatistics::slotUpdateStatistics);
 }
 
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

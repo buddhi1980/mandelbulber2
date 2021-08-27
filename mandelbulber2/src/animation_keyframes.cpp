@@ -2264,6 +2264,6 @@ cKeyframeSaveImageThread::cKeyframeSaveImageThread(std::shared_ptr<cImage> _imag
 
 void cKeyframeSaveImageThread::startSaving()
 {
-	SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+	SaveImage(filename, fileType, image, nullptr);
 	emit savingFinished();
 }
