@@ -47,7 +47,9 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	connect(ui->slider, SIGNAL(sliderReleased()), this, SLOT(sliderReleased()));
+	connect(ui->slider, SIGNAL(sliderReleased()), this, SLOT(slotSliderReleased()));
+	connect(ui->slider, SIGNAL(sliderPressed()), this, SIGNAL(sliderPressed()));
+	connect(ui->slider, SIGNAL(sliderMoved(int)), this, SIGNAL(sliderMoved(int)));
 	connect(ui->buClose, SIGNAL(pressed()), this, SLOT(hide()));
 	connect(ui->buDouble, SIGNAL(pressed()), this, SIGNAL(doublePressed()));
 	connect(ui->buHalf, SIGNAL(pressed()), this, SIGNAL(halfPressed()));
@@ -91,13 +93,14 @@ int cFrameSliderPopup::value() const
 	}
 }
 
-void cFrameSliderPopup::sliderReleased()
+void cFrameSliderPopup::slotSliderReleased()
 {
 	if (!integerMode)
 	{
 		blockSignals(true);
 		ui->slider->setValue(500);
 		blockSignals(false);
+		emit sliderReleased();
 	}
 }
 

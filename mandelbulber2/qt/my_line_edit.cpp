@@ -41,6 +41,7 @@
 #include <QMenu>
 #include <QSlider>
 #include <QWheelEvent>
+#include <QDebug>
 
 #include "frame_slider_popup.h"
 
@@ -55,6 +56,7 @@ MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapp
 	actionCopyVectorToClipboard = nullptr;
 	actionPasteVectorFromClipboard = nullptr;
 	slider = nullptr;
+	valueBeforeSliderDrag = 0.0;
 }
 
 MyLineEdit::~MyLineEdit()
@@ -321,13 +323,16 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
-		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
+		// connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 		connect(slider, SIGNAL(minusPressed()), this, SLOT(slotInvertSign()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
+		connect(slider, SIGNAL(sliderPressed()), this, SLOT(slotSliderPressed()));
+		connect(slider, SIGNAL(sliderReleased()), this, SLOT(slotSliderReleased()));
+		connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
 	}
 }
 
@@ -433,4 +438,53 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 		emit returnPressed();
 		event->accept();
 	}
+}
+
+void MyLineEdit::slotSliderPressed()
+{
+	valueBeforeSliderDrag = systemData.locale.toDouble(text());
+}
+
+void MyLineEdit::slotSliderReleased()
+{
+	emit returnPressed();
+}
+
+void MyLineEdit::slotSliderMoved(int sliderPosition)
+{
+	double newValue = valueBeforeSliderDrag;
+
+	int iDiff = sliderPosition - 500;
+	double dDiff = iDiff / 500.0;
+	double sign = (iDiff > 0) ? 1.0 : -1.0;
+
+	if (valueBeforeSliderDrag == 0.0)
+	{
+		if (objectName().left(3) == QString("log"))
+		{
+			newValue = pow(10.0, dDiff);
+		}
+		else
+		{
+			newValue = sign * pow(10.0, dDiff * dDiff * 4.0 - 3.0);
+		}
+	}
+	else
+	{
+		if (objectName().left(3) == QString("log"))
+		{
+			double change = pow(10.0, pow(dDiff, 3.0) * 2.0);
+			newValue = valueBeforeSliderDrag * change;
+		}
+		else
+		{
+			double change =
+				sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.7 - 10.0) * fabs(valueBeforeSliderDrag);
+			newValue = valueBeforeSliderDrag + change;
+		}
+	}
+
+	const QString text = QString("%L1").arg(newValue, 0, 'g', 15);
+	setText(text);
+	emit editingFinished();
 }
