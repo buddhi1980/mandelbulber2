@@ -137,7 +137,7 @@ void cFrameSliderPopup::SetDialMode(int scale, double val)
 	ui->buDouble->hide();
 	ui->buHalf->hide();
 	ui->buMinus->hide();
-	ui->slider->hide();
+	// ui->slider->hide();
 	ui->dial->setMaximum(scale * 180);
 	ui->dial->setMinimum(-scale * 180);
 	ui->dial->setValue(int(val * scale));

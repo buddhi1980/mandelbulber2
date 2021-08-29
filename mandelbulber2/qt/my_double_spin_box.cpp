@@ -49,6 +49,7 @@ MyDoubleSpinBox::MyDoubleSpinBox(QWidget *parent)
 	defaultValue = 0;
 	slider = nullptr;
 	hasDial = false;
+	valueBeforeSliderDrag = 0.0;
 };
 
 MyDoubleSpinBox::~MyDoubleSpinBox()
@@ -173,14 +174,20 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 			connect(slider, SIGNAL(downPressed()), this, SLOT(slot180Value()));
 			connect(slider, SIGNAL(rightPressed()), this, SLOT(slot90Value()));
 			connect(slider, SIGNAL(leftPressed()), this, SLOT(slotMinus90Value()));
+			connect(slider, SIGNAL(sliderPressed()), this, SLOT(slotSliderPressed()));
+			connect(slider, SIGNAL(sliderReleased()), this, SLOT(slotSliderReleased()));
+			connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
 		}
 		else
 		{
-			connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
+			// connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 			connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 			connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 			connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 			connect(slider, SIGNAL(minusPressed()), this, SLOT(slotInvertSign()));
+			connect(slider, SIGNAL(sliderPressed()), this, SLOT(slotSliderPressed()));
+			connect(slider, SIGNAL(sliderReleased()), this, SLOT(slotSliderReleased()));
+			connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
 		}
 	}
 }
@@ -260,4 +267,54 @@ void MyDoubleSpinBox::slotRoundValue()
 {
 	const double val = value();
 	setValue(MagicRound(val, 0.05));
+}
+
+void MyDoubleSpinBox::slotSliderPressed()
+{
+	valueBeforeSliderDrag = value();
+}
+
+void MyDoubleSpinBox::slotSliderReleased()
+{
+	emit editingFinished();
+}
+
+void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
+{
+	double newValue = valueBeforeSliderDrag;
+
+	int iDiff = sliderPosition - 500;
+	double dDiff = iDiff / 500.0;
+	double sign = (iDiff > 0) ? 1.0 : -1.0;
+	double digits = decimals();
+
+	if (valueBeforeSliderDrag == 0.0 && !hasDial)
+	{
+		if (minimum() >= 0.0)
+		{
+			newValue = pow(10.0, dDiff * (digits + 1.0) - digits);
+		}
+		else
+		{
+			newValue = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits);
+		}
+	}
+	else
+	{
+		double change = 0.0;
+		if (hasDial)
+		{
+			change = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits) * 18.0;
+		}
+		else
+		{
+			change = sign * pow(10.0, pow(fabs(dDiff), 0.3) * (digits + 0.7) - digits)
+							 * fabs(valueBeforeSliderDrag);
+		}
+		newValue = valueBeforeSliderDrag + change;
+	}
+
+	setValue(newValue);
+
+	emit editingFinished();
 }
