@@ -56,6 +56,7 @@
 #include "system.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
+#include "texture_cache.h"
 #include "undo.h"
 #include "write_log.hpp"
 
@@ -150,6 +151,9 @@ int main(int argc, char *argv[])
 
 	// Netrender
 	gNetRender = new cNetRender(gMainInterface);
+
+	// texture cache
+	gTextureCache.reset(new cTextureCache);
 
 	// loading AppSettings
 	QString iniFileName = systemData.GetIniFile();

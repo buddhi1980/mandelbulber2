@@ -41,6 +41,7 @@
 #include "texture.hpp"
 
 #include <memory>
+#include <QCache>
 
 #include "common_math.h"
 #include "error_message.hpp"
@@ -49,6 +50,7 @@
 #include "qimage.h"
 #include "radiance_hdr.h"
 #include "resource_http_provider.hpp"
+#include "texture_cache.h"
 #include "write_log.hpp"
 
 // constructor
@@ -57,89 +59,100 @@ cTexture::cTexture(
 {
 	WriteLogString("Loading texture", filename, 2);
 
-	if (gNetRender->IsClient() && useNetRender)
+	if (cTexture *textureFromCache = gTextureCache->GetTexture(filename))
 	{
-		filename = gNetRender->GetFileFromNetRender(filename, frameNo);
+		*this = *textureFromCache;
 	}
 	else
 	{
-		WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
-		filename = AnimatedFileName(filename, frameNo);
 
-		WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
-		filename = FilePathHelperTextures(filename);
-
-		WriteLogString("Loading texture - httpProvider()", filename, 3);
-		cResourceHttpProvider httpProvider(filename);
-		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
-	}
-
-	// try to load image if it's PNG format (this one supports 16-bit depth images)
-	WriteLogString("Loading texture - LoadPNG()", filename, 3);
-	std::vector<sRGBA16> bitmap16 = LoadPNG(filename, width, height);
-	if (!bitmap16.empty())
-	{
-		bitmap.resize(bitmap16.size());
-		for (quint64 i = 0; i < bitmap16.size(); i++)
+		if (gNetRender->IsClient() && useNetRender)
 		{
-			sRGBFloat pixel(bitmap16[i].R / 65536.0f, bitmap16[i].G / 65536.0f, bitmap16[i].B / 65536.0f);
-			bitmap[i] = pixel;
+			filename = gNetRender->GetFileFromNetRender(filename, frameNo);
 		}
-		bitmap16.clear();
-	}
-
-	// check if it is Radiance HDR image
-	std::unique_ptr<cRadianceHDR> radiance(new cRadianceHDR());
-	if (radiance->Init(filename, &width, &height))
-	{
-		radiance->Load(&bitmap);
-		loaded = true;
-	}
-
-	// if not, try to use Qt image loader
-	if (bitmap.empty())
-	{
-		WriteLogString("Loading texture - loading using QImage", filename, 3);
-		QImage qImage;
-		qImage.load(filename);
-		qImage = qImage.convertToFormat(QImage::Format_RGB888);
-		if (!qImage.isNull())
+		else
 		{
-			width = qImage.width();
-			height = qImage.height();
-			bitmap.resize(width * height);
-			for (int y = 0; y < height; y++)
+			WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
+			filename = AnimatedFileName(filename, frameNo);
+
+			WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
+			filename = FilePathHelperTextures(filename);
+
+			WriteLogString("Loading texture - httpProvider()", filename, 3);
+			cResourceHttpProvider httpProvider(filename);
+			if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+		}
+
+		// try to load image if it's PNG format (this one supports 16-bit depth images)
+		WriteLogString("Loading texture - LoadPNG()", filename, 3);
+		std::vector<sRGBA16> bitmap16 = LoadPNG(filename, width, height);
+		if (!bitmap16.empty())
+		{
+			bitmap.resize(bitmap16.size());
+			for (quint64 i = 0; i < bitmap16.size(); i++)
 			{
-				sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
-				for (int x = 0; x < width; x++)
+				sRGBFloat pixel(
+					bitmap16[i].R / 65536.0f, bitmap16[i].G / 65536.0f, bitmap16[i].B / 65536.0f);
+				bitmap[i] = pixel;
+			}
+			bitmap16.clear();
+		}
+
+		// check if it is Radiance HDR image
+		std::unique_ptr<cRadianceHDR> radiance(new cRadianceHDR());
+		if (radiance->Init(filename, &width, &height))
+		{
+			radiance->Load(&bitmap);
+			loaded = true;
+		}
+
+		// if not, try to use Qt image loader
+		if (bitmap.empty())
+		{
+			WriteLogString("Loading texture - loading using QImage", filename, 3);
+			QImage qImage;
+			qImage.load(filename);
+			qImage = qImage.convertToFormat(QImage::Format_RGB888);
+			if (!qImage.isNull())
+			{
+				width = qImage.width();
+				height = qImage.height();
+				bitmap.resize(width * height);
+				for (int y = 0; y < height; y++)
 				{
-					const sRGBFloat pixel(line[x].R / 256.0f, line[x].G / 256.0f, line[x].B / 256.0f);
-					bitmap[x + y * width] = pixel;
+					sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
+					for (int x = 0; x < width; x++)
+					{
+						const sRGBFloat pixel(line[x].R / 256.0f, line[x].G / 256.0f, line[x].B / 256.0f);
+						bitmap[x + y * width] = pixel;
+					}
 				}
 			}
 		}
-	}
 
-	if (!bitmap.empty())
-	{
-		loaded = true;
-		originalFileName = filename;
-		if (mode == useMipmaps)
+		if (!bitmap.empty())
 		{
-			WriteLogString("Loading texture - CreateMipMaps()", filename, 3);
-			CreateMipMaps();
+			loaded = true;
+			originalFileName = filename;
+			if (mode == useMipmaps)
+			{
+				WriteLogString("Loading texture - CreateMipMaps()", filename, 3);
+				CreateMipMaps();
+			}
+
+			gTextureCache->AddToCache(this);
 		}
-	}
-	else
-	{
-		if (!beQuiet && !useNetRender)
-			gErrorMessage->showMessageFromOtherThread(
-				QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
-		width = defaultSize;
-		height = defaultSize;
-		loaded = false;
-		bitmap.resize(defaultSize * defaultSize);
-		std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
+		else
+		{
+			if (!beQuiet && !useNetRender)
+				gErrorMessage->showMessageFromOtherThread(
+					QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
+			width = defaultSize;
+			height = defaultSize;
+			loaded = false;
+			bitmap.resize(defaultSize * defaultSize);
+			std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
+		}
 	}
 
 	WriteLogString("Loading texture - finished", filename, 3);
@@ -332,11 +345,6 @@ sRGBFloat cTexture::BicubicInterpolation(float x, float y, const sRGBFloat *bitm
 	return sRGBFloat(dR, dG, dB);
 }
 
-sRGBFloat cTexture::FastPixel(int x, int y) const
-{
-	return bitmap[x + y * width];
-}
-
 CVector3 cTexture::NormalMapFromBumpMap(CVector2<float> point, float bump, float pixelSize) const
 {
 	const int intX = int(point.x);
@@ -476,4 +484,14 @@ void cTexture::CreateMipMaps()
 		h /= 2;
 		prevBitmap = mipmaps.last().data();
 	}
+}
+
+size_t cTexture::GetMemorySize() const
+{
+	size_t totalSize = bitmap.size() * sizeof(sRGBFloat);
+	for (const auto &mipmap : mipmaps)
+	{
+		totalSize += mipmap.size() * sizeof(sRGBFloat);
+	}
+	return totalSize;
 }

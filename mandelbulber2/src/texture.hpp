@@ -47,6 +47,7 @@
 #include <QList>
 #include <QString>
 #include <QVector>
+#include <QCache>
 
 #include "algebra.hpp"
 #include "color_structures.hpp"
@@ -72,13 +73,14 @@ public:
 	int Width() const { return width; }
 	sRGBFloat Pixel(float x, float y, float pixelSize = 0.0) const;
 	sRGBFloat Pixel(CVector2<float> point, float pixelSize = 0.0) const;
-	sRGBFloat FastPixel(int x, int y) const;
+	inline sRGBFloat FastPixel(int x, int y) const { return bitmap[x + y * width]; }
 	bool IsLoaded() const { return loaded; }
 	QString GetFileName() const { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
 	CVector3 NormalMapFromBumpMap(CVector2<float> point, float bump, float pixelSize = 0.0) const;
 	CVector3 NormalMap(
 		CVector2<float> point, float bump, bool invertGreen, float pixelSize = 0.0) const;
+	size_t GetMemorySize() const;
 
 private:
 	sRGBFloat LinearInterpolation(float x, float y) const;

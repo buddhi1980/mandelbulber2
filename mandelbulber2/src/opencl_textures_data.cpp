@@ -287,10 +287,11 @@ void cOpenClTexturesData::BuildTextureData(
 	totalDataOffset += sizeof(textureHeight);
 
 	size_t numberOfPixels = size_t(textureWidth) * size_t(textureHeight);
+
+	arrayOffset = totalDataOffset;
+
 	for (size_t i = 0; i < numberOfPixels; i++)
 	{
-		if (i == 0) arrayOffset = totalDataOffset;
-
 		int x = i % textureWidth;
 		int y = i / textureWidth;
 
@@ -303,18 +304,18 @@ void cOpenClTexturesData::BuildTextureData(
 			float v = pixel.R; // max rgb value
 			if (v < pixel.G) v = pixel.G;
 			if (v < pixel.B) v = pixel.B;
-			if (v < 1e-32)
+			if (v < 1e-32f)
 			{
 				clpixel = {{0, 0, 0, 0}};
 			}
 			else
 			{
 				int exponent;
-				int value = frexp(v, &exponent) * 256.0 / v;
-				int r = int(value * pixel.R);
-				int g = int(value * pixel.G);
-				int b = int(value * pixel.B);
-				int e = int(exponent + 128);
+				int value = frexpf(v, &exponent) * 256.0f / v;
+				uchar r = uchar(value * pixel.R);
+				uchar g = uchar(value * pixel.G);
+				uchar b = uchar(value * pixel.B);
+				uchar e = uchar(exponent + 128);
 
 				clpixel = {{cl_uchar(r), cl_uchar(g), cl_uchar(b), cl_uchar(e)}};
 			}
