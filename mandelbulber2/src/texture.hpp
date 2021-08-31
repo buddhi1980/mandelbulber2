@@ -73,7 +73,7 @@ public:
 	int Width() const { return width; }
 	sRGBFloat Pixel(float x, float y, float pixelSize = 0.0) const;
 	sRGBFloat Pixel(CVector2<float> point, float pixelSize = 0.0) const;
-	inline sRGBFloat FastPixel(int x, int y) const { return bitmap[x + y * width]; }
+	inline sRGBFloat FastPixel(int x, int y) const { return bitmapFloat[x + y * width]; }
 	bool IsLoaded() const { return loaded; }
 	QString GetFileName() const { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
@@ -81,6 +81,7 @@ public:
 	CVector3 NormalMap(
 		CVector2<float> point, float bump, bool invertGreen, float pixelSize = 0.0) const;
 	size_t GetMemorySize() const;
+	const std::vector<sRGBA8> &GetHDRBitmap() const { return bitmapHDR; }
 
 private:
 	sRGBFloat LinearInterpolation(float x, float y) const;
@@ -88,7 +89,9 @@ private:
 	sRGBFloat MipMap(float x, float y, float pixelSize) const;
 	void CreateMipMaps();
 	static int WrapInt(int a, int size) { return (a + size) % size; }
-	std::vector<sRGBFloat> bitmap;
+	void ComputeHDRBItmap();
+	std::vector<sRGBFloat> bitmapFloat;
+	std::vector<sRGBA8> bitmapHDR;
 	int width;
 	int height;
 	bool loaded;

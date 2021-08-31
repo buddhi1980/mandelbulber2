@@ -59,6 +59,23 @@ cTexture::cTexture(
 {
 	WriteLogString("Loading texture", filename, 2);
 
+	if (gNetRender->IsClient() && useNetRender)
+	{
+		filename = gNetRender->GetFileFromNetRender(filename, frameNo);
+	}
+	else
+	{
+		WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
+		filename = AnimatedFileName(filename, frameNo);
+
+		WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
+		filename = FilePathHelperTextures(filename);
+
+		WriteLogString("Loading texture - httpProvider()", filename, 3);
+		cResourceHttpProvider httpProvider(filename);
+		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+	}
+
 	if (cTexture *textureFromCache = gTextureCache->GetTexture(filename))
 	{
 		*this = *textureFromCache;
@@ -66,34 +83,17 @@ cTexture::cTexture(
 	else
 	{
 
-		if (gNetRender->IsClient() && useNetRender)
-		{
-			filename = gNetRender->GetFileFromNetRender(filename, frameNo);
-		}
-		else
-		{
-			WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
-			filename = AnimatedFileName(filename, frameNo);
-
-			WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
-			filename = FilePathHelperTextures(filename);
-
-			WriteLogString("Loading texture - httpProvider()", filename, 3);
-			cResourceHttpProvider httpProvider(filename);
-			if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
-		}
-
 		// try to load image if it's PNG format (this one supports 16-bit depth images)
 		WriteLogString("Loading texture - LoadPNG()", filename, 3);
 		std::vector<sRGBA16> bitmap16 = LoadPNG(filename, width, height);
 		if (!bitmap16.empty())
 		{
-			bitmap.resize(bitmap16.size());
+			bitmapFloat.resize(bitmap16.size());
 			for (quint64 i = 0; i < bitmap16.size(); i++)
 			{
 				sRGBFloat pixel(
 					bitmap16[i].R / 65536.0f, bitmap16[i].G / 65536.0f, bitmap16[i].B / 65536.0f);
-				bitmap[i] = pixel;
+				bitmapFloat[i] = pixel;
 			}
 			bitmap16.clear();
 		}
@@ -102,12 +102,12 @@ cTexture::cTexture(
 		std::unique_ptr<cRadianceHDR> radiance(new cRadianceHDR());
 		if (radiance->Init(filename, &width, &height))
 		{
-			radiance->Load(&bitmap);
+			radiance->Load(&bitmapFloat);
 			loaded = true;
 		}
 
 		// if not, try to use Qt image loader
-		if (bitmap.empty())
+		if (bitmapFloat.empty())
 		{
 			WriteLogString("Loading texture - loading using QImage", filename, 3);
 			QImage qImage;
@@ -117,20 +117,20 @@ cTexture::cTexture(
 			{
 				width = qImage.width();
 				height = qImage.height();
-				bitmap.resize(width * height);
+				bitmapFloat.resize(width * height);
 				for (int y = 0; y < height; y++)
 				{
 					sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 					for (int x = 0; x < width; x++)
 					{
 						const sRGBFloat pixel(line[x].R / 256.0f, line[x].G / 256.0f, line[x].B / 256.0f);
-						bitmap[x + y * width] = pixel;
+						bitmapFloat[x + y * width] = pixel;
 					}
 				}
 			}
 		}
 
-		if (!bitmap.empty())
+		if (!bitmapFloat.empty())
 		{
 			loaded = true;
 			originalFileName = filename;
@@ -139,6 +139,8 @@ cTexture::cTexture(
 				WriteLogString("Loading texture - CreateMipMaps()", filename, 3);
 				CreateMipMaps();
 			}
+
+			ComputeHDRBItmap();
 
 			gTextureCache->AddToCache(this);
 		}
@@ -150,8 +152,10 @@ cTexture::cTexture(
 			width = defaultSize;
 			height = defaultSize;
 			loaded = false;
-			bitmap.resize(defaultSize * defaultSize);
-			std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
+			bitmapFloat.resize(defaultSize * defaultSize);
+			std::fill(bitmapFloat.begin(), bitmapFloat.end(), sRGBFloat(1.0, 1.0, 1.0));
+			bitmapHDR.resize(defaultSize * defaultSize);
+			std::fill(bitmapHDR.begin(), bitmapHDR.end(), sRGBA8(255, 255, 255, 255));
 		}
 	}
 
@@ -164,7 +168,8 @@ cTexture::cTexture(const cTexture &tex)
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
-	bitmap = tex.bitmap;
+	bitmapFloat = tex.bitmapFloat;
+	bitmapHDR = tex.bitmapHDR;
 	originalFileName = tex.originalFileName;
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
@@ -176,7 +181,8 @@ cTexture::cTexture(cTexture &&other)
 	width = other.width;
 	height = other.height;
 	loaded = other.loaded;
-	bitmap = std::move(other.bitmap);
+	bitmapFloat = std::move(other.bitmapFloat);
+	bitmapHDR = std::move(other.bitmapHDR);
 	originalFileName = std::move(other.originalFileName);
 	mipmaps = std::move(other.mipmaps);
 	mipmapSizes = std::move(other.mipmapSizes);
@@ -187,7 +193,8 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
-	bitmap = tex.bitmap;
+	bitmapFloat = tex.bitmapFloat;
+	bitmapHDR = tex.bitmapHDR;
 	originalFileName = tex.originalFileName;
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
@@ -200,7 +207,8 @@ cTexture &cTexture::operator=(cTexture &&other)
 	width = other.width;
 	height = other.height;
 	loaded = other.loaded;
-	bitmap = std::move(other.bitmap);
+	bitmapFloat = std::move(other.bitmapFloat);
+	bitmapHDR = std::move(other.bitmapHDR);
 	originalFileName = std::move(other.originalFileName);
 	mipmaps = std::move(other.mipmaps);
 	mipmapSizes = std::move(other.mipmapSizes);
@@ -218,14 +226,14 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	{
 		width = qImage.width();
 		height = qImage.height();
-		bitmap.resize(width * height);
+		bitmapFloat.resize(width * height);
 		for (int y = 0; y < height; y++)
 		{
 			sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 			for (int x = 0; x < width; x++)
 			{
 				const sRGBFloat pixel(line[x].R / 256.0f, line[x].G / 256.0f, line[x].B / 256.0f);
-				bitmap[x + y * width] = pixel;
+				bitmapFloat[x + y * width] = pixel;
 			}
 		}
 
@@ -235,6 +243,8 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		{
 			CreateMipMaps();
 		}
+
+		ComputeHDRBItmap();
 	}
 	else
 	{
@@ -243,8 +253,10 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		width = defaultSize;
 		height = defaultSize;
 		loaded = false;
-		bitmap.resize(defaultSize * defaultSize);
-		std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
+		bitmapFloat.resize(defaultSize * defaultSize);
+		std::fill(bitmapFloat.begin(), bitmapFloat.end(), sRGBFloat(1.0, 1.0, 1.0));
+		bitmapHDR.resize(defaultSize * defaultSize);
+		std::fill(bitmapHDR.begin(), bitmapHDR.end(), sRGBA8(255, 255, 255, 255));
 	}
 }
 
@@ -253,8 +265,10 @@ cTexture::cTexture()
 	width = defaultSize;
 	height = defaultSize;
 	loaded = false;
-	bitmap.resize(defaultSize * defaultSize);
-	std::fill(bitmap.begin(), bitmap.end(), sRGBFloat(1.0, 1.0, 1.0));
+	bitmapFloat.resize(defaultSize * defaultSize);
+	std::fill(bitmapFloat.begin(), bitmapFloat.end(), sRGBFloat(1.0, 1.0, 1.0));
+	bitmapHDR.resize(defaultSize * defaultSize);
+	std::fill(bitmapHDR.begin(), bitmapHDR.end(), sRGBA8(255, 255, 255, 255));
 }
 
 // read pixel
@@ -294,10 +308,10 @@ sRGBFloat cTexture::LinearInterpolation(float x, float y) const
 	const int iy = int(y);
 	const float rx = x - int(x);
 	const float ry = y - int(y);
-	const sRGBFloat k1 = bitmap[iy * width + ix];
-	const sRGBFloat k2 = bitmap[iy * width + ix + 1];
-	const sRGBFloat k3 = bitmap[(iy + 1) * width + ix];
-	const sRGBFloat k4 = bitmap[(iy + 1) * width + ix + 1];
+	const sRGBFloat k1 = bitmapFloat[iy * width + ix];
+	const sRGBFloat k2 = bitmapFloat[iy * width + ix + 1];
+	const sRGBFloat k3 = bitmapFloat[(iy + 1) * width + ix];
+	const sRGBFloat k4 = bitmapFloat[(iy + 1) * width + ix + 1];
 	color.R = (k1.R * (1.0f - rx) * (1.0f - ry) + k2.R * rx * (1.0f - ry) + k3.R * (1.0f - rx) * ry
 						 + k4.R * (rx * ry));
 	color.G = (k1.G * (1.0f - rx) * (1.0f - ry) + k2.G * rx * (1.0f - ry) + k3.G * (1.0f - rx) * ry
@@ -413,7 +427,7 @@ sRGBFloat cTexture::MipMap(float x, float y, float pixelSize) const
 		{
 			if (layerBig == 0)
 			{
-				bigBitmap = bitmap.data();
+				bigBitmap = bitmapFloat.data();
 				smallBitmap = mipmaps[layerSmall - 1].data();
 				bigBitmapSize.x = width;
 				bigBitmapSize.y = height;
@@ -444,7 +458,7 @@ sRGBFloat cTexture::MipMap(float x, float y, float pixelSize) const
 	}
 	else
 	{
-		return BicubicInterpolation(x, y, bitmap.data(), width, height);
+		return BicubicInterpolation(x, y, bitmapFloat.data(), width, height);
 	}
 }
 
@@ -454,7 +468,7 @@ void cTexture::CreateMipMaps()
 	int prevH = height;
 	int w = width / 2;
 	int h = height / 2;
-	sRGBFloat *prevBitmap = bitmap.data();
+	sRGBFloat *prevBitmap = bitmapFloat.data();
 	while (w > 0 && h > 0)
 	{
 		QVector<sRGBFloat> newMipmapV(w * h);
@@ -488,10 +502,42 @@ void cTexture::CreateMipMaps()
 
 size_t cTexture::GetMemorySize() const
 {
-	size_t totalSize = bitmap.size() * sizeof(sRGBFloat);
+	size_t totalSize = bitmapFloat.size() * sizeof(sRGBFloat);
 	for (const auto &mipmap : mipmaps)
 	{
 		totalSize += mipmap.size() * sizeof(sRGBFloat);
 	}
 	return totalSize;
+}
+
+void cTexture::ComputeHDRBItmap()
+{
+	bitmapHDR.resize(bitmapFloat.size());
+
+	for (size_t i = 0; i < bitmapFloat.size(); i++)
+	{
+		sRGBA8 pixel8;
+
+		sRGBFloat pixel = bitmapFloat[i];
+		// hdre color compression
+		float v = pixel.R; // max rgb value
+		if (v < pixel.G) v = pixel.G;
+		if (v < pixel.B) v = pixel.B;
+		if (v < 1e-32f)
+		{
+			pixel8 = sRGBA8(0, 0, 0, 0);
+		}
+		else
+		{
+			int exponent;
+			int value = frexpf(v, &exponent) * 256.0f / v;
+			uchar r = uchar(value * pixel.R);
+			uchar g = uchar(value * pixel.G);
+			uchar b = uchar(value * pixel.B);
+			uchar e = uchar(exponent + 128);
+
+			pixel8 = sRGBA8(r, g, b, e);
+		}
+		bitmapHDR[i] = pixel8;
+	}
 }

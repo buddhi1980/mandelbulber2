@@ -290,35 +290,16 @@ void cOpenClTexturesData::BuildTextureData(
 
 	arrayOffset = totalDataOffset;
 
+	const std::vector<sRGBA8> hdrBitmap = texture->GetHDRBitmap();
+
 	for (size_t i = 0; i < numberOfPixels; i++)
 	{
-		int x = i % textureWidth;
-		int y = i / textureWidth;
-
-		sRGBFloat pixel = texture->FastPixel(x, y);
+		sRGBA8 pixel = hdrBitmap[i];
 
 		cl_uchar4 clpixel;
 		if (!grey16bit)
 		{
-			// hdre color compression
-			float v = pixel.R; // max rgb value
-			if (v < pixel.G) v = pixel.G;
-			if (v < pixel.B) v = pixel.B;
-			if (v < 1e-32f)
-			{
-				clpixel = {{0, 0, 0, 0}};
-			}
-			else
-			{
-				int exponent;
-				int value = frexpf(v, &exponent) * 256.0f / v;
-				uchar r = uchar(value * pixel.R);
-				uchar g = uchar(value * pixel.G);
-				uchar b = uchar(value * pixel.B);
-				uchar e = uchar(exponent + 128);
-
-				clpixel = {{cl_uchar(r), cl_uchar(g), cl_uchar(b), cl_uchar(e)}};
-			}
+			clpixel = {{cl_uchar(pixel.R), cl_uchar(pixel.G), cl_uchar(pixel.B), cl_uchar(pixel.A)}};
 		}
 		else
 		{

@@ -730,6 +730,7 @@ QMap<QString, int> cOpenClEngineRenderFractal::SetParametersAndDataForTextures(
 		texturesData->BuildAllTexturesData(
 			renderData->textures, renderData->materials, renderData->lights, &textureIndexes);
 		texturesData->FillHeader();
+
 		inTextureBuffer = texturesData->GetData();
 		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
 

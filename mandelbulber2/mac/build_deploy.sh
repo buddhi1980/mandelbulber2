@@ -71,7 +71,7 @@ echo $DOCFILE
 wget -O "$SHARE/doc/Mandelbulber_Manual.pdf" $DOCFILE
 #copy c++abi
 mkdir -p "$PACK/Contents/Frameworks/"
-#cp "/usr/lib/libc++abi.dylib" "$PACK/Contents/Frameworks/"
+cp "/usr/lib/libc++abi.dylib" "$PACK/Contents/Frameworks/"
 #rename to libc++abi.1.dylib
-#mv "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
+mv "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
 cd $BUILD && macdeployqt mandelbulber2.app -dmg
