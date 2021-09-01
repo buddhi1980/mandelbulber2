@@ -2893,7 +2893,7 @@ void cInterface::InitPeriodicRefresh()
 {
 	autoRefreshTimer = new QTimer(mainWindow);
 	autoRefreshTimer->setSingleShot(true);
-	connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
+	connect(autoRefreshTimer, &QTimer::timeout, mainWindow, &RenderWindow::slotAutoRefresh);
 	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
 }
 

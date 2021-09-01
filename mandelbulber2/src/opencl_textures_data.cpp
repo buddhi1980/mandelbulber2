@@ -292,25 +292,26 @@ void cOpenClTexturesData::BuildTextureData(
 
 	const std::vector<sRGBA8> hdrBitmap = texture->GetHDRBitmap();
 
-	for (size_t i = 0; i < numberOfPixels; i++)
+	if (!grey16bit)
 	{
-		sRGBA8 pixel = hdrBitmap[i];
-
-		cl_uchar4 clpixel;
-		if (!grey16bit)
-		{
-			clpixel = {{cl_uchar(pixel.R), cl_uchar(pixel.G), cl_uchar(pixel.B), cl_uchar(pixel.A)}};
-		}
-		else
+		data.append(
+			reinterpret_cast<const char *>(hdrBitmap.data()), sizeof(cl_uchar4) * numberOfPixels);
+	}
+	else
+	{
+		for (size_t i = 0; i < numberOfPixels; i++)
 		{
 			// greyscale 16bit texture is coded using first two bytes
+			int x = i % textureWidth;
+			int y = i / textureWidth;
+			sRGBFloat pixel = texture->FastPixel(x, y);
 			int brightness = clamp(int(pixel.R * 65535.0), 0, 65535);
-			clpixel = {{cl_uchar(brightness / 256), cl_uchar(brightness % 256), 0, 0}};
+			cl_uchar4 clpixel = {{cl_uchar(brightness / 256), cl_uchar(brightness % 256), 0, 0}};
+			data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));
 		}
-
-		data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));
-		totalDataOffset += sizeof(clpixel);
 	}
+
+	totalDataOffset += sizeof(cl_uchar4) * numberOfPixels;
 
 	// replace arrayOffset:
 	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
