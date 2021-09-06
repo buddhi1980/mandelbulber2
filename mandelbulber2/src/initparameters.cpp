@@ -516,6 +516,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("display_tooltips", true, morphNone, paramApp);
 
 	par->addParam("limit_CPU_cores", get_cpu_count(), 1, get_cpu_count(), morphNone, paramApp);
+	par->addParam("maximum_texture_cache_size", 4, morphNone, paramApp);
 
 	par->addParam(
 		"randomizer_preview_quality", 1, morphNone, paramApp, QStringList({"low", "medium", "high"}));

@@ -62,6 +62,7 @@
 #include "src/system.hpp"
 #include "src/system_data.hpp"
 #include "src/system_directories.hpp"
+#include "src/texture_cache.h"
 #include "src/wait.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
@@ -154,6 +155,8 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	// OpenCL preference dialogue supports multiple devices
 	gPar->Set("opencl_device_list", listString);
 	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
+
+	gTextureCache->setMaxSize(gPar->Get<int>("maximum_texture_cache_size") * 1024L * 1024L);
 
 	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
 	gMainInterface->mainWindow->slotPopulateToolbar(true);

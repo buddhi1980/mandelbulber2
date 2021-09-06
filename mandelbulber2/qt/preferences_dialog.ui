@@ -58,7 +58,7 @@
             <x>0</x>
             <y>0</y>
             <width>597</width>
-            <height>769</height>
+            <height>793</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -540,6 +540,26 @@
                   </property>
                   <property name="maximum">
                    <number>1000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>Max. RAM for texture cache (GB)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_maximum_texture_cache_size">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>1024</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
                   </property>
                  </widget>
                 </item>

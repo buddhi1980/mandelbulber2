@@ -152,9 +152,6 @@ int main(int argc, char *argv[])
 	// Netrender
 	gNetRender = new cNetRender(gMainInterface);
 
-	// texture cache
-	gTextureCache.reset(new cTextureCache);
-
 	// loading AppSettings
 	QString iniFileName = systemData.GetIniFile();
 	if (QFile(iniFileName).exists())
@@ -167,6 +164,10 @@ int main(int argc, char *argv[])
 	}
 
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
+
+	// texture cache
+	gTextureCache.reset(new cTextureCache);
+	gTextureCache->setMaxSize(gPar->Get<int>("maximum_texture_cache_size") * 1024L * 1024L);
 
 	UpdateDefaultPaths();
 	if (!commandLineInterface.isNoGUI())
