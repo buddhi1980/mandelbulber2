@@ -1298,7 +1298,7 @@ void cInterface::SetByMouse(
 			&& imagePoint.y < mainImage->GetHeight())
 	{
 		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
-		if (depth < 1e10)
+		if (depth < 1e10 || true)
 		{
 			CVector3 viewVector;
 			double aspectRatio = double(width) / height;
@@ -1331,6 +1331,12 @@ void cInterface::SetByMouse(
 			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 
 			CVector3 point = camera + viewVector * depth;
+
+			if (depth > 1000.0)
+			{
+				double estDistance = GetDistanceForPoint(camera, gPar, gParFractal);
+				point = camera + viewVector * estDistance;
+			}
 
 			switch (clickMode)
 			{
@@ -1568,7 +1574,7 @@ void cInterface::MouseDragStart(
 			&& imagePoint.y < mainImage->GetHeight())
 	{
 		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
-		if (depth < 1e10 || clickMode == RenderedImage::clickPlaceLight)
+		if (depth < 1e10 || clickMode == RenderedImage::clickPlaceLight || true)
 		{
 			CVector3 viewVector;
 			double aspectRatio = double(width) / height;
@@ -1588,6 +1594,14 @@ void cInterface::MouseDragStart(
 			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 
 			CVector3 point = camera + viewVector * depth;
+
+			if (depth > 1000.0)
+			{
+				double estDistance = GetDistanceForPoint(camera, gPar, gParFractal);
+				point = camera + viewVector * estDistance;
+				depth = estDistance;
+			}
+
 
 			mouseDragData.startCamera = camera;
 			mouseDragData.startTarget = target;
