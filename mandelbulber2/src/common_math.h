@@ -40,6 +40,7 @@
 #endif
 
 #include "algebra.hpp"
+#include <algorithm>
 
 extern unsigned int gRandomSeed;
 
@@ -61,14 +62,15 @@ inline double dmix(double a, double b, double x)
 	return a * (1.0 - x) + b * x;
 }
 
-//namespace myMath
-//{
-//template <typename T>
-//inline T clamp(T x, T min, T max)
-//{
-//	return qBound(min, x, max);
-//}
-//}
+#if __cplusplus >= 201703L
+using std::clamp;
+#else
+template <typename T>
+inline T clamp(T x, T min, T max)
+{
+	return qBound(min, x, max);
+}
+#endif
 
 // reference: https://www.iquilezles.org/www/articles/smin/smin.htm
 inline double smoothMin(double a, double b, double k)

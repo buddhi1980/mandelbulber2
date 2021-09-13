@@ -654,7 +654,11 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 	}
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void RenderedImage::enterEvent(QEnterEvent *event)
+#else
+void RenderedImage::enterEvent(QEvent *event)
+#endif
 {
 	(void)event;
 
@@ -1322,12 +1326,11 @@ void RenderedImage::DisplayAllLights()
 	for (auto &parameterName : listOfParameters)
 	{
 		const int lengthOfPrefix = 5;
-        if (parameterName.left(lengthOfPrefix) == "light")
+		if (parameterName.left(lengthOfPrefix) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int lightIndex =
-                parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
-            if (parameterName.mid(positionOfDash + 1) == "is_defined")
+			int lightIndex = parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+			if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				const cLight light(lightIndex, params, false, true, false);
 

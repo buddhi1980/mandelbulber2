@@ -139,8 +139,12 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *event) override;
 	void keyPressEvent(QKeyEvent *event) override;
 	void keyReleaseEvent(QKeyEvent *event) override;
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	void enterEvent(QEnterEvent *event) override;
+#else
+	void enterEvent(QEvent *event) override;
+#endif
+	void leaveEvent(QEvent *event) override;
 	void wheelEvent(QWheelEvent *event) override;
 
 private:

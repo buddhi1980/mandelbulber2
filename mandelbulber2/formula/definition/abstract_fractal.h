@@ -23,7 +23,6 @@
 using std::max;
 using std::min;
 using std::swap;
-using std::clamp;
 
 // formula constants
 #ifndef SQRT_1_3

@@ -38,8 +38,6 @@
 
 #include "common_math.h"
 
-using std::clamp;
-
 cImage::cImage(int w, int h, bool _allocLater)
 {
 	isAllocated = false;

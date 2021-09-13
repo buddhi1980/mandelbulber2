@@ -39,8 +39,6 @@
 #include "perlin_noise_octaves.h"
 #include "render_worker.hpp"
 
-using std::clamp;
-
 double cRenderWorker::CloudOpacity(
 	CVector3 point, double distance, double detailSize, double *distanceOut) const
 {
