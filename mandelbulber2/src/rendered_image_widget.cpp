@@ -290,6 +290,7 @@ void RenderedImage::DisplayCoordinates()
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 {
 	clickMode = enumClickMode(clickModeData.at(0).toInt());
+
 	if (clickMode == clickPlaceLight)
 	{
 		if (!placeLightBehind)
@@ -301,11 +302,11 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 	double diff = z - smoothLastZMouse;
 	if (fabs(diff) >= 1.0)
 	{
-		smoothLastZMouse += diff * 0.01;
+		smoothLastZMouse += diff * 0.1;
 	}
 	else
 	{
-		double delta = sqrt(fabs(diff)) * 0.01;
+		double delta = sqrt(fabs(diff)) * 0.1;
 		smoothLastZMouse += (diff > 0 ? 1.0 : -1.0) * fmin(delta, fabs(diff));
 	}
 
