@@ -94,7 +94,7 @@ bool InitSystem()
 #else
 	sharePath = QDir::currentPath();
 #endif
-    out << "sharePath directory: " << sharePath << Qt::endl;
+	out << "sharePath directory: " << sharePath << Qt::endl;
 
 	systemDirectories.sharedDir = QDir::toNativeSeparators(sharePath + QDir::separator());
 	systemDirectories.docDir =
@@ -386,40 +386,44 @@ bool CreateFolder(const QString &qName)
 	}
 }
 
-void DeleteAllFilesFromDirectory(
-    const QString &folder, QString filterExpression, bool useWildcart)
+void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression, bool useWildcart)
 {
-    if(useWildcart)
-    {
-        filterExpression =  QRegularExpression::wildcardToRegularExpression(filterExpression);
-    }
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+	QRegExp rx(filterExpression);
+	if (useWildcart) rx.setPatternSyntax(QRegExp::Wildcard);
 
-    QRegularExpression rx(filterExpression);
+#else
+	QRegularExpression rx(filterExpression);
+	if (useWildcart)
+	{
+		filterExpression = QRegularExpression::wildcardToRegularExpression(filterExpression);
+	}
+#endif
 
-    if (QDir(folder).exists())
-    {
-        QDirIterator folderIterator(folder);
-        while (folderIterator.hasNext())
-        {
-            folderIterator.next();
-            if (folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
-            if (rx.match(folderIterator.fileName()).hasMatch())
-            {
-                if (QFile::remove(folderIterator.filePath()))
-                {
-                    WriteLogString("File deleted", folderIterator.filePath(), 2);
-                }
-                else
-                {
-                    WriteLogString("File not deleted", folderIterator.filePath(), 1);
-                }
-            }
-        }
-    }
-    else
-    {
-        WriteLogString("Directory does not exist", folder, 2);
-    }
+	if (QDir(folder).exists())
+	{
+		QDirIterator folderIterator(folder);
+		while (folderIterator.hasNext())
+		{
+			folderIterator.next();
+			if (folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
+			if (rx.match(folderIterator.fileName()).hasMatch())
+			{
+				if (QFile::remove(folderIterator.filePath()))
+				{
+					WriteLogString("File deleted", folderIterator.filePath(), 2);
+				}
+				else
+				{
+					WriteLogString("File not deleted", folderIterator.filePath(), 1);
+				}
+			}
+		}
+	}
+	else
+	{
+		WriteLogString("Directory does not exist", folder, 2);
+	}
 }
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
