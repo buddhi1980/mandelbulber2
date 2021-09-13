@@ -1754,7 +1754,7 @@ void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-		if (parameterName.leftRef(parameterName.indexOf('_')) == "primitive")
+        if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1766,7 +1766,7 @@ void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-		if (parameterName.leftRef(3) == "mat")
+        if (parameterName.left(3) == "mat")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1778,7 +1778,7 @@ void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-		if (parameterName.leftRef(5) == "light")
+        if (parameterName.left(5) == "light")
 		{
 			par->DeleteParameter(parameterName);
 		}

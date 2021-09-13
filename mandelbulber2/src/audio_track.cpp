@@ -39,7 +39,11 @@
 
 #include <QAudioDecoder>
 #include <QAudioFormat>
+
+#ifndef NO_QT_MULTIMEDIA_AUDIO
 #include <QAudioRecorder>
+#endif
+
 #include <QFileInfo>
 #include <QtCore/QtGlobal>
 
@@ -157,32 +161,34 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 
 	if (!loaded)
 	{
-		emit loadingProgress(tr("Decompressing audio file"));
-		QApplication::processEvents();
+#ifndef NO_QT_MULTIMEDIA_AUDIO
+        emit loadingProgress(tr("Decompressing audio file"));
+        QApplication::processEvents();
 
-		QAudioFormat desiredFormat;
-		desiredFormat.setChannelCount(1);
-		desiredFormat.setCodec("audio/x-raw");
-		desiredFormat.setSampleType(QAudioFormat::SignedInt);
-		desiredFormat.setSampleRate(sampleRate);
-		desiredFormat.setSampleSize(16);
+        QAudioFormat desiredFormat;
+        desiredFormat.setChannelCount(1);
+        desiredFormat.setCodec("audio/x-raw");
+        desiredFormat.setSampleType(QAudioFormat::SignedInt);
+        desiredFormat.setSampleRate(sampleRate);
+        desiredFormat.setSampleSize(16);
 
-		decoder.reset(new QAudioDecoder());
-		decoder->setAudioFormat(desiredFormat);
-		decoder->setSourceFilename(filename);
+        decoder.reset(new QAudioDecoder());
+        decoder->setAudioFormat(desiredFormat);
+        decoder->setSourceFilename(filename);
 
-		connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
-		connect(decoder.get(), SIGNAL(finished()), this, SLOT(slotFinished()));
-		connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
-			SLOT(slotError(QAudioDecoder::Error)));
+        connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
+        connect(decoder.get(), SIGNAL(finished()), this, SLOT(slotFinished()));
+        connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
+            SLOT(slotError(QAudioDecoder::Error)));
 
-		loadingInProgress = true;
-		decoder->start();
+        loadingInProgress = true;
+        decoder->start();
 
-		while (loadingInProgress)
-		{
-			QApplication::processEvents();
-		}
+        while (loadingInProgress)
+        {
+            QApplication::processEvents();
+        }
+#endif
 	}
 
 	if (!loaded)

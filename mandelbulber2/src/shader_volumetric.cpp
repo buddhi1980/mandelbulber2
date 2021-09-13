@@ -46,6 +46,8 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
+using std::clamp;
+
 sRGBAfloat cRenderWorker::VolumetricShader(
 	const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const
 {

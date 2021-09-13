@@ -936,7 +936,7 @@ void cCommandLineInterface::handleOverrideParameters() const
 			fractalIndex = matchType.captured(1).toInt() - 1;
 			overrideParameters[i] = matchType.captured(2);
 		}
-		QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
+        QStringList overrideParameter = overrideParameters[i].split(QRegularExpression("\\="));
 		if (overrideParameter.size() == 2)
 		{
 			if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
@@ -955,7 +955,7 @@ void cCommandLineInterface::handleOverrideParameters() const
 void cCommandLineInterface::handleResolution()
 {
 	bool checkParse = true;
-	QStringList resolutionParameters = cliData.resolution.split(QRegExp("x"));
+    QStringList resolutionParameters = cliData.resolution.split(QRegularExpression("x"));
 	if (resolutionParameters.size() == 2)
 	{
 		const int xRes = resolutionParameters[0].toInt(&checkParse);

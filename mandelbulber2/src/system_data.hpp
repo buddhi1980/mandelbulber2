@@ -91,7 +91,7 @@ struct sSystem
 	int numberOfThreads;
 	bool noGui;
 	bool silent;
-	QChar decimalPoint;
+    QString decimalPoint;
 	QLocale locale;
 	int terminalWidth;
 	bool statsOnCLI;

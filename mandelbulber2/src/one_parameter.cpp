@@ -74,6 +74,7 @@ void cOneParameter::Set(T val, enumValueSelection selection)
 }
 template void cOneParameter::Set<double>(double val, enumValueSelection selection);
 template void cOneParameter::Set<int>(int val, enumValueSelection selection);
+template void cOneParameter::Set<long long>(long long val, enumValueSelection selection);
 template void cOneParameter::Set<QString>(QString val, enumValueSelection selection);
 template void cOneParameter::Set<CVector3>(CVector3 val, enumValueSelection selection);
 template void cOneParameter::Set<CVector4>(CVector4 val, enumValueSelection selection);
@@ -98,6 +99,7 @@ T cOneParameter::Get(enumValueSelection selection) const
 }
 template double cOneParameter::Get<double>(enumValueSelection selection) const;
 template int cOneParameter::Get<int>(enumValueSelection selection) const;
+template long long cOneParameter::Get<long long>(enumValueSelection selection) const;
 template QString cOneParameter::Get<QString>(enumValueSelection selection) const;
 template CVector3 cOneParameter::Get<CVector3>(enumValueSelection selection) const;
 template CVector4 cOneParameter::Get<CVector4>(enumValueSelection selection) const;

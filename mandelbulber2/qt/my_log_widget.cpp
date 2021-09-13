@@ -39,6 +39,7 @@
 
 #include <QRegularExpression>
 #include <QTextStream>
+#include <QFile>
 
 #include "src/system_data.hpp"
 

@@ -38,7 +38,7 @@
 #include <memory>
 #include <utility>
 
-#include "QtCore"
+#include <QtCore>
 #include "algebra.hpp"
 #include "color_structures.hpp"
 #include "object_data.hpp"

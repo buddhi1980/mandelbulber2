@@ -1260,7 +1260,7 @@ void cInterface::SetByMouse(
 
 	WriteLog(
 		QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
-			+ button,
+            + QString::number(int(button)),
 		2);
 	// get data from interface
 
@@ -3073,11 +3073,11 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 		if (brightness > 20)
 		{
 			int r = random.Random(40) + rBase - 20;
-			r = clamp(r, 0, 255);
+            r = clamp(r, 0, 255);
 			int g = random.Random(40) + gBase - 20;
-			g = clamp(g, 0, 255);
+            g = clamp(g, 0, 255);
 			int b = random.Random(40) + bBase - 20;
-			b = clamp(b, 0, 255);
+            b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
 		else
@@ -3196,7 +3196,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 		}
 		else if (containerName.indexOf("fractal") >= 0)
 		{
-			const int index = containerName.rightRef(1).toInt();
+            const int index = containerName.right(1).toInt();
 			if (index < 4)
 			{
 				container = gParFractal->at(index);

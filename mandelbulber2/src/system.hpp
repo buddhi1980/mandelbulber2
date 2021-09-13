@@ -80,6 +80,7 @@
 #include <QElapsedTimer>
 #include <QFileInfo>
 #include <QThread>
+#include <QRegularExpression>
 
 // compatibility with qt version < 5.5
 #ifndef qInfo
@@ -95,8 +96,7 @@ bool CreateDefaultFolders();
 void ClearNetRenderCache();
 void DeleteOldChache(const QString &directoryPath, int days);
 bool CreateFolder(const QString &name);
-void DeleteAllFilesFromDirectory(const QString &folder, const QString &filterExpression,
-	QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
+void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression, bool useWildcart = true);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();
 void UpdateUIStyle();

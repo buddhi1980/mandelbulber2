@@ -586,11 +586,11 @@ void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
 	QList<QString> listOfParameters = params->GetListOfParameters();
 	for (auto &parameterName : listOfParameters)
 	{
-		if (parameterName.leftRef(3) == "mat")
+        if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int matIndex = parameterName.midRef(3, positionOfDash - 3).toInt();
-			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
+            int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+            if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				materials->emplace(
 					matIndex, std::move(cMaterial(matIndex, params, loadTextures, quiet, useNetRender)));

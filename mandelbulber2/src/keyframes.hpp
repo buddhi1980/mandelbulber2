@@ -41,6 +41,7 @@
 #define MANDELBULBER2_SRC_KEYFRAMES_HPP_
 
 #include <memory>
+#include <vector>
 
 #include "animation_frames.hpp"
 #include "morph.hpp"

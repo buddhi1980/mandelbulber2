@@ -336,7 +336,10 @@ void cTabFractal::FrameIterationFormulaSetEnabled(bool enabled) const
 void cTabFractal::SynchronizeFractal(
 	std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const
 {
-	SynchronizeInterfaceWindow(fractalWidget.get(), fractal, mode);
+    if(fractalWidget)
+    {
+        SynchronizeInterfaceWindow(fractalWidget.get(), fractal, mode);
+    }
 }
 
 void cTabFractal::slotPressedButtonIFSDefaultsDodecahedron() const

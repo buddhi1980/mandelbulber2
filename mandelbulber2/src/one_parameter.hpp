@@ -122,6 +122,7 @@ private:
 
 extern template void cOneParameter::Set<double>(double val, enumValueSelection selection);
 extern template void cOneParameter::Set<int>(int val, enumValueSelection selection);
+extern template void cOneParameter::Set<long long>(long long val, enumValueSelection selection);
 extern template void cOneParameter::Set<QString>(QString val, enumValueSelection selection);
 extern template void cOneParameter::Set<CVector3>(CVector3 val, enumValueSelection selection);
 extern template void cOneParameter::Set<CVector4>(CVector4 val, enumValueSelection selection);
@@ -130,6 +131,7 @@ extern template void cOneParameter::Set<bool>(bool val, enumValueSelection selec
 
 extern template double cOneParameter::Get<double>(enumValueSelection selection) const;
 extern template int cOneParameter::Get<int>(enumValueSelection selection) const;
+extern template long long cOneParameter::Get<long long>(enumValueSelection selection) const;
 extern template QString cOneParameter::Get<QString>(enumValueSelection selection) const;
 extern template CVector3 cOneParameter::Get<CVector3>(enumValueSelection selection) const;
 extern template CVector4 cOneParameter::Get<CVector4>(enumValueSelection selection) const;

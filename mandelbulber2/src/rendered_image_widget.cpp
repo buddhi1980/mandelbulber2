@@ -653,7 +653,7 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 	}
 }
 
-void RenderedImage::enterEvent(QEvent *event)
+void RenderedImage::enterEvent(QEnterEvent *event)
 {
 	(void)event;
 
@@ -1321,12 +1321,12 @@ void RenderedImage::DisplayAllLights()
 	for (auto &parameterName : listOfParameters)
 	{
 		const int lengthOfPrefix = 5;
-		if (parameterName.leftRef(lengthOfPrefix) == "light")
+        if (parameterName.left(lengthOfPrefix) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int lightIndex =
-				parameterName.midRef(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
-			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
+                parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+            if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				const cLight light(lightIndex, params, false, true, false);
 

@@ -49,6 +49,8 @@
 #include "src/random.hpp"
 #include "src/write_log.hpp"
 
+using std::clamp;
+
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapper(this)

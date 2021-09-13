@@ -61,11 +61,14 @@ inline double dmix(double a, double b, double x)
 	return a * (1.0 - x) + b * x;
 }
 
-template <typename T>
-inline T clamp(T x, T min, T max)
-{
-	return qBound(min, x, max);
-}
+//namespace myMath
+//{
+//template <typename T>
+//inline T clamp(T x, T min, T max)
+//{
+//	return qBound(min, x, max);
+//}
+//}
 
 // reference: https://www.iquilezles.org/www/articles/smin/smin.htm
 inline double smoothMin(double a, double b, double k)

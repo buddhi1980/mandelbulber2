@@ -549,7 +549,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	QStringList separatedText =
 		settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-	QStringList separatedText = settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), Qt::KeepEmptyParts);
+    QStringList separatedText = settingsTextTrimmed.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 
 	DecodeHeader(separatedText);
@@ -642,7 +642,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				}
 				else if (section.contains("fractal"))
 				{
-					int i = section.rightRef(1).toInt() - 1;
+                    int i = section.right(1).toInt() - 1;
 					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
 
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
@@ -987,7 +987,7 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 
 bool cSettings::CheckSection(QString text, QString &section)
 {
-	if (text.left(1) == "[" && text.rightRef(1) == "]")
+    if (text.left(1) == "[" && text.right(1) == "]")
 	{
 		section = text.mid(1, text.length() - 2);
 		return true;

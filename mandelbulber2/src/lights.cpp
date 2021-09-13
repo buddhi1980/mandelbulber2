@@ -87,12 +87,12 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	for (auto &parameterName : listOfParameters)
 	{
 		const int lengthOfPrefix = 5;
-		if (parameterName.leftRef(lengthOfPrefix) == "light")
+        if (parameterName.left(lengthOfPrefix) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int lightIndex =
-				parameterName.midRef(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
-			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
+                parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+            if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				lights.push_back(cLight(lightIndex, _params, loadTextures, quiet, useNetRender));
 				isAnyLight = true;
@@ -234,7 +234,7 @@ QList<int> cLights::GetListOfLights(std::shared_ptr<cParameterContainer> params)
 		if (parameterName.left(5) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int lightIndex = parameterName.midRef(5, positionOfDash - 5).toInt();
+            int lightIndex = parameterName.mid(5, positionOfDash - 5).toInt();
 			if (listOfFoundLights.indexOf(lightIndex) < 0)
 			{
 				listOfFoundLights.append(lightIndex);

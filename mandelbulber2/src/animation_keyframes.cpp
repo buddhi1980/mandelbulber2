@@ -1244,7 +1244,7 @@ void cKeyframeAnimation::DeleteFramesTo(int index) const
 void cKeyframeAnimation::slotSelectKeyframeAnimImageDir() const
 {
 	QFileDialog *dialog = new QFileDialog();
-	dialog->setFileMode(QFileDialog::DirectoryOnly);
+    dialog->setFileMode(QFileDialog::Directory);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
 	dialog->setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_keyframe_dir")));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);

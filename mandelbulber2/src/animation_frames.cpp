@@ -222,7 +222,7 @@ std::shared_ptr<const cParameterContainer> cAnimationFrames::ContainerSelector(
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-		const int index = containerName.rightRef(1).toInt();
+        const int index = containerName.right(1).toInt();
 		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = fractal->at(index);
@@ -258,7 +258,7 @@ std::shared_ptr<cParameterContainer> cAnimationFrames::ContainerSelector(QString
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-		const int index = containerName.rightRef(1).toInt();
+        const int index = containerName.right(1).toInt();
 		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = fractal->at(index);
@@ -583,15 +583,15 @@ void cAnimationFrames::WipeFramesFromFolder(QString folder)
 	// frames start with the string "frame_" followed by a number sequence
 	// then an optional suffix (e.g. "_alpha") followed by the image file extension
 	QString regex = "^frame_[0-9]+(?:_[a-z]+)?\\..+$";
-	DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(
-		folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(
-		folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(
-		folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(
-		folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
+    DeleteAllFilesFromDirectory(folder, regex, false);
+    DeleteAllFilesFromDirectory(
+        folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, false);
+    DeleteAllFilesFromDirectory(
+        folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, false);
+    DeleteAllFilesFromDirectory(
+        folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, false);
+    DeleteAllFilesFromDirectory(
+        folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, false);
 }
 
 void cAnimationFrames::WipeFramesFromFolder(QString folder, int start, int end)
@@ -601,15 +601,15 @@ void cAnimationFrames::WipeFramesFromFolder(QString folder, int start, int end)
 	for (int i = start; i <= end; i++)
 	{
 
-		QString regex = QString("^frame_%1+(?:_[a-z]+)?\\..+$").arg(i, 7, 10, QChar('0'));
-		DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
-		DeleteAllFilesFromDirectory(
-			folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
-		DeleteAllFilesFromDirectory(
-			folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
-		DeleteAllFilesFromDirectory(
-			folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
-		DeleteAllFilesFromDirectory(
-			folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
+        QString regex = QString("^frame_%1+(?:_[a-z]+)?\\..+$").arg(i, 7, 10, QChar('0'));
+        DeleteAllFilesFromDirectory(folder, regex, false);
+        DeleteAllFilesFromDirectory(
+            folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, false);
+        DeleteAllFilesFromDirectory(
+            folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, false);
+        DeleteAllFilesFromDirectory(
+            folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, false);
+        DeleteAllFilesFromDirectory(
+            folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, false);
 	}
 }

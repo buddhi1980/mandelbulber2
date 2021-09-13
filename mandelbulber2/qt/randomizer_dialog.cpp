@@ -938,7 +938,7 @@ std::shared_ptr<cParameterContainer> cRandomizerDialog::ContainerSelector(QStrin
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-		const int index = containerName.rightRef(1).toInt();
+        const int index = containerName.right(1).toInt();
 		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = fractal->at(index);

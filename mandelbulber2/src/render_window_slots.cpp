@@ -728,7 +728,7 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	QStringList recentFiles =
 		recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-	QStringList recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), Qt::KeepEmptyParts);
+    QStringList recentFiles = recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 
 	QSignalMapper *mapRecentFileLoad = new QSignalMapper(this);

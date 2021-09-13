@@ -46,7 +46,7 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonM
 {
 	layout = new QHBoxLayout(this);
 	layout->setSpacing(2);
-	layout->setMargin(2);
+    layout->setContentsMargins(2,2,2,2);
 
 	materialWidget = new cMaterialWidget(this);
 	label = new QLabel(this);

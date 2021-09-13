@@ -38,6 +38,8 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
+using std::clamp;
+
 sRGBFloat cRenderWorker::GlobalIlumination(
 	const sShaderInputData &input, sRGBAfloat objectColor) const
 {

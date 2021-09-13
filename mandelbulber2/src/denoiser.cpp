@@ -42,6 +42,7 @@
 
 using std::max;
 using std::min;
+using std::clamp;
 
 cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 {
@@ -130,7 +131,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			{
 				sRGBFloat pixel = blurBuffer[xx + yy * width];
 				float sum = pixel.R + pixel.G + pixel.B;
-				filterRadius = filterRadius + clamp(0.1f / (sum * sum + 0.0000001f), 0.0f, 10.0f);
+                filterRadius = filterRadius + clamp(0.1f / (sum * sum + 0.0000001f), 0.0f, 10.0f);
 			}
 
 			int delta = int(filterRadius + 1.0f);

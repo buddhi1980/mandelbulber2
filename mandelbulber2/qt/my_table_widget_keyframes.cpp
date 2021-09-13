@@ -40,6 +40,7 @@
 #include <QDebug>
 #include <QHeaderView>
 #include <QMenu>
+#include <QActionGroup>
 
 #include "src/animation_keyframes.hpp"
 

@@ -62,6 +62,7 @@ public:
 
 	enumVarType Store(double val);
 	enumVarType Store(int val);
+    enumVarType Store(long long val);
 	enumVarType Store(QString val);
 	enumVarType Store(CVector3 val);
 	enumVarType Store(CVector4 val);
@@ -69,6 +70,7 @@ public:
 	enumVarType Store(bool val);
 	enumVarType Get(double &val) const;
 	enumVarType Get(int &val) const;
+    enumVarType Get(long long &val) const;
 	enumVarType Get(QString &val) const;
 	enumVarType Get(CVector3 &val) const;
 	enumVarType Get(CVector4 &val) const;

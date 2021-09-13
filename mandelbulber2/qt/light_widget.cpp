@@ -43,6 +43,8 @@
 #include "src/common_math.h"
 #include "src/system_data.hpp"
 
+using std::clamp;
+
 cLightWidget::cLightWidget(QWidget *parent) : QWidget(parent)
 {
 	size = systemData.GetPreferredThumbnailSize() * 0.7;

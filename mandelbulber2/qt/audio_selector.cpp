@@ -64,7 +64,9 @@ cAudioSelector::~cAudioSelector()
 
 	if (audioOutput)
 	{
-		audioOutput->stop();
+#ifndef NO_AUDIO_OUTPUT
+        audioOutput->stop();
+#endif
 	}
 
 	delete ui;
@@ -210,60 +212,66 @@ void cAudioSelector::slotPlaybackStart() const
 {
 	if (audio->isLoaded() && audioOutput)
 	{
-		switch (audioOutput->state())
-		{
-			case QAudio::ActiveState:
-				// play -> pause
-				audioOutput->suspend();
-				SetStartStopButtonsPlayingStatus(QAudio::SuspendedState);
-				break;
-			case QAudio::SuspendedState:
-				// pause -> resume
-				audioOutput->resume();
-				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
-				break;
-			case QAudio::StoppedState:
-				// stopped -> play
-				audioOutput->start(playStream.get());
-				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
-				break;
-			case QAudio::IdleState: qWarning() << "audio not loaded yet!"; break;
-			default: break;
-		}
+#ifndef NO_AUDIO_OUTPUT
+        switch (audioOutput->state())
+        {
+            case QAudio::ActiveState:
+                // play -> pause
+                audioOutput->suspend();
+                SetStartStopButtonsPlayingStatus(QAudio::SuspendedState);
+                break;
+            case QAudio::SuspendedState:
+                // pause -> resume
+                audioOutput->resume();
+                SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
+                break;
+            case QAudio::StoppedState:
+                // stopped -> play
+                audioOutput->start(playStream.get());
+                SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
+                break;
+            case QAudio::IdleState: qWarning() << "audio not loaded yet!"; break;
+            default: break;
+        }
+#endif
 	}
 }
 
 void cAudioSelector::audioSetup()
 {
-	QAudioFormat format;
-	format.setSampleRate(audio->getSampleRate());
-	format.setChannelCount(1);
-	format.setSampleSize(32);
-	format.setCodec("audio/pcm");
-	format.setByteOrder(QAudioFormat::LittleEndian);
-	format.setSampleType(QAudioFormat::Float);
+#ifndef NO_AUDIO_OUTPUT
+    QAudioFormat format;
+    format.setSampleRate(audio->getSampleRate());
+    format.setChannelCount(1);
+    format.setSampleSize(32);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::Float);
 
-	audioOutput.reset(new QAudioOutput(format, this));
-	audioOutput->setVolume(1.0);
-	audioOutput->setNotifyInterval(50);
+    audioOutput.reset(new QAudioOutput(format, this));
+    audioOutput->setVolume(1.0);
+    audioOutput->setNotifyInterval(50);
 
-	connect(audioOutput.get(), SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
-	connect(audioOutput.get(), SIGNAL(stateChanged(QAudio::State)), this,
-		SLOT(slotPlaybackStateChanged(QAudio::State)));
+    connect(audioOutput.get(), SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
+    connect(audioOutput.get(), SIGNAL(stateChanged(QAudio::State)), this,
+        SLOT(slotPlaybackStateChanged(QAudio::State)));
 
-	playBuffer = QByteArray(
-		reinterpret_cast<char *>(audio->getRawAudio()), int(audio->getLength() * sizeof(float)));
+    playBuffer = QByteArray(
+        reinterpret_cast<char *>(audio->getRawAudio()), int(audio->getLength() * sizeof(float)));
 
-	playStream.reset(new QBuffer(&playBuffer));
-	playStream->open(QIODevice::ReadOnly);
-	slotPlayPositionChanged();
+    playStream.reset(new QBuffer(&playBuffer));
+    playStream->open(QIODevice::ReadOnly);
+    slotPlayPositionChanged();
+#endif
 }
 
 void cAudioSelector::slotPlaybackStop()
 {
 	if (audioOutput)
 	{
-		audioOutput->stop();
+#ifndef NO_AUDIO_OUTPUT
+        //audioOutput->stop();
+#endif
 		audioSetup();
 		SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 	}
@@ -325,27 +333,29 @@ void cAudioSelector::slotDeleteAudioTrack()
 
 void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 {
+    #ifndef NO_AUDIO_OUTPUT
 	// set scroll indicator to current position
-	const int viewOuterWidth = ui->scrollArea->width();
-	const int viewInnerWidth = ui->scrollAreaWidgetContents->width();
-	const double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
-	const int width = ui->scrollArea->horizontalScrollBar()->maximum();
-	const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
-	const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
-	const double percentRuntime = processedSecs / totalLengthSecs;
-	const int x = int(width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent));
-	ui->scrollArea->horizontalScrollBar()->setValue(x);
+    const int viewOuterWidth = ui->scrollArea->width();
+    const int viewInnerWidth = ui->scrollAreaWidgetContents->width();
+    const double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
+    const int width = ui->scrollArea->horizontalScrollBar()->maximum();
+    const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
+    const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
+    const double percentRuntime = processedSecs / totalLengthSecs;
+    const int x = int(width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent));
+    ui->scrollArea->horizontalScrollBar()->setValue(x);
 
-	// set text of current position and slider progress
-	const QString processedString =
-		QDateTime::fromTime_t(uint(processedSecs)).toUTC().toString("hh:mm:ss");
-	const QString totalLengthString =
-		QDateTime::fromTime_t(uint(totalLengthSecs)).toUTC().toString("hh:mm:ss");
-	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
-	if (updateSlider)
-		ui->audio_position_slider->setValue(int(percentRuntime * ui->audio_position_slider->maximum()));
+    // set text of current position and slider progress
+    const QString processedString =
+        QDateTime::fromTime_t(uint(processedSecs)).toUTC().toString("hh:mm:ss");
+    const QString totalLengthString =
+        QDateTime::fromTime_t(uint(totalLengthSecs)).toUTC().toString("hh:mm:ss");
+    ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
+    if (updateSlider)
+        ui->audio_position_slider->setValue(int(percentRuntime * ui->audio_position_slider->maximum()));
 
-	emit playPositionChanged(int(processedSecs * 1000));
+    emit playPositionChanged(int(processedSecs * 1000));
+#endif
 }
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state) const

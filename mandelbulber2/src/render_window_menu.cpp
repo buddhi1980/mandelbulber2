@@ -390,9 +390,9 @@ void RenderWindow::SaveSettingsToRecent(QString fileName)
 		QString recentFilesFileContent = in.readAll();
 		recentFilesFile.close();
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-		recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+        recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-		recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), Qt::KeepEmptyParts);
+        recentFiles = recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 		recentFiles.removeOne(fileName);
 	}
