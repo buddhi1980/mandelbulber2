@@ -390,7 +390,10 @@ void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	QRegExp rx(filterExpression);
-	if (useWildcart) rx.setPatternSyntax(QRegExp::Wildcard);
+	if (useWildcart)
+		rx.setPatternSyntax(QRegExp::Wildcard);
+	else
+		rx.setPatternSyntax(QRegExp::RegExp);
 
 #else
 	QRegularExpression rx(filterExpression);
@@ -407,7 +410,12 @@ void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression
 		{
 			folderIterator.next();
 			if (folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+			if (rx.exactMatch(folderIterator.fileName()))
+#else
 			if (rx.match(folderIterator.fileName()).hasMatch())
+#endif
 			{
 				if (QFile::remove(folderIterator.filePath()))
 				{
