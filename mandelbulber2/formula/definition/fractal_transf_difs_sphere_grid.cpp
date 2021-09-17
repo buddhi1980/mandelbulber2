@@ -26,15 +26,14 @@ cFractalTransfDIFSSphereGrid::cFractalTransfDIFSSphereGrid() : cAbstractFractal(
 
 void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// addition constant
-	z += fractal->transformCommon.additionConstant000;
-
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fabs(fractal->transformCommon.scale1);
-
-	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
 	CVector4 zc = z;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		zc += fractal->transformCommon.offset000;
+		zc *= fractal->transformCommon.scale1;
+		aux.DE *= fabs(fractal->transformCommon.scale1);
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+	}
 
 	// polyfold
 	zc.x = fabs(zc.x);
@@ -44,8 +43,12 @@ void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *frac
 	zc.y = cos(psi) * len;
 	zc.x = sin(psi) * len;
 
-	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		zc = fractal->transformCommon.rotationMatrix2.RotateVector(zc);
+	}
 
+	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		T1 = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
 	else
@@ -77,27 +80,20 @@ void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 
 	double torD = min(T1, T2);
-
 	torD = min(torD, T3);
 
-	double colorDist = aux.dist; // for color
-
-
-
 	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = torD / (aux.DE + fractal->analyticDE.offset1);
+		aux.dist = torD / (aux.DE + fractal->analyticDE.offset0);
 	else
-		aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset1));
+		aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset0));
 
-
-	if (fractal->foldColor.auxColorEnabledA)
+	if (fractal->foldColor.auxColorEnabled)
 	{
 		double colorAdd = 0.0f;
-		if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs1;
-		if (T2 != torD && T3 != torD) colorAdd += fractal->foldColor.difs0000.x;
-		if (T1 != torD && T3 != torD) colorAdd += fractal->foldColor.difs0000.y;
+		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
+		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		aux.color += colorAdd;
+		aux.color = colorAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;

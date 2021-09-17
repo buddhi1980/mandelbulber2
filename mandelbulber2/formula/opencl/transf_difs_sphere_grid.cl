@@ -15,28 +15,13 @@
 
 REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// addition constant
-	z += fractal->transformCommon.additionConstant000;
-
-	z *= fractal->transformCommon.scale1;
-	aux->DE *= fabs(fractal->transformCommon.scale1);
-
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-
 	REAL4 zc = z;
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		REAL temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		REAL temp = zc.y;
-		zc.y = zc.z;
-		zc.z = temp;
+		zc += fractal->transformCommon.offset000;
+		zc *= fractal->transformCommon.scale1;
+		aux->DE *= fabs(fractal->transformCommon.scale1);
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
 	}
 
 	// polyfold
@@ -47,8 +32,12 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	zc.y = cos(psi) * len;
 	zc.x = sin(psi) * len;
 
-	REAL T1 = native_sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
+	}
 
+	REAL T1 = native_sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		T1 = native_sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
 	else
@@ -80,24 +69,20 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	REAL torD = min(T1, T2);
-
 	torD = min(torD, T3);
 
-	REAL colorDist = aux->dist; // for color
-
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = torD / (aux->DE + fractal->analyticDE.offset1);
+		aux->dist = torD / (aux->DE + fractal->analyticDE.offset0);
 	else
-		aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset1));
+		aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset0));
 
-	if (fractal->foldColor.auxColorEnabledA)
+	if (fractal->foldColor.auxColorEnabled)
 	{
-		REAL colorAdd = 0.0f;
-		if (colorDist != aux->dist) colorAdd += fractal->foldColor.difs1;
-		if (T2 != torD && T3 != torD) colorAdd += fractal->foldColor.difs0000.x;
-		if (T1 != torD && T3 != torD) colorAdd += fractal->foldColor.difs0000.y;
+		double colorAdd = 0.0f;
+		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
+		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		aux->color += colorAdd;
+		aux->color = colorAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
