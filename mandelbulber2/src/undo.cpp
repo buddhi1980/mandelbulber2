@@ -42,6 +42,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QTimer>
 
 #include "error_message.hpp"
 #include "initparameters.hpp"
@@ -72,6 +73,10 @@ cUndo::cUndo(QObject *parent) : QObject(parent)
 			level++;
 		}
 	}
+
+	timer = new QTimer(this);
+	timer->setSingleShot(true);
+	connect(timer, &QTimer::timeout, this, &cUndo::slotDelayedStore);
 }
 
 cUndo::~cUndo() = default;
@@ -80,60 +85,33 @@ void cUndo::Store(std::shared_ptr<cParameterContainer> par,
 	std::shared_ptr<cFractalContainer> parFractal, std::shared_ptr<cAnimationFrames> frames,
 	std::shared_ptr<cKeyframes> keyframes)
 {
-	sUndoRecord record;
-
 	// autosave
-	WriteLog("Autosave started", 2);
+	WriteLog("Autosave store started", 2);
 	cSettings parSettings(cSettings::formatCondensedText);
-	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.CreateText(par, parFractal, frames, keyframes);
 	parSettings.SaveToFile(systemDirectories.GetAutosaveFile());
-	parSettings.SaveToFile(systemDirectories.GetUndoFolder() + QDir::separator()
-												 + QString("undo_%1.fract").arg(fileIndex, 2, 10, QChar('0')));
+
 	WriteLog("Autosave finished", 2);
 
 	WriteLog("cUndo::Store() started", 2);
-	*record.mainParams = *par;
-	*record.fractParams = *parFractal;
+	*tempRecord.mainParams = *par;
+	*tempRecord.fractParams = *parFractal;
+
 	if (frames)
 	{
-		*record.animationFrames = *frames;
-		record.hasFrames = true;
-	}
-	else
-	{
-		record.hasFrames = false;
-		record.animationFrames.reset(new cAnimationFrames());
+		*tempRecord.animationFrames = *frames;
+		tempRecord.hasFrames = true;
 	}
 
 	if (keyframes)
 	{
-		*record.animationKeyframes = *keyframes;
-		record.hasKeyframes = true;
+		*tempRecord.animationKeyframes = *keyframes;
+		tempRecord.hasKeyframes = true;
 	}
-	else
-	{
-		record.hasKeyframes = false;
-		record.animationKeyframes.reset(new cKeyframes());
-	}
+	tempRecord.isLoaded = true;
 
-	if (undoBuffer.size() > level)
-	{
-		for (int i = undoBuffer.size() - 1; i >= level; i--)
-		{
-			undoBuffer.removeAt(i);
-		}
-	}
-	record.isLoaded = true;
-	undoBuffer.append(record);
-	if (undoBuffer.size() > 100)
-	{
-		undoBuffer.removeFirst();
-	}
-	else
-	{
-		level++;
-	}
-	fileIndex = (fileIndex + 1 + 100) % 100;
+	timer->start(500);
+
 	WriteLog("cUndo::Store() finished", 2);
 }
 
@@ -240,4 +218,52 @@ bool cUndo::Redo(std::shared_ptr<cParameterContainer> par,
 		cErrorMessage::showMessage(QObject::tr("No more redo"), cErrorMessage::warningMessage);
 		return false;
 	}
+}
+
+void cUndo::slotDelayedStore()
+{
+	WriteLog("Autosave delayed store started", 2);
+
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(tempRecord.mainParams, tempRecord.fractParams, tempRecord.animationFrames,
+		tempRecord.animationKeyframes);
+	parSettings.SaveToFile(systemDirectories.GetUndoFolder() + QDir::separator()
+												 + QString("undo_%1.fract").arg(fileIndex, 2, 10, QChar('0')));
+
+	sUndoRecord record;
+	record.hasFrames = tempRecord.hasFrames;
+	record.hasKeyframes = tempRecord.hasKeyframes;
+	record.isLoaded = tempRecord.isLoaded;
+	*record.mainParams = *tempRecord.mainParams;
+	*record.fractParams = *tempRecord.fractParams;
+
+	if (tempRecord.hasFrames) *record.animationFrames = *tempRecord.animationFrames;
+	if (tempRecord.hasKeyframes) *record.animationKeyframes = *tempRecord.animationKeyframes;
+
+	if (undoBuffer.size() > level)
+	{
+		for (int i = undoBuffer.size() - 1; i >= level; i--)
+		{
+			undoBuffer.removeAt(i);
+		}
+	}
+	record.isLoaded = true;
+	undoBuffer.append(record);
+	if (undoBuffer.size() > 100)
+	{
+		undoBuffer.removeFirst();
+	}
+	else
+	{
+		level++;
+	}
+	fileIndex = (fileIndex + 1 + 100) % 100;
+
+	tempRecord.hasFrames = false;
+	tempRecord.animationFrames.reset(new cAnimationFrames());
+
+	tempRecord.hasKeyframes = false;
+	tempRecord.animationKeyframes.reset(new cKeyframes());
+
+	qDebug() << "autosave stored";
 }

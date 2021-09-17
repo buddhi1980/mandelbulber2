@@ -48,7 +48,9 @@
 #include "keyframes.hpp"
 #include "parameters.hpp"
 
-class cUndo : QObject
+class QTimer;
+
+class cUndo : public QObject
 {
 	Q_OBJECT
 public:
@@ -64,6 +66,9 @@ public:
 	bool Redo(std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal,
 		std::shared_ptr<cAnimationFrames> frames, std::shared_ptr<cKeyframes> keyframes,
 		bool *refreshFrames, bool *refreshKeyframes);
+
+private slots:
+	void slotDelayedStore();
 
 private:
 	struct sUndoRecord
@@ -85,6 +90,8 @@ private:
 		bool isLoaded = false;
 	};
 
+	QTimer *timer;
+	sUndoRecord tempRecord;
 	QList<sUndoRecord> undoBuffer;
 	int level;
 	int fileIndex;
