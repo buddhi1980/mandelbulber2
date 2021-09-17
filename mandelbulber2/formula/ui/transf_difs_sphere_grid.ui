@@ -899,7 +899,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_58">
           <property name="text">
-           <string>meridians</string>
+           <string>meridians:</string>
           </property>
          </widget>
         </item>
@@ -997,7 +997,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string>offset torus</string>
+           <string>offset torus: </string>
           </property>
          </widget>
         </item>

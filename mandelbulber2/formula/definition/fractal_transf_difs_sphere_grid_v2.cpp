@@ -32,7 +32,7 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
 
-	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	CVector4 zc = z;
 
@@ -43,6 +43,11 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 	double len = sqrt(zc.y * zc.y + zc.x * zc.x);
 	zc.y = cos(psi) * len;
 	zc.x = sin(psi) * len;
+
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		zc = fractal->transformCommon.rotationMatrix2.RotateVector(zc);
+	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
 
@@ -77,12 +82,9 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 	}
 
 	double torD = min(T1, T2);
-
 	torD = min(torD, T3);
 
 	double colorDist = aux.dist; // for color
-
-
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = torD / (aux.DE + fractal->analyticDE.offset1);
@@ -90,14 +92,18 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 		aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset1));
 
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0f;
 		if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs1;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		aux.color += colorAdd;
+
+		if (!fractal->transformCommon.functionEnabledCFalse)
+			aux.color = colorAdd;
+		else
+			aux.color += colorAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;

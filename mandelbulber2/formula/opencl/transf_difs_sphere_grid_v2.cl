@@ -21,23 +21,9 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	REAL4 zc = z;
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		REAL temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		REAL temp = zc.y;
-		zc.y = zc.z;
-		zc.z = temp;
-	}
 
 	// polyfold
 	zc.x = fabs(zc.x);
@@ -47,10 +33,12 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	zc.y = cos(psi) * len;
 	zc.x = sin(psi) * len;
 
-
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
+	}
 
 	REAL T1 = native_sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		T1 = native_sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
 	else
@@ -92,14 +80,19 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	else
 		aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset1));
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0f;
 		if (colorDist != aux->dist) colorAdd += fractal->foldColor.difs1;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		aux->color += colorAdd;
+
+		if (!fractal->transformCommon.functionEnabledCFalse)
+			aux->color = colorAdd;
+		else
+			aux->color += colorAdd;
+
 	}
 
 	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
