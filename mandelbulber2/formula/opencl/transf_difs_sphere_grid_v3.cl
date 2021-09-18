@@ -13,9 +13,9 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// tranform z
+	// transform z
 	z += fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);

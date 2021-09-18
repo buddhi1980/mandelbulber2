@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string>trans&amp;late</string>
+      <string>trans&amp;form zc</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -607,8 +607,8 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="9" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
+     <item row="8" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -619,7 +619,7 @@
         </font>
        </property>
        <property name="text">
-        <string>square</string>
+        <string>torus offset:</string>
        </property>
       </widget>
      </item>
@@ -651,77 +651,10 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>equator</string>
-       </property>
-      </widget>
-     </item>
      <item row="7" column="1" colspan="2">
       <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_18">
-       <property name="text">
-        <string>thickness:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>torus offset:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_05">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -753,10 +686,52 @@
        </property>
       </widget>
      </item>
+     <item row="8" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_05">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
      <item row="11" column="0">
       <widget class="QLabel" name="label_19">
        <property name="text">
         <string>DE offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>thickness:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1" colspan="2">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -804,10 +779,19 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="1" colspan="2">
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="9" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>square</string>
        </property>
       </widget>
      </item>
@@ -815,6 +799,22 @@
       <widget class="QLabel" name="label_16">
        <property name="text">
         <string>thickness:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>equator</string>
        </property>
       </widget>
      </item>
@@ -835,7 +835,7 @@
      <item>
       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
        <property name="text">
-        <string>aux.dist</string>
+        <string>min aux.dist</string>
        </property>
       </widget>
      </item>

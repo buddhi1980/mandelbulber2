@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDIFSSpring
+ * TransfDIFSSphereGridV2
  */
 
 #include "all_fractal_definitions.h"
@@ -26,16 +26,14 @@ cFractalTransfDIFSSphereGridV2::cFractalTransfDIFSSphereGridV2() : cAbstractFrac
 
 void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// addition constant
+	// transform z
 	z += fractal->transformCommon.offset000;
-
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
-
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
+	// sphere grid
 	CVector4 zc = z;
-
 	// polyfold
 	zc.x = fabs(zc.x);
 	double psi = M_PI / fractal->transformCommon.int8Z;
@@ -50,7 +48,6 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
-
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		T1 = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
 	else
@@ -87,18 +84,17 @@ void cFractalTransfDIFSSphereGridV2::FormulaCode(CVector4 &z, const sFractal *fr
 	double colorDist = aux.dist; // for color
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = torD / (aux.DE + fractal->analyticDE.offset1);
-	else
 		aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset1));
-
+	else
+		aux.dist = torD / (aux.DE + fractal->analyticDE.offset1);
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0f;
-		if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs1;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
+		if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs0000.w;
 
 		if (!fractal->transformCommon.functionEnabledCFalse)
 			aux.color = colorAdd;
