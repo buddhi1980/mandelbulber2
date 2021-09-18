@@ -31,12 +31,10 @@
  *
  * RenderWindow class - main program window
  *
- * This file contains implementation of the miscellaneous slots in RenderWindow class.
- * See also header render_window.hpp and whole implementation of class
+ * This file contains implementation of the miscellaneous slots in RenderWindow
+ * class. See also header render_window.hpp and whole implementation of class
  * spread over render_window_*.cpp
  */
-
-#include "ui_render_window.h"
 
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
@@ -48,18 +46,18 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "material_item_model.h"
-#include "render_window.hpp"
-#include "settings.hpp"
-#include "system_data.hpp"
-#include "system_directories.hpp"
-#include "write_log.hpp"
-
 #include "qt/detached_window.h"
 #include "qt/material_editor.h"
 #include "qt/mesh_export_dialog.h"
 #include "qt/preferences_dialog.h"
 #include "qt/thumbnail_widget.h"
 #include "qt/voxel_export_dialog.h"
+#include "render_window.hpp"
+#include "settings.hpp"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "ui_render_window.h"
+#include "write_log.hpp"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const
 {
@@ -313,9 +311,8 @@ void RenderWindow::slotKeyHandle()
 					gKeyframeAnimation->slotModifyKeyframe();
 					break;
 				/*case Qt::Key_D:
-				 *		currentKeyEvents.removeOne(key); // long press not allowed
-				 *		gKeyframeAnimation->slotDeleteKeyframe();
-				 * break;*/
+				 *		currentKeyEvents.removeOne(key); // long press not
+				 *allowed gKeyframeAnimation->slotDeleteKeyframe(); break;*/
 				case Qt::Key_N:
 					currentKeyEvents.removeOne(key); // long press not allowed
 					gKeyframeAnimation->slotIncreaseCurrentTableIndex();
@@ -409,8 +406,13 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 	QList<QAction *> actions = ui->toolBar->actions();
 	QStringList toolbarInActions;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	QApplication::connect(
 		mapPresetsFromExamplesLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
+#else
+	QApplication::connect(mapPresetsFromExamplesLoad, SIGNAL(mappedString(QString)), this,
+		SLOT(slotMenuLoadPreset(QString)));
+#endif
 
 	for (auto action : actions)
 	{
@@ -500,10 +502,18 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 		QApplication::processEvents();
 	}
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	QApplication::connect(mapPresetsFromExamplesRemove, SIGNAL(mapped(QString)), this,
 		SLOT(slotMenuRemovePreset(QString)));
+#else
+	QApplication::connect(mapPresetsFromExamplesRemove, SIGNAL(mappedString(QString)), this,
+		SLOT(slotMenuRemovePreset(QString)));
+#endif
 
-	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished", 2);
+	WriteLog(
+		"cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) "
+		"finished",
+		2);
 }
 
 void RenderWindow::slotPresetAddToToolbar()
@@ -595,11 +605,12 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		QToolButton *buttonRemove = new QToolButton;
 		QLabel *label = new QLabel;
 
-		buttonLoad->setStyleSheet("QLabel{ border: none; margin: 2px; padding: 1px; }");
+		buttonLoad->setStyleSheet("QLabel{ border: none; margin: 2px; padding: 1px;
+		}");
 		label->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
 		tooltipLayout->setContentsMargins(5, 0, 0, 0);
-		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
-		buttonRemove->setIcon(iconDelete);
+		QIcon iconDelete = QIcon::fromTheme("list-remove",
+		QIcon(":system/icons/list-remove.svg")); buttonRemove->setIcon(iconDelete);
 		buttonRemove->setMaximumSize(QSize(15, 15));
 		tooltipLayout->addWidget(buttonRemove);
 		tooltipLayout->addWidget(label);
@@ -618,11 +629,17 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		QApplication::connect(action, SIGNAL(triggered()), mapCustomWindowLoad, SLOT(map()));
 		QApplication::processEvents();
 	}
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	QApplication::connect(mapCustomWindowLoad, SIGNAL(mapped(QString)), this,
 		SLOT(slotMenuLoadCustomWindowState(QString)));
+#else
+	QApplication::connect(mapCustomWindowLoad, SIGNAL(mappedString(QString)), this,
+		SLOT(slotMenuLoadCustomWindowState(QString)));
+#endif
 
 	/*QApplication::connect(mapCustomWindowRemove, SIGNAL(mapped(QString)), this,
-		SLOT(slotMenuRemoveCustomWindowState(QString)));*/
+	SLOT(slotMenuRemoveCustomWindowState(QString)));*/
 
 	WriteLog("cInterface::slotPopulateCustomWindowStates() finished", 2);
 }
@@ -728,7 +745,8 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	QStringList recentFiles =
 		recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-    QStringList recentFiles = recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
+	QStringList recentFiles =
+		recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 
 	QSignalMapper *mapRecentFileLoad = new QSignalMapper(this);
@@ -767,8 +785,8 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 		QApplication::connect(action, SIGNAL(triggered()), mapRecentFileLoad, SLOT(map()));
 		QApplication::processEvents();
 	}
-	QApplication::connect(
-		mapRecentFileLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadSettingsFromFile(QString)));
+	QApplication::connect(mapRecentFileLoad, SIGNAL(mappedString(QString)), this,
+		SLOT(slotMenuLoadSettingsFromFile(QString)));
 
 	WriteLog("cInterface::slotPopulateRecentSettings() finished", 2);
 }
@@ -809,7 +827,8 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 	MyProgressBar *progressBar = nullptr;
 	bool isQueue = false;
 
-	// FIXME: sender can be deleted by another thread (e.g. ImageFileSave exists very short time)
+	// FIXME: sender can be deleted by another thread (e.g. ImageFileSave exists
+	// very short time)
 	//  if (sender())
 	//  {
 	//     isQueue = sender()->objectName() == "Queue";
@@ -935,7 +954,6 @@ void RenderWindow::ResetGlobalStopRequest()
 
 bool RenderWindow::eventFilter(QObject *obj, QEvent *event)
 {
-
 	if (event->type() == QEvent::ToolTip && !gPar->Get<bool>("display_tooltips"))
 	{
 		{
