@@ -396,11 +396,11 @@ void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression
 		rx.setPatternSyntax(QRegExp::RegExp);
 
 #else
-	QRegularExpression rx(filterExpression);
 	if (useWildcart)
 	{
 		filterExpression = QRegularExpression::wildcardToRegularExpression(filterExpression);
 	}
+	QRegularExpression rx(filterExpression);
 #endif
 
 	if (QDir(folder).exists())

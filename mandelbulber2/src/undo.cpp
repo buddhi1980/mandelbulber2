@@ -264,6 +264,4 @@ void cUndo::slotDelayedStore()
 
 	tempRecord.hasKeyframes = false;
 	tempRecord.animationKeyframes.reset(new cKeyframes());
-
-	qDebug() << "autosave stored";
 }
