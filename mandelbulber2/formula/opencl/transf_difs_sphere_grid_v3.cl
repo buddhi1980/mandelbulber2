@@ -16,19 +16,66 @@
 REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// transform z
+	z = fabs(z);
+
+	if (fractal->transformCommon.functionEnabledCx
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		REAL psi = M_PI_F / fractal->transformCommon.int32;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCyFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+		z.y = native_cos(psi) * len;
+		z.z = native_sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCzFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+		z.z = native_cos(psi) * len;
+		z.x = native_sin(psi) * len;
+	}
+
 	z += fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
+
+	REAL temp;
+	temp = z.y;
+	z.y = z.z;
+	z.z = temp;
+	temp = z.x;
+	z.x = z.y;
+	z.y = temp;
+
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	// sphere grid
 	REAL4 zc = z;
-	zc.x = fabs(zc.x);
-	REAL psi = M_PI / fractal->transformCommon.int8Z;
-	psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0 * psi) - psi);
-	REAL len = sqrt(zc.y * zc.y + zc.x * zc.x);
-	zc.y = cos(psi) * len;
-	zc.x = sin(psi) * len;
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		zc.x = fabs(zc.x);
+		REAL psi = M_PI / fractal->transformCommon.int1;
+		psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0 * psi) - psi);
+		REAL len = sqrt(zc.y * zc.y + zc.x * zc.x);
+		zc.y = cos(psi) * len;
+		zc.x = sin(psi) * len;
+	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{

@@ -677,6 +677,7 @@ typedef struct
 	cl_int int8Y;
 	cl_int int8Z;
 	cl_int int16;
+	cl_int int32;
 
 	cl_float4 additionConstant0555;
 	cl_float4 additionConstant0777;
@@ -1443,6 +1444,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.int8Y = source.int8Y;
 	target.int8Z = source.int8Z;
 	target.int16 = source.int16;
+	target.int32 = source.int32;
 	target.additionConstant0555 = toClFloat4(source.additionConstant0555);
 	target.additionConstant0777 = toClFloat4(source.additionConstant0777);
 	target.additionConstant000 = toClFloat4(source.additionConstant000);

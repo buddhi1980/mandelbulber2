@@ -667,6 +667,7 @@ struct sFractalTransformCommon
 	int int8Y;
 	int int8Z;
 	int int16;
+	int int32;
 
 	CVector4 additionConstant0555;
 	CVector4 additionConstant0777;

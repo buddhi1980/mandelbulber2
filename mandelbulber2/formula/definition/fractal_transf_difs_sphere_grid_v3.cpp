@@ -27,20 +27,67 @@ cFractalTransfDIFSSphereGridV3::cFractalTransfDIFSSphereGridV3() : cAbstractFrac
 void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// tranform z
+	z = fabs(z);
+	if (fractal->transformCommon.functionEnabledCx
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		double psi = M_PI / fractal->transformCommon.int32;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCyFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		double psi = M_PI / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.y * z.y + z.z * z.z);
+		z.y = cos(psi) * len;
+		z.z = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCzFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		double psi = M_PI / fractal->transformCommon.int8Z;
+		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.z * z.z + z.x * z.x);
+		z.z = cos(psi) * len;
+		z.x = sin(psi) * len;
+	}
+
 	z += fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
+
+	double temp;
+	temp = z.y;
+	z.y = z.z;
+	z.z = temp;
+	temp = z.x;
+	z.x = z.y;
+	z.y = temp;
+
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	// sphere grid
 	CVector4 zc = z;
-	// polyfold
-	zc.x = fabs(zc.x);
-	double psi = M_PI / fractal->transformCommon.int8Z;
-	psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0 * psi) - psi);
-	double len = sqrt(zc.y * zc.y + zc.x * zc.x);
-	zc.y = cos(psi) * len;
-	zc.x = sin(psi) * len;
+
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		// polyfold
+		zc.x = fabs(zc.x);
+		double psi = M_PI / fractal->transformCommon.int1;
+		psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0 * psi) - psi);
+		double len = sqrt(zc.y * zc.y + zc.x * zc.x);
+		zc.y = cos(psi) * len;
+		zc.x = sin(psi) * len;
+	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{

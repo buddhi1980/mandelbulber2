@@ -366,6 +366,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.int8Y = container->Get<int>("transf_int8_Y");
 	transformCommon.int8Z = container->Get<int>("transf_int8_Z");
 	transformCommon.int16 = container->Get<int>("transf_int_16");
+	transformCommon.int32 = container->Get<int>("transf_int_32");
 	transformCommon.startIterations = container->Get<int>("transf_start_iterations");
 	transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
 	transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");

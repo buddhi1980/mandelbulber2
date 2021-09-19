@@ -917,6 +917,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_int8_Y", 8, morphLinear, paramStandard);
 	par->addParam("transf_int8_Z", 8, morphLinear, paramStandard);
 	par->addParam("transf_int_16", 16, morphLinear, paramStandard);
+	par->addParam("transf_int_32", 32, morphLinear, paramStandard);
 
 	par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
