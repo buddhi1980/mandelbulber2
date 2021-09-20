@@ -69,7 +69,6 @@
 #define CL_HPP_CL_1_2_DEFAULT_BUILD
 #endif // not CL_HPP_CL_1_2_DEFAULT_BUILD
 
-
 #if defined(CL_NEW_HEADERS) || __has_include("CL/opencl.hpp")
 #include <CL/opencl.hpp>
 
@@ -77,8 +76,14 @@
 
 #if __has_include("CL/cl.hpp")
 #include <CL/cl.hpp>
-#else
+#elif __has_include("CL/cl2.hpp")
 #include <CL/cl2.hpp>
+#elif __has_include("OpenCL/opencl.hpp")
+#include <OpenCL/opencl.hpp>
+#elif __has_include("OpenCL/cl.hpp")
+#include <OpenCL/cl.hpp>
+#elif __has_include("OpenCL/cl2.hpp")
+#include <OpenCL/cl2.hpp>
 #endif
 
 #endif
