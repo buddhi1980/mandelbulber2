@@ -27,11 +27,12 @@ cFractalTransfDIFSSphereGridV3::cFractalTransfDIFSSphereGridV3() : cAbstractFrac
 void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// tranform z
-	z = fabs(z);
+	//z = fabs(z);
 	if (fractal->transformCommon.functionEnabledCx
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
+		z.y = fabs(z.y);
 		double psi = M_PI / fractal->transformCommon.int32;
 		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.x * z.x + z.y * z.y);
@@ -43,6 +44,7 @@ void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fr
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
+		z.z = fabs(z.z);
 		double psi = M_PI / fractal->transformCommon.int8Y;
 		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.y * z.y + z.z * z.z);
@@ -54,6 +56,7 @@ void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fr
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
+		z.x = fabs(z.x);
 		double psi = M_PI / fractal->transformCommon.int8Z;
 		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.z * z.z + z.x * z.x);
@@ -94,11 +97,11 @@ void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fr
 		zc = fractal->transformCommon.rotationMatrix2.RotateVector(zc);
 	}
 
-	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
+	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetR1;
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		T1 = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
+		T1 = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offsetp01;
 	else
-		T1 = max(fabs(T1), fabs(zc.x)) - fractal->transformCommon.offsetp01;
+		T1 = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offsetp01;
 
 	double T2 = 1000.0;
 	if (fractal->transformCommon.functionEnabledMFalse)

@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_9">
      <property name="title">
-      <string/>
+      <string>default shape minimum 3 iterations</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0,0,0,0">
       <property name="spacing">
@@ -110,7 +110,7 @@
         <item row="0" column="3">
          <widget class="QLabel" name="label_274">
           <property name="text">
-           <string>stop</string>
+           <string>stop:</string>
           </property>
          </widget>
         </item>
@@ -146,7 +146,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_166">
           <property name="text">
-           <string>power:</string>
+           <string>polyfold:</string>
           </property>
          </widget>
         </item>
@@ -551,7 +551,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>kk poly</string>
+        <string>polyfold</string>
        </property>
       </widget>
      </item>
@@ -620,7 +620,7 @@
         <number>999</number>
        </property>
        <property name="value">
-        <number>8</number>
+        <number>1</number>
        </property>
       </widget>
      </item>
@@ -666,7 +666,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="2" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
        <property name="enabled">
         <bool>true</bool>
@@ -678,7 +678,7 @@
         </font>
        </property>
        <property name="text">
-        <string>kk</string>
+        <string>polyfold torus1</string>
        </property>
       </widget>
      </item>
@@ -840,7 +840,7 @@
         </font>
        </property>
        <property name="text">
-        <string>00</string>
+        <string>torus3</string>
        </property>
       </widget>
      </item>
@@ -949,7 +949,7 @@
         </font>
        </property>
        <property name="text">
-        <string>mm</string>
+        <string>torus2</string>
        </property>
       </widget>
      </item>
@@ -1176,14 +1176,14 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_59">
           <property name="text">
-           <string>mm</string>
+           <string>torus2</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_58">
           <property name="text">
-           <string>kk</string>
+           <string>torus1</string>
           </property>
          </widget>
         </item>
@@ -1269,7 +1269,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_61">
           <property name="text">
-           <string>oo</string>
+           <string>torus3</string>
           </property>
          </widget>
         </item>

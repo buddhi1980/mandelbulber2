@@ -16,23 +16,28 @@
 REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// transform z
-	z = fabs(z);
-
+	//z = fabs(z);
+	// REAL len
 	if (fractal->transformCommon.functionEnabledCx
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
+		z.y = fabs(z.y);
 		REAL psi = M_PI_F / fractal->transformCommon.int32;
 		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
 		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
+
+
+
 	}
 
 	if (fractal->transformCommon.functionEnabledCyFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
+		z.z = fabs(z.z);
 		REAL psi = M_PI_F / fractal->transformCommon.int8Y;
 		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
 		REAL len = native_sqrt(z.y * z.y + z.z * z.z);
@@ -44,6 +49,7 @@ REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, s
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
+		z.x = fabs(z.x);
 		REAL psi = M_PI_F / fractal->transformCommon.int8Z;
 		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
 		REAL len = native_sqrt(z.z * z.z + z.x * z.x);
@@ -82,11 +88,11 @@ REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
 	}
 
-	REAL T1 = native_sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
+	REAL T1 = native_sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetR1;
 	if (!fractal->transformCommon.functionEnabledJFalse)
-		T1 = native_sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offsetp01;
+		T1 = native_sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offsetp01;
 	else
-		T1 = max(fabs(T1), fabs(zc.x)) - fractal->transformCommon.offsetp01;
+		T1 = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offsetp01;
 
 	REAL T2 = 1000.0;
 	if (fractal->transformCommon.functionEnabledMFalse)
