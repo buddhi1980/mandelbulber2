@@ -135,6 +135,7 @@ macx:!m1:QMAKE_CC=/usr/local/opt/llvm/bin/clang
 macx:!m1:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
 macx:!m1:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
 macx:!m1:INCLUDEPATH += /usr/local/opt/llvm/include/
+macx:!m1:LIBS += -L/usr/local/opt/llvm/lib/
 macx:LIBS += -L/opt/homebrew/lib/
 macx:ICON = $$ROOT/mac/mandelbulber2.icns
 
