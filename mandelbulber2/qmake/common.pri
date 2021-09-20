@@ -4,19 +4,20 @@ macx:QT += svg
 
 CONFIG += link_pkgconfig
 
-unix:!macx: CONFIG += c++14
-macx:CONFIG += c++17
+unix:!macx:CONFIG += c++14
+macx:!m1:CONFIG += c++14
+macx:m1:CONFIG += c++17
 
-macx: {
+m1: {
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.5
 }
 
-QMAKE_FULL_VERSION = 2.3-dev
+QMAKE_FULL_VERSION = 2.26-dev
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
-VERSION = 2.3
+VERSION = 2.26
 
-macx: DEFINES += NO_AUDIO_OUTPUT
-macx: DEFINES += NO_QT_MULTIMEDIA_AUDIO
+m1:DEFINES += NO_AUDIO_OUTPUT
+m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO
 
 # optional dependecies
 qtHaveModule(gamepad){
@@ -110,31 +111,36 @@ QMAKE_LFLAGS_RELEASE -= -O1
 
 # compiler build flags
 unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-macx:QMAKE_CXXFLAGS += -ffast-math
+macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
+macx:m1:QMAKE_CXXFLAGS += -ffast-math
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
 # test hardcoded lib path for gsl in travis container 
 #QMAKE_CXXFLAGS += -I/usr/include/gsl
-macx:QMAKE_CXXFLAGS += -I/opt/homebrew/include
+
+QMAKE_CXXFLAGS += -I/usr/include/gsl
+m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 
 # library linking
 unix:!macx:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
-macx:LIBS += -lpng -lgsl -lgslcblas -llzo2
-#macx:LIBS += -framework CoreFoundation
+macx:!m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
+macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
+
+macx:!m1:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
 
 # mac specific options
-#macx:QMAKE_CC=/usr/local/opt/llvm/bin/clang
-#macx:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
-#macx:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
-#macx:INCLUDEPATH += /usr/local/opt/llvm/include/
+macx:!m1:QMAKE_CC=/usr/local/opt/llvm/bin/clang
+macx:!m1:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
+macx:!m1:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
+macx:!m1:INCLUDEPATH += /usr/local/opt/llvm/include/
 macx:LIBS += -L/opt/homebrew/lib/
-#macx:ICON = $$ROOT/mac/mandelbulber2.icns
+macx:ICON = $$ROOT/mac/mandelbulber2.icns
 
 # gsl png osx absolute path
-#macx:INCLUDEPATH += /usr/local/include/
-#macx:LIBS += -L/usr/local/lib/
+macx:!m1:INCLUDEPATH += /usr/local/include/
+macx:!m1:LIBS += -L/usr/local/lib/
 
 
 
