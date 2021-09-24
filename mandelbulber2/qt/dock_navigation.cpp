@@ -37,6 +37,7 @@
 #include "ui_dock_navigation.h"
 
 #include "dock_image_adjustments.h"
+#include "navigator_window.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/initparameters.hpp"
@@ -142,6 +143,8 @@ void cDockNavigation::ConnectSignals() const
 	connect(ui->pushButton_reset_view, SIGNAL(clicked()), this, SLOT(slotPressedButtonResetView()));
 	connect(ui->comboBox_opencl_mode, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedOpenCLMode(int)));
+	connect(
+		ui->pushButton_openNavigator, &QPushButton::clicked, this, &cDockNavigation::slotOpenNavigator);
 }
 
 void cDockNavigation::slotCameraMove() const
@@ -229,4 +232,11 @@ void cDockNavigation::slotChangedOpenCLMode(int index)
 {
 	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(
 		index > 0 && gPar->Get<bool>("opencl_enabled"));
+}
+
+void cDockNavigation::slotOpenNavigator()
+{
+	cNavigatorWindow *navigator = new cNavigatorWindow(this);
+	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->show();
 }
