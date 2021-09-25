@@ -42,6 +42,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/fractal_container.hpp"
 #include "src/render_window.hpp"
 #include "src/system.hpp"
 
@@ -228,6 +229,14 @@ void cDockNavigation::EnableOpenCLModeComboBox(bool enabled) const
 	ui->label_opencl_mode->setVisible(enabled);
 }
 
+void cDockNavigation::HideSomeButtons()
+{
+	ui->pushButton_undo->hide();
+	ui->pushButton_redo->hide();
+	ui->pushButton_openNavigator->hide();
+	ui->checkBox_auto_refresh->hide();
+}
+
 void cDockNavigation::slotChangedOpenCLMode(int index)
 {
 	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(
@@ -238,5 +247,6 @@ void cDockNavigation::slotOpenNavigator()
 {
 	cNavigatorWindow *navigator = new cNavigatorWindow(this);
 	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->SetInitialParameters(gPar, gParFractal);
 	navigator->show();
 }

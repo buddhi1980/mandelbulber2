@@ -58,6 +58,7 @@ public:
 	void LockAllFunctions() const;
 	void UnlockAllFunctions() const;
 	void EnableOpenCLModeComboBox(bool enabled) const;
+	void HideSomeButtons();
 
 private slots:
 	static void slotStartRender();
@@ -76,10 +77,10 @@ private slots:
 	static void slotPressedButtonResetView();
 	void slotChangedOpenCLMode(int index);
 	void slotOpenNavigator();
-	void SetIconSizes();
 
 private:
 	void ConnectSignals() const;
+	void SetIconSizes();
 
 	Ui::cDockNavigation *ui;
 

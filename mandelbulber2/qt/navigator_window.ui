@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="widgetRenderedImage" native="true">
+      <widget class="RenderedImage" name="widgetRenderedImage" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -81,6 +81,12 @@
    <class>cDockNavigation</class>
    <extends>QWidget</extends>
    <header>dock_navigation.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RenderedImage</class>
+   <extends>QWidget</extends>
+   <header>src/rendered_image_widget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
