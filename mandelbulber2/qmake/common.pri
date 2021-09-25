@@ -112,7 +112,7 @@ QMAKE_LFLAGS_RELEASE -= -O1
 # compiler build flags
 unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-macx:m1:QMAKE_CXXFLAGS += -ffast-math
+macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
@@ -125,7 +125,7 @@ m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 # library linking
 unix:!macx:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
 macx:!m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
-macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
+macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -lomp
 
 macx:!m1:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
