@@ -245,7 +245,7 @@ void cDockNavigation::slotChangedOpenCLMode(int index)
 
 void cDockNavigation::slotOpenNavigator()
 {
-	cNavigatorWindow *navigator = new cNavigatorWindow(this);
+	cNavigatorWindow *navigator = new cNavigatorWindow();
 	navigator->setAttribute(Qt::WA_DeleteOnClose);
 	navigator->SetInitialParameters(gPar, gParFractal);
 	navigator->show();

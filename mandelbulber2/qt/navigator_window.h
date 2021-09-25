@@ -10,6 +10,7 @@
 
 #include <QDialog>
 #include <memory>
+#include <QString>
 
 namespace Ui
 {
@@ -30,6 +31,7 @@ public:
 
 	void SetInitialParameters(
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+	void StartRender();
 
 private:
 	Ui::cNavigatorWindow *ui;
@@ -37,6 +39,9 @@ private:
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
 	std::shared_ptr<cImage> image;
+
+	bool stopRequest = false;
+	QString autoRefreshLastHash;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

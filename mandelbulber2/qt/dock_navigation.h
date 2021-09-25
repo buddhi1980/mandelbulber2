@@ -45,6 +45,9 @@ namespace Ui
 class cDockNavigation;
 }
 
+class cParameterContainer;
+class cFractalContainer;
+
 class cDockNavigation : public QWidget
 {
 	Q_OBJECT
@@ -85,6 +88,9 @@ private:
 	Ui::cDockNavigation *ui;
 
 	cAutomatedWidgets *automatedWidgets;
+
+	std::shared_ptr<cParameterContainer> params;
+	std::shared_ptr<cFractalContainer> fractalParams;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_NAVIGATION_H_ */
