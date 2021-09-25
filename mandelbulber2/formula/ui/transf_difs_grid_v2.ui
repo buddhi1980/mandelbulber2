@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_difs_grid_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -481,7 +481,7 @@
         <item row="1" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="text">
-           <string notr="true">fabs</string>
+           <string notr="true">abs()</string>
           </property>
          </widget>
         </item>
