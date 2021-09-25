@@ -36,6 +36,7 @@
 #define MANDELBULBER2_QT_DOCK_NAVIGATION_H_
 
 #include <QWidget>
+#include <memory>
 
 // forward declarations
 class cAutomatedWidgets;

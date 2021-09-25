@@ -7,6 +7,8 @@
 
 #include "navigator_window.h"
 
+#include <QThread>
+
 #include "ui_navigator_window.h"
 #include "src/parameters.hpp"
 #include "src/fractal_container.hpp"
