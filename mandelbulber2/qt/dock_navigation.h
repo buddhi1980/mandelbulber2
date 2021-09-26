@@ -63,12 +63,14 @@ public:
 	void UnlockAllFunctions() const;
 	void EnableOpenCLModeComboBox(bool enabled) const;
 	void HideSomeButtons();
+	void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams);
 
 private slots:
 	static void slotStartRender();
 	static void slotStopRender();
 
-	void slotCameraMove() const;
+	void slotCameraMove();
 	void slotCameraRotation() const;
 	static void slotCameraOrTargetEdited();
 	static void slotRotationEdited();
@@ -92,6 +94,9 @@ private:
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
+
+signals:
+	void signalRender();
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_NAVIGATION_H_ */

@@ -215,19 +215,19 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_Up:
-					gMainInterface->MoveCamera("bu_move_forward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->MoveCamera("bu_move_backward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->MoveCamera("bu_move_left");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->MoveCamera("bu_move_right");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_right");
 					render = true;
 					break;
 				default: break;
@@ -238,11 +238,11 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_Up:
-					gMainInterface->MoveCamera("bu_move_forward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->MoveCamera("bu_move_backward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Left:
@@ -262,27 +262,27 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_W:
-					gMainInterface->MoveCamera("bu_move_up");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_up");
 					render = true;
 					break;
 				case Qt::Key_S:
-					gMainInterface->MoveCamera("bu_move_down");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_down");
 					render = true;
 					break;
 				case Qt::Key_A:
-					gMainInterface->MoveCamera("bu_move_left");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_left");
 					render = true;
 					break;
 				case Qt::Key_D:
-					gMainInterface->MoveCamera("bu_move_right");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_right");
 					render = true;
 					break;
 				case Qt::Key_Q:
-					gMainInterface->MoveCamera("bu_move_forward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Z:
-					gMainInterface->MoveCamera("bu_move_backward");
+					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Up:
@@ -992,4 +992,9 @@ void RenderWindow::ToggleFullScreen()
 		gMainInterface->AttachMainImageWidget();
 		ui->actionDetach_image_from_main_window->setChecked(false);
 	}
+}
+
+void RenderWindow::slotStartRender()
+{
+	gMainInterface->StartRender();
 }

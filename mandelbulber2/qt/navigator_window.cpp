@@ -32,6 +32,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	image->SetFastPreview(true);
 	image->CreatePreview(1.0, 800, 600, ui->widgetRenderedImage);
 	image->UpdatePreview();
+
+	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
+		&cNavigatorWindow::StartRender);
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -47,7 +50,10 @@ void cNavigatorWindow::SetInitialParameters(
 
 	*params = *_params;
 	*fractalParams = *_fractalParams;
+
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
+	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams);
+
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
 	StartRender();

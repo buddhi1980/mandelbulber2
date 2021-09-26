@@ -121,6 +121,7 @@ private slots:
 	void slotMenuRemoveCustomWindowState(QString filename);
 	void slotPopulateRecentSettings(bool completeRefresh = false);
 	void SaveSettingsToRecent(QString fileName);
+	void slotStartRender();
 
 	static void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramPreferences();

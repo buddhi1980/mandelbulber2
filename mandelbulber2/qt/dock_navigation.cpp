@@ -45,6 +45,9 @@
 #include "src/fractal_container.hpp"
 #include "src/render_window.hpp"
 #include "src/system.hpp"
+#include "src/camera_movement_modes.h"
+#include "src/write_log.hpp"
+#include "src/interface.hpp"
 
 cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockNavigation)
 {
@@ -58,6 +61,13 @@ cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::
 cDockNavigation::~cDockNavigation()
 {
 	delete ui;
+}
+
+void cDockNavigation::AssignParameterContainers(
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
+{
+	params = _params;
+	fractalParams = _fractalParams;
 }
 
 void cDockNavigation::RenderButtonSetEnabled(bool enabled) const
@@ -148,10 +158,20 @@ void cDockNavigation::ConnectSignals() const
 		ui->pushButton_openNavigator, &QPushButton::clicked, this, &cDockNavigation::slotOpenNavigator);
 }
 
-void cDockNavigation::slotCameraMove() const
+void cDockNavigation::slotCameraMove()
 {
 	QString buttonName = sender()->objectName();
-	gMainInterface->MoveCamera(buttonName, true);
+
+	// get data from interface
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+
+	SynchronizeInterfaceWindow(dock, params, qInterface::read);
+
+	gMainInterface->MoveCamera(params, fractalParams, buttonName, true);
+
+	SynchronizeInterfaceWindow(dock, params, qInterface::write);
+
+	emit signalRender();
 }
 
 void cDockNavigation::slotCameraRotation() const

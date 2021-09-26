@@ -79,6 +79,7 @@
 
 #include "qt/detached_window.h"
 #include "qt/dock_effects.h"
+#include "qt/dock_navigation.h"
 #include "qt/material_editor.h"
 #include "qt/my_group_box.h"
 #include "qt/my_progress_bar.h"
@@ -211,6 +212,8 @@ void cInterface::ShowUi()
 	renderedImage->AssignImage(mainImage);
 	renderedImage->AssignParameters(gPar, gParFractal);
 
+	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal);
+
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
 	progressBarLayout->setSpacing(0);
@@ -324,6 +327,9 @@ void cInterface::ConnectSignals() const
 
 	connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
+
+	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalRender, mainWindow,
+		&RenderWindow::slotStartRender);
 
 	// menu actions
 	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);
@@ -590,20 +596,19 @@ void cInterface::StartRender(bool noUndo)
 	numberOfStartedRenders--;
 }
 
-void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
+void cInterface::MoveCamera(std::shared_ptr<cParameterContainer> params,
+	std::shared_ptr<cFractalContainer> parFractal, QString buttonName, bool synchronizeAndRender)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 
-	// get data from interface
-	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 topVector = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	bool legacyCoordinateSystem = params->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 	// get direction vector
@@ -622,19 +627,19 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 		direction = cameraTarget.GetForwardVector() * (-1.0);
 
 	enumCameraMovementStepMode stepMode =
-		enumCameraMovementStepMode(gPar->Get<int>("camera_absolute_distance_mode"));
+		enumCameraMovementStepMode(params->Get<int>("camera_absolute_distance_mode"));
 	enumCameraMovementMode movementMode =
-		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
+		enumCameraMovementMode(params->Get<int>("camera_movement_mode"));
 
 	// movement step
 	double step;
 	if (stepMode == absolute)
 	{
-		step = gPar->Get<double>("camera_movement_step");
+		step = params->Get<double>("camera_movement_step");
 	}
 	else
 	{
-		double relativeStep = gPar->Get<double>("camera_movement_step");
+		double relativeStep = params->Get<double>("camera_movement_step");
 
 		CVector3 point;
 		if (movementMode == moveTarget)
@@ -642,7 +647,7 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 		else
 			point = camera;
 
-		double distance = GetDistanceForPoint(point, gPar, gParFractal);
+		double distance = cInterface::GetDistanceForPoint(point, params, parFractal);
 
 		step = relativeStep * distance;
 	}
@@ -659,12 +664,12 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 	}
 
 	// put data to interface
-	gPar->Set("camera", camera);
-	gPar->Set("target", target);
+	params->Set("camera", camera);
+	params->Set("target", target);
 
 	// recalculation of camera-target
 	cCameraTarget::enumRotationMode rollMode =
-		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
+		cCameraTarget::enumRotationMode(params->Get<int>("camera_straight_rotation"));
 	if (movementMode == moveCamera)
 		cameraTarget.SetCamera(camera, rollMode);
 	else if (movementMode == moveTarget)
@@ -673,14 +678,11 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 		cameraTarget.SetCameraTargetTop(camera, target, topVector);
 
 	topVector = cameraTarget.GetTopVector();
-	gPar->Set("camera_top", topVector);
+	params->Set("camera_top", topVector);
 	CVector3 rotation = cameraTarget.GetRotation();
-	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	params->Set("camera_rotation", rotation * (180.0 / M_PI));
 	double dist = cameraTarget.GetDistance();
-	gPar->Set("camera_distance_to_target", dist);
-
-	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	if (synchronizeAndRender) StartRender();
+	params->Set("camera_distance_to_target", dist);
 }
 
 void cInterface::CameraOrTargetEdited() const

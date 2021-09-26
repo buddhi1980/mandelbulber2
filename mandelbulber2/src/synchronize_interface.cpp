@@ -114,7 +114,7 @@ void SynchronizeInterfaceWindow(
 
 // widget specific synchronization functions
 void SynchronizeInterfaceQLineEdit(
-	QList<QLineEdit *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
+	const QList<QLineEdit *> widgets, std::shared_ptr<cParameterContainer> par, enumReadWrite mode)
 {
 	for (auto &widget : widgets)
 	{
