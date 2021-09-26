@@ -788,6 +788,14 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	QApplication::connect(mapRecentFileLoad, SIGNAL(mappedString(QString)), this,
 		SLOT(slotMenuLoadSettingsFromFile(QString)));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+	QApplication::connect(
+		mapRecentFileLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadSettingsFromFile(QString)));
+#else
+	QApplication::connect(mapRecentFileLoad, SIGNAL(mappedString(QString)), this,
+		SLOT(slotMenuLoadSettingsFromFile(QString)));
+#endif
+
 	WriteLog("cInterface::slotPopulateRecentSettings() finished", 2);
 }
 
