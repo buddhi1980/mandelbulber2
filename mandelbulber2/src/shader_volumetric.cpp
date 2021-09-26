@@ -411,7 +411,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 													* params->iterFogBrightnessBoost * 4.0;
 
 						sRGBFloat textureColor;
-						intensity *= light->CalculateCone((-1.0) * lightVectorTemp, textureColor);
+						intensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
 						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
 						if (params->iterFogShadows && intensity > 1e-3)
