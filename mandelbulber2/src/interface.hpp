@@ -108,9 +108,8 @@ public:
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
 	static void MoveCamera(std::shared_ptr<cParameterContainer> params,
-		std::shared_ptr<cFractalContainer> parFractal, QString buttonName,
-		bool synchronizeAndRender = false);
-	void RotateCamera(QString buttonName, bool synchronizeAndRender = false);
+		std::shared_ptr<cFractalContainer> parFractal, QString buttonName);
+	static void RotateCamera(std::shared_ptr<cParameterContainer> params, QString buttonName);
 	void CameraOrTargetEdited() const;
 	void RotationEdited() const;
 	void CameraDistanceEdited() const;

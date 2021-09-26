@@ -246,11 +246,11 @@ void RenderWindow::slotKeyHandle()
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->RotateCamera("bu_rotate_roll_left");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_roll_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->RotateCamera("bu_rotate_roll_right");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_roll_right");
 					render = true;
 					break;
 				default: break;
@@ -286,19 +286,19 @@ void RenderWindow::slotKeyHandle()
 					render = true;
 					break;
 				case Qt::Key_Up:
-					gMainInterface->RotateCamera("bu_rotate_up");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_up");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->RotateCamera("bu_rotate_down");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_down");
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->RotateCamera("bu_rotate_left");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->RotateCamera("bu_rotate_right");
+					gMainInterface->RotateCamera(gPar, "bu_rotate_right");
 					render = true;
 					break;
 

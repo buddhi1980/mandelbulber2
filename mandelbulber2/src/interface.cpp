@@ -597,7 +597,7 @@ void cInterface::StartRender(bool noUndo)
 }
 
 void cInterface::MoveCamera(std::shared_ptr<cParameterContainer> params,
-	std::shared_ptr<cFractalContainer> parFractal, QString buttonName, bool synchronizeAndRender)
+	std::shared_ptr<cFractalContainer> parFractal, QString buttonName)
 {
 	using namespace cameraMovementEnums;
 
@@ -715,26 +715,24 @@ void cInterface::CameraOrTargetEdited() const
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
+void cInterface::RotateCamera(std::shared_ptr<cParameterContainer> params, QString buttonName)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
-	// get data from interface
-	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 topVector = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 	double distance = cameraTarget.GetDistance();
 
 	enumCameraRotationMode rotationMode =
-		enumCameraRotationMode(gPar->Get<int>("camera_rotation_mode"));
+		enumCameraRotationMode(params->Get<int>("camera_rotation_mode"));
 	cCameraTarget::enumRotationMode rollMode =
-		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
+		cCameraTarget::enumRotationMode(params->Get<int>("camera_straight_rotation"));
 
-	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	bool legacyCoordinateSystem = params->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 	CVector3 rotationAxis;
@@ -781,7 +779,7 @@ void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
 
 	// rotation of vectors
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
-	double rotationStep = gPar->Get<double>("camera_rotation_step") * (M_PI / 180.0);
+	double rotationStep = params->Get<double>("camera_rotation_step") * (M_PI / 180.0);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
 	topVector = topVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
 
@@ -797,16 +795,13 @@ void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
 	// recalculation of camera-target
 	cameraTarget.SetCameraTargetTop(camera, target, topVector);
 
-	gPar->Set("camera", camera);
-	gPar->Set("target", target);
-	gPar->Set("camera_top", topVector);
+	params->Set("camera", camera);
+	params->Set("target", target);
+	params->Set("camera_top", topVector);
 	CVector3 rotation = cameraTarget.GetRotation();
-	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	params->Set("camera_rotation", rotation * (180.0 / M_PI));
 	double dist = cameraTarget.GetDistance();
-	gPar->Set("camera_distance_to_target", dist);
-
-	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	if (synchronizeAndRender) StartRender();
+	params->Set("camera_distance_to_target", dist);
 }
 
 void cInterface::RotationEdited() const

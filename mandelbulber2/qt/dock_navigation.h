@@ -71,7 +71,7 @@ private slots:
 	static void slotStopRender();
 
 	void slotCameraMove();
-	void slotCameraRotation() const;
+	void slotCameraRotation();
 	static void slotCameraOrTargetEdited();
 	static void slotRotationEdited();
 	static void slotCameraDistanceEdited();

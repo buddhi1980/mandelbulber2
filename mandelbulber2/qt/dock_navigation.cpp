@@ -164,21 +164,26 @@ void cDockNavigation::slotCameraMove()
 
 	// get data from interface
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-
 	SynchronizeInterfaceWindow(dock, params, qInterface::read);
 
-	gMainInterface->MoveCamera(params, fractalParams, buttonName, true);
+	cInterface::MoveCamera(params, fractalParams, buttonName);
 
 	SynchronizeInterfaceWindow(dock, params, qInterface::write);
-
 	emit signalRender();
 }
 
-void cDockNavigation::slotCameraRotation() const
+void cDockNavigation::slotCameraRotation()
 {
 	QString buttonName = sender()->objectName();
 
-	gMainInterface->RotateCamera(buttonName, true);
+	// get data from interface
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	SynchronizeInterfaceWindow(dock, params, qInterface::read);
+
+	cInterface::RotateCamera(params, buttonName);
+
+	SynchronizeInterfaceWindow(dock, params, qInterface::write);
+	emit signalRender();
 }
 
 void cDockNavigation::slotCameraOrTargetEdited()
