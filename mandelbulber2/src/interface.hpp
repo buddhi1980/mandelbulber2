@@ -107,12 +107,17 @@ public:
 	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
+
 	static void MoveCamera(std::shared_ptr<cParameterContainer> params,
 		std::shared_ptr<cFractalContainer> parFractal, QString buttonName);
 	static void RotateCamera(std::shared_ptr<cParameterContainer> params, QString buttonName);
-	void CameraOrTargetEdited() const;
-	void RotationEdited() const;
-	void CameraDistanceEdited() const;
+	static void CameraOrTargetEdited(
+		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
+	static void RotationEdited(
+		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
+	static void CameraDistanceEdited(
+		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
+
 	void IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	void IFSDefaultsIcosahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	static void IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal);

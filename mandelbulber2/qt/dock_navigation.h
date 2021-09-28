@@ -72,10 +72,10 @@ private slots:
 
 	void slotCameraMove();
 	void slotCameraRotation();
-	static void slotCameraOrTargetEdited();
-	static void slotRotationEdited();
-	static void slotCameraDistanceEdited();
-	static void slotCameraDistanceSlider(int value);
+	void slotCameraOrTargetEdited();
+	void slotRotationEdited();
+	void slotCameraDistanceEdited();
+	void slotCameraDistanceSlider(int value);
 	static void slotMovementStepModeChanged(int index);
 	static void slotCameraMovementModeChanged(int index);
 	static void slotUndo();

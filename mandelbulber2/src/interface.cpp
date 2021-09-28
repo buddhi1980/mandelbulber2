@@ -71,6 +71,7 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "synchronize_interface.hpp"
 #include "system_data.hpp"
 #include "trace_behind.h"
 #include "tree_string_list.h"
@@ -685,34 +686,36 @@ void cInterface::MoveCamera(std::shared_ptr<cParameterContainer> params,
 	params->Set("camera_distance_to_target", dist);
 }
 
-void cInterface::CameraOrTargetEdited() const
+void cInterface::CameraOrTargetEdited(
+	QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params)
 {
 	WriteLog("cInterface::CameraOrTargetEdited(void)", 2);
 
 	// get data from interface before synchronization
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 topVector = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	camera = gPar->Get<CVector3>("camera");
-	target = gPar->Get<CVector3>("target");
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::read);
+
+	camera = params->Get<CVector3>("camera");
+	target = params->Get<CVector3>("target");
 
 	// recalculation of camera-target
 	cCameraTarget::enumRotationMode rollMode =
-		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
+		cCameraTarget::enumRotationMode(params->Get<int>("camera_straight_rotation"));
 	cameraTarget.SetCamera(camera, rollMode);
 	cameraTarget.SetTarget(target, rollMode);
 
 	topVector = cameraTarget.GetTopVector();
-	gPar->Set("camera_top", topVector);
+	params->Set("camera_top", topVector);
 	CVector3 rotation = cameraTarget.GetRotation();
-	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	params->Set("camera_rotation", rotation * (180.0 / M_PI));
 	double dist = cameraTarget.GetDistance();
-	gPar->Set("camera_distance_to_target", dist);
+	params->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::write);
 }
 
 void cInterface::RotateCamera(std::shared_ptr<cParameterContainer> params, QString buttonName)
@@ -804,22 +807,23 @@ void cInterface::RotateCamera(std::shared_ptr<cParameterContainer> params, QStri
 	params->Set("camera_distance_to_target", dist);
 }
 
-void cInterface::RotationEdited() const
+void cInterface::RotationEdited(
+	QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::RotationEdited(void)", 2);
 	// get data from interface before synchronization
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::read);
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 topVector = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 	double distance = cameraTarget.GetDistance();
-	CVector3 rotation = gPar->Get<CVector3>("camera_rotation") * (M_PI / 180.0);
+	CVector3 rotation = params->Get<CVector3>("camera_rotation") * (M_PI / 180.0);
 
 	enumCameraRotationMode rotationMode =
-		enumCameraRotationMode(gPar->Get<int>("camera_rotation_mode"));
+		enumCameraRotationMode(params->Get<int>("camera_rotation_mode"));
 
 	CVector3 forwardVector(0.0, 1.0, 0.0);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), rotation.z);
@@ -835,29 +839,30 @@ void cInterface::RotationEdited() const
 		camera = target - forwardVector * distance;
 	}
 	cameraTarget.SetCameraTargetRotation(camera, target, rotation.z);
-	gPar->Set("camera", camera);
-	gPar->Set("target", target);
-	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	params->Set("camera", camera);
+	params->Set("target", target);
+	params->Set("camera_top", cameraTarget.GetTopVector());
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::write);
 }
 
-void cInterface::CameraDistanceEdited() const
+void cInterface::CameraDistanceEdited(
+	QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::read);
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::read);
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 topVector = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
 
-	double distance = gPar->Get<double>("camera_distance_to_target");
+	double distance = params->Get<double>("camera_distance_to_target");
 
 	enumCameraMovementMode movementMode =
-		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
+		enumCameraMovementMode(params->Get<int>("camera_movement_mode"));
 	if (movementMode == moveTarget)
 	{
 		target = camera + forwardVector * distance;
@@ -868,10 +873,10 @@ void cInterface::CameraDistanceEdited() const
 	}
 
 	cameraTarget.SetCameraTargetTop(camera, target, topVector);
-	gPar->Set("camera", camera);
-	gPar->Set("target", target);
-	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
+	params->Set("camera", camera);
+	params->Set("target", target);
+	params->Set("camera_top", cameraTarget.GetTopVector());
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::write);
 }
 
 void cInterface::IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const

@@ -188,23 +188,27 @@ void cDockNavigation::slotCameraRotation()
 
 void cDockNavigation::slotCameraOrTargetEdited()
 {
-	gMainInterface->CameraOrTargetEdited();
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	cInterface::CameraOrTargetEdited(dock, params);
 }
 
 void cDockNavigation::slotRotationEdited()
 {
-	gMainInterface->RotationEdited();
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	cInterface::RotationEdited(dock, params);
 }
 
 void cDockNavigation::slotCameraDistanceEdited()
 {
-	gMainInterface->CameraDistanceEdited();
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	cInterface::CameraDistanceEdited(dock, params);
 }
 
 void cDockNavigation::slotCameraDistanceSlider(int value)
 {
 	(void)value;
-	gMainInterface->CameraDistanceEdited();
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	cInterface::CameraDistanceEdited(dock, params);
 }
 
 void cDockNavigation::slotMovementStepModeChanged(int index)
