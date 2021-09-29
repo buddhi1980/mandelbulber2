@@ -42,7 +42,7 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (!fractal->transformCommon.functionEnabledFalse)
 		rr = dot(z, z);
 	else
-		rr = native_sqrt(z.x * z.x + z.y * z.y + z.z * z.z);
+		rr = z.x * z.x + z.y * z.y;
 
 	REAL m = aux->actualScale;
 	REAL MinR = fractal->mandelbox.mR2;

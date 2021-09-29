@@ -1,0 +1,49 @@
+# Mandelbulber settings file
+# version 2.26
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+camera -7.28902816922754 -5.65253698665353 3.76071877656485;
+camera_distance_to_target 10.1994637031945;
+camera_rotation -40.9407178707097 -1.56538443421515 -0.395729956438143;
+camera_top 0.0126829992406267 0.0251608109578669 0.999602958740221;
+delta_DE_function 1;
+detail_level 0.375;
+dont_add_c_constant_1 true;
+file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+flight_last_to_render 0;
+fog_color_1 7300 ab00 ff00;
+fog_color_2 ff00 ff00 ff00;
+formula_1 126;
+glow_enabled false;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+keyframe_last_to_render 0;
+light1_intensity 0.5;
+light1_is_defined true;
+light1_rotation 0 0 0;
+mat1_coloring_speed 0.5;
+mat1_iridescence_enabled true;
+mat1_is_defined true;
+mat1_luminosity 0.1;
+mat1_luminosity_color aa00 0000 ff00;
+mat1_reflectance 0.6;
+mat1_specular_metallic 0.5;
+mat1_specular_plastic_enable false;
+mat1_surface_color_gradient 0 005500 999 550000 1999 0000ff 2999 29552c 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 2f5535 9000 aba53c;
+N 11;
+raytraced_reflections true;
+target -0.608040258050107 2.04913996708266 3.48209274803987;
+view_distance_max 25;
+volumetric_fog_enabled true;
+volumetric_light_DE_Factor 0.25;
+[fractal_1]
+boxfold_bulbpow2_z_factor 999;
+transf_minR2_p25 0;
+transf_scale 1.2;
+transf_start_iterations_A 6;
+transf_stop_iterations_A 7;

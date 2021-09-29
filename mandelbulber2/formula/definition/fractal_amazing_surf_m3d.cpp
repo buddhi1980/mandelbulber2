@@ -52,7 +52,7 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 	double rr;
 	if (!fractal->transformCommon.functionEnabledFalse) rr = z.Dot(z);
-	else rr = sqrt(z.x * z.x + z.y * z.y + z.z * z.z);
+	else rr = z.x * z.x + z.y * z.y;
 
 	double m = aux.actualScale;
 	double MinR = fractal->mandelbox.mR2;
