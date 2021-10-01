@@ -1,0 +1,44 @@
+# Mandelbulber settings file
+# version 2.27
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+camera -0.0772548652509303 -2.44405881598276 0.0903930982568813;
+camera_distance_to_target 0.00684798508882546;
+camera_rotation 26.7712636819055 -13.6015615675766 3.56348269766506;
+camera_top -0.0502299454123666 0.237551565501285 0.970075361150751;
+DE_factor 0.788746058939186;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 198;
+formula_2 207;
+fractal_rotation 0 90 0;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_color c600 e500 ff00;
+light1_is_defined true;
+light1_rotation -45 16 0;
+mat1_is_defined true;
+mat1_specular_metallic 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+mat2_is_defined true;
+mat2_name water;
+mat2_use_colors_from_palette false;
+N 42;
+target -0.0802528948072057 -2.43811632237617 0.0887826671679711;
+view_distance_max 765.686688139087;
+[fractal_1]
+analyticDE_enabled_false true;
+analyticDE_scale_1 1.05;
+transf_addition_constant_111 0.2 0.4 0.3;
+transf_function_enabledA_false true;
+transf_function_enabledSw_false true;
+transf_minR2_p25 0.3;
+transf_offsetA_000 0.5 0.5 0;
+transf_scale_2 1.6;
+[fractal_2]
+transf_scale_3 4.9;

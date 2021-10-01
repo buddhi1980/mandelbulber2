@@ -39,11 +39,10 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	{
 		swap(zc.x, zc.z);
 	}
-	double tp;
 
 	double ang = atan2(zc.y, -zc.x) / M_PI_2x;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y)
-			- fractal->transformCommon.radius1 / M_PI_2x;
+
+	double tp;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		double Voff = fractal->transformCommon.scaleA2;
@@ -51,13 +50,16 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		zc.z = tp - 2.0 * Voff * floor(tp / (2.0 * Voff)) - Voff;
 	}
 
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		tp = fractal->transformCommon.scale2 * ang + 1.0;
-		zc.x = tp - 2.0 * floor(tp / 2.0) - 1.0;
-	}
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y)
+			- fractal->transformCommon.radius1;
 
-	ang *= fractal->transformCommon.scaleA1 * M_PI;
+	//if (fractal->transformCommon.functionEnabledBFalse)
+	//{
+		tp = fractal->transformCommon.scale2 * ang;
+		zc.x = tp - 2.0 * floor(tp / 2.0) - 1.0;
+	//}
+
+	ang *= fractal->transformCommon.int1 * M_PI;
 	double cosA = cos(ang);
 	double sinB = sin(ang);
 	double temp = zc.z;
@@ -67,7 +69,8 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 
 	double lenX = fractal->transformCommon.offset1;
 	double lenY = fractal->transformCommon.offsetA0;
-	/*CVector4 absZ = fabs(zc);
+
+	CVector4 absZ = fabs(zc);
 
 	if (fractal->transformCommon.functionEnabledMFalse)
 		lenX += absZ.z * fractal->transformCommon.scale0;
@@ -77,61 +80,17 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		lenX += absZ.y * fractal->transformCommon.scaleB0;
 	if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
-
-
-
-
-	CVector3 q = CVector3(max(absZ.y - lenY, 0.0), max(absZ.x - lenX, 0.0), zc.z);
-
-
-
-
-
-	q *= q;
-
-
-*/
-
-
-	/*CVector4 d;
+	CVector4 Size = fractal->transformCommon.offset111;
+	CVector4 d;
 	d = fabs(zc);
-	d -= fractal->transformCommon.offset111;
-	double rDE = min(max(d.x, max(d.y, d.z)), 0.0);
+	d -= Size;
 
-	d.x = max(d.x, 0.0);
-	d.y = max(d.y, 0.0);
+	d.x = max(d.x - lenX, 0.0);
+	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z, 0.0);
+	aux.DE0 = d.Length() - fractal->transformCommon.offset0005;
 
-	//	rDE = rDE + length(d);
-
-	aux.DE0 = d.Length();*/
-		//aux.DE0 = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.scaleA0;
-//	aux->DE0 = length(zc) - 1.0;
-	// aux->dist = DEscale * aux->DE0  / (aux->DE);
-	//aux->dist = aux->DE0 / aux->DE;
-	CVector4 absZ = fabs(zc);
-
-		if (fractal->transformCommon.functionEnabledMFalse)
-			lenX += absZ.z * fractal->transformCommon.scale0;
-		if (fractal->transformCommon.functionEnabledNFalse)
-			lenY += absZ.z * fractal->transformCommon.scaleA0;
-		if (fractal->transformCommon.functionEnabledOFalse)
-			lenX += absZ.y * fractal->transformCommon.scaleB0;
-		if (fractal->transformCommon.functionEnabledPFalse)
-			lenY += absZ.x * fractal->transformCommon.scaleC0;
-	CVector3 q = CVector3(max(absZ.y - lenY, 0.0), max(absZ.x - lenX, 0.0), zc.z);
-	q *= q;
-	double streD = sqrt(q.x + q.y) - fractal->transformCommon.offsetR1;
-
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		streD = sqrt(streD * streD + q.z);
-	else
-		streD = max(fabs(streD), fabs(zc.z));
-
-	aux.dist = min(aux.dist, (streD - fractal->transformCommon.offsetA05) / (aux.DE + 1.0f));
-
-
-	// aux.dist = min(aux.dist, aux.DE0 / aux.DE);
+	aux.dist = min(aux.dist, (aux.DE0 - fractal->transformCommon.offsetA05) / (aux.DE + fractal->analyticDE.offset0));
 
 	if (fractal->transformCommon.functionEnabledXFalse)
 		z = zc;

@@ -27,38 +27,37 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
 	}
 
-	REAL tp;
-
 	REAL ang = atan2(zc.y, -zc.x) / M_PI_2x;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y)
-			- fractal->transformCommon.radius1 / M_PI_2x;
+
+	REAL tp;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.scaleA2;
-		tp = zc.z - 2.0 * Voff * ang + Voff;
-		zc.z = tp - 2.0 * Voff * floor(tp / (2.0 * Voff)) - Voff;
+		tp = zc.z - 2.0f * Voff * ang + Voff;
+		zc.z = tp - 2.0f * Voff * floor(tp / (2.0f * Voff)) - Voff;
 	}
 
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		tp = fractal->transformCommon.scale2 * ang + 1.0;
-		zc.x = tp - 2.0 * floor(tp / 2.0) - 1.0;
-	}
+	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y)
+			- fractal->transformCommon.radius1;
 
-	ang *= fractal->transformCommon.scaleA1 * M_PI;
+
+	//if (fractal->transformCommon.functionEnabledBFalse)
+	//{
+		tp = fractal->transformCommon.scale2 * ang;
+		zc.x = tp - 2.0 * floor(tp / 2.0f) - 1.0f;
+	//}
+
+	ang *= fractal->transformCommon.int1 * M_PI;
 	REAL cosA = cos(ang);
 	REAL sinB = sin(ang);
 	REAL temp = zc.z;
 	zc.z = zc.y * cosA + zc.z * sinB;
 	zc.y = temp * cosA + zc.y * -sinB;
-
 
 	REAL lenX = fractal->transformCommon.offset1;
 	REAL lenY = fractal->transformCommon.offsetA0;
@@ -73,16 +72,20 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
 
-	REAL3 q = (REAL3){max(absZ.y - lenY, 0.0f), max(absZ.x - lenX, 0.0f), zc.z};
-	q *= q;
+	REAL4 Size = fractal->transformCommon.offset111;
+	REAL4 d;
+	d = fabs(zc);
+	d -= Size;
 
-	REAL streD = native_sqrt(q.x + q.y) - fractal->transformCommon.offsetR1;
+	d.x = max(d.x - lenX, 0.0f);
+	d.y = max(d.y - lenY, 0.0f);
+	d.z = max(d.z, 0.0f);
+	aux->DE0 = length(d) - fractal->transformCommon.offset0005;
 
-	if (!fractal->transformCommon.functionEnabledJFalse)
-		streD = native_sqrt(streD * streD + q.z);
-	else
-		streD = max(fabs(streD), fabs(zc.z));
 
-	aux->dist = min(aux->dist, (streD - fractal->transformCommon.offsetA05) / (aux->DE + 1.0f));
+	aux->dist = min(aux->dist, (aux->DE0 - fractal->transformCommon.offsetA05) / (aux->DE + fractal->analyticDE.offset0));
+
+	if (fractal->transformCommon.functionEnabledXFalse)
+		z = zc;
 	return z;
 }
