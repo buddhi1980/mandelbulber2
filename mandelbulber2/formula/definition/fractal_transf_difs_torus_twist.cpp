@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -55,11 +55,11 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
 	//{
-		tp = fractal->transformCommon.scale2 * ang;
-		zc.x = tp - 2.0 * floor(tp / 2.0) - 1.0;
+		//tp = fractal->transformCommon.scale2 * ang;
+		//zc.x = ang - 2.0 * floor(ang / 2.0) - 1.0;
 	//}
 
-	ang *= fractal->transformCommon.int1 * M_PI;
+	ang *= fractal->transformCommon.int1 * M_PI_2;
 	double cosA = cos(ang);
 	double sinB = sin(ang);
 	double temp = zc.z;
@@ -80,17 +80,20 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		lenX += absZ.y * fractal->transformCommon.scaleB0;
 	if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
-	CVector4 Size = fractal->transformCommon.offset111;
-	CVector4 d;
-	d = fabs(zc);
-	d -= Size;
+	//CVector4 Size = fractal->transformCommon.offset111;
+	//CVector4 d;
+	CVector4 d = fabs(zc) - fractal->transformCommon.offset111;
+	//d -= Size;
 
-	d.x = max(d.x - lenX, 0.0);
+	//d.x = max(d.x - lenX, 0.0);
+
+			d.x = 0.0;
+
 	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z, 0.0);
 	aux.DE0 = d.Length() - fractal->transformCommon.offset0005;
 
-	aux.dist = min(aux.dist, (aux.DE0 - fractal->transformCommon.offsetA05) / (aux.DE + fractal->analyticDE.offset0));
+	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + fractal->analyticDE.offset0));
 
 	if (fractal->transformCommon.functionEnabledXFalse)
 		z = zc;
