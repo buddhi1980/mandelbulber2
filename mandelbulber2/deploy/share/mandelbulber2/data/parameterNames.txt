@@ -242,8 +242,11 @@ transformCommon.offsetF0 REAL transf_offsetF_0
 transformCommon.offsetR0 REAL transf_offsetR_0
 transformCommon.offset0005 REAL transf_offset_0005
 transformCommon.offsetp01 REAL transf_offset_p01
+transformCommon.offsetAp01 REAL transf_offsetA_p01
+transformCommon.offsetBp01 REAL transf_offsetB_p01
 transformCommon.offsetp05 REAL transf_offset_p05
 transformCommon.offset01 REAL transf_offset_01
+transformCommon.offsetp1 REAL transf_offset_p1
 transformCommon.offset02 REAL transf_offset_02
 transformCommon.offset05 REAL transf_offset_05
 transformCommon.offsetA05 REAL transf_offsetA_05
@@ -309,6 +312,7 @@ transformCommon.int8X int transf_int8_X
 transformCommon.int8Y int transf_int8_Y
 transformCommon.int8Z int transf_int8_Z
 transformCommon.int16 int transf_int_16
+transformCommon.int32 int transf_int_32
 transformCommon.startIterations int transf_start_iterations
 transformCommon.startIterations250 int transf_start_iterations_250
 transformCommon.stopIterations int transf_stop_iterations

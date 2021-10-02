@@ -2931,7 +2931,7 @@ offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;BoxBulb power 2 V3  with scaling of z axis&lt;br&gt;This formula contains aux.color and aux.actualScaleA&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS GridV2 boxBulb.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3_a01.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3_benesiHybrid.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS GridV2 boxBulb.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3 iridescene.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/boxFoldBulb_v3_a01.fract&lt;br&gt;...&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

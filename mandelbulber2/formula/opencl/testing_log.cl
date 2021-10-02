@@ -21,19 +21,29 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	// Preparation operations
 	REAL fac_eff = 0.6666666666f;
-	REAL offset = 0.0f; //1.0e-10;
-	REAL4 c = (REAL4)(0.0f, 0.0f, 0.0f, 0.0f);
+	REAL offset = 1.0e-10f;
+	REAL4 c = CVector4{0.0f, 0.0f, 0.0f, 0.0f};
 
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
 
-
-		if (fractal->transformCommon.juliaMode)
-		{
-			c = fractal->transformCommon.constantMultiplier100;
-		}
+	if (fractal->transformCommon.juliaMode)
+	{
+		c = fractal->transformCommon.constantMultiplier100;
+	}
+	else
+	{
+		if (!fractal->transformCommon.functionEnabledCFalse)
+			c = aux->const_c;
 		else
-		{
 			c = z;
-		}
+
+		c *= fractal->transformCommon.constantMultiplier100;
+	}
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation

@@ -59,7 +59,7 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		//zc.x = ang - 2.0 * floor(ang / 2.0) - 1.0;
 	//}
 
-	ang *= fractal->transformCommon.int1 * M_PI_2;
+	ang *= fractal->transformCommon.int6 * M_PI_2;
 	double cosA = cos(ang);
 	double sinB = sin(ang);
 	double temp = zc.z;
@@ -67,30 +67,31 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	zc.y = temp * cosA + zc.y * -sinB;
 
 
-	double lenX = fractal->transformCommon.offset1;
 	double lenY = fractal->transformCommon.offsetA0;
-
+	double lenZ = fractal->transformCommon.offsetB0;
 	CVector4 absZ = fabs(zc);
 
-	if (fractal->transformCommon.functionEnabledMFalse)
-		lenX += absZ.z * fractal->transformCommon.scale0;
-	if (fractal->transformCommon.functionEnabledNFalse)
-		lenY += absZ.z * fractal->transformCommon.scaleA0;
-	if (fractal->transformCommon.functionEnabledOFalse)
-		lenX += absZ.y * fractal->transformCommon.scaleB0;
+
 	if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
-	//CVector4 Size = fractal->transformCommon.offset111;
-	//CVector4 d;
-	CVector4 d = fabs(zc) - fractal->transformCommon.offset111;
-	//d -= Size;
 
-	//d.x = max(d.x - lenX, 0.0);
 
-			d.x = 0.0;
+	if (fractal->transformCommon.functionEnabledNFalse)
+		lenY += absZ.z * fractal->transformCommon.scaleA0;
+	if (fractal->transformCommon.functionEnabledMFalse)
+		lenZ += absZ.z * fractal->transformCommon.scale0;
+
+	if (fractal->transformCommon.functionEnabledOFalse)
+		lenZ += absZ.y * fractal->transformCommon.scaleB0;
+
+	CVector4 d = fabs(zc);
+
+	d.x = 0.0;
+	d.y -= fractal->transformCommon.offset01;
+	d.z -= fractal->transformCommon.offsetp1;
 
 	d.y = max(d.y - lenY, 0.0);
-	d.z = max(d.z, 0.0);
+	d.z = max(d.z - lenZ, 0.0);
 	aux.DE0 = d.Length() - fractal->transformCommon.offset0005;
 
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + fractal->analyticDE.offset0));
