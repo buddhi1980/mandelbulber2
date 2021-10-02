@@ -16,45 +16,35 @@
 
 REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
 	REAL4 zc = z;
-
+	REAL temp;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		{
-			REAL temp = zc.x;
-			zc.x = zc.z;
-			zc.z = temp;
-		}
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
 	}
 
 	REAL ang = atan2(zc.y, -zc.x) / M_PI_2x_F;
 
-	REAL tp;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.scaleA2;
-		tp = zc.z - 2.0f * Voff * ang + Voff;
-		zc.z = tp - 2.0f * Voff * floor(tp / (2.0f * Voff)) - Voff;
+		temp = zc.z - 2.0f * Voff * ang + Voff;
+		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
 	}
 
 	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
-	// if (fractal->transformCommon.functionEnabledBFalse)
-	//{
-	// tp = fractal->transformCommon.scale2 * ang;
-	// zc.x = ang - 2.0f * floor(ang / 2.0f) - 1.0f;
-	//}
-
-	ang *= fractal->transformCommon.int6 * M_PI_2;
+	ang *= fractal->transformCommon.int6 * M_PI_2_F;
 	REAL cosA = native_cos(ang);
 	REAL sinB = native_sin(ang);
-	REAL temp = zc.z;
+	temp = zc.z;
 	zc.z = zc.y * cosA + zc.z * sinB;
 	zc.y = temp * cosA + zc.y * -sinB;
 
@@ -64,18 +54,15 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
-
 	if (fractal->transformCommon.functionEnabledNFalse)
 		lenY += absZ.z * fractal->transformCommon.scaleA0;
 	if (fractal->transformCommon.functionEnabledMFalse)
 		lenZ += absZ.z * fractal->transformCommon.scale0;
-
 	if (fractal->transformCommon.functionEnabledOFalse)
 		lenZ += absZ.y * fractal->transformCommon.scaleB0;
 
 	REAL4 d = fabs(zc);
-
-	d.x = 0.0f;
+	d.x = d.x * fractal->transformCommon.scaleA0;
 	d.y -= fractal->transformCommon.offset01;
 	d.z -= fractal->transformCommon.offsetp1;
 
@@ -83,7 +70,10 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	d.z = max(d.z - lenZ, 0.0f);
 	aux->DE0 = length(d) - fractal->transformCommon.offset0005;
 
-	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + fractal->analyticDE.offset0));
+	if (!fractal->analyticDE.enabledFalse)
+		aux->dist = aux->DE0 / (aux->DE + fractal->analyticDE.offset0);
+	else
+		aux->dist = min(aux->dist, aux->DE0 / (aux->DE + fractal->analyticDE.offset0));
 
 	if (fractal->transformCommon.functionEnabledXFalse) z = zc;
 	return z;
