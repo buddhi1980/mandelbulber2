@@ -16,9 +16,51 @@
 
 REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
-	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
-	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	{
+		// pre abs
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * len;
+			z.y = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+			z.y = native_cos(psi) * len;
+			z.z = native_sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCzFalse)
+		{
+			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+			z.z = native_cos(psi) * len;
+			z.x = native_sin(psi) * len;
+		}
+
+		// addition constant
+		z += fractal->transformCommon.additionConstant000;
+
+		// rotation
+		if (fractal->transformCommon.rotationEnabledFalse)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
+	}
 
 	REAL4 zc = z;
 	REAL temp;
@@ -50,18 +92,17 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL lenY = fractal->transformCommon.offsetA0;
 	REAL lenZ = fractal->transformCommon.offsetB0;
-	REAL4 absZ = fabs(zc);
-
-	if (fractal->transformCommon.functionEnabledPFalse)
-		lenY += absZ.x * fractal->transformCommon.scaleC0;
-	if (fractal->transformCommon.functionEnabledNFalse)
-		lenY += absZ.z * fractal->transformCommon.scaleA0;
-	if (fractal->transformCommon.functionEnabledMFalse)
-		lenZ += absZ.z * fractal->transformCommon.scale0;
-	if (fractal->transformCommon.functionEnabledOFalse)
-		lenZ += absZ.y * fractal->transformCommon.scaleB0;
-
 	REAL4 d = fabs(zc);
+
+	if (fractal->transformCommon.functionEnabledMFalse) // y face
+		lenY += d.z * fractal->transformCommon.scale0;
+	if (fractal->transformCommon.functionEnabledNFalse) // z face
+		lenZ += d.z * fractal->transformCommon.scale3D000.x;
+	if (fractal->transformCommon.functionEnabledOFalse) // y axis
+		lenY += d.x * fractal->transformCommon.scale3D000.y;
+	if (fractal->transformCommon.functionEnabledKFalse) // z axis
+		lenZ += d.y * fractal->transformCommon.scale3D000.z;
+
 	d.x = d.x * fractal->transformCommon.scaleA0;
 	d.y -= fractal->transformCommon.offset01;
 	d.z -= fractal->transformCommon.offsetp1;

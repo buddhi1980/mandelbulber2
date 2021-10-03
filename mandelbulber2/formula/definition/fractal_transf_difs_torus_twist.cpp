@@ -27,9 +27,52 @@ cFractalTransfDIFSTorusTwist::cFractalTransfDIFSTorusTwist() : cAbstractFractal(
 
 void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledxFalse) z.x = -fabs(z.x);
-	if (fractal->transformCommon.functionEnabledyFalse) z.y = -fabs(z.y);
-	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		// pre abs
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledCx)
+		{
+			double psi = M_PI / fractal->transformCommon.int8X;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			double psi = M_PI / fractal->transformCommon.int8Y;
+			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
+			double len = sqrt(z.y * z.y + z.z * z.z);
+			z.y = cos(psi) * len;
+			z.z = sin(psi) * len;
+		}
+
+		if (fractal->transformCommon.functionEnabledCzFalse)
+		{
+			double psi = M_PI / fractal->transformCommon.int8Z;
+			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
+			double len = sqrt(z.z * z.z + z.x * z.x);
+			z.z = cos(psi) * len;
+			z.x = sin(psi) * len;
+		}
+
+		// addition constant
+		z += fractal->transformCommon.additionConstant000;
+
+		// rotation
+		if (fractal->transformCommon.rotationEnabledFalse)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
+	}
+
 
 	CVector4 zc = z;
 	double temp;
@@ -62,20 +105,46 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 
 	double lenY = fractal->transformCommon.offsetA0;
 	double lenZ = fractal->transformCommon.offsetB0;
-	CVector4 absZ = fabs(zc);
+	CVector4 d = fabs(zc);
 
-	if (fractal->transformCommon.functionEnabledPFalse)
+	//transformCommon.scale3D000
+
+
+
+	if (fractal->transformCommon.functionEnabledMFalse) // y face
+		lenY += d.z * fractal->transformCommon.scale0;
+
+	if (fractal->transformCommon.functionEnabledNFalse) // z face
+		lenZ += d.z * fractal->transformCommon.scale3D000.x;
+
+	if (fractal->transformCommon.functionEnabledOFalse) // y axis
+		lenY += d.x * fractal->transformCommon.scale3D000.y;
+
+	if (fractal->transformCommon.functionEnabledKFalse) // z axis
+		lenZ += d.y * fractal->transformCommon.scale3D000.z;
+
+
+
+
+
+
+	/*if (fractal->transformCommon.functionEnabledPFalse)
 		lenY += absZ.x * fractal->transformCommon.scaleC0;
 
 	if (fractal->transformCommon.functionEnabledNFalse)
 		lenY += absZ.z * fractal->transformCommon.scaleA0;
+
 	if (fractal->transformCommon.functionEnabledMFalse)
 		lenZ += absZ.z * fractal->transformCommon.scale0;
 
 	if (fractal->transformCommon.functionEnabledOFalse)
-		lenZ += absZ.y * fractal->transformCommon.scaleB0;
+		lenZ += absZ.y * fractal->transformCommon.scaleB0;*/
 
-	CVector4 d = fabs(zc);
+
+
+
+
+	d = fabs(zc);
 	d.x = d.x * fractal->transformCommon.scaleA0;
 	d.y -= fractal->transformCommon.offset01;
 	d.z -= fractal->transformCommon.offsetp1;
