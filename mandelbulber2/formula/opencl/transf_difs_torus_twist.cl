@@ -90,10 +90,9 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	zc.z = zc.y * cosA + zc.z * sinB;
 	zc.y = temp * cosA + zc.y * -sinB;
 
-	REAL lenY = fractal->transformCommon.offsetA0;
-	REAL lenZ = fractal->transformCommon.offsetB0;
 	REAL4 d = fabs(zc);
-
+	REAL lenY = fractal->transformCommon.offset01;
+	REAL lenZ = fractal->transformCommon.offsetp1;
 	if (fractal->transformCommon.functionEnabledMFalse) // y face
 		lenY += d.z * fractal->transformCommon.scale0;
 	if (fractal->transformCommon.functionEnabledNFalse) // z face
@@ -103,9 +102,17 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledKFalse) // z axis
 		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-	d.x = d.x * fractal->transformCommon.scaleA0;
-	d.y -= fractal->transformCommon.offset01;
-	d.z -= fractal->transformCommon.offsetp1;
+	if (!fractal->transformCommon.functionEnabledBFalse)
+	{
+		d.x = 0.0f;
+	}
+	else
+	{
+		temp = fractal->transformCommon.int2 * 2.0f * ang
+		 + fractal->transformCommon.offsetR1;
+		d.x = temp -  M_PI_F * floor(temp /  M_PI_F) - fractal->transformCommon.offsetA1;
+		d.x = max(d.x, 0.0f);
+	}
 
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);

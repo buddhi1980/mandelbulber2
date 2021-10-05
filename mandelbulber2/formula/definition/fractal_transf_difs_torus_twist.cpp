@@ -73,7 +73,6 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		}
 	}
 
-
 	CVector4 zc = z;
 	double temp;
 	// swap axis
@@ -103,51 +102,29 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	zc.z = zc.y * cosA + zc.z * sinB;
 	zc.y = temp * cosA + zc.y * -sinB;
 
-	double lenY = fractal->transformCommon.offsetA0;
-	double lenZ = fractal->transformCommon.offsetB0;
 	CVector4 d = fabs(zc);
-
-	//transformCommon.scale3D000
-
-
-
+	double lenY = fractal->transformCommon.offset01;
+	double lenZ = fractal->transformCommon.offsetp1;
 	if (fractal->transformCommon.functionEnabledMFalse) // y face
 		lenY += d.z * fractal->transformCommon.scale0;
-
 	if (fractal->transformCommon.functionEnabledNFalse) // z face
 		lenZ += d.z * fractal->transformCommon.scale3D000.x;
-
 	if (fractal->transformCommon.functionEnabledOFalse) // y axis
 		lenY += d.x * fractal->transformCommon.scale3D000.y;
-
 	if (fractal->transformCommon.functionEnabledKFalse) // z axis
 		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-
-
-
-
-
-	/*if (fractal->transformCommon.functionEnabledPFalse)
-		lenY += absZ.x * fractal->transformCommon.scaleC0;
-
-	if (fractal->transformCommon.functionEnabledNFalse)
-		lenY += absZ.z * fractal->transformCommon.scaleA0;
-
-	if (fractal->transformCommon.functionEnabledMFalse)
-		lenZ += absZ.z * fractal->transformCommon.scale0;
-
-	if (fractal->transformCommon.functionEnabledOFalse)
-		lenZ += absZ.y * fractal->transformCommon.scaleB0;*/
-
-
-
-
-
-	d = fabs(zc);
-	d.x = d.x * fractal->transformCommon.scaleA0;
-	d.y -= fractal->transformCommon.offset01;
-	d.z -= fractal->transformCommon.offsetp1;
+	if (!fractal->transformCommon.functionEnabledBFalse)
+	{
+		d.x = 0.0f;
+	}
+	else
+	{
+		temp = fractal->transformCommon.int2 * 2.0 * ang
+		 + fractal->transformCommon.offsetR1;
+		d.x = temp -  M_PI * floor(temp /  M_PI) - fractal->transformCommon.offsetA1;
+		d.x = max(d.x, 0.0);
+	}
 
 	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z - lenZ, 0.0);
