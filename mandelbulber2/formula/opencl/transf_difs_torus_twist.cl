@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -72,18 +72,19 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.z = temp;
 	}
 
-	REAL ang = atan2(zc.y, -zc.x) / M_PI_2x_F;
+	REAL ang = atan2(zc.y, zc.x);
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.scaleA2;
-		temp = zc.z - 2.0f * Voff * ang + Voff;
+		temp = zc.z - 2.0f * Voff * ang / M_PI_2x_F + Voff;
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
 	}
 
+	temp = zc.y;
 	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
-	ang *= fractal->transformCommon.int6 * M_PI_2_F;
+	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
 	REAL cosA = native_cos(ang);
 	REAL sinB = native_sin(ang);
 	temp = zc.z;
@@ -109,13 +110,14 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	else
 	{
 		temp = fractal->transformCommon.int2 * 2.0f * ang
-		 + fractal->transformCommon.offsetR1;
-		d.x = temp -  M_PI_F * floor(temp /  M_PI_F) - fractal->transformCommon.offsetA1;
+			+ fractal->transformCommon.offsetR0;
+		d.x = temp - floor(temp) - fractal->transformCommon.offsetA1;
 		d.x = max(d.x, 0.0f);
 	}
 
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);
+
 	aux->DE0 = length(d) - fractal->transformCommon.offset0005;
 
 	if (!fractal->analyticDE.enabledFalse)
