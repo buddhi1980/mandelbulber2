@@ -140,11 +140,13 @@ public:
 	void MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData);
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
-	void MovementStepModeChanged(int mode) const;
+	static void MovementStepModeChanged(int mode, QWidget *navigationWidget,
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
 	void CameraMovementModeChanged(int index);
 	void Undo();
 	void Redo();
-	void ResetView();
+	static void ResetView(QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params,
+		std::shared_ptr<cFractalContainer> parFractal);
 	void BoundingBoxMove(char dimension, double moveLower, double moveUpper);
 	void SetBoundingBoxAsLimitsTotal();
 	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax);

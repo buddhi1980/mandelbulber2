@@ -213,17 +213,20 @@ void cDockNavigation::slotCameraDistanceSlider(int value)
 
 void cDockNavigation::slotMovementStepModeChanged(int index)
 {
-	gMainInterface->MovementStepModeChanged(index);
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	cInterface::MovementStepModeChanged(index, dock, params, fractalParams);
 }
 
 void cDockNavigation::slotPressedButtonResetView()
 {
-	gMainInterface->ResetView();
+	QWidget *dock = const_cast<cDockNavigation *>(this);
+	gMainInterface->ResetView(dock, params, fractalParams);
+	emit signalRender();
 }
 
 void cDockNavigation::slotStartRender()
 {
-	gMainInterface->StartRender();
+	emit signalRender();
 }
 
 void cDockNavigation::slotStopRender()

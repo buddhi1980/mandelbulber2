@@ -1951,14 +1951,15 @@ void cInterface::MoveLightByWheel(double deltaWheel)
 	renderedImage->update();
 }
 
-void cInterface::MovementStepModeChanged(int mode) const
+void cInterface::MovementStepModeChanged(int mode, QWidget *navigationWidget,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal)
 {
 	using namespace cameraMovementEnums;
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::read);
 	enumCameraMovementStepMode stepMode = enumCameraMovementStepMode(mode);
-	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-	double oldStep = gPar->Get<double>("camera_movement_step");
+	double distance = GetDistanceForPoint(params->Get<CVector3>("camera"), params, parFractal);
+	double oldStep = params->Get<double>("camera_movement_step");
 	double newStep;
 	if (stepMode == absolute)
 	{
@@ -1970,8 +1971,8 @@ void cInterface::MovementStepModeChanged(int mode) const
 		newStep = oldStep / distance;
 		if (distance > 1.0 && newStep > 0.5) newStep = 0.5;
 	}
-	gPar->Set("camera_movement_step", newStep);
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
+	params->Set("camera_movement_step", newStep);
+	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::write);
 }
 
 void cInterface::Undo()
@@ -2016,22 +2017,24 @@ void cInterface::Redo()
 	ReEnablePeriodicRefresh();
 }
 
-void cInterface::ResetView()
+void cInterface::ResetView(QWidget *navigationWidget,
+	std::shared_ptr<cParameterContainer> paramsContainer,
+	std::shared_ptr<cFractalContainer> parFractalContainer)
 {
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterfaceWindow(navigationWidget, paramsContainer, qInterface::read);
 
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	CVector3 camera = paramsContainer->Get<CVector3>("camera");
+	CVector3 target = paramsContainer->Get<CVector3>("target");
+	CVector3 topVector = paramsContainer->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
 	params::enumPerspectiveType perspType =
-		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
-	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
-	double DEFactor = gPar->Get<double>("DE_factor");
+		params::enumPerspectiveType(paramsContainer->Get<int>("perspective_type"));
+	double fov = CalcFOV(paramsContainer->Get<double>("fov"), perspType);
+	double DEFactor = paramsContainer->Get<double>("DE_factor");
 
 	std::shared_ptr<cParameterContainer> parTemp(new cParameterContainer);
-	*parTemp = *gPar;
+	*parTemp = *paramsContainer;
 	parTemp->Set("limits_enabled", false);
 	parTemp->Set("interior_mode", false);
 
@@ -2053,11 +2056,12 @@ void cInterface::ResetView()
 	double maxDist = 0.0;
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, parTemp));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractalContainer, parTemp));
 
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
-	openClEnabled = parTemp->Get<bool>("opencl_enabled") && gParFractal->isUsedCustomFormula();
+	openClEnabled =
+		parTemp->Get<bool>("opencl_enabled") && parFractalContainer->isUsedCustomFormula();
 
 	if (openClEnabled)
 	{
@@ -2145,13 +2149,12 @@ void cInterface::ResetView()
 
 	if (newCameraDist < 0.1) newCameraDist = 0.1;
 
-	gPar->Set("target", CVector3(0.0, 0.0, 0.0));
+	paramsContainer->Set("target", CVector3(0.0, 0.0, 0.0));
 	CVector3 newCamera = forwardVector * newCameraDist * (-1.0);
-	gPar->Set("camera", newCamera);
-	gPar->Set("camera_distance_to_target", newCameraDist);
-	gPar->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	StartRender();
+	paramsContainer->Set("camera", newCamera);
+	paramsContainer->Set("camera_distance_to_target", newCameraDist);
+	paramsContainer->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
+	SynchronizeInterfaceWindow(navigationWidget, paramsContainer, qInterface::write);
 }
 
 void cInterface::BoundingBoxMove(char dimension, double moveLower, double moveUpper)

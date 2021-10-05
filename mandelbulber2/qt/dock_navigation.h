@@ -67,7 +67,7 @@ public:
 		std::shared_ptr<cFractalContainer> _fractalParams);
 
 private slots:
-	static void slotStartRender();
+	void slotStartRender();
 	static void slotStopRender();
 
 	void slotCameraMove();
@@ -76,11 +76,11 @@ private slots:
 	void slotRotationEdited();
 	void slotCameraDistanceEdited();
 	void slotCameraDistanceSlider(int value);
-	static void slotMovementStepModeChanged(int index);
+	void slotMovementStepModeChanged(int index);
 	static void slotCameraMovementModeChanged(int index);
 	static void slotUndo();
 	static void slotRedo();
-	static void slotPressedButtonResetView();
+	void slotPressedButtonResetView();
 	void slotChangedOpenCLMode(int index);
 	void slotOpenNavigator();
 
