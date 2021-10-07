@@ -998,3 +998,8 @@ void RenderWindow::slotStartRender()
 {
 	gMainInterface->StartRender();
 }
+
+void RenderWindow::slotCameraMovementModeChanged(int index)
+{
+	gMainInterface->renderedImage->SetCameraMovementMode(index);
+}

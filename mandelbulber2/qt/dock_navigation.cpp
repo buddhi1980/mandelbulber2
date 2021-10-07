@@ -63,11 +63,12 @@ cDockNavigation::~cDockNavigation()
 	delete ui;
 }
 
-void cDockNavigation::AssignParameterContainers(
-	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
+void cDockNavigation::AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
+	std::shared_ptr<cFractalContainer> _fractalParams, bool *_stopRequest)
 {
 	params = _params;
 	fractalParams = _fractalParams;
+	stopRequest = _stopRequest;
 }
 
 void cDockNavigation::RenderButtonSetEnabled(bool enabled) const
@@ -220,7 +221,7 @@ void cDockNavigation::slotMovementStepModeChanged(int index)
 void cDockNavigation::slotPressedButtonResetView()
 {
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	gMainInterface->ResetView(dock, params, fractalParams);
+	cInterface::ResetView(dock, params, fractalParams);
 	emit signalRender();
 }
 
@@ -231,7 +232,7 @@ void cDockNavigation::slotStartRender()
 
 void cDockNavigation::slotStopRender()
 {
-	gMainInterface->stopRequest = true;
+	*stopRequest = true;
 }
 
 void cDockNavigation::LockAllFunctions() const
@@ -252,7 +253,7 @@ void cDockNavigation::UnlockAllFunctions() const
 
 void cDockNavigation::slotCameraMovementModeChanged(int index)
 {
-	gMainInterface->CameraMovementModeChanged(index);
+	emit signalCameraMovementModeChanged(index);
 }
 
 void cDockNavigation::EnableOpenCLModeComboBox(bool enabled) const
@@ -271,6 +272,7 @@ void cDockNavigation::HideSomeButtons()
 
 void cDockNavigation::slotChangedOpenCLMode(int index)
 {
+	// FIXME: to make it working only for main window
 	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(
 		index > 0 && gPar->Get<bool>("opencl_enabled"));
 }

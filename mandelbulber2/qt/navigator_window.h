@@ -33,6 +33,9 @@ public:
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
 	void StartRender();
 
+public slots:
+	void slotCameraMovementModeChanged(int index);
+
 private:
 	Ui::cNavigatorWindow *ui;
 

@@ -142,7 +142,6 @@ public:
 	void MoveLightByWheel(double deltaWheel);
 	static void MovementStepModeChanged(int mode, QWidget *navigationWidget,
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
-	void CameraMovementModeChanged(int index);
 	void Undo();
 	void Redo();
 	static void ResetView(QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params,

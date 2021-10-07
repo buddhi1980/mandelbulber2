@@ -109,6 +109,7 @@ private slots:
 	void slotChangedComboImageScale(int index) const;
 	void slotChangedComboMouseClickFunction(int index) const;
 	void slotChangedComboGridType(int index);
+	void slotCameraMovementModeChanged(int index);
 
 	void slotPressedButtonDeletePrimitive() const;
 	void slotPressedButtonAlignPrimitiveAngle() const;

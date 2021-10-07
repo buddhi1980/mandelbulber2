@@ -35,6 +35,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
 		&cNavigatorWindow::StartRender);
+
+	connect(ui->widgetNavigationButtons, &cDockNavigation::signalCameraMovementModeChanged, this,
+		&cNavigatorWindow::slotCameraMovementModeChanged);
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -52,7 +55,7 @@ void cNavigatorWindow::SetInitialParameters(
 	*fractalParams = *_fractalParams;
 
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
-	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams);
+	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
@@ -113,4 +116,9 @@ void cNavigatorWindow::StartRender()
 
 	thread->setObjectName("RenderJob");
 	thread->start();
+}
+
+void cNavigatorWindow::slotCameraMovementModeChanged(int index)
+{
+	ui->widgetRenderedImage->SetCameraMovementMode(index);
 }

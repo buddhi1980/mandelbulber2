@@ -213,7 +213,7 @@ void cInterface::ShowUi()
 	renderedImage->AssignImage(mainImage);
 	renderedImage->AssignParameters(gPar, gParFractal);
 
-	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal);
+	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
 
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
@@ -331,6 +331,9 @@ void cInterface::ConnectSignals() const
 
 	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalRender, mainWindow,
 		&RenderWindow::slotStartRender);
+
+	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalCameraMovementModeChanged,
+		mainWindow, &RenderWindow::slotCameraMovementModeChanged);
 
 	// menu actions
 	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);
@@ -3059,11 +3062,6 @@ void cInterface::AttachMainImageWidget()
 		// mainWindow->centralWidget()->show();
 		gPar->Set("image_detached", false);
 	}
-}
-
-void cInterface::CameraMovementModeChanged(int index)
-{
-	renderedImage->SetCameraMovementMode(index);
 }
 
 void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
