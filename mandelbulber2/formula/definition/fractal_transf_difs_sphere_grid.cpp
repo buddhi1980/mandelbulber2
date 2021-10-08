@@ -27,15 +27,28 @@ cFractalTransfDIFSSphereGrid::cFractalTransfDIFSSphereGrid() : cAbstractFractal(
 void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
+	double ang, cosA, sinB, temp;
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc += fractal->transformCommon.offset000;
 		zc *= fractal->transformCommon.scale1;
 		aux.DE *= fabs(fractal->transformCommon.scale1);
 		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			temp = zc.z;
+			ang = fractal->transformCommon.angleDegA
+					+ sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+					+ temp * fractal->transformCommon.scaleB0;
+			cosA = cos(ang);
+			sinB = sin(ang);
+			temp = zc.x;
+			zc.x = zc.y * cosA + zc.x * sinB;
+			zc.y = temp * cosA - zc.y * sinB;
+		}
 	}
 
-	// polyfold
 	zc.x = fabs(zc.x);
 	double psi = M_PI / fractal->transformCommon.int8Z;
 	psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0 * psi) - psi);
@@ -46,6 +59,16 @@ void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *frac
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{
 		zc = fractal->transformCommon.rotationMatrix2.RotateVector(zc);
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		ang = sqrt(zc.x * zc.x + zc.y * zc.y) * -fractal->transformCommon.scaleC0;
+		cosA = cos(ang);
+		sinB = sin(ang);
+		temp = zc.x;
+		zc.x = zc.x * cosA + zc.y * sinB;
+		zc.y = zc.y * cosA - temp * sinB;
 	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
