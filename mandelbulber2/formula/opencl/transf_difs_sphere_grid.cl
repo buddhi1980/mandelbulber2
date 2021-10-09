@@ -16,12 +16,25 @@
 REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 zc = z;
+	REAL ang, cosA, sinB, temp;
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc += fractal->transformCommon.offset000;
 		zc *= fractal->transformCommon.scale1;
 		aux->DE *= fabs(fractal->transformCommon.scale1);
 		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			ang = native_sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+					+ zc.z * fractal->transformCommon.scaleB0
+					+ fractal->transformCommon.angleDegA;
+			cosA = native_cos(ang);
+			sinB = native_sin(ang);
+			temp = zc.x;
+			zc.x = zc.x * cosA - zc.y * sinB;
+			zc.y = temp * sinB + zc.y * cosA;
+		}
 	}
 
 	// polyfold
@@ -35,6 +48,16 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.rotation2EnabledFalse)
 	{
 		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		ang = native_sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleC0;
+		cosA = native_cos(ang);
+		sinB = native_sin(ang);
+		temp = zc.x;
+		zc.x = zc.x * cosA - zc.y * sinB;
+		zc.y = temp * sinB + zc.y * cosA;
 	}
 
 	REAL T1 = native_sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;
