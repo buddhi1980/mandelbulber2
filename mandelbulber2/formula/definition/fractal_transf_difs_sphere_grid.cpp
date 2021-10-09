@@ -37,15 +37,14 @@ void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *frac
 		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			temp = zc.z;
-			ang = fractal->transformCommon.angleDegA
-					+ sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
-					+ temp * fractal->transformCommon.scaleB0;
+			ang = sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+					+ zc.z * fractal->transformCommon.scaleB0
+					+ fractal->transformCommon.angleDegA;
 			cosA = cos(ang);
 			sinB = sin(ang);
 			temp = zc.x;
-			zc.x = zc.y * cosA + zc.x * sinB;
-			zc.y = temp * cosA - zc.y * sinB;
+			zc.x = zc.x * cosA - zc.y * sinB;
+			zc.y = temp * sinB + zc.y * cosA;
 		}
 	}
 
@@ -63,12 +62,12 @@ void cFractalTransfDIFSSphereGrid::FormulaCode(CVector4 &z, const sFractal *frac
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		ang = sqrt(zc.x * zc.x + zc.y * zc.y) * -fractal->transformCommon.scaleC0;
+		ang = sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleC0;
 		cosA = cos(ang);
 		sinB = sin(ang);
 		temp = zc.x;
-		zc.x = zc.x * cosA + zc.y * sinB;
-		zc.y = zc.y * cosA - temp * sinB;
+		zc.x = zc.x * cosA - zc.y * sinB;
+		zc.y = temp * sinB + zc.y * cosA;
 	}
 
 	double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetR1;

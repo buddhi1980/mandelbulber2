@@ -24,15 +24,14 @@ REAL4 TransfSincosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	REAL temp = z.z;
-	REAL ang = native_sqrt(z.x * z.x + z.y * z.y);
-	ang = fractal->transformCommon.angleDegA + ang * fractal->transformCommon.scaleA0
-			+ temp * fractal->transformCommon.scaleB0;
+	REAL ang = native_sqrt(z.x * z.x + z.y * z.y) * fractal->transformCommon.scaleA0
+			+ z.z * fractal->transformCommon.scaleB0
+			+ fractal->transformCommon.angleDegA;
 	REAL cosA = native_cos(ang);
 	REAL sinB = native_sin(ang);
-	temp = z.x;
-	z.x = z.y * cosA + z.x * sinB;
-	z.y = temp * cosA - z.y * sinB;
+	REAL temp = z.x;
+	z.x = z.x * cosA - z.y * sinB;
+	z.y = temp * sinB + z.y * cosA;
 
 	return z;
 }
