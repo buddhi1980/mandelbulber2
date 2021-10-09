@@ -57,6 +57,7 @@ class cDockImageAdjustments;
 class cDockRenderingEngine;
 class cDockFractal;
 class cDockEffects;
+class cManipulations;
 
 namespace Ui
 {
@@ -213,6 +214,7 @@ private:
 	QTimer *buttonPressTimer;
 	QList<int> currentKeyEvents;
 	Qt::KeyboardModifiers lastKeyEventModifiers;
+	cManipulations *manipulations;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

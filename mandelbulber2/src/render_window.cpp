@@ -42,10 +42,14 @@
 #include "ui_render_window.h"
 
 #include "automated_widgets.hpp"
+#include "manipulations.h"
 
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {
 	ui->setupUi(this);
+
+	manipulations = new cManipulations(this);
+
 	preferencesDialog = nullptr;
 	voxelExportDialog = nullptr;
 	meshExportDialog = nullptr;

@@ -48,6 +48,7 @@ class cDockNavigation;
 
 class cParameterContainer;
 class cFractalContainer;
+class cManipulations;
 
 class cDockNavigation : public QWidget
 {
@@ -89,6 +90,8 @@ private:
 	void SetIconSizes();
 
 	Ui::cDockNavigation *ui;
+
+	cManipulations *manipulations;
 
 	cAutomatedWidgets *automatedWidgets;
 

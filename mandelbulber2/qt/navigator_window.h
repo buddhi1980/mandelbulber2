@@ -11,6 +11,8 @@
 #include <QDialog>
 #include <memory>
 #include <QString>
+#include <QList>
+#include <QVariant>
 
 namespace Ui
 {
@@ -20,6 +22,7 @@ class cNavigatorWindow;
 class cParameterContainer;
 class cFractalContainer;
 class cImage;
+class cManipulations;
 
 class cNavigatorWindow : public QDialog
 {
@@ -29,15 +32,19 @@ public:
 	explicit cNavigatorWindow(QWidget *parent = nullptr);
 	~cNavigatorWindow();
 
-	void SetInitialParameters(
-		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractalParams);
+	void SetInitialParameters(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams);
+	void SetMouseClickFunction(QList<QVariant> _clickMode) { mouseClickFunction = _clickMode; }
 	void StartRender();
 
 public slots:
 	void slotCameraMovementModeChanged(int index);
+	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const;
 
 private:
 	Ui::cNavigatorWindow *ui;
+
+	cManipulations *manipulations;
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
@@ -45,6 +52,8 @@ private:
 
 	bool stopRequest = false;
 	QString autoRefreshLastHash;
+
+	QList<QVariant> mouseClickFunction;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

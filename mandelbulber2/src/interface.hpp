@@ -108,16 +108,6 @@ public:
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
 
-	static void MoveCamera(std::shared_ptr<cParameterContainer> params,
-		std::shared_ptr<cFractalContainer> parFractal, QString buttonName);
-	static void RotateCamera(std::shared_ptr<cParameterContainer> params, QString buttonName);
-	static void CameraOrTargetEdited(
-		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
-	static void RotationEdited(
-		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
-	static void CameraDistanceEdited(
-		QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params);
-
 	void IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	void IFSDefaultsIcosahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	static void IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal);
@@ -179,6 +169,7 @@ public:
 	void CleanSettings();
 	void UpdateMainImagePreview();
 	void ChangeLightWireframeVisibility(bool enable);
+	QList<QVariant> GetMouseClickFunction();
 
 	QSettings settings;
 

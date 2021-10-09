@@ -46,6 +46,7 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "material_item_model.h"
+#include "manipulations.h"
 #include "qt/detached_window.h"
 #include "qt/material_editor.h"
 #include "qt/mesh_export_dialog.h"
@@ -215,19 +216,19 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_Up:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
+					manipulations->MoveCamera("bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
+					manipulations->MoveCamera("bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_left");
+					manipulations->MoveCamera("bu_move_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_right");
+					manipulations->MoveCamera("bu_move_right");
 					render = true;
 					break;
 				default: break;
@@ -238,19 +239,19 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_Up:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
+					manipulations->MoveCamera("bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
+					manipulations->MoveCamera("bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_roll_left");
+					manipulations->RotateCamera("bu_rotate_roll_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_roll_right");
+					manipulations->RotateCamera("bu_rotate_roll_right");
 					render = true;
 					break;
 				default: break;
@@ -262,43 +263,43 @@ void RenderWindow::slotKeyHandle()
 			switch (key)
 			{
 				case Qt::Key_W:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_up");
+					manipulations->MoveCamera("bu_move_up");
 					render = true;
 					break;
 				case Qt::Key_S:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_down");
+					manipulations->MoveCamera("bu_move_down");
 					render = true;
 					break;
 				case Qt::Key_A:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_left");
+					manipulations->MoveCamera("bu_move_left");
 					render = true;
 					break;
 				case Qt::Key_D:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_right");
+					manipulations->MoveCamera("bu_move_right");
 					render = true;
 					break;
 				case Qt::Key_Q:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_forward");
+					manipulations->MoveCamera("bu_move_forward");
 					render = true;
 					break;
 				case Qt::Key_Z:
-					gMainInterface->MoveCamera(gPar, gParFractal, "bu_move_backward");
+					manipulations->MoveCamera("bu_move_backward");
 					render = true;
 					break;
 				case Qt::Key_Up:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_up");
+					manipulations->RotateCamera("bu_rotate_up");
 					render = true;
 					break;
 				case Qt::Key_Down:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_down");
+					manipulations->RotateCamera("bu_rotate_down");
 					render = true;
 					break;
 				case Qt::Key_Left:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_left");
+					manipulations->RotateCamera("bu_rotate_left");
 					render = true;
 					break;
 				case Qt::Key_Right:
-					gMainInterface->RotateCamera(gPar, "bu_rotate_right");
+					manipulations->RotateCamera("bu_rotate_right");
 					render = true;
 					break;
 

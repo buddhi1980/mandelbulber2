@@ -18,14 +18,18 @@
 #include "src/write_log.hpp"
 #include "src/settings.hpp"
 #include "src/render_job.hpp"
-#include <src/error_message.hpp>
-#include <src/rendering_configuration.hpp>
+#include "src/error_message.hpp"
+#include "src/rendering_configuration.hpp"
+#include "src/manipulations.h"
+#include "src/interface.hpp"
 
 cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui::cNavigatorWindow)
 {
 	ui->setupUi(this);
 	ui->widgetNavigationButtons->HideSomeButtons();
 	setModal(false);
+
+	manipulations = new cManipulations(this);
 
 	image.reset(new cImage(800, 600, false));
 	ui->widgetRenderedImage->AssignImage(image);
@@ -38,6 +42,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalCameraMovementModeChanged, this,
 		&cNavigatorWindow::slotCameraMovementModeChanged);
+
+	connect(ui->widgetRenderedImage, &RenderedImage::singleClick, this,
+		&cNavigatorWindow::slotMouseClickOnImage);
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -56,6 +63,7 @@ void cNavigatorWindow::SetInitialParameters(
 
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
+	manipulations->AssignParameterContainers(params, fractalParams);
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
@@ -121,4 +129,31 @@ void cNavigatorWindow::StartRender()
 void cNavigatorWindow::slotCameraMovementModeChanged(int index)
 {
 	ui->widgetRenderedImage->SetCameraMovementMode(index);
+}
+
+void cNavigatorWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const
+{
+	RenderedImage::enumClickMode clickMode =
+		RenderedImage::enumClickMode(mouseClickFunction.at(0).toInt());
+	switch (clickMode)
+	{
+		case RenderedImage::clickMoveCamera:
+		case RenderedImage::clickFogVisibility:
+		case RenderedImage::clickDOFFocus:
+		case RenderedImage::clickPlaceLight:
+		case RenderedImage::clickGetJuliaConstant:
+		case RenderedImage::clickPlacePrimitive:
+		case RenderedImage::clickPlaceRandomLightCenter:
+		case RenderedImage::clickGetPoint:
+		case RenderedImage::clickWrapLimitsAroundObject:
+		{
+
+			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mouseClickFunction);
+			break;
+		}
+		case RenderedImage::clickDoNothing:
+		case RenderedImage::clickFlightSpeedControl:
+			// nothing
+			break;
+	}
 }

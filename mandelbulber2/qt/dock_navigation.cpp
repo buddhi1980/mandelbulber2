@@ -48,12 +48,14 @@
 #include "src/camera_movement_modes.h"
 #include "src/write_log.hpp"
 #include "src/interface.hpp"
+#include "src/manipulations.h"
 
 cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockNavigation)
 {
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+	manipulations = new cManipulations(this);
 	ConnectSignals();
 	SetIconSizes();
 }
@@ -68,6 +70,7 @@ void cDockNavigation::AssignParameterContainers(std::shared_ptr<cParameterContai
 {
 	params = _params;
 	fractalParams = _fractalParams;
+	manipulations->AssignParameterContainers(_params, _fractalParams);
 	stopRequest = _stopRequest;
 }
 
@@ -167,7 +170,7 @@ void cDockNavigation::slotCameraMove()
 	QWidget *dock = const_cast<cDockNavigation *>(this);
 	SynchronizeInterfaceWindow(dock, params, qInterface::read);
 
-	cInterface::MoveCamera(params, fractalParams, buttonName);
+	manipulations->MoveCamera(buttonName);
 
 	SynchronizeInterfaceWindow(dock, params, qInterface::write);
 	emit signalRender();
@@ -181,7 +184,7 @@ void cDockNavigation::slotCameraRotation()
 	QWidget *dock = const_cast<cDockNavigation *>(this);
 	SynchronizeInterfaceWindow(dock, params, qInterface::read);
 
-	cInterface::RotateCamera(params, buttonName);
+	manipulations->RotateCamera(buttonName);
 
 	SynchronizeInterfaceWindow(dock, params, qInterface::write);
 	emit signalRender();
@@ -190,26 +193,26 @@ void cDockNavigation::slotCameraRotation()
 void cDockNavigation::slotCameraOrTargetEdited()
 {
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	cInterface::CameraOrTargetEdited(dock, params);
+	manipulations->CameraOrTargetEdited(dock);
 }
 
 void cDockNavigation::slotRotationEdited()
 {
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	cInterface::RotationEdited(dock, params);
+	manipulations->RotationEdited(dock);
 }
 
 void cDockNavigation::slotCameraDistanceEdited()
 {
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	cInterface::CameraDistanceEdited(dock, params);
+	manipulations->CameraDistanceEdited(dock);
 }
 
 void cDockNavigation::slotCameraDistanceSlider(int value)
 {
 	(void)value;
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	cInterface::CameraDistanceEdited(dock, params);
+	manipulations->CameraDistanceEdited(dock);
 }
 
 void cDockNavigation::slotMovementStepModeChanged(int index)
@@ -282,5 +285,6 @@ void cDockNavigation::slotOpenNavigator()
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	navigator->setAttribute(Qt::WA_DeleteOnClose);
 	navigator->SetInitialParameters(gPar, gParFractal);
+	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
 	navigator->show();
 }
