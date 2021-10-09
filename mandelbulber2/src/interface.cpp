@@ -215,6 +215,8 @@ void cInterface::ShowUi()
 	renderedImage->AssignParameters(gPar, gParFractal);
 
 	mainWindow->manipulations->AssignParameterContainers(gPar, gParFractal);
+	mainWindow->manipulations->AssingImage(mainImage);
+	mainWindow->manipulations->AssignRenderedImageWidget(renderedImage);
 
 	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
 
@@ -337,6 +339,34 @@ void cInterface::ConnectSignals() const
 
 	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalCameraMovementModeChanged,
 		mainWindow, &RenderWindow::slotCameraMovementModeChanged);
+
+	// manipulations class
+	connect(mainWindow->manipulations, &cManipulations::signalRender, mainWindow,
+		&RenderWindow::slotStartRender);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceBasicFog,
+		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceBasicFog);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceDOF,
+		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceDOF);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceLights,
+		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceLights);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceRandomLights,
+		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceRandomLights);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceJulia,
+		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfaceJulia);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfacePrimitives,
+		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfacePrimitives);
+	connect(mainWindow->manipulations, &cManipulations::signalEnableJuliaMode,
+		mainWindow->ui->widgetDockFractal, &cDockFractal::slotEnableJuliaMode);
+	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceMeasuremets,
+		mainWindow->ui->widgetDockMeasurements, &cDockMeasurements::slotSynchronizeInterface);
+	connect(mainWindow->manipulations, &cManipulations::signalDisablePeriodicRefresh, this,
+		&cInterface::slotDisablePeriodicRefresh);
+	connect(mainWindow->manipulations, &cManipulations::signalReEnablePeriodicRefresh, this,
+		&cInterface::slotReEnablePeriodicRefresh);
+	connect(mainWindow->manipulations, &cManipulations::signalRefreshPostEffects, this,
+		&cInterface::slotRefreshPostEffects);
+	connect(mainWindow->manipulations, &cManipulations::signalShowMeasuremetsDock, mainWindow,
+		&RenderWindow::slotShowMeasuremetDock);
 
 	// menu actions
 	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);
@@ -603,13 +633,6 @@ void cInterface::StartRender(bool noUndo)
 	numberOfStartedRenders--;
 }
 
-
-
-
-
-
-
-
 void cInterface::IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const
 {
 	double phi = (1 + sqrt(5.0)) / 2.0;
@@ -696,218 +719,6 @@ void cInterface::IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFracta
 	parFractal->Set("IFS_edge_enabled", false);
 }
 
-void cInterface::RefreshMainImage()
-{
-	if (!mainImage->IsUsed())
-	{
-		SynchronizeInterface(gPar, gParFractal, qInterface::read);
-		sImageAdjustments imageAdjustments;
-		imageAdjustments.brightness = gPar->Get<float>("brightness");
-		imageAdjustments.contrast = gPar->Get<float>("contrast");
-		imageAdjustments.imageGamma = gPar->Get<float>("gamma");
-		imageAdjustments.saturation = gPar->Get<float>("saturation");
-		imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
-
-		mainImage->SetImageParameters(imageAdjustments);
-		mainImage->CompileImage();
-
-		mainImage->ConvertTo8bitChar();
-		mainImage->UpdatePreview();
-		if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
-	}
-	else
-	{
-		cErrorMessage::showMessage(
-			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
-			cErrorMessage::warningMessage, mainWindow);
-	}
-}
-
-void cInterface::RefreshPostEffects()
-{
-	if (!mainImage->IsUsed())
-	{
-		mainImage->NullPostEffect();
-
-		RefreshMainImage();
-
-		// replace image size parameters in case if user changed image size just before image update
-		gPar->Set("image_width", int(mainImage->GetWidth()));
-		gPar->Set("image_height", int(mainImage->GetHeight()));
-
-		stopRequest = false;
-		if (gPar->Get<bool>("ambient_occlusion_enabled")
-				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
-		{
-			if (gPar->Get<bool>("opencl_enabled")
-					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
-			{
-#ifdef USE_OPENCL
-				sParamRender params(gPar);
-				gOpenCl->openClEngineRenderSSAO->Lock();
-				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				gOpenCl->openClEngineRenderSSAO->SetParameters(&params, region);
-				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(gPar))
-				{
-					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(gPar);
-					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
-					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
-					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
-					{
-						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(gPar);
-						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
-						gOpenCl->openClEngineRenderSSAO->Render(mainImage, &stopRequest);
-					}
-					else
-					{
-						cErrorMessage::showMessage(
-							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
-							cErrorMessage::errorMessage, mainWindow);
-					}
-				}
-				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
-				gOpenCl->openClEngineRenderSSAO->Unlock();
-#endif
-			}
-			else
-			{
-				std::shared_ptr<sParamRender> params(new sParamRender(gPar));
-				std::shared_ptr<sRenderData> data(new sRenderData());
-				data->stopRequest = &stopRequest;
-				data->screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				cRenderSSAO rendererSSAO(params, data, mainImage);
-				QObject::connect(&rendererSSAO,
-					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-				connect(&rendererSSAO, SIGNAL(updateImage()), renderedImage, SLOT(update()));
-
-				rendererSSAO.RenderSSAO();
-
-				mainImage->CompileImage();
-				mainImage->ConvertTo8bitChar();
-				mainImage->UpdatePreview();
-				if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
-			}
-		}
-
-		if (gPar->Get<bool>("DOF_enabled"))
-		{
-			if (gPar->Get<bool>("opencl_enabled")
-					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
-			{
-#ifdef USE_OPENCL
-				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				sParamRender params(gPar);
-				gOpenCl->openclEngineRenderDOF->RenderDOF(
-					&params, gPar, mainImage, &stopRequest, screenRegion);
-#endif
-			}
-			else
-			{
-				sParamRender params(gPar);
-				// cRenderingConfiguration config;
-				cPostRenderingDOF dof(mainImage);
-				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-					mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-				connect(&dof, SIGNAL(updateImage()), renderedImage, SLOT(update()));
-				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				dof.Render(screenRegion,
-					params.DOFRadius * (mainImage->GetWidth() + mainImage->GetHeight()) / 2000.0,
-					params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius,
-					&stopRequest);
-			}
-		}
-
-		if (gPar->Get<bool>("opencl_enabled")
-				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-						 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
-		{
-#ifdef USE_OPENCL
-
-			connect(gOpenCl->openclEngineRenderPostFilter,
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-
-			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
-					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
-			{
-
-				bool skip = false;
-				switch (cOpenClEngineRenderPostFilter::enumPostEffectType(i))
-				{
-					case cOpenClEngineRenderPostFilter::hdrBlur:
-					{
-						if (!gPar->Get<bool>("hdr_blur_enabled")) skip = true;
-						break;
-					}
-					case cOpenClEngineRenderPostFilter::chromaticAberration:
-					{
-						if (!gPar->Get<bool>("post_chromatic_aberration_enabled")) skip = true;
-						break;
-					}
-				}
-
-				if (skip) continue;
-
-				sParamRender params(gPar);
-				gOpenCl->openclEngineRenderPostFilter->Lock();
-				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-				gOpenCl->openclEngineRenderPostFilter->SetParameters(
-					&params, region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
-				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(gPar))
-				{
-					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(gPar);
-					size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
-					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
-					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
-					{
-						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(gPar);
-						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
-						gOpenCl->openclEngineRenderPostFilter->Render(mainImage, &stopRequest);
-					}
-					else
-					{
-						cErrorMessage::showMessage(
-							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
-							cErrorMessage::errorMessage, mainWindow);
-					}
-				}
-				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
-				gOpenCl->openclEngineRenderPostFilter->Unlock();
-			}
-#endif
-		}
-		else
-		{
-			if (gPar->Get<bool>("hdr_blur_enabled"))
-			{
-				std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(mainImage));
-				double blurRadius = gPar->Get<double>("hdr_blur_radius");
-				double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
-				hdrBlur->SetParameters(blurRadius, blurIntensity);
-				QObject::connect(hdrBlur.get(),
-					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-				hdrBlur->Render(&stopRequest);
-			}
-		}
-
-		mainImage->CompileImage();
-
-		mainImage->ConvertTo8bitChar();
-		mainImage->UpdatePreview();
-		if (mainImage->GetImageWidget()) mainImage->GetImageWidget()->update();
-	}
-	else
-	{
-		cErrorMessage::showMessage(
-			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
-			cErrorMessage::warningMessage, mainWindow);
-	}
-}
-
 void cInterface::AutoFog() const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -984,283 +795,6 @@ double cInterface::GetDistanceForPoint(CVector3 point) const
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
 	return distance;
-}
-
-void cInterface::SetByMouse(
-	CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
-{
-	using namespace cameraMovementEnums;
-
-	WriteLog(
-		QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
-			+ QString::number(int(button)),
-		2);
-	// get data from interface
-
-	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
-
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 topVector = gPar->Get<CVector3>("camera_top");
-	cCameraTarget cameraTarget(camera, target, topVector);
-
-	enumCameraMovementStepMode stepMode =
-		enumCameraMovementStepMode(gPar->Get<int>("camera_absolute_distance_mode"));
-	enumCameraMovementMode movementMode =
-		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
-	params::enumPerspectiveType perspType =
-		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
-	cCameraTarget::enumRotationMode rollMode =
-		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
-	double movementStep = gPar->Get<double>("camera_movement_step");
-	double fov = CalcFOV(gPar->Get<double>("fov"), perspType);
-	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
-	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
-
-	double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
-	double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
-
-	CVector2<double> imagePoint;
-	imagePoint = screenPoint / mainImage->GetPreviewScale();
-
-	int width = mainImage->GetWidth();
-	int height = mainImage->GetHeight();
-
-	if (imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0
-			&& imagePoint.y < mainImage->GetHeight())
-	{
-		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
-		if (depth < 1e10 || true)
-		{
-			CVector3 viewVector;
-			double aspectRatio = double(width) / height;
-
-			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
-
-			double wheelDistance = 1.0;
-			if (clickMode == RenderedImage::clickMoveCamera)
-			{
-
-				if (mode.length() > 1) // if mouse wheel delta is available
-				{
-					int wheelDelta = mode.at(1).toInt();
-					wheelDistance = 0.001 * fabs(wheelDelta);
-				}
-			}
-
-			CVector3 angles = cameraTarget.GetRotation();
-			CRotationMatrix mRot;
-			mRot.SetRotation(angles);
-			mRot.RotateZ(-sweetSpotHAngle);
-			mRot.RotateX(sweetSpotVAngle);
-
-			CVector2<double> normalizedPoint;
-			normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
-			normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
-
-			normalizedPoint *= wheelDistance;
-
-			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
-
-			CVector3 point = camera + viewVector * depth;
-
-			if (depth > 1000.0)
-			{
-				double estDistance = GetDistanceForPoint(camera, gPar, gParFractal);
-				point = camera + viewVector * estDistance;
-			}
-
-			switch (clickMode)
-			{
-				case RenderedImage::clickMoveCamera:
-				{
-					double distance = (camera - point).Length();
-
-					double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
-					moveDistance *= wheelDistance;
-
-					if (stepMode == relative)
-					{
-						if (moveDistance > depth * 0.99) moveDistance = depth * 0.99;
-					}
-
-					if (button == Qt::RightButton)
-					{
-						moveDistance *= -1.0;
-					}
-
-					switch (movementMode)
-					{
-						case moveTarget: target = point; break;
-
-						case moveCamera: camera += viewVector * moveDistance; break;
-
-						case fixedDistance:
-							camera += viewVector * moveDistance;
-							target = point;
-							break;
-					}
-
-					// recalculation of camera-target
-					if (movementMode == moveCamera)
-						cameraTarget.SetCamera(camera, rollMode);
-					else if (movementMode == moveTarget)
-						cameraTarget.SetTarget(target, rollMode);
-					else if (movementMode == fixedDistance)
-						cameraTarget.SetCameraTargetTop(camera, target, topVector);
-
-					if (rollMode == cCameraTarget::constantRoll)
-					{
-						cameraTarget.SetCameraTargetRotation(camera, target, angles.z);
-					}
-
-					gPar->Set("camera", camera);
-					gPar->Set("target", target);
-
-					topVector = cameraTarget.GetTopVector();
-					gPar->Set("camera_top", topVector);
-					CVector3 rotation = cameraTarget.GetRotation();
-					gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
-					double dist = cameraTarget.GetDistance();
-					gPar->Set("camera_distance_to_target", dist);
-
-					SynchronizeInterface(gPar, gParFractal, qInterface::write);
-					renderedImage->setNewZ(depth - moveDistance);
-
-					StartRender();
-
-					break;
-				}
-				case RenderedImage::clickFogVisibility:
-				{
-					double fogDepth = depth;
-					gPar->Set("basic_fog_visibility", fogDepth);
-					mainWindow->ui->widgetEffects->SynchronizeInterfaceBasicFogEnabled(gPar);
-					StartRender();
-					break;
-				}
-				case RenderedImage::clickDOFFocus:
-				{
-					DisablePeriodicRefresh();
-					double DOF = depth;
-					gPar->Set("DOF_focus", DOF);
-					mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
-					gUndo->Store(gPar, gParFractal);
-					RefreshPostEffects();
-					ReEnablePeriodicRefresh();
-					break;
-				}
-				case RenderedImage::clickPlaceLight:
-				{
-					int lightIndex = mode.at(1).toInt();
-					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
-					bool placeBehind = gPar->Get<bool>("aux_light_place_behind");
-					double distanceLimit = gPar->Get<double>("view_distance_max");
-					bool relativePosition = gPar->Get<bool>(cLight::Name("relative_position", lightIndex));
-
-					CVector3 pointCorrected;
-
-					if (!placeBehind)
-					{
-						pointCorrected = point - viewVector * frontDist;
-					}
-					else
-					{
-						frontDist = traceBehindFractal(gPar, gParFractal, frontDist, viewVector, depth,
-													1.0 / mainImage->GetHeight(), distanceLimit)
-												* (-1.0);
-						pointCorrected = point - viewVector * frontDist;
-					}
-
-					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
-					double intensity = estDistance * estDistance;
-
-					if (relativePosition)
-					{
-						// without rotation
-						CVector3 viewVectorTemp =
-							CalculateViewVector(normalizedPoint, fov, perspType, CRotationMatrix());
-
-						CVector3 point2 = viewVectorTemp * (depth - frontDist);
-						pointCorrected = CVector3(point2.x, point2.z, point2.y);
-					}
-
-					gPar->Set(cLight::Name("position", lightIndex), pointCorrected);
-					gPar->Set(cLight::Name("intensity", lightIndex), intensity);
-					mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
-					StartRender();
-					break;
-				}
-				case RenderedImage::clickGetJuliaConstant:
-				{
-					gPar->Set("julia_c", point);
-					mainWindow->ui->widgetDockFractal->EnableJuliaMode();
-					mainWindow->ui->widgetDockFractal->SynchronizeInterfaceJulia();
-
-					// StartRender();
-					break;
-				}
-				case RenderedImage::clickPlacePrimitive:
-				{
-					QString parameterName = mode.at(3).toString() + "_position";
-					gPar->Set(parameterName, point);
-					mainWindow->ui->widgetDockFractal->SynchronizeInterfacePrimitives();
-					break;
-				}
-				case RenderedImage::clickDoNothing:
-					// nothing
-					break;
-				case RenderedImage::clickFlightSpeedControl:
-					// nothing
-					break;
-				case RenderedImage::clickPlaceRandomLightCenter:
-				{
-					double distanceCameraToCenter = CVector3(camera - point).Length();
-					gPar->Set("random_lights_distribution_center", point);
-					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
-					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					mainWindow->ui->widgetEffects->SynchronizeInterfaceRandomLights(gPar);
-					StartRender();
-					break;
-				}
-				case RenderedImage::clickGetPoint:
-				{
-					DisablePeriodicRefresh();
-					SynchronizeInterface(gPar, gParFractal, qInterface::read);
-					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
-					double distanceFromLast = (point - oldPoint).Length();
-					double distanceFromCamera = (point - camera).Length();
-					CVector3 midPoint = 0.5 * (point + oldPoint);
-					gPar->Set("meas_point", point);
-					gPar->Set("meas_midpoint", midPoint);
-					gPar->Set("meas_distance_from_last", distanceFromLast);
-					gPar->Set("meas_distance_from_camera", distanceFromCamera);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->dockWidget_measurement, gPar, qInterface::write);
-					if (!mainWindow->ui->actionShow_measurement_dock->isChecked())
-					{
-						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
-						mainWindow->slotUpdateDocksAndToolbarByAction();
-					}
-					ReEnablePeriodicRefresh();
-					break;
-				}
-				case RenderedImage::clickWrapLimitsAroundObject:
-				{
-					double distanceCameraToCenter = CVector3(camera - point).Length();
-					CVector3 distanceV111_100 = CVector3(1.0 * distanceCameraToCenter,
-						1.0 * distanceCameraToCenter, 1.0 * distanceCameraToCenter);
-					CVector3 limitMin = point - distanceV111_100;
-					CVector3 limitMax = point + distanceV111_100;
-					// try to find object close limits in the bounding box defined by point +- 100% distance
-					// to view vector
-					SetBoundingBoxAsLimits(limitMin, limitMax);
-					break;
-				}
-			}
-		}
-	}
 }
 
 void cInterface::MouseDragStart(
@@ -1920,23 +1454,24 @@ void cInterface::SetBoundingBoxAsLimitsTotal()
 	double outerBounding = gPar->Get<double>("limit_outer_bounding");
 	CVector3 outerBoundingMin(-outerBounding, -outerBounding, -outerBounding);
 	CVector3 outerBoundingMax(outerBounding, outerBounding, outerBounding);
-	SetBoundingBoxAsLimits(outerBoundingMin, outerBoundingMax);
+	SetBoundingBoxAsLimits(outerBoundingMin, outerBoundingMax, gPar, gParFractal);
 }
 
-void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax)
+void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax,
+	std::shared_ptr<cParameterContainer> par, std::shared_ptr<cFractalContainer> parFractal)
 {
 	CVector3 boundingCenter = (outerBoundingMin + outerBoundingMax) / 2;
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterface(par, parFractal, qInterface::read);
 
 	auto parTemp = std::make_shared<cParameterContainer>();
-	*parTemp = *gPar;
+	*parTemp = *par;
 
 	parTemp->Set("limits_enabled", false);
 	parTemp->Set("interior_mode", false);
 
 	std::shared_ptr<sParamRender> params(new sParamRender(parTemp));
-	std::shared_ptr<cNineFractals> fractals(new cNineFractals(gParFractal, parTemp));
+	std::shared_ptr<cNineFractals> fractals(new cNineFractals(parFractal, parTemp));
 
 	CVector3 direction;
 	CVector3 orthDirection;
@@ -2006,11 +1541,11 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	double rangeY = maxY - minY;
 	double rangeZ = maxZ - minZ;
 
-	gPar->Set("limit_min", CVector3(medX - rangeX * 0.6, medY - rangeY * 0.6, medZ - rangeZ * 0.6));
-	gPar->Set("limit_max", CVector3(medX + rangeX * 0.6, medY + rangeY * 0.6, medZ + rangeZ * 0.6));
+	par->Set("limit_min", CVector3(medX - rangeX * 0.6, medY - rangeY * 0.6, medZ - rangeZ * 0.6));
+	par->Set("limit_max", CVector3(medX + rangeX * 0.6, medY + rangeY * 0.6, medZ + rangeZ * 0.6));
 
 	cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Done"), 1.0);
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	SynchronizeInterface(par, parFractal, qInterface::write);
 }
 
 void cInterface::NewPrimitive(const QString &primitiveType, int index)
@@ -3056,4 +2591,35 @@ QList<QVariant> cInterface::GetMouseClickFunction()
 {
 	int index = mainWindow->ui->comboBox_mouse_click_function->currentIndex();
 	return mainWindow->ui->comboBox_mouse_click_function->itemData(index).toList();
+}
+
+void cInterface::RefreshMainImage()
+{
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage));
+	renderJob->RefreshPostEffects();
+}
+
+void cInterface::RefreshImageAdjustments()
+{
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage));
+	renderJob->RefreshImageAdjustments();
+}
+
+void cInterface::slotDisablePeriodicRefresh()
+{
+	DisablePeriodicRefresh();
+}
+
+void cInterface::slotReEnablePeriodicRefresh()
+{
+	ReEnablePeriodicRefresh();
+}
+
+void cInterface::slotRefreshPostEffects()
+{
+	RefreshMainImage();
 }

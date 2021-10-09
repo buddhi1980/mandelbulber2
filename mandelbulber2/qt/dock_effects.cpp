@@ -100,23 +100,23 @@ void cDockEffects::ConnectSignals() const
 		&cDockEffects::slotSetAuxLightManualPlacementDistance);
 }
 
-void cDockEffects::SynchronizeInterfaceBasicFogEnabled(
-	std::shared_ptr<cParameterContainer> par) const
+void cDockEffects::slotSynchronizeInterfaceBasicFog(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_basic_fog_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterContainer> par) const
+void cDockEffects::slotSynchronizeInterfaceDOF(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_DOF_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const
+void cDockEffects::slotSynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->widget_light_sources_manager, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const
+void cDockEffects::slotSynchronizeInterfaceRandomLights(
+	std::shared_ptr<cParameterContainer> par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_random_lights_group, par, qInterface::write);
 }
@@ -156,7 +156,7 @@ void cDockEffects::slotPressedButtonAutoFog()
 
 void cDockEffects::slotPressedButtonUpdatePostEffects()
 {
-	gMainInterface->RefreshPostEffects();
+	gMainInterface->RefreshMainImage();
 }
 
 void cDockEffects::slotPressedButtonSetDOFByMouse()

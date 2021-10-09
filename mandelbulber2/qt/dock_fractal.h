@@ -62,15 +62,18 @@ public:
 	void InitializeFractalUi() const;
 	bool AreHybridFractalsEnabled() const;
 	bool AreBooleanFractalsEnabled() const;
-	void EnableJuliaMode() const;
+
 	void SetTabText(int tabIndex, QString text) const;
 	void SynchronizeInterfaceFractals(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
-	void SynchronizeInterfaceJulia() const;
-	void SynchronizeInterfacePrimitives() const;
 
 	QWidget *GetContainerWithPrimitives() const;
 	QVBoxLayout *GetLayoutWithPrimitives() const;
+
+public slots:
+	void slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const;
+	void slotSynchronizeInterfacePrimitives(std::shared_ptr<cParameterContainer> par) const;
+	void slotEnableJuliaMode() const;
 
 private slots:
 	void slotChangedJuliaPoint() const;

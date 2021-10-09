@@ -40,6 +40,8 @@
 
 #include "ao_modes.h"
 #include "cimage.hpp"
+#include "dof.hpp"
+#include "error_message.hpp"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "image_scale.hpp"
@@ -50,6 +52,7 @@
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
+#include "post_effect_hdr_blur.h"
 #include "progress_text.hpp"
 #include "render_data.hpp"
 #include "render_image.hpp"
@@ -976,4 +979,218 @@ void cRenderJob::UpdateConfig(const cRenderingConfiguration &config) const
 cStatistics cRenderJob::GetStatistics() const
 {
 	return renderData->statistics;
+}
+
+void cRenderJob::RefreshPostEffects()
+{
+	if (!image->IsUsed())
+	{
+		image->NullPostEffect();
+
+		RefreshImageAdjustments();
+
+		// replace image size parameters in case if user changed image size just before image update
+		paramsContainer->Set("image_width", int(image->GetWidth()));
+		paramsContainer->Set("image_height", int(image->GetHeight()));
+
+		*stopRequest = false;
+		if (paramsContainer->Get<bool>("ambient_occlusion_enabled")
+				&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
+		{
+			if (paramsContainer->Get<bool>("opencl_enabled")
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+							 paramsContainer->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+			{
+#ifdef USE_OPENCL
+				sParamRender params(paramsContainer);
+				gOpenCl->openClEngineRenderSSAO->Lock();
+				cRegion<int> region(0, 0, image->GetWidth(), image->GetHeight());
+				gOpenCl->openClEngineRenderSSAO->SetParameters(&params, region);
+				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
+				{
+					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
+					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
+					if (neededMem / 1048576 < size_t(paramsContainer->Get<int>("opencl_memory_limit")))
+					{
+						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
+						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+						gOpenCl->openClEngineRenderSSAO->Render(image, stopRequest);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
+							cErrorMessage::errorMessage, imageWidget);
+					}
+				}
+				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
+				gOpenCl->openClEngineRenderSSAO->Unlock();
+#endif
+			}
+			else
+			{
+				std::shared_ptr<sParamRender> params(new sParamRender(paramsContainer));
+				std::shared_ptr<sRenderData> data(new sRenderData());
+				data->stopRequest = stopRequest;
+				data->screenRegion = cRegion<int>(0, 0, image->GetWidth(), image->GetHeight());
+				cRenderSSAO rendererSSAO(params, data, image);
+				QObject::connect(&rendererSSAO,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&rendererSSAO, SIGNAL(updateImage()), imageWidget, SLOT(update()));
+
+				rendererSSAO.RenderSSAO();
+
+				image->CompileImage();
+				image->ConvertTo8bitChar();
+				image->UpdatePreview();
+				if (image->GetImageWidget()) image->GetImageWidget()->update();
+			}
+		}
+
+		if (paramsContainer->Get<bool>("DOF_enabled"))
+		{
+			if (paramsContainer->Get<bool>("opencl_enabled")
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+							 paramsContainer->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+			{
+#ifdef USE_OPENCL
+				cRegion<int> screenRegion(0, 0, image->GetWidth(), image->GetHeight());
+				sParamRender params(paramsContainer);
+				gOpenCl->openclEngineRenderDOF->RenderDOF(
+					&params, paramsContainer, image, stopRequest, screenRegion);
+#endif
+			}
+			else
+			{
+				sParamRender params(paramsContainer);
+				// cRenderingConfiguration config;
+				cPostRenderingDOF dof(image);
+				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+					this, SIGNAL(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&dof, SIGNAL(updateImage()), imageWidget, SLOT(update()));
+				cRegion<int> screenRegion(0, 0, image->GetWidth(), image->GetHeight());
+				dof.Render(screenRegion,
+					params.DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params.DOFFocus,
+					params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius, stopRequest);
+			}
+		}
+
+		if (paramsContainer->Get<bool>("opencl_enabled")
+				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+		{
+#ifdef USE_OPENCL
+
+			connect(gOpenCl->openclEngineRenderPostFilter,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+			for (int i = cOpenClEngineRenderPostFilter::hdrBlur;
+					 i <= cOpenClEngineRenderPostFilter::chromaticAberration; i++)
+			{
+
+				bool skip = false;
+				switch (cOpenClEngineRenderPostFilter::enumPostEffectType(i))
+				{
+					case cOpenClEngineRenderPostFilter::hdrBlur:
+					{
+						if (!paramsContainer->Get<bool>("hdr_blur_enabled")) skip = true;
+						break;
+					}
+					case cOpenClEngineRenderPostFilter::chromaticAberration:
+					{
+						if (!paramsContainer->Get<bool>("post_chromatic_aberration_enabled")) skip = true;
+						break;
+					}
+				}
+
+				if (skip) continue;
+
+				sParamRender params(paramsContainer);
+				gOpenCl->openclEngineRenderPostFilter->Lock();
+				cRegion<int> region(0, 0, image->GetWidth(), image->GetHeight());
+				gOpenCl->openclEngineRenderPostFilter->SetParameters(
+					&params, region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
+				if (gOpenCl->openclEngineRenderPostFilter->LoadSourcesAndCompile(paramsContainer))
+				{
+					gOpenCl->openclEngineRenderPostFilter->CreateKernel4Program(paramsContainer);
+					size_t neededMem = gOpenCl->openclEngineRenderPostFilter->CalcNeededMemory();
+					WriteLogDouble("OpenCl render Post Filter - needed mem:", neededMem / 1048576.0, 2);
+					if (neededMem / 1048576 < size_t(paramsContainer->Get<int>("opencl_memory_limit")))
+					{
+						gOpenCl->openclEngineRenderPostFilter->PreAllocateBuffers(paramsContainer);
+						gOpenCl->openclEngineRenderPostFilter->CreateCommandQueue();
+						gOpenCl->openclEngineRenderPostFilter->Render(image, stopRequest);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
+							cErrorMessage::errorMessage, imageWidget);
+					}
+				}
+				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
+				gOpenCl->openclEngineRenderPostFilter->Unlock();
+			}
+#endif
+		}
+		else
+		{
+			if (paramsContainer->Get<bool>("hdr_blur_enabled"))
+			{
+				std::unique_ptr<cPostEffectHdrBlur> hdrBlur(new cPostEffectHdrBlur(image));
+				double blurRadius = paramsContainer->Get<double>("hdr_blur_radius");
+				double blurIntensity = paramsContainer->Get<double>("hdr_blur_intensity");
+				hdrBlur->SetParameters(blurRadius, blurIntensity);
+				QObject::connect(hdrBlur.get(),
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				hdrBlur->Render(stopRequest);
+			}
+		}
+
+		image->CompileImage();
+
+		image->ConvertTo8bitChar();
+		image->UpdatePreview();
+		if (image->GetImageWidget()) image->GetImageWidget()->update();
+	}
+	else
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
+			cErrorMessage::warningMessage, imageWidget);
+	}
+}
+
+void cRenderJob::RefreshImageAdjustments()
+{
+	if (!image->IsUsed())
+	{
+		// SynchronizeInterface(paramsContainer, paramsContainerFractal, qInterface::read);
+		sImageAdjustments imageAdjustments;
+		imageAdjustments.brightness = paramsContainer->Get<float>("brightness");
+		imageAdjustments.contrast = paramsContainer->Get<float>("contrast");
+		imageAdjustments.imageGamma = paramsContainer->Get<float>("gamma");
+		imageAdjustments.saturation = paramsContainer->Get<float>("saturation");
+		imageAdjustments.hdrEnabled = paramsContainer->Get<bool>("hdr");
+
+		image->SetImageParameters(imageAdjustments);
+		image->CompileImage();
+
+		image->ConvertTo8bitChar();
+		image->UpdatePreview();
+		if (image->GetImageWidget()) image->GetImageWidget()->update();
+	}
+	else
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
+			cErrorMessage::warningMessage, imageWidget);
+	}
 }

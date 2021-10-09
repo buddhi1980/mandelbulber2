@@ -39,6 +39,7 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
 		&cNavigatorWindow::StartRender);
+	connect(manipulations, &cManipulations::signalRender, this, &cNavigatorWindow::StartRender);
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalCameraMovementModeChanged, this,
 		&cNavigatorWindow::slotCameraMovementModeChanged);
@@ -64,6 +65,8 @@ void cNavigatorWindow::SetInitialParameters(
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
 	manipulations->AssignParameterContainers(params, fractalParams);
+	manipulations->AssingImage(image);
+	manipulations->AssignRenderedImageWidget(ui->widgetRenderedImage);
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
@@ -147,8 +150,8 @@ void cNavigatorWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton butto
 		case RenderedImage::clickGetPoint:
 		case RenderedImage::clickWrapLimitsAroundObject:
 		{
-
-			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mouseClickFunction);
+			manipulations->SetByMouse(
+				ui->widgetNavigationButtons, CVector2<double>(x, y), button, mouseClickFunction);
 			break;
 		}
 		case RenderedImage::clickDoNothing:

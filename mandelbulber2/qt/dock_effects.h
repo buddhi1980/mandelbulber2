@@ -54,11 +54,6 @@ public:
 	explicit cDockEffects(QWidget *parent = nullptr);
 	~cDockEffects() override;
 
-	void SynchronizeInterfaceBasicFogEnabled(std::shared_ptr<cParameterContainer> par) const;
-	void SynchronizeInterfaceDOFEnabled(std::shared_ptr<cParameterContainer> par) const;
-	void SynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const;
-	void SynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
-
 	double GetAuxLightManualPlacementDistance() const;
 
 	void UpdateLabelAverageDOFSamples(const QString &avg);
@@ -67,6 +62,10 @@ public:
 
 public slots:
 	void slotSetAuxLightManualPlacementDistance(double dist) const;
+	void slotSynchronizeInterfaceBasicFog(std::shared_ptr<cParameterContainer> par) const;
+	void slotSynchronizeInterfaceDOF(std::shared_ptr<cParameterContainer> par) const;
+	void slotSynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const;
+	void slotSynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
 
 private slots:
 	static void slotPressedButtonAutoFog();

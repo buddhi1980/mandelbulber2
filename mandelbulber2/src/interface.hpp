@@ -107,20 +107,18 @@ public:
 	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
+	void RefreshMainImage();
+	void RefreshImageAdjustments();
 
 	void IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	void IFSDefaultsIcosahedron(std::shared_ptr<cParameterContainer> parFractal) const;
 	static void IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal);
 	static void IFSDefaultsMengerSponge(std::shared_ptr<cParameterContainer> parFractal);
 	static void IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFractal);
-	void RefreshMainImage();
-	void RefreshPostEffects();
 	void AutoFog() const;
 	double GetDistanceForPoint(CVector3 point) const;
 	static double GetDistanceForPoint(CVector3 point, std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal);
-	void SetByMouse(
-		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
@@ -138,7 +136,8 @@ public:
 		std::shared_ptr<cFractalContainer> parFractal);
 	void BoundingBoxMove(char dimension, double moveLower, double moveUpper);
 	void SetBoundingBoxAsLimitsTotal();
-	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax);
+	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax,
+		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
 	void NewPrimitive(const QString &primitiveType, int index = 0);
 	void DeletePrimitive(const QString &primitiveName);
 	void RebuildPrimitives(std::shared_ptr<cParameterContainer> par);
@@ -205,6 +204,9 @@ public:
 
 private slots:
 	void slotAutoSaveImage(double timeSeconds);
+	void slotDisablePeriodicRefresh();
+	void slotReEnablePeriodicRefresh();
+	void slotRefreshPostEffects();
 };
 
 extern cInterface *gMainInterface;

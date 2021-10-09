@@ -36,9 +36,11 @@
 #define MANDELBULBER2_QT_DOCK_MEASUREMENTS_H_
 
 #include <QWidget>
+#include <memory>
 
 // forward declarations
 class cAutomatedWidgets;
+class cParameterContainer;
 
 namespace Ui
 {
@@ -51,6 +53,9 @@ class cDockMeasurements : public QWidget
 public:
 	explicit cDockMeasurements(QWidget *parent = nullptr);
 	~cDockMeasurements() override;
+
+public slots:
+	void slotSynchronizeInterface(std::shared_ptr<cParameterContainer> par);
 
 private slots:
 	static void slotPressedButtonGetPoint();

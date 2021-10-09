@@ -320,7 +320,7 @@ void cDockImageAdjustments::ApplyImageChangesSetEnabled(bool enable) const
 
 void cDockImageAdjustments::slotPressedButtonImageApply()
 {
-	gMainInterface->RefreshMainImage();
+	gMainInterface->RefreshImageAdjustments();
 }
 
 void cDockImageAdjustments::slotPressedImageSizeIncrease() const

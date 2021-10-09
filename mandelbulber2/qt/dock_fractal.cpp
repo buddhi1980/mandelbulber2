@@ -111,17 +111,18 @@ void cDockFractal::SynchronizeInterfaceFractals(std::shared_ptr<cParameterContai
 	}
 }
 
-void cDockFractal::SynchronizeInterfaceJulia() const
+void cDockFractal::slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const
 {
-	SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, gPar, qInterface::write);
+	SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, par, qInterface::write);
 }
 
-void cDockFractal::SynchronizeInterfacePrimitives() const
+void cDockFractal::slotSynchronizeInterfacePrimitives(
+	std::shared_ptr<cParameterContainer> par) const
 {
-	SynchronizeInterfaceWindow(ui->scrollArea_primitives, gPar, qInterface::write);
+	SynchronizeInterfaceWindow(ui->scrollArea_primitives, par, qInterface::write);
 }
 
-void cDockFractal::EnableJuliaMode() const
+void cDockFractal::slotEnableJuliaMode() const
 {
 	ui->groupCheck_julia_mode->setChecked(true);
 }

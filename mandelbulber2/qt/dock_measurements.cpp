@@ -40,6 +40,7 @@
 #include "src/interface.hpp"
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
+#include "src/synchronize_interface.hpp"
 
 cDockMeasurements::cDockMeasurements(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockMeasurements)
@@ -68,4 +69,9 @@ void cDockMeasurements::slotPressedButtonGetPoint()
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
+}
+
+void cDockMeasurements::slotSynchronizeInterface(std::shared_ptr<cParameterContainer> par)
+{
+	SynchronizeInterfaceWindow(this, par, qInterface::write);
 }

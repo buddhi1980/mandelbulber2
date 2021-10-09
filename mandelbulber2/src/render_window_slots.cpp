@@ -124,7 +124,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
-				gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+				manipulations->SetByMouse(ui->dockWidget_navigation, CVector2<double>(x, y), button, mode);
 			}
 			break;
 		}
@@ -379,7 +379,7 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 			{
 				Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
 				mode.append(QVariant(delta));
-				gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+				manipulations->SetByMouse(ui->dockWidget_navigation, CVector2<double>(x, y), button, mode);
 				break;
 			}
 			default: break;
@@ -1003,4 +1003,13 @@ void RenderWindow::slotStartRender()
 void RenderWindow::slotCameraMovementModeChanged(int index)
 {
 	gMainInterface->renderedImage->SetCameraMovementMode(index);
+}
+
+void RenderWindow::slotShowMeasuremetDock()
+{
+	if (!ui->actionShow_measurement_dock->isChecked())
+	{
+		ui->actionShow_measurement_dock->setChecked(true);
+		slotUpdateDocksAndToolbarByAction();
+	}
 }

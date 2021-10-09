@@ -181,6 +181,7 @@ private slots:
 	void slotUpdateDocksAndToolbarByAction();
 	void slotUpdateDocksAndToolbarByView() const;
 	void slotStackAllDocks();
+	void slotShowMeasuremetDock();
 
 	void slotDetachMainImage();
 

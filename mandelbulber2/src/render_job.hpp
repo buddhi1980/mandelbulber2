@@ -91,6 +91,8 @@ public:
 	void UpdateConfig(const cRenderingConfiguration &config) const;
 	static int GetRunningJobCount() { return runningJobs; }
 	cStatistics GetStatistics() const;
+	void RefreshImageAdjustments();
+	void RefreshPostEffects();
 
 public slots:
 	void slotExecute();
