@@ -1541,7 +1541,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							totalNoiseRect = sqrtf(
 								(1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
 						}
-						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = totalNoiseRect;
+
+						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
+						float smothedNoiseLevel =
+							previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
+						//smothedNoiseLevel = totalNoiseRect;
+						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
 
 						bool anitiAliasingDepthFinished = true;
 						if (useAntiAlaising)
@@ -1569,7 +1574,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
 
 						listOfRenderedTilesData.append(
-							sRenderedTileData(jobX, jobY, jobWidth, jobHeight, totalNoiseRect));
+							sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
 					} // endif montecarlo
 					else
 					{

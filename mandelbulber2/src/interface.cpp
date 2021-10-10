@@ -1216,30 +1216,6 @@ void cInterface::MoveLightByWheel(double deltaWheel)
 	renderedImage->update();
 }
 
-void cInterface::MovementStepModeChanged(int mode, QWidget *navigationWidget,
-	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal)
-{
-	using namespace cameraMovementEnums;
-
-	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::read);
-	enumCameraMovementStepMode stepMode = enumCameraMovementStepMode(mode);
-	double distance = GetDistanceForPoint(params->Get<CVector3>("camera"), params, parFractal);
-	double oldStep = params->Get<double>("camera_movement_step");
-	double newStep;
-	if (stepMode == absolute)
-	{
-		newStep = oldStep * distance;
-		if (distance > 1.0 && newStep > distance * 0.5) newStep = distance * 0.5;
-	}
-	else
-	{
-		newStep = oldStep / distance;
-		if (distance > 1.0 && newStep > 0.5) newStep = 0.5;
-	}
-	params->Set("camera_movement_step", newStep);
-	SynchronizeInterfaceWindow(navigationWidget, params, qInterface::write);
-}
-
 void cInterface::Undo()
 {
 	bool refreshFrames = false;

@@ -128,8 +128,7 @@ public:
 	void MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData);
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
-	static void MovementStepModeChanged(int mode, QWidget *navigationWidget,
-		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
+
 	void Undo();
 	void Redo();
 	static void ResetView(QWidget *navigationWidget, std::shared_ptr<cParameterContainer> params,

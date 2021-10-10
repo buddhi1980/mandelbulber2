@@ -161,9 +161,15 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 		params->Set("image_width", tWidth * oversample);
 		params->Set("image_height", tHeight * oversample);
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
-		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
-		params->Set("DOF_min_samples", 5);
 		params->Set("antialiasing_enabled", false);
+		if (params->Get<bool>("DOF_monte_carlo"))
+		{
+			params->Set("MC_denoiser_enable", true);
+			params->Set("MC_denoiser_strength", 1);
+			params->Set("MC_denoiser_preserve_geometry", true);
+			params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
+			params->Set("DOF_min_samples", 5);
+		}
 
 		if (fractal->isUsedCustomFormula())
 		{

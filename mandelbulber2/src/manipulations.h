@@ -35,6 +35,7 @@ public:
 	void CameraOrTargetEdited(QWidget *navigationWidget);
 	void RotationEdited(QWidget *navigationWidget);
 	void CameraDistanceEdited(QWidget *navigationWidget);
+	void MovementStepModeChanged(int mode, QWidget *navigationWidget);
 
 	void SetByMouse(QWidget *navigationWidget, CVector2<double> screenPoint, Qt::MouseButton button,
 		const QList<QVariant> &mode);

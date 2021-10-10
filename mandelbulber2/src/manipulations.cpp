@@ -325,6 +325,29 @@ void cManipulations::CameraDistanceEdited(QWidget *navigationWidget)
 	SynchronizeInterfaceWindow(navigationWidget, par, qInterface::write);
 }
 
+void cManipulations::MovementStepModeChanged(int mode, QWidget *navigationWidget)
+{
+	using namespace cameraMovementEnums;
+
+	SynchronizeInterfaceWindow(navigationWidget, par, qInterface::read);
+	enumCameraMovementStepMode stepMode = enumCameraMovementStepMode(mode);
+	double distance = cInterface::GetDistanceForPoint(par->Get<CVector3>("camera"), par, parFractal);
+	double oldStep = par->Get<double>("camera_movement_step");
+	double newStep;
+	if (stepMode == absolute)
+	{
+		newStep = oldStep * distance;
+		if (distance > 1.0 && newStep > distance * 0.5) newStep = distance * 0.5;
+	}
+	else
+	{
+		newStep = oldStep / distance;
+		if (distance > 1.0 && newStep > 0.5) newStep = 0.5;
+	}
+	par->Set("camera_movement_step", newStep);
+	SynchronizeInterfaceWindow(navigationWidget, par, qInterface::write);
+}
+
 void cManipulations::SetByMouse(QWidget *navigationWidget, CVector2<double> screenPoint,
 	Qt::MouseButton button, const QList<QVariant> &mode)
 {

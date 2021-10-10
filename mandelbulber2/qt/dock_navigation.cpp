@@ -218,7 +218,7 @@ void cDockNavigation::slotCameraDistanceSlider(int value)
 void cDockNavigation::slotMovementStepModeChanged(int index)
 {
 	QWidget *dock = const_cast<cDockNavigation *>(this);
-	cInterface::MovementStepModeChanged(index, dock, params, fractalParams);
+	manipulations->MovementStepModeChanged(index, dock);
 }
 
 void cDockNavigation::slotPressedButtonResetView()
