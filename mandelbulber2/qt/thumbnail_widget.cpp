@@ -158,7 +158,9 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 		fractal.reset(new cFractalContainer);
 		*params = *_params;
 		*fractal = *_fractal;
-		params->Set("image_width", tWidth * oversample);
+		params->Set("detail_level", std::min(params->Get<double>("image_width") / tWidth / oversample
+																					 * params->Get<double>("detail_level"),
+																	4.0));
 		params->Set("image_height", tHeight * oversample);
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
 		params->Set("antialiasing_enabled", false);
