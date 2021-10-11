@@ -78,15 +78,15 @@ public:
 	};
 
 protected:
-	const cl::Device *clDevice;
+	cl::Device *clDevice;
 	sDeviceInformation deviceInformation;
 
 public:
-	cOpenClDevice(const cl::Device *device, sDeviceInformation info);
+	cOpenClDevice(cl::Device *device, sDeviceInformation info);
 
 	const sDeviceInformation &getDeviceInformation() const { return deviceInformation; }
 
-	const cl::Device *getDevice() const { return clDevice; }
+	cl::Device *getDevice() const { return clDevice; }
 
 #endif
 

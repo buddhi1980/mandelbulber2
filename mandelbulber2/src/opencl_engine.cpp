@@ -156,9 +156,13 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 				// cl::Program::Build (compiles and links) a multi-device program executable
 				// compiles and links for multiple devices simultaneously
 
+				QList<cl::Device *> enabledDevices = hardware->getEnabledDevices();
 				for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 				{
-					err = clPrograms[d]->build(hardware->getClDevices(d), buildParams.c_str());
+					std::vector<cl::Device> oneDevice;
+					oneDevice.push_back(*enabledDevices[d]);
+
+					err = clPrograms[d]->build(oneDevice, buildParams.c_str());
 				}
 
 				if (checkErr(err, "program->build()"))

@@ -108,10 +108,13 @@ public:
 
 	inline quint64 getImageIndex(const quint64 x, const quint64 y) const
 	{
+#ifdef QT_DEBUG
 		// assert(x >= 0 && x < width && y >= 0 && y < height);
 		if (x < width && y < height)
 		{
+#endif
 			return x + y * width;
+#ifdef QT_DEBUG
 		}
 		else
 		{
@@ -119,6 +122,7 @@ public:
 									<< "x" << x << "y" << y;
 			return 0;
 		}
+#endif
 	}
 
 	inline void PutPixelImage(quint64 x, quint64 y, sRGBFloat pixel)

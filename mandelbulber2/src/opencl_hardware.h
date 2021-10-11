@@ -86,9 +86,9 @@ public:
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
 	cl::Context *getContext(int d) const { return contexts[d].get(); }
 
-	QList<const cl::Device *> getEnabledDevices() const
+	QList<cl::Device *> getEnabledDevices() const
 	{
-		QList<const cl::Device *> enabledDevices;
+		QList<cl::Device *> enabledDevices;
 		for (auto i : selectedDevicesIndices)
 		{
 			enabledDevices.append(clDeviceWorkers[i].getDevice());

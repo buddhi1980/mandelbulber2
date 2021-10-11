@@ -44,7 +44,7 @@ cOpenClDevice::cOpenClDevice()
 }
 
 #ifdef USE_OPENCL
-cOpenClDevice::cOpenClDevice(const cl::Device *device, sDeviceInformation info)
+cOpenClDevice::cOpenClDevice(cl::Device *device, sDeviceInformation info)
 {
 	clDevice = device;
 	deviceIndex = 0;
