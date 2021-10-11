@@ -35,38 +35,57 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 
 
-	CVector4 offset = fractal->transformCommon.offset000;
-	if (!fractal->transformCommon.functionEnabledEFalse) offset *= signs;
 
-
-	CVector4 temp;
-	if (!fractal->transformCommon.functionEnabledAFalse) temp = aux.const_c - offset;
-	else temp = z - offset;
-
-	double r =  temp.Dot(temp);
-
-	if (fractal->transformCommon.functionEnabledBFalse) r = sqrt(r);
-
-
-	//CVector4 offset1 = fractal->transformCommon.offset111;
-	//if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
-	//t = offset1 + t;
-
-	CVector4 offset1 = fractal->transformCommon.offsetA000;
-	if (fractal->transformCommon.functionEnabledCFalse)	offset1  *= signs;
-
-	if (r > fractal->transformCommon.radius1)
+	if (fractal->transformCommon.functionEnabledBx
+			&& aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
-		temp = (temp * (1.0 - fractal->transformCommon.radius1 / r));
-		//if (fractal->transformCommon.functionEnabledCFalse)	temp *= sign(z);
-		z += temp + offset1;
-		//	z = fabs(z);
+		double sm = fractal->mandelbox.sharpness;
+		double zk1 = SmoothConditionAGreaterB(z.x, fractal->mandelbox.foldingLimit, sm);
+		double zk2 = SmoothConditionALessB(z.x, -fractal->mandelbox.foldingLimit, sm);
+		z.x = z.x * (1.0 - zk1) + (fractal->mandelbox.foldingValue - z.x) * zk1;
+		z.x = z.x * (1.0 - zk2) + (-fractal->mandelbox.foldingValue - z.x) * zk2;
+		aux.color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
+
+		double zk3 = SmoothConditionAGreaterB(z.y, fractal->mandelbox.foldingLimit, sm);
+		double zk4 = SmoothConditionALessB(z.y, -fractal->mandelbox.foldingLimit, sm);
+		z.y = z.y * (1.0 - zk3) + (fractal->mandelbox.foldingValue - z.y) * zk3;
+		z.y = z.y * (1.0 - zk4) + (-fractal->mandelbox.foldingValue - z.y) * zk4;
+		aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
+
+		if (fractal->transformCommon.functionEnabledBz)
+		{
+			double zk5 = SmoothConditionAGreaterB(z.z, fractal->mandelbox.foldingLimit, sm);
+			double zk6 = SmoothConditionALessB(z.z, -fractal->mandelbox.foldingLimit, sm);
+			z.z = z.z * (1.0 - zk5) + (fractal->mandelbox.foldingValue - z.z) * zk5;
+			z.z = z.z * (1.0 - zk6) + (-fractal->mandelbox.foldingValue - z.z) * zk6;
+			aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
+		}
 	}
-	else
+
+	if (fractal->transformCommon.functionEnabledBy
+			&& aux.i >= fractal->transformCommon.startIterationsY
+			&& aux.i < fractal->transformCommon.stopIterationsY)
 	{
-		if (fractal->transformCommon.functionEnabledDFalse)
-			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0);
+		double sms = fractal->transformCommon.scale3;
+		double r2 = z.Dot(z);
+		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		double rk1 = SmoothConditionALessB(r2, fractal->mandelbox.mR2, sms);
+		double rk2 = SmoothConditionALessB(r2, fractal->mandelbox.fR2, sms);
+		double rk21 = (1.0 - rk1) * rk2;
+
+		z = z * (1.0 - rk1) + z * (fractal->mandelbox.mboxFactor1 * rk1);
+		z = z * (1.0 - rk21) + z * (tglad_factor2 * rk21);
+		aux.DE = aux.DE * (1.0 - rk1) + aux.DE * (fractal->mandelbox.mboxFactor1 * rk1);
+		aux.DE = aux.DE * (1.0 - rk21) + aux.DE * (tglad_factor2 * rk21);
+		aux.color += rk1 * fractal->mandelbox.color.factorSp1;
+		aux.color += rk21 * fractal->mandelbox.color.factorSp2;
 	}
+
+	/*if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
+	z = z * fractal->mandelbox.scale;
+
+	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;*/
 
 
 

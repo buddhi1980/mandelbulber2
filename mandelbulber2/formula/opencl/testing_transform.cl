@@ -22,38 +22,58 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	signs.z = sign(aux->const_c.z);
 	signs.w = 0.0f;
 
-	REAL4 offset = fractal->transformCommon.offset000;
-	if (!fractal->transformCommon.functionEnabledEFalse) offset *= signs;
 
-	REAL4 temp;
-	if (!fractal->transformCommon.functionEnabledAFalse)
-		temp = aux->const_c - offset;
-	else
-		temp = z - offset;
 
-	REAL r = dot(temp, temp);
-
-	if (fractal->transformCommon.functionEnabledBFalse) r = native_sqrt(r);
-
-	// REAL4 offset1 = fractal->transformCommon.offset111;
-	// if (fractal->transformCommon.functionEnabledCFalse)	offset1 *=	sign(c);
-	// t = offset1 + t;
-
-	REAL4 offset1 = fractal->transformCommon.offsetA000;
-	if (fractal->transformCommon.functionEnabledCFalse) offset1 *= signs;
-
-	if (r > fractal->transformCommon.radius1)
+	if (fractal->transformCommon.functionEnabledBx
+			&& aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
-		temp = (temp * (1.0f - fractal->transformCommon.radius1 / r));
-		// if (fractal->transformCommon.functionEnabledCFalse)	temp *= sign(z);
-		z += temp + offset1;
-		//	z = fabs(z);
+		REAL sm = fractal->mandelbox.sharpness;
+		REAL zk1 = SmoothConditionAGreaterB(z.x, fractal->mandelbox.foldingLimit, sm);
+		REAL zk2 = SmoothConditionALessB(z.x, -fractal->mandelbox.foldingLimit, sm);
+		z.x = z.x * (1.0f - zk1) + (fractal->mandelbox.foldingValue - z.x) * zk1;
+		z.x = z.x * (1.0f - zk2) + (-fractal->mandelbox.foldingValue - z.x) * zk2;
+		aux->color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
+
+		REAL zk3 = SmoothConditionAGreaterB(z.y, fractal->mandelbox.foldingLimit, sm);
+		REAL zk4 = SmoothConditionALessB(z.y, -fractal->mandelbox.foldingLimit, sm);
+		z.y = z.y * (1.0f - zk3) + (fractal->mandelbox.foldingValue - z.y) * zk3;
+		z.y = z.y * (1.0f - zk4) + (-fractal->mandelbox.foldingValue - z.y) * zk4;
+		aux->color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
+
+		if (fractal->transformCommon.functionEnabledBz)
+		{
+			REAL zk5 = SmoothConditionAGreaterB(z.z, fractal->mandelbox.foldingLimit, sm);
+			REAL zk6 = SmoothConditionALessB(z.z, -fractal->mandelbox.foldingLimit, sm);
+			z.z = z.z * (1.0f - zk5) + (fractal->mandelbox.foldingValue - z.z) * zk5;
+			z.z = z.z * (1.0f - zk6) + (-fractal->mandelbox.foldingValue - z.z) * zk6;
+			aux->color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
+		}
 	}
-	else
+
+	if (fractal->transformCommon.functionEnabledBy
+			&& aux->i >= fractal->transformCommon.startIterationsY
+			&& aux->i < fractal->transformCommon.stopIterationsY)
 	{
-		if (fractal->transformCommon.functionEnabledDFalse)
-			z += fractal->transformCommon.scale1 * temp / (fractal->transformCommon.radius1 / r - 1.0f);
+		REAL sms = fractal->transformCommon.scale3;
+		REAL r2 = dot(z, z);
+		REAL tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		REAL rk1 = SmoothConditionALessB(r2, fractal->mandelbox.mR2, sms);
+		REAL rk2 = SmoothConditionALessB(r2, fractal->mandelbox.fR2, sms);
+		REAL rk21 = (1.0f - rk1) * rk2;
+
+		z = z * (1.0f - rk1) + z * (fractal->mandelbox.mboxFactor1 * rk1);
+		z = z * (1.0f - rk21) + z * (tglad_factor2 * rk21);
+		aux->DE = aux->DE * (1.0f - rk1) + aux->DE * (fractal->mandelbox.mboxFactor1 * rk1);
+		aux->DE = aux->DE * (1.0f - rk21) + aux->DE * (tglad_factor2 * rk21);
+		aux->color += rk1 * fractal->mandelbox.color.factorSp1;
+		aux->color += rk21 * fractal->mandelbox.color.factorSp2;
 	}
+
+	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
+	z = z * fractal->mandelbox.scale;
+
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
