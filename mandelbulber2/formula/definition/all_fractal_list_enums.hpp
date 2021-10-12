@@ -262,7 +262,6 @@ enum enumFractalFormula
 	mandelnest = 229,
 	josKleinianV4 = 230, // still beta
 	pseudoKleinianMod5 = 231,
-
 	// 2.26
 	mandelnestV2 = 232,
 	amazingSurfM3d = 233,
@@ -273,6 +272,9 @@ enum enumFractalFormula
 	mandelbulbQuadrat = 238,
 	amazingIfs = 239,
 	mandelbulbPow2V3 = 240,
+
+	// 2.27
+	aboxSmooth = 241,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

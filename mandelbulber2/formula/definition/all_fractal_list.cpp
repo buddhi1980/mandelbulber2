@@ -162,6 +162,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxModKaliV3());
 	fractalList->append(new cFractalAboxKlein());
 	fractalList->append(new cFractalAboxSphere4d());
+	fractalList->append(new cFractalAboxSmooth());
 	fractalList->append(new cFractalAboxSurfBox());
 	fractalList->append(new cFractalAboxTetra());
 	fractalList->append(new cFractalAboxTetra4d());
