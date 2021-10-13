@@ -65,7 +65,8 @@ public:
 #ifdef USE_OPENCL
 public:
 	void ListOpenClPlatforms();
-	void CreateContext(int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType);
+	void ListOpenClDevices(int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType);
+	void CreateAllContexts(int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType);
 	const QList<sPlatformInformation> &getPlatformsInformation() const
 	{
 		return platformsInformation;
@@ -79,10 +80,7 @@ public:
 	void DisableDevice(int index);
 	void EnableDevicesByHashList(const QString &list);
 
-	const std::vector<cl::Device> &getClDevices(int contextIndex) const
-	{
-		return clDevices[contextIndex];
-	}
+	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
 	cl::Context *getContext(int d) const { return contexts[d].get(); }
 
@@ -121,10 +119,13 @@ protected:
 	static bool checkErr(cl_int err, QString functionName);
 
 private:
-	void ListOpenClDevices(int contextIndex);
+	std::shared_ptr<cl::Context> CreateOneContext(
+		int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType, cl_int *err);
+	std::shared_ptr<cl::Context> CreateOneContextForDevice(
+		int platformIndex, cl::Device *device, cl_int *err);
 
 protected:
-	QList<std::vector<cl::Device>> clDevices;
+	std::vector<cl::Device> clDevices;
 	QList<cOpenClDevice> clDeviceWorkers;
 	QList<sPlatformInformation> platformsInformation;
 	QList<cOpenClDevice::sDeviceInformation> devicesInformation;
@@ -134,7 +135,7 @@ protected:
 	// The Multi-GPU System only supports (1) platform - separate cotexts for each device
 	// because even when used different therads, the devices blocked each other.
 	// 1 context == 1 platform
-	std::vector<std::unique_ptr<cl::Context>> contexts;
+	std::vector<std::shared_ptr<cl::Context>> contexts;
 	bool isNVidia;
 	bool isAMD;
 

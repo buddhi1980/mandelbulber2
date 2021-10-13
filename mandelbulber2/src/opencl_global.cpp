@@ -90,10 +90,13 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 
 			if (selectedPlatformIndex >= 0)
 			{
-				openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
-					cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
+				cOpenClDevice::enumOpenClDeviceType deviceType =
+					cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
 
+				openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
 				openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+
+				openClHardware->CreateAllContexts(selectedPlatformIndex, deviceType);
 			}
 		}
 		else

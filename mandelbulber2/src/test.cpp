@@ -148,9 +148,13 @@ void Test::renderExamples() const
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (testPar->Get<int>("opencl_platform") >= 0)
 		{
-			gOpenCl->openClHardware->CreateContext(testPar->Get<int>("opencl_platform"),
-				cOpenClDevice::enumOpenClDeviceType(testPar->Get<int>("opencl_device_type")));
-			gOpenCl->openClHardware->EnableDevicesByHashList(testPar->Get<QString>("opencl_device_list"));
+			cOpenClDevice::enumOpenClDeviceType deviceType =
+				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
+
+			gOpenCl->openClHardware->ListOpenClDevices(testPar->Get<int>("opencl_platform"), deviceType);
+			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+
+			gOpenCl->openClHardware->CreateAllContexts(testPar->Get<int>("opencl_platform"), deviceType);
 		}
 	}
 #endif

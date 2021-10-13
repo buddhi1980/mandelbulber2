@@ -153,8 +153,13 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	QString listString = activeDevices.join("|");
 
 	// OpenCL preference dialogue supports multiple devices
+	cOpenClDevice::enumOpenClDeviceType deviceType =
+		cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
+	gOpenCl->openClHardware->ListOpenClDevices(selectedPlatform, deviceType);
 	gPar->Set("opencl_device_list", listString);
 	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
+
+	gOpenCl->openClHardware->CreateAllContexts(selectedPlatform, deviceType);
 
 	gTextureCache->setMaxSize(gPar->Get<int>("maximum_texture_cache_size") * 1024L * 1024L);
 
@@ -224,8 +229,8 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 	if (reply == QMessageBox::Yes)
 	{
 		// match exact 32 char hash images, example filename: c0ad626d8c25ab6a25c8d19a53960c8a.png
-        DeleteAllFilesFromDirectory(
-            systemDirectories.GetThumbnailsFolder(), "????????????????????????????????.*");
+		DeleteAllFilesFromDirectory(
+			systemDirectories.GetThumbnailsFolder(), "????????????????????????????????.*");
 	}
 	else
 	{
@@ -430,7 +435,7 @@ void cPreferencesDialog::on_listWidget_opencl_platform_list_currentRowChanged(in
 	if (index >= 0)
 	{
 		gOpenCl->Reset();
-		gOpenCl->openClHardware->CreateContext(
+		gOpenCl->openClHardware->ListOpenClDevices(
 			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
 
 		ui->listWidget_opencl_device_list->clear();
@@ -456,9 +461,11 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (gPar->Get<int>("opencl_platform") >= 0)
 		{
-			gOpenCl->openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
+			gOpenCl->openClHardware->ListOpenClDevices(gPar->Get<int>("opencl_platform"),
 				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
 			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+			gOpenCl->openClHardware->CreateAllContexts(gPar->Get<int>("opencl_platform"),
+				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
 		}
 
 		UpdateOpenCLListBoxes();
@@ -489,6 +496,9 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 		ui->listWidget_opencl_platform_list->setCurrentRow(selectedPlatformIndex);
 	}
 
+	cOpenClDevice::enumOpenClDeviceType deviceType =
+		cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
+	gOpenCl->openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
 	ui->listWidget_opencl_device_list->clear();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");

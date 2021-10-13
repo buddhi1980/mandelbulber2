@@ -92,7 +92,7 @@ bool cOpenClEngine::checkErr(cl_int err, QString functionName)
 
 bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, bool quiet)
 {
-	if (hardware->getClDevices(0).size() > 0 && hardware->getEnabledDevices().size() > 0)
+	if (hardware->getClDevices().size() > 0 && hardware->getEnabledDevices().size() > 0)
 	{
 		// calculating hash code of the program
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
