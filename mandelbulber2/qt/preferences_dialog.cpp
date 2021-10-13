@@ -153,6 +153,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	QString listString = activeDevices.join("|");
 
 	// OpenCL preference dialogue supports multiple devices
+	gOpenCl->Reset();
 	cOpenClDevice::enumOpenClDeviceType deviceType =
 		cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
 	gOpenCl->openClHardware->ListOpenClDevices(selectedPlatform, deviceType);
