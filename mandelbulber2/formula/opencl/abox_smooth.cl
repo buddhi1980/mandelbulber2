@@ -38,16 +38,70 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 
 	REAL4 oldZ = z;
+	if (aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		REAL sm = fractal->mandelbox.sharpness;
+
+		REAL zk1 = SmoothConditionAGreaterB(z.x, fractal->transformCommon.offset111.x, sm);
+		REAL zk2 = SmoothConditionALessB(z.x, -fractal->transformCommon.offset111.x, sm);
+		z.x = z.x * (1.0 - zk1) + (2.0 * fractal->transformCommon.offset111.x - z.x) * zk1;
+		z.x = z.x * (1.0 - zk2) + (-2.0 * fractal->transformCommon.offset111.x - z.x) * zk2;
+		//aux.color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
+
+		REAL zk3 = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
+		REAL zk4 = SmoothConditionALessB(z.y, -fractal->transformCommon.offset111.y, sm);
+		z.y = z.y * (1.0 - zk3) + (2.0 * fractal->transformCommon.offset111.y - z.y) * zk3;
+		z.y = z.y * (1.0 - zk4) + (-2.0 * fractal->transformCommon.offset111.y - z.y) * zk4;
+		//aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			REAL zk5 = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
+			REAL zk6 = SmoothConditionALessB(z.z, -fractal->transformCommon.offset111.z, sm);
+			z.z = z.z * (1.0 - zk5) + (2.0 * fractal->transformCommon.offset111.z - z.z) * zk5;
+			z.z = z.z * (1.0 - zk6) + (-2.0 * fractal->transformCommon.offset111.z - z.z) * zk6;
+			//aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
+		}
+	}
+
+
+
+
+
+
+
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
-		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		z.x = fabs(z.x + fractal->transformCommon.offset111.x)
+					- fabs(z.x - fractal->transformCommon.offset111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.offset111.y)
+					- fabs(z.y - fractal->transformCommon.offset111.y) - z.y;
 		if (fractal->transformCommon.functionEnabled)
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
+						- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
+		{
+			REAL4 limit = fractal->transformCommon.offset111;
+			REAL4 length = 2.0f * limit;
+			REAL4 tgladS = 1.0f / length;
+			REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
 	}
 	REAL4 zCol = z;
 
@@ -141,48 +195,7 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
-	if (fractal->transformCommon.functionEnabledNFalse
-			&& aux->i >= fractal->transformCommon.startIterationsN
-			&& aux->i < fractal->transformCommon.stopIterationsN)
-	{
-		REAL foldX = fractal->transformCommon.offset1;
-		REAL foldY = fractal->transformCommon.offsetA1;
 
-		REAL t;
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAFalse)
-		{
-			t = z.x;
-			z.x = z.y;
-			z.y = t;
-		}
-		t = z.x;
-		z.x = z.x + z.y - fractal->transformCommon.offset0;
-		z.y = t - z.y - fractal->transformCommon.offsetA0;
-		if (fractal->transformCommon.functionEnabledBxFalse
-				&& aux->i >= fractal->transformCommon.startIterationsO
-				&& aux->i < fractal->transformCommon.stopIterationsO)
-			z.x = -fabs(z.x);
-		if (fractal->transformCommon.functionEnabledBx
-				&& aux->i >= fractal->transformCommon.startIterationsP
-				&& aux->i < fractal->transformCommon.stopIterationsP)
-			z.y = -fabs(z.y);
-
-		t = z.x;
-		z.x = z.x + z.y;
-		z.y = t - z.y;
-		z.x *= 0.5f;
-		z.y *= 0.5f;
-		if (fractal->transformCommon.functionEnabledAx
-				&& aux->i >= fractal->transformCommon.startIterationsD
-				&& aux->i < fractal->transformCommon.stopIterationsD)
-			z.x = foldX - fabs(z.x + foldX);
-		if (fractal->transformCommon.functionEnabledAxFalse
-				&& aux->i >= fractal->transformCommon.startIterationsRV
-				&& aux->i < fractal->transformCommon.stopIterationsRV)
-			z.y = foldY - fabs(z.y + foldY);
-	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

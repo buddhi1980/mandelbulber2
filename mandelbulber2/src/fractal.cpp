@@ -619,11 +619,11 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 }
 void sFractal::RecalculateFractalParams()
 {
-	IFS.mainRot.SetRotation3(IFS.rotation * (M_PI / 180.0));
+	IFS.mainRot.SetRotation3(IFS.rotation * M_PI_180);
 
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		IFS.rot[i].SetRotation3(IFS.rotations[i] * (M_PI / 180.0));
+		IFS.rot[i].SetRotation3(IFS.rotations[i] * M_PI_180);
 		IFS.direction[i].Normalize();
 	}
 
@@ -633,7 +633,7 @@ void sFractal::RecalculateFractalParams()
 	{
 		for (int axis = 0; axis < 3; ++axis)
 		{
-			mandelbox.rot[fold][axis].SetRotation2(mandelbox.rotation[fold][axis] * (M_PI / 180.0));
+			mandelbox.rot[fold][axis].SetRotation2(mandelbox.rotation[fold][axis] * M_PI_180);
 			mandelbox.rotinv[fold][axis] = mandelbox.rot[fold][axis].Transpose();
 		}
 	}
@@ -662,7 +662,7 @@ void sFractal::RecalculateFractalParams()
 
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180); // T>Rotation
 	transformCommon.rotationMatrix2.SetRotation2(
-		transformCommon.rotation2 * (M_PI_180)); // T>Rotation2
+		transformCommon.rotation2 * M_PI_180); // T>Rotation2
 	transformCommon.rotationMatrixVary.SetRotation2(
 		transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);

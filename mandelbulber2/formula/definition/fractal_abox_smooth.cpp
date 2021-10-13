@@ -18,7 +18,7 @@
 
 cFractalAboxSmooth::cFractalAboxSmooth() : cAbstractFractal()
 {
-	nameInComboBox = "Abox Smooth";
+	nameInComboBox = "Abox - Smooth";
 	internalName = "abox_smooth";
 	internalID = fractal::aboxSmooth;
 	DEType = analyticDEType;
@@ -49,19 +49,80 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	CVector4 oldZ = z;
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		double sm = fractal->mandelbox.sharpness;
+
+// intersting but. deform first
+		if (fabs(z.x) > fractal->transformCommon.offset111.x)
+		{
+			double sgn = sign(z.x);
+			z.x = fabs(z.x);
+			double zk = SmoothConditionAGreaterB(z.x, fractal->transformCommon.offset111.x, sm);
+			z.x = z.x * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.x - z.x) * zk;
+			z.x *= sgn;
+		}
+		if (fabs(z.y) > fractal->transformCommon.offset111.y)
+		{
+			double sgn = sign(z.y);
+			z.y = fabs(z.y);
+			double zk = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
+			z.y = z.y * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.y - z.y) * zk;
+			z.y *= sgn;
+		}
+		//aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			if (fabs(z.z) > fractal->transformCommon.offset111.z)
+			{
+				double sgn = sign(z.z);
+				z.z = fabs(z.z);
+				double zk = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
+				z.z = z.z * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.z - z.z) * zk;
+				z.z *= sgn;
+			//aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
+			}
+		}
+	}
+
+
+
+
 	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		z.x = fabs(z.x + fractal->transformCommon.offset111.x)
+					- fabs(z.x - fractal->transformCommon.offset111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.offset111.y)
+					- fabs(z.y - fractal->transformCommon.offset111.y) - z.y;
 		if (fractal->transformCommon.functionEnabled)
-			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
+					- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+		{
+			CVector4 limit = fractal->transformCommon.offset111;
+			CVector4 length = 2.0 * limit;
+			CVector4 tgladS = 1.0 / length;
+			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
 	}
 	CVector4 zCol = z;
-
 
 	// offset1
 	if (aux.i >= fractal->transformCommon.startIterationsM
@@ -107,7 +168,6 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 	}
 
-
 	// scale
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
@@ -147,49 +207,6 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	if (aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-
-	if (fractal->transformCommon.functionEnabledNFalse
-			&& aux.i >= fractal->transformCommon.startIterationsN
-			&& aux.i < fractal->transformCommon.stopIterationsN)
-	{
-		double foldX = fractal->transformCommon.offset1;
-		double foldY = fractal->transformCommon.offsetA1;
-
-		double t;
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAFalse)
-		{
-			t = z.x;
-			z.x = z.y;
-			z.y = t;
-		}
-		t = z.x;
-		z.x = z.x + z.y - fractal->transformCommon.offset0;
-		z.y = t - z.y - fractal->transformCommon.offsetA0;
-		if (fractal->transformCommon.functionEnabledBxFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-					z.x = -fabs(z.x);
-		if (fractal->transformCommon.functionEnabledBx
-				&& aux.i >= fractal->transformCommon.startIterationsP
-				&& aux.i < fractal->transformCommon.stopIterationsP)
-					z.y = -fabs(z.y);
-
-		t = z.x;
-		z.x = z.x + z.y;
-		z.y = t - z.y;
-		z.x *= 0.5;
-		z.y *= 0.5;
-		if (fractal->transformCommon.functionEnabledAx
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD)
-					z.x = foldX - fabs(z.x + foldX);
-		if (fractal->transformCommon.functionEnabledAxFalse
-				&& aux.i >= fractal->transformCommon.startIterationsRV
-				&& aux.i < fractal->transformCommon.stopIterationsRV)
-					z.y = foldY - fabs(z.y + foldY);
-	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
