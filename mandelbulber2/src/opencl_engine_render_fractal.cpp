@@ -1480,7 +1480,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 															+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 								noise *= 0.3333f;
 
-								float sumBrightness = (newPixel.R + newPixel.G + newPixel.B);
+								//								qDebug() << noise << 0.01f * sqrtf(noise);
+								//								noise = 0.01f * sqrtf(noise);
+
+								float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.333f;
 								maxBrightness = max(sumBrightness, maxBrightness);
 								minBrightness = min(sumBrightness, minBrightness);
 
@@ -1529,7 +1532,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					// total noise in last rectangle
 					if (monteCarlo)
 					{
-						float weight = 0.2f;
+						float weight = 0.3f;
 
 						float totalNoiseRect;
 						if (output.monteCarloLoop == 1)
@@ -1545,7 +1548,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
 						float smothedNoiseLevel =
 							previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
-						//smothedNoiseLevel = totalNoiseRect;
+						// smothedNoiseLevel = totalNoiseRect;
 						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
 
 						bool anitiAliasingDepthFinished = true;
@@ -1819,7 +1822,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 
 	if (!meshExportMode && !distanceMode)
 	{
-		err = clKernels.at(deviceIndex)->setArg(argIterator++, Random(1000000)); // random seed
+		err = clKernels.at(deviceIndex)->setArg(argIterator++, std::rand()); // random seed
 		if (!checkErr(err, "kernel->setArg(4, initRandomSeed)"))
 		{
 			emit showErrorMessage(

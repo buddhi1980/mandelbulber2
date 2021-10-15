@@ -223,6 +223,7 @@ int RandomInt(int *randomSeed)
 	int const a = 15484817;
 	int const m = 6571759;
 	s = ((long)(s * a)) % m;
+	s = (s * 0x5DEECE66DL + 0xBL) & ((1L << 48) - 1);
 	if (s < 0) s = -s;
 	return *randomSeed = s;
 }

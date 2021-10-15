@@ -103,8 +103,8 @@ void cNavigatorWindow::StartRender()
 		ui->widgetRenderedImage); // deleted by deleteLater()
 
 	connect(renderJob, SIGNAL(updateImage()), ui->widgetRenderedImage, SLOT(update()));
-	connect(renderJob, SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
-		ui->widgetRenderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
+	connect(renderJob, &cRenderJob::sendRenderedTilesList, ui->widgetRenderedImage,
+		&RenderedImage::showRenderedTilesList);
 
 	cRenderingConfiguration config;
 	config.DisableNetRender();
