@@ -639,6 +639,11 @@ per pixel:</string>
                      <string>Strong</string>
                     </property>
                    </item>
+                   <item>
+                    <property name="text">
+                     <string>Extreme</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                  <item row="0" column="0">
@@ -1239,8 +1244,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
-            <height>1410</height>
+            <width>267</width>
+            <height>1425</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2558,8 +2563,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3235,7 +3240,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>551</width>
+            <width>287</width>
             <height>1092</height>
            </rect>
           </property>
@@ -4265,8 +4270,8 @@ from fractal:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1070</height>
+            <width>227</width>
+            <height>215</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

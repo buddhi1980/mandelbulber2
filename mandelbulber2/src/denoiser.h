@@ -49,7 +49,8 @@ public:
 	{
 		light = 0,
 		medium = 1,
-		strong = 2
+		strong = 2,
+		extreme = 3
 	};
 
 public:

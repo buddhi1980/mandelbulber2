@@ -368,7 +368,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("MC_soft_shadows_enable", false, morphLinear, paramStandard);
 	par->addParam("MC_GI_radiance_limit", 10.0, 0.001, 1e10, morphLinear, paramStandard);
 	par->addParam("MC_denoiser_enable", false, morphLinear, paramStandard);
-	par->addParam("MC_denoiser_strength", 1, morphLinear, paramStandard);
+	par->addParam("MC_denoiser_strength", 1, 0, 3, morphLinear, paramStandard);
 	par->addParam("MC_denoiser_preserve_geometry", true, morphLinear, paramStandard);
 
 	// aux lights
@@ -1758,7 +1758,7 @@ void DeleteAllPrimitiveParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-        if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1770,7 +1770,7 @@ void DeleteAllMaterialParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-        if (parameterName.left(3) == "mat")
+		if (parameterName.left(3) == "mat")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1782,7 +1782,7 @@ void DeleteAllLightParams(std::shared_ptr<cParameterContainer> par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto &parameterName : list)
 	{
-        if (parameterName.left(5) == "light")
+		if (parameterName.left(5) == "light")
 		{
 			par->DeleteParameter(parameterName);
 		}

@@ -75,6 +75,14 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 			zDepthFilterfactor = 10.0;
 			normalFilterFactor = 3.0;
 			break;
+		case extreme:
+			maxBlurRadius = 30.0;
+			minBlurRadius = 1.0;
+			maxMedianSize = 6.0;
+			noiseMultiplier = 30000.0;
+			zDepthFilterfactor = 7.0;
+			normalFilterFactor = 3.0;
+			break;
 	}
 }
 
