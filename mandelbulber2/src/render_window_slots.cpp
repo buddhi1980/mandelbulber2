@@ -124,7 +124,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
-				manipulations->SetByMouse(ui->dockWidget_navigation, CVector2<double>(x, y), button, mode);
+				manipulations->SetByMouse(CVector2<double>(x, y), button, mode);
 			}
 			break;
 		}
@@ -148,7 +148,7 @@ void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons)
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
-				gMainInterface->MouseDragStart(CVector2<double>(x, y), buttons, mode);
+				manipulations->MouseDragStart(CVector2<double>(x, y), buttons, mode);
 			}
 			break;
 		}
@@ -160,12 +160,12 @@ void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons)
 
 void RenderWindow::slotMouseDragFinish()
 {
-	gMainInterface->MouseDragFinish();
+	manipulations->MouseDragFinish();
 }
 
 void RenderWindow::slotMouseDragDelta(int dx, int dy)
 {
-	gMainInterface->MouseDragDelta(dx, dy);
+	manipulations->MouseDragDelta(dx, dy);
 }
 
 void RenderWindow::slotChangedComboMouseClickFunction(int index) const
@@ -371,7 +371,7 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 				}
 				else if (keyModifiers & Qt::ControlModifier)
 				{
-					gMainInterface->MoveLightByWheel(delta);
+					manipulations->MoveLightByWheel(delta);
 				}
 				break;
 			}
@@ -379,7 +379,7 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 			{
 				Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
 				mode.append(QVariant(delta));
-				manipulations->SetByMouse(ui->dockWidget_navigation, CVector2<double>(x, y), button, mode);
+				manipulations->SetByMouse(CVector2<double>(x, y), button, mode);
 				break;
 			}
 			default: break;

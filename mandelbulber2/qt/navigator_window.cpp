@@ -9,6 +9,7 @@
 
 #include <QThread>
 
+#include "src/render_window.hpp"
 #include "ui_navigator_window.h"
 #include "src/parameters.hpp"
 #include "src/fractal_container.hpp"
@@ -46,6 +47,13 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetRenderedImage, &RenderedImage::singleClick, this,
 		&cNavigatorWindow::slotMouseClickOnImage);
+
+	connect(ui->widgetRenderedImage, &RenderedImage::mouseDragStart, this,
+		&cNavigatorWindow::slotMouseDragStart);
+	connect(ui->widgetRenderedImage, &RenderedImage::mouseDragFinish, this,
+		&cNavigatorWindow::slotMouseDragFinish);
+	connect(ui->widgetRenderedImage, &RenderedImage::mouseDragDelta, this,
+		&cNavigatorWindow::slotMouseDragDelta);
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -66,7 +74,7 @@ void cNavigatorWindow::SetInitialParameters(
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
 	manipulations->AssignParameterContainers(params, fractalParams);
 	manipulations->AssingImage(image);
-	manipulations->AssignRenderedImageWidget(ui->widgetRenderedImage);
+	manipulations->AssignWidgets(ui->widgetRenderedImage, ui->widgetNavigationButtons, nullptr);
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
@@ -150,8 +158,7 @@ void cNavigatorWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton butto
 		case RenderedImage::clickGetPoint:
 		case RenderedImage::clickWrapLimitsAroundObject:
 		{
-			manipulations->SetByMouse(
-				ui->widgetNavigationButtons, CVector2<double>(x, y), button, mouseClickFunction);
+			manipulations->SetByMouse(CVector2<double>(x, y), button, mouseClickFunction);
 			break;
 		}
 		case RenderedImage::clickDoNothing:
@@ -159,4 +166,36 @@ void cNavigatorWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton butto
 			// nothing
 			break;
 	}
+}
+
+void cNavigatorWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons)
+{
+	RenderedImage::enumClickMode clickMode =
+		RenderedImage::enumClickMode(mouseClickFunction.at(0).toInt());
+
+	switch (clickMode)
+	{
+		case RenderedImage::clickMoveCamera:
+		case RenderedImage::clickPlaceLight:
+		{
+			if (gMainInterface->renderedImage->GetEnableClickModes())
+			{
+				manipulations->MouseDragStart(CVector2<double>(x, y), buttons, mouseClickFunction);
+			}
+			break;
+		}
+		default:
+			// nothing
+			break;
+	}
+}
+
+void cNavigatorWindow::slotMouseDragFinish()
+{
+	manipulations->MouseDragFinish();
+}
+
+void cNavigatorWindow::slotMouseDragDelta(int dx, int dy)
+{
+	manipulations->MouseDragDelta(dx, dy);
 }

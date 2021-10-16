@@ -40,6 +40,9 @@ public:
 public slots:
 	void slotCameraMovementModeChanged(int index);
 	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const;
+	void slotMouseDragStart(int x, int y, Qt::MouseButtons buttons);
+	void slotMouseDragFinish();
+	void slotMouseDragDelta(int dx, int dy);
 
 private:
 	Ui::cNavigatorWindow *ui;

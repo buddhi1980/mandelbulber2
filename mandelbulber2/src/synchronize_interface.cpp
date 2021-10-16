@@ -39,6 +39,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include <QPlainTextEdit>
+#include <QLineEdit>
 
 #include "algebra.hpp"
 #include "global_data.hpp"
