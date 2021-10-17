@@ -1688,7 +1688,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	{
 		tiles.append(QPoint(i % gridWidth, i / gridWidth));
 	}
-	std::sort(tiles.begin(), tiles.end(),
+	std::stable_sort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
 			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
@@ -1701,17 +1701,17 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	QPoint center;
 	center.setX((gridWidth - 1) / 2);
 	center.setY((gridHeight - 1) / 2);
-	QPointF cV1 = center - v1;
+	QPoint cV1 = center - v1;
 	cV1.setX(cV1.x() * gridHeight / gridWidth);
-	QPointF cV2 = center - v2;
+	QPoint cV2 = center - v2;
 	cV2.setX(cV2.x() * gridHeight / gridWidth);
-	double dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
-	double dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
-	if (dist2V1 != dist2V2) return dist2V1 < dist2V2;
+	float dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
+	float dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
+	if (!qFuzzyCompare(dist2V1, dist2V2)) return dist2V1 < dist2V2;
 
 	// order tiles with same distsance clockwise
-	int quartV1 = cV1.x() > 0 ? (cV1.y() > 0 ? 1 : 0) : (cV1.y() > 0 ? 2 : 3);
-	int quartV2 = cV2.x() > 0 ? (cV2.y() > 0 ? 1 : 0) : (cV2.y() > 0 ? 2 : 3);
+	int quartV1 = cV1.x() > 0.0f ? (cV1.y() > 0.0f ? 1 : 0) : (cV1.y() > 0.0f ? 2 : 3);
+	int quartV2 = cV2.x() > 0.0f ? (cV2.y() > 0.0f ? 1 : 0) : (cV2.y() > 0.0f ? 2 : 3);
 	if (quartV1 != quartV2) return quartV1 < quartV2;
 	return quartV1 < 2 ? v1.y() >= v2.y() : v1.y() < v2.y();
 }
