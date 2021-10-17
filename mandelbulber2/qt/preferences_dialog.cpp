@@ -478,6 +478,8 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 void cPreferencesDialog::UpdateOpenCLListBoxes()
 {
 	// list of platforms
+	gOpenCl->openClHardware->ListOpenClPlatforms();
+
 	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
 		gOpenCl->openClHardware->getPlatformsInformation();
 
@@ -495,28 +497,28 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	{
 		ui->listWidget_opencl_platform_list->item(selectedPlatformIndex)->setSelected(true);
 		ui->listWidget_opencl_platform_list->setCurrentRow(selectedPlatformIndex);
-	}
 
-	cOpenClDevice::enumOpenClDeviceType deviceType =
-		cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
-	gOpenCl->openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
-	ui->listWidget_opencl_device_list->clear();
-	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
-	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
-	bool noDeviceSelected = selectedDevices.first().isEmpty();
+		cOpenClDevice::enumOpenClDeviceType deviceType =
+			cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
+		gOpenCl->openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
+		ui->listWidget_opencl_device_list->clear();
+		QList<QPair<QString, QString>> devices = GetOpenCLDevices();
+		QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
+		bool noDeviceSelected = selectedDevices.first().isEmpty();
 
-	for (QPair<QString, QString> device : devices)
-	{
-		QListWidgetItem *item = new QListWidgetItem(device.second);
-		item->setData(1, device.first);
-		bool selected = selectedDevices.contains(device.first);
-		ui->listWidget_opencl_device_list->addItem(item);
-		if (noDeviceSelected)
+		for (QPair<QString, QString> device : devices)
 		{
-			noDeviceSelected = false;
-			selected = true;
+			QListWidgetItem *item = new QListWidgetItem(device.second);
+			item->setData(1, device.first);
+			bool selected = selectedDevices.contains(device.first);
+			ui->listWidget_opencl_device_list->addItem(item);
+			if (noDeviceSelected)
+			{
+				noDeviceSelected = false;
+				selected = true;
+			}
+			item->setSelected(selected);
 		}
-		item->setSelected(selected);
 	}
 }
 

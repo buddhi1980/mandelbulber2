@@ -215,7 +215,7 @@ bool InitSystem()
 #endif
 
 // data directory location
-#ifdef _WIN32 /* WINDOWS */
+#if defined(_WIN32) || defined(__APPLE__) || defined(__MACOSX) /* WINDOWS or Apples */
 	systemDirectories.SetDataDirectoryHidden(
 		systemDirectories.homeDir + "mandelbulber" + QDir::separator());
 	systemDirectories.SetDataDirectoryPublic(
