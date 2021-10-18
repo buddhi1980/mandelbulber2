@@ -275,6 +275,7 @@ enum enumFractalFormula
 
 	// 2.27
 	aboxSmooth = 241,
+	mengerMod2 = 242,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

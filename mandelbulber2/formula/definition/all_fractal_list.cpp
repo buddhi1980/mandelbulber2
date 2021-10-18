@@ -212,6 +212,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerCrossKIFS());
 	fractalList->append(new cFractalMengerCrossMod1());
 	fractalList->append(new cFractalMengerMod1());
+	fractalList->append(new cFractalMengerMod2());
 	fractalList->append(new cFractalModulusMengerSponge());
 	fractalList->append(new cFractalMengerMiddleMod());
 	fractalList->append(new cFractalMengerOcto());

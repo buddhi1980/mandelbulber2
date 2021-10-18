@@ -26,7 +26,6 @@ cFractalTransfSincos::cFractalTransfSincos() : cAbstractFractal()
 
 void cFractalTransfSincos::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(aux);
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)

@@ -15,8 +15,6 @@
 
 REAL4 TransfSincosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// Q_UNUSED(aux);
-
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
