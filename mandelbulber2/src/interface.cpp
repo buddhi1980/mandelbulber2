@@ -123,7 +123,6 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	autoRefreshLastState = false;
 	lockedDetailLevel = 1.0;
 	lastSelectedMaterial = 1;
-	numberOfStartedRenders = 0;
 }
 
 cInterface::~cInterface()
@@ -344,6 +343,8 @@ void cInterface::ConnectSignals() const
 	// manipulations class
 	connect(mainWindow->manipulations, &cManipulations::signalRender, mainWindow,
 		&RenderWindow::slotStartRender);
+	connect(mainWindow->manipulations, &cManipulations::signalStop, mainWindow,
+		&RenderWindow::slotMenuStopRendering);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceBasicFog,
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceBasicFog);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceDOF,
@@ -556,7 +557,7 @@ void cInterface::SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
 
 void cInterface::StartRender(bool noUndo)
 {
-	numberOfStartedRenders++;
+	mainWindow->manipulations->IncreaseNumberOfStartedRenders();
 	if (!mainImage->IsUsed())
 	{
 		mainImage->BlockImage();
@@ -631,7 +632,7 @@ void cInterface::StartRender(bool noUndo)
 
 	thread->setObjectName("RenderJob");
 	thread->start();
-	numberOfStartedRenders--;
+	mainWindow->manipulations->DecreaseNumberOfStartedRenders();
 }
 
 void cInterface::IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const

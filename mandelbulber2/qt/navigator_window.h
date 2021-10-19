@@ -36,6 +36,7 @@ public:
 		std::shared_ptr<cFractalContainer> _fractalParams);
 	void SetMouseClickFunction(QList<QVariant> _clickMode) { mouseClickFunction = _clickMode; }
 	void StartRender();
+	void StopRender();
 
 public slots:
 	void slotCameraMovementModeChanged(int index);

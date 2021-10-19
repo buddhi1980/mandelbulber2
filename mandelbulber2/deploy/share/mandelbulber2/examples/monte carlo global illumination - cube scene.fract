@@ -7,7 +7,6 @@ camera 0,0247857249388982 -3,17398465386437 1,06804620577319;
 camera_distance_to_target 2,72495236780283;
 camera_rotation 0,0581237019384738 -3,13436234406961 0;
 camera_top -5,54677428356212e-05 0,0546776335197948 0,998504057736374;
-DOF_max_noise 0,5;
 DOF_MC_global_illumination true;
 DOF_monte_carlo true;
 DOF_samples 6400;
@@ -37,7 +36,7 @@ mat3_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5
 mat3_use_colors_from_palette false;
 mat4_file_luminosity_texture blurred squares low saturation.png;
 mat4_is_defined true;
-mat4_luminosity_texture_intensity 45,7;
+mat4_luminosity_texture_intensity 45,7000000000001;
 mat4_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat4_use_colors_from_palette false;
 mat4_use_luminosity_texture true;

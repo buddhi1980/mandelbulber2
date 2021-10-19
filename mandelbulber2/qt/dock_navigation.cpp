@@ -71,6 +71,7 @@ void cDockNavigation::AssignParameterContainers(std::shared_ptr<cParameterContai
 	params = _params;
 	fractalParams = _fractalParams;
 	manipulations->AssignParameterContainers(_params, _fractalParams);
+	manipulations->AssignWidgets(nullptr, this, nullptr);
 	stopRequest = _stopRequest;
 }
 

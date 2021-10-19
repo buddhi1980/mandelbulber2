@@ -95,6 +95,10 @@ public:
 
 	bool isDraggingStarted() { return mouseDragData.draggingStarted; }
 
+	void IncreaseNumberOfStartedRenders() { numberOfStartedRenders++; }
+	void DecreaseNumberOfStartedRenders() { numberOfStartedRenders--; }
+	int GetNumberOfStartedRenders() { return numberOfStartedRenders; }
+
 private:
 	std::shared_ptr<cParameterContainer> par;
 	std::shared_ptr<cFractalContainer> parFractal;
@@ -103,8 +107,11 @@ private:
 	cDockNavigation *navigationWidget = nullptr;
 	cDockEffects *effectsWidget = nullptr;
 
+	int numberOfStartedRenders = 0;
+
 signals:
 	void signalRender();
+	void signalStop();
 	void signalWriteInterfaceBasicFog(std::shared_ptr<cParameterContainer> par);
 	void signalWriteInterfaceDOF(std::shared_ptr<cParameterContainer> par);
 	void signalWriteInterfaceLights(std::shared_ptr<cParameterContainer> par);

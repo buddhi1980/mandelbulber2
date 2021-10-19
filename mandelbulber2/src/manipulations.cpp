@@ -928,11 +928,11 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 {
 	if (mouseDragData.draggingStarted)
 	{
-		// FIXME: if (numberOfStartedRenders > 1) stopRequest = true;
+		if (GetNumberOfStartedRenders() > 1) emit signalStop();
 
 		if (mouseDragData.lastRefreshTime.elapsed()
-				> par->Get<double>("auto_refresh_period") * 1000 + mouseDragData.lastStartRenderingTime)
-		// FIXME: && numberOfStartedRenders < 2)
+					> par->Get<double>("auto_refresh_period") * 1000 + mouseDragData.lastStartRenderingTime
+				&& GetNumberOfStartedRenders() < 2)
 		{
 			sMouseDragTempData dragTempData;
 

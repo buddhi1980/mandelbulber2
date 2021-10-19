@@ -41,6 +41,7 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
 		&cNavigatorWindow::StartRender);
 	connect(manipulations, &cManipulations::signalRender, this, &cNavigatorWindow::StartRender);
+	connect(manipulations, &cManipulations::signalStop, this, &cNavigatorWindow::StopRender);
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalCameraMovementModeChanged, this,
 		&cNavigatorWindow::slotCameraMovementModeChanged);
@@ -83,6 +84,7 @@ void cNavigatorWindow::SetInitialParameters(
 
 void cNavigatorWindow::StartRender()
 {
+	manipulations->IncreaseNumberOfStartedRenders();
 	if (!image->IsUsed())
 	{
 		image->BlockImage();
@@ -135,6 +137,12 @@ void cNavigatorWindow::StartRender()
 
 	thread->setObjectName("RenderJob");
 	thread->start();
+	manipulations->DecreaseNumberOfStartedRenders();
+}
+
+void cNavigatorWindow::StopRender()
+{
+	stopRequest = true;
 }
 
 void cNavigatorWindow::slotCameraMovementModeChanged(int index)
