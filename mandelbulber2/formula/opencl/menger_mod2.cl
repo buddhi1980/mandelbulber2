@@ -79,53 +79,56 @@ REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z *= m;
 			aux->DE *= m;
 		}
-		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+		z -= fractal->mandelbox.offset; //  + fractal->transformCommon.additionConstant000;
 	}
 
-
-	z = fabs(z);
-	z += fractal->transformCommon.offset000;
-
-	REAL t;
-	REAL ScaleP5 = fractal->transformCommon.scale05;
-
-
-	t = z.x - z.y;
-	t =
-		ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
-	z.x = z.x - t;
-	z.y = z.y + t;
-
-	t = z.x - z.z;
-	t =
-		ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
-	z.x = z.x - t;
-	z.z = z.z + t;
-
-	t = z.y - z.z;
-	t =
-		ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
-	z.y = z.y - t;
-	z.z = z.z + t;
-
-	if (fractal->transformCommon.rotationEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
+	if (aux->i >= fractal->transformCommon.startIterationsG
+			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		z = fabs(z);
+		z += fractal->transformCommon.offset000;
+
+		REAL t;
+		REAL ScaleP5 = fractal->transformCommon.scale05;
+
+
+		t = z.x - z.y;
+		t =
+			ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+		z.x = z.x - t;
+		z.y = z.y + t;
+
+		t = z.x - z.z;
+		t =
+			ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.y - z.z;
+		t =
+			ScaleP5 * (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
+		z.y = z.y - t;
+		z.z = z.z + t;
+
+		if (fractal->transformCommon.rotationEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsR
+				&& aux->i < fractal->transformCommon.stopIterationsR)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
+
+		REAL4 OffsetC = fractal->transformCommon.constantMultiplier221;
+
+		z.z = z.z - OffsetC.z / 3.0f;
+		z.z = -fabs(z.z);
+		z.z = z.z + OffsetC.z / 3.0f;
+
+		z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
+		z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
+		z.z = fractal->transformCommon.scale3 * z.z;
+
+		aux->DE = aux->DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
 	}
-
-	REAL4 OffsetC = fractal->transformCommon.constantMultiplier221;
-
-	z.z = z.z - OffsetC.z / 3.0f;
-	z.z = -fabs(z.z);
-	z.z = z.z + OffsetC.z / 3.0f;
-
-	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
-	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
-	z.z = fractal->transformCommon.scale3 * z.z;
-
-	aux->DE = aux->DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
 
 
 

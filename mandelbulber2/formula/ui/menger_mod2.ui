@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>2415</height>
+    <height>2779</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -757,6 +757,63 @@ offset:</string>
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>GGGGG</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_70">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_265">
+       <property name="text">
+        <string>stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_266">
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_G">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_G">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
@@ -1480,16 +1537,6 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
-          <property name="layoutDirection">
-           <enum>Qt::RightToLeft</enum>
-          </property>
-          <property name="text">
-           <string>Fabs Mode</string>
-          </property>
-         </widget>
-        </item>
         <item row="12" column="2">
          <widget class="QLabel" name="label_113">
           <property name="text">
@@ -1894,7 +1941,6 @@ scale:</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>checkBox_transf_function_enabledF_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
   <tabstop>spinboxd3_transf_rotation_y</tabstop>

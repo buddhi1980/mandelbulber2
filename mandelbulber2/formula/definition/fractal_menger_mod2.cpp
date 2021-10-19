@@ -39,6 +39,7 @@ void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		double temp = z.x;
 		z.x = z.x * cosA - z.y * sinB;
 		z.y = temp * sinB + z.y * cosA;
+		aux.DE = aux.DE + fractal->analyticDE.offset1;
 	}
 
 	// octo
@@ -90,49 +91,52 @@ void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z *= m;
 			aux.DE *= m;
 		}
-		z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+		z -= fractal->mandelbox.offset; // + fractal->transformCommon.additionConstant000;
 	}
 
-
-	z = fabs(z);
-	z += fractal->transformCommon.offset000;
-
-	double t;
-	double ScaleP5 = fractal->transformCommon.scale05;
-	CVector4 OffsetC = fractal->transformCommon.constantMultiplier221;
-
-
-	t = z.x - z.y;
-	t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
-	z.x = z.x - t;
-	z.y = z.y + t;
-
-	t = z.x - z.z;
-	t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
-	z.x = z.x - t;
-	z.z = z.z + t;
-
-	t = z.y - z.z;
-	t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
-	z.y = z.y - t;
-	z.z = z.z + t;
-
-	if (fractal->transformCommon.rotationEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = fabs(z);
+		z += fractal->transformCommon.offset000;
+
+		double t;
+		double ScaleP5 = fractal->transformCommon.scale05;
+		CVector4 OffsetC = fractal->transformCommon.constantMultiplier221;
+
+
+		t = z.x - z.y;
+		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+		z.x = z.x - t;
+		z.y = z.y + t;
+
+		t = z.x - z.z;
+		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.y - z.z;
+		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
+		z.y = z.y - t;
+		z.z = z.z + t;
+
+		if (fractal->transformCommon.rotationEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsR
+				&& aux.i < fractal->transformCommon.stopIterationsR)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
+
+		z.z = z.z - OffsetC.z / 3.0;
+		z.z = -fabs(z.z);
+		z.z = z.z + OffsetC.z / 3.0;
+
+		z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
+		z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
+		z.z = fractal->transformCommon.scale3 * z.z;
+
+		aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
 	}
-
-	z.z = z.z - OffsetC.z / 3.0;
-	z.z = -fabs(z.z);
-	z.z = z.z + OffsetC.z / 3.0;
-
-	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
-	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
-	z.z = fractal->transformCommon.scale3 * z.z;
-
-	aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset1;
 
 
 

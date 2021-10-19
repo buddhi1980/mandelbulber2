@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -223,6 +223,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerSmooth());
 	fractalList->append(new cFractalMengerSmoothMod1());
 	fractalList->append(new cFractalMenger3());
+	fractalList->append(new cFractalMenger3M3d());
 	fractalList->append(new cFractalMenger4d());
 	fractalList->append(new cFractalMenger4dMod1());
 	fractalList->append(new cFractalMenger4dMod2());
