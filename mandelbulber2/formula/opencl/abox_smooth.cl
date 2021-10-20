@@ -37,7 +37,26 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (aux->i >= fractal->transformCommon.startIterationsH
+			&& aux->i < fractal->transformCommon.stopIterationsH)
+	{
+
+		REAL OffsetS = fractal->transformCommon.offset0005;
+		REAL4 sgns = (REAL4){sign(z.x), sign(z.y), sign(z.z), 1.0f};
+		REAL sc = fractal->transformCommon.scaleE1;
+		REAL4 offset = (REAL4)(OffsetS, OffsetS, OffsetS, 0.0f);
+		if (fractal->transformCommon.functionEnabledEFalse)
+		{
+			offset.x = max(OffsetS * fabs(z.x) * sc, OffsetS);
+			offset.y = max(OffsetS * fabs(z.y) * sc, OffsetS);
+			offset.z = max(OffsetS * fabs(z.z) * sc, OffsetS);
+		}
+		z = (REAL4)(sqrt(z.x * z.x + offset.x), sqrt(z.y * z.y + offset.y), sqrt(z.z * z.z + offset.z), z.w);
+		z *= sgns;
+	}
+
 	REAL4 oldZ = z;
+
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
@@ -64,12 +83,6 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 	}
 
-
-
-
-
-
-
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
@@ -80,29 +93,34 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (fractal->transformCommon.functionEnabled)
 			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
 						- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
-		if (fractal->transformCommon.functionEnabledFalse
-				&& aux->i >= fractal->transformCommon.startIterationsD
-				&& aux->i < fractal->transformCommon.stopIterationsD1)
-		{
-			REAL4 limit = fractal->transformCommon.offset111;
-			REAL4 length = 2.0f * limit;
-			REAL4 tgladS = 1.0f / length;
-			REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-			Add *= fractal->transformCommon.scale3D000;
-			z.x = (z.x - (sign(z.x) * (Add.x)));
-			z.y = (z.y - (sign(z.y) * (Add.y)));
-			z.z = (z.z - (sign(z.z) * (Add.z)));
-		}
 	}
+
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		REAL4 limit = fractal->transformCommon.offset111;
+		REAL4 length = 2.0f * limit;
+		REAL4 tgladS = 1.0f / length;
+		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+		Add *= fractal->transformCommon.scale3D000;
+		z.x = (z.x - (sign(z.x) * (Add.x)));
+		z.y = (z.y - (sign(z.y) * (Add.y)));
+		z.z = (z.z - (sign(z.z) * (Add.z)));
+	}
+
+
+
+
 	REAL4 zCol = z;
 
 	// offset1

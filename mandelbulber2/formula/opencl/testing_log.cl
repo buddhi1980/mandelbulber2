@@ -17,7 +17,23 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->DE = aux->DE * aux->r * 2.0f;
+
+	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
+	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	REAL th = th0 * fractal->bulb.power;
+	REAL ph = ph0 * fractal->bulb.power;
+	REAL cth = native_cos(th);
+	aux->DE = (rp * aux->DE) * fractal->bulb.power + 1.0f;
+	rp *= aux->r;
+	z.x = cth * native_cos(ph) * rp;
+	z.y = cth * native_sin(ph) * rp;
+	z.z = native_sin(th) * rp;
+
+
+
+
+	/*aux->DE = aux->DE * aux->r * 2.0f;
 
 	// Preparation operations
 	REAL fac_eff = 0.6666666666f;
@@ -95,12 +111,26 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	REAL dd = length(z) / aux->r;
 	dd = dd + (aux->r * 2.0f - dd) * fractal->transformCommon.scaleA1;
-	aux->DE *= dd;
+	aux->DE *= dd;*/
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux->DE0 = length(z);
+
+		aux->DE0 = 0.5 * log(aux->DE0) * aux->DE0 / (aux->DE);
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			aux->dist = aux->DE0;
+		else
+			aux->dist = min(aux->dist, aux->DE0);
 	}
+
+
+
+
 
 	return z;
 }

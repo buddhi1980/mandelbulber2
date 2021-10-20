@@ -48,6 +48,24 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+	{
+		double OffsetS = fractal->transformCommon.offset0005;
+		CVector4 sgns = CVector4(sign(z.x), sign(z.y), sign(z.z), 1.0);
+		double sc = fractal->transformCommon.scaleE1;
+		CVector4 offset = CVector4(OffsetS, OffsetS, OffsetS, 0.0);
+		if (fractal->transformCommon.functionEnabledEFalse)
+		{
+			offset.x = max(OffsetS * fabs(z.x) * sc, OffsetS);
+			offset.y = max(OffsetS * fabs(z.y) * sc, OffsetS);
+			offset.z = max(OffsetS * fabs(z.z) * sc, OffsetS);
+		}
+		z = CVector4(sqrt(z.x * z.x + offset.x), sqrt(z.y * z.y + offset.y), sqrt(z.z * z.z + offset.z), z.w);
+		z *= sgns;
+	}
+
+
 	CVector4 oldZ = z;
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -99,29 +117,31 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabled)
 			z.z = fabs(z.z + fractal->transformCommon.offset111.z)
 					- fabs(z.z - fractal->transformCommon.offset111.z) - z.z;
-		if (fractal->transformCommon.functionEnabledFalse
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD1)
-		{
-			CVector4 limit = fractal->transformCommon.offset111;
-			CVector4 length = 2.0 * limit;
-			CVector4 tgladS = 1.0 / length;
-			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
-			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-			Add *= fractal->transformCommon.scale3D000;
-			z.x = (z.x - (sign(z.x) * (Add.x)));
-			z.y = (z.y - (sign(z.y) * (Add.y)));
-			z.z = (z.z - (sign(z.z) * (Add.z)));
-		}
+
 	}
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		CVector4 limit = fractal->transformCommon.offset111;
+		CVector4 length = 2.0 * limit;
+		CVector4 tgladS = 1.0 / length;
+		CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+		Add *= fractal->transformCommon.scale3D000;
+		z.x = (z.x - (sign(z.x) * (Add.x)));
+		z.y = (z.y - (sign(z.y) * (Add.y)));
+		z.z = (z.z - (sign(z.z) * (Add.z)));
+	}
+
 	CVector4 zCol = z;
 
 	// offset1

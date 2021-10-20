@@ -27,7 +27,23 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.DE = aux.DE * aux.r * 2.0f;
+
+	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+	double rp = pow(aux.r, fractal->bulb.power - 1.0);
+	const double th = th0 * fractal->bulb.power;
+	const double ph = ph0 * fractal->bulb.power;
+	const double cth = cos(th);
+	aux.DE = (rp * aux.DE) * fractal->bulb.power + 1.0;
+	rp *= aux.r;
+	z.x = cth * cos(ph) * rp;
+	z.y = cth * sin(ph) * rp;
+	z.z = sin(th) * rp;
+
+
+
+
+	/*aux.DE = aux.DE * aux.r * 2.0f;
 
 	// Preparation operations
 	double fac_eff = 0.6666666666;
@@ -103,14 +119,26 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	double dd = z.Length() / aux.r;
 	dd = dd + (aux.r * 2.0 - dd) * fractal->transformCommon.scaleA1;
-	aux.DE *= dd;
+	aux.DE *= dd;*/
 
+
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE0 = z.Length();
+
+		aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			aux.dist = aux.DE0;
+		else
+			aux.dist = min(aux.dist, aux.DE0);
 	}
 
-
+	//if (fractal->transformCommon.functionEnabledXFalse)
+	//	z = zc;
 
 }
