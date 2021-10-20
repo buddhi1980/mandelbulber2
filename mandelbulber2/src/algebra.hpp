@@ -622,6 +622,7 @@ public:
 	void SetRotation(const CVector3 &rotation);
 	void SetRotation2(const CVector3 &rotation);
 	void SetRotation3(const CVector3 &rotation);
+	void SetRotation4(const CVector3 &rotation);
 	CRotationMatrix Transpose() const;
 	CMatrix33 GetMatrix() const { return matrix; }
 

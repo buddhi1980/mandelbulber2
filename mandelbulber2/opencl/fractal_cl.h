@@ -728,6 +728,7 @@ typedef struct
 
 	cl_float3 rotation; // vec3s
 	cl_float3 rotation2;
+	cl_float3 rotationXYZ;
 	cl_float3 rotationVary;
 	cl_float3 rotation44a; //.........................
 	cl_float3 rotation44b; //..........................
@@ -759,6 +760,7 @@ typedef struct
 
 	matrix33 rotationMatrix;
 	matrix33 rotationMatrix2;
+	matrix33 rotationMatrixXYZ;
 	matrix33 rotationMatrixVary;
 	// matrix44 rotationMatrix44; //....................
 
@@ -1494,6 +1496,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.vec111 = toClFloat4(source.vec111);
 	target.rotation = toClFloat3(source.rotation);
 	target.rotation2 = toClFloat3(source.rotation2);
+	target.rotationXYZ = toClFloat3(source.rotationXYZ);
 	target.rotationVary = toClFloat3(source.rotationVary);
 	target.rotation44a = toClFloat3(source.rotation44a);
 	target.rotation44b = toClFloat3(source.rotation44b);
@@ -1522,6 +1525,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.scale1111 = toClFloat4(source.scale1111);
 	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
 	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
+	target.rotationMatrixXYZ = toClMatrix33(source.rotationMatrixXYZ);
 	target.rotationMatrixVary = toClMatrix33(source.rotationMatrixVary);
 	target.addCpixelEnabled = source.addCpixelEnabled;
 	target.addCpixelEnabledFalse = source.addCpixelEnabledFalse;

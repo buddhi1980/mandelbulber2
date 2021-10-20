@@ -251,6 +251,14 @@ void CRotationMatrix::SetRotation3(const CVector3 &rotation)
 	RotateX(rotation.z);
 }
 
+void CRotationMatrix::SetRotation4(const CVector3 &rotation)
+{
+	Null();
+	RotateX(rotation.x);
+	RotateY(rotation.y);
+	RotateZ(rotation.z);
+}
+
 CVector3 CRotationMatrix::RotateVector(const CVector3 &vector) const
 {
 	if (!zero)

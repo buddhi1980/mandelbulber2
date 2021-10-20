@@ -718,6 +718,7 @@ struct sFractalTransformCommon
 
 	CVector3 rotation; // vec3s
 	CVector3 rotation2;
+	CVector3 rotationXYZ;
 	CVector3 rotationVary;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................
@@ -749,6 +750,7 @@ struct sFractalTransformCommon
 
 	CRotationMatrix rotationMatrix;
 	CRotationMatrix rotationMatrix2;
+	CRotationMatrix rotationMatrixXYZ;
 	CRotationMatrix rotationMatrixVary;
 	CRotationMatrix44 rotationMatrix44; //....................
 
