@@ -17,12 +17,8 @@ REAL4 Menger3M3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	z = fabs(z);
 	z += fractal->transformCommon.offset000;
-	/*matrix33 rotM;
-	rotM.RotateX(fractal->transformCommon.rotation.x * M_PI_180);
-	rotM.RotateY(fractal->transformCommon.rotation.y * M_PI_180);
-	rotM.RotateZ(fractal->transformCommon.rotation.z * M_PI_180);
-	z = rotM.RotateVector(z);*/
 
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrixXYZ, z);
 
 	REAL t;
 	t = z.x - z.y;
@@ -40,34 +36,12 @@ REAL4 Menger3M3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-
-
-	if (fractal->transformCommon.angleDegC != 0.0f)
-	{
-		t = z.x;
-		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-		z.y = t * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-	}
-
-	if (fractal->transformCommon.angleDegB != 0.0f)
-	{
-		t = z.z;
-		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-		z.x = t * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-	}
-
-	if (fractal->transformCommon.angleDegA != 0.0f)
-	{
-		t = z.y;
-		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-		z.z = t * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-	}
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2XYZ, z);
 
 	REAL sc1 = fractal->transformCommon.scale3 - 1.0f;
 	REAL sc2 = 0.5 * sc1 / fractal->transformCommon.scale3;
 	z.z = z.z - fractal->transformCommon.offset111.z * sc2;
-	z.z = -native_sqrt(z.z * z.z);
-	z.z = z.z + fractal->transformCommon.offset111.z * sc2;
+	z.z = -fabs(z.z) + fractal->transformCommon.offset111.z * sc2;
 
 	z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.offset111.x * sc1;
 	z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.offset111.y * sc1;

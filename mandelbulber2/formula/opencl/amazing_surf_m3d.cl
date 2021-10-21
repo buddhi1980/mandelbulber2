@@ -37,12 +37,12 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	REAL4 zCol = z;
 	// no z fold
-
+	z += fractal->transformCommon.offset000;
 	REAL rr;
 	if (!fractal->transformCommon.functionEnabledFalse)
 		rr = dot(z, z);
 	else
-		rr = z.x * z.x + z.y * z.y;
+		rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
 
 	REAL m = aux->actualScale;
 	REAL MinR = fractal->mandelbox.mR2;
@@ -59,27 +59,7 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	z += fractal->transformCommon.offsetA000;
 
-	REAL temp = 0.0f;
-	if (fractal->transformCommon.angleDegC != 0.0f)
-	{
-		temp = z.x;
-		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-		z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-	}
-
-	if (fractal->transformCommon.angleDegB != 0.0f)
-	{
-		temp = z.z;
-		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-		z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-	}
-
-	if (fractal->transformCommon.angleDegA != 0.0f)
-	{
-		temp = z.y;
-		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-		z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-	}
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrixXYZ, z);
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

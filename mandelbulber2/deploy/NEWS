@@ -4,6 +4,7 @@ v2.27 (    2021)
 
 - Added new fractal formulas
 
+   menger3M3d
 
    transfDIFSSphereGrid
 
@@ -13,7 +14,8 @@ v2.27 (    2021)
    transfSincos
 
 - modified fractal formulas
-   amazingSurfM3d, fix cylindrical fold
+   amazingSurfM3d, fix cylindrical fold, rot now matrix
+   transfRotationM3d, now matrix
 
 
 v2.26 (August 2021)

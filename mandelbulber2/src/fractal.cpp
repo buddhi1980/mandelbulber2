@@ -507,6 +507,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
 	transformCommon.rotationXYZ = container->Get<CVector3>("transf_rotationXYZ");
+	transformCommon.rotation2XYZ = container->Get<CVector3>("transf_rotation2XYZ");
 	transformCommon.rotationVary = container->Get<CVector3>("transf_rotationVary");
 
 	transformCommon.rotation44a =
@@ -661,10 +662,14 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.rotationMatrix44.SetRotation44b(
 		transformCommon.rotation44b * M_PI_180); // ...............................
 
-	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180);		// T>Rotation
+	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180); // T>Rotation
 	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * M_PI_180); // T>Rotation2
 	transformCommon.rotationMatrixXYZ.SetRotation4(
-		transformCommon.rotationXYZ * M_PI_180); // T>Rotation2
+		transformCommon.rotationXYZ * M_PI_180); // T>RotationXYZ M3D
+
+	transformCommon.rotationMatrix2XYZ.SetRotation4(
+		transformCommon.rotation2XYZ * M_PI_180); // T>Rotation2XYZ M3D
+
 	transformCommon.rotationMatrixVary.SetRotation2(
 		transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);

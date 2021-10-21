@@ -28,25 +28,5 @@ void cFractalTransfRotationM3d::FormulaCode(CVector4 &z, const sFractal *fractal
 {
 	Q_UNUSED(aux);
 
-	double temp = 0.0;
-	if (fractal->transformCommon.angleDegC != 0.0)
-	{
-		temp = z.x;
-		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-		z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-	}
-
-	if (fractal->transformCommon.angleDegB != 0.0)
-	{
-		temp = z.z;
-		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-		z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-	}
-
-	if (fractal->transformCommon.angleDegA != 0.0)
-	{
-		temp = z.y;
-		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-		z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-	}
+	z = fractal->transformCommon.rotationMatrixXYZ.RotateVector(z);
 }

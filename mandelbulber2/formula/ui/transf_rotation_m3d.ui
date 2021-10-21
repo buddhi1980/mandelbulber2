@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotation_m3d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
+    <width>826</width>
     <height>709</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_16">
      <property name="text">
-      <string notr="true">M3D order of rotation</string>
+      <string notr="true">M3D order of rotation (updated 21/10/21)</string>
      </property>
     </widget>
    </item>
@@ -42,7 +42,7 @@
       <number>2</number>
      </property>
      <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_B">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotationXYZ_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_A">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotationXYZ_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -118,7 +118,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_C">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotationXYZ_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

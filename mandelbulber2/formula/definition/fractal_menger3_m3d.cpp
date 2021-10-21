@@ -29,11 +29,7 @@ void cFractalMenger3M3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	z = fabs(z);
 	z += fractal->transformCommon.offset000;
 
-	CRotationMatrix rotM;
-	rotM.RotateX(fractal->transformCommon.rotation.x * M_PI_180);
-	rotM.RotateY(fractal->transformCommon.rotation.y * M_PI_180);
-	rotM.RotateZ(fractal->transformCommon.rotation.z * M_PI_180);
-	z = rotM.RotateVector(z);
+	z = fractal->transformCommon.rotationMatrixXYZ.RotateVector(z);
 
 	double t;
 	t = z.x - z.y;
@@ -51,45 +47,18 @@ void cFractalMenger3M3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	CRotationMatrix rotM2;
-	rotM2.RotateX(fractal->transformCommon.rotation2.x * M_PI_180);
-	rotM2.RotateY(fractal->transformCommon.rotation2.y * M_PI_180);
-	rotM2.RotateZ(fractal->transformCommon.rotation2.z * M_PI_180);
-	z = rotM2.RotateVector(z);
-
-/*	if (fractal->transformCommon.angleDegC != 0.0)
-	{
-		t = z.x;
-		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-		z.y = t * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-	}
-
-	if (fractal->transformCommon.angleDegB != 0.0)
-	{
-		t = z.z;
-		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-		z.x = t * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-	}
-
-	if (fractal->transformCommon.angleDegA != 0.0)
-	{
-		t = z.y;
-		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-		z.z = t * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-	}*/
+	z = fractal->transformCommon.rotationMatrix2XYZ.RotateVector(z);
 
 	double sc1 = fractal->transformCommon.scale3 - 1.0;
 	double sc2 = 0.5 * sc1 / fractal->transformCommon.scale3;
 	z.z = z.z - fractal->transformCommon.offset111.z * sc2;
-	z.z = -sqrt(z.z * z.z);
-	z.z = z.z + fractal->transformCommon.offset111.z * sc2;
+	z.z = -fabs(z.z) + fractal->transformCommon.offset111.z * sc2;
 
 	z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.offset111.x * sc1;
 	z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.offset111.y * sc1;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux.DE *= fractal->transformCommon.scale3;
-
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)

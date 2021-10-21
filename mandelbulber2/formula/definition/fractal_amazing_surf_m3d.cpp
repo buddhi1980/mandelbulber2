@@ -49,10 +49,15 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	CVector4 zCol = z;
 	// no z fold
-
+z += fractal->transformCommon.offset000;
 	double rr;
 	if (!fractal->transformCommon.functionEnabledFalse) rr = z.Dot(z);
-	else rr = z.x * z.x + z.y * z.y;
+	else rr = z.Dot(z) - z.z * z.z * fractal->transformCommon.scaleB1;
+
+	//if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
+	//	rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
+
+
 
 	double m = aux.actualScale;
 	double MinR = fractal->mandelbox.mR2;
@@ -67,27 +72,7 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 	z += fractal->transformCommon.offsetA000;
 
-	double temp = 0.0;
-	if (fractal->transformCommon.angleDegC != 0.0)
-	{
-		temp = z.x;
-		z.x = z.x * fractal->transformCommon.cosC - z.y * fractal->transformCommon.sinC;
-		z.y = temp * fractal->transformCommon.sinC + z.y * fractal->transformCommon.cosC;
-	}
-
-	if (fractal->transformCommon.angleDegB != 0.0)
-	{
-		temp = z.z;
-		z.z = z.z * fractal->transformCommon.cosB - z.x * fractal->transformCommon.sinB;
-		z.x = temp * fractal->transformCommon.sinB + z.x * fractal->transformCommon.cosB;
-	}
-
-	if (fractal->transformCommon.angleDegA != 0.0)
-	{
-		temp = z.y;
-		z.y = z.y * fractal->transformCommon.cosA - z.z * fractal->transformCommon.sinA;
-		z.z = temp * fractal->transformCommon.sinA + z.z * fractal->transformCommon.cosA;
-	}
+	z = fractal->transformCommon.rotationMatrixXYZ.RotateVector(z);
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -97,9 +82,9 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		{
 			zCol = fabs(zCol - oldZ);
 			if (zCol.x > 0.0)
-				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+				colorAdd += fractal->foldColor.difs0000.x * (zCol.x / fractal->transformCommon.additionConstant111.x - 1.);
 			if (zCol.y > 0.0)
-				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+				colorAdd += fractal->foldColor.difs0000.y * (zCol.y / fractal->transformCommon.additionConstant111.y - 1.);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 			colorAdd += fractal->foldColor.difs0000.w * m;
 		}

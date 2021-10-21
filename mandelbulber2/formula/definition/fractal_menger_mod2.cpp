@@ -100,26 +100,6 @@ void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		z = fabs(z);
 		z += fractal->transformCommon.offset000;
 
-		double t;
-		double ScaleP5 = fractal->transformCommon.scale05;
-		CVector4 OffsetC = fractal->transformCommon.constantMultiplier221;
-
-
-		t = z.x - z.y;
-		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
-		z.x = z.x - t;
-		z.y = z.y + t;
-
-		t = z.x - z.z;
-		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
-		z.x = z.x - t;
-		z.z = z.z + t;
-
-		t = z.y - z.z;
-		t = ScaleP5 * (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
-		z.y = z.y - t;
-		z.z = z.z + t;
-
 		if (fractal->transformCommon.rotationEnabledFalse
 				&& aux.i >= fractal->transformCommon.startIterationsR
 				&& aux.i < fractal->transformCommon.stopIterationsR)
@@ -127,12 +107,34 @@ void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 
-		z.z = z.z - OffsetC.z / 3.0;
-		z.z = -fabs(z.z);
-		z.z = z.z + OffsetC.z / 3.0;
+		double t;
+		t = z.x - z.y;
+		t = fractal->transformCommon.additionConstant0555.x
+				* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+		z.x = z.x - t;
+		z.y = z.y + t;
 
-		z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
-		z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
+		t = z.x - z.z;
+		t = fractal->transformCommon.additionConstant0555.y
+				* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.y);
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.y - z.z;
+		t = fractal->transformCommon.additionConstant0555.z
+				* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.z);
+		z.y = z.y - t;
+		z.z = z.z + t;
+
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+		double sc1 = fractal->transformCommon.scale3 - 1.0;
+		double sc2 = sc1 / fractal->transformCommon.scale3;
+		z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
+		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
+
+		z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.offset1105.x * sc1;
+		z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.offset1105.y * sc1;
 		z.z = fractal->transformCommon.scale3 * z.z;
 
 		aux.DE = aux.DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
