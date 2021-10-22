@@ -39,15 +39,9 @@ REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
 		if (z.x + z.y < 0.0f) z = (REAL4){-z.y, -z.x, z.z, z.w};
-
-		if (z.x + z.z < 0.0f) // z.xz = -z.zx;
-			z = (REAL4){-z.z, z.y, -z.x, z.w};
-
-		if (z.x - z.y < 0.0f) // z.xy = z.yx;
-			z = (REAL4){z.y, z.x, z.z, z.w};
-
-		if (z.x - z.z < 0.0f) // z.xz = z.zx;
-			z = (REAL4){z.z, z.y, z.x, z.w};
+		if (z.x + z.z < 0.0f) z = (REAL4){-z.z, z.y, -z.x, z.w};
+		if (z.x - z.y < 0.0f) z = (REAL4){z.y, z.x, z.z, z.w};
+		if (z.x - z.z < 0.0f) z = (REAL4){z.z, z.y, z.x, z.w};
 
 		z.x = fabs(z.x);
 		z = z * fractal->transformCommon.scale2
@@ -64,10 +58,10 @@ REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL m;
 		REAL rr = dot(z, z);
 
-		if (rr < fractal->transformCommon.minR0 * fractal->transformCommon.maxR2d1)
+		if (rr < fractal->transformCommon.minR0)
 		{
 			//if (!fractal->transformCommon.functionEnabledFalse)
-					m = 1.0f /fractal->transformCommon.minR0;
+			m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 			//else m = 2.0f *fractal->mandelbox.foldingSphericalFixed/ (fractal->transformCommon.minR0 * fractal->transformCommon.scale)- rr;
 
 			z *= m;
@@ -116,19 +110,29 @@ REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
-		REAL sc1 = fractal->transformCommon.scale3 - 1.0;
-		REAL sc2 = sc1 / fractal->transformCommon.scale3;
+		REAL useScale = fractal->transformCommon.scale3;
+		if (fractal->transformCommon.functionEnabledXFalse
+				&& aux->i >= fractal->transformCommon.startIterationsX
+				&& aux->i < fractal->transformCommon.stopIterationsX)
+		{
+			useScale += aux->actualScaleA;
+			// update actualScale for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+					* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
+			aux->actualScaleA = -vary;
+		}
+
+		REAL sc1 = useScale - 1.0;
+		REAL sc2 = sc1 / useScale;
 		z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
 		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
 
-		z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.offset1105.x * sc1;
-		z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.offset1105.y * sc1;
-		z.z = fractal->transformCommon.scale3 * z.z;
+		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
+		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
+		z.z = useScale * z.z;
 
-		aux->DE = aux->DE * fractal->transformCommon.scale3 + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * useScale + fractal->analyticDE.offset0;
 	}
-
-
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
