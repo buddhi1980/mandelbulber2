@@ -275,8 +275,11 @@ enum enumFractalFormula
 
 	// 2.27
 	aboxSmooth = 241,
-	mengerMod2 = 242,
+	mengerV4 = 242,
 	menger3M3d = 243,
+
+
+
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -495,6 +498,8 @@ enum enumFractalFormula
 	transfDIFSSphereGridV2 = 1628,
 	transfDIFSSphereGridV3 = 1629,
 	transfDIFSTorusTwist = 1630,
+	transfDIFSHeart = 1631,
+
 
 	// hybrid color
 	transfHybridColor = 2000,

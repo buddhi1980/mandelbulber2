@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>2828</height>
+    <height>2976</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -757,44 +757,6 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="prefix">
-      <string/>
-     </property>
-     <property name="suffix">
-      <string/>
-     </property>
-     <property name="decimals">
-      <number>6</number>
-     </property>
-     <property name="minimum">
-      <double>0.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>99.989999999999995</double>
-     </property>
-     <property name="singleStep">
-      <double>0.100000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="text">
-      <string>GGGGG</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_70">
      <property name="spacing">
       <number>2</number>
@@ -964,7 +926,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled_false">
      <property name="title">
-      <string>&amp;rotation</string>
+      <string>&amp;rotation1</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1148,7 +1110,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0">
+    <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -1379,6 +1341,16 @@ offset:</string>
        </layout>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>GGGGG</string>
+     </property>
     </widget>
    </item>
    <item>

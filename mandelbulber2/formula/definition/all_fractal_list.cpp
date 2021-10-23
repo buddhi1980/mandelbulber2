@@ -212,7 +212,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerCrossKIFS());
 	fractalList->append(new cFractalMengerCrossMod1());
 	fractalList->append(new cFractalMengerMod1());
-	fractalList->append(new cFractalMengerMod2());
 	fractalList->append(new cFractalModulusMengerSponge());
 	fractalList->append(new cFractalMengerMiddleMod());
 	fractalList->append(new cFractalMengerOcto());
@@ -222,11 +221,13 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerPwr2Poly());
 	fractalList->append(new cFractalMengerSmooth());
 	fractalList->append(new cFractalMengerSmoothMod1());
+	fractalList->append(new cFractalMengerV4());
 	fractalList->append(new cFractalMenger3());
 	fractalList->append(new cFractalMenger3M3d());
 	fractalList->append(new cFractalMenger4d());
 	fractalList->append(new cFractalMenger4dMod1());
 	fractalList->append(new cFractalMenger4dMod2());
+
 	fractalList->append(new cFractalMixPinski4d());
 	fractalList->append(new cFractalSierpinski3d());
 	fractalList->append(new cFractalSierpinski3dV2());
@@ -276,6 +277,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSGrid());
 	fractalList->append(new cFractalTransfDIFSGridV2());
 	fractalList->append(new cFractalTransfDIFSGridV3());
+	fractalList->append(new cFractalTransfDIFSHeart());
 	fractalList->append(new cFractalTransfDIFSHextgrid2());
 	fractalList->append(new cFractalTransfDIFSHexprism());
 	fractalList->append(new cFractalTransfDIFSHexprismV2());

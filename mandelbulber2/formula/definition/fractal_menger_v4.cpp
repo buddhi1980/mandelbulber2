@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalMengerMod2::cFractalMengerMod2() : cAbstractFractal()
+cFractalMengerV4::cFractalMengerV4() : cAbstractFractal()
 {
-	nameInComboBox = "Menger - Mod 2";
-	internalName = "menger_mod2";
-	internalID = fractal::mengerMod2;
+	nameInComboBox = "Menger - V4";
+	internalName = "menger_v4";
+	internalID = fractal::mengerV4;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalMengerMod2::cFractalMengerMod2() : cAbstractFractal()
 	coloringFunction = coloringFunctionIFS;
 }
 
-void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
@@ -102,11 +102,20 @@ void cFractalMengerMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 
 		double t;
-		t = z.x - z.y;
-		t = fractal->transformCommon.additionConstant0555.x
-				* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
-		z.x = z.x - t;
-		z.y = z.y + t;
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			t = z.x - z.y;
+			t = fractal->transformCommon.additionConstant0555.x
+					* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+			z.x = z.x - t;
+			z.y = z.y + t;
+		}
+		else
+		{
+			t = z.x;
+			z.x = z.y;
+			z.y = t;
+		}
 
 		t = z.x - z.z;
 		t = fractal->transformCommon.additionConstant0555.y

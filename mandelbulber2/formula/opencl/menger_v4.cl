@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
 
@@ -89,12 +89,21 @@ REAL4 MengerMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
 
-		REAL t;
+	REAL t;
+	if (!fractal->transformCommon.functionEnabledGFalse)
+	{
 		t = z.x - z.y;
 		t = fractal->transformCommon.additionConstant0555.x
 				* (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
 		z.x = z.x - t;
 		z.y = z.y + t;
+	}
+	else
+	{
+		t = z.x;
+		z.x = z.y;
+		z.y = t;
+	}
 
 		t = z.x - z.z;
 		t = fractal->transformCommon.additionConstant0555.y
