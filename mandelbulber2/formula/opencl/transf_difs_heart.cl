@@ -15,35 +15,32 @@
 
 REAL4 TransfDIFSHeartIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
-	z += fractal->transformCommon.offsetA000;
-
-	REAL4 zc = z;
-
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
-		zc += fractal->transformCommon.offset000;
-		zc *= fractal->transformCommon.scale1;
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		z *= fractal->transformCommon.scale1;
 		aux->DE *= fractal->transformCommon.scale1;
+	}
 
-		// polyfold
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			zc.x = fabs(zc.x);
-			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
-			psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0f * psi) - psi);
-			REAL len = native_sqrt(zc.y * zc.y + zc.x * zc.x);
-			zc.y = native_cos(psi) * len;
-			zc.x = native_sin(psi) * len;
-		}
+	REAL4 zc = z;
+	// polyfold
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		zc.y = fabs(zc.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(zc.y * zc.y + zc.x * zc.x);
+		zc.x = native_cos(psi) * len;
+		zc.y = native_sin(psi) * len;
+	}
 
-		if (fractal->transformCommon.rotation2EnabledFalse)
-		{
-			zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
-		}
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
 	}
 
 	REAL p = (zc.z + fractal->transformCommon.offset105);
@@ -51,19 +48,23 @@ REAL4 TransfDIFSHeartIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	p = zc.x * zc.x + fractal->transformCommon.scale025
 			* zc.y * zc.y / (p * p + fractal->transformCommon.offsetp01);
 	p = fabs(zc.z * fractal->transformCommon.scale1p1
-			 - fractal->transformCommon.scale08 * sqrt(sqrt(p)));
+			- fractal->transformCommon.scale08 * native_sqrt(native_sqrt(p)));
 
 	aux->DE0 = (native_sqrt(fractal->transformCommon.scale4 * zc.y * zc.y + zc.x * zc.x + p * p)
-				- fractal->transformCommon.offset1);
+				- fractal->transformCommon.offset1) / (aux->DE + fractal->analyticDE.offset1);
 
-	if (!fractal->analyticDE.enabledFalse)
-			aux->dist = min(aux->dist, aux->DE0 / (aux->DE + fractal->analyticDE.offset1));
-	else aux->dist = aux->DE0 / (aux->DE + fractal->analyticDE.offset1);
+	REAL col = aux->dist;
+
+	if (!fractal->analyticDE.enabledFalse) aux->dist = min(aux->dist, aux->DE0);
+	else aux->dist = aux->DE0;
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		REAL colorAdd = 0.0f;
-		if (aux->dist == aux->DE0) colorAdd += fractal->foldColor.difs0000.x;
+		if (aux->dist == col) colorAdd += fractal->foldColor.difs0000.x;
+		colorAdd += fractal->foldColor.difs0000.y * zc.z;
+		colorAdd += fractal->foldColor.difs0000.z * fabs(zc.x);
+		colorAdd += fractal->foldColor.difs0000.w * fabs(zc.y);
 		if (!fractal->foldColor.auxColorEnabledFalse) aux->color = colorAdd;
 		else  aux->color += colorAdd;
 	}
