@@ -27,7 +27,85 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 signs ;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z *= fractal->transformCommon.scale1;
+		aux.DE *= fractal->transformCommon.scale1;
+	}
+
+
+
+
+
+
+	CVector4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	signs.w = sign(z.w);
+
+
+
+
+	double m = 0.0f;
+	if (fractal->transformCommon.functionEnabledAx)
+		z += fractal->transformCommon.offset000;
+	else
+		z += fractal->transformCommon.offset000 * signs;
+
+
+	double rr = z.Dot(z);
+	if (fractal->transformCommon.functionEnabledAy)
+		z += fractal->transformCommon.offsetF000;
+	else
+		z += fractal->transformCommon.offsetF000 * signs;
+
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		z *= m;
+		aux.DE *= m;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		m = fractal->transformCommon.maxR2d1 / rr;
+		z *= m;
+		aux.DE *= m;
+	}
+
+	if (fractal->transformCommon.functionEnabledBx)
+		z -= fractal->transformCommon.offset000;
+	else
+		z -= fractal->transformCommon.offset000 * signs;
+
+	if (fractal->transformCommon.functionEnabledBy)
+		z -= fractal->transformCommon.offsetF000;
+	else
+		z -= fractal->transformCommon.offsetF000 * signs;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*CVector4 signs ;
 	signs.x = sign(aux.const_c.x);
 	signs.y = sign(aux.const_c.y);
 	signs.z = sign(aux.const_c.z);
@@ -80,7 +158,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE = aux.DE * (1.0 - rk21) + aux.DE * (tglad_factor2 * rk21);
 		aux.color += rk1 * fractal->mandelbox.color.factorSp1;
 		aux.color += rk21 * fractal->mandelbox.color.factorSp2;
-	}
+	}*/
 
 	/*if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
 	z = z * fractal->mandelbox.scale;

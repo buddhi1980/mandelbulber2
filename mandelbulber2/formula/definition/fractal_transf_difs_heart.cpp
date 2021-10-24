@@ -46,8 +46,16 @@ void cFractalTransfDIFSHeart::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		double psi = M_PI / fractal->transformCommon.int8Z;
 		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(zc.y * zc.y + zc.x * zc.x);
-		zc.x = cos(psi) * len;
-		zc.y = sin(psi) * len;
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			zc.x = cos(psi) * len;
+			zc.y = sin(psi) * len;
+		}
+		else
+		{
+			zc.y = cos(psi) * len;
+			zc.x = sin(psi) * len;
+		}
 	}
 
 	if (fractal->transformCommon.rotation2EnabledFalse)

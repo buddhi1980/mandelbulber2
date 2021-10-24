@@ -16,7 +16,84 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 signs;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		z *= fractal->transformCommon.scale1;
+		aux->DE *= fractal->transformCommon.scale1;
+	}
+
+
+
+
+
+
+	REAL4 signs = z;
+	signs.x = sign(z.x);
+	signs.y = sign(z.y);
+	signs.z = sign(z.z);
+	signs.w = sign(z.w);
+
+
+
+
+	REAL m = 0.0f;
+	if (fractal->transformCommon.functionEnabledAx)
+		z += fractal->transformCommon.offset000;
+	else
+		z += fractal->transformCommon.offset000 * signs;
+
+
+	REAL rr = dot(z, z);
+	if (fractal->transformCommon.functionEnabledAy)
+		z += fractal->transformCommon.offsetF000;
+	else
+		z += fractal->transformCommon.offsetF000 * signs;
+
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		z *= m;
+		aux->DE *= m;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		m = fractal->transformCommon.maxR2d1 / rr;
+		z *= m;
+		aux->DE *= m;
+	}
+
+	if (fractal->transformCommon.functionEnabledBx)
+		z -= fractal->transformCommon.offset000;
+	else
+		z -= fractal->transformCommon.offset000 * signs;
+
+	if (fractal->transformCommon.functionEnabledBy)
+		z -= fractal->transformCommon.offsetF000;
+	else
+		z -= fractal->transformCommon.offsetF000 * signs;
+
+
+
+
+
+
+
+	//z -= fractal->transformCommon.offsetA000;
+	//z *= signs;
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	return z;
+
+
+	/*REAL4 signs;
 	signs.x = sign(aux->const_c.x);
 	signs.y = sign(aux->const_c.y);
 	signs.z = sign(aux->const_c.z);
@@ -77,5 +154,5 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	return z;
+	return z;*/
 }

@@ -302,7 +302,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_10" rowstretch="0,0" columnstretch="0,1">
+       <layout class="QGridLayout" name="gridLayout_10" rowstretch="0" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -371,10 +371,17 @@ offset:</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_7" rowstretch="0" columnstretch="0,1">
+       <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_43">
+          <property name="text">
+           <string notr="true">folds:</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="MySpinBox" name="spinboxInt_transf_int8_Z">
           <property name="sizePolicy">
@@ -400,10 +407,10 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_43">
+        <item row="1" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
           <property name="text">
-           <string notr="true">int</string>
+           <string notr="true">switch</string>
           </property>
          </widget>
         </item>
