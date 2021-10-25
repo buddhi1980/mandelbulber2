@@ -12,6 +12,7 @@ v2.27 (    2021)
 
 
    transfSincos
+   transfSphericalFoldV3
 
 - modified fractal formulas
    amazingSurfM3d, fix cylindrical fold, rot now matrix

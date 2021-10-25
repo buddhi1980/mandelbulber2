@@ -597,7 +597,7 @@ offset:</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -681,7 +681,7 @@ offset:</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -709,7 +709,7 @@ offset:</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>
@@ -737,7 +737,7 @@ offset:</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>

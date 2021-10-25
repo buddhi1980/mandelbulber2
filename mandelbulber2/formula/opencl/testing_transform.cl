@@ -38,21 +38,28 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	signs.z = sign(z.z);
 	signs.w = sign(z.w);
 
-
-
+	REAL4 out = (REAL4){0.0, 0.0, 0.0, 0.0};
+	REAL4 in = out;
+	if (aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterationsX)
+	{
+		out = fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledAz)
+			out *= signs;
+	}
+	if (aux->i >= fractal->transformCommon.startIterationsY
+			&& aux->i < fractal->transformCommon.stopIterationsY)
+	{
+		in = fractal->transformCommon.offsetF000;
+		if (fractal->transformCommon.functionEnabledBz)
+			in *= signs;
+	}
+	if (fractal->transformCommon.functionEnabledAx) z += out;
 
 	REAL m = 0.0f;
-	if (fractal->transformCommon.functionEnabledAx)
-		z += fractal->transformCommon.offset000;
-	else
-		z += fractal->transformCommon.offset000 * signs;
-
-
 	REAL rr = dot(z, z);
-	if (fractal->transformCommon.functionEnabledAy)
-		z += fractal->transformCommon.offsetF000;
-	else
-		z += fractal->transformCommon.offsetF000 * signs;
+
+	if (fractal->transformCommon.functionEnabledAy) z += in;
 
 	if (rr < fractal->transformCommon.minR2p25)
 	{
@@ -67,15 +74,11 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE *= m;
 	}
 
-	if (fractal->transformCommon.functionEnabledBx)
-		z -= fractal->transformCommon.offset000;
-	else
-		z -= fractal->transformCommon.offset000 * signs;
+	if (fractal->transformCommon.functionEnabledBx) z -= out;
 
-	if (fractal->transformCommon.functionEnabledBy)
-		z -= fractal->transformCommon.offsetF000;
-	else
-		z -= fractal->transformCommon.offsetF000 * signs;
+
+	if (fractal->transformCommon.functionEnabledBy) z -= in;
+
 
 
 
