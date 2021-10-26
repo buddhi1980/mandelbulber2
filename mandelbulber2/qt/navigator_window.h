@@ -44,6 +44,8 @@ public slots:
 	void slotMouseDragStart(int x, int y, Qt::MouseButtons buttons);
 	void slotMouseDragFinish();
 	void slotMouseDragDelta(int dx, int dy);
+	void slotMouseWheelRotatedWithKeyOnImage(
+		int x, int y, int delta, Qt::KeyboardModifiers keyModifiers);
 
 private:
 	Ui::cNavigatorWindow *ui;

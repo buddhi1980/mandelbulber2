@@ -48,6 +48,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetRenderedImage, &RenderedImage::singleClick, this,
 		&cNavigatorWindow::slotMouseClickOnImage);
+	connect(ui->widgetRenderedImage, &RenderedImage::mouseWheelRotatedWithKey, this,
+		&cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage);
 
 	connect(ui->widgetRenderedImage, &RenderedImage::mouseDragStart, this,
 		&cNavigatorWindow::slotMouseDragStart);
@@ -206,4 +208,37 @@ void cNavigatorWindow::slotMouseDragFinish()
 void cNavigatorWindow::slotMouseDragDelta(int dx, int dy)
 {
 	manipulations->MouseDragDelta(dx, dy);
+}
+
+void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
+	int x, int y, int delta, Qt::KeyboardModifiers keyModifiers)
+{
+	QList<QVariant> mode = mouseClickFunction;
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
+	switch (clickMode)
+	{
+		case RenderedImage::clickPlaceLight:
+		{
+			// FIXME:			if (keyModifiers & Qt::AltModifier)
+			//			{
+			//				double deltaLog = exp(delta * 0.001);
+			//				double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
+			//				dist *= deltaLog;
+			//				ui->widgetEffects->slotSetAuxLightManualPlacementDistance(dist);
+			//			}
+			//			else if (keyModifiers & Qt::ControlModifier)
+			//			{
+			//				manipulations->MoveLightByWheel(delta);
+			//			}
+			break;
+		}
+		case RenderedImage::clickMoveCamera:
+		{
+			Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
+			mode.append(QVariant(delta));
+			manipulations->SetByMouse(CVector2<double>(x, y), button, mode);
+			break;
+		}
+		default: break;
+	}
 }

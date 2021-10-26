@@ -797,32 +797,32 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 
 void RenderedImage::wheelEvent(QWheelEvent *event)
 {
+	event->accept();
+
 	if (clickModesEnables || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 	{
-		if ((event->modifiers() & (Qt::ControlModifier | Qt::AltModifier)) != 0)
-		{
-			event->accept(); // do not propagate event to parent widgets - prevents from scrolling
+
+		event->accept(); // do not propagate event to parent widgets - prevents from scrolling
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-			emit mouseWheelRotatedWithKey(event->x(), event->y(), event->delta(), event->modifiers());
+		emit mouseWheelRotatedWithKey(event->x(), event->y(), event->delta(), event->modifiers());
 #else
-			emit mouseWheelRotatedWithKey(int(event->position().x()), int(event->position().y()),
-				event->angleDelta().y() + event->angleDelta().x(), event->modifiers());
-			// with alt key there is modified delta.x
+		emit mouseWheelRotatedWithKey(int(event->position().x()), int(event->position().y()),
+			event->angleDelta().y() + event->angleDelta().x(), event->modifiers());
+		// with alt key there is modified delta.x
 #endif
-			if (params)
+		if (params)
+		{
+			if (cursorVisible && isFocus && redrawed)
 			{
-				if (cursorVisible && isFocus && redrawed)
-				{
-					update();
-				}
+				update();
 			}
-			else
-			{
-				if (cursorVisible)
-					qCritical()
-						<< "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
-			}
+		}
+		else
+		{
+			if (cursorVisible)
+				qCritical()
+					<< "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
 		}
 	}
 }
