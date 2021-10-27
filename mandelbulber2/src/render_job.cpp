@@ -669,6 +669,8 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 		Qt::UniqueConnection);
+	connect(gOpenCl->openClEngineRenderFractal, &cOpenClEngineRenderFractal::signalSmallPartRendered,
+		this, &cRenderJob::signalSmallPartRendered, Qt::UniqueConnection);
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	progressText->ResetTimer();
@@ -871,6 +873,8 @@ void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
 		renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 	connect(renderer, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 	connect(renderer, &cRenderer::signalTotalRenderTime, this, &cRenderJob::signalTotalRenderTime);
+	connect(
+		renderer, &cRenderer::signalSmallPartRendered, this, &cRenderJob::signalSmallPartRendered);
 }
 
 void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)

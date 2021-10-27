@@ -100,6 +100,7 @@ signals:
 	void NotifyClientStatus();
 	void updateImage();
 	void signalTotalRenderTime(double seconds);
+	void signalSmallPartRendered();
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_IMAGE_HPP_ */

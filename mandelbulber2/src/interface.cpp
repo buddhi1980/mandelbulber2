@@ -605,6 +605,8 @@ void cInterface::StartRender(bool noUndo)
 	connect(renderJob, SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), renderedImage,
 		SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 	connect(renderJob, &cRenderJob::fullyRenderedTime, this, &cInterface::slotAutoSaveImage);
+	connect(renderJob, &cRenderJob::signalSmallPartRendered, mainWindow->manipulations,
+		&cManipulations::slotSmallPartRendered);
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();

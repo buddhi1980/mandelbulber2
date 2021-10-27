@@ -930,10 +930,15 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 	{
 		if (GetNumberOfStartedRenders() > 1) emit signalStop();
 
-		if (mouseDragData.lastRefreshTime.elapsed()
-					> par->Get<double>("auto_refresh_period") * 1000 + mouseDragData.lastStartRenderingTime
-				&& GetNumberOfStartedRenders() < 2)
+		//		if ((mouseDragData.lastRefreshTime.elapsed()
+		//						> par->Get<double>("auto_refresh_period") * 1000 +
+		//mouseDragData.lastStartRenderingTime
+		//					|| smallPartRendered)
+		//				&& GetNumberOfStartedRenders() < 2)
+		if (smallPartRendered && GetNumberOfStartedRenders() < 2)
 		{
+
+			smallPartRendered = false;
 			sMouseDragTempData dragTempData;
 
 			mouseDragData.lastRefreshTime.restart();
@@ -987,6 +992,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				QElapsedTimer timerStartRender;
 				timerStartRender.start();
 				SynchronizeInterfaceWindow(navigationWidget, par, qInterface::write);
+
 				emit signalRender();
 				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
 			}
@@ -1045,4 +1051,9 @@ void cManipulations::MoveLightByWheel(double deltaWheel)
 		SynchronizeInterfaceWindow(effectsWidget, par, qInterface::write);
 	}
 	renderedImageWidget->update();
+}
+
+void cManipulations::slotSmallPartRendered()
+{
+	smallPartRendered = true;
 }

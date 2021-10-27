@@ -197,6 +197,7 @@ signals:
 	void updateImage();
 	void updateStatistics(cStatistics);
 	void sendRenderedTilesList(QList<sRenderedTileData>);
+	void signalSmallPartRendered();
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_FRACTAL_H_ */

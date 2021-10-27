@@ -80,6 +80,7 @@ int cRenderer::InitProgresiveSteps()
 		progressiveSteps = 0;
 
 	if (progressiveSteps < 0) progressiveSteps = 0;
+	if (progressiveSteps > 5) progressiveSteps = 5;
 
 	int progressive = int(pow(2.0, double(progressiveSteps) - 1));
 	if (progressive == 0) progressive = 1;
@@ -463,6 +464,9 @@ bool cRenderer::RenderImage()
 				WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
 				delete threads[i];
 			}
+
+			if (!*data->stopRequest) emit signalSmallPartRendered();
+
 		} while (scheduler->ProgressiveNextStep());
 
 		// send last rendered lines

@@ -9,6 +9,9 @@
 
 #include <QThread>
 
+#include "src/lights.hpp"
+#include "src/light.h"
+#include "src/ao_modes.h"
 #include "src/render_window.hpp"
 #include "ui_navigator_window.h"
 #include "src/parameters.hpp"
@@ -118,12 +121,30 @@ void cNavigatorWindow::StartRender()
 	tempSettings.CreateText(params, fractalParams);
 	autoRefreshLastHash = tempSettings.GetHashCode();
 
-	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, &stopRequest,
+	std::shared_ptr<cParameterContainer> tempParams(new cParameterContainer());
+	std::shared_ptr<cFractalContainer> tempFractalParams(new cFractalContainer());
+	*tempParams = *params;
+	*tempFractalParams = *fractalParams;
+
+	tempParams->Set("ambient_occlusion_mode", int(params::AOModeFast));
+	tempParams->Set("image_width", 800);
+	tempParams->Set("image_height", 600);
+	tempParams->Set("ambient_occlusion_fast_tune", 0.5);
+
+	QList<int> listOfLights = cLights::GetListOfLights(tempParams);
+	for (int lightIndex : listOfLights)
+	{
+		tempParams->Set(cLight::Name("cast_shadows", lightIndex), false);
+	}
+
+	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
 
 	connect(renderJob, SIGNAL(updateImage()), ui->widgetRenderedImage, SLOT(update()));
 	connect(renderJob, &cRenderJob::sendRenderedTilesList, ui->widgetRenderedImage,
 		&RenderedImage::showRenderedTilesList);
+	connect(renderJob, &cRenderJob::signalSmallPartRendered, manipulations,
+		&cManipulations::slotSmallPartRendered);
 
 	cRenderingConfiguration config;
 	config.DisableNetRender();
@@ -255,10 +276,13 @@ void cNavigatorWindow::slotButtonUseParameters()
 	*sourceParams = *params;
 	*sourceFractalParams = *fractalParams;
 	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
+	stopRequest = true;
+	gMainInterface->StartRender();
 	emit close();
 }
 
 void cNavigatorWindow::slotButtonCancel()
 {
+	stopRequest = true;
 	emit close();
 }

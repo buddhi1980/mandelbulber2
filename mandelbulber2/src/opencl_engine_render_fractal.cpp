@@ -1380,6 +1380,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		qint64 pixelsRendered = 0; // number of
 		int lastMonteCarloLoop = 1;
 
+		int tilesRenderedCounter = 0;
+
 		// main image data collection loop
 		WriteLog(QString("Starting main rendering loop"), 2);
 		do
@@ -1394,6 +1396,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 				if (scheduler->IsTileEnabled(output.tileIndex))
 				{
+					tilesRenderedCounter++;
 
 					// information about tile coordinates
 					quint64 jobWidth = output.jobWidth;
@@ -1585,6 +1588,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					}
 
 					lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+
+					if (!*stopRequest && tilesRenderedCounter > tileSequence.size()/10) emit signalSmallPartRendered();
 
 					if (gNetRender->IsServer())
 					{

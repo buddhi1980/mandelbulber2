@@ -99,6 +99,9 @@ public:
 	void DecreaseNumberOfStartedRenders() { numberOfStartedRenders--; }
 	int GetNumberOfStartedRenders() { return numberOfStartedRenders; }
 
+public slots:
+	void slotSmallPartRendered();
+
 private:
 	std::shared_ptr<cParameterContainer> par;
 	std::shared_ptr<cFractalContainer> parFractal;
@@ -108,6 +111,7 @@ private:
 	cDockEffects *effectsWidget = nullptr;
 
 	int numberOfStartedRenders = 0;
+	bool smallPartRendered = true;
 
 signals:
 	void signalRender();
