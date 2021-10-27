@@ -57,6 +57,10 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 		&cNavigatorWindow::slotMouseDragFinish);
 	connect(ui->widgetRenderedImage, &RenderedImage::mouseDragDelta, this,
 		&cNavigatorWindow::slotMouseDragDelta);
+
+	connect(
+		ui->pushButtonUse, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonUseParameters);
+	connect(ui->pushButtonCancel, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonCancel);
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -69,6 +73,9 @@ void cNavigatorWindow::SetInitialParameters(
 {
 	params.reset(new cParameterContainer());
 	fractalParams.reset(new cFractalContainer());
+
+	sourceParams = _params;
+	sourceFractalParams = _fractalParams;
 
 	*params = *_params;
 	*fractalParams = *_fractalParams;
@@ -241,4 +248,17 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 		}
 		default: break;
 	}
+}
+
+void cNavigatorWindow::slotButtonUseParameters()
+{
+	*sourceParams = *params;
+	*sourceFractalParams = *fractalParams;
+	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
+	emit close();
+}
+
+void cNavigatorWindow::slotButtonCancel()
+{
+	emit close();
 }

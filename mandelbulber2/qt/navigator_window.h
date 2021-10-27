@@ -46,6 +46,8 @@ public slots:
 	void slotMouseDragDelta(int dx, int dy);
 	void slotMouseWheelRotatedWithKeyOnImage(
 		int x, int y, int delta, Qt::KeyboardModifiers keyModifiers);
+	void slotButtonUseParameters();
+	void slotButtonCancel();
 
 private:
 	Ui::cNavigatorWindow *ui;
@@ -54,6 +56,8 @@ private:
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
+	std::shared_ptr<cParameterContainer> sourceParams;
+	std::shared_ptr<cFractalContainer> sourceFractalParams;
 	std::shared_ptr<cImage> image;
 
 	bool stopRequest = false;
