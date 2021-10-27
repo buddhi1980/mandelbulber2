@@ -31,5 +31,10 @@ REAL4 TransfSincosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z.x = z.x * cosA - z.y * sinB;
 	z.y = temp * sinB + z.y * cosA;
 
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+
 	return z;
 }

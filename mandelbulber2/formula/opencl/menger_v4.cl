@@ -60,10 +60,7 @@ REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 		if (rr < fractal->transformCommon.minR0)
 		{
-			//if (!fractal->transformCommon.functionEnabledFalse)
 			m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-			//else m = 2.0f *fractal->mandelbox.foldingSphericalFixed/ (fractal->transformCommon.minR0 * fractal->transformCommon.scale)- rr;
-
 			z *= m;
 			aux->DE *= m;
 		}
@@ -73,7 +70,7 @@ REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			z *= m;
 			aux->DE *= m;
 		}
-		z -= fractal->mandelbox.offset; //  + fractal->transformCommon.additionConstant000;
+		z -= fractal->mandelbox.offset;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsG
@@ -135,7 +132,6 @@ REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		REAL sc2 = sc1 / useScale;
 		z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
 		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
-
 		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
 		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
 		z.z = useScale * z.z;
@@ -151,7 +147,6 @@ REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 	}
-
 
 	return z;
 }

@@ -69,13 +69,7 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 		if (rr < fractal->transformCommon.minR0)
 		{
-			//if (!fractal->transformCommon.functionEnabledFalse)
-				//	m =fractal->mandelbox.foldingSphericalFixed / (fractal->transformCommon.minR0 * fractal->transformCommon.scale);
-
 			m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-
-			//else m = 2.0f *fractal->mandelbox.foldingSphericalFixed/ (fractal->transformCommon.minR0 * fractal->transformCommon.scale)- rr;
-
 			z *= m;
 			aux.DE *= m;
 		}
@@ -85,9 +79,9 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z *= m;
 			aux.DE *= m;
 		}
-		z -= fractal->mandelbox.offset; // + fractal->transformCommon.additionConstant000;
+		z -= fractal->mandelbox.offset;
 	}
-
+		// menger sponge
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
@@ -142,21 +136,18 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 					* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
 			aux.actualScaleA = -vary;
 		}
+		aux.DE = aux.DE * useScale + fractal->analyticDE.offset0;
 
 		double sc1 = useScale - 1.0;
 		double sc2 = sc1 / useScale;
 		z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
 		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
-
 		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
 		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
 		z.z = useScale * z.z;
-
-		aux.DE = aux.DE * useScale + fractal->analyticDE.offset0;
 	}
 
-
-
+	// box offset
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA) // box offset
@@ -165,6 +156,4 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 	}
-
-
 }

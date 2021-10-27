@@ -27,88 +27,7 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
-		z += fractal->transformCommon.offsetA000;
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-		z *= fractal->transformCommon.scale1;
-		aux.DE *= fractal->transformCommon.scale1;
-	}
-
-
-
-
-
-
-	CVector4 signs = z;
-	signs.x = sign(z.x);
-	signs.y = sign(z.y);
-	signs.z = sign(z.z);
-	signs.w = sign(z.w);
-
-	CVector4 out = CVector4(0.0, 0.0, 0.0, 0.0);
-	CVector4 in = out;
-	if (aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
-	{
-		out = fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledAz)
-			out *= signs;
-	}
-	if (aux.i >= fractal->transformCommon.startIterationsY
-			&& aux.i < fractal->transformCommon.stopIterationsY)
-	{
-		in = fractal->transformCommon.offsetF000;
-		if (fractal->transformCommon.functionEnabledBz)
-			in *= signs;
-	}
-	if (fractal->transformCommon.functionEnabledAx) z -= out;
-
-
-	double m = 0.0f;
-	double rr = z.Dot(z);
-	if (fractal->transformCommon.functionEnabledAy) z -= in;
-
-
-	if (rr < fractal->transformCommon.minR2p25)
-	{
-		m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
-		z *= m;
-		aux.DE *= m;
-	}
-	else if (rr < fractal->transformCommon.maxR2d1)
-	{
-		m = fractal->transformCommon.maxR2d1 / rr;
-		z *= m;
-		aux.DE *= m;
-	}
-
-	if (fractal->transformCommon.functionEnabledBx) z += out;
-
-
-	if (fractal->transformCommon.functionEnabledBy) z += in;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*CVector4 signs ;
+	CVector4 signs ;
 	signs.x = sign(aux.const_c.x);
 	signs.y = sign(aux.const_c.y);
 	signs.z = sign(aux.const_c.z);
@@ -161,7 +80,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE = aux.DE * (1.0 - rk21) + aux.DE * (tglad_factor2 * rk21);
 		aux.color += rk1 * fractal->mandelbox.color.factorSp1;
 		aux.color += rk21 * fractal->mandelbox.color.factorSp2;
-	}*/
+	}
 
 	/*if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
 	z = z * fractal->mandelbox.scale;
