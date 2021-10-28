@@ -388,6 +388,9 @@ bool cRenderer::RenderImage()
 		QElapsedTimer timerProgressRefresh;
 		timerProgressRefresh.start();
 
+		QElapsedTimer pureRenderingTime;
+		pureRenderingTime.start();
+
 		WriteLog("Start rendering", 2);
 		do
 		{
@@ -465,7 +468,7 @@ bool cRenderer::RenderImage()
 				delete threads[i];
 			}
 
-			if (!*data->stopRequest) emit signalSmallPartRendered();
+			if (!*data->stopRequest) emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
 
 		} while (scheduler->ProgressiveNextStep());
 

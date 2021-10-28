@@ -9,6 +9,7 @@
 
 #include <QThread>
 
+#include "src/common_math.h"
 #include "src/lights.hpp"
 #include "src/light.h"
 #include "src/ao_modes.h"
@@ -35,10 +36,10 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	manipulations = new cManipulations(this);
 
-	image.reset(new cImage(800, 600, false));
+	image.reset(new cImage(1200, 900, false));
 	ui->widgetRenderedImage->AssignImage(image);
 	image->SetFastPreview(true);
-	image->CreatePreview(1.0, 800, 600, ui->widgetRenderedImage);
+	image->CreatePreview(1.0, 1200, 900, ui->widgetRenderedImage);
 	image->UpdatePreview();
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
@@ -126,16 +127,35 @@ void cNavigatorWindow::StartRender()
 	*tempParams = *params;
 	*tempFractalParams = *fractalParams;
 
-	tempParams->Set("ambient_occlusion_mode", int(params::AOModeFast));
-	tempParams->Set("image_width", 800);
-	tempParams->Set("image_height", 600);
-	tempParams->Set("ambient_occlusion_fast_tune", 0.5);
-
-	QList<int> listOfLights = cLights::GetListOfLights(tempParams);
-	for (int lightIndex : listOfLights)
+	if (params::enumAOMode(params->Get<int>("ambient_occlusion_mode")) == params::AOModeScreenSpace)
 	{
-		tempParams->Set(cLight::Name("cast_shadows", lightIndex), false);
+		tempParams->Set("ambient_occlusion_mode", int(params::AOModeFast));
+		tempParams->Set("ambient_occlusion_fast_tune", 0.5);
 	}
+
+	double sizeFactor = 1.0 * sqrt(lastRenderedTimeOfSmallPart + 0.0001) * lastSizefactor;
+
+	int intSizeFactor = lastSizefactor;
+	if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
+	{
+		intSizeFactor = int(sizeFactor) + 1;
+	}
+	intSizeFactor = clamp(intSizeFactor, 1, 8);
+
+	lastSizefactor = intSizeFactor;
+
+	int width = clamp(int(1200 / intSizeFactor), 64, 1200);
+	int height = width * 3 / 4;
+
+	tempParams->Set("image_width", width);
+	tempParams->Set("image_height", height);
+	tempParams->Set("detail_level", params->Get<double>("detail_level") * intSizeFactor);
+
+	//	QList<int> listOfLights = cLights::GetListOfLights(tempParams);
+	//	for (int lightIndex : listOfLights)
+	//	{
+	//		tempParams->Set(cLight::Name("cast_shadows", lightIndex), false);
+	//	}
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
@@ -145,6 +165,8 @@ void cNavigatorWindow::StartRender()
 		&RenderedImage::showRenderedTilesList);
 	connect(renderJob, &cRenderJob::signalSmallPartRendered, manipulations,
 		&cManipulations::slotSmallPartRendered);
+	connect(renderJob, &cRenderJob::signalSmallPartRendered, this,
+		&cNavigatorWindow::slotSmallPartRendered);
 
 	cRenderingConfiguration config;
 	config.DisableNetRender();
@@ -285,4 +307,9 @@ void cNavigatorWindow::slotButtonCancel()
 {
 	stopRequest = true;
 	emit close();
+}
+
+void cNavigatorWindow::slotSmallPartRendered(double time)
+{
+	lastRenderedTimeOfSmallPart = time;
 }

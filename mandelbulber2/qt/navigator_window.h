@@ -48,6 +48,7 @@ public slots:
 		int x, int y, int delta, Qt::KeyboardModifiers keyModifiers);
 	void slotButtonUseParameters();
 	void slotButtonCancel();
+	void slotSmallPartRendered(double time);
 
 private:
 	Ui::cNavigatorWindow *ui;
@@ -64,6 +65,9 @@ private:
 	QString autoRefreshLastHash;
 
 	QList<QVariant> mouseClickFunction;
+
+	double lastRenderedTimeOfSmallPart = 1.0f;
+	int lastSizefactor = 2;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

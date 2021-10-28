@@ -100,7 +100,7 @@ public:
 	int GetNumberOfStartedRenders() { return numberOfStartedRenders; }
 
 public slots:
-	void slotSmallPartRendered();
+	void slotSmallPartRendered(double time);
 
 private:
 	std::shared_ptr<cParameterContainer> par;

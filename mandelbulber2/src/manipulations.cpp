@@ -932,7 +932,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 
 		//		if ((mouseDragData.lastRefreshTime.elapsed()
 		//						> par->Get<double>("auto_refresh_period") * 1000 +
-		//mouseDragData.lastStartRenderingTime
+		// mouseDragData.lastStartRenderingTime
 		//					|| smallPartRendered)
 		//				&& GetNumberOfStartedRenders() < 2)
 		if (smallPartRendered && GetNumberOfStartedRenders() < 2)
@@ -1053,7 +1053,8 @@ void cManipulations::MoveLightByWheel(double deltaWheel)
 	renderedImageWidget->update();
 }
 
-void cManipulations::slotSmallPartRendered()
+void cManipulations::slotSmallPartRendered(double time)
 {
+	Q_UNUSED(time);
 	smallPartRendered = true;
 }

@@ -1381,6 +1381,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		int lastMonteCarloLoop = 1;
 
 		int tilesRenderedCounter = 0;
+		QElapsedTimer pureRenderingTime;
+		pureRenderingTime.start();
 
 		// main image data collection loop
 		WriteLog(QString("Starting main rendering loop"), 2);
@@ -1589,7 +1591,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 					lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
 
-					if (!*stopRequest && tilesRenderedCounter > tileSequence.size()/10) emit signalSmallPartRendered();
+					if (!*stopRequest && tilesRenderedCounter > tileSequence.size() / 10)
+						emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
 
 					if (gNetRender->IsServer())
 					{
