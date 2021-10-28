@@ -458,6 +458,7 @@ enum enumFractalFormula
 	// 2.27
 	transfSincos = 1138,
 	transfSphericalFoldV3 = 1139,
+	transfPolyFoldXYV1 = 1140,
 
 	// mandelbulber transfdIFS
 	// 2.20

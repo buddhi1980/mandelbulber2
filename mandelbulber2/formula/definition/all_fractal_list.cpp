@@ -433,6 +433,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfPolyFoldAtan2Iter());
 	fractalList->append(new cFractalTransfPolyFoldSymXY());
 	fractalList->append(new cFractalTransfPolyFoldSymMulti());
+	fractalList->append(new cFractalTransfPolyFoldXYV1());
 	fractalList->append(new cFractalTransfPwr2Polynomial());
 	fractalList->append(new cFractalTransfQuadraticFold4d());
 	fractalList->append(new cFractalTransfQuaternionFold());
