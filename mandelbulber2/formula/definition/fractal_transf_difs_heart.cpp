@@ -53,8 +53,10 @@ void cFractalTransfDIFSHeart::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		}
 		else
 		{
-			zc.y = cos(psi) * len;
-			zc.x = sin(psi) * len;
+			double cz = cos(psi) * len;
+			double sz = sin(psi) * len;
+			zc.x = sz + (cz - sz) * fractal->transformCommon.scaleF1;
+			zc.y = cz + (sz - cz) * fractal->transformCommon.scaleG1;
 		}
 	}
 

@@ -32,7 +32,9 @@ void cFractalTransfPolyFoldXYV1::FormulaCode(
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		z = fabs(z);
+		if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 		z += fractal->transformCommon.offset000;
 		double psi = M_PI / fractal->transformCommon.int8X;
 		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);

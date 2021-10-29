@@ -41,8 +41,10 @@ REAL4 TransfDIFSHeartIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			zc.y = native_cos(psi) * len;
-			zc.x = native_sin(psi) * len;
+			REAL cz = native_cos(psi) * len;
+			REAL sz = native_sin(psi) * len;
+			zc.x = sz + (cz - sz) * fractal->transformCommon.scaleF1;
+			zc.y = cz + (sz - cz) * fractal->transformCommon.scaleG1;
 		}
 	}
 

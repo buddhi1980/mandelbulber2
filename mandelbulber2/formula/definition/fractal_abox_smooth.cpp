@@ -33,7 +33,7 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 {
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
-
+	double t = 0.0;
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsI
@@ -41,70 +41,117 @@ void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	{
 		z += fractal->transformCommon.offset000;
 		double rr = z.Dot(z);
-		z *= fractal->transformCommon.scaleG1 / rr;
-		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
+		t = fractal->transformCommon.scaleG1 / rr;
+		z *= t;
+		aux.DE *= t;
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
 
-	if (aux.i >= fractal->transformCommon.startIterationsH
+	/*if (aux.i >= fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
+		CVector4 oldeZ = z;
+
+
 		double OffsetS = fractal->transformCommon.offset0005;
 		CVector4 sgns = CVector4(sign(z.x), sign(z.y), sign(z.z), 1.0);
 		double sc = fractal->transformCommon.scaleE1;
 		CVector4 offset = CVector4(OffsetS, OffsetS, OffsetS, 0.0);
 		if (fractal->transformCommon.functionEnabledEFalse)
 		{
-			offset.x = max(OffsetS * fabs(z.x) * sc, OffsetS);
-			offset.y = max(OffsetS * fabs(z.y) * sc, OffsetS);
-			offset.z = max(OffsetS * fabs(z.z) * sc, OffsetS);
+			offset.x = min(OffsetS * fabs(1./z.x) * sc, OffsetS);
+			offset.y = min(OffsetS * fabs(1./z.y) * sc, OffsetS);
+			offset.z = min(OffsetS * fabs(1./z.z) * sc, OffsetS);
 		}
 		z = CVector4(sqrt(z.x * z.x + offset.x), sqrt(z.y * z.y + offset.y), sqrt(z.z * z.z + offset.z), z.w);
+
+		aux.DE *= oldeZ.Length()/z.Length();
 		z *= sgns;
-	}
+
+
+
+	}*/
 
 
 	CVector4 oldZ = z;
-	if (aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
+	if (fractal->transformCommon.functionEnabledGFalse
+			&& aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
-		double sm = fractal->mandelbox.sharpness;
-
-// intersting but. deform first
-		if (fabs(z.x) > fractal->transformCommon.offset111.x)
+		double sm = fractal->transformCommon.scaleE1;
+double sgn;
+double zk;
+// intersting but. deform first    1.0 / (1.0 + exp(sharpness * (b - a)));
+		if (fabs(z.x) > 2. * fractal->transformCommon.offset111.x)
 		{
-			double sgn = sign(z.x);
+			sgn = sign(z.x);
 			z.x = fabs(z.x);
-			double zk = SmoothConditionAGreaterB(z.x, fractal->transformCommon.offset111.x, sm);
+			zk = SmoothConditionAGreaterB(z.x, fractal->transformCommon.offset111.x, sm);
 			z.x = z.x * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.x - z.x) * zk;
 			z.x *= sgn;
 		}
-		if (fabs(z.y) > fractal->transformCommon.offset111.y)
+		if (fabs(z.y) > 2. * fractal->transformCommon.offset111.y)
 		{
-			double sgn = sign(z.y);
+			sgn = sign(z.y);
 			z.y = fabs(z.y);
-			double zk = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
+			zk = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
 			z.y = z.y * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.y - z.y) * zk;
 			z.y *= sgn;
 		}
 		//aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
 		if (fractal->transformCommon.functionEnabled)
 		{
-			if (fabs(z.z) > fractal->transformCommon.offset111.z)
+			if (fabs(z.z) > 2. * fractal->transformCommon.offset111.z)
 			{
-				double sgn = sign(z.z);
+				sgn = sign(z.z);
 				z.z = fabs(z.z);
-				double zk = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
+				zk = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
 				z.z = z.z * (1.0 - zk) + ( 2.0 * fractal->transformCommon.offset111.z - z.z) * zk;
 				z.z *= sgn;
 			//aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
 			}
 		}
+
+		z *= fractal->transformCommon.scaleE1;
+		aux.DE *= fractal->transformCommon.scaleE1;
 	}
 
+	//REAL4 oldZ = z;
 
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		double sm = fractal->mandelbox.sharpness;
+
+		double zk1 = SmoothConditionAGreaterB(z.x, fractal->transformCommon.offset111.x, sm);
+		double zk2 = SmoothConditionALessB(z.x, -fractal->transformCommon.offset111.x, sm);
+		double temp = z.x;
+		z.x = z.x * (1.0 - zk1) + (2.0 * fractal->transformCommon.offset111.x - z.x) * zk1;
+if (fractal->transformCommon.functionEnabledBFalse) temp = z.x;
+		z.x = temp * (1.0 - zk2) + (-2.0 * fractal->transformCommon.offset111.x - temp) * zk2;
+		//aux.color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
+
+		double zk3 = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
+		double zk4 = SmoothConditionALessB(z.y, -fractal->transformCommon.offset111.y, sm);
+		temp = z.y;
+		z.y = z.y * (1.0 - zk3) + (2.0 * fractal->transformCommon.offset111.y - z.y) * zk3;
+if (fractal->transformCommon.functionEnabledBFalse) temp = z.y;
+		z.y = temp* (1.0 - zk4) + (-2.0 * fractal->transformCommon.offset111.y - temp) * zk4;
+		//aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			double zk5 = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
+			double zk6 = SmoothConditionALessB(z.z, -fractal->transformCommon.offset111.z, sm);
+			temp = z.z;
+			z.z = z.z * (1.0 - zk5) + (2.0 * fractal->transformCommon.offset111.z - z.z) * zk5;
+if (fractal->transformCommon.functionEnabledBFalse) temp = z.z;
+			z.z = z.z * (1.0 - zk6) + (-2.0 * fractal->transformCommon.offset111.z - z.z) * zk6;
+			//aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
+		}
+	}
 
 
 	if (aux.i >= fractal->transformCommon.startIterationsB
