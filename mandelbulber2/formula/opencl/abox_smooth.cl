@@ -38,23 +38,25 @@ REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
-	/*if (aux->i >= fractal->transformCommon.startIterationsH
-			&& aux->i < fractal->transformCommon.stopIterationsH)
+
+	REAL gg =  1. / (aux->i + 1);
+
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP
+			&& fabs(z.x) < gg
+						&& fabs(z.y) < gg
+			&& fabs(z.z) < gg
+			)
 	{
 
-		REAL OffsetS = fractal->transformCommon.offset0005;
-		REAL4 sgns = (REAL4){sign(z.x), sign(z.y), sign(z.z), 1.0f};
-		REAL sc = fractal->transformCommon.scaleE1;
-		REAL4 offset = (REAL4)(OffsetS, OffsetS, OffsetS, 0.0f);
-		if (fractal->transformCommon.functionEnabledEFalse)
-		{
-			offset.x = max(OffsetS * fabs(1./z.x) * sc, OffsetS);
-			offset.y = max(OffsetS * fabs(1./z.y) * sc, OffsetS);
-			offset.z = max(OffsetS * fabs(1./z.z) * sc, OffsetS);
-		}
-		z = (REAL4)(sqrt(z.x * z.x + offset.x), sqrt(z.y * z.y + offset.y), sqrt(z.z * z.z + offset.z), z.w);
+		REAL OffsetS = fractal->transformCommon.offset02;
+		REAL4 sgns = (REAL4){sign(z.x), sign(z.y), sign(z.z), 0.0f};
+		 z =
+		  (REAL4)(sqrt(z.x * z.x + OffsetS), sqrt(z.y * z.y + OffsetS), sqrt(z.z * z.z + OffsetS), z.w);
 		z *= sgns;
-	}*/
+	}
+
 
 	REAL4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledGFalse
@@ -95,8 +97,8 @@ REAL zk;
 			}
 		}
 
-		z *= fractal->transformCommon.scaleE1;
-		aux->DE *= fractal->transformCommon.scaleE1;
+		//z *= fractal->transformCommon.scaleE1;
+		//aux->DE *= fractal->transformCommon.scaleE1;
 	}
 
 
@@ -112,25 +114,25 @@ REAL zk;
 		REAL zk2 = SmoothConditionALessB(z.x, -fractal->transformCommon.offset111.x, sm);
 		REAL temp = z.x;
 		z.x = z.x * (1.0 - zk1) + (2.0 * fractal->transformCommon.offset111.x - z.x) * zk1;
-if (fractal->transformCommon.functionEnabledBFalse) temp = z.x;
+		if (!fractal->transformCommon.functionEnabledBFalse) temp = z.x;
 		z.x = temp * (1.0 - zk2) + (-2.0 * fractal->transformCommon.offset111.x - temp) * zk2;
 		//aux.color += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
 
-		REAL zk3 = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
-		REAL zk4 = SmoothConditionALessB(z.y, -fractal->transformCommon.offset111.y, sm);
+		zk1 = SmoothConditionAGreaterB(z.y, fractal->transformCommon.offset111.y, sm);
+		zk2 = SmoothConditionALessB(z.y, -fractal->transformCommon.offset111.y, sm);
 		temp = z.y;
-		z.y = z.y * (1.0 - zk3) + (2.0 * fractal->transformCommon.offset111.y - z.y) * zk3;
-if (fractal->transformCommon.functionEnabledBFalse) temp = z.y;
-		z.y = temp* (1.0 - zk4) + (-2.0 * fractal->transformCommon.offset111.y - temp) * zk4;
+		z.y = z.y * (1.0 - zk1) + (2.0 * fractal->transformCommon.offset111.y - z.y) * zk1;
+		if (!fractal->transformCommon.functionEnabledBFalse) temp = z.y;
+		z.y = temp * (1.0 - zk2) + (-2.0 * fractal->transformCommon.offset111.y - temp) * zk2;
 		//aux.color += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
 		if (fractal->transformCommon.functionEnabled)
 		{
-			REAL zk5 = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
-			REAL zk6 = SmoothConditionALessB(z.z, -fractal->transformCommon.offset111.z, sm);
+			zk1 = SmoothConditionAGreaterB(z.z, fractal->transformCommon.offset111.z, sm);
+			zk2 = SmoothConditionALessB(z.z, -fractal->transformCommon.offset111.z, sm);
 			temp = z.z;
-			z.z = z.z * (1.0 - zk5) + (2.0 * fractal->transformCommon.offset111.z - z.z) * zk5;
-if (fractal->transformCommon.functionEnabledBFalse) temp = z.z;
-			z.z = z.z * (1.0 - zk6) + (-2.0 * fractal->transformCommon.offset111.z - z.z) * zk6;
+			z.z = z.z * (1.0 - zk1) + (2.0 * fractal->transformCommon.offset111.z - z.z) * zk1;
+			if (!fractal->transformCommon.functionEnabledBFalse) temp = z.z;
+			z.z = temp * (1.0 - zk2) + (-2.0 * fractal->transformCommon.offset111.z - temp) * zk2;
 			//aux.color += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
 		}
 	}
