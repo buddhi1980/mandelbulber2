@@ -31,7 +31,7 @@ cFractalAboxSmooth::cFractalAboxSmooth() : cAbstractFractal()
 
 void cFractalAboxSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double t = 0.0;
+	double t = 1.0;
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsI

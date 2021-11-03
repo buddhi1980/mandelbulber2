@@ -500,7 +500,7 @@ enum enumFractalFormula
 	transfDIFSSphereGridV3 = 1629,
 	transfDIFSTorusTwist = 1630,
 	transfDIFSHeart = 1631,
-
+	transfDIFSHelix = 1632,
 
 	// hybrid color
 	transfHybridColor = 2000,

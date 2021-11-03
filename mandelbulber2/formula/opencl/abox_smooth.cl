@@ -20,7 +20,7 @@
 
 REAL4 AboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL t = 0.0f;
+	REAL t = 1.0f;
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsI
