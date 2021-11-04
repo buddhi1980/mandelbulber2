@@ -28,6 +28,10 @@ cFractalTransfDIFSHelix::cFractalTransfDIFSHelix() : cAbstractFractal()
 void cFractalTransfDIFSHelix::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 zc = z;
+
+	zc *= fractal->transformCommon.scale3D111;
+
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR1)
@@ -35,35 +39,36 @@ void cFractalTransfDIFSHelix::FormulaCode(
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	//}
 
-	double ang = sqrt(z.x * z.x + z.y * z.y) * fractal->transformCommon.scaleA0
-			+ z.z * fractal->transformCommon.scaleB0
+	double ang = sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+			+ zc.z * fractal->transformCommon.scaleB0
 			+ fractal->transformCommon.angleDegA;
 	double cosA = cos(ang);
 	double sinB = sin(ang);
 	double t= z.x;
-	z.x = z.x * cosA - z.y * sinB;
-	z.y = t * sinB + z.y * cosA;
+	zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
+	zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
 
 
 	}
 
 
 
+	zc += fractal->transformCommon.offsetA000;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
-	z += fractal->transformCommon.offset000;
+	zc += fractal->transformCommon.offset000;
 
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
-	CVector4 zc = z;
+	//CVector4 zc = z;
 
 	double temp;
 	// swap axis
