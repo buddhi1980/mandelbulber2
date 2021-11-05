@@ -28,7 +28,10 @@ cFractalTransfDIFSHelix::cFractalTransfDIFSHelix() : cAbstractFractal()
 void cFractalTransfDIFSHelix::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 zc = z;
+
+	CVector4 zc;
+	if (!fractal->transformCommon.functionEnabledAuxCFalse) zc = z;
+	else zc = aux.const_c;
 
 	zc *= fractal->transformCommon.scale3D111;
 
@@ -36,24 +39,22 @@ void cFractalTransfDIFSHelix::FormulaCode(
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR1)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	//}
-
-	double ang = sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
-			+ zc.z * fractal->transformCommon.scaleB0
-			+ fractal->transformCommon.angleDegA;
-	double cosA = cos(ang);
-	double sinB = sin(ang);
-	double t= z.x;
-	zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
-	zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
-
-
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 	}
 
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
+	{
+		double ang = sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+				+ zc.z * fractal->transformCommon.scaleB0;
+		double cosA = cos(ang);
+		double sinB = sin(ang);
+		double t= zc.x;
+		zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
+		zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
 
-
-	zc += fractal->transformCommon.offsetA000;
+		zc += fractal->transformCommon.offsetA000;
+	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -129,10 +130,14 @@ void cFractalTransfDIFSHelix::FormulaCode(
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD - fractal->transformCommon.offset0005; //  temp
 
-	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
+	cylD /= (aux.DE + 1.0);
+	double addColor = aux.dist;
+	aux.dist = min(aux.dist, cylD);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 				z = zc;
+	if (aux.dist != addColor) addColor = fractal->foldColor.difs1 * aux.i;
+	aux.color += addColor;
 }

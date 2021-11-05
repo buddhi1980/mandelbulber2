@@ -763,6 +763,7 @@ struct sFractalTransformCommon
 	bool benesiT1EnabledFalse;
 	bool benesiT1MEnabledFalse;
 	bool functionEnabled4dFalse;
+	bool functionEnabledAuxCFalse;
 	bool functionEnabled;
 	bool functionEnabledFalse;
 	bool functionEnabledx;

@@ -503,7 +503,6 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.offset333 = CVector4(container->Get<CVector3>("transf_offset_333"), 0.0);
 	transformCommon.power025 = CVector4(container->Get<CVector3>("transf_power_025"), 0.0);
 	transformCommon.power8 = CVector4(container->Get<CVector3>("transf_power_8"), 0.0);
-
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
 	transformCommon.rotationXYZ = container->Get<CVector3>("transf_rotationXYZ");
@@ -552,6 +551,8 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.benesiT1EnabledFalse = container->Get<bool>("transf_benesi_T1_enabled_false");
 	transformCommon.benesiT1MEnabledFalse = container->Get<bool>("transf_benesi_T1M_enabled_false");
 	transformCommon.functionEnabled4dFalse = container->Get<bool>("transf_function_enabled4d_false");
+	transformCommon.functionEnabledAuxCFalse = container->Get<bool>("transf_function_enabled_auxC_false");
+
 	transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
 	transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
 	transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");

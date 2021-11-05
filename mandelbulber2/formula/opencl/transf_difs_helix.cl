@@ -16,8 +16,10 @@
 
 REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 zc;
+	if (!fractal->transformCommon.functionEnabledAuxCFalse) zc = z;
+	else zc = aux->const_c;
 
-		REAL4 zc = z;
 	zc *= fractal->transformCommon.scale3D111;
 
 
@@ -26,22 +28,24 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i < fractal->transformCommon.stopIterationsR1)
 	{
 		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
-	//}
+	}
 
-	REAL ang = native_sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
-			+ zc.z * fractal->transformCommon.scaleB0
-			+ fractal->transformCommon.angleDegA;
-	REAL cosA = native_cos(ang);
-	REAL sinB = native_sin(ang);
-	REAL t = z.x;
-	zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
-	zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
+	if (aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC1)
+	{
+		REAL ang = native_sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
+				+ zc.z * fractal->transformCommon.scaleB0;
+		REAL cosA = native_cos(ang);
+		REAL sinB = native_sin(ang);
+		REAL t = zc.x;
+		zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
+		zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
 
-
+		zc += fractal->transformCommon.offsetA000;
 	}
 
 
-	zc += fractal->transformCommon.offsetA000;
+
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{

@@ -1102,6 +1102,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_benesi_T1M_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabled4d_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabled_auxC_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
