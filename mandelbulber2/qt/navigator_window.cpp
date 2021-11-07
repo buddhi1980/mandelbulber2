@@ -6,6 +6,7 @@
  */
 
 #include "navigator_window.h"
+#include "tab_fractal.h"
 
 #include <QThread>
 
@@ -14,6 +15,7 @@
 #include "src/light.h"
 #include "src/ao_modes.h"
 #include "src/render_window.hpp"
+#include "src/fractal_container.hpp"
 #include "ui_navigator_window.h"
 #include "src/parameters.hpp"
 #include "src/fractal_container.hpp"
@@ -36,10 +38,10 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	manipulations = new cManipulations(this);
 
-	image.reset(new cImage(1200, 900, false));
+	image.reset(new cImage(initImageWidgth, initImageHeight, false));
 	ui->widgetRenderedImage->AssignImage(image);
 	image->SetFastPreview(true);
-	image->CreatePreview(1.0, 1200, 900, ui->widgetRenderedImage);
+	image->CreatePreview(1.0, initImageWidgth, initImageHeight, ui->widgetRenderedImage);
 	image->UpdatePreview();
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
@@ -67,6 +69,12 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->pushButtonCancel, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonCancel);
 }
 
+void cNavigatorWindow::AddLeftWidget(QWidget *widget)
+{
+	leftWidget = widget;
+	ui->scrollAreaParameterSetContents->layout()->addWidget(widget);
+}
+
 cNavigatorWindow::~cNavigatorWindow()
 {
 	delete ui;
@@ -92,6 +100,20 @@ void cNavigatorWindow::SetInitialParameters(
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
 
+	if (leftWidget)
+	{
+		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
+		{
+			int tabIndex = fractalWidget->GetTabIndex();
+			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), qInterface::write);
+			fractalWidget->SynchronizeInterface(params, qInterface::write);
+		}
+		else
+		{
+			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, qInterface::write);
+		}
+	}
+
 	StartRender();
 }
 
@@ -116,6 +138,20 @@ void cNavigatorWindow::StartRender()
 	}
 
 	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::read);
+
+	if (leftWidget)
+	{
+		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
+		{
+			int tabIndex = fractalWidget->GetTabIndex();
+			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), qInterface::read);
+			fractalWidget->SynchronizeInterface(params, qInterface::write);
+		}
+		else
+		{
+			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, qInterface::read);
+		}
+	}
 
 	// check if something was changed in settings
 	cSettings tempSettings(cSettings::formatCondensedText);

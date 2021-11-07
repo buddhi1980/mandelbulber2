@@ -41,6 +41,7 @@
 
 #include "custom_formula_editor.h"
 #include "dock_fractal.h"
+#include "navigator_window.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"
@@ -321,7 +322,11 @@ void cTabFractal::FrameIterationFormulaSetWidgetsVisibility(bool visible) const
 	ui->checkBox_check_for_bailout->setVisible(visible);
 }
 
-void cTabFractal::ConnectSignals() {}
+void cTabFractal::ConnectSignals()
+{
+	connect(
+		ui->pushButton_local_navi, &QPushButton::pressed, this, &cTabFractal::slotPressedButtonNavi);
+}
 
 void cTabFractal::MaterialSetVisible(bool visible) const
 {
@@ -380,4 +385,16 @@ void cTabFractal::slotPressedButtonIFSDefaultsReset() const
 void cTabFractal::slotPressedButtonResetFormula() const
 {
 	gMainInterface->ResetFormula(tabIndex);
+}
+
+void cTabFractal::slotPressedButtonNavi()
+{
+	cNavigatorWindow *navigator = new cNavigatorWindow();
+	cTabFractal *leftWidget = new cTabFractal();
+	leftWidget->Init(true, tabIndex);
+	navigator->AddLeftWidget(leftWidget);
+	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->SetInitialParameters(gPar, gParFractal);
+	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
+	navigator->show();
 }

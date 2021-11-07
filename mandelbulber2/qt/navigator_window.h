@@ -31,6 +31,7 @@ class cNavigatorWindow : public QDialog
 public:
 	explicit cNavigatorWindow(QWidget *parent = nullptr);
 	~cNavigatorWindow();
+	void AddLeftWidget(QWidget *widget);
 
 	void SetInitialParameters(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);
@@ -54,6 +55,7 @@ private:
 	Ui::cNavigatorWindow *ui;
 
 	cManipulations *manipulations;
+	QWidget *leftWidget;
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
@@ -68,6 +70,9 @@ private:
 
 	double lastRenderedTimeOfSmallPart = 1.0f;
 	int lastSizefactor = 2;
+
+	const int initImageWidgth = 800;
+	const int initImageHeight = 600;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

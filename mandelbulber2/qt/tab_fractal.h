@@ -72,10 +72,12 @@ public:
 		std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const;
 	void SynchronizeFractal(
 		std::shared_ptr<cParameterContainer> fractal, qInterface::enumReadWrite mode) const;
+	int GetTabIndex() { return tabIndex; }
 
 private slots:
 	void slotChangedComboFractal(int indexInComboBox);
 	void slotPressedButtonResetFormula() const;
+	void slotPressedButtonNavi();
 
 	// IFS
 	void slotPressedButtonIFSDefaultsDodecahedron() const;
@@ -85,7 +87,7 @@ private slots:
 	void slotPressedButtonIFSDefaultsReset() const;
 
 private:
-	static void ConnectSignals();
+	void ConnectSignals();
 
 	Ui::cTabFractal *ui;
 
