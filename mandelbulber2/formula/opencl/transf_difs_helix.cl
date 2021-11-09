@@ -16,6 +16,7 @@
 
 REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL temp;
 	REAL4 zc;
 	if (!fractal->transformCommon.functionEnabledAuxCFalse) zc = z;
 	else zc = aux->const_c;
@@ -37,15 +38,12 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				+ zc.z * fractal->transformCommon.scaleB0;
 		REAL cosA = native_cos(ang);
 		REAL sinB = native_sin(ang);
-		REAL t = zc.x;
+		temp = zc.x;
 		zc.x = (zc.x * cosA - zc.y * sinB) * fractal->transformCommon.scaleC1;
-		zc.y = (t * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
+		zc.y = (temp * sinB + zc.y * cosA) * fractal->transformCommon.scaleD1;
 
 		zc += fractal->transformCommon.offsetA000;
 	}
-
-
-
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -54,22 +52,6 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
-
-	if (fractal->analyticDE.enabledFalse)
-	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	}
-
-//	REAL4 zc = z;
-
-	REAL temp;
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		REAL temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
 
 	REAL cylR = zc.x * zc.x;
 	REAL absH = fabs(zc.z);
@@ -94,7 +76,7 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		absH *= absH;
 	}
 
-	REAL cylRm = cylR - fractal->transformCommon.radius1;
+	REAL cylRm = cylR - fractal->transformCommon.offset01;
 	if (fractal->transformCommon.functionEnabledFalse)
 		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
 
@@ -125,11 +107,22 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD - fractal->transformCommon.offset0005; //  temp
 
-	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+
+	cylD /= (aux->DE + 1.0f);
+	REAL addColor = aux->dist;
+
+	aux->dist = min(aux->dist, cylD);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
+	if (aux->dist != addColor) addColor = fractal->foldColor.difs0000.x * aux->i;
+	aux->color += addColor;
+
 	return z;
 }
