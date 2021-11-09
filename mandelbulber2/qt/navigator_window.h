@@ -55,7 +55,7 @@ private:
 	Ui::cNavigatorWindow *ui;
 
 	cManipulations *manipulations;
-	QWidget *leftWidget;
+	QWidget *leftWidget = nullptr;
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;

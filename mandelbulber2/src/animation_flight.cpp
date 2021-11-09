@@ -1593,8 +1593,12 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 
 	for (int i = 0; i < frames->GetNumberOfFrames(); i += step)
 	{
-		gKeyframes->AddFrame(frames->GetFrame(i));
+		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(i);
+		frame.numberOfSubFrames = step;
+		gKeyframes->AddFrame(frame);
 	}
+
+	gKeyframes->UpdateFramesIndexesTable();
 
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(1);
 	ui->pushButton_refresh_keyframe_table->animateClick();
