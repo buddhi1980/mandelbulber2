@@ -39,6 +39,9 @@ REAL4 MandelbulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
+	z *= fractal->transformCommon.scaleA1;
+	aux->DE *= fabs(fractal->transformCommon.scaleA1);
+
 	aux->DE = aux->DE * 2.0f * length(z) + 1.0f;
 	REAL rr = z.x * z.x + z.y * z.y;
 	REAL theta = atan2(z.z, native_sqrt(rr));
@@ -58,7 +61,7 @@ REAL4 MandelbulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL rn_sin_theta_pow = rr * native_sin(theta_pow);
 	z.x = rn_sin_theta_pow * native_cos(phi_pow);
 	z.y = rn_sin_theta_pow * native_sin(phi_pow);
-	z.z = rr * native_cos(theta_pow) * fractal->transformCommon.scale1; // ,
+	z.z = rr * native_cos(theta_pow) * fractal->transformCommon.scale1;
 
 	z += fractal->transformCommon.offset000;
 

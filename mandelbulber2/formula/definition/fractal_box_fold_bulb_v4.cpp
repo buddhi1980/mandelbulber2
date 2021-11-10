@@ -37,7 +37,8 @@ void cFractalBoxFoldBulbV4::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z.z = fabs(z.z + fractal->transformCommon.offset222.z)
 				- fabs(z.z - fractal->transformCommon.offset222.z) - z.z;
 	CVector4 zCol = z;
-
+	z *= fractal->transformCommon.scaleA1;
+	aux.DE *= fabs(fractal->transformCommon.scaleA1);
 	aux.r = z.Length();
 	// if (aux.r < 1e-21) aux.r = 1e-21;
 	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;

@@ -26,7 +26,8 @@ REAL4 BoxFoldBulbV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = fabs(z.z + fractal->transformCommon.offset222.z)
 					- fabs(z.z - fractal->transformCommon.offset222.z) - z.z;
 	REAL4 zCol = z;
-
+	z *= fractal->transformCommon.scaleA1;
+	aux->DE *= fabs(fractal->transformCommon.scaleA1);
 	aux->r = length(z);
 	// if (aux->r < 1e-21f) aux->r = 1e-21f;
 	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;

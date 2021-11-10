@@ -13,14 +13,13 @@ v2.27 (    2021)
    transfDIFSTorusTwist
    transfPolyFoldXYV1
 
-
    transfSincos
    transfSphericalFoldV3
 
 - modified fractal formulas
    amazingSurfM3d, fix cylindrical fold, rot now matrix
+   mandelbulbPow2V3, fix bailout
    transfRotationM3d, now matrix
-
 
 v2.26 (August 2021)
 

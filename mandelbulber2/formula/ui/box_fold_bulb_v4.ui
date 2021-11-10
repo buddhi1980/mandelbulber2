@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_v4</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>1005</height>
+    <width>790</width>
+    <height>1570</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,6 +204,45 @@
       <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,1">
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_65">
+       <property name="text">
+        <string notr="true">scale</string>
        </property>
       </widget>
      </item>
@@ -524,13 +563,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_40">
-          <property name="text">
-           <string>rp:</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_x">
           <property name="sizePolicy">
@@ -640,6 +672,13 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_40">
+          <property name="text">
+           <string>rp</string>
           </property>
          </widget>
         </item>

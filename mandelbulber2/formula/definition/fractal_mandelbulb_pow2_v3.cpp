@@ -20,7 +20,7 @@ cFractalMandelbulbPow2V3::cFractalMandelbulbPow2V3() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }
@@ -49,6 +49,9 @@ void cFractalMandelbulbPow2V3::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+
+	z *= fractal->transformCommon.scaleA1;
+	aux.DE *= fabs(fractal->transformCommon.scaleA1);
 
 	aux.DE = aux.DE * 2.0 * z.Length() + 1.0;
 	double rr = z.x * z.x + z.y * z.y;
