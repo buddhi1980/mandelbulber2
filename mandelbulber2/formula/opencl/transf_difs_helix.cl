@@ -59,6 +59,9 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	cylR = native_sqrt(cylR + zc.y * zc.y * fractal->transformCommon.scale1);
 	REAL cylH = absH - fractal->transformCommon.offsetA1;
+	REAL cylRm = cylR - fractal->transformCommon.offset01;
+	if (fractal->transformCommon.functionEnabledFalse)
+		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
 
 	// no absz
 	if (fractal->transformCommon.functionEnabledMFalse
@@ -75,10 +78,6 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		absH *= absH;
 	}
-
-	REAL cylRm = cylR - fractal->transformCommon.offset01;
-	if (fractal->transformCommon.functionEnabledFalse)
-		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
 
 	cylRm += fractal->transformCommon.scale0 * absH;
 	zc.z = absH;
@@ -105,7 +104,7 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		cylD = native_sqrt(cylRm * cylRm + cylH * cylH);
 	}
-	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD - fractal->transformCommon.offset0005; //  temp
+	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
 
 	if (fractal->analyticDE.enabledFalse)
 	{
@@ -121,8 +120,15 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-	if (aux->dist != addColor) addColor = fractal->foldColor.difs0000.x * aux->i;
-	aux->color += addColor;
+
+	// aux.color
+	if (aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (aux->dist == addColor) addColor += fractal->foldColor.difs0000.x;
+		if (aux->dist != addColor) addColor += fractal->foldColor.difs0000.y;
+		aux->color += addColor;
+	}
 
 	return z;
 }
