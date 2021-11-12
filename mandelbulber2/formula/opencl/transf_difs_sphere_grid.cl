@@ -92,16 +92,18 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	REAL torD = min(T1, T2);
-	torD = min(torD, T3);
-
+	torD = min(torD, T3) / (aux->DE + fractal->analyticDE.offset0);
+	REAL colorAdd = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = torD / (aux->DE + fractal->analyticDE.offset0);
+		aux->dist = torD;
 	else
-		aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset0));
+		aux->dist = min(aux->dist, torD);
 
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0f;
+		if (colorAdd != aux->dist) colorAdd += fractal->foldColor.difs0000.w;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
@@ -109,6 +111,10 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		else  aux->color += colorAdd;
 	}
 
-	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
+
 	return z;
 }
