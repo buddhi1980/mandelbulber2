@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>2976</height>
+    <height>2992</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1425,7 +1425,7 @@ offset:</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>0.100000000000000</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>

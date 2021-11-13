@@ -118,13 +118,25 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);
 
-	aux->DE0 = length(d) - fractal->transformCommon.offset0005;
-
+	aux->DE0 = (length(d) - fractal->transformCommon.offset0005) / (aux->DE + fractal->analyticDE.offset0);
+	REAL addColor = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = aux->DE0 / (aux->DE + fractal->analyticDE.offset0);
+		aux->dist = aux->DE0;
 	else
-		aux->dist = min(aux->dist, aux->DE0 / (aux->DE + fractal->analyticDE.offset0));
+		aux->dist = min(aux->dist, aux->DE0);
 
-	if (fractal->transformCommon.functionEnabledXFalse) z = zc;
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
+
+	// aux.color
+	if (aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (aux->dist == addColor) addColor += fractal->foldColor.difs0000.x;
+		if (aux->dist != addColor) addColor += fractal->foldColor.difs0000.y;
+		aux->color += addColor;
+	}
 	return z;
 }
