@@ -13,6 +13,7 @@
 #include <QString>
 #include <QList>
 #include <QVariant>
+#include "src/synchronize_interface.hpp"
 
 namespace Ui
 {
@@ -50,8 +51,16 @@ public slots:
 	void slotButtonUseParameters();
 	void slotButtonCancel();
 	void slotSmallPartRendered(double time);
+	void slotDisablePeriodicRefresh();
+	void slotReEnablePeriodicRefresh();
+
+private slots:
+	void slotPeriodicRefresh();
 
 private:
+	void InitPeriodicRefresh();
+	void SynchronizeInterface(qInterface::enumReadWrite mode);
+
 	Ui::cNavigatorWindow *ui;
 
 	cManipulations *manipulations;
@@ -64,7 +73,10 @@ private:
 	std::shared_ptr<cImage> image;
 
 	bool stopRequest = false;
+
 	QString autoRefreshLastHash;
+	QTimer *autoRefreshTimer;
+	bool autoRefreshEnabled = false;
 
 	QList<QVariant> mouseClickFunction;
 

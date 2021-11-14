@@ -67,6 +67,11 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(
 		ui->pushButtonUse, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonUseParameters);
 	connect(ui->pushButtonCancel, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonCancel);
+
+	connect(manipulations, &cManipulations::signalDisablePeriodicRefresh, this,
+		&cNavigatorWindow::slotDisablePeriodicRefresh);
+	connect(manipulations, &cManipulations::signalReEnablePeriodicRefresh, this,
+		&cNavigatorWindow::slotReEnablePeriodicRefresh);
 }
 
 void cNavigatorWindow::AddLeftWidget(QWidget *widget)
@@ -98,23 +103,30 @@ void cNavigatorWindow::SetInitialParameters(
 	manipulations->AssingImage(image);
 	manipulations->AssignWidgets(ui->widgetRenderedImage, ui->widgetNavigationButtons, nullptr);
 
-	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::write);
+	SynchronizeInterface(qInterface::write);
+
+	InitPeriodicRefresh();
+
+	// StartRender();
+}
+
+void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
+{
+	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, mode);
 
 	if (leftWidget)
 	{
 		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
 		{
 			int tabIndex = fractalWidget->GetTabIndex();
-			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), qInterface::write);
-			fractalWidget->SynchronizeInterface(params, qInterface::write);
+			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), mode);
+			fractalWidget->SynchronizeInterface(params, mode);
 		}
 		else
 		{
-			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, qInterface::write);
+			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, mode);
 		}
 	}
-
-	StartRender();
 }
 
 void cNavigatorWindow::StartRender()
@@ -137,21 +149,7 @@ void cNavigatorWindow::StartRender()
 		image->BlockImage();
 	}
 
-	SynchronizeInterfaceWindow(ui->frameNavigationButtons, params, qInterface::read);
-
-	if (leftWidget)
-	{
-		if (cTabFractal *fractalWidget = qobject_cast<cTabFractal *>(leftWidget))
-		{
-			int tabIndex = fractalWidget->GetTabIndex();
-			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), qInterface::read);
-			fractalWidget->SynchronizeInterface(params, qInterface::write);
-		}
-		else
-		{
-			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, qInterface::read);
-		}
-	}
+	SynchronizeInterface(qInterface::read);
 
 	// check if something was changed in settings
 	cSettings tempSettings(cSettings::formatCondensedText);
@@ -348,4 +346,49 @@ void cNavigatorWindow::slotButtonCancel()
 void cNavigatorWindow::slotSmallPartRendered(double time)
 {
 	lastRenderedTimeOfSmallPart = time;
+}
+
+void cNavigatorWindow::InitPeriodicRefresh()
+{
+	autoRefreshTimer = new QTimer(this);
+	autoRefreshTimer->setSingleShot(true);
+	connect(autoRefreshTimer, &QTimer::timeout, this, &cNavigatorWindow::slotPeriodicRefresh);
+	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
+	autoRefreshEnabled = true;
+}
+
+void cNavigatorWindow::slotPeriodicRefresh()
+{
+	if (!manipulations->isDraggingStarted())
+	{
+		// check if something was changed in settings
+		SynchronizeInterface(qInterface::read);
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(params, fractalParams);
+		QString newHash = tempSettings.GetHashCode();
+
+		if (newHash != autoRefreshLastHash)
+		{
+			autoRefreshLastHash = newHash;
+			StartRender();
+		}
+	}
+
+	int period = lastRenderedTimeOfSmallPart * 1000 / 2;
+	period = clamp(period, 10, 1000);
+	autoRefreshTimer->start(period);
+}
+
+void cNavigatorWindow::slotDisablePeriodicRefresh()
+{
+	autoRefreshEnabled = false;
+}
+
+void cNavigatorWindow::slotReEnablePeriodicRefresh()
+{
+	SynchronizeInterface(qInterface::read);
+	cSettings tempSettings(cSettings::formatCondensedText);
+	tempSettings.CreateText(params, fractalParams);
+	autoRefreshLastHash = tempSettings.GetHashCode();
+	autoRefreshEnabled = true;
 }
