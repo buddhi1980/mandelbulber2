@@ -84,17 +84,17 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 
 	double ang = atan2(zc.y, zc.x);
-
+	double factor = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		double Voff = fractal->transformCommon.scaleA2;
 		temp = zc.z - 2.0 * Voff * ang / M_PI_2x + Voff;
 		zc.z = temp - 2.0 * Voff * floor(temp / (2.0 * Voff)) - Voff;
+		factor = (z.z - fractal->transformCommon.offset0) * fractal->transformCommon.scaleG1;
 	}
-
 	temp = zc.y;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y)
-			- fractal->transformCommon.radius1;
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
+			+ factor;
 
 	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
 	double cosA = cos(ang);
@@ -128,8 +128,22 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z - lenZ, 0.0);
-	aux.DE0 = (d.Length() - fractal->transformCommon.offset0005) / (aux.DE + fractal->analyticDE.offset0);
+	aux.DE0 = (d.Length() / (aux.DE + fractal->analyticDE.offset0)) - fractal->transformCommon.offset0005;
 
+
+
+		// clip
+	double e = fractal->transformCommon.offset2;
+	if (!fractal->transformCommon.functionEnabledEFalse)
+	{
+		aux.const_c.z -= fractal->transformCommon.offsetD0;
+		CVector4 f = fabs(aux.const_c) - CVector4(e, e, e, 0.0);
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			e = max(f.x, f.z); // sq
+		else
+			e = max(f.x, max(f.y, f.z)); // box
+	}
+	aux.DE0 = max(e, aux.DE0);
 	double addColor = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0;

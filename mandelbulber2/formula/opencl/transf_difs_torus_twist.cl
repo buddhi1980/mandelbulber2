@@ -74,15 +74,18 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL ang = atan2(zc.y, zc.x);
 
+	REAL factor = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.scaleA2;
 		temp = zc.z - 2.0f * Voff * ang / M_PI_2x_F + Voff;
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
+		factor = (z.z - fractal->transformCommon.offset0) * fractal->transformCommon.scaleG1;
 	}
 
 	temp = zc.y;
-	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
+			+ factor;
 
 	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
 	REAL cosA = native_cos(ang);
@@ -117,8 +120,25 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);
+	aux->DE0 = length(d) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
-	aux->DE0 = (length(d) - fractal->transformCommon.offset0005) / (aux->DE + fractal->analyticDE.offset0);
+
+	//REAL4 c = aux->const_c;
+
+		// clip
+	REAL e = fractal->transformCommon.offset2;
+	if (!fractal->transformCommon.functionEnabledEFalse)
+	{
+		aux->const_c.z -= fractal->transformCommon.offsetD0;
+		REAL4 f = fabs(aux->const_c) - (REAL4){e, e, e, 0.0f};
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			e = max(f.x, f.z); // sq
+		else
+			e = max(f.x, max(f.y, f.z)); // box
+	}
+
+	aux->DE0 = max(e, aux->DE0);
+
 	REAL addColor = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;
