@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -128,22 +128,19 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z - lenZ, 0.0);
-	aux.DE0 = (d.Length() / (aux.DE + fractal->analyticDE.offset0)) - fractal->transformCommon.offset0005;
+	aux.DE0 = d.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
-
-
-		// clip
+	// clip
 	double e = fractal->transformCommon.offset2;
-	if (!fractal->transformCommon.functionEnabledEFalse)
+	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		aux.const_c.z -= fractal->transformCommon.offsetD0;
 		CVector4 f = fabs(aux.const_c) - CVector4(e, e, e, 0.0);
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			e = max(f.x, f.z); // sq
-		else
-			e = max(f.x, max(f.y, f.z)); // box
+		if (!fractal->transformCommon.functionEnabledIFalse) e = f.z;
+		else e = max(f.x, max(f.y, f.z)); // box
+		aux.DE0 = max(e, aux.DE0);
 	}
-	aux.DE0 = max(e, aux.DE0);
+
 	double addColor = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0;

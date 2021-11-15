@@ -122,22 +122,16 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	d.z = max(d.z - lenZ, 0.0f);
 	aux->DE0 = length(d) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
-
-	//REAL4 c = aux->const_c;
-
-		// clip
+	// clip
 	REAL e = fractal->transformCommon.offset2;
-	if (!fractal->transformCommon.functionEnabledEFalse)
+	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		aux->const_c.z -= fractal->transformCommon.offsetD0;
 		REAL4 f = fabs(aux->const_c) - (REAL4){e, e, e, 0.0f};
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			e = max(f.x, f.z); // sq
-		else
-			e = max(f.x, max(f.y, f.z)); // box
+		if (!fractal->transformCommon.functionEnabledIFalse) e = f.z;
+		else e = max(f.x, max(f.y, f.z)); // box
+		aux->DE0 = max(e, aux->DE0);
 	}
-
-	aux->DE0 = max(e, aux->DE0);
 
 	REAL addColor = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)

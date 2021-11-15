@@ -630,7 +630,7 @@
            <item row="2" column="0">
             <widget class="QLabel" name="label_26">
              <property name="text">
-              <string>g1:</string>
+              <string>width:</string>
              </property>
             </widget>
            </item>
@@ -750,6 +750,13 @@
             <widget class="QLabel" name="label_28">
              <property name="text">
               <string>TEMPC0:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>spiral:</string>
              </property>
             </widget>
            </item>
@@ -897,7 +904,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_function_enabledE_false">
         <property name="title">
-         <string>&amp;clip</string>
+         <string>&amp;clip (generally use with spiral)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -954,7 +961,7 @@
            <item row="1" column="0">
             <widget class="QLabel" name="label_29">
              <property name="text">
-              <string>temp2:</string>
+              <string>xq:</string>
              </property>
             </widget>
            </item>
@@ -989,14 +996,14 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_27">
              <property name="text">
-              <string>TEMPD0:</string>
+              <string>z:</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
             <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
              <property name="text">
-              <string>i</string>
+              <string>box clip</string>
              </property>
             </widget>
            </item>
