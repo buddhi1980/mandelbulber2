@@ -112,7 +112,7 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 
 	cylD /= (aux->DE + 1.0f);
-	REAL addColor = aux->dist;
+	REAL colDist = aux->dist;
 
 	aux->dist = min(aux->dist, cylD);
 
@@ -125,8 +125,9 @@ REAL4 TransfDIFSHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (aux->dist == addColor) addColor += fractal->foldColor.difs0000.x;
-		if (aux->dist != addColor) addColor += fractal->foldColor.difs0000.y;
+		REAL addColor = 0.0f;
+		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
 		aux->color += addColor;
 	}
 

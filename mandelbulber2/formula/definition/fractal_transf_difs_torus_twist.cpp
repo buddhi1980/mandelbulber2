@@ -141,7 +141,7 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 		aux.DE0 = max(e, aux.DE0);
 	}
 
-	double addColor = aux.dist;
+	double colDist = aux.dist;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0;
 	else
@@ -156,8 +156,9 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	if (aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (aux.dist == addColor) addColor += fractal->foldColor.difs0000.x;
-		if (aux.dist != addColor) addColor += fractal->foldColor.difs0000.y;
+		double addColor = 0.0;
+		if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		if (aux.dist != colDist) addColor += fractal->foldColor.difs0000.y;
 		aux.color += addColor;
 	}
 }

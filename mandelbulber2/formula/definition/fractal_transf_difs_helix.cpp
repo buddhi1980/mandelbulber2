@@ -121,7 +121,7 @@ void cFractalTransfDIFSHelix::FormulaCode(
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 	cylD /= (aux.DE + 1.0);
-	double addColor = aux.dist;
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, cylD);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
@@ -133,8 +133,9 @@ void cFractalTransfDIFSHelix::FormulaCode(
 	if (aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (aux.dist == addColor) addColor += fractal->foldColor.difs0000.x;
-		if (aux.dist != addColor) addColor += fractal->foldColor.difs0000.y;
+		double addColor = 0.0;
+		if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		if (aux.dist != colDist) addColor += fractal->foldColor.difs0000.y;
 		aux.color += addColor;
 	}
 }
