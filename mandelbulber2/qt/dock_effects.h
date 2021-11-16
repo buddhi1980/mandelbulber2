@@ -37,6 +37,7 @@
 
 #include <QWidget>
 
+#include "my_widget_with_params.h"
 #include "src/parameters.hpp"
 
 // forward declarations
@@ -47,7 +48,7 @@ namespace Ui
 class cDockEffects;
 }
 
-class cDockEffects : public QWidget
+class cDockEffects : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 public:
@@ -59,6 +60,8 @@ public:
 	void UpdateLabelAverageDOFSamples(const QString &avg);
 	void UpdateLabelAverageDOFNoise(const QString &avg);
 	void RegenerateLights();
+	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams) override;
 
 public slots:
 	void slotSetAuxLightManualPlacementDistance(double dist) const;
@@ -66,6 +69,7 @@ public slots:
 	void slotSynchronizeInterfaceDOF(std::shared_ptr<cParameterContainer> par) const;
 	void slotSynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const;
 	void slotSynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
+	void slotPressedButtonNavi();
 
 private slots:
 	static void slotPressedButtonAutoFog();

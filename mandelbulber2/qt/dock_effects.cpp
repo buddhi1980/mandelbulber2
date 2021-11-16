@@ -37,9 +37,11 @@
 #include "ui_dock_effects.h"
 
 #include "dock_image_adjustments.h"
+#include "navigator_window.h"
 
 #include "src/ao_modes.h"
 #include "src/automated_widgets.hpp"
+#include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/random.hpp"
@@ -48,7 +50,8 @@
 #include "src/synchronize_interface.hpp"
 #include "src/system_data.hpp"
 
-cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
+cDockEffects::cDockEffects(QWidget *parent)
+		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cDockEffects)
 {
 	ui->setupUi(this);
 
@@ -98,6 +101,9 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->widget_light_sources_manager,
 		&cLightSourcesManager::signalChangeLightPlacementDistance, this,
 		&cDockEffects::slotSetAuxLightManualPlacementDistance);
+
+	connect(
+		ui->pushButton_local_navi, &QPushButton::pressed, this, &cDockEffects::slotPressedButtonNavi);
 }
 
 void cDockEffects::slotSynchronizeInterfaceBasicFog(std::shared_ptr<cParameterContainer> par) const
@@ -225,4 +231,24 @@ void cDockEffects::slotPressedButtonCloudsRandomize()
 void cDockEffects::RegenerateLights()
 {
 	ui->widget_light_sources_manager->Regenerate();
+}
+
+void cDockEffects::slotPressedButtonNavi()
+{
+	cNavigatorWindow *navigator = new cNavigatorWindow();
+	cDockEffects *leftWidget = new cDockEffects();
+	navigator->AddLeftWidget(leftWidget);
+	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->SetInitialParameters(params, fractalParams);
+	navigator->SynchronizeInterface(qInterface::write);
+	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
+	navigator->show();
+}
+
+void cDockEffects::AssignParameterContainers(
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
+{
+	cMyWidgetWithParams::AssignParameterContainers(_params, _fractalParams);
+	ui->widget_light_sources_manager->AssignParameterContainers(_params, _fractalParams);
+	ui->widget_light_sources_manager->Init();
 }

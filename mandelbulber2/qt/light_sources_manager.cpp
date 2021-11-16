@@ -49,11 +49,9 @@
 #include "src/synchronize_interface.hpp"
 
 cLightSourcesManager::cLightSourcesManager(QWidget *parent)
-		: QWidget(parent), ui(new Ui::cLightSourcesManager)
+		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cLightSourcesManager)
 {
 	ui->setupUi(this);
-
-	AddLight(true, -1);
 
 	connect(ui->pushButton_newLight, &QPushButton::clicked, this,
 		&cLightSourcesManager::slotButtonAddLight);
@@ -73,7 +71,12 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
 	connect(autoRefreshTimer, &QTimer::timeout, this, &cLightSourcesManager::slotPeriodicRefresh);
-	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
+}
+
+void cLightSourcesManager::Init()
+{
+	AddLight(true, -1);
+	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 cLightSourcesManager::~cLightSourcesManager()
@@ -96,7 +99,7 @@ void cLightSourcesManager::AddLight(bool init, int indexInParameters)
 		{
 			indexInParameters = lightIndexOnTab.last() + 1;
 		}
-		InitLightParams(indexInParameters, gPar);
+		InitLightParams(indexInParameters, params);
 	}
 
 	if (!init && indexInParameters < 0)
@@ -111,21 +114,21 @@ void cLightSourcesManager::AddLight(bool init, int indexInParameters)
 	auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_lightSources->tabBar());
 	tabBar->AddCheckBox(newTabIndex - 1, QString("checkBox_light%1_enabled").arg(indexInParameters));
 
-	if (gPar->Get<bool>("ui_colorize"))
+	if (params->Get<bool>("ui_colorize"))
 		cInterface::ColorizeGroupBoxes(ui->tabWidget_lightSources->widget(newTabIndex - 1),
-			gPar->Get<int>("ui_colorize_random_seed") + newTabIndex);
+			params->Get<int>("ui_colorize_random_seed") + newTabIndex);
 
 	if (init)
 	{
-		gPar->Set(cLight::Name("is_defined", indexInParameters), true);
-		gPar->Set(cLight::Name("enabled", indexInParameters), true);
+		params->Set(cLight::Name("is_defined", indexInParameters), true);
+		params->Set(cLight::Name("enabled", indexInParameters), true);
 	}
 
-	newEditor->AssignLight(gPar, indexInParameters);
+	newEditor->AssignLight(params, indexInParameters);
 
 	lightIndexOnTab.append(indexInParameters);
 
-	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
+	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::write);
 }
 
 void cLightSourcesManager::Regenerate()
@@ -144,7 +147,7 @@ void cLightSourcesManager::Regenerate()
 	lightIndexOnTab.clear();
 
 	// finding lights in whole parameter set
-	QList<int> listOfFoundLights = cLights::GetListOfLights(gPar);
+	QList<int> listOfFoundLights = cLights::GetListOfLights(params);
 
 	// add lights in sorted order
 	std::sort(listOfFoundLights.begin(), listOfFoundLights.end());
@@ -178,15 +181,15 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 			QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
 		QString fullParameterNameDest = QString("light%1_%2").arg(newLightIndex).arg(parameterName);
 
-		cOneParameter sourcePar = gPar->GetAsOneParameter(fullParameterNameSource);
+		cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
 		cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
 
-		cOneParameter destPar = gPar->GetAsOneParameter(fullParameterNameDest);
+		cOneParameter destPar = params->GetAsOneParameter(fullParameterNameDest);
 		destPar.SetMultiVal(sourceVar, valueActual);
-		gPar->SetFromOneParameter(fullParameterNameDest, destPar);
+		params->SetFromOneParameter(fullParameterNameDest, destPar);
 	}
 
-	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::write);
+	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::write);
 
 	gMainInterface->ComboMouseClickUpdate();
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
@@ -203,7 +206,7 @@ void cLightSourcesManager::slotButtonDeleteLight()
 		{
 			QString fullParameterName = QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
 
-			gPar->DeleteParameter(fullParameterName);
+			params->DeleteParameter(fullParameterName);
 		}
 
 		Regenerate();
@@ -214,9 +217,9 @@ void cLightSourcesManager::slotPeriodicRefresh()
 {
 	if (ui->checkBox_show_wireframe_lights->isChecked() && !visibleRegion().isEmpty())
 	{
-		SynchronizeInterfaceWindow(ui->tabWidget_lightSources, gPar, qInterface::read);
+		SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::read);
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(gPar, nullptr);
+		tempSettings.CreateText(params, nullptr);
 		QString newHash = tempSettings.GetHashCode();
 
 		if (newHash != autoRefreshLastHash)
@@ -226,7 +229,7 @@ void cLightSourcesManager::slotPeriodicRefresh()
 		}
 	}
 
-	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
+	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 void cLightSourcesManager::slorChangedWireframeVisibikity(int enabled)
@@ -246,9 +249,9 @@ void cLightSourcesManager::slotButtonPlaceLight()
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
-	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	const double distance = gMainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"));
 	double optimalDistance = distance * 0.1;
-	gPar->Set("aux_light_manual_placement_dist", optimalDistance);
+	params->Set("aux_light_manual_placement_dist", optimalDistance);
 	emit signalChangeLightPlacementDistance(optimalDistance);
 	// ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }

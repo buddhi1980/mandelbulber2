@@ -281,6 +281,7 @@ void cDockNavigation::slotOpenNavigator()
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	navigator->setAttribute(Qt::WA_DeleteOnClose);
 	navigator->SetInitialParameters(gPar, gParFractal);
+	navigator->SynchronizeInterface(qInterface::write);
 	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
 	navigator->show();
 }

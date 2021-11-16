@@ -224,6 +224,7 @@ void cDockFractal::InitializeFractalUi() const
 				->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i + 1))
 				->setEnabled(false);
 		}
+		fractalTabs[i]->AssignParameterContainers(gPar, gParFractal);
 		fractalTabs[i]->Init(i == 0, i);
 	}
 

@@ -43,17 +43,19 @@
 #include <QWidget>
 
 #include "src/synchronize_interface.hpp"
+#include "my_widget_with_params.h"
 
 // forward declarations
 class cAutomatedWidgets;
 class cParameterContainer;
+class cFractalContainer;
 
 namespace Ui
 {
 class cTabFractal;
 }
 
-class cTabFractal : public QWidget
+class cTabFractal : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 public:

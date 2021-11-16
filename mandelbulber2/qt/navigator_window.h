@@ -53,13 +53,13 @@ public slots:
 	void slotSmallPartRendered(double time);
 	void slotDisablePeriodicRefresh();
 	void slotReEnablePeriodicRefresh();
+	void SynchronizeInterface(qInterface::enumReadWrite mode);
 
 private slots:
 	void slotPeriodicRefresh();
 
 private:
 	void InitPeriodicRefresh();
-	void SynchronizeInterface(qInterface::enumReadWrite mode);
 
 	Ui::cNavigatorWindow *ui;
 
@@ -75,7 +75,7 @@ private:
 	bool stopRequest = false;
 
 	QString autoRefreshLastHash;
-	QTimer *autoRefreshTimer;
+	QTimer *autoRefreshTimer = nullptr;
 	bool autoRefreshEnabled = false;
 
 	QList<QVariant> mouseClickFunction;

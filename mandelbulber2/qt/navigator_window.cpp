@@ -99,11 +99,16 @@ void cNavigatorWindow::SetInitialParameters(
 
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
+
+	cMyWidgetWithParams *widgetWithParams = dynamic_cast<cMyWidgetWithParams *>(leftWidget);
+	if (widgetWithParams)
+	{
+		widgetWithParams->AssignParameterContainers(params, fractalParams);
+	}
+
 	manipulations->AssignParameterContainers(params, fractalParams);
 	manipulations->AssingImage(image);
 	manipulations->AssignWidgets(ui->widgetRenderedImage, ui->widgetNavigationButtons, nullptr);
-
-	SynchronizeInterface(qInterface::write);
 
 	InitPeriodicRefresh();
 

@@ -38,6 +38,7 @@
 #include <memory>
 
 #include <QWidget>
+#include "my_widget_with_params.h"
 
 class cParameterContainer;
 
@@ -46,13 +47,14 @@ namespace Ui
 class cLightSourcesManager;
 }
 
-class cLightSourcesManager : public QWidget
+class cLightSourcesManager : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 
 public:
 	explicit cLightSourcesManager(QWidget *parent = nullptr);
 	~cLightSourcesManager() override;
+	void Init();
 	void Regenerate();
 
 private:

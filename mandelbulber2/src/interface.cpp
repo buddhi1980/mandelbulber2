@@ -219,6 +219,7 @@ void cInterface::ShowUi()
 		renderedImage, mainWindow->GetWidgetDockNavigation(), mainWindow->GetWidgetDockEffects());
 
 	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
+	mainWindow->ui->widgetEffects->AssignParameterContainers(gPar, gParFractal);
 
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
