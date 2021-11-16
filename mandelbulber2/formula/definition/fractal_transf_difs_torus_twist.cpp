@@ -87,10 +87,10 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	double factor = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		double Voff = fractal->transformCommon.scaleA2;
+		double Voff = fractal->transformCommon.offset02;
 		temp = zc.z - 2.0 * Voff * ang / M_PI_2x + Voff;
 		zc.z = temp - 2.0 * Voff * floor(temp / (2.0 * Voff)) - Voff;
-		factor = (z.z - fractal->transformCommon.offset0) * fractal->transformCommon.scaleG1;
+		factor = z.z * fractal->transformCommon.scaleC0;
 	}
 	temp = zc.y;
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1

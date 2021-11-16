@@ -77,10 +77,10 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL factor = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		REAL Voff = fractal->transformCommon.scaleA2;
+		REAL Voff = fractal->transformCommon.offset02;
 		temp = zc.z - 2.0f * Voff * ang / M_PI_2x_F + Voff;
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
-		factor = (z.z - fractal->transformCommon.offset0) * fractal->transformCommon.scaleG1;
+		factor = z.z * fractal->transformCommon.scaleC0;
 	}
 
 	temp = zc.y;
