@@ -72,29 +72,20 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 	}
-
-	CVector4 zc = z;
 	double temp;
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-
+	CVector4 zc = z;
 	double ang = atan2(zc.y, zc.x);
-	double factor = 0.0;
+	double spiral = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		double Voff = fractal->transformCommon.offset02;
 		temp = zc.z - 2.0 * Voff * ang / M_PI_2x + Voff;
 		zc.z = temp - 2.0 * Voff * floor(temp / (2.0 * Voff)) - Voff;
-		factor = z.z * fractal->transformCommon.scaleC0;
+		spiral = z.z * fractal->transformCommon.scaleC0;
 	}
 	temp = zc.y;
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
-			+ factor;
+			+ spiral;
 
 	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
 	double cosA = cos(ang);
@@ -116,29 +107,15 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	if (fractal->transformCommon.functionEnabledKFalse) // z axis
 		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-	if (!fractal->transformCommon.functionEnabledBFalse)
-	{
-		d.x = 0.0;
-	}
-	else
-	{
-		temp = fractal->transformCommon.int2 * 2.0 * ang + fractal->transformCommon.offsetR0;
-		d.x = temp - floor(temp) - fractal->transformCommon.offsetA1;
-		d.x = max(d.x, 0.0);
-	}
+	d.x = 0.0;
 	d.y = max(d.y - lenY, 0.0);
 	d.z = max(d.z - lenZ, 0.0);
 	aux.DE0 = d.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
 	// clip
-	double e = fractal->transformCommon.offset2;
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
-		aux.const_c.z -= fractal->transformCommon.offsetD0;
-		CVector4 f = fabs(aux.const_c) - CVector4(e, e, e, 0.0);
-		if (!fractal->transformCommon.functionEnabledIFalse) e = f.z;
-		else e = max(f.x, max(f.y, f.z)); // box
-		aux.DE0 = max(e, aux.DE0);
+		aux.DE0 = max(fractal->transformCommon.offsetE0 - aux.const_c.z, aux.DE0);
 	}
 
 	double colDist = aux.dist;

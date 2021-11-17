@@ -64,28 +64,19 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL4 zc = z;
 	REAL temp;
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-	}
-
 	REAL ang = atan2(zc.y, zc.x);
-
-	REAL factor = 0.0;
+	REAL spiral = 0.0;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.offset02;
 		temp = zc.z - 2.0f * Voff * ang / M_PI_2x_F + Voff;
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
-		factor = z.z * fractal->transformCommon.scaleC0;
+		spiral = z.z * fractal->transformCommon.scaleC0;
 	}
 
 	temp = zc.y;
 	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
-			+ factor;
+			+ spiral;
 
 	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
 	REAL cosA = native_cos(ang);
@@ -106,31 +97,16 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledKFalse) // z axis
 		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-	if (!fractal->transformCommon.functionEnabledBFalse)
-	{
-		d.x = 0.0f;
-	}
-	else
-	{
-		temp = fractal->transformCommon.int2 * 2.0f * ang
-			+ fractal->transformCommon.offsetR0;
-		d.x = temp - floor(temp) - fractal->transformCommon.offsetA1;
-		d.x = max(d.x, 0.0f);
-	}
-
+	d.x = 0.0f;
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);
-	aux->DE0 = length(d) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
+	aux->DE0 = length(d) / (aux->DE + fractal->analyticDE.offset0)
+			- fractal->transformCommon.offset0005;
 
 	// clip
-	REAL e = fractal->transformCommon.offset2;
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
-		aux->const_c.z -= fractal->transformCommon.offsetD0;
-		REAL4 f = fabs(aux->const_c) - (REAL4){e, e, e, 0.0f};
-		if (!fractal->transformCommon.functionEnabledIFalse) e = f.z;
-		else e = max(f.x, max(f.y, f.z)); // box
-		aux->DE0 = max(e, aux->DE0);
+		aux->DE0 = max(fractal->transformCommon.offsetE0 - aux->const_c.z, aux->DE0);
 	}
 
 	REAL colDist = aux->dist;
