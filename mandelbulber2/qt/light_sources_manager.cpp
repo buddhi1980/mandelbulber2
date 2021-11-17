@@ -75,7 +75,15 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 
 void cLightSourcesManager::Init()
 {
-	AddLight(true, -1);
+	QList<int> listOfFoundLights = cLights::GetListOfLights(params);
+	if(listOfFoundLights.isEmpty())
+	{
+		AddLight(true, -1);
+	}
+	else
+	{
+		Regenerate();
+	}
 	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
 }
 
