@@ -22,8 +22,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	signs.z = sign(aux->const_c.z);
 	signs.w = 0.0f;
 
-
-
 	if (fractal->transformCommon.functionEnabledBx
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -70,10 +68,10 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->color += rk21 * fractal->mandelbox.color.factorSp2;
 	}
 
-	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
-	z = z * fractal->mandelbox.scale;
+	/*if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot,
+	z); z = z * fractal->mandelbox.scale;
 
-	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;*/
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

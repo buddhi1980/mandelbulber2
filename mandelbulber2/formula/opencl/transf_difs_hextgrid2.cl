@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * transfDIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and  darkbeams optimized verion @reference
+ * and  darkbeams optimized version @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  * "Beautiful iso-surface made of a hexagonal grid of tubes.
  * Taken from K3DSurf forum, posted by user abdelhamid belaid."

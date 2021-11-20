@@ -110,7 +110,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbVaryPowerV1());
 	fractalList->append(new cFractalMandelcup());
 	fractalList->append(new cFractalMandelnest());
-    fractalList->append(new cFractalMandelnestV2());
+	fractalList->append(new cFractalMandelnestV2());
 	fractalList->append(new cFractalMandeltorus());
 	fractalList->append(new cFractalMandeltorusV2());
 
@@ -240,14 +240,12 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalJosKleinian());
 	fractalList->append(new cFractalJosKleinianV2());
 
-
 	// ----- Pseudo Kleinian ----
 	fractalList->append(new cFractalPseudoKleinian());
 	fractalList->append(new cFractalPseudoKleinianMod1());
 	fractalList->append(new cFractalPseudoKleinianMod2());
 	fractalList->append(new cFractalPseudoKleinianMod4());
 	fractalList->append(new cFractalPseudoKleinianMod5());
-
 
 	// ----- custom DE - dIFS formulas------
 	fractalList->append(new cFractalDIFSAmazingIfs());
@@ -434,7 +432,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfPolyFoldAtan2Iter());
 	fractalList->append(new cFractalTransfPolyFoldSymXY());
 	fractalList->append(new cFractalTransfPolyFoldSymMulti());
-	fractalList->append(new cFractalTransfPolyFoldXYV1());
+	fractalList->append(new cFractalTransfPolyXYFoldV1());
 	fractalList->append(new cFractalTransfPwr2Polynomial());
 	fractalList->append(new cFractalTransfQuadraticFold4d());
 	fractalList->append(new cFractalTransfQuaternionFold());

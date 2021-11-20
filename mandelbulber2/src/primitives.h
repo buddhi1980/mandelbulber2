@@ -174,7 +174,7 @@ public:
 	~cPrimitives();
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
 		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
-	const QList<sPrimitiveBasic *> *GetListOfPrimitives() const { return &allPrimitives; }
+	const QList<sPrimitiveBasic *> *GetAllOfPrimitives() const { return &allPrimitives; }
 
 	CVector3 allPrimitivesPosition;
 	CVector3 allPrimitivesRotation;

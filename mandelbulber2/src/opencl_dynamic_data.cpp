@@ -565,7 +565,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	 * 	sPrimitiveCl primitiveN
 	 */
 
-	const QList<sPrimitiveBasic *> *primitives = primitivesContainer->GetListOfPrimitives();
+	const QList<sPrimitiveBasic *> *primitives = primitivesContainer->GetAllOfPrimitives();
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[primitivesItemIndex].itemOffset = totalDataOffset;

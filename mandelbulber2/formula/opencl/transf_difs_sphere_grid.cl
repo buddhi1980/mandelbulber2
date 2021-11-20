@@ -27,8 +27,7 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			ang = native_sqrt(zc.x * zc.x + zc.y * zc.y) * fractal->transformCommon.scaleA0
-					+ zc.z * fractal->transformCommon.scaleB0
-					+ fractal->transformCommon.angleDegA;
+						+ zc.z * fractal->transformCommon.scaleB0 + fractal->transformCommon.angleDegA;
 			cosA = native_cos(ang);
 			sinB = native_sin(ang);
 			temp = zc.x;
@@ -37,7 +36,6 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		}
 	}
 
-	// polyfold
 	zc.x = fabs(zc.x);
 	REAL psi = M_PI_F / fractal->transformCommon.int8Z;
 	psi = fabs(fmod(atan2(zc.x, zc.y) + psi, 2.0f * psi) - psi);
@@ -98,10 +96,9 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;
 	else
-		aux->dist = min(aux->dist, aux->DE0;
+		aux->dist = min(aux->dist, aux->DE0);
 
-	if (fractal->foldColor.auxColorEnabled
-			&& aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
@@ -109,14 +106,16 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		if (!fractal->foldColor.auxColorEnabledFalse) aux->color = colorAdd;
-		else  aux->color += colorAdd;
+
+		if (!fractal->foldColor.auxColorEnabledFalse)
+			aux->color = colorAdd;
+		else
+			aux->color += colorAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
 	return z;
 }

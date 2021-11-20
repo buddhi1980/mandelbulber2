@@ -929,7 +929,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 	}
 
 	definesCollector += dynamicData->BuildPrimitivesData(&paramRender->primitives);
-	if (paramRender->primitives.GetListOfPrimitives()->size() > 0)
+	if (paramRender->primitives.GetAllOfPrimitives()->size() > 0)
 		definesCollector += " -DUSE_PRIMITIVES";
 
 	if (renderData)

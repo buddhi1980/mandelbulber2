@@ -278,9 +278,6 @@ enum enumFractalFormula
 	mengerV4 = 242,
 	menger3M3d = 243,
 
-
-
-
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
@@ -458,7 +455,7 @@ enum enumFractalFormula
 	// 2.27
 	transfSincos = 1138,
 	transfSphericalFoldV3 = 1139,
-	transfPolyFoldXYV1 = 1140,
+	transfPolyXYFoldV1 = 1140,
 
 	// mandelbulber transfdIFS
 	// 2.20

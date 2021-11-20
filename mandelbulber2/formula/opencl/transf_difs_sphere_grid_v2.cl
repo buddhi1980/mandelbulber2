@@ -77,8 +77,7 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	else
 		aux->dist = aux->DE0;
 
-	if (fractal->foldColor.auxColorEnabled
-			&& aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
@@ -86,8 +85,11 @@ REAL4 TransfDIFSSphereGridV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		if (!fractal->foldColor.auxColorEnabledFalse) aux->color = colorAdd;
-		else  aux->color += colorAdd;
+
+		if (!fractal->foldColor.auxColorEnabledFalse)
+			aux->color = colorAdd;
+		else
+			aux->color += colorAdd;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

@@ -6,18 +6,18 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * poly fold atan2
+ * poly zy fold
  * @reference
  * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfPolyFoldXYV1::cFractalTransfPolyFoldXYV1() : cAbstractFractal()
+cFractalTransfPolyXYFoldV1::cFractalTransfPolyXYFoldV1() : cAbstractFractal()
 {
-	nameInComboBox = "T>Poly Fold XY V1";
-	internalName = "transf_poly_fold_xy_v1";
-	internalID = fractal::transfPolyFoldXYV1;
+	nameInComboBox = "T>Poly XY Fold V1";
+	internalName = "transf_poly_xy_fold_v1";
+	internalID = fractal::transfPolyXYFoldV1;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalTransfPolyFoldXYV1::cFractalTransfPolyFoldXYV1() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfPolyFoldXYV1::FormulaCode(
+void cFractalTransfPolyXYFoldV1::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (aux.i >= fractal->transformCommon.startIterationsD

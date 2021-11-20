@@ -30,9 +30,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = cth * native_sin(ph) * rp;
 	z.z = native_sin(th) * rp;
 
-
-
-
 	/*aux->DE = aux->DE * aux->r * 2.0f;
 
 	// Preparation operations
@@ -53,17 +50,15 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	}
 	else
 	{
-		if (!fractal->transformCommon.functionEnabledCFalse)
-			c = aux->const_c;
-		else
-			c = z;
+		if (!fractal->transformCommon.functionEnabledCFalse) c = aux->const_c;
+		else c = z;
 
 		c *= fractal->transformCommon.constantMultiplier100;
 	}
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
-	REAL sq_r = fractal->transformCommon.scale / (aux->r * aux->r + offset);
+	REAL sq_r = fractal->transformCommon.scale/(aux->r * aux->r + offset);
 	REAL x1 = z.x * sq_r + fractal->transformCommon.vec111.x;
 	REAL y1 = -z.y * sq_r + fractal->transformCommon.vec111.y;
 	REAL z1 = -z.z * sq_r + fractal->transformCommon.vec111.z;
@@ -82,7 +77,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL h1 = 1.0f - z2 / r_xy;
 
 	REAL tmpx = h1 * (x2 - y2) * sq_r;
-	REAL tmpy = -2.0f * h1 * x1 * y1 * sq_r;
+	REAL tmpy = -2.0f * h1 * x1*y1 * sq_r;
 	REAL tmpz = 2.0f * z1 * native_sqrt(r_xy) * sq_r;
 
 	REAL r_2xy = native_sqrt(tmpx * tmpx + tmpy * tmpy);
@@ -112,6 +107,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL dd = length(z) / aux->r;
 	dd = dd + (aux->r * 2.0f - dd) * fractal->transformCommon.scaleA1;
 	aux->DE *= dd;*/
+
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
@@ -121,16 +117,15 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	{
 		aux->DE0 = length(z);
 
-		aux->DE0 = 0.5 * log(aux->DE0) * aux->DE0 / (aux->DE);
+		aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		if (!fractal->transformCommon.functionEnabledYFalse)
 			aux->dist = aux->DE0;
 		else
 			aux->dist = min(aux->dist, aux->DE0);
 	}
 
-
-
-
+	// if (fractal->transformCommon.functionEnabledXFalse)
+	//	z = zc;
 
 	return z;
 }

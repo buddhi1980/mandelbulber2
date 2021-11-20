@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -61,11 +61,10 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
 	}
-
-	REAL4 zc = z;
 	REAL temp;
+	REAL4 zc = z;
 	REAL ang = atan2(zc.y, zc.x);
-	REAL spiral = 0.0;
+	REAL spiral = 0.0f;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.offset02;
@@ -73,12 +72,10 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
 		spiral = z.z * fractal->transformCommon.scaleC0;
 	}
-
 	temp = zc.y;
-	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
-			+ spiral;
+	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1 + spiral;
 
-	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
+	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25f;
 	REAL cosA = native_cos(ang);
 	REAL sinB = native_sin(ang);
 	temp = zc.z;
@@ -88,6 +85,7 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 d = fabs(zc);
 	REAL lenY = fractal->transformCommon.offset01;
 	REAL lenZ = fractal->transformCommon.offsetp1;
+
 	if (fractal->transformCommon.functionEnabledMFalse) // y face
 		lenY += d.z * fractal->transformCommon.scale0;
 	if (fractal->transformCommon.functionEnabledNFalse) // z face
@@ -100,8 +98,8 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	d.x = 0.0f;
 	d.y = max(d.y - lenY, 0.0f);
 	d.z = max(d.z - lenZ, 0.0f);
-	aux->DE0 = length(d) / (aux->DE + fractal->analyticDE.offset0)
-			- fractal->transformCommon.offset0005;
+	aux->DE0 =
+		length(d) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
 	// clip
 	if (fractal->transformCommon.functionEnabledEFalse)
@@ -120,9 +118,8 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	// aux.color
-	if (aux->i >= fractal->foldColor.startIterationsA
-			&& aux->i < fractal->foldColor.stopIterationsA)
+	// aux->color
+	if (aux->i >= fractal->foldColor.startIterationsA && aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL addColor = 0.0f;
 		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
