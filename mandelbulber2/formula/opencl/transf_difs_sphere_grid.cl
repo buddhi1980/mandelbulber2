@@ -92,12 +92,13 @@ REAL4 TransfDIFSSphereGridIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	REAL torD = min(T1, T2);
-	torD = min(torD, T3) / (aux->DE + fractal->analyticDE.offset0);
+	torD = min(torD, T3);
+	aux->DE0 = torD / (aux->DE + fractal->analyticDE.offset0);
 	REAL colDist = aux->dist;
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = torD;
+		aux->dist = aux->DE0;
 	else
-		aux->dist = min(aux->dist, torD);
+		aux->dist = min(aux->dist, aux->DE0;
 
 	if (fractal->foldColor.auxColorEnabled
 			&& aux->i >= fractal->foldColor.startIterationsA
