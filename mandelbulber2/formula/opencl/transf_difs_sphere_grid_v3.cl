@@ -16,7 +16,6 @@
 REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// tranform z
-	// z = fabs(z);
 	if (fractal->transformCommon.functionEnabledCx
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -57,13 +56,7 @@ REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 
-	REAL temp;
-	temp = z.y;
-	z.y = z.z;
-	z.z = temp;
-	temp = z.x;
-	z.x = z.y;
-	z.y = temp;
+	z = (REAL4){z.z, z.x, z.y, z.w};
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
@@ -119,28 +112,32 @@ REAL4 TransfDIFSSphereGridV3Iteration(REAL4 z, __constant sFractalCl *fractal, s
 
 	REAL torD = min(T1, T2);
 	torD = min(torD, T3);
-
-	REAL colorDist = aux->dist; // for color
+	aux->DE0 = torD / (aux->DE + fractal->analyticDE.offset1);
+	REAL colDist = aux->dist; // for color
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = min(aux->dist, torD / (aux->DE + fractal->analyticDE.offset1));
+		aux->dist = min(aux->dist, aux->DE0);
 	else
-		aux->dist = torD / (aux->DE + fractal->analyticDE.offset1);
+		aux->dist = aux->DE0;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
+		if (colDist != aux->dist) colorAdd += fractal->foldColor.difs0000.w;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		if (colorDist != aux->dist) colorAdd += fractal->foldColor.difs0000.w;
 
-		if (!fractal->transformCommon.functionEnabledCFalse)
+		if (!fractal->foldColor.auxColorEnabledFalse)
 			aux->color = colorAdd;
 		else
 			aux->color += colorAdd;
 	}
 
-	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
 	return z;
 }

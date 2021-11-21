@@ -44,9 +44,6 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	else
 		rr = dot(z, z) - z.z * z.z * fractal->transformCommon.scaleB1;
 
-	// if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
-	//	rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
-
 	REAL m = aux->actualScale;
 	REAL MinR = fractal->mandelbox.mR2;
 	if (rr < MinR)
@@ -73,10 +70,10 @@ REAL4 AmazingSurfM3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			zCol = fabs(zCol - oldZ);
 			if (zCol.x > 0.0f)
 				colorAdd += fractal->foldColor.difs0000.x
-										* (zCol.x / fractal->transformCommon.additionConstant111.x - 1.f);
+										* (zCol.x / fractal->transformCommon.additionConstant111.x - 1.0f);
 			if (zCol.y > 0.0f)
 				colorAdd += fractal->foldColor.difs0000.y
-										* (zCol.y / fractal->transformCommon.additionConstant111.y - 1.f);
+										* (zCol.y / fractal->transformCommon.additionConstant111.y - 1.0f);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 			colorAdd += fractal->foldColor.difs0000.w * m;
 		}

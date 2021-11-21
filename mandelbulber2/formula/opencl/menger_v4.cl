@@ -88,7 +88,7 @@ REAL4 MengerV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			t = z.x - z.y;
 			t = fractal->transformCommon.additionConstant0555.x
-					* (t - native_sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+					* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.x);
 			z.x = z.x - t;
 			z.y = z.y + t;
 		}

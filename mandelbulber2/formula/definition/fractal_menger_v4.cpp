@@ -100,7 +100,7 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			t = z.x - z.y;
 			t = fractal->transformCommon.additionConstant0555.x
-					* (t - sqrt(t * t) * fractal->transformCommon.constantMultiplier111.x);
+					* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.x);
 			z.x = z.x - t;
 			z.y = z.y + t;
 		}

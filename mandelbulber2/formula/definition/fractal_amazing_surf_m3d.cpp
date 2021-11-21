@@ -49,15 +49,10 @@ void cFractalAmazingSurfM3d::FormulaCode(CVector4 &z, const sFractal *fractal, s
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	CVector4 zCol = z;
 	// no z fold
-z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offset000;
 	double rr;
 	if (!fractal->transformCommon.functionEnabledFalse) rr = z.Dot(z);
 	else rr = z.Dot(z) - z.z * z.z * fractal->transformCommon.scaleB1;
-
-	//if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
-	//	rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
-
-
 
 	double m = aux.actualScale;
 	double MinR = fractal->mandelbox.mR2;
@@ -82,9 +77,9 @@ z += fractal->transformCommon.offset000;
 		{
 			zCol = fabs(zCol - oldZ);
 			if (zCol.x > 0.0)
-				colorAdd += fractal->foldColor.difs0000.x * (zCol.x / fractal->transformCommon.additionConstant111.x - 1.);
+				colorAdd += fractal->foldColor.difs0000.x * (zCol.x / fractal->transformCommon.additionConstant111.x - 1.0);
 			if (zCol.y > 0.0)
-				colorAdd += fractal->foldColor.difs0000.y * (zCol.y / fractal->transformCommon.additionConstant111.y - 1.);
+				colorAdd += fractal->foldColor.difs0000.y * (zCol.y / fractal->transformCommon.additionConstant111.y - 1.0);
 			colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 			colorAdd += fractal->foldColor.difs0000.w * m;
 		}

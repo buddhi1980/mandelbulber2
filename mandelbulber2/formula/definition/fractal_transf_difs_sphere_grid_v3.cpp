@@ -27,7 +27,6 @@ cFractalTransfDIFSSphereGridV3::cFractalTransfDIFSSphereGridV3() : cAbstractFrac
 void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// tranform z
-	//z = fabs(z);
 	if (fractal->transformCommon.functionEnabledCx
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -68,13 +67,7 @@ void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fr
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
 
-	double temp;
-	temp = z.y;
-	z.y = z.z;
-	z.z = temp;
-	temp = z.x;
-	z.x = z.y;
-	z.y = temp;
+	z = CVector4(z.z, z.x, z.y, z.w);
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
@@ -130,27 +123,31 @@ void cFractalTransfDIFSSphereGridV3::FormulaCode(CVector4 &z, const sFractal *fr
 
 	double torD = min(T1, T2);
 	torD = min(torD, T3);
+	aux.DE0 = torD / (aux.DE + fractal->analyticDE.offset1);
 
-	double colorDist = aux.dist; // for color
+	double colDist = aux.dist; // for color
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = min(aux.dist, torD / (aux.DE + fractal->analyticDE.offset1));
+		aux.dist = min(aux.dist, aux.DE0);
 	else
-		aux.dist = torD / (aux.DE + fractal->analyticDE.offset1);
+		aux.dist = aux.DE0;
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = 0.0f;
+		double colorAdd = 0.0;
+		if (colDist != aux.dist) colorAdd += fractal->foldColor.difs0000.w;
 		if (T1 == torD) colorAdd += fractal->foldColor.difs0000.x;
 		if (T2 == torD) colorAdd += fractal->foldColor.difs0000.y;
 		if (T3 == torD) colorAdd += fractal->foldColor.difs0000.z;
-		if (colorDist != aux.dist) colorAdd += fractal->foldColor.difs0000.w;
 
-		if (!fractal->transformCommon.functionEnabledCFalse)
-			aux.color = colorAdd;
-		else
-			aux.color += colorAdd;
+		if (!fractal->foldColor.auxColorEnabledFalse) aux.color = colorAdd;
+		else  aux.color += colorAdd;
 	}
 
-	if (fractal->transformCommon.functionEnabledYFalse) z = zc;
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+				z = zc;
 }

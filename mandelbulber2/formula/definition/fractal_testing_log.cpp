@@ -71,7 +71,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
-	double sq_r = fractal->transformCommon.scale/(aux.r * aux.r + offset);
+	double sq_r = fractal->transformCommon.scale / (aux.r * aux.r + offset);
 	double x1 = z.x * sq_r + fractal->transformCommon.vec111.x;
 	double y1 = -z.y * sq_r + fractal->transformCommon.vec111.y;
 	double z1 = -z.z * sq_r + fractal->transformCommon.vec111.z;
@@ -90,7 +90,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double h1 = 1.0 - z2 / r_xy;
 
 	double tmpx = h1 * (x2 - y2) * sq_r;
-	double tmpy = -2.0 * h1 * x1*y1 * sq_r;
+	double tmpy = -2.0 * h1 * x1 * y1 * sq_r;
 	double tmpz = 2.0 * z1 * sqrt(r_xy) * sq_r;
 
 	double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
