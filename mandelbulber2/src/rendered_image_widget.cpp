@@ -218,7 +218,8 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nAlt + Mouse wheel - placement fwd/bkwd ");
 			break;
 		case clickPlacePrimitive:
-			text = tr("Place ") + PrimitiveNames(fractal::enumObjectType(clickModeData.at(1).toInt()))
+			text = tr("Place ")
+						 + cPrimitives::PrimitiveNames(fractal::enumObjectType(clickModeData.at(1).toInt()))
 						 + QString(" #") + QString::number(clickModeData.at(2).toInt());
 			break;
 		case clickGetJuliaConstant: text = tr("Get Julia constant"); break;

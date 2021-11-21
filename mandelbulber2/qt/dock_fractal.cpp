@@ -405,8 +405,20 @@ void cDockFractal::slotPressedButtonGetJuliaConstant()
 void cDockFractal::slotPressedButtonNewPrimitive() const
 {
 	QString buttonName = sender()->objectName();
-	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
-	gMainInterface->NewPrimitive(primitiveName);
+	QString primitiveTypeName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
+
+	fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(primitiveTypeName);
+	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(gPar);
+	int newIndex = cPrimitives::NewPrimitiveIndex(primitiveTypeName, actualList);
+
+	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveTypeName).arg(newIndex);
+
+	InitPrimitiveParams(objectType, primitiveFullName, gPar);
+	gPar->Set(primitiveFullName + "_enabled", true);
+
+	sPrimitiveItem newPrimitive(objectType, newIndex, primitiveFullName, primitiveTypeName);
+
+	gMainInterface->NewPrimitiveUI(newPrimitive);
 }
 
 void cDockFractal::slotChangedFractalTab(int index)

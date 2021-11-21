@@ -59,7 +59,7 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive() const
 	QStringList split = primitiveName.split('_');
 	QList<QVariant> item;
 	item.append(int(RenderedImage::clickPlacePrimitive));
-	item.append(int(PrimitiveNameToEnum(split.at(1))));
+	item.append(int(cPrimitives::PrimitiveNameToEnum(split.at(1))));
 	item.append(split.at(2).toInt());
 	item.append(primitiveName); // light number
 	int index = ui->comboBox_mouse_click_function->findData(item);

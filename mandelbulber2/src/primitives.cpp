@@ -44,7 +44,7 @@
 using namespace fractal;
 using namespace std;
 
-QString PrimitiveNames(enumObjectType primitiveType)
+QString cPrimitives::PrimitiveNames(enumObjectType primitiveType)
 {
 	switch (primitiveType)
 	{
@@ -61,7 +61,7 @@ QString PrimitiveNames(enumObjectType primitiveType)
 	}
 }
 
-enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
+enumObjectType cPrimitives::PrimitiveNameToEnum(const QString &primitiveType)
 {
 	enumObjectType type = objNone;
 	if (primitiveType == QString("plane"))
@@ -95,45 +95,15 @@ cPrimitives::cPrimitives(
 	isAnyPrimitive = false;
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
-	QList<sPrimitiveItem> listOfPrimitives;
-
-	// generating fresh list of primitives based of parameter list
-	for (auto parameterName : listOfParameters)
-	{
-		if (parameterName.left(9) == "primitive")
-		{
-			isAnyPrimitive = true;
-
-			QStringList split = parameterName.split('_');
-			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			QString typeName = split.at(1);
-			fractal::enumObjectType type = PrimitiveNameToEnum(typeName);
-			int index = split.at(2).toInt();
-
-			// check if item is already on the list
-			bool found = false;
-			for (const auto &listOfPrimitive : listOfPrimitives)
-			{
-				if (listOfPrimitive.id == index && listOfPrimitive.type == type)
-				{
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				listOfPrimitives.append(sPrimitiveItem(type, index, primitiveName));
-			}
-		}
-	}
+	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
 
 	// bubble sort by calculation order
 	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
 	{
 		for (int j = 0; j < listOfPrimitives.size() - 1; j++)
 		{
-			int order1 = par->Get<int>(listOfPrimitives.at(j).name + "_calculation_order");
-			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).name + "_calculation_order");
+			int order1 = par->Get<int>(listOfPrimitives.at(j).fullName + "_calculation_order");
+			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).fullName + "_calculation_order");
 
 			if (order1 > order2)
 			{
@@ -157,7 +127,7 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitivePlane;
 				sPrimitivePlane *obj = static_cast<sPrimitivePlane *>(primitive);
-				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
 				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
 			}
@@ -165,19 +135,19 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveBox;
 				sPrimitiveBox *obj = static_cast<sPrimitiveBox *>(primitive);
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->rounding = par->Get<double>(item.name + "_rounding");
-				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
-				obj->size = par->Get<CVector3>(item.name + "_size");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->rounding = par->Get<double>(item.fullName + "_rounding");
+				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
+				obj->size = par->Get<CVector3>(item.fullName + "_size");
 				break;
 			}
 			case objSphere:
 			{
 				primitive = new sPrimitiveSphere;
 				sPrimitiveSphere *obj = static_cast<sPrimitiveSphere *>(primitive);
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->radius = par->Get<double>(item.name + "_radius");
-				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->radius = par->Get<double>(item.fullName + "_radius");
+				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->radius * 2.0);
 				break;
 			}
@@ -185,15 +155,15 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveWater;
 				sPrimitiveWater *obj = static_cast<sPrimitiveWater *>(primitive);
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->relativeAmplitude = par->Get<double>(item.name + "_relative_amplitude");
-				obj->length = par->Get<double>(item.name + "_length");
-				obj->animSpeed = par->Get<double>(item.name + "_anim_speed");
-				obj->animProgressionSpeed = par->Get<double>(item.name + "_anim_progression_speed");
-				obj->iterations = par->Get<int>(item.name + "_iterations");
-				obj->waveFromObjectsEnable = par->Get<bool>(item.name + "_wave_from_objects_enable");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->relativeAmplitude = par->Get<double>(item.fullName + "_relative_amplitude");
+				obj->length = par->Get<double>(item.fullName + "_length");
+				obj->animSpeed = par->Get<double>(item.fullName + "_anim_speed");
+				obj->animProgressionSpeed = par->Get<double>(item.fullName + "_anim_progression_speed");
+				obj->iterations = par->Get<int>(item.fullName + "_iterations");
+				obj->waveFromObjectsEnable = par->Get<bool>(item.fullName + "_wave_from_objects_enable");
 				obj->waveFromObjectsRelativeAmplitude =
-					par->Get<double>(item.name + "_wave_from_objects_relative_amplitude");
+					par->Get<double>(item.fullName + "_wave_from_objects_relative_amplitude");
 				obj->animFrame = par->Get<int>("frame_no");
 				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
@@ -202,11 +172,11 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveCone;
 				sPrimitiveCone *obj = static_cast<sPrimitiveCone *>(primitive);
-				obj->caps = par->Get<bool>(item.name + "_caps");
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->radius = par->Get<double>(item.name + "_radius");
-				obj->height = par->Get<double>(item.name + "_height");
-				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->caps = par->Get<bool>(item.fullName + "_caps");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->radius = par->Get<double>(item.fullName + "_radius");
+				obj->height = par->Get<double>(item.fullName + "_height");
+				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 				obj->wallNormal = CVector2<double>(1.0, obj->radius / obj->height);
 				obj->wallNormal.Normalize();
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
@@ -216,11 +186,11 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveCylinder;
 				sPrimitiveCylinder *obj = static_cast<sPrimitiveCylinder *>(primitive);
-				obj->caps = par->Get<bool>(item.name + "_caps");
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->radius = par->Get<double>(item.name + "_radius");
-				obj->height = par->Get<double>(item.name + "_height");
-				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->caps = par->Get<bool>(item.fullName + "_caps");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->radius = par->Get<double>(item.fullName + "_radius");
+				obj->height = par->Get<double>(item.fullName + "_height");
+				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
 				break;
 			}
@@ -228,12 +198,12 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveTorus;
 				sPrimitiveTorus *obj = static_cast<sPrimitiveTorus *>(primitive);
-				obj->empty = par->Get<bool>(item.name + "_empty");
-				obj->radius = par->Get<double>(item.name + "_radius");
-				obj->radiusLPow = par->Get<double>(item.name + "_radius_lpow");
-				obj->tubeRadius = par->Get<double>(item.name + "_tube_radius");
-				obj->tubeRadiusLPow = par->Get<double>(item.name + "_tube_radius_lpow");
-				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->empty = par->Get<bool>(item.fullName + "_empty");
+				obj->radius = par->Get<double>(item.fullName + "_radius");
+				obj->radiusLPow = par->Get<double>(item.fullName + "_radius_lpow");
+				obj->tubeRadius = par->Get<double>(item.fullName + "_tube_radius");
+				obj->tubeRadiusLPow = par->Get<double>(item.fullName + "_tube_radius_lpow");
+				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 				obj->size = CVector3((obj->radius + obj->tubeRadius) * 2.0,
 					(obj->radius + obj->tubeRadius) * 2.0, obj->tubeRadius);
 				break;
@@ -242,7 +212,7 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveCircle;
 				sPrimitiveCircle *obj = static_cast<sPrimitiveCircle *>(primitive);
-				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->radius = par->Get<double>(item.fullName + "_radius");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
 				break;
 			}
@@ -250,8 +220,8 @@ cPrimitives::cPrimitives(
 			{
 				primitive = new sPrimitiveRectangle;
 				sPrimitiveRectangle *obj = static_cast<sPrimitiveRectangle *>(primitive);
-				obj->height = par->Get<double>(item.name + "_height");
-				obj->width = par->Get<double>(item.name + "_width");
+				obj->height = par->Get<double>(item.fullName + "_height");
+				obj->width = par->Get<double>(item.fullName + "_width");
 				obj->size = CVector3(obj->width, obj->height, 1.0);
 				break;
 			}
@@ -264,14 +234,14 @@ cPrimitives::cPrimitives(
 		}
 
 		// set parameters, which all primitives have in common
-		primitive->position = par->Get<CVector3>(item.name + "_position");
-		primitive->materialId = par->Get<int>(item.name + "_material_id");
+		primitive->position = par->Get<CVector3>(item.fullName + "_position");
+		primitive->materialId = par->Get<int>(item.fullName + "_material_id");
 		primitive->objectType = item.type;
-		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-		primitive->enable = par->Get<bool>(item.name + "_enabled");
+		primitive->SetRotation(par->Get<CVector3>(item.fullName + "_rotation"));
+		primitive->enable = par->Get<bool>(item.fullName + "_enabled");
 		primitive->booleanOperator =
-			enumPrimitiveBooleanOperator(par->Get<int>(item.name + "_boolean_operator"));
-		primitive->repeat = par->Get<CVector3>(item.name + "_repeat");
+			enumPrimitiveBooleanOperator(par->Get<int>(item.fullName + "_boolean_operator"));
+		primitive->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 
 		if (objectData)
 		{
@@ -583,4 +553,64 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	*closestObjectId = closestObject;
 
 	return distance;
+}
+
+QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(
+	const std::shared_ptr<cParameterContainer> par)
+{
+	QList<sPrimitiveItem> listOfPrimitives;
+
+	QList<QString> listOfParameters = par->GetListOfParameters();
+	for (auto &parameterName : listOfParameters)
+	{
+		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		{
+			QStringList split = parameterName.split('_');
+			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
+			QString objectTypeString = split.at(1);
+			int index = split.at(2).toInt();
+
+			bool found = false;
+			for (const auto &listOfPrimitive : listOfPrimitives)
+			{
+				if (listOfPrimitive.fullName == primitiveName)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				fractal::enumObjectType objectType = PrimitiveNameToEnum(objectTypeString);
+				sPrimitiveItem newItem(objectType, index, primitiveName, objectTypeString);
+				listOfPrimitives.append(newItem);
+			}
+		}
+	}
+	return listOfPrimitives;
+}
+
+int cPrimitives::NewPrimitiveIndex(
+	const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives)
+{
+	QString primitiveName = QString("primitive_") + primitiveType;
+	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
+
+	int newId = 0;
+
+	// look for the lowest free id
+	bool occupied = true;
+
+	while (occupied)
+	{
+		newId++;
+		occupied = false;
+		for (const auto &primitiveItem : listOfPrimitives)
+		{
+			if (objectType == primitiveItem.type && newId == primitiveItem.id) occupied = true;
+		}
+	}
+
+	return newId;
 }

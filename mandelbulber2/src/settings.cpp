@@ -549,7 +549,8 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 	QStringList separatedText =
 		settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-    QStringList separatedText = settingsTextTrimmed.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
+	QStringList separatedText =
+		settingsTextTrimmed.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 
 	DecodeHeader(separatedText);
@@ -642,7 +643,7 @@ bool cSettings::Decode(std::shared_ptr<cParameterContainer> par,
 				}
 				else if (section.contains("fractal"))
 				{
-                    int i = section.right(1).toInt() - 1;
+					int i = section.right(1).toInt() - 1;
 					if (forcedFractalFormulaIndex > 0) i = forcedFractalFormulaIndex - 1;
 
 					if (!listOfParametersToProcess.isEmpty()) // selective loading
@@ -862,7 +863,7 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
+			fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(split.at(1));
 			InitPrimitiveParams(objectType, primitiveName, par);
 			listOfLoadedPrimitives.append(primitiveName);
 		}
@@ -987,7 +988,7 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 
 bool cSettings::CheckSection(QString text, QString &section)
 {
-    if (text.left(1) == "[" && text.right(1) == "]")
+	if (text.left(1) == "[" && text.right(1) == "]")
 	{
 		section = text.mid(1, text.length() - 2);
 		return true;

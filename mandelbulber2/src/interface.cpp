@@ -1110,39 +1110,14 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	SynchronizeInterface(par, parFractal, qInterface::write);
 }
 
-void cInterface::NewPrimitive(const QString &primitiveType, int index)
+void cInterface::NewPrimitiveUI(const sPrimitiveItem &primitive)
 {
-	QString primitiveName = QString("primitive_") + primitiveType;
+	QString primitiveFullName = primitive.fullName;
+	QString primitiveType = primitive.typeName;
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
-											 + QDir::separator() + primitiveName + ".ui";
-	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
-
-	int newId = 0;
-	if (index == 0)
-	{
-		// look for the lowest free id
-		bool occupied = true;
-
-		while (occupied)
-		{
-			newId++;
-			occupied = false;
-			for (const auto &primitiveItem : listOfPrimitives)
-			{
-				if (objectType == primitiveItem.type && newId == primitiveItem.id) occupied = true;
-			}
-		}
-	}
-	else
-	{
-		newId = index; // use given index
-	}
-
-	// name for new primitive
-	QString primitiveFullName = primitiveName + "_" + QString::number(newId);
-
-	sPrimitiveItem newItem(objectType, newId, primitiveFullName);
-	listOfPrimitives.append(newItem);
+											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
+	fractal::enumObjectType objectType = primitive.type;
+	int newId = primitive.id;
 
 	// main widget for primitive
 	QWidget *mainWidget =
@@ -1212,13 +1187,6 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		connect(
 			alignButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAlignPrimitiveAngle()));
 
-		// adding parameters
-		if (index == 0) // for only new primitive
-		{
-			InitPrimitiveParams(objectType, primitiveFullName, gPar);
-			gPar->Set(primitiveFullName + "_enabled", true);
-		}
-
 		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
 		SynchronizeInterfaceWindow(mainWidget, gPar, qInterface::write);
 
@@ -1249,58 +1217,28 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 			primitiveWidgetName);
 	delete primitiveWidget;
 
-	// remove item from list
-	for (int i = 0; i < listOfPrimitives.size(); i++)
-	{
-		if (primitiveName == listOfPrimitives.at(i).name)
-		{
-			objectType = listOfPrimitives.at(i).type;
-			listOfPrimitives.removeAt(i);
-		}
-	}
-
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
 	ComboMouseClickUpdate();
 }
 
 void cInterface::RebuildPrimitives(std::shared_ptr<cParameterContainer> par)
 {
-	// clear all widgets
-	for (const auto &primitiveItem : listOfPrimitives)
+
+	QRegularExpression regex("^widgetmain_");
+	QList<QWidget *> listOfWidgets =
+		mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChildren<QWidget *>(
+			regex, Qt::FindChildrenRecursively);
+
+	for (QWidget *widgetToDelete : listOfWidgets)
 	{
-		QString widgetName = QString("widgetmain_") + primitiveItem.name;
-		QWidget *widget =
-			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
-				widgetName);
-		delete widget;
+		delete widgetToDelete;
 	}
-	listOfPrimitives.clear();
 
-	QList<QString> listOfParameters = par->GetListOfParameters();
-	for (auto &parameterName : listOfParameters)
+	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(par);
+
+	for (const sPrimitiveItem &primitive : listOfPrimitives)
 	{
-		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
-		{
-			QStringList split = parameterName.split('_');
-			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			QString objectTypeString = split.at(1);
-			int index = split.at(2).toInt();
-
-			bool found = false;
-			for (const auto &listOfPrimitive : listOfPrimitives)
-			{
-				if (listOfPrimitive.name == primitiveName)
-				{
-					found = true;
-					break;
-				}
-			}
-
-			if (!found)
-			{
-				NewPrimitive(objectTypeString, index);
-			}
-		}
+		NewPrimitiveUI(primitive);
 	}
 }
 
@@ -1354,11 +1292,13 @@ void cInterface::ComboMouseClickUpdate() const
 	item.append(int(RenderedImage::clickWrapLimitsAroundObject));
 	combo->addItem(QObject::tr("Wrap Limits around object"), item);
 
+	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(gPar);
+
 	if (listOfPrimitives.size() > 0)
 	{
 		for (const auto &primitiveItem : listOfPrimitives)
 		{
-			QString primitiveName = PrimitiveNames(primitiveItem.type);
+			QString primitiveName = cPrimitives::PrimitiveNames(primitiveItem.type);
 			int index = primitiveItem.id;
 			QString comboItemString =
 				QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
@@ -1366,7 +1306,7 @@ void cInterface::ComboMouseClickUpdate() const
 			item.append(int(RenderedImage::clickPlacePrimitive));
 			item.append(int(primitiveItem.type));
 			item.append(primitiveItem.id);
-			item.append(primitiveItem.name);
+			item.append(primitiveItem.fullName);
 			combo->addItem(comboItemString, item);
 		}
 	}

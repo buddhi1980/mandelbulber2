@@ -39,6 +39,7 @@
 #include <utility>
 
 #include <QtCore>
+#include <QString>
 #include "algebra.hpp"
 #include "color_structures.hpp"
 #include "object_data.hpp"
@@ -58,14 +59,18 @@ struct sRenderData;
 
 struct sPrimitiveItem
 {
-	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name)
-			: type(_type), id(_id), name(std::move(_name))
+	sPrimitiveItem(
+		fractal::enumObjectType _type, int _id, const QString &_name, const QString &_typeName)
+			: type(_type), id(_id), fullName(std::move(_name)), typeName(std::move(_typeName))
 	{
 	}
 
+	sPrimitiveItem() : type(fractal::objNone), id(0), fullName(QString()), typeName(QString()) {}
+
 	fractal::enumObjectType type;
 	int id;
-	QString name;
+	QString fullName;
+	QString typeName;
 };
 
 struct sPrimitiveBasic : cObjectData
@@ -159,10 +164,6 @@ struct sPrimitiveRectangle : sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const override;
 };
 
-QString PrimitiveNames(fractal::enumObjectType primitiveType);
-
-fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
-
 class cPrimitives
 {
 	// some of functions for primitives were taken from
@@ -175,6 +176,12 @@ public:
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
 		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
 	const QList<sPrimitiveBasic *> *GetAllOfPrimitives() const { return &allPrimitives; }
+
+	static QList<sPrimitiveItem> GetListOfPrimitives(const std::shared_ptr<cParameterContainer> par);
+	static int NewPrimitiveIndex(
+		const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives);
+	static QString PrimitiveNames(fractal::enumObjectType primitiveType);
+	static fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
 
 	CVector3 allPrimitivesPosition;
 	CVector3 allPrimitivesRotation;

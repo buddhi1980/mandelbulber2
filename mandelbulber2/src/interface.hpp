@@ -92,7 +92,7 @@ public:
 	void SetBoundingBoxAsLimitsTotal();
 	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax,
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
-	void NewPrimitive(const QString &primitiveType, int index = 0);
+	void NewPrimitiveUI(const sPrimitiveItem &primitive);
 	void DeletePrimitive(const QString &primitiveName);
 	void RebuildPrimitives(std::shared_ptr<cParameterContainer> par);
 	void ComboMouseClickUpdate() const;
@@ -138,7 +138,6 @@ public:
 	QFrame *progressBarFrame;
 	QVBoxLayout *progressBarLayout;
 	std::shared_ptr<cImage> mainImage;
-	QList<sPrimitiveItem> listOfPrimitives;
 	QTimer *autoRefreshTimer;
 	QTimer *stopRequestPulseTimer;
 	QString autoRefreshLastHash;
