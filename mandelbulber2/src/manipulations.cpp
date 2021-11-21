@@ -938,7 +938,6 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 		if (smallPartRendered && GetNumberOfStartedRenders() < 2)
 		{
 
-			smallPartRendered = false;
 			sMouseDragTempData dragTempData;
 
 			mouseDragData.lastRefreshTime.restart();
@@ -993,6 +992,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				timerStartRender.start();
 				SynchronizeInterfaceWindow(navigationWidget, par, qInterface::write);
 
+				smallPartRendered = false;
 				emit signalRender();
 				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
 			}
@@ -1012,7 +1012,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				}
 				QElapsedTimer timerStartRender;
 				timerStartRender.start();
-				SynchronizeInterfaceWindow(navigationWidget, par, qInterface::write);
+				SynchronizeInterfaceWindow(effectsWidget, par, qInterface::write);
 				renderedImageWidget->update();
 				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
 			}

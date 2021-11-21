@@ -369,7 +369,7 @@ void RenderWindow::slotMouseWheelRotatedWithKeyOnImage(
 					dist *= deltaLog;
 					ui->widgetEffects->slotSetAuxLightManualPlacementDistance(dist);
 				}
-				else if (keyModifiers & Qt::NoModifier)
+				else if (keyModifiers == Qt::NoModifier)
 				{
 					manipulations->MoveLightByWheel(delta);
 				}
