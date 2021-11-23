@@ -4,6 +4,7 @@ v2.27 (    2021)
 
 - Added new fractal formulas
 
+   aboxSmooth
    menger3M3d
    mengerV4
    transfDIFSHeart
