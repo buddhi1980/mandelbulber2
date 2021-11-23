@@ -460,16 +460,24 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 	{
 		gOpenCl->Reset();
 		gOpenCl->openClHardware->ListOpenClPlatforms();
-		if (gPar->Get<int>("opencl_platform") >= 0)
-		{
-			gOpenCl->openClHardware->ListOpenClDevices(gPar->Get<int>("opencl_platform"),
-				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
-			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
-			gOpenCl->openClHardware->CreateAllContexts(gPar->Get<int>("opencl_platform"),
-				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
-		}
 
-		UpdateOpenCLListBoxes();
+		if (gOpenCl->openClHardware->getNumberOfPlatforms() > 0)
+		{
+			if (gPar->Get<int>("opencl_platform") >= 0)
+			{
+				gOpenCl->openClHardware->ListOpenClDevices(gPar->Get<int>("opencl_platform"),
+					cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
+				gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+				gOpenCl->openClHardware->CreateAllContexts(gPar->Get<int>("opencl_platform"),
+					cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
+			}
+
+			UpdateOpenCLListBoxes();
+		}
+		else
+		{
+			ui->groupCheck_opencl_enabled->setChecked(false);
+		}
 	}
 
 	gMainInterface->mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(state);

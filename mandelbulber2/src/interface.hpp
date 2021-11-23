@@ -95,7 +95,9 @@ public:
 	void NewPrimitiveUI(const sPrimitiveItem &primitive);
 	void DeletePrimitive(const QString &primitiveName);
 	void RebuildPrimitives(std::shared_ptr<cParameterContainer> par);
-	void ComboMouseClickUpdate() const;
+	void ComboMouseClickUpdate();
+	static void ComboMouseClickUpdate(
+		QComboBox *comboBox, std::shared_ptr<cParameterContainer> params);
 	void AutoRecovery() const;
 	bool DataFolderUpgrade() const;
 	void OptimizeStepFactor(double qualityTarget);

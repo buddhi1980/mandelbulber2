@@ -72,6 +72,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 		&cNavigatorWindow::slotDisablePeriodicRefresh);
 	connect(manipulations, &cManipulations::signalReEnablePeriodicRefresh, this,
 		&cNavigatorWindow::slotReEnablePeriodicRefresh);
+
+	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotChangedComboMouseClickFunction(int)));
 }
 
 void cNavigatorWindow::AddLeftWidget(QWidget *widget)
@@ -111,6 +114,8 @@ void cNavigatorWindow::SetInitialParameters(
 	manipulations->AssignWidgets(ui->widgetRenderedImage, ui->widgetNavigationButtons, nullptr);
 
 	InitPeriodicRefresh();
+
+	cInterface::ComboMouseClickUpdate(ui->comboBox_mouse_click_function, params);
 
 	// StartRender();
 }
@@ -396,4 +401,22 @@ void cNavigatorWindow::slotReEnablePeriodicRefresh()
 	tempSettings.CreateText(params, fractalParams);
 	autoRefreshLastHash = tempSettings.GetHashCode();
 	autoRefreshEnabled = true;
+}
+
+void cNavigatorWindow::SetMouseClickFunction(QList<QVariant> _clickMode)
+{
+	mouseClickFunction = _clickMode;
+	int index = ui->comboBox_mouse_click_function->findData(mouseClickFunction);
+	ui->comboBox_mouse_click_function->setCurrentIndex(index);
+}
+
+void cNavigatorWindow::slotChangedComboMouseClickFunction(int index)
+{
+	if (index >= 0) // if list is empty, then index = -1
+	{
+		QComboBox *comboBox = static_cast<QComboBox *>(sender());
+		QList<QVariant> item = comboBox->itemData(index).toList();
+		mouseClickFunction = item;
+		ui->widgetRenderedImage->setClickMode(item);
+	}
 }

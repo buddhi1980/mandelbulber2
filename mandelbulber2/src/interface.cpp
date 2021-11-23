@@ -1242,9 +1242,14 @@ void cInterface::RebuildPrimitives(std::shared_ptr<cParameterContainer> par)
 	}
 }
 
-void cInterface::ComboMouseClickUpdate() const
+void cInterface::ComboMouseClickUpdate()
 {
-	QComboBox *combo = mainWindow->ui->comboBox_mouse_click_function;
+	ComboMouseClickUpdate(mainWindow->ui->comboBox_mouse_click_function, gPar);
+}
+
+void cInterface::ComboMouseClickUpdate(
+	QComboBox *combo, std::shared_ptr<cParameterContainer> params)
+{
 	int lastIndex = combo->currentIndex();
 
 	combo->clear();
@@ -1270,7 +1275,7 @@ void cInterface::ComboMouseClickUpdate() const
 	item.append(int(RenderedImage::clickGetJuliaConstant));
 	combo->addItem(QObject::tr("Get Julia constant"), item);
 
-	QList<int> listOfLights = cLights::GetListOfLights(gPar);
+	QList<int> listOfLights = cLights::GetListOfLights(params);
 
 	for (int lightIndex : listOfLights)
 	{
@@ -1292,7 +1297,7 @@ void cInterface::ComboMouseClickUpdate() const
 	item.append(int(RenderedImage::clickWrapLimitsAroundObject));
 	combo->addItem(QObject::tr("Wrap Limits around object"), item);
 
-	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(gPar);
+	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(params);
 
 	if (listOfPrimitives.size() > 0)
 	{

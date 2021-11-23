@@ -36,7 +36,7 @@ public:
 
 	void SetInitialParameters(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);
-	void SetMouseClickFunction(QList<QVariant> _clickMode) { mouseClickFunction = _clickMode; }
+	void SetMouseClickFunction(QList<QVariant> _clickMode);
 	void StartRender();
 	void StopRender();
 
@@ -53,10 +53,12 @@ public slots:
 	void slotSmallPartRendered(double time);
 	void slotDisablePeriodicRefresh();
 	void slotReEnablePeriodicRefresh();
+
 	void SynchronizeInterface(qInterface::enumReadWrite mode);
 
 private slots:
 	void slotPeriodicRefresh();
+	void slotChangedComboMouseClickFunction(int index);
 
 private:
 	void InitPeriodicRefresh();
