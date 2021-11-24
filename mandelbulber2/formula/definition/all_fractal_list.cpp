@@ -124,6 +124,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMsltoeSym3Mod5());
 	fractalList->append(new cFractalMsltoeSym3Mod6());
 	fractalList->append(new cFractalMsltoeSym4Mod());
+	fractalList->append(new cFractalMsltoeSym4Mod1());
 	fractalList->append(new cFractalMsltoeToroidal());
 	fractalList->append(new cFractalMsltoeToroidalMulti());
 
