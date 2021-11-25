@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing_log</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>2475</height>
+    <height>2893</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -681,7 +681,7 @@
       </widget>
      </item>
      <item>
-      <widget class="MyCheckBox" name="checkBox_analyticDE_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
        <property name="text">
         <string>aux.DE</string>
        </property>
@@ -1032,15 +1032,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>

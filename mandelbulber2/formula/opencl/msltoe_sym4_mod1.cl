@@ -100,5 +100,17 @@ REAL4 MsltoeSym4Mod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		aux->DE0 = length(z);
+
+		aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+		if (!fractal->transformCommon.functionEnabledYFalse)
+			aux->dist = aux->DE0;
+		else
+			aux->dist = min(aux->dist, aux->DE0);
+	}
+
 	return z;
 }
