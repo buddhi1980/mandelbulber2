@@ -12,6 +12,8 @@
 
 class cParameterContainer;
 class cFractalContainer;
+class RenderedImage;
+class QComboBox;
 
 class cMyWidgetWithParams
 {
@@ -21,10 +23,14 @@ public:
 
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);
+	void AssignSpecialWidgets(RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo);
 
 protected:
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
+
+	RenderedImage *renderedImageWidget = nullptr;
+	QComboBox *mouseFunctionComboWidget = nullptr;
 };
 
 #endif /* MANDELBULBER2_QT_MY_WIDGET_WITH_PARAMS_H_ */

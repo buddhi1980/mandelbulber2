@@ -39,6 +39,7 @@ public:
 	void SetMouseClickFunction(QList<QVariant> _clickMode);
 	void StartRender();
 	void StopRender();
+	void SynchronizeInterface(qInterface::enumReadWrite mode);
 
 public slots:
 	void slotCameraMovementModeChanged(int index);
@@ -53,8 +54,7 @@ public slots:
 	void slotSmallPartRendered(double time);
 	void slotDisablePeriodicRefresh();
 	void slotReEnablePeriodicRefresh();
-
-	void SynchronizeInterface(qInterface::enumReadWrite mode);
+	void slotRefreshMainImage();
 
 private slots:
 	void slotPeriodicRefresh();

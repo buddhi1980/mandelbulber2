@@ -75,10 +75,10 @@ private slots:
 	static void slotPressedButtonAutoFog();
 	void slotChangedComboAmbientOcclusionMode(int index) const;
 	static void slotEditedLineEditManualLightPlacementDistance(const QString &text);
-	static void slotPressedButtonSetDOFByMouse();
-	static void slotPressedButtonSetFogByMouse();
+	void slotPressedButtonSetDOFByMouse();
+	void slotPressedButtonSetFogByMouse();
 	static void slotPressedButtonUpdatePostEffects();
-	static void slotPressedButtonPlaceRandomLightsByMouse();
+	void slotPressedButtonPlaceRandomLightsByMouse();
 	void slotChangedPlaceLightBehindObjects(int state);
 	void slotChangedEnableMCDOF(bool state);
 	void slotChangedEnableGI(int state);

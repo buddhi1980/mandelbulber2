@@ -18,3 +18,10 @@ void cMyWidgetWithParams::AssignParameterContainers(
 	params = _params;
 	fractalParams = _fractalParams;
 }
+
+void cMyWidgetWithParams::AssignSpecialWidgets(
+	RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo)
+{
+	renderedImageWidget = _renderedImage;
+	mouseFunctionComboWidget = _mouseFunctionCombo;
+}

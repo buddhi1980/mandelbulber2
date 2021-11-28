@@ -169,27 +169,27 @@ void cDockEffects::slotPressedButtonSetDOFByMouse()
 {
 	QList<QVariant> item;
 	item.append(int(RenderedImage::clickDOFFocus));
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
+	int index = mouseFunctionComboWidget->findData(item);
+	mouseFunctionComboWidget->setCurrentIndex(index);
+	renderedImageWidget->setClickMode(item);
 }
 
 void cDockEffects::slotPressedButtonSetFogByMouse()
 {
 	QList<QVariant> item;
 	item.append(int(RenderedImage::clickFogVisibility));
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
+	int index = mouseFunctionComboWidget->findData(item);
+	mouseFunctionComboWidget->setCurrentIndex(index);
+	renderedImageWidget->setClickMode(item);
 }
 
 void cDockEffects::slotPressedButtonPlaceRandomLightsByMouse()
 {
 	QList<QVariant> item;
 	item.append(int(RenderedImage::clickPlaceRandomLightCenter));
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
+	int index = mouseFunctionComboWidget->findData(item);
+	mouseFunctionComboWidget->setCurrentIndex(index);
+	renderedImageWidget->setClickMode(item);
 }
 
 void cDockEffects::UpdateLabelAverageDOFSamples(const QString &avg)

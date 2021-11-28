@@ -6,7 +6,10 @@
  */
 
 #include "navigator_window.h"
+#include "ui_navigator_window.h"
+
 #include "tab_fractal.h"
+#include "dock_effects.h"
 
 #include <QThread>
 
@@ -16,7 +19,7 @@
 #include "src/ao_modes.h"
 #include "src/render_window.hpp"
 #include "src/fractal_container.hpp"
-#include "ui_navigator_window.h"
+
 #include "src/parameters.hpp"
 #include "src/fractal_container.hpp"
 #include "src/cimage.hpp"
@@ -35,6 +38,7 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->setupUi(this);
 	ui->widgetNavigationButtons->HideSomeButtons();
 	setModal(false);
+	setWindowTitle(tr("Navigator"));
 
 	manipulations = new cManipulations(this);
 
@@ -72,6 +76,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 		&cNavigatorWindow::slotDisablePeriodicRefresh);
 	connect(manipulations, &cManipulations::signalReEnablePeriodicRefresh, this,
 		&cNavigatorWindow::slotReEnablePeriodicRefresh);
+	connect(manipulations, &cManipulations::signalRefreshPostEffects, this,
+		&cNavigatorWindow::slotRefreshMainImage);
 
 	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboMouseClickFunction(int)));
@@ -81,6 +87,20 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 {
 	leftWidget = widget;
 	ui->scrollAreaParameterSetContents->layout()->addWidget(widget);
+
+	if (leftWidget)
+	{
+		cDockEffects *dockEffects = dynamic_cast<cDockEffects *>(leftWidget);
+		if (dockEffects)
+		{
+			connect(manipulations, &cManipulations::signalWriteInterfaceBasicFog, dockEffects,
+				&cDockEffects::slotSynchronizeInterfaceBasicFog);
+			connect(manipulations, &cManipulations::signalWriteInterfaceDOF, dockEffects,
+				&cDockEffects::slotSynchronizeInterfaceDOF);
+			connect(manipulations, &cManipulations::signalWriteInterfaceRandomLights, dockEffects,
+				&cDockEffects::slotSynchronizeInterfaceRandomLights);
+		}
+	}
 }
 
 cNavigatorWindow::~cNavigatorWindow()
@@ -107,6 +127,8 @@ void cNavigatorWindow::SetInitialParameters(
 	if (widgetWithParams)
 	{
 		widgetWithParams->AssignParameterContainers(params, fractalParams);
+		widgetWithParams->AssignSpecialWidgets(
+			ui->widgetRenderedImage, ui->comboBox_mouse_click_function);
 	}
 
 	manipulations->AssignParameterContainers(params, fractalParams);
@@ -369,7 +391,7 @@ void cNavigatorWindow::InitPeriodicRefresh()
 
 void cNavigatorWindow::slotPeriodicRefresh()
 {
-	if (!manipulations->isDraggingStarted())
+	if (!manipulations->isDraggingStarted() && autoRefreshEnabled)
 	{
 		// check if something was changed in settings
 		SynchronizeInterface(qInterface::read);
@@ -419,4 +441,12 @@ void cNavigatorWindow::slotChangedComboMouseClickFunction(int index)
 		mouseClickFunction = item;
 		ui->widgetRenderedImage->setClickMode(item);
 	}
+}
+
+void cNavigatorWindow::slotRefreshMainImage()
+{
+	SynchronizeInterface(qInterface::read);
+	std::unique_ptr<cRenderJob> renderJob(
+		new cRenderJob(params, fractalParams, image, &stopRequest, ui->widgetRenderedImage));
+	renderJob->RefreshPostEffects();
 }
