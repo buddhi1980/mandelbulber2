@@ -52,13 +52,12 @@ void cFractalMenger4dMod2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			z += fractal->transformCommon.additionConstant0000; // offset
 		}
 
-
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
-		if (z.x - z.w < 0.0) swap(z.w, z.x);
-		if (z.y - z.w < 0.0) swap(z.w, z.y);
-		if (z.z - z.w < 0.0) swap(z.w, z.z);
+		if (z.x < z.y) swap(z.y, z.x);
+		if (z.x < z.z) swap(z.z, z.x);
+		if (z.y < z.z) swap(z.z, z.y);
+		if (z.x < z.w) swap(z.w, z.x);
+		if (z.y < z.w) swap(z.w, z.y);
+		if (z.z < z.w) swap(z.w, z.z);
 
 		// 6 plane rotation
 		if (fractal->transformCommon.functionEnabledRFalse

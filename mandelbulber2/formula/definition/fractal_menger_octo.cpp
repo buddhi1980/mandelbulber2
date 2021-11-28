@@ -36,10 +36,10 @@ void cFractalMengerOcto::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (z.x + z.z < 0.0) // z.xz = -z.zx;
 			z = CVector4(-z.z, z.y, -z.x, z.w);
 
-		if (z.x - z.y < 0.0) // z.xy = z.yx;
+		if (z.x < z.y) // z.xy = z.yx;
 			z = CVector4(z.y, z.x, z.z, z.w);
 
-		if (z.x - z.z < 0.0) // z.xz = z.zx;
+		if (z.x < z.z) // z.xz = z.zx;
 			z = CVector4(z.z, z.y, z.x, z.w);
 
 		z.x = fabs(z.x);
@@ -172,9 +172,9 @@ void cFractalMengerOcto::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		if (z.x < z.y) swap(z.y, z.x);
+		if (z.x < z.z) swap(z.z, z.x);
+		if (z.y < z.z) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;

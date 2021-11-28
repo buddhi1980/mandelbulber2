@@ -21,19 +21,19 @@ REAL4 MengerSpongeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z.y = fabs(z.y);
 	z.z = fabs(z.z);
 
-	if (z.x - z.y < 0.0f)
+	if (z.x < z.y)
 	{
 		REAL temp = z.x;
 		z.x = z.y;
 		z.y = temp;
 	}
-	if (z.x - z.z < 0.0f)
+	if (z.x < z.z)
 	{
 		REAL temp = z.x;
 		z.x = z.z;
 		z.z = temp;
 	}
-	if (z.y - z.z < 0.0f)
+	if (z.y < z.z)
 	{
 		REAL temp = z.y;
 		z.y = z.z;

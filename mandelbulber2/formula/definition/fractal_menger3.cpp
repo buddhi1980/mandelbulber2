@@ -32,9 +32,9 @@ void cFractalMenger3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtende
 	z = fabs(z);
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	if (z.x - z.y < 0.0) swap(z.y, z.x);
-	if (z.y - z.z < 0.0) swap(z.z, z.y);
-	if (z.x - z.y < 0.0) swap(z.x, z.y);
+	if (z.x < z.y) swap(z.y, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
+	if (z.x < z.y) swap(z.x, z.y);
 
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 

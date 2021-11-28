@@ -149,19 +149,19 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		for (k = 0; k < count; k++)
 		{
 			z = fabs(z);
-			if (z.x - z.y < 0.0f)
+			if (z.x < z.y)
 			{
 				REAL temp = z.y;
 				z.y = z.x;
 				z.x = temp;
 			}
-			if (z.x - z.z < 0.0f)
+			if (z.x < z.z)
 			{
 				REAL temp = z.z;
 				z.z = z.x;
 				z.x = temp;
 			}
-			if (z.y - z.z < 0.0f)
+			if (z.y < z.z)
 			{
 				REAL temp = z.z;
 				z.z = z.y;

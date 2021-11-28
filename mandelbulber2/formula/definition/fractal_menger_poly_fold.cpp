@@ -78,9 +78,9 @@ void cFractalMengerPolyFold::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 	// Menger Sponge
 	z = fabs(z);
-	if (z.x - z.y < 0.0) swap(z.y, z.x);
-	if (z.x - z.z < 0.0) swap(z.z, z.x);
-	if (z.y - z.z < 0.0) swap(z.z, z.y);
+	if (z.x < z.y) swap(z.y, z.x);
+	if (z.x < z.z) swap(z.z, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
 	z *= fractal->transformCommon.scale3;
 	z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 	z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;

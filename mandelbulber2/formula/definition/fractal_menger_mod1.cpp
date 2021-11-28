@@ -28,9 +28,9 @@ cFractalMengerMod1::cFractalMengerMod1() : cAbstractFractal()
 void cFractalMengerMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z = fabs(z);
-	if (z.x - z.y < 0.0) swap(z.y, z.x);
-	if (z.x - z.z < 0.0) swap(z.z, z.x);
-	if (z.y - z.z < 0.0) swap(z.z, z.y);
+	if (z.x < z.y) swap(z.y, z.x);
+	if (z.x < z.z) swap(z.z, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
 	z *= fractal->transformCommon.scale3;
 	z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
 	z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;

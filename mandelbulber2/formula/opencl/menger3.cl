@@ -21,19 +21,19 @@ REAL4 Menger3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	z = fabs(z);
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
-	if (z.x - z.y < 0.0f)
+	if (z.x < z.y)
 	{
 		REAL temp = z.y;
 		z.y = z.x;
 		z.x = temp;
 	}
-	if (z.y - z.z < 0.0f)
+	if (z.y < z.z)
 	{
 		REAL temp = z.z;
 		z.z = z.y;
 		z.y = temp;
 	}
-	if (z.x - z.y < 0.0f)
+	if (z.x < z.y)
 	{
 		REAL temp = z.x;
 		z.x = z.y;

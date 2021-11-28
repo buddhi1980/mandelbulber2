@@ -32,10 +32,10 @@ void cFractalTransfOctoFold::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	if (z.x + z.z < 0.0) // z.xz = -z.zx;
 		z = CVector4(-z.z, z.y, -z.x, z.w);
 
-	if (z.x - z.y < 0.0) // z.xy = z.yx;
+	if (z.x < z.y) // z.xy = z.yx;
 		z = CVector4(z.y, z.x, z.z, z.w);
 
-	if (z.x - z.z < 0.0) // z.xz = z.zx;
+	if (z.x < z.z) // z.xz = z.zx;
 		z = CVector4(z.z, z.y, z.x, z.w);
 
 	z.x = fabs(z.x);

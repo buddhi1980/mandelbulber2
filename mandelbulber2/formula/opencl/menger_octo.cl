@@ -25,10 +25,10 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		if (z.x + z.z < 0.0f) // z.xz = -z.zx;
 			z = (REAL4){-z.z, z.y, -z.x, z.w};
 
-		if (z.x - z.y < 0.0f) // z.xy = z.yx;
+		if (z.x < z.y) // z.xy = z.yx;
 			z = (REAL4){z.y, z.x, z.z, z.w};
 
-		if (z.x - z.z < 0.0f) // z.xz = z.zx;
+		if (z.x < z.z) // z.xz = z.zx;
 			z = (REAL4){z.z, z.y, z.x, z.w};
 
 		z.x = fabs(z.x);
@@ -161,19 +161,19 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		if (z.x - z.y < 0.0f)
+		if (z.x < z.y)
 		{
 			REAL temp = z.y;
 			z.y = z.x;
 			z.x = temp;
 		}
-		if (z.x - z.z < 0.0f)
+		if (z.x < z.z)
 		{
 			REAL temp = z.z;
 			z.z = z.x;
 			z.x = temp;
 		}
-		if (z.y - z.z < 0.0f)
+		if (z.y < z.z)
 		{
 			REAL temp = z.z;
 			z.z = z.y;

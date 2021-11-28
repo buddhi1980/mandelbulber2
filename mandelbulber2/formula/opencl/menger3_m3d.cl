@@ -22,17 +22,17 @@ REAL4 Menger3M3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	REAL t;
 	t = z.x - z.y;
-	t = 0.5f * (t - native_sqrt(t * t));
+	t = 0.5f * (t - fabs(t));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
 	t = z.x - z.z;
-	t = 0.5f * (t - native_sqrt(t * t));
+	t = 0.5f * (t - fabs(t));
 	z.x = z.x - t;
 	z.z = z.z + t;
 
 	t = z.y - z.z;
-	t = 0.5f * (t - native_sqrt(t * t));
+	t = 0.5f * (t - fabs(t));
 	z.y = z.y - t;
 	z.z = z.z + t;
 

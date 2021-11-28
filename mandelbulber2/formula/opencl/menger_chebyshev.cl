@@ -70,22 +70,22 @@ REAL4 MengerChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-
+	REAL temp;
 	if (z.x < z.y)
 	{
-		REAL temp = z.y;
+		temp = z.y;
 		z.y = z.x;
 		z.x = temp;
 	}
 	if (z.x < z.z)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.x;
 		z.x = temp;
 	}
 	if (z.y < z.z)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.y;
 		z.y = temp;
 	}

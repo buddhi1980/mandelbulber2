@@ -44,9 +44,9 @@ void cFractalMengerMiddleMod::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	// fabs() and menger fold
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
-	if (z.x - z.y < 0.0) swap(z.y, z.x);
-	if (z.x - z.z < 0.0) swap(z.z, z.x);
-	if (z.y - z.z < 0.0) swap(z.z, z.y);
+	if (z.x < z.y) swap(z.y, z.x);
+	if (z.x < z.z) swap(z.z, z.x);
+	if (z.y < z.z) swap(z.z, z.y);
 
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC) // rotation

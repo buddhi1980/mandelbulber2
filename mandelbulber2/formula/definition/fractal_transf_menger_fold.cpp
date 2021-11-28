@@ -33,9 +33,9 @@ void cFractalTransfMengerFold::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledx)
 	{ // fabs() and menger fold
 		z = fabs(z + fractal->transformCommon.additionConstantA000);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		if (z.x < z.y) swap(z.y, z.x);
+		if (z.x < z.z) swap(z.z, z.x);
+		if (z.y < z.z) swap(z.z, z.y);
 	}
 	if (fractal->transformCommon.functionEnabledy)
 	{ // menger scales and offsets

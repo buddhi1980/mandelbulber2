@@ -33,17 +33,17 @@ void cFractalMenger3M3d::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	double t;
 	t = z.x - z.y;
-	t = 0.5 * (t - sqrt(t * t));
+	t = 0.5 * (t - fabs(t));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
 	t = z.x - z.z;
-	t = 0.5 * (t - sqrt(t * t));
-	z.x = z.x - t;
+	t = 0.5 * (t - fabs(t));
 	z.z = z.z + t;
+	z.x = z.x - t;
 
 	t = z.y - z.z;
-	t = 0.5 * (t - sqrt(t * t));
+	t = 0.5 * (t - fabs(t));
 	z.y = z.y - t;
 	z.z = z.z + t;
 

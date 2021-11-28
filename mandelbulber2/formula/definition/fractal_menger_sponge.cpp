@@ -32,9 +32,9 @@ void cFractalMengerSponge::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	z.y = fabs(z.y);
 	z.z = fabs(z.z);
 
-	if (z.x - z.y < 0.0) swap(z.x, z.y);
-	if (z.x - z.z < 0.0) swap(z.x, z.z);
-	if (z.y - z.z < 0.0) swap(z.y, z.z);
+	if (z.x < z.y) swap(z.x, z.y);
+	if (z.x < z.z) swap(z.x, z.z);
+	if (z.y < z.z) swap(z.y, z.z);
 
 	z *= fractal->transformCommon.scale3;
 
