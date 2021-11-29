@@ -358,6 +358,8 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceRandomLights);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceJulia,
 		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfaceJulia);
+	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
+		&cInterface::slotRefreshPostEffects);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfacePrimitives,
 		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfacePrimitives);
 	connect(mainWindow->manipulations, &cManipulations::signalEnableJuliaMode,
@@ -726,10 +728,11 @@ void cInterface::IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFracta
 	parFractal->Set("IFS_edge_enabled", false);
 }
 
-void cInterface::AutoFog() const
+void cInterface::AutoFog(std::shared_ptr<cParameterContainer> _params,
+	std::shared_ptr<cFractalContainer> _fractalParams) const
 {
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+
+	double distance = GetDistanceForPoint(_params->Get<CVector3>("camera"), _params, _fractalParams);
 	double fogDensity = 0.5;
 	double fogDistanceFactor = distance;
 	double fogColour1Distance = distance * 0.5;

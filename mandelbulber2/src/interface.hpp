@@ -79,7 +79,8 @@ public:
 	static void IFSDefaultsOctahedron(std::shared_ptr<cParameterContainer> parFractal);
 	static void IFSDefaultsMengerSponge(std::shared_ptr<cParameterContainer> parFractal);
 	static void IFSDefaultsReset(std::shared_ptr<cParameterContainer> parFractal);
-	void AutoFog() const;
+	void AutoFog(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams) const;
 	double GetDistanceForPoint(CVector3 point) const;
 	static double GetDistanceForPoint(CVector3 point, std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal);

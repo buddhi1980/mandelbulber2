@@ -72,12 +72,12 @@ public slots:
 	void slotPressedButtonNavi();
 
 private slots:
-	static void slotPressedButtonAutoFog();
+	void slotPressedButtonAutoFog();
 	void slotChangedComboAmbientOcclusionMode(int index) const;
-	static void slotEditedLineEditManualLightPlacementDistance(const QString &text);
+	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonSetDOFByMouse();
 	void slotPressedButtonSetFogByMouse();
-	static void slotPressedButtonUpdatePostEffects();
+	void slotPressedButtonUpdatePostEffects();
 	void slotPressedButtonPlaceRandomLightsByMouse();
 	void slotChangedPlaceLightBehindObjects(int state);
 	void slotChangedEnableMCDOF(bool state);
@@ -87,6 +87,10 @@ private slots:
 private:
 	void ConnectSignals() const;
 
+signals:
+	void signalRefreshPostEffects(void);
+
+private:
 	Ui::cDockEffects *ui;
 
 	cAutomatedWidgets *automatedWidgets;

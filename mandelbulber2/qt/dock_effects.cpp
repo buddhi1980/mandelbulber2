@@ -139,12 +139,12 @@ void cDockEffects::slotSetAuxLightManualPlacementDistance(double dist) const
 
 void cDockEffects::slotEditedLineEditManualLightPlacementDistance(const QString &text)
 {
-	gMainInterface->renderedImage->SetFrontDist(systemData.locale.toDouble(text));
+	renderedImageWidget->SetFrontDist(systemData.locale.toDouble(text));
 }
 
 void cDockEffects::slotChangedPlaceLightBehindObjects(int state)
 {
-	gMainInterface->renderedImage->SetPlaceBehindObjects(state);
+	renderedImageWidget->SetPlaceBehindObjects(state);
 }
 
 void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
@@ -157,12 +157,13 @@ void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
 
 void cDockEffects::slotPressedButtonAutoFog()
 {
-	gMainInterface->AutoFog();
+	gMainInterface->AutoFog(params, fractalParams);
+	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }
 
 void cDockEffects::slotPressedButtonUpdatePostEffects()
 {
-	gMainInterface->RefreshMainImage();
+	emit signalRefreshPostEffects();
 }
 
 void cDockEffects::slotPressedButtonSetDOFByMouse()

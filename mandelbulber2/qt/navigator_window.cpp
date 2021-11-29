@@ -99,6 +99,8 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 				&cDockEffects::slotSynchronizeInterfaceDOF);
 			connect(manipulations, &cManipulations::signalWriteInterfaceRandomLights, dockEffects,
 				&cDockEffects::slotSynchronizeInterfaceRandomLights);
+			connect(dockEffects, &cDockEffects::signalRefreshPostEffects, this,
+				&cNavigatorWindow::slotRefreshMainImage);
 		}
 	}
 }
