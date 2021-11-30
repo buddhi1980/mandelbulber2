@@ -120,7 +120,7 @@ void cNavigatorWindow::SetInitialParameters(
 	sourceFractalParams = _fractalParams;
 
 	*params = *_params;
-	*fractalParams = *_fractalParams;
+	if (_fractalParams) *fractalParams = *_fractalParams;
 
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);

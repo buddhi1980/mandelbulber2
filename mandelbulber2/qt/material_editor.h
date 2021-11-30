@@ -60,6 +60,7 @@ public:
 
 private slots:
 	void slotChangedComboFractalColoringAlgorithm(int index) const;
+	void slotPressedButtonNavi();
 
 private:
 	void ConnectSignals();

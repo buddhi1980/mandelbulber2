@@ -34,6 +34,8 @@
 
 #include "material_editor.h"
 
+#include <memory>
+#include "navigator_window.h"
 #include "ui_material_editor.h"
 
 #include "preview_file_dialog.h"
@@ -41,6 +43,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/common_math.h"
 #include "src/fractal_coloring.hpp"
+#include "src/fractal_container.hpp"
 #include "src/interface.hpp"
 #include "src/material.h"
 #include "src/synchronize_interface.hpp"
@@ -76,6 +79,9 @@ void cMaterialEditor::ConnectSignals()
 		SLOT(slotChangedComboFractalColoringAlgorithm(int)));
 	connect(
 		ui->widget_material_preview, SIGNAL(materialChanged(int)), this, SIGNAL(materialChanged(int)));
+
+	connect(ui->pushButton_local_navi, &QPushButton::pressed, this,
+		&cMaterialEditor::slotPressedButtonNavi);
 }
 
 void cMaterialEditor::AssignMaterial(std::shared_ptr<cParameterContainer> params, int index)
@@ -123,4 +129,17 @@ void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 void cMaterialEditor::Colorize(int randomSeed)
 {
 	cInterface::ColorizeGroupBoxes(this, randomSeed);
+}
+
+void cMaterialEditor::slotPressedButtonNavi()
+{
+	cNavigatorWindow *navigator = new cNavigatorWindow();
+	cMaterialEditor *leftWidget = new cMaterialEditor();
+	leftWidget->AssignMaterial(parameterContainer, materialIndex);
+	navigator->AddLeftWidget(leftWidget);
+	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->SetInitialParameters(parameterContainer, gParFractal);
+	navigator->SynchronizeInterface(qInterface::write);
+	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
+	navigator->show();
 }

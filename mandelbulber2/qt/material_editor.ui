@@ -46,6 +46,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_local_navi">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Navi</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -113,8 +126,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>472</width>
-        <height>4461</height>
+        <width>466</width>
+        <height>3890</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
