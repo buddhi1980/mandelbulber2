@@ -65,7 +65,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 	QLabel *fpsLabel = new QLabel("FPS", this);
 	QHBoxLayout *controlLayout = new QHBoxLayout;
-    controlLayout->setContentsMargins(5,5,5,5);
+	controlLayout->setContentsMargins(5, 5, 5, 5);
 	controlLayout->addWidget(stopButton);
 	controlLayout->addWidget(playPauseButton);
 	controlLayout->addWidget(positionSlider);
@@ -75,7 +75,8 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 	QBoxLayout *layout = new QVBoxLayout;
 
-    layout->setContentsMargins(0,0,0,0);;
+	layout->setContentsMargins(0, 0, 0, 0);
+	;
 	layout->addWidget(imageLabel);
 	layout->addLayout(controlLayout);
 	layout->setStretch(0, 1);
@@ -161,9 +162,12 @@ void PlayerWidget::stop()
 
 void PlayerWidget::nextFrame()
 {
-	currentIndex = (currentIndex + 1) % imageFiles.size();
-	positionSlider->setSliderPosition(currentIndex);
-	updateFrame();
+	if (imageFiles.size() > 0)
+	{
+		currentIndex = (currentIndex + 1) % imageFiles.size();
+		positionSlider->setSliderPosition(currentIndex);
+		updateFrame();
+	}
 }
 
 void PlayerWidget::setPosition(int position)
