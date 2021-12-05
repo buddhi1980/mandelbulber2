@@ -239,7 +239,7 @@ void cNavigatorWindow::StartRender()
 	if (forcedSizeFactor > 0)
 	{
 		intSizeFactor = forcedSizeFactor;
-		if (forcedSizeFactor == 1) forcedSizeFactor = 0;
+		forcedSizeFactor = 0;
 	}
 	else
 	{
@@ -319,6 +319,7 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("glow_intensity", 4.0);
 		tempParams->Set("glow_color_1", sRGB(0, 0, 0));
 		tempParams->Set("glow_color_2", sRGB(0, 0, 0));
+		tempParams->Set("ambient_occlusion_fast_tune", 1.0);
 	}
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
