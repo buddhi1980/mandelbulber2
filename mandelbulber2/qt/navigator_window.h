@@ -52,6 +52,7 @@ public slots:
 	void slotButtonUseParameters();
 	void slotButtonCancel();
 	void slotSmallPartRendered(double time);
+	void slotFullImageRendered();
 	void slotDisablePeriodicRefresh();
 	void slotReEnablePeriodicRefresh();
 	void slotRefreshMainImage();
@@ -60,6 +61,7 @@ private slots:
 	void slotPeriodicRefresh();
 	void slotChangedComboMouseClickFunction(int index);
 	void slotChangedPreviewSize();
+	void slotDarkGlowEnabled(int state);
 
 private:
 	void InitPeriodicRefresh();
@@ -84,7 +86,9 @@ private:
 	QList<QVariant> mouseClickFunction;
 
 	double lastRenderedTimeOfSmallPart = 1.0f;
-	int lastSizefactor = 8;
+	double lastSizefactor = 8.0;
+	int lastIntSizeFactor = 8;
+	int forcedSizeFactor = 0;
 
 	int initImageWidth = 800;
 	int initImageHeight = 600;

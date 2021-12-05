@@ -593,6 +593,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("navigator_shadows", true, morphNone, paramApp);
 	par->addParam("navigator_reflections", true, morphNone, paramApp);
 	par->addParam("navigator_volumetrics", true, morphNone, paramApp);
+	par->addParam("navigator_dark_glow", false, morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }

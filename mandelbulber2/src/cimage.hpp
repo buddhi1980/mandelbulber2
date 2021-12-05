@@ -89,6 +89,7 @@ public:
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(quint64 w, quint64 h, sImageOptional optional);
+	void FastResize(quint64 w, quint64 h);
 	void ClearImage();
 	void ClearRGB(
 		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
@@ -105,6 +106,7 @@ public:
 	bool IsMainImage() const { return isMainImage; }
 
 	void SetFastPreview(bool enable) { fastPreview = enable; }
+	void SetResizeOnChangeSize(bool enable) { useResizeOnChangeSize = enable; }
 
 	inline quint64 getImageIndex(const quint64 x, const quint64 y) const
 	{
@@ -379,6 +381,7 @@ private:
 	bool allocLater;
 	bool isStereoLeftRight;
 	bool fastPreview;
+	bool useResizeOnChangeSize;
 	QMap<QString, QString> meta;
 
 	QMutex previewMutex;

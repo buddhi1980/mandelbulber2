@@ -84,7 +84,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_navigator_options">
          <property name="title">
-          <string>Navigator options</string>
+          <string>Preview quality options</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <property name="spacing">
@@ -122,7 +122,7 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>Preview size</string>
+               <string>Size</string>
               </property>
              </widget>
             </item>
@@ -148,7 +148,7 @@
             <item>
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>Preview quality</string>
+               <string>Quality</string>
               </property>
              </widget>
             </item>
@@ -209,6 +209,13 @@
              <widget class="QCheckBox" name="checkBox_navigator_volumetrics">
               <property name="text">
                <string>Volumetrics</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_navigator_dark_glow">
+              <property name="text">
+               <string>Dark glow</string>
               </property>
              </widget>
             </item>

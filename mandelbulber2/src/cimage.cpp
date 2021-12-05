@@ -186,13 +186,50 @@ bool cImage::ChangeSize(quint64 w, quint64 h, sImageOptional optional)
 	if (w != width || h != height || !(optional == *GetImageOptional()) || allocLater)
 	{
 		previewMutex.lock();
+		std::vector<sRGBFloat> imageCopy;
+		std::vector<float> imageCopyZBuffer;
+
+		if (useResizeOnChangeSize)
+		{
+			imageCopy = imageFloat;
+			imageCopyZBuffer = zBuffer;
+		}
+		quint64 oldWidth = width;
+		quint64 oldHeight = height;
+
 		width = quint64(w);
 		height = quint64(h);
 		SetImageOptional(optional);
 		FreeImage();
 		allocLater = false;
 		bool result = AllocMem();
+
+		if (useResizeOnChangeSize)
+		{
+			// fast image scaling
+			float scaleX = float(oldWidth) / w;
+			float scaleY = float(oldHeight) / h;
+
+			for (quint64 y = 0; y < h; y++)
+			{
+				quint64 yy = y * scaleY;
+
+				for (quint64 x = 0; x < w; x++)
+				{
+					quint64 xx = x * scaleX;
+					PutPixelImage(x, y, imageCopy[yy * oldWidth + xx]);
+					PutPixelPostImage(x, y, imageCopy[yy * oldWidth + xx]);
+					PutPixelZBuffer(x, y, imageCopyZBuffer[yy * oldWidth + xx]);
+				}
+			}
+		}
 		previewMutex.unlock();
+		if (useResizeOnChangeSize)
+		{
+			CompileImage();
+			ConvertTo8bitChar();
+		}
+
 		return result;
 	}
 	return true;
@@ -491,15 +528,15 @@ sRGB8 cImage::Interpolation(float x, float y) const
 quint8 *cImage::CreatePreview(
 	double scale, int visibleWidth, int visibleHeight, QWidget *widget = nullptr)
 {
-    previewMutex.lock();
+	previewMutex.lock();
 	quint64 w = quint64(width * scale);
 	quint64 h = quint64(height * scale);
 
 	if (w != previewWidth || h != previewHeight || !previewAllocated)
 	{
 
-        previewVisibleWidth = visibleWidth;
-        previewVisibleHeight = visibleHeight;
+		previewVisibleWidth = visibleWidth;
+		previewVisibleHeight = visibleHeight;
 
 		preview.resize(w * h);
 		preview2.resize(w * h);
@@ -756,7 +793,7 @@ void cImage::RedrawInWidget(QWidget *qWidget)
 		QImage qImage(GetPreviewConstPtr(), int(previewWidth), int(previewHeight),
 			int(previewWidth * sizeof(sRGB8)), QImage::Format_RGB888);
 
-        painter.drawImage(QRect(0, 0, int(previewWidth), int(previewHeight)), qImage,
+		painter.drawImage(QRect(0, 0, int(previewWidth), int(previewHeight)), qImage,
 			QRect(0, 0, int(previewWidth), int(previewHeight)));
 		preview2 = preview;
 		previewMutex.unlock();
@@ -1183,4 +1220,34 @@ double cImage::VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank
 	}
 
 	return diffPerPixel;
+}
+
+void cImage::FastResize(quint64 w, quint64 h)
+{
+	previewMutex.lock();
+	std::vector<sRGBFloat> imageCopy = imageFloat;
+	std::vector<float> imageCopyZBuffer = zBuffer;
+	quint64 oldWidth = width;
+	quint64 oldHeight = height;
+	previewMutex.unlock();
+
+	ChangeSize(w, h, opt);
+
+	previewMutex.lock();
+	float scaleX = float(oldWidth) / w;
+	float scaleY = float(oldHeight) / h;
+
+	for (quint64 y = 0; y < h; y++)
+	{
+		quint64 yy = y * scaleY;
+
+		for (quint64 x = 0; x < w; x++)
+		{
+			quint64 xx = x * scaleX;
+			PutPixelImage(x, y, imageCopy[yy * oldWidth + xx]);
+			PutPixelPostImage(x, y, imageCopy[yy * oldWidth + xx]);
+			PutPixelZBuffer(x, y, imageCopyZBuffer[yy * oldWidth + xx]);
+		}
+	}
+	previewMutex.unlock();
 }

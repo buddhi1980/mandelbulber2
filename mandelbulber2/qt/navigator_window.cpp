@@ -13,6 +13,7 @@
 
 #include <QThread>
 
+#include "../src/image_scale.hpp"
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
@@ -76,6 +77,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboMouseClickFunction(int)));
 
+	connect(ui->checkBox_navigator_dark_glow, &QCheckBox::stateChanged, this,
+		&cNavigatorWindow::slotDarkGlowEnabled);
+
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
 }
 
@@ -129,6 +133,7 @@ void cNavigatorWindow::SetInitialParameters(
 
 	image.reset(new cImage(initImageWidth, initImageHeight, false));
 	ui->widgetRenderedImage->AssignImage(image);
+	image->SetResizeOnChangeSize(true);
 	image->SetFastPreview(true);
 	image->CreatePreview(1.0, initImageWidth, initImageHeight, ui->widgetRenderedImage);
 	image->UpdatePreview();
@@ -211,12 +216,6 @@ void cNavigatorWindow::StartRender()
 	*tempParams = *params;
 	*tempFractalParams = *fractalParams;
 
-	if (params::enumAOMode(params->Get<int>("ambient_occlusion_mode")) == params::AOModeScreenSpace)
-	{
-		tempParams->Set("ambient_occlusion_mode", int(params::AOModeFast));
-		tempParams->Set("ambient_occlusion_fast_tune", 0.5);
-	}
-
 	int width = 0;
 	int height = 0;
 	int intSizeFactor = 0;
@@ -237,25 +236,35 @@ void cNavigatorWindow::StartRender()
 		image->CreatePreview(1.0, initImageWidth, initImageHeight, ui->widgetRenderedImage);
 	}
 
-	if (ui->comboBox_navigator_preview_quality->currentIndex() == 0)
+	if (forcedSizeFactor > 0)
 	{
-		double sizeFactor = 2.0 * (lastRenderedTimeOfSmallPart + 0.001) * lastSizefactor;
-
-		intSizeFactor = lastSizefactor;
-		if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
-		{
-			intSizeFactor = int(sizeFactor) + 1;
-		}
-		intSizeFactor = clamp(intSizeFactor, 1, 16);
-
-		lastSizefactor = lastSizefactor + (intSizeFactor - lastSizefactor) * 0.1;
-		intSizeFactor = lastSizefactor;
+		intSizeFactor = forcedSizeFactor;
+		if (forcedSizeFactor == 1) forcedSizeFactor = 0;
 	}
 	else
 	{
-		lastSizefactor = intSizeFactor =
-			pow(2, ui->comboBox_navigator_preview_quality->currentIndex() - 1);
+		if (ui->comboBox_navigator_preview_quality->currentIndex() == 0)
+		{
+			double sizeFactor = 2.0 * (lastRenderedTimeOfSmallPart + 0.001) * lastSizefactor;
+
+			intSizeFactor = lastSizefactor;
+			if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
+			{
+				intSizeFactor = int(sizeFactor) + 1;
+			}
+			intSizeFactor = clamp(intSizeFactor, 1, 16);
+
+			lastSizefactor = lastSizefactor + (intSizeFactor - lastSizefactor) * 0.3;
+			intSizeFactor = lastSizefactor;
+		}
+		else
+		{
+			lastSizefactor = intSizeFactor =
+				pow(2, ui->comboBox_navigator_preview_quality->currentIndex() - 1);
+		}
 	}
+
+	if (params->Get<int>("opencl_mode") == 0) lastSizefactor = intSizeFactor = 1;
 
 	width = clamp(int(initImageWidth / intSizeFactor), 64, initImageWidth);
 	height = width / imageProportion;
@@ -263,6 +272,25 @@ void cNavigatorWindow::StartRender()
 	tempParams->Set("image_width", width);
 	tempParams->Set("image_height", height);
 	tempParams->Set("detail_level", params->Get<double>("detail_level") * intSizeFactor);
+
+	//	if (intSizeFactor != lastIntSizeFactor)
+	//	{
+	//		image->FastResize(width, height);
+	//		double scale = CalcMainImageScale(0.0, initImageWidth, initImageHeight, image);
+	//		image->CreatePreview(scale, initImageWidth, initImageWidth, ui->widgetRenderedImage);
+	//		image->CompileImage();
+	//		image->ConvertTo8bitChar();
+	//		image->UpdatePreview();
+	//	}
+
+	lastIntSizeFactor = intSizeFactor;
+
+	if (params::enumAOMode(params->Get<int>("ambient_occlusion_mode")) == params::AOModeScreenSpace
+			|| ui->checkBox_navigator_dark_glow->isChecked())
+	{
+		tempParams->Set("ambient_occlusion_mode", int(params::AOModeFast));
+		tempParams->Set("ambient_occlusion_fast_tune", 0.5);
+	}
 
 	if (!ui->checkBox_navigator_shadows->isChecked())
 	{
@@ -285,6 +313,14 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("basic_fog_enabled", false);
 	}
 
+	if (ui->checkBox_navigator_dark_glow->isChecked())
+	{
+		tempParams->Set("glow_enabled", true);
+		tempParams->Set("glow_intensity", 4.0);
+		tempParams->Set("glow_color_1", sRGB(0, 0, 0));
+		tempParams->Set("glow_color_2", sRGB(0, 0, 0));
+	}
+
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
 
@@ -295,6 +331,7 @@ void cNavigatorWindow::StartRender()
 		&cManipulations::slotSmallPartRendered);
 	connect(renderJob, &cRenderJob::signalSmallPartRendered, this,
 		&cNavigatorWindow::slotSmallPartRendered);
+	connect(renderJob, &cRenderJob::fullyRendered, this, &cNavigatorWindow::slotFullImageRendered);
 
 	cRenderingConfiguration config;
 	config.DisableNetRender();
@@ -517,4 +554,25 @@ void cNavigatorWindow::slotRefreshMainImage()
 void cNavigatorWindow::slotChangedPreviewSize()
 {
 	StartRender();
+}
+
+void cNavigatorWindow::slotDarkGlowEnabled(int state)
+{
+	if (state)
+	{
+		ui->checkBox_navigator_reflections->setChecked(false);
+		ui->checkBox_navigator_shadows->setChecked(false);
+		ui->checkBox_navigator_volumetrics->setChecked(false);
+	}
+}
+
+void cNavigatorWindow::slotFullImageRendered()
+{
+	if (lastIntSizeFactor > 1 && ui->comboBox_navigator_preview_quality->currentIndex() == 0
+			&& params->Get<int>("opencl_mode") > 0)
+
+	{
+		forcedSizeFactor = lastIntSizeFactor / 2;
+		StartRender();
+	}
 }

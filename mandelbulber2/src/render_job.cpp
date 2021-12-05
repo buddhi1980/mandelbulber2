@@ -226,6 +226,7 @@ bool cRenderJob::InitImage(int w, int h, const sImageOptional &optional)
 				scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			// image->UpdatePreview();
 			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+			image->UpdatePreview();
 		}
 
 		// qDebug() << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
