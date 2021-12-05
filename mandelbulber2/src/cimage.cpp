@@ -44,6 +44,7 @@ cImage::cImage(int w, int h, bool _allocLater)
 	width = quint64(w);
 	height = quint64(h);
 	allocLater = _allocLater;
+	useResizeOnChangeSize = false;
 	construct();
 }
 
