@@ -17,14 +17,60 @@
 REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
+	// tranform z
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int8X;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCyFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z.z = fabs(z.z);
+		REAL psi = M_PI_F / fractal->transformCommon.int8Y;
+		psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.y * z.y + z.z * z.z);
+		z.y = native_cos(psi) * len;
+		z.z = native_sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCzFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z.x = fabs(z.x);
+		REAL psi = M_PI_F / fractal->transformCommon.int8Z;
+		psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.z * z.z + z.x * z.x);
+		z.z = native_cos(psi) * len;
+		z.x = native_sin(psi) * len;
+	}
+
+
+
+
+
+
+	z = fabs(z - fractal->transformCommon.offset000);
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	REAL4 zc = z;
-	REAL e = fractal->transformCommon.offset0005;
+	zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
+
 	zc = fabs(zc) - fractal->transformCommon.offsetC111;
 
 	REAL4 q = (REAL4){fractal->transformCommon.offsetp01,
 			fractal->transformCommon.offsetAp01,
 			fractal->transformCommon.offsetBp01, 0.0};
-	q = fabs(zc + q) - q;
+	q = fabs(zc) - q;
 
 	REAL lenX = min(max(zc.x, max(q.y, q.z)), 0.0f);
 	REAL lenY = min(max(q.x, max(zc.y, q.z)), 0.0f);
@@ -47,6 +93,9 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL D = min(min(lenX, lenY), lenZ);
 
 	aux->dist = min(aux->dist, D);
-
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
 	return z;
 }
