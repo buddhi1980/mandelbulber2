@@ -485,7 +485,7 @@ bool cRenderJob::Execute()
 				if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
 							paramsContainer->Get<int>("opencl_mode"))
 							== cOpenClEngineRenderFractal::clRenderEngineTypeFast
-						|| mode == flightAnimRecord)
+						|| mode == flightAnimRecord || renderData->configuration.UseForcedFastPreview())
 					image->SetFastPreview(true);
 				else
 					image->SetFastPreview(false);
@@ -501,7 +501,10 @@ bool cRenderJob::Execute()
 			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
 		} // next repeat
 
-		image->SetFastPreview(false);
+		if (!renderData->configuration.UseForcedFastPreview())
+		{
+			image->SetFastPreview(false);
+		}
 
 		gApplication->processEvents();
 		emit updateProgressAndStatus(

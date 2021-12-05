@@ -13,25 +13,25 @@
 
 #include <QThread>
 
-#include "src/common_math.h"
-#include "src/lights.hpp"
-#include "src/light.h"
 #include "src/ao_modes.h"
-#include "src/render_window.hpp"
-#include "src/fractal_container.hpp"
-
-#include "src/parameters.hpp"
-#include "src/fractal_container.hpp"
 #include "src/cimage.hpp"
-#include "src/synchronize_interface.hpp"
-#include "src/global_data.hpp"
-#include "src/write_log.hpp"
-#include "src/settings.hpp"
-#include "src/render_job.hpp"
+#include "src/common_math.h"
 #include "src/error_message.hpp"
-#include "src/rendering_configuration.hpp"
-#include "src/manipulations.h"
+#include "src/fractal_container.hpp"
+#include "src/fractal_container.hpp"
+#include "src/global_data.hpp"
 #include "src/interface.hpp"
+#include "src/initparameters.hpp"
+#include "src/light.h"
+#include "src/lights.hpp"
+#include "src/manipulations.h"
+#include "src/parameters.hpp"
+#include "src/render_job.hpp"
+#include "src/render_window.hpp"
+#include "src/rendering_configuration.hpp"
+#include "src/settings.hpp"
+#include "src/synchronize_interface.hpp"
+#include "src/write_log.hpp"
 
 cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui::cNavigatorWindow)
 {
@@ -41,12 +41,6 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	setWindowTitle(tr("Navigator"));
 
 	manipulations = new cManipulations(this);
-
-	image.reset(new cImage(initImageWidgth, initImageHeight, false));
-	ui->widgetRenderedImage->AssignImage(image);
-	image->SetFastPreview(true);
-	image->CreatePreview(1.0, initImageWidgth, initImageHeight, ui->widgetRenderedImage);
-	image->UpdatePreview();
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
 		&cNavigatorWindow::StartRender);
@@ -81,6 +75,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboMouseClickFunction(int)));
+
+	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
 }
 
 void cNavigatorWindow::AddLeftWidget(QWidget *widget)
@@ -122,6 +118,21 @@ void cNavigatorWindow::SetInitialParameters(
 	*params = *_params;
 	if (_fractalParams) *fractalParams = *_fractalParams;
 
+	QRect availableScreenGeometry = QGuiApplication::screens().first()->availableGeometry();
+	int maxWindowWidth = availableScreenGeometry.width();
+	int maxWindowHeight = availableScreenGeometry.height();
+
+	imageProportion = double(params->Get<int>("image_width")) / params->Get<int>("image_height");
+
+	initImageWidth = maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	initImageHeight = initImageWidth / imageProportion;
+
+	image.reset(new cImage(initImageWidth, initImageHeight, false));
+	ui->widgetRenderedImage->AssignImage(image);
+	image->SetFastPreview(true);
+	image->CreatePreview(1.0, initImageWidth, initImageHeight, ui->widgetRenderedImage);
+	image->UpdatePreview();
+
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
 
@@ -140,6 +151,9 @@ void cNavigatorWindow::SetInitialParameters(
 	InitPeriodicRefresh();
 
 	cInterface::ComboMouseClickUpdate(ui->comboBox_mouse_click_function, params);
+
+	connect(ui->comboBox_navigator_preview_size, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotChangedPreviewSize()));
 
 	// StartRender();
 }
@@ -161,6 +175,8 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, mode);
 		}
 	}
+
+	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::read);
 }
 
 void cNavigatorWindow::StartRender()
@@ -201,29 +217,73 @@ void cNavigatorWindow::StartRender()
 		tempParams->Set("ambient_occlusion_fast_tune", 0.5);
 	}
 
-	double sizeFactor = 1.0 * sqrt(lastRenderedTimeOfSmallPart + 0.0001) * lastSizefactor;
+	int width = 0;
+	int height = 0;
+	int intSizeFactor = 0;
 
-	int intSizeFactor = lastSizefactor;
-	if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
+	QRect availableScreenGeometry = QGuiApplication::screens().first()->availableGeometry();
+	int maxWindowWidth = availableScreenGeometry.width();
+	int maxWindowHeight = availableScreenGeometry.height();
+	int newInitImageWidth =
+		maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	int newInitImageHeight = initImageWidth / imageProportion;
+	if ((newInitImageHeight != initImageHeight) || newInitImageWidth != initImageWidth)
 	{
-		intSizeFactor = int(sizeFactor) + 1;
+		initImageHeight = newInitImageHeight;
+		initImageWidth = newInitImageWidth;
+		ui->widgetRenderedImage->setFixedWidth(initImageWidth);
+		ui->widgetRenderedImage->setFixedHeight(initImageHeight);
+		image->ChangeSize(initImageWidth, initImageHeight, sImageOptional());
+		image->CreatePreview(1.0, initImageWidth, initImageHeight, ui->widgetRenderedImage);
 	}
-	intSizeFactor = clamp(intSizeFactor, 1, 8);
 
-	lastSizefactor = intSizeFactor;
+	if (ui->comboBox_navigator_preview_quality->currentIndex() == 0)
+	{
+		double sizeFactor = 2.0 * (lastRenderedTimeOfSmallPart + 0.001) * lastSizefactor;
 
-	int width = clamp(int(1200 / intSizeFactor), 64, 1200);
-	int height = width * 3 / 4;
+		intSizeFactor = lastSizefactor;
+		if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
+		{
+			intSizeFactor = int(sizeFactor) + 1;
+		}
+		intSizeFactor = clamp(intSizeFactor, 1, 16);
+
+		lastSizefactor = lastSizefactor + (intSizeFactor - lastSizefactor) * 0.1;
+		intSizeFactor = lastSizefactor;
+	}
+	else
+	{
+		lastSizefactor = intSizeFactor =
+			pow(2, ui->comboBox_navigator_preview_quality->currentIndex() - 1);
+	}
+
+	width = clamp(int(initImageWidth / intSizeFactor), 64, initImageWidth);
+	height = width / imageProportion;
 
 	tempParams->Set("image_width", width);
 	tempParams->Set("image_height", height);
 	tempParams->Set("detail_level", params->Get<double>("detail_level") * intSizeFactor);
 
-	//	QList<int> listOfLights = cLights::GetListOfLights(tempParams);
-	//	for (int lightIndex : listOfLights)
-	//	{
-	//		tempParams->Set(cLight::Name("cast_shadows", lightIndex), false);
-	//	}
+	if (!ui->checkBox_navigator_shadows->isChecked())
+	{
+		QList<int> listOfLights = cLights::GetListOfLights(tempParams);
+		for (int lightIndex : listOfLights)
+		{
+			tempParams->Set(cLight::Name("cast_shadows", lightIndex), false);
+		}
+	}
+
+	if (!ui->checkBox_navigator_reflections->isChecked())
+		tempParams->Set("raytraced_reflections", false);
+
+	if (!ui->checkBox_navigator_volumetrics->isChecked())
+	{
+		tempParams->Set("volumetric_fog_enabled", false);
+		tempParams->Set("iteration_fog_enable", false);
+		tempParams->Set("clouds_enable", false);
+		tempParams->Set("glow_enabled", false);
+		tempParams->Set("basic_fog_enabled", false);
+	}
 
 	cRenderJob *renderJob = new cRenderJob(tempParams, tempFractalParams, image, &stopRequest,
 		ui->widgetRenderedImage); // deleted by deleteLater()
@@ -238,6 +298,7 @@ void cNavigatorWindow::StartRender()
 
 	cRenderingConfiguration config;
 	config.DisableNetRender();
+	config.ForceFastPreview();
 
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
@@ -451,4 +512,9 @@ void cNavigatorWindow::slotRefreshMainImage()
 	std::unique_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, &stopRequest, ui->widgetRenderedImage));
 	renderJob->RefreshPostEffects();
+}
+
+void cNavigatorWindow::slotChangedPreviewSize()
+{
+	StartRender();
 }

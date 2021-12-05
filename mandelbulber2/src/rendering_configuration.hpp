@@ -47,6 +47,7 @@ public:
 	void DisableMultiThread() { enableMultiThread = false; }
 	void EnableIgnoreErrors() { enableIgnoreErrors = true; }
 	void SetMaxRenderTime(double _maxRenderTime) { maxRenderTime = _maxRenderTime; }
+	void ForceFastPreview() { forceFastPreview = true; }
 
 	bool UseNetRender() const;
 	bool UseImageRefresh() const;
@@ -54,6 +55,7 @@ public:
 	bool UseRefreshRenderedList() const;
 	bool UseRenderTimeEffects() const;
 	bool UseIgnoreErrors() const;
+	bool UseForcedFastPreview() const;
 	int GetNumberOfThreads() const;
 	double GetMaxRenderTime() const { return maxRenderTime; }
 	int GetRefreshRate() const;
@@ -64,6 +66,7 @@ private:
 	bool enableNetRender;
 	bool enableMultiThread;
 	bool enableIgnoreErrors;
+	bool forceFastPreview;
 	double maxRenderTime;
 	int refreshRate;
 };

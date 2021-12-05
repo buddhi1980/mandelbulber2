@@ -45,6 +45,7 @@ cRenderingConfiguration::cRenderingConfiguration()
 	enableNetRender = false;
 	enableMultiThread = true;
 	enableIgnoreErrors = false;
+	forceFastPreview = false;
 	refreshRate = 1000;
 	maxRenderTime = 1e50;
 }
@@ -93,4 +94,9 @@ int cRenderingConfiguration::GetRefreshRate() const
 bool cRenderingConfiguration::UseIgnoreErrors() const
 {
 	return enableIgnoreErrors;
+}
+
+bool cRenderingConfiguration::UseForcedFastPreview() const
+{
+	return forceFastPreview;
 }

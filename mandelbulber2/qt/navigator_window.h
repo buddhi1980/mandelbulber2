@@ -59,6 +59,7 @@ public slots:
 private slots:
 	void slotPeriodicRefresh();
 	void slotChangedComboMouseClickFunction(int index);
+	void slotChangedPreviewSize();
 
 private:
 	void InitPeriodicRefresh();
@@ -83,10 +84,11 @@ private:
 	QList<QVariant> mouseClickFunction;
 
 	double lastRenderedTimeOfSmallPart = 1.0f;
-	int lastSizefactor = 2;
+	int lastSizefactor = 8;
 
-	const int initImageWidgth = 800;
-	const int initImageHeight = 600;
+	int initImageWidth = 800;
+	int initImageHeight = 600;
+	double imageProportion = 1.0;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

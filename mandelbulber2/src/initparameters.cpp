@@ -588,6 +588,12 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("thumbnails_with_opencl", false, morphNone, paramApp);
 	par->addParam("clang_format_path", QString("clang-format"), morphNone, paramApp);
 
+	par->addParam("navigator_preview_size", 0, morphNone, paramApp);
+	par->addParam("navigator_preview_quality", 0, morphNone, paramApp);
+	par->addParam("navigator_shadows", true, morphNone, paramApp);
+	par->addParam("navigator_reflections", true, morphNone, paramApp);
+	par->addParam("navigator_volumetrics", true, morphNone, paramApp);
+
 	WriteLog("Parameters initialization finished", 3);
 }
 

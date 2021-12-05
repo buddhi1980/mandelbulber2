@@ -74,7 +74,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,1,0,0">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -82,9 +82,158 @@
         <number>0</number>
        </property>
        <item>
+        <widget class="QGroupBox" name="groupBox_navigator_options">
+         <property name="title">
+          <string>Navigator options</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Preview size</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="MyComboBox" name="comboBox_navigator_preview_size">
+              <item>
+               <property name="text">
+                <string>Small</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Medium</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Big</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Preview quality</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="MyComboBox" name="comboBox_navigator_preview_quality">
+              <item>
+               <property name="text">
+                <string>Auto</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1/2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1/4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1/8</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1/16</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>1/32</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_navigator_shadows">
+              <property name="text">
+               <string>Shadows</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_navigator_reflections">
+              <property name="text">
+               <string>Reflectons</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_navigator_volumetrics">
+              <property name="text">
+               <string>Volumetrics</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="RenderedImage" name="widgetRenderedImage" native="true">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
