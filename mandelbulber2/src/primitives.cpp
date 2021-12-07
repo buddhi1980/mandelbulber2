@@ -437,7 +437,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	int closestObject = *closestObjectId;
 	double distance = fractalDistance;
 
-	if (isAnyPrimitive)
+	if (allPrimitives.count() > 0)
 	{
 		CVector3 point2 = point - allPrimitivesPosition;
 		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
