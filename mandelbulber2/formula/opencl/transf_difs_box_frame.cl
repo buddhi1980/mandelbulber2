@@ -54,13 +54,23 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.x = native_sin(psi) * len;
 	}
 
+	if (fractal->transformCommon.functionEnabledDFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD)
+	{
+		if (!fractal->transformCommon.functionEnabledEFalse)
+			z = fabs(z - fractal->transformCommon.offset000);
+		else
+			z = fabs(z + fractal->transformCommon.offset000)
+				- fabs(z - fractal->transformCommon.offset000) - z;
+	}
 
-
-
-
-
-	z = fabs(z - fractal->transformCommon.offset000);
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
 
 	REAL4 zc = z;
 	zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, zc);
@@ -70,11 +80,16 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL4 q = (REAL4){fractal->transformCommon.offsetp01,
 			fractal->transformCommon.offsetAp01,
 			fractal->transformCommon.offsetBp01, 0.0};
-	q = fabs(zc) - q;
 
-	REAL lenX = min(max(zc.x, max(q.y, q.z)), 0.0f);
-	REAL lenY = min(max(q.x, max(zc.y, q.z)), 0.0f);
-	REAL lenZ = min(max(q.x, max(q.y, zc.z)), 0.0f);
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	q = fabs(zc) - q;
+	else
+	q = fabs(zc + q) - q;
+
+	REAL4 len = zc;
+	len.x = min(max(zc.x, max(q.y, q.z)), 0.0f);
+	len.y = min(max(q.x, max(zc.y, q.z)), 0.0f);
+	len.z = min(max(q.x, max(q.y, zc.z)), 0.0f);
 
 	REAL4 mz = zc;
 	mz.x = max(zc.x, 0.0f);
@@ -86,11 +101,11 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	mq.y = max(q.y, 0.0f);
 	mq.z = max(q.z, 0.0f);
 
-	lenX += length((REAL3)(mz.x, mq.y, mq.z));
-	lenY += length((REAL3)(mq.x, mz.y, mq.z));
-	lenZ += length((REAL3)(mq.x, mq.y, mz.z));
+	len.x += length((REAL3)(mz.x, mq.y, mq.z));
+	len.y += length((REAL3)(mq.x, mz.y, mq.z));
+	len.z += length((REAL3)(mq.x, mq.y, mz.z));
 
-	REAL D = min(min(lenX, lenY), lenZ);
+	REAL D = min(min(len.x, len.y), len.z) / (aux->DE + fractal->analyticDE.offset0);
 
 	aux->dist = min(aux->dist, D);
 	if (fractal->transformCommon.functionEnabledZcFalse
