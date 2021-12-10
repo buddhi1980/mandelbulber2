@@ -223,6 +223,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerSmooth());
 	fractalList->append(new cFractalMengerSmoothMod1());
 	fractalList->append(new cFractalMengerV4());
+	fractalList->append(new cFractalMengerV5());
 	fractalList->append(new cFractalMenger3());
 	fractalList->append(new cFractalMenger3M3d());
 	fractalList->append(new cFractalMenger4d());

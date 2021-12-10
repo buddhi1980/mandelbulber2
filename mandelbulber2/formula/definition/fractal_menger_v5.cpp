@@ -6,17 +6,17 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Menger Sponge v4, based on :
+ * Menger Sponge v5, based on :
  * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalMengerV4::cFractalMengerV4() : cAbstractFractal()
+cFractalMengerV5::cFractalMengerV5() : cAbstractFractal()
 {
-	nameInComboBox = "Menger - V4";
-	internalName = "menger_v4";
-	internalID = fractal::mengerV4;
+	nameInComboBox = "Menger - V5";
+	internalName = "menger_v5";
+	internalID = fractal::mengerV5;
 	DEType = analyticDEType;
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalMengerV4::cFractalMengerV4() : cAbstractFractal()
 	coloringFunction = coloringFunctionIFS;
 }
 
-void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
@@ -94,9 +94,51 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
-
 		double t;
-		if (!fractal->transformCommon.functionEnabledGFalse)
+
+		t = z.x - z.z;
+		t = fractal->transformCommon.additionConstant0555.x
+				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.x);
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.x - z.y;
+		t = fractal->transformCommon.additionConstant0555.y
+				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.y);
+		z.x = z.x - t;
+		z.y = z.y + t;
+
+		t = z.z - z.y;
+		t = fractal->transformCommon.additionConstant0555.z
+				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.z);
+		z.z = z.z - t;
+		z.y = z.y + t;
+
+
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+		double useScale = fractal->transformCommon.scale3;
+		if (fractal->transformCommon.functionEnabledXFalse
+				&& aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+		{
+			useScale += aux.actualScaleA;
+			// update actualScale for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+					* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+			aux.actualScaleA = -vary;
+		}
+		aux.DE = aux.DE * useScale + fractal->analyticDE.offset0;
+
+		double sc1 = useScale - 1.0;
+		double sc2 = sc1 / useScale;
+		z.y -= fractal->transformCommon.offset1105.z * sc2;
+		z.y = fractal->transformCommon.offset1105.z * sc2 - fabs(z.y);
+		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
+		z.z = useScale * z.z - fractal->transformCommon.offset1105.y * sc1;
+		z.y = useScale * z.y;
+		/*double t;
+		//if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			t = z.x - z.y;
 			t = fractal->transformCommon.additionConstant0555.x
@@ -144,7 +186,7 @@ void cFractalMengerV4::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
 		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
 		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
-		z.z = useScale * z.z;
+		z.z = useScale * z.z;*/
 	}
 
 	// box offset
