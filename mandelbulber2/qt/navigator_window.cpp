@@ -142,16 +142,25 @@ void cNavigatorWindow::SetInitialParameters(
 	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
 
 	cMyWidgetWithParams *widgetWithParams = dynamic_cast<cMyWidgetWithParams *>(leftWidget);
+
 	if (widgetWithParams)
 	{
-		widgetWithParams->AssignParameterContainers(params, fractalParams);
 		widgetWithParams->AssignSpecialWidgets(
 			ui->widgetRenderedImage, ui->comboBox_mouse_click_function);
+		widgetWithParams->AssignParameterContainers(params, fractalParams);
 	}
 
 	manipulations->AssignParameterContainers(params, fractalParams);
 	manipulations->AssingImage(image);
-	manipulations->AssignWidgets(ui->widgetRenderedImage, ui->widgetNavigationButtons, nullptr);
+
+	cDockEffects *widgetDockEfects = nullptr;
+	if(leftWidget)
+	{
+		widgetDockEfects = qobject_cast<cDockEffects*>(leftWidget);
+	}
+
+	manipulations->AssignWidgets(
+		ui->widgetRenderedImage, ui->widgetNavigationButtons, widgetDockEfects);
 
 	InitPeriodicRefresh();
 
@@ -462,11 +471,12 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 
 void cNavigatorWindow::slotButtonUseParameters()
 {
+	stopRequest = true;
 	*sourceParams = *params;
 	*sourceFractalParams = *fractalParams;
 	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
-	stopRequest = true;
 	gMainInterface->StartRender();
+	emit signalChangesAccepted();
 	emit close();
 }
 
@@ -474,6 +484,12 @@ void cNavigatorWindow::slotButtonCancel()
 {
 	stopRequest = true;
 	emit close();
+}
+
+void cNavigatorWindow::closeEvent(QCloseEvent *event)
+{
+	stopRequest = true;
+	QWidget::closeEvent(event);
 }
 
 void cNavigatorWindow::slotSmallPartRendered(double time)

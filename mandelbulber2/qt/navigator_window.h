@@ -65,7 +65,12 @@ private slots:
 
 private:
 	void InitPeriodicRefresh();
+	void closeEvent(QCloseEvent *event) override;
 
+signals:
+	void signalChangesAccepted();
+
+private:
 	Ui::cNavigatorWindow *ui;
 
 	cManipulations *manipulations;

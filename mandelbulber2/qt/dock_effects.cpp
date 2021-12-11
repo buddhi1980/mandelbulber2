@@ -243,6 +243,10 @@ void cDockEffects::slotPressedButtonNavi()
 	navigator->SetInitialParameters(params, fractalParams);
 	navigator->SynchronizeInterface(qInterface::write);
 	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
+
+	connect(navigator, &cNavigatorWindow::signalChangesAccepted, this,
+		&cDockEffects::slotNewParametersFromNavi);
+
 	navigator->show();
 }
 
@@ -251,5 +255,19 @@ void cDockEffects::AssignParameterContainers(
 {
 	cMyWidgetWithParams::AssignParameterContainers(_params, _fractalParams);
 	ui->widget_light_sources_manager->AssignParameterContainers(_params, _fractalParams);
+
 	ui->widget_light_sources_manager->Init();
+}
+
+void cDockEffects::AssignSpecialWidgets(
+	RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo)
+{
+	cMyWidgetWithParams::AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
+	ui->widget_light_sources_manager->AssignSpecialWidgets(
+		renderedImageWidget, mouseFunctionComboWidget);
+}
+
+void cDockEffects::slotNewParametersFromNavi()
+{
+	RegenerateLights();
 }

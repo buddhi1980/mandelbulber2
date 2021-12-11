@@ -358,8 +358,6 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->widgetEffects, &cDockEffects::slotSynchronizeInterfaceRandomLights);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfaceJulia,
 		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfaceJulia);
-	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
-		&cInterface::slotRefreshPostEffects);
 	connect(mainWindow->manipulations, &cManipulations::signalWriteInterfacePrimitives,
 		mainWindow->ui->widgetDockFractal, &cDockFractal::slotSynchronizeInterfacePrimitives);
 	connect(mainWindow->manipulations, &cManipulations::signalEnableJuliaMode,
@@ -515,6 +513,9 @@ void cInterface::ConnectSignals() const
 		&RenderWindow::slotCustomWindowStateAddToMenu);
 	connect(mainWindow->ui->actionRemove_Window_settings, &QAction::triggered, mainWindow,
 		&RenderWindow::slotCustomWindowRemovePopup);
+
+	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
+		&cInterface::slotRefreshPostEffects);
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();

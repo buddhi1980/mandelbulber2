@@ -76,7 +76,7 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 void cLightSourcesManager::Init()
 {
 	QList<int> listOfFoundLights = cLights::GetListOfLights(params);
-	if(listOfFoundLights.isEmpty())
+	if (listOfFoundLights.isEmpty())
 	{
 		AddLight(true, -1);
 	}
@@ -163,13 +163,13 @@ void cLightSourcesManager::Regenerate()
 	{
 		AddLight(false, index);
 	}
-	gMainInterface->ComboMouseClickUpdate();
+	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 
 void cLightSourcesManager::slotButtonAddLight()
 {
 	AddLight(true, -1);
-	gMainInterface->ComboMouseClickUpdate();
+	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
@@ -199,7 +199,7 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::write);
 
-	gMainInterface->ComboMouseClickUpdate();
+	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
 }
 
@@ -233,7 +233,7 @@ void cLightSourcesManager::slotPeriodicRefresh()
 		if (newHash != autoRefreshLastHash)
 		{
 			autoRefreshLastHash = newHash;
-			gMainInterface->UpdateMainImagePreview();
+			renderedImageWidget->update();
 		}
 	}
 
@@ -242,7 +242,8 @@ void cLightSourcesManager::slotPeriodicRefresh()
 
 void cLightSourcesManager::slorChangedWireframeVisibikity(int enabled)
 {
-	gMainInterface->ChangeLightWireframeVisibility(static_cast<bool>(enabled));
+	renderedImageWidget->SetLightsVisibility(enabled);
+	renderedImageWidget->update();
 }
 
 void cLightSourcesManager::slotButtonPlaceLight()
@@ -254,10 +255,13 @@ void cLightSourcesManager::slotButtonPlaceLight()
 	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
 	item.append(currentLightIndex); // light number
 
-	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-	const double distance = gMainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"));
+	int index = mouseFunctionComboWidget->findData(item);
+	mouseFunctionComboWidget->setCurrentIndex(index);
+	renderedImageWidget->setClickMode(item);
+
+	const double distance =
+		cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
+
 	double optimalDistance = distance * 0.1;
 	params->Set("aux_light_manual_placement_dist", optimalDistance);
 	emit signalChangeLightPlacementDistance(optimalDistance);
@@ -269,15 +273,11 @@ void cLightSourcesManager::slotChangedCurrentTab(int index)
 	if (index >= 0 && lightIndexOnTab.size() > 0)
 	{
 		int currentLightIndex = lightIndexOnTab.at(index);
-		gMainInterface->renderedImage->SetCurrentLightIndex(currentLightIndex);
-		gMainInterface->UpdateMainImagePreview();
+		renderedImageWidget->SetCurrentLightIndex(currentLightIndex);
+		renderedImageWidget->update();
 
 		RenderedImage::enumClickMode actualClickMode =
-			RenderedImage::enumClickMode(gMainInterface->mainWindow->GetComboBoxMouseClickFunction()
-																		 ->currentData()
-																		 .toList()
-																		 .at(0)
-																		 .toInt());
+			RenderedImage::enumClickMode(mouseFunctionComboWidget->currentData().toList().at(0).toInt());
 
 		if (actualClickMode == RenderedImage::clickPlaceLight)
 		{
@@ -286,10 +286,9 @@ void cLightSourcesManager::slotChangedCurrentTab(int index)
 			if (index < lightIndexOnTab.size())
 			{
 				item.append(currentLightIndex);
-				int comboIndex =
-					gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
-				gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(comboIndex);
-				gMainInterface->renderedImage->setClickMode(item);
+				int comboIndex = mouseFunctionComboWidget->findData(item);
+				mouseFunctionComboWidget->setCurrentIndex(comboIndex);
+				renderedImageWidget->setClickMode(item);
 			}
 		}
 	}

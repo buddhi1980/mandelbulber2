@@ -62,6 +62,8 @@ public:
 	void RegenerateLights();
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams) override;
+	virtual void AssignSpecialWidgets(
+		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
 
 public slots:
 	void slotSetAuxLightManualPlacementDistance(double dist) const;
@@ -83,6 +85,7 @@ private slots:
 	void slotChangedEnableMCDOF(bool state);
 	void slotChangedEnableGI(int state);
 	void slotPressedButtonCloudsRandomize();
+	void slotNewParametersFromNavi();
 
 private:
 	void ConnectSignals() const;

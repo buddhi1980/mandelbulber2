@@ -23,7 +23,7 @@ public:
 
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);
-	void AssignSpecialWidgets(RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo);
+	virtual void AssignSpecialWidgets(RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo);
 
 protected:
 	std::shared_ptr<cParameterContainer> params;
