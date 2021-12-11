@@ -101,6 +101,8 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 				&cDockEffects::slotSynchronizeInterfaceRandomLights);
 			connect(dockEffects, &cDockEffects::signalRefreshPostEffects, this,
 				&cNavigatorWindow::slotRefreshMainImage);
+			connect(manipulations, &cManipulations::signalWriteInterfaceLights, dockEffects,
+				&cDockEffects::slotSynchronizeInterfaceLights);
 		}
 	}
 }
@@ -154,9 +156,9 @@ void cNavigatorWindow::SetInitialParameters(
 	manipulations->AssingImage(image);
 
 	cDockEffects *widgetDockEfects = nullptr;
-	if(leftWidget)
+	if (leftWidget)
 	{
-		widgetDockEfects = qobject_cast<cDockEffects*>(leftWidget);
+		widgetDockEfects = qobject_cast<cDockEffects *>(leftWidget);
 	}
 
 	manipulations->AssignWidgets(
@@ -445,17 +447,23 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 	{
 		case RenderedImage::clickPlaceLight:
 		{
-			// FIXME:			if (keyModifiers & Qt::AltModifier)
-			//			{
-			//				double deltaLog = exp(delta * 0.001);
-			//				double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
-			//				dist *= deltaLog;
-			//				ui->widgetEffects->slotSetAuxLightManualPlacementDistance(dist);
-			//			}
-			//			else if (keyModifiers & Qt::ControlModifier)
-			//			{
-			//				manipulations->MoveLightByWheel(delta);
-			//			}
+			if (keyModifiers & Qt::AltModifier)
+			{
+				if (leftWidget)
+				{
+					if (cDockEffects *widgetEffects = dynamic_cast<cDockEffects *>(leftWidget))
+					{
+						double deltaLog = exp(delta * 0.001);
+						double dist = widgetEffects->GetAuxLightManualPlacementDistance();
+						dist *= deltaLog;
+						widgetEffects->slotSetAuxLightManualPlacementDistance(dist);
+					}
+				}
+			}
+			else if (keyModifiers == Qt::NoModifier)
+			{
+				manipulations->MoveLightByWheel(delta);
+			}
 			break;
 		}
 		case RenderedImage::clickMoveCamera:
