@@ -279,6 +279,7 @@ enum enumFractalFormula
 	menger3M3d = 243,
 	msltoeSym4Mod1 = 244,
 	mengerV5 = 245,
+	mandelbulbSinCos = 246,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
