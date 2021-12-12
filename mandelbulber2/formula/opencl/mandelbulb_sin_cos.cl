@@ -16,7 +16,7 @@
 
 REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL temp, th, ph, rp;
+	REAL temp, th, ph, rp, cth;
 	if (fractal->transformCommon.functionEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -27,7 +27,7 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		rp = native_powr(aux->r, fractal->transformCommon.pwr8);
 		aux->DE = rp * aux->DE * temp + 1.0f;
 		rp *= aux->r;
-		REAL cth = native_cos(th);
+		cth = native_cos(th);
 		z.x = cth * native_cos(ph) * rp;
 		z.y = cth * native_sin(ph) * rp;
 		z.z = native_sin(th) * rp;
@@ -42,14 +42,14 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->r = length(z);
 		temp = fractal->transformCommon.scale8 + 1.0f;
 		th = (acos(z.z / aux->r) + fractal->transformCommon.offsetB0) * temp;
-		ph = (atan(z.y / z.x) + fractal->transformCommon.offsetA0) * temp;
+		ph = (atan2(z.y, z.x) + fractal->transformCommon.offsetA0) * temp;
 		rp = native_powr(aux->r, fractal->transformCommon.scale8);
 		aux->DE = rp * aux->DE * temp + 1.0f;
 		rp *= aux->r;
-		REAL sth = native_sin(th);
-		z.x = sth * native_sin(ph) * rp;
-		z.y = sth * native_cos(ph) * rp;
-		z.z = native_cos(th) * rp;
+		cth = native_cos(th);
+		z.x = cth * native_cos(ph) * rp;
+		z.y = cth * native_sin(ph) * rp;
+		z.z = native_sin(th) * rp;
 		z += fractal->transformCommon.offset000;
 		z += aux->const_c * fractal->transformCommon.constantMultiplierB111;
 	}

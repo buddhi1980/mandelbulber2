@@ -27,7 +27,7 @@ cFractalMandelbulbSinCos::cFractalMandelbulbSinCos() : cAbstractFractal()
 
 void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double temp, th, ph, rp;
+	double temp, th, ph, rp, cth;
 	if (fractal->transformCommon.functionEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -38,7 +38,7 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 		rp = pow(aux.r, fractal->transformCommon.pwr8);
 		aux.DE = rp * aux.DE * temp + 1.0;
 		rp *= aux.r;
-		double cth = cos(th);
+		cth = cos(th);
 		z.x = cth * cos(ph) * rp;
 		z.y = cth * sin(ph) * rp;
 		z.z = sin(th) * rp;
@@ -56,10 +56,10 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 		rp = pow(aux.r, fractal->transformCommon.scale8);
 		aux.DE = rp * aux.DE * temp + 1.0;
 		rp *= aux.r;
-		double sth = sin(th);
-		z.x = sth * sin(ph) * rp;
-		z.y = sth * cos(ph) * rp;
-		z.z = cos(th) * rp;
+		cth = cos(th);
+		z.x = cth * cos(ph) * rp;
+		z.y = cth * sin(ph) * rp;
+		z.z = sin(th) * rp;
 		z += fractal->transformCommon.offset000;
 		z += aux.const_c * fractal->transformCommon.constantMultiplierB111;
 	}
