@@ -107,7 +107,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbPow2V3());
 	fractalList->append(new cFractalMandelbulbQuadrat());
 	fractalList->append(new cFractalMandelbulbQuat());
-	fractalList->append(new cFractalMandelbulbSinCos());
 	fractalList->append(new cFractalMandelbulbVaryPowerV1());
 	fractalList->append(new cFractalMandelcup());
 	fractalList->append(new cFractalMandelnest());
@@ -311,6 +310,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKochV4());
 	fractalList->append(new cFractalKnotV1());
 	fractalList->append(new cFractalKnotV2());
+	fractalList->append(new cFractalMandelbulbSinCos());
 	fractalList->append(new cFractalMengerV2());
 	fractalList->append(new cFractalMengerV3());
 	fractalList->append(new cFractalOctahedron());
