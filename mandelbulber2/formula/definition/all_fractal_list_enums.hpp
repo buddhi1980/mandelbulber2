@@ -280,6 +280,7 @@ enum enumFractalFormula
 	msltoeSym4Mod1 = 244,
 	mengerV5 = 245,
 	mandelbulbSinCos = 246,
+	mandelnest4d = 247,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

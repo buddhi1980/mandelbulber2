@@ -748,6 +748,7 @@ typedef struct
 	cl_float4 additionConstant0000;
 	cl_float4 offset0000;
 	cl_float4 offsetA0000;
+	cl_float4 offsetB0000;
 	cl_float4 offsetp5555;
 	cl_float4 offset1111;
 	cl_float4 offsetA1111;
@@ -798,12 +799,14 @@ typedef struct
 	cl_int functionEnabledBxFalse;
 	cl_int functionEnabledByFalse;
 	cl_int functionEnabledBzFalse;
+	cl_int functionEnabledBwFalse;
 	cl_int functionEnabledCx;
 	cl_int functionEnabledCy;
 	cl_int functionEnabledCz;
 	cl_int functionEnabledCxFalse;
 	cl_int functionEnabledCyFalse;
 	cl_int functionEnabledCzFalse;
+	cl_int functionEnabledCwFalse;
 	cl_int functionEnabledAFalse;
 	cl_int functionEnabledBFalse;
 	cl_int functionEnabledCFalse;
@@ -1517,6 +1520,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.additionConstant0000 = toClFloat4(source.additionConstant0000);
 	target.offset0000 = toClFloat4(source.offset0000);
 	target.offsetA0000 = toClFloat4(source.offsetA0000);
+	target.offsetB0000 = toClFloat4(source.offsetB0000);
 	target.offsetp5555 = toClFloat4(source.offsetp5555);
 	target.offset1111 = toClFloat4(source.offset1111);
 	target.offsetA1111 = toClFloat4(source.offsetA1111);
@@ -1564,12 +1568,14 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledBxFalse = source.functionEnabledBxFalse;
 	target.functionEnabledByFalse = source.functionEnabledByFalse;
 	target.functionEnabledBzFalse = source.functionEnabledBzFalse;
+	target.functionEnabledBwFalse = source.functionEnabledBwFalse;
 	target.functionEnabledCx = source.functionEnabledCx;
 	target.functionEnabledCy = source.functionEnabledCy;
 	target.functionEnabledCz = source.functionEnabledCz;
 	target.functionEnabledCxFalse = source.functionEnabledCxFalse;
 	target.functionEnabledCyFalse = source.functionEnabledCyFalse;
 	target.functionEnabledCzFalse = source.functionEnabledCzFalse;
+	target.functionEnabledCwFalse = source.functionEnabledCwFalse;
 	target.functionEnabledAFalse = source.functionEnabledAFalse;
 	target.functionEnabledBFalse = source.functionEnabledBFalse;
 	target.functionEnabledCFalse = source.functionEnabledCFalse;

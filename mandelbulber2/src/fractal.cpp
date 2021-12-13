@@ -531,7 +531,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
 	transformCommon.offset0000 = container->Get<CVector4>("transf_offset_0000");
 	transformCommon.offsetA0000 = container->Get<CVector4>("transf_offsetA_0000");
-	transformCommon.offsetp5555 = container->Get<CVector4>("transf_offset_p5555");
+	transformCommon.offsetB0000 = container->Get<CVector4>("transf_offsetB_0000");
 	transformCommon.offset1111 = container->Get<CVector4>("transf_offset_1111");
 	transformCommon.offsetA1111 = container->Get<CVector4>("transf_offsetA_1111");
 	transformCommon.offsetB1111 = container->Get<CVector4>("transf_offsetB_1111");
@@ -577,12 +577,14 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.functionEnabledBxFalse = container->Get<bool>("transf_function_enabledBx_false");
 	transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
 	transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
+	transformCommon.functionEnabledBwFalse = container->Get<bool>("transf_function_enabledBw_false");
 	transformCommon.functionEnabledCx = container->Get<bool>("transf_function_enabledCx");
 	transformCommon.functionEnabledCy = container->Get<bool>("transf_function_enabledCy");
 	transformCommon.functionEnabledCz = container->Get<bool>("transf_function_enabledCz");
 	transformCommon.functionEnabledCxFalse = container->Get<bool>("transf_function_enabledCx_false");
 	transformCommon.functionEnabledCyFalse = container->Get<bool>("transf_function_enabledCy_false");
 	transformCommon.functionEnabledCzFalse = container->Get<bool>("transf_function_enabledCz_false");
+	transformCommon.functionEnabledCwFalse = container->Get<bool>("transf_function_enabledCw_false");
 	transformCommon.functionEnabledAFalse = container->Get<bool>("transf_function_enabledA_false");
 	transformCommon.functionEnabledBFalse = container->Get<bool>("transf_function_enabledB_false");
 	transformCommon.functionEnabledCFalse = container->Get<bool>("transf_function_enabledC_false");

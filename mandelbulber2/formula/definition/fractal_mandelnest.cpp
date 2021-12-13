@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Mandelnest by Jeannoc, adapted by pupukuusikko
+ * Mandelnest by Jeannot, adapted by pupukuusikko
  * https://fractalforums.org/share-a-fractal/22/mandelbrot-3d-mandelnest/4028/
  */
 

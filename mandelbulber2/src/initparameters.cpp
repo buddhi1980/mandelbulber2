@@ -1087,6 +1087,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 		"transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offsetB_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_p5555", CVector4(0.5, 0.5, 0.5, 0.5), morphAkima, paramStandard);
 	par->addParam("transf_offset_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -1134,13 +1135,14 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBw_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCx", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCy", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCz", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCz_false", false, morphLinear, paramStandard);
-
+	par->addParam("transf_function_enabledCw_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledA_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledB_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledC_false", false, morphLinear, paramStandard);
