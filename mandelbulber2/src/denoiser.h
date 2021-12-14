@@ -59,12 +59,13 @@ public:
 
 public:
 	void AllocMem();
-	void UpdatePixel(int x, int y, const sRGBFloat color, float noise);
+	void UpdatePixel(int x, int y, const sRGBFloat &color, float z, float noise);
 	void Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool preserveGeometry,
 		std::shared_ptr<cImage> image, int loopCounter);
 
 private:
 	std::vector<sRGBFloat> blurBuffer;
+	std::vector<float> blurZBuffer;
 	std::vector<float> blurRadiusBuffer;
 
 	int width = 0;

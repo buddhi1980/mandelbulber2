@@ -94,15 +94,17 @@ cDenoiser::~cDenoiser()
 void cDenoiser::AllocMem()
 {
 	blurBuffer.resize(width * height);
+	blurZBuffer.resize(width * height);
 	blurRadiusBuffer.resize(width * height);
 }
 
-void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat color, float noise)
+void cDenoiser::UpdatePixel(int x, int y, const sRGBFloat &color, float z, float noise)
 {
 	float filterRadius = min(sqrt(noise * noiseMultiplier) + minBlurRadius, maxBlurRadius);
 
 	blurRadiusBuffer[x + y * width] = filterRadius;
 	blurBuffer[x + y * width] = color;
+	blurZBuffer[x + y * width] = z;
 }
 
 void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool preserveGeometry,
@@ -126,7 +128,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			CVector3 normal;
 			if (preserveGeometry)
 			{
-				z = image->GetPixelZBuffer(xx, yy);
+				z = blurZBuffer[xx + yy * width];
 
 				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
 				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
@@ -143,6 +145,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 
 			int delta = int(filterRadius + 1.0f);
 			sRGBFloat averagePixel;
+			float averageZ = 0.0f;
+
 			float totalWeight = 0.0f;
 
 			for (int dy = -delta; dy <= delta; dy++)
@@ -180,7 +184,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							noiseWeight *= normalWeight;
 
 							// use samples form similar depth
-							float z2 = image->GetPixelZBuffer(fx, fy);
+							float z2 = blurZBuffer[fx + fy * width];
 							float deltaZ = fabsf((z - z2) / z);
 							if (deltaZ > 0.0)
 							{
@@ -201,6 +205,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 						if (fweight > 0.0f)
 						{
 							sRGBFloat inputPixel = blurBuffer[fx + fy * width];
+							float inputZ = blurZBuffer[fx + fy * width];
 
 							// limit pixel brightness at first strong blur
 							if (loopCounter == 3)
@@ -213,6 +218,9 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							averagePixel.R += inputPixel.R * fweight;
 							averagePixel.G += inputPixel.G * fweight;
 							averagePixel.B += inputPixel.B * fweight;
+
+							averageZ += 1.0 / inputZ * fweight;
+
 							totalWeight += fweight;
 						}
 					}
@@ -226,6 +234,10 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 				averagePixel.B /= totalWeight;
 
 				image->PutPixelImage(xx, yy, averagePixel);
+
+				averageZ = 1.0 / averageZ * totalWeight;
+
+				image->PutPixelZBuffer(xx, yy, averageZ);
 			}
 		} // for x
 	}		// for y
@@ -239,6 +251,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			size_t yy = y + boxY;
 
 			blurBuffer[xx + yy * width] = image->GetPixelImage(xx, yy);
+			blurZBuffer[xx + yy * width] = image->GetPixelZBuffer(xx, yy);
 		}
 	}
 
@@ -257,7 +270,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			CVector3 normal;
 			if (preserveGeometry)
 			{
-				z = image->GetPixelZBuffer(xx, yy);
+				z = blurZBuffer[xx + yy * width];
 
 				sRGBFloat normalVectorRGB = image->GetPixelNormalWorld(xx, yy);
 				normal = CVector3(normalVectorRGB.R, normalVectorRGB.G, normalVectorRGB.B);
@@ -299,7 +312,8 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 
 							if (preserveGeometry)
 							{
-								float z2 = image->GetPixelZBuffer(fx, fy);
+								float z2 = blurZBuffer[fx + fy * width];
+								;
 								deltaZ = fabs((z - z2) / z);
 
 								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
@@ -317,6 +331,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 								medianRInput.push_back(inputPixel.R);
 								medianGInput.push_back(inputPixel.G);
 								medianBInput.push_back(inputPixel.B);
+
 								pixelCount++;
 							}
 						}
@@ -346,6 +361,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 					}
 
 					sRGBFloat oldPixel = blurBuffer[xx + yy * width];
+
 					sRGBFloat newPixelMixed;
 
 					float mixFactor = 1.0f / (loopCounter / 50.0f + 1.0f) * weight;

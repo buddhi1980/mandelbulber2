@@ -1454,8 +1454,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								else
 								{
 
-									zDepth = zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
-													 + pixelCl.zBuffer * (1.0f / output.monteCarloLoop);
+									zDepth = 1.0f
+													 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
+															+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
 
 									sRGBFloat normalNew =
 										sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
@@ -1503,7 +1504,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								if (useDenoiser)
 								{
-									denoiser->UpdatePixel(xx, yy, newPixel, noise);
+									denoiser->UpdatePixel(xx, yy, newPixel, zDepth, noise);
 								}
 
 								monteCarloNoiseSum += noise;
