@@ -174,21 +174,27 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 						{
 							// use surface normals to select samples from similar surface direction
 
-							sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
-							CVector3 filterNormal(
-								filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
-
-							float normalDiff = (normal - filterNormal).Length();
-							float normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
-
-							noiseWeight *= normalWeight;
-
-							// use samples form similar depth
-							float z2 = blurZBuffer[fx + fy * width];
-							float deltaZ = fabsf((z - z2) / z);
-							if (deltaZ > 0.0)
+							if (z >= 1e-10f)
 							{
-								noiseWeight *= clamp(1.0f / (deltaZ * zDepthFilterfactor), 0.0f, 1.0f);
+
+								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+								CVector3 filterNormal(
+									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+
+								float normalDiff = (normal - filterNormal).Length();
+								float normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
+
+								noiseWeight *= normalWeight;
+
+								// use samples form similar depth
+								float z2 = blurZBuffer[fx + fy * width];
+
+								float deltaZ = fabsf((z - z2) / z);
+
+								if (deltaZ > 0.0)
+								{
+									noiseWeight *= clamp(1.0f / (deltaZ * zDepthFilterfactor), 0.0f, 1.0f);
+								}
 							}
 						}
 
@@ -313,15 +319,18 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 							if (preserveGeometry)
 							{
 								float z2 = blurZBuffer[fx + fy * width];
-								;
-								deltaZ = fabs((z - z2) / z);
 
-								sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
-								CVector3 filterNormal(
-									filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+								if (z > 1e-10f)
+								{
+									deltaZ = fabs((z - z2) / z);
 
-								float normalDiff = (normal - filterNormal).Length();
-								normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
+									sRGBFloat filterNormalVectorRGB = image->GetPixelNormalWorld(fx, fy);
+									CVector3 filterNormal(
+										filterNormalVectorRGB.R, filterNormalVectorRGB.G, filterNormalVectorRGB.B);
+
+									float normalDiff = (normal - filterNormal).Length();
+									normalWeight = clamp(1.0f - normalDiff * normalFilterFactor, 0.0f, 1.0f);
+								}
 							}
 
 							if (radius <= filterRadius && normalWeight > 0.5f
