@@ -87,8 +87,10 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	if (fractal->transformCommon.addCpixelEnabled) z += aux->const_c;
 
-	aux->DE = aux->DE * Power * r + 1.0f;
+
 	r = length(z);
+	aux->DE = aux->DE * Power * r + 1.0f;
+
 
 
 	if (fractal->analyticDE.enabledFalse)

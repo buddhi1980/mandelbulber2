@@ -83,8 +83,8 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (fractal->transformCommon.addCpixelEnabled) z += aux.const_c;
 
 	r = z.Length();
-
 	aux.DE = aux.DE * Power * r + 1.0;
+
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

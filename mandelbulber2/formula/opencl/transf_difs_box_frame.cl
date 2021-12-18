@@ -58,11 +58,15 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			z = fabs(z - fractal->transformCommon.offset000);
-		else
-			z = fabs(z + fractal->transformCommon.offset000)
-				- fabs(z - fractal->transformCommon.offset000) - z;
+		z = fabs(z - fractal->transformCommon.offset000);
+	}
+
+	if (fractal->transformCommon.functionEnabledEFalse
+			&& aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		z = fabs(z + fractal->transformCommon.offsetA000)
+			- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
