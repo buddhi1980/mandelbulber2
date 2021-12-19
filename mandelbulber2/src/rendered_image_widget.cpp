@@ -1348,6 +1348,8 @@ void RenderedImage::DisplayAllLights()
 						CVector3 lightCenter =
 							InvProjection3D(light.position, camera, mRotInv, perspectiveType, fov, width, height);
 
+						if(lightCenter.z < 0.0) continue;
+
 						sRGB8 color = toRGB8(light.color);
 
 						image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, 10.0, color,
@@ -1357,6 +1359,8 @@ void RenderedImage::DisplayAllLights()
 						{
 							double visibleSize =
 								sqrt(light.intensity) * light.size / lightCenter.z / fov * height;
+
+							visibleSize = clamp(visibleSize, 0.0, double(width / 2.0));
 
 							image->CircleBorder(lightCenter.x, lightCenter.y, lightCenter.z, visibleSize, color,
 								thickness * 2.0, sRGBFloat(0.5, 0.5, 0.5), 1);
