@@ -115,6 +115,11 @@ cNavigatorWindow::~cNavigatorWindow()
 void cNavigatorWindow::SetInitialParameters(
 	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
 {
+	if (!leftWidget)
+	{
+		ui->groupBoxParameterSet->hide();
+	}
+
 	params.reset(new cParameterContainer());
 	fractalParams.reset(new cFractalContainer());
 
@@ -131,6 +136,7 @@ void cNavigatorWindow::SetInitialParameters(
 	imageProportion = double(params->Get<int>("image_width")) / params->Get<int>("image_height");
 
 	initImageWidth = maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	if (!leftWidget) initImageWidth = initImageWidth * 120 / 100;
 	initImageHeight = initImageWidth / imageProportion;
 
 	image.reset(new cImage(initImageWidth, initImageHeight, false));
@@ -236,6 +242,7 @@ void cNavigatorWindow::StartRender()
 	int maxWindowHeight = availableScreenGeometry.height();
 	int newInitImageWidth =
 		maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	if (!leftWidget) newInitImageWidth = newInitImageWidth * 120 / 100;
 	int newInitImageHeight = initImageWidth / imageProportion;
 	if ((newInitImageHeight != initImageHeight) || newInitImageWidth != initImageWidth)
 	{
@@ -256,7 +263,7 @@ void cNavigatorWindow::StartRender()
 	{
 		if (ui->comboBox_navigator_preview_quality->currentIndex() == 0)
 		{
-			double sizeFactor = 2.0 * (lastRenderedTimeOfSmallPart + 0.001) * lastSizefactor;
+			double sizeFactor = 8 * (lastRenderedTimeOfSmallPart + 0.001) * lastSizefactor;
 
 			intSizeFactor = lastSizefactor;
 			if (sizeFactor > (lastSizefactor - 1) * 2.0 || sizeFactor < (lastSizefactor - 1) * 0.5)
@@ -527,6 +534,7 @@ void cNavigatorWindow::slotPeriodicRefresh()
 		if (newHash != autoRefreshLastHash)
 		{
 			autoRefreshLastHash = newHash;
+			stopRequest = true;
 			StartRender();
 		}
 	}
@@ -594,7 +602,7 @@ void cNavigatorWindow::slotDarkGlowEnabled(int state)
 void cNavigatorWindow::slotFullImageRendered()
 {
 	if (lastIntSizeFactor > 1 && ui->comboBox_navigator_preview_quality->currentIndex() == 0
-			&& params->Get<int>("opencl_mode") > 0)
+			&& params->Get<int>("opencl_mode") > 0 && !stopRequest)
 
 	{
 		forcedSizeFactor = lastIntSizeFactor / 2;
