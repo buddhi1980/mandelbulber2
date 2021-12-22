@@ -135,13 +135,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_166">
-       <property name="text">
-        <string>polyfold:</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_int8_Y">
        <property name="enabled">
@@ -232,6 +225,20 @@
        </property>
        <property name="text">
         <string>Enable ZX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_166">
+       <property name="text">
+        <string>polyfold</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_275">
+       <property name="text">
+        <string>int:</string>
        </property>
       </widget>
      </item>
@@ -695,7 +702,7 @@
       </font>
      </property>
      <property name="text">
-      <string>EnableR</string>
+      <string>rotation1</string>
      </property>
     </widget>
    </item>
@@ -1140,7 +1147,7 @@
            </font>
           </property>
           <property name="text">
-           <string>EnableSw</string>
+           <string>edge:</string>
           </property>
          </widget>
         </item>
@@ -1245,16 +1252,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
