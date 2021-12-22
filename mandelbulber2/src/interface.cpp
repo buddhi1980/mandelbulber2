@@ -1215,12 +1215,14 @@ void cInterface::NewPrimitiveUI(const sPrimitiveItem &primitive)
 void cInterface::DeletePrimitive(const QString &primitiveName)
 {
 	QString primitiveWidgetName = QString("widgetmain_") + primitiveName;
-	fractal::enumObjectType objectType = fractal::objNone;
+	QString primitiveTypeName = primitiveName.split('_')[1];
+	fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(primitiveTypeName);
 
 	// delete widget
 	QWidget *primitiveWidget =
 		mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
 			primitiveWidgetName);
+
 	delete primitiveWidget;
 
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
