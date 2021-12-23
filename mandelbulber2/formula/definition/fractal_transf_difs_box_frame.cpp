@@ -80,6 +80,9 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 			- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
 
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
+
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
@@ -95,9 +98,9 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 						fractal->transformCommon.offsetBp01, 0.0);
 
 	if (!fractal->transformCommon.functionEnabledSwFalse)
-	q = fabs(zc) - q;
+		q = fabs(zc + q) - q;
 	else
-	q = fabs(zc + q) - q;
+		q = fabs(zc) - q;
 
 	CVector4 len = zc;
 	len.x = min(max(zc.x, max(q.y, q.z)), 0.0);
