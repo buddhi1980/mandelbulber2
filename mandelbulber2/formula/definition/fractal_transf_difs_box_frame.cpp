@@ -120,11 +120,14 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 
 	double D = min(min(len.x, len.y), len.z) / (aux.DE + fractal->analyticDE.offset0);
 
-	aux.dist = min(aux.dist, D);
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+		aux.dist = min(aux.dist, D);
+	else
+		aux.dist = D;
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 				z = zc;
-
 }
