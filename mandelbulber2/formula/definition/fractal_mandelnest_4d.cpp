@@ -19,7 +19,7 @@ cFractalMandelnest4d::cFractalMandelnest4d() : cAbstractFractal()
 	internalID = fractal::mandelnest4d;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
@@ -27,16 +27,29 @@ cFractalMandelnest4d::cFractalMandelnest4d() : cAbstractFractal()
 
 void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double Power = fractal->bulb.power;
-	CVector4 shift = fractal->transformCommon.offset0000 * M_PI;
-	CVector4 dual = fractal->transformCommon.scale1111;
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		if (fractal->transformCommon.functionEnabledEFalse)
+		{
+			z = CVector4(z.x, z.y, z.z, z.Length());
+			aux.DE += 0.5;
+		}
+		if (fractal->transformCommon.functionEnabledFFalse)
+		{
+			z = CVector4(z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z);
+			aux.DE *= z.Length() / aux.r;
+		}
+		//z = fabs(z - fractal->transformCommon.offsetA0000);
+		if (fractal->transformCommon.addCpixelEnabledFalse) aux.const_c = z;
+	}
 
-	z = z + fabs(z - fractal->transformCommon.offsetA0000)
-			- fabs(z + fractal->transformCommon.offsetA0000);
-
-	double r = z.Length();
-	double rN = fractal->transformCommon.scale1 / r;
-	aux.DE *= fabs(rN);
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		z = z + fabs(z - fractal->transformCommon.offsetA0000)
+				- fabs(z + fractal->transformCommon.offsetA0000);
+	}
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -46,7 +59,11 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledAwFalse) z.w = fabs(z.w);
 	}
 
+	double r = z.Length();
+	double rN = fractal->transformCommon.scale1 / r;
 	CVector4 temp = z * rN;
+	aux.DE *= fabs(rN);
+
 	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
 	else temp.x = acos(temp.x);
 	if (!fractal->transformCommon.functionEnabledByFalse) temp.y = asin(temp.y);
@@ -56,7 +73,9 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (!fractal->transformCommon.functionEnabledBwFalse) temp.w = asin(temp.w);
 	else temp.w = acos(temp.w);
 
-	temp = shift + Power * dual * temp;
+	double Power = fractal->transformCommon.pwr8;
+	temp = (fractal->transformCommon.offset0000 * M_PI)
+			+ Power * fractal->transformCommon.scale1111 * temp;
 
 	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
 	else z.x = cos(temp.x);
@@ -80,7 +99,7 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 			z += fractal->transformCommon.additionConstant0000;
 
-	if (fractal->transformCommon.addCpixelEnabled) z += aux.const_c;
+	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux.const_c;
 
 	r = z.Length();
 	aux.DE = aux.DE * Power * r + 1.0;

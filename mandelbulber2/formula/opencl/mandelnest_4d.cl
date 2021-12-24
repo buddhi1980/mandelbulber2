@@ -16,16 +16,30 @@
 
 REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL Power = fractal->bulb.power;
-	REAL4 shift = fractal->transformCommon.offset0000 * M_PI_F;
-	REAL4 dual = fractal->transformCommon.scale1111;
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		if (fractal->transformCommon.functionEnabledEFalse)
+		{
+			z = (REAL4){z.x, z.y, z.z, length(z)};
+			aux->DE += 0.5f;
+		}
+		if (fractal->transformCommon.functionEnabledFFalse)
+		{
+			z = (REAL4){z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z};
+			aux->DE *= length(z) / aux->r;
+		}
+		//z = fabs(z - fractal->transformCommon.offsetA0000);
+		if (fractal->transformCommon.addCpixelEnabledFalse) aux->const_c = z;
+	}
 
-	z = z + fabs(z - fractal->transformCommon.offsetA0000)
-			- fabs(z + fractal->transformCommon.offsetA0000);
 
-	REAL r = length(z);
-	REAL rN = fractal->transformCommon.scale1 / r;
-	aux->DE *= fabs(rN);
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		z = z + fabs(z - fractal->transformCommon.offsetA0000)
+				- fabs(z + fractal->transformCommon.offsetA0000);
+	}
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -35,7 +49,11 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledAwFalse) z.w = fabs(z.w);
 	}
 
+	REAL r = length(z);
+	REAL rN = fractal->transformCommon.scale1 / r;
 	REAL4 temp = z * rN;
+	aux->DE *= fabs(rN);
+
 	if (!fractal->transformCommon.functionEnabledBxFalse)
 		temp.x = asin(temp.x);
 	else
@@ -53,7 +71,9 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	else
 		temp.w = acos(temp.w);
 
-	temp = shift + Power * dual * temp;
+	REAL Power = fractal->transformCommon.pwr8;
+	temp = fractal->transformCommon.offset0000 * M_PI_F
+			+ Power * fractal->transformCommon.scale1111 * temp;
 
 	if (!fractal->transformCommon.functionEnabledCxFalse)
 		z.x = native_sin(temp.x);
@@ -85,13 +105,10 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 		z += fractal->transformCommon.additionConstant0000;
 
-	if (fractal->transformCommon.addCpixelEnabled) z += aux->const_c;
-
+	if (fractal->transformCommon.addCpixelEnabledFalse) z += aux->const_c;
 
 	r = length(z);
 	aux->DE = aux->DE * Power * r + 1.0f;
-
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{
