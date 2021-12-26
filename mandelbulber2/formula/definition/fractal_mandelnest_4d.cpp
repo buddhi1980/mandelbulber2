@@ -107,16 +107,16 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-	// aux.dist
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			aux.DE0 = 0.5 * log(r) * r / aux.DE;
-
-			if (aux.i <= fractal->transformCommon.startIterationsE)
-				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
-			else
-				aux.dist = min(aux.dist, aux.DE0); // hybrid
-		}
 	}
+	// aux.dist
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		aux.DE0 = 0.5 * log(r) * r / aux.DE;
+
+		if (aux.i <= fractal->transformCommon.startIterationsE)
+			aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
+		else
+			aux.dist = min(aux.dist, aux.DE0); // hybrid
+	}
+
 }

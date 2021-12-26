@@ -113,17 +113,16 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
+	}
 		// aux->dist
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			aux->DE0 = 0.5f * log(r) * r / aux->DE;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		aux->DE0 = 0.5f * log(r) * r / aux->DE;
 
-			if (aux->i <= fractal->transformCommon.startIterationsE)
-				aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
-			else
-				aux->dist = min(aux->dist, aux->DE0); // hybrid
-		}
+		if (aux->i <= fractal->transformCommon.startIterationsE)
+			aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
+		else
+			aux->dist = min(aux->dist, aux->DE0); // hybrid
 	}
 	return z;
 }
