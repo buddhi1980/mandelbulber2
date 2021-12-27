@@ -175,6 +175,8 @@ void cLightSourcesManager::slotButtonAddLight()
 
 void cLightSourcesManager::slotButtonDuplicateLight()
 {
+	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::read);
+
 	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
 	int currentLightIndex = lightIndexOnTab.at(currentTabIndex);
 
