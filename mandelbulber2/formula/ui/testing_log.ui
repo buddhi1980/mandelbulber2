@@ -216,7 +216,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -258,7 +258,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -286,7 +286,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_100_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -316,7 +316,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Offset:</string>
+        <string>solution:</string>
        </property>
       </widget>
      </item>

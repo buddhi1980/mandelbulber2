@@ -28,22 +28,11 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
-	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	const double th = th0 * fractal->bulb.power;
-	const double ph = ph0 * fractal->bulb.power;
-	const double cth = cos(th);
-	aux.DE = (rp * aux.DE) * fractal->bulb.power + 1.0;
-	rp *= aux.r;
-	z.x = cth * cos(ph) * rp;
-	z.y = cth * sin(ph) * rp;
-	z.z = sin(th) * rp;
 
 
 
 
-	/*aux.DE = aux.DE * aux.r * 2.0f;
+	aux.DE = aux.DE * aux.r * 2.0f;
 
 	// Preparation operations
 	double fac_eff = 0.6666666666;
@@ -119,7 +108,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	double dd = z.Length() / aux.r;
 	dd = dd + (aux.r * 2.0 - dd) * fractal->transformCommon.scaleA1;
-	aux.DE *= dd;*/
+	aux.DE *= dd;
 
 
 	if (fractal->analyticDE.enabledFalse)
