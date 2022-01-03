@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>639</width>
-    <height>813</height>
+    <width>661</width>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,6 @@
     <normaloff>:/system/icons/preferences-system.svg</normaloff>:/system/icons/preferences-system.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>2</number>
-   </property>
    <property name="leftMargin">
     <number>2</number>
    </property>
@@ -57,7 +54,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
+            <width>619</width>
             <height>793</height>
            </rect>
           </property>
@@ -743,7 +740,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>367</width>
+            <width>619</width>
             <height>752</height>
            </rect>
           </property>
@@ -1412,8 +1409,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>264</width>
-            <height>831</height>
+            <width>619</width>
+            <height>762</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1755,6 +1752,192 @@ and will only be present after enabling and re-render.</string>
               </size>
              </property>
             </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Shortcuts</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>637</width>
+            <height>738</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_render"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Render</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_stop"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_forward"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Move forward</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_24">
+             <property name="text">
+              <string>Move backward</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_left"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_25">
+             <property name="text">
+              <string>Move left</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_right"/>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="label_26">
+             <property name="text">
+              <string>Move right</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_up"/>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLabel" name="label_27">
+             <property name="text">
+              <string>Move up</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_down"/>
+           </item>
+           <item row="7" column="1">
+            <widget class="QLabel" name="label_28">
+             <property name="text">
+              <string>Move down</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_left"/>
+           </item>
+           <item row="8" column="1">
+            <widget class="QLabel" name="label_29">
+             <property name="text">
+              <string>Rotate left</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_right"/>
+           </item>
+           <item row="9" column="1">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Rotate right</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_up"/>
+           </item>
+           <item row="10" column="1">
+            <widget class="QLabel" name="label_33">
+             <property name="text">
+              <string>Rotate up</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_down"/>
+           </item>
+           <item row="14" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward_8"/>
+           </item>
+           <item row="14" column="1">
+            <widget class="QLabel" name="label_31">
+             <property name="text">
+              <string>Add keyframe</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward_9"/>
+           </item>
+           <item row="15" column="1">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Modufy keyframe</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1">
+            <widget class="QLabel" name="label_34">
+             <property name="text">
+              <string>Rotate down</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_roll_left"/>
+           </item>
+           <item row="13" column="0">
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_roll_right"/>
+           </item>
+           <item row="12" column="1">
+            <widget class="QLabel" name="label_35">
+             <property name="text">
+              <string>Roll left</string>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="1">
+            <widget class="QLabel" name="label_36">
+             <property name="text">
+              <string>Roll right</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
