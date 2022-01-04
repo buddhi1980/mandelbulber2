@@ -40,6 +40,7 @@
 #include <QDebug>
 #include <QPlainTextEdit>
 #include <QLineEdit>
+#include <QKeySequenceEdit>
 
 #include "algebra.hpp"
 #include "global_data.hpp"
@@ -109,6 +110,9 @@ void SynchronizeInterfaceWindow(
 
 	WriteLog("cInterface::SynchronizeInterface: cLightWidget", 3);
 	SynchronizeInterfaceLightWidget(window->findChildren<cLightWidget *>(), par, mode);
+
+	WriteLog("cInterface::SynchronizeInterface: QKeySequenceEdit", 3);
+	SynchronizeInterfaceQKeySequenceEdit(window->findChildren<QKeySequenceEdit *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
@@ -619,6 +623,37 @@ void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
 			{
 				lightWidget->SetCameraTarget(par->Get<CVector3>("camera"), par->Get<CVector3>("target"),
 					par->Get<CVector3>("camera_top"));
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQKeySequenceEdit(QList<QKeySequenceEdit *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode)
+{
+	QList<QKeySequenceEdit *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		widgetProperties props = parseWidgetProperties((*it), {"QKeySequenceEdit"});
+		if (props.allowed)
+		{
+			QKeySequenceEdit *keySequenceEdit = *it;
+
+			if (props.typeName == QString("keySequenceEdit"))
+			{
+				if (mode == qInterface::read)
+				{
+					QKeySequence keySequence = keySequenceEdit->keySequence();
+					QString keySequenceString = keySequence.toString(QKeySequence::PortableText);
+					par->Set(props.paramName, keySequenceString);
+				}
+				else if (mode == qInterface::write)
+				{
+					QString keySequenceString = par->Get<QString>(props.paramName);
+					QKeySequence keySequence(keySequenceString, QKeySequence::PortableText);
+
+					keySequenceEdit->setKeySequence(keySequence);
+				}
 			}
 		}
 	}

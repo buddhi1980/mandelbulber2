@@ -595,6 +595,23 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("navigator_volumetrics", true, morphNone, paramApp);
 	par->addParam("navigator_dark_glow", false, morphNone, paramApp);
 
+	par->addParam("key_render", QString("R"), morphNone, paramApp);
+	par->addParam("key_stop", QString("T"), morphNone, paramApp);
+	par->addParam("key_move_forward", QString("R"), morphNone, paramApp);
+	par->addParam("key_move_backward", QString("R"), morphNone, paramApp);
+	par->addParam("key_move_left", QString("R"), morphNone, paramApp);
+	par->addParam("key_move_right", QString("R"), morphNone, paramApp);
+	par->addParam("key_move_up", QString("R"), morphNone, paramApp);
+	par->addParam("key_move_down", QString("R"), morphNone, paramApp);
+	par->addParam("key_rotate_up", QString("R"), morphNone, paramApp);
+	par->addParam("key_rotate_down", QString("R"), morphNone, paramApp);
+	par->addParam("key_rotate_left", QString("R"), morphNone, paramApp);
+	par->addParam("key_rotate_right", QString("R"), morphNone, paramApp);
+	par->addParam("key_roll_left", QString("R"), morphNone, paramApp);
+	par->addParam("key_roll_right", QString("R"), morphNone, paramApp);
+	par->addParam("key_add_keyframe", QString("R"), morphNone, paramApp);
+	par->addParam("key_modify_keyframe", QString("R"), morphNone, paramApp);
+
 	WriteLog("Parameters initialization finished", 3);
 }
 

@@ -48,6 +48,7 @@ class QGroupBox;
 class QDoubleSpinBox;
 class QSpinBox;
 class QCheckBox;
+class QKeySequenceEdit;
 class FileSelectWidget;
 class MyColorButton;
 class ColorPaletteWidget;
@@ -106,6 +107,8 @@ void SynchronizeInterfaceQPlainTextEdit(QList<QPlainTextEdit *> widgets,
 void SynchronizeInterfaceQTextEdit(QList<QTextEdit *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceLightWidget(QList<cLightWidget *> widgets,
+	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQKeySequenceEdit(QList<QKeySequenceEdit *> widgets,
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode);
 
 // utility functions

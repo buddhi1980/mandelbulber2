@@ -1860,7 +1860,7 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="8" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_left"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_left"/>
            </item>
            <item row="8" column="1">
             <widget class="QLabel" name="label_29">
@@ -1870,7 +1870,7 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="9" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_right"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_right"/>
            </item>
            <item row="9" column="1">
             <widget class="QLabel" name="label_30">
@@ -1880,7 +1880,7 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="10" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_up"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_up"/>
            </item>
            <item row="10" column="1">
             <widget class="QLabel" name="label_33">
@@ -1890,10 +1890,10 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="11" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_rotate_down"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_rotate_down"/>
            </item>
            <item row="14" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward_8"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_add_keyframe"/>
            </item>
            <item row="14" column="1">
             <widget class="QLabel" name="label_31">
@@ -1903,12 +1903,12 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="15" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_backward_9"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_modify_keyframe"/>
            </item>
            <item row="15" column="1">
             <widget class="QLabel" name="label_32">
              <property name="text">
-              <string>Modufy keyframe</string>
+              <string>Modify keyframe</string>
              </property>
             </widget>
            </item>
@@ -1920,10 +1920,10 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item row="12" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_roll_left"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_left"/>
            </item>
            <item row="13" column="0">
-            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_move_roll_right"/>
+            <widget class="QKeySequenceEdit" name="keySequenceEdit_key_roll_right"/>
            </item>
            <item row="12" column="1">
             <widget class="QLabel" name="label_35">
