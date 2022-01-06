@@ -55,6 +55,7 @@
 #include "qt/voxel_export_dialog.h"
 #include "render_window.hpp"
 #include "settings.hpp"
+#include "shortcuts.h"
 #include "system_data.hpp"
 #include "system_directories.hpp"
 #include "ui_render_window.h"
@@ -189,6 +190,7 @@ void RenderWindow::slotKeyPressOnImage(QKeyEvent *event)
 void RenderWindow::slotKeyReleaseOnImage(QKeyEvent *event)
 {
 	currentKeyEvents.removeOne(event->key());
+
 	lastKeyEventModifiers = event->modifiers();
 	slotKeyHandle();
 	buttonPressTimer->stop();
@@ -209,123 +211,96 @@ void RenderWindow::slotKeyHandle()
 
 	for (int i = 0; i < currentKeyEvents.size(); i++)
 	{
-		int key = currentKeyEvents.at(i);
-		Qt::KeyboardModifiers modifiers = lastKeyEventModifiers;
-		if (modifiers & Qt::ShiftModifier)
-		{ // Shift pressed
-			switch (key)
-			{
-				case Qt::Key_Up:
-					manipulations->MoveCamera("bu_move_forward");
-					render = true;
-					break;
-				case Qt::Key_Down:
-					manipulations->MoveCamera("bu_move_backward");
-					render = true;
-					break;
-				case Qt::Key_Left:
-					manipulations->MoveCamera("bu_move_left");
-					render = true;
-					break;
-				case Qt::Key_Right:
-					manipulations->MoveCamera("bu_move_right");
-					render = true;
-					break;
-				default: break;
-			}
-		}
-		else if (modifiers & Qt::ControlModifier)
-		{ // Ctrl pressed
-			switch (key)
-			{
-				case Qt::Key_Up:
-					manipulations->MoveCamera("bu_move_forward");
-					render = true;
-					break;
-				case Qt::Key_Down:
-					manipulations->MoveCamera("bu_move_backward");
-					render = true;
-					break;
-				case Qt::Key_Left:
-					manipulations->RotateCamera("bu_rotate_roll_left");
-					render = true;
-					break;
-				case Qt::Key_Right:
-					manipulations->RotateCamera("bu_rotate_roll_right");
-					render = true;
-					break;
-				default: break;
-			}
-		}
-		else
-		{
-			// No keyboard modifiers
-			switch (key)
-			{
-				case Qt::Key_W:
-					manipulations->MoveCamera("bu_move_up");
-					render = true;
-					break;
-				case Qt::Key_S:
-					manipulations->MoveCamera("bu_move_down");
-					render = true;
-					break;
-				case Qt::Key_A:
-					manipulations->MoveCamera("bu_move_left");
-					render = true;
-					break;
-				case Qt::Key_D:
-					manipulations->MoveCamera("bu_move_right");
-					render = true;
-					break;
-				case Qt::Key_Q:
-					manipulations->MoveCamera("bu_move_forward");
-					render = true;
-					break;
-				case Qt::Key_Z:
-					manipulations->MoveCamera("bu_move_backward");
-					render = true;
-					break;
-				case Qt::Key_Up:
-					manipulations->RotateCamera("bu_rotate_up");
-					render = true;
-					break;
-				case Qt::Key_Down:
-					manipulations->RotateCamera("bu_rotate_down");
-					render = true;
-					break;
-				case Qt::Key_Left:
-					manipulations->RotateCamera("bu_rotate_left");
-					render = true;
-					break;
-				case Qt::Key_Right:
-					manipulations->RotateCamera("bu_rotate_right");
-					render = true;
-					break;
+		enumShortcuts shortcut =
+			cShortcuts::getShortcut(gPar.get(), currentKeyEvents.at(i), lastKeyEventModifiers);
 
-				case Qt::Key_I:
-					currentKeyEvents.removeOne(key); // long press not allowed
-					gKeyframeAnimation->slotAddKeyframe();
-					break;
-				case Qt::Key_M:
-					currentKeyEvents.removeOne(key); // long press not allowed
-					gKeyframeAnimation->slotModifyKeyframe();
-					break;
-				/*case Qt::Key_D:
-				 *		currentKeyEvents.removeOne(key); // long press not
-				 *allowed gKeyframeAnimation->slotDeleteKeyframe(); break;*/
-				case Qt::Key_N:
-					currentKeyEvents.removeOne(key); // long press not allowed
-					gKeyframeAnimation->slotIncreaseCurrentTableIndex();
-					break;
-				case Qt::Key_P:
-					currentKeyEvents.removeOne(key); // long press not allowed
-					gKeyframeAnimation->slotDecreaseCurrentTableIndex();
-					break;
-				default: break;
-			}
+		switch (shortcut)
+		{
+			case enumShortcuts::moveForward:
+				manipulations->MoveCamera("bu_move_forward");
+				render = true;
+				break;
+			case enumShortcuts::moveBackward:
+				manipulations->MoveCamera("bu_move_backward");
+				render = true;
+				break;
+			case enumShortcuts::moveLeft:
+				manipulations->MoveCamera("bu_move_left");
+				render = true;
+				break;
+			case enumShortcuts::moveRight:
+				manipulations->MoveCamera("bu_move_right");
+				render = true;
+				break;
+			case enumShortcuts::moveUp:
+				manipulations->MoveCamera("bu_move_up");
+				render = true;
+				break;
+			case enumShortcuts::moveDown:
+				manipulations->MoveCamera("bu_move_down");
+				render = true;
+				break;
+			case enumShortcuts::rotateLeft:
+				manipulations->RotateCamera("bu_rotate_left");
+				render = true;
+				break;
+			case enumShortcuts::rotateRight:
+				manipulations->RotateCamera("bu_rotate_right");
+				render = true;
+				break;
+			case enumShortcuts::rotateUp:
+				manipulations->RotateCamera("bu_rotate_up");
+				render = true;
+				break;
+			case enumShortcuts::rotateDown:
+				manipulations->RotateCamera("bu_rotate_down");
+				render = true;
+				break;
+			case enumShortcuts::rollLeft:
+				manipulations->RotateCamera("bu_rotate_roll_left");
+				render = true;
+				break;
+			case enumShortcuts::rollRight:
+				manipulations->RotateCamera("bu_rotate_roll_right");
+				render = true;
+				break;
+			case enumShortcuts::addKeyframe:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				gKeyframeAnimation->slotAddKeyframe();
+				break;
+			case enumShortcuts::modifyKeyframe:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				gKeyframeAnimation->slotModifyKeyframe();
+				break;
+			case enumShortcuts::render:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				gMainInterface->StartRender();
+				break;
+			case enumShortcuts::stop:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				gMainInterface->stopRequest = true;
+				break;
+
+			default: break;
 		}
 	}
+
+	//	for (int i = 0; i < currentKeyEvents.size(); i++)
+	//	{
+	//		int key = currentKeyEvents.at(i);
+	//		Qt::KeyboardModifiers modifiers = lastKeyEventModifiers;
+	//
+	//				case Qt::Key_N:
+	//					currentKeyEvents.removeOne(key); // long press not allowed
+	//					gKeyframeAnimation->slotIncreaseCurrentTableIndex();
+	//					break;
+	//				case Qt::Key_P:
+	//					currentKeyEvents.removeOne(key); // long press not allowed
+	//					gKeyframeAnimation->slotDecreaseCurrentTableIndex();
+	//					break;
+	//				default: break;
+	//
+	//	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	if (render)
