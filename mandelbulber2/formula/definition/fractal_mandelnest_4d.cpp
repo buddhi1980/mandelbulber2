@@ -6,8 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Mandelnest by Jeannot
+ * Mandelnest refer Jeannot
  * https://fractalforums.org/share-a-fractal/22/mandelbrot-3d-mandelnest/4028/
+ * also https://www.shadertoy.com/view/4lKfzy
  */
 
 #include "all_fractal_definitions.h"
