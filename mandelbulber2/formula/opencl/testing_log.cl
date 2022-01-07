@@ -17,12 +17,14 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-//aux->DE = aux->DE * aux->r * 2.0f +1.0f;//,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
 // Preparation operations
-	REAL fac_eff = 0.6666666666; // (3.0 - 1.0) / 3.0;
+	REAL fac_eff = 0.6666666666;
 	REAL offset = 1.0e-10;
 	REAL4 Solution = fractal->transformCommon.offset100;
+	aux->DE = aux->DE * aux->r * 2.0f +1.0f;
 
+	// abs transforms
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -35,11 +37,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		   fractal->transformCommon.offsetA0,
 			fractal->transformCommon.offsetB0,
 			0.0f}; //temppppppppppp
-
-
-
-
-
 
 	/*if (aux->i < fractal->transformCommon.stopIterations1)
 	{
@@ -61,19 +58,17 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 // Converting the diverging (x,y,z) back to the variable
 // that can be used for the (converging) Newton method calculation
-	REAL sq_r = fractal->transformCommon.scale/(aux->r * aux->r + offset);
+	REAL sq_r = fractal->transformCommon.scale1 / (aux->r * aux->r + offset);
 	z.x = z.x * sq_r + Solution.x;
 	z.y = -z.y * sq_r + Solution.y; // 0.0
 	z.z = -z.z * sq_r + Solution.z; // 0.0
 
-	REAL4 tp = z * z;
-
 // Calculate the inverse power of t=(x,y,z),
 // and use it for the Newton method calculations for t^power + c = 0
 // i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
-
+	REAL4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z;
-	sq_r = 1.0f / (3.0f * sq_r * sq_r + offset);
+	sq_r = fractal->transformCommon.scaleA1 / (3.0f * sq_r * sq_r + offset);
 	REAL r_xy = tp.x + tp.y;
 	REAL h1 = 1.0f - tp.z / r_xy;
 
@@ -97,14 +92,14 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	tp = z - Solution;
 
-	sq_r = fractal->transformCommon.scale1 / (dot(tp, tp) + offset);
+	sq_r = fractal->transformCommon.scaleB1 / (dot(tp, tp) + offset);
 	z.x = tp.x * sq_r;
 	z.y = -tp.y * sq_r;
 	z.z = -tp.z * sq_r;
 
 	if (fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
 
@@ -116,18 +111,10 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	//aux->DE = aux->DE * aux->r * 2.0f;
 
 	// Preparation operations
-	//REAL fac_eff = 0.6666666666f; // pow 3 ???
-
-//	REAL Power = fractal->transformCommon.pwr8 + 1.0f;
-//	REAL fac_eff = (Power - 1.0) / Power;
-//	REAL pow_eff = 1.0 - Power;
 
 	REAL Power = fractal->transformCommon.pwr8 + 1.0f;
 	REAL fac_eff = (Power - 1.0) / Power;
 	REAL pow_eff = 1.0 - Power;
-
-
-
 
 	REAL4 Solution = fractal->transformCommon.offset100;
 	REAL Offset = 1.0e-10f;
@@ -204,7 +191,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = fac_eff * z.y + tmpy2;
 	z.z = fac_eff * z.z + tmpz2;
 
-	//z = fac_eff * z + c;
 
 	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
 	// although the plain Newton method does always converge
