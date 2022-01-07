@@ -62,6 +62,10 @@ private slots:
 	void slotChangedComboMouseClickFunction(int index);
 	void slotChangedPreviewSize();
 	void slotDarkGlowEnabled(int state);
+	void slotKeyPressOnImage(QKeyEvent *event);
+	void slotKeyReleaseOnImage(QKeyEvent *event);
+	void slotButtonLongPress();
+	void slotKeyHandle();
 
 private:
 	void InitPeriodicRefresh();
@@ -98,6 +102,10 @@ private:
 	int initImageWidth = 800;
 	int initImageHeight = 600;
 	double imageProportion = 1.0;
+
+	QTimer *buttonPressTimer;
+	QList<int> currentKeyEvents;
+	Qt::KeyboardModifiers lastKeyEventModifiers;
 };
 
 #endif /* MANDELBULBER2_QT_NAVIGATOR_WINDOW_H_ */

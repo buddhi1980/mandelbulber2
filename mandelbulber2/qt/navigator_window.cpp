@@ -14,6 +14,7 @@
 #include <QThread>
 
 #include "../src/image_scale.hpp"
+#include "../src/shortcuts.h"
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
@@ -79,6 +80,15 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->checkBox_navigator_dark_glow, &QCheckBox::stateChanged, this,
 		&cNavigatorWindow::slotDarkGlowEnabled);
+
+	connect(ui->widgetRenderedImage, &RenderedImage::keyPress, this,
+		&cNavigatorWindow::slotKeyPressOnImage);
+	connect(ui->widgetRenderedImage, &RenderedImage::keyRelease, this,
+		&cNavigatorWindow::slotKeyReleaseOnImage);
+
+	buttonPressTimer = new QTimer(this);
+	connect(buttonPressTimer, &QTimer::timeout, this, &cNavigatorWindow::slotButtonLongPress);
+	buttonPressTimer->start(100);
 
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
 }
@@ -606,6 +616,112 @@ void cNavigatorWindow::slotFullImageRendered()
 
 	{
 		forcedSizeFactor = lastIntSizeFactor / 2;
+		StartRender();
+	}
+}
+
+void cNavigatorWindow::slotKeyPressOnImage(QKeyEvent *event)
+{
+	currentKeyEvents.append(event->key());
+	lastKeyEventModifiers = event->modifiers();
+	slotKeyHandle();
+	buttonPressTimer->start();
+}
+
+void cNavigatorWindow::slotKeyReleaseOnImage(QKeyEvent *event)
+{
+	currentKeyEvents.removeOne(event->key());
+
+	lastKeyEventModifiers = event->modifiers();
+	slotKeyHandle();
+	buttonPressTimer->stop();
+}
+
+void cNavigatorWindow::slotButtonLongPress()
+{
+	slotKeyHandle();
+}
+
+void cNavigatorWindow::slotKeyHandle()
+{
+	if (currentKeyEvents.size() == 0) return;
+
+	SynchronizeInterface(qInterface::read);
+
+	bool render = false;
+
+	for (int i = 0; i < currentKeyEvents.size(); i++)
+	{
+		enumShortcuts shortcut =
+			cShortcuts::getShortcut(gPar.get(), currentKeyEvents.at(i), lastKeyEventModifiers);
+
+		switch (shortcut)
+		{
+			case enumShortcuts::moveForward:
+				manipulations->MoveCamera("bu_move_forward");
+				render = true;
+				break;
+			case enumShortcuts::moveBackward:
+				manipulations->MoveCamera("bu_move_backward");
+				render = true;
+				break;
+			case enumShortcuts::moveLeft:
+				manipulations->MoveCamera("bu_move_left");
+				render = true;
+				break;
+			case enumShortcuts::moveRight:
+				manipulations->MoveCamera("bu_move_right");
+				render = true;
+				break;
+			case enumShortcuts::moveUp:
+				manipulations->MoveCamera("bu_move_up");
+				render = true;
+				break;
+			case enumShortcuts::moveDown:
+				manipulations->MoveCamera("bu_move_down");
+				render = true;
+				break;
+			case enumShortcuts::rotateLeft:
+				manipulations->RotateCamera("bu_rotate_left");
+				render = true;
+				break;
+			case enumShortcuts::rotateRight:
+				manipulations->RotateCamera("bu_rotate_right");
+				render = true;
+				break;
+			case enumShortcuts::rotateUp:
+				manipulations->RotateCamera("bu_rotate_up");
+				render = true;
+				break;
+			case enumShortcuts::rotateDown:
+				manipulations->RotateCamera("bu_rotate_down");
+				render = true;
+				break;
+			case enumShortcuts::rollLeft:
+				manipulations->RotateCamera("bu_rotate_roll_left");
+				render = true;
+				break;
+			case enumShortcuts::rollRight:
+				manipulations->RotateCamera("bu_rotate_roll_right");
+				render = true;
+				break;
+			case enumShortcuts::render:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				StartRender();
+				break;
+			case enumShortcuts::stop:
+				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
+				stopRequest = true;
+				break;
+
+			default: break;
+		}
+	}
+
+	SynchronizeInterface(qInterface::write);
+
+	if (render)
+	{
 		StartRender();
 	}
 }
