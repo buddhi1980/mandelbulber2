@@ -61,7 +61,7 @@ RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::Re
 	defaultState = saveState();
 
 	buttonPressTimer = new QTimer(this);
-	connect(buttonPressTimer, SIGNAL(timeout()), this, SLOT(slotButtonLongPress()));
+	connect(buttonPressTimer, &QTimer::timeout, this, &RenderWindow::slotButtonLongPress);
 	buttonPressTimer->start(100);
 
 #ifndef USE_GAMEPAD

@@ -285,22 +285,6 @@ void RenderWindow::slotKeyHandle()
 		}
 	}
 
-	//	for (int i = 0; i < currentKeyEvents.size(); i++)
-	//	{
-	//		int key = currentKeyEvents.at(i);
-	//		Qt::KeyboardModifiers modifiers = lastKeyEventModifiers;
-	//
-	//				case Qt::Key_N:
-	//					currentKeyEvents.removeOne(key); // long press not allowed
-	//					gKeyframeAnimation->slotIncreaseCurrentTableIndex();
-	//					break;
-	//				case Qt::Key_P:
-	//					currentKeyEvents.removeOne(key); // long press not allowed
-	//					gKeyframeAnimation->slotDecreaseCurrentTableIndex();
-	//					break;
-	//				default: break;
-	//
-	//	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	if (render)
@@ -946,7 +930,7 @@ bool RenderWindow::eventFilter(QObject *obj, QEvent *event)
 	}
 	else if (event->type() == QEvent::ShortcutOverride)
 	{
-		buttonPressTimer->stop();
+		// buttonPressTimer->stop();
 		return QMainWindow::eventFilter(obj, event);
 	}
 	else

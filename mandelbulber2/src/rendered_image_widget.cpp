@@ -746,7 +746,8 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 	if (event->isAutoRepeat())
 	{
 		event->ignore();
-		emit keyRelease(event);
+		//emit keyPress(event);
+		//emit keyRelease(event);
 	}
 	else
 	{
