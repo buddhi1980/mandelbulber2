@@ -278,6 +278,7 @@ void cDockNavigation::slotChangedOpenCLMode(int index)
 
 void cDockNavigation::slotOpenNavigator()
 {
+	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	navigator->setAttribute(Qt::WA_DeleteOnClose);
 	navigator->SetInitialParameters(gPar, gParFractal);

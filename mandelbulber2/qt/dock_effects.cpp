@@ -236,6 +236,7 @@ void cDockEffects::RegenerateLights()
 
 void cDockEffects::slotPressedButtonNavi()
 {
+	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	cDockEffects *leftWidget = new cDockEffects();
 	navigator->AddLeftWidget(leftWidget);

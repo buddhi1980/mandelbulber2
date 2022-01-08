@@ -133,6 +133,7 @@ void cMaterialEditor::Colorize(int randomSeed)
 
 void cMaterialEditor::slotPressedButtonNavi()
 {
+	gMainInterface->SynchronizeInterface(parameterContainer, gParFractal, qInterface::read);
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	cMaterialEditor *leftWidget = new cMaterialEditor();
 	leftWidget->AssignMaterial(parameterContainer, materialIndex);

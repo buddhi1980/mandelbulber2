@@ -391,6 +391,7 @@ void cTabFractal::slotPressedButtonResetFormula() const
 
 void cTabFractal::slotPressedButtonNavi()
 {
+	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	cNavigatorWindow *navigator = new cNavigatorWindow();
 	cTabFractal *leftWidget = new cTabFractal();
 	navigator->AddLeftWidget(leftWidget);

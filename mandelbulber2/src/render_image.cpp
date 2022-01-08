@@ -381,7 +381,7 @@ bool cRenderer::RenderImage()
 
 		QElapsedTimer timerRefresh;
 		timerRefresh.start();
-		qint64 lastRefreshTime = 100;
+		qint64 lastRefreshTime = 10;
 		QList<int> listToRefresh;
 		QList<int> listToSend;
 
@@ -422,11 +422,17 @@ bool cRenderer::RenderImage()
 				double percentDone = PeriodicUpdateStatusAndProgressBar(
 					statusText, progressTxt, progressText, timerProgressRefresh);
 
+				int firstPassToRefresh = (params->ambientOcclusionEnabled
+																	 && params->ambientOcclusionMode == params::AOModeScreenSpace)
+																	 ? 1
+																	 : 0;
+
 				// refresh image
 				if (listToRefresh.size() > 0)
 				{
 					if (timerRefresh.elapsed() > lastRefreshTime
-							&& (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
+							&& (scheduler->GetProgressivePass() > firstPassToRefresh
+									|| !data->configuration.UseProgressive()))
 					{
 						timerRefresh.restart();
 
@@ -452,6 +458,9 @@ bool cRenderer::RenderImage()
 							if (lastRefreshTime < 500) lastRefreshTime = 500;
 						}
 
+						if (!*data->stopRequest)
+							emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
+
 						timerRefresh.restart();
 						listToRefresh.clear();
 					} // timerRefresh
@@ -467,8 +476,6 @@ bool cRenderer::RenderImage()
 				WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
 				delete threads[i];
 			}
-
-			if (!*data->stopRequest) emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
 
 		} while (scheduler->ProgressiveNextStep());
 

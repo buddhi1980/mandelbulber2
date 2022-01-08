@@ -90,6 +90,9 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(buttonPressTimer, &QTimer::timeout, this, &cNavigatorWindow::slotButtonLongPress);
 	buttonPressTimer->start(100);
 
+	cInterface::ColorizeGroupBoxes(
+		ui->widgetNavigationButtons, gPar->Get<int>("ui_colorize_random_seed"));
+
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
 }
 
@@ -100,6 +103,14 @@ void cNavigatorWindow::AddLeftWidget(QWidget *widget)
 
 	if (leftWidget)
 	{
+		QList<QWidget *> childWidgets =
+			leftWidget->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+
+		for (auto widget : childWidgets)
+		{
+			cInterface::ColorizeGroupBoxes(widget, gPar->Get<int>("ui_colorize_random_seed"));
+		}
+
 		cDockEffects *dockEffects = dynamic_cast<cDockEffects *>(leftWidget);
 		if (dockEffects)
 		{
@@ -292,7 +303,9 @@ void cNavigatorWindow::StartRender()
 		}
 	}
 
-	if (params->Get<int>("opencl_mode") == 0) lastSizefactor = intSizeFactor = 1;
+	if (params->Get<int>("opencl_mode") == 0
+			&& ui->comboBox_navigator_preview_quality->currentIndex() == 0)
+		lastSizefactor = intSizeFactor = 1;
 
 	width = clamp(int(initImageWidth / intSizeFactor), 64, initImageWidth);
 	height = width / imageProportion;
@@ -300,16 +313,6 @@ void cNavigatorWindow::StartRender()
 	tempParams->Set("image_width", width);
 	tempParams->Set("image_height", height);
 	tempParams->Set("detail_level", params->Get<double>("detail_level") * intSizeFactor);
-
-	//	if (intSizeFactor != lastIntSizeFactor)
-	//	{
-	//		image->FastResize(width, height);
-	//		double scale = CalcMainImageScale(0.0, initImageWidth, initImageHeight, image);
-	//		image->CreatePreview(scale, initImageWidth, initImageWidth, ui->widgetRenderedImage);
-	//		image->CompileImage();
-	//		image->ConvertTo8bitChar();
-	//		image->UpdatePreview();
-	//	}
 
 	lastIntSizeFactor = intSizeFactor;
 
