@@ -66,6 +66,9 @@ private slots:
 	void on_comboBox_ui_skin_currentIndexChanged(int index) const;
 	void on_pushButton_retrieve_toolbar_clicked() const;
 	void on_pushButton_retrieve_materials_clicked() const;
+	void on_pushButton_key_layout_default_clicked();
+	void on_pushButton_key_layout_mb3d_clicked();
+
 #ifdef USE_OPENCL
 	void on_listWidget_opencl_platform_list_currentRowChanged(int index);
 	void on_groupCheck_opencl_enabled_toggled(bool state);

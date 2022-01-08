@@ -415,6 +415,46 @@ void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 	}
 }
 
+void cPreferencesDialog::on_pushButton_key_layout_default_clicked()
+{
+	gPar->Set("key_move_forward", QString("Q"));
+	gPar->Set("key_move_backward", QString("Z"));
+	gPar->Set("key_move_left", QString("A"));
+	gPar->Set("key_move_right", QString("D"));
+	gPar->Set("key_move_up", QString("W"));
+	gPar->Set("key_move_down", QString("S"));
+	gPar->Set("key_rotate_up", QString("Up"));
+	gPar->Set("key_rotate_down", QString("Down"));
+	gPar->Set("key_rotate_left", QString("Left"));
+	gPar->Set("key_rotate_right", QString("Right"));
+	gPar->Set("key_roll_left", QString(","));
+	gPar->Set("key_roll_right", QString("."));
+
+	gPar->Set("key_render", QString("R"));
+	gPar->Set("key_stop", QString("T"));
+	gPar->Set("key_add_keyframe", QString("K"));
+	gPar->Set("key_modify_keyframe", QString("M"));
+
+	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
+}
+void cPreferencesDialog::on_pushButton_key_layout_mb3d_clicked()
+{
+	gPar->Set("key_move_forward", QString("W"));
+	gPar->Set("key_move_backward", QString("S"));
+	gPar->Set("key_move_left", QString("A"));
+	gPar->Set("key_move_right", QString("D"));
+	gPar->Set("key_move_up", QString("E"));
+	gPar->Set("key_move_down", QString("C"));
+	gPar->Set("key_rotate_up", QString("I"));
+	gPar->Set("key_rotate_down", QString("K"));
+	gPar->Set("key_rotate_left", QString("J"));
+	gPar->Set("key_rotate_right", QString("L"));
+	gPar->Set("key_roll_left", QString("U"));
+	gPar->Set("key_roll_right", QString("O"));
+
+	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
+}
+
 QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 {
 	QList<QPair<QString, QString>> devices;

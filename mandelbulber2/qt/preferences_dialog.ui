@@ -33,7 +33,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -1760,10 +1760,31 @@ and will only be present after enabling and re-render.</string>
       </layout>
      </widget>
      <widget class="QWidget" name="tab">
+      <attribute name="icon">
+       <iconset theme="input-keyboard"/>
+      </attribute>
       <attribute name="title">
        <string>Shortcuts</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="pushButton_key_layout_default">
+           <property name="text">
+            <string>Default layout</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_key_layout_mb3d">
+           <property name="text">
+            <string>MB3D layout</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="widgetResizable">
@@ -1775,7 +1796,7 @@ and will only be present after enabling and re-render.</string>
             <x>0</x>
             <y>0</y>
             <width>637</width>
-            <height>738</height>
+            <height>705</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
