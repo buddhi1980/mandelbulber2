@@ -343,6 +343,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButtonUse_without_camera">
+       <property name="text">
+        <string>Use in main window (without camera)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButtonCancel">
        <property name="text">
         <string>Cancel</string>

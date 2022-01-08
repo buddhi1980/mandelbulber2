@@ -50,6 +50,7 @@ public slots:
 	void slotMouseWheelRotatedWithKeyOnImage(
 		int x, int y, int delta, Qt::KeyboardModifiers keyModifiers);
 	void slotButtonUseParameters();
+	void slotButtonUseParametersWithoutCamera();
 	void slotButtonCancel();
 	void slotSmallPartRendered(double time);
 	void slotFullImageRendered();

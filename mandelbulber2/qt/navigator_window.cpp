@@ -66,6 +66,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(
 		ui->pushButtonUse, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonUseParameters);
+	connect(ui->pushButtonUse_without_camera, &QPushButton::pressed, this,
+		&cNavigatorWindow::slotButtonUseParametersWithoutCamera);
 	connect(ui->pushButtonCancel, &QPushButton::pressed, this, &cNavigatorWindow::slotButtonCancel);
 
 	connect(manipulations, &cManipulations::signalDisablePeriodicRefresh, this,
@@ -500,6 +502,25 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 void cNavigatorWindow::slotButtonUseParameters()
 {
 	stopRequest = true;
+	*sourceParams = *params;
+	*sourceFractalParams = *fractalParams;
+	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
+	gMainInterface->StartRender();
+	emit signalChangesAccepted();
+	emit close();
+}
+
+void cNavigatorWindow::slotButtonUseParametersWithoutCamera()
+{
+	stopRequest = true;
+	params->Copy("camera", sourceParams);
+	params->Copy("target", sourceParams);
+	params->Copy("camera_top", sourceParams);
+	params->Copy("camera_distance_to_target", sourceParams);
+	params->Copy("camera_rotation", sourceParams);
+	params->Copy("sweet_spot_horizontal_angle", sourceParams);
+	params->Copy("sweet_spot_vertical_angle", sourceParams);
+
 	*sourceParams = *params;
 	*sourceFractalParams = *fractalParams;
 	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
