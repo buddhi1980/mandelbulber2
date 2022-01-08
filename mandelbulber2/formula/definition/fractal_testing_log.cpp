@@ -27,12 +27,11 @@ cFractalTestingLog::cFractalTestingLog() : cAbstractFractal()
 void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-
-	// Preparation operations
+		// Preparation operations
 		double fac_eff = 0.6666666666;
 		double offset = 0.0;//1.0e-17;
 		CVector4 Solution = fractal->transformCommon.offset100;
-		aux.DE = aux.DE * aux.r * 2.0 + 1.0;
+
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -45,7 +44,6 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 				fractal->transformCommon.offsetA0,
 				fractal->transformCommon.offsetB0,
 				0.0); //temppppppppppp
-
 
 		/*if (aux.i < fractal->transformCommon.stopIterations1)
 		{
@@ -67,7 +65,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
-		double sq_r = fractal->transformCommon.scale1 / (aux.r * aux.r + offset);
+		double sq_r = fractal->transformCommon.scaleA1 / (aux.r * aux.r + offset);
 		z.x = z.x * sq_r + Solution.x;
 		z.y = -z.y * sq_r + Solution.y; // 0.0
 		z.z = -z.z * sq_r + Solution.z; // 0.0
@@ -77,9 +75,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 		CVector4 tp = z * z;
 		sq_r = tp.x + tp.y + tp.z; // dot
-		sq_r = fractal->transformCommon.scaleA1 / (3.0 * sq_r * sq_r + offset); // dot * dot
-
-
+		sq_r = 1.0 / (3.0 * sq_r * sq_r + offset);
 		double r_xy = tp.x + tp.y;
 		double h1 = 1.0 - tp.z / r_xy;
 
@@ -99,25 +95,23 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
 	// although the plain Newton method does always converge
-
 		tp = z - Solution;
-
 		sq_r = fractal->transformCommon.scaleB1 / (tp.Dot(tp) + offset);
 		z.x = tp.x * sq_r;
 		z.y = -tp.y * sq_r;
 		z.z = -tp.z * sq_r;
-		//aux.DE = aux.DE * 2.0;
+		aux.DE = aux.DE * aux.r * 2.0;
 
-		if (fractal->analyticDE.enabledFalse) //
+		if (fractal->analyticDE.enabledFalse)
 		{
-			aux.DE = (aux.DE ) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	double r = z.Length();
 	aux.dist = 0.5 * log(r) * r / aux.DE;
 
 	/*double dd = z.Length() / aux.r;
-	auxdd = dd + (aux.r * 2.0 - dd) * fractal->transformCommon.scaleA1;
-	.DE *= dd;*/
+	dd = dd + (aux.r * 2.0 - dd) * fractal->transformCommon.scale1;
+	aux.DE *= dd;*/
 
 
 

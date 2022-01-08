@@ -22,7 +22,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL fac_eff = 0.6666666666;
 	REAL offset = 1.0e-10;
 	REAL4 Solution = fractal->transformCommon.offset100;
-	aux->DE = aux->DE * aux->r * 2.0f +1.0f;
+
 
 	// abs transforms
 	if (fractal->transformCommon.functionEnabledAFalse)
@@ -58,7 +58,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 // Converting the diverging (x,y,z) back to the variable
 // that can be used for the (converging) Newton method calculation
-	REAL sq_r = fractal->transformCommon.scale1 / (aux->r * aux->r + offset);
+	REAL sq_r = fractal->transformCommon.scaleA1 / (aux->r * aux->r + offset);
 	z.x = z.x * sq_r + Solution.x;
 	z.y = -z.y * sq_r + Solution.y; // 0.0
 	z.z = -z.z * sq_r + Solution.z; // 0.0
@@ -68,7 +68,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 // i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 	REAL4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z;
-	sq_r = fractal->transformCommon.scaleA1 / (3.0f * sq_r * sq_r + offset);
+	sq_r = 1.0f / (3.0f * sq_r * sq_r + offset);
 	REAL r_xy = tp.x + tp.y;
 	REAL h1 = 1.0f - tp.z / r_xy;
 
@@ -97,9 +97,11 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = -tp.y * sq_r;
 	z.z = -tp.z * sq_r;
 
+	aux->DE = aux->DE * aux->r * 2.0f;
+
 	if (fractal->analyticDE.enabledFalse)
 	{
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 
