@@ -87,6 +87,12 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
 
+	connect(ui->toolButton_fog_distance_double, &QToolButton::clicked, this,
+		&cDockEffects::slotPressedButtonFogDistDouble);
+
+	connect(ui->toolButton_fog_distance_half, &QToolButton::clicked, this,
+		&cDockEffects::slotPressedButtonFogDistHalf);
+
 	connect(ui->checkBox_aux_light_place_behind, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedPlaceLightBehindObjects(int)));
 
@@ -271,4 +277,42 @@ void cDockEffects::AssignSpecialWidgets(
 void cDockEffects::slotNewParametersFromNavi()
 {
 	RegenerateLights();
+}
+
+void cDockEffects::slotPressedButtonFogDistDouble()
+{
+	SynchronizeInterfaceWindow(this, params, qInterface::read);
+
+	params->Set("volumetric_fog_colour_1_distance",
+		params->Get<double>("volumetric_fog_colour_1_distance") * 2.0);
+
+	params->Set("volumetric_fog_colour_2_distance",
+		params->Get<double>("volumetric_fog_colour_2_distance") * 2.0);
+
+	params->Set(
+		"volumetric_fog_distance_factor", params->Get<double>("volumetric_fog_distance_factor") * 2.0);
+
+	params->Set("volumetric_fog_distance_from_surface",
+		params->Get<double>("volumetric_fog_distance_from_surface") * 2.0);
+
+	SynchronizeInterfaceWindow(this, params, qInterface::write);
+}
+
+void cDockEffects::slotPressedButtonFogDistHalf()
+{
+	SynchronizeInterfaceWindow(this, params, qInterface::read);
+
+	params->Set("volumetric_fog_colour_1_distance",
+		params->Get<double>("volumetric_fog_colour_1_distance") / 2.0);
+
+	params->Set("volumetric_fog_colour_2_distance",
+		params->Get<double>("volumetric_fog_colour_2_distance") / 2.0);
+
+	params->Set(
+		"volumetric_fog_distance_factor", params->Get<double>("volumetric_fog_distance_factor") / 2.0);
+
+	params->Set("volumetric_fog_distance_from_surface",
+		params->Get<double>("volumetric_fog_distance_from_surface") / 2.0);
+
+	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }

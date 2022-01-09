@@ -72,6 +72,8 @@ public slots:
 	void slotSynchronizeInterfaceLights(std::shared_ptr<cParameterContainer> par) const;
 	void slotSynchronizeInterfaceRandomLights(std::shared_ptr<cParameterContainer> par) const;
 	void slotPressedButtonNavi();
+	void slotPressedButtonFogDistDouble();
+	void slotPressedButtonFogDistHalf();
 
 private slots:
 	void slotPressedButtonAutoFog();
