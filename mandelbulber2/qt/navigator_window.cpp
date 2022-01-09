@@ -159,8 +159,18 @@ void cNavigatorWindow::SetInitialParameters(
 	imageProportion = double(params->Get<int>("image_width")) / params->Get<int>("image_height");
 
 	initImageWidth = maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	initImageHeight = maxWindowHeight / (3.2 - ui->comboBox_navigator_preview_size->currentIndex());
+
 	if (!leftWidget) initImageWidth = initImageWidth * 120 / 100;
-	initImageHeight = initImageWidth / imageProportion;
+
+	if (initImageWidth / imageProportion < initImageHeight)
+	{
+		initImageHeight = initImageWidth / imageProportion;
+	}
+	else
+	{
+		initImageWidth = initImageHeight * imageProportion;
+	}
 
 	image.reset(new cImage(initImageWidth, initImageHeight, false));
 	ui->widgetRenderedImage->AssignImage(image);
@@ -263,10 +273,23 @@ void cNavigatorWindow::StartRender()
 	QRect availableScreenGeometry = QGuiApplication::screens().first()->availableGeometry();
 	int maxWindowWidth = availableScreenGeometry.width();
 	int maxWindowHeight = availableScreenGeometry.height();
+
 	int newInitImageWidth =
 		maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+	int newInitImageHeight =
+		maxWindowHeight / (3.2 - ui->comboBox_navigator_preview_size->currentIndex());
+
 	if (!leftWidget) newInitImageWidth = newInitImageWidth * 120 / 100;
-	int newInitImageHeight = initImageWidth / imageProportion;
+
+	if (newInitImageWidth / imageProportion < newInitImageHeight)
+	{
+		newInitImageHeight = newInitImageWidth / imageProportion;
+	}
+	else
+	{
+		newInitImageWidth = initImageHeight * imageProportion;
+	}
+
 	if ((newInitImageHeight != initImageHeight) || newInitImageWidth != initImageWidth)
 	{
 		initImageHeight = newInitImageHeight;
