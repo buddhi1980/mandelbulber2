@@ -27,16 +27,15 @@ cFractalMandelbulbSinCos::cFractalMandelbulbSinCos() : cAbstractFractal()
 
 void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double temp, th, ph, rp, cth;
+	double th, ph, rp, cth;
 	if (fractal->transformCommon.functionEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		temp = fractal->transformCommon.pwr8 + 1.0;
-		th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * temp;
-		ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * temp;
-		rp = pow(aux.r, fractal->transformCommon.pwr8);
-		aux.DE = rp * aux.DE * temp + 1.0;
+		th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
+		ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
+		rp = pow(aux.r, fractal->bulb.power - 1.0);
+		aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 		rp *= aux.r;
 		cth = cos(th);
 		z.x = cth * cos(ph) * rp;
@@ -50,11 +49,10 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		aux.r = z.Length();
-		temp = fractal->transformCommon.scale8 + 1.0;
-		th = (acos(z.z / aux.r) + fractal->transformCommon.offsetB0) * temp;
-		ph = (atan2(z.y, z.x) + fractal->transformCommon.offsetA0) * temp;
-		rp = pow(aux.r, fractal->transformCommon.scale8);
-		aux.DE = rp * aux.DE * temp + 1.0;
+		th = (acos(z.z / aux.r) + fractal->transformCommon.offsetB0) * fractal->donut.number;
+		ph = (atan2(z.y, z.x) + fractal->transformCommon.offsetA0) * fractal->donut.number;
+		rp = pow(aux.r, fractal->donut.number - 1.0);
+		aux.DE = rp * aux.DE * fractal->donut.number + 1.0;
 		rp *= aux.r;
 		cth = cos(th);
 		z.x = cth * cos(ph) * rp;

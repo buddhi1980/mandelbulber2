@@ -144,7 +144,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8">
+         <widget class="MyDoubleSpinBox" name="spinbox_power">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -544,7 +544,7 @@ mult:</string>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_8">
+         <widget class="MyDoubleSpinBox" name="spinbox_donut_number">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1186,7 +1186,7 @@ mult:</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>spinbox_transf_pwr_8</tabstop>
+  <tabstop>spinbox_power</tabstop>
   <tabstop>spinboxd_alpha_angle_offset</tabstop>
   <tabstop>spinboxd_beta_angle_offset</tabstop>
  </tabstops>
