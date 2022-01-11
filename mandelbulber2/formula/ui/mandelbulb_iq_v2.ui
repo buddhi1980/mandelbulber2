@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>727</width>
-    <height>825</height>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,10 +32,136 @@
    <item>
     <widget class="QLabel" name="label_9">
      <property name="text">
-      <string>pow 8 (7 symmetry) polynomial mandelbulb
+      <string>trig mandelbulb
 based on code by Inigo Quilez</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>power:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>mix cos sin:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+       <property name="text">
+        <string>mix</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_power">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+       <property name="text">
+        <string>sin -&gt; cos</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>off 0 </string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,1">
@@ -161,13 +287,6 @@ based on code by Inigo Quilez</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>z.z scale</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
        <property name="sizePolicy">
@@ -255,14 +374,24 @@ based on code by Inigo Quilez</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>z.xy le</string>
+        <string>z.xy scale:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>z.x scale</string>
+        <string>z.x scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
      </item>
@@ -386,6 +515,11 @@ based on code by Inigo Quilez</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
