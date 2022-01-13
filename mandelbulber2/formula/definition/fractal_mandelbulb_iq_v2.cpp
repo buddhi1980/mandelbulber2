@@ -46,11 +46,10 @@ void cFractalMandelbulbIqV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 				+ asin(wo) * fractal->transformCommon.scale0;
 	}
 
-
 	// scale and rotate the point
 	wr = pow(aux.r, Pow);
-	wo = wo * Pow;
-	wi = wi * (Pow * fractal->transformCommon.scaleA1);
+	wo = wo * Pow * fractal->transformCommon.scaleB1;
+	wi = wi * Pow * fractal->transformCommon.scaleA1;
 
 	// convert back to cartesian coordinates
 	double swo = sin(wo);

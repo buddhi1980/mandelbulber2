@@ -49,7 +49,15 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		aux.r = z.Length();
-		th = (acos(z.z / aux.r) + fractal->transformCommon.offsetB0) * fractal->donut.number;
+		th = z.z / aux.r;
+		if (!fractal->transformCommon.functionEnabledAFalse) th =acos(th);
+		else
+		{
+			th = acos(th) * (1.0 - fractal->transformCommon.scale0)
+					+ asin(th) * fractal->transformCommon.scale0;
+		}
+
+		th = (th + fractal->transformCommon.offsetB0) * fractal->donut.number;
 		ph = (atan2(z.y, z.x) + fractal->transformCommon.offsetA0) * fractal->donut.number;
 		rp = pow(aux.r, fractal->donut.number - 1.0);
 		aux.DE = rp * aux.DE * fractal->donut.number + 1.0;

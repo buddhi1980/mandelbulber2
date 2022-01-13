@@ -164,7 +164,7 @@ based on code by Inigo Quilez</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>z.z scale</string>
+        <string>z.z scale:</string>
        </property>
       </widget>
      </item>
@@ -255,14 +255,14 @@ based on code by Inigo Quilez</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>z.xy le</string>
+        <string>z.xy scale:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>z.x scale</string>
+        <string>z.x scale:</string>
        </property>
       </widget>
      </item>

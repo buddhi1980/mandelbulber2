@@ -27,14 +27,12 @@ cFractalMandelbulbIqPow8::cFractalMandelbulbIqPow8() : cAbstractFractal()
 
 void cFractalMandelbulbIqPow8::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-		//CVector4 z1 = z;
-		CVector4 z2 = z * z;
-		CVector4 z4 = z2 * z2;
-
-		double tp = aux.r * aux.r;
+		double tp = z.Dot(z);
 		tp = tp * tp * tp * aux.r;
 		aux.DE = tp * aux.DE * 8.0 + 1.0;
 
+		CVector4 z2 = z * z;
+		CVector4 z4 = z2 * z2;
 		double k3 = z2.x + z2.y;
 		tp = k3 * k3;
 		tp = tp * tp * tp * k3;

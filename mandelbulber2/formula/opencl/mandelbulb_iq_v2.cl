@@ -30,14 +30,15 @@ REAL4 MandelbulbIqV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 	else
 	{
-		wo = mix(acos(wo), asin(wo), fractal->transformCommon.scale0);
+		wo = acos(wo) * (1.0 - fractal->transformCommon.scale0)
+				+ asin(wo) * fractal->transformCommon.scale0;
 	}
-
 
 	// scale and rotate the point
 	wr = pow(aux->r, Pow);
-	wo = wo * Pow;
-	wi = wi * Pow ; //* fractal->transformCommon.scaleA1;
+	wo = wo * Pow * fractal->transformCommon.scaleB1;
+
+	wi = wi * Pow * fractal->transformCommon.scaleA1;
 
 	// convert back to cartesian coordinates
 	REAL swo = native_sin(wo);

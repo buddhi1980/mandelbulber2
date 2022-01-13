@@ -16,13 +16,12 @@
 
 REAL4 MandelbulbIqPow8Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 z2 = z * z;
-	REAL4 z4 = z2 * z2;
-
-	REAL tp = aux->r * aux->r;
+	REAL tp = dot(z, z);
 	tp = tp * tp * tp * aux->r;
 	aux->DE = tp * aux->DE * 8.0f + 1.0f;
 
+	REAL4 z2 = z * z;
+	REAL4 z4 = z2 * z2;
 	REAL k3 = z2.x + z2.y;
 	tp = k3 * k3;
 	tp = tp * tp * tp * k3;
@@ -34,6 +33,7 @@ REAL4 MandelbulbIqPow8Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL k4 = k3 - z2.z;
 	REAL k12 = k1 * k2;
 	//z.x = 64.0f * z.x * z.y * z.z * k4 * (z2.x - z2.y) * (z4.x - 6.0f * tp + z4.y) * k12;
+
 	z.x = fractal->transformCommon.scale1 * 64.0f * z.x * z.y * z.z * k4 * (z2.x - z2.y) * (z4.x - 6.0f * tp + z4.y) * k12;
 	z.y = -8.0f * z.z * k4 * (z4.x * z4.x - 28.0f * tp * (z4.x + z4.y) + 70.0f * z4.x * z4.y + z4.y * z4.y) * k12;
 	z.z = -16.0f * z2.z * k3 * k4 * k4 + k1 * k1;
