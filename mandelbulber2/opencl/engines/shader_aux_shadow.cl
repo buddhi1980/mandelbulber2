@@ -69,6 +69,10 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 	bool goThrough = input->material->subsurfaceScattering;
 
+#if defined(USE_SUBSURFACE_SCATTERING) && defined(USE_INNER_COLORING)
+	sShaderInputDataCl input2 = *input;
+#endif
+
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !goThrough && !cloudMode && !consts->params.iterFogEnabled
@@ -158,7 +162,20 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_SUBSURFACE_SCATTERING
 		if (goThrough && dist < dist_thresh)
 		{
-			float opacity = (-1.0f + 1.0f / material->transparencyOfInterior) * step;
+
+			double opacityGradient = 1.0;
+#if defined(USE_INNER_COLORING) && defined(USE_DIFFUSE_GRADIENT)
+			if (material->insideColoringEnable && material->diffuseGradientEnable)
+			{
+				sClGradientsCollection gradients;
+				input2.objectId = outF.objectId;
+				input2.point = point2;
+				SurfaceColor(consts, renderData, &input2, calcParam, &gradients);
+				opacityGradient = gradients.diffuse.s0;
+			}
+#endif
+
+			float opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
 			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;

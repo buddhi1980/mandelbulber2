@@ -838,7 +838,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						&& shaderInputData.material->roughnessGradientEnable)
 				{
 					sGradientsCollection gradients;
-					SurfaceColour(shaderInputData, &gradients);
+					SurfaceColour(shaderInputData.point, shaderInputData, &gradients);
 					roughnessGradient = gradients.roughness.R;
 				}
 
@@ -1274,20 +1274,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					double step = shaderInputData.stepBuff[index].step;
 
 					transparentColor = shaderInputData.material->transparencyInteriorColor;
+					double opacityGradient = 1.0;
 
 					if (shaderInputData.material->insideColoringEnable)
 					{
 						CVector3 insidePoint = shaderInputData.stepBuff[index].point;
-						shaderInputData.point = insidePoint;
 						sGradientsCollection gradients;
-						sRGBAfloat color = SurfaceColour(shaderInputData, &gradients);
-						transparentColor.R = color.R;
-						transparentColor.G = color.G;
-						transparentColor.B = color.B;
+						sRGBAfloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
+						transparentColor.R *= color.R;
+						transparentColor.G *= color.G;
+						transparentColor.B *= color.B;
+
+						if (shaderInputData.material->diffuseGradientEnable)
+							opacityGradient = gradients.diffuse.R;
 					}
 
 					double opacity =
-						(-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * float(step);
+						(-1.0f + 1.0f / (shaderInputData.material->transparencyOfInterior * opacityGradient))
+						* float(step);
 					if (opacity > 1.0f) opacity = 1.0f;
 
 					sRGBFloat lightColor;

@@ -65,6 +65,8 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	}
 
 	bool goThrough = input.material->subsurfaceScattering;
+	sShaderInputData input2;
+	if (goThrough) input2 = input;
 
 	double maxSoft = 0.0;
 
@@ -134,7 +136,6 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		{
 			double opacity = IterOpacity(step, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
@@ -151,7 +152,17 @@ sRGBAfloat cRenderWorker::AuxShadow(
 
 		if (goThrough && dist < dist_thresh)
 		{
-			double opacity = (-1.0f + 1.0f / material->transparencyOfInterior) * step;
+			double opacityGradient = 1.0;
+			if (material->insideColoringEnable && material->diffuseGradientEnable)
+			{
+				sGradientsCollection gradients;
+				input2.objectId = distanceOut.objectId;
+				input2.point = point2;
+				SurfaceColour(point2, input2, &gradients);
+				opacityGradient = gradients.diffuse.R;
+			}
+
+			double opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;

@@ -234,7 +234,8 @@ private:
 		float specularWidth, float roughness, sRGBFloat diffuseGradient) const;
 	sRGBAfloat SpecularHighlightCombined(const sShaderInputData &input, CVector3 lightVector,
 		sRGBAfloat surfaceColor, sRGBFloat diffuseGradient) const;
-	sRGBAfloat SurfaceColour(const sShaderInputData &input, sGradientsCollection *gradients) const;
+	sRGBAfloat SurfaceColour(
+		CVector3 point, const sShaderInputData &input, sGradientsCollection *gradients) const;
 	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat EnvMapping(const sShaderInputData &input) const;

@@ -855,19 +855,32 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 				for (float scan = 0; scan < rayMarchingOut.depth; scan += step)
 				{
+					float4 transparentColor = (float4){shaderInputData.material->transparencyInteriorColor.s0,
+						shaderInputData.material->transparencyInteriorColor.s1,
+						shaderInputData.material->transparencyInteriorColor.s2, 0.0f};
+
 					float3 insidePoint = shaderInputData.point - shaderInputData.viewVector * scan;
 					input2.point = insidePoint;
+					float opacityGradient = 1.0f;
 
 #ifdef USE_INNER_COLORING
 					if (shaderInputData.material->insideColoringEnable)
 					{
 						sClGradientsCollection gradients;
-						transparentColor.xyz =
+						transparentColor.xyz *=
 							SurfaceColor(consts, renderData, &input2, &calcParam, &gradients);
+#ifdef USE_DIFFUSE_GRADIENT
+						if (shaderInputData.material->diffuseGradientEnable)
+						{
+							opacityGradient = gradients.diffuse.s0;
+						}
+#endif
 					}
 #endif // USE_INNER_COLORING
 
-					float opacity = (-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * step;
+					float opacity =
+						(-1.0f + 1.0f / (shaderInputData.material->transparencyOfInterior * opacityGradient))
+						* step;
 					if (opacity > 1.0f) opacity = 1.0f;
 
 					float4 lightColor = 0.0f;

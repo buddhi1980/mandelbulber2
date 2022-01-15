@@ -65,7 +65,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	gradients->specular = sRGBFloat(1.0, 1.0, 1.0);
 
 	// calculate surface colour
-	sRGBAfloat colour = SurfaceColour(input, gradients);
+	sRGBAfloat colour = SurfaceColour(input.point, input, gradients);
 	float texColInt = mat->colorTextureIntensity;
 	float texColIntN = 1.0f - mat->colorTextureIntensity;
 	colour.R *= input.texColor.R * texColInt + texColIntN;

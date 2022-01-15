@@ -37,7 +37,7 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::SurfaceColour(
-	const sShaderInputData &input, sGradientsCollection *gradients) const
+	CVector3 point, const sShaderInputData &input, sGradientsCollection *gradients) const
 {
 	sRGBAfloat out;
 
@@ -50,7 +50,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 			{
 				int formulaIndex = input.objectId;
 
-				CVector3 tempPoint = input.point;
+				CVector3 tempPoint = point;
 
 				if (!params->booleanOperatorsEnabled)
 					formulaIndex = -1;
