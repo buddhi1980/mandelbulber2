@@ -1467,6 +1467,7 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		morphAkima, paramStandard); // vec4??
 	par->addParam(
 		cMaterial::Name("fresnel_reflectance", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("inside_coloring", materialId), false, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("iridescence_enabled", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("iridescence_intensity", materialId), 1.0, 1e-10, 1e15, morphAkima,
@@ -1512,6 +1513,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(
 		cMaterial::Name("specular_width", materialId), 0.05, 1e-10, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular", materialId), 5.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("subsurface_scattering", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("surface_color", materialId), sRGB(50000, 50000, 50000), morphAkima,
 		paramStandard);
 	par->addParam(

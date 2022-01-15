@@ -1267,24 +1267,77 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 																						// of light has to be
 																						// calculated
 			{
+				sShaderInputData input2 = shaderInputData;
+
 				for (int index = shaderInputData.stepCount - 1; index > 0; index--)
 				{
 					double step = shaderInputData.stepBuff[index].step;
 
-					// CVector3 point = shaderInputData.stepBuff[index].point;
-					// shaderInputData.point = point;
-					// sRGBAfloat color = SurfaceColour(shaderInputData);
-					// transparentColor.R = color.R;
-					// transparentColor.G = color.G;
-					// transparentColor.B = color.B;
+					transparentColor = shaderInputData.material->transparencyInteriorColor;
 
-					float opacity =
+					if (shaderInputData.material->insideColoringEnable)
+					{
+						CVector3 insidePoint = shaderInputData.stepBuff[index].point;
+						shaderInputData.point = insidePoint;
+						sGradientsCollection gradients;
+						sRGBAfloat color = SurfaceColour(shaderInputData, &gradients);
+						transparentColor.R = color.R;
+						transparentColor.G = color.G;
+						transparentColor.B = color.B;
+					}
+
+					double opacity =
 						(-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * float(step);
 					if (opacity > 1.0f) opacity = 1.0f;
 
-					resultShader.R = opacity * transparentColor.R + (1.0f - opacity) * resultShader.R;
-					resultShader.G = opacity * transparentColor.G + (1.0f - opacity) * resultShader.G;
-					resultShader.B = opacity * transparentColor.B + (1.0f - opacity) * resultShader.B;
+					sRGBFloat lightColor;
+
+					if (shaderInputData.material->subsurfaceScattering)
+					{
+						CVector3 point2 = shaderInputData.stepBuff[index].point;
+						input2.point = point2;
+						input2.invertMode = false;
+
+						for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
+						{
+							const cLight *light = data->lights.GetLight(i);
+							if (light->enabled)
+							{
+								double distanceLight = 0.0;
+								CVector3 lightVectorTemp = light->CalculateLightVector(
+									point2, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+
+								float intensity;
+								if (light->type == cLight::lightDirectional)
+									intensity = light->intensity;
+								else
+									intensity = 100 * light->intensity / light->Decay(distanceLight) / 6.0;
+
+								sRGBFloat textureColor;
+								intensity *= light->CalculateCone(lightVectorTemp, textureColor);
+
+								sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
+								if (intensity > 1e-3)
+								{
+									lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+								}
+								lightColor.R += lightShadow.R * light->color.R * intensity * textureColor.R;
+								lightColor.G += lightShadow.G * light->color.G * intensity * textureColor.G;
+								lightColor.B += lightShadow.B * light->color.B * intensity * textureColor.B;
+							}
+						}
+					}
+					else
+					{
+						lightColor = sRGBFloat(1.0, 1.0, 1.0);
+					}
+
+					resultShader.R =
+						opacity * transparentColor.R * lightColor.R + (1.0f - opacity) * resultShader.R;
+					resultShader.G =
+						opacity * transparentColor.G * lightColor.G + (1.0f - opacity) * resultShader.G;
+					resultShader.B =
+						opacity * transparentColor.B * lightColor.B + (1.0f - opacity) * resultShader.B;
 				}
 			}
 			else // if now is outside the object, then calculate all volumetric effects like fog, glow...

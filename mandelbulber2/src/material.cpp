@@ -182,6 +182,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_xyz_z_sqrd_enabled_false",
 	"fractal_coloring_xyzC_111",
 	"fresnel_reflectance",
+	"inside_coloring",
 	"iridescence_enabled",
 	"iridescence_intensity",
 	"iridescence_subsurface_thickness",
@@ -207,6 +208,7 @@ QStringList cMaterial::paramsList = {
 	"specular_plastic_enable",
 	"specular_width",
 	"specular",
+	"subsurface_scattering",
 	"surface_color",
 	"surface_roughness",
 	"texture_center",
@@ -281,6 +283,9 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	transparencyColor = toRGBFloat(materialParam->Get<sRGB>(Name("transparency_color", id)));
 
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
+
+	insideColoringEnable = materialParam->Get<bool>(Name("inside_coloring", id));
+	subsurfaceScattering = materialParam->Get<bool>(Name("subsurface_scattering", id));
 
 	gradientSurface.SetColorsFromString(
 		materialParam->Get<QString>(Name("surface_color_gradient", id)));
@@ -586,11 +591,11 @@ void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,
 	QList<QString> listOfParameters = params->GetListOfParameters();
 	for (auto &parameterName : listOfParameters)
 	{
-        if (parameterName.left(3) == "mat")
+		if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-            int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
-            if (parameterName.mid(positionOfDash + 1) == "is_defined")
+			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				materials->emplace(
 					matIndex, std::move(cMaterial(matIndex, params, loadTextures, quiet, useNetRender)));

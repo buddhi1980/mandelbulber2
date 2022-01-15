@@ -64,10 +64,12 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		softRange = tan(light->softShadowCone);
 	}
 
+	bool goThrough = input.material->subsurfaceScattering;
+
 	double maxSoft = 0.0;
 
-	const bool bSoft = !cloudMode && !params->iterFogEnabled && !params->common.iterThreshMode
-										 && !params->interiorMode && softRange > 0.0
+	const bool bSoft = !goThrough && !cloudMode && !params->iterFogEnabled
+										 && !params->common.iterThreshMode && !params->interiorMode && softRange > 0.0
 										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -83,14 +85,14 @@ sRGBAfloat cRenderWorker::AuxShadow(
 
 	double lastDistanceToClouds = 1e6f;
 	int count = 0;
-	double step = 0.0f;
+	double step = input.distThresh;
 
 	for (double i = start; i < distance; i += step)
 	{
 		CVector3 point2 = input.point + lightVector * i;
 
 		float dist_thresh;
-		if (params->iterFogEnabled || light->volumetric || cloudMode)
+		if (params->iterFogEnabled || light->volumetric || cloudMode || goThrough)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
@@ -101,6 +103,10 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		sDistanceIn distanceIn(point2, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+
+		cObjectData &objectData = data->objectData[distanceOut.objectId];
+		cMaterial *material = &data->materials[objectData.materialId];
+		goThrough = material->subsurfaceScattering;
 
 		bool limitsReached = false;
 		if (params->limitsEnabled)
@@ -143,9 +149,19 @@ sRGBAfloat cRenderWorker::AuxShadow(
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
 
+		if (goThrough && dist < dist_thresh)
+		{
+			double opacity = (-1.0f + 1.0f / material->transparencyOfInterior) * step;
+			opacity *= (distance - i) / distance;
+			opacity = qMin(opacity, 1.0);
+			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+			dist = CalcDelta(point2);
+		}
+
 		shadowTemp = 1.0 - iterFogSum;
 
-		if (dist < dist_thresh || shadowTemp < 0.0)
+		if ((!goThrough && (dist < dist_thresh || shadowTemp < 0.0))
+				|| (goThrough && shadowTemp < 0.0001))
 		{
 			if (light->penetrating)
 			{

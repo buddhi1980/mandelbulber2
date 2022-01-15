@@ -146,6 +146,9 @@ public:
 	bool iridescenceEnabled;
 	bool textureFractalize;
 
+	bool insideColoringEnable;
+	bool subsurfaceScattering;
+
 	bool surfaceGradientEnable;
 	bool specularGradientEnable;
 	bool diffuseGradientEnable;
