@@ -851,13 +851,75 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			if (rayStack[rayIndex].in.calcInside) // if the object interior is traced, then the absorption
 																						// of light has to be calculated
 			{
-				for (int index = shaderInputData.stepCount - 1; index > 0; index--)
+				sShaderInputDataCl input2 = shaderInputData;
+
+				for (float scan = 0; scan < rayMarchingOut.depth; scan += step)
 				{
+					float3 insidePoint = shaderInputData.point - shaderInputData.viewVector * scan;
+					input2.point = insidePoint;
+
+#ifdef USE_INNER_COLORING
+					if (shaderInputData.material->insideColoringEnable)
+					{
+						sClGradientsCollection gradients;
+						transparentColor.xyz =
+							SurfaceColor(consts, renderData, &input2, &calcParam, &gradients);
+					}
+#endif // USE_INNER_COLORING
 
 					float opacity = (-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * step;
 					if (opacity > 1.0f) opacity = 1.0f;
 
-					resultShader = opacity * transparentColor + (1.0f - opacity) * resultShader;
+					float4 lightColor = 0.0f;
+
+#ifdef USE_SUBSURFACE_SCATTERING
+					if (shaderInputData.material->subsurfaceScattering)
+					{
+#ifdef AUX_LIGHTS
+						int numberOfLights = renderData->numberOfLights;
+						for (int i = 0; i < numberOfLights; i++)
+						{
+							__global sLightCl *light = &renderData->lights[i];
+							if (light->enabled)
+							{
+								float distanceLight = 0.0f;
+
+								float3 lightVectorTemp = CalculateLightVector(light, input2.point, input2.delta,
+									consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+
+								float intensity = 0.0f;
+								if (light->type == lightDirectional)
+									intensity = light->intensity;
+								else
+									intensity = 100.0f * light->intensity
+															/ LightDecay(distanceLight, light->decayFunction) / 6.0f;
+
+								float3 textureColor;
+								intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
+
+								float3 lightShadow = 1.0f;
+#ifdef SHADOWS
+								if (consts->params.iterFogShadows && light->castShadows && intensity > 1e-3f)
+								{
+									calcParam.distThresh = input2.distThresh;
+									calcParam.detailSize = input2.distThresh;
+									lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+										lightVectorTemp, &calcParam, light->intensity);
+								}
+#endif
+
+								lightColor.xyz += lightShadow * light->color * intensity * textureColor;
+							}
+						}
+#endif // AUX_LIGHTS
+					}
+					else
+#endif // USE_SUBSURFACE_SCATTERING
+					{
+						lightColor = 1.0f;
+					}
+
+					resultShader = opacity * lightColor * transparentColor + (1.0f - opacity) * resultShader;
 				}
 			}
 			else

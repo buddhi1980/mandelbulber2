@@ -67,9 +67,11 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float softRange = tan(light->softShadowCone);
 #endif
 
+	bool goThrough = input->material->subsurfaceScattering;
+
 	float maxSoft = 0.0f;
 
-	const bool bSoft = !cloudMode && !consts->params.iterFogEnabled
+	const bool bSoft = !goThrough && !cloudMode && !consts->params.iterFogEnabled
 										 && !consts->params.common.iterThreshMode && softRange > 0.0f
 										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
@@ -92,7 +94,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		float3 point2 = input->point + lightVector * i;
 
 		float dist_thresh;
-		if (consts->params.iterFogEnabled || light->volumetric || cloudMode)
+		if (consts->params.iterFogEnabled || light->volumetric || cloudMode || goThrough)
 		{
 			dist_thresh = CalcDistThresh(point2, consts);
 		}
@@ -104,6 +106,12 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		float dist = outF.distance;
+
+#ifdef USE_SUBSURFACE_SCATTERING
+		__global sObjectDataCl *objectData = &renderData->objectsData[outF.objectId];
+		__global sMaterialCl *material = renderData->materials[objectData->materialId];
+		goThrough = material->subsurfaceScattering;
+#endif
 
 		bool limitsAcheved = false;
 #ifdef LIMITS_ENABLED
@@ -147,9 +155,21 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		}
 #endif
 
+#ifdef USE_SUBSURFACE_SCATTERING
+		if (goThrough && dist < dist_thresh)
+		{
+			float opacity = (-1.0f + 1.0f / material->transparencyOfInterior) * step;
+			opacity *= (distance - i) / distance;
+			opacity = min(opacity, 1.0f);
+			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+			dist = CalcDelta(point2, consts);
+		}
+#endif
+
 		shadowTemp = 1.0f - iterFogSum;
 
-		if (dist < dist_thresh || shadowTemp <= 0.0f)
+		if ((!goThrough && (dist < dist_thresh || shadowTemp < 0.0f))
+				|| (goThrough && shadowTemp < 0.0001f))
 		{
 			if (light->penetrating)
 			{

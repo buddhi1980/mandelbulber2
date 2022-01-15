@@ -107,6 +107,9 @@ typedef struct
 	cl_int iridescenceEnabled;
 	cl_int textureFractalize;
 
+	cl_int insideColoringEnable;
+	cl_int subsurfaceScattering;
+
 	cl_int colorTextureIndex;
 	cl_int diffusionTextureIndex;
 	cl_int luminosityTextureIndex;
@@ -192,6 +195,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useRoughnessTexture = source.useRoughnessTexture;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 	target.textureFractalize = source.textureFractalize;
+
+	target.insideColoringEnable = source.insideColoringEnable;
+	target.subsurfaceScattering = source.subsurfaceScattering;
 
 	target.surfaceGradientEnable = source.surfaceGradientEnable;
 	target.specularGradientEnable = source.specularGradientEnable;

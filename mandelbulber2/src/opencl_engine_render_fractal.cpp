@@ -755,6 +755,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasExtraColoringEnabled = false;
 	bool anyMaterialHasTextureFractalize = false;
 	bool anyMaterialHasRoughSurface = false;
+	bool anyMaterialHasInnerColoring = false;
+	bool anyMaterialHasSubsurfaceScattering = false;
 
 	bool anyMaterialHasSurfaceGradient = false;
 	bool anyMaterialHasSpecularGradient = false;
@@ -777,6 +779,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		if (material.fractalColoring.extraColorEnabledFalse) anyMaterialHasExtraColoringEnabled = true;
 		if (material.textureFractalize) anyMaterialHasTextureFractalize = true;
 		if (material.roughSurface) anyMaterialHasRoughSurface = true;
+		if (material.insideColoringEnable) anyMaterialHasInnerColoring = true;
+		if (material.subsurfaceScattering) anyMaterialHasSubsurfaceScattering = true;
 
 		if (material.surfaceGradientEnable) anyMaterialHasSurfaceGradient = true;
 		if (material.specularGradientEnable) anyMaterialHasSpecularGradient = true;
@@ -800,6 +804,10 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
 
 	if (anyMaterialHasRoughSurface) definesCollector += " -DUSE_ROUGH_SURFACE";
+
+	if (anyMaterialHasInnerColoring) definesCollector += " -DUSE_INNER_COLORING";
+
+	if (anyMaterialHasSubsurfaceScattering) definesCollector += " -DUSE_SUBSURFACE_SCATTERING";
 
 	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 			|| paramRender->DOFMonteCarloGlobalIllumination)
