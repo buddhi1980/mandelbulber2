@@ -1269,16 +1269,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			{
 				sShaderInputData input2 = shaderInputData;
 
-				for (int index = shaderInputData.stepCount - 1; index > 0; index--)
+				double delta = CalcDistThresh(shaderInputData.point);
+				double depth = std::min(rayMarchingOut.depth, params->viewDistanceMax);
+				double startStep = std::min(std::max(depth / 10.0, delta), delta * 100);
+				double endStep = shaderInputData.material->transparencyOfInterior * delta;
+				double step = startStep;
+
+				for (double scan = 0; scan < depth; scan += step)
 				{
-					double step = shaderInputData.stepBuff[index].step;
 
 					transparentColor = shaderInputData.material->transparencyInteriorColor;
+
+					CVector3 insidePoint = shaderInputData.point - shaderInputData.viewVector * scan;
+					input2.point = insidePoint;
+
 					double opacityGradient = 1.0;
 
 					if (shaderInputData.material->insideColoringEnable)
 					{
-						CVector3 insidePoint = shaderInputData.stepBuff[index].point;
 						sGradientsCollection gradients;
 						sRGBAfloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
 						transparentColor.R *= color.R;
@@ -1298,8 +1306,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 					if (shaderInputData.material->subsurfaceScattering)
 					{
-						CVector3 point2 = shaderInputData.stepBuff[index].point;
-						input2.point = point2;
 						input2.invertMode = false;
 
 						for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
@@ -1308,8 +1314,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							if (light->enabled)
 							{
 								double distanceLight = 0.0;
-								CVector3 lightVectorTemp = light->CalculateLightVector(
-									point2, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+								CVector3 lightVectorTemp = light->CalculateLightVector(input2.point, input2.delta,
+									params->resolution, params->viewDistanceMax, distanceLight);
 
 								float intensity;
 								if (light->type == cLight::lightDirectional)
@@ -1342,6 +1348,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						opacity * transparentColor.G * lightColor.G + (1.0f - opacity) * resultShader.G;
 					resultShader.B =
 						opacity * transparentColor.B * lightColor.B + (1.0f - opacity) * resultShader.B;
+
+					endStep = shaderInputData.material->transparencyOfInterior
+										* CalcDistThresh(shaderInputData.point);
+					step = std::max((endStep - startStep) * (scan / depth) + startStep, 1e-15);
 				}
 			}
 			else // if now is outside the object, then calculate all volumetric effects like fog, glow...

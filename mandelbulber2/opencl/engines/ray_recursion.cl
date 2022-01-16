@@ -847,13 +847,19 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			float opacityOut = 0.0f;
 
 #ifdef USE_REFRACTION
-			float step = rayMarchingOut.depth / shaderInputData.stepCount;
+
 			if (rayStack[rayIndex].in.calcInside) // if the object interior is traced, then the absorption
 																						// of light has to be calculated
 			{
 				sShaderInputDataCl input2 = shaderInputData;
 
-				for (float scan = 0; scan < rayMarchingOut.depth; scan += step)
+				float delta = CalcDistThresh(shaderInputData.point, consts);
+				float depth = min(rayMarchingOut.depth, consts->params.viewDistanceMax);
+				float startStep = min(max(depth / 10.0f, delta), delta * 100);
+				float endStep = shaderInputData.material->transparencyOfInterior * delta;
+				float step = startStep;
+
+				for (float scan = 0; scan < depth; scan += step)
 				{
 					float4 transparentColor = (float4){shaderInputData.material->transparencyInteriorColor.s0,
 						shaderInputData.material->transparencyInteriorColor.s1,
@@ -889,6 +895,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					if (shaderInputData.material->subsurfaceScattering)
 					{
 #ifdef AUX_LIGHTS
+						input2.invertMode = false;
 						int numberOfLights = renderData->numberOfLights;
 						for (int i = 0; i < numberOfLights; i++)
 						{
@@ -933,6 +940,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					}
 
 					resultShader = opacity * lightColor * transparentColor + (1.0f - opacity) * resultShader;
+
+					endStep = shaderInputData.material->transparencyOfInterior
+										* CalcDistThresh(shaderInputData.point, consts);
+
+					step = max((endStep - startStep) * (scan / depth) + startStep, 1e-6f);
 				}
 			}
 			else
