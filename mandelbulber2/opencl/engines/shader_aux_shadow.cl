@@ -112,9 +112,11 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		float dist = outF.distance;
 
 #ifdef USE_SUBSURFACE_SCATTERING
+#ifdef FULL_ENGINE
 		__global sObjectDataCl *objectData = &renderData->objectsData[outF.objectId];
 		__global sMaterialCl *material = renderData->materials[objectData->materialId];
 		goThrough = material->subsurfaceScattering;
+#endif
 #endif
 
 		bool limitsAcheved = false;
@@ -159,7 +161,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		}
 #endif
 
-#ifdef USE_SUBSURFACE_SCATTERING
+#if defined(USE_SUBSURFACE_SCATTERING) && defined(FULL_ENGINE)
 		if (goThrough && dist < dist_thresh)
 		{
 
