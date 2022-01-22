@@ -76,7 +76,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !goThrough && !cloudMode && !consts->params.iterFogEnabled
-										 && !consts->params.common.iterThreshMode && softRange > 0.0f
+										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
+										 && softRange > 0.0f
 										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
 #ifdef MC_SOFT_SHADOWS
