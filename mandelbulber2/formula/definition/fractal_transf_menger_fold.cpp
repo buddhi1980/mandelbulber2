@@ -50,6 +50,7 @@ void cFractalTransfMengerFold::FormulaCode(CVector4 &z, const sFractal *fractal,
 		{
 			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		}
+
 		if (fractal->analyticDE.enabled)
 		{
 			if (!fractal->analyticDE.enabledFalse)

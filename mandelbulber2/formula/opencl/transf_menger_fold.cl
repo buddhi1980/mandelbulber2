@@ -54,6 +54,8 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 		}
+
+
 		if (fractal->analyticDE.enabled)
 		{
 			if (!fractal->analyticDE.enabledFalse)

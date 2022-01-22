@@ -136,5 +136,18 @@ REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 	}
+
+	if (fractal->transformCommon.functionEnabledYFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledzFalse)
+		{
+			REAL4 q = fabs(z);
+			aux->DE0 = max(max(q.x, q.y), q.z);
+		}
+		else aux->DE0 = length(z);
+
+		aux->dist = min(aux->dist, (aux->DE0 - fractal->transformCommon.offset0) / aux->DE);
+	}
+
 	return z;
 }

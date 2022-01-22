@@ -34,7 +34,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL4 c;
 
 	c = (REAL4){fractal->transformCommon.scaleNeg1,
-		   fractal->transformCommon.offsetA0,
+		fractal->transformCommon.offsetA0,
 			fractal->transformCommon.offsetB0,
 			0.0f}; //temppppppppppp
 
@@ -69,13 +69,19 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z;
 	sq_r = 1.0f / (3.0f * sq_r * sq_r + offset);
+
+	//sq_r = fractal->transformCommon.scale1 / (3.0f * sq_r * sq_r + offset);
+	//aux->DE *= fractal->transformCommon.scale1;
+
+
+
 	REAL r_xy = tp.x + tp.y;
 	REAL h1 = 1.0f - tp.z / r_xy;
 
 	REAL tmpx = h1 * (tp.x - tp.y) * sq_r;
 	REAL tmpy = -2.0f * h1 * z.x * z.y * sq_r;
 	REAL tmpz = 2.0f * z.z * native_sqrt(r_xy) * sq_r;
-
+	// Multiply c and z
 	REAL r_2xy = native_sqrt(tmpx * tmpx + tmpy * tmpy);
 	REAL r_2cxy = native_sqrt(c.x * c.x + c.y * c.y);
 	REAL h = 1.0f - c.z * tmpz / (r_2xy * r_2cxy);
@@ -83,7 +89,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	tp.x = (c.x * tmpx - c.y * tmpy) * h;
 	tp.y = (c.y * tmpx + c.x * tmpy) * h;
 	tp.z = r_2cxy * tmpz + r_2xy * c.z;
-
+	// Bring everything together
 	z = fac_eff * z - tp;
 
 
@@ -96,6 +102,9 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.x = tp.x * sq_r;
 	z.y = -tp.y * sq_r;
 	z.z = -tp.z * sq_r;
+
+
+	z += fractal->transformCommon.offset000;
 
 	aux->DE = aux->DE * aux->r * 2.0f;
 
