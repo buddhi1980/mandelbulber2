@@ -26,11 +26,10 @@ qtHaveModule(gamepad){
 	message("Use QtGamepad module")
 }
 
-packagesExist(IlmBase){
-	PKGCONFIG += IlmBase
-	LIBS += -lIlmImf -lHalf
+packagesExist(OpenEXR){
+	PKGCONFIG += OpenEXR
 	DEFINES += USE_EXR
-	message("Use IlmBase library for EXR files")
+	message("Use OpenEXR libraries for EXR files")
 }
 
 packagesExist(libtiff-4){

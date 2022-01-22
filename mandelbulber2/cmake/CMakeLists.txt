@@ -51,13 +51,12 @@ find_package(LZO REQUIRED)
 find_package(TIFF)
 find_package(JPEG)
 find_package(ZLIB)
-find_package(ECM NO_MODULE)
 find_package(OpenCL)
+find_package(PkgConfig)
 
 # Extra CMake Modules package required for OpenEXR.
-IF(ECM_FOUND)
-	set(CMAKE_MODULE_PATH ${ECM_FIND_MODULE_DIR})
-	find_package(OpenEXR)
+IF(PKG_CONFIG_FOUND)
+	pkg_check_modules(OpenEXR OpenEXR)
 ENDIF()
 
 IF(WIN32 AND NOT USING_INTEL)
