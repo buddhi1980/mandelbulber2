@@ -484,7 +484,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			case clAnalyticFunctionLogarithmic:
 			{
-				dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
+				if (aux.r > 2.718281828459f)
+					dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
+				else
+					dist = 0.0f;
 				break;
 			}
 			case clAnalyticFunctionLinear:
@@ -527,7 +530,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 	}
 	else
-		dist = aux.r;
+		dist = 0;
 
 #endif // IS_HYBRID
 

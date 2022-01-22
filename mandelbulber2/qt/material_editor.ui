@@ -125,7 +125,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2626</y>
+        <y>-2239</y>
         <width>466</width>
         <height>3934</height>
        </rect>
@@ -3868,7 +3868,7 @@ direction vector:</string>
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>Use color giadient for interior</string>
+                  <string>Use color gradient for interior</string>
                  </property>
                 </widget>
                </item>
