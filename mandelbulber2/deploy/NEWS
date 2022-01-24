@@ -5,6 +5,8 @@ v2.27 (    2021)
 - Added new fractal formulas
 
    aboxSmooth
+   mandelbulbIqPow8
+   mandelbulbIqV2
    menger3M3d
    mengerV4
    msltoeSym4Mod1

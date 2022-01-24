@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Non trig pow 8 based on code by Inigo Quilez
+ * trig pow based on code by Inigo Quilez
  * @reference https://www.iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
  */
 

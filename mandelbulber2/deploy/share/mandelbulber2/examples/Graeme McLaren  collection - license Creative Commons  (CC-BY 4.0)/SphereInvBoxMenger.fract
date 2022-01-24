@@ -1,0 +1,68 @@
+# Mandelbulber settings file
+# version 2.27
+# only modified parameters
+[main_parameters]
+background_3_colors_enable false;
+background_color_1 3800 3800 3800;
+camera 0.999999999999998 -3.50000000000001 -0.732314914472874;
+camera_distance_to_target 3.50000000000001;
+camera_rotation 0 0 0;
+camera_top 0 0 1;
+constant_DE_threshold true;
+DE_factor 0.902189790998696;
+DE_thresh 0.00125;
+detail_level 2;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 226;
+formula_2 226;
+formula_3 7;
+formula_4 1627;
+formula_iterations_1 3;
+formula_iterations_2 4;
+formula_stop_iteration_1 3;
+formula_stop_iteration_2 12;
+formula_stop_iteration_3 10;
+fractal_enable_4 false;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+julia_c 0 0 20;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light2_is_defined true;
+light2_position 1 0 -0.736220440216668;
+light3_color e700 e700 e700;
+light3_enabled true;
+light3_intensity 0.08125;
+light3_is_defined true;
+light3_position 1 0 -1;
+light3_volumetric true;
+light3_volumetric_visibility 4;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+N 31;
+target 1 4.44089209850063e-16 -0.732314914472877;
+view_distance_max 25;
+[fractal_1]
+transf_addition_constant 0 0.5 0.5;
+transf_function_enabledx false;
+transf_function_enabledy false;
+transf_function_enabledz false;
+transf_minR2_p25 0;
+transf_offset_000 -1 0 0;
+transf_scale_2 1.12;
+transf_sphere_inversion_enabled_false true;
+[fractal_2]
+transf_addition_constant_111 4 4 4;
+transf_minR2_p25 0;
+transf_scale_2 2.4;
+[fractal_3]
+transf_scale_3 1;
+[fractal_4]
+transf_addition_constant_0555 0.5 0.5 1;
+transf_scale_3 0.9;
