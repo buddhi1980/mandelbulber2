@@ -1,0 +1,42 @@
+# Mandelbulber settings file
+# version 2.27
+# only modified parameters
+[main_parameters]
+background_3_colors_enable false;
+background_color_1 0500 0200 2c00;
+camera 2,58515396775543 -0,513088977855409 0,531564754824291;
+camera_distance_to_target 1,96075519987392;
+camera_rotation 78,6057793951927 -11,1568610700095 0,209801152808237;
+camera_top -0,188957458698091 0,041816004388483 0,981094542120861;
+DE_factor 0,72681701882156;
+formula_1 3;
+image_height 1200;
+image_width 1600;
+julia_c 0,347704238917835 0 0;
+julia_mode true;
+light1_is_defined true;
+light2_color e800 9a00 5a00;
+light2_enabled true;
+light2_intensity 0,1625;
+light2_is_defined true;
+light2_penetrating false;
+light2_position 0 0 0;
+light2_size 0,125;
+light2_visibility 4;
+mat1_inside_coloring true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 10;
+mat1_specular_width 0,026;
+mat1_subsurface_scattering true;
+mat1_surface_color_gradient 0 82fd93 3385 e3fb26 5967 869599 6285 6b78ae 6669 904464 7111 c04ce3 9106 b696c4 9400 8429e7;
+mat1_transparency_index_of_refraction 1,1;
+mat1_transparency_interior_color ff00 c600 9e00;
+mat1_transparency_of_interior 0,08;
+mat1_transparency_of_surface 0,9;
+N 11;
+raytraced_reflections true;
+reflections_max 9;
+slow_shading true;
+target 0,699368825784407 -0,13304594199616 0,152167017550047;
+view_distance_max 6,25;
