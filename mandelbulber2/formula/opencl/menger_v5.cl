@@ -16,6 +16,7 @@
 
 REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t;
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
@@ -24,9 +25,9 @@ REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 							 + z.z * fractal->transformCommon.scaleB0 + fractal->transformCommon.angleDegA;
 		REAL cosA = native_cos(ang);
 		REAL sinB = native_sin(ang);
-		REAL temp = z.x;
+		REAL t = z.x;
 		z.x = z.x * cosA - z.y * sinB;
-		z.y = temp * sinB + z.y * cosA;
+		z.y = t * sinB + z.y * cosA;
 		aux->DE = aux->DE + fractal->analyticDE.offset1;
 	}
 
@@ -83,8 +84,6 @@ REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
 
-		REAL t;
-
 		t = z.x - z.z;
 		t = fractal->transformCommon.additionConstant0555.z
 				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.z);
@@ -139,12 +138,10 @@ REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 	if (fractal->transformCommon.functionEnabledYFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledzFalse)
-		{
-			REAL4 q = fabs(z);
-			aux->DE0 = max(max(q.x, q.y), q.z);
-		}
-		else aux->DE0 = length(z);
+		REAL4 q = fabs(z);
+		aux->DE0 = max(max(q.x, q.y), q.z);
+		t = length(z);
+		aux->DE0 = t + (aux->DE0 - t) * fractal->transformCommon.scaleG1;
 
 		aux->dist = min(aux->dist, (aux->DE0 - fractal->transformCommon.offset0) / aux->DE);
 	}

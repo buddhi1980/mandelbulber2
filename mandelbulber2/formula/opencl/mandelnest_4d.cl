@@ -30,10 +30,8 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			z = (REAL4){z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z};
 			aux->DE *= length(z) / aux->r;
 		}
-		//z = fabs(z - fractal->transformCommon.offsetA0000);
 		if (fractal->transformCommon.addCpixelEnabledFalse) aux->const_c = z;
 	}
-
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{

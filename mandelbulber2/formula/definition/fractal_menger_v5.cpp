@@ -27,6 +27,7 @@ cFractalMengerV5::cFractalMengerV5() : cAbstractFractal()
 
 void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t;
 	if (fractal->transformCommon.functionEnabledCFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
@@ -36,9 +37,9 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 				+ fractal->transformCommon.angleDegA;
 		double cosA = cos(ang);
 		double sinB = sin(ang);
-		double temp = z.x;
+		double t = z.x;
 		z.x = z.x * cosA - z.y * sinB;
-		z.y = temp * sinB + z.y * cosA;
+		z.y = t * sinB + z.y * cosA;
 		aux.DE = aux.DE + fractal->analyticDE.offset1;
 	}
 
@@ -94,7 +95,6 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
-		double t;
 
 		t = z.x - z.z;
 		t = fractal->transformCommon.additionConstant0555.x
@@ -113,7 +113,6 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.z);
 		z.z = z.z - t;
 		z.y = z.y + t;
-
 
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
@@ -151,12 +150,10 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabledYFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledzFalse)
-		{
-			CVector4 q = fabs(z);
-			aux.DE0 = max(max(q.x, q.y), q.z);
-		}
-		else aux.DE0 = z.Length();
+		CVector4 q = fabs(z);
+		aux.DE0 = max(max(q.x, q.y), q.z);
+		t = z.Length();
+		aux.DE0= t + (aux.DE0 - t) * fractal->transformCommon.scaleG1;
 
 		aux.dist = min(aux.dist, (aux.DE0 - fractal->transformCommon.offset0) / aux.DE);
 	}

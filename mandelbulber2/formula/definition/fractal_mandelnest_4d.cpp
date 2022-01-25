@@ -42,7 +42,6 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			z = CVector4(z.x + z.y + z.z, -z.x - z.y + z.z, -z.x + z.y - z.z, z.x - z.y - z.z);
 			aux.DE *= z.Length() / aux.r;
 		}
-		//z = fabs(z - fractal->transformCommon.offsetA0000);
 		if (fractal->transformCommon.addCpixelEnabledFalse) aux.const_c = z;
 	}
 
@@ -119,5 +118,4 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		else
 			aux.dist = min(aux.dist, aux.DE0); // hybrid
 	}
-
 }
