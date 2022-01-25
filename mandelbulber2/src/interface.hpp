@@ -126,6 +126,7 @@ public:
 	void UpdateMainImagePreview();
 	void ChangeLightWireframeVisibility(bool enable);
 	QList<QVariant> GetMouseClickFunction();
+	static void SetQuickRenderParameters(const std::shared_ptr<cParameterContainer> &tempParam);
 
 	QSettings settings;
 

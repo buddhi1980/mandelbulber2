@@ -125,9 +125,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2239</y>
+        <y>-2525</y>
         <width>466</width>
-        <height>3934</height>
+        <height>3971</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4049,6 +4049,16 @@ direction vector:</string>
                </layout>
               </widget>
              </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Note: reduce Maximum number of fractal iterations to the level which not cause changes of objects shape. It will significantly speed up calculations.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -4866,14 +4876,19 @@ object size)</string>
    <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonRandomSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_random_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
@@ -4884,11 +4899,6 @@ object size)</string>
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonRandomSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_random_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialWidget</class>

@@ -316,3 +316,4 @@ void cDockEffects::slotPressedButtonFogDistHalf()
 
 	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }
+

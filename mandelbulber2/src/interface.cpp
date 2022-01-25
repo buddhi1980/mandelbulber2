@@ -1487,6 +1487,38 @@ bool cInterface::DataFolderUpgrade() const
 	return false;
 }
 
+void cInterface::SetQuickRenderParameters(const std::shared_ptr<cParameterContainer> &tempParam)
+{
+	// disabling all slow effects
+	tempParam->Set("ambient_occlusion", false);
+	tempParam->Set("DOF_enabled", false);
+	tempParam->Set("iteration_threshold_mode", false);
+	tempParam->Set("raytraced_reflections", false);
+	tempParam->Set("textured_background", false);
+	tempParam->Set("iteration_fog_enable", false);
+	tempParam->Set("fake_lights_enabled", false);
+	tempParam->Set("DOF_monte_carlo", false);
+	tempParam->Set("clouds_enable", false);
+	tempParam->Set("hdr_blur_enabled", false);
+	tempParam->Set("post_chromatic_aberration_enabled", false);
+	tempParam->Set("textured_background", false);
+	tempParam->Set("opencl_mode", 0); // disable OpenCL
+	QList<int> listOfLights = cLights::GetListOfLights(tempParam);
+	for (int lightIndex : listOfLights)
+	{
+		tempParam->Set(cLight::Name("cast_shadows", lightIndex), false);
+		tempParam->Set(cLight::Name("volumetric", lightIndex), false);
+	}
+	int maxDimension = max(tempParam->Get<int>("image_width"), tempParam->Get<int>("image_height"));
+	if (maxDimension == 0) maxDimension = 1;
+
+	int newWidth = double(tempParam->Get<int>("image_width")) / maxDimension * 256.0;
+	int newHeight = double(tempParam->Get<int>("image_height")) / maxDimension * 256.0;
+	tempParam->Set("image_width", newWidth);
+	tempParam->Set("image_height", newHeight);
+	tempParam->Set("detail_level", 4.0);
+}
+
 void cInterface::OptimizeStepFactor(double qualityTarget)
 {
 	DisablePeriodicRefresh();
@@ -1509,30 +1541,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	*tempFractal = *gParFractal;
 
 	// disabling all slow effects
-	tempParam->Set("light1_cast_shadows", false);
-	tempParam->Set("ambient_occlusion", false);
-	tempParam->Set("DOF_enabled", false);
-	tempParam->Set("iteration_threshold_mode", false);
-	tempParam->Set("raytraced_reflections", false);
-	tempParam->Set("textured_background", false);
-	tempParam->Set("iteration_fog_enable", false);
-	tempParam->Set("fake_lights_enabled", false);
-	tempParam->Set("main_light_volumetric_enabled", false);
-	tempParam->Set("opencl_mode", 0); // disable OpenCL
-	for (int i = 1; i <= 4; i++)
-	{
-		tempParam->Set("aux_light_enabled", i, false);
-		tempParam->Set("aux_light_volumetric_enabled", i, false);
-	}
-
-	int maxDimension = max(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	if (maxDimension == 0) maxDimension = 1;
-	int newWidth = double(gPar->Get<int>("image_width")) / maxDimension * 256.0;
-	int newHeight = double(gPar->Get<int>("image_height")) / maxDimension * 256.0;
-
-	tempParam->Set("image_width", newWidth);
-	tempParam->Set("image_height", newHeight);
-	tempParam->Set("detail_level", 4.0);
+	SetQuickRenderParameters(tempParam);
 
 	int scanCount = 0;
 	double DEFactor = 1.0;
