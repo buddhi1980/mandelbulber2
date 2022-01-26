@@ -125,9 +125,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2525</y>
-        <width>466</width>
-        <height>3971</height>
+        <y>-3358</y>
+        <width>472</width>
+        <height>4568</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4052,7 +4052,7 @@ direction vector:</string>
              <item>
               <widget class="QLabel" name="label_5">
                <property name="text">
-                <string>Note: reduce Maximum number of fractal iterations to the level which not cause changes of objects shape. It will significantly speed up calculations.</string>
+                <string>Note: reduce Maximum number of fractal iterations to the level which will not cause changes to the objects shape. It will significantly speed up calculations.</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -4856,14 +4856,19 @@ object size)</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
@@ -4874,11 +4879,6 @@ object size)</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>cButtonRandomSettingsFromWidget</class>

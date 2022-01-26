@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * poly zy fold
+ * poly xy fold
  * @reference
  * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
 

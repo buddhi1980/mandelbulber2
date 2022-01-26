@@ -16,7 +16,7 @@
 cFractalMandelnest4d::cFractalMandelnest4d() : cAbstractFractal()
 {
 	nameInComboBox = "Mandelnest 4D";
-	internalName = "mandelnest_4d";
+	internalName = "mandelnest4d";
 	internalID = fractal::mandelnest4d;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;

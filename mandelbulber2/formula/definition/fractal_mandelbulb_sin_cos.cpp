@@ -77,7 +77,11 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->analyticDE.enabled)
 	{
 		aux.DE0 = z.Length();
-		aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+		//if (aux.DE0 > 2.718281828)
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+		//else
+		//	aux.DE0 = 0.0;
+
 		if (aux.i >= fractal->transformCommon.startIterationsO
 					&& aux.i < fractal->transformCommon.stopIterationsO)
 			aux.dist = min(aux.dist, aux.DE0);

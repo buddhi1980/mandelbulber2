@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -54,7 +54,6 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 		}
-
 
 		if (fractal->analyticDE.enabled)
 		{

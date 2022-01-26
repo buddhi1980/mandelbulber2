@@ -745,7 +745,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;poly zy fold&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;poly xy fold&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684&quot;&gt;https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

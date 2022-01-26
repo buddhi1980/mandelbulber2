@@ -28,8 +28,8 @@ REAL4 Menger3M3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	t = z.x - z.z;
 	t = 0.5f * (t - fabs(t));
-	z.x = z.x - t;
 	z.z = z.z + t;
+	z.x = z.x - t;
 
 	t = z.y - z.z;
 	t = 0.5f * (t - fabs(t));
