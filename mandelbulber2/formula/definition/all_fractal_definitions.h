@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
@@ -143,8 +143,8 @@ FRACTAL_CLASS(cFractalMandelbulbSinCos)
 FRACTAL_CLASS(cFractalMandelbulbVaryPowerV1)
 FRACTAL_CLASS(cFractalMandelcup)
 FRACTAL_CLASS(cFractalMandelnest)
-FRACTAL_CLASS(cFractalMandelnestV2)
 FRACTAL_CLASS(cFractalMandelnest4d)
+FRACTAL_CLASS(cFractalMandelnestV2)
 FRACTAL_CLASS(cFractalMandeltorus)
 FRACTAL_CLASS(cFractalMandeltorusV2)
 FRACTAL_CLASS(cFractalMenger3)
@@ -282,9 +282,9 @@ FRACTAL_CLASS(cFractalTransfDELinearCube)
 FRACTAL_CLASS(cFractalTransfDiagonalFold)
 FRACTAL_CLASS(cFractalTransfDIFSAmazingIfs)
 FRACTAL_CLASS(cFractalTransfDIFSBox)
+FRACTAL_CLASS(cFractalTransfDIFSBoxFrame)
 FRACTAL_CLASS(cFractalTransfDIFSBoxV2)
 FRACTAL_CLASS(cFractalTransfDIFSBoxV3)
-FRACTAL_CLASS(cFractalTransfDIFSBoxFrame)
 FRACTAL_CLASS(cFractalTransfDIFSClipPlane)
 FRACTAL_CLASS(cFractalTransfDIFSCylinder)
 FRACTAL_CLASS(cFractalTransfDIFSCylinderV2)

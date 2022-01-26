@@ -22,7 +22,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	signs.z = sign(aux->const_c.z);
 	signs.w = 0.0f;
 
-
 	REAL t = 1.0f;
 
 	// spherical fold
@@ -65,6 +64,11 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE = aux->DE * t;
 	}
 	REAL rrCol2 = dot(z, z);
+
+	/*if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot,
+	z); z = z * fractal->mandelbox.scale;
+
+	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0f;*/
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
