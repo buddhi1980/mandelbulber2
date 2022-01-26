@@ -484,7 +484,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			case clAnalyticFunctionLogarithmic:
 			{
-				if (aux.r > 2.718281828459f)
+				if (aux.r > 1.0f)
 					dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
 				else
 					dist = 0.0f;
