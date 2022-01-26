@@ -68,7 +68,12 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->analyticDE.enabled)
 	{
 		aux->DE0 = length(z);
+		//if (aux->DE0 > 2.718281828f)
 		aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
+
+		//else
+		//	aux->DE0 = 0.0f;
+
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)
 			aux->dist = min(aux->dist, aux->DE0);
