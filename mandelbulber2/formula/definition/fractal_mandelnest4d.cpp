@@ -111,7 +111,10 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	// aux.dist
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		aux.DE0 = 0.5 * log(r) * r / aux.DE;
+		if (r > 1.0)
+			aux.DE0 = 0.5 * log(r) * r / (aux.DE);
+		else
+			aux.DE0 = 0.0;
 
 		if (aux.i <= fractal->transformCommon.startIterationsE)
 			aux.dist = min(aux.DE0, fractal->analyticDE.offset1);

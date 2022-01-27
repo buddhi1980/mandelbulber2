@@ -120,9 +120,12 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 	mq.y = max(q.y, 0.0);
 	mq.z = max(q.z, 0.0);
 
-	len.x += (CVector3(mz.x, mq.y, mq.z)).Length();
-	len.y += (CVector3(mq.x, mz.y, mq.z)).Length();
-	len.z += (CVector3(mq.x, mq.y, mz.z)).Length();
+	CVector4 tv = (CVector4(mz.x, mq.y, mq.z, 0.0));
+	len.x += tv.Length();
+	tv = (CVector4(mq.x, mz.y, mq.z, 0.0));
+	len.y += tv.Length();
+	tv = (CVector4(mq.x, mq.y, mz.z, 0.0));
+	len.z += tv.Length();
 
 	double D = min(min(len.x, len.y), len.z) / (aux.DE + fractal->analyticDE.offset0);
 

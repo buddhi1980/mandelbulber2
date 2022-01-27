@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -107,9 +107,12 @@ REAL4 TransfDIFSBoxFrameIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	mq.y = max(q.y, 0.0f);
 	mq.z = max(q.z, 0.0f);
 
-	len.x += ((REAL3){mz.x, mq.y, mq.z}).Length();
-	len.y += ((REAL3){mq.x, mz.y, mq.z}).Length();
-	len.z += ((REAL3){mq.x, mq.y, mz.z}).Length();
+	REAL4 tv = ((REAL4){mz.x, mq.y, mq.z, 0.0f});
+	len.x += length(tv);
+	tv = ((REAL4){mq.x, mz.y, mq.z, 0.0f});
+	len.y += length(tv);
+	tv = ((REAL4){mq.x, mq.y, mz.z, 0.0f});
+	len.z += length(tv);
 
 	REAL D = min(min(len.x, len.y), len.z) / (aux->DE + fractal->analyticDE.offset0);
 

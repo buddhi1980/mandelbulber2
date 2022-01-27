@@ -116,7 +116,10 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// aux->dist
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		aux->DE0 = 0.5f * log(r) * r / aux->DE;
+		if (r > 1.0f)
+			aux->DE0 = 0.5f * log(r) * r / (aux->DE);
+		else
+			aux->DE0 = 0.0f;
 
 		if (aux->i <= fractal->transformCommon.startIterationsE)
 			aux->dist = min(aux->DE0, fractal->analyticDE.offset1);
