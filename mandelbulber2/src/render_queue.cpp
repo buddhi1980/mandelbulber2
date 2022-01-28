@@ -78,9 +78,9 @@ cRenderQueue::cRenderQueue(std::shared_ptr<cImage> _image, RenderedImage *widget
 	}
 
 	queueFlightAnimation.reset(new cFlightAnimation(
-		gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this));
+		nullptr, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this));
 	queueKeyframeAnimation.reset(new cKeyframeAnimation(
-		gMainInterface, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this));
+		nullptr, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this));
 	QObject::connect(queueFlightAnimation.get(),
 		SIGNAL(updateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)),

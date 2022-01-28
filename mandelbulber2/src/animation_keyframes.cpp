@@ -88,7 +88,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 	params = _params;
 	fractalParams = _fractal;
 
-	if (mainInterface->mainWindow)
+	if (mainInterface && mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockAnimation()->GetUi();
 
@@ -1244,7 +1244,7 @@ void cKeyframeAnimation::DeleteFramesTo(int index) const
 void cKeyframeAnimation::slotSelectKeyframeAnimImageDir() const
 {
 	QFileDialog *dialog = new QFileDialog();
-    dialog->setFileMode(QFileDialog::Directory);
+	dialog->setFileMode(QFileDialog::Directory);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
 	dialog->setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_keyframe_dir")));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
