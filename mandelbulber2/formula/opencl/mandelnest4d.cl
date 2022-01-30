@@ -86,7 +86,7 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z.z = native_sin(temp.z);
 	else
 		z.z = native_cos(temp.z);
-	if (!fractal->transformCommon.functionEnabledCwFalse)
+	if (!fractal->transformCommon.functionEnabledw)
 		z.w = native_sin(temp.w);
 	else
 		z.w = native_cos(temp.w);

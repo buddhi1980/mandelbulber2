@@ -43,8 +43,8 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			th = acos(th);
 		else
 		{
-			th = acos(th) * (1.0f - fractal->transformCommon.scale0)
-					 + asin(th) * fractal->transformCommon.scale0;
+			th = acos(th) * (1.0f - fractal->transformCommon.scale1)
+					 + asin(th) * fractal->transformCommon.scale1;
 		}
 
 		th = (th + fractal->transformCommon.offsetB0) * fractal->donut.number;
@@ -70,7 +70,7 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		else
-			aux->DE0 = 0.0f;
+			aux->DE0 = 0.01f;
 
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)

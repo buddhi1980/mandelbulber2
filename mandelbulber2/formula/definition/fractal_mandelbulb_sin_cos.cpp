@@ -53,8 +53,8 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (!fractal->transformCommon.functionEnabledAFalse) th =acos(th);
 		else
 		{
-			th = acos(th) * (1.0 - fractal->transformCommon.scale0)
-					+ asin(th) * fractal->transformCommon.scale0;
+			th = acos(th) * (1.0 - fractal->transformCommon.scale1)
+					+ asin(th) * fractal->transformCommon.scale1;
 		}
 
 		th = (th + fractal->transformCommon.offsetB0) * fractal->donut.number;
@@ -80,7 +80,7 @@ void cFractalMandelbulbSinCos::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (aux.DE0 > 1.0)
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
 		else
-			aux.DE0 = 0.0;
+			aux.DE0 = 0.01; // 0.0 artifacts in openCL
 
 		if (aux.i >= fractal->transformCommon.startIterationsO
 					&& aux.i < fractal->transformCommon.stopIterationsO)

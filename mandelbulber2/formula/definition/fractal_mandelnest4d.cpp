@@ -83,7 +83,7 @@ void cFractalMandelnest4d::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	else z.y = cos(temp.y);
 	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
 	else z.z = cos(temp.z);
-	if (!fractal->transformCommon.functionEnabledCwFalse) z.w = sin(temp.w);
+	if (!fractal->transformCommon.functionEnabledw) z.w = sin(temp.w);
 	else z.w = cos(temp.w);
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
