@@ -1182,6 +1182,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 void cFlightAnimation::RefreshTable()
 {
+	frames->RemoveMissingParameters(params, fractalParams);
+
 	PrepareTable();
 	gApplication->processEvents();
 

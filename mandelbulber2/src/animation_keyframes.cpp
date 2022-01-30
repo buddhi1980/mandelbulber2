@@ -1124,6 +1124,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 void cKeyframeAnimation::RefreshTable()
 {
+	keyframes->RemoveMissingParameters(params, fractalParams);
+
 	keyframes->UpdateFramesIndexesTable();
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings

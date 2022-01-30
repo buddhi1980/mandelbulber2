@@ -98,6 +98,9 @@ public:
 	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
 	QList<sParameterDescription> GetListOfUsedParameters() const { return listOfParameters; }
 
+	virtual void RemoveMissingParameters(std::shared_ptr<const cParameterContainer> params,
+		std::shared_ptr<const cFractalContainer> fractal);
+
 	static std::shared_ptr<const cParameterContainer> ContainerSelector(QString containerName,
 		std::shared_ptr<const cParameterContainer> params,
 		std::shared_ptr<const cFractalContainer> fractal);

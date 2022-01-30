@@ -1227,6 +1227,9 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
 	ComboMouseClickUpdate();
+
+	gKeyframeAnimation->RefreshTable();
+	gFlightAnimation->RefreshTable();
 }
 
 void cInterface::RebuildPrimitives(std::shared_ptr<cParameterContainer> par)
