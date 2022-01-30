@@ -66,7 +66,7 @@ kernel void PostFilter(
 	scr_f.x = (scr_f.x / p.width) - 0.5f;
 	scr_f.y = ((scr_f.y / p.height) - 0.5f) * aspectRatio;
 
-	const float blurSize = max(p.blurRadius * p.width * 0.002f * length(scr_f), 0.1f);
+	const float blurSize = max(max(p.blurRadius, 0.707f) * p.width * 0.002f * length(scr_f), 0.1f);
 	float radialBlurSizeSp = max(p.aberrationIntensity * length(scr_f) * p.width * 0.007f, 0.1f);
 	float radialBlurSizeScr = max(p.aberrationIntensity * p.width * 0.0003f, 0.5f);
 	const int intBlurSize = (int)((blurSize) + radialBlurSizeSp);
