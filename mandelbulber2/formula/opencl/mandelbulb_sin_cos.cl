@@ -16,55 +16,36 @@
 
 REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL th, ph, rp, cth;
-	if (fractal->transformCommon.functionEnabled
-			&& aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
+	REAL th = z.z / aux->r;
+	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
-		th = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
-		ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-		rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
-		aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
-		rp *= aux->r;
-		cth = native_cos(th);
-		z.x = cth * native_cos(ph) * rp;
-		z.y = cth * native_sin(ph) * rp;
-		z.z = native_sin(th) * rp;
-		z += fractal->transformCommon.offsetA000;
-		z += aux->const_c * fractal->transformCommon.constantMultiplierA111;
+		if (!fractal->transformCommon.functionEnabledAFalse) th = asin(th);
+		else th = acos(th);
 	}
-	if (fractal->transformCommon.functionEnabledBFalse
-			&& aux->i >= fractal->transformCommon.startIterationsB
-			&& aux->i < fractal->transformCommon.stopIterationsB)
+	else
 	{
-		aux->r = length(z);
-		th = z.z / aux->r;
-		if (!fractal->transformCommon.functionEnabledAFalse)
-			th = acos(th);
-		else
-		{
-			th = acos(th) * (1.0f - fractal->transformCommon.scale1)
-					 + asin(th) * fractal->transformCommon.scale1;
-		}
+		th = acos(th) * (1.0 - fractal->transformCommon.scale1)
+				+ asin(th) * fractal->transformCommon.scale1;
+	}
+	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
+	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
+	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
+	rp *= aux->r;
+	REAL cth = native_cos(th);
+	z.x = cth * native_cos(ph) * rp;
+	z.y = cth * native_sin(ph) * rp;
+	z.z = native_sin(th) * rp;
+	z += fractal->transformCommon.offsetA000;
+	z += aux->const_c * fractal->transformCommon.constantMultiplierA111;
+	z.z *= fractal->transformCommon.scaleA1;
 
-		th = (th + fractal->transformCommon.offsetB0) * fractal->donut.number;
-		ph = (atan2(z.y, z.x) + fractal->transformCommon.offsetA0) * fractal->donut.number;
-		rp = native_powr(aux->r, fractal->donut.number - 1.0f);
-		aux->DE = rp * aux->DE * fractal->donut.number + 1.0f;
-		rp *= aux->r;
-		cth = native_cos(th);
-		z.x = cth * native_cos(ph) * rp;
-		z.y = cth * native_sin(ph) * rp;
-		z.z = native_sin(th) * rp;
-		z += fractal->transformCommon.offset000;
-		z += aux->const_c * fractal->transformCommon.constantMultiplierB111;
-	}
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
-	if (fractal->analyticDE.enabled)
+	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		aux->DE0 = length(z);
 		if (aux->DE0 > 1.0f)
