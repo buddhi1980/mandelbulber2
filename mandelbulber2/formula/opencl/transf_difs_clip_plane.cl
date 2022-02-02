@@ -17,6 +17,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 {
 	REAL4 c = aux->const_c;
 	REAL4 zc;
+	REAL temp;
 	if (!fractal->transformCommon.functionEnabledDFalse)
 		zc = c;
 	else
@@ -39,7 +40,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		zc.x += fractal->transformCommon.offsetD0;
+		//zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
@@ -85,15 +86,21 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 		REAL an = sector * angle;
 		REAL sinan = native_sin(an);
 		REAL cosan = native_cos(an);
-		REAL temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
+		REAL temp2;
+		if (!fractal->transformCommon.functionEnabledMFalse) temp2 = zc.x;
+		else temp2 = z.x;
+		if (!fractal->transformCommon.functionEnabledNFalse) temp = zc.y;
+		else temp = z.y;
+
+		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(temp2) - fractal->transformCommon.offsetA000.x;
+		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(temp) - fractal->transformCommon.offsetA000.y;
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
@@ -103,7 +110,7 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 
 	zc.x -= fractal->transformCommon.offsetE0;
 
-	// abs offset x
+/*	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		zc.x += fractal->transformCommon.offsetA000.x;
@@ -115,6 +122,9 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 		zc.y += fractal->transformCommon.offsetA000.y;
 		zc.y = fabs(z.y) - fractal->transformCommon.offsetA000.y;
 	}
+*/
+
+
 	// steps
 	//	if (fractal->transformCommon.functionEnabledAFalse)
 	//		zc.x = zc.x + sign(zc.y) * 0.5f * fractal->transformCommon.offsetD0;

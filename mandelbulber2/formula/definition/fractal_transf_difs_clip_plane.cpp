@@ -29,6 +29,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 {
 	CVector4 c = aux.const_c;
 	CVector4 zc;
+	double temp;
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
 	else zc = z;
 
@@ -49,7 +50,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
-		zc.x += fractal->transformCommon.offsetD0;
+		//zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
@@ -98,7 +99,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		double an = sector * angle;
 		double sinan = sin(an);
 		double cosan = cos(an);
-		double temp = zc.x;
+		temp = zc.x;
 		zc.x = zc.x * cosan - zc.y * sinan;
 		zc.y = temp * sinan + zc.y * cosan;
 	}
@@ -107,8 +108,14 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
+		double temp2;
+		if (!fractal->transformCommon.functionEnabledMFalse) temp2 = zc.x;
+		else temp2 = z.x;
+		if (!fractal->transformCommon.functionEnabledNFalse) temp = zc.y;
+		else temp = z.y;
+
+		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(temp2) - fractal->transformCommon.offsetA000.x;
+		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(temp) - fractal->transformCommon.offsetA000.y;
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
 	zc += fractal->transformCommon.offset000;
@@ -119,7 +126,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	zc.x -= fractal->transformCommon.offsetE0;
 
 	// abs offset x
-	if (fractal->transformCommon.functionEnabledMFalse)
+/*	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		zc.x += fractal->transformCommon.offsetA000.x;
 		zc.x = fabs(z.x) - fractal->transformCommon.offsetA000.x;
@@ -130,6 +137,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y += fractal->transformCommon.offsetA000.y;
 		zc.y = fabs(z.y) - fractal->transformCommon.offsetA000.y;
 	}
+*/
 	// steps
 //	if (fractal->transformCommon.functionEnabledAFalse)
 //		zc.x = zc.x + sign(zc.y) * 0.5 * fractal->transformCommon.offsetD0;
