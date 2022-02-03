@@ -45,12 +45,11 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.x = cos(psi) * len;
 		zc.y = sin(psi) * len;
 	}
-
+	// tile
 	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT1)
 	{
-		//zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
@@ -91,7 +90,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 
 
-
+	// rot
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
 		double angle = M_PI_2x / (fractal->transformCommon.int16);
@@ -104,7 +103,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
-
+	zc += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -118,12 +117,12 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(temp) - fractal->transformCommon.offsetA000.y;
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
-	zc += fractal->transformCommon.offset000;
 
-	zc.y -= fractal->transformCommon.offset0;
-	zc.z -= fractal->transformCommon.offsetC0;
 
-	zc.x -= fractal->transformCommon.offsetE0;
+	//zc.y -= fractal->transformCommon.offset0;
+	//zc.z -= fractal->transformCommon.offsetC0;
+
+	//zc.x -= fractal->transformCommon.offsetE0;
 
 	// abs offset x
 /*	if (fractal->transformCommon.functionEnabledMFalse)
@@ -147,7 +146,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-	// zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
+	zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -162,20 +161,20 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
+
+
+
+
 	// plane
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
 			- fractal->transformCommon.offset0005;
+	//double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
+	//double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
 
-	double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
-
-	// clip plane
-	CVector4 cir = zc;
+	// rec clip plane
 	CVector4 rec = zc;
-
 	double d = 1000.0;
-	double e = fractal->transformCommon.offset3;
 
-	// rec
 	if (fractal->transformCommon.functionEnabledCy)
 	{
 		if (fractal->transformCommon.functionEnabledEFalse)
@@ -193,9 +192,13 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
 	}
 
-	// cir
+	// cir clip plane
+	CVector4 cir = zc;
+	double e = 1000.0;
+
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
+		e = fractal->transformCommon.radius1;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
@@ -205,26 +208,23 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y + cir.z * cir.z * fractal->transformCommon.scaleA1) - e, 0.0, 100.0); // sphere
 	}
 
-	//d = min(d2, d);
-
+	aux.DE0 = min(e, d); //clip value
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		double addColor = 0.0;
 		if (e > d) addColor += fractal->foldColor.difs0000.x;
 		if (e < d) addColor += fractal->foldColor.difs0000.y;
+		if (aux.DE0 < plD) addColor += fractal->foldColor.difs0000.z;
 
-			//addColor += fractal->foldColor.difs0000.z * zc.z
-			//									+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			aux.color = addColor;
 		else
 			aux.color += addColor;
 	}
 
-	e = min(e, d); //clip value
 	// plane
-	double a = 1000.;
+/*	double a = 1000.;
 
 
 	//if (fractal->transformCommon.functionEnabledDFalse)
@@ -234,14 +234,9 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 		//tp = min(tp, d);
 		//if (tp == d) aux.color += fractal->foldColor.difs1;
 	}
+*/
 
-
-
-	aux.DE0 = max(b, e);
-	//aux.DE0 = min(plD, a);
-
-
-	//aux.DE0 = max(aux.DE0, e);
+	aux.DE0 = max(plD, aux.DE0) / (aux.DE + fractal->analyticDE.offset0);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = aux.DE0;

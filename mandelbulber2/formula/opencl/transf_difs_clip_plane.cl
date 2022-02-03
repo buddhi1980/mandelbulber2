@@ -40,7 +40,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT1)
 	{
-		//zc.x += fractal->transformCommon.offsetD0;
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
@@ -91,6 +90,9 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
+	zc += fractal->transformCommon.offset000;
+
+
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL temp2;
@@ -103,12 +105,12 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(temp) - fractal->transformCommon.offsetA000.y;
 		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 	}
-	zc += fractal->transformCommon.offset000;
 
-	zc.y -= fractal->transformCommon.offset0;
-	zc.z -= fractal->transformCommon.offsetC0;
 
-	zc.x -= fractal->transformCommon.offsetE0;
+	//zc.y -= fractal->transformCommon.offset0;
+	//zc.z -= fractal->transformCommon.offsetC0;
+
+	//zc.x -= fractal->transformCommon.offsetE0;
 
 /*	// abs offset x
 	if (fractal->transformCommon.functionEnabledMFalse)
@@ -134,7 +136,7 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 	// scales
 	zc.x *= fractal->transformCommon.scale3D111.x;
 	zc.y *= fractal->transformCommon.scale3D111.y;
-	// zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
+	zc.z *= fractal->transformCommon.scale3D111.z; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.x;
@@ -150,19 +152,20 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 	if (fractal->transformCommon.functionEnabledKFalse)
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.z;
 
+
+
+
+
+
+
+
 	// plane
 	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0) - fractal->transformCommon.offset0005;
+	//REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
 
-	REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
-
-	// clip plane
-	REAL4 cir = zc;
+	// rec clip plane
 	REAL4 rec = zc;
-
 	REAL d = 1000.0f;
-	REAL e = fractal->transformCommon.offset3;
-
-	// rec
 	if (fractal->transformCommon.functionEnabledCy)
 	{
 		if (fractal->transformCommon.functionEnabledEFalse)
@@ -180,9 +183,12 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 			d = native_sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
 	}
 
-	// cir
+	// cir clip plane
+	REAL4 cir = zc;
+	REAL e = 1000.0f;
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
+		e = fractal->transformCommon.radius1;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
@@ -195,26 +201,24 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 				0.0f, 100.0f); // sphere
 	}
 
-	// d = min(d2, d);
-
+	aux->DE0 = min(e, d); // clip value
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		REAL addColor = 0.0f;
 		if (e > d) addColor += fractal->foldColor.difs0000.x;
 		if (e < d) addColor += fractal->foldColor.difs0000.y;
+		if (aux->DE0 < plD) addColor += fractal->foldColor.difs0000.z;
 
-		// addColor += fractal->foldColor.difs0000.z * zc.z
-		//									+ fractal->foldColor.difs0000.w * zc.z * zc.z;
 		if (!fractal->transformCommon.functionEnabledJFalse)
 			aux->color = addColor;
 		else
 			aux->color += addColor;
 	}
 
-	e = min(e, d); // clip value
+
 	// plane
-	REAL a = 1000.f;
+/*	REAL a = 1000.f;
 
 	// if (fractal->transformCommon.functionEnabledDFalse)
 	{
@@ -223,11 +227,8 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 		// tp = min(tp, d);
 		// if (tp == d) aux->color += fractal->foldColor.difs1;
 	}
-
-	aux->DE0 = max(b, e);
-	// aux->DE0 = min(plD, a);
-
-	// aux->DE0 = max(aux->DE0, e);
+*/
+	aux->DE0 = max(plD, aux->DE0) / (aux->DE + fractal->analyticDE.offset0);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;
