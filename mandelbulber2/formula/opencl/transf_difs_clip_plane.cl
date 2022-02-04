@@ -160,34 +160,36 @@ polyfold if (fractal->transformCommon.functionEnabledPFalse
 
 
 	// plane
-	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0) - fractal->transformCommon.offset0005;
-	//REAL b = min(aux->dist, plD / (aux->DE + fractal->analyticDE.offset0));
+	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0) - fractal->transformCommon.offsetAp01;
 
 	// rec clip plane
-	REAL4 rec = zc;
+
 	REAL d = 1000.0f;
 	if (fractal->transformCommon.functionEnabledCy)
 	{
+		REAL4 rec = zc;
 		if (fractal->transformCommon.functionEnabledEFalse)
-			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
+			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.scaleE1);
 
 		if (fractal->transformCommon.functionEnabledXFalse)
-			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.constantMultiplier000.z);
+			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.scaleF1);
 
 		REAL4 f = fabs(rec);
-		f -= fractal->transformCommon.offset111;
+		f.x -= fractal->transformCommon.offset111.x;
+		f.y -= fractal->transformCommon.offset111.y;
+		f.z -= fractal->transformCommon.offsetBp01;
 		d = max(f.x, max(f.y, f.z));
 
 		// discs
 		if (fractal->transformCommon.functionEnabledSFalse)
-			d = native_sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
+			d = native_sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR1;
 	}
 
 	// cir clip plane
-	REAL4 cir = zc;
 	REAL e = 1000.0f;
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
+		REAL4 cir = zc;
 		e = fractal->transformCommon.radius1;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);

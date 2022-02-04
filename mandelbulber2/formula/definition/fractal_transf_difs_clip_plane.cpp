@@ -122,7 +122,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	//zc.y -= fractal->transformCommon.offset0;
 	//zc.z -= fractal->transformCommon.offsetC0;
 
-	//zc.x -= fractal->transformCommon.offsetE0;
+
 
 	// abs offset x
 /*	if (fractal->transformCommon.functionEnabledMFalse)
@@ -167,37 +167,35 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 
 	// plane
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
-			- fractal->transformCommon.offset0005;
-	//double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
-	//double b = min(aux.dist, plD / (aux.DE + fractal->analyticDE.offset0));
+			- fractal->transformCommon.offsetAp01;
 
 	// rec clip plane
-	CVector4 rec = zc;
 	double d = 1000.0;
-
 	if (fractal->transformCommon.functionEnabledCy)
 	{
+		CVector4 rec = zc;
 		if (fractal->transformCommon.functionEnabledEFalse)
-			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.constantMultiplier000.y);
+			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.scaleE1);
 
 		if (fractal->transformCommon.functionEnabledXFalse)
-			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.constantMultiplier000.z);
+			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.scaleF1);
 
 		CVector4 f = fabs(rec);
-		f -= fractal->transformCommon.offset111;
+		f.x -= fractal->transformCommon.offset111.x;
+		f.y -= fractal->transformCommon.offset111.y;
+		f.z -= fractal->transformCommon.offsetBp01;
 		d = max(f.x, max(f.y, f.z));
 
 		// discs
 		if (fractal->transformCommon.functionEnabledSFalse)
-			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR2;
+			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR1;
 	}
 
 	// cir clip plane
-	CVector4 cir = zc;
 	double e = 1000.0;
-
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
+		CVector4 cir = zc;
 		e = fractal->transformCommon.radius1;
 		if (fractal->transformCommon.functionEnabledCFalse)
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
@@ -209,6 +207,7 @@ void cFractalTransfDIFSClipPlane::FormulaCode(
 	}
 
 	aux.DE0 = min(e, d); //clip value
+
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{
