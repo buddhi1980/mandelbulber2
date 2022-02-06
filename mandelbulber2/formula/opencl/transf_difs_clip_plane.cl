@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -24,9 +24,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc = z;
 
 	// polyfold
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux->i >= fractal->transformCommon.startIterationsP
-			&& aux->i < fractal->transformCommon.stopIterationsP1)
+	if (fractal->transformCommon.functionEnabledPFalse)
 	{
 		zc.y = fabs(z.y);
 		REAL psi = M_PI_F / fractal->transformCommon.int6;
@@ -36,9 +34,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.y = native_sin(psi) * len;
 	}
 
-	if (fractal->transformCommon.functionEnabledTFalse
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	if (fractal->transformCommon.functionEnabledTFalse)
 	{
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
@@ -56,13 +52,13 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.y = temp * sinan + zc.y * cosan;
 	}
 
-	zc += fractal->transformCommon.offset000;
+	zc.x += fractal->transformCommon.offset000.x;
+	zc.y += fractal->transformCommon.offset000.y;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
-		if (fractal->transformCommon.functionEnabledAzFalse) zc.z = fabs(zc.z);
 		if (fractal->transformCommon.functionEnabledMFalse) zc.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledNFalse) zc.y = fabs(z.y);
 		zc.x -= fractal->transformCommon.offsetA000.x;
@@ -89,7 +85,6 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0) - fractal->transformCommon.offsetAp01;
 
 	// rec clip plane
-
 	REAL d = 1000.0f;
 	if (fractal->transformCommon.functionEnabledCy)
 	{
@@ -135,8 +130,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	REAL a = 1000.0f;
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		a =
-			aux->const_c.z - fractal->transformCommon.offsetA0;
+		a = c.z - fractal->transformCommon.offsetA0;
 		aux->DE0 = min(aux->DE0, a);
 	}
 
@@ -155,7 +149,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 
 	aux->DE0 = (max(plD, aux->DE0) - fractal->transformCommon.offset0005)
-			/ (aux->DE + fractal->analyticDE.offset0);
+			/ (aux->DE * fractal->analyticDE.scale1);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;
