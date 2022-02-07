@@ -19,13 +19,15 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL th = z.z / aux->r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledAFalse) th = asin(th);
-		else th = acos(th);
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			th = asin(th);
+		else
+			th = acos(th);
 	}
 	else
 	{
-		th = acos(th) * (1.0 - fractal->transformCommon.scale1)
-				+ asin(th) * fractal->transformCommon.scale1;
+		th = acos(th) * (1.0f - fractal->transformCommon.scale1)
+				 + asin(th) * fractal->transformCommon.scale1;
 	}
 	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
@@ -51,7 +53,7 @@ REAL4 MandelbulbSinCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		else
-			aux->DE0 = 0.01f;
+			aux->DE0 = 0.01f; // 0.0f artifacts in openCL
 
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)

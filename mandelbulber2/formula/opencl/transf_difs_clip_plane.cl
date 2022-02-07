@@ -1,6 +1,6 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -33,13 +33,14 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		zc.x = native_cos(psi) * len;
 		zc.y = native_sin(psi) * len;
 	}
-
+	// tile
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
 		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
 	}
 
+	// rot
 	if (fractal->transformCommon.functionEnabledIFalse)
 	{
 		REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
@@ -116,7 +117,8 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
 		if (!fractal->transformCommon.functionEnabledYFalse)
-			e = clamp(native_sqrt(cir.x * cir.x + cir.y * cir.y) - e, 0.0f, 100.0f); // circle,
+			e = clamp(native_sqrt(cir.x * cir.x + cir.y * cir.y * fractal->transformCommon.scaleA1) - e,
+				0.0f, 100.0f); // circle,
 		else
 			e = clamp(native_sqrt(
 									cir.x * cir.x + cir.y * cir.y + cir.z * cir.z * fractal->transformCommon.scaleA1)
@@ -126,11 +128,11 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	aux->DE0 = min(e, d); // clip value
 
-	// plane
+	// base plane
 	REAL a = 1000.0f;
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		a = c.z - fractal->transformCommon.offsetA0;
+		a = (c.z - fractal->transformCommon.offsetA0);
 		aux->DE0 = min(aux->DE0, a);
 	}
 
@@ -149,7 +151,7 @@ REAL4 TransfDIFSClipPlaneIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 
 	aux->DE0 = (max(plD, aux->DE0) - fractal->transformCommon.offset0005)
-			/ (aux->DE * fractal->analyticDE.scale1);
+						 / (aux->DE * fractal->analyticDE.scale1);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux->dist = aux->DE0;
