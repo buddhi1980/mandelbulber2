@@ -31,7 +31,13 @@ void cFractalBenesi::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	CVector4 zz = z * z;
 	double r1 = zz.y + zz.z;
 	CVector4 t = z;
-	if (aux.const_c.x < 0.0 || z.x < sqrt(r1))
+	double mul;
+	if (!fractal->transformCommon.functionEnabledEFalse)
+		mul = aux.const_c.x;
+	else
+		mul = 0.1;
+
+	if (mul < 0.0 || z.x < sqrt(r1))
 		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
 		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;

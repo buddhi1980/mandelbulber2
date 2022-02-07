@@ -60,7 +60,7 @@ enum enumFractalFormula
 	mandelboxSmooth = 17,
 	mandelboxVaryScale4d = 18, // updated V2.10, fix scaleVary v2.12
 	aexion = 19,
-	benesi = 20, // add conditional offset v2.26
+	benesi = 20, // add conditional offset v2.26, checkbox v2.27
 	bristorbrot = 21,
 	invertX = 22,
 	invertY = 23,

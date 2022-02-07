@@ -20,7 +20,13 @@ REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	REAL4 zz = z * z;
 	REAL r1 = zz.y + zz.z;
 	REAL4 t = z;
-	if (aux->const_c.x < 0.0f || z.x < native_sqrt(r1))
+	REAL mul;
+	if (!fractal->transformCommon.functionEnabledEFalse)
+		mul = aux->const_c.x;
+	else
+		mul = 0.1f;
+
+	if (mul < 0.0f || z.x < native_sqrt(r1))
 		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
 		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;

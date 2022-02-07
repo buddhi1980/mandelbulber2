@@ -27,6 +27,7 @@ v2.27 (    2021)
 
 - modified fractal formulas
    amazingSurfM3d, fix cylindrical fold, rot now matrix
+   benesi, added checkbox to disable one condition
    mandelbulbPow2V3, fix bailout
    transfRotationM3d, now matrix
 
