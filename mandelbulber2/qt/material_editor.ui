@@ -53,6 +53,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens navigator window which allows to change material paramenetrs with instant preview.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Navi</string>
        </property>
@@ -125,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-3358</y>
-        <width>472</width>
-        <height>4568</height>
+        <y>0</y>
+        <width>466</width>
+        <height>3986</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3867,6 +3870,9 @@ direction vector:</string>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply color gradient to the volume of the object (if trasparency of volume is lower than 1)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="text">
                   <string>Use color gradient for interior</string>
                  </property>
@@ -3958,6 +3964,9 @@ direction vector:</string>
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scatters the light inside the object. It involves calulation of shadows through the volume of the object.&lt;/p&gt;&lt;p&gt;Because the effect is slow for calculation, it is recomended to decrease Maximum number of fractal iterations to level which not changes appearance of the objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string>Subsurface scattering</string>

@@ -193,6 +193,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_navigator_shadows">
+              <property name="toolTip">
+               <string>Enable shadow calculation in the preview</string>
+              </property>
               <property name="text">
                <string>Shadows</string>
               </property>
@@ -200,6 +203,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_navigator_reflections">
+              <property name="toolTip">
+               <string>Enable reflections and transparency calculation in the preview</string>
+              </property>
               <property name="text">
                <string>Reflectons</string>
               </property>
@@ -207,6 +213,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_navigator_volumetrics">
+              <property name="toolTip">
+               <string>Enable volumetric effects calculation in the preview</string>
+              </property>
               <property name="text">
                <string>Volumetrics</string>
               </property>
@@ -214,6 +223,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_navigator_dark_glow">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disable sahdows, reflections and volumetric effects and enable fast dark glow effect which improves perception of depth.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>Dark glow</string>
               </property>
@@ -337,6 +349,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="pushButtonUse">
+       <property name="toolTip">
+        <string>Closes the Navigator and copies actual parameters to the main window</string>
+       </property>
        <property name="text">
         <string>Use in main window</string>
        </property>
@@ -344,6 +359,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonUse_without_camera">
+       <property name="toolTip">
+        <string>Closes the Navigator and copies actual parameters to the main window. It does not copy camera position and rotation.</string>
+       </property>
        <property name="text">
         <string>Use in main window (without camera)</string>
        </property>

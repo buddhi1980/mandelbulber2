@@ -33,7 +33,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -740,7 +740,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>619</width>
+            <width>367</width>
             <height>752</height>
            </rect>
           </property>
@@ -1409,8 +1409,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>619</width>
-            <height>762</height>
+            <width>264</width>
+            <height>831</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1761,7 +1761,8 @@ and will only be present after enabling and re-render.</string>
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="icon">
-       <iconset theme="input-keyboard"/>
+       <iconset theme="input-keyboard">
+        <normaloff>.</normaloff>.</iconset>
       </attribute>
       <attribute name="title">
        <string>Shortcuts</string>
