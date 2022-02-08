@@ -88,6 +88,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->widgetRenderedImage, &RenderedImage::keyRelease, this,
 		&cNavigatorWindow::slotKeyReleaseOnImage);
 
+	gMainInterface->stopRequest = true;
+
 	buttonPressTimer = new QTimer(this);
 	connect(buttonPressTimer, &QTimer::timeout, this, &cNavigatorWindow::slotButtonLongPress);
 	buttonPressTimer->start(100);
@@ -525,6 +527,9 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 void cNavigatorWindow::slotButtonUseParameters()
 {
 	stopRequest = true;
+
+	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, params, qInterface::read);
+
 	*sourceParams = *params;
 	*sourceFractalParams = *fractalParams;
 	gMainInterface->SynchronizeInterface(sourceParams, sourceFractalParams, qInterface::write);
@@ -536,6 +541,9 @@ void cNavigatorWindow::slotButtonUseParameters()
 void cNavigatorWindow::slotButtonUseParametersWithoutCamera()
 {
 	stopRequest = true;
+
+	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, params, qInterface::read);
+
 	params->Copy("camera", sourceParams);
 	params->Copy("target", sourceParams);
 	params->Copy("camera_top", sourceParams);
