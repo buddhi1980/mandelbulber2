@@ -280,6 +280,11 @@ void cOpenClHardware::ListOpenClDevices(
 
 	std::shared_ptr<cl::Context> context;
 
+	devicesInformation.clear();
+	clDeviceWorkers.clear();
+
+	if (clPlatforms.empty()) return;
+
 	if (platformIndex >= 0)
 	{
 		context = CreateOneContext(platformIndex, deviceType, &err);
@@ -288,9 +293,6 @@ void cOpenClHardware::ListOpenClDevices(
 			contextReady = true;
 		}
 	}
-
-	devicesInformation.clear();
-	clDeviceWorkers.clear();
 
 	if (contextReady)
 	{
