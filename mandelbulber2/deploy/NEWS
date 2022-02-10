@@ -31,6 +31,41 @@ v2.27 (    2021)
    mandelbulbPow2V3, fix bailout
    transfRotationM3d, now matrix
 
+- Navigator: Added Navigator tool which allows to change view and parameters with instant preview
+- Navigator: Upgraded rendering engine to provide progressive rendering in OpenCL mode
+- Navigator: Possible to edit camera, fractal formula, effects and material parameters
+- Shaders: Added subsurface scattering in Material editor (option for transparency)
+- UI: improved behavior of sliders for edit fields
+- UI: added sliders for rotation parameters
+- UI: added shortcut editor in Preferences
+- UI: Now there is possible to use mouse click and dragging starting from the point 
+  located on the background.
+- UI: Changed mouse wheel function to run without Ctrl key
+- UI: undo is saved with small delay to avoid creating undo levels during mouse 
+- UI: Added x2 /2 buttons for Fog based on distance
+- UI: Fixed problems with application hanging when wireframe light preview is enormous
+- UI: Corrected duplicating of light sources (added parameter synchronization before duplicating)
+- UI: Fixed problem with keyboard auto-repeat. It worked only for about 1s.
+- UI: Updated functions for automatic optimal DE calculation
+- UI: Fixed bug: Keyframes disappeared when Queue was rendered
+- Fractals: Corrected logDE calculation (objects were hollow because of calculation errors)
+- Shaders: improved Random() function in OpenCL kernel
+- Shaders: improved estimation of noise level in Monte Carlo mode
+- Shaders: Fixed bug causing artifacts in chromatic aberration post effect
+- Denoiser: added Extreme level to the Denoiser
+- Performance: Added memory cache for textures to speed up loading of them.
+  Maximum Cache size can be defined in Preferences 
+- Performance: Much improved performance of texture loading
+- Performance: automatic calculation of optimal image refresh rate
+- Performance: Optimized creating of OpenCL contexts for bug number of used GPUs
+- Performance: Much improved performance of Navigator in CPU mode
+- Animation: fixed bug: program crashed when there was less than 4 frames per keyframe
+- Animation: Added automatic deletion of parameters from animation table when primitives are deleted
+- Primitives: fixed problem with incomplete deleting of primitive objects
+- Files: fixed bug: auto-recovery didn't save animation
+- Compilation: Code upgraded to be compatible with Qt 6
+- Compilation: Upgrade build files for linking with OpenEXR 3
+
 v2.26 (August 2021)
 
 - Added new fractal formulas
