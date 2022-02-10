@@ -117,7 +117,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>" + "<br>";
 	text += "<br>";
 	text += "Licence: GNU GPL version 3.0<br>";
-	text += "Copyright Ⓒ 2021<br>";
+	text += "Copyright Ⓒ 2022<br>";
 	text += "project leader: Krzysztof Marczak<br>";
 	text += "Project contributors:<br>";
 	text += "Sebastian Jennen, Graeme McLaren, Bernardo Martelli,<br>";
@@ -390,9 +390,10 @@ void RenderWindow::SaveSettingsToRecent(QString fileName)
 		QString recentFilesFileContent = in.readAll();
 		recentFilesFile.close();
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+		recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 #else
-        recentFiles = recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
+		recentFiles =
+			recentFilesFileContent.split(QRegularExpression("\n|\r\n|\r"), Qt::KeepEmptyParts);
 #endif
 		recentFiles.removeOne(fileName);
 	}

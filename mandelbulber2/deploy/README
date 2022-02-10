@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.26
+                              MANDELBULBER 2.27
 
 1. What is Mandelbulber
 -----------------------
@@ -150,11 +150,11 @@ make install
 6. TESTED ON
 ------------
 
-- Debian Buster x64
+- Debian Bookworm x64
 - Ubuntu 20.10
 
-- gcc 10.2.1
-- clang 11.0.1
+- gcc 11.2
+- clang 13.0.1
 - msvc17
 
 - Qt 5.15.2

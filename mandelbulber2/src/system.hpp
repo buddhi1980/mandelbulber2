@@ -36,7 +36,7 @@
 #define MANDELBULBER2_SRC_SYSTEM_HPP_
 
 #define MANDELBULBER_VERSION 2.27
-#define MANDELBULBER_VERSION_STRING "2.27-dev"
+#define MANDELBULBER_VERSION_STRING "2.27"
 
 #define DO_QUOTE(X) #X
 #define QUOTE(X) DO_QUOTE(X)
@@ -96,7 +96,8 @@ bool CreateDefaultFolders();
 void ClearNetRenderCache();
 void DeleteOldChache(const QString &directoryPath, int days);
 bool CreateFolder(const QString &name);
-void DeleteAllFilesFromDirectory(const QString &folder, QString filterExpression, bool useWildcart = true);
+void DeleteAllFilesFromDirectory(
+	const QString &folder, QString filterExpression, bool useWildcart = true);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();
 void UpdateUIStyle();
