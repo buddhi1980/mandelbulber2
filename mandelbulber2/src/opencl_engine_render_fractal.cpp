@@ -1561,7 +1561,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
 						float smothedNoiseLevel =
-							previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
+							(useAntiAlaising) ? totalNoiseRect
+																: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
 						// smothedNoiseLevel = totalNoiseRect;
 						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
 
