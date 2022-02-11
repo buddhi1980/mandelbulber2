@@ -582,7 +582,7 @@ void cNavigatorWindow::InitPeriodicRefresh()
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
 	connect(autoRefreshTimer, &QTimer::timeout, this, &cNavigatorWindow::slotPeriodicRefresh);
-	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
+	autoRefreshTimer->start(500);
 	autoRefreshEnabled = true;
 }
 
