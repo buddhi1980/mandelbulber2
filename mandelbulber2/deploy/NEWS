@@ -38,7 +38,7 @@ v2.27 (    2021)
 - UI: improved behavior of sliders for edit fields
 - UI: added sliders for rotation parameters
 - UI: added shortcut editor in Preferences
-- UI: Now there is possible to use mouse click and dragging starting from the point 
+- UI: Now it is possible to use mouse click and dragging starting from the point
   located on the background.
 - UI: Changed mouse wheel function to run without Ctrl key
 - UI: undo is saved with small delay to avoid creating undo levels during mouse 

@@ -184,7 +184,9 @@ void cFractalJosKleinianV4::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	double Ztemp = z.z;
-	if (fractal->transformCommon.spheresEnabled)
+	if (fractal->transformCommon.spheresEnabled
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 		Ztemp = min(z.z, fractal->transformCommon.foldingValue - z.z);
 
 	if (aux.i >= fractal->transformCommon.startIterationsG)
