@@ -401,4 +401,5 @@ void cTabFractal::slotPressedButtonNavi()
 	navigator->SynchronizeInterface(qInterface::write);
 	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
 	navigator->show();
+	navigator->AllPrepared();
 }

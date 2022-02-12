@@ -205,8 +205,6 @@ void cNavigatorWindow::SetInitialParameters(
 	manipulations->AssignWidgets(
 		ui->widgetRenderedImage, ui->widgetNavigationButtons, widgetDockEfects);
 
-	InitPeriodicRefresh();
-
 	cInterface::ComboMouseClickUpdate(ui->comboBox_mouse_click_function, params);
 
 	connect(ui->comboBox_navigator_preview_size, SIGNAL(currentIndexChanged(int)), this,
@@ -234,6 +232,11 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 	}
 
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::read);
+}
+
+void cNavigatorWindow::AllPrepared()
+{
+	InitPeriodicRefresh();
 }
 
 void cNavigatorWindow::StartRender()
@@ -267,6 +270,8 @@ void cNavigatorWindow::StartRender()
 	std::shared_ptr<cFractalContainer> tempFractalParams(new cFractalContainer());
 	*tempParams = *params;
 	*tempFractalParams = *fractalParams;
+
+	tempParams->Set("image_preview_scale", 0.0);
 
 	int width = 0;
 	int height = 0;

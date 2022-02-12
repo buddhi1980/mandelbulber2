@@ -40,6 +40,7 @@ public:
 	void StartRender();
 	void StopRender();
 	void SynchronizeInterface(qInterface::enumReadWrite mode);
+	void AllPrepared();
 
 public slots:
 	void slotCameraMovementModeChanged(int index);

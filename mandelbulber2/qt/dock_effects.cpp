@@ -255,6 +255,7 @@ void cDockEffects::slotPressedButtonNavi()
 		&cDockEffects::slotNewParametersFromNavi);
 
 	navigator->show();
+	navigator->AllPrepared();
 }
 
 void cDockEffects::AssignParameterContainers(
@@ -316,4 +317,3 @@ void cDockEffects::slotPressedButtonFogDistHalf()
 
 	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }
-
