@@ -109,7 +109,7 @@ void cDockEffects::ConnectSignals() const
 		&cDockEffects::slotSetAuxLightManualPlacementDistance);
 
 	connect(
-		ui->pushButton_local_navi, &QPushButton::pressed, this, &cDockEffects::slotPressedButtonNavi);
+		ui->pushButton_local_navi, &QPushButton::clicked, this, &cDockEffects::slotPressedButtonNavi);
 }
 
 void cDockEffects::slotSynchronizeInterfaceBasicFog(std::shared_ptr<cParameterContainer> par) const

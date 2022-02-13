@@ -80,7 +80,7 @@ void cMaterialEditor::ConnectSignals()
 	connect(
 		ui->widget_material_preview, SIGNAL(materialChanged(int)), this, SIGNAL(materialChanged(int)));
 
-	connect(ui->pushButton_local_navi, &QPushButton::pressed, this,
+	connect(ui->pushButton_local_navi, &QPushButton::clicked, this,
 		&cMaterialEditor::slotPressedButtonNavi);
 }
 

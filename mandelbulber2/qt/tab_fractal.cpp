@@ -327,7 +327,7 @@ void cTabFractal::FrameIterationFormulaSetWidgetsVisibility(bool visible) const
 void cTabFractal::ConnectSignals()
 {
 	connect(
-		ui->pushButton_local_navi, &QPushButton::pressed, this, &cTabFractal::slotPressedButtonNavi);
+		ui->pushButton_local_navi, &QPushButton::clicked, this, &cTabFractal::slotPressedButtonNavi);
 }
 
 void cTabFractal::MaterialSetVisible(bool visible) const
