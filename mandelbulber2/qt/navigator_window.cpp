@@ -97,6 +97,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	cInterface::ColorizeGroupBoxes(
 		ui->widgetNavigationButtons, gPar->Get<int>("ui_colorize_random_seed"));
 
+	restoreGeometry(gMainInterface->settings.value("navigatorWindowGeometry").toByteArray());
+
 	SynchronizeInterfaceWindow(ui->groupBox_navigator_options, gPar, qInterface::write);
 }
 
@@ -574,6 +576,7 @@ void cNavigatorWindow::slotButtonCancel()
 void cNavigatorWindow::closeEvent(QCloseEvent *event)
 {
 	stopRequest = true;
+	gMainInterface->settings.setValue("navigatorWindowGeometry", saveGeometry());
 	QWidget::closeEvent(event);
 }
 
