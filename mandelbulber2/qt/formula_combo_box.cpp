@@ -82,7 +82,7 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonM
 
 cFormulaComboBox::~cFormulaComboBox()
 {
-	iconCache.clear();
+	// iconCache.clear(); !!! it's is static member and shoudl be kept to the end of the universe
 }
 
 void cFormulaComboBox::onCompleterActivated(QString text)
