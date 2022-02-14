@@ -286,7 +286,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				z = SmoothCVector(tempZ, z, k);
 				float kn = 1.0f - k;
 				aux.DE = aux.DE * k + tempAuxDE * kn;
-				aux.color = aux.DE * k + tempAuxColor * kn;
+				aux.color = aux.color * k + tempAuxColor * kn;
 			}
 		}
 #endif

@@ -222,7 +222,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				z = SmoothCVector(tempZ, z, k);
 				double kn = 1.0 - k;
 				extendedAux.DE = extendedAux.DE * k + tempAuxDE * kn;
-				extendedAux.color = extendedAux.DE * k + tempAuxColor * kn;
+				extendedAux.color = extendedAux.color * k + tempAuxColor * kn;
 			}
 		}
 
