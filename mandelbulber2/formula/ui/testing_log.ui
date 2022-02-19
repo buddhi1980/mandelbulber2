@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing_log</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -821,7 +821,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0,0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0,0,0">
      <property name="topMargin">
       <number>0</number>
      </property>
@@ -843,22 +843,6 @@
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
        <property name="text">
         <string>aux.dist</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>z = zc</string>
        </property>
       </widget>
      </item>

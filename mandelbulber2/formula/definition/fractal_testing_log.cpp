@@ -75,7 +75,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 	CVector4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z; // dot
-	sq_r = 1.0 / (3.0 * sq_r * sq_r + offset);
+	sq_r = 1.0 / (3.0 * fractal->transformCommon.scale1 * sq_r * sq_r + offset);
 	//sq_r = fractal->transformCommon.scale1 / (3.0 * sq_r * sq_r + offset);
 	//aux.DE *= fractal->transformCommon.scale1;
 
@@ -118,7 +118,7 @@ void cFractalTestingLog::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		double r = z.Length();
-		if (!fractal->transformCommon.functionEnabledOFalse)
+		if (!fractal->transformCommon.functionEnabledYFalse)
 			aux.dist = min(aux.dist, 0.5 * log(r) * r / aux.DE);
 		else
 			aux.dist = 0.5 * log(r) * r / aux.DE;

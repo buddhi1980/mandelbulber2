@@ -457,11 +457,13 @@ enum enumFractalFormula
 	transfAddCpixelInvert = 1135,
 	transfAddCpixelSphereFold = 1136,
 	transfAddCpixelTile = 1137,
-
 	// 2.27
 	transfSincos = 1138,
 	transfSphericalFoldV3 = 1139,
 	transfPolyXYFoldV1 = 1140,
+
+	// 2.28
+	transfSphericalFoldSmooth = 1141,
 
 	// mandelbulber transfdIFS
 	// 2.20

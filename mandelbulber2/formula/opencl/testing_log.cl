@@ -102,7 +102,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		REAL r = length(z);
-		if (!fractal->transformCommon.functionEnabledOFalse)
+		if (!fractal->transformCommon.functionEnabledYFalse)
 			aux->dist = min(aux->dist, 0.5f * log(r) * r / aux->DE);
 		else
 			aux->dist = 0.5f * log(r) * r / aux->DE;
