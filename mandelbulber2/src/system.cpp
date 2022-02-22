@@ -88,7 +88,7 @@ bool InitSystem()
 #if defined(__APPLE__) || defined(__MACOSX)
 	CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef, kCFURLPOSIXPathStyle);
-	sharePath = QString::fromCFString(macPath);
+	sharePath = QString::fromCFString(macPath) + QDir::separator() + "Contents/Resources";
 	CFRelease(appUrlRef);
 	CFRelease(macPath);
 #else

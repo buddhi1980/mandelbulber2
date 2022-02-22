@@ -9,12 +9,40 @@ macx:!m1:CONFIG += c++14
 macx:m1:CONFIG += c++17
 
 m1: {
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.5
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 }
 
-QMAKE_FULL_VERSION = 2.27-dev
+# specify paths to misc ressources
+ROOT = $$PWD/..
+SHARED = $$ROOT/deploy/share/mandelbulber2
+
+macx: {
+    CONFIG += app_bundle
+
+    formulaFiles.files = $$ROOT/formula
+    formulaFiles.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += formulaFiles
+
+    openClFiles.files = $$ROOT/opencl
+    openClFiles.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += openClFiles
+
+    openSharedFiles.files = $$SHARED/examples $$SHARED/materials $$SHARED/icons $$SHARED/sounds $$SHARED/textures $$SHARED/toolbar $$SHARED/data
+    openSharedFiles.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += openSharedFiles
+
+    docFiles.files = $$ROOT/deploy/doc
+    docFiles.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += docFiles
+
+    newsFiles.files = $$ROOT/deploy/NEWS
+    newsFiles.path = Contents/Resources/doc
+    QMAKE_BUNDLE_DATA += newsFiles
+}
+
+QMAKE_FULL_VERSION = 2.27
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
-VERSION = 2.27-dev
+VERSION = 2.27
 
 m1:DEFINES += NO_AUDIO_OUTPUT
 m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO
@@ -66,9 +94,6 @@ TEMPLATE = app
 
 CONFIG += qt thread
 
-# specify paths to misc ressources
-ROOT = $$PWD/..
-
 SOURCES +=  $$ROOT/src/*.cpp
 SOURCES +=  $$ROOT/qt/*.cpp
 SOURCES +=  $$ROOT/formula/definition/*.cpp
@@ -112,6 +137,7 @@ QMAKE_LFLAGS_RELEASE -= -O1
 unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
+#macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
@@ -125,6 +151,7 @@ m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 unix:!macx:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
 macx:!m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
 macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -lomp
+#macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
 
 macx:!m1:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
