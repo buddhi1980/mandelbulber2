@@ -65,7 +65,8 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 
 	thumbnailSize = systemData.GetPreferredThumbnailSize() * 1.5;
 
-	thumbWidget = new cThumbnailWidget(thumbnailSize, thumbnailSize, 1, this);
+	double dpiScale = devicePixelRatioF();
+	thumbWidget = new cThumbnailWidget(thumbnailSize, thumbnailSize, dpiScale, this);
 
 	description = new QLabel("", this);
 	description->setAlignment(Qt::AlignCenter);

@@ -173,9 +173,11 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		{
 			if (clickMode == clickFlightSpeedControl)
 			{
+				double dpiScale = devicePixelRatioF();
 				Compass(flightData.rotation,
-					QPointF(image->GetPreviewWidth() * 0.5, image->GetPreviewHeight() * 0.5),
-					image->GetPreviewHeight() * 0.2);
+					QPointF(
+						image->GetPreviewWidth() * 0.5 / dpiScale, image->GetPreviewHeight() * 0.5 / dpiScale),
+					image->GetPreviewHeight() * 0.2 / dpiScale);
 			}
 		}
 

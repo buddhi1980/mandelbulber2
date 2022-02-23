@@ -245,8 +245,9 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
+			double dpiScale = table->devicePixelRatioF();
 			cThumbnailWidget *thumbWidget =
-				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), dpiScale, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(params, fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -311,8 +312,9 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 			{
+				double dpiScale = table->devicePixelRatioF();
 				cThumbnailWidget *thumbWidget =
-					new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+					new cThumbnailWidget(previewSize.width(), previewSize.height(), dpiScale, table);
 				thumbWidget->UseOneCPUCore(false);
 				thumbWidget->AssignParameters(params, fractalParams);
 				table->setCellWidget(0, newColumn, thumbWidget);
@@ -1153,8 +1155,9 @@ void cKeyframeAnimation::RefreshTable()
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
+			double dpiScale = table->devicePixelRatioF();
 			cThumbnailWidget *thumbWidget =
-				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), dpiScale, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, tempPar, tempFract);
 			tempPar->Set("frame_no", keyframes->GetFrameIndexForKeyframe(i));
@@ -1984,8 +1987,9 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
+			double dpiScale = table->devicePixelRatioF();
 			cThumbnailWidget *thumbWidget =
-				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), dpiScale, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(tempPar, tempFractPar);
 			table->setCellWidget(0, newColumn, thumbWidget);
