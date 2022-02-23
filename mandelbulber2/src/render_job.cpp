@@ -225,7 +225,10 @@ bool cRenderJob::InitImage(int w, int h, const sImageOptional &optional)
 			image->CreatePreview(
 				scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			// image->UpdatePreview();
-			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+
+			double dpiScale = imageWidget->devicePixelRatioF();
+			emit SetMinimumWidgetSize(
+				image->GetPreviewWidth() / dpiScale, image->GetPreviewHeight() / dpiScale);
 			image->UpdatePreview();
 		}
 
