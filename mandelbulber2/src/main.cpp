@@ -64,6 +64,8 @@
 
 int main(int argc, char *argv[])
 {
+	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
 	gCoreApplication->setOrganizationName("Mandelbulber");
 	gCoreApplication->setApplicationName("Mandelbulber");

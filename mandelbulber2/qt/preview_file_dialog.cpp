@@ -149,11 +149,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				InitFractalParams(parFractal->at(i));
 
-			/****************** TEMPORARY CODE FOR MATERIALS *******************/
-
 			InitMaterialParams(1, par);
-
-			/*******************************************************************/
 
 			if (parSettings.Decode(par, parFractal))
 			{
@@ -163,6 +159,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 				description->setText(par->Get<QString>("description"));
 				thumbWidget->AssignParameters(par, parFractal);
 				thumbWidget->update();
+				QApplication::processEvents();
 			}
 			else
 			{
@@ -189,6 +186,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		{
 			pixmap.load(filename);
 		}
+
 		if (pixmap.isNull() || !checkbox->isChecked())
 		{
 			preview->setText(" ");

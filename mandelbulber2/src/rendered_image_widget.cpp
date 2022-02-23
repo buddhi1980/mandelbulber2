@@ -250,7 +250,11 @@ void RenderedImage::DisplayCoordinates()
 	{
 		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, text);
 		textRect.setHeight(textRect.height() + 2);
-		textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
+
+		double dpiScale = devicePixelRatioF();
+
+		textRect.moveBottomLeft(
+			QPoint(lastMousePosition.x / dpiScale + 30, lastMousePosition.y / dpiScale - 3));
 
 		painter.setOpacity(0.8);
 		painter.setPen(penWhite);
@@ -280,7 +284,10 @@ void RenderedImage::DisplayCoordinates()
 
 	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, textCoordinates);
 	textRect2.setHeight(textRect2.height() + 2);
-	textRect2.moveTopLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y + 3));
+
+	double dpiScale = devicePixelRatioF();
+	textRect2.moveTopLeft(
+		QPoint(lastMousePosition.x / dpiScale + 30, lastMousePosition.y / dpiScale + 3));
 	painter.setOpacity(0.8);
 	painter.setPen(penWhite);
 	painter.setBrush(brushDarkBlue);
@@ -559,7 +566,9 @@ void RenderedImage::Draw3DBox(
 
 void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 {
-	CVector2<int> screenPoint(event->x(), event->y());
+	double dpiScale = devicePixelRatioF();
+
+	CVector2<int> screenPoint(event->x() * dpiScale, event->y() * dpiScale);
 
 	// remember last mouse position
 	lastMousePosition = screenPoint;
@@ -621,7 +630,8 @@ void RenderedImage::mousePressEvent(QMouseEvent *event)
 		if (clickModesEnables)
 		{
 			draggingInitStarted = true;
-			dragStartPosition = CVector2<int>(event->x(), event->y());
+			double dpiScale = devicePixelRatioF();
+			dragStartPosition = CVector2<int>(event->x() * dpiScale, event->y() * dpiScale);
 			dragButtons = event->buttons();
 		}
 	}
@@ -634,7 +644,8 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 	{
 		if (clickModesEnables)
 		{
-			emit singleClick(event->x(), event->y(), event->button());
+			double dpiScale = devicePixelRatioF();
+			emit singleClick(event->x() * dpiScale, event->y() * dpiScale, event->button());
 		}
 	}
 
@@ -746,8 +757,8 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 	if (event->isAutoRepeat())
 	{
 		event->ignore();
-		//emit keyPress(event);
-		//emit keyRelease(event);
+		// emit keyPress(event);
+		// emit keyRelease(event);
 	}
 	else
 	{
@@ -1349,7 +1360,7 @@ void RenderedImage::DisplayAllLights()
 						CVector3 lightCenter =
 							InvProjection3D(light.position, camera, mRotInv, perspectiveType, fov, width, height);
 
-						if(lightCenter.z < 0.0) continue;
+						if (lightCenter.z < 0.0) continue;
 
 						sRGB8 color = toRGB8(light.color);
 

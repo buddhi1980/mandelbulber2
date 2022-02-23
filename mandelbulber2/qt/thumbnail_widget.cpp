@@ -235,9 +235,11 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 					// just wait and pray
 				}
 
+				double dpiScale = devicePixelRatioF();
+
 				QPixmap pixmap;
 				pixmap.load(thumbnailFileName);
-				pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				pixmap = pixmap.scaled(tWidth * dpiScale, tHeight * dpiScale, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 				QImage qImage = pixmap.toImage();
 				qImage = qImage.convertToFormat(QImage::Format_RGB888);
 

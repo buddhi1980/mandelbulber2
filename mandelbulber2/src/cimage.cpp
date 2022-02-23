@@ -530,8 +530,11 @@ quint8 *cImage::CreatePreview(
 	double scale, int visibleWidth, int visibleHeight, QWidget *widget = nullptr)
 {
 	previewMutex.lock();
-	quint64 w = quint64(width * scale);
-	quint64 h = quint64(height * scale);
+
+	double dpiScale = widget->devicePixelRatioF();
+
+	quint64 w = quint64(width * scale * dpiScale);
+	quint64 h = quint64(height * scale * dpiScale);
 
 	if (w != previewWidth || h != previewHeight || !previewAllocated)
 	{
@@ -548,7 +551,7 @@ quint8 *cImage::CreatePreview(
 		previewAllocated = true;
 		previewWidth = w;
 		previewHeight = h;
-		previewScale = scale;
+		previewScale = scale * dpiScale;
 	}
 
 	if (widget) imageWidget = widget;
@@ -794,8 +797,11 @@ void cImage::RedrawInWidget(QWidget *qWidget)
 		QImage qImage(GetPreviewConstPtr(), int(previewWidth), int(previewHeight),
 			int(previewWidth * sizeof(sRGB8)), QImage::Format_RGB888);
 
-		painter.drawImage(QRect(0, 0, int(previewWidth), int(previewHeight)), qImage,
-			QRect(0, 0, int(previewWidth), int(previewHeight)));
+		double dpiScale = widget->devicePixelRatioF();
+
+		painter.drawImage(QRect(0, 0, int(previewWidth / dpiScale), int(previewHeight / dpiScale)),
+			qImage, QRect(0, 0, int(previewWidth), int(previewHeight)));
+
 		preview2 = preview;
 		previewMutex.unlock();
 	}
