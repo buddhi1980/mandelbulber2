@@ -163,8 +163,10 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		if (params && cursorVisible && clickMode != clickFlightSpeedControl)
 		{
 			CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
-			Compass(rotation, QPointF(image->GetPreviewWidth() * 0.9, image->GetPreviewHeight() * 0.9),
-				image->GetPreviewHeight() * 0.05);
+			double dpiScale = devicePixelRatioF();
+			Compass(rotation, QPointF(image->GetPreviewWidth() * 0.9 / dpiScale,
+																image->GetPreviewHeight() * 0.9 / dpiScale),
+				image->GetPreviewHeight() * 0.05 / dpiScale);
 		}
 
 		if (params)
@@ -817,11 +819,15 @@ void RenderedImage::wheelEvent(QWheelEvent *event)
 
 		event->accept(); // do not propagate event to parent widgets - prevents from scrolling
 
+		double dpiScale = devicePixelRatioF();
+
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-		emit mouseWheelRotatedWithKey(event->x(), event->y(), event->delta(), event->modifiers());
+		emit mouseWheelRotatedWithKey(
+			event->x() * dpiScale, event->y() * dpiScale, event->delta(), event->modifiers());
 #else
-		emit mouseWheelRotatedWithKey(int(event->position().x()), int(event->position().y()),
-			event->angleDelta().y() + event->angleDelta().x(), event->modifiers());
+		emit mouseWheelRotatedWithKey(int(event->position().x() * dpiScale),
+			int(event->position().y() * dpiScale), event->angleDelta().y() + event->angleDelta().x(),
+			event->modifiers());
 		// with alt key there is modified delta.x
 #endif
 		if (params)
@@ -1284,14 +1290,18 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	QList<QPair<int, int>> listOfPaintedTiles;
 
+	double dpiScale = devicePixelRatioF();
+
 	for (sRenderedTileData &tile : listOfRenderedTilesData)
 	{
 		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
 		{
 			listOfPaintedTiles.append(QPair<int, int>(tile.x, tile.y));
 
-			QRect r(tile.x * image->GetPreviewScale(), tile.y * image->GetPreviewScale(),
-				tile.width * image->GetPreviewScale(), tile.height * image->GetPreviewScale());
+			QRect r(tile.x * image->GetPreviewScale() / dpiScale,
+				tile.y * image->GetPreviewScale() / dpiScale,
+				tile.width * image->GetPreviewScale() / dpiScale,
+				tile.height * image->GetPreviewScale() / dpiScale);
 
 			painter.setOpacity(0.5);
 			painter.setPen(penRed);
