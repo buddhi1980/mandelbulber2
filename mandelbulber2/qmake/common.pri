@@ -16,7 +16,7 @@ m1: {
 ROOT = $$PWD/..
 SHARED = $$ROOT/deploy/share/mandelbulber2
 
-macx: {
+macx:m1: {
     CONFIG += app_bundle
 
     formulaFiles.files = $$ROOT/formula
