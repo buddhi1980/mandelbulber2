@@ -6,8 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Based on a DarkBeam fold formula adapted by Knighty
- * MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * Buddhi Mandelbox SphericalFoldSmooth
  */
 
 #include "all_fractal_definitions.h"
@@ -29,12 +28,13 @@ void cFractalTransfSphericalFoldSmooth::FormulaCode(CVector4 &z, const sFractal 
 {
 
 
-
+	CVector4 oldZ = z;
+	double m = 1.0;
 	double t = 1.0;
-z += fractal->transformCommon.offset000;
+	z += fractal->transformCommon.offset000;
 	// spherical fold
 	double rrCol = z.Dot(z);
-	double m = 1.0;
+
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
@@ -78,7 +78,27 @@ z += fractal->transformCommon.offset000;
 
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;*/
 
+	//REAL rrCol2 = dot(z, z);
+	//REAL rr = dot(z, z);
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colorAdd = 0.0f;
+		oldZ = fabs(oldZ - z);
 
+		//colorAdd += rrCol1 * fractal->foldColor.difs0000.x;
+		//colorAdd += rrCol2 * fractal->foldColor.difs0000.y;
+		//colorAdd += fractal->foldColor.difs0000.z;
+		colorAdd += oldZ.x * fractal->foldColor.difs0000.x;
+		colorAdd += oldZ.y * fractal->foldColor.difs0000.y;
+		colorAdd += oldZ.z * fractal->foldColor.difs0000.z;
+		colorAdd += t * m * fractal->foldColor.difs0000.w;
+
+		if (!fractal->foldColor.auxColorEnabled)
+			aux.color = colorAdd;
+		else
+			aux.color += colorAdd;
+	}
 
 
 
