@@ -125,13 +125,11 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
 		bool maxiter = out.maxiter;
 
-// don't use maxiter when limits are disabled and iterThresh mode is not used
-#ifndef LIMITS_ENABLED
+		// don't use maxiter when limits are disabled and iterThresh mode is not used
 		if (!consts->params.iterThreshMode) maxiter = false;
-#else
+
 		// never use maxiter if normal vectors are calculated
 		if (calcParam->normalCalculationMode) maxiter = false;
-#endif
 
 		if (maxiter) out.distance = 0.0f;
 
@@ -246,6 +244,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			out.distance = 0.5f * maxZ / maxDr;
 #endif
 		}
+
+		// don't use maxiter when limits are disabled and iterThresh mode is not used
+		if (!consts->params.iterThreshMode) maxiter = false;
+
+		// never use maxiter if normal vectors are calculated
+		if (calcParam->normalCalculationMode) maxiter = false;
 
 		if (maxiter) out.distance = 0.0f;
 
