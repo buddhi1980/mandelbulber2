@@ -16,81 +16,66 @@
 
 REAL4 TransfSphericalFoldSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
-	REAL t = 1.0f;
-	REAL m = 1.0f;
-	REAL rrCol1 = 0.0f;
-	REAL rrCol2 = 0.0f;
-
 	REAL4 oldZ = z;
-	z += fractal->transformCommon.offset000;
-	// spherical fold
+	REAL m = 1.0f;
+	REAL t = 1.0f;
+	REAL rr = dot(z, z);
 
+	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		REAL rr = dot(z, z);
 		if (rr < fractal->transformCommon.minR2p25)
 			m = fractal->transformCommon.maxMinR2factor;
 		else if (rr < fractal->transformCommon.maxR2d1)
 			m = fractal->transformCommon.maxR2d1 / rr;
 		z *= m;
 		aux->DE *= m;
-		REAL rrCol1 = dot(z, z) - rr;
 	}
 
 	if (fractal->transformCommon.functionEnabledCy
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
-		REAL rr = dot(z, z);
-		//rrCol = rr;
+		rr = dot(z, z);
+		z += fractal->transformCommon.offsetA000;
 		REAL rk1 = SmoothConditionALessB(
 			rr, fractal->transformCommon.minR2p25, fractal->transformCommon.scaleA3);
-		REAL sm1 = (fractal->transformCommon.maxMinR2factor * rk1) + (1.0f - rk1);
+		REAL sm1 = fractal->transformCommon.maxMinR2factor * rk1 + 1.0f - rk1;
 
-		t = 1.0f;
 		if (aux->i >= fractal->transformCommon.startIterationsY
 				&& aux->i < fractal->transformCommon.stopIterationsY)
 		{
 			REAL rk2 = SmoothConditionALessB(
 				rr, fractal->transformCommon.maxR2d1, fractal->transformCommon.scaleB3);
 			REAL rk21 = (1.0f - rk1) * rk2;
-			t = (1.0f - rk21) + (fractal->transformCommon.maxR2d1 / rr * rk21);
+			t = 1.0f - rk21 + fractal->transformCommon.maxR2d1 / rr * rk21;
 		}
-		t = sm1 * t;
-		z = z * t;
-		aux->DE = aux->DE * t;
-		REAL rrCol2 = dot(z, z) - rr;
+		t *= sm1;
+		z *= t;
+		aux->DE *= t;
+		z -= fractal->transformCommon.offsetA000;
 	}
 
 	z -= fractal->transformCommon.offset000;
 
-	//REAL rrCol2 = dot(z, z);
-	//REAL rr = dot(z, z);
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
 		oldZ = fabs(oldZ - z);
-
-		//colorAdd += rrCol1 * fractal->foldColor.difs0000.x;
-		//colorAdd += rrCol2 * fractal->foldColor.difs0000.y;
-		//colorAdd += fractal->foldColor.difs0000.z;
 		colorAdd += oldZ.x * fractal->foldColor.difs0000.x;
 		colorAdd += oldZ.y * fractal->foldColor.difs0000.y;
 		colorAdd += oldZ.z * fractal->foldColor.difs0000.z;
 		colorAdd += t * m * fractal->foldColor.difs0000.w;
-
 
 		if (!fractal->foldColor.auxColorEnabled)
 			aux->color = colorAdd;
 		else
 			aux->color += colorAdd;
 	}
-
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
