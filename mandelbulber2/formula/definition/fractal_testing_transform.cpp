@@ -18,72 +18,55 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 	internalName = "testing_transform";
 	internalID = fractal::testingTransform;
 	DEType = analyticDEType;
-	DEFunctionType = linearDEFunction;
-	cpixelAddition = cpixelEnabledByDefault;
+	DEFunctionType = withoutDEFunction;
+	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionLinear;
+	DEAnalyticFunction = analyticFunctionNone;
 	coloringFunction = coloringFunctionDefault;
 }
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 signs ;
-	signs.x = sign(aux.const_c.x);
-	signs.y = sign(aux.const_c.y);
-	signs.z = sign(aux.const_c.z);
-	signs.w = 0.0;
-
-
-	double t = 1.0;
-
-	// spherical fold
-	double rrCol = z.Dot(z);
-	double m = 1.0;
-	if (fractal->transformCommon.functionEnabledCxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsS
-			&& aux.i < fractal->transformCommon.stopIterationsS)
+	// Cayley2_2D
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		double rr = rrCol;
-		if (rr < fractal->transformCommon.minR2p25)
-			m = fractal->transformCommon.maxMinR2factor;
-		else if (rr < fractal->transformCommon.maxR2d1)
-			m = fractal->transformCommon.maxR2d1 / rr;
-		z *= m;
-		aux.DE *= m;
+		double xTemp = SQRT_1_2 * (z.x - z.y);
+		z.y = SQRT_1_2 * (z.y + z.x);
+		z.x = xTemp;
 	}
 
-	if (fractal->transformCommon.functionEnabledCy
-			&& aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
+	//CVector4 zc = z;
+	if (fractal->transformCommon.functionEnabledM)
 	{
-		double rr = z.Dot(z);
-
-		double rk1 = SmoothConditionALessB(rr, fractal->transformCommon.minR2p25, fractal->transformCommon.scaleA3);
-		double sm1 = (fractal->transformCommon.maxMinR2factor * rk1) + (1.0f - rk1);
-
-		t = 1.0;
-		if (aux.i >= fractal->transformCommon.startIterationsY
-				&& aux.i < fractal->transformCommon.stopIterationsY)
-		{
-			double rk2 = SmoothConditionALessB(rr, fractal->transformCommon.maxR2d1, fractal->transformCommon.scaleB3);
-			double rk21 = (1.0f - rk1) * rk2;
-			t = (1.0f - rk21) + (fractal->transformCommon.maxR2d1 / rr * rk21);
-		}
-		t = sm1 * t;
-		z = z * t;
-		aux.DE = aux.DE * t;
+		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-	double rrCol2 = z.Dot(z);
+	z += fractal->transformCommon.offset000;
 
-	/*if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
-	z = z * fractal->mandelbox.scale;
+	z.z *= fractal->transformCommon.scale1;
 
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;*/
+	double mx = z.x * z.x;
+	double my = z.y * z.y;
+	double m = 2.0f * ((mx * my)) + mx * mx + my * my;
+
+	double n = (m + 4.0 * z.x * z.y + 1.0);
+
+	z.y = 2.0 * (my - mx) / n;
+	z.x = (m - 1.0) / n * fractal->transformCommon.scale2;
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR1)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
 
-
-
+	//z = zc;
 
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
