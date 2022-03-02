@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -6,17 +6,18 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Based on a DarkBeam fold formula adapted by Knighty
- * MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * transfCayley2V1 based on Cayley2IFS
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
+cFractalTransfCayley2V1::cFractalTransfCayley2V1() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Transform";
-	internalName = "testing_transform";
-	internalID = fractal::testingTransform;
+	nameInComboBox = "T>Cayley2 V1";
+	internalName = "transf_cayley2_v1";
+	internalID = fractal::transfCayley2V1;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,9 +26,9 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfCayley2V1::FormulaCode(
+	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Cayley2IFS
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
