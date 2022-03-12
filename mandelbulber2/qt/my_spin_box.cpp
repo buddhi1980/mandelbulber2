@@ -109,7 +109,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 			slider->hide();
 		}
 		// update min and max
-		slider->SetIntegerMode(minimum(), maximum(), value());
+		// slider->SetIntegerMode(minimum(), maximum(), value());
 
 		QWidget *topWidget = window();
 		QPoint windowPoint = mapTo(topWidget, QPoint());
@@ -131,8 +131,9 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
-		connect(this, SIGNAL(valueChanged(int)), slider, SLOT(slotUpdateValue(int)));
-		connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setValue(int)));
+		connect(slider, SIGNAL(sliderPressed()), this, SLOT(slotSliderPressed()));
+		connect(slider, SIGNAL(sliderReleased()), this, SLOT(slotSliderReleased()));
+		connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
 	}
 }
 
@@ -162,4 +163,45 @@ void MySpinBox::slotDoubleValue()
 void MySpinBox::slotHalfValue()
 {
 	setValue(value() / 2);
+}
+
+void MySpinBox::slotSliderPressed()
+{
+	valueBeforeSliderDrag = value();
+}
+
+void MySpinBox::slotSliderReleased()
+{
+	emit editingFinished();
+}
+
+void MySpinBox::slotSliderMoved(int sliderPosition)
+{
+	int newValue = valueBeforeSliderDrag;
+
+	int iDiff = sliderPosition - 500;
+	double dDiff = iDiff / 500.0;
+	double sign = (iDiff > 0) ? 1.0 : -1.0;
+	double digits = log10(double(maximum()));
+
+	if (valueBeforeSliderDrag == 0)
+	{
+		if (minimum() >= 0.0)
+		{
+			newValue = pow(10.0, dDiff * (digits + 1.0) - digits);
+		}
+		else
+		{
+			newValue = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits);
+		}
+	}
+	else
+	{
+		double change = sign * pow(10.0, fabs(dDiff) * digits);
+		newValue = valueBeforeSliderDrag + change;
+	}
+
+	setValue(newValue);
+
+	emit editingFinished();
 }

@@ -117,6 +117,7 @@ cImage::cImage(cImage &source)
 	allocLater = source.allocLater;
 	isStereoLeftRight = source.isStereoLeftRight;
 	fastPreview = false;
+	useResizeOnChangeSize = false;
 	meta = source.meta;
 
 	progressiveFactor = source.progressiveFactor;

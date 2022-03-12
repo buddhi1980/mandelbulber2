@@ -53,6 +53,7 @@ private:
 	int GetDefault();
 	int defaultValue;
 	cFrameSliderPopup *slider;
+	int valueBeforeSliderDrag;
 
 	// methods to define from CommonMyWidgetWrapper
 	void resetToDefault() override;
@@ -69,6 +70,9 @@ private slots:
 	void slotResetToDefault();
 	void slotDoubleValue();
 	void slotHalfValue();
+	void slotSliderPressed();
+	void slotSliderReleased();
+	void slotSliderMoved(int sliderPosition);
 };
 
 #endif /* MANDELBULBER2_QT_MY_SPIN_BOX_H_ */
