@@ -139,6 +139,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	height = paramsContainer->Get<int>("image_height");
 
 	if (stereo.isEnabled() && (!gNetRender->IsClient() || gNetRender->IsAnimation()))
+	// if (stereo.isEnabled() && !gNetRender->IsClient())
 	{
 		CVector2<int> modifiedResolution = stereo.ModifyImageResolution(CVector2<int>(width, height));
 		width = modifiedResolution.x;
@@ -917,7 +918,7 @@ void cRenderJob::UpdateParameters(const std::shared_ptr<cParameterContainer> _pa
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
 
-	if (renderData->stereo.isEnabled() && !gNetRender->IsClient())
+	if (renderData->stereo.isEnabled())
 	{
 		paramsContainer->Set("image_width", width);
 		paramsContainer->Set("image_height", height);
