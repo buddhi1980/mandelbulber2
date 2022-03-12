@@ -253,15 +253,10 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 		out->totalIters += fractOut.iters;
 
 		// don't use maxiter when limits are disabled and iterThresh mode is not used
-		if (!params.limitsEnabled)
-		{
-			if (!params.common.iterThreshMode) out->maxiter = false;
-		}
-		else
-		{
-			// never use maxiter if normal vectors are calculated
-			if (in.normalCalculationMode) out->maxiter = false;
-		}
+		if (!params.common.iterThreshMode) out->maxiter = false;
+
+		// never use maxiter if normal vectors are calculated
+		if (in.normalCalculationMode) out->maxiter = false;
 
 		if (out->maxiter) distance = 0.0;
 
@@ -388,10 +383,13 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 
 		// if (distance < 1e-20) distance = 1e-20;
 
-		if (maxiter)
-		{
-			distance = 0;
-		}
+		// don't use maxiter when limits are disabled and iterThresh mode is not used
+		if (!params.common.iterThreshMode) out->maxiter = false;
+
+		// never use maxiter if normal vectors are calculated
+		if (in.normalCalculationMode) out->maxiter = false;
+
+		if (out->maxiter) distance = 0.0;
 
 		if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
