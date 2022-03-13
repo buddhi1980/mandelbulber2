@@ -36,6 +36,7 @@
 
 #include "camera_target.hpp"
 #include "parameters.hpp"
+#include "common_math.h"
 
 cLight::cLight()
 {
@@ -54,8 +55,8 @@ cLight::cLight(int _id, const std::shared_ptr<cParameterContainer> lightParam, b
 const QStringList cLight::paramsList = {"is_defined", "enabled", "cast_shadows", "penetrating",
 	"relative_position", "volumetric", "cone_angle", "cone_soft_angle", "intensity", "visibility",
 	"volumetric_visibility", "size", "soft_shadow_cone", "contour_sharpness", "position", "rotation",
-	"alpha", "beta", "color", "type", "decayFunction", "file_texture", "repeat_texture",
-	"projection_horizonal_angle", "projection_vertical_angle"};
+	"use_target_point", "target", "alpha", "beta", "color", "type", "decayFunction", "file_texture",
+	"repeat_texture", "projection_horizonal_angle", "projection_vertical_angle"};
 
 void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> lightParam,
 	bool loadTextures, bool quiet, bool useNetRender)
@@ -279,11 +280,24 @@ CVector3 cLight::CalculateLightVector(const CVector3 &point, double delta, doubl
 	}
 	else
 	{
-		CVector3 d = position - point;
+		CVector3 d = CalculateBeam(position, target) - point;
 		lightVector = d;
 		lightVector.Normalize();
 		outDistance = d.Length();
 	}
 
 	return lightVector;
+}
+
+CVector3 cLight::CalculateBeam(const CVector3 &point1, const CVector3 &point2) const
+{
+	if (type == cLight::lightBeam)
+	{
+		CVector3 direction = point2 - point1;
+		return point1 + direction * Random(10000) / 10000.0;
+	}
+	else
+	{
+		return point1;
+	}
 }

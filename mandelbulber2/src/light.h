@@ -70,6 +70,7 @@ public:
 	float CalculateCone(const CVector3 &lightVector, sRGBFloat &outColor) const;
 	CVector3 CalculateLightVector(const CVector3 &point, double delta, double resolution,
 		double viewDistanceMax, double &outDistance) const;
+	CVector3 CalculateBeam(const CVector3 &point1, const CVector3 &point2) const;
 
 	static const QStringList paramsList;
 
@@ -78,7 +79,8 @@ public:
 		lightDirectional = 0,
 		lightPoint = 1,
 		lightConical = 2,
-		lightProjection = 3
+		lightProjection = 3,
+		lightBeam = 4
 	};
 
 	enum enumLightDecayFunction

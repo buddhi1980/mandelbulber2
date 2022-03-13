@@ -455,9 +455,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					double lastMiniSteps = -1.0;
 					double miniStep;
 
+					CVector3 lightPosition = light->CalculateBeam(light->position, light->target);
+
 					for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 					{
-						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
+						CVector3 lightDistVect = point - input.viewVector * miniSteps - lightPosition;
 						double lightDist = lightDistVect.Length();
 						double lightSize = sqrt(light->intensity) * light->size;
 

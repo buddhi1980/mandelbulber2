@@ -147,6 +147,11 @@
             <string>Projection</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>Beam</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="6" column="0">
