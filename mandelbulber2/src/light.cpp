@@ -71,6 +71,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	relativePosition = lightParam->Get<bool>(Name("relative_position", id));
 	repeatTexture = lightParam->Get<bool>(Name("repeat_texture", id));
 	volumetric = lightParam->Get<bool>(Name("volumetric", id));
+	useTargetPoint = lightParam->Get<bool>(Name("use_target_point", id));
 
 	double allLightsIntensity = lightParam->Get<double>("all_lights_intensity");
 	double allLightsVisibility = lightParam->Get<double>("all_lights_visibility");
@@ -86,6 +87,7 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	contourSharpness = lightParam->Get<double>(Name("contour_sharpness", id));
 
 	rotation = lightParam->Get<CVector3>(Name("rotation", id)) / 180.8 * M_PI;
+
 	if (type == lightDirectional)
 	{
 		rotation *= CVector3(1.0, -1.0, 1.0);
@@ -100,9 +102,9 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 	if (relativePosition)
 	{
 		CVector3 camera = lightParam->Get<CVector3>("camera");
-		CVector3 target = lightParam->Get<CVector3>("target");
+		CVector3 camTarget = lightParam->Get<CVector3>("target");
 		CVector3 top = lightParam->Get<CVector3>("camera_top");
-		cCameraTarget cameraTarget(camera, target, top);
+		cCameraTarget cameraTarget(camera, camTarget, top);
 
 		// qDebug() << camera.Debug() << target.Debug() << top.Debug();
 
@@ -111,30 +113,80 @@ void cLight::setParameters(int _id, const std::shared_ptr<cParameterContainer> l
 																		+ cameraTarget.GetTopVector() * deltaPosition.y
 																		+ cameraTarget.GetRightVector() * deltaPosition.x;
 		position = camera + deltaPositionRotated;
-		lightDirection = (-1.0) * cameraTarget.GetForwardVector();
-		lightDirection =
-			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
-		lightDirection =
-			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
-		lightDirection =
-			lightDirection.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
 
-		lightTopVector = cameraTarget.GetTopVector();
-		lightTopVector =
-			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
-		lightTopVector =
-			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
-		lightTopVector =
-			lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
+		CVector3 deltaTarget = lightParam->Get<CVector3>(Name("target", id));
+		CVector3 deltaTargetRotated = cameraTarget.GetForwardVector() * deltaTarget.z
+																	+ cameraTarget.GetTopVector() * deltaTarget.y
+																	+ cameraTarget.GetRightVector() * deltaTarget.x;
+
+		target = camera + deltaTargetRotated;
+
+		if (useTargetPoint)
+		{
+			lightDirection = position - target;
+			if (lightDirection.Length() > 0)
+				lightDirection.Normalize();
+			else
+				lightDirection = (-1.0) * cameraTarget.GetForwardVector();
+
+			lightTopVector = cameraTarget.GetTopVector();
+
+			lightRightVector = lightDirection.Cross(lightTopVector);
+			lightRightVector.Normalize();
+
+			lightTopVector = lightDirection.Cross(lightRightVector);
+			lightTopVector.Normalize();
+		}
+		else
+		{
+			lightDirection = (-1.0) * cameraTarget.GetForwardVector();
+			lightDirection =
+				lightDirection.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
+			lightDirection =
+				lightDirection.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
+			lightDirection =
+				lightDirection.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
+
+			lightTopVector = cameraTarget.GetTopVector();
+			lightTopVector =
+				lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), rotation.z);
+			lightTopVector =
+				lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), rotation.y);
+			lightTopVector =
+				lightTopVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), rotation.x);
+		}
 
 		lightRightVector = lightDirection.Cross(lightTopVector);
+		lightRightVector.Normalize();
 	}
 	else
 	{
 		position = lightParam->Get<CVector3>(Name("position", id));
-		lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
-		lightTopVector = rotMatrix.RotateVector(CVector3(0.0, 0.0, 1.0));
-		lightRightVector = rotMatrix.RotateVector(CVector3(-1.0, 0.0, 0.0));
+		target = lightParam->Get<CVector3>(Name("target", id));
+
+		if (useTargetPoint)
+		{
+			target = lightParam->Get<CVector3>(Name("target", id));
+			lightDirection = position - target;
+			if (lightDirection.Length() > 0)
+				lightDirection.Normalize();
+			else
+				lightDirection = CVector3(1.0, 0.0, 0.0);
+
+			lightTopVector = CVector3(0.0, 0.0, 1.0);
+
+			lightRightVector = lightDirection.Cross(lightTopVector);
+			lightRightVector.Normalize();
+
+			lightTopVector = lightDirection.Cross(lightRightVector);
+			lightTopVector.Normalize();
+		}
+		else
+		{
+			lightDirection = rotMatrix.RotateVector(CVector3(0.0, -1.0, 0.0));
+			lightTopVector = rotMatrix.RotateVector(CVector3(0.0, 0.0, 1.0));
+			lightRightVector = rotMatrix.RotateVector(CVector3(-1.0, 0.0, 0.0));
+		}
 	}
 
 	color = toRGBFloat(lightParam->Get<sRGB>(Name("color", id)));

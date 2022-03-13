@@ -62,6 +62,10 @@ cLightEditor::cLightEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cLight
 		&cLightEditor::slotChangedLightAngles);
 	connect(ui->checkBox_relative_position, &MyCheckBox::stateChanged, this,
 		&cLightEditor::slotChangedRelativeMode);
+	connect(ui->checkBox_use_target_point, &MyCheckBox::stateChanged, this,
+		&cLightEditor::slotChangedUseTarget);
+
+	slotChangedUseTarget(false);
 }
 
 cLightEditor::~cLightEditor()
@@ -145,4 +149,25 @@ void cLightEditor::slotChangedLightAngles(double alpha, double beta)
 void cLightEditor::slotChangedRelativeMode(int state)
 {
 	ui->widget_angle_preview->SetRelativeMode(bool(state));
+}
+
+void cLightEditor::slotChangedUseTarget(int state)
+{
+	ui->label_angle->setVisible(!state);
+	ui->label_horizontal->setVisible(!state);
+	ui->label_vertical->setVisible(!state);
+	ui->label_roll->setVisible(!state);
+
+	ui->spinboxd3_rotation_x->setVisible(!state);
+	ui->spinboxd3_rotation_y->setVisible(!state);
+	ui->spinboxd3_rotation_z->setVisible(!state);
+
+	ui->label_target->setVisible(state);
+	ui->label_target_x->setVisible(state);
+	ui->label_target_y->setVisible(state);
+	ui->label_target_z->setVisible(state);
+
+	ui->vect3_target_x->setVisible(state);
+	ui->vect3_target_y->setVisible(state);
+	ui->vect3_target_z->setVisible(state);
 }

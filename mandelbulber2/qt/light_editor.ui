@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>557</width>
-    <height>798</height>
+    <height>1152</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -310,7 +310,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -319,24 +319,10 @@
           <property name="spacing">
            <number>2</number>
           </property>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Angle:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_24">
-            <property name="text">
-             <string>horizontal:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
+          <item row="3" column="2">
+           <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -364,21 +350,20 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label_26">
+          <item row="0" column="0" colspan="3">
+           <widget class="MyCheckBox" name="checkBox_use_target_point">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
-             <string>roll:</string>
+             <string>Use target point instead of angles</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_25">
-            <property name="text">
-             <string>vertical:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
+          <item row="2" column="2">
            <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -409,10 +394,38 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+          <item row="5" column="1">
+           <widget class="QLabel" name="label_target_y">
+            <property name="text">
+             <string>y:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_roll">
+            <property name="text">
+             <string>roll:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_vertical">
+            <property name="text">
+             <string>vertical:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_horizontal">
+            <property name="text">
+             <string>horizontal:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -437,6 +450,73 @@
             </property>
             <property name="singleStep">
              <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_angle">
+            <property name="text">
+             <string>Angle:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="label_target_x">
+            <property name="text">
+             <string>x:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLabel" name="label_target_z">
+            <property name="text">
+             <string>z:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_target">
+            <property name="text">
+             <string>Target:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="MyLineEdit" name="vect3_target_x">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="MyLineEdit" name="vect3_target_y">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="MyLineEdit" name="vect3_target_z">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>

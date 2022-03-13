@@ -93,6 +93,7 @@ public:
 	bool penetrating = false;
 	bool relativePosition = false;
 	bool repeatTexture = false;
+	bool useTargetPoint = false;
 	bool volumetric = false;
 
 	int id = -1;
@@ -112,6 +113,7 @@ public:
 
 	CVector3 position;
 	CVector3 rotation;
+	CVector3 target;
 	CVector3 lightDirection;
 	CVector3 lightTopVector;
 	CVector3 lightRightVector;

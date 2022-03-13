@@ -620,6 +620,7 @@ public:
 	void SetRotation(double angles[3]);
 	void SetRotation(double alpha, double beta, double gamma);
 	void SetRotation(const CVector3 &rotation);
+	void SetRotation(const CVector3 &direction, const CVector3 &up);
 	void SetRotation2(const CVector3 &rotation);
 	void SetRotation3(const CVector3 &rotation);
 	void SetRotation4(const CVector3 &rotation);

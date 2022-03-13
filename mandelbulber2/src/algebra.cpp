@@ -235,6 +235,29 @@ void CRotationMatrix::SetRotation(const CVector3 &rotation)
 	RotateY(rotation.z);
 }
 
+void CRotationMatrix::SetRotation(const CVector3 &direction, const CVector3 &up)
+{
+	CVector3 xaxis = up.Cross(direction);
+	xaxis.Normalize();
+
+	CVector3 yaxis = direction.Cross(xaxis);
+	yaxis.Normalize();
+
+	matrix.m11 = xaxis.x;
+	matrix.m12 = xaxis.y;
+	matrix.m13 = xaxis.z;
+
+	matrix.m21 = yaxis.x;
+	matrix.m22 = yaxis.y;
+	matrix.m23 = yaxis.z;
+
+	matrix.m31 = direction.x;
+	matrix.m32 = direction.y;
+	matrix.m33 = direction.z;
+
+	zero = false;
+}
+
 void CRotationMatrix::SetRotation2(const CVector3 &rotation)
 {
 	Null();

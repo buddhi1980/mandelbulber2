@@ -1689,6 +1689,9 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 		(lightId == 1) ? CVector3(-45.0, 45.0, 0.0) : CVector3(0.0, 0.0, 0.0), morphLinear,
 		paramStandard);
 
+	par->addParam(cLight::Name("use_target_point", lightId), false, morphLinear, paramStandard);
+	par->addParam(cLight::Name("target", lightId), newLightPosition, morphAkima, paramStandard);
+
 	// rotation parameters to keep compatibility with version <2.25
 	if (lightId == 1)
 	{
