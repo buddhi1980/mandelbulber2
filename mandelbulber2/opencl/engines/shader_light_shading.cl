@@ -34,8 +34,21 @@
 
 #ifdef AUX_LIGHTS
 
+float3 CalculateBeam(__global sLightCl *light, float3 point1, float3 point2, int *randomSeed)
+{
+	if (light->type == lightBeam)
+	{
+		float3 direction = point2 - point1;
+		return point1 + direction * Random(10000, randomSeed) / 10000.0f;
+	}
+	else
+	{
+		return point1;
+	}
+}
+
 float3 CalculateLightVector(__global sLightCl *light, float3 point, float delta, float resolution,
-	float viewDistanceMax, float *outDistance)
+	float viewDistanceMax, float *outDistance, int *randomSeed)
 {
 	float3 lightVector;
 	if (light->type == lightDirectional)
@@ -52,7 +65,7 @@ float3 CalculateLightVector(__global sLightCl *light, float3 point, float delta,
 	}
 	else
 	{
-		float3 d = light->position - point;
+		float3 d = CalculateBeam(light, light->position, light->target, randomSeed) - point;
 		lightVector = normalize(d);
 		*outDistance = length(d);
 	}
@@ -146,7 +159,7 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	float dist = 0.0f;
 
 	float3 lightVector = CalculateLightVector(light, input->point, input->delta,
-		consts->params.resolution, consts->params.viewDistanceMax, &dist);
+		consts->params.resolution, consts->params.viewDistanceMax, &dist, &input->randomSeed);
 
 	float intensity = 0.0f;
 	if (light->type == lightDirectional)

@@ -125,7 +125,7 @@
         <item row="0" column="1">
          <widget class="MyComboBox" name="comboBox_type">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of light source type&lt;/p&gt;&lt;p&gt;- Directional light - light source emitting from infinite distance at the angle defined by user&lt;/p&gt;&lt;p&gt;- Point light - light source emitting evenly around  user defined point&lt;/p&gt;&lt;p&gt;- Spot light - light source emitting conical beam&lt;/p&gt;&lt;p&gt;- Projection - light source emitting beam of light colorized by texture image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of light source type&lt;/p&gt;&lt;p&gt;- Directional light - light source emitting from infinite distance at the angle defined by user&lt;/p&gt;&lt;p&gt;- Point light - light source emitting evenly around user defined point&lt;/p&gt;&lt;p&gt;- Spot light - light source emitting conical beam&lt;/p&gt;&lt;p&gt;- Projection - light source emitting beam of light colorized by texture image&lt;/p&gt;&lt;p&gt;- Beam - linear beam of the light (requires Monte Carlo rendering mode)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">

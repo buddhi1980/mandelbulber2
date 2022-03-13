@@ -44,7 +44,8 @@ typedef enum
 	lightDirectional = 0,
 	lightPoint = 1,
 	lightConical = 2,
-	lightProjection = 3
+	lightProjection = 3,
+	lightBeam = 4
 } enumLightTypeCl;
 
 typedef enum
@@ -89,6 +90,7 @@ typedef struct
 
 	cl_float3 position;
 	cl_float3 rotation;
+	cl_float3 target;
 	cl_float3 lightDirection;
 	cl_float3 lightTopVector;
 	cl_float3 lightRightVector;

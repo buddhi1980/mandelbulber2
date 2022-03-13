@@ -523,6 +523,7 @@ void cOpenClDynamicData::BuildLightsData(
 
 		lightCl.position = toClFloat3(light->position);
 		lightCl.rotation = toClFloat3(light->rotation);
+		lightCl.target = toClFloat3(light->target);
 		lightCl.lightDirection = toClFloat3(light->lightDirection);
 		lightCl.lightTopVector = toClFloat3(light->lightTopVector);
 		lightCl.lightRightVector = toClFloat3(light->lightRightVector);

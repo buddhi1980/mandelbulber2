@@ -133,8 +133,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			{
 				float distanceLight = 0.0f;
 
-				float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
-					consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+				float3 lightVectorTemp =
+					CalculateLightVector(light, point, input2.delta, consts->params.resolution,
+						consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
 
 				float intensity = 0.0f;
 				if (light->type == lightDirectional)
@@ -272,8 +273,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					{
 						float distanceLight = 0.0f;
 
-						float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
-							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+						float3 lightVectorTemp =
+							CalculateLightVector(light, point, input2.delta, consts->params.resolution,
+								consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
 
 						float intensity = 0.0f;
 						if (light->type == lightDirectional)
@@ -359,8 +361,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					{
 						float distanceLight = 0.0f;
 
-						float3 lightVectorTemp = CalculateLightVector(light, point, input2.delta,
-							consts->params.resolution, consts->params.viewDistanceMax, &distanceLight);
+						float3 lightVectorTemp =
+							CalculateLightVector(light, point, input2.delta, consts->params.resolution,
+								consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
 
 						float intensity = 0.0f;
 						if (light->type == lightDirectional)
@@ -414,9 +417,12 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					float lastMiniSteps = -1.0f;
 					float miniStep = 0.0f;
 
+					float3 lightPosition =
+						CalculateBeam(light, light->position, light->target, &input->randomSeed);
+
 					for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
 					{
-						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
+						float3 lightDistVect = point - input->viewVector * miniSteps - lightPosition;
 						float lightDist = fast_length(lightDistVect);
 						float lightSize = native_sqrt(light->intensity) * light->size;
 

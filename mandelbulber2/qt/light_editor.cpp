@@ -106,9 +106,34 @@ void cLightEditor::slotChangedLightType(int index)
 {
 	cLight::enumLightType lightType = static_cast<cLight::enumLightType>(index);
 
+	bool useTarget = ui->checkBox_use_target_point->isChecked();
+
 	ui->groupBox_cone_options->setEnabled(lightType == cLight::lightConical);
 	ui->groupBox_projection_options->setEnabled(lightType == cLight::lightProjection);
 	ui->widget_angle_preview->setEnabled(lightType == cLight::lightDirectional);
+
+	bool visibleTarget = useTarget || (lightType == cLight::lightBeam);
+	bool visibleAngle = !useTarget && (lightType != cLight::lightBeam);
+
+	ui->checkBox_use_target_point->setVisible(lightType != cLight::lightBeam);
+
+	ui->label_angle->setVisible(visibleAngle);
+	ui->label_horizontal->setVisible(visibleAngle);
+	ui->label_vertical->setVisible(visibleAngle);
+	ui->label_roll->setVisible(visibleAngle);
+
+	ui->spinboxd3_rotation_x->setVisible(visibleAngle);
+	ui->spinboxd3_rotation_y->setVisible(visibleAngle);
+	ui->spinboxd3_rotation_z->setVisible(visibleAngle);
+
+	ui->label_target->setVisible(visibleTarget);
+	ui->label_target_x->setVisible(visibleTarget);
+	ui->label_target_y->setVisible(visibleTarget);
+	ui->label_target_z->setVisible(visibleTarget);
+
+	ui->vect3_target_x->setVisible(visibleTarget);
+	ui->vect3_target_y->setVisible(visibleTarget);
+	ui->vect3_target_z->setVisible(visibleTarget);
 }
 
 void cLightEditor::slotChangedLightAngleX(double angle)
