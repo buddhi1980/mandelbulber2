@@ -27,24 +27,14 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Cayley2IFS
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations1)
-	{
-		double xTemp = SQRT_1_2 * (z.x - z.y);
-		z.y = SQRT_1_2 * (z.y + z.x);
-		z.x = xTemp;
-	}
-
-	if (fractal->transformCommon.functionEnabledM)
+	if (fractal->transformCommon.functionEnabledDFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
-	z += fractal->transformCommon.offset000;
 
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
@@ -53,13 +43,34 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	double mx = z.x * z.x;
-	double my = z.y * z.y;
-	double m = 2.0 * mx * my + mx * mx + my * my;
-	double n = m + 4.0 * z.x * z.y + 1.0;
-	z.y = 2.0 * (my - mx) / n;
-	z.x = fractal->transformCommon.scale2 * (m - 1.0) / n;
-	z.z *= fractal->transformCommon.scale1;
+	double ang = atan2(z.y, z.x) / M_PI_2x;
+
+	z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+
+
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{	double Voff = fractal->transformCommon.scale2;
+		double g = z.z - 2.0 * Voff * ang + Voff;
+		z.z = g - 2.0 * Voff * floor(g / (2.0 * Voff)) - Voff;
+	}
+
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+
+		double stretch = fractal->transformCommon.scaleA2;
+		z.x = (stretch * ang + 1.0) - 2.0 * floor((stretch * ang + 1.0) / 2.0) - 1.0;
+	}
+	ang = fractal->transformCommon.int6 * M_PI_2 * ang;
+	double cosA = cos(ang);
+	double sinB = sin(ang);
+	double temp = z.z;
+	z.z = z.y * cosA + z.z * sinB;
+	z.y = temp * cosA + z.y * -sinB;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		z = fractal->transformCommon.offset000 - fabs(z);
+		//z += fractal->transformCommon.offset000;
+	}
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
