@@ -465,7 +465,7 @@ enum enumFractalFormula
 	// 2.28
 	transfSphericalFoldSmooth = 1141,
 	transfCayley2V1 = 1142,
-
+	transfSincosV2 = 1143,
 
 	// mandelbulber transfdIFS
 	// 2.20
