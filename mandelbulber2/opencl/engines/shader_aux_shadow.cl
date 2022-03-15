@@ -166,7 +166,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		if (goThrough && dist < dist_thresh)
 		{
 
-			double opacityGradient = 1.0;
+			float opacityGradient = 1.0f;
 #if defined(USE_INNER_COLORING) && defined(USE_DIFFUSE_GRADIENT)
 			if (material->insideColoringEnable && material->diffuseGradientEnable)
 			{

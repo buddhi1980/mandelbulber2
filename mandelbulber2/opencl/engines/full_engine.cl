@@ -33,8 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.27
-
+#define MANDELBULBER_VERSION 2.28 - dev001
 int GetInteger(int byte, __global char *array)
 {
 	__global int *intPointer = (__global int *)&array[byte];
@@ -47,7 +46,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	int initRandomSeed, float2 antiAliasingOffset)
 {
 	// get actual pixel
-	const int imageX = get_global_id(0);
+	int imageX = get_global_id(0);
 	const int imageY = get_global_id(1);
 	const int cl_offsetX = get_global_offset(0);
 	const int cl_offsetY = get_global_offset(1);
