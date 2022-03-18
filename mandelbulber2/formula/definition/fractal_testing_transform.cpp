@@ -43,34 +43,41 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	double ang = atan2(z.y, z.x) / M_PI_2x;
+	z += fractal->transformCommon.offset000;
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fractal->transformCommon.scale1;
 
-	z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+	// flip x,z and x = -x
+	CVector4 zc = z;
+	double u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
+	double r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
+	r = (r < 0.0f) ? 0.0f : sqrt(r);
+	double t = u + fractal->transformCommon.offsetC0;
+	t = (t < 0.0f) ? 0.0f : sqrt(t);
+	t = r - t;
 
 
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{	double Voff = fractal->transformCommon.scale2;
-		double g = z.z - 2.0 * Voff * ang + Voff;
-		z.z = g - 2.0 * Voff * floor(g / (2.0 * Voff)) - Voff;
-	}
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+		aux.dist = min(aux.dist, t);
+	else
+		aux.dist = t;
 
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
+	double limit = fractal->transformCommon.offset0;
+	if (limit > 0.0f) aux.dist = min(aux.dist, fabs(z.x) - limit);
 
-		double stretch = fractal->transformCommon.scaleA2;
-		z.x = (stretch * ang + 1.0) - 2.0 * floor((stretch * ang + 1.0) / 2.0) - 1.0;
-	}
-	ang = fractal->transformCommon.int6 * M_PI_2 * ang;
-	double cosA = cos(ang);
-	double sinB = sin(ang);
-	double temp = z.z;
-	z.z = z.y * cosA + z.z * sinB;
-	z.y = temp * cosA + z.y * -sinB;
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		z = fractal->transformCommon.offset000 - fabs(z);
-		//z += fractal->transformCommon.offset000;
-	}
+	aux.dist = max (aux.dist, fabs(z.z) - fractal->transformCommon.offsetA0);
+	aux.dist *= fractal->transformCommon.scaleA1;
+
+
+	//	z += fractal->transformCommon.offsetA000;
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
+
+
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;

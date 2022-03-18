@@ -471,7 +471,7 @@
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>-999</number>
        </property>
        <property name="maximum">
         <number>999</number>
@@ -486,7 +486,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
-      <string notr="true">offset nnn</string>
+      <string notr="true">abs() offset</string>
      </property>
     </widget>
    </item>

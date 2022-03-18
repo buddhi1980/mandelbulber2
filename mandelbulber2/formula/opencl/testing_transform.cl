@@ -23,62 +23,45 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
-	if (fractal->transformCommon.rotationEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR1)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}
-
-	REAL ang = atan2(z.y, z.x) / M_PI_2x_F;
-
-	z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+	z += fractal->transformCommon.offset000;
+	z *= fractal->transformCommon.scale1;
+	aux->DE *= fractal->transformCommon.scale1;
 
 
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{	REAL Voff = fractal->transformCommon.scale2;
-		REAL g = z.z - 2.0f * Voff * ang + Voff;
-		z.z = g - 2.0f * Voff * floor(g / (2.0f * Voff)) - Voff;
-	}
+	REAL4 zc = z;
+	REAL u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
+	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
+	r = (r < 0.0f) ? 0.0f : sqrt(r);
+	REAL t = u + fractal->transformCommon.offsetC0;
+	t = (t < 0.0f) ? 0.0f : sqrt(t);
+	t = r - t;
 
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
 
-		REAL stretch = fractal->transformCommon.scaleA2;
-		z.x = (stretch * ang + 1.0f) - 2.0f * floor((stretch * ang + 1.0f) / 2.0f) - 1.0f;
-	}
-	ang = fractal->transformCommon.int6 * M_PI_2_F * ang;
-	REAL cosA = native_cos(ang);
-	REAL sinB = native_sin(ang);
-	REAL temp = z.z;
-	z.z = z.y * cosA + z.z * sinB;
-	z.y = temp * cosA + z.y * -sinB;
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		z = fractal->transformCommon.offset000 - fabs(z);
-		//z += fractal->transformCommon.offset000;
-	}
+	if (aux->i >= fractal->transformCommon.startIterationsG
+			&& aux->i < fractal->transformCommon.stopIterationsG)
+		aux->dist = min(aux->dist, t);
+	else
+		aux->dist = t;
+
+	REAL limit = fractal->transformCommon.offset0;
+
+	if (limit > 0.0f) aux->dist = min(aux->dist, fabs(z.x) - limit);
+
+	REAL limitA = fractal->transformCommon.offsetA0;
+	aux->dist = max (aux->dist, fabs(z.z) - limitA);
+	aux->dist *= fractal->transformCommon.scaleA1;
+
+
+	//	z += fractal->transformCommon.offsetA000;
+
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux->i >= fractal->transformCommon.startIterationsZc
+			&& aux->i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
-	/*
-	// aux->color
-	if (aux->i >= fractal->foldColor.startIterationsA && aux->i < fractal->foldColor.stopIterationsA)
-	{
-		REAL addColor = 0.0f;
-		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
-		aux->color += addColor;
-	}*/
+
 	return z;
-
-
-
-	/*
-
-
-
-*/
 }

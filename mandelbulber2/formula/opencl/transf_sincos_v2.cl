@@ -42,8 +42,8 @@ REAL4 TransfSincosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 	if (fractal->transformCommon.functionEnabledM)
 	{
-		REAL stretch = fractal->transformCommon.scaleA2;
-		z.x = (stretch * ang + 1.0f) - 2.0f * floor((stretch * ang + 1.0f) / 2.0f) - 1.0f;
+		z.x = (fractal->transformCommon.scaleA2 * ang + 1.0f)
+				- 2.0f * floor((fractal->transformCommon.scaleA2 * ang + 1.0f) / 2.0f) - 1.0f;
 	}
 	ang = fractal->transformCommon.int6 * M_PI_2_F * ang;
 	REAL cosA = native_cos(ang);

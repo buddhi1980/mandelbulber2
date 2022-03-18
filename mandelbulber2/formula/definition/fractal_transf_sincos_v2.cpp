@@ -53,9 +53,8 @@ void cFractalTransfSincosV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 	if (fractal->transformCommon.functionEnabledM)
 	{
-
-		double stretch = fractal->transformCommon.scaleA2;
-		z.x = (stretch * ang + 1.0) - 2.0 * floor((stretch * ang + 1.0) / 2.0) - 1.0;
+		z.x = (fractal->transformCommon.scaleA2 * ang + 1.0)
+				- 2.0 * floor((fractal->transformCommon.scaleA2 * ang + 1.0) / 2.0) - 1.0;
 	}
 
 	ang = fractal->transformCommon.int6 * M_PI_2 * ang;
