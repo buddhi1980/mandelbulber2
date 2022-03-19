@@ -15,14 +15,31 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.functionEnabledDFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
+	if (fractal->transformCommon.startIterationsP != 0)
+	{
+		z.y = fabs(z.y);
+		REAL psi = M_PI_F / fractal->transformCommon.startIterationsP;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = native_cos(psi) * len;
+		z.y = native_sin(psi) * len;
+	}
+
+	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
 		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR1)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	z += fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fractal->transformCommon.scale1;
@@ -45,10 +62,14 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	REAL limit = fractal->transformCommon.offset0;
 
-	if (limit > 0.0f) aux->dist = min(aux->dist, fabs(z.x) - limit);
+	if (fractal->transformCommon.offset0 > 0.0f)
+		aux->dist = min(aux->dist, fabs(z.x) - fractal->transformCommon.offset0);
 
-	REAL limitA = fractal->transformCommon.offsetA0;
-	aux->dist = max (aux->dist, fabs(z.z) - limitA);
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+		aux->dist = max(aux->dist, fabs(z.z) - fractal->transformCommon.offsetA0);
+
+
 	aux->dist *= fractal->transformCommon.scaleA1;
 
 

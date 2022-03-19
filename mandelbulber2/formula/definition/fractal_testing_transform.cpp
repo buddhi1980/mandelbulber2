@@ -27,14 +27,26 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledDFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
+	if (fractal->transformCommon.startIterationsP != 0)
+	{
+		z.y = fabs(z.y);
+		double psi = M_PI / fractal->transformCommon.startIterationsP;
+		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
+	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
+
+
+
 
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
@@ -47,9 +59,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fractal->transformCommon.scale1;
 
-	// flip x,z and x = -x
 	CVector4 zc = z;
-	double u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
+	double u = pow(zc.x, fractal->transformCommon.int2);
 	double r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
 	r = (r < 0.0f) ? 0.0f : sqrt(r);
 	double t = u + fractal->transformCommon.offsetC0;
@@ -63,11 +74,15 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	else
 		aux.dist = t;
 
-	double limit = fractal->transformCommon.offset0;
-	if (limit > 0.0f) aux.dist = min(aux.dist, fabs(z.x) - limit);
 
-	aux.dist = max (aux.dist, fabs(z.z) - fractal->transformCommon.offsetA0);
-	aux.dist *= fractal->transformCommon.scaleA1;
+	if (fractal->transformCommon.offset0 > 0.0f)
+		aux.dist = min(aux.dist, fabs(z.x) - fractal->transformCommon.offset0);
+
+	// z.z clip
+	if (fractal->transformCommon.functionEnabledCFalse)
+		aux.dist = max(aux.dist, fabs(z.z) - fractal->transformCommon.offsetA0);
+
+	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + 1.0);
 
 
 	//	z += fractal->transformCommon.offsetA000;
