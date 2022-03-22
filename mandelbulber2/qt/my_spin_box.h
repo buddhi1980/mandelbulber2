@@ -68,6 +68,7 @@ protected:
 
 private slots:
 	void slotResetToDefault();
+	void slotZeroValue();
 	void slotDoubleValue();
 	void slotHalfValue();
 	void slotSliderPressed();

@@ -129,6 +129,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 		slider->show();
 
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
+		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(slider, SIGNAL(sliderPressed()), this, SLOT(slotSliderPressed()));
@@ -153,6 +154,11 @@ void MySpinBox::focusOutEvent(QFocusEvent *event)
 void MySpinBox::slotResetToDefault()
 {
 	resetToDefault();
+}
+
+void MySpinBox::slotZeroValue()
+{
+	setValue(0);
 }
 
 void MySpinBox::slotDoubleValue()
