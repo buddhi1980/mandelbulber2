@@ -402,6 +402,7 @@ void cNavigatorWindow::StartRender()
 	cRenderingConfiguration config;
 	config.DisableNetRender();
 	config.ForceFastPreview();
+	config.EnableIgnoreErrors();
 
 	if (!renderJob->Init(cRenderJob::still, config))
 	{
