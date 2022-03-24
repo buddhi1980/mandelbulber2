@@ -15,7 +15,9 @@
 
 REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.startIterationsP != 0)
+	if (fractal->transformCommon.functionEnabledCxFalse
+		&& aux->i >= fractal->transformCommon.startIterationsC
+		&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
 		z.y = fabs(z.y);
 		REAL psi = M_PI_F / fractal->transformCommon.startIterationsP;
@@ -23,6 +25,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
 		z.y = native_sin(psi) * len;
+		z += fractal->transformCommon.offsetA000;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsD
@@ -70,7 +73,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->dist = max(aux->dist, fabs(z.z) - fractal->transformCommon.offsetA0);
 
 
-	aux->dist *= fractal->transformCommon.scaleA1;
+	aux->dist *= fractal->transformCommon.scaleA1 / (aux->DE + fractal->analyticDE.offset1);
 
 
 	//	z += fractal->transformCommon.offsetA000;
@@ -79,9 +82,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 
 	return z;

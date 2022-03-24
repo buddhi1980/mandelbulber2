@@ -27,7 +27,9 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.startIterationsP != 0)
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		z.y = fabs(z.y);
 		double psi = M_PI / fractal->transformCommon.startIterationsP;
@@ -35,6 +37,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
+		z += fractal->transformCommon.offsetA000;
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsD
@@ -82,18 +85,14 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (fractal->transformCommon.functionEnabledCFalse)
 		aux.dist = max(aux.dist, fabs(z.z) - fractal->transformCommon.offsetA0);
 
-	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + 1.0);
+	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + fractal->analyticDE.offset1);
 
 
-	//	z += fractal->transformCommon.offsetA000;
+	//
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-
-
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
