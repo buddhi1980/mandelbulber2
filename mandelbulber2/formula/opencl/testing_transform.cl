@@ -47,7 +47,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fractal->transformCommon.scale1;
 
-
 	REAL4 zc = z;
 	REAL u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
 	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
@@ -56,33 +55,35 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
-
 	if (aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
-		aux->dist = min(aux->dist, t);
-	else
-		aux->dist = t;
-
-	REAL limit = fractal->transformCommon.offset0;
+		t = min(aux->dist, t);
 
 	if (fractal->transformCommon.offset0 > 0.0f)
-		aux->dist = min(aux->dist, fabs(z.x) - fractal->transformCommon.offset0);
-
+		t = min(t, fabs(z.x) - fractal->transformCommon.offset0);
 
 	if (fractal->transformCommon.functionEnabledCFalse)
-		aux->dist = max(aux->dist, fabs(z.z) - fractal->transformCommon.offsetA0);
+		t = max(t, fabs(z.z) - fractal->transformCommon.offsetA0);
 
+	REAL colDist = aux->dist;
+	aux->dist = t;
 
-	aux->dist *= fractal->transformCommon.scaleA1 / (aux->DE + fractal->analyticDE.offset1);
+	// aux.color
+	if (aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		REAL addColor = 0.0;
+		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
+		aux->color += addColor;
+	}
 
-
-	//	z += fractal->transformCommon.offsetA000;
+	aux->dist *= fractal->transformCommon.scaleA1 / (aux->DE + fractal->analyticDE.offset0);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
 
 	return z;
 }
