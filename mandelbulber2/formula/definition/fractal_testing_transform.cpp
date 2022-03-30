@@ -27,7 +27,9 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.startIterationsP != 0)
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		z.y = fabs(z.y);
 		double psi = M_PI / fractal->transformCommon.startIterationsP;
@@ -35,6 +37,7 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
+		z += fractal->transformCommon.offsetA000;
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsD
@@ -67,33 +70,35 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
-
-	if (aux.i >= fractal->transformCommon.startIterationsG
-			&& aux.i < fractal->transformCommon.stopIterationsG)
-		aux.dist = min(aux.dist, t);
-	else
-		aux.dist = t;
-
-
 	if (fractal->transformCommon.offset0 > 0.0f)
-		aux.dist = min(aux.dist, fabs(z.x) - fractal->transformCommon.offset0);
+		t = min(t, fabs(z.x) - fractal->transformCommon.offset0);
 
 	// z.z clip
 	if (fractal->transformCommon.functionEnabledCFalse)
-		aux.dist = max(aux.dist, fabs(z.z) - fractal->transformCommon.offsetA0);
+		t = max(t, fabs(z.z) - fractal->transformCommon.offsetA0);
 
-	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + 1.0);
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+				t = min(aux.dist, t);
 
+	double colDist = aux.dist;
+	aux.dist = t;
 
-	//	z += fractal->transformCommon.offsetA000;
+	// aux.color
+	if (aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double addColor = 0.0;
+		if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		if (aux.dist != colDist) addColor += fractal->foldColor.difs0000.y;
+		aux.color += addColor;
+	}
+
+	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + fractal->analyticDE.offset0);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-
-
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

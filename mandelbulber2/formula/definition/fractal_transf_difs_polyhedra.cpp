@@ -109,7 +109,6 @@ void cFractalTransfDIFSPolyhedra::FormulaCode(CVector4 &z, const sFractal *fract
 		d = min(d, dv);
 	}
 
-
 	aux.dist = min(aux.dist, d) / aux.DE;
 	if (fractal->transformCommon.functionEnabledzFalse) z = zc;
 
