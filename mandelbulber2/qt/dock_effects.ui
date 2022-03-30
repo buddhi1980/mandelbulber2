@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -3275,7 +3275,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
             <x>0</x>
             <y>0</y>
             <width>553</width>
-            <height>1092</height>
+            <height>1110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3496,71 +3496,6 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_random_lights_center_of_distribution">
-                  <property name="text">
-                   <string>Center of distribution:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_random_lights_number">
-                  <property name="text">
-                   <string>Number of random
-lights:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_random_lights_distribution_radius">
-                  <property name="text">
-                   <string>Distribution radius
-of lights:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_visibility"/>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QLabel" name="label_distribution_y">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>y:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="0" colspan="3">
-                 <widget class="MyCheckBox" name="checkBox_random_lights_penetrating">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Penetrating</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="0" colspan="3">
-                 <widget class="MyCheckBox" name="checkBox_random_lights_cast_shadows">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Cast shadows</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="10" column="0">
                  <widget class="QLabel" name="label_random_lights_intensity_3">
                   <property name="text">
@@ -3568,26 +3503,38 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="2">
-                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_z">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_random_lights_center_of_distribution">
+                  <property name="text">
+                   <string>Center of distribution:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="8" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_intensity"/>
                 </item>
-                <item row="3" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
+                <item row="2" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
                 </item>
-                <item row="9" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity_2">
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity">
                   <property name="text">
-                   <string>Size:</string>
+                   <string>Intensity:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_random_lights_max_distance_from_fractal">
+                  <property name="text">
+                   <string>Maximum distance
+from fractal:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="14" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_5">
+                  <property name="text">
+                   <string>Coloring type:</string>
                   </property>
                  </widget>
                 </item>
@@ -3601,26 +3548,68 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity">
+                <item row="15" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_6">
                   <property name="text">
-                   <string>Intensity:</string>
+                   <string>First color:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_2">
+                  <property name="text">
+                   <string>Size:</string>
+                  </property>
+                 </widget>
                 </item>
-                <item row="7" column="0" colspan="3">
-                 <widget class="QPushButton" name="pushButton_place_random_lights_by_mouse">
+                <item row="11" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_4">
+                  <property name="text">
+                   <string>Soft shadow cone:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_random_lights_random_seed">
+                  <property name="text">
+                   <string>Random Seed:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="14" column="2">
+                 <widget class="MyComboBox" name="comboBox_random_lights_coloring_type">
+                  <item>
+                   <property name="text">
+                    <string>Random colors</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Single color</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Two colors</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Two colors based on distance</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="0" column="1" colspan="2">
+                 <widget class="MySpinBox" name="spinboxInt_random_lights_number">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="text">
-                   <string>Place random light center by mouse</string>
+                  <property name="maximum">
+                   <number>999999</number>
                   </property>
                  </widget>
                 </item>
@@ -3637,6 +3626,32 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="5" column="1">
+                 <widget class="QLabel" name="label_distribution_y">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>y:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="0" colspan="3">
+                 <widget class="MyCheckBox" name="checkBox_random_lights_cast_shadows">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Cast shadows</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="6" column="1">
                  <widget class="QLabel" name="label_distribution_z">
                   <property name="sizePolicy">
@@ -3650,6 +3665,37 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_random_lights_number">
+                  <property name="text">
+                   <string>Number of random
+lights:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0" colspan="3">
+                 <widget class="QPushButton" name="pushButton_place_random_lights_by_mouse">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Place random light center by mouse</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="16" column="0">
+                 <widget class="QLabel" name="label_random_lights_intensity_7">
+                  <property name="text">
+                   <string>Second color:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
+                </item>
                 <item row="4" column="2">
                  <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_x">
                   <property name="sizePolicy">
@@ -3660,11 +3706,21 @@ of lights:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_random_lights_max_distance_from_fractal">
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_random_lights_distribution_radius">
                   <property name="text">
-                   <string>Maximum distance
-from fractal:</string>
+                   <string>Distribution radius
+of lights:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="MyLineEdit" name="vect3_random_lights_distribution_center_z">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                  </widget>
                 </item>
@@ -3681,88 +3737,43 @@ from fractal:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1" colspan="2">
-                 <widget class="MySpinBox" name="spinboxInt_random_lights_number">
+                <item row="11" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone"/>
+                </item>
+                <item row="13" column="0" colspan="3">
+                 <widget class="MyCheckBox" name="checkBox_random_lights_penetrating">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="maximum">
-                   <number>999999</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_random_lights_random_seed">
                   <property name="text">
-                   <string>Random Seed:</string>
+                   <string>Penetrating</string>
                   </property>
                  </widget>
                 </item>
                 <item row="9" column="2">
                  <widget class="MyLineEdit" name="logedit_random_lights_size"/>
                 </item>
-                <item row="11" column="2">
-                 <widget class="MyLineEdit" name="logedit_random_lights_soft_shadow_cone"/>
+                <item row="10" column="2">
+                 <widget class="MyLineEdit" name="logedit_random_lights_visibility"/>
                 </item>
-                <item row="11" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity_4">
-                  <property name="text">
-                   <string>Soft shadow cone:</string>
+                <item row="16" column="2">
+                 <widget class="MyColorButton" name="colorButton_random_lights_color_2" native="true">
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="15" column="2">
+                 <widget class="MyColorButton" name="colorButton_random_lights_color" native="true">
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
                </layout>
-              </item>
-              <item>
-               <widget class="MyGroupBox" name="groupCheck_random_lights_one_color_enable">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled then all random light sources have the same color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="title">
-                 <string>Single color random lights</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <property name="leftMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_12">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_random_lights_color">
-                     <property name="text">
-                      <string>Single color:</string>
-                     </property>
-                     <property name="wordWrap">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="MyColorButton" name="colorButton_random_lights_color" native="true">
-                     <property name="text" stdset="0">
-                      <string>PushButton</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
               </item>
              </layout>
             </widget>

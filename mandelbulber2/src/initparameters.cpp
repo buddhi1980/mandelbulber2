@@ -387,12 +387,15 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("random_lights_group", false, morphLinear, paramStandard);
 	par->addParam("random_lights_one_color_enable", false, morphLinear, paramStandard);
 	par->addParam("random_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("random_lights_color_2", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("random_lights_intensity", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("random_lights_size", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("random_lights_visibility", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("random_lights_soft_shadow_cone", 1.0, 0.0, 1e10, morphLinear, paramStandard);
 	par->addParam("random_lights_penetrating", true, morphLinear, paramStandard);
 	par->addParam("random_lights_cast_shadows", true, morphLinear, paramStandard);
+	par->addParam("random_lights_coloring_type", 0, morphNone, paramStandard,
+		QStringList({"random", "single", "two", "distance"}));
 
 	// fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);

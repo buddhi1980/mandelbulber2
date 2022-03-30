@@ -75,6 +75,14 @@ public:
 	static QList<int> GetListOfLights(std::shared_ptr<cParameterContainer> params);
 
 private:
+	enum class enumRandomLightsColoringType
+	{
+		random = 0,
+		single = 1,
+		two = 2,
+		distance = 3
+	};
+
 	void Copy(const cLights &);
 
 	std::vector<cLight> lights;

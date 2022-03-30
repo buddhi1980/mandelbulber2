@@ -87,12 +87,11 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 	for (auto &parameterName : listOfParameters)
 	{
 		const int lengthOfPrefix = 5;
-        if (parameterName.left(lengthOfPrefix) == "light")
+		if (parameterName.left(lengthOfPrefix) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int lightIndex =
-                parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
-            if (parameterName.mid(positionOfDash + 1) == "is_defined")
+			int lightIndex = parameterName.mid(lengthOfPrefix, positionOfDash - lengthOfPrefix).toInt();
+			if (parameterName.mid(positionOfDash + 1) == "is_defined")
 			{
 				lights.push_back(cLight(lightIndex, _params, loadTextures, quiet, useNetRender));
 				isAnyLight = true;
@@ -113,14 +112,16 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 		double maxDistanceFromFractal = _params->Get<double>("random_lights_max_distance_from_fractal");
 		CVector3 randomLightsCenter = _params->Get<CVector3>("random_lights_distribution_center");
 		double distributionRadius = _params->Get<double>("random_lights_distribution_radius");
-		bool allLightsInOneColor = _params->Get<bool>("random_lights_one_color_enable");
 		sRGBFloat commonColor = toRGBFloat(_params->Get<sRGB>("random_lights_color"));
+		sRGBFloat commonColor2 = toRGBFloat(_params->Get<sRGB>("random_lights_color_2"));
 		float lightsIntensity = _params->Get<double>("random_lights_intensity");
 		float lightsSize = _params->Get<double>("random_lights_size");
 		float lightsVisibility = _params->Get<double>("random_lights_visibility");
 		float lightsSoftShadowCone = _params->Get<double>("random_lights_soft_shadow_cone");
 		bool lightsPenetrating = _params->Get<bool>("random_lights_penetrating");
 		bool lightsCastShadows = _params->Get<bool>("random_lights_cast_shadows");
+		enumRandomLightsColoringType coloringType =
+			enumRandomLightsColoringType(_params->Get<int>("random_lights_coloring_type"));
 
 		sDistanceOut distanceOut;
 		cRandom random;
@@ -151,18 +152,43 @@ void cLights::Set(const std::shared_ptr<cParameterContainer> _params,
 			}
 
 			sRGBFloat colour;
-			if (allLightsInOneColor)
+
+			switch (coloringType)
 			{
-				colour = commonColor;
-			}
-			else
-			{
-				colour = sRGBFloat(float(random.Random(20000, 100000, 1)),
-					float(random.Random(20000, 100000, 1)), float(random.Random(20000, 100000, 1)));
-				double convertColorRatio = 1.0 / dMax(colour.R, colour.G, colour.B);
-				colour.R *= convertColorRatio;
-				colour.G *= convertColorRatio;
-				colour.B *= convertColorRatio;
+				case enumRandomLightsColoringType::random:
+				{
+					colour = sRGBFloat(float(random.Random(20000, 100000, 1)),
+						float(random.Random(20000, 100000, 1)), float(random.Random(20000, 100000, 1)));
+					double convertColorRatio = 1.0 / dMax(colour.R, colour.G, colour.B);
+					colour.R *= convertColorRatio;
+					colour.G *= convertColorRatio;
+					colour.B *= convertColorRatio;
+					break;
+				}
+
+				case enumRandomLightsColoringType::single: colour = commonColor; break;
+
+				case enumRandomLightsColoringType::two:
+				{
+					double k = random.Random(0, 10000, 1) / 10000.0;
+					double nk = 1.0 - k;
+					colour.R = k * commonColor.R + nk * commonColor2.R;
+					colour.G = k * commonColor.G + nk * commonColor2.G;
+					colour.B = k * commonColor.B + nk * commonColor2.B;
+					break;
+				}
+
+				case enumRandomLightsColoringType::distance:
+				{
+					double k = distance / maxDistanceFromFractal;
+					double nk = 1.0 - k;
+					colour.R = k * commonColor2.R + nk * commonColor.R;
+					colour.G = k * commonColor2.G + nk * commonColor.G;
+					colour.B = k * commonColor2.B + nk * commonColor.B;
+					break;
+				}
+
+				default: colour = sRGBFloat(1.0, 1.0, 1.0); break;
 			}
 
 			double distanceLimited = max(0.1 * maxDistanceFromFractal, distance);
@@ -234,7 +260,7 @@ QList<int> cLights::GetListOfLights(std::shared_ptr<cParameterContainer> params)
 		if (parameterName.left(5) == "light")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-            int lightIndex = parameterName.mid(5, positionOfDash - 5).toInt();
+			int lightIndex = parameterName.mid(5, positionOfDash - 5).toInt();
 			if (listOfFoundLights.indexOf(lightIndex) < 0)
 			{
 				listOfFoundLights.append(lightIndex);
