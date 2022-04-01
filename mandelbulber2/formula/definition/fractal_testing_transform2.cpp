@@ -36,26 +36,30 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 	signs.y = sign(z.y);
 	signs.z = sign(z.z);
 
-	z = fabs(z);
+	if (fractal->transformCommon.functionEnabledzFalse) z = fabs(z);
+
+
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	z -= fractal->transformCommon.offset000;
+
 	double trr = z.Dot(z);
+
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		if (trr < fractal->transformCommon.scale1)
 		{
-			tp = 1.0 / trr;
-			tp = min(tp, fractal->transformCommon.scale4);
+			tp = min(1.0 / trr, fractal->transformCommon.scale4);
 		}
 		else
 		{
 			tp = fractal->transformCommon.scale1;
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		tp = trr + sin(trr * M_PI * fractal->transformCommon.scale2) * fractal->transformCommon.scaleC1 + fractal->transformCommon.scaleC1;
+		tp = trr + sin(trr * M_PI * fractal->transformCommon.scaleB1) * fractal->transformCommon.scaleC1 + fractal->transformCommon.offset1;
 		tp = min(max(1.0 / tp, fractal->transformCommon.scale1), fractal->transformCommon.scale4);
 
 	}
@@ -88,7 +92,7 @@ void cFractalTestingTransform2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	z *= tp;
 	aux.DE *= tp;
-	z *= signs;
+	if (fractal->transformCommon.functionEnabledSFalse) z *= signs;
 
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB

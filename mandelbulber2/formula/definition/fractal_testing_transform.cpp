@@ -48,9 +48,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
-
-
-
 	if (fractal->transformCommon.rotationEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR1)
@@ -69,13 +66,13 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double t = u + fractal->transformCommon.offsetC0;
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
-
-	if (fractal->transformCommon.offset0 > 0.0f)
-		t = min(t, fabs(z.x) - fractal->transformCommon.offset0);
+//t -= fractal->transformCommon.offset0;
+	//if (fractal->transformCommon.offset0 > 0.0f)
+		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
 
 	// z.z clip
 	if (fractal->transformCommon.functionEnabledCFalse)
-		t = max(t, fabs(z.z) - fractal->transformCommon.offsetA0);
+		t = max(t, fabs(zc.z) - fractal->transformCommon.offsetA0);
 
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)

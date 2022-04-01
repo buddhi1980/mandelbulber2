@@ -60,10 +60,10 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		t = min(aux->dist, t);
 
 	if (fractal->transformCommon.offset0 > 0.0f)
-		t = min(t, fabs(z.x) - fractal->transformCommon.offset0);
+		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
 
 	if (fractal->transformCommon.functionEnabledCFalse)
-		t = max(t, fabs(z.z) - fractal->transformCommon.offsetA0);
+		t = max(t, fabs(zc.z) - fractal->transformCommon.offsetA0);
 
 	REAL colDist = aux->dist;
 	aux->dist = t;
