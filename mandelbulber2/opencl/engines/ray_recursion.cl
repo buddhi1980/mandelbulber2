@@ -859,8 +859,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				float endStep = shaderInputData.material->transparencyOfInterior * delta;
 				float step = startStep;
 
-				for (float scan = 0; scan < depth; scan += step)
+				float scan = 0.0;
+
+				for (int i = 0; i < MAX_RAYMARCHING; i++)
 				{
+					if (scan >= depth) break;
+
 					float4 transparentColor = (float4){shaderInputData.material->transparencyInteriorColor.s0,
 						shaderInputData.material->transparencyInteriorColor.s1,
 						shaderInputData.material->transparencyInteriorColor.s2, 0.0f};
@@ -946,6 +950,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 										* CalcDistThresh(shaderInputData.point, consts);
 
 					step = max((endStep - startStep) * (scan / depth) + startStep, 1e-6f);
+					scan += step;
 				}
 			}
 			else

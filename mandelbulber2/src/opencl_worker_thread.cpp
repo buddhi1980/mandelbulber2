@@ -129,6 +129,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			quint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			quint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
+			//			qDebug() << "starting tile" << tile << gridX << gridY << jobX << jobY << jobWidth
+			//							 << jobHeight;
+
 			if (*stopRequest || systemData.globalStopRequest)
 			{
 				emit finished();
@@ -154,6 +157,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 					finishedWithSuccess = false;
 					return;
 				}
+
+				//				qDebug() << "finished tile" << tile << gridX << gridY << jobX << jobY << jobWidth
+				//								 << jobHeight;
 
 				openclprocessingTimeNanoSeconds = openclProcessingTime.nsecsElapsed();
 
