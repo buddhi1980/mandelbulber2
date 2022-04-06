@@ -101,6 +101,9 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->checkBox_DOF_MC_global_illumination, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedEnableGI(int)));
 
+	connect(ui->comboBox_random_lights_coloring_type, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotRandomLightColoringTypeChanged(int)));
+
 	connect(ui->pushButton_clouds_randomize, &QPushButton::clicked, this,
 		&cDockEffects::slotPressedButtonCloudsRandomize);
 
@@ -316,4 +319,12 @@ void cDockEffects::slotPressedButtonFogDistHalf()
 		params->Get<double>("volumetric_fog_distance_from_surface") / 2.0);
 
 	SynchronizeInterfaceWindow(this, params, qInterface::write);
+}
+
+void cDockEffects::slotRandomLightColoringTypeChanged(int index)
+{
+	ui->label_random_lights_first_color->setVisible(index > 0);
+	ui->colorButton_random_lights_color->setVisible(index > 0);
+	ui->label_random_lights_second_color->setVisible(index >= 2);
+	ui->colorButton_random_lights_color_2->setVisible(index >= 2);
 }

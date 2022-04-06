@@ -88,6 +88,7 @@ private slots:
 	void slotChangedEnableGI(int state);
 	void slotPressedButtonCloudsRandomize();
 	void slotNewParametersFromNavi();
+	void slotRandomLightColoringTypeChanged(int index);
 
 private:
 	void ConnectSignals() const;

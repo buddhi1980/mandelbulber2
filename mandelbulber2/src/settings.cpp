@@ -1240,6 +1240,18 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			}
 		}
 	}
+
+	if (fileVersion < 2.28)
+	{
+		if (name == QString("random_lights_one_color_enable"))
+		{
+			name = QString("random_lights_coloring_type");
+			if (value.contains("true"))
+			{
+				value = QString("single");
+			}
+		}
+	}
 }
 
 void cSettings::Compatibility2(

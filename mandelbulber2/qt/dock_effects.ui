@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>1078</height>
+            <width>306</width>
+            <height>1010</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1257,8 +1257,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>553</width>
-            <height>1412</height>
+            <width>267</width>
+            <height>1427</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2597,8 +2597,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3549,7 +3549,7 @@ from fractal:</string>
                  </widget>
                 </item>
                 <item row="15" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity_6">
+                 <widget class="QLabel" name="label_random_lights_first_color">
                   <property name="text">
                    <string>First color:</string>
                   </property>
@@ -3687,7 +3687,7 @@ lights:</string>
                  </widget>
                 </item>
                 <item row="16" column="0">
-                 <widget class="QLabel" name="label_random_lights_intensity_7">
+                 <widget class="QLabel" name="label_random_lights_second_color">
                   <property name="text">
                    <string>Second color:</string>
                   </property>
@@ -4315,8 +4315,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>1070</height>
+            <width>227</width>
+            <height>215</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
