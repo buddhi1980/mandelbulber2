@@ -139,6 +139,7 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 #endif // TEXTURED_BACKGROUND
 
 	pixel *= consts->params.background_brightness;
+	pixel = pow(pixel, 1.0f / consts->params.background_gamma);
 
 	for (int i = 0; i < renderData->numberOfLights; i++)
 	{

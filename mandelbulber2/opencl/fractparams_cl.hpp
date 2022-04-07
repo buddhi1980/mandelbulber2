@@ -166,6 +166,7 @@ typedef struct
 	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
 	cl_float background_brightness;
+	cl_float background_gamma;
 	cl_float backgroundHScale;
 	cl_float backgroundVScale;
 	cl_float backgroundTextureOffsetX;
@@ -350,6 +351,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
 	target.background_brightness = source.background_brightness;
+	target.background_gamma = source.background_gamma;
 	target.backgroundHScale = source.backgroundHScale;
 	target.backgroundVScale = source.backgroundVScale;
 	target.backgroundTextureOffsetX = source.backgroundTextureOffsetX;

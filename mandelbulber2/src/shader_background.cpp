@@ -117,6 +117,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		pixel2.R *= params->background_brightness;
 		pixel2.G *= params->background_brightness;
 		pixel2.B *= params->background_brightness;
+		pixel2.R = powf(pixel2.R, 1.0f / params->background_gamma);
+		pixel2.G = powf(pixel2.G, 1.0f / params->background_gamma);
+		pixel2.B = powf(pixel2.B, 1.0f / params->background_gamma);
 		pixel2.A = 1.0;
 	}
 	else
@@ -156,9 +159,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			pixel.B = params->background_color1.B * params->background_brightness;
 		}
 
-		pixel2.R = pixel.R;
-		pixel2.G = pixel.G;
-		pixel2.B = pixel.B;
+		pixel2.R = powf(pixel.R, 1.0f / params->background_gamma);
+		pixel2.G = powf(pixel.G, 1.0f / params->background_gamma);
+		pixel2.B = powf(pixel.B, 1.0f / params->background_gamma);
 		pixel2.A = 0.0;
 	}
 

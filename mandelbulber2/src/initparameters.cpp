@@ -265,6 +265,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("textured_background_map_type", int(params::mapEquirectangular), morphNone,
 		paramStandard, QStringList({"equirectangular", "doubleHemisphere", "flat"}));
 	par->addParam("background_brightness", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("background_gamma", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("background_h_scale", 1.0, 0.001, 1000.0, morphLinear, paramStandard);
 	par->addParam("background_texture_offset_x", 0.0, -1000.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("background_texture_offset_y", 0.0, -1000.0, 1000.0, morphLinear, paramStandard);

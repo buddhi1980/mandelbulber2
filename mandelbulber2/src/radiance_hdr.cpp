@@ -117,9 +117,9 @@ void cRadianceHDR::LoadToQPixmap(QPixmap *pixmap)
 	for (size_t i = 0; i < imageWidth * imageHeight; i++)
 	{
 		sRGBFloat fPixel = fBitmap[i];
-		quint8 R = uchar(qBound(0.0f, fPixel.R * 255.0f, 255.0f));
-		quint8 G = uchar(qBound(0.0f, fPixel.G * 255.0f, 255.0f));
-		quint8 B = uchar(qBound(0.0f, fPixel.B * 255.0f, 255.0f));
+		quint8 R = uchar(qBound(0.0f, powf(fPixel.R, 1.0f / 2.2f) * 255.0f, 255.0f));
+		quint8 G = uchar(qBound(0.0f, powf(fPixel.G, 1.0f / 2.2f) * 255.0f, 255.0f));
+		quint8 B = uchar(qBound(0.0f, powf(fPixel.B, 1.0f / 2.2f) * 255.0f, 255.0f));
 
 		image8[i] = sRGB8(R, G, B);
 	}

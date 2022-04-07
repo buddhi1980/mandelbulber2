@@ -60,6 +60,7 @@ sParamRender::sParamRender(
 	background_color2 = toRGBFloat(container->Get<sRGB>("background_color", 2));
 	background_color3 = toRGBFloat(container->Get<sRGB>("background_color", 3));
 	background_brightness = container->Get<double>("background_brightness");
+	background_gamma = container->Get<double>("background_gamma");
 	backgroundHScale = container->Get<double>("background_h_scale");
 	backgroundVScale = container->Get<double>("background_v_scale");
 	backgroundTextureOffsetX = container->Get<double>("background_texture_offset_x");

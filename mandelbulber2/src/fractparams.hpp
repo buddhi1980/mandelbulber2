@@ -160,6 +160,7 @@ struct sParamRender
 	float ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double background_brightness;
+	double background_gamma;
 	double backgroundHScale;
 	double backgroundVScale;
 	double backgroundTextureOffsetX;
