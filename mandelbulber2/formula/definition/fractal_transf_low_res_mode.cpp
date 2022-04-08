@@ -29,13 +29,13 @@ cFractalTransfLowResMode::cFractalTransfLowResMode() : cAbstractFractal()
 void cFractalTransfLowResMode::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.scale8 > 0.0)
+	//if (fractal->transformCommon.scale8 > 0.0)
 	{
 		z *= fractal->transformCommon.scale8;
 		CVector4 zi = z;
-		if (fractal->transformCommon.functionEnabledx) zi.x = round(z.x);
-		if (fractal->transformCommon.functionEnabledy) zi.y = round(z.y);
-		if (fractal->transformCommon.functionEnabledz) zi.z = round(z.z);
+		if (fractal->transformCommon.functionEnabledx) zi.x = round(zi.x);
+		if (fractal->transformCommon.functionEnabledy) zi.y = round(zi.y);
+		if (fractal->transformCommon.functionEnabledz) zi.z = round(zi.z);
 		if (fractal->transformCommon.functionEnabledwFalse) zi.w = round(z.w);
 		CVector4 zf = z - zi;
 

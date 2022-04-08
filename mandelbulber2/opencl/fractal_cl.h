@@ -587,6 +587,7 @@ typedef struct
 	cl_float scale4;
 	cl_float scale6;
 	cl_float scale8;
+	cl_float scale25;
 	cl_float scaleMain2;
 	cl_float scaleVary0;
 
@@ -1366,6 +1367,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.scale4 = source.scale4;
 	target.scale6 = source.scale6;
 	target.scale8 = source.scale8;
+	target.scale25 = source.scale25;
 	target.scaleMain2 = source.scaleMain2;
 	target.scaleVary0 = source.scaleVary0;
 	target.pwr05 = source.pwr05;

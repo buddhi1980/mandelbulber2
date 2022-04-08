@@ -348,6 +348,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.scale4 = container->Get<double>("transf_scale_4");
 	transformCommon.scale6 = container->Get<double>("transf_scale_6");
 	transformCommon.scale8 = container->Get<double>("transf_scale_8");
+	transformCommon.scale25 = container->Get<double>("transf_scale_25");
 
 	transformCommon.scaleMain2 = container->Get<double>("transf_scale_main_2");
 	transformCommon.scaleVary0 = container->Get<double>("transf_scale_vary_0");

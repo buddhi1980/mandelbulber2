@@ -20,7 +20,7 @@ REAL4 TransfLowResModeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 {
 	if (fractal->transformCommon.scale8 > 0.0)
 	{
-		z *= fractal->transformCommon.scale8;
+		z *= fractal->transformCommon.scale25;
 		REAL4 zi = z;
 		if (fractal->transformCommon.functionEnabledx) zi.x = round(zi.x);
 		if (fractal->transformCommon.functionEnabledy) zi.y = round(zi.y);
@@ -28,7 +28,7 @@ REAL4 TransfLowResModeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledwFalse) zi.w = round(zi.w);
 		REAL4 zf = z - zi;
 
-		z = (fractal->transformCommon.pwr8 * zf * zf * zf * zf * zf + zi) / fractal->transformCommon.scale8;
+		z = (fractal->transformCommon.pwr8 * zf * zf * zf * zf * zf + zi) / fractal->transformCommon.scale25;
 
 		if (fractal->analyticDE.enabledFalse)
 		{
