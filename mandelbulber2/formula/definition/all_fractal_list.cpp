@@ -435,6 +435,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfMandalayFoldV2());
 	fractalList->append(new cFractalTransfMandalayFold4d());
 	fractalList->append(new cFractalTransfMengerFold());
+	fractalList->append(new cFractalTransfMengerFoldV2());
 	fractalList->append(new cFractalTransfMultipleAngle());
 	fractalList->append(new cFractalTransfOctoFold());
 	fractalList->append(new cFractalTransfOffsetSCurve4d());
