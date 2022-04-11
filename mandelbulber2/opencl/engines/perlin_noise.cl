@@ -136,14 +136,20 @@ float PerlinNoise3D(float x, float y, float z, __global uchar *p)
 //	* Return value can be outside the range [-1, 1]
 //
 
-float AccumulatedOctavePerlinNoise3D(float x, float y, float z, int octaves, __global uchar *p)
+float AccumulatedOctavePerlinNoise3D(
+	float x, float y, float z, float3 shift, int octaves, __global uchar *p)
 {
 	float result = 0.0f;
 	float amp = 1.0f;
 
 	for (int i = 0; i < octaves; ++i)
 	{
-		result += PerlinNoise3D(x, y, z, p) * amp;
+		float3 shiftVector = shift * ((float)(octaves - i) / octaves + 1.13f) * 0.597f;
+		x -= shiftVector.x * 0.2f;
+		y -= shiftVector.y * 0.2f;
+		z -= shiftVector.z * 0.2f;
+
+		result += PerlinNoise3D(x - shiftVector.x, y - shiftVector.y, z - shiftVector.z, p) * amp;
 		x *= 2.0f;
 		y *= 2.0f;
 		z *= 2.0f;
@@ -158,9 +164,10 @@ float AccumulatedOctavePerlinNoise3D(float x, float y, float z, int octaves, __g
 //	Normalized octave noise [-1, 1]
 //
 
-float NormalizedOctavePerlinNoise3D(float x, float y, float z, int octaves, __global uchar *p)
+float NormalizedOctavePerlinNoise3D(
+	float x, float y, float z, float3 shift, int octaves, __global uchar *p)
 {
-	return AccumulatedOctavePerlinNoise3D(x, y, z, octaves, p) / PerlinWeight(octaves);
+	return AccumulatedOctavePerlinNoise3D(x, y, z, shift, octaves, p) / PerlinWeight(octaves);
 }
 
 ///////////////////////////////////////
@@ -168,9 +175,10 @@ float NormalizedOctavePerlinNoise3D(float x, float y, float z, int octaves, __gl
 //	Normalized octave noise [0, 1]
 //
 
-float NormalizedOctavePerlinNoise3D_0_1(float x, float y, float z, int octaves, __global uchar *p)
+float NormalizedOctavePerlinNoise3D_0_1(
+	float x, float y, float z, float3 shift, int octaves, __global uchar *p)
 {
-	return NormalizedOctavePerlinNoise3D(x, y, z, octaves, p) * 0.5f + 0.5f;
+	return NormalizedOctavePerlinNoise3D(x, y, z, shift, octaves, p) * 0.5f + 0.5f;
 }
 
 #endif // CLOUDS

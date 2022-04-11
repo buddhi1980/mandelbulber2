@@ -90,6 +90,7 @@ sParamRender::sParamRender(
 	cloudsOpacity = container->Get<double>("clouds_opacity");
 	cloudsRandomSeed = container->Get<int>("clouds_random_seed");
 	cloudsRotation = container->Get<CVector3>("clouds_rotation");
+	cloudsSpeed = container->Get<CVector3>("clouds_speed");
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");

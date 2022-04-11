@@ -73,7 +73,8 @@ float CloudOpacity(__constant sClInConstants *consts, __global uchar *perlinNois
 	{
 		float opacity = NormalizedOctavePerlinNoise3D_0_1(point2.x / consts->params.cloudsPeriod,
 			point2.y / consts->params.cloudsPeriod, point2.z / consts->params.cloudsPeriod,
-			consts->params.cloudsIterations, perlinNoiseSeeds);
+			consts->params.cloudsSpeed * consts->params.frameNo, consts->params.cloudsIterations,
+			perlinNoiseSeeds);
 
 		distToCloud = fabs(1.0f - opacity - consts->params.cloudsDensity) * 0.2f
 									* consts->params.cloudsPeriod * consts->params.cloudsDEMultiplier;

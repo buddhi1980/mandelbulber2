@@ -193,14 +193,23 @@ double cPerlinNoiseOctaves::accumulatedOctaveNoise2D(double x, double y, std::in
 }
 
 double cPerlinNoiseOctaves::accumulatedOctaveNoise3D(
-	double x, double y, double z, std::int32_t octaves) const
+	double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const
 {
 	double result = 0;
 	double amp = 1;
 
 	for (std::int32_t i = 0; i < octaves; ++i)
 	{
-		result += noise3D(x, y, z) * amp;
+		double sh = ((double)(octaves - i) / octaves + 1.13f) * 0.597f;
+		double shiftVectorX = shx * sh;
+		double shiftVectorY = shy * sh;
+		double shiftVectorZ = shz * sh;
+
+		x -= shiftVectorX * 0.2;
+		y -= shiftVectorY * 0.2;
+		z -= shiftVectorZ * 0.2;
+
+		result += noise3D(x - shiftVectorX, y - shiftVectorY, z - shiftVectorZ) * amp;
 		x *= 2.0;
 		y *= 2.0;
 		z *= 2.0;
@@ -226,9 +235,9 @@ double cPerlinNoiseOctaves::normalizedOctaveNoise2D(double x, double y, std::int
 }
 
 double cPerlinNoiseOctaves::normalizedOctaveNoise3D(
-	double x, double y, double z, std::int32_t octaves) const
+	double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const
 {
-	return accumulatedOctaveNoise3D(x, y, z, octaves) / Weight(octaves);
+	return accumulatedOctaveNoise3D(x, y, z, shx, shy, shz, octaves) / Weight(octaves);
 }
 
 ///////////////////////////////////////
@@ -248,9 +257,10 @@ double cPerlinNoiseOctaves::accumulatedOctaveNoise2D_0_1(
 }
 
 double cPerlinNoiseOctaves::accumulatedOctaveNoise3D_0_1(
-	double x, double y, double z, std::int32_t octaves) const
+	double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const
 {
-	return qBound(0.0, accumulatedOctaveNoise3D(x, y, z, octaves) * double(0.5) + double(0.5), 1.0);
+	return qBound(0.0,
+		accumulatedOctaveNoise3D(x, y, z, shx, shy, shz, octaves) * double(0.5) + double(0.5), 1.0);
 }
 
 ///////////////////////////////////////
@@ -270,9 +280,9 @@ double cPerlinNoiseOctaves::normalizedOctaveNoise2D_0_1(
 }
 
 double cPerlinNoiseOctaves::normalizedOctaveNoise3D_0_1(
-	double x, double y, double z, std::int32_t octaves) const
+	double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const
 {
-	return normalizedOctaveNoise3D(x, y, z, octaves) * double(0.5) + double(0.5);
+	return normalizedOctaveNoise3D(x, y, z, shx, shy, shz, octaves) * double(0.5) + double(0.5);
 }
 
 ///////////////////////////////////////

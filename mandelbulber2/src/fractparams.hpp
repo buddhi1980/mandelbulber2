@@ -231,6 +231,7 @@ struct sParamRender
 	CVector3 backgroundRotation;
 	CVector3 cloudsCenter;
 	CVector3 cloudsRotation;
+	CVector3 cloudsSpeed;
 	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
 	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
 	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];

@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>306</width>
-            <height>1010</height>
+            <width>571</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1257,8 +1257,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>267</width>
-            <height>1427</height>
+            <width>553</width>
+            <height>1486</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2172,6 +2172,59 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                </layout>
               </item>
               <item>
+               <layout class="QGridLayout" name="gridLayout_6">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="1" column="3">
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_y"/>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="label_140">
+                  <property name="text">
+                   <string>y</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="label_141">
+                  <property name="text">
+                   <string>z</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_x"/>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_135">
+                  <property name="text">
+                   <string>x</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="MyLineEdit" name="vect3_clouds_speed_z"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_133">
+                  <property name="text">
+                   <string>Clouds movement speed:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <widget class="MyGroupBox" name="groupCheck_clouds_plane_shape">
                 <property name="title">
                  <string>Plane shape</string>
@@ -2210,8 +2263,124 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_y"/>
+                   <item row="6" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_z">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="accelerated">
+                      <bool>true</bool>
+                     </property>
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-180.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>180.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>1.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_116">
+                     <property name="text">
+                      <string>Clouds center:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="MyLineEdit" name="vect3_clouds_center_z"/>
+                   </item>
+                   <item row="4" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_120">
+                     <property name="text">
+                      <string>Geometry rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QLabel" name="label_119">
+                     <property name="text">
+                      <string>z</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QLabel" name="label_122">
+                     <property name="text">
+                      <string>beta</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="label_118">
+                     <property name="text">
+                      <string>y</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_115">
+                     <property name="text">
+                      <string>Clouds layer height:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="MyLineEdit" name="vect3_clouds_center_x"/>
+                   </item>
+                   <item row="5" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_y">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="accelerated">
+                      <bool>true</bool>
+                     </property>
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-180.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>180.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>1.000000000000000</double>
+                     </property>
+                    </widget>
                    </item>
                    <item row="6" column="1">
                     <widget class="QLabel" name="label_123">
@@ -2222,12 +2391,6 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
-                   </item>
-                   <item row="0" column="2">
-                    <widget class="MyLineEdit" name="logedit_clouds_height"/>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_x"/>
                    </item>
                    <item row="4" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_x">
@@ -2270,121 +2433,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QLabel" name="label_118">
-                     <property name="text">
-                      <string>y</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
+                   <item row="2" column="2">
+                    <widget class="MyLineEdit" name="vect3_clouds_center_y"/>
                    </item>
-                   <item row="3" column="1">
-                    <widget class="QLabel" name="label_119">
-                     <property name="text">
-                      <string>z</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0" rowspan="3">
-                    <widget class="QLabel" name="label_116">
-                     <property name="text">
-                      <string>Clouds center:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="2">
-                    <widget class="MyLineEdit" name="vect3_clouds_center_z"/>
-                   </item>
-                   <item row="5" column="1">
-                    <widget class="QLabel" name="label_122">
-                     <property name="text">
-                      <string>beta</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_115">
-                     <property name="text">
-                      <string>Clouds layer height:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0" rowspan="3">
-                    <widget class="QLabel" name="label_120">
-                     <property name="text">
-                      <string>Geometry rotation:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="2">
-                    <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_y">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="accelerated">
-                      <bool>true</bool>
-                     </property>
-                     <property name="prefix">
-                      <string/>
-                     </property>
-                     <property name="suffix">
-                      <string/>
-                     </property>
-                     <property name="decimals">
-                      <number>2</number>
-                     </property>
-                     <property name="minimum">
-                      <double>-180.000000000000000</double>
-                     </property>
-                     <property name="maximum">
-                      <double>180.000000000000000</double>
-                     </property>
-                     <property name="singleStep">
-                      <double>1.000000000000000</double>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="6" column="2">
-                    <widget class="MyDoubleSpinBox" name="spinboxd3_clouds_rotation_z">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="accelerated">
-                      <bool>true</bool>
-                     </property>
-                     <property name="prefix">
-                      <string/>
-                     </property>
-                     <property name="suffix">
-                      <string/>
-                     </property>
-                     <property name="decimals">
-                      <number>2</number>
-                     </property>
-                     <property name="minimum">
-                      <double>-180.000000000000000</double>
-                     </property>
-                     <property name="maximum">
-                      <double>180.000000000000000</double>
-                     </property>
-                     <property name="singleStep">
-                      <double>1.000000000000000</double>
-                     </property>
-                    </widget>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="logedit_clouds_height"/>
                    </item>
                   </layout>
                  </item>
@@ -2597,8 +2650,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>1078</height>
+            <width>272</width>
+            <height>409</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3315,7 +3368,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>553</width>
+            <width>376</width>
             <height>1110</height>
            </rect>
           </property>

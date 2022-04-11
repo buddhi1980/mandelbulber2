@@ -328,6 +328,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("clouds_detail_accuracy", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_DE_approaching", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("clouds_DE_multiplier", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_speed", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.0001, 1000.0, morphLinear, paramStandard);

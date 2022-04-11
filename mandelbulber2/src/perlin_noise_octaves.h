@@ -133,7 +133,8 @@ public:
 
 	double accumulatedOctaveNoise1D(double x, std::int32_t octaves) const;
 	double accumulatedOctaveNoise2D(double x, double y, std::int32_t octaves) const;
-	double accumulatedOctaveNoise3D(double x, double y, double z, std::int32_t octaves) const;
+	double accumulatedOctaveNoise3D(
+		double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const;
 
 	///////////////////////////////////////
 	//
@@ -142,7 +143,8 @@ public:
 
 	double normalizedOctaveNoise1D(double x, std::int32_t octaves) const;
 	double normalizedOctaveNoise2D(double x, double y, std::int32_t octaves) const;
-	double normalizedOctaveNoise3D(double x, double y, double z, std::int32_t octaves) const;
+	double normalizedOctaveNoise3D(
+		double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const;
 
 	///////////////////////////////////////
 	//
@@ -151,7 +153,8 @@ public:
 
 	double accumulatedOctaveNoise1D_0_1(double x, std::int32_t octaves) const;
 	double accumulatedOctaveNoise2D_0_1(double x, double y, std::int32_t octaves) const;
-	double accumulatedOctaveNoise3D_0_1(double x, double y, double z, std::int32_t octaves) const;
+	double accumulatedOctaveNoise3D_0_1(
+		double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const;
 
 	///////////////////////////////////////
 	//
@@ -160,7 +163,8 @@ public:
 
 	double normalizedOctaveNoise1D_0_1(double x, std::int32_t octaves) const;
 	double normalizedOctaveNoise2D_0_1(double x, double y, std::int32_t octaves) const;
-	double normalizedOctaveNoise3D_0_1(double x, double y, double z, std::int32_t octaves) const;
+	double normalizedOctaveNoise3D_0_1(
+		double x, double y, double z, double shx, double shy, double shz, std::int32_t octaves) const;
 
 	///////////////////////////////////////
 	//

@@ -237,6 +237,7 @@ typedef struct
 	cl_float3 backgroundRotation;
 	cl_float3 cloudsCenter;
 	cl_float3 cloudsRotation;
+	cl_float3 cloudsSpeed;
 	cl_float3 formulaPosition[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRotation[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRepeat[NUMBER_OF_FRACTALS];
@@ -423,6 +424,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
 	target.cloudsCenter = toClFloat3(source.cloudsCenter);
 	target.cloudsRotation = toClFloat3(source.cloudsRotation);
+	target.cloudsSpeed = toClFloat3(source.cloudsSpeed);
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);

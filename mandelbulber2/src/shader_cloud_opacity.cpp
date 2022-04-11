@@ -75,7 +75,9 @@ double cRenderWorker::CloudOpacity(
 	if (h > 0)
 	{
 		double opacity = perlinNoise->normalizedOctaveNoise3D_0_1(point2.x / params->cloudsPeriod,
-			point2.y / params->cloudsPeriod, point2.z / params->cloudsPeriod, params->cloudsIterations);
+			point2.y / params->cloudsPeriod, point2.z / params->cloudsPeriod,
+			params->cloudsSpeed.x * params->frameNo, params->cloudsSpeed.y * params->frameNo,
+			params->cloudsSpeed.z * params->frameNo, params->cloudsIterations);
 
 		distToCloud = fabs(1.0 - opacity - params->cloudsDensity) * 0.2 * params->cloudsPeriod
 									* params->cloudsDEMultiplier;
