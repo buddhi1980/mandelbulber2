@@ -29,21 +29,18 @@ cFractalTransfLowResMode::cFractalTransfLowResMode() : cAbstractFractal()
 void cFractalTransfLowResMode::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.scale8 > 0.0)
+	z *= fractal->transformCommon.scale25;
+	CVector4 zi = z;
+	if (fractal->transformCommon.functionEnabledx) zi.x = round(zi.x);
+	if (fractal->transformCommon.functionEnabledy) zi.y = round(zi.y);
+	if (fractal->transformCommon.functionEnabledz) zi.z = round(zi.z);
+	if (fractal->transformCommon.functionEnabledwFalse) zi.w = round(z.w);
+	CVector4 zf = z - zi;
+
+	z = (fractal->transformCommon.scale16 * zf * zf * zf * zf * zf + zi) / fractal->transformCommon.scale25;
+
+	if (fractal->analyticDE.enabledFalse)
 	{
-		z *= fractal->transformCommon.scale8;
-		CVector4 zi = z;
-		if (fractal->transformCommon.functionEnabledx) zi.x = round(z.x);
-		if (fractal->transformCommon.functionEnabledy) zi.y = round(z.y);
-		if (fractal->transformCommon.functionEnabledz) zi.z = round(z.z);
-		if (fractal->transformCommon.functionEnabledwFalse) zi.w = round(z.w);
-		CVector4 zf = z - zi;
-
-		z = (fractal->transformCommon.pwr8 * zf * zf * zf * zf * zf + zi) / fractal->transformCommon.scale8;
-
-		if (fractal->analyticDE.enabledFalse)
-		{
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		}
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 }

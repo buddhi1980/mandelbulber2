@@ -577,6 +577,8 @@ struct sFractalTransformCommon
 	double scale4;
 	double scale6;
 	double scale8;
+	double scale16;
+	double scale25;
 	double scaleMain2;
 	double scaleVary0;
 
