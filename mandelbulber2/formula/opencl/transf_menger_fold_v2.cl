@@ -19,48 +19,42 @@
 
 REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// menger sponge
-	if (aux->i >= fractal->transformCommon.startIterationsG
-			&& aux->i < fractal->transformCommon.stopIterationsG)
+
+	z = fabs(z);
+	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		z = fabs(z);
-		z += fractal->transformCommon.offset000;
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
 
-		if (fractal->transformCommon.rotationEnabledFalse
-				&& aux->i >= fractal->transformCommon.startIterationsR
-				&& aux->i < fractal->transformCommon.stopIterationsR)
-		{
-			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-		}
-
-		REAL t;
-		if (!fractal->transformCommon.functionEnabledGFalse)
-		{
-			t = z.x - z.y;
-			t = fractal->transformCommon.additionConstant0555.x
-					* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.x);
-			z.x = z.x - t;
-			z.y = z.y + t;
-		}
-		else
-		{
-			t = z.x;
-			z.x = z.y;
-			z.y = t;
-		}
-
+	REAL t;
+	if (fractal->transformCommon.functionEnabledAx)
+	{
 		t = z.x - z.z;
-		t = fractal->transformCommon.additionConstant0555.y
-				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.y);
+		t = fractal->transformCommon.additionConstant0555.x * (t - fabs(t));
 		z.x = z.x - t;
 		z.z = z.z + t;
-
+	}
+	if (fractal->transformCommon.functionEnabledAy)
+	{
+		t = z.x - z.y;
+		t = fractal->transformCommon.additionConstant0555.y * (t - fabs(t));
+		z.x = z.x - t;
+		z.y = z.y + t;
+	}
+	if (fractal->transformCommon.functionEnabledAz)
+	{
 		t = z.y - z.z;
-		t = fractal->transformCommon.additionConstant0555.z
-				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.z);
+		t = fractal->transformCommon.additionConstant0555.z * (t - fabs(t));
 		z.y = z.y - t;
 		z.z = z.z + t;
+	}
 
+	if (fractal->transformCommon.functionEnabled)
+	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
 		REAL useScale = fractal->transformCommon.scale3;
@@ -84,5 +78,8 @@ REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
 		z.z = useScale * z.z;
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	return z;
 }

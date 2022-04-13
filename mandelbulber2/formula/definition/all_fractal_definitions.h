@@ -184,6 +184,9 @@ FRACTAL_CLASS(cFractalMsltoeSym4Mod)
 FRACTAL_CLASS(cFractalMsltoeSym4Mod1)
 FRACTAL_CLASS(cFractalMsltoeToroidal)
 FRACTAL_CLASS(cFractalMsltoeToroidalMulti)
+
+FRACTAL_CLASS(cFractalNewtonPow3)
+
 FRACTAL_CLASS(cFractalOctahedron)
 FRACTAL_CLASS(cFractalPseudoKleinian)
 FRACTAL_CLASS(cFractalPseudoKleinian4d)

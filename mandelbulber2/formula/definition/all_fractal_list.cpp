@@ -132,6 +132,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMsltoeToroidal());
 	fractalList->append(new cFractalMsltoeToroidalMulti());
 
+	fractalList->append(new cFractalNewtonPow3());
+
 	// Quaternion formulas
 	fractalList->append(new cFractalQuaternion());
 	fractalList->append(new cFractalQuaternion3d());

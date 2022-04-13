@@ -30,48 +30,41 @@ cFractalTransfMengerFoldV2::cFractalTransfMengerFoldV2() : cAbstractFractal()
 
 void cFractalTransfMengerFoldV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// menger sponge
-if (aux.i >= fractal->transformCommon.startIterationsG
-		&& aux.i < fractal->transformCommon.stopIterationsG)
+	z = fabs(z);
+	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.rotationEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
-		z = fabs(z);
-		z += fractal->transformCommon.offset000;
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
-		if (fractal->transformCommon.rotationEnabledFalse
-				&& aux.i >= fractal->transformCommon.startIterationsR
-				&& aux.i < fractal->transformCommon.stopIterationsR)
-		{
-			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-		}
-
-		double t;
-		if (!fractal->transformCommon.functionEnabledGFalse)
-		{
-			t = z.x - z.y;
-			t = fractal->transformCommon.additionConstant0555.x
-					* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.x);
-			z.x = z.x - t;
-			z.y = z.y + t;
-		}
-		else
-		{
-			t = z.x;
-			z.x = z.y;
-			z.y = t;
-		}
-
+	double t;
+	if (fractal->transformCommon.functionEnabledAx)
+	{
 		t = z.x - z.z;
-		t = fractal->transformCommon.additionConstant0555.y
-				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.y);
+		t = fractal->transformCommon.additionConstant0555.x * (t - fabs(t));
 		z.x = z.x - t;
 		z.z = z.z + t;
-
+	}
+	if (fractal->transformCommon.functionEnabledAy)
+	{
+		t = z.x - z.y;
+		t = fractal->transformCommon.additionConstant0555.y * (t - fabs(t));
+		z.x = z.x - t;
+		z.y = z.y + t;
+	}
+	if (fractal->transformCommon.functionEnabledAz)
+	{
 		t = z.y - z.z;
-		t = fractal->transformCommon.additionConstant0555.z
-				* (t - fabs(t) * fractal->transformCommon.constantMultiplier111.z);
+		t = fractal->transformCommon.additionConstant0555.z * (t - fabs(t));
 		z.y = z.y - t;
 		z.z = z.z + t;
+	}
 
+	if (fractal->transformCommon.functionEnabled)
+	{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
 		double useScale = fractal->transformCommon.scale3;
@@ -95,4 +88,7 @@ if (aux.i >= fractal->transformCommon.startIterationsG
 		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
 		z.z = useScale * z.z;
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
