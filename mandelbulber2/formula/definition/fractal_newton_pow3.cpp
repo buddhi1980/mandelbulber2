@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -36,7 +36,7 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 	// Preparation operations
-	CVector4 Solution = fractal->transformCommon.offset100;
+	double Solution = fractal->transformCommon.offset1;
 	double fac_eff = 0.6666666666;
 	CVector4 c;
 
@@ -66,16 +66,17 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
 	double sq_r = fractal->transformCommon.scaleA1 / (aux.r * aux.r);
-	z.x = z.x * sq_r + Solution.x;
-	z.y = -z.y * sq_r + Solution.y; // 0.0
-	z.z = -z.z * sq_r + Solution.z; // 0.0
+	//aux.DE *= (sq_r);
+	z.x = z.x * sq_r + Solution;
+	z.y = -z.y * sq_r; // 0.0
+	z.z = -z.z * sq_r; // 0.0
 
 	// Calculate the inverse power of t=(x,y,z),
 	// and use it for the Newton method calculations for t^power + c = 0
 	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 	CVector4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z; // dot
-	sq_r = 1.0 / (3.0 * fractal->transformCommon.scale1 * sq_r * sq_r);
+	sq_r = 1.0 / (3.0 * sq_r * sq_r);
 
 	double r_xy = tp.x + tp.y;
 	double h1 = 1.0 - tp.z / r_xy;
@@ -84,19 +85,20 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double tmpy = -2.0 * h1 * z.x * z.y * sq_r;
 	double tmpz = 2.0 * z.z * sqrt(r_xy) * sq_r;
 
-	double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
-	double r_2cxy = sqrt(c.x * c.x + c.y * c.y);
-	double h = 1.0 - c.z * tmpz / (r_2xy * r_2cxy);
+	//double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
+	//double r_2cxy = sqrt(c.x * c.x);
+	//double h = 1.0 - c.z * tmpz / (r_2xy * r_2cxy);
 
-	tp.x = (c.x * tmpx - c.y * tmpy) * h;
-	tp.y = (c.y * tmpx + c.x * tmpy) * h;
-	tp.z = r_2cxy * tmpz + r_2xy * c.z;
+	tp.x = (c.x * tmpx); // * h;
+	tp.y = (c.x * tmpy); // * h;
+	tp.z = -c.x * tmpz;
+	//tp.z = r_2cxy * tmpz;
 
 	z = fac_eff * z - tp;
 
 	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
 	// although the plain Newton method does always converge
-	tp.x = z.x - Solution.x;
+	tp.x = z.x - Solution;
 	tp.y = z.y; // - Solution.y;
 	tp.z = z.z; // - Solution.z;
 	sq_r = fractal->transformCommon.scaleB1 / tp.Dot(tp);

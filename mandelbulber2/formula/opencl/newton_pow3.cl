@@ -25,7 +25,7 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	// Preparation operations
 	REAL fac_eff = 0.6666666666f;
 
-	REAL4 Solution = fractal->transformCommon.offset100;
+	REAL Solution = fractal->transformCommon.offset1;
 
 
 	REAL4 c;
@@ -54,7 +54,8 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
 	REAL sq_r = fractal->transformCommon.scaleA1 / (aux->r * aux->r);
-	z.x = z.x * sq_r + Solution.x;
+
+	z.x = z.x * sq_r + Solution;
 	z.y = -z.y * sq_r; // + Solution.y; // 0.0f
 	z.z = -z.z * sq_r; // + Solution.z; // 0.0f
 
@@ -86,7 +87,7 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
 	// although the plain Newton method does always converge
-	tp.x = z.x - Solution.x;
+	tp.x = z.x - Solution;
 	tp.y = z.y; // - Solution.y;
 	tp.z = z.z; // - Solution.z;
 

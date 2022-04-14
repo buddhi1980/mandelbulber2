@@ -63,7 +63,7 @@ void cFractalTransfMengerFoldV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		z.z = z.z + t;
 	}
 
-	if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 

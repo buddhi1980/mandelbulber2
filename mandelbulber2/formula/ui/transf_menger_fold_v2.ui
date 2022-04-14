@@ -465,7 +465,7 @@ scale:</string>
     </layout>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="toolTip">
       <string/>
      </property>

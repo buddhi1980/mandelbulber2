@@ -53,7 +53,7 @@ REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.z = z.z + t;
 	}
 
-	if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
