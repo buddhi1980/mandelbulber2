@@ -50,7 +50,7 @@ double cRenderWorker::CloudOpacity(
 	if (params->cloudsPlaneShape)
 	{
 		point2 = params->mRotCloudsRotation.RotateVector(point - params->cloudsCenter);
-		h = clamp(2.0 - fabs(3.0 / params->cloudsHeight * (point2.z)), 0.0, 1.0);
+		h = clamp(1.0 / (pow(point2.z / params->cloudsHeight * 2.0, 6.0) + 0.99) - 0.01, 0.0, 1.0);
 
 		distToGeometry =
 			std::max(fabs(point2.z) - params->cloudsHeight * 2.0, 0.0) * params->cloudsDEApproaching;
@@ -63,8 +63,12 @@ double cRenderWorker::CloudOpacity(
 
 	if (params->cloudsDistanceMode)
 	{
-		h *= clamp(2.0 - fabs(3.0 / params->cloudsDistanceLayer * (distance - params->cloudsDistance)),
-			0.0, 1.0);
+		h =
+			clamp(1.0
+								/ (pow((distance - params->cloudsDistance) / params->cloudsDistanceLayer * 2.0, 6.0)
+									 + 0.99)
+							- 0.01,
+				0.0, 1.0);
 
 		distToGeometry = std::max(distToGeometry,
 											 fabs(distance - params->cloudsDistance) - params->cloudsDistanceLayer * 2.0)

@@ -45,7 +45,9 @@ float CloudOpacity(__constant sClInConstants *consts, __global uchar *perlinNois
 	{
 		point2 =
 			Matrix33MulFloat3(consts->params.mRotCloudsRotation, point - consts->params.cloudsCenter);
-		h = clamp(2.0f - fabs(3.0f / consts->params.cloudsHeight * (point2.z)), 0.0f, 1.0f);
+		// h = clamp(1.0f - fabs(2.0f / consts->params.cloudsHeight * (point2.z)), 0.0f, 1.0f);
+		h = clamp(1.0f / (pow(point2.z / consts->params.cloudsHeight * 2.0f, 6.0f) + 0.99f) - 0.01f,
+			0.0f, 1.0f);
 
 		distToGeometry = max(fabs(point2.z) - consts->params.cloudsHeight * 2.0f, 0.0f)
 										 * consts->params.cloudsDEApproaching;
@@ -58,9 +60,18 @@ float CloudOpacity(__constant sClInConstants *consts, __global uchar *perlinNois
 
 	if (consts->params.cloudsDistanceMode)
 	{
-		h *= clamp(2.0f
-								 - fabs(3.0f / consts->params.cloudsDistanceLayer
-												* (distance - consts->params.cloudsDistance)),
+		//		h *= clamp(2.0f
+		//								 - fabs(3.0f / consts->params.cloudsDistanceLayer
+		//												* (distance - consts->params.cloudsDistance)),
+		//
+		//			0.0f, 1.0f);
+
+		h = clamp(1.0f
+									/ (pow((distance - consts->params.cloudsDistance)
+													 / consts->params.cloudsDistanceLayer * 2.0f,
+											 6.0f)
+										 + 0.99f)
+								- 0.01f,
 			0.0f, 1.0f);
 
 		distToGeometry = max(distToGeometry, fabs(distance - consts->params.cloudsDistance)
