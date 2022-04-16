@@ -19,7 +19,6 @@
 
 REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	z = fabs(z);
 	z += fractal->transformCommon.offset000;
 
@@ -81,5 +80,6 @@ REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
 	return z;
 }

@@ -38,13 +38,14 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// Preparation operations
 	double Solution = fractal->transformCommon.offset1;
 	double fac_eff = 0.6666666666;
-	CVector4 c;
+	/*CVector4 c;
 
 	c = CVector4(fractal->transformCommon.scaleNeg1,
 			fractal->transformCommon.offsetA0,
 			fractal->transformCommon.offsetB0,
-			0.0); //temppppppppppp
+			0.0); //temppppppppppp*/
 
+	double cx = fractal->transformCommon.scaleNeg1;
 	/*if (aux.i < fractal->transformCommon.stopIterations1)
 	{
 		if (fractal->transformCommon.juliaMode)
@@ -89,9 +90,9 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	//double r_2cxy = sqrt(c.x * c.x);
 	//double h = 1.0 - c.z * tmpz / (r_2xy * r_2cxy);
 
-	tp.x = (c.x * tmpx); // * h;
-	tp.y = (c.x * tmpy); // * h;
-	tp.z = -c.x * tmpz;
+	tp.x = cx * tmpx; // * h;
+	tp.y = cx * tmpy; // * h;
+	tp.z = -cx * tmpz;
 	//tp.z = r_2cxy * tmpz;
 
 	z = fac_eff * z - tp;

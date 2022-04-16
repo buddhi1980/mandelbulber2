@@ -1,9 +1,16 @@
 Version history
 
-v2.27 (February 2022)
+v2.28 (February 2022)
 
 - Added new fractal formulas
 
+
+- modified fractal formulas
+   transfMengerFold, add aux.color
+
+v2.27 (February 2022)
+
+- Added new fractal formulas
    aboxSmooth
    mandelbulbIqPow8
    mandelbulbIqV2

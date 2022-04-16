@@ -21,26 +21,38 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{ // fabs() and menger fold
+		REAL col = 0.0;
+		REAL temp = 0.0;
 		z = fabs(z + fractal->transformCommon.additionConstantA000);
 		if (z.x < z.y)
 		{
-			REAL temp = z.y;
+			temp = z.y;
 			z.y = z.x;
 			z.x = temp;
+			col += fractal->foldColor.difs0000.x;
 		}
 		if (z.x < z.z)
 		{
-			REAL temp = z.z;
+			temp = z.z;
 			z.z = z.x;
 			z.x = temp;
+			col += fractal->foldColor.difs0000.y;
 		}
 		if (z.y < z.z)
 		{
-			REAL temp = z.z;
+			temp = z.z;
 			z.z = z.y;
 			z.y = temp;
+			col += fractal->foldColor.difs0000.z;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD)
+		{
+			aux->color += col;
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledy)
 	{ // menger scales and offsets
 		z *= fractal->transformCommon.scale3;

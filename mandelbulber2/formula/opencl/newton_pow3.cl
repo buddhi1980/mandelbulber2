@@ -28,10 +28,13 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL Solution = fractal->transformCommon.offset1;
 
 
-	REAL4 c;
+	/*REAL4 c;
 
 	c = (REAL4){fractal->transformCommon.scaleNeg1, fractal->transformCommon.offsetA0,
-		fractal->transformCommon.offsetB0, 0.0f}; // temppppppppppp
+		fractal->transformCommon.offsetB0, 0.0f}; // temppppppppppp*/
+
+	REAL cx = fractal->transformCommon.scaleNeg1;
+
 
 	/*if (aux->i < fractal->transformCommon.stopIterations1)
 	{
@@ -75,13 +78,14 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL tmpy = -2.0f * h1 * z.x * z.y * sq_r;
 	REAL tmpz = 2.0f * z.z * native_sqrt(r_xy) * sq_r;
 
-	REAL r_2xy = native_sqrt(tmpx * tmpx + tmpy * tmpy);
-	REAL r_2cxy = native_sqrt(c.x * c.x + c.y * c.y);
-	REAL h = 1.0f - c.z * tmpz / (r_2xy * r_2cxy);
+	//REAL r_2xy = native_sqrt(tmpx * tmpx + tmpy * tmpy);
+	//REAL r_2cxy = native_sqrt(c.x * c.x + c.y * c.y);
+	//REAL h = 1.0f - c.z * tmpz / (r_2xy * r_2cxy);
 
-	tp.x = (c.x * tmpx - c.y * tmpy) * h;
-	tp.y = (c.y * tmpx + c.x * tmpy) * h;
-	tp.z = r_2cxy * tmpz + r_2xy * c.z;
+	tp.x = cx * tmpx; // * h;
+	tp.y = cx * tmpy; // * h;
+	tp.z = -cx * tmpz;
+	//tp.z = r_2cxy * tmpz;
 
 	z = fac_eff * z - tp;
 
