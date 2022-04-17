@@ -110,12 +110,17 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
-		REAL r = length(z);
+		REAL4 q = z;
+		q.x -= fractal->transformCommon.offsetA1;
+		REAL r = (length(q) + fractal->transformCommon.offsetA1);
+
 		if (!fractal->transformCommon.functionEnabledYFalse)
 			aux->dist = min(aux->dist, 0.5f * log(r) * r / aux->DE);
 		else
 			aux->dist = 0.5f * log(r) * r / aux->DE;
 	}
+
+
 
 	return z;
 }

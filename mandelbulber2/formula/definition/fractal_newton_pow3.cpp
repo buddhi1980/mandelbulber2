@@ -117,11 +117,14 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
-		double r = z.Length();
+		CVector4 q = z;
+		q.x -= fractal->transformCommon.offsetA1;
+		double r = q.Length() + fractal->transformCommon.offsetA1;
+
 		if (!fractal->transformCommon.functionEnabledYFalse)
-			aux.dist = min(aux.dist, 0.5 * log(r) * r / aux.DE);
+			aux.dist = min(aux.dist, 0.5f * log(r) * r / aux.DE);
 		else
-			aux.dist = 0.5 * log(r) * r / aux.DE;
+			aux.dist = 0.5f * log(r) * r / aux.DE;
 	}
 
 
