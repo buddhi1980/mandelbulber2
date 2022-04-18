@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MandelbulbTalisIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelbulbTailsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL th = z.z / aux->r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
@@ -39,36 +39,26 @@ REAL4 MandelbulbTalisIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z.y = cth * native_sin(ph) * rp;
 	z.z = native_sin(th) * rp;
 	z += fractal->transformCommon.offsetA000;
-	//z += aux->const_c * fractal->transformCommon.constantMultiplierA111;
+
 	z.z *= fractal->transformCommon.scaleA1;
 
-
-	//=================================================
-	/// calculate 'Tails' part Z=(Z+1/Z)/2+C
-
-	/// calculate 1/Z
+	// calculate 'Tails' part Z=(Z+1/Z)/2+C
+	// calculate 1/Z
 	// radius squared
-	//aux->r = z.x * z.x + z.y * z.y + z.z * z.z;
 	aux->r = 1.0 / dot(z, z);
-	/// 1/z = conj(z)/r^2
+	// 1/z = conj(z)/r^2
 	REAL4 t = z;
 	t.x = -z.x;
 	t.y = z.y;
 	t.z = -z.z;
-REAL4 g = fractal->transformCommon.scale3D111;
-//REAL g = fractal->transformCommon.scaleA1;
-t *= g *  aux->r;
-	///========================================
-	/// puting z, 1/z and C together.
+	REAL4 g = fractal->transformCommon.scale3D111;
+	t *= g * aux->r;
 
+	// puting z, 1/z and C together.
 	z.x = (z.x + t.x) * fractal->transformCommon.scaleB1;
 	z.y = (z.y + t.y) * fractal->transformCommon.scaleB1;
 	z.z = (z.z + t.z) * fractal->transformCommon.scaleB1;
 	aux->DE *= fractal->transformCommon.scaleB1;
-
-
-
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{
@@ -79,7 +69,7 @@ t *= g *  aux->r;
 	{
 		aux->DE0 = length(z);
 		if (aux->DE0 > 1.0f)
-			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
+			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
 		else
 			aux->DE0 = 0.01f; // 0.0f artifacts in openCL
 

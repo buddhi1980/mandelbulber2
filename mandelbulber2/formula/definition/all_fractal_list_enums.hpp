@@ -285,7 +285,7 @@ enum enumFractalFormula
 
 	// 2.28
 	newtonPow3 = 250,
-	mandelbulbTalis = 251,
+	mandelbulbTails = 251,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
