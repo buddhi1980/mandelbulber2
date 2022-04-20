@@ -90,8 +90,12 @@ float CloudOpacity(__constant sClInConstants *consts, __global uchar *perlinNois
 		distToCloud = fabs(1.0f - opacity - consts->params.cloudsDensity) * 0.2f
 									* consts->params.cloudsPeriod * consts->params.cloudsDEMultiplier;
 
-		opacity = clamp(opacity - 1.0f + consts->params.cloudsDensity * 2.0f, 0.0f, 1.0f)
-							* consts->params.cloudsOpacity;
+		opacity = clamp(opacity - 1.0f + consts->params.cloudsDensity * 2.0f, 0.0f, 1.0f);
+
+		if (consts->params.cloudsSharpEdges)
+			opacity = 0.5f * (1.0f + tanh((opacity - 0.5f) * consts->params.cloudsSharpness));
+
+		opacity *= consts->params.cloudsOpacity;
 
 		opacityOut = opacity * h;
 	}

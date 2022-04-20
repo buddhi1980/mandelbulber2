@@ -112,6 +112,7 @@ typedef struct
 	cl_int cloudsDistanceMode;
 	cl_int cloudsEnable;
 	cl_int cloudsPlaneShape;
+	cl_int cloudsSharpEdges;
 	cl_int constantDEThreshold;
 	cl_int DOFEnabled;
 	cl_int DOFHDRMode;
@@ -181,6 +182,7 @@ typedef struct
 	cl_float cloudsDistanceLayer;
 	cl_float cloudsLightsBoost;
 	cl_float cloudsPeriod;
+	cl_float cloudsSharpness;
 	cl_float cloudsHeight;
 	cl_float cloudsOpacity;
 	cl_float constantFactor;
@@ -301,6 +303,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsEnable = source.cloudsEnable;
 	target.cloudsPlaneShape = source.cloudsPlaneShape;
 	target.constantDEThreshold = source.constantDEThreshold;
+	target.cloudsSharpEdges = source.cloudsSharpEdges;
 	target.DOFEnabled = source.DOFEnabled;
 	target.DOFHDRMode = source.DOFHDRMode;
 	target.DOFMonteCarlo = source.DOFMonteCarlo;
@@ -367,6 +370,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsDistanceLayer = source.cloudsDistanceLayer;
 	target.cloudsLightsBoost = source.cloudsLightsBoost;
 	target.cloudsPeriod = source.cloudsPeriod;
+	target.cloudsSharpness = source.cloudsSharpness;
 	target.cloudsHeight = source.cloudsHeight;
 	target.cloudsOpacity = source.cloudsOpacity;
 	target.constantFactor = source.constantFactor;

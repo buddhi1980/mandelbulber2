@@ -91,6 +91,8 @@ sParamRender::sParamRender(
 	cloudsRandomSeed = container->Get<int>("clouds_random_seed");
 	cloudsRotation = container->Get<CVector3>("clouds_rotation");
 	cloudsSpeed = container->Get<CVector3>("clouds_speed");
+	cloudsSharpEdges = container->Get<bool>("clouds_sharp_edges");
+	cloudsSharpness = container->Get<double>("clouds_sharpness");
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");
