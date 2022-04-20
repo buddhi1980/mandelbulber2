@@ -45,19 +45,19 @@ REAL4 MandelbulbTailsIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// calculate 'Tails' part Z=(Z+1/Z)/2+C
 	// calculate 1/Z
 	// radius squared
-	aux->r = 1.0 / dot(z, z);
+
 	// 1/z = conj(z)/r^2
 	REAL4 t = z;
-	t.x = -z.x;
-	t.y = z.y;
-	t.z = -z.z;
+	aux->r = 1.0 / dot(t, t);
+	t.x = -t.x;
+	//t.y = t.y;
+	t.z = -t.z;
+
 	REAL4 g = fractal->transformCommon.scale3D111;
 	t *= g * aux->r;
-
+	aux->DE += native_recip(aux->DE);
 	// puting z, 1/z and C together.
-	z.x = (z.x + t.x) * fractal->transformCommon.scaleB1;
-	z.y = (z.y + t.y) * fractal->transformCommon.scaleB1;
-	z.z = (z.z + t.z) * fractal->transformCommon.scaleB1;
+	z = (z + t) * fractal->transformCommon.scaleB1;
 	aux->DE *= fractal->transformCommon.scaleB1;
 
 	if (fractal->analyticDE.enabledFalse)

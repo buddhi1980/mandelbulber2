@@ -471,7 +471,7 @@ enum enumFractalFormula
 	transfSincosV2 = 1143,
 	transfLowResMode = 1144,
 	transfMengerFoldV2 = 1145,
-
+	transfAddSphericalInvert = 1146,
 
 	// mandelbulber transfdIFS
 	// 2.20

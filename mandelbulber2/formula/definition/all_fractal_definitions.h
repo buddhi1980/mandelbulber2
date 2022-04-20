@@ -259,6 +259,8 @@ FRACTAL_CLASS(cFractalTransfAddCpixelVaryV1)
 FRACTAL_CLASS(cFractalTransfAddExp2Z)
 FRACTAL_CLASS(cFractalTransfAddNorm)
 FRACTAL_CLASS(cFractalTransfAddScaleRotate)
+FRACTAL_CLASS(cFractalTransfAddSphericalInvert)
+
 FRACTAL_CLASS(cFractalTransfBenesiCubeSphere)
 FRACTAL_CLASS(cFractalTransfBenesiMagBackward)
 FRACTAL_CLASS(cFractalTransfBenesiMagForward)
