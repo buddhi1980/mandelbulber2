@@ -86,7 +86,12 @@ double cRenderWorker::CloudOpacity(
 		distToCloud = fabs(1.0 - opacity - params->cloudsDensity) * 0.2 * params->cloudsPeriod
 									* params->cloudsDEMultiplier;
 
-		opacity = clamp(opacity - 1.0 + params->cloudsDensity * 2.0, 0.0, 1.0) * params->cloudsOpacity;
+		opacity = clamp(opacity - 1.0 + params->cloudsDensity * 2.0, 0.0, 1.0);
+
+		if (params->cloudsSharpEdges)
+			opacity = 0.5 * (1.0 + tanh((opacity - 0.5) * params->cloudsSharpness));
+
+		opacity *= params->cloudsOpacity;
 
 		opacityOut = opacity * h;
 	}
