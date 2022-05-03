@@ -42,9 +42,14 @@ void cFractalMandelbulbTailsV2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	double ph = 0.0;
 	if (!fractal->transformCommon.functionEnabledDFalse)
-		ph = atan2(z.y, z.x);
+	{
+		if (!fractal->transformCommon.functionEnabledFFalse) ph = atan2(z.y, z.x);
+		else ph = atan2(z.y * z.y, z.x * z.x);
+	}
 	else
 		ph = atan2(z.x, sqrt(z.x * z.x + z.y * z.y));
+
+
 	// conditional
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
@@ -52,6 +57,9 @@ void cFractalMandelbulbTailsV2::FormulaCode(CVector4 &z, const sFractal *fractal
 	}
 
 	ph = (ph + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
+
+
+
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 	rp *= aux.r;
@@ -73,7 +81,7 @@ void cFractalMandelbulbTailsV2::FormulaCode(CVector4 &z, const sFractal *fractal
 	{
 		CVector4 t = z;
 		aux.r = 1.0 / t.Dot(t);
-		t.y = -t.y;
+		t.x = -t.x;
 		t.z = -t.z;
 		CVector4 g = fractal->transformCommon.scale3D111;
 		t *= g * aux.r;

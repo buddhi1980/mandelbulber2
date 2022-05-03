@@ -33,7 +33,10 @@ REAL4 MandelbulbTailsV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	REAL ph = 0.0;
 	if (!fractal->transformCommon.functionEnabledDFalse)
-		ph = atan2(z.y, z.x);
+	{
+		if (!fractal->transformCommon.functionEnabledFFalse) ph = atan2(z.y, z.x);
+		else ph = atan2(z.y * z.y, z.x * z.x);
+	}
 	else
 		ph = atan2(z.x, sqrt(z.x * z.x + z.y * z.y));
 	// conditional
@@ -65,7 +68,7 @@ REAL4 MandelbulbTailsV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		REAL4 t = z;
 		aux->r = 1.0 / dot(t, t);
-		t.y = -t.y;
+		t.x = -t.x;
 		t.z = -t.z;
 
 		REAL4 g = fractal->transformCommon.scale3D111;
