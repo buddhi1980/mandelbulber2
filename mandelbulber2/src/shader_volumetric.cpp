@@ -218,6 +218,41 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			//----
 		}
 
+		double cloudsOpacity = 0.0;
+		double cloudDensity = 0.0;
+		CVector3 deltaCloud;
+
+		if (params->cloudsEnable)
+		{
+			double distanceToClouds = 0.0;
+			cloudDensity = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
+
+			if (!params->cloudsCastShadows)
+			{
+				double delta = params->cloudsPeriod / pow(2.0, params->cloudsIterations) * 5.0f;
+				double distanceToCloudsDummy = 0.0;
+				deltaCloud.x = CloudOpacity(point + CVector3(delta, 0.0, 0.0), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloudDensity;
+				deltaCloud.y = CloudOpacity(point + CVector3(0.0, delta, 0.0), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloudDensity;
+				deltaCloud.z = CloudOpacity(point + CVector3(0.0, 0.0, delta), distance, input2.delta,
+												 &distanceToCloudsDummy)
+											 - cloudDensity;
+
+				if (deltaCloud.Length() > 0.0)
+				{
+					deltaCloud.Normalize();
+				}
+			}
+
+			double opacity = cloudDensity * step;
+			// qDebug() << cloud;
+
+			lastCloudDistance = distanceToClouds;
+		}
+
 		sRGBAfloat totalLights(0.0, 0.0, 0.0, 0.0);
 
 		for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
@@ -356,37 +391,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//-------------- perlin noise clouds
-		double cloudsOpacity = 0.0;
+
 		if (params->cloudsEnable)
 		{
-			double distanceToClouds = 0.0;
-			double cloud = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
-
-			CVector3 deltaCloud;
-			if (!params->cloudsCastShadows)
-			{
-				double delta = params->cloudsPeriod / pow(2.0, params->cloudsIterations) * 5.0f;
-				double distanceToCloudsDummy = 0.0;
-				deltaCloud.x = CloudOpacity(point + CVector3(delta, 0.0, 0.0), distance, input2.delta,
-												 &distanceToCloudsDummy)
-											 - cloud;
-				deltaCloud.y = CloudOpacity(point + CVector3(0.0, delta, 0.0), distance, input2.delta,
-												 &distanceToCloudsDummy)
-											 - cloud;
-				deltaCloud.z = CloudOpacity(point + CVector3(0.0, 0.0, delta), distance, input2.delta,
-												 &distanceToCloudsDummy)
-											 - cloud;
-
-				if (deltaCloud.Length() > 0.0)
-				{
-					deltaCloud.Normalize();
-				}
-			}
-
-			double opacity = cloud * step;
-			// qDebug() << cloud;
-
-			lastCloudDistance = distanceToClouds;
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
@@ -394,7 +401,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double ambient = params->cloudsAmbientLight;
 			double nAmbient = 1.0 - params->cloudsAmbientLight;
 
-			if (opacity > 0)
+			if (cloudsOpacity > 0)
 			{
 				for (int l = 0; l < data->lights.GetNumberOfLights(); l++)
 				{
@@ -442,15 +449,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				}
 			}
 
-			if (opacity > 1.0f) opacity = 1.0f;
+			if (cloudsOpacity > 1.0f) cloudsOpacity = 1.0f;
 
-			output.R = output.R * (1.0f - opacity) + newColour.R * opacity * params->cloudsColor.R;
-			output.G = output.G * (1.0f - opacity) + newColour.G * opacity * params->cloudsColor.G;
-			output.B = output.B * (1.0f - opacity) + newColour.B * opacity * params->cloudsColor.B;
-			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
-			output.A = opacity + (1.0f - opacity) * output.A;
-
-			cloudsOpacity = cloud;
+			output.R =
+				output.R * (1.0f - cloudsOpacity) + newColour.R * cloudsOpacity * params->cloudsColor.R;
+			output.G =
+				output.G * (1.0f - cloudsOpacity) + newColour.G * cloudsOpacity * params->cloudsColor.G;
+			output.B =
+				output.B * (1.0f - cloudsOpacity) + newColour.B * cloudsOpacity * params->cloudsColor.B;
+			totalOpacity = cloudsOpacity + (1.0f - cloudsOpacity) * totalOpacity;
+			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
 
 		//		// iter fog
@@ -580,7 +588,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						float lightDensity = miniStep * bellFunction * light->visibility / lightSize;
 
-						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
+						lightDensity *= 1.0f + params->cloudsLightsBoost * cloudDensity;
 
 						output.R += lightDensity * light->color.R * textureColor.R;
 						output.G += lightDensity * light->color.G * textureColor.G;
