@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>1095</height>
+            <width>571</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1257,8 +1257,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>1705</height>
+            <width>553</width>
+            <height>1557</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1540,23 +1540,6 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="8" column="1">
-                 <widget class="MyColorButton" name="colorButton_fog_color_3" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_66">
-                  <property name="text">
-                   <string>Color #1:</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="1">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_density">
                   <property name="toolTip">
@@ -1564,38 +1547,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0">
-                 <widget class="QLabel" name="label_79">
-                  <property name="text">
-                   <string>Color #3:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_100">
-                  <property name="text">
-                   <string>Distance from fractal surface:</string>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_from_surface">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_77">
-                  <property name="text">
-                   <string>Fog distance factor:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="MyColorButton" name="colorButton_fog_color_1" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1612,17 +1564,27 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="0">
-                 <widget class="QLabel" name="label_78">
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_76">
                   <property name="text">
-                   <string>Color #2:</string>
+                   <string>Distance of color #2:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
+                <item row="9" column="1">
+                 <widget class="MyColorButton" name="colorButton_fog_color_3" native="true">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_77">
+                  <property name="text">
+                   <string>Fog distance factor:</string>
                   </property>
                  </widget>
                 </item>
@@ -1633,7 +1595,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
+                <item row="3" column="1">
+                 <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum fog distance of color #2 from the fractal surface, and minimum fog distance for color #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="1">
                  <widget class="MyColorButton" name="colorButton_fog_color_2" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1643,10 +1612,48 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance">
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_79">
+                  <property name="text">
+                   <string>Color #3:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_100">
+                  <property name="text">
+                   <string>Distance from fractal surface:</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum fog distance of color #2 from the fractal surface, and minimum fog distance for color #3.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_from_surface">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the density of fog based on  the  distance from the fractal surface. Higher values produces fog which reaches further from the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_78">
+                  <property name="text">
+                   <string>Color #2:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_66">
+                  <property name="text">
+                   <string>Color #1:</string>
                   </property>
                  </widget>
                 </item>
@@ -1657,10 +1664,16 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_76">
+                <item row="6" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_distance_fog_shadows">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
-                   <string>Distance of color #2:</string>
+                   <string>Cast/receive shadows</string>
                   </property>
                  </widget>
                 </item>
@@ -2715,8 +2728,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1080</height>
+            <width>272</width>
+            <height>409</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3433,8 +3446,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>1236</height>
+            <width>376</width>
+            <height>1110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4474,8 +4487,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1069</height>
+            <width>227</width>
+            <height>215</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

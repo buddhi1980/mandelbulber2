@@ -184,40 +184,130 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		//---------------------- volumetric lights with shadows in fog
 
+		float iterFogOpacity = 0.0f;
+		sRGBFloat iterFogCol;
+
+		if (params->iterFogEnabled)
+		{
+			iterFogOpacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
+				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+
+			if (iterFogOpacity > 0.0)
+			{
+				// fog colour
+				float iterFactor1 = (iterations - params->iterFogOpacityTrim)
+														/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+				float k = iterFactor1;
+				if (k > 1.0f) k = 1.0f;
+				if (k < 0.0f) k = 0.0f;
+				float kn = 1.0f - k;
+				iterFogCol.R = params->iterFogColour1.R * kn + params->iterFogColour2.R * k;
+				iterFogCol.G = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
+				iterFogCol.B = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
+
+				float iterFactor2 = (iterations - params->iterFogColor1Maxiter)
+														/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+				float k2 = iterFactor2;
+				if (k2 < 0.0f) k2 = 0.0;
+				if (k2 > 1.0f) k2 = 1.0;
+				kn = 1.0f - k2;
+				iterFogCol.R = iterFogCol.R * kn + params->iterFogColour3.R * k2;
+				iterFogCol.G = iterFogCol.G * kn + params->iterFogColour3.G * k2;
+				iterFogCol.B = iterFogCol.B * kn + params->iterFogColour3.B * k2;
+			}
+			//----
+		}
+
+		sRGBAfloat totalLights(0.0, 0.0, 0.0, 0.0);
+
 		for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 		{
 			if (data->lights.IsAnyLightEnabled())
 			{
 				const cLight *light = data->lights.GetLight(i);
-				if (light->enabled && light->volumetric)
+				if (light->enabled)
 				{
-					double distanceLight = 0.0;
-					CVector3 lightVectorTemp = light->CalculateLightVector(
-						point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
+					bool shadowNeeded = false;
+					bool lightNeeded = false;
 
-					float intensity;
-					if (light->type == cLight::lightDirectional)
-						intensity = light->intensity;
-					else
-						intensity = light->intensity / light->Decay(distanceLight);
+					if (light->volumetric)
+					{
+						shadowNeeded = true;
+						lightNeeded = true;
+					}
 
-					intensity *= light->volumetricVisibility;
+					if (params->iterFogEnabled && iterFogOpacity > 0.0)
+					{
+						lightNeeded = true;
+						if (params->iterFogShadows) shadowNeeded = true;
+					}
 
-					sRGBFloat textureColor;
-					intensity *= light->CalculateCone(lightVectorTemp, textureColor);
+					if (lightNeeded)
+					{
+						double distanceLight = 0.0;
+						CVector3 lightVectorTemp = light->CalculateLightVector(
+							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
 
-					sRGBAfloat lightShadow;
-					if (intensity > 1e-3)
-						lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
-					else
-						lightShadow = sRGBAfloat();
+						float lightIntensity;
+						if (light->type == cLight::lightDirectional)
+							lightIntensity = light->intensity;
+						else
+							lightIntensity = light->intensity / light->Decay(distanceLight)
+															 * params->iterFogBrightnessBoost * 4.0;
 
-					output.R += lightShadow.R * light->color.R * float(step) * intensity * textureColor.R;
-					output.G += lightShadow.G * light->color.G * float(step) * intensity * textureColor.G;
-					output.B += lightShadow.B * light->color.B * float(step) * intensity * textureColor.B;
-					output.A += lightShadow.A * float(step) * intensity;
-				}
+						sRGBFloat textureColor(0.0, 0.0, 0.0);
+						lightIntensity *= light->CalculateCone(lightVectorTemp, textureColor);
+
+						sRGBAfloat lightShadow(0.0, 0.0, 0.0, 0.0);
+						if (shadowNeeded)
+						{
+							if (lightIntensity > 1e-3)
+								lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+							else
+								lightShadow = sRGBAfloat();
+						}
+
+						sRGBFloat calculatedLight(0.0, 0.0, 0.0);
+						calculatedLight.R = lightShadow.R * light->color.R * lightIntensity * textureColor.R;
+						calculatedLight.G = lightShadow.G * light->color.G * lightIntensity * textureColor.G;
+						calculatedLight.B = lightShadow.B * light->color.B * lightIntensity * textureColor.B;
+
+						totalLights.R += calculatedLight.R;
+						totalLights.G += calculatedLight.G;
+						totalLights.B += calculatedLight.B;
+
+						if (light->volumetric)
+						{
+							output.R += calculatedLight.R * light->volumetricVisibility * float(step);
+							output.G += calculatedLight.G * light->volumetricVisibility * float(step);
+							output.B += calculatedLight.B * light->volumetricVisibility * float(step);
+							output.A +=
+								lightShadow.A * float(step) * lightIntensity * light->volumetricVisibility;
+						}
+					} // if light needed
+				}		// if light enabled
+			}			// if any light enabled
+		}				// next light
+
+		if (params->iterFogEnabled && iterFogOpacity > 0.0)
+		{
+			if (params->ambientOcclusionEnabled
+					&& params->ambientOcclusionMode == params::AOModeMultipleRays)
+			{
+				sRGBAfloat AO = AmbientOcclusion(input2);
+				totalLights.R += AO.R * params->ambientOcclusion;
+				totalLights.G += AO.G * params->ambientOcclusion;
+				totalLights.B += AO.B * params->ambientOcclusion;
 			}
+
+			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
+
+			output.R = output.R * (1.0f - iterFogOpacity) + totalLights.R * iterFogOpacity * iterFogCol.R;
+			output.G = output.G * (1.0f - iterFogOpacity) + totalLights.G * iterFogOpacity * iterFogCol.G;
+			output.B = output.B * (1.0f - iterFogOpacity) + totalLights.B * iterFogOpacity * iterFogCol.B;
+
+			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
+			output.A = iterFogOpacity + (1.0f - iterFogOpacity) * output.A;
 		}
 
 		//----------------------- basic fog
@@ -363,85 +453,86 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			cloudsOpacity = cloud;
 		}
 
-		// iter fog
-		if (params->iterFogEnabled)
-		{
-			float opacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
-				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-
-			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
-			if (opacity > 0)
-			{
-				// fog colour
-				float iterFactor1 = (iterations - params->iterFogOpacityTrim)
-														/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
-				float k = iterFactor1;
-				if (k > 1.0f) k = 1.0f;
-				if (k < 0.0f) k = 0.0f;
-				float kn = 1.0f - k;
-				float fogColR = params->iterFogColour1.R * kn + params->iterFogColour2.R * k;
-				float fogColG = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
-				float fogColB = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
-
-				float iterFactor2 = (iterations - params->iterFogColor1Maxiter)
-														/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
-				float k2 = iterFactor2;
-				if (k2 < 0.0f) k2 = 0.0;
-				if (k2 > 1.0f) k2 = 1.0;
-				kn = 1.0f - k2;
-				fogColR = fogColR * kn + params->iterFogColour3.R * k2;
-				fogColG = fogColG * kn + params->iterFogColour3.G * k2;
-				fogColB = fogColB * kn + params->iterFogColour3.B * k2;
-				//----
-
-				for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
-				{
-					const cLight *light = data->lights.GetLight(i);
-					if (light->enabled)
-					{
-						double distanceLight = 0.0;
-						CVector3 lightVectorTemp = light->CalculateLightVector(
-							point, input2.delta, params->resolution, params->viewDistanceMax, distanceLight);
-
-						float intensity;
-						if (light->type == cLight::lightDirectional)
-							intensity = light->intensity;
-						else
-							intensity = light->intensity / light->Decay(distanceLight)
-													* params->iterFogBrightnessBoost * 4.0;
-
-						sRGBFloat textureColor;
-						intensity *= light->CalculateCone(lightVectorTemp, textureColor);
-
-						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
-						if (params->iterFogShadows && intensity > 1e-3)
-						{
-							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
-						}
-						newColour.R += lightShadow.R * light->color.R * intensity * textureColor.R;
-						newColour.G += lightShadow.G * light->color.G * intensity * textureColor.G;
-						newColour.B += lightShadow.B * light->color.B * intensity * textureColor.B;
-					}
-				}
-
-				if (params->ambientOcclusionEnabled
-						&& params->ambientOcclusionMode == params::AOModeMultipleRays)
-				{
-					sRGBAfloat AO = AmbientOcclusion(input2);
-					newColour.R += AO.R * params->ambientOcclusion;
-					newColour.G += AO.G * params->ambientOcclusion;
-					newColour.B += AO.B * params->ambientOcclusion;
-				}
-
-				if (opacity > 1.0f) opacity = 1.0f;
-
-				output.R = output.R * (1.0f - opacity) + newColour.R * opacity * fogColR;
-				output.G = output.G * (1.0f - opacity) + newColour.G * opacity * fogColG;
-				output.B = output.B * (1.0f - opacity) + newColour.B * opacity * fogColB;
-				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
-				output.A = opacity + (1.0f - opacity) * output.A;
-			}
-		}
+		//		// iter fog
+		//		if (params->iterFogEnabled)
+		//		{
+		//			float opacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
+		//				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+		//
+		//			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
+		//			if (opacity > 0)
+		//			{
+		//				// fog colour
+		//				float iterFactor1 = (iterations - params->iterFogOpacityTrim)
+		//														/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+		//				float k = iterFactor1;
+		//				if (k > 1.0f) k = 1.0f;
+		//				if (k < 0.0f) k = 0.0f;
+		//				float kn = 1.0f - k;
+		//				float fogColR = params->iterFogColour1.R * kn + params->iterFogColour2.R * k;
+		//				float fogColG = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
+		//				float fogColB = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
+		//
+		//				float iterFactor2 = (iterations - params->iterFogColor1Maxiter)
+		//														/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+		//				float k2 = iterFactor2;
+		//				if (k2 < 0.0f) k2 = 0.0;
+		//				if (k2 > 1.0f) k2 = 1.0;
+		//				kn = 1.0f - k2;
+		//				fogColR = fogColR * kn + params->iterFogColour3.R * k2;
+		//				fogColG = fogColG * kn + params->iterFogColour3.G * k2;
+		//				fogColB = fogColB * kn + params->iterFogColour3.B * k2;
+		//				//----
+		//
+		//				for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
+		//				{
+		//					const cLight *light = data->lights.GetLight(i);
+		//					if (light->enabled)
+		//					{
+		//						double distanceLight = 0.0;
+		//						CVector3 lightVectorTemp = light->CalculateLightVector(
+		//							point, input2.delta, params->resolution, params->viewDistanceMax,
+		// distanceLight);
+		//
+		//						float intensity;
+		//						if (light->type == cLight::lightDirectional)
+		//							intensity = light->intensity;
+		//						else
+		//							intensity = light->intensity / light->Decay(distanceLight)
+		//													* params->iterFogBrightnessBoost * 4.0;
+		//
+		//						sRGBFloat textureColor;
+		//						intensity *= light->CalculateCone(lightVectorTemp, textureColor);
+		//
+		//						sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
+		//						if (params->iterFogShadows && intensity > 1e-3)
+		//						{
+		//							lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
+		//						}
+		//						newColour.R += lightShadow.R * light->color.R * intensity * textureColor.R;
+		//						newColour.G += lightShadow.G * light->color.G * intensity * textureColor.G;
+		//						newColour.B += lightShadow.B * light->color.B * intensity * textureColor.B;
+		//					}
+		//				}
+		//
+		//				if (params->ambientOcclusionEnabled
+		//						&& params->ambientOcclusionMode == params::AOModeMultipleRays)
+		//				{
+		//					sRGBAfloat AO = AmbientOcclusion(input2);
+		//					newColour.R += AO.R * params->ambientOcclusion;
+		//					newColour.G += AO.G * params->ambientOcclusion;
+		//					newColour.B += AO.B * params->ambientOcclusion;
+		//				}
+		//
+		//				if (opacity > 1.0f) opacity = 1.0f;
+		//
+		//				output.R = output.R * (1.0f - opacity) + newColour.R * opacity * fogColR;
+		//				output.G = output.G * (1.0f - opacity) + newColour.G * opacity * fogColG;
+		//				output.B = output.B * (1.0f - opacity) + newColour.B * opacity * fogColB;
+		//				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+		//				output.A = opacity + (1.0f - opacity) * output.A;
+		//			}
+		//		}
 
 		//------------------ visible light
 		if (data->lights.IsAnyLightEnabled())
