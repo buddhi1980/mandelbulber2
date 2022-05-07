@@ -18,7 +18,7 @@ cFractalNewtonPow3::cFractalNewtonPow3() : cAbstractFractal()
 	nameInComboBox = "Newton Pow3";
 	internalName = "newton_pow3";
 	internalID = fractal::newtonPow3;
-	DEType = analyticDEType;
+	DEType = deltaDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 10.0;
@@ -36,39 +36,13 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 	// Preparation operations
-	double Solution = fractal->transformCommon.offset1;
 	double fac_eff = 0.6666666666;
-	/*CVector4 c;
-
-	c = CVector4(fractal->transformCommon.scaleNeg1,
-			fractal->transformCommon.offsetA0,
-			fractal->transformCommon.offsetB0,
-			0.0); //temppppppppppp*/
-
-	double cx = fractal->transformCommon.scaleNeg1;
-	/*if (aux.i < fractal->transformCommon.stopIterations1)
-	{
-		if (fractal->transformCommon.juliaMode)
-		{
-			 c = CVector4(fractal->transformCommon.scaleNeg1,
-					fractal->transformCommon.offsetA0,
-					 fractal->transformCommon.offsetB0,
-					 0.0); //temppppppppppp
-		 }
-		else
-		{
-			//if (!fractal->transformCommon.functionEnabledCFalse) c = aux.const_c;
-			//else c = z;
-			c = z * fractal->transformCommon.vec111;
-			//c *= fractal->transformCommon.constantMultiplier100;
-		}
-	}*/
 
 	// Converting the diverging (x,y,z) back to the variable
 	// that can be used for the (converging) Newton method calculation
 	double sq_r = fractal->transformCommon.scaleA1 / (aux.r * aux.r);
 	//aux.DE *= (sq_r);
-	z.x = z.x * sq_r + Solution;
+	z.x = z.x * sq_r + 1.0;
 	z.y = -z.y * sq_r; // 0.0
 	z.z = -z.z * sq_r; // 0.0
 
@@ -86,22 +60,17 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	double tmpy = -2.0 * h1 * z.x * z.y * sq_r;
 	double tmpz = 2.0 * z.z * sqrt(r_xy) * sq_r;
 
-	//double r_2xy = sqrt(tmpx * tmpx + tmpy * tmpy);
-	//double r_2cxy = sqrt(c.x * c.x);
-	//double h = 1.0 - c.z * tmpz / (r_2xy * r_2cxy);
-
-	tp.x = cx * tmpx; // * h;
-	tp.y = cx * tmpy; // * h;
-	tp.z = -cx * tmpz;
-	//tp.z = r_2cxy * tmpz;
+	tp.x = -tmpx;
+	tp.y = -tmpy;
+	tp.z = tmpz;
 
 	z = fac_eff * z - tp;
 
 	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
 	// although the plain Newton method does always converge
-	tp.x = z.x - Solution;
-	tp.y = z.y; // - Solution.y;
-	tp.z = z.z; // - Solution.z;
+	tp.x = z.x - 1.0;
+	tp.y = z.y;
+	tp.z = z.z;
 	sq_r = fractal->transformCommon.scaleB1 / tp.Dot(tp);
 	z.x = tp.x * sq_r;
 	z.y = -tp.y * sq_r;
@@ -126,10 +95,4 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		else
 			aux.dist = 0.5f * log(r) * r / aux.DE;
 	}
-
-
-
-
-
-
 }

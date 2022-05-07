@@ -110,8 +110,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMandelbulbQuadrat());
 	fractalList->append(new cFractalMandelbulbQuat());
 	fractalList->append(new cFractalMandelbulbSinCos());
-	fractalList->append(new cFractalMandelbulbTails());
-	fractalList->append(new cFractalMandelbulbTailsV2());
 	fractalList->append(new cFractalMandelbulbVaryPowerV1());
 	fractalList->append(new cFractalMandelcup());
 	fractalList->append(new cFractalMandelnest());
@@ -133,8 +131,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMsltoeSym4Mod1());
 	fractalList->append(new cFractalMsltoeToroidal());
 	fractalList->append(new cFractalMsltoeToroidalMulti());
-
-	fractalList->append(new cFractalNewtonPow3());
 
 	// Quaternion formulas
 	fractalList->append(new cFractalQuaternion());
@@ -334,28 +330,25 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	//------------------------ DELTA DE FORMULAS ------------------------
 
 	// ----- Logarithmic -----
-
-	// Aexion formulas
 	fractalList->append(new cFractalAexionOctopusMod());
 
-	// Ides formulas
 	fractalList->append(new cFractalIdes());
 	fractalList->append(new cFractalIdes2());
 
-	// Riemann formulas
+	fractalList->append(new cFractalMandelbulbTails());
+	fractalList->append(new cFractalMandelbulbTailsV2());
+
 	fractalList->append(new cFractalRiemannBulbMsltoeMod2());
 	fractalList->append(new cFractalRiemannSphereMsltoe());
 	fractalList->append(new cFractalRiemannSphereMsltoeM3d());
 
-	// Scator Algebra formulas
 	fractalList->append(new cFractalScatorPower2Real());
 	fractalList->append(new cFractalScatorPower2Imaginary());
 
 	// ----- Linear -----
 	fractalList->append(new cFractalBoxFoldBulbPow2());
-
-	// Msltoe formulas
 	fractalList->append(new cFractalMsltoeDonut());
+	fractalList->append(new cFractalNewtonPow3());
 
 	//-------------------------- Transforms -----------------------------------
 
