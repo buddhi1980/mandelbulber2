@@ -140,7 +140,8 @@ sRGBAfloat cRenderWorker::AuxShadow(
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
-		else if (cloudMode)
+
+		if (cloudMode)
 		{
 			double distanceToClouds = 0.0f;
 			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;

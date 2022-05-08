@@ -247,13 +247,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				}
 			}
 
-			double opacity = cloudDensity * step;
+			cloudsOpacity = cloudDensity * step;
 			// qDebug() << cloud;
 
 			lastCloudDistance = distanceToClouds;
 		}
 
+		sRGBAfloat totalLightsWithShadows(0.0, 0.0, 0.0, 0.0);
 		sRGBAfloat totalLights(0.0, 0.0, 0.0, 0.0);
+		sRGBAfloat totalLightsClouds(0.0, 0.0, 0.0, 0.0);
 
 		for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 		{
@@ -275,6 +277,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					{
 						lightNeeded = true;
 						if (params->iterFogShadows) shadowNeeded = true;
+					}
+
+					if (params->cloudsEnable && cloudsOpacity > 0.0)
+					{
+						lightNeeded = true;
+						if (params->cloudsCastShadows) shadowNeeded = true;
 					}
 
 					if (lightNeeded)
@@ -303,13 +311,22 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						}
 
 						sRGBFloat calculatedLight(0.0, 0.0, 0.0);
-						calculatedLight.R = lightShadow.R * light->color.R * lightIntensity * textureColor.R;
-						calculatedLight.G = lightShadow.G * light->color.G * lightIntensity * textureColor.G;
-						calculatedLight.B = lightShadow.B * light->color.B * lightIntensity * textureColor.B;
+						calculatedLight.R = light->color.R * lightIntensity * textureColor.R;
+						calculatedLight.G = light->color.G * lightIntensity * textureColor.G;
+						calculatedLight.B = light->color.B * lightIntensity * textureColor.B;
+
+						totalLightsWithShadows.R += calculatedLight.R * lightShadow.R;
+						totalLightsWithShadows.G += calculatedLight.G * lightShadow.G;
+						totalLightsWithShadows.B += calculatedLight.B * lightShadow.B;
 
 						totalLights.R += calculatedLight.R;
 						totalLights.G += calculatedLight.G;
 						totalLights.B += calculatedLight.B;
+
+						double shadeClouds = clamp(-lightVectorTemp.Dot(deltaCloud), 0.0, 1.0);
+						totalLightsClouds.R += calculatedLight.R * shadeClouds;
+						totalLightsClouds.G += calculatedLight.G * shadeClouds;
+						totalLightsClouds.B += calculatedLight.B * shadeClouds;
 
 						if (light->volumetric)
 						{
@@ -326,23 +343,52 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		if (params->iterFogEnabled && iterFogOpacity > 0.0)
 		{
+			sRGBAfloat AO(0.0, 0.0, 0.0, 0.0);
+
 			if (params->ambientOcclusionEnabled
 					&& params->ambientOcclusionMode == params::AOModeMultipleRays)
 			{
-				sRGBAfloat AO = AmbientOcclusion(input2);
-				totalLights.R += AO.R * params->ambientOcclusion;
-				totalLights.G += AO.G * params->ambientOcclusion;
-				totalLights.B += AO.B * params->ambientOcclusion;
+				AO = AmbientOcclusion(input2);
 			}
+
+			sRGBAfloat light = (params->iterFogShadows) ? totalLightsWithShadows : totalLights;
 
 			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
 
-			output.R = output.R * (1.0f - iterFogOpacity) + totalLights.R * iterFogOpacity * iterFogCol.R;
-			output.G = output.G * (1.0f - iterFogOpacity) + totalLights.G * iterFogOpacity * iterFogCol.G;
-			output.B = output.B * (1.0f - iterFogOpacity) + totalLights.B * iterFogOpacity * iterFogCol.B;
+			output.R = output.R * (1.0f - iterFogOpacity)
+								 + (light.R + AO.R * params->ambientOcclusion) * iterFogOpacity * iterFogCol.R;
+
+			output.G = output.G * (1.0f - iterFogOpacity)
+								 + (light.G + AO.G * params->ambientOcclusion) * iterFogOpacity * iterFogCol.G;
+
+			output.B = output.B * (1.0f - iterFogOpacity)
+								 + (light.B + AO.B * params->ambientOcclusion) * iterFogOpacity * iterFogCol.B;
 
 			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
 			output.A = iterFogOpacity + (1.0f - iterFogOpacity) * output.A;
+		}
+
+		if (params->cloudsEnable && cloudsOpacity > 0.0)
+		{
+			sRGBAfloat light = (params->cloudsCastShadows) ? totalLightsWithShadows : totalLightsClouds;
+
+			double ambient = params->cloudsAmbientLight;
+			double nAmbient = 1.0 - params->cloudsAmbientLight;
+
+			light.R = ambient * totalLights.R + nAmbient * light.R;
+			light.G = ambient * totalLights.G + nAmbient * light.G;
+			light.B = ambient * totalLights.B + nAmbient * light.B;
+
+			if (cloudsOpacity > 1.0f) cloudsOpacity = 1.0f;
+
+			output.R =
+				output.R * (1.0f - cloudsOpacity) + light.R * cloudsOpacity * params->cloudsColor.R;
+			output.G =
+				output.G * (1.0f - cloudsOpacity) + light.G * cloudsOpacity * params->cloudsColor.G;
+			output.B =
+				output.B * (1.0f - cloudsOpacity) + light.B * cloudsOpacity * params->cloudsColor.B;
+			totalOpacity = cloudsOpacity + (1.0f - cloudsOpacity) * totalOpacity;
+			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
 
 		//----------------------- basic fog
@@ -391,6 +437,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//-------------- perlin noise clouds
+
+		/*
 
 		if (params->cloudsEnable)
 		{
@@ -460,6 +508,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			totalOpacity = cloudsOpacity + (1.0f - cloudsOpacity) * totalOpacity;
 			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
+
+		*/
 
 		//		// iter fog
 		//		if (params->iterFogEnabled)
