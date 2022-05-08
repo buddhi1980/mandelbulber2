@@ -22,7 +22,7 @@ cFractalAexionOctopusMod::cFractalAexionOctopusMod() : cAbstractFractal()
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelAlreadyHas;
 	defaultBailout = 10.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }
 

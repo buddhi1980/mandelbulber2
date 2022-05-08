@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_44">
      <property name="text">
-      <string notr="true">DeltaDE log is often best</string>
+      <string notr="true">DeltaDE formula. Can force analyticDE with some settings.</string>
      </property>
     </widget>
    </item>

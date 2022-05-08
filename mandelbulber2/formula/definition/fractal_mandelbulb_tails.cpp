@@ -17,7 +17,7 @@ cFractalMandelbulbTails::cFractalMandelbulbTails() : cAbstractFractal()
 	nameInComboBox = "Mandelbulb Tails";
 	internalName = "mandelbulb_tails";
 	internalID = fractal::mandelbulbTails;
-	DEType = analyticDEType;
+	DEType = deltaDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 10.0;

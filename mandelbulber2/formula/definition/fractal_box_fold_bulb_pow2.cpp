@@ -20,7 +20,7 @@ cFractalBoxFoldBulbPow2::cFractalBoxFoldBulbPow2() : cAbstractFractal()
 	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
 	defaultBailout = 10000.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionLinear;
 	coloringFunction = coloringFunctionDefault;
 }
 
