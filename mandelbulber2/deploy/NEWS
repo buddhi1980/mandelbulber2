@@ -4,6 +4,8 @@ v2.28 (February 2022)
 
 - Added new fractal formulas
 
+   transfSphericalFoldSmooth
+
 
 - modified fractal formulas
    transfMengerFold, add aux.color

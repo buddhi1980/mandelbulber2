@@ -337,7 +337,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalMandelbulbTails());
 	fractalList->append(new cFractalMandelbulbTailsV2());
-
+	fractalList->append(new cFractalNewtonPow3());
 	fractalList->append(new cFractalRiemannBulbMsltoeMod2());
 	fractalList->append(new cFractalRiemannSphereMsltoe());
 	fractalList->append(new cFractalRiemannSphereMsltoeM3d());
@@ -348,7 +348,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// ----- Linear -----
 	fractalList->append(new cFractalBoxFoldBulbPow2());
 	fractalList->append(new cFractalMsltoeDonut());
-	fractalList->append(new cFractalNewtonPow3());
+
 
 	//-------------------------- Transforms -----------------------------------
 
