@@ -103,6 +103,7 @@ sParamRender::sParamRender(
 	detailSizeMax = container->Get<double>("detail_size_max");
 	detailSizeMin = container->Get<double>("detail_size_min");
 	DEThresh = container->Get<double>("DE_thresh");
+	distanceFogShadows = container->Get<bool>("distance_fog_shadows");
 	DOFEnabled = container->Get<bool>("DOF_enabled");
 	DOFFocus = container->Get<double>("DOF_focus");
 	DOFRadius = container->Get<double>("DOF_radius");

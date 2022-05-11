@@ -57,12 +57,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 	output.B = oldPixel.B;
 	output.A = oldPixel.A;
 
-	// volumetric fog init
-	double colourThresh = params->volFogColour1Distance;
-	double colourThresh2 = params->volFogColour2Distance;
-	double fogReduce = params->volFogDistanceFactor;
-	float fogIntensity = params->volFogDensity;
-
 	// visible lights init
 	int numberOfLights = data->lights.GetNumberOfLights();
 	if (numberOfLights < 4) numberOfLights = 4;
@@ -253,6 +247,41 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			lastCloudDistance = distanceToClouds;
 		}
 
+		double distFogOpacity = 0.0;
+		sRGBFloat distFogColor(0.0, 0.0, 0.0);
+
+		//-------------------- volumetric fog
+		if (params->volFogDensity > 0.0f && params->volFogEnabled)
+		{
+			double colourThresh = params->volFogColour1Distance;
+			double colourThresh2 = params->volFogColour2Distance;
+			double fogReduce = params->volFogDistanceFactor;
+			float fogIntensity = params->volFogDensity;
+
+			double distanceShifted = fabs(distance - params->volFogDistanceFromSurface)
+															 + 0.1 * params->volFogDistanceFromSurface;
+			float densityTemp =
+				step * fogReduce / (distanceShifted * distanceShifted + fogReduce * fogReduce);
+
+			float k = distanceShifted / colourThresh;
+			if (k > 1) k = 1.0f;
+			float kn = 1.0f - k;
+			float fogTempR = params->volFogColour1.R * kn + params->volFogColour2.R * k;
+			float fogTempG = params->volFogColour1.G * kn + params->volFogColour2.G * k;
+			float fogTempB = params->volFogColour1.B * kn + params->volFogColour2.B * k;
+
+			float k2 = distanceShifted / colourThresh2 * k;
+			if (k2 > 1) k2 = 1.0;
+			kn = 1.0f - k2;
+			distFogColor.R = fogTempR * kn + params->volFogColour3.R * k2;
+			distFogColor.G = fogTempG * kn + params->volFogColour3.G * k2;
+			distFogColor.B = fogTempB * kn + params->volFogColour3.B * k2;
+
+			distFogOpacity =
+				0.3f * fogIntensity * densityTemp / (1.0f + fogIntensity * densityTemp) - 0.001;
+			if (distFogOpacity < 0.0) distFogOpacity = 0.0;
+		}
+
 		sRGBAfloat totalLightsWithShadows(0.0, 0.0, 0.0, 0.0);
 		sRGBAfloat totalLights(0.0, 0.0, 0.0, 0.0);
 		sRGBAfloat totalLightsClouds(0.0, 0.0, 0.0, 0.0);
@@ -285,6 +314,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (params->cloudsCastShadows) shadowNeeded = true;
 					}
 
+					if (params->distanceFogShadows && distFogOpacity > 0.0)
+					{
+						if (params->distanceFogShadows)
+						{
+							lightNeeded = true;
+							shadowNeeded = true;
+						}
+					}
+
+					if (!light->castShadows) shadowNeeded = false;
+
 					if (lightNeeded)
 					{
 						double distanceLight = 0.0;
@@ -295,8 +335,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (light->type == cLight::lightDirectional)
 							lightIntensity = light->intensity;
 						else
-							lightIntensity = light->intensity / light->Decay(distanceLight)
-															 * params->iterFogBrightnessBoost * 4.0;
+							lightIntensity = light->intensity / light->Decay(distanceLight) * 4.0;
 
 						sRGBFloat textureColor(0.0, 0.0, 0.0);
 						lightIntensity *= light->CalculateCone(lightVectorTemp, textureColor);
@@ -356,13 +395,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
 
 			output.R = output.R * (1.0f - iterFogOpacity)
-								 + (light.R + AO.R * params->ambientOcclusion) * iterFogOpacity * iterFogCol.R;
+								 + (light.R * params->iterFogBrightnessBoost + AO.R * params->ambientOcclusion)
+										 * iterFogOpacity * iterFogCol.R;
 
 			output.G = output.G * (1.0f - iterFogOpacity)
-								 + (light.G + AO.G * params->ambientOcclusion) * iterFogOpacity * iterFogCol.G;
+								 + (light.G * params->iterFogBrightnessBoost + AO.G * params->ambientOcclusion)
+										 * iterFogOpacity * iterFogCol.G;
 
 			output.B = output.B * (1.0f - iterFogOpacity)
-								 + (light.B + AO.B * params->ambientOcclusion) * iterFogOpacity * iterFogCol.B;
+								 + (light.B * params->iterFogBrightnessBoost + AO.B * params->ambientOcclusion)
+										 * iterFogOpacity * iterFogCol.B;
 
 			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
 			output.A = iterFogOpacity + (1.0f - iterFogOpacity) * output.A;
@@ -391,6 +433,21 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
 
+		if (params->volFogEnabled && distFogOpacity)
+		{
+			sRGBAfloat light =
+				(params->distanceFogShadows) ? totalLightsWithShadows : sRGBFloat(1.0, 1.0, 1.0);
+
+			if (distFogOpacity > 1) distFogOpacity = 1.0;
+
+			output.R = distFogOpacity * distFogColor.R * light.R + (1.0f - distFogOpacity) * output.R;
+			output.G = distFogOpacity * distFogColor.G * light.G + (1.0f - distFogOpacity) * output.G;
+			output.B = distFogOpacity * distFogColor.B * light.B + (1.0f - distFogOpacity) * output.B;
+
+			totalOpacity = distFogOpacity + (1.0f - distFogOpacity) * totalOpacity;
+			output.A = distFogOpacity + (1.0f - distFogOpacity) * output.A;
+		}
+
 		//----------------------- basic fog
 		if (params->fogEnabled)
 		{
@@ -404,6 +461,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//-------------------- volumetric fog
+		/*
 		if (fogIntensity > 0.0f && params->volFogEnabled)
 		{
 			double distanceShifted = fabs(distance - params->volFogDistanceFromSurface)
@@ -435,6 +493,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
 		}
+		*/
 
 		//-------------- perlin noise clouds
 

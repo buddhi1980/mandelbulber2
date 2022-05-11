@@ -295,6 +295,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("volumetric_fog_distance_factor", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam(
 		"volumetric_fog_distance_from_surface", 1e-15, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("distance_fog_shadows", false, morphLinear, paramStandard);
 
 	par->addParam("iteration_fog_enable", false, morphLinear, paramStandard);
 	par->addParam("iteration_fog_opacity", 1000.0, 0.0, 1e15, morphLinear, paramStandard);

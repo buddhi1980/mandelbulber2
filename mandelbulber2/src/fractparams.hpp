@@ -108,6 +108,7 @@ struct sParamRender
 	bool cloudsPlaneShape;
 	bool cloudsSharpEdges;
 	bool constantDEThreshold;
+	bool distanceFogShadows;
 	bool DOFEnabled;
 	bool DOFHDRMode;
 	bool DOFMonteCarlo;
