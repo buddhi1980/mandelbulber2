@@ -26,13 +26,13 @@ cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
 }
 
 void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
+{ // piriform
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		z.y = fabs(z.y);
-		double psi = M_PI / fractal->transformCommon.startIterationsP;
+		double psi = M_PI / fractal->transformCommon.int2;
 		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
@@ -60,19 +60,32 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	aux.DE *= fractal->transformCommon.scale1;
 
 	CVector4 zc = z;
-	double u = pow(zc.x, fractal->transformCommon.int2);
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		double temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
+
+	//double u = pow(zc.x, fractal->transformCommon.int2);
+	double u = pow(zc.x, fractal->transformCommon.scale2);
+
+
 	double r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
 	r = (r < 0.0f) ? 0.0f : sqrt(r);
 	double t = u + fractal->transformCommon.offsetC0;
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
-//t -= fractal->transformCommon.offset0;
-	//if (fractal->transformCommon.offset0 > 0.0f)
+	//t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
+	if (fractal->transformCommon.offset0 > 0.0)
 		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
 
+
 	// z.z clip
-	if (fractal->transformCommon.functionEnabledCFalse)
-		t = max(t, fabs(zc.z) - fractal->transformCommon.offsetA0);
+	if (!fractal->transformCommon.functionEnabledCFalse)
+		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)

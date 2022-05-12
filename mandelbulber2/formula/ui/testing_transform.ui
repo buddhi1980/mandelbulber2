@@ -106,7 +106,7 @@
          <number>2</number>
         </property>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_P">
+         <widget class="MySpinBox" name="spinboxInt_transf_int_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -687,11 +687,18 @@
     </layout>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+     <property name="text">
+      <string>swap axis XZ</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_38" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="5" column="2">
+     <item row="6" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetB_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -719,26 +726,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_int_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
+     <item row="7" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetC_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -766,77 +754,52 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_115">
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_116">
-       <property name="text">
-        <string>offsetB0:</string>
+        <string>r2:</string>
        </property>
       </widget>
      </item>
      <item row="6" column="0">
-      <widget class="QLabel" name="label_117">
+      <widget class="QLabel" name="label_116">
        <property name="text">
-        <string>offsetC0:</string>
+        <string>r1:</string>
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_86">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_78">
-       <property name="text">
-        <string>start at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_G">
+     <item row="5" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
        <property name="minimum">
-        <number>0</number>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <number>999</number>
+        <double>99.989999999999995</double>
        </property>
-       <property name="value">
-        <number>0</number>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QLabel" name="label_60">
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>stop at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_G">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
+        <string>power:</string>
        </property>
       </widget>
      </item>
@@ -906,7 +869,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>scaleA1:</string>
+        <string>de scaleA1:</string>
        </property>
       </widget>
      </item>
@@ -948,7 +911,7 @@
      <item row="1" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
        <property name="text">
-        <string notr="true">clip</string>
+        <string notr="true">disable clip</string>
        </property>
       </widget>
      </item>
@@ -983,7 +946,60 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>offset0:</string>
+        <string>de offset0:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_86">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_78">
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_G">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="label_60">
+       <property name="text">
+        <string>stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_G">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
        </property>
       </widget>
      </item>
@@ -1362,25 +1378,25 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

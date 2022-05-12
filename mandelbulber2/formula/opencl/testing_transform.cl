@@ -20,7 +20,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
 		z.y = fabs(z.y);
-		REAL psi = M_PI_F / fractal->transformCommon.startIterationsP;
+		REAL psi = M_PI_F / fractal->transformCommon.int2;
 		psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
 		REAL len = native_sqrt(z.x * z.x + z.y * z.y);
 		z.x = native_cos(psi) * len;
@@ -48,22 +48,37 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	aux->DE *= fractal->transformCommon.scale1;
 
 	REAL4 zc = z;
-	REAL u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		REAL temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
+
+	//REAL u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
+
+	REAL u = pow(zc.x, fractal->transformCommon.scale2);
+
 	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
 	r = (r < 0.0f) ? 0.0f : sqrt(r);
 	REAL t = u + fractal->transformCommon.offsetC0;
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
+	if (fractal->transformCommon.offset0 > 0.0f)
+		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
+
+
 	if (aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 		t = min(aux->dist, t);
 
-	if (fractal->transformCommon.offset0 > 0.0f)
-		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
 
-	if (fractal->transformCommon.functionEnabledCFalse)
-		t = max(t, fabs(zc.z) - fractal->transformCommon.offsetA0);
+
+	if (!fractal->transformCommon.functionEnabledCFalse)
+		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 
 	REAL colDist = aux->dist;
 	aux->dist = t;
