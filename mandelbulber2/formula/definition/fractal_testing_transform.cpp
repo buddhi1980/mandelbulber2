@@ -78,18 +78,30 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double t = u + fractal->transformCommon.offsetC0;
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
-	//t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
+
 	if (fractal->transformCommon.offset0 > 0.0)
 		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
-
 
 	// z.z clip
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			t = sqrt(t * t + zc.z * zc.z);
+		else t = max(fabs(t), fabs(zc.z));
+
+		t -= fractal->transformCommon.offset0005;
+		aux.DE += 1.0;
+	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
-				t = min(aux.dist, t);
+				t = min(aux.dist, t / aux.DE);
 
 	double colDist = aux.dist;
 	aux.dist = t;
@@ -104,11 +116,10 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.color += addColor;
 	}
 
-	aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + fractal->analyticDE.offset0);
+	//aux.dist *= fractal->transformCommon.scaleA1 / (aux.DE + fractal->analyticDE.offset0);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
 }
