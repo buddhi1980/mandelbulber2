@@ -124,64 +124,93 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		}
 #endif // GLOW
 
-#ifdef VOLUMETRIC_LIGHTS
-#ifdef AUX_LIGHTS
-		for (int i = 0; i < numberOfLights; i++)
+#ifdef ITER_FOG
+		float iterFogOpacity = 0.0f;
+		float3 iterFogCol = 0.0f;
+
 		{
-			__global sLightCl *light = &renderData->lights[i];
-			if (light->enabled && light->volumetric)
+			int L = outF.iters;
+			iterFogOpacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
+				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
+
+			if (iterFogOpacity > 0.0f)
 			{
-				float distanceLight = 0.0f;
+				// fog colour
+				float iterFactor1 =
+					(L - consts->params.iterFogOpacityTrim)
+					/ (consts->params.iterFogColor1Maxiter - consts->params.iterFogOpacityTrim);
+				float k = iterFactor1;
+				if (k > 1.0f) k = 1.0f;
+				if (k < 0.0f) k = 0.0f;
+				float kn = 1.0f - k;
+				iterFogCol = consts->params.iterFogColour1 * kn + consts->params.iterFogColour2 * k;
 
-				float3 lightVectorTemp =
-					CalculateLightVector(light, point, input2.delta, consts->params.resolution,
-						consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
-
-				float intensity = 0.0f;
-				if (light->type == lightDirectional)
-					intensity = light->intensity;
-				else
-					intensity = light->intensity / LightDecay(distanceLight, light->decayFunction);
-
-				float3 textureColor;
-				intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
-
-				intensity *= light->volumetricVisibility;
-
-				float3 lightShadow = 1.0f;
-
-				if (intensity > 1e-3)
-				{
-					lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
-						lightVectorTemp, calcParam, light->intensity);
-				}
-				else
-				{
-					lightShadow = 0.0f;
-				}
-
-				output += lightShadow * light->color * step * intensity * textureColor;
-				out4.s3 += lightShadow.s0 * step * intensity;
+				float iterFactor2 =
+					(L - consts->params.iterFogColor1Maxiter)
+					/ (consts->params.iterFogColor2Maxiter - consts->params.iterFogColor1Maxiter);
+				float k2 = iterFactor2;
+				if (k2 < 0.0f) k2 = 0.0f;
+				if (k2 > 1.0f) k2 = 1.0f;
+				kn = 1.0f - k2;
+				iterFogCol = iterFogCol * kn + consts->params.iterFogColour3 * k2;
+				//----
 			}
 		}
-#endif // AUX_LIGHTS
-#endif // VOLUMETRIC_LIGHTS
+#endif // ITER_FOG
 
-//----------------------- basic fog
-#ifdef BASIC_FOG
+		//--------- clouds --------
+#ifdef CLOUDS
+		float cloudsOpacity = 0.0f;
+		double cloudDensity = 0.0;
+		float3 deltaCloud;
+
 		{
-			float fogDensity = step / consts->params.fogVisibility;
-			if (fogDensity > 1.0f) fogDensity = 1.0f;
+			// perlin noise clouds
+			float distanceToClouds = 0.0f;
+			float cloudDensity = CloudOpacity(
+				consts, renderData->perlinNoiseSeeds, point, distance, input2.delta, &distanceToClouds);
 
-			output = fogDensity * consts->params.fogColor + (1.0f - fogDensity) * output;
+			float3 deltaCloud = 0.0f;
 
-			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
-			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
+#ifndef CLOUDSSHADOWS
+			{
+				float delta =
+					consts->params.cloudsPeriod / pown(2.0f, consts->params.cloudsIterations) * 5.0f;
+				float distanceToCloudsDummy = 0.0f;
+
+				deltaCloud.x =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){delta, 0.0f, 0.0f},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				deltaCloud.y =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){0.0f, delta, 0.0f},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				deltaCloud.z =
+					CloudOpacity(consts, renderData->perlinNoiseSeeds, point + (float3){0.0f, 0.0f, delta},
+						distance, input2.delta, &distanceToCloudsDummy)
+					- cloud;
+
+				if (length(deltaCloud) > 0.0f)
+				{
+					deltaCloud = normalize(deltaCloud);
+				}
+			}
+#endif // CLOUDSSHADOWS
+
+			cloudsOpacity = cloudDensity * step;
+
+			lastCloudDistance = distanceToClouds;
 		}
-#endif // BASIC_FOG
+#endif // CLOUDS
 
 //-------------------- volumetric fog
 #ifdef VOLUMETRIC_FOG
+		float distFogOpacity = 0.0f;
+		float3 distFogColor = 0.0f;
+
 		{
 			float distanceShifted = fabs(distance - consts->params.volFogDistanceFromSurface)
 															+ 0.1f * consts->params.volFogDistanceFromSurface;
@@ -198,20 +227,159 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			fogTemp = consts->params.volFogColour1 * kn + consts->params.volFogColour2 * k;
 
 			float k2 = distanceShifted / consts->params.volFogColour2Distance * k;
-			if (k2 > 1) k2 = 1.0f;
+			if (k2 > 1.0f) k2 = 1.0f;
 			kn = 1.0f - k2;
-			fogTemp = fogTemp * kn + consts->params.volFogColour3 * k2;
+			distFogColor = fogTemp * kn + consts->params.volFogColour3 * k2;
 
 			float fogDensity = 0.3f * consts->params.volFogDensity * densityTemp
-												 / (1.0f + consts->params.volFogDensity * densityTemp);
+													 / (1.0f + consts->params.volFogDensity * densityTemp)
+												 - 0.001f;
+			fogDensity = clamp(fogDensity, 0.0f, 1.0f);
+
+			//			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
+			//			if (distFogOpacity < 0.0f) distFogOpacity = 0.0f;
+			//
+			//			output = fogDensity * fogTemp + (1.0f - fogDensity) * output;
+			//			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
+		}
+#endif // VOLUMETRIC_FOG
+
+		float3 totalLightsWithShadows = 0.0f;
+		float3 totalLights = 0.0f;
+		float3 totalLightsClouds = 0.0f;
+
+// loop for proceessing all lights and volumetric effects
+#ifdef AUX_LIGHTS
+#if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG))
+		for (int i = 0; i < numberOfLights; i++)
+		{
+			__global sLightCl *light = &renderData->lights[i];
+
+			if (light->enabled)
+			{
+				bool shadowNeeded = false;
+				bool lightNeeded = false;
+
+#ifdef VOLUMETRIC_LIGHTS
+				if (light->volumetric)
+				{
+					shadowNeeded = true;
+					lightNeeded = true;
+				}
+#endif
+
+#ifdef ITER_FOG
+				if (iterFogOpacity > 0.0f)
+				{
+					lightNeeded = true;
+					if (consts->params.iterFogShadows) shadowNeeded = true;
+				}
+#endif
+
+#ifdef CLOUDS
+				if (cloudsOpacity > 0.0)
+				{
+					lightNeeded = true;
+					if (consts->params.cloudsCastShadows) shadowNeeded = true;
+				}
+#endif
+
+#ifdef VOLUMETRIC_FOG
+				if (consts->params.distanceFogShadows && distFogOpacity > 0.0)
+				{
+					lightNeeded = true;
+					shadowNeeded = true;
+				}
+#endif
+
+				if (!light->castShadows) shadowNeeded = false;
+
+				if (lightNeeded)
+				{
+					float distanceLight = 0.0f;
+
+					float3 lightVectorTemp =
+						CalculateLightVector(light, point, input2.delta, consts->params.resolution,
+							consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
+
+					float lightIntensity = 0.0f;
+					if (light->type == lightDirectional)
+						lightIntensity = light->intensity;
+					else
+						lightIntensity =
+							light->intensity / LightDecay(distanceLight, light->decayFunction) * 4.0f;
+
+					float3 textureColor;
+					lightIntensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
+
+					float3 lightShadow = 1.0f;
+
+					if (shadowNeeded)
+					{
+						if (lightIntensity > 1e-3)
+							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+								lightVectorTemp, calcParam, light->intensity);
+						else
+							lightShadow = 0.0f;
+					}
+
+					float3 calculatedLight = light->color * lightIntensity * textureColor;
+					totalLightsWithShadows += calculatedLight * lightShadow;
+					totalLights += calculatedLight;
+
+#ifdef CLOUDS
+					float shadeClouds = clamp(-dot(lightVectorTemp, deltaCloud), 0.0f, 1.0f);
+					totalLightsClouds += calculatedLight * shadeClouds;
+#endif
+
+					if (light->volumetric)
+					{
+						output += calculatedLight * light->volumetricVisibility * lightShadow * step;
+						out4.s3 += lightShadow.s0 * step * lightIntensity * light->volumetricVisibility;
+					}
+				} // if light needed
+			}		// if light enabled
+		}
+
+#endif // VOLUMETRIC_LIGHTS
+#endif // AUX_LIGHTS
+
+#ifdef ITER_FOG
+		if (iterFogOpacity > 0.0f)
+		{
+			float3 AO = 0.0f;
+#ifdef AO_MODE_MULTIPLE_RAYS
+			AO = AmbientOcclusion(consts, renderData, &input2, calcParam);
+			newColour += AO * consts->params.ambientOcclusion;
+#endif // AO_MODE_MULTIPLE_RAYS
+
+			float3 light = (consts->params.iterFogShadows) ? totalLightsWithShadows : totalLights;
+
+			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
+
+			output =
+				output * (1.0f - iterFogOpacity)
+				+ (light * consts->params.iterFogBrightnessBoost + AO * consts->params.ambientOcclusion)
+						* iterFogOpacity * iterFogCol;
+
+			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
+			out4.s3 = iterFogOpacity + (1.0f - iterFogOpacity) * out4.s3;
+		}
+
+#endif // ITER_FOG
+
+//----------------------- basic fog
+#ifdef BASIC_FOG
+		{
+			float fogDensity = step / consts->params.fogVisibility;
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
 
-			output = fogDensity * fogTemp + (1.0f - fogDensity) * output;
+			output = fogDensity * consts->params.fogColor + (1.0f - fogDensity) * output;
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
-#endif // VOLUMETRIC_FOG
+#endif // BASIC_FOG
 
 		//--------- clouds --------
 #ifdef CLOUDS
@@ -322,88 +490,94 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		}
 #endif // CLOUDS
 
-// ---------- iter fog
-#ifdef ITER_FOG
-		{
-			int L = outF.iters;
-			float opacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
-				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
-
-			float3 newColour = 0.0f;
-
-			if (opacity > 0.0f)
-			{
-				// fog colour
-				float iterFactor1 =
-					(L - consts->params.iterFogOpacityTrim)
-					/ (consts->params.iterFogColor1Maxiter - consts->params.iterFogOpacityTrim);
-				float k = iterFactor1;
-				if (k > 1.0f) k = 1.0f;
-				if (k < 0.0f) k = 0.0f;
-				float kn = 1.0f - k;
-				float3 fogCol = consts->params.iterFogColour1 * kn + consts->params.iterFogColour2 * k;
-
-				float iterFactor2 =
-					(L - consts->params.iterFogColor1Maxiter)
-					/ (consts->params.iterFogColor2Maxiter - consts->params.iterFogColor1Maxiter);
-				float k2 = iterFactor2;
-				if (k2 < 0.0f) k2 = 0.0f;
-				if (k2 > 1.0f) k2 = 1.0f;
-				kn = 1.0f - k2;
-				fogCol = fogCol * kn + consts->params.iterFogColour3 * k2;
-				//----
-
-#ifdef AUX_LIGHTS
-				for (int i = 0; i < numberOfLights; i++)
-				{
-					__global sLightCl *light = &renderData->lights[i];
-					if (light->enabled)
-					{
-						float distanceLight = 0.0f;
-
-						float3 lightVectorTemp =
-							CalculateLightVector(light, point, input2.delta, consts->params.resolution,
-								consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
-
-						float intensity = 0.0f;
-						if (light->type == lightDirectional)
-							intensity = light->intensity;
-						else
-							intensity = light->intensity / LightDecay(distanceLight, light->decayFunction)
-													* consts->params.iterFogBrightnessBoost * 4.0f;
-
-						float3 textureColor;
-						intensity *= CalculateLightCone(light, renderData, lightVectorTemp, &textureColor);
-
-						float3 lightShadow = 1.0f;
-#ifdef SHADOWS
-						if (consts->params.iterFogShadows && light->castShadows && intensity > 1e-3f)
-						{
-							calcParam->distThresh = input2.distThresh;
-							calcParam->detailSize = input2.distThresh;
-							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
-								lightVectorTemp, calcParam, light->intensity);
-						}
-#endif
-
-						newColour += lightShadow * light->color * intensity * textureColor;
-					}
-				}
-#endif // AUX_LIGHTS
-
-#ifdef AO_MODE_MULTIPLE_RAYS
-				float3 AO = AmbientOcclusion(consts, renderData, &input2, calcParam);
-				newColour += AO * consts->params.ambientOcclusion;
-#endif // AO_MODE_MULTIPLE_RAYS
-
-				if (opacity > 1.0f) opacity = 1.0f;
-
-				output = output * (1.0f - opacity) + newColour * opacity * fogCol;
-				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
-				out4.s3 = opacity + (1.0f - opacity) * out4.s3;
-			}
-		}
-#endif // ITER FOG
+		// ---------- iter fog
+		//#ifdef ITER_FOG
+		//		{
+		//			int L = outF.iters;
+		//			float opacity = IterOpacity(step, L, consts->params.N,
+		// consts->params.iterFogOpacityTrim, 				consts->params.iterFogOpacityTrimHigh,
+		// consts->params.iterFogOpacity);
+		//
+		//			float3 newColour = 0.0f;
+		//
+		//			if (opacity > 0.0f)
+		//			{
+		//				// fog colour
+		//				float iterFactor1 =
+		//					(L - consts->params.iterFogOpacityTrim)
+		//					/ (consts->params.iterFogColor1Maxiter - consts->params.iterFogOpacityTrim);
+		//				float k = iterFactor1;
+		//				if (k > 1.0f) k = 1.0f;
+		//				if (k < 0.0f) k = 0.0f;
+		//				float kn = 1.0f - k;
+		//				float3 fogCol = consts->params.iterFogColour1 * kn + consts->params.iterFogColour2 *
+		// k;
+		//
+		//				float iterFactor2 =
+		//					(L - consts->params.iterFogColor1Maxiter)
+		//					/ (consts->params.iterFogColor2Maxiter - consts->params.iterFogColor1Maxiter);
+		//				float k2 = iterFactor2;
+		//				if (k2 < 0.0f) k2 = 0.0f;
+		//				if (k2 > 1.0f) k2 = 1.0f;
+		//				kn = 1.0f - k2;
+		//				fogCol = fogCol * kn + consts->params.iterFogColour3 * k2;
+		//				//----
+		//
+		//#ifdef AUX_LIGHTS
+		//				for (int i = 0; i < numberOfLights; i++)
+		//				{
+		//					__global sLightCl *light = &renderData->lights[i];
+		//					if (light->enabled)
+		//					{
+		//						float distanceLight = 0.0f;
+		//
+		//						float3 lightVectorTemp =
+		//							CalculateLightVector(light, point, input2.delta, consts->params.resolution,
+		//								consts->params.viewDistanceMax, &distanceLight, &input->randomSeed);
+		//
+		//						float intensity = 0.0f;
+		//						if (light->type == lightDirectional)
+		//							intensity = light->intensity;
+		//						else
+		//							intensity = light->intensity / LightDecay(distanceLight, light->decayFunction)
+		//													* consts->params.iterFogBrightnessBoost * 4.0f;
+		//
+		//						float3 textureColor;
+		//						intensity *= CalculateLightCone(light, renderData, lightVectorTemp,
+		//&textureColor);
+		//
+		//						float3 lightShadow = 1.0f;
+		//#ifdef SHADOWS
+		//						if (consts->params.iterFogShadows && light->castShadows && intensity > 1e-3f)
+		//						{
+		//							calcParam->distThresh = input2.distThresh;
+		//							calcParam->detailSize = input2.distThresh;
+		//							lightShadow = AuxShadow(consts, renderData, &input2, light, distanceLight,
+		//								lightVectorTemp, calcParam, light->intensity);
+		//						}
+		//#endif
+		//
+		//						newColour += lightShadow * light->color * intensity * textureColor;
+		//					}
+		//				}
+		//#endif // AUX_LIGHTS
+		//
+		//#ifdef AO_MODE_MULTIPLE_RAYS
+		//				float3 AO = AmbientOcclusion(consts, renderData, &input2, calcParam);
+		//				newColour += AO * consts->params.ambientOcclusion;
+		//#endif // AO_MODE_MULTIPLE_RAYS
+		//
+		//				float3 light = (consts->params.iterFogShadows) ? totalLightsWithShadows : totalLights;
+		//
+		//				if (opacity > 1.0f) opacity = 1.0f;
+		//
+		//				output = output * (1.0f - opacity) + newColour * opacity * fogCol;
+		//
+		//				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+		//				out4.s3 = opacity + (1.0f - opacity) * out4.s3;
+		//			}
+		//		}
+		//#endif // ITER FOG
 
 #ifdef VISIBLE_AUX_LIGHTS
 		//------------------ visible light

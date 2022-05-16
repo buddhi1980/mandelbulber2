@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-22 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -114,6 +114,7 @@ typedef struct
 	cl_int cloudsPlaneShape;
 	cl_int cloudsSharpEdges;
 	cl_int constantDEThreshold;
+	cl_int distanceFogShadows;
 	cl_int DOFEnabled;
 	cl_int DOFHDRMode;
 	cl_int DOFMonteCarlo;
@@ -302,8 +303,9 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cloudsDistanceMode = source.cloudsDistanceMode;
 	target.cloudsEnable = source.cloudsEnable;
 	target.cloudsPlaneShape = source.cloudsPlaneShape;
-	target.constantDEThreshold = source.constantDEThreshold;
 	target.cloudsSharpEdges = source.cloudsSharpEdges;
+	target.constantDEThreshold = source.constantDEThreshold;
+	target.distanceFogShadows = source.distanceFogShadows;
 	target.DOFEnabled = source.DOFEnabled;
 	target.DOFHDRMode = source.DOFHDRMode;
 	target.DOFMonteCarlo = source.DOFMonteCarlo;
