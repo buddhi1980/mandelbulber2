@@ -65,22 +65,26 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledIFalse) t = native_sqrt(t * t + zc.z * zc.z);
+		else t = max(fabs(t), fabs(zc.z));
+		aux->DE += 1.0f;
+	}
+
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 
 	t -= fractal->transformCommon.offset0;
 
-
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 
 	REAL colDist = aux->dist;
 
 	if (aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 				t = min(aux->dist, t / aux->DE);
-
 
 	aux->dist = t;
 
@@ -91,7 +95,9 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL addColor = 0.0;
 		addColor += fractal->foldColor.difs0000.x * zc.x;
 		if (t != colDist) addColor += fractal->foldColor.difs0000.y;
-		aux->color += addColor;
+
+		if (!fractal->foldColor.auxColorEnabledAFalse) aux->color = addColor;
+		else aux->color += addColor;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse
