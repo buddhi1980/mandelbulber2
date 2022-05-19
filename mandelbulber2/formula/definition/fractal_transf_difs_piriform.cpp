@@ -6,26 +6,27 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Based on a DarkBeam fold formula adapted by Knighty
- * MandalayBox  Fragmentarium /Examples/ Knighty Collection
+ * Based on code M3D code by DarkBeam
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTestingTransform::cFractalTestingTransform() : cAbstractFractal()
+cFractalTransfDIFSPiriform::cFractalTransfDIFSPiriform() : cAbstractFractal()
 {
-	nameInComboBox = "Testing Transform";
-	internalName = "testing_transform";
-	internalID = fractal::testingTransform;
+	nameInComboBox = "T>DIFS Piriform";
+	internalName = "transf_difs_piriform";
+	internalID = fractal::transfDIFSPiriform;
 	DEType = analyticDEType;
-	DEFunctionType = withoutDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 { // piriform
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
@@ -43,8 +44,8 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
@@ -76,9 +77,6 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
-	if (fractal->transformCommon.offset0 > 0.0)
-		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
-
 	// z.z clip
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -87,15 +85,10 @@ void cFractalTestingTransform::FormulaCode(CVector4 &z, const sFractal *fractal,
 		//else
 		//	t = max(t, zc.x + fractal->transformCommon.offsetA0);
 	}
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			t = sqrt(t * t + zc.z * zc.z);
-		else t = max(fabs(t), fabs(zc.z));
 
-		t -= fractal->transformCommon.offset0005;
-		aux.DE += 1.0;
-	}
+
+		t -= fractal->transformCommon.offset0;
+
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

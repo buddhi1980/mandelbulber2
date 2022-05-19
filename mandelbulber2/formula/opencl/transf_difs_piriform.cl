@@ -13,7 +13,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledCxFalse
 		&& aux->i >= fractal->transformCommon.startIterationsC
@@ -31,8 +31,8 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
-		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
 
@@ -57,8 +57,6 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		zc.z = temp;
 	}
 
-	//REAL u = pow(zc.x, fractal->transformCommon.int2); // try 2,3,4
-
 	REAL u = pow(zc.x, fractal->transformCommon.scale2);
 
 	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
@@ -67,21 +65,11 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	t = (t < 0.0f) ? 0.0f : sqrt(t);
 	t = r - t;
 
-	if (fractal->transformCommon.offset0 > 0.0f)
-		t = min(t, fabs(zc.x) - fractal->transformCommon.offset0);
-
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledIFalse)
-			t = native_sqrt(t * t + zc.z * zc.z);
-		else t = max(fabs(t), fabs(zc.z));
+	t -= fractal->transformCommon.offset0;
 
-		t -= fractal->transformCommon.offset0005;
-		aux->DE += 1.0f;
-	}
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
