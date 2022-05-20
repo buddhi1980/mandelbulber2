@@ -39,13 +39,14 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	sClCalcParams *calcParam, float intensity)
 {
 	float3 lightShaded = 1.0;
-	float iterFogSum = 0.0f;
+	float totalOpacity = 0.0f;
 	float shadowTemp = 1.0f;
 
 	bool cloudMode = consts->params.cloudsEnable;
 
 	float DEFactor = consts->params.DEFactor;
-	if (consts->params.iterFogEnabled || light->volumetric) DEFactor = 1.0f;
+	if (consts->params.iterFogEnabled || consts->params.distanceFogShadows || light->volumetric)
+		DEFactor = 1.0f;
 #ifdef CLOUDS
 	DEFactor = consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 #endif
@@ -76,8 +77,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !goThrough && !cloudMode && !consts->params.iterFogEnabled
-										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
-										 && softRange > 0.0f
+										 && !consts->params.distanceFogShadows && !consts->params.common.iterThreshMode
+										 && !consts->params.interiorMode && softRange > 0.0f
 										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
 #ifdef MC_SOFT_SHADOWS
@@ -99,7 +100,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		float3 point2 = input->point + lightVector * i;
 
 		float dist_thresh;
-		if (consts->params.iterFogEnabled || light->volumetric || cloudMode || goThrough)
+		if (consts->params.iterFogEnabled || consts->params.distanceFogShadows || light->volumetric
+				|| cloudMode || goThrough)
 		{
 			dist_thresh = CalcDistThresh(point2, consts);
 		}
@@ -145,7 +147,19 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
-			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+		}
+#endif
+
+#if (defined(VOLUMETRIC_FOG) || defined(DIST_FOG_SHADOWS))
+		if (consts->params.distanceFogShadows)
+		{
+			float distanceShifted;
+			float opacity = DistanceFogOpacity(step, dist, consts->params.volFogDistanceFromSurface,
+				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
+			opacity *= (distance - i) / distance;
+			opacity = min(opacity, 1.0f);
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
 #endif
 
@@ -158,7 +172,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
-			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
 #endif
 
@@ -181,12 +195,12 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			float opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
-			iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 			dist = CalcDelta(point2, consts);
 		}
 #endif
 
-		shadowTemp = 1.0f - iterFogSum;
+		shadowTemp = 1.0f - totalOpacity;
 
 		if ((!goThrough && (dist < dist_thresh || shadowTemp < 0.0f))
 				|| (goThrough && shadowTemp < 0.0001f))

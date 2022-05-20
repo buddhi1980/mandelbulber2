@@ -221,6 +221,8 @@ private:
 		double step, double iters, double maxN, double trim, double trimHigh, double opacitySp);
 	double CloudOpacity(
 		CVector3 point, double distance, double detailSize, double *distanceOut) const;
+	double DistanceFogOpacity(const double step, double distance, double volFogDistanceFromSurface,
+		double volFogDistanceFactor, double volFogDensity, double &distanceShifted) const;
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 	void MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) const;
 	double MonteCarloDOFNoiseEstimation(

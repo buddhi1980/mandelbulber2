@@ -258,10 +258,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double fogReduce = params->volFogDistanceFactor;
 			float fogIntensity = params->volFogDensity;
 
-			double distanceShifted = fabs(distance - params->volFogDistanceFromSurface)
-															 + 0.1 * params->volFogDistanceFromSurface;
-			float densityTemp =
-				step * fogReduce / (distanceShifted * distanceShifted + fogReduce * fogReduce);
+			double distanceShifted;
+			distFogOpacity = DistanceFogOpacity(step, distance, params->volFogDistanceFromSurface,
+				params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
 
 			float k = distanceShifted / colourThresh;
 			if (k > 1) k = 1.0f;
@@ -276,10 +275,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			distFogColor.R = fogTempR * kn + params->volFogColour3.R * k2;
 			distFogColor.G = fogTempG * kn + params->volFogColour3.G * k2;
 			distFogColor.B = fogTempB * kn + params->volFogColour3.B * k2;
-
-			distFogOpacity =
-				0.3f * fogIntensity * densityTemp / (1.0f + fogIntensity * densityTemp) - 0.001;
-			if (distFogOpacity < 0.0) distFogOpacity = 0.0;
 		}
 
 		sRGBAfloat totalLightsWithShadows(0.0, 0.0, 0.0, 0.0);
@@ -433,7 +428,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
 
-		if (params->volFogEnabled && distFogOpacity)
+		if (params->volFogEnabled && distFogOpacity > 0.0)
 		{
 			sRGBAfloat light =
 				(params->distanceFogShadows) ? totalLightsWithShadows : sRGBFloat(1.0, 1.0, 1.0);

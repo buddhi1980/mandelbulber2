@@ -40,13 +40,13 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
 	sRGBAfloat lightShaded(1.0, 1.0, 1.0, 1.0);
-	double iterFogSum = 0.0;
+	double totalOpacity = 0.0;
 	double shadowTemp = 1.0;
 
 	bool cloudMode = params->cloudsEnable;
 
 	double DEFactor = params->DEFactor;
-	if (params->iterFogEnabled || light->volumetric) DEFactor = 1.0;
+	if (params->iterFogEnabled || light->volumetric || params->distanceFogShadows) DEFactor = 1.0;
 	if (cloudMode) DEFactor = params->DEFactor * params->volumetricLightDEFactor;
 
 	// remark: for aux light was: i = input.delta;
@@ -71,7 +71,8 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	double maxSoft = 0.0;
 
 	const bool bSoft = !goThrough && !cloudMode && !params->iterFogEnabled
-										 && !params->common.iterThreshMode && !params->interiorMode && softRange > 0.0
+										 && !params->distanceFogShadows && !params->common.iterThreshMode
+										 && !params->interiorMode && softRange > 0.0
 										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -94,7 +95,8 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		CVector3 point2 = input.point + lightVector * i;
 
 		float dist_thresh;
-		if (params->iterFogEnabled || light->volumetric || cloudMode || goThrough)
+		if (params->iterFogEnabled || light->volumetric || params->distanceFogShadows || cloudMode
+				|| goThrough)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
@@ -138,7 +140,17 @@ sRGBAfloat cRenderWorker::AuxShadow(
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
-			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
+		}
+
+		if (params->volFogEnabled && params->distanceFogShadows)
+		{
+			double distanceShifted;
+			double opacity = DistanceFogOpacity(step, dist, params->volFogDistanceFromSurface,
+				params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
+			opacity *= (distance - i) / distance;
+			opacity = qMin(opacity, 1.0);
+			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
 		}
 
 		if (cloudMode)
@@ -148,7 +160,7 @@ sRGBAfloat cRenderWorker::AuxShadow(
 			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
-			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
 		}
 
 		if (goThrough && dist < dist_thresh)
@@ -166,11 +178,11 @@ sRGBAfloat cRenderWorker::AuxShadow(
 			double opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
-			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
+			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
 			dist = CalcDelta(point2);
 		}
 
-		shadowTemp = 1.0 - iterFogSum;
+		shadowTemp = 1.0 - totalOpacity;
 
 		if ((!goThrough && (dist < dist_thresh || shadowTemp < 0.0))
 				|| (goThrough && shadowTemp < 0.0001))

@@ -234,6 +234,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 		{
 			// shaders
 			AddInclude(programEngine, openclEnginePath + "shader_iter_opacity.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_distance_fog_opacity.cl");
 			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_clouds_opacity.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_hsv2rgb.cl");
@@ -610,6 +611,10 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	{
 		definesCollector += " -DVOLUMETRIC_FOG";
 		anyVolumetricShaderUsed = true;
+		if (paramRender->distanceFogShadows == true)
+		{
+			definesCollector += " -DDIST_FOG_SHADOWS";
+		}
 	}
 	if (paramRender->iterFogEnabled == true)
 	{

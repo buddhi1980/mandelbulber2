@@ -210,13 +210,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		float3 distFogColor = 0.0f;
 
 		{
-			float distanceShifted = fabs(distance - consts->params.volFogDistanceFromSurface)
-															+ 0.1f * consts->params.volFogDistanceFromSurface;
-
-			float densityTemp =
-				step * consts->params.volFogDistanceFactor
-				/ (distanceShifted * distanceShifted
-					 + consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
+			float distanceShifted;
+			distFogOpacity = DistanceFogOpacity(step, distance, consts->params.volFogDistanceFromSurface,
+				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
 
 			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;
@@ -228,17 +224,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			if (k2 > 1.0f) k2 = 1.0f;
 			kn = 1.0f - k2;
 			distFogColor = fogTemp * kn + consts->params.volFogColour3 * k2;
-
-			float fogDensity = 0.3f * consts->params.volFogDensity * densityTemp
-													 / (1.0f + consts->params.volFogDensity * densityTemp)
-												 - 0.001f;
-			fogDensity = clamp(fogDensity, 0.0f, 1.0f);
-
-			//			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
-			//			if (distFogOpacity < 0.0f) distFogOpacity = 0.0f;
-			//
-			//			output = fogDensity * fogTemp + (1.0f - fogDensity) * output;
-			//			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
 #endif // VOLUMETRIC_FOG
 
@@ -248,7 +233,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 // loop for proceessing all lights and volumetric effects
 #ifdef AUX_LIGHTS
-#if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG))
+#if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG) || defined(DIST_FOG_SHADOWS))
 		for (int i = 0; i < numberOfLights; i++)
 		{
 			__global sLightCl *light = &renderData->lights[i];
@@ -283,7 +268,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #endif
 
 #ifdef VOLUMETRIC_FOG
-				if (consts->params.distanceFogShadows && distFogOpacity > 0.0)
+				if (consts->params.distanceFogShadows && distFogOpacity > 0.0f)
 				{
 					lightNeeded = true;
 					shadowNeeded = true;
@@ -385,6 +370,20 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			out4.s3 = cloudsOpacity + (1.0f - cloudsOpacity) * out4.s3;
 		}
 #endif // CLOUDS
+
+#ifdef VOLUMETRIC_FOG
+		if (distFogOpacity > 0.0f)
+		{
+			float3 light = (consts->params.distanceFogShadows) ? totalLightsWithShadows : 1.0f;
+
+			if (distFogOpacity > 1.0f) distFogOpacity = 1.0f;
+
+			output = distFogOpacity * distFogColor * light + (1.0f - distFogOpacity) * output;
+
+			totalOpacity = distFogOpacity + (1.0f - distFogOpacity) * totalOpacity;
+			out4.s3 = distFogOpacity + (1.0f - distFogOpacity) * out4.s3;
+		}
+#endif
 
 //----------------------- basic fog
 #ifdef BASIC_FOG
