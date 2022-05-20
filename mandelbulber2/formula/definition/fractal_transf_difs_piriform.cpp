@@ -70,6 +70,8 @@ void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fracta
 		zc.z = temp;
 	}
 
+	zc *= fractal->transformCommon.scale3D111;
+
 	double u = pow(zc.x, fractal->transformCommon.scale2);
 	double r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
 	r = (r < 0.0f) ? 0.0f : sqrt(r);
@@ -79,9 +81,11 @@ void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fracta
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
+		zc.z *= fractal->transformCommon.scaleD1;
 		if (!fractal->transformCommon.functionEnabledIFalse) t = sqrt(t * t + zc.z * zc.z);
 		else t = max(fabs(t), fabs(zc.z));
-		aux.DE += 1.0;
+		//aux.DE += 1.0;
+
 	}
 
 	// z.z clip

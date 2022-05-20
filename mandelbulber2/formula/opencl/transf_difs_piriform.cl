@@ -57,6 +57,8 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		zc.z = temp;
 	}
 
+	zc *= fractal->transformCommon.scale3D111;
+
 	REAL u = pow(zc.x, fractal->transformCommon.scale2);
 
 	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
@@ -69,7 +71,7 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		if (!fractal->transformCommon.functionEnabledIFalse) t = native_sqrt(t * t + zc.z * zc.z);
 		else t = max(fabs(t), fabs(zc.z));
-		aux->DE += 1.0f;
+		//aux->DE += 1.0f;
 	}
 
 	if (!fractal->transformCommon.functionEnabledCFalse)
