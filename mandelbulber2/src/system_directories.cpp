@@ -33,12 +33,31 @@
  */
 
 #include "system_directories.hpp"
-
 #include "system_data.hpp"
+
+#include <QDateTime>
+#include <QDir>
+#include <QDate>
+#include <QTime>
 
 sSystemDirectories systemDirectories;
 
 QString sSystemDirectories::GetDataDirectoryUsed() const
 {
 	return systemData.IsUpgraded() ? dataDirectoryPublic : dataDirectoryHidden;
+}
+
+QString sSystemDirectories::GetHistoryFileName() const
+{
+	QDateTime dateTime = QDateTime::currentDateTime();
+	QDate date = dateTime.date();
+	QTime time = dateTime.time();
+	QString dateTimeString = QString("%1%2%3_%4%5%6")
+														 .arg(date.year())
+														 .arg(date.month(), 2, 10, QLatin1Char('0'))
+														 .arg(date.day(), 2, 10, QLatin1Char('0'))
+														 .arg(time.hour(), 2, 10, QLatin1Char('0'))
+														 .arg(time.minute(), 2, 10, QLatin1Char('0'))
+														 .arg(time.second(), 2, 10, QLatin1Char('0'));
+	return GetHistoryFolder() + QDir::separator() + "autosave_" + dateTimeString + ".fract";
 }

@@ -954,6 +954,11 @@ void RenderWindow::ToggleFullScreen()
 
 void RenderWindow::slotStartRender()
 {
+	// save setting to history folder
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.SaveToFile(systemDirectories.GetHistoryFileName());
 	gMainInterface->StartRender();
 }
 

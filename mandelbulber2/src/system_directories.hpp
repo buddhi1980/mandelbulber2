@@ -54,6 +54,7 @@ struct sSystemDirectories
 	QString GetMaterialsFolder() const { return GetDataDirectoryUsed() + "materials"; }
 	QString GetAnimationFolder() const { return GetDataDirectoryUsed() + "animation"; }
 	QString GetGradientsFolder() const { return GetDataDirectoryUsed() + "gradients"; }
+	QString GetHistoryFolder() const { return GetDataDirectoryUsed() + "history"; }
 
 	QString GetQueueFolder() const { return dataDirectoryHidden + "queue"; }
 	QString GetToolbarFolder() const { return dataDirectoryHidden + "toolbar"; }
@@ -68,6 +69,7 @@ struct sSystemDirectories
 	QString GetOpenCLTempFolder() const { return dataDirectoryHidden + "openclTemp"; }
 	QString GetOpenCLCustomFormulasFolder() const { return dataDirectoryHidden + "customFormulas"; }
 	QString GetUndoFolder() const { return dataDirectoryHidden + "undo"; }
+	QString GetHistoryFileName() const;
 
 	QString homeDir;
 	QString sharedDir;

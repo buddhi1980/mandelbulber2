@@ -316,6 +316,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemDirectories.GetOpenCLTempFolder());
 	result &= CreateFolder(systemDirectories.GetOpenCLCustomFormulasFolder());
 	result &= CreateFolder(systemDirectories.GetUndoFolder());
+	result &= CreateFolder(systemDirectories.GetHistoryFolder());
 	result &= PutClangFormatFileToDataDirectoryHidden();
 
 	RetrieveToolbarPresets(false);

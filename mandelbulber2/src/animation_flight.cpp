@@ -220,6 +220,10 @@ bool cFlightAnimation::slotRenderFlight()
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
 
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.SaveToFile(systemDirectories.GetHistoryFileName());
+
 	if (frames)
 	{
 		if (frames->GetNumberOfFrames() == 0)

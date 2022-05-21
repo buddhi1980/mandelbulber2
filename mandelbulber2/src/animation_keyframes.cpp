@@ -941,6 +941,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			gUndo->Store(params, fractalParams, nullptr, keyframes);
+
+			cSettings parSettings(cSettings::formatCondensedText);
+			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+			parSettings.SaveToFile(systemDirectories.GetHistoryFileName());
 		}
 
 		keyframes->RefreshAllAudioTracks(params);
