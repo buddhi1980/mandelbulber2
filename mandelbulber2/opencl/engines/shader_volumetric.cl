@@ -233,7 +233,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 // loop for proceessing all lights and volumetric effects
 #ifdef AUX_LIGHTS
-#if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG) || defined(DIST_FOG_SHADOWS))
+#if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG) || defined(DIST_FOG_SHADOWS) \
+		 || defined(CLOUDS))
 		for (int i = 0; i < numberOfLights; i++)
 		{
 			__global sLightCl *light = &renderData->lights[i];
