@@ -537,24 +537,10 @@ and will only be present after enabling and re-render.</string>
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="1" column="0" colspan="2">
+            <item row="2" column="0" colspan="2">
              <widget class="MyCheckBox" name="checkBox_append_alpha_png">
               <property name="text">
                <string>Append alpha to image (only PNG and TIFF)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0" colspan="2">
-             <widget class="MyCheckBox" name="checkBox_linear_colorspace">
-              <property name="text">
-               <string>Use linear colorspace (only EXR)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>JPEG quality:</string>
               </property>
              </widget>
             </item>
@@ -568,7 +554,28 @@ and will only be present after enabling and re-render.</string>
               </property>
              </widget>
             </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>JPEG quality:</string>
+              </property>
+             </widget>
+            </item>
             <item row="4" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_linear_colorspace">
+              <property name="text">
+               <string>Use linear colorspace (only EXR)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
+              <property name="text">
+               <string>Save each channel in separate folder</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="2">
              <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
               <property name="text">
                <string>Save stereoscopic left and right images in separate files
@@ -576,10 +583,10 @@ and will only be present after enabling and re-render.</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBox_save_settings_with_image">
               <property name="text">
-               <string>Save each channel in separate folder</string>
+               <string>Save fractal settings together with the image</string>
               </property>
              </widget>
             </item>
