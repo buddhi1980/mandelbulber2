@@ -564,7 +564,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("diffuse_postfix", QString("_diffuse"), morphNone, paramApp);
 	par->addParam("world_postfix", QString("_world"), morphNone, paramApp);
 
-	par->addParam("save_settings_with_image", true, morphNone, paramApp);
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
 	par->addParam("linear_colorspace", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);

@@ -597,15 +597,6 @@ void RenderWindow::slotMenuSaveImageAll()
 		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
-
-		if (gPar->Get<bool>("save_settings_with_image"))
-		{
-			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
-			cSettings parSettings(cSettings::formatCondensedText);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
-			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-			parSettings.SaveToFile(fileWithoutExtension + ".fract");
-		}
 	}
 }
 
@@ -655,15 +646,6 @@ void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileT
 		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
-
-		if (gPar->Get<bool>("save_settings_with_image"))
-		{
-			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
-			cSettings parSettings(cSettings::formatCondensedText);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
-			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-			parSettings.SaveToFile(fileWithoutExtension + ".fract");
-		}
 	}
 }
 

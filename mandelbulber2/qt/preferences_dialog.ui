@@ -740,8 +740,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>619</width>
-            <height>774</height>
+            <width>367</width>
+            <height>752</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1249,39 +1249,10 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="4" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_linear_colorspace">
-                  <property name="text">
-                   <string>Use linear colorspace (only EXR)</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
-                  <property name="text">
-                   <string>Save each channel in separate folder</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
-                  <property name="text">
-                   <string>Save stereoscopic left and right images in separate files
-(stereoscopic mode has to be &quot;left-right&quot;)</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_5">
                   <property name="text">
                    <string>JPEG quality:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
-                  <property name="text">
-                   <string>Append alpha to image (only PNG and TIFF)</string>
                   </property>
                  </widget>
                 </item>
@@ -1295,10 +1266,32 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QCheckBox" name="checkBox_save_settings_with_image">
+                <item row="2" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
                   <property name="text">
-                   <string>Save fractal settings together with the image</string>
+                   <string>Save each channel in separate folder</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_linear_colorspace">
+                  <property name="text">
+                   <string>Use linear colorspace (only EXR)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
+                  <property name="text">
+                   <string>Save stereoscopic left and right images in separate files
+(stereoscopic mode has to be &quot;left-right&quot;)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                  <property name="text">
+                   <string>Append alpha to image (only PNG and TIFF)</string>
                   </property>
                  </widget>
                 </item>
@@ -1803,8 +1796,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>148</width>
-            <height>454</height>
+            <width>637</width>
+            <height>705</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
@@ -1990,6 +1983,12 @@ and will only be present after enabling and re-render.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -2008,12 +2007,6 @@ and will only be present after enabling and re-render.</string>
    <class>MyComboBox</class>
    <extends>QComboBox</extends>
    <header>my_combo_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyDoubleSpinBox</class>
