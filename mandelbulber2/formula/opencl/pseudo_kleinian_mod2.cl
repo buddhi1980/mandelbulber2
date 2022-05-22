@@ -212,16 +212,10 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL4 tempZ = z; //  correct c++ version. non conditional mult 2.0f
+ //  correct c++ version. non conditional mult 2.0f
 
-		if (z.x > cSize.x) tempZ.x = cSize.x;
-		if (z.x < -cSize.x) tempZ.x = -cSize.x;
-		if (z.y > cSize.y) tempZ.y = cSize.y;
-		if (z.y < -cSize.y) tempZ.y = -cSize.y;
-		if (z.z > cSize.z) tempZ.z = cSize.z;
-		if (z.z < -cSize.z) tempZ.z = -cSize.z;
-
-		z = tempZ * 2.0f - z;
+		z = fabs(z + fractal->transformCommon.additionConstant0777)
+				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
