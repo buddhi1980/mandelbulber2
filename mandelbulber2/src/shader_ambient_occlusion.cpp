@@ -62,7 +62,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 		double dist;
 
-		double opacity;
+		double opacity = 0.0;
 		double shadowTemp = 1.0;
 
 		for (double r = start_dist; r < end_dist; r += dist * 2.0)
@@ -74,17 +74,6 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-			if (params->iterFogEnabled)
-			{
-				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
-					params->iterFogOpacityTrimHigh, params->iterFogOpacity);
-			}
-			else
-			{
-				opacity = 0.0;
-			}
-			shadowTemp -= opacity * (end_dist - r) / end_dist;
-
 			float dist_thresh;
 			if (params->iterFogEnabled) // there was  || params->volumetricLightEnabled[0]
 			{
@@ -92,6 +81,20 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			}
 			else
 				dist_thresh = input.distThresh;
+
+			if (params->iterFogEnabled)
+			{
+				opacity += IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+					params->iterFogOpacityTrimHigh, params->iterFogOpacity);
+			}
+			if (params->volFogEnabled && params->distanceFogShadows)
+			{
+				double distanceShifted;
+				opacity += DistanceFogOpacity(dist * 2.0, dist, params->volFogDistanceFromSurface,
+					params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
+			}
+
+			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			if (dist < dist_thresh || shadowTemp < 0.0)
 			{

@@ -375,31 +375,38 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			}			// if any light enabled
 		}				// next light
 
-		if (params->iterFogEnabled && iterFogOpacity > 0.0)
-		{
-			sRGBAfloat AO(0.0, 0.0, 0.0, 0.0);
+		sRGBAfloat AO(0.0, 0.0, 0.0, 0.0);
 
-			if (params->ambientOcclusionEnabled
-					&& params->ambientOcclusionMode == params::AOModeMultipleRays)
+		if (params->ambientOcclusionEnabled
+				&& params->ambientOcclusionMode == params::AOModeMultipleRays)
+		{
+			if ((params->iterFogEnabled && iterFogOpacity > 0.0)
+					|| (params->volFogEnabled && distFogOpacity > 0.0))
 			{
 				AO = AmbientOcclusion(input2);
+				AO.R *= params->ambientOcclusion;
+				AO.G *= params->ambientOcclusion;
+				AO.B *= params->ambientOcclusion;
 			}
+		}
 
+		if (params->iterFogEnabled && iterFogOpacity > 0.0)
+		{
 			sRGBAfloat light = (params->iterFogShadows) ? totalLightsWithShadows : totalLights;
 
 			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
 
-			output.R = output.R * (1.0f - iterFogOpacity)
-								 + (light.R * params->iterFogBrightnessBoost + AO.R * params->ambientOcclusion)
-										 * iterFogOpacity * iterFogCol.R;
+			output.R =
+				output.R * (1.0f - iterFogOpacity)
+				+ (light.R * params->iterFogBrightnessBoost + AO.R) * iterFogOpacity * iterFogCol.R;
 
-			output.G = output.G * (1.0f - iterFogOpacity)
-								 + (light.G * params->iterFogBrightnessBoost + AO.G * params->ambientOcclusion)
-										 * iterFogOpacity * iterFogCol.G;
+			output.G =
+				output.G * (1.0f - iterFogOpacity)
+				+ (light.G * params->iterFogBrightnessBoost + AO.G) * iterFogOpacity * iterFogCol.G;
 
-			output.B = output.B * (1.0f - iterFogOpacity)
-								 + (light.B * params->iterFogBrightnessBoost + AO.B * params->ambientOcclusion)
-										 * iterFogOpacity * iterFogCol.B;
+			output.B =
+				output.B * (1.0f - iterFogOpacity)
+				+ (light.B * params->iterFogBrightnessBoost + AO.B) * iterFogOpacity * iterFogCol.B;
 
 			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
 			output.A = iterFogOpacity + (1.0f - iterFogOpacity) * output.A;
@@ -418,12 +425,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			if (cloudsOpacity > 1.0f) cloudsOpacity = 1.0f;
 
-			output.R =
-				output.R * (1.0f - cloudsOpacity) + light.R * cloudsOpacity * params->cloudsColor.R;
-			output.G =
-				output.G * (1.0f - cloudsOpacity) + light.G * cloudsOpacity * params->cloudsColor.G;
-			output.B =
-				output.B * (1.0f - cloudsOpacity) + light.B * cloudsOpacity * params->cloudsColor.B;
+			output.R = output.R * (1.0f - cloudsOpacity)
+								 + (light.R + AO.R) * cloudsOpacity * params->cloudsColor.R;
+			output.G = output.G * (1.0f - cloudsOpacity)
+								 + (light.G + AO.G) * cloudsOpacity * params->cloudsColor.G;
+			output.B = output.B * (1.0f - cloudsOpacity)
+								 + (light.B + AO.B) * cloudsOpacity * params->cloudsColor.B;
 			totalOpacity = cloudsOpacity + (1.0f - cloudsOpacity) * totalOpacity;
 			output.A = cloudsOpacity + (1.0f - cloudsOpacity) * output.A;
 		}
@@ -435,9 +442,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 			if (distFogOpacity > 1.0) distFogOpacity = 1.0;
 
-			output.R = distFogOpacity * distFogColor.R * light.R + (1.0f - distFogOpacity) * output.R;
-			output.G = distFogOpacity * distFogColor.G * light.G + (1.0f - distFogOpacity) * output.G;
-			output.B = distFogOpacity * distFogColor.B * light.B + (1.0f - distFogOpacity) * output.B;
+			output.R =
+				distFogOpacity * distFogColor.R * (light.R + AO.R) + (1.0f - distFogOpacity) * output.R;
+			output.G =
+				distFogOpacity * distFogColor.G * (light.G + AO.G) + (1.0f - distFogOpacity) * output.G;
+			output.B =
+				distFogOpacity * distFogColor.B * (light.B + AO.B) + (1.0f - distFogOpacity) * output.B;
 
 			totalOpacity = distFogOpacity + (1.0f - distFogOpacity) * totalOpacity;
 			output.A = distFogOpacity + (1.0f - distFogOpacity) * output.A;

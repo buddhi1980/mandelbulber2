@@ -52,7 +52,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 
 		float dist;
 
-		float opacity;
+		float opacity = 0.0f;
 		float shadowTemp = 1.0f;
 
 		for (float r = start_dist; r < end_dist; r += dist * 2.0f)
@@ -65,11 +65,18 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 			dist = outF.distance;
 
 #ifdef ITER_FOG
-			opacity =
+			opacity +=
 				IterOpacity(dist * 2.0f, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
 					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
-#else
-		opacity = 0.0f;
+#endif
+
+#if (defined(VOLUMETRIC_FOG) || defined(DIST_FOG_SHADOWS))
+			if (consts->params.distanceFogShadows)
+			{
+				float distanceShifted;
+				opacity += DistanceFogOpacity(dist * 2.0f, dist, consts->params.volFogDistanceFromSurface,
+					consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
+			}
 #endif
 
 			shadowTemp -= opacity * (end_dist - r) / end_dist;

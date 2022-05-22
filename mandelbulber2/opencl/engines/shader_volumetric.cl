@@ -298,6 +298,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 					float3 lightShadow = 1.0f;
 
+#ifdef SHADOWS
 					if (shadowNeeded)
 					{
 						if (lightIntensity > 1e-3)
@@ -306,6 +307,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 						else
 							lightShadow = 0.0f;
 					}
+#endif
 
 					float3 calculatedLight = light->color * lightIntensity * textureColor;
 					totalLightsWithShadows += calculatedLight * lightShadow;
@@ -328,23 +330,32 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #endif // VOLUMETRIC_LIGHTS
 #endif // AUX_LIGHTS
 
+		float3 AO = 0.0f;
+		bool aoNeeded = false;
+#ifdef ITER_FOG
+		if (iterFogOpacity > 0.0f) aoNeeded = true;
+#endif
+#ifdef VOLUMETRIC_FOG
+		if (distFogOpacity > 0.0f) aoNeeded = true;
+#endif
+
+#ifdef AO_MODE_MULTIPLE_RAYS
+		if (aoNeeded)
+		{
+			AO =
+				AmbientOcclusion(consts, renderData, &input2, calcParam) * consts->params.ambientOcclusion;
+		}
+#endif // AO_MODE_MULTIPLE_RAYS
+
 #ifdef ITER_FOG
 		if (iterFogOpacity > 0.0f)
 		{
-			float3 AO = 0.0f;
-#ifdef AO_MODE_MULTIPLE_RAYS
-			AO = AmbientOcclusion(consts, renderData, &input2, calcParam);
-			newColour += AO * consts->params.ambientOcclusion;
-#endif // AO_MODE_MULTIPLE_RAYS
-
 			float3 light = (consts->params.iterFogShadows) ? totalLightsWithShadows : totalLights;
 
 			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
 
-			output =
-				output * (1.0f - iterFogOpacity)
-				+ (light * consts->params.iterFogBrightnessBoost + AO * consts->params.ambientOcclusion)
-						* iterFogOpacity * iterFogCol;
+			output = output * (1.0f - iterFogOpacity)
+							 + (light * consts->params.iterFogBrightnessBoost + AO) * iterFogOpacity * iterFogCol;
 
 			totalOpacity = iterFogOpacity + (1.0f - iterFogOpacity) * totalOpacity;
 			out4.s3 = iterFogOpacity + (1.0f - iterFogOpacity) * out4.s3;
@@ -365,7 +376,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 			if (cloudsOpacity > 1.0f) cloudsOpacity = 1.0f;
 
-			output = output * (1.0f - cloudsOpacity) + light * cloudsOpacity * consts->params.cloudsColor;
+			output =
+				output * (1.0f - cloudsOpacity) + (light + AO) * cloudsOpacity * consts->params.cloudsColor;
 
 			totalOpacity = cloudsOpacity + (1.0f - cloudsOpacity) * totalOpacity;
 			out4.s3 = cloudsOpacity + (1.0f - cloudsOpacity) * out4.s3;
@@ -379,7 +391,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 			if (distFogOpacity > 1.0f) distFogOpacity = 1.0f;
 
-			output = distFogOpacity * distFogColor * light + (1.0f - distFogOpacity) * output;
+			output = distFogOpacity * distFogColor * (light + AO) + (1.0f - distFogOpacity) * output;
 
 			totalOpacity = distFogOpacity + (1.0f - distFogOpacity) * totalOpacity;
 			out4.s3 = distFogOpacity + (1.0f - distFogOpacity) * out4.s3;
