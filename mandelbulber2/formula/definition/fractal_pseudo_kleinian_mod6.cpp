@@ -29,12 +29,16 @@ cFractalPseudoKleinianMod6::cFractalPseudoKleinianMod6() : cAbstractFractal()
 void cFractalPseudoKleinianMod6::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 c = aux.const_c;
+	double colorAdd = 0.0;
+	double k = 0.0;
+	double Dk =1.0;
+
 	for (int h = 0; h < fractal->transformCommon.int6; h++)
 	{
 
 
-		CVector4 c = aux.const_c;
-		double colorAdd = 0.0;
+
 
 		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -44,10 +48,10 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 			z += fractal->transformCommon.offset000;
 			double rr = z.Dot(z);
 			z *= fractal->transformCommon.scaleG1 / rr;
-			aux.pseudoKleinianDE *= (fractal->transformCommon.scaleG1 / rr);
+			Dk *= (fractal->transformCommon.scaleG1 / rr);
 			z += fractal->transformCommon.additionConstantP000 - fractal->transformCommon.offset000;
 			z *= fractal->transformCommon.scaleA1;
-			aux.pseudoKleinianDE *= fractal->transformCommon.scaleA1;
+			Dk *= fractal->transformCommon.scaleA1;
 		}
 
 		// box offset
@@ -59,7 +63,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 			z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
 		}
 
-		double k = 0.0;
+
 		// Pseudo kleinian
 		if (h >= fractal->transformCommon.startIterationsC
 				&& h < fractal->transformCommon.stopIterationsC)
@@ -68,7 +72,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 					- fabs(z - fractal->transformCommon.additionConstant0777) - z;
 			k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 			z *= k;
-			aux.pseudoKleinianDE *= k;
+			Dk *= k;
 		}
 
 		z += fractal->transformCommon.additionConstant000;
@@ -91,12 +95,34 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		// thingy
 		CVector4 q = z;
 		q -= fractal->transformCommon.offsetA000;
+		aux.pseudoKleinianDE = Dk;
+		double rxy = sqrt(q.x * q.x + q.y * q.y);
 
-		double d1 = (fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) - fractal->transformCommon.offsetp1)
-			/ (q.Dot(q) + fabs(fractal->transformCommon.offsetp1));
-		d1 = fabs(d1) / (aux.pseudoKleinianDE + fractal->analyticDE.offset0);
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			double d1 = max(rxy - fractal->analyticDE.scale1, fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) / q.Length())
+					/ aux.pseudoKleinianDE - fractal->analyticDE.offset0;
+			aux.DE0 = d1;
+		}
 
-	aux.dist = d1;
+
+
+		if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			double d2 = (fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) - fractal->transformCommon.offsetp1)
+				/ (q.Dot(q) + fabs(fractal->transformCommon.offsetp1));
+			d2 = fabs(d2) / aux.pseudoKleinianDE - fractal->analyticDE.offset0;
+			aux.DE0 = d2;
+		}
+
+
+
+
+		if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			double d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05) / aux.pseudoKleinianDE - fractal->analyticDE.offset0);
+			aux.DE0 = d3;
+		}
 
 
 /*
@@ -140,7 +166,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	aux.DE0 = d2;
 	if( d1 < d2) aux.DE0 = d1;
 
-	aux.DE0 = 0.5 * (aux.DE0 - fractal->transformCommon.offset0) / aux.DE;
+	aux.DE0 = 0.5 * (aux.DE0 - fractal->transformCommon.offset0) / aux.DE;*/
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = min(aux.dist, aux.DE0);
@@ -156,5 +182,5 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.w * k;
 
 		aux.color += colorAdd;
-	}*/
+	}
 }
