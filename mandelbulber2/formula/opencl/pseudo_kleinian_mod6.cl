@@ -73,7 +73,35 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			aux->pos_neg *= fractal->transformCommon.scaleNeg1;
 		}
 
+		if (fractal->transformCommon.functionEnabledFFalse
+				&& aux->i >= fractal->transformCommon.startIterationsF
+				&& aux->i < fractal->transformCommon.stopIterationsF)
+		{
+			z = fabs(z + fractal->transformCommon.offsetA000)
+					- fabs(z - fractal->transformCommon.offsetA000) - z;
+		}
+		if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
+		{
+			REAL4 tempFAB = c;
+			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+			if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+			if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
+			tempFAB *= fractal->transformCommon.offsetF000;
+			z.x -= sign(z.x) * tempFAB.x;
+			z.y -= sign(z.y) * tempFAB.y;
+			z.z -= sign(z.z) * tempFAB.z;
+		}
+
+		if (fractal->transformCommon.rotation2EnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsR
+				&& aux->i < fractal->transformCommon.stopIterationsR)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+		}
+
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	}
 
 	// thingy2 is iterated then z goes into thingy and into boxmod	(which is iterated), then the results from
@@ -82,32 +110,33 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL4 q = z;
 		q -= fractal->transformCommon.offsetA000; // hmmmmm/ h
 		aux->pseudoKleinianDE = Dk;
-		REAL rxy = sqrt(q.x * q.x + q.y * q.y);
+		REAL rxy = native_sqrt(q.x * q.x + q.y * q.y);
 
 		if (fractal->transformCommon.functionEnabledAx)
 		{
-			REAL d1 = max(rxy - fractal->analyticDE.scale1, fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) / length(q))
-					/ aux->pseudoKleinianDE - fractal->analyticDE.offset0;
+			REAL d1 = max(rxy - fractal->transformCommon.scaleD1, (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+						/ (dot(q, q) + fabs(fractal->transformCommon.offsetE0)));
 			aux->DE0 = d1;
 		}
-	//	REAL d1 = max(rxy - fractal->analyticDE.scale1, (fabs(rxy * z.z) - fractal->transformCommon.offsetp1) / length(z)) / aux->DE - fractal->transformCommon.offsetE0;
 
 		if (fractal->transformCommon.functionEnabledAyFalse)
 		{
-			REAL d2 = (fabs(length(q.xy) * q.z) - fractal->transformCommon.offsetp1)
-				/ (dot(q, q) + fabs(fractal->transformCommon.offsetp1));
-			d2 = fabs(d2) / aux->pseudoKleinianDE - fractal->analyticDE.offset0;
+			REAL d2 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+				/ (dot(q, q) + fabs(fractal->transformCommon.offsetE0));
+			d2 = fabs(d2);
 			aux->DE0 = d2;
 		}
 
-
-
 		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			REAL d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05) / aux->pseudoKleinianDE - fractal->analyticDE.offset0);
-			aux->DE0 = d3;
+			REAL d3 = max(rxy - fractal->transformCommon.scaleD1,
+						  fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05)));
+			if (!fractal->transformCommon.functionEnabledAwFalse) aux->DE0 = d3;
+			else aux->DE0 = min(aux->DE0, d3);
+
 		}
 
+		aux->DE0 /= aux->pseudoKleinianDE - fractal->analyticDE.offset0;
 
 
 
@@ -117,35 +146,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 /*
 
-	if (fractal->transformCommon.functionEnabledFFalse
-			&& aux->i >= fractal->transformCommon.startIterationsF
-			&& aux->i < fractal->transformCommon.stopIterationsF)
-	{
-		z = fabs(z + fractal->transformCommon.offsetA000)
-				- fabs(z - fractal->transformCommon.offsetA000) - z;
-	}
-	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
-	{
-		REAL4 tempFAB = c;
-		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
-		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
-		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
-		tempFAB *= fractal->transformCommon.offsetF000;
-		z.x -= sign(z.x) * tempFAB.x;
-		z.y -= sign(z.y) * tempFAB.y;
-		z.z -= sign(z.z) * tempFAB.z;
-	}
-
-	if (fractal->transformCommon.rotation2EnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
-	{
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-	}
-
-	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
-	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 
 	REAL4 zz = z * z;
 	REAL d1 = native_sqrt(min(min(zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));

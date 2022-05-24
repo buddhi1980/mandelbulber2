@@ -87,6 +87,35 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 			aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 		}
+		if (fractal->transformCommon.functionEnabledFFalse
+				&& aux.i >= fractal->transformCommon.startIterationsF
+				&& aux.i < fractal->transformCommon.stopIterationsF)
+		{
+			z = fabs(z + fractal->transformCommon.offsetA000)
+					- fabs(z - fractal->transformCommon.offsetA000) - z;
+		}
+		if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
+		{
+			CVector4 tempFAB = c;
+			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+			if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+			if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
+
+			tempFAB *= fractal->transformCommon.offsetF000;
+			z.x -= sign(z.x) * tempFAB.x;
+			z.y -= sign(z.y) * tempFAB.y;
+			z.z -= sign(z.z) * tempFAB.z;
+		}
+
+		if (fractal->transformCommon.rotation2EnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsR
+				&& aux.i < fractal->transformCommon.stopIterationsR)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
+
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 
 	}
 
@@ -96,66 +125,39 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		CVector4 q = z;
 		q -= fractal->transformCommon.offsetA000;
 		aux.pseudoKleinianDE = Dk;
+
+	//q.y = min(q.y, 1.4f - q.y);
 		double rxy = sqrt(q.x * q.x + q.y * q.y);
 
 		if (fractal->transformCommon.functionEnabledAx)
 		{
-			double d1 = max(rxy - fractal->analyticDE.scale1, fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) / q.Length())
-					/ aux.pseudoKleinianDE - fractal->analyticDE.offset0;
+			double d1 = max(rxy - fractal->transformCommon.scaleD1,
+							(fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+							/ (q.Dot(q) + fabs(fractal->transformCommon.offsetE0)));
 			aux.DE0 = d1;
 		}
 
-
-
 		if (fractal->transformCommon.functionEnabledAyFalse)
 		{
-			double d2 = (fabs(sqrt(q.x * q.x + q.y * q.y) * q.z) - fractal->transformCommon.offsetp1)
-				/ (q.Dot(q) + fabs(fractal->transformCommon.offsetp1));
-			d2 = fabs(d2) / aux.pseudoKleinianDE - fractal->analyticDE.offset0;
+			double d2 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+				/ (q.Dot(q) + fabs(fractal->transformCommon.offsetE0));
+			d2 = fabs(d2);
 			aux.DE0 = d2;
 		}
 
-
-
-
 		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			double d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05) / aux.pseudoKleinianDE - fractal->analyticDE.offset0);
-			aux.DE0 = d3;
-		}
+			double d3 =  max(rxy - fractal->transformCommon.scaleD1,
+							fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05) ));
 
+			if (!fractal->transformCommon.functionEnabledAwFalse) aux.DE0 = d3;
+			else aux.DE0 = min(aux.DE0, d3);
+		}
+		aux.DE0 /= aux.pseudoKleinianDE - fractal->analyticDE.offset0;
 
 /*
 
-	if (fractal->transformCommon.functionEnabledFFalse
-			&& aux.i >= fractal->transformCommon.startIterationsF
-			&& aux.i < fractal->transformCommon.stopIterationsF)
-	{
-		z = fabs(z + fractal->transformCommon.offsetA000)
-				- fabs(z - fractal->transformCommon.offsetA000) - z;
-	}
-	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
-	{
-		CVector4 tempFAB = c;
-		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
-		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
-		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
-		tempFAB *= fractal->transformCommon.offsetF000;
-		z.x -= sign(z.x) * tempFAB.x;
-		z.y -= sign(z.y) * tempFAB.y;
-		z.z -= sign(z.z) * tempFAB.z;
-	}
-
-	if (fractal->transformCommon.rotation2EnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
-	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
-	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 
 	CVector4 zz = z * z;
 	double d1 = sqrt(min(min( zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
