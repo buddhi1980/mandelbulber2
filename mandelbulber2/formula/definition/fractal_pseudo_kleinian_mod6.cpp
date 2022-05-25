@@ -34,12 +34,8 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	double k = 0.0;
 	double Dk =1.0;
 
-	for (int h = 0; h < fractal->transformCommon.int6; h++)
+	for (int h = 0; h < fractal->transformCommon.int16; h++)
 	{
-
-
-
-
 		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
 				&& h >= fractal->transformCommon.startIterationsX
@@ -62,7 +58,6 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 			z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
 			z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
 		}
-
 
 		// Pseudo kleinian
 		if (h >= fractal->transformCommon.startIterationsC
@@ -87,14 +82,16 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 			aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 		}
-		if (fractal->transformCommon.functionEnabledFFalse
-				&& aux.i >= fractal->transformCommon.startIterationsF
-				&& aux.i < fractal->transformCommon.stopIterationsF)
+/*		if (fractal->transformCommon.functionEnabledFFalse
+				&& h >= fractal->transformCommon.startIterationsF
+				&& h < fractal->transformCommon.stopIterationsF)
 		{
 			z = fabs(z + fractal->transformCommon.offsetA000)
 					- fabs(z - fractal->transformCommon.offsetA000) - z;
-		}
-		if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
+		}*/
+		if (fractal->transformCommon.addCpixelEnabledFalse
+				&& h >= fractal->transformCommon.startIterationsF
+				&& h < fractal->transformCommon.stopIterationsF) // symmetrical addCpixel
 		{
 			CVector4 tempFAB = c;
 			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
@@ -107,9 +104,9 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 			z.z -= sign(z.z) * tempFAB.z;
 		}
 
-		if (fractal->transformCommon.rotation2EnabledFalse
-				&& aux.i >= fractal->transformCommon.startIterationsR
-				&& aux.i < fractal->transformCommon.stopIterationsR)
+		if (fractal->transformCommon.rotationEnabledFalse
+				&& h >= fractal->transformCommon.startIterationsR
+				&& h < fractal->transformCommon.stopIterationsR1)
 		{
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
@@ -127,33 +124,32 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		aux.pseudoKleinianDE = Dk;
 
 	//q.y = min(q.y, 1.4f - q.y);
-		double rxy = sqrt(q.x * q.x + q.y * q.y);
+		double temp = q.x * q.x + q.y * q.y;
+		double rxy = sqrt(temp);
+		if (!fractal->transformCommon.functionEnabledAyFalse) temp = q.Length();
+		else temp  = q.Dot(q);
 
 		if (fractal->transformCommon.functionEnabledAx)
 		{
-			double d1 = max(rxy - fractal->transformCommon.scaleD1,
-							(fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
-							/ (q.Dot(q) + fabs(fractal->transformCommon.offsetE0)));
-			aux.DE0 = d1;
-		}
-
-		if (fractal->transformCommon.functionEnabledAyFalse)
-		{
-			double d2 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
-				/ (q.Dot(q) + fabs(fractal->transformCommon.offsetE0));
-			d2 = fabs(d2);
-			aux.DE0 = d2;
+			double d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+							/ (temp + fractal->transformCommon.offset02);
+			aux.DE0 = d1; // q.Length() q.Dot(q)
 		}
 
 		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			double d3 =  max(rxy - fractal->transformCommon.scaleD1,
-							fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA05) ));
+			double d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA0));
 
 			if (!fractal->transformCommon.functionEnabledAwFalse) aux.DE0 = d3;
 			else aux.DE0 = min(aux.DE0, d3);
 		}
-		aux.DE0 /= aux.pseudoKleinianDE - fractal->analyticDE.offset0;
+
+
+
+		if (fractal->transformCommon.functionEnabledCFalse)
+			aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
+
+		aux.DE0 = aux.DE0 / aux.pseudoKleinianDE - fractal->analyticDE.offset0;
 
 /*
 
@@ -170,7 +166,48 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 	aux.DE0 = 0.5 * (aux.DE0 - fractal->transformCommon.offset0) / aux.DE;*/
 
-	if (fractal->transformCommon.functionEnabledDFalse)
+		if (fractal->transformCommon.functionEnabledFFalse)
+		{
+			// KaliBoxMod
+			CVector4 p = z;
+			double m;
+			double r2 = 0.0;
+
+			// REAL Dd = 1.0f;
+			for (int n = 0; n < fractal->transformCommon.int32 && r2 < 100.0f; n++)
+			{
+				p = fractal->transformCommon.additionConstant0555 - fabs(p);
+				r2 = p.x * p.x + p.y * p.y + p.z * p.z;
+				if (r2 < (fractal->transformCommon.minR2p25 )) // sqrt can be optimized out
+				{
+					m = fractal->transformCommon.scale015 / (fractal->transformCommon.minR2p25 ); // sqrt can be optimized out
+				}
+
+				else if (r2 < 1.0f)
+				{
+					m = fractal->transformCommon.scale015 / r2;
+				}
+				else
+				{
+					m = fractal->transformCommon.scale015;
+				}
+
+				p = p * m + fractal->transformCommon.offsetF000;
+
+				aux.DE = aux.DE * fabs(m);
+				//	if (i < ColorIterationsk) orbitTrap = min(orbitTrap, fabs(vec4(p,rr)));
+			}
+			double r = sqrt(r2);
+			double d2 = r / p.Length();
+
+			aux.DE0 = fabs(min(.5 * d2, 0.5 * aux.DE0) / aux.pseudoKleinianDE - fractal->analyticDE.offset0);
+
+		}
+
+
+
+
+	if (!fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = min(aux.dist, aux.DE0);
 
 	aux.dist = aux.DE0;
