@@ -335,9 +335,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef ITER_FOG
 		if (iterFogOpacity > 0.0f) aoNeeded = true;
 #endif
-#ifdef VOLUMETRIC_FOG
-		if (distFogOpacity > 0.0f) aoNeeded = true;
-#endif
+			//#ifdef VOLUMETRIC_FOG
+			//		if (distFogOpacity > 0.0f) aoNeeded = true;
+			//#endif
 
 #ifdef AO_MODE_MULTIPLE_RAYS
 		if (aoNeeded)

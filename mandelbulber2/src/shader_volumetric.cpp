@@ -381,7 +381,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				&& params->ambientOcclusionMode == params::AOModeMultipleRays)
 		{
 			if ((params->iterFogEnabled && iterFogOpacity > 0.0)
-					|| (params->volFogEnabled && distFogOpacity > 0.0))
+					/*|| (params->volFogEnabled && distFogOpacity > 0.0)*/)
 			{
 				AO = AmbientOcclusion(input2);
 				AO.R *= params->ambientOcclusion;

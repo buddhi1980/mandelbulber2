@@ -87,12 +87,12 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 				opacity += IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 					params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			}
-			if (params->volFogEnabled && params->distanceFogShadows)
-			{
-				double distanceShifted;
-				opacity += DistanceFogOpacity(dist * 2.0, dist, params->volFogDistanceFromSurface,
-					params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
-			}
+			//			if (params->volFogEnabled && params->distanceFogShadows)
+			//			{
+			//				double distanceShifted;
+			//				opacity += DistanceFogOpacity(dist * 2.0, dist, params->volFogDistanceFromSurface,
+			//					params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
+			//			}
 
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 

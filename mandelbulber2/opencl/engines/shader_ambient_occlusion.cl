@@ -70,14 +70,15 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 #endif
 
-#if (defined(VOLUMETRIC_FOG) || defined(DIST_FOG_SHADOWS))
-			if (consts->params.distanceFogShadows)
-			{
-				float distanceShifted;
-				opacity += DistanceFogOpacity(dist * 2.0f, dist, consts->params.volFogDistanceFromSurface,
-					consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
-			}
-#endif
+			//#if (defined(VOLUMETRIC_FOG) || defined(DIST_FOG_SHADOWS))
+			//			if (consts->params.distanceFogShadows)
+			//			{
+			//				float distanceShifted;
+			//				opacity += DistanceFogOpacity(dist * 2.0f, dist,
+			//consts->params.volFogDistanceFromSurface, 					consts->params.volFogDistanceFactor,
+			//consts->params.volFogDensity, &distanceShifted);
+			//			}
+			//#endif
 
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
