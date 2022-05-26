@@ -34,7 +34,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	double k = 0.0;
 	double Dk =1.0;
 
-	for (int h = 0; h < fractal->transformCommon.int16; h++)
+	for (int h = 0; h < fractal->transformCommon.int32; h++)
 	{
 		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -82,16 +82,10 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 			aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 		}
-/*		if (fractal->transformCommon.functionEnabledFFalse
-				&& h >= fractal->transformCommon.startIterationsF
-				&& h < fractal->transformCommon.stopIterationsF)
-		{
-			z = fabs(z + fractal->transformCommon.offsetA000)
-					- fabs(z - fractal->transformCommon.offsetA000) - z;
-		}*/
-		if (fractal->transformCommon.addCpixelEnabledFalse
-				&& h >= fractal->transformCommon.startIterationsF
-				&& h < fractal->transformCommon.stopIterationsF) // symmetrical addCpixel
+
+		if (fractal->transformCommon.addCpixelEnabledFalse // symmetrical addCpixel
+				&& h >= fractal->transformCommon.startIterationsT
+				&& h < fractal->transformCommon.stopIterationsT1)
 		{
 			CVector4 tempFAB = c;
 			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
@@ -113,101 +107,71 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 		if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
-
 	}
 
-	// thingy2 is iterated then z goes into thingy and into boxmod	(which is iterated), then the results from
-	// thingy and boxmod are used for the return function
-		// thingy
-		CVector4 q = z;
-		q -= fractal->transformCommon.offsetA000;
-		aux.pseudoKleinianDE = Dk;
+	CVector4 q = z;
+	aux.DE = Dk;
+	double temp = q.x * q.x + q.y * q.y;
+	double rxy = sqrt(temp);
+//q.y = min(q.y, 1.4f - q.y);
 
-	//q.y = min(q.y, 1.4f - q.y);
-		double temp = q.x * q.x + q.y * q.y;
-		double rxy = sqrt(temp);
-		if (!fractal->transformCommon.functionEnabledAyFalse) temp = q.Length();
-		else temp  = q.Dot(q);
 
-		if (fractal->transformCommon.functionEnabledAx)
+	if (fractal->transformCommon.functionEnabledAx)
+	{
+		temp += q.z * q.z;
+		if (!fractal->transformCommon.functionEnabledAyFalse) temp = sqrt(temp);
+
+		double d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+						/ (temp + fractal->transformCommon.offset02);
+		aux.DE0 = d1;
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		double d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA0));
+
+		if (!fractal->transformCommon.functionEnabledAwFalse) aux.DE0 = d3;
+		else aux.DE0 = min(aux.DE0, d3);
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+		aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
+
+	aux.DE0 = aux.DE0 / aux.DE;
+
+
+	if (fractal->transformCommon.functionEnabledFFalse)
+	{
+		// KaliBoxMod
+		CVector4 p = z;
+	//	double m = fractal->transformCommon.scale015;
+		double m = 0.0;
+		temp = fractal->transformCommon.scale015 / fractal->transformCommon.minR2p25;
+		double r2 = 0.0;
+		double Dd = 1.0;
+		for (int n = 0; n < fractal->transformCommon.int16 && r2 < 100.0f; n++)
 		{
-			double d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
-							/ (temp + fractal->transformCommon.offset02);
-			aux.DE0 = d1; // q.Length() q.Dot(q)
+			p = fractal->transformCommon.additionConstant0555 - fabs(p);
+			r2 = p.Dot(p);
+			if (r2 < fractal->transformCommon.minR2p25) m = temp;
+			else if (r2 < 1.0f) m = fractal->transformCommon.scale015 / r2;
+			else m = fractal->transformCommon.scale015;
+			p = p * m + fractal->transformCommon.offsetF000;
+
+			Dd *= m;
 		}
+		double r = sqrt(r2);
+		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
+		else Dd = 0.5 * r * log(r) / fabs(Dd);
 
-		if (fractal->transformCommon.functionEnabledAzFalse)
-		{
-			double d3 = fabs(fractal->transformCommon.scale05 * fabs(q.z - fractal->transformCommon.offsetA0));
+		CVector4 sca = fractal->transformCommon.scale3D111;
 
-			if (!fractal->transformCommon.functionEnabledAwFalse) aux.DE0 = d3;
-			else aux.DE0 = min(aux.DE0, d3);
-		}
+		aux.DE0 = fabs(min(sca.y * Dd, sca.z * aux.DE0));
+	}
 
+	// aux.DE0 -= fractal->analyticDE.offset0;
 
-
-		if (fractal->transformCommon.functionEnabledCFalse)
-			aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
-
-		aux.DE0 = aux.DE0 / aux.pseudoKleinianDE - fractal->analyticDE.offset0;
-
-/*
-
-
-
-	CVector4 zz = z * z;
-	double d1 = sqrt(min(min( zz.x + zz.y, zz.y + zz.z), zz.z + zz.x));
-	if (fractal->transformCommon.functionEnabledKFalse) d1 = sqrt(zz.x + zz.y);
-	d1 -= fractal->transformCommon.offsetR0;
-
-	double d2 = fabs(z.z);
-	aux.DE0 = d2;
-	if( d1 < d2) aux.DE0 = d1;
-
-	aux.DE0 = 0.5 * (aux.DE0 - fractal->transformCommon.offset0) / aux.DE;*/
-
-		if (fractal->transformCommon.functionEnabledFFalse)
-		{
-			// KaliBoxMod
-			CVector4 p = z;
-			double m;
-			double r2 = 0.0;
-
-			// REAL Dd = 1.0f;
-			for (int n = 0; n < fractal->transformCommon.int32 && r2 < 100.0f; n++)
-			{
-				p = fractal->transformCommon.additionConstant0555 - fabs(p);
-				r2 = p.x * p.x + p.y * p.y + p.z * p.z;
-				if (r2 < (fractal->transformCommon.minR2p25 )) // sqrt can be optimized out
-				{
-					m = fractal->transformCommon.scale015 / (fractal->transformCommon.minR2p25 ); // sqrt can be optimized out
-				}
-
-				else if (r2 < 1.0f)
-				{
-					m = fractal->transformCommon.scale015 / r2;
-				}
-				else
-				{
-					m = fractal->transformCommon.scale015;
-				}
-
-				p = p * m + fractal->transformCommon.offsetF000;
-
-				aux.DE = aux.DE * fabs(m);
-				//	if (i < ColorIterationsk) orbitTrap = min(orbitTrap, fabs(vec4(p,rr)));
-			}
-			double r = sqrt(r2);
-			double d2 = r / p.Length();
-
-			aux.DE0 = fabs(min(.5 * d2, 0.5 * aux.DE0) / aux.pseudoKleinianDE - fractal->analyticDE.offset0);
-
-		}
-
-
-
-
-	if (!fractal->transformCommon.functionEnabledDFalse)
+	if (fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = min(aux.dist, aux.DE0);
 
 	aux.dist = aux.DE0;
