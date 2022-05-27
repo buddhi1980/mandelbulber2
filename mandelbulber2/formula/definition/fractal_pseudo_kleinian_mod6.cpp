@@ -154,7 +154,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 			p = fractal->transformCommon.additionConstant0555 - fabs(p);
 			r2 = p.Dot(p);
 			if (r2 < fractal->transformCommon.minR2p25) m = temp;
-			else if (r2 < 1.0f) m = fractal->transformCommon.scale015 / r2;
+			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.scale015 / r2;
 			else m = fractal->transformCommon.scale015;
 			p = p * m + fractal->transformCommon.offsetF000;
 
@@ -164,9 +164,14 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
 		else Dd = 0.5 * r * log(r) / fabs(Dd);
 
-		CVector4 sca = fractal->transformCommon.scale3D111;
 
-		aux.DE0 = fabs(min(sca.y * Dd, sca.z * aux.DE0));
+
+		if (!fractal->transformCommon.functionEnabledIFalse) aux.DE0 =
+				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux.DE0);
+		else aux.DE0 = max(fractal->transformCommon.offset0005 * Dd, aux.DE0);
+
+		//aux.DE0 = fabs(min(sca.y * Dd, sca.z * aux.DE0));
+
 	}
 
 	// aux.DE0 -= fractal->analyticDE.offset0;

@@ -127,9 +127,6 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	aux->DE0 = aux->DE0 / aux->DE;
 
-
-
-
 	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
 	{
 		REAL4 p = z;
@@ -142,7 +139,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			p = fractal->transformCommon.additionConstant0555 - fabs(p);
 			r2 = dot(p, p);
 			if (r2 < fractal->transformCommon.minR2p25) m = temp;
-			else if (r2 < 1.0f) m = fractal->transformCommon.scale015 / r2;
+			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.scale015 / r2;
 			else m = fractal->transformCommon.scale015;
 
 			p = p * m + fractal->transformCommon.offsetF000;
@@ -153,7 +150,14 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
 		else Dd = 0.5f * r * log(r) / fabs(Dd);
 
-		aux->DE0 = fabs(min(0.5f * Dd, 0.5f * aux->DE0));
+
+
+		if (!fractal->transformCommon.functionEnabledIFalse) aux->DE0 =
+				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux->DE0);
+		else aux->DE0 = max(fractal->transformCommon.offset0005 * Dd, aux->DE0);
+
+		//aux->DE0= fabs(min(sca.y * Dd, sca.z * aux->DE0));
+		//aux->DE0 = fabs(min(0.5f * Dd, 0.5f * aux->DE0));
 	}
 
 	//aux->DE0 -= fractal->analyticDE.offset0;
