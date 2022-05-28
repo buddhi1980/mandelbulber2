@@ -130,21 +130,23 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
 	{
 		REAL4 p = z;
-		REAL m = 0.0f;
+		REAL m ;
 		REAL r2 = 0.0f;
-		temp = fractal->transformCommon.scale015 / fractal->transformCommon.minR2p25;
+		temp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 		REAL Dd = 1.0f;
 		for (int n = 0; n < fractal->transformCommon.int16 && r2 < 100.0f; n++)
 		{
+			m = 1.0f;
 			p = fractal->transformCommon.additionConstant0555 - fabs(p);
 			r2 = dot(p, p);
 			if (r2 < fractal->transformCommon.minR2p25) m = temp;
-			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.scale015 / r2;
-			else m = fractal->transformCommon.scale015;
+			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.maxR2d1 / r2;
+
+			m *= fractal->transformCommon.scale015;
 
 			p = p * m + fractal->transformCommon.offsetF000;
 
-			Dd *= m;
+			Dd = Dd * m + fractal->analyticDE.offset1;
 		}
 		REAL r = sqrt(r2);
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);

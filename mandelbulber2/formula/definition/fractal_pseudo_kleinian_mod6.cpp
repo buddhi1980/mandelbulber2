@@ -145,20 +145,23 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		// KaliBoxMod
 		CVector4 p = z;
 	//	double m = fractal->transformCommon.scale015;
-		double m = 0.0;
-		temp = fractal->transformCommon.scale015 / fractal->transformCommon.minR2p25;
+		double m;
+		temp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 		double r2 = 0.0;
 		double Dd = 1.0;
 		for (int n = 0; n < fractal->transformCommon.int16 && r2 < 100.0f; n++)
 		{
+					m = 1.0;
 			p = fractal->transformCommon.additionConstant0555 - fabs(p);
 			r2 = p.Dot(p);
-			if (r2 < fractal->transformCommon.minR2p25) m = temp;
-			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.scale015 / r2;
-			else m = fractal->transformCommon.scale015;
+			if (r2 < fractal->transformCommon.minR2p25) m *= temp;
+			else if (r2 < fractal->transformCommon.maxR2d1) m *= fractal->transformCommon.maxR2d1 / r2;
+
+			m *= fractal->transformCommon.scale015;
+
 			p = p * m + fractal->transformCommon.offsetF000;
 
-			Dd *= m;
+			Dd = Dd * m + fractal->analyticDE.offset1;
 		}
 		double r = sqrt(r2);
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
