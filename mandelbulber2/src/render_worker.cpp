@@ -168,6 +168,7 @@ void cRenderWorker::doWork()
 			sRGBFloat specularFloat;
 			double depth = 1e20;
 			sRGBFloat worldPositionRGB;
+			sRGBFloat shadowsChannel;
 			if (monteCarlo) repeats = params->DOFSamples;
 			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
 
@@ -324,6 +325,9 @@ void cRenderWorker::doWork()
 					specularFloat.R = recursionOut.specular.R;
 					specularFloat.G = recursionOut.specular.G;
 					specularFloat.B = recursionOut.specular.B;
+					shadowsChannel.R = recursionOut.outShadow.R;
+					shadowsChannel.G = recursionOut.outShadow.G;
+					shadowsChannel.B = recursionOut.outShadow.B;
 				}
 
 				finalPixel.R = resultShader.R;
@@ -457,6 +461,8 @@ void cRenderWorker::doWork()
 							if (image->GetImageOptional()->optionalDiffuse)
 								image->PutPixelDiffuse(
 									xxx, yyy, sRGBFloat(colour.R / 255.0f, colour.G / 255.0f, colour.B / 255.0f));
+							if (image->GetImageOptional()->optionalShadows)
+								image->PutPixelShadows(xxx, yyy, shadowsChannel);
 						}
 					}
 				}

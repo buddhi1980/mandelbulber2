@@ -587,6 +587,10 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 				lineOfImage[x].normalSpecular = image->GetPixelSpecular(x, y);
 			if (image->GetImageOptional()->optionalWorld)
 				lineOfImage[x].worldPosition = image->GetPixelWorld(x, y);
+			if (image->GetImageOptional()->optionalShadows)
+				lineOfImage[x].shadows = image->GetPixelShadows(x, y);
+			if (image->GetImageOptional()->optionalGlobalIlluination)
+				lineOfImage[x].globalIllumination = image->GetPixelGlobalIllumination(x, y);
 		}
 		lineData->append(reinterpret_cast<char *>(lineOfImage.data()), CastSizeToInt(dataSize));
 	}
@@ -624,6 +628,10 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 					image->PutPixelDiffuse(x, y,
 						sRGBFloat(lineOfImage[x].colourBuffer.R / 255.0, lineOfImage[x].colourBuffer.G / 255.0,
 							lineOfImage[x].colourBuffer.B / 255.0));
+				if (image->GetImageOptional()->optionalShadows)
+					image->PutPixelShadows(x, y, lineOfImage[x].shadows);
+				if (image->GetImageOptional()->optionalGlobalIlluination)
+					image->PutPixelGlobalIllumination(x, y, lineOfImage[x].globalIllumination);
 			}
 		}
 		else

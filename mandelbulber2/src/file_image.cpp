@@ -133,14 +133,16 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_SPECULAR: return "specular";
 		case IMAGE_CONTENT_DIFFUSE: return "diffuse";
 		case IMAGE_CONTENT_WORLD_POSITION: return "world";
+		case IMAGE_CONTENT_SHADOWS: return "shadow_channel";
+		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: return "gi_channel";
 	}
 	return "";
 }
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList(
-		{"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world", "normalWorld"});
+	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world",
+		"normalWorld", "shadow_channel", "gi_channel"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -279,6 +281,8 @@ QStringList ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
+			case IMAGE_CONTENT_SHADOWS:
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 			default:
 			{
 				SavePNG(fullFilename, image, channel.value());
@@ -387,6 +391,8 @@ QStringList ImageFileSaveJPG::SaveImage()
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
+			case IMAGE_CONTENT_SHADOWS:
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 				SaveJPEGQt32(fullFilename, channel.value(), int(image->GetWidth()), int(image->GetHeight()),
 					gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
@@ -437,6 +443,8 @@ QStringList ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
+			case IMAGE_CONTENT_SHADOWS:
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -523,6 +531,8 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 			case IMAGE_CONTENT_SPECULAR: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_DIFFUSE: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_SHADOWS: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
 
@@ -549,6 +559,8 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 			case IMAGE_CONTENT_SPECULAR: pixelSize *= 3; break;
 			case IMAGE_CONTENT_DIFFUSE: pixelSize *= 3; break;
 			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
+			case IMAGE_CONTENT_SHADOWS: pixelSize *= 3; break;
+			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: pixelSize *= 3; break;
 		}
 
 		bool directOnBuffer = false;
@@ -592,6 +604,8 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 				case IMAGE_CONTENT_SPECULAR:
 				case IMAGE_CONTENT_DIFFUSE:
 				case IMAGE_CONTENT_WORLD_POSITION:
+				case IMAGE_CONTENT_SHADOWS:
+				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
 			}
@@ -733,6 +747,13 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 							break;
 						case IMAGE_CONTENT_WORLD_POSITION:
 							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y), false);
+							break;
+						case IMAGE_CONTENT_SHADOWS:
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelShadows(x, y), false);
+							break;
+						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], image->GetPixelGlobalIllumination(x, y), false);
 							break;
 					}
 				}
@@ -1079,7 +1100,11 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
-				default: pixel = sRGBAfloat();
+				case IMAGE_CONTENT_SHADOWS: pixel = image->GetPixelShadows(x, y); break;
+				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+					pixel = image->GetPixelGlobalIllumination(x, y);
+					break;
+				default: pixel = sRGBAfloat(); break;
 			}
 			sRGB8 pixel8 =
 				sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
@@ -1428,7 +1453,11 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
-				default: pixel = sRGBFloat();
+				case IMAGE_CONTENT_SHADOWS: pixel = image->GetPixelShadows(x, y); break;
+				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+					pixel = image->GetPixelGlobalIllumination(x, y);
+					break;
+				default: pixel = sRGBFloat(); break;
 			}
 			if (imfQuality == Imf::FLOAT)
 			{
@@ -1501,6 +1530,8 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_SPECULAR: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_DIFFUSE: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_SHADOWS: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
 
@@ -1515,6 +1546,8 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_SPECULAR: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_DIFFUSE: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_SHADOWS: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: samplesPerPixel = 3; break;
 	}
 
 	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, width);
@@ -1722,6 +1755,12 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 					break;
 				case IMAGE_CONTENT_WORLD_POSITION:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y));
+					break;
+				case IMAGE_CONTENT_SHADOWS:
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelShadows(x, y));
+					break;
+				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelGlobalIllumination(x, y));
 					break;
 			}
 		}

@@ -56,7 +56,9 @@ struct sImageOptional
 	{
 		return (other.optionalNormal == optionalNormal) && (other.optionalSpecular == optionalSpecular)
 					 && (other.optionalDiffuse == optionalDiffuse) && (other.optionalWorld == optionalWorld)
-					 && (other.optionalNormalWorld == optionalNormalWorld);
+					 && (other.optionalNormalWorld == optionalNormalWorld)
+					 && (other.optionalShadows == optionalShadows)
+					 && (other.optionalGlobalIlluination == optionalGlobalIlluination);
 	}
 
 	bool optionalNormal{false};
@@ -180,6 +182,15 @@ public:
 	{
 		worldFloat[getImageIndex(x, y)] = pixel;
 	}
+	inline void PutPixelShadows(quint64 x, quint64 y, sRGBFloat pixel)
+	{
+		shadows[getImageIndex(x, y)] = pixel;
+	}
+	inline void PutPixelGlobalIllumination(quint64 x, quint64 y, sRGBFloat pixel)
+	{
+		globalIllumination[getImageIndex(x, y)] = pixel;
+	}
+
 	inline sRGBFloat GetPixelImage(quint64 x, quint64 y) const
 	{
 		return imageFloat[getImageIndex(x, y)];
@@ -226,6 +237,14 @@ public:
 	inline sRGBFloat GetPixelWorld(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(worldFloat, opt.optionalWorld, x, y);
+	}
+	inline sRGBFloat GetPixelShadows(quint64 x, quint64 y)
+	{
+		return GetPixelGeneric(shadows, opt.optionalShadows, x, y);
+	}
+	inline sRGBFloat GetPixelGlobalIllumination(quint64 x, quint64 y)
+	{
+		return GetPixelGeneric(globalIllumination, opt.optionalGlobalIlluination, x, y);
 	}
 
 	inline sRGBFloat GetPixelGeneric(

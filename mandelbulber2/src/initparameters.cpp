@@ -540,6 +540,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("specular_enabled", false, morphNone, paramApp);
 	par->addParam("diffuse_enabled", false, morphNone, paramApp);
 	par->addParam("world_enabled", false, morphNone, paramApp);
+	par->addParam("shadow_channel_enabled", false, morphNone, paramApp);
+	par->addParam("gi_channel_enabled", false, morphNone, paramApp);
 
 	par->addParam("color_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
 	par->addParam("alpha_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
@@ -554,6 +556,10 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		"diffuse_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam("world_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam(
+		"shadow_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam(
+		"gi_channel_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 
 	par->addParam("color_postfix", QString(""), morphNone, paramApp);
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
@@ -563,6 +569,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("specular_postfix", QString("_specular"), morphNone, paramApp);
 	par->addParam("diffuse_postfix", QString("_diffuse"), morphNone, paramApp);
 	par->addParam("world_postfix", QString("_world"), morphNone, paramApp);
+	par->addParam("shadow_channel_postfix", QString("_shadow"), morphNone, paramApp);
+	par->addParam("gi_channel_postfix", QString("_gi"), morphNone, paramApp);
 
 	par->addParam("save_settings_with_image", true, morphNone, paramApp);
 	par->addParam("append_alpha_png", true, morphNone, paramApp);

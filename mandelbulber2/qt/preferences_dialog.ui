@@ -33,7 +33,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -741,7 +741,7 @@
             <x>0</x>
             <y>0</y>
             <width>619</width>
-            <height>774</height>
+            <height>828</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1024,39 +1024,50 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0" colspan="3">
-                 <widget class="QLabel" name="label_rerender_required_info">
+                <item row="5" column="0">
+                 <widget class="MyCheckBox" name="checkBox_diffuse_enabled">
                   <property name="text">
-                   <string>Following channels are only rendered on demand
-and will only be present after enabling and re-render.</string>
+                   <string>Diffuse</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_image_channel_optional">
+                <item row="7" column="0">
+                 <widget class="MyCheckBox" name="checkBox_shadow_channel_enabled">
                   <property name="text">
-                   <string>Image Channel</string>
+                   <string>Shadows</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QLabel" name="label_image_quality_optional">
+                <item row="8" column="0">
+                 <widget class="MyCheckBox" name="checkBox_gi_channel_enabled">
                   <property name="text">
-                   <string>Quality</string>
+                   <string>Global illumination</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
-                 <widget class="QLabel" name="label_image_postfix_optional">
-                  <property name="text">
-                   <string>Postfix</string>
-                  </property>
+                <item row="5" column="1">
+                 <widget class="MyComboBox" name="comboBox_diffuse_quality">
+                  <item>
+                   <property name="text">
+                    <string>8 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>32 bit</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="MyCheckBox" name="checkBox_normal_enabled">
+                <item row="7" column="2">
+                 <widget class="MyLineEdit" name="text_shadow_channel_postfix">
                   <property name="text">
-                   <string>Surface Normal</string>
+                   <string/>
                   </property>
                  </widget>
                 </item>
@@ -1079,17 +1090,45 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="2" column="2">
-                 <widget class="MyLineEdit" name="text_normal_postfix">
+                <item row="4" column="0">
+                 <widget class="MyCheckBox" name="checkBox_world_enabled">
+                  <property name="text">
+                   <string>World</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_image_channel_optional">
+                  <property name="text">
+                   <string>Image Channel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="MyLineEdit" name="text_specular_postfix">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="MyCheckBox" name="checkBox_specular_enabled">
+                <item row="4" column="2">
+                 <widget class="MyLineEdit" name="text_world_postfix">
                   <property name="text">
-                   <string>Specular</string>
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+                  <property name="text">
+                   <string>World Normal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="label_image_postfix_optional">
+                  <property name="text">
+                   <string>Postfix</string>
                   </property>
                  </widget>
                 </item>
@@ -1112,20 +1151,6 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="3" column="2">
-                 <widget class="MyLineEdit" name="text_specular_postfix">
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="MyCheckBox" name="checkBox_world_enabled">
-                  <property name="text">
-                   <string>World</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="1">
                  <widget class="MyComboBox" name="comboBox_world_quality">
                   <item>
@@ -1145,22 +1170,82 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="4" column="2">
-                 <widget class="MyLineEdit" name="text_world_postfix">
+                <item row="7" column="1">
+                 <widget class="MyComboBox" name="comboBox_shadow_channel_quality">
+                  <item>
+                   <property name="text">
+                    <string>8 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>32 bit</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_image_quality_optional">
+                  <property name="text">
+                   <string>Quality</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="3">
+                 <widget class="QLabel" name="label_rerender_required_info">
+                  <property name="text">
+                   <string>Following channels are only rendered on demand
+and will only be present after enabling and re-render.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="MyComboBox" name="comboBox_normalWorld_quality">
+                  <item>
+                   <property name="text">
+                    <string>8 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>32 bit</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="MyCheckBox" name="checkBox_normal_enabled">
+                  <property name="text">
+                   <string>Surface Normal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="MyLineEdit" name="text_normal_postfix">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="MyCheckBox" name="checkBox_diffuse_enabled">
+                <item row="3" column="0">
+                 <widget class="MyCheckBox" name="checkBox_specular_enabled">
                   <property name="text">
-                   <string>Diffuse</string>
+                   <string>Specular</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="MyComboBox" name="comboBox_diffuse_quality">
+                <item row="8" column="1">
+                 <widget class="MyComboBox" name="comboBox_gi_channel_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1185,30 +1270,11 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
-                 <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+                <item row="8" column="2">
+                 <widget class="MyLineEdit" name="text_gi_channel_postfix">
                   <property name="text">
-                   <string>World Normal</string>
+                   <string/>
                   </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="MyComboBox" name="comboBox_normalWorld_quality">
-                  <item>
-                   <property name="text">
-                    <string>8 bit</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>16 bit</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>32 bit</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item row="6" column="2">
@@ -1416,8 +1482,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>264</width>
-            <height>831</height>
+            <width>619</width>
+            <height>762</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1803,8 +1869,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>148</width>
-            <height>454</height>
+            <width>637</width>
+            <height>705</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
