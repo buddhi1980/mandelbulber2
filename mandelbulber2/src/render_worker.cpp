@@ -1107,8 +1107,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate effects for object surface
 				sGradientsCollection gradients;
 
-				objectShader = ObjectShader(
-					shaderInputData, &objectColour, &recursionOut.specular, &iridescence, &gradients);
+				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular,
+					&iridescence, &recursionOut.outShadow, &gradients);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
@@ -1117,6 +1117,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					objectShader.R += globalIlumination.R;
 					objectShader.G += globalIlumination.G;
 					objectShader.B += globalIlumination.B;
+					recursionOut.outGlobalIllumination = globalIlumination;
 				}
 
 				// calculate reflectance according to Fresnel equations

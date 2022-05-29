@@ -64,6 +64,8 @@ struct sImageOptional
 	bool optionalSpecular{false};
 	bool optionalDiffuse{false};
 	bool optionalWorld{false};
+	bool optionalShadows{false};
+	bool optionalGlobalIlluination{false};
 };
 
 struct sAllImageData
@@ -75,7 +77,10 @@ struct sAllImageData
 	sRGBFloat normalFloatWorld;
 	sRGBFloat normalSpecular;
 	sRGBFloat worldPosition;
+	sRGBFloat shadows;
+	sRGBFloat globalIllumination;
 	sRGB8 colourBuffer;
+
 	float zBuffer;
 };
 
@@ -360,6 +365,8 @@ private:
 	std::vector<sRGBFloat> specularFloat;
 	std::vector<sRGBFloat> diffuseFloat;
 	std::vector<sRGBFloat> worldFloat;
+	std::vector<sRGBFloat> shadows;
+	std::vector<sRGBFloat> globalIllumination;
 
 	std::vector<sRGB8> preview;
 	std::vector<sRGB8> preview2;

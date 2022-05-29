@@ -119,6 +119,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBAfloat objectColor;
 			sRGBAfloat specular;
 			sRGBFloat iridescence;
+			sRGBAfloat outShadow;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
 			inputCopy.material = &data->materials[objectData.materialId];
@@ -144,7 +145,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 			sGradientsCollection gradients;
 			sRGBAfloat objectShader =
-				ObjectShader(inputCopy, &objectColor, &specular, &iridescence, &gradients);
+				ObjectShader(inputCopy, &objectColor, &specular, &iridescence, &outShadow, &gradients);
 
 			newColor = objectColor;
 			resultShader.R = objectShader.R + specular.R;

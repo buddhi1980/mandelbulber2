@@ -98,6 +98,8 @@ cImage::cImage(cImage &source)
 	specularFloat = source.specularFloat;
 	diffuseFloat = source.diffuseFloat;
 	worldFloat = source.worldFloat;
+	shadows = source.shadows;
+	globalIllumination = source.globalIllumination;
 
 	previewAllocated = false;
 	imageWidget = nullptr;
@@ -144,11 +146,14 @@ bool cImage::AllocMem()
 				alphaBuffer16.resize(width * height);
 				opacityBuffer.resize(width * height);
 				colourBuffer.resize(width * height);
-				normalFloat.resize(width * height);
-				normalFloatWorld.resize(width * height);
-				specularFloat.resize(width * height);
-				diffuseFloat.resize(width * height);
-				worldFloat.resize(width * height);
+				if (opt.optionalNormal) normalFloat.resize(width * height);
+				if (opt.optionalNormalWorld) normalFloatWorld.resize(width * height);
+				if (opt.optionalSpecular) specularFloat.resize(width * height);
+				if (opt.optionalDiffuse) diffuseFloat.resize(width * height);
+				if (opt.optionalWorld) worldFloat.resize(width * height);
+				if (opt.optionalShadows) shadows.resize(width * height);
+				if (opt.optionalGlobalIlluination) globalIllumination.resize(width * height);
+
 				ClearImage();
 			}
 			catch (std::bad_alloc &ba)
@@ -254,6 +259,9 @@ void cImage::ClearImage()
 	if (opt.optionalSpecular) std::fill(specularFloat.begin(), specularFloat.end(), sRGBFloat());
 	if (opt.optionalDiffuse) std::fill(diffuseFloat.begin(), diffuseFloat.end(), sRGBFloat());
 	if (opt.optionalWorld) std::fill(worldFloat.begin(), worldFloat.end(), sRGBFloat());
+	if (opt.optionalShadows) std::fill(shadows.begin(), shadows.end(), sRGBFloat());
+	if (opt.optionalGlobalIlluination)
+		std::fill(globalIllumination.begin(), globalIllumination.end(), sRGBFloat());
 
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
 		zBuffer[i] = float(1e20);
@@ -286,6 +294,8 @@ void cImage::FreeImage()
 	specularFloat.clear();
 	diffuseFloat.clear();
 	worldFloat.clear();
+	shadows.clear();
+	globalIllumination.clear();
 
 	gammaTable.clear();
 	gammaTablePrepared = false;
@@ -421,6 +431,9 @@ int cImage::GetUsedMB() const
 	if (opt.optionalSpecular) optionalChannels++;
 	if (opt.optionalDiffuse) optionalChannels++;
 	if (opt.optionalWorld) optionalChannels++;
+	if (opt.optionalShadows) optionalChannels++;
+	if (opt.optionalGlobalIlluination) optionalChannels++;
+
 	optionalSize +=
 		optionalChannels * width * height * (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
 
@@ -819,7 +832,7 @@ void cImage::Squares(quint64 y, int pFactor)
 		sRGBFloat postPixelTemp = postImageFloat[ptr];
 		float zBufferTemp = zBuffer[ptr];
 		sRGB8 colourTemp = colourBuffer[ptr];
-		quint16 alphaTemp = alphaBuffer16[ptr];
+		// quint16 alphaTemp = alphaBuffer16[ptr];
 		quint16 opacityTemp = opacityBuffer[ptr];
 
 		for (quint64 yy = 0; yy < pf; yy++)
@@ -832,7 +845,7 @@ void cImage::Squares(quint64 y, int pFactor)
 				postImageFloat[ptr2] = postPixelTemp;
 				zBuffer[ptr2] = zBufferTemp;
 				colourBuffer[ptr2] = colourTemp;
-				alphaBuffer16[ptr2] = alphaTemp;
+				// alphaBuffer16[ptr2] = alphaTemp;
 				opacityBuffer[ptr2] = opacityTemp;
 			}
 		}
@@ -1174,6 +1187,16 @@ void cImage::GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_
 				{
 					left->worldFloat[ptrNew] = worldFloat[ptrLeft];
 					right->worldFloat[ptrNew] = worldFloat[ptrRight];
+				}
+				if (opt.optionalShadows)
+				{
+					left->shadows[ptrNew] = shadows[ptrLeft];
+					right->shadows[ptrNew] = shadows[ptrRight];
+				}
+				if (opt.optionalGlobalIlluination)
+				{
+					left->globalIllumination[ptrNew] = globalIllumination[ptrLeft];
+					right->globalIllumination[ptrNew] = globalIllumination[ptrRight];
 				}
 			}
 		}

@@ -37,7 +37,8 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
-	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sGradientsCollection *gradients) const
+	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sRGBAfloat *outShadow,
+	sGradientsCollection *gradients) const
 {
 	sRGBAfloat output;
 	float alpha = 1.0f;
@@ -105,7 +106,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	// additional lights
 	sRGBAfloat auxLights;
 	sRGBAfloat auxLightsSpecular;
-	auxLights = AuxLightsShader(input, colour, gradients, &auxLightsSpecular);
+	auxLights = AuxLightsShader(input, colour, gradients, &auxLightsSpecular, outShadow);
 
 	// fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
