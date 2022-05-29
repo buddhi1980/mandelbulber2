@@ -1,19 +1,14 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.28
 # only modified parameters
 [main_parameters]
-aux_light_colour_1 ace7 45f6 2baf;
-aux_light_enabled_1 true;
-aux_light_intensity_1 1e-06;
-aux_light_position_1 -1,732870293648483 -0,0003 3,602139001884991e-06;
-aux_light_visibility 1e-06;
 background_color_1 0224 0000 4955;
 background_color_2 0000 0000 0000;
 background_color_3 35bb 0000 284d;
 brightness 0,1;
-camera -1,730116452864698 -0,001850130562504801 0,0007500261170268285;
-camera_distance_to_target 5,346287285712816e-05;
-camera_rotation 49,27218341420933 -14,94611099728554 27,82692256743665;
+camera -1,7301164528647 -0,0018501305625048 0,000750026117026829;
+camera_distance_to_target 5,34628728571282e-05;
+camera_rotation 49,2721834142093 -14,9461109972855 27,8269225674367;
 camera_top 0,1317250856544618 0,5025695114746436 0,8544427353225392;
 DE_factor 0,4;
 flight_last_to_render 0;
@@ -23,7 +18,6 @@ glow_color_1 ffff 0000 0000;
 glow_intensity 0,5;
 image_height 1200;
 image_width 1600;
-iteration_fog_brightness_boost 100;
 iteration_fog_color_2_maxiter 23;
 iteration_fog_color_3 5dc0 ffff 0000;
 iteration_fog_enable true;
@@ -32,17 +26,25 @@ iteration_fog_opacity_trim 19;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0,5;
+light1_intensity 0,5;
+light1_is_defined true;
+light1_penetrating false;
+light1_rotation -45 -45 0;
+light2_color ace7 45f6 2baf;
+light2_enabled true;
+light2_intensity 2,5e-05;
+light2_is_defined true;
+light2_penetrating false;
+light2_position -1,73287029364848 -0,0003 3,60213900188499e-06;
+light2_visibility 1e-06;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
 N 36;
-penetrating_lights false;
 reflections_max 1;
 slow_shading true;
 smoothness 100;
-target -1,730155597300254 -0,001816427958157499 0,0007362374840516187;
-view_distance_max 5,547053261814028;
+target -1,73015559730025 -0,0018164279581575 0,000736237484051619;
+view_distance_max 5,54705326181403;

@@ -1,17 +1,14 @@
 # Mandelbulber settings file
-# version 2.22
+# version 2.28
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
 ambient_occlusion_quality 1;
-aux_light_colour_1 ace7 45f6 2baf;
-aux_light_enabled_1 true;
-aux_light_position_1 3 -3 -3;
 background_color_1 0224 0000 4955;
 background_color_2 0000 0000 0000;
-camera -1,465462653090379 -2,360206398676259 -1,586602540378444;
+camera -1,46546265309038 -2,36020639867626 -1,58660254037844;
 camera_distance_to_target 3;
-camera_rotation -19,99999999999998 29,99999999999996 0;
+camera_rotation -20 30 0;
 camera_top -0,171010071662834 -0,4698463103929538 0,8660254037844389;
 DE_factor 0,5;
 flight_last_to_render 0;
@@ -20,7 +17,6 @@ glow_color_1 ffff 0000 0000;
 glow_intensity 1;
 image_height 1600;
 image_width 1600;
-iteration_fog_brightness_boost 100;
 iteration_fog_color_1 9dcc e457 ffff;
 iteration_fog_color_1_maxiter 23;
 iteration_fog_color_2 ffff ff50 0000;
@@ -32,18 +28,25 @@ iteration_fog_opacity_trim 6;
 iteration_threshold_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-main_light_beta -45;
-main_light_intensity 0,7;
+light1_intensity 0,7;
+light1_is_defined true;
+light1_penetrating false;
+light1_rotation -45 -45 0;
+light2_color ace7 45f6 2baf;
+light2_enabled true;
+light2_intensity 10,4;
+light2_is_defined true;
+light2_penetrating false;
+light2_position 3 -3 -3;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 0;
 mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
 mat1_use_colors_from_palette false;
 N 70;
-penetrating_lights false;
 slow_shading true;
-target -0,5768682549123074 0,08118664537186229 -0,08660254037844388;
-view_distance_max 5,547053261814028;
+target -0,576868254912307 0,0811866453718623 -0,0866025403784439;
+view_distance_max 5,54705326181403;
 [fractal_2]
 mandelbox_generalized_fold_type fold_cube;
 [fractal_3]

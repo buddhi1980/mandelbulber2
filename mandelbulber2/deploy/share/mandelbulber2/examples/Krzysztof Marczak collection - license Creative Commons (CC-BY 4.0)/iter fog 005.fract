@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.25
+# version 2.28
 # only modified parameters
 [main_parameters]
 advanced_quality true;
@@ -22,7 +22,7 @@ iteration_fog_opacity_trim 21,5;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 light1_color c741 fa43 806f;
-light1_intensity 2;
+light1_intensity 0,02;
 light1_is_defined true;
 light1_rotation 90 70 0;
 light2_color ffff 3a0d 439d;
