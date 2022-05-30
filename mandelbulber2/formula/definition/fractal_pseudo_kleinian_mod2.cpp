@@ -29,7 +29,6 @@ cFractalPseudoKleinianMod2::cFractalPseudoKleinianMod2() : cAbstractFractal()
 void cFractalPseudoKleinianMod2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
 	CVector4 oldZ = z;
 	CVector4 zCol = z;
 	double rrCol = 0.0;
@@ -209,7 +208,6 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 
 	double k;
 	// Pseudo kleinian
-	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -227,6 +225,7 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		//  variation from openCL  conditional mult 2.0
+		CVector4 cSize = fractal->transformCommon.additionConstant0777;
 		if (z.x > cSize.x) z.x = cSize.x * 2.0 - z.x;
 		if (z.x < -cSize.x) z.x = -cSize.x * 2.0 - z.x;
 		if (z.y > cSize.y) z.y = cSize.y * 2.0 - z.y;
@@ -258,7 +257,7 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 			CVector4 length = 2.0 * limit;
 			CVector4 tgladS = 1.0 / length;
 			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
-			;
+
 			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
@@ -276,7 +275,7 @@ void cFractalPseudoKleinianMod2::FormulaCode(
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
 	{
-		CVector4 tempFAB = c;
+		CVector4 tempFAB = aux.const_c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
 		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
 		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);

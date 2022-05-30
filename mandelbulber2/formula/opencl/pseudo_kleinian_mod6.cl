@@ -17,7 +17,6 @@
 
 REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 	REAL k = 0.0f;
 	REAL Dk = 1.0f;
@@ -75,12 +74,12 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				&& h >= fractal->transformCommon.startIterationsT
 				&& h < fractal->transformCommon.stopIterationsT1) // symmetrical addCpixel
 		{
-			REAL4 tempFAB = c;
+			REAL4 tempFAB = aux->const_c;
 			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
 			if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
 			if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
-			tempFAB *= fractal->transformCommon.offsetF000;
+			tempFAB *= fractal->transformCommon.scale3D000;
 			z.x -= sign(z.x) * tempFAB.x;
 			z.y -= sign(z.y) * tempFAB.y;
 			z.z -= sign(z.z) * tempFAB.z;
@@ -100,7 +99,6 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	// dist functions
 	REAL4 q = z;
-	aux->DE = Dk;
 	REAL temp = q.x * q.x + q.y * q.y;
 	REAL rxy = native_sqrt(temp);
 
@@ -125,7 +123,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledCFalse)
 		aux->DE0 = max(rxy - fractal->transformCommon.offsetA1, aux->DE0);
 
-	aux->DE0 = aux->DE0 / aux->DE;
+	aux->DE0 = aux->DE0 / Dk;
 
 	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
 	{
@@ -152,20 +150,15 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
 		else Dd = 0.5f * r * log(r) / fabs(Dd);
 
-
-
 		if (!fractal->transformCommon.functionEnabledIFalse) aux->DE0 =
 				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux->DE0);
 		else aux->DE0 = max(fractal->transformCommon.offset0005 * Dd, aux->DE0);
-
-		//aux->DE0= fabs(min(sca.y * Dd, sca.z * aux->DE0));
-		//aux->DE0 = fabs(min(0.5f * Dd, 0.5f * aux->DE0));
 	}
 
 	//aux->DE0 -= fractal->analyticDE.offset0;
 
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE0 = min(aux->dist, aux->DE0);
-
+	if (fractal->analyticDE.enabledFalse) aux->DE = Dk;
 	aux->dist = aux->DE0;
 
 	// color
@@ -178,6 +171,5 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		aux->color += colorAdd;
 	}
-
 	return z;
 }

@@ -34,5 +34,5 @@ void cFractalTransfDIFSBox::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	zc.z = max(zc.z, 0.0);
 	double zcd = zc.Length();
 
-	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
 }

@@ -17,7 +17,6 @@
 
 REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
 	REAL4 oldZ = z;
 	REAL4 zCol = z;
 	REAL rrCol = 0.0f;
@@ -207,13 +206,11 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL k;
 	// Pseudo kleinian
-	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
- //  correct c++ version. non conditional mult 2.0f
-
+		//  correct c++ version. non conditional mult 2.0f
 		z = fabs(z + fractal->transformCommon.additionConstant0777)
 				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
@@ -226,6 +223,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		//  variation from openCL  conditional mult 2.0f
+		REAL4 cSize = fractal->transformCommon.additionConstant0777;
 		if (z.x > cSize.x) z.x = cSize.x * 2.0f - z.x;
 		if (z.x < -cSize.x) z.x = -cSize.x * 2.0f - z.x;
 		if (z.y > cSize.y) z.y = cSize.y * 2.0f - z.y;
@@ -257,7 +255,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL4 length = 2.0f * limit;
 			REAL4 tgladS = 1.0f / length;
 			REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-			;
+
 			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
@@ -275,7 +273,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
 	{
-		REAL4 tempFAB = c;
+		REAL4 tempFAB = aux->const_c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
 		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
 		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);

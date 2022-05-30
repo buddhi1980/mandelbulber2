@@ -29,10 +29,9 @@ cFractalPseudoKleinianMod6::cFractalPseudoKleinianMod6() : cAbstractFractal()
 void cFractalPseudoKleinianMod6::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
 	double k = 0.0;
-	double Dk =1.0;
+	double Dk = 1.0;
 
 	for (int h = 0; h < fractal->transformCommon.int32; h++)
 	{
@@ -87,12 +86,12 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 				&& h >= fractal->transformCommon.startIterationsT
 				&& h < fractal->transformCommon.stopIterationsT1)
 		{
-			CVector4 tempFAB = c;
+			CVector4 tempFAB = aux.const_c;
 			if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
 			if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
 			if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
-			tempFAB *= fractal->transformCommon.offsetF000;
+			tempFAB *= fractal->transformCommon.scale3D000;
 			z.x -= sign(z.x) * tempFAB.x;
 			z.y -= sign(z.y) * tempFAB.y;
 			z.z -= sign(z.z) * tempFAB.z;
@@ -110,7 +109,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	}
 
 	CVector4 q = z;
-	aux.DE = Dk;
+
 	double temp = q.x * q.x + q.y * q.y;
 	double rxy = sqrt(temp);
 //q.y = min(q.y, 1.4f - q.y);
@@ -137,7 +136,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	if (fractal->transformCommon.functionEnabledCFalse)
 		aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
 
-	aux.DE0 = aux.DE0 / aux.DE;
+	aux.DE0 = aux.DE0 / Dk;
 
 
 	if (fractal->transformCommon.functionEnabledFFalse)
@@ -181,7 +180,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = min(aux.dist, aux.DE0);
-
+	if (fractal->analyticDE.enabledFalse) aux.DE = Dk;
 	aux.dist = aux.DE0;
 
 	// color
