@@ -169,6 +169,7 @@ void cRenderWorker::doWork()
 			double depth = 1e20;
 			sRGBFloat worldPositionRGB;
 			sRGBFloat shadowsChannel;
+			sRGBFloat giChannel;
 			if (monteCarlo) repeats = params->DOFSamples;
 			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
 
@@ -328,6 +329,9 @@ void cRenderWorker::doWork()
 					shadowsChannel.R = recursionOut.outShadow.R;
 					shadowsChannel.G = recursionOut.outShadow.G;
 					shadowsChannel.B = recursionOut.outShadow.B;
+					giChannel.R += recursionOut.outGlobalIllumination.R;
+					giChannel.G += recursionOut.outGlobalIllumination.G;
+					giChannel.B += recursionOut.outGlobalIllumination.B;
 				}
 
 				finalPixel.R = resultShader.R;
@@ -426,6 +430,9 @@ void cRenderWorker::doWork()
 					colour.R = uchar(finalColourDOF.R / repeats);
 					colour.G = uchar(finalColourDOF.G / repeats);
 					colour.B = uchar(finalColourDOF.B / repeats);
+					giChannel.R = giChannel.R / repeats;
+					giChannel.G = giChannel.G / repeats;
+					giChannel.B = giChannel.B / repeats;
 				}
 				data->statistics.totalNumberOfDOFRepeats += repeats;
 				data->statistics.totalNoise += monteCarloNoise;
@@ -463,6 +470,8 @@ void cRenderWorker::doWork()
 									xxx, yyy, sRGBFloat(colour.R / 255.0f, colour.G / 255.0f, colour.B / 255.0f));
 							if (image->GetImageOptional()->optionalShadows)
 								image->PutPixelShadows(xxx, yyy, shadowsChannel);
+							if (image->GetImageOptional()->optionalGlobalIlluination)
+								image->PutPixelGlobalIllumination(xxx, yyy, giChannel);
 						}
 					}
 				}
@@ -1264,6 +1273,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader = backgroundShader;
 				rayMarchingOut.depth = 1e20;
 				recursionOut.specular = sRGBAfloat();
+				recursionOut.outShadow = sRGBAfloat(1.0f, 1.0f, 1.0f, 1.0f);
+				recursionOut.outGlobalIllumination = sRGBFloat();
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 				// rayStack[rayIndex].goDeeper = false;
 			}

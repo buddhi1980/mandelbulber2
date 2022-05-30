@@ -60,6 +60,7 @@
 #include <QStringList>
 #include <QVector>
 #include <memory>
+#include "common_math.h"
 #include "cimage.hpp"
 #include "error_message.hpp"
 #include "files.h"
@@ -998,13 +999,15 @@ void ImageFileSavePNG::SavePngRgbPixel(
 		sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
 		if (signedInput)
 		{
-			*typedColorPtr = sRGB16(ushort((1.0f + pixel.R) * 0.5f * 65535.0f),
-				ushort((1.0f + pixel.G) * 0.5f * 65535.0f), ushort((1.0f + pixel.B) * 0.5f * 65535.0f));
+			*typedColorPtr = sRGB16(ushort(clamp((1.0f + pixel.R) * 0.5f * 65535.0f, 0.0f, 65535.0f)),
+				ushort(clamp((1.0f + pixel.G) * 0.5f * 65535.0f, 0.0f, 65535.0f)),
+				ushort(clamp((1.0f + pixel.B) * 0.5f * 65535.0f, 0.0f, 65535.0f)));
 		}
 		else
 		{
-			*typedColorPtr =
-				sRGB16(ushort(pixel.R * 65535.0f), ushort(pixel.G * 65535.0f), ushort(pixel.B * 65535.0f));
+			*typedColorPtr = sRGB16(ushort(clamp(pixel.R * 65535.0f, 0.0f, 65535.0f)),
+				ushort(clamp(pixel.G * 65535.0f, 0.0f, 65535.0f)),
+				ushort(clamp(pixel.B * 65535.0f, 0.0f, 65535.0f)));
 		}
 	}
 	else
@@ -1012,13 +1015,14 @@ void ImageFileSavePNG::SavePngRgbPixel(
 		sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
 		if (signedInput)
 		{
-			*typedColorPtr = sRGB8(uchar((1.0f + pixel.R) * 0.5f * 255.0f),
-				uchar((1.0f + pixel.G) * 0.5f * 255.0f), uchar((1.0f + pixel.B) * 0.5f * 255.0f));
+			*typedColorPtr = sRGB8(uchar(clamp((1.0f + pixel.R) * 0.5f * 255.0f, 0.0f, 255.0f)),
+				uchar(clamp((1.0f + pixel.G) * 0.5f * 255.0f, 0.0f, 255.0f)),
+				uchar(clamp((1.0f + pixel.B) * 0.5f * 255.0f, 0.0f, 255.0f)));
 		}
 		else
 		{
-			*typedColorPtr =
-				sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
+			*typedColorPtr = sRGB8(uchar(clamp(pixel.R * 255.0f, 0.0f, 255.0f)),
+				uchar(clamp(pixel.G * 255.0f, 0.0f, 255.0f)), uchar(clamp(pixel.B * 255.0f, 0.0f, 255.0f)));
 		}
 	}
 }
@@ -1106,8 +1110,8 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 					break;
 				default: pixel = sRGBAfloat(); break;
 			}
-			sRGB8 pixel8 =
-				sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
+			sRGB8 pixel8 = sRGB8(uchar(clamp(pixel.R * 255.0f, 0.0f, 255.0f)),
+				uchar(clamp(pixel.G * 255.0f, 0.0f, 255.0f)), uchar(clamp(pixel.B * 255.0f, 0.0f, 255.0f)));
 			qScanLine[3 * x + 0] = pixel8.R;
 			qScanLine[3 * x + 1] = pixel8.G;
 			qScanLine[3 * x + 2] = pixel8.B;
