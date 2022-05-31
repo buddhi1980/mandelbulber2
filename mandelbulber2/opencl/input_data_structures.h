@@ -43,15 +43,11 @@
 
 typedef struct
 {
-	cl_float R;
-	cl_float G;
-	cl_float B;
-	cl_float zBuffer;
 	cl_ushort opacity;
 	cl_ushort alpha;
-	cl_uchar colR;
-	cl_uchar colG;
-	cl_uchar colB;
+	cl_float zBuffer;
+	cl_uchar3 color;
+	cl_float3 image;
 	cl_float3 normal;
 } sClPixel;
 

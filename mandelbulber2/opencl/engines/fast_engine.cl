@@ -322,13 +322,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			pixelRightColor.s2 = colour.s2 + glow;
 
 			sClPixel pixel;
-			pixel.R = pixelRightColor.s0;
-			pixel.G = pixelLeftColor.s1;
-			pixel.B = pixelLeftColor.s2;
+			pixel.image.s0 = pixelRightColor.s0;
+			pixel.image.s1 = pixelLeftColor.s1;
+			pixel.image.s2 = pixelLeftColor.s2;
 			pixel.zBuffer = scan;
-			pixel.colR = 128;
-			pixel.colG = 128;
-			pixel.colB = 128;
+			pixel.color = 128;
 			pixel.opacity = 0;
 			pixel.alpha = alpha * 65535;
 
@@ -338,13 +336,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 #else	 // no STEREO_REYCYAN
 
-	pixel.R = colour.s0 + glow;
-	pixel.G = colour.s1 * glow * 10.0f;
-	pixel.B = colour.s2;
+	pixel.image.s0 = colour.s0 + glow;
+	pixel.image.s1 = colour.s1 * glow * 10.0f;
+	pixel.image.s2 = colour.s2;
 	pixel.zBuffer = scan;
-	pixel.colR = 128;
-	pixel.colG = 128;
-	pixel.colB = 128;
+	pixel.color = 128;
 	pixel.opacity = 0;
 	pixel.alpha = alpha * 65535;
 

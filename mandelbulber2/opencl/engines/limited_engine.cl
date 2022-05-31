@@ -541,13 +541,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			pixelRightColor.s1 = color4.s1;
 			pixelRightColor.s2 = color4.s2;
 
-			pixel.R = pixelRightColor.s0;
-			pixel.G = pixelLeftColor.s1;
-			pixel.B = pixelLeftColor.s2;
+			pixel.image.s0 = pixelRightColor.s0;
+			pixel.image.s1 = pixelLeftColor.s1;
+			pixel.image.s2 = pixelLeftColor.s2;
 			pixel.zBuffer = scan;
-			pixel.colR = surfaceColor.s0 * 256.0f;
-			pixel.colG = surfaceColor.s1 * 256.0f;
-			pixel.colB = surfaceColor.s2 * 256.0f;
+			pixel.color = convert_uchar3(objectColour * 256.0f);
 			pixel.opacity = opacityOut * 65535;
 			pixel.alpha = color4.s3 * 65535;
 
@@ -557,13 +555,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 #else	 // no STEREO_REYCYAN
 
-	pixel.R = color4.s0;
-	pixel.G = color4.s1;
-	pixel.B = color4.s2;
+	pixel.image = color4.xyz;
 	pixel.zBuffer = scan;
-	pixel.colR = surfaceColor.s0 * 256.0f;
-	pixel.colG = surfaceColor.s1 * 256.0f;
-	pixel.colB = surfaceColor.s2 * 256.0f;
+	pixel.color = convert_uchar3(surfaceColor * 256.0f);
 	pixel.opacity = opacityOut * 65535;
 	pixel.alpha = color4.s3 * 65535;
 

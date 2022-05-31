@@ -477,13 +477,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			pixelRightColor.s2 = resultShader.s2;
 #endif
 
-			pixel.R = pixelRightColor.s0;
-			pixel.G = pixelLeftColor.s1;
-			pixel.B = pixelLeftColor.s2;
+			pixel.image.s0 = pixelRightColor.s0;
+			pixel.image.s1 = pixelLeftColor.s1;
+			pixel.image.s2 = pixelLeftColor.s2;
 			pixel.zBuffer = depth;
-			pixel.colR = objectColour.s0 * 256.0f;
-			pixel.colG = objectColour.s1 * 256.0f;
-			pixel.colB = objectColour.s2 * 256.0f;
+			pixel.color = convert_uchar3(objectColour * 256.0f);
 			pixel.opacity = opacity * 65535;
 			pixel.alpha = resultShader.s3 * 65535;
 			pixel.normal = normalize(normal);
@@ -495,19 +493,13 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 #else // no STEREO_REYCYAN
 
 #ifdef CHROMATIC_ABERRATION
-	pixel.R = resultShader.s0 * rgbFromHsv.s0;
-	pixel.G = resultShader.s1 * rgbFromHsv.s1;
-	pixel.B = resultShader.s2 * rgbFromHsv.s2;
+	pixel.image = resultShader.xyz * rgbFromHsv;
 #else
-	pixel.R = resultShader.s0;
-	pixel.G = resultShader.s1;
-	pixel.B = resultShader.s2;
+	pixel.image = resultShader.xyz;
 #endif
 
 	pixel.zBuffer = depth;
-	pixel.colR = objectColour.s0 * 256.0f;
-	pixel.colG = objectColour.s1 * 256.0f;
-	pixel.colB = objectColour.s2 * 256.0f;
+	pixel.color = convert_uchar3(objectColour * 256.0f);
 	pixel.opacity = opacity * 65535;
 	pixel.alpha = resultShader.s3 * 65535;
 	pixel.normal = normalize(normal);

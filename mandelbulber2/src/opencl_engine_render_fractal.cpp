@@ -1434,8 +1434,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// getting pixel from output buffer
 							sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
 								output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
-							sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+							sRGBFloat pixel = {pixelCl.image.s0, pixelCl.image.s1, pixelCl.image.s2};
+							sRGB8 color = {pixelCl.color.s0, pixelCl.color.s1, pixelCl.color.s2};
 							unsigned short opacity = pixelCl.opacity;
 							unsigned short alpha = pixelCl.alpha;
 

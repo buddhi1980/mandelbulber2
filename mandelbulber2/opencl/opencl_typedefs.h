@@ -43,7 +43,9 @@ typedef int3 cl_int3;
 typedef int cl_int;
 typedef unsigned int cl_uint;
 typedef unsigned short cl_ushort;
-typedef unsigned char cl_uchar;
+typedef uchar cl_uchar;
+typedef uchar3 cl_uchar3;
+typedef uchar4 cl_uchar4;
 
 #ifndef DOUBLE_PRECISION
 #define REAL float
