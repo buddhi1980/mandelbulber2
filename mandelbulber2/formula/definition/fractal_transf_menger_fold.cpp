@@ -31,7 +31,7 @@ cFractalTransfMengerFold::cFractalTransfMengerFold() : cAbstractFractal()
 void cFractalTransfMengerFold::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
-	{ // fabs() and menger fold
+	{
 		double col = 0.0;
 		double temp = 0.0;
 		z = fabs(z + fractal->transformCommon.additionConstantA000);

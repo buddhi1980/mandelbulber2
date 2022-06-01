@@ -80,6 +80,6 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f));
 	else
-		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f)) - fractal->transformCommon.offsetB0;
+		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
 	return z;
 }

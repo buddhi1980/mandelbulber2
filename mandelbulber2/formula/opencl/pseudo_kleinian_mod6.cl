@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -44,7 +44,6 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			z.y -= fractal->transformCommon.constantMultiplier000.y * sign(z.y);
 			z.z -= fractal->transformCommon.constantMultiplier000.z * sign(z.z);
 		}
-
 
 		// Pseudo kleinian
 		if (h >= fractal->transformCommon.startIterationsC
@@ -128,7 +127,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
 	{
 		REAL4 p = z;
-		REAL m ;
+		REAL m =1.0f;
 		REAL r2 = 0.0f;
 		temp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 		REAL Dd = 1.0f;
@@ -141,9 +140,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			else if (r2 < fractal->transformCommon.maxR2d1) m = fractal->transformCommon.maxR2d1 / r2;
 
 			m *= fractal->transformCommon.scale015;
-
 			p = p * m + fractal->transformCommon.offsetF000;
-
 			Dd = Dd * m + fractal->analyticDE.offset1;
 		}
 		REAL r = sqrt(r2);
@@ -155,8 +152,6 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		else aux->DE0 = max(fractal->transformCommon.offset0005 * Dd, aux->DE0);
 	}
 
-	//aux->DE0 -= fractal->analyticDE.offset0;
-
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE0 = min(aux->dist, aux->DE0);
 	if (fractal->analyticDE.enabledFalse) aux->DE = Dk;
 	aux->dist = aux->DE0;
@@ -166,8 +161,8 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
-		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * k;
+		colorAdd += fractal->foldColor.difs0000.z * aux->DE0 * 100.0f;
+		colorAdd += fractal->foldColor.difs0000.w * Dk;
 
 		aux->color += colorAdd;
 	}

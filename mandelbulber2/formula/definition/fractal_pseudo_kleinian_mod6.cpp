@@ -29,7 +29,6 @@ cFractalPseudoKleinianMod6::cFractalPseudoKleinianMod6() : cAbstractFractal()
 void cFractalPseudoKleinianMod6::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd = 0.0;
 	double k = 0.0;
 	double Dk = 1.0;
 
@@ -109,11 +108,8 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	}
 
 	CVector4 q = z;
-
 	double temp = q.x * q.x + q.y * q.y;
 	double rxy = sqrt(temp);
-//q.y = min(q.y, 1.4f - q.y);
-
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -138,45 +134,34 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 
 	aux.DE0 = aux.DE0 / Dk;
 
-
+		// KaliBoxMod
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
-		// KaliBoxMod
 		CVector4 p = z;
-	//	double m = fractal->transformCommon.scale015;
 		double m;
 		temp = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
 		double r2 = 0.0;
 		double Dd = 1.0;
 		for (int n = 0; n < fractal->transformCommon.int16 && r2 < 100.0f; n++)
 		{
-					m = 1.0;
+			m = 1.0;
 			p = fractal->transformCommon.additionConstant0555 - fabs(p);
 			r2 = p.Dot(p);
 			if (r2 < fractal->transformCommon.minR2p25) m *= temp;
 			else if (r2 < fractal->transformCommon.maxR2d1) m *= fractal->transformCommon.maxR2d1 / r2;
 
 			m *= fractal->transformCommon.scale015;
-
 			p = p * m + fractal->transformCommon.offsetF000;
-
 			Dd = Dd * m + fractal->analyticDE.offset1;
 		}
 		double r = sqrt(r2);
 		if (!fractal->transformCommon.functionEnabledTFalse) Dd = r / fabs(Dd);
 		else Dd = 0.5 * r * log(r) / fabs(Dd);
 
-
-
 		if (!fractal->transformCommon.functionEnabledIFalse) aux.DE0 =
 				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux.DE0);
 		else aux.DE0 = max(fractal->transformCommon.offset0005 * Dd, aux.DE0);
-
-		//aux.DE0 = fabs(min(sca.y * Dd, sca.z * aux.DE0));
-
 	}
-
-	// aux.DE0 -= fractal->analyticDE.offset0;
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 		aux.DE0 = min(aux.dist, aux.DE0);
@@ -186,10 +171,11 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
+		double colorAdd = 0.0;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
-		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * k;
+		colorAdd += fractal->foldColor.difs0000.z * aux.DE0 * 100.0;
+		colorAdd += fractal->foldColor.difs0000.w * Dk;
 
 		aux.color += colorAdd;
 	}

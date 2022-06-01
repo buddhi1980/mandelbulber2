@@ -61,6 +61,6 @@ void cFractalTransfDIFSBoxV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	/*	if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0));
 		else
-			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0)) - fractal->transformCommon.offsetB0;
+			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
 	}*/
 }
