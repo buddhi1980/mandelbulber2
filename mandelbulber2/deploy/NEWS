@@ -3,7 +3,8 @@ Version history
 v2.28 (  2022)
 
 - Added new fractal formulas
-
+   mandelbulbTails
+   mandelbulbTailsV2
    transfLowResMode
    transfMengerFoldV2
 

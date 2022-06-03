@@ -108,16 +108,17 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	}
 
 	CVector4 q = z;
+
 	double temp = q.x * q.x + q.y * q.y;
 	double rxy = sqrt(temp);
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		temp += q.z * q.z;
-		if (!fractal->transformCommon.functionEnabledAyFalse) temp = sqrt(temp);
+		double d1 = temp + q.z * q.z;
+		if (!fractal->transformCommon.functionEnabledAyFalse) d1 = sqrt(d1);
 
-		double d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
-						/ (temp + fractal->transformCommon.offset02);
+		 d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+						/ (d1 + fractal->transformCommon.offset02);
 		aux.DE0 = d1;
 	}
 
@@ -130,9 +131,19 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		q.x = q.x * q.x * fractal->transformCommon.scaleC1;
+		q.y	= q.y * q.y * fractal->transformCommon.scaleD1;
+		if (fractal->transformCommon.functionEnabledNFalse)
+		{
+			q.x *= q.x;
+			q.y *= q.y;
+		}
+		rxy = sqrt(q.x + q.y);
 		aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
-
+	}
 	aux.DE0 = aux.DE0 / Dk;
+	k = aux.DE0;
 
 		// KaliBoxMod
 	if (fractal->transformCommon.functionEnabledFFalse)
@@ -172,10 +183,13 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0;
-		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
-		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
-		colorAdd += fractal->foldColor.difs0000.z * aux.DE0 * 100.0;
-		colorAdd += fractal->foldColor.difs0000.w * Dk;
+		if (aux.DE0 != k) colorAdd = fractal->foldColor.difs0000.w;
+		else
+		{
+			colorAdd += fractal->foldColor.difs0000.x * rxy;
+			colorAdd += fractal->foldColor.difs0000.y * k;
+			colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
+		}
 
 		aux.color += colorAdd;
 	}

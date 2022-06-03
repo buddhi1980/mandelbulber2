@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -20,7 +20,8 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL colorAdd = 0.0f;
 	REAL k = 0.0f;
 	REAL Dk = 1.0f;
-	for (int h = 0; h < fractal->transformCommon.int32; h++)
+	int h = 0;
+	for (h = 0; h < fractal->transformCommon.int32; h++)
 	{
 		// sphere inversion
 		if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -95,19 +96,19 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	}
 
-
 	// dist functions
 	REAL4 q = z;
 	REAL temp = q.x * q.x + q.y * q.y;
 	REAL rxy = native_sqrt(temp);
 
-	if (!fractal->transformCommon.functionEnabledAyFalse) temp = native_sqrt(temp);
-
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		temp += q.z * q.z;
-		REAL d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
-					/ (temp + fractal->transformCommon.offset02);
+		REAL d1 = temp + q.z * q.z;
+
+		if (!fractal->transformCommon.functionEnabledAyFalse) d1 = native_sqrt(d1);
+
+		d1 = (fabs(rxy * q.z) - fractal->transformCommon.offsetD0)
+					/ (d1 + fractal->transformCommon.offset02);
 		aux->DE0 = d1;
 	}
 
@@ -120,9 +121,20 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		q.x = q.x * q.x * fractal->transformCommon.scaleC1;
+		q.y	= q.y * q.y * fractal->transformCommon.scaleD1;
+		if (fractal->transformCommon.functionEnabledNFalse)
+		{
+			q.x *= q.x;
+			q.y *= q.y;
+		}
+		rxy = native_sqrt(q.x + q.y);
 		aux->DE0 = max(rxy - fractal->transformCommon.offsetA1, aux->DE0);
+	}
 
 	aux->DE0 = aux->DE0 / Dk;
+	k = aux->DE0;
 
 	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
 	{
@@ -159,11 +171,13 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		colorAdd += fractal->foldColor.difs0000.x * fabs(z.x);
-		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
-		colorAdd += fractal->foldColor.difs0000.z * aux->DE0 * 100.0f;
-		colorAdd += fractal->foldColor.difs0000.w * Dk;
-
+		if (aux->DE0 != k) colorAdd = fractal->foldColor.difs0000.w;
+		else
+		{
+			colorAdd += fractal->foldColor.difs0000.x * rxy;
+			colorAdd += fractal->foldColor.difs0000.y * k;
+			colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
+		}
 		aux->color += colorAdd;
 	}
 	return z;
