@@ -91,6 +91,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	renderEngineMode = clRenderEngineTypeNone;
 	meshExportMode = false;
 	distanceMode = false;
+	useOptionalImageChannels = false;
 	reservedGpuTime = 0.0;
 
 	// create empty list of custom formulas
@@ -895,6 +896,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (distanceMode) definesCollector += " -DDISTANCE_CALCULATION_MODE";
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
+	if (paramContainer->Get<bool>("optional_image_channels_enabled"))
+		definesCollector += " -DOPTIONAL_IMAGE_CHANNELS";
 
 	// define distance estimation method
 	SetParametersForDistanceEstimationMethod(fractals.get(), paramRender.get());
@@ -982,6 +985,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 	{
 		perlinNoiseSeeds[i] = seeds[i];
 	}
+
+	useOptionalImageChannels = paramContainer->Get<bool>("optional_image_channels_enabled");
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 }
@@ -1199,17 +1204,34 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 }
 
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
-	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, float zDepth,
-	const sRGBFloat &normal, unsigned short opacity, std::shared_ptr<cImage> &image)
+	unsigned short newAlpha, const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld,
+	unsigned short opacity, std::shared_ptr<cImage> &image)
 {
 	image->PutPixelImage(xx, yy, newPixel);
 	image->PutPixelZBuffer(xx, yy, zDepth);
 	image->PutPixelAlpha(xx, yy, newAlpha);
 	image->PutPixelColor(xx, yy, color);
 	image->PutPixelOpacity(xx, yy, opacity);
+	if (image->GetImageOptional()->optionalNormalWorld)
+		image->PutPixelNormalWorld(xx, yy, normalWorld);
+}
+
+void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color,
+	const sRGBFloat &normal, const sRGBFloat &specular, const sRGBFloat &world,
+	const sRGBFloat &shadows, const sRGBFloat &gi, std::shared_ptr<cImage> &image)
+{
 	if (image->GetImageOptional()->optionalDiffuse)
 		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
-	if (image->GetImageOptional()->optionalNormalWorld) image->PutPixelNormalWorld(xx, yy, normal);
+	if (image->GetImageOptional()->optionalNormal)
+		image->PutPixelNormal(xx, yy, sRGBFloat(normal.R, normal.G, normal.B));
+	if (image->GetImageOptional()->optionalSpecular)
+		image->PutPixelSpecular(xx, yy, sRGBFloat(specular.R, specular.G, specular.B));
+	if (image->GetImageOptional()->optionalWorld)
+		image->PutPixelWorld(xx, yy, sRGBFloat(world.R, world.G, world.B));
+	if (image->GetImageOptional()->optionalShadows)
+		image->PutPixelShadows(xx, yy, sRGBFloat(shadows.R, shadows.G, shadows.B));
+	if (image->GetImageOptional()->optionalGlobalIlluination)
+		image->PutPixelGlobalIllumination(xx, yy, sRGBFloat(gi.R, gi.G, gi.B));
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
@@ -1457,12 +1479,13 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								float zDepth = zDepthOld;
 
 								sRGBFloat nornalOld;
-								sRGBFloat normal;
+								sRGBFloat normalWorld;
 
 								if (output.monteCarloLoop == 1)
 								{
 									zDepth = pixelCl.zBuffer;
-									normal = sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+									normalWorld = sRGBFloat(
+										pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
 								}
 								else
 								{
@@ -1471,18 +1494,18 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 													 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
 															+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
 
-									sRGBFloat normalNew =
-										sRGBFloat(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+									sRGBFloat normalNew = sRGBFloat(
+										pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
 
 									if (image->GetImageOptional()->optionalNormalWorld)
 										nornalOld = image->GetPixelNormalWorld(xx, yy);
 
-									normal.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-														 + normalNew.R * (1.0f / output.monteCarloLoop);
-									normal.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-														 + normalNew.G * (1.0f / output.monteCarloLoop);
-									normal.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-														 + normalNew.B * (1.0f / output.monteCarloLoop);
+									normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+																	+ normalNew.R * (1.0f / output.monteCarloLoop);
+									normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+																	+ normalNew.G * (1.0f / output.monteCarloLoop);
+									normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+																	+ normalNew.B * (1.0f / output.monteCarloLoop);
 								}
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
@@ -1491,7 +1514,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 												 + alpha * (1.0 / output.monteCarloLoop));
 
 								PutMultiPixel(
-									xx, yy, newPixel, pixelCl, newAlpha, color, zDepth, normal, opacity, image);
+									xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, image);
+
+								if (useOptionalImageChannels)
+								{
+									PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
+										clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
+										clFloat3TosRGBFloat(pixelCl.shadows),
+										clFloat3TosRGBFloat(pixelCl.globalIllumination), image);
+								}
 
 								// noise estimation
 								float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
@@ -1526,10 +1557,16 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if not MC then just paint pixels
 							else
 							{
-								sRGBFloat normal(pixelCl.normal.s0, pixelCl.normal.s1, pixelCl.normal.s2);
+								PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer,
+									clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, image);
 
-								PutMultiPixel(
-									xx, yy, pixel, pixelCl, alpha, color, pixelCl.zBuffer, normal, opacity, image);
+								if (useOptionalImageChannels)
+								{
+									PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
+										clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
+										clFloat3TosRGBFloat(pixelCl.shadows),
+										clFloat3TosRGBFloat(pixelCl.globalIllumination), image);
+								}
 							}
 						} // next y
 					}		// next x

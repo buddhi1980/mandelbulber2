@@ -114,6 +114,11 @@ public:
 	size_t CalcNeededMemory() override;
 	void SetMeshExportParameters(const sClMeshExport *meshParams);
 
+	static inline sRGBFloat clFloat3TosRGBFloat(const cl_float3 &clPixel)
+	{
+		return sRGBFloat(clPixel.s0, clPixel.s1, clPixel.s2);
+	}
+
 private:
 	const int outputIndex = 0;
 	const int outputMeshDistancesIndex = 0;
@@ -147,9 +152,14 @@ private:
 		QList<std::shared_ptr<cOpenClWorkerThread>> &workers, bool *stopRequest);
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
-	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
-		unsigned short newAlpha, sRGB8 color, float zDepth, const sRGBFloat &normal,
-		unsigned short opacity, std::shared_ptr<cImage> &image);
+
+	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, unsigned short newAlpha,
+		const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld, unsigned short opacity,
+		std::shared_ptr<cImage> &image);
+	void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
+		const sRGBFloat &specular, const sRGBFloat &world, const sRGBFloat &shadows,
+		const sRGBFloat &gi, std::shared_ptr<cImage> &image);
+
 	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh,
 		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
 		QList<sRenderedTileData> &listOfRenderedTilesData);
@@ -188,6 +198,7 @@ private:
 	bool meshExportMode;
 	cl_float3 pointToCalculateDistance;
 	bool distanceMode;
+	bool useOptionalImageChannels;
 	double reservedGpuTime;
 
 #endif

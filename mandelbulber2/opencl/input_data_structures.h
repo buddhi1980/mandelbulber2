@@ -49,6 +49,12 @@ typedef struct
 	cl_uchar3 color;
 	cl_float3 image;
 	cl_float3 normal;
+	cl_float3 normalWorld;
+	cl_float3 specular;
+	cl_float3 diffuse;
+	cl_float3 world;
+	cl_float3 shadows;
+	cl_float3 globalIllumination;
 } sClPixel;
 
 typedef struct

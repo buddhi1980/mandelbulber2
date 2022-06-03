@@ -134,19 +134,19 @@ public:
 #endif
 	}
 
-	inline void PutPixelImage(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelImage(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		imageFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelPostImage(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelPostImage(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		postImageFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelImage16(quint64 x, quint64 y, sRGB16 pixel)
+	inline void PutPixelImage16(quint64 x, quint64 y, const sRGB16 &pixel)
 	{
 		image16[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelColor(quint64 x, quint64 y, sRGB8 pixel)
+	inline void PutPixelColor(quint64 x, quint64 y, const sRGB8 &pixel)
 	{
 		colourBuffer[getImageIndex(x, y)] = pixel;
 	}
@@ -162,45 +162,45 @@ public:
 	{
 		opacityBuffer[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelNormal(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelNormal(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		normalFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelNormalWorld(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelNormalWorld(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		normalFloatWorld[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelSpecular(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelSpecular(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		specularFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelDiffuse(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelDiffuse(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		diffuseFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelWorld(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelWorld(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		worldFloat[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelShadows(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelShadows(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		shadows[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelGlobalIllumination(quint64 x, quint64 y, sRGBFloat pixel)
+	inline void PutPixelGlobalIllumination(quint64 x, quint64 y, const sRGBFloat &pixel)
 	{
 		globalIllumination[getImageIndex(x, y)] = pixel;
 	}
 
-	inline sRGBFloat GetPixelImage(quint64 x, quint64 y) const
+	inline const sRGBFloat &GetPixelImage(quint64 x, quint64 y) const
 	{
 		return imageFloat[getImageIndex(x, y)];
 	}
-	inline sRGBFloat GetPixelPostImage(quint64 x, quint64 y) const
+	inline const sRGBFloat &GetPixelPostImage(quint64 x, quint64 y) const
 	{
 		return postImageFloat[getImageIndex(x, y)];
 	}
-	inline sRGB16 GetPixelImage16(quint64 x, quint64 y) const { return image16[getImageIndex(x, y)]; }
-	inline sRGB8 GetPixelImage8(quint64 x, quint64 y) const { return image8[getImageIndex(x, y)]; }
+	inline const sRGB16 &GetPixelImage16(quint64 x, quint64 y) const { return image16[getImageIndex(x, y)]; }
+	inline const sRGB8 &GetPixelImage8(quint64 x, quint64 y) const { return image8[getImageIndex(x, y)]; }
 	inline quint16 GetPixelAlpha(quint64 x, quint64 y) const
 	{
 		return alphaBuffer16[getImageIndex(x, y)];
@@ -213,53 +213,53 @@ public:
 	{
 		return opacityBuffer[getImageIndex(x, y)];
 	}
-	inline sRGB8 GetPixelColor(quint64 x, quint64 y) const
+	inline const sRGB8 &GetPixelColor(quint64 x, quint64 y) const
 	{
 		return colourBuffer[getImageIndex(x, y)];
 	}
 	inline float GetPixelZBuffer(quint64 x, quint64 y) const { return zBuffer[getImageIndex(x, y)]; }
-	inline sRGBFloat GetPixelNormal(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelNormal(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloat, opt.optionalNormal, x, y);
 	}
-	inline sRGBFloat GetPixelNormalWorld(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelNormalWorld(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloatWorld, opt.optionalNormalWorld, x, y);
 	}
-	inline sRGBFloat GetPixelSpecular(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelSpecular(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(specularFloat, opt.optionalSpecular, x, y);
 	}
-	inline sRGBFloat GetPixelDiffuse(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelDiffuse(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(diffuseFloat, opt.optionalDiffuse, x, y);
 	}
-	inline sRGBFloat GetPixelWorld(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelWorld(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(worldFloat, opt.optionalWorld, x, y);
 	}
-	inline sRGBFloat GetPixelShadows(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelShadows(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(shadows, opt.optionalShadows, x, y);
 	}
-	inline sRGBFloat GetPixelGlobalIllumination(quint64 x, quint64 y)
+	inline const sRGBFloat &GetPixelGlobalIllumination(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(globalIllumination, opt.optionalGlobalIlluination, x, y);
 	}
 
-	inline sRGBFloat GetPixelGeneric(
+	inline const sRGBFloat &GetPixelGeneric(
 		const std::vector<sRGBFloat> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return BlackFloat();
 		return from[getImageIndex(x, y)];
 	}
-	inline sRGB16 GetPixelGeneric16(
+	inline const sRGB16 &GetPixelGeneric16(
 		const std::vector<sRGB16> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return Black16();
 		return from[getImageIndex(x, y)];
 	}
-	inline sRGB8 GetPixelGeneric8(
+	inline const sRGB8 &GetPixelGeneric8(
 		const std::vector<sRGB8> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return Black8();

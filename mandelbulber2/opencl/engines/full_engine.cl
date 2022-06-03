@@ -484,7 +484,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			pixel.color = convert_uchar3(objectColour * 256.0f);
 			pixel.opacity = opacity * 65535;
 			pixel.alpha = resultShader.s3 * 65535;
-			pixel.normal = normalize(normal);
+			pixel.normalWorld = normalize(normal);
 
 			out[buffIndex] = pixel;
 		}
@@ -502,7 +502,14 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.color = convert_uchar3(objectColour * 256.0f);
 	pixel.opacity = opacity * 65535;
 	pixel.alpha = resultShader.s3 * 65535;
-	pixel.normal = normalize(normal);
+	pixel.normalWorld = normalize(normal);
+
+#ifdef OPTIONAL_IMAGE_CHANNELS
+	float3 pixelNormalRotated = Matrix33MulFloat3(rotInv, pixel.normalWorld);
+	pixel.normal.s0 = (1.0f + pixelNormalRotated.x) / 2.0f;
+	pixel.normal.s1 = (1.0f + pixelNormalRotated.z) / 2.0f;
+	pixel.normal.s2 = (1.0f - pixelNormalRotated.y) / 2.0f;
+#endif
 
 	out[buffIndex] = pixel;
 #endif // STEREO_REYCYAN
