@@ -77,6 +77,8 @@ typedef struct
 	float4 resultShader;
 	float3 objectColour;
 	float3 normal;
+	float3 specular;
+	float3 outShadow;
 	float fogOpacity;
 	bool found;
 } sRayRecursionOut;
@@ -546,6 +548,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			sRayRecursionOut recursionOut;
 
 			recursionOut = rayStack[rayIndex].out;
+			recursionOut.specular = 0.0f;
+			recursionOut.outShadow = 0.0f;
 
 			sRayMarchingOut rayMarchingOut = recursionOut.rayMarchingOut;
 
@@ -694,6 +698,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				float alpha = 1.0f;
 				objectShader = ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour,
 					&specular, &iridescence, &alpha, &gradients);
+				recursionOut.specular = specular;
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(

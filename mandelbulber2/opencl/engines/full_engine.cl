@@ -420,6 +420,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		float4 resultShader = 0.0f;
 		float3 objectColour = 0.0f;
 		float3 normal = viewVector;
+		float3 specularOut = 0.0f;
+		float3 shadowOut = 0.0f;
+		float3 worldPositionRGB = 0.0f;
+
 		float opacity = 0.0f;
 
 #ifdef PERSP_FISH_EYE_CUT
@@ -450,6 +454,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			if (!recursionOut.found) depth = 1e20f;
 			opacity = recursionOut.fogOpacity;
 			normal = recursionOut.normal;
+			shadowOut = recursionOut.outShadow;
+			specularOut = recursionOut.specular;
+			worldPositionRGB = recursionOut.rayMarchingOut.point;
 
 #ifdef PERSP_FISH_EYE_CUT
 		}
@@ -488,7 +495,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 
 			out[buffIndex] = pixel;
 		}
-	} // next exe
+	} // next eye
 
 #else // no STEREO_REYCYAN
 
@@ -509,6 +516,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.normal.s0 = (1.0f + pixelNormalRotated.x) / 2.0f;
 	pixel.normal.s1 = (1.0f + pixelNormalRotated.z) / 2.0f;
 	pixel.normal.s2 = (1.0f - pixelNormalRotated.y) / 2.0f;
+	pixel.specular = specularOut;
+	pixel.shadows = shadowOut;
+	pixel.world = worldPositionRGB;
 #endif
 
 	out[buffIndex] = pixel;
