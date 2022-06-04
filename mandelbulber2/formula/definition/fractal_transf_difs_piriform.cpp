@@ -85,7 +85,6 @@ void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fracta
 		if (!fractal->transformCommon.functionEnabledIFalse) t = sqrt(t * t + zc.z * zc.z);
 		else t = max(fabs(t), fabs(zc.z));
 		//aux.DE += 1.0;
-
 	}
 
 	// z.z clip

@@ -96,7 +96,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	}
 
-	// dist functions
+	// pk dist functions
 	REAL4 q = z;
 	REAL temp = q.x * q.x + q.y * q.y;
 	REAL rxy = native_sqrt(temp);
@@ -132,11 +132,11 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		rxy = native_sqrt(q.x + q.y);
 		aux->DE0 = max(rxy - fractal->transformCommon.offsetA1, aux->DE0);
 	}
-
-	aux->DE0 = aux->DE0 / Dk;
+	aux->DE0 /= Dk;
 	k = aux->DE0;
 
-	if (fractal->transformCommon.functionEnabledFFalse) // KaliBoxMod
+	// KaliBoxMod
+	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		REAL4 p = z;
 		REAL m =1.0f;

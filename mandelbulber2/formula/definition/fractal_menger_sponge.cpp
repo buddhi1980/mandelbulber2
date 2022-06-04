@@ -28,13 +28,37 @@ cFractalMengerSponge::cFractalMengerSponge() : cAbstractFractal()
 
 void cFractalMengerSponge::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z.x = fabs(z.x);
-	z.y = fabs(z.y);
-	z.z = fabs(z.z);
+	z = fabs(z);
 
-	if (z.x < z.y) swap(z.x, z.y);
-	if (z.x < z.z) swap(z.x, z.z);
-	if (z.y < z.z) swap(z.y, z.z);
+	double temp;
+	double col = 0.0;
+	if (z.x < z.y)
+	{
+		temp = z.y;
+		z.y = z.x;
+		z.x = temp;
+		col += fractal->foldColor.difs0000.x;
+	}
+	if (z.x < z.z)
+	{
+		temp = z.z;
+		z.z = z.x;
+		z.x = temp;
+		col += fractal->foldColor.difs0000.y;
+	}
+	if (z.y < z.z)
+	{
+		temp = z.z;
+		z.z = z.y;
+		z.y = temp;
+		col += fractal->foldColor.difs0000.z;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+					&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += col;
+	}
 
 	z *= fractal->transformCommon.scale3;
 

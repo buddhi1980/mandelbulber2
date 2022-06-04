@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -45,9 +45,9 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z.y = temp;
 			col += fractal->foldColor.difs0000.z;
 		}
-		if (fractal->transformCommon.functionEnabledDFalse
-				&& aux->i >= fractal->transformCommon.startIterationsD
-				&& aux->i < fractal->transformCommon.stopIterationsD)
+		if (fractal->foldColor.auxColorEnabledFalse
+				&& aux->i >= fractal->foldColor.startIterationsA
+						&& aux->i < fractal->foldColor.stopIterationsA)
 		{
 			aux->color += col;
 		}

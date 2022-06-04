@@ -56,9 +56,9 @@ void cFractalTransfMengerFold::FormulaCode(CVector4 &z, const sFractal *fractal,
 			z.y = temp;
 			col += fractal->foldColor.difs0000.z;
 		}
-		if (fractal->transformCommon.functionEnabledDFalse
-				&& aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD)
+		if (fractal->foldColor.auxColorEnabledFalse
+				&& aux.i >= fractal->foldColor.startIterationsA
+						&& aux.i < fractal->foldColor.stopIterationsA)
 		{
 			aux.color += col;
 		}

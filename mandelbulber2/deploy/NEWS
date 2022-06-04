@@ -7,11 +7,13 @@ v2.28 (  2022)
    mandelbulbTailsV2
    transfLowResMode
    transfMengerFoldV2
-
+   transfAddSphericalInvert
+   transfSincosV2
    transfSphericalFoldSmooth
 
 
 - modified fractal formulas
+   MengerSponge, add aux.color
    transfMengerFold, add aux.color
    fractal::transfDIFSBox added rounding
    fractal::transfDIFSBoxV3 fixed rounding
