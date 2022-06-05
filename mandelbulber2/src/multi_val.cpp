@@ -76,12 +76,12 @@ enumVarType cMultiVal::Store(int val)
 
 enumVarType cMultiVal::Store(long long val)
 {
-    dVal[0] = val;
-    iVal[0] = val;
-    // sVal = QString::number(val);
+	dVal[0] = val;
+	iVal[0] = val;
+	// sVal = QString::number(val);
 
-    if (!typeDefined) type = typeInt;
-    return typeInt;
+	if (!typeDefined) type = typeInt;
+	return typeInt;
 }
 
 enumVarType cMultiVal::Store(QString val)
@@ -204,8 +204,8 @@ enumVarType cMultiVal::Get(int &val) const
 
 enumVarType cMultiVal::Get(long long &val) const
 {
-    val = iVal[0];
-    return typeInt;
+	val = iVal[0];
+	return typeInt;
 }
 
 enumVarType cMultiVal::Get(CVector3 &val) const
@@ -246,6 +246,7 @@ enumVarType cMultiVal::Get(QString &val) const
 							.arg(iVal[0], 4, 16, QChar('0'))
 							.arg(iVal[1], 4, 16, QChar('0'))
 							.arg(iVal[2], 4, 16, QChar('0'));
+			break;
 		case typeNull: val = QString(); break;
 	}
 
