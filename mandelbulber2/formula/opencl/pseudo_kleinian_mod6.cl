@@ -160,7 +160,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		else Dd = 0.5f * r * log(r) / fabs(Dd);
 
 		if (!fractal->transformCommon.functionEnabledIFalse) aux->DE0 =
-				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux->DE0);
+				min(fractal->transformCommon.scale08 * Dd, fractal->transformCommon.scaleB1 * aux->DE0);
 		else aux->DE0 = max(fractal->transformCommon.offset0005 * Dd, aux->DE0);
 	}
 

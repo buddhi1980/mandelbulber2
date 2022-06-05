@@ -170,7 +170,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		else Dd = 0.5 * r * log(r) / fabs(Dd);
 
 		if (!fractal->transformCommon.functionEnabledIFalse) aux.DE0 =
-				min(fractal->transformCommon.scale025 * Dd, fractal->transformCommon.scaleB1 * aux.DE0);
+				min(fractal->transformCommon.scale08 * Dd, fractal->transformCommon.scaleB1 * aux.DE0);
 		else aux.DE0 = max(fractal->transformCommon.offset0005 * Dd, aux.DE0);
 	}
 

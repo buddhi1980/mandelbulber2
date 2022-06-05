@@ -2800,7 +2800,7 @@ constants:</string>
            </font>
           </property>
           <property name="text">
-           <string>abox kali  julia group distance functions</string>
+           <string>Abox kali  julia group distance functions</string>
           </property>
          </widget>
         </item>
@@ -2873,7 +2873,7 @@ constants:</string>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_025">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_08">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -3437,7 +3437,7 @@ constants:</string>
   <connection>
    <sender>checkBox_transf_function_enabledI_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_transf_scale_025</receiver>
+   <receiver>spinbox_transf_scale_08</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
