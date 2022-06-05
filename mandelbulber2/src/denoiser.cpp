@@ -54,7 +54,7 @@ cDenoiser::cDenoiser(int imageWidth, int imageHeight, enumStrength _strength)
 		case light:
 			maxBlurRadius = 5.0;
 			minBlurRadius = 0.4;
-			maxMedianSize = 1.1;
+			maxMedianSize = 1.1f;
 			noiseMultiplier = 2500.0;
 			zDepthFilterfactor = 100.0;
 			normalFilterFactor = 10.0;

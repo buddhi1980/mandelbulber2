@@ -617,10 +617,16 @@ void UpdateLanguage()
 	}
 
 	WriteLogString("locale", locale, 2);
-	mandelbulberMainTranslator.load(
+	bool translatorLoaded;
+	translatorLoaded = mandelbulberMainTranslator.load(
 		locale, systemDirectories.sharedDir + QDir::separator() + "language");
-	mandelbulberFractalUiTranslator.load(
+	if (!translatorLoaded)
+		qCritical() << "Translattion of main interface cannot be loaded for language" << locale;
+
+	translatorLoaded = mandelbulberFractalUiTranslator.load(
 		"formula_" + locale, systemDirectories.sharedDir + QDir::separator() + "language");
+	if (!translatorLoaded)
+		qCritical() << "Translattion of fractals interface cannot be loaded for language" << locale;
 
 	WriteLog("Installing translator", 2);
 	QCoreApplication::installTranslator(&mandelbulberMainTranslator);

@@ -246,6 +246,7 @@ enumVarType cMultiVal::Get(QString &val) const
 							.arg(iVal[0], 4, 16, QChar('0'))
 							.arg(iVal[1], 4, 16, QChar('0'))
 							.arg(iVal[2], 4, 16, QChar('0'));
+		case typeNull: val = QString(); break;
 	}
 
 	return typeString;

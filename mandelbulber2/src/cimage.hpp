@@ -218,48 +218,48 @@ public:
 		return colourBuffer[getImageIndex(x, y)];
 	}
 	inline float GetPixelZBuffer(quint64 x, quint64 y) const { return zBuffer[getImageIndex(x, y)]; }
-	inline const sRGBFloat &GetPixelNormal(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelNormal(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloat, opt.optionalNormal, x, y);
 	}
-	inline const sRGBFloat &GetPixelNormalWorld(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelNormalWorld(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloatWorld, opt.optionalNormalWorld, x, y);
 	}
-	inline const sRGBFloat &GetPixelSpecular(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelSpecular(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(specularFloat, opt.optionalSpecular, x, y);
 	}
-	inline const sRGBFloat &GetPixelDiffuse(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelDiffuse(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(diffuseFloat, opt.optionalDiffuse, x, y);
 	}
-	inline const sRGBFloat &GetPixelWorld(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelWorld(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(worldFloat, opt.optionalWorld, x, y);
 	}
-	inline const sRGBFloat &GetPixelShadows(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelShadows(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(shadows, opt.optionalShadows, x, y);
 	}
-	inline const sRGBFloat &GetPixelGlobalIllumination(quint64 x, quint64 y)
+	inline sRGBFloat GetPixelGlobalIllumination(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(globalIllumination, opt.optionalGlobalIlluination, x, y);
 	}
 
-	inline const sRGBFloat &GetPixelGeneric(
+	inline sRGBFloat GetPixelGeneric(
 		const std::vector<sRGBFloat> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return BlackFloat();
 		return from[getImageIndex(x, y)];
 	}
-	inline const sRGB16 &GetPixelGeneric16(
+	inline sRGB16 GetPixelGeneric16(
 		const std::vector<sRGB16> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return Black16();
 		return from[getImageIndex(x, y)];
 	}
-	inline const sRGB8 &GetPixelGeneric8(
+	inline sRGB8 GetPixelGeneric8(
 		const std::vector<sRGB8> &from, bool available, quint64 x, quint64 y)
 	{
 		if (!available) return Black8();

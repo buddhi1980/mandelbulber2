@@ -105,8 +105,9 @@ std::shared_ptr<ImageFileSave> ImageFileSave::create(QString filename, enumImage
 		case IMAGE_FILE_TYPE_EXR:
 			return std::shared_ptr<ImageFileSave>(new ImageFileSaveEXR(filename, image, imageConfig));
 #endif /* USE_EXR */
+		default: qCritical() << "fileType " << ImageFileExtension(fileType) << " not supported!";
 	}
-	qCritical() << "fileType " << ImageFileExtension(fileType) << " not supported!";
+
 	return nullptr;
 }
 

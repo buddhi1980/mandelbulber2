@@ -255,8 +255,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		{
 			double colourThresh = params->volFogColour1Distance;
 			double colourThresh2 = params->volFogColour2Distance;
-			double fogReduce = params->volFogDistanceFactor;
-			float fogIntensity = params->volFogDensity;
 
 			double distanceShifted;
 			distFogOpacity = DistanceFogOpacity(step, distance, params->volFogDistanceFromSurface,

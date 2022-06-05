@@ -86,29 +86,29 @@ void RenderWindow::slotImportOldSettings()
 
 void RenderWindow::slotImportMandelbulb3dSettings()
 {
-	QFileDialog dialog(this);
-	dialog.setOption(QFileDialog::DontUseNativeDialog);
-	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Fractals (*.m3d *.fract)"));
-	dialog.setDirectory(
-		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
-	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
-	dialog.setAcceptMode(QFileDialog::AcceptOpen);
-	dialog.setWindowTitle(tr("Import settings from Mandelbulb3d settings file ..."));
-	QStringList filenames;
-	if (dialog.exec())
-	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
-		cMandelbulb3dSettings m3dSettings;
-		m3dSettings.LoadSettings(filename);
-		m3dSettings.ConvertToNewContainer(gPar, gParFractal);
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = filename;
-		setWindowTitle(QString("Mandelbulber (") + filename + ")");
-	}
+	//	QFileDialog dialog(this);
+	//	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	//	dialog.setFileMode(QFileDialog::ExistingFile);
+	//	dialog.setNameFilter(tr("Fractals (*.m3d *.fract)"));
+	//	dialog.setDirectory(
+	//		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
+	//	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
+	//	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	//	dialog.setWindowTitle(tr("Import settings from Mandelbulb3d settings file ..."));
+	//	QStringList filenames;
+	//	if (dialog.exec())
+	//	{
+	//		filenames = dialog.selectedFiles();
+	//		QString filename = QDir::toNativeSeparators(filenames.first());
+	//		cMandelbulb3dSettings m3dSettings;
+	//		m3dSettings.LoadSettings(filename);
+	//		m3dSettings.ConvertToNewContainer(gPar, gParFractal);
+	//		gMainInterface->RebuildPrimitives(gPar);
+	//		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	//		gMainInterface->ComboMouseClickUpdate();
+	//		systemData.lastSettingsFile = filename;
+	//		setWindowTitle(QString("Mandelbulber (") + filename + ")");
+	//	}
 }
 
 void RenderWindow::slotMenuAboutMandelbulber()

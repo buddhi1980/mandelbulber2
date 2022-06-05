@@ -1122,7 +1122,7 @@ void cInterface::NewPrimitiveUI(const sPrimitiveItem &primitive)
 	QString primitiveType = primitive.typeName;
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
-	fractal::enumObjectType objectType = primitive.type;
+	// fractal::enumObjectType objectType = primitive.type;
 	int newId = primitive.id;
 
 	// main widget for primitive
