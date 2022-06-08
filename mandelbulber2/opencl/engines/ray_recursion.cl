@@ -79,6 +79,7 @@ typedef struct
 	float3 normal;
 	float3 specular;
 	float3 outShadow;
+	float3 outGlobalIllumination;
 	float fogOpacity;
 	bool found;
 } sRayRecursionOut;
@@ -697,13 +698,14 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				specular = 0.0f;
 				float alpha = 1.0f;
 				objectShader = ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour,
-					&specular, &iridescence, &alpha, &gradients);
+					&specular, &iridescence, &recursionOut.outShadow, &alpha, &gradients);
 				recursionOut.specular = specular;
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(
 					consts, renderData, &shaderInputData, &calcParam, image2dBackground, objectColour);
 				objectShader += globalIllumination;
+				recursionOut.outGlobalIllumination = globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
 				// calculate reflectance according to Fresnel equations
@@ -846,6 +848,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;
 				shaderInputData.normal = shaderInputData.viewVector;
+				recursionOut.outShadow = 1.0f;
+				recursionOut.outGlobalIllumination = 0.0f;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 

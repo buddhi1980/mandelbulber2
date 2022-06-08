@@ -34,7 +34,7 @@
 
 float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular,
-	float3 *iridescenceOut, float *alphaOut, sClGradientsCollection *gradients)
+	float3 *iridescenceOut, float3 *outShadow, float *alphaOut, sClGradientsCollection *gradients)
 {
 	float3 color = 0.7f;
 
@@ -83,8 +83,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 auxSpecular = 0.0f;
 
 #ifdef AUX_LIGHTS
-	auxLights =
-		AuxLightsShader(consts, renderData, input, calcParam, surfaceColor, gradients, &auxSpecular);
+	auxLights = AuxLightsShader(
+		consts, renderData, input, calcParam, surfaceColor, gradients, &auxSpecular, outShadow);
 #endif
 
 	float3 fakeLights = 0.0f;

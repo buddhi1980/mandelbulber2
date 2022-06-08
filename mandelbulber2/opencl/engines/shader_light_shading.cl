@@ -152,7 +152,8 @@ float CalculateLightCone(
 
 float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor,
-	__global sLightCl *light, sClGradientsCollection *gradients, float3 *outSpecular)
+	__global sLightCl *light, sClGradientsCollection *gradients, float3 *outSpecular,
+	float3 *outShadow)
 {
 	float3 shading = 0.0f;
 
@@ -216,6 +217,8 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 
 	shading = shade * light->color * auxShadow * textureColor;
 	*outSpecular = specular * light->color * textureColor;
+
+	*outShadow = auxShadow;
 
 	return shading;
 }
