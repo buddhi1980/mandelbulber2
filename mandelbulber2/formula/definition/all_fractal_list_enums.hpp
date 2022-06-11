@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2019 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
@@ -521,6 +521,7 @@ enum enumFractalFormula
 
 	// 2.28
 	transfDIFSPiriform = 1634,
+	transfDIFSClipCustom = 1635,
 
 	// hybrid color
 	transfHybridColor = 2000,
