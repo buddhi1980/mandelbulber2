@@ -17,7 +17,6 @@
 
 REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL colorAdd = 0.0f;
 	REAL k = 0.0f;
 	REAL Dk = 1.0f;
 	int h = 0;
@@ -132,7 +131,8 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		rxy = native_sqrt(q.x + q.y);
 		aux->DE0 = max(rxy - fractal->transformCommon.offsetA1, aux->DE0);
 	}
-	aux->DE0 /= Dk;
+
+	aux->DE0 = fabs(aux->DE0) / Dk - fractal->analyticDE.offset0;
 	k = aux->DE0;
 
 	// KaliBoxMod
@@ -171,6 +171,7 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
+		REAL colorAdd = 0.0f;
 		if (aux->DE0 != k) colorAdd = fractal->foldColor.difs0000.w;
 		else
 		{

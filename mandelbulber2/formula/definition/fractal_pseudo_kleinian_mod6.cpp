@@ -142,7 +142,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		rxy = sqrt(q.x + q.y);
 		aux.DE0 = max(rxy - fractal->transformCommon.offsetA1, aux.DE0);
 	}
-	aux.DE0 = aux.DE0 / Dk;
+	aux.DE0 = fabs(aux.DE0) / Dk - fractal->analyticDE.offset0;
 	k = aux.DE0;
 
 		// KaliBoxMod
