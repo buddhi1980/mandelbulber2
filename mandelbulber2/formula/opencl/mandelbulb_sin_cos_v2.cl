@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -82,19 +82,30 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (fractal->transformCommon.functionEnabledJFalse)
 	{
 		REAL sth = native_sin(th);
-
-		z.x =  sth * native_cos(ph);	// cos
-		z.y = z.y * (1.0f - fractal->transformCommon.scaleC1)
-					 +  sth * native_sin(ph) * fractal->transformCommon.scaleC1;
+		z.x = sth * native_cos(ph);
+		z.y = sth * native_sin(ph);
 		z.z = native_cos(th);
 	}
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
-		REAL sth = sin(th);
-
+		REAL sth = native_sin(th);
 		z.x = sth * cos(ph);
-		z.y = sin(ph);
-		z.z = cos(th);
+		z.y = native_sin(ph);
+		z.z = native_cos(th);
+	}
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		//REAL sth = native_sin(th);
+		z.x = native_cos(ph);
+		z.y = native_sin(ph);
+		z.z = native_cos(th);
+	}
+	if (fractal->transformCommon.functionEnabledNFalse)
+	{
+		REAL sth = native_sin(th);
+		z.x = native_cos(ph);
+		z.y = native_sin(ph);
+		z.z = sth * native_cos(th);
 	}
 
 

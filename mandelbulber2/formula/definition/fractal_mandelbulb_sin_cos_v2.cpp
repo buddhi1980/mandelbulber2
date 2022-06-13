@@ -89,21 +89,31 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	if (fractal->transformCommon.functionEnabledJFalse)
 	{
 		double sth = sin(th);
-
-		z.x =  sth * cos(ph);	// cos
-		z.y = z.y * (1.0f - fractal->transformCommon.scaleC1)
-					 +  sth * sin(ph) * fractal->transformCommon.scaleC1;
+		z.x = sth * cos(ph);
+		z.y = sth * sin(ph);
 		z.z = cos(th);
 	}
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		double sth = sin(th);
-
 		z.x = sth * cos(ph);
 		z.y = sin(ph);
 		z.z = cos(th);
 	}
-
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		//double sth = native_sin(th);
+		z.x = cos(ph);
+		z.y = sin(ph);
+		z.z = cos(th);
+	}
+	if (fractal->transformCommon.functionEnabledNFalse)
+	{
+		double sth = sin(th);
+		z.x = cos(ph);
+		z.y = sin(ph);
+		z.z = sth * cos(th);
+	}
 
 	z *= rp;
 

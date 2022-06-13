@@ -26,7 +26,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL4 g = fabs(c) - (REAL4){f.x, f.y, f.z, 0.0f};
 
-	if (fractal->transformCommon.functionEnabledAFalse)
+	if (fractal->transformCommon.functionEnabledAx)
 	{
 		dst = max(fabs(c.x) - fractal->transformCommon.scale3D222.x,
 				fabs(c.y) - fractal->transformCommon.scale3D222.y); // sqr
@@ -46,7 +46,10 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	if (fractal->transformCommon.functionEnabledEFalse) // cone
 	{
-		dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR2 * -c.z;
+		REAL CZ = -c.z;
+		if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
+		if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
+		dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR2 * CZ;
 	}
 	dst = clamp(dst, 0.0, 100.0);
 

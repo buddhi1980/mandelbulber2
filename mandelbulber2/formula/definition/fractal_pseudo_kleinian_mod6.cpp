@@ -183,13 +183,12 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double colorAdd = 0.0;
-		if (aux.DE0 != k) colorAdd = fractal->foldColor.difs0000.w;
-		else
-		{
-			colorAdd += fractal->foldColor.difs0000.x * rxy;
-			colorAdd += fractal->foldColor.difs0000.y * k;
-			colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
-		}
+		colorAdd += fractal->foldColor.difs0000.x * rxy;
+		colorAdd += fractal->foldColor.difs0000.y * k;
+		colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
+
+		if (fractal->foldColor.auxColorEnabled) colorAdd = 0.0;
+		if (aux.DE0 != k) colorAdd += fractal->foldColor.difs0000.w;
 
 		aux.color += colorAdd;
 	}
