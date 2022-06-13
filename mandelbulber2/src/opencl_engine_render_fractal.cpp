@@ -1480,6 +1480,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								sRGBFloat nornalOld;
 								sRGBFloat normalWorld;
+								sRGBFloat globalIlluminationOut;
 
 								if (output.monteCarloLoop == 1)
 								{
@@ -1494,18 +1495,35 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 													 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
 															+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
 
-									sRGBFloat normalNew = sRGBFloat(
-										pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
-
 									if (image->GetImageOptional()->optionalNormalWorld)
+									{
+										sRGBFloat normalNew = sRGBFloat(
+											pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+
 										nornalOld = image->GetPixelNormalWorld(xx, yy);
 
-									normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-																	+ normalNew.R * (1.0f / output.monteCarloLoop);
-									normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-																	+ normalNew.G * (1.0f / output.monteCarloLoop);
-									normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-																	+ normalNew.B * (1.0f / output.monteCarloLoop);
+										normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+																		+ normalNew.R * (1.0f / output.monteCarloLoop);
+										normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+																		+ normalNew.G * (1.0f / output.monteCarloLoop);
+										normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+																		+ normalNew.B * (1.0f / output.monteCarloLoop);
+									}
+
+									if (image->GetImageOptional()->optionalGlobalIlluination)
+									{
+										sRGBFloat globalIlluminationOutOld = image->GetPixelGlobalIllumination(xx, yy);
+
+										globalIlluminationOut.R =
+											globalIlluminationOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+											+ pixelCl.globalIllumination.s0 * (1.0f / output.monteCarloLoop);
+										globalIlluminationOut.G =
+											globalIlluminationOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+											+ pixelCl.globalIllumination.s1 * (1.0f / output.monteCarloLoop);
+										globalIlluminationOut.B =
+											globalIlluminationOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+											+ pixelCl.globalIllumination.s2 * (1.0f / output.monteCarloLoop);
+									}
 								}
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
@@ -1520,8 +1538,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								{
 									PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
 										clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
-										clFloat3TosRGBFloat(pixelCl.shadows),
-										clFloat3TosRGBFloat(pixelCl.globalIllumination), image);
+										clFloat3TosRGBFloat(pixelCl.shadows), globalIlluminationOut, image);
 								}
 
 								// noise estimation
