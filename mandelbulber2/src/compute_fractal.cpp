@@ -404,7 +404,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
-					out->distance = 0.5 * r * log(r) / extendedAux.DE;
+					//out->distance = 0.5 * r * log(r) / extendedAux.DE;
+					if (extendedAux.r > 1.0)
+						out->distance = 0.5 * r * log(r) / extendedAux.DE;
+					else
+						out->distance = 0.0;
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
