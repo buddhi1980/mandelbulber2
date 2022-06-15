@@ -379,7 +379,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				&& params->ambientOcclusionMode == params::AOModeMultipleRays)
 		{
 			if ((params->iterFogEnabled && iterFogOpacity > 0.0)
-					/*|| (params->volFogEnabled && distFogOpacity > 0.0)*/)
+				/*|| (params->volFogEnabled && distFogOpacity > 0.0)*/)
 			{
 				AO = AmbientOcclusion(input2);
 				AO.R *= params->ambientOcclusion;
@@ -541,7 +541,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
 													 + 0.1f);
 
-			fakeLight *= 1.0f + params->cloudsLightsBoost * cloudsOpacity;
+			fakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
 
 			output.R +=
 				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;

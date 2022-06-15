@@ -161,13 +161,13 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		//--------- clouds --------
 #ifdef CLOUDS
 		float cloudsOpacity = 0.0f;
-		double cloudDensity = 0.0;
+		float cloudDensity = 0.0;
 		float3 deltaCloud = 0.0f;
 
 		{
 			// perlin noise clouds
 			float distanceToClouds = 0.0f;
-			float cloudDensity = CloudOpacity(
+			cloudDensity = CloudOpacity(
 				consts, renderData->perlinNoiseSeeds, point, distance, input2.delta, &distanceToClouds);
 
 #ifndef CLOUDSSHADOWS
@@ -490,7 +490,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 													 + 0.1f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 #ifdef CLOUDS
-			light *= 1.0f + consts->params.cloudsLightsBoost * cloudsOpacity;
+			light *= 1.0f + consts->params.cloudsLightsBoost * cloudDensity;
 #endif
 
 			output += light * consts->params.fakeLightsColor;
