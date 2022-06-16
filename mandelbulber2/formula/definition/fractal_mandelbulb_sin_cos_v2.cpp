@@ -38,27 +38,17 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 		th = acos(th) * (1.0 - fractal->transformCommon.scale1)
 				+ asin(th) * fractal->transformCommon.scale1;
 	}
-
 	double ph = atan2(z.y, z.x);
-	//if (!fractal->transformCommon.functionEnabledFFalse)
 
-	if (aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT)
-	{
-		th = (th + fractal->bulb.betaAngleOffset);
-		ph = (ph + fractal->bulb.alphaAngleOffset);
-	}
-
-		th = (th) * fractal->bulb.power;
-
-	ph = (ph) * fractal->bulb.power;
+	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
+	ph = (ph + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 	rp *= aux.r;
 
-
 	// polar to cartesian
-	if (fractal->transformCommon.functionEnabledAx)
+	if (aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
 		{
@@ -93,72 +83,34 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			}
 		}
 	}
-	if (fractal->transformCommon.functionEnabledGFalse)
+
+	if (fractal->transformCommon.functionEnabledGFalse
+			&& aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		double sth = sin(th);
-		double cph = cos(ph);
-		//z.x = sth * sin(ph);
-		//if (fractal->transformCommon.functionEnabledIFalse)
-
-		//z.y = z.y/rp + (sth * cos(ph) - z.y/rp) * fractal->transformCommon.scaleC1;
-
-		z.x = sth * sin(ph) * fractal->transformCommon.scaleC1;
-		z.y = sth * cph * fractal->transformCommon.scaleF1;
-		z.z = cph;
-
-
-
+		double cth = cos(th);
+		z.x = z.x + (cth * cos(ph) - z.x) * fractal->transformCommon.scaleC1;
+		z.y = z.y + (cth * sin(ph) - z.y) * fractal->transformCommon.scaleF1;
+		if (!fractal->transformCommon.functionEnabledFFalse)
+			z.z = sin(th);
+		else
+			z.z = cth;
 	}
 
-
-
-	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		double sth = sin(th);
-		CVector4 vsth = CVector4{cos(ph), sin(ph), cos(th), 0.0};
-		if (fractal->transformCommon.functionEnabledKFalse) vsth.x *= sth;
-		if (fractal->transformCommon.functionEnabledMFalse) vsth.y *= sth;
-		if (fractal->transformCommon.functionEnabledNFalse) vsth.z *= sth;
-
-		z = vsth;
-	}
-
-
-
-
-/*	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		double sth = sin(th);
-		z.x = sth * cos(ph);
-		z.y = sth * sin(ph);
-		z.z = cos(th);
-	}
-	if (fractal->transformCommon.functionEnabledKFalse)
-	{
-		double sth = sin(th);
-		z.x = sth * cos(ph);
-		z.y = sin(ph);
-		z.z = cos(th);
-	}
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
-		//double sth = native_sin(th);		z *= fractal->transformCommon.scaleF1;
-		aux.DE *= fractal->transformCommon.scaleF1;
-		z.x = cos(ph);
-		z.y = sin(ph);
-		z.z = cos(th);		z *= fractal->transformCommon.scaleF1;
-		aux.DE *= fractal->transformCommon.scaleF1;
-	}
-	if (fractal->transformCommon.functionEnabledNFalse)
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
 	{
 		double sth = sin(th);
 		z.x = cos(ph);
 		z.y = sin(ph);
-		z.z = sth * cos(th);
+		z.z = cos(th);
+		if (fractal->transformCommon.functionEnabledKFalse) z.x *= sth;
+		if (fractal->transformCommon.functionEnabledMFalse) z.y *= sth;
+		if (fractal->transformCommon.functionEnabledNFalse) z.z *= sth;
 	}
-*/
+
 	z *= rp;
-
 
 	z += fractal->transformCommon.offsetA000;
 	z += aux.const_c * fractal->transformCommon.constantMultiplierA111;
