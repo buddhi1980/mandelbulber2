@@ -75,10 +75,10 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	info->setWordWrap(true);
 	info->setMaximumWidth(thumbnailSize);
 
-	progressBar = new MyProgressBar(this);
-	progressBar->setMaximum(1000);
-	progressBar->setAlignment(Qt::AlignCenter);
-	progressBar->hide();
+	// progressBar = new MyProgressBar(this);
+	// progressBar->setMaximum(1000);
+	// progressBar->setAlignment(Qt::AlignCenter);
+	// progressBar->hide();
 
 	presetAddButton = new QPushButton(this);
 	presetAddButton->setText(tr("Add to presets"));
@@ -90,7 +90,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	vBoxLayout->addWidget(preview);
 	vBoxLayout->addWidget(thumbWidget);
 	vBoxLayout->addWidget(description);
-	vBoxLayout->addWidget(progressBar);
+	// vBoxLayout->addWidget(progressBar);
 	vBoxLayout->addWidget(info);
 	vBoxLayout->addWidget(presetAddButton);
 	vBoxLayout->addWidget(queueAddButton);
@@ -143,7 +143,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(filename))
 		{
-			progressBar->show();
+			//			progressBar->show();
 			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
 			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
 			InitParams(par);
@@ -208,14 +208,14 @@ void PreviewFileDialog::slotUpdateProgressAndStatus(
 	const QString &text, const QString &progressText, double progress)
 {
 	info->setText(text);
-	if (!progressBar->isVisible()) progressBar->setVisible(true);
-	progressBar->setValue(int(progress * 1000.0));
-	progressBar->setTextVisible(true);
-	progressBar->setFormat(progressText);
-	update();
+	//	if (!progressBar->isVisible()) progressBar->setVisible(true);
+	//	progressBar->setValue(int(progress * 1000.0));
+	//	progressBar->setTextVisible(true);
+	//	progressBar->setFormat(progressText);
+	//	update();
 }
 
 void PreviewFileDialog::slotHideProgressBar() const
 {
-	progressBar->hide();
+	//	progressBar->hide();
 }

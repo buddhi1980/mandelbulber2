@@ -57,10 +57,10 @@ class cThumbnailWidget : public QWidget
 	Q_OBJECT
 public:
 	cThumbnailWidget(QWidget *parent = nullptr);
-	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent = nullptr);
+	cThumbnailWidget(int _width, int _height, double _oversample, QWidget *parent = nullptr);
 	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
-	void SetSize(int _width, int _height, int _oversample);
+	void SetSize(int _width, int _height, double _oversample);
 	void AssignParameters(std::shared_ptr<const cParameterContainer> _params,
 		std::shared_ptr<const cFractalContainer> _fractal);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
@@ -93,7 +93,7 @@ private:
 	std::shared_ptr<cFractalContainer> fractal;
 	int tWidth;
 	int tHeight;
-	int oversample;
+	double oversample;
 	QString hash;
 	QString oldHash;
 	QProgressBar *progressBar;

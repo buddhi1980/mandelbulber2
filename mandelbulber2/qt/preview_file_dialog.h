@@ -62,7 +62,7 @@ protected slots:
 private:
 	QVBoxLayout *vBoxLayout;
 	QCheckBox *checkbox;
-	MyProgressBar *progressBar;
+	// MyProgressBar *progressBar;
 	QPushButton *presetAddButton;
 	QPushButton *queueAddButton;
 	QString filename;

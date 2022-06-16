@@ -60,7 +60,7 @@ cThumbnailWidget::cThumbnailWidget(QWidget *parent) : QWidget(parent)
 	Init(parent);
 }
 
-cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent)
+cThumbnailWidget::cThumbnailWidget(int _width, int _height, double _oversample, QWidget *parent)
 		: QWidget(parent)
 {
 	Init(parent);
@@ -98,7 +98,7 @@ void cThumbnailWidget::Init(QWidget *parent)
 	// qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
 
-void cThumbnailWidget::SetSize(int _width, int _height, int _oversample)
+void cThumbnailWidget::SetSize(int _width, int _height, double _oversample)
 {
 	tWidth = _width;
 	tHeight = _height;
@@ -239,7 +239,8 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 
 				QPixmap pixmap;
 				pixmap.load(thumbnailFileName);
-				pixmap = pixmap.scaled(tWidth * dpiScale, tHeight * dpiScale, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				pixmap = pixmap.scaled(
+					tWidth * dpiScale, tHeight * dpiScale, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 				QImage qImage = pixmap.toImage();
 				qImage = qImage.convertToFormat(QImage::Format_RGB888);
 
