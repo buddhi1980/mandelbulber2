@@ -47,6 +47,7 @@
 #include "initparameters.hpp"
 #include "keyframes.hpp"
 #include "light.h"
+#include "lights.hpp"
 #include "material.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
@@ -1475,6 +1476,19 @@ void cSettings::Compatibility2(
 				par->Get<double>("random_lights_intensity") / (numberOfRandomLights / 4 + 4));
 			par->Set(
 				"random_lights_size", par->Get<double>("light2_size") * (sqrt(numberOfRandomLights) / 4));
+		}
+	}
+
+	if (fileVersion < 2.28)
+	{
+		if (par->IfExists(cLight::Name("is_defined", 1)))
+		{
+			if (par->Get<bool>("iteration_fog_enable"))
+			{
+				double iterFogBoost = par->Get<double>("iteration_fog_brightness_boost");
+				par->Set(cLight::Name("intensity", 1),
+					par->Get<double>(cLight::Name("intensity", 1)) / iterFogBoost);
+			}
 		}
 	}
 }
