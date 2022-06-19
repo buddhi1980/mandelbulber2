@@ -158,7 +158,7 @@ private:
 		std::shared_ptr<cImage> &image);
 	void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
 		const sRGBFloat &specular, const sRGBFloat &world, const sRGBFloat &shadows,
-		const sRGBFloat &gi, std::shared_ptr<cImage> &image);
+		const sRGBFloat &gi, const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image);
 
 	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh,
 		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,

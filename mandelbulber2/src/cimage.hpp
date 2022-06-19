@@ -58,7 +58,8 @@ struct sImageOptional
 					 && (other.optionalDiffuse == optionalDiffuse) && (other.optionalWorld == optionalWorld)
 					 && (other.optionalNormalWorld == optionalNormalWorld)
 					 && (other.optionalShadows == optionalShadows)
-					 && (other.optionalGlobalIlluination == optionalGlobalIlluination);
+					 && (other.optionalGlobalIlluination == optionalGlobalIlluination)
+					 && (other.optionalNotDenoised == optionalNotDenoised);
 	}
 
 	bool optionalNormal{false};
@@ -68,6 +69,7 @@ struct sImageOptional
 	bool optionalWorld{false};
 	bool optionalShadows{false};
 	bool optionalGlobalIlluination{false};
+	bool optionalNotDenoised{false};
 };
 
 struct sAllImageData
@@ -81,6 +83,7 @@ struct sAllImageData
 	sRGBFloat worldPosition;
 	sRGBFloat shadows;
 	sRGBFloat globalIllumination;
+	sRGBFloat notDenoised;
 	sRGB8 colourBuffer;
 
 	float zBuffer;
@@ -190,6 +193,10 @@ public:
 	{
 		globalIllumination[getImageIndex(x, y)] = pixel;
 	}
+	inline void PutPixelNotDenoised(quint64 x, quint64 y, const sRGBFloat &pixel)
+	{
+		notDenoised[getImageIndex(x, y)] = pixel;
+	}
 
 	inline const sRGBFloat &GetPixelImage(quint64 x, quint64 y) const
 	{
@@ -199,8 +206,14 @@ public:
 	{
 		return postImageFloat[getImageIndex(x, y)];
 	}
-	inline const sRGB16 &GetPixelImage16(quint64 x, quint64 y) const { return image16[getImageIndex(x, y)]; }
-	inline const sRGB8 &GetPixelImage8(quint64 x, quint64 y) const { return image8[getImageIndex(x, y)]; }
+	inline const sRGB16 &GetPixelImage16(quint64 x, quint64 y) const
+	{
+		return image16[getImageIndex(x, y)];
+	}
+	inline const sRGB8 &GetPixelImage8(quint64 x, quint64 y) const
+	{
+		return image8[getImageIndex(x, y)];
+	}
 	inline quint16 GetPixelAlpha(quint64 x, quint64 y) const
 	{
 		return alphaBuffer16[getImageIndex(x, y)];
@@ -245,6 +258,10 @@ public:
 	inline sRGBFloat GetPixelGlobalIllumination(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(globalIllumination, opt.optionalGlobalIlluination, x, y);
+	}
+	inline sRGBFloat GetPixelNotDenoised(quint64 x, quint64 y)
+	{
+		return GetPixelGeneric(notDenoised, opt.optionalNotDenoised, x, y);
 	}
 
 	inline sRGBFloat GetPixelGeneric(
@@ -386,6 +403,7 @@ private:
 	std::vector<sRGBFloat> worldFloat;
 	std::vector<sRGBFloat> shadows;
 	std::vector<sRGBFloat> globalIllumination;
+	std::vector<sRGBFloat> notDenoised;
 
 	std::vector<sRGB8> preview;
 	std::vector<sRGB8> preview2;

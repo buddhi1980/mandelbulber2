@@ -100,6 +100,7 @@ cImage::cImage(cImage &source)
 	worldFloat = source.worldFloat;
 	shadows = source.shadows;
 	globalIllumination = source.globalIllumination;
+	notDenoised = source.notDenoised;
 
 	previewAllocated = false;
 	imageWidget = nullptr;
@@ -153,6 +154,7 @@ bool cImage::AllocMem()
 				if (opt.optionalWorld) worldFloat.resize(width * height);
 				if (opt.optionalShadows) shadows.resize(width * height);
 				if (opt.optionalGlobalIlluination) globalIllumination.resize(width * height);
+				if (opt.optionalNotDenoised) notDenoised.resize(width * height);
 
 				ClearImage();
 			}
@@ -262,6 +264,7 @@ void cImage::ClearImage()
 	if (opt.optionalShadows) std::fill(shadows.begin(), shadows.end(), sRGBFloat());
 	if (opt.optionalGlobalIlluination)
 		std::fill(globalIllumination.begin(), globalIllumination.end(), sRGBFloat());
+	if (opt.optionalNotDenoised) std::fill(notDenoised.begin(), notDenoised.end(), sRGBFloat());
 
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
 		zBuffer[i] = float(1e20);
@@ -296,6 +299,7 @@ void cImage::FreeImage()
 	worldFloat.clear();
 	shadows.clear();
 	globalIllumination.clear();
+	notDenoised.clear();
 
 	gammaTable.clear();
 	gammaTablePrepared = false;
@@ -433,6 +437,7 @@ int cImage::GetUsedMB() const
 	if (opt.optionalWorld) optionalChannels++;
 	if (opt.optionalShadows) optionalChannels++;
 	if (opt.optionalGlobalIlluination) optionalChannels++;
+	if (opt.optionalNotDenoised) optionalChannels++;
 
 	optionalSize +=
 		optionalChannels * width * height * (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
@@ -1197,6 +1202,11 @@ void cImage::GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_
 				{
 					left->globalIllumination[ptrNew] = globalIllumination[ptrLeft];
 					right->globalIllumination[ptrNew] = globalIllumination[ptrRight];
+				}
+				if (opt.optionalNotDenoised)
+				{
+					left->notDenoised[ptrNew] = notDenoised[ptrLeft];
+					right->notDenoised[ptrNew] = notDenoised[ptrRight];
 				}
 			}
 		}

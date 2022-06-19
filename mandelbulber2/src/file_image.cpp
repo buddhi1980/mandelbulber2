@@ -137,6 +137,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_WORLD_POSITION: return "world";
 		case IMAGE_CONTENT_SHADOWS: return "shadow_channel";
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: return "gi_channel";
+		case IMAGE_CONTENT_NOT_DENOISED: return "not_denoised_channel";
 	}
 	return "";
 }
@@ -144,7 +145,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 QStringList ImageFileSave::ImageChannelNames()
 {
 	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world",
-		"normalWorld", "shadow_channel", "gi_channel"});
+		"normalWorld", "shadow_channel", "gi_channel", "not_denoised_channel"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -285,6 +286,7 @@ QStringList ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_NOT_DENOISED:
 			default:
 			{
 				SavePNG(fullFilename, image, channel.value());
@@ -395,6 +397,7 @@ QStringList ImageFileSaveJPG::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_NOT_DENOISED:
 				SaveJPEGQt32(fullFilename, channel.value(), int(image->GetWidth()), int(image->GetHeight()),
 					gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
@@ -447,6 +450,7 @@ QStringList ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_WORLD_POSITION:
 			case IMAGE_CONTENT_SHADOWS:
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+			case IMAGE_CONTENT_NOT_DENOISED:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -535,6 +539,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_SHADOWS: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_NOT_DENOISED: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
 
@@ -563,6 +568,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
 			case IMAGE_CONTENT_SHADOWS: pixelSize *= 3; break;
 			case IMAGE_CONTENT_GLOBAL_ILLUMINATION: pixelSize *= 3; break;
+			case IMAGE_CONTENT_NOT_DENOISED: pixelSize *= 3; break;
 		}
 
 		bool directOnBuffer = false;
@@ -608,6 +614,7 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 				case IMAGE_CONTENT_WORLD_POSITION:
 				case IMAGE_CONTENT_SHADOWS:
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
+				case IMAGE_CONTENT_NOT_DENOISED:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
 			}
@@ -756,6 +763,10 @@ void ImageFileSavePNG::SavePNG(QString filenameInput, std::shared_ptr<cImage> im
 						case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 							SavePngRgbPixel(
 								imageChannel, &colorPtr[ptr], image->GetPixelGlobalIllumination(x, y), false);
+							break;
+						case IMAGE_CONTENT_NOT_DENOISED:
+							SavePngRgbPixel(
+								imageChannel, &colorPtr[ptr], image->GetPixelNotDenoised(x, y), false);
 							break;
 					}
 				}
@@ -1109,6 +1120,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					pixel = image->GetPixelGlobalIllumination(x, y);
 					break;
+				case IMAGE_CONTENT_NOT_DENOISED: pixel = image->GetPixelNotDenoised(x, y); break;
 				default: pixel = sRGBAfloat(); break;
 			}
 			sRGB8 pixel8 = sRGB8(uchar(clamp(pixel.R * 255.0f, 0.0f, 255.0f)),
@@ -1404,6 +1416,24 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 			&header, &frameBuffer, width, height);
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_SHADOWS))
+	{
+		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_SHADOWS], &header,
+			&frameBuffer, width, height);
+	}
+
+	if (imageConfig.contains(IMAGE_CONTENT_GLOBAL_ILLUMINATION))
+	{
+		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"},
+			imageConfig[IMAGE_CONTENT_GLOBAL_ILLUMINATION], &header, &frameBuffer, width, height);
+	}
+
+	if (imageConfig.contains(IMAGE_CONTENT_NOT_DENOISED))
+	{
+		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_NOT_DENOISED],
+			&header, &frameBuffer, width, height);
+	}
+
 	// insert meta data
 	QMapIterator<QString, QString> i(image->getMeta());
 	while (i.hasNext())
@@ -1462,6 +1492,8 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					pixel = image->GetPixelGlobalIllumination(x, y);
 					break;
+				case IMAGE_CONTENT_NOT_DENOISED: pixel = image->GetPixelNotDenoised(x, y); break;
+
 				default: pixel = sRGBFloat(); break;
 			}
 			if (imfQuality == Imf::FLOAT)
@@ -1537,6 +1569,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_SHADOWS: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_NOT_DENOISED: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
 
@@ -1553,6 +1586,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_SHADOWS: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_GLOBAL_ILLUMINATION: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_NOT_DENOISED: samplesPerPixel = 3; break;
 	}
 
 	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, width);
@@ -1766,6 +1800,9 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 					break;
 				case IMAGE_CONTENT_GLOBAL_ILLUMINATION:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelGlobalIllumination(x, y));
+					break;
+				case IMAGE_CONTENT_NOT_DENOISED:
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNotDenoised(x, y));
 					break;
 			}
 		}

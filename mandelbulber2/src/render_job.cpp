@@ -156,6 +156,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	imageOptional.optionalDiffuse = paramsContainer->Get<bool>("diffuse_enabled");
 	imageOptional.optionalShadows = paramsContainer->Get<bool>("shadow_channel_enabled");
 	imageOptional.optionalGlobalIlluination = paramsContainer->Get<bool>("gi_channel_enabled");
+	imageOptional.optionalNotDenoised = paramsContainer->Get<bool>("not_denoised_channel_enabled");
 
 	// FIXME: option for optionalNormal (denoiser)
 	imageOptional.optionalNormalWorld = true;
