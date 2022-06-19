@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL th = z.z / aux->r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
@@ -74,39 +74,89 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				z.z = sth * native_cos(ph);
 			}
 		}
+		z *= rp;
 	}
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		REAL cth = native_cos(th);
+		REAL sth = native_sin(th);
+		z.x = z.x + (rp * sth * native_sin(ph) - z.x) * fractal->transformCommon.scaleC1;
+		z.y = z.y + (rp * sth * native_cos(ph) - z.y) * fractal->transformCommon.scaleF1;
+		if (!fractal->transformCommon.functionEnabledFFalse)
+			z.z = rp * native_cos(th);
+		else
+			z.z = sth;
+
+
+		/*REAL cth = native_cos(th);
 		z.x = z.x + (cth * native_cos(ph) - z.x) * fractal->transformCommon.scaleC1;
 		z.y = z.y + (cth * native_sin(ph) - z.y) * fractal->transformCommon.scaleF1;
 		if (!fractal->transformCommon.functionEnabledFFalse)
 			z.z = native_sin(th);
 		else
-			z.z = cth;
+			z.z = cth;*/
+
+
 	}
 
 	if (fractal->transformCommon.functionEnabledJFalse
 			&& aux->i >= fractal->transformCommon.startIterationsJ
 			&& aux->i < fractal->transformCommon.stopIterationsJ)
 	{
-		REAL sth = native_sin(th);
-		z.x = native_cos(ph);
-		z.y = native_sin(ph);
-		z.z = native_cos(th);
-		if (fractal->transformCommon.functionEnabledKFalse) z.x *= sth;
-		if (fractal->transformCommon.functionEnabledMFalse) z.y *= sth;
-		if (fractal->transformCommon.functionEnabledNFalse) z.z *= sth;
+		REAL cth = native_cos(th);
+		z.x = native_sin(ph);
+		z.y = native_cos(ph);
+		z.z = native_sin(th);
+		if (fractal->transformCommon.functionEnabledKFalse) z.x *= cth;
+		if (fractal->transformCommon.functionEnabledMFalse) z.y *= cth;
+		if (fractal->transformCommon.functionEnabledNFalse) z.z *= cth;
+		z *= rp;
 	}
 
-	z *= rp;
+
 
 	z += fractal->transformCommon.offsetA000;
 	z += aux->const_c * fractal->transformCommon.constantMultiplierA111;
 	z.z *= fractal->transformCommon.scaleA1;
+
+
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
+	{
+		// supershape
+
+		REAL r = sqrt(z.x * z.x + z.y * z.y);
+		REAL t1 = 0.0;
+		REAL t2 = 0.0;
+		REAL m = fractal->transformCommon.scale4, a = fractal->transformCommon.intA1,
+				 b = fractal->transformCommon.intB1, n1 = fractal->transformCommon.int1,
+				 n2 = fractal->transformCommon.scaleB1, n3 = fractal->transformCommon.scaleG1;
+		REAL tho = asin(z.z / r);
+		REAL phi = atan2(z.y, z.x);
+		t1 = cos(m * phi / 4) / a;
+		t1 = fabs(t1);
+			t1 = pow(t1, n2);
+
+		t2 = sin(m * phi / 4) / b;
+		t2 = fabs(t2);
+			t2 = pow(t2, n3);
+
+		r = pow(t1 + t2, -fractal->transformCommon.scale2 / n1);
+		r = 1 / r;
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+		{if (fabs(z.x) > fabs(z.y)) z.y = r * sin(phi);
+		else z.y = r * cos(phi);}
+		if (fractal->transformCommon.functionEnabledAyFalse)
+		{if (fabs(z.x) < fabs(z.y)) z.y = r * sin(phi);
+		else z.y = r * cos(phi);}
+	}
+
+
+
 
 	if (fractal->analyticDE.enabledFalse)
 	{
