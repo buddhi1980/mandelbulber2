@@ -1447,6 +1447,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					float maxNoise = 0.0;
 					float maxBrightness = 0.0;
 					float minBrightness = 100.0;
+					float maxEdge = 0.0;
 
 					// processing pixels of tile
 					for (quint64 y = 0; y < jobHeight; y++)
@@ -1554,6 +1555,28 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								maxBrightness = max(sumBrightness, maxBrightness);
 								minBrightness = min(sumBrightness, minBrightness);
 
+								if (useAntiAlaising && output.monteCarloLoop == 1)
+								{
+									if (x > 0 && y > 0)
+									{
+										sRGBFloat pixelX2 = image->GetPixelImage(xx - 1, yy);
+										sRGBFloat pixelY2 = image->GetPixelImage(xx, yy - 1);
+										sRGBFloat pixelXY2 = image->GetPixelImage(xx - 1, yy - 1);
+
+										maxEdge = max(maxEdge, abs(newPixel.R - pixelX2.R));
+										maxEdge = max(maxEdge, abs(newPixel.G - pixelX2.G));
+										maxEdge = max(maxEdge, abs(newPixel.B - pixelX2.B));
+
+										maxEdge = max(maxEdge, abs(newPixel.R - pixelY2.R));
+										maxEdge = max(maxEdge, abs(newPixel.G - pixelY2.G));
+										maxEdge = max(maxEdge, abs(newPixel.B - pixelY2.B));
+
+										maxEdge = max(maxEdge, abs(newPixel.R - pixelXY2.R));
+										maxEdge = max(maxEdge, abs(newPixel.G - pixelXY2.G));
+										maxEdge = max(maxEdge, abs(newPixel.B - pixelXY2.B));
+									}
+								}
+
 								if (qIsInf(sumBrightness))
 								{
 									sumBrightness = 0.0;
@@ -1610,7 +1633,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						float totalNoiseRect;
 						if (output.monteCarloLoop == 1)
 						{
-							totalNoiseRect = (maxBrightness - minBrightness) / 3.0;
+							// totalNoiseRect = (maxBrightness - minBrightness) / 3.0;
+							totalNoiseRect = maxEdge;
 						}
 						else
 						{
