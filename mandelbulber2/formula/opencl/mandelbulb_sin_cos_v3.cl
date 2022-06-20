@@ -29,7 +29,13 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		th = acos(th) * (1.0f - fractal->transformCommon.scale1)
 				 + asin(th) * fractal->transformCommon.scale1;
 	}
-	REAL ph = atan2(z.y, z.x);
+	REAL ph;
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		ph = atan2(z.y, z.x);
+	else
+		ph = atan2(z.x, z.y);
+
+
 
 	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	ph = (ph + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
@@ -131,28 +137,57 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL r = sqrt(z.x * z.x + z.y * z.y);
 		REAL t1 = 0.0;
 		REAL t2 = 0.0;
-		REAL m = fractal->transformCommon.scale4, a = fractal->transformCommon.intA1,
-				 b = fractal->transformCommon.intB1, n1 = fractal->transformCommon.int1,
-				 n2 = fractal->transformCommon.scaleB1, n3 = fractal->transformCommon.scaleG1;
+		REAL m = fractal->transformCommon.scale3D111.x, a = fractal->transformCommon.intA1,
+				b = fractal->transformCommon.intB1, n1 = fractal->transformCommon.int1,
+				n2 = fractal->transformCommon.scale3D111.y, n3 = fractal->transformCommon.scale3D111.z;
 		REAL tho = asin(z.z / r);
 		REAL phi = atan2(z.y, z.x);
-		t1 = cos(m * phi / 4) / a;
+		t1 = cos(m * phi) / a; // hmmmm??
 		t1 = fabs(t1);
 			t1 = pow(t1, n2);
 
-		t2 = sin(m * phi / 4) / b;
+		t2 = sin(m * phi) / b;// hmmmm??
 		t2 = fabs(t2);
 			t2 = pow(t2, n3);
 
-		r = pow(t1 + t2, -fractal->transformCommon.scale2 / n1);
+		r = pow(t1 + t2, -fractal->transformCommon.scaleB1 / n1);
 		r = 1 / r;
 
-		if (fractal->transformCommon.functionEnabledAxFalse)
-		{if (fabs(z.x) > fabs(z.y)) z.y = r * sin(phi);
-		else z.y = r * cos(phi);}
-		if (fractal->transformCommon.functionEnabledAyFalse)
-		{if (fabs(z.x) < fabs(z.y)) z.y = r * sin(phi);
-		else z.y = r * cos(phi);}
+
+		if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			if (fractal->transformCommon.functionEnabledAxFalse)
+			{
+				if (fabs(z.x) > fabs(z.y)) z.y = r * sin(phi);
+				else z.y = r * cos(phi);
+			}
+			if (fractal->transformCommon.functionEnabledAyFalse)
+			{
+				if (fabs(z.x) < fabs(z.y)) z.y = r * cos(phi);
+				else z.y = r * cos(phi);
+			}
+			if (fractal->transformCommon.functionEnabledBxFalse) z.y = r * sin(phi);
+			if (fractal->transformCommon.functionEnabledByFalse) z.y = r * cos(phi);
+		}
+
+		if (fractal->transformCommon.functionEnabledBzFalse)
+		{
+			if (fractal->transformCommon.functionEnabledAxFalse)
+			{
+				if (fabs(z.x) > fabs(z.y)) z.x = r * sin(phi);
+				else z.x = r * cos(phi);
+			}
+			if (fractal->transformCommon.functionEnabledAyFalse)
+			{
+				if (fabs(z.x) < fabs(z.y)) z.x = r * cos(phi);
+				else z.x = r * sin(phi);
+			}
+			if (fractal->transformCommon.functionEnabledBxFalse) z.x = r * sin(phi);
+			if (fractal->transformCommon.functionEnabledByFalse) z.x = r * cos(phi);
+		}
+
+
+
 	}
 
 
