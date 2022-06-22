@@ -27,7 +27,12 @@ cFractalTransfDIFSClipCustom::cFractalTransfDIFSClipCustom() : cAbstractFractal(
 void cFractalTransfDIFSClipCustom::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+
+
 	CVector4 c = aux.const_c;
+
+	if (fractal->transformCommon.functionEnabledzFalse) c = z; // hmmmmmmmmmmm
 	double dst = 1.0;
 
 	// transform c

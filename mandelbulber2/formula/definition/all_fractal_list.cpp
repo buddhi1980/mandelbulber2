@@ -543,6 +543,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalTransfDIFSClipCustom());
 	fractalList->append(new cFractalMandelbulbSinCosV3());
+	fractalList->append(new cFractalTransfSupershape());
 
 	//====================== FRACTAL LIST - END ==================
 

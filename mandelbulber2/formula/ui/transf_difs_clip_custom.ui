@@ -94,6 +94,13 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false_2">
+     <property name="text">
+      <string notr="true">z</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_24">
      <property name="text">
       <string>transform c  (domain)</string>
