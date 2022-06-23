@@ -27,6 +27,38 @@ cFractalMandelbulbSinCosV3::cFractalMandelbulbSinCosV3() : cAbstractFractal()
 
 void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+
+	double r1 = 0.0;
+	if (aux.i >= fractal->transformCommon.startIterations
+		&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+
+		r1 = sqrt(z.x * z.x + z.y * z.y);
+		double tho = asin(z.z / r1);
+		double phi;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+			phi = atan2(z.y, z.x);
+		else
+			phi = atan2(z.x, z.y);
+
+		double t1;
+		double t2;
+		t1 = cos(fractal->transformCommon.constantMultiplierA111.x * phi)
+				 / fractal->transformCommon.constantMultiplierA111.y;
+		t1 = fabs(t1);
+		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
+		t2 = sin(fractal->transformCommon.constantMultiplierA111.x * phi)
+				 / fractal->transformCommon.constantMultiplierA111.z;
+		t2 = fabs(t2);
+		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
+		r1 = pow(t1 + t2, -1 / fractal->transformCommon.constantMultiplierB111.z);
+		if (fractal->transformCommon.functionEnabledRFalse) r1 = 1 / r1;
+
+	}
+	//
+	aux.r = aux.r + r1 * fractal->transformCommon.radius1;
+	// aux.r = aux.r + (r1 - aux.r)* fractal->transformCommon.radius1;
+
 	double th = z.z / aux.r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
@@ -129,10 +161,10 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 
 
 	z += fractal->transformCommon.offsetA000;
-	z += aux.const_c * fractal->transformCommon.constantMultiplierA111;
+	z += aux.const_c * fractal->transformCommon.constantMultiplier111;
 	z.z *= fractal->transformCommon.scaleA1;
 
-	if (fractal->transformCommon.functionEnabledPFalse
+/*	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
 	{
@@ -189,7 +221,7 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 			if (fractal->transformCommon.functionEnabledByFalse) z.x = r * cos(phi);
 		}
 
-	}
+	}*/
 
 
 
