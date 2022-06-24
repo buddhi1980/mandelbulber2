@@ -8,6 +8,7 @@
  *
  * superformula Johan Gielis
  * https://bsapubs.onlinelibrary.wiley.com/doi/10.3732/ajb.90.3.333
+ * http://paulbourke.net/geometry/supershape/
  */
 
 #include "all_fractal_definitions.h"
@@ -29,19 +30,28 @@ void cFractalTransfSupershape::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double r1 = sqrt(z.x * z.x + z.y * z.y);
-	double tho = asin(z.z / r1);
+	double tho = asin(z.z / r1); // mmmmmmmmmmmmmmmm
 	double phi;
-	if (!fractal->transformCommon.functionEnabledAFalse)  phi = atan2(z.y, z.x);
-	else  phi = atan2(z.x, z.y);
-	double t1 = cos(fractal->transformCommon.constantMultiplierA111.x * phi) / fractal->transformCommon.constantMultiplierA111.y;
-	t1 = fabs(t1);
-	t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
-	double t2 = sin(fractal->transformCommon.constantMultiplierA111.x * phi) / fractal->transformCommon.constantMultiplierA111.z;
-	t2 = fabs(t2);
-	t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
-	r1 = pow(t1 + t2, -1 / fractal->transformCommon.constantMultiplierB111.z);
 
-	r1 = 1 / r1;
+	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);
+	else phi = atan2(z.x, z.y);
+
+	double t1 = fabs(cos(fractal->transformCommon.constantMultiplierA111.x * phi)
+			* fractal->transformCommon.constantMultiplierA111.y);
+	if (fractal->transformCommon.functionEnabledXFalse)
+		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
+
+	double t2 = fabs(sin(fractal->transformCommon.constantMultiplierA111.x * phi)
+			* fractal->transformCommon.constantMultiplierA111.z);
+
+	if (fractal->transformCommon.functionEnabledYFalse)
+		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
+
+	if (!fractal->transformCommon.functionEnabledEFalse) r1 = t1 + t2;
+	else r1 = pow(t1 + t2, -fractal->transformCommon.constantMultiplierB111.z);
+
+	if (!fractal->transformCommon.functionEnabledFFalse)
+		r1 = 1.0 / r1;
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux.DE0 = r;
