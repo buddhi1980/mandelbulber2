@@ -92,6 +92,24 @@ void cFractalTransfSupershape::FormulaCode(
 	}
 
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * z.Length() / aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		CVector4 zc = z;
+		double T1;
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			T1 = zc.Length();
+		else
+		{
+			if (fractal->transformCommon.functionEnabledJFalse) zc = fabs(zc);
+			T1 = max(max(zc.x, zc.y), zc.z);
+		}
+
+		T1 = T1 / (aux.DE + fractal->transformCommon.offset0) - fractal->transformCommon.offset01;
+		aux.dist = min(T1, aux.dist);
+
+		if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
+	}
 
 }

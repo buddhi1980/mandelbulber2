@@ -82,7 +82,23 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE =
 			aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		REAL4 zc = z;
+		REAL T1;
+		if (!fractal->transformCommon.functionEnabledIFalse)
+			T1 = length(zc);
+		else
+		{
+			if (fractal->transformCommon.functionEnabledJFalse) zc = fabs(zc);
+			T1 = max(max(zc.x, zc.y), zc.z);
+		}
 
+		T1 = T1 / (aux->DE + fractal->transformCommon.offset0) - fractal->transformCommon.offset01;
+		aux->dist = min(T1, aux->dist);
+
+		if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
+	}
 
 	return z;
 }
