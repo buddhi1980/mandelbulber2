@@ -16,31 +16,31 @@
 
 REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	/*z += fractal->transformCommon.offset000;
-	REAL4 zNorm = z / aux->r;
-	REAL4 rotadd = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zNorm);
-	z += fractal->transformCommon.scale1 * rotadd;
-	z -= fractal->transformCommon.offset000;
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE =
-			aux->DE * length(z) / aux->r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;*/
-
 	REAL r1 = sqrt(z.x * z.x + z.y * z.y);
 	REAL tho = asin(z.z / r1);
 	REAL phi;
-	if (!fractal->transformCommon.functionEnabledAFalse)  phi = atan2(z.y, z.x);
-	else  phi = atan2(z.x, z.y);
+
+	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);
+	else phi = atan2(z.x, z.y);
+
+	REAL t1 = fabs(cos(fractal->transformCommon.constantMultiplierA111.x * phi)
+			* fractal->transformCommon.constantMultiplierA111.y);
+	if (fractal->transformCommon.functionEnabledXFalse)
+		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
+
+	REAL t2 = fabs(sin(fractal->transformCommon.constantMultiplierA111.x * phi)
+			* fractal->transformCommon.constantMultiplierA111.z);
+
+	if (fractal->transformCommon.functionEnabledYFalse)
+		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
+
+	if (!fractal->transformCommon.functionEnabledEFalse) r1 = t1 + t2;
+	else r1 = pow(t1 + t2, -fractal->transformCommon.constantMultiplierB111.z);
+
+	if (!fractal->transformCommon.functionEnabledFFalse)
+		r1 = 1.0f / r1;
 
 
-	REAL t1 = cos(fractal->transformCommon.constantMultiplierA111.x * phi) / fractal->transformCommon.constantMultiplierA111.y;
-	t1 = fabs(t1);
-	t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
-	REAL t2 = sin(fractal->transformCommon.constantMultiplierA111.x * phi) / fractal->transformCommon.constantMultiplierA111.z;
-	t2 = fabs(t2);
-	t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
-	r1 = pow(t1 + t2, -1 / fractal->transformCommon.constantMultiplierB111.z);
-
-	r1 = 1 / r1;
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAxFalse)
