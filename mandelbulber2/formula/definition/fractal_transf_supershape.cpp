@@ -29,10 +29,10 @@ cFractalTransfSupershape::cFractalTransfSupershape() : cAbstractFractal()
 void cFractalTransfSupershape::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double r1 = sqrt(z.x * z.x + z.y * z.y);
-	double tho = asin(z.z / r1); // mmmmmmmmmmmmmmmm
-	double phi;
+	double r1 = 0.0;
 
+	double phi;
+	double tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);
 	else phi = atan2(z.x, z.y);
 
@@ -52,6 +52,7 @@ void cFractalTransfSupershape::FormulaCode(
 
 	if (!fractal->transformCommon.functionEnabledFFalse)
 		r1 = 1.0 / r1;
+
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux.DE0 = r;
