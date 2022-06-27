@@ -26,8 +26,8 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else
 	{
-		th = acos(th) * (1.0f - fractal->transformCommon.scale1)
-				 + asin(th) * fractal->transformCommon.scale1;
+		REAL acth = acos(th);
+		th = acth + (asin(th) - acth) * fractal->transformCommon.scale1;
 	}
 	REAL ph = atan2(z.y, z.x);
 

@@ -17,7 +17,7 @@
 REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL r1 = sqrt(z.x * z.x + z.y * z.y);
-	//REAL tho = asin(z.z / r1);
+	REAL tho = asin(z.z / r1); //mmmmmmmmmmmm
 	REAL phi;
 
 	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);

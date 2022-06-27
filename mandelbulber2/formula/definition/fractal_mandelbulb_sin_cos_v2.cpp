@@ -35,8 +35,8 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	}
 	else
 	{
-		th = acos(th) * (1.0 - fractal->transformCommon.scale1)
-				+ asin(th) * fractal->transformCommon.scale1;
+		double acth = acos(th);
+		th = acth + (asin(th) - acth) * fractal->transformCommon.scale1;
 	}
 	double ph = atan2(z.y, z.x);
 
