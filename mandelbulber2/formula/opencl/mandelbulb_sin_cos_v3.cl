@@ -21,6 +21,22 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				&& aux->i >= fractal->transformCommon.startIterationsP
 				&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
+		if (fractal->transformCommon.functionEnabledxFalse)
+		{
+			z.x = sign(z.x)
+						* (fractal->transformCommon.offset000.x - fabs(z.x));
+		}
+		if (fractal->transformCommon.functionEnabledyFalse)
+		{
+			z.y = sign(z.y)
+						* (fractal->transformCommon.offset000.y - fabs(z.y));
+		}
+		if (fractal->transformCommon.functionEnabledzFalse)
+		{
+			z.z = sign(z.z)
+						* (fractal->transformCommon.offset000.z - fabs(z.z));
+		}
+
 		REAL r1 = sqrt(z.x * z.x + z.y * z.y);
 
 		REAL phi;

@@ -36,14 +36,14 @@ REAL4 TransfAbsAddConditionalIteration(REAL4 z, __constant sFractalCl *fractal, 
 	{
 		z.y = sign(z.y)
 					* (fractal->transformCommon.offset111.y - fabs(z.y)
-						 + fabs(z.y) * fractal->transformCommon.offset000.y);
+						 + fabs(z.y) * fractal->transformCommon.scale3D000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z = sign(z.z)
 					* (fractal->transformCommon.offset111.z - fabs(z.z)
-						 + fabs(z.z) * fractal->transformCommon.offset000.z);
+						 + fabs(z.z) * fractal->transformCommon.scale3D000.z);
 	}
 
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak

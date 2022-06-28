@@ -15,11 +15,10 @@ v2.28 (  2022)
 
 - modified fractal formulas
    mengerSponge, add aux.color
+   transfAbsAddConditional, fix scale yz
    transfMengerFold, add aux.color
-   fractal::transfDIFSBox added rounding
-   fractal::transfDIFSBoxV3 fixed rounding
-
-
+   transfDIFSBox added rounding
+   transfDIFSBoxV3 fixed rounding
 
 v2.27 (February 2022)
 

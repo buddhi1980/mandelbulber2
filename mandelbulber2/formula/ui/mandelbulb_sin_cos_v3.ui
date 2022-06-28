@@ -37,7 +37,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -98,6 +98,125 @@
           </property>
           <property name="maximum">
            <number>999</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string notr="true">sign() * (abs() + offset)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+          <property name="text">
+           <string notr="true">z.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+          <property name="text">
+           <string notr="true">z.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+          <property name="text">
+           <string notr="true">z.z</string>
           </property>
          </widget>
         </item>
@@ -505,13 +624,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_42">
-       <property name="text">
-        <string notr="true">power:</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinboxd_beta_angle_offset">
        <property name="sizePolicy">
@@ -579,6 +691,13 @@
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>beta angle offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>power:</string>
        </property>
       </widget>
      </item>
@@ -1722,12 +1841,12 @@ multiply:</string>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>382</y>
+     <x>73</x>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
-     <x>107</x>
-     <y>356</y>
+     <x>110</x>
+     <y>469</y>
     </hint>
    </hints>
   </connection>
@@ -1738,12 +1857,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>179</y>
+     <x>44</x>
+     <y>305</y>
     </hint>
     <hint type="destinationlabel">
-     <x>165</x>
-     <y>187</y>
+     <x>255</x>
+     <y>307</y>
     </hint>
    </hints>
   </connection>
@@ -1754,12 +1873,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>30</x>
-     <y>201</y>
+     <x>38</x>
+     <y>333</y>
     </hint>
     <hint type="destinationlabel">
-     <x>171</x>
-     <y>208</y>
+     <x>261</x>
+     <y>335</y>
     </hint>
    </hints>
   </connection>
@@ -1770,12 +1889,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>228</y>
+     <x>39</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
-     <x>200</x>
-     <y>237</y>
+     <x>290</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -1786,12 +1905,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>374</y>
+     <x>68</x>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
-     <x>183</x>
-     <y>376</y>
+     <x>309</x>
+     <y>497</y>
     </hint>
    </hints>
   </connection>
@@ -1802,12 +1921,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>30</x>
-     <y>892</y>
+     <x>38</x>
+     <y>997</y>
     </hint>
     <hint type="destinationlabel">
-     <x>172</x>
-     <y>897</y>
+     <x>227</x>
+     <y>999</y>
     </hint>
    </hints>
   </connection>
@@ -1818,12 +1937,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>926</y>
+     <x>29</x>
+     <y>1025</y>
     </hint>
     <hint type="destinationlabel">
-     <x>139</x>
-     <y>932</y>
+     <x>194</x>
+     <y>1027</y>
     </hint>
    </hints>
   </connection>
@@ -1834,12 +1953,12 @@ multiply:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>28</x>
-     <y>953</y>
+     <x>36</x>
+     <y>1053</y>
     </hint>
     <hint type="destinationlabel">
-     <x>159</x>
-     <y>956</y>
+     <x>214</x>
+     <y>1055</y>
     </hint>
    </hints>
   </connection>
