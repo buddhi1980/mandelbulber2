@@ -27,6 +27,7 @@ cFractalMandelbulbSinCosV2::cFractalMandelbulbSinCosV2() : cAbstractFractal()
 
 void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double temp;
 	double th = z.z / aux.r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
@@ -47,41 +48,36 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	rp *= aux.r;
 
 	// polar to cartesian
+	double cth = cos(th);
+	double sth = sin(th);
+
+	CVector4 trg;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		trg = CVector4(cth * cos(ph), cth * sin(ph), sth, 0.0);
+	}
+	else
+	{
+		trg = CVector4(sth * sin(ph), sth * cos(ph), cth, 0.0);
+	}
+
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
+		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			double cth = cos(th);
-			if (!fractal->transformCommon.functionEnabledDFalse)
-			{
-				z.x = cth * cos(ph);
-				z.y = cth * sin(ph);
-				z.z = sin(th);
-			}
-			else
-			{
-				z.x = cth * cos(ph);
-				z.y = sin(th);
-				z.z = cth * sin(ph);
-			}
+			z = trg;
 		}
 		else
 		{
-			double sth = sin(th);
-			if (!fractal->transformCommon.functionEnabledDFalse)
-			{
-				z.x = sth * sin(ph);
-				z.y = sth * cos(ph);
-				z.z = cos(th);
-			}
-			else
-			{
-				z.x = sth * sin(ph);
-				z.y = cos(th);
-				z.z = sth * cos(ph);
-			}
+			temp = trg.y;
+			trg.y = trg.z;
+			trg.z = temp;
+			z = trg;
+			//z.x = cth * cos(ph);
+			//z.y = sin(th);
+			//z.z = cth * sin(ph);
 		}
 	}
 
@@ -89,11 +85,10 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		double cth = cos(th);
-		z.x = z.x + (cth * cos(ph) - z.x) * fractal->transformCommon.scaleC1;
-		z.y = z.y + (cth * sin(ph) - z.y) * fractal->transformCommon.scaleF1;
-		if (!fractal->transformCommon.functionEnabledFFalse)
-			z.z = sin(th);
+		z.x = z.x + (trg.x - z.x) * fractal->transformCommon.scaleC1;
+		z.y = z.y + (trg.y - z.y) * fractal->transformCommon.scaleF1;
+		if (!fractal->transformCommon.functionEnabledwFalse)
+			z.z = sth;
 		else
 			z.z = cth;
 	}
@@ -102,10 +97,9 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			&& aux.i >= fractal->transformCommon.startIterationsJ
 			&& aux.i < fractal->transformCommon.stopIterationsJ)
 	{
-		double sth = sin(th);
 		z.x = cos(ph);
 		z.y = sin(ph);
-		z.z = cos(th);
+		z.z = cth;
 		if (fractal->transformCommon.functionEnabledKFalse) z.x *= sth;
 		if (fractal->transformCommon.functionEnabledMFalse) z.y *= sth;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z *= sth;

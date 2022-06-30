@@ -145,6 +145,7 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 	aux.DE0 = fabs(aux.DE0) / Dk - fractal->analyticDE.offset0;
 	k = aux.DE0;
 
+
 		// KaliBoxMod
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
@@ -187,9 +188,10 @@ void cFractalPseudoKleinianMod6::FormulaCode(
 		colorAdd += fractal->foldColor.difs0000.y * k;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
 
-		if (fractal->foldColor.auxColorEnabled) colorAdd = 0.0;
-		if (aux.DE0 != k) colorAdd += fractal->foldColor.difs0000.w;
-
+		if (fractal->foldColor.auxColorEnabledAFalse && aux.DE0 != k)
+		{
+				colorAdd = fractal->foldColor.difs0000.w;
+		}
 		aux.color += colorAdd;
 	}
 }

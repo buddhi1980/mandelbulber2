@@ -176,8 +176,10 @@ REAL4 PseudoKleinianMod6Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		colorAdd += fractal->foldColor.difs0000.y * k;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(q.z);
 
-		if (fractal->foldColor.auxColorEnabled) colorAdd = 0.0;
-		if (aux->DE0 != k) colorAdd += fractal->foldColor.difs0000.w;
+		if (fractal->foldColor.auxColorEnabledAFalse && aux->DE0 != k)
+		{
+			colorAdd = fractal->foldColor.difs0000.w;
+		}
 
 		aux->color += colorAdd;
 	}

@@ -5,6 +5,7 @@ v2.28 (  2022)
 - Added new fractal formulas
    mandelbulbTails
    mandelbulbTailsV2
+   pseudoKleinianMod6
    transfCayley2V1
    transfLowResMode
    transfMengerFoldV2

@@ -16,6 +16,7 @@
 
 REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL temp;
 	REAL th = z.z / aux->r;
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
@@ -38,41 +39,32 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	rp *= aux->r;
 
 	// polar to cartesian
+	REAL cth = native_cos(th);
+	REAL sth = native_sin(th);
+	REAL4 trg;
+	if (!fractal->transformCommon.functionEnabledFFalse)
+	{
+		trg = (REAL4){cth * native_cos(ph), cth * native_sin(ph), sth, 0.0};
+	}
+	else
+	{
+		trg = (REAL4){sth * native_sin(ph), sth * native_cos(ph), cth, 0.0};
+	}
+
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
+		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			REAL cth = native_cos(th);
-			if (!fractal->transformCommon.functionEnabledDFalse)
-			{
-				z.x = cth * native_cos(ph) ;
-				z.y = cth * native_sin(ph);
-				z.z = native_sin(th);
-			}
-			else
-			{
-				z.x = cth * native_cos(ph) ;
-				z.y = native_sin(th);
-				z.z = cth * native_sin(ph);
-			}
+			z = trg;
 		}
 		else
 		{
-			REAL sth = native_sin(th);
-			if (!fractal->transformCommon.functionEnabledDFalse)
-			{
-				z.x = sth * native_sin(ph);
-				z.y = sth * native_cos(ph);
-				z.z = native_cos(th);
-			}
-			else
-			{
-				z.x = sth * native_sin(ph);
-				z.y = native_cos(th);
-				z.z = sth * native_cos(ph);
-			}
+			temp = trg.y;
+			trg.y = trg.z;
+			trg.z = temp;
+			z = trg;
 		}
 	}
 
@@ -80,11 +72,10 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		REAL cth = native_cos(th);
-		z.x = z.x + (cth * native_cos(ph) - z.x) * fractal->transformCommon.scaleC1;
-		z.y = z.y + (cth * native_sin(ph) - z.y) * fractal->transformCommon.scaleF1;
-		if (!fractal->transformCommon.functionEnabledFFalse)
-			z.z = native_sin(th);
+		z.x = z.x + (trg.x - z.x) * fractal->transformCommon.scaleC1;
+		z.y = z.y + (trg.y - z.y) * fractal->transformCommon.scaleF1;
+		if (!fractal->transformCommon.functionEnabledwFalse)
+			z.z = sth;
 		else
 			z.z = cth;
 	}
@@ -93,10 +84,9 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsJ
 			&& aux->i < fractal->transformCommon.stopIterationsJ)
 	{
-		REAL sth = native_sin(th);
 		z.x = native_cos(ph);
 		z.y = native_sin(ph);
-		z.z = native_cos(th);
+		z.z = cth;
 		if (fractal->transformCommon.functionEnabledKFalse) z.x *= sth;
 		if (fractal->transformCommon.functionEnabledMFalse) z.y *= sth;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z *= sth;

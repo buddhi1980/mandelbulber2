@@ -226,6 +226,13 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
+     <property name="text">
+      <string>sth-&gt; cth</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx">
      <property name="title">
       <string>&amp;standard mode</string>
@@ -300,14 +307,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
-        <item>
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-          <property name="text">
-           <string>asin -&gt; acos:</string>
-          </property>
-         </widget>
-        </item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0">
         <item>
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
           <property name="text">
@@ -470,7 +470,7 @@
          </widget>
         </item>
         <item row="2" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
           <property name="text">
            <string>sin -&gt; cos:</string>
           </property>

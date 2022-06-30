@@ -86,6 +86,7 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 	rp *= aux->r;
 
+	// polar to cartesian
 	REAL cth = native_cos(th);
 	REAL sth = native_sin(th);
 	REAL4 trg;
@@ -98,7 +99,6 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		trg = (REAL4){sth * native_sin(ph), sth * native_cos(ph), cth, 0.0};
 	}
 
-	// polar to cartesian
 	if (fractal->transformCommon.functionEnabledAx
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
