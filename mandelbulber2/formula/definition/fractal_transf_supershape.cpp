@@ -29,7 +29,27 @@ cFractalTransfSupershape::cFractalTransfSupershape() : cAbstractFractal()
 void cFractalTransfSupershape::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double r1 = 0.0;
+	if (aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP1)
+	{
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			z.x = sign(z.x)
+						* (fractal->transformCommon.offset000.x - fabs(z.x));
+		}
+		if (fractal->transformCommon.functionEnabledByFalse)
+		{
+			z.y = sign(z.y)
+						* (fractal->transformCommon.offset000.y - fabs(z.y));
+		}
+		if (fractal->transformCommon.functionEnabledBzFalse)
+		{
+			z.z = sign(z.z)
+						* (fractal->transformCommon.offset000.z - fabs(z.z));
+		}
+	}
+
+	double r1 = sqrt(z.x * z.x + z.y * z.y);
 
 	double phi;
 	double tho = asin(z.z / r1);
@@ -37,21 +57,25 @@ void cFractalTransfSupershape::FormulaCode(
 	else phi = atan2(z.x, z.y);
 
 	double t1 = fabs(cos(fractal->transformCommon.constantMultiplierA111.x * phi)
-			* fractal->transformCommon.constantMultiplierA111.y);
+					 * fractal->transformCommon.constantMultiplierA111.y);
 	if (fractal->transformCommon.functionEnabledXFalse)
-		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
+				 t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
 
 	double t2 = fabs(sin(fractal->transformCommon.constantMultiplierA111.x * phi)
-			* fractal->transformCommon.constantMultiplierA111.z);
-
+					 * fractal->transformCommon.constantMultiplierA111.z);
 	if (fractal->transformCommon.functionEnabledYFalse)
-		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
+				 t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
-	if (!fractal->transformCommon.functionEnabledEFalse) r1 = t1 + t2;
-	else r1 = pow(t1 + t2, -fractal->transformCommon.constantMultiplierB111.z);
+	if (!fractal->transformCommon.functionEnabledEFalse) r1 = (t1 + t2);
+	else r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 	if (!fractal->transformCommon.functionEnabledFFalse)
-		r1 = 1.0 / r1;
+		r1 = 1.0f / r1;
+
+	r1 = r1 * fractal->transformCommon.radius1;
+
+	if (fractal->transformCommon.functionEnabledGFalse)
+		r1 = fabs(aux.r * fractal->transformCommon.minR0 + r1);
 
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
