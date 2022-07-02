@@ -51,14 +51,18 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	double cth = cos(th);
 	double sth = sin(th);
 
-	CVector4 trg;
+	CVector4 trg = (CVector4){0.0, 0.0, 0.0, 0.0};
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		trg = CVector4(cth * cos(ph), cth * sin(ph), sth, 0.0);
+		trg.x = cth * cos(ph);
+		trg.y = cth * sin(ph);
+		trg.z = sth;
 	}
 	else
 	{
-		trg = CVector4(sth * sin(ph), sth * cos(ph), cth, 0.0);
+		trg.x = sth * sin(ph);
+		trg.y = sth * cos(ph);
+		trg.z = cth;
 	}
 
 	if (fractal->transformCommon.functionEnabledAx
@@ -75,9 +79,6 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			trg.y = trg.z;
 			trg.z = temp;
 			z = trg;
-			//z.x = cth * cos(ph);
-			//z.y = sin(th);
-			//z.z = cth * sin(ph);
 		}
 	}
 
@@ -85,8 +86,8 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
-		z.x = z.x + (trg.x - z.x) * fractal->transformCommon.scaleC1;
-		z.y = z.y + (trg.y - z.y) * fractal->transformCommon.scaleF1;
+		z.x += (trg.x - z.x) * fractal->transformCommon.scaleC1;
+		z.y += (trg.y - z.y) * fractal->transformCommon.scaleF1;
 		if (!fractal->transformCommon.functionEnabledwFalse)
 			z.z = sth;
 		else
@@ -120,9 +121,9 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	{
 		aux.DE0 = z.Length();
 		if (aux.DE0 > 1.0)
-			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
 		else
-			aux.DE0 = 0.01; // 0.0 artifacts in openCL
+			aux.DE0 = 0.0;
 
 		if (aux.i >= fractal->transformCommon.startIterationsO
 					&& aux.i < fractal->transformCommon.stopIterationsO)

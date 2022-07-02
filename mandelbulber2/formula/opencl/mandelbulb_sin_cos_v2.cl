@@ -41,14 +41,18 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// polar to cartesian
 	REAL cth = native_cos(th);
 	REAL sth = native_sin(th);
-	REAL4 trg;
+	REAL4 trg = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
-		trg = (REAL4){cth * native_cos(ph), cth * native_sin(ph), sth, 0.0};
+		trg.x = cth * native_cos(ph);
+		trg.y = cth * native_sin(ph);
+		trg.z = sth;
 	}
 	else
 	{
-		trg = (REAL4){sth * native_sin(ph), sth * native_cos(ph), cth, 0.0};
+		trg.x = sth * native_sin(ph);
+		trg.y = sth * native_cos(ph);
+		trg.z = cth;
 	}
 
 	if (fractal->transformCommon.functionEnabledAx
@@ -72,8 +76,8 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
 	{
-		z.x = z.x + (trg.x - z.x) * fractal->transformCommon.scaleC1;
-		z.y = z.y + (trg.y - z.y) * fractal->transformCommon.scaleF1;
+		z.x += (trg.x - z.x) * fractal->transformCommon.scaleC1;
+		z.y += (trg.y - z.y) * fractal->transformCommon.scaleF1;
 		if (!fractal->transformCommon.functionEnabledwFalse)
 			z.z = sth;
 		else
@@ -109,7 +113,7 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		else
-			aux->DE0 = 0.01f; // 0.0f artifacts in openCL
+			aux->DE0 = 0.01;
 
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)

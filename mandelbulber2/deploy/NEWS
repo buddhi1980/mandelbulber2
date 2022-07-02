@@ -3,10 +3,13 @@ Version history
 v2.28 (  2022)
 
 - Added new fractal formulas
+   mandelbulbSinCosV2
    mandelbulbTails
    mandelbulbTailsV2
+   newtonPow3
    pseudoKleinianMod6
    transfCayley2V1
+   transfDIFSPiriform
    transfLowResMode
    transfMengerFoldV2
    transfAddSphericalInvert

@@ -87,13 +87,10 @@ void cFractalTransfDIFSPiriform::FormulaCode(CVector4 &z, const sFractal *fracta
 		//aux.DE += 1.0;
 	}
 
-	// z.z clip
+	// z.x clip
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		//if (fractal->transformCommon.offsetA0 >= 0.0)
-			t = max(t, fractal->transformCommon.offsetA0 - zc.x);
-		//else
-		//	t = max(t, zc.x + fractal->transformCommon.offsetA0);
+		t = max(t, fractal->transformCommon.offsetA0 - zc.x);
 	}
 
 	t -= fractal->transformCommon.offset0;
