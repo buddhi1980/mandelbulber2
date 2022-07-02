@@ -62,7 +62,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
 	REAL4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z; // dot
-	sq_r = 1.0f / (3.0f * sq_r * sq_r + offset);
+	sq_r = 1.0f / (3.0f * fractal->transformCommon.scale1 * sq_r * sq_r + offset);
 	// sq_r = fractal->transformCommon.scale1 / (3.0f * sq_r * sq_r + offset);
 	// aux->DE *= fractal->transformCommon.scale1;
 

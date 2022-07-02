@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,29 +23,27 @@ REAL4 MengerSpongeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL col = 0.0f;
 	if (z.x < z.y)
 	{
-		REAL temp = z.x;
-		z.x = z.y;
-		z.y = temp;
+		temp = z.y;
+		z.y = z.x;
+		z.x = temp;
 		col += fractal->foldColor.difs0000.x;
 	}
 	if (z.x < z.z)
 	{
-		REAL temp = z.x;
-		z.x = z.z;
-		z.z = temp;
+		temp = z.z;
+		z.z = z.x;
+		z.x = temp;
 		col += fractal->foldColor.difs0000.y;
 	}
 	if (z.y < z.z)
 	{
-		REAL temp = z.y;
-		z.y = z.z;
-		z.z = temp;
+		temp = z.z;
+		z.z = z.y;
+		z.y = temp;
 		col += fractal->foldColor.difs0000.z;
 	}
-
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
-					&& aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		aux->color += col;
 	}

@@ -1338,7 +1338,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;TransfDifsTorusV3Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/DIFS Torus twist asa1.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/pseudoKleinianMod3_torusTwist.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

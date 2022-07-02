@@ -295,6 +295,8 @@ transformCommon.scaleB3 REAL transf_scaleB_3
 transformCommon.scale4 REAL transf_scale_4
 transformCommon.scale6 REAL transf_scale_6
 transformCommon.scale8 REAL transf_scale_8
+transformCommon.scale16 REAL transf_scale_16
+transformCommon.scale25 REAL transf_scale_25
 transformCommon.scaleMain2 REAL transf_scale_main_2
 transformCommon.scaleVary0 REAL transf_scale_vary_0
 transformCommon.intA int transf_int_A

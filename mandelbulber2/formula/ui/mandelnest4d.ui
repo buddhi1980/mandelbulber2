@@ -1482,7 +1482,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Mandelnest refer Jeannot&lt;br&gt;https://fractalforums.org/share-a-fractal/22/mandelbrot-3d-mandelnest/4028/&lt;br&gt;also https://www.shadertoy.com/view/4lKfzy&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelnest4D IQbulbV2.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/mandelnest4D boxframe.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
