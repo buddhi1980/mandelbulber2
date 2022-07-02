@@ -42,7 +42,7 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL cth = native_cos(th);
 	REAL sth = native_sin(th);
 
-	REAL4 trg = (CVector4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL4 trg = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		trg.x = cth * native_cos(ph);
