@@ -1,0 +1,49 @@
+# Mandelbulber settings file
+# version 2.28
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_color_1 0d00 2600 0000;
+background_color_2 db00 dc00 f300;
+background_color_3 0700 0000 2f00;
+bailout 4;
+brightness 1,5;
+camera -1,63499153739604 0,64947192383776 0,959431743053027;
+camera_distance_to_target 2,26348072499446;
+camera_rotation -124,14116338411 -39,929366885245 -112,304688094668;
+camera_top 0,317624358602944 0,90244733031524 -0,29103879952502;
+DE_factor 0,0625;
+detail_level 9;
+DOF_blur_opacity 2;
+DOF_enabled true;
+DOF_focus 1,27233707904816;
+DOF_number_of_passes 2;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+file_background C:\prog\mb2test\Release-20220622\x64\textures\water_caustics.jpg;
+flight_last_to_render 0;
+formula_1 250;
+gamma 0,65;
+glow_color_2 f000 f300 ce00;
+glow_intensity 2,5;
+hdr true;
+hdr_blur_intensity 0,05;
+hdr_blur_radius 2,5;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_soft_shadow_cone 3;
+mat1_coloring_speed 0,1;
+mat1_is_defined true;
+mat1_specular_metallic_roughness 0,3;
+target -0,198410862348961 -0,324672248460528 -0,493366965674383;
+use_default_bailout false;
+view_distance_max 14,2541455010125;
+[fractal_1]
+analyticDE_enabled_false true;
+analyticDE_scale_1 0,6375;
+transf_scaleB_1 1,8;

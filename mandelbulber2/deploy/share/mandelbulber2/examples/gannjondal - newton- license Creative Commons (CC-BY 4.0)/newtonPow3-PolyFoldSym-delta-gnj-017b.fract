@@ -1,0 +1,81 @@
+# Mandelbulber settings file
+# version 2.28
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_3_colors_enable false;
+background_color_1 0200 0200 2600;
+bailout 4;
+basic_fog_visibility 0,759911835193634;
+brightness 1,5;
+camera -0,307343571029452 -0,0330928897908375 0,581114767102571;
+camera_distance_to_target 1,69667311705654;
+camera_rotation -155,561210264044 -46,7217760100877 -41,5879467428277;
+camera_top 0,829578491568174 -0,221121323289639 0,51274251502495;
+contrast 1,15;
+DE_factor 0,5;
+detail_level 13,3333333333333;
+DOF_blur_opacity 2;
+DOF_enabled true;
+DOF_focus 0,650154769420624;
+DOF_number_of_passes 2;
+DOF_radius 5;
+dont_add_c_constant_3 true;
+flight_last_to_render 0;
+fog_color_2 6600 9400 c800;
+formula_1 1080;
+formula_2 1129;
+formula_3 250;
+formula_4 1129;
+gamma 0,65;
+glow_color_2 f000 f300 ce00;
+glow_intensity 1,3333;
+hdr true;
+hdr_blur_enabled true;
+hdr_blur_intensity 0,05;
+hdr_blur_radius 4;
+hybrid_fractal_enable true;
+image_height 540;
+image_proportion 4;
+image_width 960;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_soft_shadow_cone 3;
+mat1_coloring_speed 0,15;
+mat1_is_defined true;
+mat1_specular_metallic_roughness 0,3;
+mat1_surface_color d400 c800 c500;
+mat1_surface_color_gradient 0 fd6029 1100 698403 2000 fff59b 2860 f5bd22 3814 0b5e87 5000 c68876 6000 a51c64 7000 3b9fee 8000 d4ffd4 9242 aba53c;
+saturation 1,1;
+target 0,173871802710961 -1,09202010227738 -0,654119861975534;
+use_default_bailout false;
+view_distance_max 14,2541455010125;
+volumetric_fog_colour_1_distance 0,0588614718540038;
+volumetric_fog_colour_2_distance 0,117722943708008;
+volumetric_fog_density 0,4;
+volumetric_fog_distance_factor 0,117722943708008;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_enabled false;
+transf_function_enabledx_false true;
+transf_function_enabledy_false true;
+transf_offset_0 -0,36;
+transf_offsetA_0 -0,06;
+[fractal_2]
+analyticDE_enabled false;
+transf_function_enabledx false;
+transf_function_enabledy false;
+transf_int_6 5;
+transf_offset_000 -0,115 0,1 0;
+transf_rotation2_enabled_false true;
+transf_rotationXYZ 2 3 18;
+transf_scaleB_1 0,825;
+transf_stop_iterations_D1 255;
+[fractal_3]
+transf_offset_000 -0,115 0,1 0;
+transf_scaleA_1 -1;
+transf_scaleB_1 0,85;
+[fractal_4]
+transf_rotationXYZ -5 -10,5 110;

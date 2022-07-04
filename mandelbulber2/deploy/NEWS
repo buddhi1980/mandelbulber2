@@ -37,17 +37,17 @@ v2.28 (  2022)
 - Lights: Added option for rendering light beams
 - Lights: Issue #398. Implemented more color control for random lights
 - Rendering: Improved initial conditions for anti-aliasing (implemented simple edge detection)
-- Shaders: Added gamma correction option fro background textures (important for HDRi textures)
+- Shaders: Added gamma correction option for background textures (important for HDRi textures)
 - Shaders: Added cloud speed animation parameter and envolving of clouds shape in animation
 - Shaders: Added "Shartp edges" mode to clouds algorithm which make them more realistic.
 - Shaders: Added "Cast shadows" option to the Fog based on distance
 - Fractals: Fixed problem with wrong shape calculation when used DIFS fractals (without bailout) and limits enabled
 - Rendering: Fixed bug causing incorrect rendering of stereoscopic images on NetRender client
 - Navigator: Fixed bug #909. Disabled error messages in the Navigator
-- OpenCL: Fixed problem with hanging OpenCL kernels when used transparency. There was possibility of infinite loop.
+- OpenCL: Fixed problem with hanging OpenCL kernels when used transparency. There was the possibility of infinite loop.
 - OpenCL: Added rendering of separate image channels to the rendering kernels
 - Mac: Fixed error causing OpenCL kernel error on Apple Silicon
-- Performance: Rewritten rendering of volumetric effects. Now all efects will be calculated in a one loop for light sources.
+- Performance: Rewritten rendering of volumetric effects. Now all effects will be calculated in a one loop for light sources.
 
 
 v2.27 (February 2022)

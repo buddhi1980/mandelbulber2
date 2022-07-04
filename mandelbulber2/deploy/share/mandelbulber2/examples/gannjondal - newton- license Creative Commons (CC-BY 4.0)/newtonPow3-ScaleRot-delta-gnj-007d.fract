@@ -1,0 +1,55 @@
+# Mandelbulber settings file
+# version 2.28
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_brightness 1,05;
+background_color_1 1500 2600 0000;
+background_color_2 dc00 df00 f800;
+background_color_3 0700 0000 3000;
+background_gamma 1,05;
+bailout 4;
+brightness 1,5;
+camera -1,98805386817845 0,69665674196132 1,00358996512263;
+camera_distance_to_target 2,26348072499447;
+camera_rotation -118,911337400543 -34,6124822463375 -104,064065459668;
+camera_top 0,348133695802252 0,915862381012011 -0,199997572220453;
+DE_factor 0,125;
+detail_level 9;
+DOF_enabled true;
+DOF_focus 1,47710871696472;
+DOF_radius 6;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 250;
+formula_2 1004;
+formula_3 1002;
+gamma 0,65;
+glow_color_2 f000 f300 ce00;
+glow_intensity 3,2;
+hdr true;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_soft_shadow_cone 3;
+mat1_coloring_speed 0,1;
+mat1_is_defined true;
+mat1_specular_metallic_roughness 0,3;
+target -0,357352598291967 -0,203959773903392 -0,282119275788318;
+use_default_bailout false;
+view_distance_max 14,2541455010125;
+[fractal_1]
+analyticDE_offset_1 2;
+analyticDE_scale_1 0,5;
+transf_function_enabledY_false true;
+transf_scaleB_1 1,55;
+[fractal_2]
+analyticDE_enabled_false true;
+analyticDE_scale_1 0,6;
+[fractal_3]
+transf_rotation 7,5 -7,5 10;

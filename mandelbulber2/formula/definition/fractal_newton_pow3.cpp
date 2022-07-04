@@ -38,17 +38,20 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	// Preparation operations
 	double fac_eff = 0.6666666666;
 
-	// Converting the diverging (x,y,z) back to the variable
-	// that can be used for the (converging) Newton method calculation
+	// MB2 needs a potentially diverging value of z to work correctly.
+	// However the Newton method for z^3-1 is so far always converging.
+	// Fortunately there is a one-to-one relation between these values.
+	// Below the z from MB2 is transformed
+	// to the z used for the Newton calculations
 	double sq_r = fractal->transformCommon.scaleA1 / (aux.r * aux.r);
 	//aux.DE *= (sq_r);
 	z.x = z.x * sq_r + 1.0;
 	z.y = -z.y * sq_r; // 0.0
 	z.z = -z.z * sq_r; // 0.0
 
-	// Calculate the inverse power of t=(x,y,z),
-	// and use it for the Newton method calculations for t^power + c = 0
-	// i.e. t(n+1) = 2*t(n)/3 - c/2*t(n)^2
+	// Calculate the inverse power of z=(z.x,z.y,z.z),
+	// and use it for the Newton method calculations for z^3 + 1 = 0
+	// i.e. z(n+1) = 2*z(n)/3 - 1/3*z(n)^2
 	CVector4 tp = z * z;
 	sq_r = tp.x + tp.y + tp.z; // dot
 	sq_r = 1.0 / (3.0 * sq_r * sq_r);
@@ -66,8 +69,9 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 
 	z = fac_eff * z - tp;
 
-	// Below the hack that provides a divergent value of (x,y,z) to Mandelbulber
-	// although the plain Newton method does always converge
+	// Below the z used for (converging) Newton calculation
+	// is transformed back to the potentially diverging z used by MB2
+	// (see also the notes above)
 	tp.x = z.x - 1.0;
 	tp.y = z.y;
 	tp.z = z.z;
@@ -76,6 +80,8 @@ void cFractalNewtonPow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	z.y = -tp.y * sq_r;
 	z.z = -tp.z * sq_r;
 
+	//Below translation is equivalent to the usage of c in Julia mode
+	//However, in hybrids this setting can be used as a variable only for this fractal formula
 	z += fractal->transformCommon.offset000;
 
 	aux.DE *= aux.r * 2.0;

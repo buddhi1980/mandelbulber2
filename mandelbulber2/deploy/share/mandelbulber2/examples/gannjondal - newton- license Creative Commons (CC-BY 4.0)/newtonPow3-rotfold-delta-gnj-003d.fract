@@ -1,0 +1,69 @@
+# Mandelbulber settings file
+# version 2.28
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_color_1 0c00 2600 0000;
+background_color_2 e700 e700 f500;
+background_color_3 0500 0000 2700;
+bailout 4;
+brightness 1,5;
+camera -1,74913093782779 1,02531174960491 2,08194352449051;
+camera_distance_to_target 2,84080082487225;
+camera_rotation -119,310540416174 -52,3422544775074 -111,50815428791;
+camera_top 0,202357914903774 0,953351291081153 -0,223992388419107;
+DE_factor 0,0625;
+detail_level 13,3333333333333;
+DOF_blur_opacity 2;
+DOF_enabled true;
+DOF_focus 2,36857485771179;
+DOF_number_of_passes 2;
+DOF_radius 2;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 1064;
+formula_2 250;
+gamma 0,65;
+glow_color_2 f400 e800 db00;
+glow_intensity 2;
+hdr true;
+hybrid_fractal_enable true;
+image_height 540;
+image_proportion 4;
+image_width 960;
+julia_c -0,15 0 0;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation -24,07 39,49 0;
+light1_soft_shadow_cone 3;
+light2_color d800 d900 f100;
+light2_contour_sharpness 0,5;
+light2_enabled true;
+light2_intensity 0,425;
+light2_is_defined true;
+light2_position 0 0,25 -1,3333;
+light2_relative_position true;
+light2_rotation -24,07 39,49 0;
+light2_size 0,8;
+light2_soft_shadow_cone 3;
+light2_target -0,333 0 0;
+light2_type directional;
+light2_use_target_point true;
+light2_visibility 0,675;
+mat1_coloring_speed 0,1;
+mat1_is_defined true;
+mat1_specular_metallic_roughness 0,3;
+target -0,235751336121482 0,175676603504536 -0,167045498658581;
+use_default_bailout false;
+view_distance_max 14,2541455010125;
+[fractal_1]
+transf_function_enabled false;
+transf_function_enabledAy_false true;
+transf_offset_111 0,42 0 0;
+transf_rotation 30 0 0;
+transf_rotation2 -30 0 0;
+[fractal_2]
+transf_rotation 30 0 0;
+transf_rotation2 -30 0 0;

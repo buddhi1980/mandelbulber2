@@ -1,0 +1,74 @@
+# Mandelbulber settings file
+# version 2.28
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_color_1 0f00 2600 0000;
+background_color_2 d600 db00 f500;
+background_color_3 0300 0000 2700;
+bailout 4;
+brightness 1,5;
+camera -1,74275580854031 1,05177140294547 2,10855267287837;
+camera_distance_to_target 2,72194884451432;
+camera_rotation -118,494474535294 -49,8817978413326 -109,998272302033;
+camera_top 0,218461532765887 0,950637922367198 -0,220368099458514;
+DE_factor 0,125;
+detail_level 13,3333333333333;
+DOF_blur_opacity 2;
+DOF_enabled true;
+DOF_focus 2,55881094932556;
+DOF_number_of_passes 2;
+DOF_radius 1,5;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 1064;
+formula_2 250;
+gamma 0,65;
+glow_color_1 9800 a800 c100;
+glow_color_2 f700 f200 d700;
+glow_intensity 1;
+hdr true;
+hdr_blur_intensity 0,05;
+hdr_blur_radius 2,5;
+hybrid_fractal_enable true;
+image_height 540;
+image_proportion 4;
+image_width 960;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_soft_shadow_cone 3;
+light2_color ffff ffff ffff;
+light2_contour_sharpness 0,5;
+light2_enabled true;
+light2_intensity 0,55;
+light2_is_defined true;
+light2_position -0,25 0,333 1,333;
+light2_rotation 18,91 24,07 0;
+light2_size 0,75;
+light2_soft_shadow_cone 3;
+light2_target -0,35 0,06 0,075;
+light2_type directional;
+light2_use_target_point true;
+light2_visibility 0,25;
+mat1_coloring_speed 0,1;
+mat1_is_defined true;
+mat1_specular_metallic_roughness 0,3;
+target -0,201288832213569 0,215015591283946 0,0270328471986785;
+use_default_bailout false;
+view_distance_max 14,2541455010125;
+[fractal_1]
+transf_function_enabled false;
+transf_function_enabledAy_false true;
+transf_offset_111 0,35875 0 0;
+transf_rotation 0 10 0;
+transf_rotation2 0 -10 0;
+[fractal_2]
+analyticDE_enabled_false true;
+analyticDE_offset_1 0,75;
+analyticDE_scale_1 0,636667;
+transf_function_enabled false;
+transf_offset_111 0,35875 0 0;
+transf_rotation 0 10 0;
+transf_rotation2 0 -10 0;
