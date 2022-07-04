@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>flac-msvc-x64</id>
+        <version>1.3.4.8790</version>
+        <authors>administrator</authors>
+        <owners>administrator</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Visual Studio Release flac as NuGet package.</description>
+    </metadata>
+</package>
