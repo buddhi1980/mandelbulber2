@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1193</width>
-            <height>783</height>
+            <width>1229</width>
+            <height>781</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -293,7 +293,7 @@
      <x>0</x>
      <y>0</y>
      <width>1422</width>
-     <height>23</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -325,6 +325,10 @@
     <addaction name="actionLoad_settings_from_clipboard"/>
     <addaction name="actionLoad_example"/>
     <addaction name="menuRecent_Settings_list"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_as_default_settings"/>
+    <addaction name="actionReset_to_default"/>
+    <addaction name="actionDelete_default_settings"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
     <addaction name="actionSave_settings_to_clipboard"/>
@@ -407,6 +411,7 @@
    <property name="font">
     <font>
      <pointsize>12</pointsize>
+     <stylestrategy>PreferAntialias</stylestrategy>
     </font>
    </property>
    <property name="layoutDirection">
@@ -459,8 +464,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>131</height>
+          <width>69</width>
+          <height>141</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -574,8 +579,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>132</height>
+          <width>69</width>
+          <height>140</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -641,8 +646,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>130</height>
+          <width>69</width>
+          <height>141</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -708,8 +713,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>132</height>
+          <width>69</width>
+          <height>140</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -877,8 +882,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>316</width>
-          <height>84</height>
+          <width>345</width>
+          <height>69</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -944,8 +949,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>312</height>
+          <width>89</width>
+          <height>296</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1005,8 +1010,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>131</height>
+          <width>69</width>
+          <height>141</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1084,8 +1089,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>327</height>
+          <width>69</width>
+          <height>345</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1588,6 +1593,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionSave_as_default_settings">
+   <property name="text">
+    <string>Save as default settings</string>
+   </property>
+  </action>
+  <action name="actionReset_to_default">
+   <property name="text">
+    <string>Reset to default</string>
+   </property>
+  </action>
+  <action name="actionDelete_default_settings">
+   <property name="text">
+    <string>Delete default settings</string>
    </property>
   </action>
  </widget>

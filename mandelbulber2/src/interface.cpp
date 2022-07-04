@@ -407,6 +407,12 @@ void cInterface::ConnectSignals() const
 		&RenderWindow::slotMenuLoadSettingsFromClipboard);
 	connect(mainWindow->ui->actionLoad_example, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuLoadExample);
+	connect(mainWindow->ui->actionSave_as_default_settings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotSaveSettingsAsDefaut);
+	connect(mainWindow->ui->actionReset_to_default, &QAction::triggered, mainWindow,
+		&RenderWindow::slotResetToDefault);
+	connect(mainWindow->ui->actionDelete_default_settings, &QAction::triggered, mainWindow,
+		&RenderWindow::slotDeleteDefaultSettings);
 	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, &QAction::triggered,
 		mainWindow, &RenderWindow::slotImportOldSettings);
 	connect(mainWindow->ui->actionImport_settings_from_Mandelbulb3d, &QAction::triggered, mainWindow,
@@ -1405,7 +1411,7 @@ bool cInterface::QuitApplicationDialog()
 	return quit;
 }
 
-void cInterface::AutoRecovery() const
+bool cInterface::AutoRecovery() const
 {
 	if (QFile::exists(systemDirectories.GetAutosaveFile()))
 	{
@@ -1429,10 +1435,11 @@ void cInterface::AutoRecovery() const
 			gInterfaceReadyForSynchronization = true;
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
+			return true;
 		}
 		else
 		{
-			return;
+			return false;
 		}
 	}
 }
@@ -2149,4 +2156,15 @@ void cInterface::slotReEnablePeriodicRefresh()
 void cInterface::slotRefreshPostEffects()
 {
 	RefreshMainImage();
+}
+
+void cInterface::LoadDefaultSettings()
+{
+	QString filename = QDir::toNativeSeparators(systemDirectories.GetDefaultSettingsFile());
+	if (QFile::exists(filename))
+	{
+		gMainInterface->SynchronizeInterface(
+			gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+		mainWindow->slotMenuLoadSettingsFromFile(filename);
+	}
 }

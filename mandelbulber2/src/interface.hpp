@@ -99,7 +99,7 @@ public:
 	void ComboMouseClickUpdate();
 	static void ComboMouseClickUpdate(
 		QComboBox *comboBox, std::shared_ptr<cParameterContainer> params);
-	void AutoRecovery() const;
+	bool AutoRecovery() const;
 	bool DataFolderUpgrade() const;
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber) const;
@@ -127,6 +127,7 @@ public:
 	void ChangeLightWireframeVisibility(bool enable);
 	QList<QVariant> GetMouseClickFunction();
 	static void SetQuickRenderParameters(const std::shared_ptr<cParameterContainer> &tempParam);
+	void LoadDefaultSettings();
 
 	QSettings settings;
 

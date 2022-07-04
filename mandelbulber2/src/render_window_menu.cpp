@@ -965,3 +965,31 @@ void RenderWindow::slotCleanSettings()
 {
 	gMainInterface->CleanSettings();
 }
+
+void RenderWindow::slotSaveSettingsAsDefaut()
+{
+	cSettings parSettings(cSettings::formatCondensedText);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	QString filename = QDir::toNativeSeparators(systemDirectories.GetDefaultSettingsFile());
+	parSettings.SaveToFile(filename);
+}
+
+void RenderWindow::slotResetToDefault()
+{
+	QString filename = QDir::toNativeSeparators(systemDirectories.GetDefaultSettingsFile());
+	if (QFile::exists(filename))
+	{
+		gMainInterface->SynchronizeInterface(
+			gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+		slotMenuLoadSettingsFromFile(filename);
+	}
+}
+void RenderWindow::slotDeleteDefaultSettings()
+{
+	QString filename = QDir::toNativeSeparators(systemDirectories.GetDefaultSettingsFile());
+	if (QFile::exists(filename))
+	{
+		QFile::remove(filename);
+	}
+}

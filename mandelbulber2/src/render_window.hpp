@@ -182,6 +182,9 @@ private slots:
 	void slotUpdateDocksAndToolbarByView() const;
 	void slotStackAllDocks();
 	void slotShowMeasuremetDock();
+	void slotSaveSettingsAsDefaut();
+	void slotResetToDefault();
+	void slotDeleteDefaultSettings();
 
 	void slotDetachMainImage();
 

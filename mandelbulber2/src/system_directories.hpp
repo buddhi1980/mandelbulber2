@@ -70,6 +70,7 @@ struct sSystemDirectories
 	QString GetOpenCLCustomFormulasFolder() const { return dataDirectoryHidden + "customFormulas"; }
 	QString GetUndoFolder() const { return dataDirectoryHidden + "undo"; }
 	QString GetHistoryFileName() const;
+	QString GetDefaultSettingsFile() const { return dataDirectoryPublic + "default.fract"; }
 
 	QString homeDir;
 	QString sharedDir;
