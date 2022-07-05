@@ -1,6 +1,6 @@
 Version history
 
-v2.28 (  2022)
+v2.28 (July 2022)
 
 - Added new fractal formulas
    mandelbulbSinCosV2
@@ -16,7 +16,6 @@ v2.28 (  2022)
    transfSincosV2
    transfSphericalFoldSmooth
 
-
 - modified fractal formulas
    mengerSponge, add aux.color
    transfAbsAddConditional, fix scale yz
@@ -29,6 +28,7 @@ v2.28 (  2022)
 - UI: Fixed issue #911. Zero button didn't reset SpinBoxes
 - Files: Added auto-save of settings to mandelbulber/history folder
 - Files: Added option to save fractal setting together with the image
+- Files: Added option to remember default settings
 - Files: Added options to save additional image channels:
     * shadows
     * global illumination
