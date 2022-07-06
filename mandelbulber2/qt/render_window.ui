@@ -321,13 +321,13 @@
        <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
      </property>
     </widget>
+    <addaction name="actionReset_to_default"/>
     <addaction name="actionLoad_settings"/>
     <addaction name="actionLoad_settings_from_clipboard"/>
     <addaction name="actionLoad_example"/>
     <addaction name="menuRecent_Settings_list"/>
     <addaction name="separator"/>
     <addaction name="actionSave_as_default_settings"/>
-    <addaction name="actionReset_to_default"/>
     <addaction name="actionDelete_default_settings"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
@@ -950,7 +950,7 @@
           <x>0</x>
           <y>0</y>
           <width>89</width>
-          <height>296</height>
+          <height>298</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1090,7 +1090,7 @@
           <x>0</x>
           <y>0</y>
           <width>69</width>
-          <height>345</height>
+          <height>344</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1601,8 +1601,11 @@
    </property>
   </action>
   <action name="actionReset_to_default">
+   <property name="icon">
+    <iconset theme="document-new"/>
+   </property>
    <property name="text">
-    <string>Reset to default</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionDelete_default_settings">
