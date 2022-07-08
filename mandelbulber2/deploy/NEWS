@@ -4,6 +4,7 @@ v2.28 (July 2022)
 
 - Added new fractal formulas
    mandelbulbSinCosV2
+   mandelbulbSinCosV3
    mandelbulbTails
    mandelbulbTailsV2
    newtonPow3

@@ -161,42 +161,6 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 	z += aux.const_c * fractal->transformCommon.constantMultiplier111;
 	z.z *= fractal->transformCommon.scaleA1;
 
-	/*
-		if (fractal->transformCommon.functionEnabledAzFalse)
-		{
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				if (fabs(z.x) > fabs(z.y)) z.y = r * sin(phi);
-				else z.y = r * cos(phi);
-			}
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				if (fabs(z.x) < fabs(z.y)) z.y = r * cos(phi);
-				else z.y = r * sin(phi);
-			}
-			if (fractal->transformCommon.functionEnabledBxFalse) z.y = r * sin(phi);
-			if (fractal->transformCommon.functionEnabledByFalse) z.y = r * cos(phi);
-		}
-
-		if (fractal->transformCommon.functionEnabledBzFalse)
-		{
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				if (fabs(z.x) > fabs(z.y)) z.x = r * sin(phi);
-				else z.x = r * cos(phi);
-			}
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				if (fabs(z.x) < fabs(z.y)) z.x = r * cos(phi);
-				else z.x = r * sin(phi);
-			}
-			if (fractal->transformCommon.functionEnabledBxFalse) z.x = r * sin(phi);
-			if (fractal->transformCommon.functionEnabledByFalse) z.x = r * cos(phi);
-		}
-
-	}*/
-
-
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
