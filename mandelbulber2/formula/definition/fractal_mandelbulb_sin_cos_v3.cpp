@@ -48,8 +48,7 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 						* (fractal->transformCommon.offset000.z - fabs(z.z));
 		}
 
-		double r1 = sqrt(z.x * z.x + z.y * z.y);
-
+		double r1;
 		double phi;
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 			phi = atan2(z.y, z.x);
@@ -67,11 +66,14 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 			t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
 		if (!fractal->transformCommon.functionEnabledOFalse) r1 = t1 + t2;
-		else r1 = pow(t1 + t2, -fractal->transformCommon.constantMultiplierB111.z);
+		else r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 		if (fractal->transformCommon.functionEnabledRFalse) r1 = 1.0 / r1;
 
-		aux.r = fabs(aux.r + r1 * fractal->transformCommon.minR0);
+		r1 = r1 * fractal->transformCommon.minR0;
+
+		aux.r = aux.r * fractal->transformCommon.radius1 + r1;
+		aux.DE = aux.DE * fractal->transformCommon.radius1 + r1;
 	}
 
 	// cartesian to polar
@@ -206,7 +208,7 @@ void cFractalMandelbulbSinCosV3::FormulaCode(CVector4 &z, const sFractal *fracta
 		if (aux.DE0 > 1.0)
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
 		else
-			aux.DE0 = 0.01; // 0.0 artifacts in openCL
+			aux.DE0 = 0.0; // 0.01 artifacts in openCL
 
 		if (aux.i >= fractal->transformCommon.startIterationsO
 					&& aux.i < fractal->transformCommon.stopIterationsO)

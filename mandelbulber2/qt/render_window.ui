@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1229</width>
-            <height>781</height>
+            <width>1238</width>
+            <height>812</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -293,7 +293,7 @@
      <x>0</x>
      <y>0</y>
      <width>1422</width>
-     <height>24</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -464,8 +464,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>141</height>
+          <width>68</width>
+          <height>147</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -579,8 +579,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>140</height>
+          <width>68</width>
+          <height>147</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -646,8 +646,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>141</height>
+          <width>68</width>
+          <height>147</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -713,8 +713,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>140</height>
+          <width>68</width>
+          <height>147</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -882,8 +882,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>345</width>
-          <height>69</height>
+          <width>357</width>
+          <height>68</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -949,8 +949,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>89</width>
-          <height>298</height>
+          <width>82</width>
+          <height>316</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1010,8 +1010,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>141</height>
+          <width>68</width>
+          <height>147</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1089,8 +1089,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>344</height>
+          <width>68</width>
+          <height>353</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1597,12 +1597,13 @@
   </action>
   <action name="actionSave_as_default_settings">
    <property name="text">
-    <string>Save as default settings</string>
+    <string>Save as default settings New</string>
    </property>
   </action>
   <action name="actionReset_to_default">
    <property name="icon">
-    <iconset theme="document-new"/>
+    <iconset theme="document-new">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -1610,7 +1611,7 @@
   </action>
   <action name="actionDelete_default_settings">
    <property name="text">
-    <string>Delete default settings</string>
+    <string>Delete default settings New</string>
    </property>
   </action>
  </widget>

@@ -34,8 +34,7 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			z.z = sign(z.z) * (fractal->transformCommon.offset000.z - fabs(z.z));
 		}
 
-		REAL r1 = native_sqrt(z.x * z.x + z.y * z.y);
-
+		REAL r1;
 		REAL phi;
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 			phi = atan2(z.y, z.x);
@@ -55,11 +54,14 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (!fractal->transformCommon.functionEnabledOFalse)
 			r1 = t1 + t2;
 		else
-			r1 = native_powr(t1 + t2, -fractal->transformCommon.constantMultiplierB111.z);
+			r1 = native_powr(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 		if (fractal->transformCommon.functionEnabledRFalse) r1 = 1.0f / r1;
 
-		aux->r = fabs(aux->r + r1 * fractal->transformCommon.minR0);
+		r1 = r1 * fractal->transformCommon.minR0;
+
+		aux->r = aux->r * fractal->transformCommon.radius1 + r1;
+		aux->DE = aux->DE * fractal->transformCommon.radius1 + r1;
 	}
 
 	// cartesian to polar
@@ -195,7 +197,7 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		else
-			aux->DE0 = 0.01f; // 0.0f artifacts in openCL
+			aux->DE0 = 0.0f; // 0.0f artifacts in openCL
 
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)
