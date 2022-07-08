@@ -151,41 +151,6 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z += aux->const_c * fractal->transformCommon.constantMultiplier111;
 	z.z *= fractal->transformCommon.scaleA1;
 
-	/*
-		if (fractal->transformCommon.functionEnabledAzFalse)
-		{
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				if (fabs(z.x) > fabs(z.y)) z.y = r * native_sin(phi);
-				else z.y = r * native_cos(phi);
-			}
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				if (fabs(z.x) < fabs(z.y)) z.y = r * native_cos(phi);
-				else z.y = r * native_sin(phi);
-			}
-			if (fractal->transformCommon.functionEnabledBxFalse) z.y = r * native_sin(phi);
-			if (fractal->transformCommon.functionEnabledByFalse) z.y = r * native_cos(phi);
-		}
-
-		if (fractal->transformCommon.functionEnabledBzFalse)
-		{
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				if (fabs(z.x) > fabs(z.y)) z.x = r * native_sin(phi);
-				else z.x = r * native_cos(phi);
-			}
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				if (fabs(z.x) < fabs(z.y)) z.x = r * native_cos(phi);
-				else z.x = r * native_sin(phi);
-			}
-			if (fractal->transformCommon.functionEnabledBxFalse) z.x = r * native_sin(phi);
-			if (fractal->transformCommon.functionEnabledByFalse) z.x = r * native_cos(phi);
-		}
-
-	}*/
-
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

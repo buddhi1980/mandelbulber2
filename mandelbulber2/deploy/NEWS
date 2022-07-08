@@ -91,7 +91,7 @@ v2.27 (February 2022)
 - UI: Now it is possible to use mouse click and dragging starting from the point
   located on the background.
 - UI: Changed mouse wheel function to run without Ctrl key
-- UI: undo is saved with small delay to avoid creating undo levels during mouse 
+- UI: undo is saved with small delay to avoid creating undo levels during mouse
 - UI: Added x2 /2 buttons for Fog based on distance
 - UI: Fixed problems with application hanging when wireframe light preview is enormous
 - UI: Corrected duplicating of light sources (added parameter synchronization before duplicating)
@@ -104,7 +104,7 @@ v2.27 (February 2022)
 - Shaders: Fixed bug causing artifacts in chromatic aberration post effect
 - Denoiser: added Extreme level to the Denoiser
 - Performance: Added memory cache for textures to speed up loading of them.
-  Maximum Cache size can be defined in Preferences 
+  Maximum Cache size can be defined in Preferences
 - Performance: Much improved performance of texture loading
 - Performance: automatic calculation of optimal image refresh rate
 - Performance: Optimized creating of OpenCL contexts for bug number of used GPUs
@@ -220,7 +220,7 @@ v2.25 (April 2021)
 - Lights: position of the light can be absolute or relative to the camera
 - Lights: shadow parameters can be individually controlled for every light
 - Lights: every light can be used as a directional light (substitution for Main light source)
-- Lights: removed UI elements for Main light source 
+- Lights: removed UI elements for Main light source
 - Lights: volumetric light UI elements moved to light source tab
 - Lights: light sources defined in old Mandelbulber versions are converted to new structures
 - Lights: random lights updated to work with new lights
@@ -241,7 +241,7 @@ v2.25 (April 2021)
 - Performance: Reduced high memory usage caused by parameter containers and undo buffer
 - Performance: Reduced memory usage by textures
 - Rendering: Program crashed when was reduced number of CPUs to use
-- Code: removed depreciated Qt functions (prepared for Qt 6.0) 
+- Code: removed depreciated Qt functions (prepared for Qt 6.0)
 - Examples: added GPU benchmark for stronger GPUs (benchmark-GPU 2.fract)
 - Examples: added many examples
 
@@ -365,7 +365,7 @@ v2.22 (July 2020)
 - Randomizer: fixed bug: not finished renderings of previews caused high CPU load
 - Voxel export: Added export of greyscale voxel layers
 - Shaders: fixed bug: Ambient Occlusion (Multiple Rays with light map) produced color noise
-- OpenCL: corrected occurrences of double precision constants which caused compiler errors on MacOS 
+- OpenCL: corrected occurrences of double precision constants which caused compiler errors on MacOS
 - Files: Added camera top vector to image metadata (issue #722)
 - Files: Added options for zbuffer saving: inverting z-buffer, logarithmic scale, constant depth range
 - Compilation: fixed bug: Corrected location of formula/definition files is source package
@@ -396,7 +396,7 @@ v2.21 (March 2020)
    transfSphericalFoldV1
    transfDIFSTorusGrid
    transfDEControls BETA
-   
+
 - modified fractal formulas
    pseudoKleinianStdDE change to std r bailout & aux.dist DE
    scatorPower2 change to std r bailout & aux.dist DE
@@ -419,7 +419,7 @@ v2.21 (March 2020)
   - tool can be launched from any dock, group-box, globally or from keyframes editor.
 - OpenCL: implemented adaptive anti-aliasing algorithm
 - UI: Added tool for global cleaning up of settings
-- UI: Changed FOV to be in degrees 
+- UI: Changed FOV to be in degrees
 - Shaders: Fixed problem with very high brightness of multi ray AO when OpenCL was disabled
 - Code: Refactored fractal_cormulas.cpp file. Now all fractal formula definitions are in separate .cpp files are derived from cAbstractFractal class.
 - Fixed bug: in many OpenCL formulas were used double precision constants. Compilation of OpenCL kernels failed on MacOS.
@@ -491,17 +491,17 @@ v2.20 (December 2019)
 
 - Fractals: added dIFS distance estimation mode
 - Fractals: Fixed issue #725. In some cases (only dummy iteration), colorIndex was uninitialized (noise on images)
-- Fractals: Fixed problem #737 (lack of coloring when slot#1 is disabled) 
+- Fractals: Fixed problem #737 (lack of coloring when slot#1 is disabled)
 - Fractals: Force analytic DE now works in non-hybrid mode
 - Fractals: Fixed problem #685. There was incomplete bailout condition for coloring mode.
-- NetRender: added network distributed rendering of animations (also with 
-  OpenCL). Server controls rendering animation and distributes rendering of 
-  animation frames to all connected clients. Finished image frames and sent back 
+- NetRender: added network distributed rendering of animations (also with
+  OpenCL). Server controls rendering animation and distributes rendering of
+  animation frames to all connected clients. Finished image frames and sent back
   to the server.
 - NetRender: clients can pull textures and audio files from server
 - Shaders: Added color property for ambient occlusion effects
 - Shaders: Added fill light (0-order ambient occlusion)
-- Primitives: Added boolean operators for primitive objects 
+- Primitives: Added boolean operators for primitive objects
 - Primitives: Added parameter to control water progression speed in animation
 - Tools: Added Mandelbulber VFX Tools by Adrian Meyer
 - UI: Re-organized order in fractal list
@@ -511,11 +511,11 @@ v2.20 (December 2019)
 - UI: Added Spanish language (translated by Jorge Abalo)
 - UI: Fixed bug #721. Deleted second material sometimes was really deleted and caused problems with Undo
 - UI: Fixed problem with Queue hanging program when deleting items from queue table
-- UI: add new generalized image file save with hotkey. This allows for all image 
+- UI: add new generalized image file save with hotkey. This allows for all image
   file formats. The file format is derived from the given extension.
 - Examples: used $SHARED_DIR to substitute hardcoded texture paths
 - Examples: added many new examples
-- Files: Changed EXR compression from ZIP16 to ZIP1 
+- Files: Changed EXR compression from ZIP16 to ZIP1
 - Compilation: Changed to use OpenCL/cl2.hpp (cl.hpp is already depreciated) with OpenCL 1.2 compatibility macros
 - Compilation: Changed xcode version to 9.4.1 for MacOS builds
 - Compilation: Fixed many errors showed by CoverityScan
@@ -548,13 +548,13 @@ v2.19 (July 2019)
 - Shaders: added texture mapping for transparency
 - Shaders: added texture mapping for roughness
 - Shaders: added global illumination by volumetric effects
-- Shaders: Fixed bug: corrected rotation of textures when main fractal object is rotated 
+- Shaders: Fixed bug: corrected rotation of textures when main fractal object is rotated
 - Animation: added morphing of gradients
 - Primitives: improved water animation
 - UI: added context menu and quick action buttons for gradients
 - UI: Added option in preferences to disable tooltips (fixed issue #213)
 - UI: Select Fusion UI style as default when none is selected
-- UI: Fixed bugs #682 and #594: after using ctrl+s cursor permanently jumped to the right in edit fields 
+- UI: Fixed bugs #682 and #594: after using ctrl+s cursor permanently jumped to the right in edit fields
 - Settings: added conversion of old color palettes to new gradients
 - Image: added saving diffuse optional channel
 - Image: added saving world coordinate optional channel
@@ -609,7 +609,7 @@ v2.18 (June 2019)
 - UI: Added displaying of path to log in Preferences.
 - UI: Added option to enable/disable rendering of thumbnails (used in load settings file selector)
 - UI: Fixed bug #654. Now central widget is not hidden when rendered image is detached.
-- UI: Fixed problem with unwanted repeating of rendering after mouse dragging. 
+- UI: Fixed problem with unwanted repeating of rendering after mouse dragging.
 - Fractals: Added advanced controls for raymarching step calculation.
 - MacOS: fixed OpenCL compiler errors caused by missing line breaks after last lines of code
 - MacOS: Eliminating error on MacOS: Critical: OpenCl ERROR: "Device #0: cl::CommandQueue()" ( -30 )
@@ -639,9 +639,9 @@ v2.17 (March 2019)
 - OpenCL: improved error handling
 - OpenCL: Thumbnails in PreviewFileDialog are now rendered using OpenCL (or using CPU if distance to fractal is less than 1e-5)
 - Fractals: Corrected rendering of fractal cross-sections
-- Fractals: 
+- Fractals:
 - Fixed problem with Pseudo Kleinian fractal which don't use maxiter and interior mode
-- Shaders: Added new properties for material color: 
+- Shaders: Added new properties for material color:
     luminosity color the same as object color
     color of reflections
     color of reflections the same as object color
@@ -666,7 +666,7 @@ v2.17 (March 2019)
 - Queue: Fixed problem with locking rendering engine by updating of Queue thumbnails
 - Files: Added option to save each image channel in a separate directory
 - CLI: Added --gpuall (-G) CLI option to use all available GPU devices
-    
+
 v2.16 (December 2018)
 - Added new fractal formulas
    mandelbulbAbsPower2
@@ -726,7 +726,7 @@ v2.15 (November 2018)
 - OpenCL: fixed bug: There was difference in background brightness OpenCL versus CPU
 - Fractals: improved color compatibility between c++ and openCL
 - Fractals: restructured analytic functions to provide flexibility in Hybrid Mode.
-- Fractals: improved calculation of mixed type hybrid fractals. Rendering is much faster and better quality. Now there is used analytic distance estimation if all used formulas have analytic DE functions. 
+- Fractals: improved calculation of mixed type hybrid fractals. Rendering is much faster and better quality. Now there is used analytic distance estimation if all used formulas have analytic DE functions.
 - Fractals: fixed bug in repeat function used in boolean mode
 - Shaders: added Monte Carlo Global Illumination effect
 - Shaders: added Monte Carlo Chromatic Aberration effect for camera lenses and transparent objects
@@ -893,7 +893,7 @@ v2.12 (November 2017)
   * limited - most of effects, except reflections and refractions
   * full - with branched ray marching - all effects
 - OpenCL: Implemented usage of material #1
-- OpenCL: Added shader for angle of incidence of lights 
+- OpenCL: Added shader for angle of incidence of lights
 - OpenCL: Added soft shadows for main light source
 - OpenCL: Added specular reflections
 - OpenCL: Added all coloring functions
@@ -1051,13 +1051,13 @@ v2.11 (April 2017)
 - Voxel export: Parallelized mesh export. Now it uses all CPU cores, so it's much faster
 - Voxel export: Optimized mesh export. Voxels are pre-calculated before meshes are calculated. Calculation speed is 8 times faster.
 - Voxel export: Inverted orientation of faces. Now orientation of mesh export points outwards of the object
-- Voxel export: implemented binary format 
+- Voxel export: implemented binary format
 - Voxel export: implemented color save for ply meshes
 - Voxel export: Initialize k1om Offload feature (preview)
 - Voxel export: size of meshes now is not limited (only limit is available RAM memory)
 - AnimBySound:  Frequency band can be selected using mouse pointer
 - AnimBySound: added the option to export keyframe animation with AnimBySound to Flight animation, where it is possible to edit every frame and save all frames to settings file.
-- AnimBySound: added accept button to AnimBySound dialogue 
+- AnimBySound: added accept button to AnimBySound dialogue
 - Animation: fixed bug: There was observed a problem where checking for collisions ("Validate") showed collisions even after they were eliminated.
 - Animation: corrected frame numbering on progress bar
 - Animation: added frame number by keyframe number in animation table
@@ -1169,7 +1169,7 @@ v2.09-1 (October 2016)
 - Image: fixed bug: in stereoscopic top-bottom mode there were swapped left and right eye
 - Image: fixed bug: in stereoscopic top-bottom mode first line of image was incorrect
 - Shaders: fixed bug: corrected calculation of flat background. There was possibility of division by zero.
-- UI: fixed bug: when stereoscopic mode was enabled, then thumbnails size was incorrect. 
+- UI: fixed bug: when stereoscopic mode was enabled, then thumbnails size was incorrect.
 
 v2.09 (October 2016)
 - Image: Added stereoscopic rendering for all perspective types including equirectangular and fulldome
@@ -1217,7 +1217,7 @@ v2.08-2 (August 2016)
 - UI: Fixed bug: Some sliders are jumping under Win 10. There is changed size policy for edit fields.
 - UI: Corrected calculation of statistics
 - Shaders: Corrected positioning of textures. Now position is calculated based on texture coordinates (before it was based on object coordinates)
-- Shaders: Program crashed when texture scale was 0 
+- Shaders: Program crashed when texture scale was 0
 - Fractals: corrected number of decimal places in spinboxes for IFS
 - Fractals: Increased limit for maximum number of iterations to 99999
 - NetRender: Fixed bug with loading textures from QByteArray when NetRender was used on different systems.
@@ -1290,7 +1290,7 @@ v2.08 (July 2016)
 - UI: added option to load thumbnail cache from server (mandelbulber.org) which speeds up displaying previews for examples
 - UI: added generate thumbnails option to render thumbnails for all example files
 - UI: improved UI elements for selecting textures
-- UI: in edit field's context menu there are added options: "remove from keyframe animation" and "remove from flight animation". Added icons. 
+- UI: in edit field's context menu there are added options: "remove from keyframe animation" and "remove from flight animation". Added icons.
 - CLI: added voxel export as CLI option
 - CLI: added test option
 - CLI: fixed bug: Progress bar was not showed in CLI mode.
@@ -1357,10 +1357,10 @@ v2.07 (March 2016)
   * add Cpixel vary V1
   * BenesiT1
   * BenesiT1Mod
-  * BenesiT2 
+  * BenesiT2
   * BenesiT3
-  * BenesiT4 
-  * BenesiT5b 
+  * BenesiT4
+  * BenesiT5b
   * Benesi cube sphere
   * Benesi sphere cube
   * Benesi mag backward
@@ -1410,7 +1410,7 @@ v2.07 (March 2016)
 - Added information box to each formula, where is reference and formula code
 - Added icons to fractal selection combobox
 - Added settings for Julia mode on each fractal tab to be able to render Julia fractals in boolean mode
-- Added swapping of fractal tabs 
+- Added swapping of fractal tabs
 - Added many interesting example setting files (at least one for each fractal formula)
 - Removed "extended" formulas. It reduced number of parameters used internally in the program (about 600 less). Now processing of animations is much faster.
 - Added random lights effect (reimplemented from Mandelbulber 1.21 with improvements)
@@ -1431,7 +1431,7 @@ v2.07 (March 2016)
 - Formulas sorted on the list in alphabetical order
 - Added support for 4D parameters
 - Changed corner assignment for docks. It improves UI on low resolution displays when animation dock is displayed.
-- Renamed "Options" tab to "Global parameters" 
+- Renamed "Options" tab to "Global parameters"
 - Fixed bug: Wrong frame numbers in "Interpolate next keyframes"
 - Fixed bug: "Interpolate next keyframes" caused application crashing when right clicked in the white space to the right of the keyframe parameters
 - Fixed bug: Found bug in MyGroupBox in slotToggled. It hid all objects also inside widgets. It caused problem with showing them again and could make application hang.
@@ -1503,7 +1503,7 @@ v2.05 (September 2015)
 - added 'Mandelbox - extended' formula
 - added 'Quaternion - extended' formula
 - Added 'bailout' parameter to be able to change escape condition fractal iteration loop. By default for deltaDE it was 1e10, but lower value increases rendering speed even 5 times without loosing quality.
-- added weight function for hybrid fractal components. On each fractal tab there is setting for weight (only available when hybrid mode is enabled). 
+- added weight function for hybrid fractal components. On each fractal tab there is setting for weight (only available when hybrid mode is enabled).
 - constant multiplier parameter changed to 3D vector type
 - improved importing old settings from Mandelbulber 1.21
 - increased precision of some QSpinBox edit fields
@@ -1533,7 +1533,7 @@ v2.05 (September 2015)
 v2.04 (May 2015)
 - added ray-traced transparency and Fresnel's refraction
 - added NetRender - rendering of the same image or animation on multiple machines over the TCP/IP network (Internet, local LAN).
-- shading of DOF parallelized via OpenMP (leverages shading time roughly about 1/3 on an 8 core CPU), 
+- shading of DOF parallelized via OpenMP (leverages shading time roughly about 1/3 on an 8 core CPU),
 - added boolean functions for fractal formulas
 - added transform functions for fractal formulas (useful for boolean operations)
 - added several fractal formulas
@@ -1551,7 +1551,7 @@ v2.03-1 (February 2015)
 fixed bug: improper loading of "old settings" when system used comma as decimal separator
 
 v2.03 (February 2015)
-- Added recording and rendering of flight animation. All frames are displayed in the table with previews. 
+- Added recording and rendering of flight animation. All frames are displayed in the table with previews.
   There is possible to edit values in the table and interpolate them in selected range of frames
   All frames can be edited in any spreadsheet editor. CSV format is used in settings file to store animation frames
   There is possible to add any parameter to animation (context menu for every parameter)
@@ -1766,14 +1766,14 @@ v1.06 (July 2011)
 - Added possibility to render MengerKoch formula. It is added as an option for IFS formula (Menger Sponge mode; edge x,y,z)
 - Corrected ray-tracing algorithm. Fog and specular highlights weren't calculated properly in reflections.
 - Fixed problem in CalculateNormals() function. Sometimes when all deltas were zero, it produced NaN value. It caused white dots in raytraced reflections.
-- Added many simple formulas for hybryd sequence: x^2/(x + p); y^2/(y + p); z^2/(z + p); r^2/(r + p); 
-	spherical fold; x^p, y^p, z^p; x * p; y * p; z * p; x + p; y + p; z + p;
+- Added many simple formulas for hybryd sequence: x^2/(x + p); y^2/(y + p); z^2/(z + p); r^2/(r + p);
+        spherical fold; x^p, y^p, z^p; x * p; y * p; z * p; x + p; y + p; z + p;
 	axis X angle multiply by p; axis Y angle multiply by p; axis Z angle multiply by p
 - Improved quality of raytraced reflections by adding binary searching in DE algorithm
 
 v1.05 (July 2011)
 - Created Windows installer
-- Changed file structure. Now example and other files are located in (on Linux) /usr/share/mandelbulber directory or (on Windows) C:\Program files\mandelbulber. 
+- Changed file structure. Now example and other files are located in (on Linux) /usr/share/mandelbulber directory or (on Windows) C:\Program files\mandelbulber.
   User data is stored in ".mandelbulber" directory located in $HOME folder
 - textures are loaded when necessary
 - background gradient is defined using 3 colours
@@ -1893,10 +1893,10 @@ v0.94
 - Fixed bug: scale of visible auxiliary lights was not correct (size of lights wasn't proportional to square of distance)
 - Fixed bug: Program crashed when start_frame in keyframe mode was greater than zero
 - Fixed memory leaks and uninitialised variables
-- Source code: many changes in program structure. Now there is possible to simultaneous render two different fractals. 
+- Source code: many changes in program structure. Now there is possible to simultaneous render two different fractals.
 
 v0.93
-- added switch for zooming mode - enable old zooming behavior 
+- added switch for zooming mode - enable old zooming behavior
 - start frame and end frame are used also for render animation in path mode
 - fixed bug: rendering was progressive during recording flight path - now progressive mode is disabled
 - fixed bug: added proper gdk threading guards in timer callback
@@ -1939,7 +1939,7 @@ v0.90
 v0.85
 - added animation of different parameters by sound envelope, and envelope of selected sound frequency bands
 - added command-line mode. Program can work without GUI on environments without any display drivers
-- after pressing "Record key-frame" button, program tries to load next keyframe if exists 
+- after pressing "Record key-frame" button, program tries to load next keyframe if exists
 - GUI redesign: image tab was divided into image and shaders tabs
 - animation can be rendered also into PNG and PNG with alpha channel image sequence
 
@@ -2025,11 +2025,11 @@ v0.40
 - flight speed is adjustable during record mode by mouse clicking (left/right button)
 - flight path record can be continued from last position stored in path file ("Continue recording" button)
 - each shading effect is rendered into separate layer (higher memory consumption)
-- shaders can be adjusted after finishing rendering 
+- shaders can be adjusted after finishing rendering
 - compiling of all image layers is on-fly
 - changed default folders in file requsters
 - added "Save image as..." button for saving image after adjustments
-- added post rendering effect based on z-buffer: fog 
+- added post rendering effect based on z-buffer: fog
 - added post rendering effect based on z-buffer: screen space ambient occlusion
 - added "Post effects" tab in GUI
 - added analytic distance estimation for Tglad's Mandelbox formula (faster rendering)
