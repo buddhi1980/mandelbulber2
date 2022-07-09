@@ -61,7 +61,7 @@ REAL4 TransfDIFSPiriformIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	zc *= fractal->transformCommon.scale3D111;
 
-	REAL u = native_powr(zc.x, fractal->transformCommon.scale2);
+	REAL u = pow(zc.x, fractal->transformCommon.scale2);
 	REAL r = u * zc.x + zc.y * zc.y + zc.z * zc.z + fractal->transformCommon.offsetB0;
 	r = (r < 0.0f) ? 0.0f : native_sqrt(r);
 	REAL t = u + fractal->transformCommon.offsetC0;

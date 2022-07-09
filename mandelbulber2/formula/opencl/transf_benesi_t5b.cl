@@ -18,8 +18,6 @@
 
 REAL4 TransfBenesiT5bIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
-
 	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
