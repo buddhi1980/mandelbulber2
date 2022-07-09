@@ -23,6 +23,9 @@ v2.28 (July 2022)
    transfMengerFold, add aux.color
    transfDIFSBox added rounding
    transfDIFSBoxV3 fixed rounding
+   transfSphericalPwrFold fix openCL pow
+   transfBenesiT5b fix openCL pow
+   benesiMagTransforms fix openCL pow
 
 - UI: Added support for high DPI displays
 - UI: Improved sliders for integer values (issue #481)
