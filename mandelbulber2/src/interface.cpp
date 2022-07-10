@@ -1442,6 +1442,7 @@ bool cInterface::AutoRecovery() const
 			return false;
 		}
 	}
+	return false;
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
