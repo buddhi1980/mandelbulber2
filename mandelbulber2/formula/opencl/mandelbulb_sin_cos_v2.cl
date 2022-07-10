@@ -34,7 +34,7 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	ph = (ph + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	REAL rp = pow(aux->r, fractal->bulb.power - 1.0f);
 	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 	rp *= aux->r;
 
@@ -42,7 +42,7 @@ REAL4 MandelbulbSinCosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL cth = native_cos(th);
 	REAL sth = native_sin(th);
 
-	REAL4 trg = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL4 trg = CVector4{0.0f, 0.0f, 0.0f, 0.0f};
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		trg.x = cth * native_cos(ph);

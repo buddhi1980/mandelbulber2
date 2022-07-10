@@ -114,7 +114,7 @@ REAL4 RiemannSphereHoboldMultiIteration(
 	z.z = n2y * (1.0f - z.y) / n2z;
 
 	// raise original length to the power, then add constant
-	z *= native_powr(aux->r, fractal->transformCommon.pwr8 / 2.0f);
+	z *= pow(aux->r, fractal->transformCommon.pwr8 / 2.0f);
 
 	z += fractal->transformCommon.additionConstant000;
 

@@ -17,15 +17,15 @@ REAL4 TransfSphericalInvPnormIteration(REAL4 z, __constant sFractalCl *fractal, 
 {
 	REAL4 lpN = fabs(z);
 	REAL pr = fractal->transformCommon.scale2;
-	lpN.x = native_powr(lpN.x, pr);
-	lpN.y = native_powr(lpN.y, pr);
-	lpN.z = native_powr(lpN.z, pr);
+	lpN.x = pow(lpN.x, pr);
+	lpN.y = pow(lpN.y, pr);
+	lpN.z = pow(lpN.z, pr);
 
 	REAL pNorm = lpN.x + lpN.y + lpN.z;
-	if (fractal->transformCommon.functionEnabledFalse) pNorm += native_powr(lpN.w, pr);
-	pNorm = native_powr(pNorm, 1.0f / pr);
+	if (fractal->transformCommon.functionEnabledFalse) pNorm += pow(lpN.w, pr);
+	pNorm = pow(pNorm, 1.0f / pr);
 
-	pNorm = native_powr(pNorm, fractal->transformCommon.scaleA2);
+	pNorm = pow(pNorm, fractal->transformCommon.scaleA2);
 	pNorm = max(pNorm, fractal->transformCommon.offset0);
 
 	REAL useScale = fractal->transformCommon.scale1 - aux->actualScaleA;

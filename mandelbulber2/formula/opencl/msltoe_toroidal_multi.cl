@@ -89,7 +89,7 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	th0 *= fractal->transformCommon.pwr8; // default 8
 	ph0 *= fractal->bulb.power;						// default 9 gives 8 symmetry
 
-	REAL rp = native_powr(aux->r, fractal->transformCommon.pwr4);
+	REAL rp = pow(aux->r, fractal->transformCommon.pwr4);
 
 	REAL costh = native_cos(th0);
 	REAL sinth = native_sin(th0);

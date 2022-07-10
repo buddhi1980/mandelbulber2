@@ -38,8 +38,7 @@ REAL4 MandelboxVaryScale4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 	if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
 
-	REAL rr =
-		native_powr(z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w, fractal->mandelboxVary4D.rPower);
+	REAL rr = pow(z.x * z.x + z.y * z.y + z.z * z.z + z.w * z.w, fractal->mandelboxVary4D.rPower);
 	REAL m = aux->actualScale;
 	if (rr < fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR)
 	{

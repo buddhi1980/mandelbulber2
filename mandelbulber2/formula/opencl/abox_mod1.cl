@@ -55,7 +55,7 @@ REAL4 AboxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	REAL rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		rr = native_powr(rr, fractal->mandelboxVary4D.rPower);
+		rr = pow(rr, fractal->mandelboxVary4D.rPower);
 	}
 
 	if (rr < fractal->transformCommon.minR0)

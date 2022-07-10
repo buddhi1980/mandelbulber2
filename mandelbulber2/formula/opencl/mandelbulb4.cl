@@ -15,7 +15,7 @@
 
 REAL4 Mandelbulb4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	REAL rp = pow(aux->r, fractal->bulb.power - 1.0f);
 	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 
 	REAL angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;

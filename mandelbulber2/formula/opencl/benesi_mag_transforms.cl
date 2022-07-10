@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -209,15 +209,15 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 					// if (z.z > -1e-21f && z.z < 1e-21f)
 					//	z.z = (z.z > 0) ? 1e-21f : -1e-21f;
 					tempV2 = z;
-					tempV2.x = fabs(pow(pow(z.y, fractal->transformCommon.int8X)
-																				+ pow(z.z, fractal->transformCommon.int8X),
-						fractal->transformCommon.power025.x));
-					tempV2.y = fabs(pow(pow(z.x, fractal->transformCommon.int8Y)
-																				+ pow(z.z, fractal->transformCommon.int8Y),
-						fractal->transformCommon.power025.y));
-					tempV2.z = fabs(pow(pow(z.x, fractal->transformCommon.int8Z)
-																				+ pow(z.y, fractal->transformCommon.int8Z),
-						fractal->transformCommon.power025.z));
+					tempV2.x = fabs(
+						pow(pow(z.y, fractal->transformCommon.int8X) + pow(z.z, fractal->transformCommon.int8X),
+							fractal->transformCommon.power025.x));
+					tempV2.y = fabs(
+						pow(pow(z.x, fractal->transformCommon.int8Y) + pow(z.z, fractal->transformCommon.int8Y),
+							fractal->transformCommon.power025.y));
+					tempV2.z = fabs(
+						pow(pow(z.x, fractal->transformCommon.int8Z) + pow(z.y, fractal->transformCommon.int8Z),
+							fractal->transformCommon.power025.z));
 					z = (fabs(tempV2 - fractal->transformCommon.offsetC111))
 							* fractal->transformCommon.scale3Dd222;
 					aux->DE *= length(z) / length(tempV2);

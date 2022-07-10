@@ -37,8 +37,8 @@ REAL4 RiemannSphereMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	// if (r < 1e-21f)
 	//	r = 1e-21f;
 
-	if (p > 36) p = 36; // problem with native_powr()
-	r = -0.25f + native_powr(r, p);
+	if (p > 36) p = 36; // problem with pow()
+	r = -0.25f + pow(r, p);
 
 	z.x = 2.0f * s;
 	z.y = 2.0f * t;

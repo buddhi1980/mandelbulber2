@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,7 +18,7 @@ REAL4 CoastalbrotIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	Q_UNUSED(fractal);
 
 	REAL temp = aux->r;
-	temp = native_powr(temp, 7.7f);
+	temp = pow(temp, 7.7f);
 	aux->DE = temp * aux->DE * 7.7f;
 	temp *= aux->r;
 

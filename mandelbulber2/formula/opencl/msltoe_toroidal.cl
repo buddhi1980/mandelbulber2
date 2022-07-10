@@ -31,7 +31,7 @@ REAL4 MsltoeToroidalIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL y1 = r1 * native_sin(theta);
 	aux->r = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1) + z.z * z.z; //+ 1e-030f
 	REAL phi = asin(z.z / native_sqrt(aux->r));
-	REAL rp = native_powr(aux->r, fractal->transformCommon.pwr4); // default 4.0f
+	REAL rp = pow(aux->r, fractal->transformCommon.pwr4); // default 4.0f
 
 	phi *= fractal->transformCommon.pwr8; // default 8
 	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry

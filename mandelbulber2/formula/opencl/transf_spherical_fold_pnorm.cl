@@ -17,14 +17,14 @@ REAL4 TransfSphericalFoldPnormIteration(
 	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 lpN = fabs(z);
-	lpN.x = native_powr(lpN.x, fractal->transformCommon.scale2);
-	lpN.y = native_powr(lpN.y, fractal->transformCommon.scale2);
-	lpN.z = native_powr(lpN.z, fractal->transformCommon.scale2);
+	lpN.x = pow(lpN.x, fractal->transformCommon.scale2);
+	lpN.y = pow(lpN.y, fractal->transformCommon.scale2);
+	lpN.z = pow(lpN.z, fractal->transformCommon.scale2);
 	REAL pNorm = lpN.x + lpN.y + lpN.z;
 	// if (fractal->transformCommon.functionEnabledFalse)
-	//	pNorm +=  native_powr(lpN.w, fractal->transformCommon.scale2);
+	//	pNorm +=  pow(lpN.w, fractal->transformCommon.scale2);
 	if (fractal->transformCommon.scaleA1 != 1.0f)
-		pNorm = native_powr(pNorm, fractal->transformCommon.scaleA1);
+		pNorm = pow(pNorm, fractal->transformCommon.scaleA1);
 	REAL rr = pNorm;
 	REAL useScale = 1.0f;
 

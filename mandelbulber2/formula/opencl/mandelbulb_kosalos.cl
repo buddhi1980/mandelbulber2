@@ -40,7 +40,7 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL theta = atan2(xyL * thetaTweak, z.z); // <-- added 'thetaTweak' effect
 
 	REAL phi = atan2(z.y, z.x) * power;
-	REAL pwr = native_powr(aux->r, power);
+	REAL pwr = pow(aux->r, power);
 	REAL ss = native_sin(theta * power) * pwr;
 
 	if (!fractal->transformCommon.addCpixelEnabledFalse) // z = old z + new z
@@ -48,7 +48,7 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.x += ss * native_cos(phi);
 		z.y += ss * native_sin(phi);
 		z.z += pwr * native_cos(theta * power);
-		aux->DE += (native_powr(aux->r, power - 1.0f) * power * aux->DE);
+		aux->DE += (pow(aux->r, power - 1.0f) * power * aux->DE);
 		z.z += fractal->transformCommon.offset0;
 	}
 	else // z = f(z) + c
@@ -56,7 +56,7 @@ REAL4 MandelbulbKosalosIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.x = ss * native_cos(phi);
 		z.y = ss * native_sin(phi);
 		z.z = pwr * native_cos(theta * power);
-		aux->DE = (native_powr(aux->r, power - 1.0f) * power * aux->DE);
+		aux->DE = (pow(aux->r, power - 1.0f) * power * aux->DE);
 		z.z += fractal->transformCommon.offset0;
 		c *= fractal->transformCommon.constantMultiplierC111;
 		if (!fractal->transformCommon.functionEnabledyFalse)

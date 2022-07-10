@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,6 +18,8 @@
 
 REAL4 TransfBenesiT5bIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	Q_UNUSED(aux);
+
 	REAL tempXZ = z.x * SQRT_2_3_F - z.z * SQRT_1_3_F;
 	z = (REAL4){(tempXZ - z.y) * SQRT_1_2_F, (tempXZ + z.y) * SQRT_1_2_F,
 		z.x * SQRT_1_3_F + z.z * SQRT_2_3_F, z.w};
@@ -29,15 +31,15 @@ REAL4 TransfBenesiT5bIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// if (z.z > -1e-21f && z.z < 1e-21f)
 	// z.z = (z.z > 0) ? 1e-21f : -1e-21f;
 	REAL4 tempV2 = z;
-	tempV2.x = fabs(pow(pow(z.y, fractal->transformCommon.int8X)
-																+ pow(z.z, fractal->transformCommon.int8X),
-		fractal->transformCommon.power025.x));
-	tempV2.y = fabs(pow(pow(z.x, fractal->transformCommon.int8Y)
-																+ pow(z.z, fractal->transformCommon.int8Y),
-		fractal->transformCommon.power025.y));
-	tempV2.z = fabs(pow(pow(z.x, fractal->transformCommon.int8Z)
-																+ pow(z.y, fractal->transformCommon.int8Z),
-		fractal->transformCommon.power025.z));
+	tempV2.x =
+		fabs(pow(pow(z.y, fractal->transformCommon.int8X) + pow(z.z, fractal->transformCommon.int8X),
+			fractal->transformCommon.power025.x));
+	tempV2.y =
+		fabs(pow(pow(z.x, fractal->transformCommon.int8Y) + pow(z.z, fractal->transformCommon.int8Y),
+			fractal->transformCommon.power025.y));
+	tempV2.z =
+		fabs(pow(pow(z.x, fractal->transformCommon.int8Z) + pow(z.y, fractal->transformCommon.int8Z),
+			fractal->transformCommon.power025.z));
 	z = (fabs(tempV2 - fractal->transformCommon.offsetC111)) * fractal->transformCommon.scale3Dd222;
 
 	REAL avgScale = length(z) / length(tempV2);

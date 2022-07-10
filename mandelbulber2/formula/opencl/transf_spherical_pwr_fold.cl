@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,9 +19,8 @@ REAL4 TransfSphericalPwrFoldIteration(REAL4 z, __constant sFractalCl *fractal, s
 	// if (z.x > -1e-21f && z.x < 1e-21f) z.x = (z.x > 0) ? 1e-21f : -1e-21f;
 	// if (z.y > -1e-21f && z.y < 1e-21f) z.y = (z.y > 0) ? 1e-21f : -1e-21f;
 	// if (z.z > -1e-21f && z.z < 1e-21f) z.z = (z.z > 0) ? 1e-21f : -1e-21f;
-	REAL rr = pow(pow(z.x, fractal->transformCommon.pwr4)
-													+ pow(z.y, fractal->transformCommon.pwr4)
-													+ pow(z.z, fractal->transformCommon.pwr4),
+	REAL rr = pow(pow(z.x, fractal->transformCommon.pwr4) + pow(z.y, fractal->transformCommon.pwr4)
+									+ pow(z.z, fractal->transformCommon.pwr4),
 		fractal->transformCommon.pwr05);
 
 	// if (rr < 1e-21f && rr > -1e-21f)

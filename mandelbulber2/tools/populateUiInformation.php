@@ -476,7 +476,7 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/([\s\(\{])($double)([\s\)\};,])/", 'replace' => '$1$2' . ($mode == 'single' ? 'f' : '') . '$3'),    // double literals to float literals
 		array('find' => "/($preF)sin\(/", 'replace' => '$1native_sin('),          // native sin
 		array('find' => "/($preF)cos\(/", 'replace' => '$1native_cos('),          // native cos
-		array('find' => "/($preF)pow\(/", 'replace' => '$1native_powr('),         // native pow
+		//array('find' => "/($preF)pow\(/", 'replace' => '$1native_powr('),         // native pow
 		array('find' => "/($preF)sqrt\(/", 'replace' => '$1native_sqrt('),        // native sqrt
 		array('find' => "/CVector3\(($multChain,$s$multChain,$s$multChain)\)/", 'replace' => '(' . $fod . '3) {$1}'),  // CVector3 to built in float3
 		array('find' => "/CVector3\(\)/", 'replace' => '(' . $fod . '3) {0, 0, 0}'),  // CVector3 default constructor to built in float3

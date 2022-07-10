@@ -32,7 +32,7 @@ REAL4 BoxFoldBulbV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// if (aux->r < 1e-21f) aux->r = 1e-21f;
 	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
 	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	REAL rp = native_powr(aux->r, fractal->transformCommon.scale2 - 1.0f);
+	REAL rp = pow(aux->r, fractal->transformCommon.scale2 - 1.0f);
 	REAL th = th0 * fractal->transformCommon.scale2;
 	REAL ph = ph0 * fractal->transformCommon.scale2;
 	REAL cth = native_cos(th);

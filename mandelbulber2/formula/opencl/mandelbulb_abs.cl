@@ -30,7 +30,7 @@ REAL4 MandelbulbAbsIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	// if (aux->r < 1e-21f) aux->r = 1e-21f;
 	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
 	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	REAL rp = pow(aux->r, fractal->bulb.power - 1.0f);
 	REAL th = th0 * fractal->bulb.power;
 	REAL ph = ph0 * fractal->bulb.power;
 	REAL cth = native_cos(th);

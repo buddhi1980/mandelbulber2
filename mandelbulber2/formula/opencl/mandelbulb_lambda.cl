@@ -43,7 +43,7 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledAFalse) z1.z = -z1.z;
 	th0 += asin(z1.z / aux->r);
 	ph0 += atan2(z1.y, z1.x);
-	REAL rp = native_powr(aux->r, Pwr - fractal->transformCommon.offset0);
+	REAL rp = pow(aux->r, Pwr - fractal->transformCommon.offset0);
 	REAL th = th0 * Pwr;
 	REAL ph = ph0 * Pwr;
 	REAL costh = native_cos(th);
@@ -102,7 +102,7 @@ REAL4 MandelbulbLambdaIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL bias = fractal->transformCommon.scaleC1;
-	aux->DE = max(aux->DE * bias, native_powr(aux->r, Pwr - 1.0f) * aux->DE * Pwr + 1.0f);
+	aux->DE = max(aux->DE * bias, pow(aux->r, Pwr - 1.0f) * aux->DE * Pwr + 1.0f);
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	return z;
 }

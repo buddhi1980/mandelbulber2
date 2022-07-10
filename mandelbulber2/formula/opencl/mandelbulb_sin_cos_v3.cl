@@ -44,17 +44,17 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL t1 = fabs(native_cos(fractal->transformCommon.constantMultiplierA111.x * phi)
 									 * fractal->transformCommon.constantMultiplierA111.y);
 		if (fractal->transformCommon.functionEnabledCxFalse)
-			t1 = native_powr(t1, fractal->transformCommon.constantMultiplierB111.x);
+			t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
 
 		REAL t2 = fabs(native_sin(fractal->transformCommon.constantMultiplierA111.x * phi)
 									 * fractal->transformCommon.constantMultiplierA111.z);
 		if (fractal->transformCommon.functionEnabledCyFalse)
-			t2 = native_powr(t2, fractal->transformCommon.constantMultiplierB111.y);
+			t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 			r1 = t1 + t2;
 		else
-			r1 = native_powr(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
+			r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 		if (fractal->transformCommon.functionEnabledRFalse) r1 = 1.0f / r1;
 
@@ -86,7 +86,7 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	th = (th + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	ph = (ph + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
+	REAL rp = pow(aux->r, fractal->bulb.power - 1.0f);
 	aux->DE = rp * aux->DE * fractal->bulb.power + 1.0f;
 	rp *= aux->r;
 
@@ -162,7 +162,7 @@ REAL4 MandelbulbSinCosV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
 		else
-			aux->DE0 = 0.0f; // 0.0f artifacts in openCL
+			aux->DE0 = 0.0f; // 0.01f artifacts in openCL
 
 		if (aux->i >= fractal->transformCommon.startIterationsO
 				&& aux->i < fractal->transformCommon.stopIterationsO)

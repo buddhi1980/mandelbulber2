@@ -54,7 +54,7 @@ REAL4 MandelbulbBermarteIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 					+ 1e-030f; // MUST keep exception catch ??;
 		ph0 = atan(z.y / z.x);
 		ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
-		zp = native_powr(aux->r, fractal->transformCommon.pwr8);
+		zp = pow(aux->r, fractal->transformCommon.pwr8);
 		sinth = native_sin(th0);
 		z = zp * (REAL4){sinth * native_cos(ph0), native_sin(ph0) * sinth, native_cos(th0), 0.0f};
 	}
@@ -64,7 +64,7 @@ REAL4 MandelbulbBermarteIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 					+ 1e-030f; // MUST keep exception catch ??;
 		ph0 = atan2(z.y, z.x);
 		ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
-		zp = native_powr(aux->r, fractal->transformCommon.pwr8);
+		zp = pow(aux->r, fractal->transformCommon.pwr8);
 		costh = native_cos(th0);
 		z = zp * (REAL4){costh * native_sin(ph0), native_cos(ph0) * costh, native_sin(th0), 0.0f};
 	}
@@ -74,15 +74,15 @@ REAL4 MandelbulbBermarteIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic log DE adjustment
-		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
-								* aux->DE * fractal->transformCommon.pwr8 * fractal->analyticDE.scale1
+		aux->DE = pow(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1) * aux->DE
+								* fractal->transformCommon.pwr8 * fractal->analyticDE.scale1
 							+ fractal->analyticDE.offset2;
 	}
 	else // default, i.e. scale1 & offset1 & offset2 = 1.0f
 	{
-		aux->DE = native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f)
-								* fractal->transformCommon.pwr8 * aux->DE
-							+ 1.0f;
+		aux->DE =
+			pow(aux->r, fractal->transformCommon.pwr8 - 1.0f) * fractal->transformCommon.pwr8 * aux->DE
+			+ 1.0f;
 	}
 	return z;
 }

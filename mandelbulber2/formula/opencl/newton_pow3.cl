@@ -69,8 +69,8 @@ REAL4 NewtonPow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.y = -tp.y * sq_r;
 	z.z = -tp.z * sq_r;
 
-	//Below translation is equivalent to the usage of c in Julia mode
-	//However, in hybrids this setting can be used as a variable only for this fractal formula
+	// Below translation is equivalent to the usage of c in Julia mode
+	// However, in hybrids this setting can be used as a variable only for this fractal formula
 	z += fractal->transformCommon.offset000;
 
 	aux->DE *= aux->r * 2.0f;

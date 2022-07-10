@@ -36,7 +36,7 @@ REAL4 MandelbulbIqV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 	// scale and rotate the point
-	wr = native_powr(aux->r, Pow);
+	wr = pow(aux->r, Pow);
 	wo = wo * Pow * fractal->transformCommon.scaleB1;
 	wi = wi * Pow * fractal->transformCommon.scaleA1;
 
@@ -47,7 +47,7 @@ REAL4 MandelbulbIqV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z.y = swo * native_cos(wi);
 	z *= wr;
 
-	aux->DE = native_powr(aux->r, Pow - 1.0f) * aux->DE * Pow + 1.0f;
+	aux->DE = pow(aux->r, Pow - 1.0f) * aux->DE * Pow + 1.0f;
 	z.z *= fractal->transformCommon.scale1;
 	z += fractal->transformCommon.offset000;
 	return z;

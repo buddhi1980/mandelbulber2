@@ -46,17 +46,17 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL t1 = fabs(native_cos(fractal->transformCommon.constantMultiplierA111.x * phi)
 								 * fractal->transformCommon.constantMultiplierA111.y);
 	if (fractal->transformCommon.functionEnabledXFalse)
-		t1 = native_powr(t1, fractal->transformCommon.constantMultiplierB111.x);
+		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
 
 	REAL t2 = fabs(native_sin(fractal->transformCommon.constantMultiplierA111.x * phi)
 								 * fractal->transformCommon.constantMultiplierA111.z);
 	if (fractal->transformCommon.functionEnabledYFalse)
-		t2 = native_powr(t2, fractal->transformCommon.constantMultiplierB111.y);
+		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		r1 = (t1 + t2);
 	else
-		r1 = native_powr(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
+		r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 	if (!fractal->transformCommon.functionEnabledFFalse) r1 = 1.0f / r1;
 

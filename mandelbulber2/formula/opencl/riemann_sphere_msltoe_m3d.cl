@@ -37,8 +37,7 @@ REAL4 RiemannSphereMsltoeM3dIteration(REAL4 z, __constant sFractalCl *fractal, s
 		s = fabs(s - fractal->transformCommon.offsetC0);
 		t = fabs(t - fractal->transformCommon.offsetD0);
 
-		r = -0.25f + fractal->transformCommon.offsetE0
-				+ native_powr(r, (fractal->transformCommon.scale2 * w));
+		r = -0.25f + fractal->transformCommon.offsetE0 + pow(r, (fractal->transformCommon.scale2 * w));
 		w = 2.0f / (1.0f + s * s + t * t);
 		z.x = r * s * w;
 		z.y = r * t * w;

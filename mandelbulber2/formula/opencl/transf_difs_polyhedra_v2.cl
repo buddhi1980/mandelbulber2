@@ -53,7 +53,7 @@ REAL4 TransfDIFSPolyhedraV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		REAL Scale = fractal->transformCommon.scale1;
 		REAL powp = 1.0f;
-		powp = native_powr(Scale, (REAL)(-m));
+		powp = pow(Scale, (REAL)(-m));
 
 		for (int n = 0; n < Type; n++)
 		{

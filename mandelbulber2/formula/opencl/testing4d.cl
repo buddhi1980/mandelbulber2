@@ -87,8 +87,7 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		REAL rr = dot(z, z);
 		rrCol = rr;
-		if (fractal->mandelboxVary4D.rPower != 1.0f)
-			rr = native_powr(rr, fractal->mandelboxVary4D.rPower);
+		if (fractal->mandelboxVary4D.rPower != 1.0f) rr = pow(rr, fractal->mandelboxVary4D.rPower);
 
 		// spherical fold
 		// z += fractal->transformCommon.offset0000;

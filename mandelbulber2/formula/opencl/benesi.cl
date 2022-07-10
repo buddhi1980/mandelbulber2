@@ -30,7 +30,7 @@ REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		t.x = zz.x - r1 + fractal->transformCommon.offset000.x;
 	else
 		t.x = -zz.x + r1 - fractal->transformCommon.offset000.x;
-	r1 = -native_powr(r1, -0.5f) * 2.0f * fabs(z.x);
+	r1 = -pow(r1, -0.5f) * 2.0f * fabs(z.x);
 	t.y = r1 * (zz.y - zz.z) + fractal->transformCommon.offset000.y;
 	t.z = r1 * 2.0f * z.y * z.z + fractal->transformCommon.offset000.z + 1e-016f;
 	z = t;

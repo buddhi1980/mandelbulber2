@@ -98,7 +98,7 @@ REAL4 Mandelnest4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->DE *= rN;
 	}
 
-	z *= native_powr(r, Power - fractal->transformCommon.offset1);
+	z *= pow(r, Power - fractal->transformCommon.offset1);
 
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)

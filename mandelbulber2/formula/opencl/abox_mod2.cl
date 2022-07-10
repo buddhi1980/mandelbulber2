@@ -57,7 +57,7 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	// rPower
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		rr = native_powr(rr, fractal->mandelboxVary4D.rPower);
+		rr = pow(rr, fractal->mandelboxVary4D.rPower);
 	}
 	// Spherical Fold
 	if (rr < fractal->transformCommon.minR2p25)

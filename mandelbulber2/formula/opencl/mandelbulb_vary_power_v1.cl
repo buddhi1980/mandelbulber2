@@ -36,7 +36,7 @@ REAL4 MandelbulbVaryPowerV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	//	aux->r = 1e-21f;
 	REAL th0 = asin(z.z / aux->r) + fractal->bulb.betaAngleOffset;
 	REAL ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	REAL rp = native_powr(aux->r, tempVC - 1.0f);
+	REAL rp = pow(aux->r, tempVC - 1.0f);
 	REAL th = th0 * tempVC;
 	REAL ph = ph0 * tempVC;
 	REAL cth = native_cos(th);
