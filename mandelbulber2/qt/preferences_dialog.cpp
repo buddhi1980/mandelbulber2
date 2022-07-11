@@ -303,9 +303,13 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 		std::shared_ptr<cParameterContainer> examplePar(new cParameterContainer);
 		std::shared_ptr<cFractalContainer> exampleParFractal(new cFractalContainer);
+
+		double dpiScale = devicePixelRatioF();
 		int thumbnailSize = systemData.GetPreferredThumbnailSize() * 1.5;
 		std::unique_ptr<cThumbnailWidget> thumbWidget(
-			new cThumbnailWidget(thumbnailSize, thumbnailSize, 1));
+			new cThumbnailWidget(thumbnailSize, thumbnailSize, dpiScale));
+
+
 		QObject::connect(thumbWidget.get(),
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,
