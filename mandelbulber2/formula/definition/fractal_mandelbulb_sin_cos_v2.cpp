@@ -51,7 +51,7 @@ void cFractalMandelbulbSinCosV2::FormulaCode(CVector4 &z, const sFractal *fracta
 	double cth = cos(th);
 	double sth = sin(th);
 
-	CVector4 trg = CVector4{0.0, 0.0, 0.0, 0.0};
+	CVector4 trg = CVector4(0.0, 0.0, 0.0, 0.0);
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
 		trg.x = cth * cos(ph);
