@@ -148,8 +148,8 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 			QString code = stream.readAll();
 			code.replace(" * D O    N O T    E D I T    T H I S    F I L E !",
 				" * F E E L   F R E E    T O    E D I T    T H I S    F I L E !");
-			QRegularExpression regex("REAL4\\ (.*?)\\(REAL4\\ z");
-			code.replace(regex, "REAL4 CustomIteration(REAL4 z");
+			QRegularExpression regex(R"reg(REAL4\ (.*?)Iteration\()reg");
+			code.replace(regex, "REAL4 CustomIteration(");
 			ui->textEdit_formula_code->setText(code);
 			file.close();
 		}
