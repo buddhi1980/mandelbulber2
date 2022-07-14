@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>bulbqt-msvc-x86</id>
+    <version>5.15.2.10889</version>
+    <authors>administrator</authors>
+    <owners>administrator</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Visual Studio Release qt5 as NuGet package.</description>
+  </metadata>
+</package>

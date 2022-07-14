@@ -41,6 +41,7 @@
 
 #include <QAction>
 #include <QSystemTrayIcon>
+#include <QtGui/qevent.h>
 
 // forward declarations
 class cImage;

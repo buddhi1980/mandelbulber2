@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>opus-msvc-x86</id>
+        <version>1.3.1.7707</version>
+        <authors>administrator</authors>
+        <owners>administrator</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Visual Studio Release opus as NuGet package.</description>
+    </metadata>
+</package>

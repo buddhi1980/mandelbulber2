@@ -41,6 +41,7 @@
 #include <QBuffer>
 #include <QMediaPlayer>
 #include <QWidget>
+#include <QtCore/qbuffer.h>
 
 // forward declarations
 class cAutomatedWidgets;
