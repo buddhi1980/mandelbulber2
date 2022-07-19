@@ -476,6 +476,8 @@ enum enumFractalFormula
 	transfLowResMode = 1144,
 	transfMengerFoldV2 = 1145,
 	transfAddSphericalInvert = 1146,
+
+	// 2.29
 	transfSupershape = 1147,
 
 	// mandelbulber transfdIFS
@@ -520,10 +522,12 @@ enum enumFractalFormula
 	transfDIFSHeart = 1631,
 	transfDIFSHelix = 1632,
 	transfDIFSBoxFrame = 1633,
-
 	// 2.28
 	transfDIFSPiriform = 1634,
+
+	// 2.29
 	transfDIFSClipCustom = 1635,
+	transfDIFSHelixV2 = 1636,
 
 	// hybrid color
 	transfHybridColor = 2000,

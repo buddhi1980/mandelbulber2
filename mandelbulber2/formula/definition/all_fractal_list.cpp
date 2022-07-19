@@ -287,6 +287,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSGridV3());
 	fractalList->append(new cFractalTransfDIFSHeart());
 	fractalList->append(new cFractalTransfDIFSHelix());
+
 	fractalList->append(new cFractalTransfDIFSHextgrid2());
 	fractalList->append(new cFractalTransfDIFSHexprism());
 	fractalList->append(new cFractalTransfDIFSHexprismV2());
@@ -543,7 +544,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalJosKleinianV4());
 
 	fractalList->append(new cFractalTransfDIFSClipCustom());
-
+	fractalList->append(new cFractalTransfDIFSHelixV2());
 	fractalList->append(new cFractalTransfSupershape());
 
 	//====================== FRACTAL LIST - END ==================
