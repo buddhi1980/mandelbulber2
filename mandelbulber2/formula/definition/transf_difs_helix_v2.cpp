@@ -78,7 +78,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		if (fractal->transformCommon.functionEnabledEFalse) zc.x = zc.y;
 	}
 
-	// twist
+	// menger sponge
 	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		int Iterations = fractal->transformCommon.int16;
@@ -86,8 +86,6 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		for (int n = 0; n < Iterations; n++)
 		{
 			zc = fabs(zc);
-
-			double temp;
 			double col = 0.0;
 			if (zc.x < zc.y)
 			{
@@ -110,19 +108,20 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 				zc.y = temp;
 				col += fractal->foldColor.difs0000.z;
 			}
-				if (fractal->foldColor.auxColorEnabledFalse && n >= fractal->foldColor.startIterationsA
-					&& n < fractal->foldColor.stopIterationsA)
+				if (fractal->foldColor.auxColorEnabledFalse
+						&& n >= fractal->foldColor.startIterationsA
+						&& n < fractal->foldColor.stopIterationsA)
 			{
 				aux.color += col;
 			}
 
-			double bz = (fractal->transformCommon.scale3 - 1.0) * fractal->transformCommon.offsetA111.z;
-			zc = fractal->transformCommon.scale3 * zc - (fractal->transformCommon.scale3 - 1.0) * fractal->transformCommon.offsetA111;
+			temp = fractal->transformCommon.scale3 - 1.0;
+			double bz = temp * fractal->transformCommon.offsetA111.z;
+			zc = fractal->transformCommon.scale3 * zc
+					- temp * fractal->transformCommon.offsetA111;
 			aux.DE = fractal->transformCommon.scale3 * (aux.DE + 1.0);
 
 			if (zc.z < -0.5 * bz) zc.z += bz;
-
-
 		}
 	}
 
@@ -130,13 +129,10 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 
 	aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 
-
 	CVector4 d = fabs(zc);
-
 	d.x = max(d.x - fractal->transformCommon.offset1, 0.0);
-	d.y = max(d.y - fractal->transformCommon.offset05, 0.0);
-	d.z = max(d.z - fractal->transformCommon.offset02, 0.0);
-
+	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
+	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 	double rDE = d.Length();
 
 
@@ -150,6 +146,8 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	}
 	aux.dist = min(aux.dist, rDE);
 
-	if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
-
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
 }
