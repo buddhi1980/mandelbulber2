@@ -63,18 +63,16 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL sinB = sin(ang);
 		zc.y = b * cosA + a * sinB;
 		zc.z = a * cosA + b * -sinB;
-		if (fractal->transformCommon.functionEnabledDFalse) zc.x = zc.z;
-		if (fractal->transformCommon.functionEnabledEFalse) zc.x = zc.y;
 	}
 
-	// twist
+	// menger sponge
 	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		int Iterations = fractal->transformCommon.int16;
-
 		for (int n = 0; n < Iterations; n++)
 		{
 			zc = fabs(zc);
+			zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
 			REAL col = 0.0f;
 			if (zc.x < zc.y)
 			{
@@ -97,7 +95,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				zc.y = temp;
 				col += fractal->foldColor.difs0000.z;
 			}
-				if (fractal->foldColor.auxColorEnabledFalse && n >= fractal->foldColor.startIterationsA
+			if (n >= fractal->foldColor.startIterationsA
 					&& n < fractal->foldColor.stopIterationsA)
 			{
 				aux->color += col;
@@ -111,13 +109,18 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
 	}
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
 
-	zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
 
 	aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 
 	REAL4 d = fabs(zc);
-	d.x = max(d.x - fractal->transformCommon.offset1, 0.0);
+	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 	REAL rDE = length(d);

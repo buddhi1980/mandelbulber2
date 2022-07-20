@@ -74,8 +74,6 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		double sinB = sin(ang);
 		zc.y = b * cosA + a * sinB;
 		zc.z = a * cosA + b * -sinB;
-		if (fractal->transformCommon.functionEnabledDFalse) zc.x = zc.z;
-		if (fractal->transformCommon.functionEnabledEFalse) zc.x = zc.y;
 	}
 
 	// menger sponge
@@ -86,6 +84,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		for (int n = 0; n < Iterations; n++)
 		{
 			zc = fabs(zc);
+			zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 			double col = 0.0;
 			if (zc.x < zc.y)
 			{
@@ -108,8 +107,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 				zc.y = temp;
 				col += fractal->foldColor.difs0000.z;
 			}
-				if (fractal->foldColor.auxColorEnabledFalse
-						&& n >= fractal->foldColor.startIterationsA
+			if (n >= fractal->foldColor.startIterationsA
 						&& n < fractal->foldColor.stopIterationsA)
 			{
 				aux.color += col;
@@ -120,21 +118,24 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			zc = fractal->transformCommon.scale3 * zc
 					- temp * fractal->transformCommon.offsetA111;
 			aux.DE = fractal->transformCommon.scale3 * (aux.DE + 1.0);
-
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
 	}
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
 
-	zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
 
 	aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 
 	CVector4 d = fabs(zc);
-	d.x = max(d.x - fractal->transformCommon.offset1, 0.0);
+	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 	double rDE = d.Length();
-
 
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0;
 
