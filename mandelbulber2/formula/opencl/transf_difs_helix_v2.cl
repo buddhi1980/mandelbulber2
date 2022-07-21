@@ -108,14 +108,24 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->DE = fractal->transformCommon.scale3 * (aux->DE + 1.0f);
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
+
 	}
+
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
+		if (fractal->transformCommon.angleDegC != 0.0)
+		{
+			ang = fractal->transformCommon.angleDegC;
+			temp = zc.y;
+			REAL cosA = cos(ang);
+			REAL sinB = sin(ang);
+			zc.y = zc.z * cosA + zc.y * sinB;
+			zc.z = temp * cosA + zc.z * -sinB;
+		}
 	}
-
 
 	aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 

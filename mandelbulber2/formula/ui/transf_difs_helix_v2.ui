@@ -290,12 +290,15 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_45">
           <property name="text">
-           <string notr="true">off1</string>
+           <string notr="true">offset:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -328,7 +331,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_44">
           <property name="text">
-           <string notr="true">scaleA2</string>
+           <string notr="true">scale:</string>
           </property>
          </widget>
         </item>
@@ -768,6 +771,58 @@
     </widget>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_272">
+       <property name="text">
+        <string>rotate:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_deg_C">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-36000.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>36000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_54">
+     <property name="text">
+      <string notr="true">Custom DE</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
@@ -775,7 +830,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_128">
        <property name="text">
-        <string notr="true">x</string>
+        <string notr="true">offset x:</string>
        </property>
       </widget>
      </item>
@@ -813,7 +868,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_129">
        <property name="text">
-        <string notr="true">depth:</string>
+        <string notr="true">depth z:</string>
        </property>
       </widget>
      </item>
@@ -851,7 +906,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_127">
        <property name="text">
-        <string notr="true">width:</string>
+        <string notr="true">width y:</string>
        </property>
       </widget>
      </item>
@@ -903,7 +958,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_183">
        <property name="text">
-        <string>anal off :</string>
+        <string>DE offset :</string>
        </property>
       </widget>
      </item>
@@ -1586,12 +1641,44 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>60</x>
-     <y>679</y>
+     <x>62</x>
+     <y>926</y>
     </hint>
     <hint type="destinationlabel">
-     <x>301</x>
-     <y>681</y>
+     <x>378</x>
+     <y>875</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxd_transf_angle_deg_C</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>673</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>104</x>
+     <y>706</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_scaleA_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>265</y>
     </hint>
    </hints>
   </connection>

@@ -120,12 +120,24 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			aux.DE = fractal->transformCommon.scale3 * (aux.DE + 1.0);
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
+
+
 	}
+
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
+		if (fractal->transformCommon.angleDegC != 0.0)
+		{
+			ang = fractal->transformCommon.angleDegC;
+			temp = zc.y;
+			double cosA = cos(ang);
+			double sinB = sin(ang);
+			zc.y = zc.z * cosA + zc.y * sinB;
+			zc.z = temp * cosA + zc.z * -sinB;
+		}
 	}
 
 
