@@ -21,7 +21,7 @@ wget -O $CLFILE $CLSRC
 fi
 
 # build operation
-cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl.pro
+cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro
 cd $BUILD && make -j8
 
 # binary requirement
@@ -38,30 +38,16 @@ fi
 SUPPORT=$SRC/mandelbulber2
 PACK=$BUILD/mandelbulber2.app
 #making directories
-mkdir -vp "$PACK"
-#copying README file
-cp -v "$SUPPORT/deploy/README" "$PACK"
-#copying NEWS file
-cp -v "$SUPPORT/deploy/NEWS" "$PACK"
-#copying COPYING file
-cp -v "$SUPPORT/deploy/COPYING" "$PACK"
-#copying share folder
-SHARE=$PACK
-cp -vr "$SUPPORT/deploy/share/mandelbulber2/"* "$SHARE/"
-#copying fomula files
-cp -vr "$SUPPORT/formula" "$SHARE/"
-#copying language files
-cp -vr "$SUPPORT/language" "$SHARE/"
-#copying opencl files
-cp -vr "$SUPPORT/opencl" "$SHARE/"
+#mkdir -vp "$PACK"
+
 #copying source files	
 cp -vr "$SUPPORT/src" "$PACK/"
 cp -vr "$SUPPORT/qt" "$PACK/"
-cp -vr "$SUPPORT/opencl" "$PACK/"
+#cp -vr "$SUPPORT/opencl" "$PACK/"
 #copying makefiles
 mkdir -vp "$PACK/makefiles"
 cp -v "$SUPPORT/qmake/mandelbulber.pro" "$PACK/makefiles/"
-cp -v "$SUPPORT/qmake/mandelbulber-opencl.pro" "$PACK/makefiles/"
+cp -v "$SUPPORT/qmake/mandelbulber-opencl-mac.pro" "$PACK/makefiles/"
 cp -v "$SUPPORT/qmake/common.pri" "$PACK/makefiles/"
 #copying documentation files
 mkdir -vp "$PACK/doc"
@@ -73,5 +59,5 @@ wget -O "$SHARE/doc/Mandelbulber_Manual.pdf" $DOCFILE
 mkdir -p "$PACK/Contents/Frameworks/"
 cp "/usr/lib/libc++abi.dylib" "$PACK/Contents/Frameworks/"
 #rename to libc++abi.1.dylib
-mv "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
+cp "$PACK/Contents/Frameworks/libc++abi.dylib" "$PACK/Contents/Frameworks/libc++abi.1.dylib"
 cd $BUILD && macdeployqt mandelbulber2.app -dmg
