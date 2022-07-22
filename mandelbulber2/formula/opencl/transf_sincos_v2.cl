@@ -31,7 +31,7 @@ REAL4 TransfSincosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	REAL ang = atan2(z.y, z.x) / M_PI_2x_F;
+	REAL ang = atan2(z.y, z.x) * M_PI_2x_INV_F;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{

@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsTorusV3Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDifsTorusTwistIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * M3D difs code by darkbeam
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
@@ -79,7 +80,7 @@ void cFractalTransfDIFSTorusTwist::FormulaCode(CVector4 &z, const sFractal *frac
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		double Voff = fractal->transformCommon.offset02;
-		temp = zc.z - 2.0 * Voff * ang / M_PI_2x + Voff;
+		temp = zc.z - 2.0 * Voff * ang * M_PI_2x_INV + Voff;
 		zc.z = temp - 2.0 * Voff * floor(temp / (2.0 * Voff)) - Voff;
 		spiral = z.z * fractal->transformCommon.scaleC0;
 	}

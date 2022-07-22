@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsCylinderV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDifsHelixIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * M3D difs code by darkbeam
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 

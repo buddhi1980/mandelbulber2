@@ -17,16 +17,12 @@
 REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp;
-	REAL4 zc;
-	if (!fractal->transformCommon.functionEnabledAuxCFalse)
-		zc = z;
-	else
-		zc = aux->const_c;
+	REAL4 zc = z;
 
 	zc *= fractal->transformCommon.scale1;
 	aux->DE *= fractal->transformCommon.scale1;
 	// torus
-	REAL ang = atan2(zc.y, zc.x) / M_PI_2x;
+	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
@@ -93,7 +89,6 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				temp = zc.z;
 				zc.z = zc.y;
 				zc.y = temp;
-				col += fractal->foldColor.difs0000.z;
 			}
 			if (n >= fractal->foldColor.startIterationsA
 					&& n < fractal->foldColor.stopIterationsA)
@@ -108,7 +103,6 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->DE = fractal->transformCommon.scale3 * (aux->DE + 1.0f);
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
-
 	}
 
 	if (fractal->transformCommon.functionEnabledDFalse)
@@ -127,7 +121,20 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-	aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			ang = (M_PI_F - 2.0f * fabs(atan(zc.y / zc.z))) * 2.0 / M_PI_F;
+			if (fmod(ang, 2.0f) < 1.0f) aux->color += fractal->foldColor.difs0000.z;
+			else aux->color += fractal->foldColor.difs0000.w;
+		}
+		else
+		{
+			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+		}
+	}
 
 	REAL4 d = fabs(zc);
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);

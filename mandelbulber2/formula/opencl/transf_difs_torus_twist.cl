@@ -68,7 +68,7 @@ REAL4 TransfDIFSTorusTwistIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL Voff = fractal->transformCommon.offset02;
-		temp = zc.z - 2.0f * Voff * ang / M_PI_2x_F + Voff;
+		temp = zc.z - 2.0f * Voff * ang * M_PI_2x_INV_F + Voff;
 		zc.z = temp - 2.0f * Voff * floor(temp / (2.0f * Voff)) - Voff;
 		spiral = z.z * fractal->transformCommon.scaleC0;
 	}

@@ -56,6 +56,10 @@ using std::swap;
 #define M_PI_2x 6.283185307179586476925286766559
 #endif
 
+#ifndef M_PI_2x_INV
+#define M_PI_2x_INV 0.1591549430918953357688837633725
+#endif
+
 using namespace fractal;
 
 #define FRACTAL_CLASS(fractalName)                                                      \

@@ -42,7 +42,7 @@ void cFractalTransfSincosV2::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	double ang = atan2(z.y, z.x) / M_PI_2x;
+	double ang = atan2(z.y, z.x) * M_PI_2x_INV;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{	double Voff = fractal->transformCommon.scale2;

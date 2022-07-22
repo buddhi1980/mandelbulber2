@@ -48,7 +48,7 @@ void cFractalKnotV1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	double m = 1.0 * polyfoldOrder / M_PI_2x;
+	double m = 1.0 * polyfoldOrder * M_PI_2x_INV;
 	double angle1 = floor(0.5 + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
 
 	temp = zc.x;

@@ -89,6 +89,14 @@
 #define M_PI_2x_F 6.2831853071795f
 #endif
 
+#ifndef M_PI_2x_INV
+#define M_PI_2x_INV 0.1591549430918953357688837633725
+#endif
+
+#ifndef M_PI_2x_INV_F
+#define M_PI_2x_INV_F 0.1591549430919f
+#endif
+
 #define NUMBER_OF_FRACTALS 9
 #define IFS_VECTOR_COUNT 9
 #define HYBRID_COUNT 5

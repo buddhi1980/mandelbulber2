@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsCylinderV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDifsHelixV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * M3D difs code by darkbeam
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
@@ -29,15 +30,12 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp;
-	CVector4 zc;
-	if (!fractal->transformCommon.functionEnabledAuxCFalse) zc = z;
-	else zc = aux.const_c;
-
+	CVector4  zc = z;
 
 	zc *= fractal->transformCommon.scale1;
 	aux.DE *= fractal->transformCommon.scale1;
 	// torus
-	double ang = atan2(zc.y, zc.x) / M_PI_2x;
+	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
@@ -105,7 +103,6 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 				temp = zc.z;
 				zc.z = zc.y;
 				zc.y = temp;
-				col += fractal->foldColor.difs0000.z;
 			}
 			if (n >= fractal->foldColor.startIterationsA
 						&& n < fractal->foldColor.stopIterationsA)
@@ -120,8 +117,6 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			aux.DE = fractal->transformCommon.scale3 * (aux.DE + 1.0);
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
-
-
 	}
 
 	if (fractal->transformCommon.functionEnabledDFalse)
@@ -140,8 +135,20 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		}
 	}
 
-
-	aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			double ang = (M_PI - 2.0 * fabs(atan(zc.y / zc.z))) * 2.0 / M_PI;
+			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
+			else aux.color += fractal->foldColor.difs0000.w;
+		}
+		else
+		{
+			aux.color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+		}
+	}
 
 	CVector4 d = fabs(zc);
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);

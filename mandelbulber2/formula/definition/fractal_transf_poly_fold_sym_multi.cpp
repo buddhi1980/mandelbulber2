@@ -37,7 +37,7 @@ void cFractalTransfPolyFoldSymMulti::FormulaCode(
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 
 	int order = fractal->transformCommon.int6;
-	double div2PI = (double)order / M_PI_2x;
+	double div2PI = (double)order * M_PI_2x_INV;
 	double temp = 0.0;
 	double sAng = 0.0;
 	double cAng = 0.0;

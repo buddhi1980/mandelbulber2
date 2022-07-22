@@ -36,7 +36,7 @@ void cFractalTransfPolyFoldSymXY::FormulaCode(
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 
 	int order = fractal->transformCommon.int6;
-	double div2PI = (double)order / M_PI_2x;
+	double div2PI = (double)order * M_PI_2x_INV;
 
 	bool cy = false;
 	int sector;

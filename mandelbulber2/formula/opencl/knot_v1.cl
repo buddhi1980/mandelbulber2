@@ -37,7 +37,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	REAL m = 1.0f * polyfoldOrder / M_PI_2x_F;
+	REAL m = 1.0f * polyfoldOrder * M_PI_2x_INV_F;
 	REAL angle1 = floor(0.5f + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
 
 	temp = zc.x;

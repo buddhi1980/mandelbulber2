@@ -24,7 +24,7 @@ REAL4 TransfPolyFoldSymXYIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 
 	int order = fractal->transformCommon.int6;
-	REAL div2PI = (REAL)order / M_PI_2x_F;
+	REAL div2PI = (REAL)order * M_PI_2x_INV_F;
 
 	bool cy = false;
 	int sector;
