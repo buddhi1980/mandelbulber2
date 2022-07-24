@@ -110,7 +110,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		temp = zc.x;
 		zc.x = zc.z;
 		zc.z = temp;
-		if (fractal->transformCommon.angleDegC != 0.0)
+		if (fractal->transformCommon.angleDegC != 0.0f)
 		{
 			ang = fractal->transformCommon.angleDegC;
 			temp = zc.y;
@@ -121,25 +121,10 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (!fractal->transformCommon.functionEnabledGFalse)
-		{
-			ang = (M_PI_F - 2.0f * fabs(atan(zc.y / zc.z))) * 2.0 / M_PI_F;
-			if (fmod(ang, 2.0f) < 1.0f) aux->color += fractal->foldColor.difs0000.z;
-			else aux->color += fractal->foldColor.difs0000.w;
-		}
-		else
-		{
-			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
-		}
-	}
-
 	REAL4 d = fabs(zc);
-	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
-	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
-	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
+	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0f);
+	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
+	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	REAL rDE = length(d);
 
 	rDE = rDE / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0;
@@ -156,5 +141,22 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
+
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			ang = (M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z)))
+					* 4.0 * M_PI_2x_INV_F;
+			if (fmod(ang, 2.0f) < 1.0f) aux->color += fractal->foldColor.difs0000.z;
+			else aux->color += fractal->foldColor.difs0000.w;
+		}
+		else
+		{
+			aux->color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+		}
+	}
+
 	return z;
 }

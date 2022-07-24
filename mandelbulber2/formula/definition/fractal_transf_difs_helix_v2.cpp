@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -43,7 +43,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	{
 		double Voff = fractal->transformCommon.offsetA2;
 		temp = zc.z - Voff * ang  * fractal->transformCommon.int1 + Voff * 0.5;
-		zc.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5;
+		zc.z = temp - Voff * floor(temp / Voff) - Voff * 0.5;
 	}
 	// stretch around helix
 	if (fractal->transformCommon.functionEnabledAy)
@@ -135,22 +135,8 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		}
 	}
 
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		if (!fractal->transformCommon.functionEnabledGFalse)
-		{
-			double ang = (M_PI - 2.0 * fabs(atan(zc.y / zc.z))) * 2.0 / M_PI;
-			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
-			else aux.color += fractal->foldColor.difs0000.w;
-		}
-		else
-		{
-			aux.color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
-			aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
-		}
-	}
-
 	CVector4 d = fabs(zc);
+
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
@@ -170,4 +156,19 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			&& aux.i >= fractal->transformCommon.startIterationsZc
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
+
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			double ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0 * M_PI_2x_INV;
+			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
+			else aux.color += fractal->foldColor.difs0000.w;
+		}
+		else
+		{
+			aux.color += fractal->foldColor.difs0000.z * (zc.z * zc.z);
+			aux.color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
+		}
+	}
 }

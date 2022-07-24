@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * rotation
+ * compatible order of rotation for M3D
  */
 
 #include "all_fractal_definitions.h"

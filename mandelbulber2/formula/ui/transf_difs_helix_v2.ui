@@ -1372,13 +1372,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
-          <property name="text">
-           <string>gradient</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
           <property name="sizePolicy">
@@ -1404,6 +1397,27 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_186">
+          <property name="text">
+           <string>zc.y:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_185">
+          <property name="text">
+           <string>zc.z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+          <property name="text">
+           <string>gradient</string>
           </property>
          </widget>
         </item>
@@ -1435,30 +1449,47 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_185">
-          <property name="text">
-           <string>zc.z:</string>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs1">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.999899999999997</double>
+          </property>
+          <property name="maximum">
+           <double>99.999899999999997</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_186">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_187">
           <property name="text">
-           <string>zc.y:</string>
+           <string>width:</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_180">
-     <property name="text">
-      <string>aux.color</string>
-     </property>
     </widget>
    </item>
    <item>
@@ -1661,15 +1692,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
@@ -1694,12 +1725,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>770</y>
+     <x>58</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
-     <x>156</x>
-     <y>799</y>
+     <x>208</x>
+     <y>771</y>
     </hint>
    </hints>
   </connection>
@@ -1716,6 +1747,22 @@
     <hint type="destinationlabel">
      <x>222</x>
      <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledG_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_fold_color_difs1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>1213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>136</x>
+     <y>1193</y>
     </hint>
    </hints>
   </connection>
