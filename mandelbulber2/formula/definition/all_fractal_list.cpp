@@ -491,7 +491,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSincos());
 	fractalList->append(new cFractalTransfSincosV2());
 	fractalList->append(new cFractalTransfSinTan());
-
+	fractalList->append(new cFractalTransfSinYM3d());
 	fractalList->append(new cFractalTransfSmooth());
 	fractalList->append(new cFractalTransfSmoothV2());
 
