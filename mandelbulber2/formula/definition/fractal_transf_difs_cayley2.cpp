@@ -75,27 +75,28 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 
 	zc.z *= fractal->transformCommon.scaleA1;
 
-	double zcd;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-	CVector4 zcv = fabs(zc) - boxSize;
+	CVector4 zdv = fabs(zc) -  fractal->transformCommon.additionConstant000;
+	double zd = min(min(zdv.x, zdv.y), zdv.z);
+	zc = fabs(zc) - fractal->transformCommon.additionConstant111;
+	CVector4 zcv = zc;
 	zcv.x = max(zcv.x, 0.0);
 	zcv.y = max(zcv.y, 0.0);
 	zcv.z = max(zcv.z, 0.0);
-	zcd = zcv.Length();
+	double zcd = zcv.Length();
 
-
-	zc = fabs(zc) - boxSize;
-	double dx = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
-	double dy = fabs(zc.z) - fractal->transformCommon.offset01;
-
-	double bx = max(dx, 0.0);
-	double by = max(dy, 0.0);
-	double ll = sqrt(bx * bx + by * by);
-	double mm = max(dx, dy);
+	CVector4 RS = fractal->transformCommon.offsetA000;
+	double dxy = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	double dz = fabs(zc.z) - fractal->transformCommon.offset01;
+	double bxy = max(dxy - RS.x, 0.0 - RS.y);
+	double bz = max(dz - RS.z, 0.0);
+	double mm = max(dxy, dz);
+	double ll = sqrt(bxy * bxy + bz * bz);
 	double zcf = min(mm, 0.0) + ll;
 
 
-	//zcd = mix(zcd, zcf, fractal->transformCommon.scaleD1);
+	if (fractal->transformCommon.functionEnabledEFalse)	zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
+	if (fractal->transformCommon.functionEnabledFFalse)	zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
+
 	zcd = zcd + (zcf - zcd) * fractal->transformCommon.scaleD1;
 
 	zcd -= fractal->transformCommon.offsetA0;

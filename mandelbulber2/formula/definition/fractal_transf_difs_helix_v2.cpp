@@ -60,9 +60,14 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
-		double a = zc.y;
-		double b = zc.z;
-		if (fractal->transformCommon.functionEnabledSwFalse)
+		double a;
+		double b;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			a = zc.y;
+			b = zc.z;
+		}
+		else
 		{
 			a = zc.z;
 			b = zc.y;
@@ -70,8 +75,16 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		ang *= M_PI * fractal->transformCommon.int2;
 		double cosA = cos(ang);
 		double sinB = sin(ang);
-		zc.y = b * cosA + a * sinB;
-		zc.z = a * cosA + b * -sinB;
+		if (!fractal->transformCommon.functionEnabledSFalse)
+		{
+			zc.y = b * cosA + a * sinB;
+			zc.z = a * cosA - b * sinB;
+		}
+		else
+		{
+			zc.y = b * cosA - a * sinB;
+			zc.z = a * cosA + b * sinB;
+		}
 	}
 
 	// menger sponge

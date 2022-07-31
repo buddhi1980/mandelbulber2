@@ -47,9 +47,14 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
-		REAL a = zc.y;
-		REAL b = zc.z;
-		if (fractal->transformCommon.functionEnabledSwFalse)
+		REAL a;
+		REAL b;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			a = zc.y;
+			b = zc.z;
+		}
+		else
 		{
 			a = zc.z;
 			b = zc.y;
@@ -57,8 +62,16 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		ang *= M_PI * fractal->transformCommon.int2;
 		REAL cosA = cos(ang);
 		REAL sinB = sin(ang);
-		zc.y = b * cosA + a * sinB;
-		zc.z = a * cosA + b * -sinB;
+		if (!fractal->transformCommon.functionEnabledSFalse)
+		{
+			zc.y = b * cosA + a * sinB;
+			zc.z = a * cosA - b * sinB;
+		}
+		else
+		{
+			zc.y = b * cosA - a * sinB;
+			zc.z = a * cosA + b * sinB;
+		}
 	}
 
 	// menger sponge
