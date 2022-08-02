@@ -19,10 +19,17 @@ installing all needed packages
 
 "
 
-sudo apt-get install build-essential qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
-	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
-sudo apt-get install qtcreator git
-sudo apt-get install opencl-headers ocl-icd-libopencl1
+echo "installing: build-essential qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
+	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev"
+	
+	
+sudo apt-get -V install build-essential qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
+	
+echo "qtcreator git"
+sudo apt-get -V install qtcreator git
+
+echo "installing:  opencl-headers ocl-icd-libopencl1"
+sudo apt-get -V install opencl-headers ocl-icd-libopencl1
 
 echo "
 getting fresh source files from git repository

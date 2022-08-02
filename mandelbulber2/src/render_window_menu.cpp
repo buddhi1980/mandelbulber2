@@ -984,6 +984,16 @@ void RenderWindow::slotResetToDefault()
 			gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 		slotMenuLoadSettingsFromFile(filename);
 	}
+	else
+	{
+		gPar->ResetAllToDefault();
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		{
+			gParFractal->at(i)->ResetAllToDefault();
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			gMainInterface->StartupDefaultSettings();
+		}
+	}
 }
 void RenderWindow::slotDeleteDefaultSettings()
 {
