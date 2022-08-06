@@ -361,20 +361,6 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-        <property name="text">
-         <string>swap zy</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
-        <property name="text">
-         <string>swap neg</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QGridLayout" name="gridLayout_28" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
@@ -400,6 +386,34 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
+        <property name="text">
+         <string>swap zy</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+        <property name="text">
+         <string>swap neg</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
+        <property name="text">
+         <string>K</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
+        <property name="text">
+         <string>P</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

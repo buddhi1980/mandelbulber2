@@ -52,38 +52,49 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			zc.x = fractal->transformCommon.offset1;
 		else
 		{
-			double off = fractal->transformCommon.offset1;
-			double stretch = fractal->transformCommon.scaleA2 * ang + off;
-			zc.x = (stretch) - 2.0 * floor((stretch) * 0.5) - 1.0;
+			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offset1;
+			zc.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
 		}
 	}
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
-		double a;
-		double b;
-		if (!fractal->transformCommon.functionEnabledSwFalse)
-		{
-			a = zc.y;
-			b = zc.z;
-		}
-		else
-		{
-			a = zc.z;
-			b = zc.y;
-		}
 		ang *= M_PI * fractal->transformCommon.int2;
 		double cosA = cos(ang);
 		double sinB = sin(ang);
-		if (!fractal->transformCommon.functionEnabledSFalse)
+		double a;
+		double b;
+		if (!fractal->transformCommon.functionEnabledKFalse)
 		{
-			zc.y = b * cosA + a * sinB;
-			zc.z = a * cosA - b * sinB;
+			if (!fractal->transformCommon.functionEnabledSwFalse)
+			{
+				a = zc.y;
+				b = zc.z;
+			}
+			else
+			{
+				a = zc.z;
+				b = zc.y;
+			}
+
+			if (!fractal->transformCommon.functionEnabledSFalse)
+			{
+				zc.y = b * cosA + a * sinB;
+				zc.z = a * cosA - b * sinB;
+			}
+			else
+			{
+				zc.z = b * cosA - a * sinB;
+				zc.y = a * cosA + b * sinB;
+			}
 		}
 		else
 		{
-			zc.y = b * cosA - a * sinB;
-			zc.z = a * cosA + b * sinB;
+			a = zc.x;
+			b = zc.z;
+			zc.x = b * cosA + a * sinB;
+			zc.z = a * cosA - b * sinB;
+			if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 		}
 	}
 

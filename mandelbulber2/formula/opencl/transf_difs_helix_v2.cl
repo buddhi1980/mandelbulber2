@@ -39,38 +39,49 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			zc.x = fractal->transformCommon.offset1;
 		else
 		{
-			REAL off = fractal->transformCommon.offset1;
-			REAL stretch = fractal->transformCommon.scaleA2 * ang + off;
-			zc.x = (stretch) - 2.0f * floor((stretch) * 0.5f) - 1.0f;
+			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offset1;
+			zc.x = temp - 2.0f * floor(temp * 0.5f) - 1.0f;
 		}
 	}
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
-		REAL a;
-		REAL b;
-		if (!fractal->transformCommon.functionEnabledSwFalse)
-		{
-			a = zc.y;
-			b = zc.z;
-		}
-		else
-		{
-			a = zc.z;
-			b = zc.y;
-		}
-		ang *= M_PI * fractal->transformCommon.int2;
+		ang *= M_PI_F * fractal->transformCommon.int2;
 		REAL cosA = cos(ang);
 		REAL sinB = sin(ang);
-		if (!fractal->transformCommon.functionEnabledSFalse)
+		REAL a;
+		REAL b;
+		if (!fractal->transformCommon.functionEnabledKFalse)
 		{
-			zc.y = b * cosA + a * sinB;
-			zc.z = a * cosA - b * sinB;
+			if (!fractal->transformCommon.functionEnabledSwFalse)
+			{
+				a = zc.y;
+				b = zc.z;
+			}
+			else
+			{
+				a = zc.z;
+				b = zc.y;
+			}
+
+			//if (!fractal->transformCommon.functionEnabledSFalse)
+			//{
+				zc.y = b * cosA + a * sinB;
+				zc.z = a * cosA - b * sinB;
+			//}
+			//else
+			//{
+			//	zc.z = b * cosA + a * sinB;
+			//	zc.y = a * cosA - b * sinB;
+			//}
 		}
 		else
 		{
-			zc.y = b * cosA - a * sinB;
-			zc.z = a * cosA + b * sinB;
+			a = zc.x;
+			b = zc.z;
+			zc.x = b * cosA + a * sinB;
+			zc.z = a * cosA - b * sinB;
+			if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 		}
 	}
 
