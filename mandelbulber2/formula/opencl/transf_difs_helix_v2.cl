@@ -81,8 +81,8 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			b = zc.z;
 			zc.x = b * cosA + a * sinB;
 			zc.z = a * cosA - b * sinB;
-			if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 		}
+		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
 	// menger sponge
@@ -121,7 +121,8 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			}
 
 			temp = fractal->transformCommon.scale3 - 1.0f;
-			REAL bz = temp * fractal->transformCommon.offsetA111.x;
+			REAL bz = temp * fractal->transformCommon.offsetA111.z
+					+ fractal->transformCommon.offsetA0;
 			zc = fractal->transformCommon.scale3 * zc
 					- temp * fractal->transformCommon.offsetA111;
 			aux->DE = fractal->transformCommon.scale3 * (aux->DE + 1.0f);
