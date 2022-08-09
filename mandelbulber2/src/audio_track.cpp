@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2016-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -39,9 +39,10 @@
 
 #include <QAudioDecoder>
 #include <QAudioFormat>
+#include <QUrl>
 
 #ifndef NO_QT_MULTIMEDIA_AUDIO
-#include <QAudioRecorder>
+//#include <QAudioRecorder>
 #endif
 
 #include <QFileInfo>
@@ -162,32 +163,42 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 	if (!loaded)
 	{
 #ifndef NO_QT_MULTIMEDIA_AUDIO
-        emit loadingProgress(tr("Decompressing audio file"));
-        QApplication::processEvents();
+		emit loadingProgress(tr("Decompressing audio file"));
+		QApplication::processEvents();
 
-        QAudioFormat desiredFormat;
-        desiredFormat.setChannelCount(1);
-        desiredFormat.setCodec("audio/x-raw");
-        desiredFormat.setSampleType(QAudioFormat::SignedInt);
-        desiredFormat.setSampleRate(sampleRate);
-        desiredFormat.setSampleSize(16);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+		QAudioFormat desiredFormat;
+		desiredFormat.setChannelCount(1);
+		desiredFormat.setCodec("audio/x-raw");
+		desiredFormat.setSampleType(QAudioFormat::SignedInt);
+		desiredFormat.setSampleRate(sampleRate);
+		desiredFormat.setSampleSize(16);
+#else
+		QAudioFormat desiredFormat;
+		desiredFormat.setChannelCount(1);
+		desiredFormat.setSampleRate(sampleRate);
+#endif
 
-        decoder.reset(new QAudioDecoder());
-        decoder->setAudioFormat(desiredFormat);
-        decoder->setSourceFilename(filename);
+		decoder.reset(new QAudioDecoder());
+		decoder->setAudioFormat(desiredFormat);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+		decoder->setSourceFilename(filename);
+#else
+		decoder->setSource(QUrl(filename));
+#endif
 
-        connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
-        connect(decoder.get(), SIGNAL(finished()), this, SLOT(slotFinished()));
-        connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
-            SLOT(slotError(QAudioDecoder::Error)));
+		connect(decoder.get(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
+		connect(decoder.get(), SIGNAL(finished()), this, SLOT(slotFinished()));
+		connect(decoder.get(), SIGNAL(error(QAudioDecoder::Error)), this,
+			SLOT(slotError(QAudioDecoder::Error)));
 
-        loadingInProgress = true;
-        decoder->start();
+		loadingInProgress = true;
+		decoder->start();
 
-        while (loadingInProgress)
-        {
-            QApplication::processEvents();
-        }
+		while (loadingInProgress)
+		{
+			QApplication::processEvents();
+		}
 #endif
 	}
 

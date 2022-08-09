@@ -37,7 +37,13 @@
 
 #include <memory>
 
+#include <QtGlobal>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QAudioOutput>
+#else
+#include <QAudioSink>
+#include <QTimer>
+#endif
 #include <QBuffer>
 #include <QMediaPlayer>
 #include <QWidget>
@@ -70,7 +76,11 @@ private slots:
 	void slotPlaybackStart() const;
 	void slotPlaybackStop();
 	void slotSeekTo(int position);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	void slotPlayPositionChanged(bool updateSlider = true);
+#else
+	void slotTimerTimeout();
+#endif
 	void slotPlaybackStateChanged(QAudio::State state) const;
 	void slotChangedFrequencyBand(double midFreq, double bandWidth) const;
 	void slotUpdateSoundDelay(int delay);
@@ -89,8 +99,12 @@ private:
 	std::shared_ptr<cAudioTrack> audio;
 	QString parameterName;
 	std::shared_ptr<cAnimationFrames> animationFrames;
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	std::unique_ptr<QAudioOutput> audioOutput;
+#else
+	std::unique_ptr<QAudioSink> audioOutput;
+	QTimer timer;
+#endif
 	QByteArray playBuffer;
 	std::unique_ptr<QBuffer> playStream;
 

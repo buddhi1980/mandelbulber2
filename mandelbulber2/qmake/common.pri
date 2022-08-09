@@ -22,8 +22,8 @@ QMAKE_FULL_VERSION = 2.28
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
 VERSION = 2.28
 
-m1:DEFINES += NO_AUDIO_OUTPUT
-m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO
+#m1:DEFINES += NO_AUDIO_OUTPUT
+#m1:DEFINES += NO_QT_MULTIMEDIA_AUDIO
 
 # optional dependecies
 qtHaveModule(gamepad){
@@ -114,8 +114,8 @@ QMAKE_LFLAGS_RELEASE -= -O1
 # compiler build flags
 unix:!macx:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:!m1:QMAKE_CXXFLAGS += -ffast-math -fopenmp
-macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
-#macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
+#macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor -fopenmp
+macx:m1:QMAKE_CXXFLAGS += -ffast-math -Xpreprocessor
 
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
@@ -128,8 +128,8 @@ m1:QMAKE_CXXFLAGS += -I/opt/homebrew/include
 # library linking
 unix:!macx:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
 macx:!m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -fopenmp
-macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -lomp
-#macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
+#macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2 -lomp
+macx:m1:LIBS += -lpng -lgsl -lgslcblas -llzo2
 
 macx:!m1:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
