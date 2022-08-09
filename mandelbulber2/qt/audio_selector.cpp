@@ -249,11 +249,14 @@ void cAudioSelector::audioSetup()
 	format.setCodec("audio/pcm");
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setSampleType(QAudioFormat::Float);
+
+	audioOutput.reset(new QAudioOutput(format, this));
 #else
 	format.setSampleFormat(QAudioFormat::Float);
-#endif
 
 	audioOutput.reset(new QAudioSink(format, this));
+#endif
+
 	audioOutput->setVolume(1.0);
 	// audioOutput->setNotifyInterval(50);
 
