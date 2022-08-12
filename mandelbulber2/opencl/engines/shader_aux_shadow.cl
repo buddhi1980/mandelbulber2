@@ -89,15 +89,24 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
 	float3 randomSphere = randomVector * (softRange * randomSphereRadius / length(randomVector));
 	lightVector += randomSphere;
+	lightVector = fast_normalize(lightVector);
 #endif // MC_SOFT_SHADOWS
+
+#if defined(USE_SUBSURFACE_SCATTERING) && defined(FULL_ENGINE)
+	float3 lightVectorUnmodified = lightVector;
+	bool wentThrough = false;
+#endif
 
 	float lastDistanceToClouds = 1e6f;
 	int count = 0;
 	float step = 0.0f;
 
+	float3 point2 = input->point + start * lightVector;
+
 	for (float i = start; i < distance; i += step)
 	{
-		float3 point2 = input->point + lightVector * i;
+		// float3 point2 = input->point + lightVector * i;
+		point2 += lightVector * step;
 
 		float dist_thresh;
 		if (consts->params.iterFogEnabled || consts->params.distanceFogShadows || light->volumetric
@@ -179,6 +188,22 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 #if defined(USE_SUBSURFACE_SCATTERING) && defined(FULL_ENGINE)
 		if (goThrough && dist < dist_thresh)
 		{
+#ifdef MC_SOFT_SHADOWS
+			if (!wentThrough)
+			{
+				wentThrough = true;
+				float3 randomVector;
+				randomVector.x = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+				randomVector.y = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+				randomVector.z = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+				float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
+				float3 randomSphere = randomVector * (0.95f * randomSphereRadius / length(randomVector));
+				lightVector = lightVectorUnmodified + randomSphere;
+				lightVector = fast_normalize(lightVector);
+			}
+
+			float opacityFactor = dot(lightVector, lightVectorUnmodified);
+#endif // MC_SOFT_SHADOWS
 
 			float opacityGradient = 1.0f;
 #if defined(USE_INNER_COLORING) && defined(USE_DIFFUSE_GRADIENT)
@@ -190,13 +215,22 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 				SurfaceColor(consts, renderData, &input2, calcParam, &gradients);
 				opacityGradient = gradients.diffuse.s0;
 			}
-#endif
+#endif // USE_INNER_COLORING && USE_DIFFUSE_GRADIENT
 
 			float opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
+#ifdef MC_SOFT_SHADOWS
+			opacity *= opacityFactor;
+#endif
+
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 			dist = CalcDelta(point2, consts);
+		}
+		else
+		{
+			lightVector = lightVectorUnmodified;
+			wentThrough = false;
 		}
 #endif
 

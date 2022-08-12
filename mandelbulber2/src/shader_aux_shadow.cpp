@@ -84,6 +84,7 @@ sRGBAfloat cRenderWorker::AuxShadow(
 		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
 		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
 		lightVector += randomSphere;
+		lightVector.Normalize();
 	}
 
 	double lastDistanceToClouds = 1e6f;
