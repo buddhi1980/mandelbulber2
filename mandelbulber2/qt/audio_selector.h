@@ -76,11 +76,8 @@ private slots:
 	void slotPlaybackStart() const;
 	void slotPlaybackStop();
 	void slotSeekTo(int position);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	void slotPlayPositionChanged(bool updateSlider = true);
-#else
 	void slotTimerTimeout();
-#endif
 	void slotPlaybackStateChanged(QAudio::State state) const;
 	void slotChangedFrequencyBand(double midFreq, double bandWidth) const;
 	void slotUpdateSoundDelay(int delay);

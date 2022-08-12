@@ -65,7 +65,7 @@ cAudioSelector::~cAudioSelector()
 	if (audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT
-        audioOutput->stop();
+		audioOutput->stop();
 #endif
 	}
 
@@ -284,7 +284,7 @@ void cAudioSelector::slotPlaybackStop()
 	if (audioOutput)
 	{
 #ifndef NO_AUDIO_OUTPUT
-        //audioOutput->stop();
+		// audioOutput->stop();
 #endif
 		audioSetup();
 		SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
@@ -347,39 +347,40 @@ void cAudioSelector::slotDeleteAudioTrack()
 	emit audioLoaded();
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 {
-    #ifndef NO_AUDIO_OUTPUT
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#ifndef NO_AUDIO_OUTPUT
 	// set scroll indicator to current position
-    const int viewOuterWidth = ui->scrollArea->width();
-    const int viewInnerWidth = ui->scrollAreaWidgetContents->width();
-    const double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
-    const int width = ui->scrollArea->horizontalScrollBar()->maximum();
-    const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
-    const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
-    const double percentRuntime = processedSecs / totalLengthSecs;
-    const int x = int(width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent));
-    ui->scrollArea->horizontalScrollBar()->setValue(x);
+	const int viewOuterWidth = ui->scrollArea->width();
+	const int viewInnerWidth = ui->scrollAreaWidgetContents->width();
+	const double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
+	const int width = ui->scrollArea->horizontalScrollBar()->maximum();
+	const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
+	const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
+	const double percentRuntime = processedSecs / totalLengthSecs;
+	const int x = int(width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent));
+	ui->scrollArea->horizontalScrollBar()->setValue(x);
 
-    // set text of current position and slider progress
-		QDateTime dateTime;
-		dateTime.setSecsSinceEpoch(uint(processedSecs));
-		const QString processedString = dateTime.toUTC().toString("hh:mm:ss");
+	// set text of current position and slider progress
+	QDateTime dateTime;
+	dateTime.setSecsSinceEpoch(uint(processedSecs));
+	const QString processedString = dateTime.toUTC().toString("hh:mm:ss");
 
-		dateTime.setSecsSinceEpoch(uint(totalLengthSecs));
-		const QString totalLengthString = dateTime.toUTC().toString("hh:mm:ss");
-		ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
-		if (updateSlider)
-			ui->audio_position_slider->setValue(
-				int(percentRuntime * ui->audio_position_slider->maximum()));
+	dateTime.setSecsSinceEpoch(uint(totalLengthSecs));
+	const QString totalLengthString = dateTime.toUTC().toString("hh:mm:ss");
+	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
+	if (updateSlider)
+		ui->audio_position_slider->setValue(int(percentRuntime * ui->audio_position_slider->maximum()));
 
-		emit playPositionChanged(int(processedSecs * 1000));
+	emit playPositionChanged(int(processedSecs * 1000));
+#endif
 #endif
 }
-#else
+
 void cAudioSelector::slotTimerTimeout()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #ifndef NO_AUDIO_OUTPUT
 	// set scroll indicator to current position
 	const int viewOuterWidth = ui->scrollArea->width();
@@ -407,8 +408,8 @@ void cAudioSelector::slotTimerTimeout()
 
 	timer.start(200);
 #endif
-}
 #endif
+}
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state) const
 {
