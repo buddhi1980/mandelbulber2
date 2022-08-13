@@ -21,23 +21,33 @@ REAL4 Menger3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	z = fabs(z);
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
+	REAL temp;
+	REAL col = 0.0f;
 	if (z.x < z.y)
 	{
-		REAL temp = z.y;
+		temp = z.y;
 		z.y = z.x;
 		z.x = temp;
+		col += fractal->foldColor.difs0000.x;
+	}
+	if (z.x < z.z)
+	{
+		temp = z.z;
+		z.z = z.x;
+		z.x = temp;
+		col += fractal->foldColor.difs0000.y;
 	}
 	if (z.y < z.z)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.y;
 		z.y = temp;
+		col += fractal->foldColor.difs0000.z;
 	}
-	if (z.x < z.y)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL temp = z.x;
-		z.x = z.y;
-		z.y = temp;
+		aux->color += col;
 	}
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
