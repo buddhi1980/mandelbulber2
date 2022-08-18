@@ -6,7 +6,8 @@ v2.29 (??? 2022)
 
 - modified fractal formulas
    mengerSponge3, add aux.color
-
+   mengerPolyFold, add aux.color
+   mengerChebyshev, add aux.color
 
 v2.28 (July 2022)
 

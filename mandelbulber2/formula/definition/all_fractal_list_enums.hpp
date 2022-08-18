@@ -479,6 +479,7 @@ enum enumFractalFormula
 	// 2.29
 	transfSupershape = 1147,
 	transfSinYM3d = 1148,
+	transfSincosHelix = 1149,
 
 	// mandelbulber transfdIFS
 	// 2.20

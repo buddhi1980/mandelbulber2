@@ -161,23 +161,33 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
+		REAL temp;
+		REAL col = 0.0f;
 		if (z.x < z.y)
 		{
-			REAL temp = z.y;
+			temp = z.y;
 			z.y = z.x;
 			z.x = temp;
+			col += fractal->foldColor.difs0000.x;
 		}
 		if (z.x < z.z)
 		{
-			REAL temp = z.z;
+			temp = z.z;
 			z.z = z.x;
 			z.x = temp;
+			col += fractal->foldColor.difs0000.y;
 		}
 		if (z.y < z.z)
 		{
-			REAL temp = z.z;
+			temp = z.z;
 			z.z = z.y;
 			z.y = temp;
+			col += fractal->foldColor.difs0000.z;
+		}
+		if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+				&& aux->i < fractal->foldColor.stopIterationsA)
+		{
+			aux->color += col;
 		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0f * fractal->transformCommon.constantMultiplier111.x;

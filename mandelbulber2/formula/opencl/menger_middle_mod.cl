@@ -28,7 +28,7 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z *= fractal->transformCommon.scaleB1;
 		// REAL r = native_sqrt(rr);
 		aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-							 * fractal->transformCommon.scaleB1;
+							* fractal->transformCommon.scaleB1;
 	}
 
 	// fabs() and menger fold

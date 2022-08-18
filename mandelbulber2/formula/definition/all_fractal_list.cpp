@@ -486,12 +486,13 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSinAdd());
 	fractalList->append(new cFractalTransfSinOrCos());
 	fractalList->append(new cFractalTransfSinAndCos());
-
 	fractalList->append(new cFractalTransfSinAndCosMax());
 	fractalList->append(new cFractalTransfSincos());
 	fractalList->append(new cFractalTransfSincosV2());
+
 	fractalList->append(new cFractalTransfSinTan());
 	fractalList->append(new cFractalTransfSinYM3d());
+
 	fractalList->append(new cFractalTransfSmooth());
 	fractalList->append(new cFractalTransfSmoothV2());
 
@@ -545,7 +546,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalTransfDIFSClipCustom());
 	fractalList->append(new cFractalTransfDIFSCayley2());
-
+	fractalList->append(new cFractalTransfSincosHelix());
 	fractalList->append(new cFractalTransfSupershape());
 
 	//====================== FRACTAL LIST - END ==================
