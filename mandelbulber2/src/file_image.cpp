@@ -1254,7 +1254,17 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 
 	Imf::Header header(width, height);
 	Imf::FrameBuffer frameBuffer;
-	std::vector<char> buffer;
+	std::vector<char> bufferRGB;
+	std::vector<char> bufferA;
+	std::vector<char> bufferZ;
+	std::vector<char> bufferNormal;
+	std::vector<char> bufferWorld;
+	std::vector<char> bufferSpecular;
+	std::vector<char> bufferDiffuse;
+	std::vector<char> bufferWorldPos;
+	std::vector<char> bufferShadow;
+	std::vector<char> bufferGI;
+	std::vector<char> bufferNotDenoised;
 
 	// compress each scan line on its own. This gives a good compression / read performance tradeoff
 	header.compression() = Imf::ZIPS_COMPRESSION;
@@ -1274,9 +1284,9 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 
 		uint64_t pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		buffer.resize(uint64_t(width) * height * pixelSize);
-		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer.data());
-		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer.data());
+		bufferRGB.resize(uint64_t(width) * height * pixelSize);
+		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(bufferRGB.data());
+		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(bufferRGB.data());
 
 		for (uint64_t y = 0; y < height; y++)
 		{
@@ -1303,14 +1313,14 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert(
-			"R", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 0 * compSize, 3 * compSize,
-						 3 * width * compSize));
+			"R", Imf::Slice(imfQuality, static_cast<char *>(bufferRGB.data()) + 0 * compSize,
+						 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert(
-			"G", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 1 * compSize, 3 * compSize,
-						 3 * width * compSize));
+			"G", Imf::Slice(imfQuality, static_cast<char *>(bufferRGB.data()) + 1 * compSize,
+						 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert(
-			"B", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 2 * compSize, 3 * compSize,
-						 3 * width * compSize));
+			"B", Imf::Slice(imfQuality, static_cast<char *>(bufferRGB.data()) + 2 * compSize,
+						 3 * compSize, 3 * width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ALPHA))
@@ -1324,9 +1334,9 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 
 		uint64_t pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
-		buffer.resize(uint64_t(width) * height * pixelSize);
-		half *halfPointer = reinterpret_cast<half *>(buffer.data());
-		float *floatPointer = reinterpret_cast<float *>(buffer.data());
+		bufferA.resize(uint64_t(width) * height * pixelSize);
+		half *halfPointer = reinterpret_cast<half *>(bufferA.data());
+		float *floatPointer = reinterpret_cast<float *>(bufferA.data());
 
 		for (uint64_t y = 0; y < height; y++)
 		{
@@ -1347,7 +1357,7 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 		// point EXR frame buffer to alpha
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert(
-			"A", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()), compSize, width * compSize));
+			"A", Imf::Slice(imfQuality, static_cast<char *>(bufferA.data()), compSize, width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
@@ -1370,8 +1380,8 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 		else
 		{
 			uint64_t pixelSize = sizeof(half);
-			buffer.resize(uint64_t(width) * height * pixelSize);
-			half *halfPointer = reinterpret_cast<half *>(buffer.data());
+			bufferZ.resize(uint64_t(width) * height * pixelSize);
+			half *halfPointer = reinterpret_cast<half *>(bufferZ.data());
 
 			for (uint64_t y = 0; y < height; y++)
 			{
@@ -1381,7 +1391,7 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
 				}
 			}
-			frameBuffer.insert("Z", Imf::Slice(imfQuality, static_cast<char *>(buffer.data()),
+			frameBuffer.insert("Z", Imf::Slice(imfQuality, static_cast<char *>(bufferZ.data()),
 																sizeof(half), width * sizeof(half)));
 		}
 	}
@@ -1389,49 +1399,50 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
 	{
 		SaveExrRgbChannel(QStringList{"n.X", "n.Y", "n.Z"}, imageConfig[IMAGE_CONTENT_NORMAL], &header,
-			&frameBuffer, width, height);
+			&frameBuffer, width, height, &bufferNormal);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_NORMAL_WORLD))
 	{
 		SaveExrRgbChannel(QStringList{"nW.X", "nW.Y", "nW.Z"}, imageConfig[IMAGE_CONTENT_NORMAL_WORLD],
-			&header, &frameBuffer, width, height);
+			&header, &frameBuffer, width, height, &bufferWorld);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))
 	{
-		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR],
-			&header, &frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"s.R", "s.G", "s.B"}, imageConfig[IMAGE_CONTENT_SPECULAR],
+			&header, &frameBuffer, width, height, &bufferSpecular);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_DIFFUSE))
 	{
 		SaveExrRgbChannel(QStringList{"d.R", "d.G", "d.B"}, imageConfig[IMAGE_CONTENT_DIFFUSE], &header,
-			&frameBuffer, width, height);
+			&frameBuffer, width, height, &bufferDiffuse);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_WORLD_POSITION))
 	{
 		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION],
-			&header, &frameBuffer, width, height);
+			&header, &frameBuffer, width, height, &bufferWorldPos);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_SHADOWS))
 	{
-		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_SHADOWS], &header,
-			&frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"sh.R", "sh.G", "sh.B"}, imageConfig[IMAGE_CONTENT_SHADOWS],
+			&header, &frameBuffer, width, height, &bufferShadow);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_GLOBAL_ILLUMINATION))
 	{
-		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"},
-			imageConfig[IMAGE_CONTENT_GLOBAL_ILLUMINATION], &header, &frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"gi.R", "gi.G", "gi.B"},
+			imageConfig[IMAGE_CONTENT_GLOBAL_ILLUMINATION], &header, &frameBuffer, width, height,
+			&bufferGI);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_NOT_DENOISED))
 	{
-		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_NOT_DENOISED],
-			&header, &frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"nd.R", "nd.G", "nd.B"}, imageConfig[IMAGE_CONTENT_NOT_DENOISED],
+			&header, &frameBuffer, width, height, &bufferNotDenoised);
 	}
 
 	// insert meta data
@@ -1455,7 +1466,8 @@ void ImageFileSaveEXR::SaveEXR(QString filename, std::shared_ptr<cImage> image,
 }
 
 void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
-	Imf::Header *header, Imf::FrameBuffer *frameBuffer, uint64_t width, uint64_t height)
+	Imf::Header *header, Imf::FrameBuffer *frameBuffer, uint64_t width, uint64_t height,
+	std::vector<char> *imageBuffer)
 {
 	bool linear = gPar->Get<bool>("linear_colorspace");
 	// add rgb channel header
@@ -1471,9 +1483,9 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 
 	int pixelSize = sizeof(tsRGB<half>);
 	if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-	std::vector<char> buffer(uint64_t(width) * height * pixelSize);
-	tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer.data());
-	tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer.data());
+	imageBuffer->resize(uint64_t(width) * height * pixelSize);
+	tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(imageBuffer->data());
+	tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(imageBuffer->data());
 
 	for (uint64_t y = 0; y < height; y++)
 	{
@@ -1512,13 +1524,13 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 	// point EXR frame buffer to rgb
 	size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 	frameBuffer->insert(names.at(0).toStdString().c_str(),
-		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 0 * compSize, 3 * compSize,
+		Imf::Slice(imfQuality, static_cast<char *>(imageBuffer->data()) + 0 * compSize, 3 * compSize,
 			3 * width * compSize));
 	frameBuffer->insert(names.at(1).toStdString().c_str(),
-		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 1 * compSize, 3 * compSize,
+		Imf::Slice(imfQuality, static_cast<char *>(imageBuffer->data()) + 1 * compSize, 3 * compSize,
 			3 * width * compSize));
 	frameBuffer->insert(names.at(2).toStdString().c_str(),
-		Imf::Slice(imfQuality, static_cast<char *>(buffer.data()) + 2 * compSize, 3 * compSize,
+		Imf::Slice(imfQuality, static_cast<char *>(imageBuffer->data()) + 2 * compSize, 3 * compSize,
 			3 * width * compSize));
 }
 
