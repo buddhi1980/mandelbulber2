@@ -44,8 +44,8 @@ REAL4 TransfCayley2V1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	REAL mx = z.x * z.x;
 	REAL my = z.y * z.y;
-	REAL m = 2.0f * mx * my + mx * mx + my * my;
-	REAL n = m + 4.0f * z.x * z.y + 1.0f;
+	REAL m = fractal->transformCommon.scaleA2 * mx * my + mx * mx + my * my;
+	REAL n = m + fractal->transformCommon.scale4 * z.x * z.y + 1.0f;
 	z.y = 2.0f * (my - mx) / n;
 	z.x = fractal->transformCommon.scale2 * (m - 1.0f) / n;
 	z.z *= fractal->transformCommon.scale1;

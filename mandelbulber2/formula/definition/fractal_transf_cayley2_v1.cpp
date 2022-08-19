@@ -56,8 +56,8 @@ void cFractalTransfCayley2V1::FormulaCode(
 
 	double mx = z.x * z.x;
 	double my = z.y * z.y;
-	double m = 2.0 * mx * my + mx * mx + my * my;
-	double n = m + 4.0 * z.x * z.y + 1.0;
+	double m = fractal->transformCommon.scaleA2 * mx * my + mx * mx + my * my;
+	double n = m + fractal->transformCommon.scale4 * z.x * z.y + 1.0;
 	z.y = 2.0 * (my - mx) / n;
 	z.x = fractal->transformCommon.scale2 * (m - 1.0) / n;
 	z.z *= fractal->transformCommon.scale1;

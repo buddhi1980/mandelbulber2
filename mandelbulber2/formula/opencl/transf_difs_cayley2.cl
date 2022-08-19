@@ -54,16 +54,16 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
-		zc.x = fractal->transformCommon.scale2 * (m - 1.0) / n;
+		zc.x = fractal->transformCommon.scale2 * (m - 1.0f) / n;
 	}
 	else
 	{
-		zc.x = fractal->transformCommon.scale2 * (m - 1.0);
+		zc.x = fractal->transformCommon.scale2 * (m - 1.0f);
 	}
 
 	zc.z *= fractal->transformCommon.scaleA1;
 
-	REAL4 zdv = fabs(zc) -  fractal->transformCommon.additionConstant000;
+	REAL4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
 	REAL zd = min(min(zdv.x, zdv.y), zdv.z);
 
 	zc = fabs(zc) - fractal->transformCommon.additionConstant111;
@@ -74,11 +74,11 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	zcv.z = max(zcv.z, 0.0f);
 	REAL zcd = length(zcv);
 
-	REAL4 RS = fractal->transformCommon.offsetA000;
-	REAL dxy = length(zc.xy) - fractal->transformCommon.radius1;
+	REAL dxy = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 	REAL dz = fabs(zc.z) - fractal->transformCommon.offset01;
-	REAL bxy = max(dxy - RS.x, 0.0f - RS.y);
-	REAL bz = max(dz - RS.z, 0.0f);
+	REAL bxy = max(dxy - fractal->transformCommon.offsetA000.x,
+				-fractal->transformCommon.offsetA000.y);
+	REAL bz = max(dz - fractal->transformCommon.offsetA000.z, 0.0f);
 	REAL mm = max(dxy, dz);
 	REAL ll = sqrt(bxy * bxy + bz * bz);
 	REAL zcf = min(mm, 0.0f) + ll;

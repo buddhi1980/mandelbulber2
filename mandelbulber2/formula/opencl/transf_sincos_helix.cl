@@ -77,13 +77,23 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	REAL temp;
 	// swap axis
-/*	if (fractal->transformCommon.functionEnabledSwFalse)
+	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		temp = z.x;
 		z.x = z.y;
 		z.y = temp;
 	}
-	z *= fractal->transformCommon.scale1;
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
+	}
+
+
+/*	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);*/
 
 
@@ -96,6 +106,20 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (fractal->transformCommon.functionEnabledTFalse)
 		z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+
+
+	// stretch around helix
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledAy)
+			z.x = fractal->transformCommon.offsetR1;
+		else
+		{
+			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offsetR1;
+			z.x = temp - 2.0f * floor(temp * 0.5f) - 1.0f;
+		}
+	}
+
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAxFalse)
@@ -115,17 +139,20 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			ang = Rho * fractal->transformCommon.offsetA0 + Phi * fractal->transformCommon.offsetB0
 						+ fractal->transformCommon.offsetC0;
 		}
+
+
+
 		REAL cosA = native_cos(ang);
 		REAL sinB = native_sin(ang);
 		temp = z.x;
 		z.x = z.y * cosA + z.x * sinB;
 		z.y = temp * cosA - z.y * sinB;
 
-		temp = z.x;
+	//	temp = z.x;
 	//	z.x = z.x * cosA + z.y * sinB;
 	//	z.y = z.y * cosA - temp * sinB;
 
-				temp = z.x;
+	//			temp = z.x;
 	//	z.x = z.x * cosA + z.y * sinB;
 	//	z.y = -z.y * cosA + temp * sinB;
 
@@ -166,58 +193,20 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		spiral = z.z * fractal->transformCommon.scaleC0;
 	}*/
 	//temp = zc.y;
-	//zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1 + spiral;
+	//zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1 + spiral;*/
 
-	/*ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25f;
-	REAL cosA = native_cos(ang);
-	REAL sinB = native_sin(ang);
-	temp = zc.z;
-	zc.z = zc.y * cosA + zc.z * sinB;
-	zc.y = temp * cosA + zc.y * -sinB;
 
-	REAL4 d = fabs(zc);
-	REAL lenY = fractal->transformCommon.offset01;
-	REAL lenZ = fractal->transformCommon.offsetp1;
 
-	if (fractal->transformCommon.functionEnabledMFalse) // y face
-		lenY += d.z * fractal->transformCommon.scale0;
-	if (fractal->transformCommon.functionEnabledNFalse) // z face
-		lenZ += d.z * fractal->transformCommon.scale3D000.x;
-	if (fractal->transformCommon.functionEnabledOFalse) // y axis
-		lenY += d.x * fractal->transformCommon.scale3D000.y;
-	if (fractal->transformCommon.functionEnabledKFalse) // z axis
-		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-	d.x = 0.0f;
-	d.y = max(d.y - lenY, 0.0f);
-	d.z = max(d.z - lenZ, 0.0f);
-	aux->DE0 =
-		length(d) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
 
-	// clip
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		aux->DE0 = max(fractal->transformCommon.offsetE0 - aux->const_c.z, aux->DE0);
-	}
-
-	REAL colDist = aux->dist;
-	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = aux->DE0;
-	else
-		aux->dist = min(aux->dist, aux->DE0);
-
-	if (fractal->transformCommon.functionEnabledZcFalse
-			&& aux->i >= fractal->transformCommon.startIterationsZc
-			&& aux->i < fractal->transformCommon.stopIterationsZc)
-		z = zc;
 
 	// aux->color
 	if (aux->i >= fractal->foldColor.startIterationsA && aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL addColor = 0.0f;
-		if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
+		//if (aux->dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		//if (aux->dist != colDist) addColor += fractal->foldColor.difs0000.y;
 		aux->color += addColor;
-	}*/
+	}
 	return z;
 }

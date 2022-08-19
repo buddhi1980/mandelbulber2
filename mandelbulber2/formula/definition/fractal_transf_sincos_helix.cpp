@@ -85,7 +85,26 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
 	}
+
 	double temp;
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		temp = z.x;
+		z.x = z.y;
+		z.y = temp;
+	}
+
+	// swap axis
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		temp = z.x;
+		z.x = z.z;
+		z.z = temp;
+	}
+
+
+	//double temp;
 	double ang;
 	if (!fractal->transformCommon.functionEnabledOFalse)
 		ang = atan2(z.x, z.y) * fractal->transformCommon.scaleA1;
@@ -102,7 +121,17 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
 		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
 	}
-
+	// stretch around helix
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledAy)
+			z.x = fractal->transformCommon.offsetR1;
+		else
+		{
+			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offsetR1;
+			z.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
+		}
+	}
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 
@@ -155,57 +184,19 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 
 /*	temp = zc.y;
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
-			+ spiral;
+			+ spiral;*/
 
-	ang = atan2(temp, zc.x) * fractal->transformCommon.int6 * 0.25;
-	double cosA = cos(ang);
-	double sinB = sin(ang);
-	temp = zc.z;
-	zc.z = zc.y * cosA + zc.z * sinB;
-	zc.y = temp * cosA + zc.y * -sinB;
 
-	CVector4 d = fabs(zc);
-	double lenY = fractal->transformCommon.offset01;
-	double lenZ = fractal->transformCommon.offsetp1;
 
-	if (fractal->transformCommon.functionEnabledMFalse) // y face
-		lenY += d.z * fractal->transformCommon.scale0;
-	if (fractal->transformCommon.functionEnabledNFalse) // z face
-		lenZ += d.z * fractal->transformCommon.scale3D000.x;
-	if (fractal->transformCommon.functionEnabledOFalse) // y axis
-		lenY += d.x * fractal->transformCommon.scale3D000.y;
-	if (fractal->transformCommon.functionEnabledKFalse) // z axis
-		lenZ += d.y * fractal->transformCommon.scale3D000.z;
 
-	d.x = 0.0;
-	d.y = max(d.y - lenY, 0.0);
-	d.z = max(d.z - lenZ, 0.0);
-	aux.DE0 = d.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0005;
-
-	// clip
-	if (fractal->transformCommon.functionEnabledEFalse)
-	{
-		aux.DE0 = max(fractal->transformCommon.offsetE0 - aux.const_c.z, aux.DE0);
-	}
-
-	double colDist = aux.dist;
-	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = aux.DE0;
-	else
-		aux.dist = min(aux.dist, aux.DE0);
-
-	if (fractal->transformCommon.functionEnabledZcFalse
-			&& aux.i >= fractal->transformCommon.startIterationsZc
-			&& aux.i < fractal->transformCommon.stopIterationsZc)
-				z = zc;
 
 	// aux.color
 	if (aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double addColor = 0.0;
-		if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		if (aux.dist != colDist) addColor += fractal->foldColor.difs0000.y;
+		//if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
+		//= fractal->foldColor.difs0000.y;
 		aux.color += addColor;
-	}*/
+	}
 }
