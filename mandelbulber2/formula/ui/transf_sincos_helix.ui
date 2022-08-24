@@ -890,7 +890,7 @@
         <property name="checkable">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1036,6 +1036,22 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>N</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

@@ -145,17 +145,17 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 		double cosA = cos(ang);
 		double sinB = sin(ang);
-		temp = z.x;
-		z.x = z.y * cosA + z.x * sinB;
+		if (!fractal->transformCommon.functionEnabledNFalse)
+		{
+			temp = z.x;
+			z.x = z.y * cosA + z.x * sinB;
+		}
+		else
+		{
+			temp = z.z;
+			z.z = z.y * cosA + z.z * sinB;
+		}
 		z.y = temp * cosA - z.y * sinB;
-
-	//	temp = z.x;
-	//	z.x = z.x * cosA + z.y * sinB;
-	//	z.y = z.y * cosA - temp * sinB;
-
-	//			temp = z.x;
-	//	z.x = z.x * cosA + z.y * sinB;
-	//	z.y = -z.y * cosA + temp * sinB;
 
 
 	}

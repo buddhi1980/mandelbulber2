@@ -107,7 +107,13 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->transformCommon.functionEnabledTFalse)
 		z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 
-
+	// vert helix
+	if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		REAL Voff = fractal->transformCommon.offsetA2;
+		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
+		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
+	}
 	// stretch around helix
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
@@ -121,16 +127,11 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 
-	// vert helix
-	if (fractal->transformCommon.functionEnabledAxFalse)
-	{
-		REAL Voff = fractal->transformCommon.offsetA2;
-		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
-		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
-	}
+
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
+
 		if (fractal->transformCommon.functionEnabledAwFalse)
 		{
 			REAL Phi = z.z;
@@ -139,24 +140,20 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			ang = Rho * fractal->transformCommon.offsetA0 + Phi * fractal->transformCommon.offsetB0
 						+ fractal->transformCommon.offsetC0;
 		}
-
-
-
 		REAL cosA = native_cos(ang);
 		REAL sinB = native_sin(ang);
-		temp = z.x;
-		z.x = z.y * cosA + z.x * sinB;
+
+		if (!fractal->transformCommon.functionEnabledNFalse)
+		{
+			temp = z.x;
+			z.x = z.y * cosA + z.x * sinB;
+		}
+		else
+		{
+			temp = z.z;
+			z.z = z.y * cosA + z.z * sinB;
+		}
 		z.y = temp * cosA - z.y * sinB;
-
-	//	temp = z.x;
-	//	z.x = z.x * cosA + z.y * sinB;
-	//	z.y = z.y * cosA - temp * sinB;
-
-	//			temp = z.x;
-	//	z.x = z.x * cosA + z.y * sinB;
-	//	z.y = -z.y * cosA + temp * sinB;
-
-
 	}
 
 	if (fractal->transformCommon.functionEnabledMFalse)

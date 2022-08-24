@@ -282,7 +282,6 @@ enum enumFractalFormula
 	mandelnest4d = 247,
 	mandelbulbIqPow8 = 248,
 	mandelbulbIqV2 = 249,
-
 	// 2.28
 	newtonPow3 = 250,
 	mandelbulbTails = 251,
@@ -290,6 +289,8 @@ enum enumFractalFormula
 	pseudoKleinianMod6 = 253,
 	mandelbulbSinCosV2 = 254,
 	mandelbulbSinCosV3 = 255,
+	// 2.29
+	mandelbulbSinCosV4 = 256,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
