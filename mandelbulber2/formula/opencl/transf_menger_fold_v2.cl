@@ -67,16 +67,25 @@ REAL4 TransfMengerFoldV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
 			aux->actualScaleA = -vary;
 		}
-		aux->DE = aux->DE * useScale + fractal->analyticDE.offset0;
 
-		REAL sc1 = useScale - 1.0f;
-		REAL sc2 = sc1 / useScale;
-		z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
-		z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
-		z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
-		z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
-		z.z = useScale * z.z;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			REAL sc1 = useScale - 1.0f;
+			REAL sc2 = sc1 / useScale;
+			z.z = z.z - fractal->transformCommon.offset1105.z * sc2;
+			z.z = -fabs(z.z) + fractal->transformCommon.offset1105.z * sc2;
+			z.x = useScale * z.x - fractal->transformCommon.offset1105.x * sc1;
+			z.y = useScale * z.y - fractal->transformCommon.offset1105.y * sc1;
+			z.z = useScale * z.z;
+		}
+		else
+		{
+			z *= useScale;
+		}
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
 	}
+
+	z += fractal->transformCommon.additionConstantA000;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
