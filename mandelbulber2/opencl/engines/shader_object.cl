@@ -34,7 +34,8 @@
 
 float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular,
-	float3 *iridescenceOut, float3 *outShadow, float *alphaOut, sClGradientsCollection *gradients)
+	float3 *iridescenceOut, float3 *outShadow, float3 *outLuminosityEmissive, float *alphaOut,
+	sClGradientsCollection *gradients)
 {
 	float3 color = 0.7f;
 
@@ -116,6 +117,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	{
 		luminosity = input->material->luminosity * input->material->luminosityColor;
 	}
+	*outLuminosityEmissive = luminosity * input->material->luminosityEmissive;
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE

@@ -120,6 +120,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sRGBAfloat specular;
 			sRGBFloat iridescence;
 			sRGBAfloat outShadow;
+			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
 			inputCopy.material = &data->materials[objectData.materialId];
@@ -144,17 +145,17 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 				inputCopy.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
 			sGradientsCollection gradients;
-			sRGBAfloat objectShader =
-				ObjectShader(inputCopy, &objectColor, &specular, &iridescence, &outShadow, &gradients);
+			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,
+				&outShadow, &outLuminosityEmissive, &gradients);
 
 			newColor = objectColor;
 			resultShader.R = objectShader.R + specular.R;
 			resultShader.G = objectShader.G + specular.G;
 			resultShader.B = objectShader.B + specular.B;
 
-			out.R += (objectShader.R + specular.R) * objectColorTemp.R;
-			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
-			out.B += (objectShader.B + specular.B) * objectColorTemp.B;
+			out.R += (objectShader.R + specular.R + outLuminosityEmissive.R) * objectColorTemp.R;
+			out.G += (objectShader.G + specular.G + outLuminosityEmissive.G) * objectColorTemp.G;
+			out.B += (objectShader.B + specular.B + outLuminosityEmissive.B) * objectColorTemp.B;
 		}
 		else
 		{

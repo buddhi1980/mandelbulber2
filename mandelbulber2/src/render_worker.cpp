@@ -1115,6 +1115,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			sRGBAfloat backgroundShader;
 			sRGBAfloat volumetricShader;
 			sRGBFloat iridescence;
+			sRGBFloat luminosityEmissiveOut;
 
 			if (rayMarchingOut.found)
 			{
@@ -1123,7 +1124,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				sGradientsCollection gradients;
 
 				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular,
-					&iridescence, &recursionOut.outShadow, &gradients);
+					&iridescence, &recursionOut.outShadow, &luminosityEmissiveOut, &gradients);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{

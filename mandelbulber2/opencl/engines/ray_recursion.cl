@@ -697,8 +697,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 				specular = 0.0f;
 				float alpha = 1.0f;
-				objectShader = ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour,
-					&specular, &iridescence, &recursionOut.outShadow, &alpha, &gradients);
+				float outLuminosityEmissive = 0.0f;
+				objectShader =
+					ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular,
+						&iridescence, &recursionOut.outShadow, &outLuminosityEmissive, &alpha, &gradients);
 				recursionOut.specular = specular;
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION

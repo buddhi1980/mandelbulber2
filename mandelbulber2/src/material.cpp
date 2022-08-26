@@ -50,6 +50,7 @@ cMaterial::cMaterial()
 	specularMetallicWidth = 0.0;
 	reflectance = 0.0;
 	luminosity = 0.0;
+	luminosityEmissive = 0.0;
 	surfaceRoughness = 0.0;
 	coloring_speed = 0.0;
 	paletteOffset = 0.0;
@@ -86,6 +87,8 @@ cMaterial::cMaterial()
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
 	roughSurface = false;
+	insideColoringEnable = false;
+	subsurfaceScattering = false;
 	surfaceGradientEnable = false;
 	specularGradientEnable = false;
 	diffuseGradientEnable = false;
@@ -190,6 +193,7 @@ QStringList cMaterial::paramsList = {
 	"luminosity_color",
 	"luminosity_texture_intensity",
 	"luminosity",
+	"luminosity_emissive",
 	"metallic",
 	"name",
 	"normal_map_texture_from_bumpmap",
@@ -267,6 +271,7 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	metallic = materialParam->Get<bool>(Name("metallic", id));
 	reflectance = materialParam->Get<float>(Name("reflectance", id));
 	luminosity = materialParam->Get<float>(Name("luminosity", id));
+	luminosityEmissive = materialParam->Get<float>(Name("luminosity_emissive", id));
 	surfaceRoughness = materialParam->Get<float>(Name("surface_roughness", id));
 	transparencyIndexOfRefraction =
 		materialParam->Get<float>(Name("transparency_index_of_refraction", id));

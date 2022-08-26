@@ -38,7 +38,7 @@
 
 sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
 	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sRGBAfloat *outShadow,
-	sGradientsCollection *gradients) const
+	sRGBFloat *luminosityEmissiveOut, sGradientsCollection *gradients) const
 {
 	sRGBAfloat output;
 	float alpha = 1.0f;
@@ -136,6 +136,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
 									 + mat->luminosity * mat->luminosityColor.B;
 	}
+	luminosityEmissiveOut->R = luminosity.R * mat->luminosityEmissive;
+	luminosityEmissiveOut->G = luminosity.G * mat->luminosityEmissive;
+	luminosityEmissiveOut->B = luminosity.B * mat->luminosityEmissive;
 
 	sRGBFloat iridescence(1.0, 1.0, 1.0);
 	if (input.material->iridescenceEnabled)

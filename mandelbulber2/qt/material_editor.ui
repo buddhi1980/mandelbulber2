@@ -128,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>472</width>
-        <height>4568</height>
+        <y>-2176</y>
+        <width>466</width>
+        <height>4014</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3441,6 +3441,13 @@ direction vector:</string>
           </property>
           <item>
            <layout class="QGridLayout" name="gridLayout_10">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_73">
+              <property name="text">
+               <string>Luminosity:</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="1">
              <widget class="MyDoubleSpinBox" name="spinbox_luminosity">
               <property name="sizePolicy">
@@ -3469,14 +3476,14 @@ direction vector:</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_73">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_74">
               <property name="text">
-               <string>Luminosity:</string>
+               <string>Luminosity color:</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="2" column="1">
              <widget class="MyColorButton" name="colorButton_luminosity_color" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -3493,9 +3500,37 @@ direction vector:</string>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_74">
+             <widget class="QLabel" name="label_94">
               <property name="text">
-               <string>Luminosity color:</string>
+               <string>Emission multiplier:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="MyDoubleSpinBox" name="spinbox_luminosity_emissive">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplier of luminosity intensity wich controls amount of emited light in global illumination effect,&lt;/p&gt;&lt;p&gt;Note: luminosity effect illuminates near objects only when Global Illumination is enabled.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>2</number>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
               </property>
              </widget>
             </item>

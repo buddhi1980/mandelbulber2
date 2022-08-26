@@ -1504,6 +1504,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("luminosity", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("luminosity_emissive", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("metallic", materialId), true, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("name", materialId), QString("material %1").arg(materialId),
 		morphNone, paramStandard);

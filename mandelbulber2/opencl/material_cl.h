@@ -56,6 +56,7 @@ typedef struct
 	cl_float specularMetallicWidth;
 	cl_float reflectance;
 	cl_float luminosity;
+	cl_float luminosityEmissive;
 	cl_float surfaceRoughness;
 	cl_float transparencyIndexOfRefraction;
 	cl_float transparencyOfInterior;
@@ -145,6 +146,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.specularMetallicWidth = source.specularMetallicWidth;
 	target.reflectance = source.reflectance;
 	target.luminosity = source.luminosity;
+	target.luminosityEmissive = source.luminosityEmissive;
 	target.surfaceRoughness = source.surfaceRoughness;
 	target.transparencyIndexOfRefraction = source.transparencyIndexOfRefraction;
 	target.transparencyOfInterior = source.transparencyOfInterior;

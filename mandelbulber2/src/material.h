@@ -78,6 +78,7 @@ public:
 	float specularMetallicWidth;
 	float reflectance;
 	float luminosity;
+	float luminosityEmissive;
 	float surfaceRoughness;
 	float transparencyIndexOfRefraction;
 	float transparencyOfInterior;
