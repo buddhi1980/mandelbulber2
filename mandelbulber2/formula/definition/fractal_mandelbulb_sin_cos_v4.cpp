@@ -50,7 +50,18 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 	}
 
 	// cartesian to polar
-	double th = z.z / aux.r;
+	double th;
+	if (!fractal->transformCommon.functionEnabledMFalse)
+		th = z.z / aux.r;
+	else
+		th = z.y / aux.r;
+
+	double ph;
+	if (!fractal->transformCommon.functionEnabledNFalse)
+		ph = atan2(z.y, z.x);
+	else
+		ph = atan2(z.z, z.x);
+
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAFalse) th = asin(th);
@@ -61,15 +72,9 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 		temp = acos(th);
 		th = temp + (asin(th) - temp) * fractal->transformCommon.scale1;
 	}
-	/*double ph;
-	if (!fractal->transformCommon.functionEnabledXFalse)
-		ph = atan2(z.y, z.x);
-	else
-		ph = atan2(z.x, z.y);*/
 
 	th = (th + fractal->bulb.betaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offset0);
-	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offsetA0);
-
+	ph = (ph+ fractal->bulb.alphaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offsetA0);
 
 	double rp = pow(aux.r, (fractal->bulb.power - 1.0f) * fractal->transformCommon.scaleA1);
 	aux.DE = aux.DE * rp * fractal->bulb.power + 1.0f;
@@ -93,6 +98,22 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 	z *= rp;
 
 
+//	if (fractal->transformCommon.functionEnabledFFalse
+//			&& aux.i >= fractal->transformCommon.startIterationsF
+//			&& aux.i < fractal->transformCommon.stopIterationsF)
+//	{
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZ_xyz:
+			default: z = CVector4(z.x, z.y, z.z, z.w); break;
+			case multi_OrderOfXYZ_xzy: z = CVector4(z.x, z.z, z.y, z.w); break;
+			case multi_OrderOfXYZ_yxz: z = CVector4(z.y, z.x, z.z, z.w); break;
+			case multi_OrderOfXYZ_yzx: z = CVector4(z.y, z.z, z.x, z.w); break;
+			case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
+			case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
+		}
+//	}
+
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
@@ -100,67 +121,8 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 		z.z *= fractal->transformCommon.scaleG1;
 	}
 
-
-	/*// polar to cartesian
-	double cth = cos(th);
-	double sth = sin(th);
-
-	CVector4 trg;
-	if (!fractal->transformCommon.functionEnabledFFalse)
-	{
-		trg = CVector4(cth * cos(ph), cth * sin(ph), sth, 0.0);
-	}
-	else
-	{
-		trg = CVector4(sth * sin(ph), sth * cos(ph), cth, 0.0);
-	}
-
-	if (fractal->transformCommon.functionEnabledAx
-			&& aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT)
-	{
-		if (!fractal->transformCommon.functionEnabledDFalse)
-		{
-			 z = trg;
-		}
-		else
-		{
-			temp = trg.z;
-			trg.z = trg.y;
-			trg.y = temp;
-			z = trg;
-		}
-		z *= rp;
-	}
-
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux.i >= fractal->transformCommon.startIterationsG
-			&& aux.i < fractal->transformCommon.stopIterationsG)
-	{
-		z += (trg * rp - z) * fractal->transformCommon.scale3D111;
-	}
-
-	if (fractal->transformCommon.functionEnabledJFalse
-			&& aux.i >= fractal->transformCommon.startIterationsJ
-			&& aux.i < fractal->transformCommon.stopIterationsJ)
-	{
-		z.x = cos(ph);
-		z.y = sin(ph);
-		z.z = sth;
-
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			z.x *= 1.0 + (cth - 1.0) * fractal->transformCommon.vec111.x;
-		if (fractal->transformCommon.functionEnabledByFalse)
-			z.y *= 1.0 + (cth - 1.0) * fractal->transformCommon.vec111.y;
-		if (fractal->transformCommon.functionEnabledBzFalse)
-			z.z *= 1.0 + (cth - 1.0) * fractal->transformCommon.vec111.z;
-
-		z *= rp;
-	}*/
-
 	z += fractal->transformCommon.offsetA000;
 	z += aux.const_c * fractal->transformCommon.constantMultiplier111;
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{

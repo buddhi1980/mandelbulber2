@@ -36,7 +36,18 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 
 	// cartesian to polar
-	REAL th = z.z / aux->r;
+	REAL th;
+	if (!fractal->transformCommon.functionEnabledMFalse)
+		th = z.z / aux->r;
+	else
+		th = z.y / aux->r;
+
+	REAL ph;
+	if (!fractal->transformCommon.functionEnabledNFalse)
+		ph = atan2(z.y, z.x);
+	else
+		ph = atan2(z.z, z.x);
+
 	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAFalse)
@@ -49,17 +60,9 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		temp = acos(th);
 		th = temp + (asin(th) - temp) * fractal->transformCommon.scale1;
 	}
-	/*REAL ph;
-	if (!fractal->transformCommon.functionEnabledXFalse)
-		ph = atan2(z.y, z.x);
-	else
-		ph = atan2(z.x, z.y);*/
-
-
-
 
 	th = (th + fractal->bulb.betaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offset0);
-	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offsetA0);
+	ph = (ph + fractal->bulb.alphaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offsetA0);
 
 	REAL rp = pow(aux->r, (fractal->bulb.power - 1.0f) * fractal->transformCommon.scaleA1);
 	aux->DE = aux->DE * rp * fractal->bulb.power + 1.0f;
@@ -83,6 +86,22 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z *= rp;
 
 
+	if (fractal->transformCommon.functionEnabledFFalse
+				&& aux->i >= fractal->transformCommon.startIterationsF
+				&& aux->i < fractal->transformCommon.stopIterationsF)
+	{
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZCl_xyz:
+			default: z = (REAL4){z.x, z.y, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_xzy: z = (REAL4){z.x, z.z, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_yxz: z = (REAL4){z.y, z.x, z.z, z.w}; break;
+			case multi_OrderOfXYZCl_yzx: z = (REAL4){z.y, z.z, z.x, z.w}; break;
+			case multi_OrderOfXYZCl_zxy: z = (REAL4){z.z, z.x, z.y, z.w}; break;
+			case multi_OrderOfXYZCl_zyx: z = (REAL4){z.z, z.y, z.x, z.w}; break;
+		}
+	}
+
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux->i >= fractal->transformCommon.startIterationsG
 			&& aux->i < fractal->transformCommon.stopIterationsG)
@@ -90,69 +109,8 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.z *= fractal->transformCommon.scaleG1;
 	}
 
-
-
-
-
-/*	REAL cth = native_cos(th);
-	REAL sth = native_sin(th);
-
-	REAL4 trg;
-	if (!fractal->transformCommon.functionEnabledFFalse)
-	{
-		trg = (REAL4){cth * native_cos(ph), cth * native_sin(ph), sth, 0.0f};
-	}
-	else
-	{
-		trg = (REAL4){sth * native_sin(ph), sth * native_cos(ph), cth, 0.0f};
-	}*/
-
-/*	if (fractal->transformCommon.functionEnabledAx
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT)
-	{
-		if (!fractal->transformCommon.functionEnabledDFalse)
-		{
-			z = trg;
-		}
-		else
-		{
-			temp = trg.z;
-			trg.z = trg.y;
-			trg.y = temp;
-			z = trg;
-		}
-		z *= rp;
-	}
-
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux->i >= fractal->transformCommon.startIterationsG
-			&& aux->i < fractal->transformCommon.stopIterationsG)
-	{
-		z += (trg * rp - z) * fractal->transformCommon.scale3D111;
-	}
-
-	if (fractal->transformCommon.functionEnabledJFalse
-			&& aux->i >= fractal->transformCommon.startIterationsJ
-			&& aux->i < fractal->transformCommon.stopIterationsJ)
-	{
-		z.x = native_cos(ph);
-		z.y = native_sin(ph);
-		z.z = sth;
-
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			z.x *= 1.0f + (cth - 1.0f) * fractal->transformCommon.vec111.x;
-		if (fractal->transformCommon.functionEnabledByFalse)
-			z.y *= 1.0f + (cth - 1.0f) * fractal->transformCommon.vec111.y;
-		if (fractal->transformCommon.functionEnabledBzFalse)
-			z.z *= 1.0f + (cth - 1.0f) * fractal->transformCommon.vec111.z;
-
-		z *= rp;
-	}*/
-
 	z += fractal->transformCommon.offsetA000;
 	z += aux->const_c * fractal->transformCommon.constantMultiplier111;
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{
