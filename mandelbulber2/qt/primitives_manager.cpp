@@ -32,7 +32,7 @@
  * TODO: description
  */
 
-#include "primitives_sources_manager.h"
+#include "primitives_manager.h"
 
 #include "ui_primitives_manager.h"
 
