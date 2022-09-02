@@ -35,9 +35,11 @@
 #ifndef MANDELBULBER2_SRC_PRIMITIVE_HPP_
 #define MANDELBULBER2_SRC_PRIMITIVE_HPP_
 
+#include <memory>
 #include "algebra.hpp"
 #include "object_data.hpp"
 #include "object_types.hpp"
+#include "parameters.hpp"
 
 enum enumPrimitiveBooleanOperator
 {
@@ -65,6 +67,7 @@ struct sPrimitiveItem
 
 struct sPrimitiveBasic : cObjectData
 {
+	sPrimitiveBasic(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool enable = false;
 	int objectId = 0;
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
@@ -74,12 +77,14 @@ struct sPrimitiveBasic : cObjectData
 
 struct sPrimitivePlane : sPrimitiveBasic
 {
+	sPrimitivePlane(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveBox : sPrimitiveBasic
 {
+	sPrimitiveBox(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	double rounding;
 	CVector3 repeat;
@@ -88,6 +93,7 @@ struct sPrimitiveBox : sPrimitiveBasic
 
 struct sPrimitiveSphere : sPrimitiveBasic
 {
+	sPrimitiveSphere(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	double radius;
 	CVector3 repeat;
@@ -96,6 +102,7 @@ struct sPrimitiveSphere : sPrimitiveBasic
 
 struct sPrimitiveWater : sPrimitiveBasic
 {
+	sPrimitiveWater(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool waveFromObjectsEnable;
 	double relativeAmplitude;
@@ -111,6 +118,7 @@ struct sPrimitiveWater : sPrimitiveBasic
 
 struct sPrimitiveCone : sPrimitiveBasic
 {
+	sPrimitiveCone(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool caps;
 	double radius;
@@ -122,6 +130,7 @@ struct sPrimitiveCone : sPrimitiveBasic
 
 struct sPrimitiveCylinder : sPrimitiveBasic
 {
+	sPrimitiveCylinder(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool caps;
 	double radius;
@@ -132,6 +141,7 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 
 struct sPrimitiveTorus : sPrimitiveBasic
 {
+	sPrimitiveTorus(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	double radius;
 	double radiusLPow;
@@ -143,12 +153,14 @@ struct sPrimitiveTorus : sPrimitiveBasic
 
 struct sPrimitiveCircle : sPrimitiveBasic
 {
+	sPrimitiveCircle(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	double radius;
 	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveRectangle : sPrimitiveBasic
 {
+	sPrimitiveRectangle(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	double height;
 	double width;
 	double PrimitiveDistance(CVector3 _point) const override;

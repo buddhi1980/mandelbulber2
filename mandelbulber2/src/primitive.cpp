@@ -39,6 +39,118 @@
 
 using std::max;
 
+sPrimitiveBasic::sPrimitiveBasic(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+{
+	position = par->Get<CVector3>(fullName + "_position");
+	materialId = par->Get<int>(fullName + "_material_id");
+	SetRotation(par->Get<CVector3>(fullName + "_rotation"));
+	enable = par->Get<bool>(fullName + "_enabled");
+	booleanOperator = enumPrimitiveBooleanOperator(par->Get<int>(fullName + "_boolean_operator"));
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+}
+
+sPrimitivePlane::sPrimitivePlane(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	size = CVector3(1.0, 1.0, 1.0);
+}
+
+sPrimitiveBox::sPrimitiveBox(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	rounding = par->Get<double>(fullName + "_rounding");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = par->Get<CVector3>(fullName + "_size");
+}
+
+sPrimitiveSphere::sPrimitiveSphere(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	radius = par->Get<double>(fullName + "_radius");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = CVector3(radius * 2.0, radius * 2.0, radius * 2.0);
+}
+
+sPrimitiveWater::sPrimitiveWater(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	relativeAmplitude = par->Get<double>(fullName + "_relative_amplitude");
+	length = par->Get<double>(fullName + "_length");
+	animSpeed = par->Get<double>(fullName + "_anim_speed");
+	animProgressionSpeed = par->Get<double>(fullName + "_anim_progression_speed");
+	iterations = par->Get<int>(fullName + "_iterations");
+	waveFromObjectsEnable = par->Get<bool>(fullName + "_wave_from_objects_enable");
+	waveFromObjectsRelativeAmplitude =
+		par->Get<double>(fullName + "_wave_from_objects_relative_amplitude");
+	animFrame = par->Get<int>("frame_no");
+	size = CVector3(1.0, 1.0, 1.0);
+}
+
+sPrimitiveCone::sPrimitiveCone(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	caps = par->Get<bool>(fullName + "_caps");
+	empty = par->Get<bool>(fullName + "_empty");
+	radius = par->Get<double>(fullName + "_radius");
+	height = par->Get<double>(fullName + "_height");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	wallNormal = CVector2<double>(1.0, radius / height);
+	wallNormal.Normalize();
+	size = CVector3(radius * 2.0, radius * 2.0, height);
+}
+
+sPrimitiveCylinder::sPrimitiveCylinder(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	caps = par->Get<bool>(fullName + "_caps");
+	empty = par->Get<bool>(fullName + "_empty");
+	radius = par->Get<double>(fullName + "_radius");
+	height = par->Get<double>(fullName + "_height");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = CVector3(radius * 2.0, radius * 2.0, height);
+}
+
+sPrimitiveTorus::sPrimitiveTorus(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	radius = par->Get<double>(fullName + "_radius");
+	radiusLPow = par->Get<double>(fullName + "_radius_lpow");
+	tubeRadius = par->Get<double>(fullName + "_tube_radius");
+	tubeRadiusLPow = par->Get<double>(fullName + "_tube_radius_lpow");
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	size = CVector3((radius + tubeRadius) * 2.0, (radius + tubeRadius) * 2.0, tubeRadius);
+}
+
+sPrimitiveRectangle::sPrimitiveRectangle(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	height = par->Get<double>(fullName + "_height");
+	width = par->Get<double>(fullName + "_width");
+	size = CVector3(width, height, 1.0);
+}
+
+sPrimitiveCircle::sPrimitiveCircle(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	radius = par->Get<double>(fullName + "_radius");
+	size = CVector3(radius * 2.0, radius * 2.0, 1.0);
+}
+
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;

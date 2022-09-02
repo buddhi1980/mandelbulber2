@@ -124,104 +124,47 @@ cPrimitives::cPrimitives(
 		{
 			case objPlane:
 			{
-				primitive = new sPrimitivePlane;
-				sPrimitivePlane *obj = static_cast<sPrimitivePlane *>(primitive);
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->size = CVector3(1.0, 1.0, 1.0);
+				primitive = new sPrimitivePlane(item.fullName, par);
 				break;
 			}
 			case objBox:
 			{
-				primitive = new sPrimitiveBox;
-				sPrimitiveBox *obj = static_cast<sPrimitiveBox *>(primitive);
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->rounding = par->Get<double>(item.fullName + "_rounding");
-				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
-				obj->size = par->Get<CVector3>(item.fullName + "_size");
+				primitive = new sPrimitiveBox(item.fullName, par);
 				break;
 			}
 			case objSphere:
 			{
-				primitive = new sPrimitiveSphere;
-				sPrimitiveSphere *obj = static_cast<sPrimitiveSphere *>(primitive);
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->radius = par->Get<double>(item.fullName + "_radius");
-				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
-				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->radius * 2.0);
+				primitive = new sPrimitiveSphere(item.fullName, par);
 				break;
 			}
 			case objWater:
 			{
-				primitive = new sPrimitiveWater;
-				sPrimitiveWater *obj = static_cast<sPrimitiveWater *>(primitive);
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->relativeAmplitude = par->Get<double>(item.fullName + "_relative_amplitude");
-				obj->length = par->Get<double>(item.fullName + "_length");
-				obj->animSpeed = par->Get<double>(item.fullName + "_anim_speed");
-				obj->animProgressionSpeed = par->Get<double>(item.fullName + "_anim_progression_speed");
-				obj->iterations = par->Get<int>(item.fullName + "_iterations");
-				obj->waveFromObjectsEnable = par->Get<bool>(item.fullName + "_wave_from_objects_enable");
-				obj->waveFromObjectsRelativeAmplitude =
-					par->Get<double>(item.fullName + "_wave_from_objects_relative_amplitude");
-				obj->animFrame = par->Get<int>("frame_no");
-				obj->size = CVector3(1.0, 1.0, 1.0);
+				primitive = new sPrimitiveWater(item.fullName, par);
 				break;
 			}
 			case objCone:
 			{
-				primitive = new sPrimitiveCone;
-				sPrimitiveCone *obj = static_cast<sPrimitiveCone *>(primitive);
-				obj->caps = par->Get<bool>(item.fullName + "_caps");
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->radius = par->Get<double>(item.fullName + "_radius");
-				obj->height = par->Get<double>(item.fullName + "_height");
-				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
-				obj->wallNormal = CVector2<double>(1.0, obj->radius / obj->height);
-				obj->wallNormal.Normalize();
-				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
+				primitive = new sPrimitiveCone(item.fullName, par);
 				break;
 			}
 			case objCylinder:
 			{
-				primitive = new sPrimitiveCylinder;
-				sPrimitiveCylinder *obj = static_cast<sPrimitiveCylinder *>(primitive);
-				obj->caps = par->Get<bool>(item.fullName + "_caps");
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->radius = par->Get<double>(item.fullName + "_radius");
-				obj->height = par->Get<double>(item.fullName + "_height");
-				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
-				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
+				primitive = new sPrimitiveCylinder(item.fullName, par);
 				break;
 			}
 			case objTorus:
 			{
-				primitive = new sPrimitiveTorus;
-				sPrimitiveTorus *obj = static_cast<sPrimitiveTorus *>(primitive);
-				obj->empty = par->Get<bool>(item.fullName + "_empty");
-				obj->radius = par->Get<double>(item.fullName + "_radius");
-				obj->radiusLPow = par->Get<double>(item.fullName + "_radius_lpow");
-				obj->tubeRadius = par->Get<double>(item.fullName + "_tube_radius");
-				obj->tubeRadiusLPow = par->Get<double>(item.fullName + "_tube_radius_lpow");
-				obj->repeat = par->Get<CVector3>(item.fullName + "_repeat");
-				obj->size = CVector3((obj->radius + obj->tubeRadius) * 2.0,
-					(obj->radius + obj->tubeRadius) * 2.0, obj->tubeRadius);
+				primitive = new sPrimitiveTorus(item.fullName, par);
 				break;
 			}
 			case objCircle:
 			{
-				primitive = new sPrimitiveCircle;
-				sPrimitiveCircle *obj = static_cast<sPrimitiveCircle *>(primitive);
-				obj->radius = par->Get<double>(item.fullName + "_radius");
-				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
+				primitive = new sPrimitiveCircle(item.fullName, par);
 				break;
 			}
 			case objRectangle:
 			{
-				primitive = new sPrimitiveRectangle;
-				sPrimitiveRectangle *obj = static_cast<sPrimitiveRectangle *>(primitive);
-				obj->height = par->Get<double>(item.fullName + "_height");
-				obj->width = par->Get<double>(item.fullName + "_width");
-				obj->size = CVector3(obj->width, obj->height, 1.0);
+				primitive = new sPrimitiveRectangle(item.fullName, par);
 				break;
 			}
 			default:
@@ -232,15 +175,7 @@ cPrimitives::cPrimitives(
 			}
 		}
 
-		// set parameters, which all primitives have in common
-		primitive->position = par->Get<CVector3>(item.fullName + "_position");
-		primitive->materialId = par->Get<int>(item.fullName + "_material_id");
 		primitive->objectType = item.type;
-		primitive->SetRotation(par->Get<CVector3>(item.fullName + "_rotation"));
-		primitive->enable = par->Get<bool>(item.fullName + "_enabled");
-		primitive->booleanOperator =
-			enumPrimitiveBooleanOperator(par->Get<int>(item.fullName + "_boolean_operator"));
-		primitive->repeat = par->Get<CVector3>(item.fullName + "_repeat");
 
 		if (objectData)
 		{
