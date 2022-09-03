@@ -37,6 +37,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include <QtCore>
 #include <QString>
@@ -60,8 +61,11 @@ public:
 	~cPrimitives();
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
 		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
-	const QList<sPrimitiveBasic *> *GetAllOfPrimitives() const { return &allPrimitives; }
-
+	const std::shared_ptr<sPrimitiveBasic> GetPrimitive(const int index) const
+	{
+		return allPrimitives[index];
+	}
+	int GetNumberOfPrimivives() const { return allPrimitives.size(); }
 	static QList<sPrimitiveItem> GetListOfPrimitives(const std::shared_ptr<cParameterContainer> par);
 	static int NewPrimitiveIndex(
 		const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives);
@@ -73,7 +77,7 @@ public:
 	CRotationMatrix mRotAllPrimitivesRotation;
 
 private:
-	QList<sPrimitiveBasic *> allPrimitives;
+	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;
 
 	static double Plane(CVector3 point, CVector3 position, CVector3 normal)
 	{

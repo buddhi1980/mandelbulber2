@@ -566,12 +566,10 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	 * 	sPrimitiveCl primitiveN
 	 */
 
-	const QList<sPrimitiveBasic *> *primitives = primitivesContainer->GetAllOfPrimitives();
-
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[primitivesItemIndex].itemOffset = totalDataOffset;
 
-	cl_int numberOfPrimitives = primitives->size();
+	cl_int numberOfPrimitives = primitivesContainer->GetNumberOfPrimivives();
 	data.append(reinterpret_cast<char *>(&numberOfPrimitives), sizeof(numberOfPrimitives));
 	totalDataOffset += sizeof(numberOfPrimitives);
 
@@ -618,7 +616,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		if (i == 0) arrayOffset = totalDataOffset;
 
 		sPrimitiveCl primitiveCl;
-		const sPrimitiveBasic *primitive = primitives->at(i);
+		const std::shared_ptr<sPrimitiveBasic> primitive = primitivesContainer->GetPrimitive(i);
 
 		primitiveCl.object.enable = primitive->enable;
 		primitiveCl.object.materialId = primitive->materialId;
@@ -637,7 +635,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 			{
 				case fractal::objPlane:
 				{
-					const sPrimitivePlane *plane = dynamic_cast<const sPrimitivePlane *>(primitive);
+					const sPrimitivePlane *plane = dynamic_cast<const sPrimitivePlane *>(primitive.get());
 					if (plane)
 					{
 						primitiveCl.data.plane.empty = plane->empty;
@@ -650,7 +648,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objBox:
 				{
-					const sPrimitiveBox *box = dynamic_cast<const sPrimitiveBox *>(primitive);
+					const sPrimitiveBox *box = dynamic_cast<const sPrimitiveBox *>(primitive.get());
 					if (box)
 					{
 						primitiveCl.data.box.empty = box->empty;
@@ -665,7 +663,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objSphere:
 				{
-					const sPrimitiveSphere *sphere = dynamic_cast<const sPrimitiveSphere *>(primitive);
+					const sPrimitiveSphere *sphere = dynamic_cast<const sPrimitiveSphere *>(primitive.get());
 					if (sphere)
 					{
 						primitiveCl.data.sphere.empty = sphere->empty;
@@ -680,7 +678,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objWater:
 				{
-					const sPrimitiveWater *water = dynamic_cast<const sPrimitiveWater *>(primitive);
+					const sPrimitiveWater *water = dynamic_cast<const sPrimitiveWater *>(primitive.get());
 					if (water)
 					{
 						primitiveCl.data.water.empty = water->empty;
@@ -702,7 +700,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objCone:
 				{
-					const sPrimitiveCone *cone = dynamic_cast<const sPrimitiveCone *>(primitive);
+					const sPrimitiveCone *cone = dynamic_cast<const sPrimitiveCone *>(primitive.get());
 					if (cone)
 					{
 						primitiveCl.data.cone.empty = cone->empty;
@@ -720,7 +718,8 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objCylinder:
 				{
-					const sPrimitiveCylinder *cylinder = dynamic_cast<const sPrimitiveCylinder *>(primitive);
+					const sPrimitiveCylinder *cylinder =
+						dynamic_cast<const sPrimitiveCylinder *>(primitive.get());
 					if (cylinder)
 					{
 						primitiveCl.data.cylinder.empty = cylinder->empty;
@@ -737,7 +736,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objTorus:
 				{
-					const sPrimitiveTorus *torus = dynamic_cast<const sPrimitiveTorus *>(primitive);
+					const sPrimitiveTorus *torus = dynamic_cast<const sPrimitiveTorus *>(primitive.get());
 					if (torus)
 					{
 						primitiveCl.data.torus.empty = torus->empty;
@@ -755,7 +754,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 				case fractal::objCircle:
 				{
-					const sPrimitiveCircle *circle = dynamic_cast<const sPrimitiveCircle *>(primitive);
+					const sPrimitiveCircle *circle = dynamic_cast<const sPrimitiveCircle *>(primitive.get());
 					if (circle)
 					{
 						primitiveCl.data.circle.radius = circle->radius;
@@ -769,7 +768,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 				case fractal::objRectangle:
 				{
 					const sPrimitiveRectangle *rectangle =
-						dynamic_cast<const sPrimitiveRectangle *>(primitive);
+						dynamic_cast<const sPrimitiveRectangle *>(primitive.get());
 					if (rectangle)
 					{
 						primitiveCl.data.rectangle.height = rectangle->height;

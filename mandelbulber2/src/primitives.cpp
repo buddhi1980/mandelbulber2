@@ -118,53 +118,53 @@ cPrimitives::cPrimitives(
 	for (auto item : listOfPrimitives)
 	{
 		using namespace fractal;
-		sPrimitiveBasic *primitive;
+		std::shared_ptr<sPrimitiveBasic> primitive;
 
 		switch (item.type)
 		{
 			case objPlane:
 			{
-				primitive = new sPrimitivePlane(item.fullName, par);
+				primitive.reset(new sPrimitivePlane(item.fullName, par));
 				break;
 			}
 			case objBox:
 			{
-				primitive = new sPrimitiveBox(item.fullName, par);
+				primitive.reset(new sPrimitiveBox(item.fullName, par));
 				break;
 			}
 			case objSphere:
 			{
-				primitive = new sPrimitiveSphere(item.fullName, par);
+				primitive.reset(new sPrimitiveSphere(item.fullName, par));
 				break;
 			}
 			case objWater:
 			{
-				primitive = new sPrimitiveWater(item.fullName, par);
+				primitive.reset(new sPrimitiveWater(item.fullName, par));
 				break;
 			}
 			case objCone:
 			{
-				primitive = new sPrimitiveCone(item.fullName, par);
+				primitive.reset(new sPrimitiveCone(item.fullName, par));
 				break;
 			}
 			case objCylinder:
 			{
-				primitive = new sPrimitiveCylinder(item.fullName, par);
+				primitive.reset(new sPrimitiveCylinder(item.fullName, par));
 				break;
 			}
 			case objTorus:
 			{
-				primitive = new sPrimitiveTorus(item.fullName, par);
+				primitive.reset(new sPrimitiveTorus(item.fullName, par));
 				break;
 			}
 			case objCircle:
 			{
-				primitive = new sPrimitiveCircle(item.fullName, par);
+				primitive.reset(new sPrimitiveCircle(item.fullName, par));
 				break;
 			}
 			case objRectangle:
 			{
-				primitive = new sPrimitiveRectangle(item.fullName, par);
+				primitive.reset(new sPrimitiveRectangle(item.fullName, par));
 				break;
 			}
 			default:
@@ -179,10 +179,10 @@ cPrimitives::cPrimitives(
 
 		if (objectData)
 		{
-			objectData->append(*primitive);
+			objectData->append(*primitive.get());
 			primitive->objectId = objectData->size() - 1;
 		}
-		allPrimitives.append(primitive);
+		allPrimitives.push_back(primitive);
 	}
 
 	allPrimitivesPosition = par->Get<CVector3>("all_primitives_position");
@@ -194,7 +194,7 @@ cPrimitives::cPrimitives(
 
 cPrimitives::~cPrimitives()
 {
-	qDeleteAll(allPrimitives);
+	// nothing to do
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double detailSize,
@@ -204,7 +204,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 	int closestObject = *closestObjectId;
 	double distance = fractalDistance;
 
-	if (allPrimitives.count() > 0)
+	if (allPrimitives.size() > 0)
 	{
 		CVector3 point2 = point - allPrimitivesPosition;
 		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
@@ -213,7 +213,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 		{
 			if (primitive->enable)
 			{
-				sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitive);
+				sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitive.get());
 				double distTemp;
 				if (water)
 				{
