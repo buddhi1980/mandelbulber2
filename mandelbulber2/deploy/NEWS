@@ -5,9 +5,12 @@ v2.29 (??? 2022)
    transfSinYM3d
 
 - modified fractal formulas
+   mandelbulbTails, update
+   mandelbulbTailsV2, update
    mengerSponge3, add aux.color
    mengerPolyFold, add aux.color
    mengerChebyshev, add aux.color
+   transfAddSphericalInvert, update
    transfCayley2V1, update
    transfMengerFoldV2, update
 

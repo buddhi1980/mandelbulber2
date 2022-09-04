@@ -80,7 +80,8 @@ void cFractalMandelbulbTailsV2::FormulaCode(CVector4 &z, const sFractal *fractal
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		CVector4 t = z;
-		aux.r = 1.0 / t.Dot(t);
+		if (!fractal->transformCommon.functionEnabledFalse) aux.r = 1.0 / t.Dot(t);
+		else aux.r = 1.0 / aux.r;
 		t.x = -t.x;
 		t.z = -t.z;
 		CVector4 g = fractal->transformCommon.scale3D111;

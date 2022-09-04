@@ -70,7 +70,8 @@ REAL4 MandelbulbTailsV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
 		REAL4 t = z;
-		aux->r = 1.0f / dot(t, t);
+		if (!fractal->transformCommon.functionEnabledFalse) aux->r = 1.0f / dot(t, t);
+		else aux->r = 1.0f / aux->r;
 		t.x = -t.x;
 		t.z = -t.z;
 		REAL4 g = fractal->transformCommon.scale3D111;

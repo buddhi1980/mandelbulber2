@@ -49,7 +49,8 @@ REAL4 MandelbulbTailsIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// 1/z = conj(z)/r^2
 
 	REAL4 t = z;
-	aux->r = 1.0f / dot(t, t);
+	if (!fractal->transformCommon.functionEnabledFalse) aux->r = 1.0f / dot(t, t);
+	else aux->r = 1.0f / aux->r;
 	t.x = -t.x;
 	//	t.y = t.y;
 	t.z = -t.z;

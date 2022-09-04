@@ -17,7 +17,9 @@ REAL4 TransfAddSphericalInvertIteration(
 	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 t = z;
-	aux->r = 1.0f / dot(t, t);
+	if (!fractal->transformCommon.functionEnabledFalse) aux->r = 1.0f / dot(t, t);
+	else aux->r = 1.0f / aux->r;
+
 	REAL4 g = fractal->transformCommon.scale3D111;
 	t *= g * aux->r;
 	aux->DE += 1.0f / aux->DE;

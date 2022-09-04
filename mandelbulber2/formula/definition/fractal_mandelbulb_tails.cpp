@@ -58,7 +58,8 @@ void cFractalMandelbulbTails::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	// 1/z = conj(z)/r^2
 
 	CVector4 t = z;
-	aux.r = 1.0 / t.Dot(t);
+	if (!fractal->transformCommon.functionEnabledFalse) aux.r = 1.0 / t.Dot(t);
+	else aux.r = 1.0 / aux.r;
 	t.x = -t.x;
 //	t.y = t.y;
 	t.z = -t.z;
