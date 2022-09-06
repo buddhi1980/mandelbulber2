@@ -84,7 +84,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 			if (params->iterFogEnabled)
 			{
-				opacity += IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 					params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			}
 			//			if (params->volFogEnabled && params->distanceFogShadows)
