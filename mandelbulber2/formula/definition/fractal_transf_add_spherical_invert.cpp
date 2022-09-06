@@ -28,12 +28,16 @@ void cFractalTransfAddSphericalInvert::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 t = z;
+	double d = 1.0 / t.Dot(t);
+	double r = 1.0 / aux.r;
 
-	if (!fractal->transformCommon.functionEnabledFalse) aux.r = 1.0 / t.Dot(t);
-	else aux.r = 1.0 / aux.r;
+	if (!fractal->transformCommon.functionEnabledFalse)
+		d = r + (d - r) * fractal->transformCommon.scaleA1;
+	else
+		d = d + (r - d) * fractal->transformCommon.scaleA1;
 
 	CVector4 g = fractal->transformCommon.scale3D111;
-	t *= g * aux.r;
+	t *= g * d;
 	aux.DE += 1.0 / aux.DE;
 	z = (z + t) * fractal->transformCommon.scaleB1;
 	aux.DE *= fractal->transformCommon.scaleB1;

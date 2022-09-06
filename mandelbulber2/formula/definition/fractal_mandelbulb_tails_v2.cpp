@@ -80,12 +80,13 @@ void cFractalMandelbulbTailsV2::FormulaCode(CVector4 &z, const sFractal *fractal
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		CVector4 t = z;
-		if (!fractal->transformCommon.functionEnabledFalse) aux.r = 1.0 / t.Dot(t);
-		else aux.r = 1.0 / aux.r;
+		double temp;
+		if (!fractal->transformCommon.functionEnabledFalse) temp = 1.0 / t.Dot(t);
+		else temp = 1.0 / t.Length();
 		t.x = -t.x;
 		t.z = -t.z;
 		CVector4 g = fractal->transformCommon.scale3D111;
-		t *= g * aux.r;
+		t *= g * temp;
 		aux.DE += 1.0 / aux.DE;
 		// puting z, 1/z and C together.
 		z = (z + t) * fractal->transformCommon.scaleB1;
