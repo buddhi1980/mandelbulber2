@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>826</width>
-    <height>2328</height>
+    <height>2353</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -409,11 +409,25 @@
     </layout>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
-     <property name="text">
-      <string>dot -&gt; length</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+       <property name="text">
+        <string>dot -&gt; length</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>length = aux.r</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,1">
@@ -977,6 +991,22 @@ scale</string>
     <hint type="destinationlabel">
      <x>185</x>
      <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledG_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>356</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>455</x>
+     <y>357</y>
     </hint>
    </hints>
   </connection>
