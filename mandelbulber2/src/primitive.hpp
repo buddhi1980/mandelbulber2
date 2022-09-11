@@ -63,6 +63,8 @@ struct sPrimitiveItem
 	int id;
 	QString fullName;
 	QString typeName;
+
+	QString Name(const QString &subParameterName) const { return fullName + "_" + subParameterName; }
 };
 
 struct sPrimitiveBasic : cObjectData

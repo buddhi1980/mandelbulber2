@@ -38,6 +38,8 @@
 #include <memory>
 
 #include <QWidget>
+
+#include "src/primitive.hpp"
 #include "my_widget_with_params.h"
 
 class cParameterContainer;
@@ -58,7 +60,7 @@ public:
 	void Regenerate();
 
 private:
-	void AddPrimitive(bool init, int indexInParameters);
+	void AddPrimitive(bool init, const sPrimitiveItem &primitive);
 
 	QList<int> primitiveIndexOnTab;
 	Ui::cPrimitivesManager *ui;

@@ -59,6 +59,9 @@ public:
 	cPrimitives(
 		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
 	~cPrimitives();
+	void Set(
+		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
+
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
 		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
 	const std::shared_ptr<sPrimitiveBasic> GetPrimitive(const int index) const

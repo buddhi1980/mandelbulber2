@@ -93,6 +93,14 @@ cPrimitives::cPrimitives(
 	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) started", 3);
 	isAnyPrimitive = false;
 
+	Set(par, objectData);
+
+	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
+}
+
+void cPrimitives::Set(
+	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
+{
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
 
@@ -188,8 +196,6 @@ cPrimitives::cPrimitives(
 	allPrimitivesPosition = par->Get<CVector3>("all_primitives_position");
 	allPrimitivesRotation = par->Get<CVector3>("all_primitives_rotation");
 	mRotAllPrimitivesRotation.SetRotation2(allPrimitivesRotation / 180.0 * M_PI);
-
-	WriteLog("cPrimitives::cPrimitives(const std::shared_ptr<cParameterContainer> par) finished", 3);
 }
 
 cPrimitives::~cPrimitives()

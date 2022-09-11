@@ -34,6 +34,8 @@
 
 #include "primitives_manager.h"
 
+#include "../src/error_message.hpp"
+#include "../src/my_ui_loader.h"
 #include "ui_primitives_manager.h"
 
 //#include "primitive_editor.h"
@@ -46,6 +48,7 @@
 #include "src/rendered_image_widget.hpp"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
+#include "src/system_directories.hpp"
 
 cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cPrimitivesManager)
@@ -74,19 +77,10 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 
 void cPrimitivesManager::Init()
 {
-	// FIXME: init
-	/*
-	QList<int> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
-	if (listOfFoundPrimitives.isEmpty())
-	{
-		AddPrimitive(true, -1);
-	}
-	else
-	{
-		Regenerate();
-	}
+
+	Regenerate();
+
 	autoRefreshTimer->start(int(params->Get<double>("auto_refresh_period") * 1000.0));
-	*/
 }
 
 cPrimitivesManager::~cPrimitivesManager()
@@ -94,55 +88,62 @@ cPrimitivesManager::~cPrimitivesManager()
 	delete ui;
 }
 
-void cPrimitivesManager::AddPrimitive(bool init, int indexInParameters)
+void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive)
 {
-	// FIXME: new primitive
-	/*
-	cPrimitiveEditor *newEditor = new cPrimitiveEditor;
-	int newTabIndex = ui->tabWidget_primitiveSources->count() + 1;
 
-	if (init)
+	QString primitiveFullName = primitive.fullName;
+	QString primitiveType = primitive.typeName;
+	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
+											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
+	fractal::enumObjectType objectType = primitive.type;
+	// fractal::enumObjectType objectType = primitive.type;
+	int newId = primitive.id;
+
+	// load ui
+	MyUiLoader loader;
+	QFile uiFile(uiFileName);
+	if (uiFile.exists())
 	{
-		if (primitiveIndexOnTab.isEmpty())
+		uiFile.open(QFile::ReadOnly);
+		QWidget *newEditor = loader.load(&uiFile);
+		uiFile.close();
+		int newTabIndex = ui->tabWidget_primitives->count() + 1;
+
+		if (init)
 		{
-			indexInParameters = 1;
+			InitPrimitiveParams(objectType, primitiveFullName, params);
 		}
-		else
+
+		QString name = primitiveFullName;
+		ui->tabWidget_primitives->addTab(newEditor, name);
+
+		auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitives->tabBar());
+		tabBar->AddCheckBox(newTabIndex - 1, QString("checkBox_%1_enabled").arg(primitiveFullName));
+
+		if (params->Get<bool>("ui_colorize"))
+			cInterface::ColorizeGroupBoxes(ui->tabWidget_primitives->widget(newTabIndex - 1),
+				params->Get<int>("ui_colorize_random_seed") + newTabIndex);
+
+		if (init)
 		{
-			indexInParameters = primitiveIndexOnTab.last() + 1;
+			params->Set(primitive.Name("is_defined"), true);
+			params->Set(primitive.Name("enabled"), true);
 		}
-		InitPrimitiveParams(indexInParameters, params);
 	}
 
-	if (!init && indexInParameters < 0)
+	else
 	{
-		qCritical() << "cPrimitivesManager::AddPrimitive(): Wrong primitive index!";
-		return;
+		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName
+																 + QObject::tr(" Primitive object ui file can't be loaded"),
+			cErrorMessage::errorMessage, this);
 	}
 
-	QString name = QString("# %1").arg(indexInParameters);
-	ui->tabWidget_primitiveSources->addTab(newEditor, name);
+	// FIXME: AssignPrimitive
+	// newEditor->AssignPrimitive(params, indexInParameters);
 
-	auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitiveSources->tabBar());
-	tabBar->AddCheckBox(
-		newTabIndex - 1, QString("checkBox_primitive%1_enabled").arg(indexInParameters));
+	// primitiveIndexOnTab.append(indexInParameters);
 
-	if (params->Get<bool>("ui_colorize"))
-		cInterface::ColorizeGroupBoxes(ui->tabWidget_primitiveSources->widget(newTabIndex - 1),
-			params->Get<int>("ui_colorize_random_seed") + newTabIndex);
-
-	if (init)
-	{
-		params->Set(cPrimitive::Name("is_defined", indexInParameters), true);
-		params->Set(cPrimitive::Name("enabled", indexInParameters), true);
-	}
-
-	newEditor->AssignPrimitive(params, indexInParameters);
-
-	primitiveIndexOnTab.append(indexInParameters);
-
-	SynchronizeInterfaceWindow(ui->tabWidget_primitiveSources, params, qInterface::write);
-	*/
+	// SynchronizeInterfaceWindow(ui->tabWidget_primitiveSources, params, qInterface::write);
 }
 
 void cPrimitivesManager::Regenerate()
@@ -178,7 +179,8 @@ void cPrimitivesManager::Regenerate()
 
 void cPrimitivesManager::slotButtonAddPrimitive()
 {
-	AddPrimitive(true, -1);
+	// FIXME addPrimitive
+	// AddPrimitive(true, -1);
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
 }
@@ -190,7 +192,7 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
 	int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
 
-	AddPrimitive(true, -1);
+	// AddPrimitive(true, -1);
 
 	int newTabIndex = ui->tabWidget_primitives->count() - 1;
 	int newPrimitiveIndex = primitiveIndexOnTab.at(newTabIndex);
