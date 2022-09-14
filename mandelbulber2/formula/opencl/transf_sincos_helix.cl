@@ -37,7 +37,6 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			else z.z = -fabs(z.z);
 		}
 
-
 		if (fractal->transformCommon.functionEnabledCx)
 		{
 			REAL psi = M_PI_F / fractal->transformCommon.int8X;
@@ -159,7 +158,7 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		if ( z.z < (fractal->transformCommon.offsetA1 + 0.5) * fractal->transformCommon.offset2
-		&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
+			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
 		{
 			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
@@ -179,7 +178,7 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 
 
-	REAL4 zc = z;
+	//REAL4 zc = z;
 	//REAL ang = atan2(zc.y, zc.x);
 	REAL spiral = 0.0f;
 	/*if (fractal->transformCommon.functionEnabledAFalse)

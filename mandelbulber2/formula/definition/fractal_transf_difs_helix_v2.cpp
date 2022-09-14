@@ -76,25 +76,23 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 				a = zc.z;
 				b = zc.y;
 			}
-
-			if (!fractal->transformCommon.functionEnabledSFalse)
-			{
-				zc.y = b * cosA + a * sinB;
-				zc.z = a * cosA - b * sinB;
-			}
-			else
-			{
-				zc.z = b * cosA - a * sinB;
-				zc.y = a * cosA + b * sinB;
-			}
+			zc.y = b * cosA + a * sinB;
+			zc.z = a * cosA - b * sinB;
 		}
 		else
 		{
-			a = zc.x;
-			b = zc.z;
+			if (!fractal->transformCommon.functionEnabledSwFalse)
+			{
+				a = zc.x;
+				b = zc.z;
+			}
+			else
+			{
+				a = zc.z;
+				b = zc.x;
+			}
 			zc.x = b * cosA + a * sinB;
 			zc.z = a * cosA - b * sinB;
-
 		}
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}

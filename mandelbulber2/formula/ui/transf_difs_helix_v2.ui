@@ -388,9 +388,16 @@
        </layout>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
+        <property name="text">
+         <string>xz mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
         <property name="text">
-         <string>swap zy</string>
+         <string>swap z</string>
         </property>
        </widget>
       </item>
@@ -398,13 +405,6 @@
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
         <property name="text">
          <string>temp</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
-        <property name="text">
-         <string>xz mode</string>
         </property>
        </widget>
       </item>
@@ -1318,7 +1318,7 @@
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>0.000000000000000</double>
+              <double>-99.999899999999997</double>
              </property>
              <property name="maximum">
               <double>99.999899999999997</double>
@@ -1765,25 +1765,25 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
