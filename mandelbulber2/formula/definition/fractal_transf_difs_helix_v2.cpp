@@ -138,7 +138,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 					+ fractal->transformCommon.offsetA0;
 			zc = fractal->transformCommon.scale3 * zc
 					- temp * fractal->transformCommon.offsetA111;
-			aux.DE = fractal->transformCommon.scale3 * (aux.DE + 1.0);
+			aux.DE = fractal->transformCommon.scale3 * (aux.DE + fractal->transformCommon.offsetB0); // 0
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
 	}

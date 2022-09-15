@@ -28,6 +28,9 @@ cFractalTransfSincosHelix::cFractalTransfSincosHelix() : cAbstractFractal()
 
 void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double temp;
+	double ang;
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -49,31 +52,34 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 			else z.z = -fabs(z.z);
 		}
 
-		if (fractal->transformCommon.functionEnabledCx)
+		// addition constant
+		z += fractal->transformCommon.additionConstantA000;
+
+		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
-			double psi = M_PI / fractal->transformCommon.int8X;
-			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+			ang = M_PI / fractal->transformCommon.int8X;
+			ang = fabs(fmod(atan2(z.y, z.x) + ang, 2.0 * ang) - ang);
 			double len = sqrt(z.x * z.x + z.y * z.y);
-			z.x = cos(psi) * len;
-			z.y = sin(psi) * len;
+			z.x = cos(ang) * len;
+			z.y = sin(ang) * len;
 		}
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			double psi = M_PI / fractal->transformCommon.int8Y;
-			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0 * psi) - psi);
+			ang = M_PI / fractal->transformCommon.int8Y;
+			ang = fabs(fmod(atan2(z.z, z.y) + ang, 2.0 * ang) - ang);
 			double len = sqrt(z.y * z.y + z.z * z.z);
-			z.y = cos(psi) * len;
-			z.z = sin(psi) * len;
+			z.y = cos(ang) * len;
+			z.z = sin(ang) * len;
 		}
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			double psi = M_PI / fractal->transformCommon.int8Z;
-			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0 * psi) - psi);
+			ang = M_PI / fractal->transformCommon.int8Z;
+			ang = fabs(fmod(atan2(z.x, z.z) + ang, 2.0 * ang) - ang);
 			double len = sqrt(z.z * z.z + z.x * z.x);
-			z.z = cos(psi) * len;
-			z.x = sin(psi) * len;
+			z.z = cos(ang) * len;
+			z.x = sin(ang) * len;
 		}
 
 		// addition constant
@@ -86,7 +92,6 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-	double temp;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -103,9 +108,6 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		z.z = temp;
 	}
 
-
-	//double temp;
-	double ang;
 	if (!fractal->transformCommon.functionEnabledOFalse)
 		ang = atan2(z.x, z.y) * fractal->transformCommon.scaleA1;
 	else
@@ -121,7 +123,7 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
 		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
 	}
-	// stretch around helix
+	// stretch
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAy)
@@ -178,7 +180,9 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
 

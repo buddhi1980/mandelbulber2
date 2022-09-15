@@ -124,7 +124,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 					+ fractal->transformCommon.offsetA0;
 			zc = fractal->transformCommon.scale3 * zc
 					- temp * fractal->transformCommon.offsetA111;
-			aux->DE = fractal->transformCommon.scale3 * (aux->DE + 1.0f);
+			aux->DE = fractal->transformCommon.scale3 * (aux->DE + fractal->transformCommon.offsetB0); //(aux->DE + 1.0f);
 			if (zc.z < -0.5 * bz) zc.z += bz;
 		}
 	}

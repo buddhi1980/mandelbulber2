@@ -16,6 +16,9 @@
 
 REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL temp;
+	REAL ang;
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -37,31 +40,34 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			else z.z = -fabs(z.z);
 		}
 
-		if (fractal->transformCommon.functionEnabledCx)
+		// addition constant
+		z += fractal->transformCommon.additionConstantA000;
+
+		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8X;
-			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			ang = M_PI_F / fractal->transformCommon.int8X;
+			ang = fabs(fmod(atan2(z.y, z.x) + ang, 2.0f * ang) - ang);
 			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
-			z.x = native_cos(psi) * len;
-			z.y = native_sin(psi) * len;
+			z.x = native_cos(ang) * len;
+			z.y = native_sin(ang) * len;
 		}
 
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8Y;
-			psi = fabs(fmod(atan2(z.z, z.y) + psi, 2.0f * psi) - psi);
+			ang = M_PI_F / fractal->transformCommon.int8Y;
+			ang = fabs(fmod(atan2(z.z, z.y) + ang, 2.0f * ang) - ang);
 			REAL len = native_sqrt(z.y * z.y + z.z * z.z);
-			z.y = native_cos(psi) * len;
-			z.z = native_sin(psi) * len;
+			z.y = native_cos(ang) * len;
+			z.z = native_sin(ang) * len;
 		}
 
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			REAL psi = M_PI_F / fractal->transformCommon.int8Z;
-			psi = fabs(fmod(atan2(z.x, z.z) + psi, 2.0f * psi) - psi);
+			ang = M_PI_F / fractal->transformCommon.int8Z;
+			ang = fabs(fmod(atan2(z.x, z.z) + ang, 2.0f * ang) - ang);
 			REAL len = native_sqrt(z.z * z.z + z.x * z.x);
-			z.z = native_cos(psi) * len;
-			z.x = native_sin(psi) * len;
+			z.z = native_cos(ang) * len;
+			z.x = native_sin(ang) * len;
 		}
 
 		// addition constant
@@ -74,7 +80,7 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-	REAL temp;
+
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -92,11 +98,6 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 
-/*	z *= fractal->transformCommon.scale1;
-	aux->DE *= fabs(fractal->transformCommon.scale1);*/
-
-
-	REAL ang;
 	if (!fractal->transformCommon.functionEnabledOFalse)
 		ang = atan2(z.x, z.y);
 	else
@@ -113,7 +114,7 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
 		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
 	}
-	// stretch around helix
+	// stretch
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAy)
@@ -126,11 +127,8 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 
-
-
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-
 		if (fractal->transformCommon.functionEnabledAwFalse)
 		{
 			REAL Phi = z.z;
@@ -169,12 +167,12 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 			if (fractal->transformCommon.functionEnabledFFalse)
 				z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
-
-
 		}
 	}
 
-
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
 
