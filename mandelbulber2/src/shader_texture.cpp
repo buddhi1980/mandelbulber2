@@ -48,21 +48,32 @@ sRGBFloat cRenderWorker::TextureShader(
 	double texturePixelSize = 0.0;
 	CVector3 textureVectorX, textureVectorY;
 
-	CVector3 pointFractalized;
+	CVector3 pointModified;
 
 	if (mat->textureFractalize)
 	{
 		sFractalIn fractIn(input.point, 0, params->N, &params->common, -1, false, input.material);
 		sFractalOut fractOut;
 		Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
-		pointFractalized = fractOut.z;
+		pointModified = fractOut.z;
 	}
 	else
 	{
-		pointFractalized = input.point;
+		pointModified = input.point;
 	}
 
-	CVector2<float> texPoint = TextureMapping(pointFractalized, input.normal, objectData, mat,
+	if (objectData.objectType > fractal::objFractal)
+	{
+		pointModified = pointModified - params->primitives.allPrimitivesPosition;
+		pointModified = params->primitives.mRotAllPrimitivesRotation.RotateVector(pointModified);
+	}
+	else
+	{
+		pointModified = pointModified - params->common.fractalPosition;
+		pointModified = params->common.mRotFractalRotation.RotateVector(pointModified);
+	}
+
+	CVector2<float> texPoint = TextureMapping(pointModified, input.normal, objectData, mat,
 															 &textureVectorX, &textureVectorY)
 														 + CVector2<float>(0.5, 0.5);
 
@@ -71,11 +82,11 @@ sRGBFloat cRenderWorker::TextureShader(
 		// mipmapping - calculation of texture pixel size
 		float delta = CalcDelta(input.point);
 		float deltaTexX =
-			(TextureMapping(pointFractalized + textureVectorX * delta, input.normal, objectData, mat)
+			(TextureMapping(pointModified + textureVectorX * delta, input.normal, objectData, mat)
 				+ CVector2<float>(0.5, 0.5) - texPoint)
 				.Length();
 		float deltaTexY =
-			(TextureMapping(pointFractalized + textureVectorY * delta, input.normal, objectData, mat)
+			(TextureMapping(pointModified + textureVectorY * delta, input.normal, objectData, mat)
 				+ CVector2<float>(0.5, 0.5) - texPoint)
 				.Length();
 
