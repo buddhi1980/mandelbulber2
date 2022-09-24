@@ -98,10 +98,10 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 	z *= rp;
 
 
-//	if (fractal->transformCommon.functionEnabledFFalse
-//			&& aux.i >= fractal->transformCommon.startIterationsF
-//			&& aux.i < fractal->transformCommon.stopIterationsF)
-//	{
+	if (fractal->transformCommon.functionEnabledFFalse
+			&& aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
+	{
 		switch (fractal->mandelbulbMulti.orderOfXYZ)
 		{
 			case multi_OrderOfXYZ_xyz:
@@ -112,7 +112,7 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 			case multi_OrderOfXYZ_zxy: z = CVector4(z.z, z.x, z.y, z.w); break;
 			case multi_OrderOfXYZ_zyx: z = CVector4(z.z, z.y, z.x, z.w); break;
 		}
-//	}
+	}
 
 	if (fractal->transformCommon.functionEnabledGFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
@@ -123,6 +123,30 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 
 	z += fractal->transformCommon.offsetA000;
 	z += aux.const_c * fractal->transformCommon.constantMultiplier111;
+
+
+
+	if (fractal->transformCommon.functionEnabledIFalse
+			&& aux.i >= fractal->transformCommon.startIterationsI
+			&& aux.i < fractal->transformCommon.stopIterationsI)
+	{
+		//z.y = fmod(z.y, fractal->transformCommon.scale2);
+
+	//z.y = -round(z.y / fractal->transformCommon.scale2) * fractal->transformCommon.scale2;
+	//z.y = clamp(z.y, -fractal->transformCommon.scaleE1, fractal->transformCommon.scaleE1);
+
+		//temp = z.y;
+		//z.y = fabs(z.y);
+		//if (z.y > fractal->transformCommon.scaleE1) z.y = fractal->transformCommon.scaleE1;
+		//z.y = temp * fractal->transformCommon.scale2 - z.y;
+
+		z.y = fabs(z.y) + fractal->transformCommon.offset1;
+		temp = fmod(z.y, fractal->transformCommon.scale2 * fractal->transformCommon.offset1);
+		z.y = temp - fractal->transformCommon.offset1;
+	}
+
+
+
 
 	if (fractal->analyticDE.enabledFalse)
 	{

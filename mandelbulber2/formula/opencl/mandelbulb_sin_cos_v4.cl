@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -111,6 +111,16 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	z += fractal->transformCommon.offsetA000;
 	z += aux->const_c * fractal->transformCommon.constantMultiplier111;
+
+	if (fractal->transformCommon.functionEnabledIFalse
+				&& aux->i >= fractal->transformCommon.startIterationsI
+				&& aux->i < fractal->transformCommon.stopIterationsI)
+	{
+		z.y = fabs(z.y) + fractal->transformCommon.offset1;
+		temp = fmod(z.y, fractal->transformCommon.scale2 * fractal->transformCommon.offset1);
+		z.y = temp - fractal->transformCommon.offset1;
+	}
+
 
 	if (fractal->analyticDE.enabledFalse)
 	{
