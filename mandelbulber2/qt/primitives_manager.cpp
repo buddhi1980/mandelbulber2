@@ -34,8 +34,8 @@
 
 #include "primitives_manager.h"
 
-#include "../src/error_message.hpp"
-#include "../src/my_ui_loader.h"
+#include "src/error_message.hpp"
+#include "src/my_ui_loader.h"
 #include "ui_primitives_manager.h"
 
 //#include "primitive_editor.h"
@@ -57,6 +57,26 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 
 	// FIXME:	connect(ui->pushButton_newPrimitive, &QPushButton::clicked, this,
 	//		&cPrimitivesManager::slotButtonAddPrimitive);
+
+	connect(ui->pushButton_add_primitive_box, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_circle, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_cone, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_cylinder, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_plane, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_rectangle, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_sphere, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_torus, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_water, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
+
 	connect(ui->pushButton_deletePrimitive, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonDeletePrimitive);
 	connect(ui->pushButton_duplicatePrimitive, &QPushButton::clicked, this,
@@ -129,6 +149,16 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 			params->Set(primitive.Name("is_defined"), true);
 			params->Set(primitive.Name("enabled"), true);
 		}
+
+		// rename widgets
+		QList<QWidget *> listOfWidgets = newEditor->findChildren<QWidget *>();
+		for (auto &widget : listOfWidgets)
+		{
+			QString widgetName = widget->objectName();
+			int firstDash = widgetName.indexOf('_');
+			QString newName = widgetName.insert(firstDash + 1, primitiveFullName + "_");
+			widget->setObjectName(newName);
+		}
 	}
 
 	else
@@ -139,9 +169,8 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 	}
 
 	// FIXME: AssignPrimitive
-	// newEditor->AssignPrimitive(params, indexInParameters);
 
-	// primitiveIndexOnTab.append(indexInParameters);
+	primitiveItemOnTab.append(primitive);
 
 	// SynchronizeInterfaceWindow(ui->tabWidget_primitiveSources, params, qInterface::write);
 }
@@ -179,6 +208,21 @@ void cPrimitivesManager::Regenerate()
 
 void cPrimitivesManager::slotButtonAddPrimitive()
 {
+	QString buttonName = this->sender()->objectName();
+	QString primitiveTypeName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
+
+	fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(primitiveTypeName);
+	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(params);
+
+	int newIndex = cPrimitives::NewPrimitiveIndex(primitiveTypeName, actualList);
+	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveTypeName).arg(newIndex);
+
+	InitPrimitiveParams(objectType, primitiveFullName, params);
+
+	params->Set(primitiveFullName + "_enabled", true);
+
+	sPrimitiveItem newPrimitive(objectType, newIndex, primitiveFullName, primitiveTypeName);
+
 	// FIXME addPrimitive
 	// AddPrimitive(true, -1);
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
@@ -189,13 +233,13 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 {
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
 
-	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
-	int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
+	// int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
 
 	// AddPrimitive(true, -1);
 
-	int newTabIndex = ui->tabWidget_primitives->count() - 1;
-	int newPrimitiveIndex = primitiveIndexOnTab.at(newTabIndex);
+	// int newTabIndex = ui->tabWidget_primitives->count() - 1;
+	// int newPrimitiveIndex = primitiveIndexOnTab.at(newTabIndex);
 
 	// FIXME: duplicate primitive
 	/*
@@ -226,7 +270,7 @@ void cPrimitivesManager::slotButtonDeletePrimitive()
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
 	if (currentTabIndex >= 0)
 	{
-		int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
+		// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
 
 		// FIXME: delete primitive
 		/*
@@ -274,8 +318,8 @@ void cPrimitivesManager::slotButtonPlacePrimitive()
 	item.append(int(RenderedImage::clickPlacePrimitive));
 
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
-	int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
-	item.append(currentPrimitiveIndex); // primitive number
+	// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
+	// item.append(currentPrimitiveIndex); // primitive number
 
 	int index = mouseFunctionComboWidget->findData(item);
 	mouseFunctionComboWidget->setCurrentIndex(index);
@@ -292,9 +336,9 @@ void cPrimitivesManager::slotButtonPlacePrimitive()
 
 void cPrimitivesManager::slotChangedCurrentTab(int index)
 {
-	if (index >= 0 && primitiveIndexOnTab.size() > 0)
+	if (index >= 0 && primitiveItemOnTab.size() > 0)
 	{
-		int currentPrimitiveIndex = primitiveIndexOnTab.at(index);
+		int currentPrimitiveIndex = primitiveItemOnTab.at(index).id;
 		// FIXME: renderedImageWidget->SetCurrentPrimitiveIndex(currentPrimitiveIndex);
 		renderedImageWidget->update();
 
@@ -305,13 +349,13 @@ void cPrimitivesManager::slotChangedCurrentTab(int index)
 		{
 			QList<QVariant> item;
 			item.append(int(RenderedImage::clickPlacePrimitive));
-			if (index < primitiveIndexOnTab.size())
-			{
-				item.append(currentPrimitiveIndex);
-				int comboIndex = mouseFunctionComboWidget->findData(item);
-				mouseFunctionComboWidget->setCurrentIndex(comboIndex);
-				renderedImageWidget->setClickMode(item);
-			}
+			//			if (index < primitiveIndexOnTab.size())
+			//			{
+			//				item.append(currentPrimitiveIndex);
+			//				int comboIndex = mouseFunctionComboWidget->findData(item);
+			//				mouseFunctionComboWidget->setCurrentIndex(comboIndex);
+			//				renderedImageWidget->setClickMode(item);
+			//			}
 		}
 	}
 }

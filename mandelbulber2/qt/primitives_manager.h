@@ -62,7 +62,7 @@ public:
 private:
 	void AddPrimitive(bool init, const sPrimitiveItem &primitive);
 
-	QList<int> primitiveIndexOnTab;
+	QList<sPrimitiveItem> primitiveItemOnTab;
 	Ui::cPrimitivesManager *ui;
 
 	QTimer *autoRefreshTimer;
