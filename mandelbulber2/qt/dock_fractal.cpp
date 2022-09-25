@@ -51,7 +51,8 @@
 
 #include "formula/definition/all_fractal_list.hpp"
 
-cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
+cDockFractal::cDockFractal(QWidget *parent)
+		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cDockFractal)
 {
 	ui->setupUi(this);
 
@@ -458,4 +459,19 @@ void cDockFractal::slotChangedFractalTab(int index)
 			}
 		}
 	}
+}
+
+void cDockFractal::AssignParameterContainers(
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
+{
+	cMyWidgetWithParams::AssignParameterContainers(_params, _fractalParams);
+	ui->widgetPrimitivesManager->AssignParameterContainers(_params, _fractalParams);
+	ui->widgetPrimitivesManager->Init();
+}
+
+void cDockFractal::AssignSpecialWidgets(
+	RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo)
+{
+	cMyWidgetWithParams::AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
+	ui->widgetPrimitivesManager->AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 }

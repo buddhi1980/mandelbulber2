@@ -219,8 +219,13 @@ void cInterface::ShowUi()
 		renderedImage, mainWindow->GetWidgetDockNavigation(), mainWindow->GetWidgetDockEffects());
 
 	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
+
 	mainWindow->ui->widgetEffects->AssignParameterContainers(gPar, gParFractal);
 	mainWindow->ui->widgetEffects->AssignSpecialWidgets(
+		renderedImage, mainWindow->ui->comboBox_mouse_click_function);
+
+	mainWindow->ui->widgetDockFractal->AssignParameterContainers(gPar, gParFractal);
+	mainWindow->ui->widgetDockFractal->AssignSpecialWidgets(
 		renderedImage, mainWindow->ui->comboBox_mouse_click_function);
 
 	WriteLog("Prepare progress and status bar", 2);

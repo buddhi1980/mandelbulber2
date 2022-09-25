@@ -168,11 +168,9 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 			cErrorMessage::errorMessage, this);
 	}
 
-	// FIXME: AssignPrimitive
-
 	primitiveItemOnTab.append(primitive);
 
-	// SynchronizeInterfaceWindow(ui->tabWidget_primitiveSources, params, qInterface::write);
+	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
 }
 
 void cPrimitivesManager::Regenerate()
@@ -217,14 +215,12 @@ void cPrimitivesManager::slotButtonAddPrimitive()
 	int newIndex = cPrimitives::NewPrimitiveIndex(primitiveTypeName, actualList);
 	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveTypeName).arg(newIndex);
 
-	InitPrimitiveParams(objectType, primitiveFullName, params);
-
 	params->Set(primitiveFullName + "_enabled", true);
 
 	sPrimitiveItem newPrimitive(objectType, newIndex, primitiveFullName, primitiveTypeName);
 
-	// FIXME addPrimitive
-	// AddPrimitive(true, -1);
+	AddPrimitive(true, newPrimitive);
+
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
 }

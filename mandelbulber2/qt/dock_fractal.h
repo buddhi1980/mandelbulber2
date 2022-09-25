@@ -52,7 +52,7 @@ namespace Ui
 class cDockFractal;
 }
 
-class cDockFractal : public QWidget
+class cDockFractal : public QWidget, public cMyWidgetWithParams
 {
 	Q_OBJECT
 public:
@@ -69,6 +69,11 @@ public:
 
 	QWidget *GetContainerWithPrimitives() const;
 	QVBoxLayout *GetLayoutWithPrimitives() const;
+
+	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
+		std::shared_ptr<cFractalContainer> _fractalParams) override;
+	virtual void AssignSpecialWidgets(
+		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
 
 public slots:
 	void slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const;
