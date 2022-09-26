@@ -17,6 +17,23 @@
 REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp;
+
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	{
+		REAL4 t = z;
+		temp = 1.0f / dot(t, t);
+
+		temp = temp + (1.0f / aux->r - temp) * fractal->transformCommon.scaleC1;
+
+		REAL4 g = fractal->transformCommon.scale3D111;
+		t *= g * temp;
+		aux->DE += 1.0f / aux->DE;
+		z = (z - t) * fractal->transformCommon.scaleD1;
+		aux->DE *= fractal->transformCommon.scaleD1;
+	}
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -85,7 +102,6 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	z *= rp;
 
-
 	if (fractal->transformCommon.functionEnabledFFalse
 				&& aux->i >= fractal->transformCommon.startIterationsF
 				&& aux->i < fractal->transformCommon.stopIterationsF)
@@ -120,7 +136,6 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		temp = fmod(z.y, fractal->transformCommon.scale2 * fractal->transformCommon.offset1);
 		z.y = temp - fractal->transformCommon.offset1;
 	}
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{
