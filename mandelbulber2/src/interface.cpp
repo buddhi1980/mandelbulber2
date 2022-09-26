@@ -830,6 +830,7 @@ void cInterface::Undo()
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
+		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -851,6 +852,7 @@ void cInterface::Redo()
 		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
+		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -1436,6 +1438,7 @@ bool cInterface::AutoRecovery() const
 			gMainInterface->RebuildPrimitives(gPar);
 			materialListModel->Regenerate();
 			mainWindow->ui->widgetEffects->RegenerateLights();
+			mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gInterfaceReadyForSynchronization = true;
 			gFlightAnimation->RefreshTable();

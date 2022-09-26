@@ -116,7 +116,7 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
 	fractal::enumObjectType objectType = primitive.type;
-	// fractal::enumObjectType objectType = primitive.type;
+
 	int newId = primitive.id;
 
 	// load ui
@@ -176,32 +176,35 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 void cPrimitivesManager::Regenerate()
 {
 	// FIXME: regenerate primitives
-	/*
-	int count = ui->tabWidget_primitiveSources->count();
+
+	// deleting all tabs
+	int count = ui->tabWidget_primitives->count();
 	for (int i = count - 1; i >= 0; i--)
 	{
-		delete ui->tabWidget_primitiveSources->widget(i);
+		delete ui->tabWidget_primitives->widget(i);
 
 		// checkbox is not deleted with tab, so need to be deleted separately
-		qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitiveSources->tabBar())
-			->RemoveCheckBox(i);
+		qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitives->tabBar())->RemoveCheckBox(i);
 
-		ui->tabWidget_primitiveSources->removeTab(i);
+		ui->tabWidget_primitives->removeTab(i);
 	}
 
-	primitiveIndexOnTab.clear();
+	primitiveItemOnTab.clear();
 
 	// finding primitives in whole parameter set
-	QList<int> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
+	QList<sPrimitiveItem> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
 
 	// add primitives in sorted order
-	std::sort(listOfFoundPrimitives.begin(), listOfFoundPrimitives.end());
-	for (int index : listOfFoundPrimitives)
+	std::stable_sort(listOfFoundPrimitives.begin(), listOfFoundPrimitives.end(),
+		[](sPrimitiveItem item1, sPrimitiveItem item2) { return item1.id > item2.id; });
+	std::stable_sort(listOfFoundPrimitives.begin(), listOfFoundPrimitives.end(),
+		[](sPrimitiveItem item1, sPrimitiveItem item2) { return item1.type > item2.type; });
+	for (sPrimitiveItem item : listOfFoundPrimitives)
 	{
-		AddPrimitive(false, index);
+		AddPrimitive(false, item);
 	}
-	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
-	*/
+
+	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 
 void cPrimitivesManager::slotButtonAddPrimitive()

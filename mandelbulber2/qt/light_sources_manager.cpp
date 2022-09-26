@@ -163,7 +163,8 @@ void cLightSourcesManager::Regenerate()
 	{
 		AddLight(false, index);
 	}
-	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
+
+	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 }
 
 void cLightSourcesManager::slotButtonAddLight()

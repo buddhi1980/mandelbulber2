@@ -498,6 +498,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("grid_type", 0, morphNone, paramApp);
 	par->addParam("show_wireframe_lights", false, morphNone, paramApp);
+	par->addParam("show_wireframe_primitives", false, morphNone, paramApp);
 
 	// measurement
 	par->addParam("meas_point", CVector3(0.0, 0.0, 0.0), morphNone, paramNoSave);

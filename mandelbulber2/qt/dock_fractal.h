@@ -74,6 +74,7 @@ public:
 		std::shared_ptr<cFractalContainer> _fractalParams) override;
 	virtual void AssignSpecialWidgets(
 		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
+	void RegeneratePrimitives();
 
 public slots:
 	void slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const;

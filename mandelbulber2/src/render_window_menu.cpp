@@ -463,6 +463,7 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
+	ui->widgetDockFractal->RegeneratePrimitives();
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	gInterfaceReadyForSynchronization = true;
@@ -493,6 +494,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
 		ui->widgetEffects->RegenerateLights();
+		ui->widgetDockFractal->RegeneratePrimitives();
 
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gInterfaceReadyForSynchronization = true;

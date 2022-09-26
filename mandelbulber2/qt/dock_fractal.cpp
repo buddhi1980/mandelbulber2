@@ -475,3 +475,8 @@ void cDockFractal::AssignSpecialWidgets(
 	cMyWidgetWithParams::AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 	ui->widgetPrimitivesManager->AssignSpecialWidgets(_renderedImage, _mouseFunctionCombo);
 }
+
+void cDockFractal::RegeneratePrimitives()
+{
+	ui->widgetPrimitivesManager->Regenerate();
+}
