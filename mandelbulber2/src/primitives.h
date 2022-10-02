@@ -70,6 +70,8 @@ public:
 	}
 	int GetNumberOfPrimivives() const { return allPrimitives.size(); }
 	static QList<sPrimitiveItem> GetListOfPrimitives(const std::shared_ptr<cParameterContainer> par);
+	static QList<QString> GetListOfPrimitiveParams(
+		const sPrimitiveItem &item, const std::shared_ptr<cParameterContainer> par);
 	static int NewPrimitiveIndex(
 		const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives);
 	static QString PrimitiveNames(fractal::enumObjectType primitiveType);

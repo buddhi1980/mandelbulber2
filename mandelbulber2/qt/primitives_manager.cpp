@@ -146,7 +146,6 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 
 		if (init)
 		{
-			params->Set(primitive.Name("is_defined"), true);
 			params->Set(primitive.Name("enabled"), true);
 		}
 
@@ -218,11 +217,11 @@ void cPrimitivesManager::slotButtonAddPrimitive()
 	int newIndex = cPrimitives::NewPrimitiveIndex(primitiveTypeName, actualList);
 	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveTypeName).arg(newIndex);
 
-	params->Set(primitiveFullName + "_enabled", true);
-
 	sPrimitiveItem newPrimitive(objectType, newIndex, primitiveFullName, primitiveTypeName);
 
 	AddPrimitive(true, newPrimitive);
+
+	params->Set(primitiveFullName + "_enabled", true);
 
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
@@ -232,22 +231,30 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 {
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
 
-	// int currentTabIndex = ui->tabWidget_primitives->currentIndex();
-	// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
+	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
+	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(params);
+	int newIndex = cPrimitives::NewPrimitiveIndex(currentPrimitive.typeName, actualList);
+	QString primitiveFullName =
+		QString("primitive_%1_%2").arg(currentPrimitive.typeName).arg(newIndex);
+	sPrimitiveItem newPrimitive(
+		currentPrimitive.type, newIndex, primitiveFullName, currentPrimitive.typeName);
 
-	// AddPrimitive(true, -1);
+	AddPrimitive(true, newPrimitive);
 
-	// int newTabIndex = ui->tabWidget_primitives->count() - 1;
-	// int newPrimitiveIndex = primitiveIndexOnTab.at(newTabIndex);
+	params->Set(primitiveFullName + "_enabled", true);
 
-	// FIXME: duplicate primitive
-	/*
-	for (QString parameterName : cPrimitives::paramsList)
+	QList<QString> listOfCurrentPrimitiveParams =
+		cPrimitives::GetListOfPrimitiveParams(currentPrimitive, params);
+
+	for (QString parameterName : listOfCurrentPrimitiveParams)
 	{
-		QString fullParameterNameSource =
-			QString("primitive%1_%2").arg(currentPrimitiveIndex).arg(parameterName);
-		QString fullParameterNameDest =
-			QString("primitive%1_%2").arg(newPrimitiveIndex).arg(parameterName);
+		QString fullParameterNameSource = parameterName;
+		int firstIndexOfDash = parameterName.indexOf('_');
+		int secondIndexOfDash = parameterName.indexOf('_', firstIndexOfDash + 1);
+		int thirdIndexOfDash = parameterName.indexOf('_', secondIndexOfDash + 1);
+
+		QString fullParameterNameDest = newPrimitive.Name(parameterName.mid(thirdIndexOfDash + 1));
 
 		cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
 		cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
@@ -256,7 +263,6 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 		destPar.SetMultiVal(sourceVar, valueActual);
 		params->SetFromOneParameter(fullParameterNameDest, destPar);
 	}
-	*/
 
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
 

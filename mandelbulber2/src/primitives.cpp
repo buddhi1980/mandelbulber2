@@ -364,6 +364,22 @@ QList<sPrimitiveItem> cPrimitives::GetListOfPrimitives(
 	return listOfPrimitives;
 }
 
+QList<QString> cPrimitives::GetListOfPrimitiveParams(
+	const sPrimitiveItem &item, const std::shared_ptr<cParameterContainer> par)
+{
+	QList<QString> listOfPrimitiveParams;
+
+	QList<QString> listOfParameters = par->GetListOfParameters();
+	for (auto &parameterName : listOfParameters)
+	{
+		if (parameterName.contains(item.fullName))
+		{
+			listOfPrimitiveParams.push_back(parameterName);
+		}
+	}
+	return listOfPrimitiveParams;
+}
+
 int cPrimitives::NewPrimitiveIndex(
 	const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives)
 {
