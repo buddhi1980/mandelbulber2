@@ -291,6 +291,7 @@ enum enumFractalFormula
 	mandelbulbSinCosV3 = 255,
 	// 2.29
 	mandelbulbSinCosV4 = 256,
+	mengerSmoothChebyshev = 257,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

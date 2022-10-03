@@ -35,8 +35,8 @@ void cFractalMengerChebyshev::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.y);
 		double tmp = 0.0;
 		double F = z.x / z.y;
-		if (z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
-		if (fabs(F) < 1.0)
+		if (z.y == 0.0) tmp = (z.x > 0.0 ? 0.0: 4.0);
+		else if (fabs(F) < 1.0)
 		{
 			if (z.y > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;
