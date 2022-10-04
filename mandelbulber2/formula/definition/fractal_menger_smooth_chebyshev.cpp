@@ -63,7 +63,6 @@ void cFractalMengerSmoothChebyshev::FormulaCode(CVector4 &z, const sFractal *fra
 		aux.DE *= SQRT_1_2 * 2.0;
 	}
 
-
 	if (fractal->transformCommon.functionEnabled)
 	{
 		z = CVector4(sqrt(z.x * z.x + fractal->transformCommon.offset0),
@@ -77,32 +76,56 @@ void cFractalMengerSmoothChebyshev::FormulaCode(CVector4 &z, const sFractal *fra
 		z += CVector4(s, s, s, 0.0);
 	}
 
+	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+
 	double t;
-	double ScaleP5 = fractal->transformCommon.scale05;
-	CVector4 OffsetC = fractal->transformCommon.constantMultiplier221;
+	//double ScaleP5 = fractal->transformCommon.scale05;
+	//CVector4 OffsetC = fractal->transformCommon.constantMultiplier221;
 	double OffsetS = fractal->transformCommon.offset0005;
+	// if OffsetS * fractal->transformCommon.constantMultiplier111 =0
+
+	double col = 0.0;
+	if (z.x < z.y) col += fractal->foldColor.difs0000.x;
 
 	t = z.x - z.y;
-	t = ScaleP5 * (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.x));
+	t = fractal->transformCommon.scale05
+			* (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.x));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
+		if (z.x < z.z) col += fractal->foldColor.difs0000.y;
+
+
 	t = z.x - z.z;
-	t = ScaleP5 * (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.y));
+	t = fractal->transformCommon.scale05
+			* (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.y));
 	z.x = z.x - t;
 	z.z = z.z + t;
 
+		if (z.y < z.z)  col += fractal->foldColor.difs0000.z;
+
 	t = z.y - z.z;
-	t = ScaleP5 * (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.z));
+	t = fractal->transformCommon.scale05
+			* (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.z));
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	z.z = z.z - OffsetC.z / 3.0;
-	z.z = -sqrt(z.z * z.z + OffsetS);
-	z.z = z.z + OffsetC.z / 3.0;
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+					&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += col;
+	}
 
-	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x;
-	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y;
+
+	t = fractal->transformCommon.constantMultiplier221.z * FRAC_1_3;
+	z.z -= t;
+	z.z = -sqrt(z.z * z.z + fractal->transformCommon.offset0005);
+	z.z += t;
+
+	z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.constantMultiplier221.x;
+	z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.constantMultiplier221.y;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux.DE *= fractal->transformCommon.scale3;
@@ -110,15 +133,15 @@ void cFractalMengerSmoothChebyshev::FormulaCode(CVector4 &z, const sFractal *fra
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 	}
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA) // box offset
 	{
-		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
-		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
-		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
+		z.x += sign(z.x) * fractal->transformCommon.additionConstantA000.x;
+		z.y += sign(z.y) * fractal->transformCommon.additionConstantA000.y;
+		z.z += sign(z.z) * fractal->transformCommon.additionConstantA000.z;
 	}
 }
