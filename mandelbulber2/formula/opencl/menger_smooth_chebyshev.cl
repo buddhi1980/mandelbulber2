@@ -16,45 +16,47 @@
 
 REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t; // temp
+
 	// chebyshev rotation
 	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			REAL temp = z.x;
+			t = z.x;
 			z.x = z.y;
-			z.y = temp;
+			z.y = t;
 		}
-		REAL tmp = 0.0f;
+		t = 0.0f;
 		REAL F = z.x / z.y;
-		if (z.y == 0.0f) tmp = (z.x > 0.0f ? 0.0 : 4.0f);
+		if (z.y == 0.0f) t = (z.x > 0.0f ? 0.0 : 4.0f);
 		else if (fabs(F) < 1.0f)
 		{
 			if (z.y > 0.0f)
-				tmp = 2.0f - F;
+				t = 2.0f - F;
 			else
-				tmp = 6.0f - F;
+				t = 6.0f - F;
 		}
 		else
 		{
 			F = z.y / z.x;
 			if (z.x > 0.0f)
-				tmp = fmod(F, 8.0f);
+				t = fmod(F, 8.0f);
 			else
-				tmp = 4.0f + F;
+				t = 4.0f + F;
 		}
 
-		tmp = tmp + fractal->transformCommon.offset1;
+		t += fractal->transformCommon.offset1;
 
 		REAL Length2 = max(fabs(z.x), fabs(z.y));
 
-		REAL C = tmp - 8.0f * floor(tmp / 8.0f);
+		REAL C = t - 8.0f * floor(t / 8.0f);
 
 		C = fabs(C - 4.0f) - 2.0f;
 		z.x = clamp(C, -1.0f, 1.0f) * Length2;
 
-		REAL S = tmp - 2.0f;
+		REAL S = t - 2.0f;
 		S = S - 8.0f * floor(S / 8.0f);
 		S = fabs(S - 4.0f) - 2.0f;
 		z.y = clamp(S, -1.0f, 1.0f) * Length2;
@@ -70,16 +72,23 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		z = fabs(z);
-		REAL s = fractal->transformCommon.offset;
-		z += (REAL4){s, s, s, 0.0f};
+		t= fractal->transformCommon.offset;
+		z += (REAL4){t, t, t, 0.0f};
 	}
 
-	REAL t;
-	//REAL ScaleP5 = fractal->transformCommon.scale05;
-	//REAL4 OffsetC = fractal->transformCommon.constantMultiplier221;
-	REAL OffsetS = fractal->transformCommon.offset0005;
+	if (aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
 
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	REAL OffsetS = 0.0f;
+	if (aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD)
+	{
+		OffsetS = fractal->transformCommon.offset0005;
+	}
+
 	REAL col = 0.0;
 	if (z.x < z.y) col += fractal->foldColor.difs0000.x;
 	t = z.x - z.y;
@@ -89,7 +98,6 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	z.x = z.x - t;
 	z.y = z.y + t;
 
-
 	if (z.x < z.z) col += fractal->foldColor.difs0000.y;
 	t = z.x - z.z;
 	t =
@@ -97,7 +105,6 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			* (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.y));
 	z.x = z.x - t;
 	z.z = z.z + t;
-
 
 	if (z.y < z.z)  col += fractal->foldColor.difs0000.z;
 	t = z.y - z.z;
@@ -109,7 +116,7 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 	t = fractal->transformCommon.constantMultiplier221.z * FRAC_1_3_F;
 	z.z -= t;
-	z.z = -native_sqrt(z.z * z.z + fractal->transformCommon.offset0005);
+	z.z = -native_sqrt(z.z * z.z + OffsetS + fractal->transformCommon.offsetA0);
 	z.z += t;
 
 	z.x = fractal->transformCommon.scale3 * z.x - fractal->transformCommon.constantMultiplier221.x;
