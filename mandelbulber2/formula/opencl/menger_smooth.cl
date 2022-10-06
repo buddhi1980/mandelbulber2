@@ -25,7 +25,6 @@ REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		native_sqrt(z.z * z.z + OffsetS), z.w};
 
 	REAL t;
-	REAL4 OffsetC = fractal->transformCommon.offset1105;
 
 	t = z.x - z.y;
 	t = 0.5f * (t - native_sqrt(t * t + OffsetS));
@@ -42,12 +41,15 @@ REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	z.z = z.z - OffsetC.z * sc2; // sc2 reduces C.z
+	t = fractal->transformCommon.offset1105.z * sc2;
+	z.z -= t; // sc2 reduces C.z
 	z.z = -native_sqrt(z.z * z.z + OffsetS);
-	z.z = z.z + OffsetC.z * sc2;
+	z.z += t;
 
-	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x * sc1; // sc1 scales up C.x
-	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y * sc1;
+	z.x = fractal->transformCommon.scale3 * z.x
+			- fractal->transformCommon.offset1105.x * sc1; // sc1 scales up C.x
+	z.y = fractal->transformCommon.scale3 * z.y
+			- fractal->transformCommon.offset1105.y * sc1;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux->DE *= fractal->transformCommon.scale3;

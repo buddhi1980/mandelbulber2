@@ -37,7 +37,7 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 		if (fractal->transformCommon.functionEnabledBxFalse) swap(z.x, z.y);
 		double F = z.x / z.y;
 		if (z.y == 0.0) tmp =(z.x > 0.0 ? 0.0: 4.0);
-		if (fabs(F) < 1.0)
+		else if (fabs(F) < 1.0)
 		{
 			if (z.y > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;
@@ -70,7 +70,7 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 		if (fractal->transformCommon.functionEnabledByFalse) swap(z.y, z.z);
 		double F = z.y / z.z;
 		if (z.z == 0.0) tmp =(z.y > 0.0 ? 0.0: 4.0);
-		if (fabs(F) < 1.0)
+		else if (fabs(F) < 1.0)
 		{
 			if (z.z > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;
@@ -103,7 +103,7 @@ void cFractalTransfRotationChebyshev::FormulaCode(CVector4 &z, const sFractal *f
 		if (fractal->transformCommon.functionEnabledBzFalse) swap(z.z, z.x);
 		double F = z.z / z.x;
 		if (z.x == 0.0) tmp =(z.z > 0.0 ? 0.0: 4.0);
-		if (fabs(F) < 1.0)
+		else if (fabs(F) < 1.0)
 		{
 			if (z.x > 0.0) tmp = 2.0 - F;
 			else tmp = 6.0 - F;

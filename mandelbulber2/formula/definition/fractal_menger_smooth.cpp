@@ -36,7 +36,6 @@ void cFractalMengerSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		CVector4(sqrt(z.x * z.x + OffsetS), sqrt(z.y * z.y + OffsetS), sqrt(z.z * z.z + OffsetS), z.w);
 
 	double t;
-	CVector4 OffsetC = fractal->transformCommon.offset1105;
 
 	t = z.x - z.y;
 	t = 0.5 * (t - sqrt(t * t + OffsetS));
@@ -53,12 +52,15 @@ void cFractalMengerSmooth::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	z.z = z.z - OffsetC.z * sc2; // sc2 reduces C.z
+	t = fractal->transformCommon.offset1105.z * sc2; // sc2 reduces C.z
+	z.z -= t;
 	z.z = -sqrt(z.z * z.z + OffsetS);
-	z.z = z.z + OffsetC.z * sc2;
+	z.z += t;
 
-	z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x * sc1; // sc1 scales up C.x
-	z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y * sc1;
+	z.x = fractal->transformCommon.scale3 * z.x
+			- fractal->transformCommon.offset1105.x * sc1; // sc1 scales up C.x
+	z.y = fractal->transformCommon.scale3 * z.y
+			- fractal->transformCommon.offset1105.y * sc1;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux.DE *= fractal->transformCommon.scale3;

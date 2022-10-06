@@ -31,7 +31,7 @@ REAL4 TransfRotationChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, 
 		}
 		REAL F = z.x / z.y;
 		if (z.y == 0.0f) tmp = (z.x > 0.0f ? 0.0 : 4.0f);
-		if (fabs(F) < 1.0f)
+		else if (fabs(F) < 1.0f)
 		{
 			if (z.y > 0.0f)
 				tmp = 2.0f - F;
@@ -73,7 +73,7 @@ REAL4 TransfRotationChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, 
 		}
 		REAL F = z.y / z.z;
 		if (z.z == 0.0f) tmp = (z.y > 0.0f ? 0.0 : 4.0f);
-		if (fabs(F) < 1.0f)
+		else if (fabs(F) < 1.0f)
 		{
 			if (z.z > 0.0f)
 				tmp = 2.0f - F;
@@ -115,7 +115,7 @@ REAL4 TransfRotationChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, 
 		}
 		REAL F = z.z / z.x;
 		if (z.x == 0.0f) tmp = (z.z > 0.0f ? 0.0 : 4.0f);
-		if (fabs(F) < 1.0f)
+		else if (fabs(F) < 1.0f)
 		{
 			if (z.x > 0.0f)
 				tmp = 2.0f - F;
