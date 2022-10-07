@@ -56,6 +56,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			zc.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
 		}
 	}
+	zc.x *= fractal->transformCommon.scaleG1;
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{

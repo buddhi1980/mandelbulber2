@@ -142,5 +142,13 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		z.z += sign(z.z) * fractal->transformCommon.additionConstantA000.z;
 	}
 
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+					&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += col;
+	}
+
+
 	return z;
 }

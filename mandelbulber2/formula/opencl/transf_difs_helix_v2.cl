@@ -43,6 +43,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			zc.x = temp - 2.0f * floor(temp * 0.5f) - 1.0f;
 		}
 	}
+	zc.x *= fractal->transformCommon.scaleG1;
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
