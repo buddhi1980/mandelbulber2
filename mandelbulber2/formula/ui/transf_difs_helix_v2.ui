@@ -1086,7 +1086,7 @@
      <property name="title">
       <string>Custom DE</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1222,6 +1222,34 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+        <property name="text">
+         <string>B</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+        <property name="text">
+         <string>C</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+        <property name="text">
+         <string>M</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
+        <property name="text">
+         <string>N</string>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_21" columnstretch="0,1">

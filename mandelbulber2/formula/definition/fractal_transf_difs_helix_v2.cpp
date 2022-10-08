@@ -165,7 +165,23 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
-	double rDE = d.Length();
+	double rDE;
+	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
+	if (!fractal->transformCommon.functionEnabledCFalse)
+	{
+		rDE = d.Length();
+	}
+	else
+	{
+		rDE = sqrt(d.x + d.y);
+	}
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledNFalse)
+			rDE = sqrt(rDE * rDE + d.z);
+		else
+			rDE = max(fabs(rDE), fabs(zc.z));
+	}
 
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0;
 
