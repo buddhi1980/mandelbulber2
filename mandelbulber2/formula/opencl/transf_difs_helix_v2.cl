@@ -155,20 +155,21 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = length(d);
+
 	}
 	else
 	{
-		rDE = native_sqrt(d.x + d.y);
-	}
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledNFalse)
-			rDE = native_sqrt(rDE * rDE + d.z);
-		else
-			rDE = max(fabs(rDE), fabs(zc.z));
-	}
+		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offsetAp01;
 
-	rDE = rDE / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offset0;
+
+	}
+	if (fractal->transformCommon.functionEnabledNFalse)
+		rDE = native_sqrt(rDE * rDE + d.z);
+	if (fractal->transformCommon.functionEnabledMFalse)
+		rDE = max(fabs(rDE), fabs(zc.z));
+	rDE -= fractal->transformCommon.offset0005;
+
+	rDE = rDE / (aux->DE + fractal->analyticDE.offset0); // - fractal->transformCommon.offset0;
 
 	if (fractal->transformCommon.functionEnabledJFalse) // z clip
 	{
