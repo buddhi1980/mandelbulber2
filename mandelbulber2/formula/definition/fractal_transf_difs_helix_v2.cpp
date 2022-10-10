@@ -36,7 +36,9 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	aux.DE *= fractal->transformCommon.scale1;
 	// torus
 	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+
+	if (fractal->transformCommon.functionEnabled)
+		zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
@@ -156,8 +158,13 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			double cosA = cos(ang);
 			double sinB = sin(ang);
 			zc.y = zc.z * cosA + zc.y * sinB;
-			zc.z = temp * cosA + zc.z * -sinB;
+			zc.z = temp * cosA - zc.z * sinB;
 		}
+	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fractal->transformCommon.offset000 - fabs(zc);
 	}
 
 	CVector4 d = fabs(zc);
@@ -174,15 +181,14 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	else
 	{
 		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offsetAp01;
-
 	}
 
-		if (!fractal->transformCommon.functionEnabledNFalse)
-			rDE = sqrt(rDE * rDE + d.z);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			rDE = max(fabs(rDE), fabs(zc.z));
+	if (!fractal->transformCommon.functionEnabledNFalse)
+		rDE = sqrt(rDE * rDE + d.z);
+	if (fractal->transformCommon.functionEnabledMFalse)
+		rDE = max(fabs(rDE), fabs(zc.z));
 
-		rDE -= fractal->transformCommon.offset0005;
+	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0); // - fractal->transformCommon.offset0;
 
 	if (fractal->transformCommon.functionEnabledJFalse) // z clip

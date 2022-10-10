@@ -23,7 +23,9 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	aux->DE *= fractal->transformCommon.scale1;
 	// torus
 	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+
+	if (fractal->transformCommon.functionEnabled)
+		zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
@@ -142,8 +144,13 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			REAL cosA = cos(ang);
 			REAL sinB = sin(ang);
 			zc.y = zc.z * cosA + zc.y * sinB;
-			zc.z = temp * cosA + zc.z * -sinB;
+			zc.z = temp * cosA - zc.z * sinB;
 		}
+	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fractal->transformCommon.offset000 - fabs(zc);
 	}
 
 	REAL4 d = fabs(zc);
@@ -155,14 +162,12 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = length(d);
-
 	}
 	else
 	{
 		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offsetAp01;
-
-
 	}
+
 	if (fractal->transformCommon.functionEnabledNFalse)
 		rDE = native_sqrt(rDE * rDE + d.z);
 	if (fractal->transformCommon.functionEnabledMFalse)
