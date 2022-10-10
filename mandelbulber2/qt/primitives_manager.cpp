@@ -174,7 +174,6 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 
 void cPrimitivesManager::Regenerate()
 {
-	// FIXME: regenerate primitives
 
 	// deleting all tabs
 	int count = ui->tabWidget_primitives->count();
@@ -275,18 +274,15 @@ void cPrimitivesManager::slotButtonDeletePrimitive()
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
 	if (currentTabIndex >= 0)
 	{
-		// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
+		sPrimitiveItem currentPrimitiveIndex = primitiveItemOnTab.at(currentTabIndex);
 
-		// FIXME: delete primitive
-		/*
-		for (QString parameterName : cPrimitive::paramsList)
+		QList<QString> listOfPrimitiveParams =
+			cPrimitives::GetListOfPrimitiveParams(currentPrimitiveIndex, params);
+
+		for (QString parameterName : listOfPrimitiveParams)
 		{
-			QString fullParameterName =
-				QString("primitive%1_%2").arg(currentPrimitiveIndex).arg(parameterName);
-
-			params->DeleteParameter(fullParameterName);
+			params->DeleteParameter(parameterName);
 		}
-		*/
 
 		Regenerate();
 	}
