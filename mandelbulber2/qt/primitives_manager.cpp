@@ -315,24 +315,19 @@ void cPrimitivesManager::slorChangedWireframeVisibikity(int enabled)
 
 void cPrimitivesManager::slotButtonPlacePrimitive()
 {
-	QList<QVariant> item;
-	item.append(int(RenderedImage::clickPlacePrimitive));
-
 	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
-	// int currentPrimitiveIndex = primitiveIndexOnTab.at(currentTabIndex);
-	// item.append(currentPrimitiveIndex); // primitive number
+	sPrimitiveItem currentPrimitive = primitiveItemOnTab.at(currentTabIndex);
+
+	QList<QVariant> item;
+
+	item.append(int(RenderedImage::clickPlacePrimitive));
+	item.append(int(currentPrimitive.type));
+	item.append(currentPrimitive.id);
+	item.append(currentPrimitive.fullName); // light number
 
 	int index = mouseFunctionComboWidget->findData(item);
 	mouseFunctionComboWidget->setCurrentIndex(index);
 	renderedImageWidget->setClickMode(item);
-
-	const double distance =
-		cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
-
-	double optimalDistance = distance * 0.1;
-	params->Set("aux_primitive_manual_placement_dist", optimalDistance);
-	emit signalChangePrimitivePlacementDistance(optimalDistance);
-	// ui->logedit_aux_primitive_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }
 
 void cPrimitivesManager::slotChangedCurrentTab(int index)
