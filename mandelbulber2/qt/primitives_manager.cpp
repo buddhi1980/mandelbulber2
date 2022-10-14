@@ -83,6 +83,8 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 		&cPrimitivesManager::slotButtonDuplicatePrimitive);
 	connect(ui->pushButton_placePrimitive, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonPlacePrimitive);
+	connect(ui->pushButton_alignRotation, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAlignRotation);
 
 	connect(ui->checkBox_show_wireframe_primitives, &MyCheckBox::stateChanged, this,
 		&cPrimitivesManager::slorChangedWireframeVisibikity);
@@ -353,5 +355,56 @@ void cPrimitivesManager::slotChangedCurrentTab(int index)
 			//				renderedImageWidget->setClickMode(item);
 			//			}
 		}
+	}
+}
+
+void cPrimitivesManager::slotButtonAlignRotation()
+{
+	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex >= 0)
+	{
+		sPrimitiveItem currentPrimitiveItem = primitiveItemOnTab.at(currentTabIndex);
+
+		SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
+
+		CVector3 camera = gPar->Get<CVector3>("camera");
+		CVector3 target = gPar->Get<CVector3>("target");
+		CVector3 cameraTopVector = gPar->Get<CVector3>("camera_top");
+		cCameraTarget cameraTarget(camera, target, cameraTopVector);
+		CVector3 cameraRotation = cameraTarget.GetRotation();
+
+		CVector3 baseX = CVector3(1.0, 0.0, 0.0);
+		CVector3 baseY = CVector3(0.0, 1.0, 0.0);
+		CVector3 baseZ = CVector3(0.0, 0.0, 1.0);
+
+		// calculation of inverted rotation matrix
+		CRotationMatrix mRot;
+		mRot.RotateY(-cameraRotation.x); // yaw
+		mRot.RotateX(-cameraRotation.y); // pitch
+		mRot.RotateZ(-cameraRotation.z); // roll
+
+		baseX = mRot.RotateVector(baseX);
+		baseY = mRot.RotateVector(baseY);
+		baseZ = mRot.RotateVector(baseZ);
+
+		double alpha = (atan2(baseY.z, baseY.y));
+		double beta = -atan2(baseY.x, sqrt(baseY.z * baseY.z + baseY.y * baseY.y));
+
+		CVector3 vectorTemp = baseX;
+		vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -alpha);
+		vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), -beta);
+
+		double gamma = -atan2(vectorTemp.z, vectorTemp.x);
+
+		alpha = cCameraTarget::CorrectAngle(alpha);
+		beta = cCameraTarget::CorrectAngle(beta);
+		gamma = cCameraTarget::CorrectAngle(gamma);
+
+		CVector3 rotationAligned(alpha * 180.0 / M_PI, beta * 180.0 / M_PI, gamma * 180.0 / M_PI);
+
+		QString primitiveName = currentPrimitiveItem.fullName;
+
+		gPar->Set(primitiveName + "_rotation", rotationAligned);
+		SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
 	}
 }

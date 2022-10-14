@@ -73,6 +73,8 @@ private slots:
 	void slotButtonDuplicatePrimitive();
 	void slotButtonDeletePrimitive();
 	void slotButtonPlacePrimitive();
+	void slotButtonAlignRotation();
+
 	void slotPeriodicRefresh();
 	void slorChangedWireframeVisibikity(int);
 	void slotChangedCurrentTab(int);
