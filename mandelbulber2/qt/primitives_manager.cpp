@@ -136,7 +136,7 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 			InitPrimitiveParams(objectType, primitiveFullName, params);
 		}
 
-		QString name = primitiveFullName;
+		QString name = QString("%1 #%2").arg(primitiveType).arg(newId);
 		ui->tabWidget_primitives->addTab(newEditor, name);
 
 		auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitives->tabBar());

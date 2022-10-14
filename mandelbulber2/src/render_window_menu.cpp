@@ -76,7 +76,6 @@ void RenderWindow::slotImportOldSettings()
 		oldSettings::cOldSettings oldSettings;
 		oldSettings.LoadSettings(filename);
 		oldSettings.ConvertToNewContainer(gPar, gParFractal);
-		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
@@ -460,7 +459,6 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	gInterfaceReadyForSynchronization = false;
 	parSettings.LoadFromFile(fileName);
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
 	ui->widgetEffects->RegenerateLights();
 	ui->widgetDockFractal->RegeneratePrimitives();
@@ -491,7 +489,6 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		gMainInterface->DisablePeriodicRefresh();
 		gInterfaceReadyForSynchronization = false;
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
 		ui->widgetEffects->RegenerateLights();
 		ui->widgetDockFractal->RegeneratePrimitives();

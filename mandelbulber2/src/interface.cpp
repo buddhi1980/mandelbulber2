@@ -827,7 +827,6 @@ void cInterface::Undo()
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo->Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
 		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
@@ -849,7 +848,6 @@ void cInterface::Redo()
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo->Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		RebuildPrimitives(gPar);
 		materialListModel->Regenerate();
 		mainWindow->ui->widgetEffects->RegenerateLights();
 		mainWindow->ui->widgetDockFractal->RegeneratePrimitives();
@@ -1129,143 +1127,6 @@ void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 oute
 	SynchronizeInterface(par, parFractal, qInterface::write);
 }
 
-void cInterface::NewPrimitiveUI(const sPrimitiveItem &primitive)
-{
-	QString primitiveFullName = primitive.fullName;
-	QString primitiveType = primitive.typeName;
-	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
-											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
-	// fractal::enumObjectType objectType = primitive.type;
-	int newId = primitive.id;
-
-	// main widget for primitive
-	QWidget *mainWidget =
-		new QWidget(mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives());
-	mainWidget->setObjectName(QString("widgetmain_") + primitiveFullName);
-	QVBoxLayout *layout = new QVBoxLayout();
-	mainWidget->setLayout(layout);
-
-	QHBoxLayout *buttonsLayout = new QHBoxLayout();
-	layout->addLayout(buttonsLayout);
-
-	QPushButton *setPositionButton = new QPushButton(
-		QObject::tr("Set position of\n%1 # %2\nby mouse pointer").arg(primitiveType).arg(newId),
-		mainWidget);
-	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
-	buttonsLayout->addWidget(setPositionButton);
-
-	QPushButton *deleteButton = new QPushButton(
-		QObject::tr("Delete\n") + primitiveType + " # " + QString::number(newId), mainWidget);
-	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
-	buttonsLayout->addWidget(deleteButton);
-
-	QHBoxLayout *buttonsLayout2 = new QHBoxLayout();
-	layout->addLayout(buttonsLayout2);
-
-	QPushButton *alignButton = new QPushButton(QObject::tr("Align rotation to camera"), mainWidget);
-	alignButton->setObjectName(QString("alignButton_") + primitiveFullName);
-	buttonsLayout2->addWidget(alignButton);
-
-	MyGroupBox *groupBox = new MyGroupBox(mainWidget);
-	groupBox->setObjectName(QString("groupCheck_") + primitiveFullName + "_enabled");
-	groupBox->setCheckable(true);
-	groupBox->setTitle(primitiveType + " # " + QString::number(newId));
-	layout->addWidget(groupBox);
-
-	QVBoxLayout *layoutGroupBox = new QVBoxLayout();
-	groupBox->setLayout(layoutGroupBox);
-
-	// load ui
-	MyUiLoader loader;
-	QFile uiFile(uiFileName);
-	if (uiFile.exists())
-	{
-		uiFile.open(QFile::ReadOnly);
-		QWidget *primitiveWidget = loader.load(&uiFile);
-		uiFile.close();
-		primitiveWidget->setObjectName(QString("widgetui_") + primitiveFullName);
-		layoutGroupBox->addWidget(primitiveWidget);
-
-		// put widget into layout
-		QVBoxLayout *primitivesLayout = mainWindow->ui->widgetDockFractal->GetLayoutWithPrimitives();
-		primitivesLayout->addWidget(mainWidget);
-
-		// rename widgets
-		QList<QWidget *> listOfWidgets = primitiveWidget->findChildren<QWidget *>();
-		for (auto &widget : listOfWidgets)
-		{
-			QString name = widget->objectName();
-			int firstDash = name.indexOf('_');
-			QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
-			widget->setObjectName(newName);
-		}
-
-		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
-		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
-			SLOT(slotPressedButtonSetPositionPrimitive()));
-		connect(
-			alignButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAlignPrimitiveAngle()));
-
-		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
-		SynchronizeInterfaceWindow(mainWidget, gPar, qInterface::write);
-
-		if (gPar->Get<bool>("ui_colorize"))
-		{
-			cInterface::ColorizeGroupBoxes(
-				groupBox, gPar->Get<int>("ui_colorize_random_seed") + Random(65535));
-		}
-
-		ComboMouseClickUpdate();
-	}
-	else
-	{
-		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName
-																 + QObject::tr(" Primitive object ui file can't be loaded"),
-			cErrorMessage::errorMessage, mainWindow);
-	}
-}
-
-void cInterface::DeletePrimitive(const QString &primitiveName)
-{
-	QString primitiveWidgetName = QString("widgetmain_") + primitiveName;
-	QString primitiveTypeName = primitiveName.split('_')[1];
-	fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(primitiveTypeName);
-
-	// delete widget
-	QWidget *primitiveWidget =
-		mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
-			primitiveWidgetName);
-
-	delete primitiveWidget;
-
-	DeletePrimitiveParams(objectType, primitiveName, gPar);
-	ComboMouseClickUpdate();
-
-	gKeyframeAnimation->RefreshTable();
-	gFlightAnimation->RefreshTable();
-}
-
-void cInterface::RebuildPrimitives(std::shared_ptr<cParameterContainer> par)
-{
-
-	QRegularExpression regex("^widgetmain_");
-	QList<QWidget *> listOfWidgets =
-		mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChildren<QWidget *>(
-			regex, Qt::FindChildrenRecursively);
-
-	for (QWidget *widgetToDelete : listOfWidgets)
-	{
-		delete widgetToDelete;
-	}
-
-	QList<sPrimitiveItem> listOfPrimitives = cPrimitives::GetListOfPrimitives(par);
-
-	for (const sPrimitiveItem &primitive : listOfPrimitives)
-	{
-		NewPrimitiveUI(primitive);
-	}
-}
-
 void cInterface::ComboMouseClickUpdate()
 {
 	ComboMouseClickUpdate(mainWindow->ui->comboBox_mouse_click_function, gPar);
@@ -1435,7 +1296,6 @@ bool cInterface::AutoRecovery() const
 			gInterfaceReadyForSynchronization = false;
 			parSettings.LoadFromFile(systemDirectories.GetAutosaveFile());
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-			gMainInterface->RebuildPrimitives(gPar);
 			materialListModel->Regenerate();
 			mainWindow->ui->widgetEffects->RegenerateLights();
 			mainWindow->ui->widgetDockFractal->RegeneratePrimitives();

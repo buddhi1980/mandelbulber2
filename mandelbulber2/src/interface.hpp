@@ -93,9 +93,6 @@ public:
 	void SetBoundingBoxAsLimitsTotal();
 	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax,
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> parFractal);
-	void NewPrimitiveUI(const sPrimitiveItem &primitive);
-	void DeletePrimitive(const QString &primitiveName);
-	void RebuildPrimitives(std::shared_ptr<cParameterContainer> par);
 	void ComboMouseClickUpdate();
 	static void ComboMouseClickUpdate(
 		QComboBox *comboBox, std::shared_ptr<cParameterContainer> params);

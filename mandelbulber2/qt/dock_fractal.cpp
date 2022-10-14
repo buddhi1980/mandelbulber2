@@ -162,25 +162,6 @@ void cDockFractal::ConnectSignals() const
 	connect(ui->pushButton_get_julia_constant, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonGetJuliaConstant()));
 
-	connect(ui->pushButton_add_primitive_box, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_circle, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_cone, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_cylinder, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_plane, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_rectangle, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_sphere, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_water, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-	connect(ui->pushButton_add_primitive_torus, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonNewPrimitive()));
-
 	connect(ui->groupCheck_julia_mode, SIGNAL(toggled(bool)), this,
 		SLOT(slotGroupCheckJuliaModeToggled(bool)));
 
@@ -401,25 +382,6 @@ void cDockFractal::slotPressedButtonGetJuliaConstant()
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void cDockFractal::slotPressedButtonNewPrimitive() const
-{
-	QString buttonName = sender()->objectName();
-	QString primitiveTypeName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
-
-	fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(primitiveTypeName);
-	QList<sPrimitiveItem> actualList = cPrimitives::GetListOfPrimitives(gPar);
-	int newIndex = cPrimitives::NewPrimitiveIndex(primitiveTypeName, actualList);
-
-	QString primitiveFullName = QString("primitive_%1_%2").arg(primitiveTypeName).arg(newIndex);
-
-	InitPrimitiveParams(objectType, primitiveFullName, gPar);
-	gPar->Set(primitiveFullName + "_enabled", true);
-
-	sPrimitiveItem newPrimitive(objectType, newIndex, primitiveFullName, primitiveTypeName);
-
-	gMainInterface->NewPrimitiveUI(newPrimitive);
 }
 
 void cDockFractal::slotChangedFractalTab(int index)

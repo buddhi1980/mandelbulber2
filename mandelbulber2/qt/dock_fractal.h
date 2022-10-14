@@ -84,7 +84,6 @@ public slots:
 private slots:
 	void slotChangedJuliaPoint() const;
 	static void slotPressedButtonGetJuliaConstant();
-	void slotPressedButtonNewPrimitive() const;
 	static void slotGroupCheckJuliaModeToggled(bool state);
 	void slotChangedCheckBoxHybridFractal(int state) const;
 	void slotChangedCheckBoxBooleanOperators(bool state) const;

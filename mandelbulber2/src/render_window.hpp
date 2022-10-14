@@ -112,10 +112,6 @@ private slots:
 	void slotChangedComboGridType(int index);
 	void slotCameraMovementModeChanged(int index);
 
-	void slotPressedButtonDeletePrimitive() const;
-	void slotPressedButtonAlignPrimitiveAngle() const;
-
-	void slotPressedButtonSetPositionPrimitive() const;
 	void slotResizedScrolledAreaImage(int width, int height) const;
 	void slotMenuLoadPreset(QString filename);
 	void slotMenuRemovePreset(QString filename);
