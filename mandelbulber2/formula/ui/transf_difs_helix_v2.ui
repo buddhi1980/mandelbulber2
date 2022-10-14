@@ -1382,6 +1382,13 @@
        </widget>
       </item>
       <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
+        <property name="text">
+         <string>radius  =&gt; max()</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_31" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
@@ -1450,7 +1457,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
         <property name="text">
-         <string>M</string>
+         <string>M strip</string>
         </property>
        </widget>
       </item>
@@ -1458,13 +1465,6 @@
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
         <property name="text">
          <string>S</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
-        <property name="text">
-         <string>T</string>
         </property>
        </widget>
       </item>

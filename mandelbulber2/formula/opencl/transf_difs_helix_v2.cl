@@ -158,29 +158,32 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	REAL rDE;
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	if (!fractal->transformCommon.functionEnabledTFalse)
 	{
 		rDE = length(d);
 	}
 	else
 	{
+		rDE = max(d.x, max(d.y, d.z));
+	}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
 		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+
+		if (fractal->transformCommon.functionEnabledNFalse)
+			rDE = native_sqrt(rDE * rDE + d.z);
+
+		if (fractal->transformCommon.functionEnabledOFalse)
+			rDE = native_sqrt(rDE * rDE + d.z * d.z);
+
+		if (fractal->transformCommon.functionEnabledMFalse)
+			rDE = max(fabs(rDE), fabs(zc.z));
+
+		if (fractal->transformCommon.functionEnabledSFalse)
+			rDE = max(fabs(rDE), zc.z * zc.z);
+
 	}
 
-	if (fractal->transformCommon.functionEnabledNFalse)
-		rDE = native_sqrt(rDE * rDE + d.z);
-
-	if (fractal->transformCommon.functionEnabledOFalse)
-		rDE = native_sqrt(rDE * rDE + d.z * d.z);
-
-	if (fractal->transformCommon.functionEnabledMFalse)
-		rDE = max(fabs(rDE), fabs(zc.z));
-
-	if (fractal->transformCommon.functionEnabledSFalse)
-		rDE = max(fabs(rDE), zc.z * zc.z);
-
-	if (fractal->transformCommon.functionEnabledTFalse)
-		rDE = max(d.x, max(d.y, d.z));
 
 
 	rDE -= fractal->transformCommon.offset0005;
