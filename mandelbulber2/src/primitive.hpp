@@ -75,6 +75,15 @@ struct sPrimitiveBasic : cObjectData
 	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
 	virtual ~sPrimitiveBasic() = default;
 	virtual double PrimitiveDistance(CVector3 _point) const = 0;
+
+	struct sPrimitiveWireLine
+	{
+		CVector3 p1;
+		CVector3 p2;
+	};
+
+	static std::vector<sPrimitiveWireLine> wireFrameShape;
+	virtual const std::vector<sPrimitiveWireLine> &GetWireFrameShape() { return wireFrameShape; }
 };
 
 struct sPrimitivePlane : sPrimitiveBasic
@@ -91,6 +100,12 @@ struct sPrimitiveBox : sPrimitiveBasic
 	double rounding;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static std::vector<sPrimitiveWireLine> wireFrameShape;
+	virtual const std::vector<sPrimitiveWireLine> &GetWireFrameShape() override
+	{
+		return wireFrameShape;
+	}
 };
 
 struct sPrimitiveSphere : sPrimitiveBasic

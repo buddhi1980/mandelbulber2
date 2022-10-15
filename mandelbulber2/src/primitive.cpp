@@ -49,6 +49,7 @@ sPrimitiveBasic::sPrimitiveBasic(
 	booleanOperator = enumPrimitiveBooleanOperator(par->Get<int>(fullName + "_boolean_operator"));
 	repeat = par->Get<CVector3>(fullName + "_repeat");
 }
+std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 
 sPrimitivePlane::sPrimitivePlane(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
@@ -67,6 +68,18 @@ sPrimitiveBox::sPrimitiveBox(
 	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 }
+
+std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBox::wireFrameShape = {
+	{CVector3(0.0, 0.0, 0.0), CVector3(1.0, 0.0, 0.0)},
+	{CVector3(0.0, 0.0, 0.0), CVector3(0.0, 1.0, 0.0)},
+	{CVector3(1.0, 1.0, 0.0), CVector3(1.0, 0.0, 0.0)},
+	{CVector3(1.0, 1.0, 0.0), CVector3(0.0, 1.0, 0.0)},
+
+	{CVector3(0.0, 0.0, 1.0), CVector3(1.0, 0.0, 1.0)},
+	{CVector3(0.0, 0.0, 1.0), CVector3(0.0, 1.0, 1.0)},
+	{CVector3(1.0, 1.0, 1.0), CVector3(1.0, 0.0, 1.0)},
+	{CVector3(1.0, 1.0, 1.0), CVector3(0.0, 1.0, 1.0)},
+};
 
 sPrimitiveSphere::sPrimitiveSphere(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
