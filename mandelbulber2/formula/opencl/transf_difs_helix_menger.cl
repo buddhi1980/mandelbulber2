@@ -14,7 +14,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp;
 	REAL4 zc = z;
@@ -86,6 +86,65 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
+	// menger sponge
+	int Iterations = fractal->transformCommon.int16;
+	for (int n = 0; n < Iterations; n++)
+	{
+		zc = fabs(zc);
+		zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
+		REAL col = 0.0f;
+		if (zc.x < zc.y)
+		{
+			temp = zc.y;
+			zc.y = zc.x;
+			zc.x = temp;
+			col += fractal->foldColor.difs0000.x;
+		}
+		if (zc.x < zc.z)
+		{
+			temp = zc.z;
+			zc.z = zc.x;
+			zc.x = temp;
+			col += fractal->foldColor.difs0000.y;
+		}
+		if (zc.y < zc.z)
+		{
+			temp = zc.z;
+			zc.z = zc.y;
+			zc.y = temp;
+		}
+		if (n >= fractal->foldColor.startIterationsA
+				&& n < fractal->foldColor.stopIterationsA)
+		{
+			aux->color += col;
+		}
+
+		temp = fractal->transformCommon.scale3 - 1.0f;
+		REAL bz = temp * fractal->transformCommon.offsetA111.z
+				+ fractal->transformCommon.offsetA0;
+		zc = fractal->transformCommon.scale3 * zc
+				- temp * fractal->transformCommon.offsetA111;
+		aux->DE = fractal->transformCommon.scale3 * (aux->DE + fractal->transformCommon.offsetB0);
+		if (zc.z < -0.5 * bz) zc.z += bz;
+	}
+
+
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+		if (fractal->transformCommon.angleDegC != 0.0f)
+		{
+			ang = fractal->transformCommon.angleDegC;
+			temp = zc.y;
+			REAL cosA = cos(ang);
+			REAL sinB = sin(ang);
+			zc.y = zc.z * cosA + zc.y * sinB;
+			zc.z = temp * cosA - zc.z * sinB;
+		}
+	}
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc = fractal->transformCommon.offset000 - fabs(zc);
@@ -136,11 +195,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			fabs(aux->const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
 			rDE);
 	}
-
-	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = min(aux->dist,  rDE);
-	else
-		aux->dist =  rDE;
+	aux->dist = min(aux->dist, rDE);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc

@@ -13,11 +13,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfDIFSHelixV2::cFractalTransfDIFSHelixV2() : cAbstractFractal()
+cFractalTransfDIFSHelixMenger::cFractalTransfDIFSHelixMenger() : cAbstractFractal()
 {
-	nameInComboBox = "T>DIFS Helix V2";
-	internalName = "transf_difs_helix_v2";
-	internalID = fractal::transfDIFSHelixV2;
+	nameInComboBox = "T>DIFS Helix Menger";
+	internalName = "transf_difs_helix_menger";
+	internalID = fractal::transfDIFSHelixMenger;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalTransfDIFSHelixV2::cFractalTransfDIFSHelixV2() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDIFSHelixV2::FormulaCode(
+void cFractalTransfDIFSHelixMenger::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp;
@@ -34,12 +34,10 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 
 	zc *= fractal->transformCommon.scale1;
 	aux.DE *= fractal->transformCommon.scale1;
-
 	// torus
 	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
 
-	if (!fractal->transformCommon.functionEnabledKFalse)
-		zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
@@ -60,9 +58,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			zc.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
 		}
 	}
-
 	zc.x *= fractal->transformCommon.scaleG1;
-
 	// twist
 	if (fractal->transformCommon.functionEnabledAz)
 	{
@@ -104,12 +100,73 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
+	// menger sponge
+
+	int Iterations = fractal->transformCommon.int16;
+
+	for (int n = 0; n < Iterations; n++)
+	{
+		zc = fabs(zc);
+		zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+		double col = 0.0;
+		if (zc.x < zc.y)
+		{
+			temp = zc.y;
+			zc.y = zc.x;
+			zc.x = temp;
+			col += fractal->foldColor.difs0000.x;
+		}
+		if (zc.x < zc.z)
+		{
+			temp = zc.z;
+			zc.z = zc.x;
+			zc.x = temp;
+			col += fractal->foldColor.difs0000.y;
+		}
+		if (zc.y < zc.z)
+		{
+			temp = zc.z;
+			zc.z = zc.y;
+			zc.y = temp;
+		}
+		if (n >= fractal->foldColor.startIterationsA
+					&& n < fractal->foldColor.stopIterationsA)
+		{
+			aux.color += col;
+		}
+
+		temp = fractal->transformCommon.scale3 - 1.0;
+		double bz = temp * fractal->transformCommon.offsetA111.z
+				+ fractal->transformCommon.offsetA0;
+		zc = fractal->transformCommon.scale3 * zc
+				- temp * fractal->transformCommon.offsetA111;
+		aux.DE = fractal->transformCommon.scale3 * (aux.DE + fractal->transformCommon.offsetB0);
+		if (zc.z < -0.5 * bz) zc.z += bz;
+	}
+
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+		if (fractal->transformCommon.angleDegC != 0.0)
+		{
+			ang = fractal->transformCommon.angleDegC;
+			temp = zc.y;
+			double cosA = cos(ang);
+			double sinB = sin(ang);
+			zc.y = zc.z * cosA + zc.y * sinB;
+			zc.z = temp * cosA - zc.z * sinB;
+		}
+	}
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc = fractal->transformCommon.offset000 - fabs(zc);
 	}
 
 	CVector4 d = fabs(zc);
+
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
@@ -143,6 +200,8 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			rDE = max(fabs(rDE), zc.z * zc.z);
 	}
 
+
+
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0);
 	if (fractal->transformCommon.functionEnabledJFalse) // z clip
@@ -151,11 +210,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 			fabs(aux.const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
 			rDE);
 	}
-
-	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = min(aux.dist, rDE);
-	else
-		aux.dist = rDE;
+	aux.dist = min(aux.dist, rDE);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
@@ -166,8 +221,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	{
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
-			double ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z)))
-					* 4.0 * M_PI_2x_INV;
+			double ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0 * M_PI_2x_INV;
 			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
 			else aux.color += fractal->foldColor.difs0000.w;
 		}
