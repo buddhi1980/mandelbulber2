@@ -38,8 +38,7 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	// torus
 	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
 
-	if (!fractal->transformCommon.functionEnabledKFalse)
-		zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)

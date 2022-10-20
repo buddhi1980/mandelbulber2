@@ -17,13 +17,14 @@
 
 REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL temp;
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		REAL xTemp = SQRT_1_2_F * (z.x - z.y);
+		temp = SQRT_1_2_F * (z.x - z.y);
 		z.y = SQRT_1_2_F * (z.y + z.x);
-		z.x = xTemp;
+		z.x = temp;
 	}
 
 	if (fractal->transformCommon.functionEnabledM)
@@ -48,7 +49,7 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 zc = z;
 	REAL mx = zc.x * zc.x;
 	REAL my = zc.y * zc.y;
-	REAL m = fractal->transformCommon.scaleA2 * ((mx * my)) + mx * mx + my * my;
+	REAL m = fractal->transformCommon.scaleA2 * mx * my + mx * mx + my * my;
 	REAL n = m + fractal->transformCommon.scale4 * zc.x * zc.y + 1.0f;
 	zc.y = 2.0f * (my - mx) / n;
 
@@ -66,7 +67,7 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
 	REAL zd = min(min(zdv.x, zdv.y), zdv.z);
 
-	zc = fabs(zc) - fractal->transformCommon.additionConstant111;
+	zc = fabs(zc) - fractal->transformCommon.offset110;
 
 	REAL4 zcv = zc;
 	zcv.x = max(zcv.x, 0.0f);
@@ -83,10 +84,10 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL ll = sqrt(bxy * bxy + bz * bz);
 	REAL zcf = min(mm, 0.0f) + ll;
 
-
-	if (fractal->transformCommon.functionEnabledEFalse)	zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
-	if (fractal->transformCommon.functionEnabledFFalse)	zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
-
+	if (fractal->transformCommon.functionEnabledEFalse)
+		zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
+	if (fractal->transformCommon.functionEnabledFFalse)
+		zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
 
 	zcd = zcd + (zcf - zcd) * fractal->transformCommon.scaleD1;
 
@@ -97,7 +98,6 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
 
 	return z;
 }
