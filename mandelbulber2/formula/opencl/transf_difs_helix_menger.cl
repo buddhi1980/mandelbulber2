@@ -19,17 +19,17 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	REAL temp;
 	REAL4 zc = z;
 
-	zc *= fractal->transformCommon.scale1;
-	aux->DE *= fractal->transformCommon.scale1;
+	zc *= fractal->transformCommon.scale2;
+	aux->DE *= fractal->transformCommon.scale2;
 	// torus
 	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
 
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.scaleMain2;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		REAL Voff = fractal->transformCommon.offsetA2;
+		REAL Voff = fractal->transformCommon.offset4;
 		temp = zc.z - Voff * ang  * fractal->transformCommon.int1 + Voff * 0.5f;
 		zc.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
 	}
@@ -37,12 +37,13 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (fractal->transformCommon.functionEnabledAy)
 	{
 		if (!fractal->transformCommon.functionEnabledAyFalse)
-			zc.x = fractal->transformCommon.offset1;
-		else
 		{
-			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offset1;
+			temp = fractal->transformCommon.scale16 * ang
+					+ fractal->transformCommon.offset1;
 			zc.x = temp - 2.0f * floor(temp * 0.5f) - 1.0f;
 		}
+		else
+			zc.x = fractal->transformCommon.offset1;
 	}
 	zc.x *= fractal->transformCommon.scaleG1;
 	// twist
@@ -85,6 +86,13 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		}
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
+
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fractal->transformCommon.offset000 - fabs(zc);
+	}
+
 
 	// menger sponge
 	int Iterations = fractal->transformCommon.int16;
@@ -129,60 +137,17 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 
 
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-		if (fractal->transformCommon.angleDegC != 0.0f)
-		{
-			ang = fractal->transformCommon.angleDegC;
-			temp = zc.y;
-			REAL cosA = cos(ang);
-			REAL sinB = sin(ang);
-			zc.y = zc.z * cosA + zc.y * sinB;
-			zc.z = temp * cosA - zc.z * sinB;
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		zc = fractal->transformCommon.offset000 - fabs(zc);
-	}
-
 	REAL4 d = fabs(zc);
-	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0f);
-	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
-	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
-	REAL rDE;
-	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
+	REAL rDE;
+	if (!fractal->transformCommon.functionEnabledTFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledTFalse)
-		{
-			rDE = length(d);
-		}
-		else
-		{
-			rDE = max(d.x, max(d.y, d.z));
-		}
+		rDE = max(d.x, max(d.y, d.z));
 	}
 	else
 	{
-		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
-
-		if (fractal->transformCommon.functionEnabledNFalse)
-			rDE = native_sqrt(rDE * rDE + d.z);
-
-		if (fractal->transformCommon.functionEnabledOFalse)
-			rDE = native_sqrt(rDE * rDE + d.z * d.z);
-
-		if (fractal->transformCommon.functionEnabledMFalse)
-			rDE = max(fabs(rDE), fabs(zc.z));
-
-		if (fractal->transformCommon.functionEnabledSFalse)
-			rDE = max(fabs(rDE), zc.z * zc.z);
+		rDE = length(d);
 	}
 
 	rDE -= fractal->transformCommon.offset0005;

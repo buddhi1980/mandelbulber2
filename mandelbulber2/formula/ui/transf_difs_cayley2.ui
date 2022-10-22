@@ -898,7 +898,8 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>offset:</string>
+        <string>abs
+offset:</string>
        </property>
       </widget>
      </item>
@@ -1073,7 +1074,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_33">
        <property name="text">
-        <string>H offset01</string>
+        <string>height:</string>
        </property>
       </widget>
      </item>
@@ -1234,7 +1235,7 @@
      <item row="13" column="0">
       <widget class="QLabel" name="label_37">
        <property name="text">
-        <string>round offsetA_0</string>
+        <string>round:</string>
        </property>
       </widget>
      </item>
@@ -1269,7 +1270,7 @@
      <item row="10" column="0">
       <widget class="QLabel" name="label_31">
        <property name="text">
-        <string>mix scaleD_1</string>
+        <string>mix scale:</string>
        </property>
       </widget>
      </item>

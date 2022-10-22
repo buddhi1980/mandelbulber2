@@ -32,17 +32,17 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	double temp;
 	CVector4  zc = z;
 
-	zc *= fractal->transformCommon.scale1;
-	aux.DE *= fractal->transformCommon.scale1;
+	zc *= fractal->transformCommon.scale2;
+	aux.DE *= fractal->transformCommon.scale2;
 	// torus
 	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
 
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.scaleMain2;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		double Voff = fractal->transformCommon.offsetA2;
+		double Voff = fractal->transformCommon.offset4;
 		temp = zc.z - Voff * ang  * fractal->transformCommon.int1 + Voff * 0.5;
 		zc.z = temp - Voff * floor(temp / Voff) - Voff * 0.5;
 	}
@@ -50,13 +50,13 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	if (fractal->transformCommon.functionEnabledAy)
 	{
 		if (!fractal->transformCommon.functionEnabledAyFalse)
-			zc.x = fractal->transformCommon.offset1;
-		else
 		{
-			temp = fractal->transformCommon.scaleA2
-					* ang + fractal->transformCommon.offset1;
+			temp = fractal->transformCommon.scale16	* ang
+					+ fractal->transformCommon.offset1;
 			zc.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
 		}
+		else
+			zc.x = fractal->transformCommon.offset1;
 	}
 	zc.x *= fractal->transformCommon.scaleG1;
 	// twist
@@ -100,8 +100,14 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
-	// menger sponge
 
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fractal->transformCommon.offset000 - fabs(zc);
+	}
+
+
+	// menger sponge
 	int Iterations = fractal->transformCommon.int16;
 
 	for (int n = 0; n < Iterations; n++)
@@ -144,63 +150,20 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 		if (zc.z < -0.5 * bz) zc.z += bz;
 	}
 
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		temp = zc.x;
-		zc.x = zc.z;
-		zc.z = temp;
-		if (fractal->transformCommon.angleDegC != 0.0)
-		{
-			ang = fractal->transformCommon.angleDegC;
-			temp = zc.y;
-			double cosA = cos(ang);
-			double sinB = sin(ang);
-			zc.y = zc.z * cosA + zc.y * sinB;
-			zc.z = temp * cosA - zc.z * sinB;
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		zc = fractal->transformCommon.offset000 - fabs(zc);
-	}
 
 	CVector4 d = fabs(zc);
 
-	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
-	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
-	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 	double rDE;
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
-	if (!fractal->transformCommon.functionEnabledCFalse)
+
+	if (!fractal->transformCommon.functionEnabledTFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledTFalse)
-		{
-			rDE = d.Length();
-		}
-		else
-		{
-			rDE = max(d.x, max(d.y, d.z));
-		}
+		rDE = max(d.x, max(d.y, d.z));
 	}
 	else
 	{
-		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
-
-		if (fractal->transformCommon.functionEnabledNFalse)
-			rDE = sqrt(rDE * rDE + d.z);
-
-		if (fractal->transformCommon.functionEnabledOFalse)
-			rDE = sqrt(rDE * rDE + d.z * d.z);
-
-		if (fractal->transformCommon.functionEnabledMFalse)
-			rDE = max(fabs(rDE), fabs(zc.z));
-
-		if (fractal->transformCommon.functionEnabledSFalse)
-			rDE = max(fabs(rDE), zc.z * zc.z);
+		rDE = d.Length();
 	}
-
-
 
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0);
