@@ -70,15 +70,20 @@ sPrimitiveBox::sPrimitiveBox(
 }
 
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBox::wireFrameShape = {
-	{CVector3(0.0, 0.0, 0.0), CVector3(1.0, 0.0, 0.0)},
-	{CVector3(0.0, 0.0, 0.0), CVector3(0.0, 1.0, 0.0)},
-	{CVector3(1.0, 1.0, 0.0), CVector3(1.0, 0.0, 0.0)},
-	{CVector3(1.0, 1.0, 0.0), CVector3(0.0, 1.0, 0.0)},
+	{CVector3(-0.5, -0.5, -0.5), CVector3(0.5, -0.5, -0.5)},
+	{CVector3(-0.5, -0.5, -0.5), CVector3(-0.5, 0.5, -0.5)},
+	{CVector3(0.5, 0.5, -0.5), CVector3(0.5, -0.5, -0.5)},
+	{CVector3(0.5, 0.5, -0.5), CVector3(-0.5, 0.5, -0.5)},
 
-	{CVector3(0.0, 0.0, 1.0), CVector3(1.0, 0.0, 1.0)},
-	{CVector3(0.0, 0.0, 1.0), CVector3(0.0, 1.0, 1.0)},
-	{CVector3(1.0, 1.0, 1.0), CVector3(1.0, 0.0, 1.0)},
-	{CVector3(1.0, 1.0, 1.0), CVector3(0.0, 1.0, 1.0)},
+	{CVector3(-0.5, -0.5, 0.5), CVector3(0.5, -0.5, 0.5)},
+	{CVector3(-0.5, -0.5, 0.5), CVector3(-0.5, 0.5, 0.5)},
+	{CVector3(0.5, 0.5, 0.5), CVector3(0.5, -0.5, 0.5)},
+	{CVector3(0.5, 0.5, 0.5), CVector3(-0.5, 0.5, 0.5)},
+
+	{CVector3(-0.5, -0.5, -0.5), CVector3(-0.5, -0.5, 0.5)},
+	{CVector3(-0.5, 0.5, -0.5), CVector3(-0.5, 0.5, 0.5)},
+	{CVector3(0.5, -0.5, -0.5), CVector3(0.5, -0.5, 0.5)},
+	{CVector3(0.5, 0.5, -0.5), CVector3(0.5, 0.5, 0.5)},
 };
 
 sPrimitiveSphere::sPrimitiveSphere(

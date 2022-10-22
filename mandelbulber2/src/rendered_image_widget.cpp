@@ -51,6 +51,7 @@
 #include "nine_fractals.hpp"
 #include "parameters.hpp"
 #include "primitives.h"
+#include "primitive.hpp"
 #include "trace_behind.h"
 
 using namespace Qt;
@@ -66,6 +67,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	fractals = nullptr;
 	cursorVisible = true;
 	lightsVisible = false;
+	primitivesVisible = false;
 	smoothLastZMouse = 0.0;
 	redrawed = true;
 	isFocus = false;
@@ -120,6 +122,11 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 				DisplayAllLights();
 			}
 
+			if (primitivesVisible)
+			{
+				DisplayAllPrimitives();
+			}
+
 			if (cursorVisible && isFocus)
 			{
 				if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
@@ -164,8 +171,9 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		{
 			CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
 			double dpiScale = devicePixelRatioF();
-			Compass(rotation, QPointF(image->GetPreviewWidth() * 0.9 / dpiScale,
-																image->GetPreviewHeight() * 0.9 / dpiScale),
+			Compass(rotation,
+				QPointF(
+					image->GetPreviewWidth() * 0.9 / dpiScale, image->GetPreviewHeight() * 0.9 / dpiScale),
 				image->GetPreviewHeight() * 0.05 / dpiScale);
 		}
 
@@ -1506,6 +1514,40 @@ void RenderedImage::DisplayAllLights()
 			}					// if is defined
 		}						// if parameter is light
 	}							// for parameterName
+}
+
+void RenderedImage::DisplayAllPrimitives()
+{
+	cPrimitives primitives(params, nullptr);
+
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 rotation = params->Get<CVector3>("camera_rotation");
+	params::enumPerspectiveType perspectiveType =
+		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
+	double fov = CalcFOV(params->Get<double>("fov"), perspectiveType);
+	int width = image->GetPreviewWidth();
+	int height = image->GetPreviewHeight();
+
+	CRotationMatrix mRotInv;
+	mRotInv.RotateY(-rotation.z / 180.0 * M_PI);
+	mRotInv.RotateX(-rotation.y / 180.0 * M_PI);
+	mRotInv.RotateZ(-rotation.x / 180.0 * M_PI);
+
+	for (int index = 0; index < primitives.GetNumberOfPrimivives(); index++)
+	{
+		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(index);
+		const std::vector<sPrimitiveBasic::sPrimitiveWireLine> primitiveShape =
+			primitive->GetWireFrameShape();
+
+		for (const sPrimitiveBasic::sPrimitiveWireLine &line : primitiveShape)
+		{
+			sRGB8 color(0, 255, 0);
+			double thickness = 2.0;
+
+			line3D(line.p1, line.p2, camera, mRotInv, perspectiveType, fov, width, height, color,
+				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+		}
+	}
 }
 
 void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,

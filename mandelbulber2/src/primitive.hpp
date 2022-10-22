@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_PRIMITIVE_HPP_
 
 #include <memory>
+#include <vector>
 #include "algebra.hpp"
 #include "object_data.hpp"
 #include "object_types.hpp"
@@ -47,24 +48,6 @@ enum enumPrimitiveBooleanOperator
 	primBooleanOperatorOR = 1,
 	primBooleanOperatorSUB = 2,
 	primBooleanOperatorRevSUB = 3
-};
-
-struct sPrimitiveItem
-{
-	sPrimitiveItem(
-		fractal::enumObjectType _type, int _id, const QString &_name, const QString &_typeName)
-			: type(_type), id(_id), fullName(std::move(_name)), typeName(std::move(_typeName))
-	{
-	}
-
-	sPrimitiveItem() : type(fractal::objNone), id(0), fullName(QString()), typeName(QString()) {}
-
-	fractal::enumObjectType type;
-	int id;
-	QString fullName;
-	QString typeName;
-
-	QString Name(const QString &subParameterName) const { return fullName + "_" + subParameterName; }
 };
 
 struct sPrimitiveBasic : cObjectData

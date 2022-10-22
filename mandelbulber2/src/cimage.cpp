@@ -865,9 +865,9 @@ void cImage::PutPixelAlfa(quint64 x, quint64 y, float z, sRGB8 color, sRGBFloat 
 		float zImage = GetPixelZBuffer(int(x / previewScale), int(y / previewScale));
 		if (z > zImage)
 		{
-			opacity.R *= float(0.03);
-			opacity.G *= float(0.03);
-			opacity.B *= float(0.03);
+			opacity.R *= 0.1f;
+			opacity.G *= 0.1f;
+			opacity.B *= 0.1f;
 		}
 		sRGB8 oldPixel;
 		if (layer == 0)

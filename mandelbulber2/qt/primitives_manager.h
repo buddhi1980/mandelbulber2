@@ -40,6 +40,7 @@
 #include <QWidget>
 
 #include "src/primitive.hpp"
+#include "src/primitive_item.h"
 #include "my_widget_with_params.h"
 
 class cParameterContainer;

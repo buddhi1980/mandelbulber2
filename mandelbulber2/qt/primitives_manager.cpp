@@ -44,6 +44,7 @@
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/primitives.h"
+#include "src/primitive_item.h"
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
 #include "src/settings.hpp"
@@ -311,7 +312,7 @@ void cPrimitivesManager::slotPeriodicRefresh()
 
 void cPrimitivesManager::slorChangedWireframeVisibikity(int enabled)
 {
-	// FIXME: renderedImageWidget->SetPrimitivesVisibility(enabled);
+	renderedImageWidget->SetPrimitivesVisibility(enabled);
 	renderedImageWidget->update();
 }
 
@@ -336,8 +337,8 @@ void cPrimitivesManager::slotChangedCurrentTab(int index)
 {
 	if (index >= 0 && primitiveItemOnTab.size() > 0)
 	{
-		int currentPrimitiveIndex = primitiveItemOnTab.at(index).id;
-		// FIXME: renderedImageWidget->SetCurrentPrimitiveIndex(currentPrimitiveIndex);
+		sPrimitiveItem currentPrimitiveItem = primitiveItemOnTab.at(index);
+		renderedImageWidget->SetCurrentPrimitiveItem(currentPrimitiveItem);
 		renderedImageWidget->update();
 
 		RenderedImage::enumClickMode actualClickMode =

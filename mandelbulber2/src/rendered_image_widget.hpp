@@ -43,6 +43,7 @@
 #include "QVariant"
 #include "algebra.hpp"
 #include "animation_path_data.hpp"
+#include "primitive_item.h"
 #include "rendered_tile_data.hpp"
 #include "stereo.h"
 
@@ -110,6 +111,7 @@ public:
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
 	void SetLightsVisibility(bool enable) { lightsVisible = enable; }
+	void SetPrimitivesVisibility(bool enable) { primitivesVisible = enable; }
 	void SetGridType(enumGridType gridType);
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
 	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
@@ -117,6 +119,8 @@ public:
 	void SetAnimationPath(const sAnimationPathData &_animationPath);
 	void SetCurrentLightIndex(int index) { currentLightIndex = index; }
 	int GetCurrentLightIndex() { return currentLightIndex; }
+	void SetCurrentPrimitiveItem(const sPrimitiveItem &item) { currentPrimitiveItem = item; }
+	const sPrimitiveItem &GetCurrentPrimitiveItem() { return currentPrimitiveItem; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -158,6 +162,7 @@ private:
 	void DrawAnimationPath();
 	void PaintLastRenderedTilesInfo();
 	void DisplayAllLights();
+	void DisplayAllPrimitives();
 	void line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
 		const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
 		double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity,
@@ -166,6 +171,7 @@ private:
 	bool anaglyphMode;
 	bool cursorVisible;
 	bool lightsVisible;
+	bool primitivesVisible;
 	bool isFocus;
 	bool isOnObject;
 	bool placeLightBehind;
@@ -195,6 +201,7 @@ private:
 	sAnimationPathData animationPathData;
 	QList<sRenderedTileData> listOfRenderedTilesData;
 	int currentLightIndex;
+	sPrimitiveItem currentPrimitiveItem;
 
 signals:
 	void mouseMoved(int x, int y);

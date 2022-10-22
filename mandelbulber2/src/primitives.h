@@ -43,6 +43,7 @@
 #include <QString>
 #include "color_structures.hpp"
 #include "primitive.hpp"
+#include "primitive_item.h"
 #include "object_data.hpp"
 #include "object_types.hpp"
 
