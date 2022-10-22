@@ -33,6 +33,13 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="QLabel" name="label_47">
+     <property name="text">
+      <string notr="true">note: requires only one iteration. Will also work with linear DE .</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
@@ -71,7 +78,7 @@
         <double>0.100000000000000</double>
        </property>
        <property name="value">
-        <double>1.000000000000000</double>
+        <double>2.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -102,7 +109,7 @@
         <double>0.100000000000000</double>
        </property>
        <property name="value">
-        <double>1.000000000000000</double>
+        <double>2.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -240,7 +247,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
         <property name="text">
-         <string>stretch</string>
+         <string>z.z mode</string>
         </property>
        </widget>
       </item>
@@ -317,7 +324,7 @@
            <double>0.100000000000000</double>
           </property>
           <property name="value">
-           <double>2.000000000000000</double>
+           <double>16.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -1176,7 +1183,7 @@
      <property name="title">
       <string>Custom DE</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1192,6 +1199,127 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_01">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_188">
+          <property name="text">
+           <string>offset x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_p1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_189">
+          <property name="text">
+           <string>offset z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_190">
+          <property name="text">
+           <string>offset y:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
         <property name="text">
@@ -1870,6 +1998,22 @@
     <hint type="destinationlabel">
      <x>189</x>
      <y>1331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_scale_16</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>243</y>
     </hint>
    </hints>
   </connection>

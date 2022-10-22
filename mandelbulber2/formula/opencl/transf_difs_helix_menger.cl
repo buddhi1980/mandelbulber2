@@ -138,7 +138,9 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 
 	REAL4 d = fabs(zc);
-
+	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0f);
+	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
+	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 	REAL rDE;
 	if (!fractal->transformCommon.functionEnabledTFalse)

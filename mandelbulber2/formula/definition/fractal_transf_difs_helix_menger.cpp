@@ -100,12 +100,10 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
-
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc = fractal->transformCommon.offset000 - fabs(zc);
 	}
-
 
 	// menger sponge
 	int Iterations = fractal->transformCommon.int16;
@@ -152,7 +150,9 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 
 
 	CVector4 d = fabs(zc);
-
+	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
+	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
+	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 	double rDE;
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 
