@@ -31,7 +31,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		REAL Voff = fractal->transformCommon.offset4;
 		temp = zc.z - Voff * ang  * fractal->transformCommon.int1 + Voff * 0.5f;
-		zc.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
+		zc.z = temp - Voff * floor(temp / Voff) - Voff * 0.5f;
 	}
 	// stretch around helix
 	if (fractal->transformCommon.functionEnabledAy)
@@ -87,12 +87,10 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
 
-
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc = fractal->transformCommon.offset000 - fabs(zc);
 	}
-
 
 	// menger sponge
 	int Iterations = fractal->transformCommon.int16;
@@ -150,6 +148,11 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	else
 	{
 		rDE = length(d);
+	}
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
 	}
 
 	rDE -= fractal->transformCommon.offset0005;

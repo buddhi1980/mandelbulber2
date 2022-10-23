@@ -164,7 +164,10 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	{
 		rDE = d.Length();
 	}
-
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+	}
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0);
 	if (fractal->transformCommon.functionEnabledJFalse) // z clip

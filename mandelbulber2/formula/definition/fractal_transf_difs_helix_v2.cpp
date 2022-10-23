@@ -102,7 +102,12 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 		}
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
 	}
-
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		temp = zc.x;
+		zc.x = zc.z;
+		zc.z = temp;
+	}
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		zc = fractal->transformCommon.offset000 - fabs(zc);
