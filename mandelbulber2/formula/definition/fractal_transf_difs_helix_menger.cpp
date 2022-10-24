@@ -167,6 +167,15 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+
+		if (fractal->transformCommon.functionEnabledMFalse)
+			rDE = max(fabs(rDE), fabs(d.z));
+		if (fractal->transformCommon.functionEnabledSFalse)
+			rDE = sqrt(rDE * rDE + d.z * d.z);
+
+
+
+
 	}
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0);

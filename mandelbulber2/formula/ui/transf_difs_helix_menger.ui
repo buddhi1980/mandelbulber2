@@ -35,7 +35,7 @@
    <item>
     <widget class="QLabel" name="label_47">
      <property name="text">
-      <string notr="true">note: requires only one iteration. Will also work with linear DE .</string>
+      <string notr="true">note: requires only one iteration.</string>
      </property>
     </widget>
    </item>
@@ -1366,7 +1366,7 @@
            <double>99.999899999999997</double>
           </property>
           <property name="singleStep">
-           <double>0.001000000000000</double>
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1374,6 +1374,20 @@
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
           <property name="text">
            <string>temp C</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+          <property name="text">
+           <string>temp m</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+          <property name="text">
+           <string>temp s</string>
           </property>
          </widget>
         </item>
