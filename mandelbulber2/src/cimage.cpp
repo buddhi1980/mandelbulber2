@@ -1010,13 +1010,16 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 						z = kz * (ix - x1) + z1;
 					}
 
-					float opacity2 = clamp(halfThickness - dist, 0.0f, 1.0f);
+					if (z > 0.0f)
+					{
+						float opacity2 = clamp(halfThickness - dist, 0.0f, 1.0f);
 
-					sRGBFloat opacity3;
-					opacity3.R = opacity2 * opacity.R;
-					opacity3.G = opacity2 * opacity.G;
-					opacity3.B = opacity2 * opacity.B;
-					PutPixelAlfa(ix, iy, z, color, opacity3, layer);
+						sRGBFloat opacity3;
+						opacity3.R = opacity2 * opacity.R;
+						opacity3.G = opacity2 * opacity.G;
+						opacity3.B = opacity2 * opacity.B;
+						PutPixelAlfa(ix, iy, z, color, opacity3, layer);
+					}
 				}
 			}
 		}

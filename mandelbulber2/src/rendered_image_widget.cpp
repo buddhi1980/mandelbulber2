@@ -1544,8 +1544,14 @@ void RenderedImage::DisplayAllPrimitives()
 			sRGB8 color(0, 255, 0);
 			double thickness = 2.0;
 
-			line3D(line.p1, line.p2, camera, mRotInv, perspectiveType, fov, width, height, color,
-				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(line.p1 * primitive->size);
+			point1 = point1 + primitive->position;
+
+			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(line.p2 * primitive->size);
+			point2 = point2 + primitive->position;
+
+			line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height, color, thickness,
+				sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }
