@@ -14,25 +14,27 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL temp;
 	REAL4 zc = z;
 
+	if (fractal->transformCommon.functionEnabledFFalse)
+	{
+		if (fractal->transformCommon.functionEnabledBx) zc.x = fabs(zc.x);
+		if (fractal->transformCommon.functionEnabledByFalse) zc.y = fabs(zc.y);
+		if (fractal->transformCommon.functionEnabledBzFalse) zc.z = fabs(zc.z);
+		zc += fractal->transformCommon.offsetA000;
+	}
+
 	zc *= fractal->transformCommon.scale2;
 	aux->DE *= fractal->transformCommon.scale2;
+
 	// torus
 	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
 
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.scaleMain2;
 
-	// vert helix
-	if (fractal->transformCommon.functionEnabledAx)
-	{
-		REAL Voff = fractal->transformCommon.offset4;
-		temp = zc.z - Voff * ang  * fractal->transformCommon.int1 + Voff * 0.5f;
-		zc.z = temp - Voff * floor(temp / Voff) - Voff * 0.5f;
-	}
 	// stretch around helix
 	if (fractal->transformCommon.functionEnabledAy)
 	{
@@ -46,8 +48,9 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			zc.x = fractal->transformCommon.offset1;
 	}
 	zc.x *= fractal->transformCommon.scaleG1;
+
 	// twist
-	if (fractal->transformCommon.functionEnabledAz)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		ang *= M_PI_F * fractal->transformCommon.int2;
 		REAL cosA = cos(ang);
@@ -85,7 +88,6 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			zc.z = a * cosA - b * sinB;
 		}
 		if (fractal->transformCommon.functionEnabledPFalse) zc.x = zc.z;
-		if (fractal->transformCommon.functionEnabledEFalse) zc.x = zc.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -94,7 +96,7 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 
 	// menger sponge
-	int Iterations = fractal->transformCommon.int16;
+	int Iterations = fractal->transformCommon.int8X;
 	for (int n = 0; n < Iterations; n++)
 	{
 		zc = fabs(zc);
@@ -141,35 +143,31 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 	REAL rDE;
-	if (!fractal->transformCommon.functionEnabledTFalse)
+
+	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		rDE = max(d.x, max(d.y, d.z));
+		if (!fractal->transformCommon.functionEnabledTFalse)
+		{
+			rDE = max(d.x, max(d.y, d.z));
+		}
+		else
+		{
+			rDE = length(d);
+		}
 	}
 	else
-	{
-		rDE = length(d);
-	}
-
-	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
 		if (fractal->transformCommon.functionEnabledMFalse)
 			rDE = max(fabs(rDE), fabs(d.z));
 		if (fractal->transformCommon.functionEnabledSFalse)
 			rDE = native_sqrt(rDE * rDE + d.z * d.z);
-
 	}
 
 	rDE -= fractal->transformCommon.offset0005;
 
 	rDE = rDE / (aux->DE + fractal->analyticDE.offset0);
 
-	if (fractal->transformCommon.functionEnabledJFalse) // z clip
-	{
-		rDE = max(
-			fabs(aux->const_c.z - fractal->transformCommon.offsetE0) - fractal->transformCommon.offset2,
-			rDE);
-	}
 	aux->dist = min(aux->dist, rDE);
 
 	if (fractal->transformCommon.functionEnabledZcFalse
@@ -192,6 +190,5 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			aux->color += fractal->foldColor.difs0000.w * (zc.y * zc.y);
 		}
 	}
-
 	return z;
 }

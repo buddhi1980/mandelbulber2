@@ -534,6 +534,8 @@ enum enumFractalFormula
 	transfDIFSCayley2 = 1637,
 	transfDIFSHelixMenger = 1638,
 	transfDIFSChessboard = 1639,
+	transfDIFSTorusMenger = 1640,
+
 
 	// hybrid color
 	transfHybridColor = 2000,
