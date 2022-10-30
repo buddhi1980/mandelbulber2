@@ -1346,6 +1346,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 void RenderedImage::DisplayAllLights()
 {
 	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
 	CVector3 rotation = params->Get<CVector3>("camera_rotation");
 	params::enumPerspectiveType perspectiveType =
 		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
@@ -1400,16 +1401,19 @@ void RenderedImage::DisplayAllLights()
 							double sizeFactor = sqrt(light.intensity) * light.size * 20.0;
 
 							line3D(light.position - CVector3(sizeFactor, 0.0, 0.0),
-								light.position + CVector3(sizeFactor, 0.0, 0.0), camera, mRotInv, perspectiveType,
-								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								light.position + CVector3(sizeFactor, 0.0, 0.0), camera, target, mRotInv,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								1);
 
 							line3D(light.position - CVector3(0.0, sizeFactor, 0.0),
-								light.position + CVector3(0.0, sizeFactor, 0.0), camera, mRotInv, perspectiveType,
-								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								light.position + CVector3(0.0, sizeFactor, 0.0), camera, target, mRotInv,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								1);
 
 							line3D(light.position - CVector3(0.0, 0.0, sizeFactor),
-								light.position + CVector3(0.0, 0.0, sizeFactor), camera, mRotInv, perspectiveType,
-								fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20, 1);
+								light.position + CVector3(0.0, 0.0, sizeFactor), camera, target, mRotInv,
+								perspectiveType, fov, width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 20,
+								1);
 						}
 
 						if (light.type == cLight::lightConical)
@@ -1451,15 +1455,15 @@ void RenderedImage::DisplayAllLights()
 
 											CVector3 point2 = light.position + dx2 + dy2 + dz2;
 
-											line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height,
-												color, thickness, opacity, 10, 1);
+											line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width,
+												height, color, thickness, opacity, 10, 1);
 										}
 
 										// draw circles
 										if (j > 0)
 										{
-											line3D(point1, previousPoint, camera, mRotInv, perspectiveType, fov, width,
-												height, color, thickness, opacity, 10, 1);
+											line3D(point1, previousPoint, camera, target, mRotInv, perspectiveType, fov,
+												width, height, color, thickness, opacity, 10, 1);
 										}
 
 										previousPoint = point1;
@@ -1486,25 +1490,25 @@ void RenderedImage::DisplayAllLights()
 								CVector3 point3 = light.position - dx - dy + dz;
 								CVector3 point4 = light.position + dx - dy + dz;
 
-								line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height, color,
-									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
-								line3D(point2, point3, camera, mRotInv, perspectiveType, fov, width, height, color,
-									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
-								line3D(point3, point4, camera, mRotInv, perspectiveType, fov, width, height, color,
-									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
-								line3D(point4, point1, camera, mRotInv, perspectiveType, fov, width, height, color,
-									thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height,
+									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point2, point3, camera, target, mRotInv, perspectiveType, fov, width, height,
+									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point3, point4, camera, target, mRotInv, perspectiveType, fov, width, height,
+									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+								line3D(point4, point1, camera, target, mRotInv, perspectiveType, fov, width, height,
+									color, thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 
 								if (i == 8)
 								{
-									line3D(point1, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
-									line3D(point2, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
-									line3D(point3, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
-									line3D(point4, light.position, camera, mRotInv, perspectiveType, fov, width,
-										height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point1, light.position, camera, target, mRotInv, perspectiveType, fov,
+										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point2, light.position, camera, target, mRotInv, perspectiveType, fov,
+										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point3, light.position, camera, target, mRotInv, perspectiveType, fov,
+										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
+									line3D(point4, light.position, camera, target, mRotInv, perspectiveType, fov,
+										width, height, color, thickness, sRGBFloat(0.7, 0.7, 0.7), 100, 1);
 								}
 
 							} // for i
@@ -1521,6 +1525,7 @@ void RenderedImage::DisplayAllPrimitives()
 	cPrimitives primitives(params, nullptr);
 
 	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
 	CVector3 rotation = params->Get<CVector3>("camera_rotation");
 	params::enumPerspectiveType perspectiveType =
 		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
@@ -1536,31 +1541,43 @@ void RenderedImage::DisplayAllPrimitives()
 	for (int index = 0; index < primitives.GetNumberOfPrimivives(); index++)
 	{
 		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(index);
-		const std::vector<sPrimitiveBasic::sPrimitiveWireLine> primitiveShape =
-			primitive->GetWireFrameShape();
+		const sPrimitiveBasic::tWireframeShape primitiveShape = primitive->GetWireFrameShape();
 
 		for (const sPrimitiveBasic::sPrimitiveWireLine &line : primitiveShape)
 		{
 			sRGB8 color(0, 255, 0);
-			double thickness = 2.0;
+			double thickness = 1.2;
 
-			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(line.p1 * primitive->size);
+			CVector3 point1 =
+				primitive->rotationMatrix.Transpose().RotateVector(line.p1 * primitive->size);
 			point1 = point1 + primitive->position;
 
-			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(line.p2 * primitive->size);
+			CVector3 point2 =
+				primitive->rotationMatrix.Transpose().RotateVector(line.p2 * primitive->size);
 			point2 = point2 + primitive->position;
 
-			line3D(point1, point2, camera, mRotInv, perspectiveType, fov, width, height, color, thickness,
-				sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			// to add clip plane!
+
+			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
 		}
 	}
 }
 
-void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 camera,
-	const CRotationMatrix &mRotInv, params::enumPerspectiveType perspectiveType, double fov,
-	double imgWidth, double imgHeight, sRGB8 color, double thickness, sRGBFloat opacity,
-	int numberOfSegments, int layer)
+void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector3 &camera,
+	const CVector3 &target, const CRotationMatrix &mRotInv,
+	params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight,
+	sRGB8 color, double thickness, sRGBFloat opacity, int numberOfSegments, int layer)
 {
+	CVector3 cameraVector = target - camera;
+	cameraVector.Normalize();
+
+	// ref:
+	// calculation of clipping plane:
+	// https://gabrielgambetta.com/computer-graphics-from-scratch/11-clipping.html
+
+	double clip = 1e-3;
+
 	for (int i = 0; i < numberOfSegments; i++)
 	{
 		double k1 = double(i) / numberOfSegments;
@@ -1569,13 +1586,34 @@ void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector
 		double k2 = double(i + 1) / numberOfSegments;
 		double kn2 = 1.0 - k2;
 
-		CVector3 p1Projected = InvProjection3D(
-			p1 * kn1 + p2 * k1, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+		CVector3 point1 = p1 * kn1 + p2 * k1;
+		CVector3 point2 = p1 * kn2 + p2 * k2;
 
-		CVector3 p2Projected = InvProjection3D(
-			p1 * kn2 + p2 * k2, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+		double distFromClipPlane1 = (point1 - camera).Dot(cameraVector);
+		double distFromClipPlane2 = (point2 - camera).Dot(cameraVector);
 
-		image->AntiAliasedLine(p1Projected.x, p1Projected.y, p2Projected.x, p2Projected.y,
-			p1Projected.z, p2Projected.z, color, opacity, thickness, layer);
+		if (distFromClipPlane1 >= clip || distFromClipPlane2 >= clip)
+		{
+			if (distFromClipPlane1 < clip)
+			{
+				double t = (clip - cameraVector.Dot(point1 - camera)) / (cameraVector.Dot(point2 - point1));
+				point1 = point1 + t * (point2 - point1);
+			}
+
+			if (distFromClipPlane2 < clip)
+			{
+				double t = (clip - cameraVector.Dot(point2 - camera)) / (cameraVector.Dot(point1 - point2));
+				point2 = point2 + t * (point1 - point2);
+			}
+
+			CVector3 p1Projected =
+				InvProjection3D(point1, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+
+			CVector3 p2Projected =
+				InvProjection3D(point2, camera, mRotInv, perspectiveType, fov, imgWidth, imgHeight);
+
+			image->AntiAliasedLine(p1Projected.x, p1Projected.y, p2Projected.x, p2Projected.y,
+				p1Projected.z, p2Projected.z, color, opacity, thickness, layer);
+		}
 	}
 }

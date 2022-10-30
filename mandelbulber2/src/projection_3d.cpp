@@ -120,11 +120,14 @@ CVector3 InvProjection3D(const CVector3 &point, const CVector3 &camera,
 	else
 	{
 		double length = viewVector.Length();
+
 		viewVector.x /= viewVector.y;
 		viewVector.z /= viewVector.y;
+
 		x = viewVector.x / fov;
 		y = viewVector.z / fov;
 		z = length; // * sign(viewVector.y);
+
 		if (viewVector.y < 0) z = -z;
 	}
 	screenPoint.x = (x / aspectRatio + 0.5) * imgWidth;

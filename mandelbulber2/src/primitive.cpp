@@ -51,12 +51,35 @@ sPrimitiveBasic::sPrimitiveBasic(
 }
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 
+void sPrimitiveBasic::InitPrimitiveWireframeShapes()
+{
+	sPrimitivePlane::InitPrimitiveWireframeShape();
+	sPrimitiveBox::InitPrimitiveWireframeShape();
+}
+
 sPrimitivePlane::sPrimitivePlane(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
 		: sPrimitiveBasic(fullName, par)
 {
 	empty = par->Get<bool>(fullName + "_empty");
 	size = CVector3(1.0, 1.0, 1.0);
+}
+sPrimitiveBasic::tWireframeShape sPrimitivePlane::wireFrameShape = {};
+
+void sPrimitivePlane::InitPrimitiveWireframeShape()
+{
+	double size = 100.0;
+
+	wireFrameShape = {{{-size, 0, 0}, {size, 0, 0}}, {{0, -size, 0}, {0, size, 0}}};
+
+	for (int i = 0; i < 20; i++)
+	{
+		double delta = pow(size, (i - 15.0) / 4.0);
+		wireFrameShape.push_back({{-size, delta, 0.0}, {size, delta, 0.0}});
+		wireFrameShape.push_back({{-size, -delta, 0.0}, {size, -delta, 0.0}});
+		wireFrameShape.push_back({{delta, -size, 0.0}, {delta, size, 0.0}});
+		wireFrameShape.push_back({{-delta, -size, 0.0}, {-delta, size, 0.0}});
+	}
 }
 
 sPrimitiveBox::sPrimitiveBox(
@@ -68,27 +91,31 @@ sPrimitiveBox::sPrimitiveBox(
 	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = par->Get<CVector3>(fullName + "_size");
 }
+sPrimitiveBasic::tWireframeShape sPrimitiveBox::wireFrameShape = {};
 
-std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBox::wireFrameShape = {
-	{{-0.5, -0.5, -0.5}, {0.5, -0.5, -0.5}},
-	{{-0.5, -0.5, -0.5}, {-0.5, 0.5, -0.5}},
-	{{0.5, 0.5, -0.5}, {0.5, -0.5, -0.5}},
-	{{0.5, 0.5, -0.5}, {-0.5, 0.5, -0.5}},
+void sPrimitiveBox::InitPrimitiveWireframeShape()
+{
+	wireFrameShape = {
+		{{-0.5, -0.5, -0.5}, {0.5, -0.5, -0.5}},
+		{{-0.5, -0.5, -0.5}, {-0.5, 0.5, -0.5}},
+		{{0.5, 0.5, -0.5}, {0.5, -0.5, -0.5}},
+		{{0.5, 0.5, -0.5}, {-0.5, 0.5, -0.5}},
 
-	{{-0.5, -0.5, 0.5}, {0.5, -0.5, 0.5}},
-	{{-0.5, -0.5, 0.5}, {-0.5, 0.5, 0.5}},
-	{{0.5, 0.5, 0.5}, {0.5, -0.5, 0.5}},
-	{{0.5, 0.5, 0.5}, {-0.5, 0.5, 0.5}},
+		{{-0.5, -0.5, 0.5}, {0.5, -0.5, 0.5}},
+		{{-0.5, -0.5, 0.5}, {-0.5, 0.5, 0.5}},
+		{{0.5, 0.5, 0.5}, {0.5, -0.5, 0.5}},
+		{{0.5, 0.5, 0.5}, {-0.5, 0.5, 0.5}},
 
-	{{-0.5, -0.5, -0.5}, {-0.5, -0.5, 0.5}},
-	{{-0.5, 0.5, -0.5}, {-0.5, 0.5, 0.5}},
-	{{0.5, -0.5, -0.5}, {0.5, -0.5, 0.5}},
-	{{0.5, 0.5, -0.5}, {0.5, 0.5, 0.5}},
+		{{-0.5, -0.5, -0.5}, {-0.5, -0.5, 0.5}},
+		{{-0.5, 0.5, -0.5}, {-0.5, 0.5, 0.5}},
+		{{0.5, -0.5, -0.5}, {0.5, -0.5, 0.5}},
+		{{0.5, 0.5, -0.5}, {0.5, 0.5, 0.5}},
 
-	{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
-	{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
-	{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
-};
+		{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
+		{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
+		{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
+	};
+}
 
 sPrimitiveSphere::sPrimitiveSphere(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)

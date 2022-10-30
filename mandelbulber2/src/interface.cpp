@@ -306,6 +306,8 @@ void cInterface::ShowUi()
 	InitMaterialsUi();
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
+	sPrimitiveBasic::InitPrimitiveWireframeShapes();
+
 	// change some default settings with keeping compatibility with older versions
 	StartupDefaultSettings();
 

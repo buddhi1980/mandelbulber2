@@ -65,8 +65,11 @@ struct sPrimitiveBasic : cObjectData
 		CVector3 p2;
 	};
 
-	static std::vector<sPrimitiveWireLine> wireFrameShape;
-	virtual const std::vector<sPrimitiveWireLine> &GetWireFrameShape() { return wireFrameShape; }
+	typedef std::vector<sPrimitiveWireLine> tWireframeShape;
+
+	static tWireframeShape wireFrameShape;
+	virtual const tWireframeShape &GetWireFrameShape() { return wireFrameShape; }
+	static void InitPrimitiveWireframeShapes();
 };
 
 struct sPrimitivePlane : sPrimitiveBasic
@@ -74,6 +77,10 @@ struct sPrimitivePlane : sPrimitiveBasic
 	sPrimitivePlane(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveBox : sPrimitiveBasic
@@ -84,11 +91,9 @@ struct sPrimitiveBox : sPrimitiveBasic
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
 
-	static std::vector<sPrimitiveWireLine> wireFrameShape;
-	virtual const std::vector<sPrimitiveWireLine> &GetWireFrameShape() override
-	{
-		return wireFrameShape;
-	}
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveSphere : sPrimitiveBasic
