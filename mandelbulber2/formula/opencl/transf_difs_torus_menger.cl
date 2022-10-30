@@ -142,8 +142,8 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
-	REAL rDE;
 
+	REAL rDE;
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledTFalse)

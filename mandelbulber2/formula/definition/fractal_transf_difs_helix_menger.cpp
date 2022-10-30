@@ -156,15 +156,18 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 
 	double rDE;
-	if (!fractal->transformCommon.functionEnabledTFalse)
+	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		rDE = max(d.x, max(d.y, d.z));
+		if (!fractal->transformCommon.functionEnabledTFalse)
+		{
+			rDE = max(d.x, max(d.y, d.z));
+		}
+		else
+		{
+			rDE = d.Length();
+		}
 	}
 	else
-	{
-		rDE = d.Length();
-	}
-	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
 
@@ -172,8 +175,8 @@ void cFractalTransfDIFSHelixMenger::FormulaCode(
 			rDE = max(fabs(rDE), fabs(d.z));
 		if (fractal->transformCommon.functionEnabledSFalse)
 			rDE = sqrt(rDE * rDE + d.z * d.z);
-
 	}
+
 	rDE -= fractal->transformCommon.offset0005;
 	rDE = rDE / (aux.DE + fractal->analyticDE.offset0);
 	if (fractal->transformCommon.functionEnabledJFalse) // z clip

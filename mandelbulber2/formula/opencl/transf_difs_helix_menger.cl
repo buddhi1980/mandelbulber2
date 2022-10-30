@@ -140,24 +140,26 @@ REAL4 TransfDIFSHelixMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
 	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
+
 	REAL rDE;
-	if (!fractal->transformCommon.functionEnabledTFalse)
+	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		rDE = max(d.x, max(d.y, d.z));
+		if (!fractal->transformCommon.functionEnabledTFalse)
+		{
+			rDE = max(d.x, max(d.y, d.z));
+		}
+		else
+		{
+			rDE = length(d);
+		}
 	}
 	else
-	{
-		rDE = length(d);
-	}
-
-	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
 		if (fractal->transformCommon.functionEnabledMFalse)
 			rDE = max(fabs(rDE), fabs(d.z));
 		if (fractal->transformCommon.functionEnabledSFalse)
 			rDE = native_sqrt(rDE * rDE + d.z * d.z);
-
 	}
 
 	rDE -= fractal->transformCommon.offset0005;
