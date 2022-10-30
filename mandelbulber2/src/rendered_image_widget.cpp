@@ -1547,13 +1547,19 @@ void RenderedImage::DisplayAllPrimitives()
 		{
 			sRGB8 color(0, 255, 0);
 			double thickness = 1.2;
+			double sizeMultiplier = 1.0;
 
-			CVector3 point1 =
-				primitive->rotationMatrix.Transpose().RotateVector(line.p1 * primitive->size);
+			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
+			{
+				sizeMultiplier = (camera - primitive->position).Length();
+			}
+
+			CVector3 point1 = primitive->rotationMatrix.Transpose().RotateVector(
+				line.p1 * primitive->size * sizeMultiplier);
 			point1 = point1 + primitive->position;
 
-			CVector3 point2 =
-				primitive->rotationMatrix.Transpose().RotateVector(line.p2 * primitive->size);
+			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
+				line.p2 * primitive->size * sizeMultiplier);
 			point2 = point2 + primitive->position;
 
 			// to add clip plane!

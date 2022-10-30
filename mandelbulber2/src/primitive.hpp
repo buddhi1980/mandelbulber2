@@ -103,6 +103,10 @@ struct sPrimitiveSphere : sPrimitiveBasic
 	double radius;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveWater : sPrimitiveBasic
@@ -131,6 +135,10 @@ struct sPrimitiveCone : sPrimitiveBasic
 	CVector2<double> wallNormal;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveCylinder : sPrimitiveBasic
