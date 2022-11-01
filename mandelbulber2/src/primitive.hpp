@@ -68,6 +68,7 @@ struct sPrimitiveBasic : cObjectData
 	typedef std::vector<sPrimitiveWireLine> tWireframeShape;
 
 	static tWireframeShape wireFrameShape;
+	static const int wireframeSegments = 20;
 	virtual const tWireframeShape &GetWireFrameShape() { return wireFrameShape; }
 	static void InitPrimitiveWireframeShapes();
 };
@@ -150,6 +151,10 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 	double height;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveTorus : sPrimitiveBasic
@@ -162,6 +167,10 @@ struct sPrimitiveTorus : sPrimitiveBasic
 	double tubeRadiusLPow;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveCircle : sPrimitiveBasic

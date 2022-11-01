@@ -52,6 +52,7 @@ class cImage;
 class cParameterContainer;
 class cFractalContainer;
 struct sAnimationPathData;
+struct sPrimitiveTorus;
 
 class RenderedImage : public QWidget
 {
@@ -167,6 +168,10 @@ private:
 		const CVector3 &target, const CRotationMatrix &mRotInv,
 		params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight,
 		sRGB8 color, double thickness, sRGBFloat opacity, int numberOfSegments, int layer);
+	void DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &primitive, const CVector3 &camera,
+		const CVector3 &target, const CRotationMatrix &mRotInv,
+		params::enumPerspectiveType perspectiveType, double fov, int width, int height, sRGB8 color,
+		double thickness);
 
 	bool anaglyphMode;
 	bool cursorVisible;

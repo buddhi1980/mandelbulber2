@@ -1520,6 +1520,52 @@ void RenderedImage::DisplayAllLights()
 	}							// for parameterName
 }
 
+void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &torus,
+	const CVector3 &camera, const CVector3 &target, const CRotationMatrix &mRotInv,
+	params::enumPerspectiveType perspectiveType, double fov, int width, int height, sRGB8 color,
+	double thickness)
+{
+	// primitive torus cannot be scaled
+
+	double angleStep = 2.0 * M_PI / sPrimitiveBasic::wireframeSegments;
+	for (double alpha = 0; alpha < 2.0 * M_PI; alpha += angleStep * 2.0)
+	{
+		double tx1 = cos(alpha) * torus->tubeRadius + torus->radius;
+		double tz1 = sin(alpha) * torus->tubeRadius;
+		double tx2 = cos(alpha + angleStep * 2.0) * torus->tubeRadius + torus->radius;
+		double tz2 = sin(alpha + angleStep * 2.0) * torus->tubeRadius;
+		for (double beta = 0.0; beta < 2.0 * M_PI; beta += angleStep)
+		{
+			double x1 = cos(beta) * tx1;
+			double y1 = sin(beta) * tx1;
+			double x2 = cos(beta + angleStep) * tx1;
+			double y2 = sin(beta + angleStep) * tx1;
+			double x3 = cos(beta) * tx2;
+			double y3 = sin(beta) * tx2;
+			{
+				CVector3 p1(x1, y1, tz1);
+				CVector3 p2(x2, y2, tz1);
+				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				point1 = point1 + torus->position;
+				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				point2 = point2 + torus->position;
+				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			}
+			{
+				CVector3 p1(x1, y1, tz1);
+				CVector3 p2(x3, y3, tz2);
+				CVector3 point1 = torus->rotationMatrix.Transpose().RotateVector(p1);
+				point1 = point1 + torus->position;
+				CVector3 point2 = torus->rotationMatrix.Transpose().RotateVector(p2);
+				point2 = point2 + torus->position;
+				line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
+					thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
+			}
+		}
+	}
+}
+
 void RenderedImage::DisplayAllPrimitives()
 {
 	cPrimitives primitives(params, nullptr);
@@ -1543,10 +1589,18 @@ void RenderedImage::DisplayAllPrimitives()
 		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(index);
 		const sPrimitiveBasic::tWireframeShape primitiveShape = primitive->GetWireFrameShape();
 
+		sRGB8 color(0, 255, 0);
+		double thickness = 1.2;
+
+		// primitive torus cannot be scaled
+		if (auto torus = std::dynamic_pointer_cast<sPrimitiveTorus>(primitive))
+		{
+			DrawWireframeTorus(
+				torus, camera, target, mRotInv, perspectiveType, fov, width, height, color, thickness);
+		}
+
 		for (const sPrimitiveBasic::sPrimitiveWireLine &line : primitiveShape)
 		{
-			sRGB8 color(0, 255, 0);
-			double thickness = 1.2;
 			double sizeMultiplier = 1.0;
 
 			if (std::dynamic_pointer_cast<sPrimitivePlane>(primitive))
@@ -1561,8 +1615,6 @@ void RenderedImage::DisplayAllPrimitives()
 			CVector3 point2 = primitive->rotationMatrix.Transpose().RotateVector(
 				line.p2 * primitive->size * sizeMultiplier);
 			point2 = point2 + primitive->position;
-
-			// to add clip plane!
 
 			line3D(point1, point2, camera, target, mRotInv, perspectiveType, fov, width, height, color,
 				thickness, sRGBFloat(0.7, 0.7, 0.7), 10, 1);
@@ -1582,7 +1634,7 @@ void RenderedImage::line3D(const CVector3 &p1, const CVector3 &p2, const CVector
 	// calculation of clipping plane:
 	// https://gabrielgambetta.com/computer-graphics-from-scratch/11-clipping.html
 
-	double clip = 1e-3;
+	double clip = 1e-6;
 
 	for (int i = 0; i < numberOfSegments; i++)
 	{

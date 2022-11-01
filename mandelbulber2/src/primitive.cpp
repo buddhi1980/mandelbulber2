@@ -57,6 +57,8 @@ void sPrimitiveBasic::InitPrimitiveWireframeShapes()
 	sPrimitiveBox::InitPrimitiveWireframeShape();
 	sPrimitiveSphere::InitPrimitiveWireframeShape();
 	sPrimitiveCone::InitPrimitiveWireframeShape();
+	sPrimitiveCylinder::InitPrimitiveWireframeShape();
+	sPrimitiveTorus::InitPrimitiveWireframeShape();
 }
 
 sPrimitivePlane::sPrimitivePlane(
@@ -72,9 +74,9 @@ void sPrimitivePlane::InitPrimitiveWireframeShape()
 {
 	double meshSize = 1.0;
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < wireframeSegments; i++)
 	{
-		double delta = (i - 10) * meshSize / 10.0;
+		double delta = (i - wireframeSegments / 2) * meshSize / (wireframeSegments / 2.0);
 		wireFrameShape.push_back({{-meshSize, delta, 0.0}, {meshSize, delta, 0.0}});
 		wireFrameShape.push_back({{-meshSize, -delta, 0.0}, {meshSize, -delta, 0.0}});
 		wireFrameShape.push_back({{delta, -meshSize, 0.0}, {delta, meshSize, 0.0}});
@@ -131,22 +133,21 @@ sPrimitiveBasic::tWireframeShape sPrimitiveSphere::wireFrameShape = {};
 
 void sPrimitiveSphere::InitPrimitiveWireframeShape()
 {
-	int segments = 20;
-	double radius = 0.5;
-	double angleStep = 2.0 * M_PI / segments;
+	double r = 0.5;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
 	for (double alpha = -M_PI * 0.5; alpha < M_PI * 0.5; alpha += angleStep)
 	{
 		for (double beta = 0.0; beta < 2.0 * M_PI; beta += angleStep)
 		{
-			double z1 = sin(alpha) * radius;
-			double r1 = cos(alpha) * radius;
+			double z1 = sin(alpha) * r;
+			double r1 = cos(alpha) * r;
 			double x1 = r1 * cos(beta);
 			double y1 = r1 * sin(beta);
 			double x2 = r1 * cos(beta + angleStep);
 			double y2 = r1 * sin(beta + angleStep);
 			wireFrameShape.push_back({{x1, y1, z1}, {x2, y2, z1}});
-			double z3 = sin(alpha + angleStep) * radius;
-			double r3 = cos(alpha + angleStep) * radius;
+			double z3 = sin(alpha + angleStep) * r;
+			double r3 = cos(alpha + angleStep) * r;
 			double x3 = r3 * cos(beta);
 			double y3 = r3 * sin(beta);
 			wireFrameShape.push_back({{x1, y1, z1}, {x3, y3, z3}});
@@ -193,26 +194,21 @@ sPrimitiveBasic::tWireframeShape sPrimitiveCone::wireFrameShape = {};
 
 void sPrimitiveCone::InitPrimitiveWireframeShape()
 {
-	int segments = 20;
-	double radius = 0.5;
-	double angleStep = 2.0 * M_PI / segments;
+	double r = 0.5;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
 
 	for (double alpha = 0.0; alpha < 2.0 * M_PI; alpha += angleStep)
 	{
 		double z1 = 0.0;
 		double z2 = 1.0;
-		double x1 = cos(alpha) * radius;
-		double y1 = sin(alpha) * radius;
-		double x2 = cos(alpha + angleStep) * radius;
-		double y2 = sin(alpha + angleStep) * radius;
+		double x1 = cos(alpha) * r;
+		double y1 = sin(alpha) * r;
+		double x2 = cos(alpha + angleStep) * r;
+		double y2 = sin(alpha + angleStep) * r;
 		wireFrameShape.push_back({{x1, y1, z1}, {0.0, 0.0, z2}});
 		wireFrameShape.push_back({{x1, y1, z1}, {x2, y2, z1}});
-		wireFrameShape.push_back({{x1, y1, z1}, {0.0, 0.0, 0.0}});
+		wireFrameShape.push_back({{x1, y1, z1}, {0.0, 0.0, z1}});
 	}
-
-//	wireFrameShape.push_back({{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}});
-//	wireFrameShape.push_back({{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}});
-//	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
 }
 
 sPrimitiveCylinder::sPrimitiveCylinder(
@@ -227,6 +223,33 @@ sPrimitiveCylinder::sPrimitiveCylinder(
 	size = CVector3(radius * 2.0, radius * 2.0, height);
 }
 
+sPrimitiveBasic::tWireframeShape sPrimitiveCylinder::wireFrameShape = {};
+
+void sPrimitiveCylinder::InitPrimitiveWireframeShape()
+{
+	double r = 0.5;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
+
+	for (double alpha = 0.0; alpha < 2.0 * M_PI; alpha += angleStep)
+	{
+		double z1 = -0.5;
+		double z2 = 0.5;
+		double x1 = cos(alpha) * r;
+		double y1 = sin(alpha) * r;
+		double x2 = cos(alpha + angleStep) * r;
+		double y2 = sin(alpha + angleStep) * r;
+		wireFrameShape.push_back({{x1, y1, z1}, {x1, y1, z2}});
+		wireFrameShape.push_back({{x1, y1, z1}, {x2, y2, z1}});
+		wireFrameShape.push_back({{x1, y1, z2}, {x2, y2, z2}});
+		wireFrameShape.push_back({{x1, y1, z1}, {0.0, 0.0, z1}});
+		wireFrameShape.push_back({{x1, y1, z2}, {0.0, 0.0, z2}});
+	}
+
+	wireFrameShape.push_back({{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
+}
+
 sPrimitiveTorus::sPrimitiveTorus(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
 		: sPrimitiveBasic(fullName, par)
@@ -238,6 +261,16 @@ sPrimitiveTorus::sPrimitiveTorus(
 	tubeRadiusLPow = par->Get<double>(fullName + "_tube_radius_lpow");
 	repeat = par->Get<CVector3>(fullName + "_repeat");
 	size = CVector3((radius + tubeRadius) * 2.0, (radius + tubeRadius) * 2.0, tubeRadius);
+}
+
+sPrimitiveBasic::tWireframeShape sPrimitiveTorus::wireFrameShape = {};
+
+void sPrimitiveTorus::InitPrimitiveWireframeShape()
+{
+	// just cross in the center
+	wireFrameShape.push_back({{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}});
+	wireFrameShape.push_back({{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}});
 }
 
 sPrimitiveRectangle::sPrimitiveRectangle(
