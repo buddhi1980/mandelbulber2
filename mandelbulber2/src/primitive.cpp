@@ -59,6 +59,8 @@ void sPrimitiveBasic::InitPrimitiveWireframeShapes()
 	sPrimitiveCone::InitPrimitiveWireframeShape();
 	sPrimitiveCylinder::InitPrimitiveWireframeShape();
 	sPrimitiveTorus::InitPrimitiveWireframeShape();
+	sPrimitiveCircle::InitPrimitiveWireframeShape();
+	sPrimitiveRectangle::InitPrimitiveWireframeShape();
 }
 
 sPrimitivePlane::sPrimitivePlane(
@@ -282,12 +284,47 @@ sPrimitiveRectangle::sPrimitiveRectangle(
 	size = CVector3(width, height, 1.0);
 }
 
+sPrimitiveBasic::tWireframeShape sPrimitiveRectangle::wireFrameShape = {};
+
+void sPrimitiveRectangle::InitPrimitiveWireframeShape()
+{
+	wireFrameShape = {
+		{{-0.5, -0.5, 0.0}, {0.5, -0.5, 0.0}},
+		{{0.5, -0.5, 0.0}, {0.5, 0.5, 0.0}},
+		{{0.5, 0.5, 0.0}, {-0.5, 0.5, 0.0}},
+		{{-0.5, 0.5, 0.0}, {-0.5, -0.5, 0.0}},
+
+		{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
+		{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
+		{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
+	};
+}
+
 sPrimitiveCircle::sPrimitiveCircle(
 	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
 		: sPrimitiveBasic(fullName, par)
 {
 	radius = par->Get<double>(fullName + "_radius");
 	size = CVector3(radius * 2.0, radius * 2.0, 1.0);
+}
+
+sPrimitiveBasic::tWireframeShape sPrimitiveCircle::wireFrameShape = {};
+
+void sPrimitiveCircle::InitPrimitiveWireframeShape()
+{
+	double r = 0.5;
+	double angleStep = 2.0 * M_PI / wireframeSegments;
+
+	for (double alpha = 0.0; alpha < 2.0 * M_PI; alpha += angleStep)
+	{
+		double z = 0.0;
+		double x1 = cos(alpha) * r;
+		double y1 = sin(alpha) * r;
+		double x2 = cos(alpha + angleStep) * r;
+		double y2 = sin(alpha + angleStep) * r;
+		wireFrameShape.push_back({{x1, y1, z}, {x2, y2, z}});
+		wireFrameShape.push_back({{x1, y1, z}, {0.0, 0.0, z}});
+	}
 }
 
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const

@@ -68,7 +68,7 @@ struct sPrimitiveBasic : cObjectData
 	typedef std::vector<sPrimitiveWireLine> tWireframeShape;
 
 	static tWireframeShape wireFrameShape;
-	static const int wireframeSegments = 20;
+	static const int wireframeSegments = 16;
 	virtual const tWireframeShape &GetWireFrameShape() { return wireFrameShape; }
 	static void InitPrimitiveWireframeShapes();
 };
@@ -178,6 +178,10 @@ struct sPrimitiveCircle : sPrimitiveBasic
 	sPrimitiveCircle(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	double radius;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveRectangle : sPrimitiveBasic
@@ -186,6 +190,10 @@ struct sPrimitiveRectangle : sPrimitiveBasic
 	double height;
 	double width;
 	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 #endif // MANDELBULBER2_SRC_PRIMITIVE_HPP_
