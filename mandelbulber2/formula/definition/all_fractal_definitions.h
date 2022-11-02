@@ -164,9 +164,12 @@ FRACTAL_CLASS(cFractalMengerMiddleMod)
 FRACTAL_CLASS(cFractalMengerMod1)
 FRACTAL_CLASS(cFractalMengerOcto)
 FRACTAL_CLASS(cFractalMengerPolyFold)
+
 FRACTAL_CLASS(cFractalMengerPrismShape)
 FRACTAL_CLASS(cFractalMengerPrismShape2)
 FRACTAL_CLASS(cFractalMengerPwr2Poly)
+FRACTAL_CLASS(cFractalMengerPyramid)
+
 FRACTAL_CLASS(cFractalMengerSmooth)
 FRACTAL_CLASS(cFractalMengerSmoothMod1)
 FRACTAL_CLASS(cFractalMengerSmoothChebyshev)

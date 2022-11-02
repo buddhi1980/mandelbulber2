@@ -227,6 +227,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerPrismShape2());
 	fractalList->append(new cFractalMengerPolyFold());
 	fractalList->append(new cFractalMengerPwr2Poly());
+
 	fractalList->append(new cFractalMengerSmooth());
 	fractalList->append(new cFractalMengerSmoothMod1());
 	fractalList->append(new cFractalMengerSmoothChebyshev());
@@ -551,7 +552,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSClipCustom());
 	fractalList->append(new cFractalTransfDIFSCayley2());
 	fractalList->append(new cFractalTransfDIFSChessboard());
-
+	fractalList->append(new cFractalMengerPyramid());
 
 	fractalList->append(new cFractalTransfSincosHelix());
 	fractalList->append(new cFractalTransfSupershape());
