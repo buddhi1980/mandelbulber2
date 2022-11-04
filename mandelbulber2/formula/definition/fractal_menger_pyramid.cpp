@@ -19,10 +19,10 @@ cFractalMengerPyramid::cFractalMengerPyramid() : cAbstractFractal()
 	internalName = "menger_pyramid";
 	internalID = fractal::mengerPyramid;
 	DEType = analyticDEType;
-	DEFunctionType = withoutDEFunction;
+	DEFunctionType = linearDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionIFS;
 	coloringFunction = coloringFunctionDefault;
 }
 
@@ -110,16 +110,16 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		else
 			ang = atan2(z.y, z.x) * fractal->transformCommon.scaleA1 * M_PI_2x_INV;
 
-		//if (fractal->transformCommon.functionEnabledTFalse)
+		if (fractal->transformCommon.functionEnabledM)
 			z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 
 
-		// vert helix
+		// vert
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			double Voff = fractal->transformCommon.offsetA2;
-			temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5;
-			z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5;
+			temp = z.z - Voff * 0.5;
+			z.z = temp - Voff * floor(temp / Voff) - Voff * 0.5;
 		}
 		// stretch
 		if (fractal->transformCommon.functionEnabledAyFalse)
@@ -175,6 +175,26 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		z.z = temp;
 	}
 
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsTM
+			&& aux.i < fractal->transformCommon.stopIterationsTM1)
+
+	{
+		if (z.z < (fractal->transformCommon.scaleB1 + 0.5) * fractal->transformCommon.offset2
+			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
+		{
+			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
+
+			// clip
+			if (fractal->transformCommon.functionEnabledEFalse)
+				z.z = max(aux.const_c.z - fractal->transformCommon.offsetE0, z.z);
+
+			if (fractal->transformCommon.functionEnabledFFalse)
+				z.z = min(aux.const_c.z + fractal->transformCommon.offsetF0, -z.z);
+		}
+	}
+
 	// menger sponge
 	CVector4 Offset = fractal->transformCommon.offset111;
 	double Scale = fractal->transformCommon.scale3;
@@ -222,26 +242,11 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	z = z * Scale - Offset * (Scale - 1.0);
 	aux.DE = aux.DE * Scale;
 
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
-		if ( z.z < (fractal->transformCommon.offsetA1 + 0.5) * fractal->transformCommon.offset2
-			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
-		{
-			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
 
-			// clip
-			if (fractal->transformCommon.functionEnabledEFalse)
-				z.z = max(aux.const_c.z - fractal->transformCommon.offsetE0, z.z);
-
-			if (fractal->transformCommon.functionEnabledFFalse)
-				z.z = min(aux.const_c.z + fractal->transformCommon.offsetF0, -z.z);
-		}
-	}
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{

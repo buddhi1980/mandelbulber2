@@ -100,16 +100,16 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 
 
-		//if (fractal->transformCommon.functionEnabledTFalse)
+		if (fractal->transformCommon.functionEnabledM)
 			z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
 
 
-		// vert helix
+		// vert
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			REAL Voff = fractal->transformCommon.offsetA2;
-			temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
-			z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
+			temp = z.z - Voff * 0.5f;
+			z.z = temp - Voff * floor(temp / Voff) - Voff * 0.5f;
 		}
 
 		// stretch
@@ -167,6 +167,24 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.x = z.z;
 		z.z = temp;
 	}
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsTM
+			&& aux.i < fractal->transformCommon.stopIterationsTM1)
+	{
+		if (z.z < (fractal->transformCommon.scaleB1 + 0.5) * fractal->transformCommon.offset2
+			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
+		{
+			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
+			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
+
+			// clip
+			if (fractal->transformCommon.functionEnabledEFalse)
+				z.z = max(aux->const_c.z - fractal->transformCommon.offsetE0, z.z);
+
+			if (fractal->transformCommon.functionEnabledFFalse)
+				z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
+		}
+	}
 
 	// menger sponge
 	REAL4 Offset = fractal->transformCommon.offset111;
@@ -200,7 +218,8 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.y = temp;
 		col += fractal->foldColor.difs0000.z;
 	}
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		aux->color += col;
@@ -212,26 +231,11 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	z = z * Scale - Offset * (Scale - 1.0f);
 	aux->DE = aux->DE * Scale;
 
-	if (fractal->transformCommon.functionEnabledMFalse)
-	{
-		if ( z.z < (fractal->transformCommon.offsetA1 + 0.5) * fractal->transformCommon.offset2
-			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
-		{
-			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
 
-			// clip
-			if (fractal->transformCommon.functionEnabledEFalse)
-				z.z = max(aux->const_c.z - fractal->transformCommon.offsetE0, z.z);
-
-			if (fractal->transformCommon.functionEnabledFFalse)
-				z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
-		}
-	}
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
