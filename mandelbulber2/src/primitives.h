@@ -77,6 +77,7 @@ public:
 		const QString &primitiveType, const QList<sPrimitiveItem> &listOfPrimitives);
 	static QString PrimitiveNames(fractal::enumObjectType primitiveType);
 	static fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
+	const QStringList &GetListOfPrimitiveNames() const { return namesOfPrimitives; }
 
 	CVector3 allPrimitivesPosition;
 	CVector3 allPrimitivesRotation;
@@ -84,6 +85,7 @@ public:
 
 private:
 	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;
+	QStringList namesOfPrimitives;
 
 	static double Plane(CVector3 point, CVector3 position, CVector3 normal)
 	{

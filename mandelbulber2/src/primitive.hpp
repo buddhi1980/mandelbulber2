@@ -68,7 +68,7 @@ struct sPrimitiveBasic : cObjectData
 	typedef std::vector<sPrimitiveWireLine> tWireframeShape;
 
 	static tWireframeShape wireFrameShape;
-	static const int wireframeSegments = 16;
+	static const int wireframeSegments = 24;
 	virtual const tWireframeShape &GetWireFrameShape() { return wireFrameShape; }
 	static void InitPrimitiveWireframeShapes();
 };

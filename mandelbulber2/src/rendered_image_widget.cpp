@@ -1569,6 +1569,7 @@ void RenderedImage::DrawWireframeTorus(const std::shared_ptr<sPrimitiveTorus> &t
 void RenderedImage::DisplayAllPrimitives()
 {
 	cPrimitives primitives(params, nullptr);
+	QStringList listOfNames = primitives.GetListOfPrimitiveNames();
 
 	CVector3 camera = params->Get<CVector3>("camera");
 	CVector3 target = params->Get<CVector3>("target");
@@ -1588,9 +1589,10 @@ void RenderedImage::DisplayAllPrimitives()
 	{
 		const std::shared_ptr<sPrimitiveBasic> primitive = primitives.GetPrimitive(index);
 		const sPrimitiveBasic::tWireframeShape primitiveShape = primitive->GetWireFrameShape();
+		const QString primitiveName = listOfNames.at(index);
 
 		sRGB8 color(0, 255, 0);
-		double thickness = 1.2;
+		double thickness = (primitiveName == currentPrimitiveItem.fullName) ? 2.0 : 1.0;
 
 		// primitive torus cannot be scaled
 		if (auto torus = std::dynamic_pointer_cast<sPrimitiveTorus>(primitive))

@@ -101,6 +101,9 @@ cPrimitives::cPrimitives(
 void cPrimitives::Set(
 	const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData)
 {
+	allPrimitives.clear();
+	namesOfPrimitives.clear();
+
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
 
@@ -191,6 +194,7 @@ void cPrimitives::Set(
 			primitive->objectId = objectData->size() - 1;
 		}
 		allPrimitives.push_back(primitive);
+		namesOfPrimitives.push_back(item.fullName);
 	}
 
 	allPrimitivesPosition = par->Get<CVector3>("all_primitives_position");
