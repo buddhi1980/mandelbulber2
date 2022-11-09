@@ -17,7 +17,7 @@
 
 cFractalScatorPower2Real::cFractalScatorPower2Real() : cAbstractFractal()
 {
-	nameInComboBox = "Scator Power 2 Real";
+	nameInComboBox = "Scator Power 2 Real: Hun";
 	internalName = "scator_power2_real";
 	internalID = fractal::scatorPower2Real;
 	DEType = deltaDEType;

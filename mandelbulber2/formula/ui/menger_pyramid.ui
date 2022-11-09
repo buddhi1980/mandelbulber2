@@ -673,7 +673,7 @@
          </font>
         </property>
         <property name="text">
-         <string>de th</string>
+         <string>de thing</string>
         </property>
        </widget>
       </item>
@@ -681,50 +681,14 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_20" stretch="0,0">
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>swap xy</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>swap xz</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledD_false">
      <property name="title">
-      <string>&amp;anggg</string>
+      <string>&amp;radius and twist controls</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -791,34 +755,50 @@
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>rad m</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QGridLayout" name="gridLayout_59" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_39">
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
-           <string>rad</string>
+           <string>switch angle</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_39">
+          <property name="text">
+           <string>angle scale</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>radius offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -846,7 +826,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
           <property name="enabled">
            <bool>true</bool>
@@ -874,29 +854,6 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>switch angle</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_38">
-          <property name="text">
-           <string>angle scale</string>
           </property>
          </widget>
         </item>

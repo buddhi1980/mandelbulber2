@@ -19,7 +19,7 @@
 
 cFractalScatorPower2Imaginary::cFractalScatorPower2Imaginary() : cAbstractFractal()
 {
-	nameInComboBox = "Scator Power 2 Imaginary";
+	nameInComboBox = "Scator Power 2 Imaginary: Ix";
 	internalName = "scator_power2_imaginary";
 	internalID = fractal::scatorPower2Imaginary;
 	DEType = deltaDEType;

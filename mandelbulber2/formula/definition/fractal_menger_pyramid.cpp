@@ -158,28 +158,12 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		}
 	}
 
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		temp = z.x;
-		z.x = z.y;
-		z.y = temp;
-	}
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		temp = z.x;
-		z.x = z.z;
-		z.z = temp;
-	}
-
 	// repeat
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsTM
 			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
-		if (z.z < (fractal->transformCommon.scaleB1 + 0.5) * fractal->transformCommon.offset2
+		if ((z.z < (fractal->transformCommon.scaleB1 + 0.5) * fractal->transformCommon.offset2)
 			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
 		{
 			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;

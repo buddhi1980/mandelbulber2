@@ -147,22 +147,6 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 	}
 
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		temp = z.x;
-		z.x = z.y;
-		z.y = temp;
-	}
-
-	// swap axis
-	if (fractal->transformCommon.functionEnabledSFalse)
-	{
-		temp = z.x;
-		z.x = z.z;
-		z.z = temp;
-	}
-
 	// repeat
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux->i >= fractal->transformCommon.startIterationsTM
