@@ -124,6 +124,10 @@ struct sPrimitiveWater : sPrimitiveBasic
 	int animFrame;
 	double PrimitiveDistance(CVector3 _point) const override;
 	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
 struct sPrimitiveCone : sPrimitiveBasic

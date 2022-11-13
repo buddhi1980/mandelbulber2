@@ -56,6 +56,7 @@ void sPrimitiveBasic::InitPrimitiveWireframeShapes()
 	sPrimitivePlane::InitPrimitiveWireframeShape();
 	sPrimitiveBox::InitPrimitiveWireframeShape();
 	sPrimitiveSphere::InitPrimitiveWireframeShape();
+	sPrimitiveWater::InitPrimitiveWireframeShape();
 	sPrimitiveCone::InitPrimitiveWireframeShape();
 	sPrimitiveCylinder::InitPrimitiveWireframeShape();
 	sPrimitiveTorus::InitPrimitiveWireframeShape();
@@ -175,7 +176,36 @@ sPrimitiveWater::sPrimitiveWater(
 	waveFromObjectsRelativeAmplitude =
 		par->Get<double>(fullName + "_wave_from_objects_relative_amplitude");
 	animFrame = par->Get<int>("frame_no");
-	size = CVector3(1.0, 1.0, 1.0);
+	size = CVector3(length * 10.0, length * 10.0, length * relativeAmplitude);
+}
+
+sPrimitiveBasic::tWireframeShape sPrimitiveWater::wireFrameShape = {};
+
+void sPrimitiveWater::InitPrimitiveWireframeShape()
+{
+	double meshSize = 1.0;
+
+	for (int mx = 0; mx < wireframeSegments; mx++)
+	{
+		double deltaX1 = (mx - wireframeSegments / 2) * meshSize / (wireframeSegments / 2.0);
+		double deltaX2 = (mx + 1 - wireframeSegments / 2) * meshSize / (wireframeSegments / 2.0);
+
+		for (int my = 0; my < wireframeSegments; my++)
+		{
+			double deltaY1 = (my - wireframeSegments / 2) * meshSize / (wireframeSegments / 2.0);
+			double deltaY2 = (my + 1 - wireframeSegments / 2) * meshSize / (wireframeSegments / 2.0);
+			{
+				auto wave = [](double x, double y) { return sin(x * 23.0) + cos(y * 4.3); };
+
+				double z1 = wave(deltaX1, deltaY1);
+				double z2 = wave(deltaX2, deltaY1);
+				double z3 = wave(deltaX1, deltaY2);
+
+				wireFrameShape.push_back({{deltaX1, deltaY1, z1}, {deltaX2, deltaY1, z2}});
+				wireFrameShape.push_back({{deltaX1, deltaY1, z1}, {deltaX1, deltaY2, z3}});
+			}
+		}
+	}
 }
 
 sPrimitiveCone::sPrimitiveCone(
