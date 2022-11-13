@@ -10,11 +10,12 @@
 
 #include "tab_fractal.h"
 #include "dock_effects.h"
+#include "dock_fractal.h"
 
 #include <QThread>
 
-#include "../src/image_scale.hpp"
-#include "../src/shortcuts.h"
+#include "src/image_scale.hpp"
+#include "src/shortcuts.h"
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
@@ -199,13 +200,15 @@ void cNavigatorWindow::SetInitialParameters(
 	manipulations->AssingImage(image);
 
 	cDockEffects *widgetDockEfects = nullptr;
+	cDockFractal *widgetDockFractal = nullptr;
 	if (leftWidget)
 	{
 		widgetDockEfects = qobject_cast<cDockEffects *>(leftWidget);
+		widgetDockFractal = qobject_cast<cDockFractal *>(leftWidget);
 	}
 
 	manipulations->AssignWidgets(
-		ui->widgetRenderedImage, ui->widgetNavigationButtons, widgetDockEfects);
+		ui->widgetRenderedImage, ui->widgetNavigationButtons, widgetDockEfects, widgetDockFractal);
 
 	cInterface::ComboMouseClickUpdate(ui->comboBox_mouse_click_function, params);
 

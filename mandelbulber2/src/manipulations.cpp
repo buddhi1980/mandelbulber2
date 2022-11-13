@@ -21,6 +21,7 @@
 #include "trace_behind.h"
 #include "qt/dock_navigation.h"
 #include "qt/dock_effects.h"
+#include "qt/dock_fractal.h"
 
 cManipulations::cManipulations(QObject *parent) : QObject(parent)
 {
@@ -44,12 +45,13 @@ void cManipulations::AssingImage(std::shared_ptr<cImage> _image)
 	image = _image;
 }
 
-void cManipulations::AssignWidgets(
-	RenderedImage *_imageWidget, cDockNavigation *_navigationWidget, cDockEffects *_effectsWidget)
+void cManipulations::AssignWidgets(RenderedImage *_imageWidget, cDockNavigation *_navigationWidget,
+	cDockEffects *_effectsWidget, cDockFractal *_fractalWidget)
 {
 	renderedImageWidget = _imageWidget;
 	navigationWidget = _navigationWidget;
 	effectsWidget = _effectsWidget;
+	fractalWidget = _fractalWidget;
 }
 
 void cManipulations::MoveCamera(QString buttonName)
@@ -633,12 +635,22 @@ void cManipulations::MouseDragStart(
 	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 
 	int lightIndex = -1;
+	sPrimitiveItem primitiveItem;
+
 	if (clickMode == RenderedImage::clickPlaceLight)
 	{
 		lightIndex = mode.at(1).toInt();
 		mouseDragData.lightDrag = true;
 
-		mouseDragData.lightStartPosition = par->Get<CVector3>(cLight::Name("position", lightIndex));
+		mouseDragData.objectStartPosition = par->Get<CVector3>(cLight::Name("position", lightIndex));
+	}
+	else if (clickMode == RenderedImage::clickPlacePrimitive)
+	{
+		primitiveItem.type = fractal::enumObjectType(mode.at(1).toInt());
+		primitiveItem.id = mode.at(2).toInt();
+		primitiveItem.fullName = mode.at(3).toString();
+		mouseDragData.primitiveDrag = true;
+		mouseDragData.objectStartPosition = par->Get<CVector3>(primitiveItem.fullName + "_position");
 	}
 	else
 	{
@@ -708,9 +720,10 @@ void cManipulations::MouseDragStart(
 			mouseDragData.lastRefreshTime.restart();
 			mouseDragData.lastStartRenderingTime = 0;
 			mouseDragData.lightIndex = lightIndex;
+			mouseDragData.primitiveItem = primitiveItem;
 
-			if (clickMode == RenderedImage::clickMoveCamera
-					|| clickMode == RenderedImage::clickPlaceLight)
+			if (clickMode == RenderedImage::clickMoveCamera || clickMode == RenderedImage::clickPlaceLight
+					|| clickMode == RenderedImage::clickPlacePrimitive)
 			{
 				mouseDragData.draggingStarted = true;
 			}
@@ -875,7 +888,7 @@ void cManipulations::LightDragLeftButton(const sMouseDragTempData &dragTempData,
 	cCameraTarget cameraTarget(
 		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
 
-	CVector3 lightPosition = mouseDragData.lightStartPosition;
+	CVector3 lightPosition = mouseDragData.objectStartPosition;
 
 	if (relativePosition)
 	{
@@ -922,6 +935,42 @@ void cManipulations::LightDragLeftButton(const sMouseDragTempData &dragTempData,
 	}
 
 	par->Set(cLight::Name("position", mouseDragData.lightIndex), newLightPosition);
+}
+
+void cManipulations::PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy)
+{
+	cCameraTarget cameraTarget(
+		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
+
+	CVector3 primitivePosition = mouseDragData.objectStartPosition;
+
+	CRotationMatrix mRotInv;
+	CVector3 rotation = cameraTarget.GetRotation();
+	mRotInv.RotateY(-rotation.z);
+	mRotInv.RotateX(-rotation.y);
+	mRotInv.RotateZ(-rotation.x);
+
+	CVector3 primitiveScreenPosition =
+		InvProjection3D(primitivePosition, mouseDragData.startCamera, mRotInv, dragTempData.perspType,
+			dragTempData.fov, image->GetPreviewWidth(), image->GetPreviewHeight());
+	CVector3 newPrimitiveScreenPosition = primitiveScreenPosition + CVector3(dx, dy, 0.0);
+
+	CRotationMatrix mRot;
+	mRot.SetRotation(rotation);
+
+	CVector2<double> normalizedPoint;
+	normalizedPoint.x =
+		(newPrimitiveScreenPosition.x / image->GetPreviewWidth() - 0.5) * dragTempData.aspectRatio;
+	normalizedPoint.y = (newPrimitiveScreenPosition.y / image->GetPreviewHeight() - 0.5) * (-1.0)
+											* dragTempData.reverse;
+
+	CVector3 viewVector =
+		CalculateViewVector(normalizedPoint, dragTempData.fov, dragTempData.perspType, mRot);
+
+	CVector3 newPrimitivePosition =
+		mouseDragData.startCamera + viewVector * primitiveScreenPosition.z;
+
+	par->Set(mouseDragData.primitiveItem.fullName + "_position", newPrimitivePosition);
 }
 
 void cManipulations::MouseDragDelta(int dx, int dy)
@@ -1012,7 +1061,28 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				}
 				QElapsedTimer timerStartRender;
 				timerStartRender.start();
-				SynchronizeInterfaceWindow(effectsWidget, par, qInterface::write);
+				if (effectsWidget) SynchronizeInterfaceWindow(effectsWidget, par, qInterface::write);
+				renderedImageWidget->update();
+				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
+			}
+			else if (mouseDragData.primitiveDrag)
+			{
+				switch (mouseDragData.button)
+				{
+					case Qt::LeftButton:
+					{
+						PrimitiveDragLeftButton(dragTempData, dx, dy);
+						break;
+					}
+					default:
+					{
+						break;
+					}
+				}
+				QElapsedTimer timerStartRender;
+				timerStartRender.start();
+				if (fractalWidget)
+					fractalWidget->SynchronizeInterfaceFractals(par, parFractal, qInterface::write);
 				renderedImageWidget->update();
 				mouseDragData.lastStartRenderingTime = timerStartRender.elapsed();
 			}

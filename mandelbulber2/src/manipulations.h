@@ -13,6 +13,7 @@
 #include <memory>
 #include "algebra.hpp"
 #include "camera_target.hpp"
+#include "primitive_item.h"
 #include "projection_3d.hpp"
 
 class cParameterContainer;
@@ -22,6 +23,7 @@ class RenderedImageWidget;
 class RenderedImage;
 class cDockNavigation;
 class cDockEffects;
+class cDockFractal;
 
 class cManipulations : public QObject
 {
@@ -37,6 +39,7 @@ private:
 		bool draggingStarted{false};
 		bool cameraDrag{false};
 		bool lightDrag{false};
+		bool primitiveDrag{false};
 		CVector2<double> startScreenPoint;
 		CVector2<double> startNormalizedPoint;
 		double startZ{0.0};
@@ -48,7 +51,8 @@ private:
 		QElapsedTimer lastRefreshTime;
 		qint64 lastStartRenderingTime{0};
 		int lightIndex = -1;
-		CVector3 lightStartPosition;
+		sPrimitiveItem primitiveItem;
+		CVector3 objectStartPosition;
 	} mouseDragData;
 
 	struct sMouseDragTempData
@@ -71,8 +75,8 @@ public:
 	void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams);
 	void AssingImage(std::shared_ptr<cImage> _image);
-	void AssignWidgets(
-		RenderedImage *_imageWidget, cDockNavigation *_navigationWidget, cDockEffects *_effectsWidget);
+	void AssignWidgets(RenderedImage *_imageWidget, cDockNavigation *_navigationWidget,
+		cDockEffects *_effectsWidget, cDockFractal *_fractalWidget);
 
 	void MoveCamera(QString buttonName);
 	void RotateCamera(QString buttonName);
@@ -91,6 +95,7 @@ public:
 	void MouseDragCameraMiddleButton(int dx);
 	void MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData);
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
+	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
 
 	bool isDraggingStarted() { return mouseDragData.draggingStarted; }
@@ -109,6 +114,7 @@ private:
 	RenderedImage *renderedImageWidget = nullptr;
 	cDockNavigation *navigationWidget = nullptr;
 	cDockEffects *effectsWidget = nullptr;
+	cDockFractal *fractalWidget = nullptr;
 
 	int numberOfStartedRenders = 0;
 	bool smallPartRendered = true;

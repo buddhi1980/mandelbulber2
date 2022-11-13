@@ -215,8 +215,8 @@ void cInterface::ShowUi()
 
 	mainWindow->manipulations->AssignParameterContainers(gPar, gParFractal);
 	mainWindow->manipulations->AssingImage(mainImage);
-	mainWindow->manipulations->AssignWidgets(
-		renderedImage, mainWindow->GetWidgetDockNavigation(), mainWindow->GetWidgetDockEffects());
+	mainWindow->manipulations->AssignWidgets(renderedImage, mainWindow->GetWidgetDockNavigation(),
+		mainWindow->GetWidgetDockEffects(), mainWindow->GetWidgetDockFractal());
 
 	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
 

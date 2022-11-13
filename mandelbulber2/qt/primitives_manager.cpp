@@ -348,13 +348,13 @@ void cPrimitivesManager::slotChangedCurrentTab(int index)
 		{
 			QList<QVariant> item;
 			item.append(int(RenderedImage::clickPlacePrimitive));
-			//			if (index < primitiveIndexOnTab.size())
-			//			{
-			//				item.append(currentPrimitiveIndex);
-			//				int comboIndex = mouseFunctionComboWidget->findData(item);
-			//				mouseFunctionComboWidget->setCurrentIndex(comboIndex);
-			//				renderedImageWidget->setClickMode(item);
-			//			}
+			item.append(int(currentPrimitiveItem.type));
+			item.append(currentPrimitiveItem.id);
+			item.append(currentPrimitiveItem.fullName); // light number
+
+			int index = mouseFunctionComboWidget->findData(item);
+			mouseFunctionComboWidget->setCurrentIndex(index);
+			renderedImageWidget->setClickMode(item);
 		}
 	}
 }
