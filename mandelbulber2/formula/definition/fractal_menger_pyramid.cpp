@@ -95,7 +95,7 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		if (fractal->transformCommon.functionEnabledAFalse)
 		{
-			aux.DE *= sqrt(z.x * z.x + z.y * z.y); // mmmmmmmmmmmmmmmmmmmm
+			aux.DE *= sqrt(z.x * z.x + z.y * z.y);
 		}
 	}
 

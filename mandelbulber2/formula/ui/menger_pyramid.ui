@@ -673,7 +673,7 @@
          </font>
         </property>
         <property name="text">
-         <string>de thing</string>
+         <string>aux.DE  adjust (seldom helps)</string>
         </property>
        </widget>
       </item>
@@ -1087,7 +1087,7 @@
             </font>
            </property>
            <property name="text">
-            <string>rho and phi mode</string>
+            <string>rho and phi mode (new angle)</string>
            </property>
           </widget>
          </item>
@@ -2208,7 +2208,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
         <property name="text">
-         <string>swa</string>
+         <string>max() =&gt; length   (normally max is best)</string>
         </property>
        </widget>
       </item>
