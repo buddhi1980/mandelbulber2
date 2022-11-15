@@ -172,6 +172,7 @@ void cLightSourcesManager::slotButtonAddLight()
 	AddLight(true, -1);
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_lightSources->setCurrentIndex(ui->tabWidget_lightSources->count() - 1);
+	renderedImageWidget->SetCurrentLightIndex(ui->tabWidget_lightSources->count());
 }
 
 void cLightSourcesManager::slotButtonDuplicateLight()

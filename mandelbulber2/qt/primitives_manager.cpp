@@ -227,6 +227,8 @@ void cPrimitivesManager::slotButtonAddPrimitive()
 
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
+
+	renderedImageWidget->SetCurrentPrimitiveItem(newPrimitive);
 }
 
 void cPrimitivesManager::slotButtonDuplicatePrimitive()

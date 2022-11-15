@@ -524,6 +524,14 @@ void cNavigatorWindow::slotMouseWheelRotatedWithKeyOnImage(
 			}
 			break;
 		}
+		case RenderedImage::clickPlacePrimitive:
+		{
+			if (keyModifiers == Qt::NoModifier)
+			{
+				manipulations->MovePrimitiveByWheel(delta);
+			}
+			break;
+		}
 		case RenderedImage::clickMoveCamera:
 		{
 			Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;

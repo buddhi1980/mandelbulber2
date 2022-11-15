@@ -1123,6 +1123,27 @@ void cManipulations::MoveLightByWheel(double deltaWheel)
 	renderedImageWidget->update();
 }
 
+void cManipulations::MovePrimitiveByWheel(double deltaWheel)
+{
+	double deltaLog = exp(deltaWheel * 0.0001);
+
+	QString actualPrimitiveName = renderedImageWidget->GetCurrentPrimitiveItem().fullName;
+	CVector3 lightPosition = par->Get<CVector3>(actualPrimitiveName + "_position");
+
+	CVector3 cameraPosition = par->Get<CVector3>("camera");
+	CVector3 lightVector = lightPosition - cameraPosition;
+	CVector3 newLightVector = lightVector * deltaLog;
+	CVector3 newLightPosition = cameraPosition + newLightVector;
+
+	par->Set(actualPrimitiveName + "_position", newLightPosition);
+
+	if (fractalWidget)
+	{
+		fractalWidget->SynchronizeInterfaceFractals(par, parFractal, qInterface::write);
+	}
+	renderedImageWidget->update();
+}
+
 void cManipulations::slotSmallPartRendered(double time)
 {
 	Q_UNUSED(time);

@@ -97,6 +97,7 @@ public:
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
+	void MovePrimitiveByWheel(double deltaWheel);
 
 	bool isDraggingStarted() { return mouseDragData.draggingStarted; }
 
