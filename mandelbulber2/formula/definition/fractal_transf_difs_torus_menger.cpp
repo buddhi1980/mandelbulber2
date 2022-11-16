@@ -172,7 +172,7 @@ void cFractalTransfDIFSTorusMenger::FormulaCode(
 	}
 	else
 	{
-		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+		rDE = sqrt(d.x * d.x + d.y * d.y) - fractal->transformCommon.offset0;
 
 		if (fractal->transformCommon.functionEnabledMFalse)
 			rDE = max(fabs(rDE), fabs(d.z));

@@ -157,7 +157,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 	else
 	{
-		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+		rDE = native_sqrt(d.x * d.x + d.y * d.y) - fractal->transformCommon.offset0;
 		if (fractal->transformCommon.functionEnabledMFalse)
 			rDE = max(fabs(rDE), fabs(d.z));
 		if (fractal->transformCommon.functionEnabledSFalse)
