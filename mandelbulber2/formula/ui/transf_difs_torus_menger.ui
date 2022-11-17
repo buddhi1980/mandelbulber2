@@ -1239,7 +1239,7 @@
      <property name="title">
       <string>Custom DE</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1377,13 +1377,6 @@
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-        <property name="text">
-         <string>square</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
         <property name="text">
          <string>max() =&gt; radius</string>
@@ -1396,7 +1389,7 @@
          <string/>
         </property>
         <property name="title">
-         <string>other modes&amp;</string>
+         <string>other modes&amp; (menger iters at 1 or 2)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1422,7 +1415,28 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="0" column="1">
+           <item row="2" column="0">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+             <property name="text">
+              <string>max()</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+             <property name="text">
+              <string>radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_184">
+             <property name="text">
+              <string>xy radius:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
              <property name="enabled">
               <bool>true</bool>
@@ -1453,24 +1467,10 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
-             <property name="text">
-              <string>max()</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
-             <property name="text">
-              <string>radius</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_184">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
              <property name="text">
-              <string>xy radius:</string>
+              <string>rxy mode</string>
              </property>
             </widget>
            </item>
@@ -2024,12 +2024,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>1356</y>
+     <x>154</x>
+     <y>1486</y>
     </hint>
     <hint type="destinationlabel">
-     <x>189</x>
-     <y>1331</y>
+     <x>242</x>
+     <y>1461</y>
     </hint>
    </hints>
   </connection>
@@ -2040,12 +2040,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>126</y>
+     <x>80</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>183</y>
+     <x>306</x>
+     <y>299</y>
     </hint>
    </hints>
   </connection>
@@ -2056,12 +2056,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>1039</y>
+     <x>78</x>
+     <y>1228</y>
     </hint>
     <hint type="destinationlabel">
-     <x>78</x>
-     <y>1022</y>
+     <x>85</x>
+     <y>1118</y>
     </hint>
    </hints>
   </connection>

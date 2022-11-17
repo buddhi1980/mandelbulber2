@@ -5,6 +5,7 @@ v2.29 (??? 2022)
    mengerPyramid
    mengerSmoothChebyshev
    transfDIFSHelixV2
+   transfDIFSTorusMenger
    transfSinYM3d
 
 - modified fractal formulas

@@ -1190,7 +1190,7 @@
      <property name="title">
       <string>Custom DE</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1328,13 +1328,6 @@
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-        <property name="text">
-         <string>square</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledT_false">
         <property name="text">
          <string>max() =&gt; radius</string>
@@ -1347,7 +1340,7 @@
          <string/>
         </property>
         <property name="title">
-         <string>other modes&amp;</string>
+         <string>other modes&amp; (menger iters at 1 or 2)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1373,7 +1366,7 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
              <property name="text">
               <string>max()</string>
@@ -1381,13 +1374,6 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
-             <property name="text">
-              <string>radius</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
              <property name="enabled">
               <bool>true</bool>
@@ -1418,10 +1404,24 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
+           <item row="2" column="1">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+             <property name="text">
+              <string>radius</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
             <widget class="QLabel" name="label_191">
              <property name="text">
               <string>xy radius:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+             <property name="text">
+              <string>rxy mode</string>
              </property>
             </widget>
            </item>
@@ -2088,12 +2088,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>1356</y>
+     <x>154</x>
+     <y>1571</y>
     </hint>
     <hint type="destinationlabel">
-     <x>189</x>
-     <y>1331</y>
+     <x>242</x>
+     <y>1546</y>
     </hint>
    </hints>
   </connection>
@@ -2104,12 +2104,28 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>66</x>
-     <y>186</y>
+     <x>73</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
-     <x>194</x>
-     <y>243</y>
+     <x>250</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_transf_function_enabledC_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledT_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>1127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>61</x>
+     <y>1113</y>
     </hint>
    </hints>
   </connection>

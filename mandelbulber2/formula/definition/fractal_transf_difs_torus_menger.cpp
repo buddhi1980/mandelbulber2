@@ -6,8 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsHelixV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
- * M3D difs code by darkbeam
+ * TransfDIFSTorusMenger fragmentarium code by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
@@ -156,8 +155,6 @@ void cFractalTransfDIFSTorusMenger::FormulaCode(
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
 
-	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
-
 	double rDE;
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -172,7 +169,9 @@ void cFractalTransfDIFSTorusMenger::FormulaCode(
 	}
 	else
 	{
-		rDE = sqrt(d.x * d.x + d.y * d.y) - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledBFalse) temp = d.x * d.x + d.y * d.y;
+		else temp = d.x + d.y;
+		rDE = sqrt(temp) - fractal->transformCommon.offset0;
 
 		if (fractal->transformCommon.functionEnabledMFalse)
 			rDE = max(fabs(rDE), fabs(d.z));
