@@ -51,6 +51,13 @@ public:
 	explicit cFrameSliderPopup(QWidget *parent = nullptr);
 	~cFrameSliderPopup() override;
 
+	enum enumPrecision
+	{
+		precisionFine,
+		precisionNormal,
+		precisionCoarse
+	};
+
 private:
 	Ui::cFrameSliderPopup *ui;
 	QTimer *sliderTimer;
@@ -62,6 +69,7 @@ private:
 
 public:
 	int value() const;
+	enumPrecision precision() const;
 	void SetIntegerMode(int min, int max, int val);
 	void SetDialMode(int scale, double val);
 

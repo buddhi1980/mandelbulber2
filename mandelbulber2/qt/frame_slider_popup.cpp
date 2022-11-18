@@ -93,6 +93,18 @@ int cFrameSliderPopup::value() const
 	}
 }
 
+cFrameSliderPopup::enumPrecision cFrameSliderPopup::precision() const
+{
+	if (ui->radioButton_fine->isChecked())
+		return precisionFine;
+	else if (ui->radioButton_normal->isChecked())
+		return precisionNormal;
+	else if (ui->radioButton_coarse->isChecked())
+		return precisionCoarse;
+	else
+		return precisionNormal;
+}
+
 void cFrameSliderPopup::slotSliderReleased()
 {
 	if (!integerMode)
