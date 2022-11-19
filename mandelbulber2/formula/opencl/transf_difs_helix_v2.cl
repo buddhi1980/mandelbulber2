@@ -25,7 +25,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
 
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
-
+	zc.y = zc.y + fractal->transformCommon.scaleC0 * zc.z;
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -100,9 +100,8 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0f);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0f);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0f);
-	REAL rDE;
-	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 
+	REAL rDE;
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledTFalse)
@@ -116,7 +115,9 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else
 	{
-		rDE = native_sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledBFalse) rDE = d.x * d.x + d.y * d.y;
+		else rDE = d.x + d.y;
+		rDE = native_sqrt(rDE) - fractal->transformCommon.offset0;
 
 		if (fractal->transformCommon.functionEnabledNFalse)
 			rDE = native_sqrt(rDE * rDE + d.z);

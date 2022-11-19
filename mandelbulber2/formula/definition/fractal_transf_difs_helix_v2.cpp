@@ -37,8 +37,8 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 
 	// torus
 	double ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
-
 	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	zc.y = zc.y + fractal->transformCommon.scaleC0 * zc.z;
 
 	// vert helix
 	if (fractal->transformCommon.functionEnabledAx)
@@ -117,8 +117,8 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	d.x = max(d.x - fractal->transformCommon.offsetA1, 0.0);
 	d.y = max(d.y - fractal->transformCommon.offset01, 0.0);
 	d.z = max(d.z - fractal->transformCommon.offsetp1, 0.0);
+
 	double rDE;
-	if (fractal->transformCommon.functionEnabledBFalse) d *= d;
 	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledTFalse)
@@ -132,8 +132,10 @@ void cFractalTransfDIFSHelixV2::FormulaCode(
 	}
 	else
 	{
-		rDE = sqrt(d.x + d.y) - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledBFalse) rDE = d.x * d.x + d.y * d.y;
+		else rDE = d.x + d.y;
 
+		rDE = sqrt(rDE) - fractal->transformCommon.offset0;
 		if (fractal->transformCommon.functionEnabledNFalse)
 			rDE = sqrt(rDE * rDE + d.z);
 
