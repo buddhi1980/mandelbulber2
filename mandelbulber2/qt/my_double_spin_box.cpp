@@ -284,7 +284,17 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 	double newValue = valueBeforeSliderDrag;
 
 	int iDiff = sliderPosition - 500;
-	double dDiff = iDiff / 500.0;
+
+	cFrameSliderPopup::enumPrecision precision = slider->precision();
+	double dPrecision = 1.0;
+	switch (precision)
+	{
+		case cFrameSliderPopup::precisionFine: dPrecision = 0.3; break;
+		case cFrameSliderPopup::precisionNormal: dPrecision = 1.0; break;
+		case cFrameSliderPopup::precisionCoarse: dPrecision = 2.0; break;
+	}
+
+	double dDiff = iDiff / 500.0 * dPrecision;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
 	double digits = decimals();
 
