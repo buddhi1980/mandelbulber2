@@ -6,9 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsTorusTwistIteration  fragmentarium code, mdifs by knighty (jan 2012)
- * M3D difs code by darkbeam
- * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ * TransfSincosHelixIteration
  */
 
 #include "all_fractal_definitions.h"
@@ -110,37 +108,41 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		z.z = temp;
 	}
 
-	if (!fractal->transformCommon.functionEnabledOFalse)
-		ang = atan2(z.x, z.y) * fractal->transformCommon.scaleA1;
-	else
-		ang = atan2(z.y, z.x) * fractal->transformCommon.scaleA1;
+	z *= fractal->transformCommon.scale1;
+	aux.DE = fabs(aux.DE * fractal->transformCommon.scale1);
 
-	if (fractal->transformCommon.functionEnabledTFalse)
-		z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+	if (!fractal->transformCommon.functionEnabledOFalse)
+		ang = atan2(z.x, z.y);
+	else
+		ang = atan2(z.y, z.x);
+	 ang *= M_PI_2x_INV * fractal->transformCommon.scaleA1;
+
+	if (fractal->transformCommon.functionEnabled)
+		z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.scale015;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		z.x += z.z * fractal->transformCommon.scaleB0;
 		z.y += z.z * fractal->transformCommon.scaleC0;
-
-
 	}
 
 	// vert helix
-	if (fractal->transformCommon.functionEnabledAxFalse)
+	if (fractal->transformCommon.functionEnabledAx)
 	{
-		double Voff = fractal->transformCommon.offsetA2;
+		double Voff = fractal->transformCommon.offset4;
 		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
 		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
 	}
+
 	// stretch
-	if (fractal->transformCommon.functionEnabledAyFalse)
+	if (fractal->transformCommon.functionEnabledAw)
 	{
 		if (!fractal->transformCommon.functionEnabledAy)
 			z.x = fractal->transformCommon.offsetR1;
 		else
 		{
-			temp = fractal->transformCommon.scaleA2 * ang + fractal->transformCommon.offsetR1;
+			temp = fractal->transformCommon.scale16 * ang
+					+ fractal->transformCommon.offsetR1;
 			z.x = temp - 2.0 * floor(temp * 0.5) - 1.0;
 		}
 	}
@@ -151,8 +153,8 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 			double Phi = z.z;
 			double Rho = sqrt(z.x * z.x + z.y * z.y);
 
-			ang = Rho * fractal->transformCommon.offsetA0 + Phi * fractal->transformCommon.offsetB0
-						+ fractal->transformCommon.offsetC0;
+			ang = Rho * fractal->transformCommon.offsetA0
+					+ Phi * fractal->transformCommon.offsetB0;
 		}
 		double cosA = cos(ang);
 		double sinB = sin(ang);
@@ -191,22 +193,22 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
-
-/*	temp = zc.y;
-	zc.y = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1
-			+ spiral;*/
-
-
-
-
-
 	// aux.color
-	if (aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabled)
 	{
-		double addColor = 0.0;
-		//if (aux.dist == colDist) addColor += fractal->foldColor.difs0000.x;
-		//= fractal->foldColor.difs0000.y;
-		aux.color += addColor;
+		if (!fractal->transformCommon.functionEnabledGFalse)
+		{
+			double ang = (M_PI - 2.0 * fabs(atan(fractal->foldColor.difs1 * z.y / z.z)))
+					* 4.0 * M_PI_2x_INV;
+			if (fmod(ang, 2.0) < 1.0) aux.color += fractal->foldColor.difs0000.z;
+			else aux.color += fractal->foldColor.difs0000.y;
+		}
+		else
+		{
+			aux.color += fractal->foldColor.difs0000.x * (z.x * z.x);
+			aux.color += fractal->foldColor.difs0000.z * (z.z * z.z);
+			aux.color += fractal->foldColor.difs0000.y * (z.y * z.y);
+
+		}
 	}
 }
