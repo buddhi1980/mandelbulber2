@@ -44,19 +44,19 @@ namespace Ui
 class cFrameSliderPopup;
 }
 
+enum class enumSliderPrecision
+{
+	precisionFine,
+	precisionNormal,
+	precisionCoarse
+};
+
 class cFrameSliderPopup : public QFrame
 {
 	Q_OBJECT
 public:
 	explicit cFrameSliderPopup(QWidget *parent = nullptr);
 	~cFrameSliderPopup() override;
-
-	enum enumPrecision
-	{
-		precisionFine,
-		precisionNormal,
-		precisionCoarse
-	};
 
 private:
 	Ui::cFrameSliderPopup *ui;
@@ -69,7 +69,7 @@ private:
 
 public:
 	int value() const;
-	enumPrecision precision() const;
+	enumSliderPrecision precision() const;
 	void SetIntegerMode(int min, int max, int val);
 	void SetDialMode(int scale, double val);
 
@@ -79,6 +79,9 @@ private slots:
 	void slotUpdateValue(int val);
 	void slotUpdateValue(double val);
 	void slotDialValueChanged(int val);
+	void slotSelectedPrecisionFine();
+	void slotSelectedPrecisionNormal();
+	void slotSelectedPrecisionCoarse();
 
 signals:
 	void resetPressed();
@@ -97,6 +100,7 @@ signals:
 	void sliderPressed();
 	void sliderReleased();
 	void sliderMoved(int);
+	void changedPrecision(enumSliderPrecision);
 };
 
 #endif /* MANDELBULBER2_QT_FRAME_SLIDER_POPUP_H_ */

@@ -50,6 +50,8 @@ MyDoubleSpinBox::MyDoubleSpinBox(QWidget *parent)
 	slider = nullptr;
 	hasDial = false;
 	valueBeforeSliderDrag = 0.0;
+	precision = enumSliderPrecision::precisionNormal;
+	defaultSingleStep = 1.0;
 };
 
 MyDoubleSpinBox::~MyDoubleSpinBox()
@@ -94,6 +96,7 @@ double MyDoubleSpinBox::GetDefault()
 			gotDefault = true;
 			setToolTipText();
 		}
+		defaultSingleStep = singleStep();
 	}
 	return defaultValue;
 }
@@ -163,8 +166,12 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
+		setSingleStep(defaultSingleStep);
+
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
+		connect(
+			slider, &cFrameSliderPopup::changedPrecision, this, &MyDoubleSpinBox::slotChangedPrecision);
 
 		if (hasDial)
 		{
@@ -285,13 +292,13 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 
 	int iDiff = sliderPosition - 500;
 
-	cFrameSliderPopup::enumPrecision precision = slider->precision();
+	enumSliderPrecision precision = slider->precision();
 	double dPrecision = 1.0;
 	switch (precision)
 	{
-		case cFrameSliderPopup::precisionFine: dPrecision = 0.3; break;
-		case cFrameSliderPopup::precisionNormal: dPrecision = 1.0; break;
-		case cFrameSliderPopup::precisionCoarse: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 0.3; break;
+		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
 	}
 
 	double dDiff = iDiff / 500.0 * dPrecision;
@@ -327,4 +334,15 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 	setValue(newValue);
 
 	emit editingFinished();
+}
+
+void MyDoubleSpinBox::slotChangedPrecision(enumSliderPrecision _precision)
+{
+	precision = _precision;
+	switch (precision)
+	{
+		case enumSliderPrecision::precisionFine: setSingleStep(defaultSingleStep * 0.1); break;
+		case enumSliderPrecision::precisionNormal: setSingleStep(defaultSingleStep * 1.0); break;
+		case enumSliderPrecision::precisionCoarse: setSingleStep(defaultSingleStep * 10.0); break;
+	}
 }

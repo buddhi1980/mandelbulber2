@@ -187,13 +187,13 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 
 	int iDiff = sliderPosition - 500;
 
-	cFrameSliderPopup::enumPrecision precision = slider->precision();
+	enumSliderPrecision precision = slider->precision();
 	double dPrecision = 1.0;
 	switch (precision)
 	{
-		case cFrameSliderPopup::precisionFine: dPrecision = 0.5; break;
-		case cFrameSliderPopup::precisionNormal: dPrecision = 1.0; break;
-		case cFrameSliderPopup::precisionCoarse: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 0.5; break;
+		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
 	}
 
 	double dDiff = iDiff / 500.0 * dPrecision;

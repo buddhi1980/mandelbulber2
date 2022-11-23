@@ -57,6 +57,12 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 	connect(ui->buReset, SIGNAL(pressed()), this, SIGNAL(resetPressed()));
 	connect(ui->buZero, SIGNAL(pressed()), this, SIGNAL(zeroPressed()));
 	connect(ui->buMinus, SIGNAL(pressed()), this, SIGNAL(minusPressed()));
+	connect(ui->radioButton_fine, &QRadioButton::pressed, this,
+		&cFrameSliderPopup::slotSelectedPrecisionFine);
+	connect(ui->radioButton_normal, &QRadioButton::pressed, this,
+		&cFrameSliderPopup::slotSelectedPrecisionNormal);
+	connect(ui->radioButton_coarse, &QRadioButton::pressed, this,
+		&cFrameSliderPopup::slotSelectedPrecisionCoarse);
 
 	sliderTimer = new QTimer(this);
 	sliderTimer->setSingleShot(true);
@@ -93,16 +99,16 @@ int cFrameSliderPopup::value() const
 	}
 }
 
-cFrameSliderPopup::enumPrecision cFrameSliderPopup::precision() const
+enumSliderPrecision cFrameSliderPopup::precision() const
 {
 	if (ui->radioButton_fine->isChecked())
-		return precisionFine;
+		return enumSliderPrecision::precisionFine;
 	else if (ui->radioButton_normal->isChecked())
-		return precisionNormal;
+		return enumSliderPrecision::precisionNormal;
 	else if (ui->radioButton_coarse->isChecked())
-		return precisionCoarse;
+		return enumSliderPrecision::precisionCoarse;
 	else
-		return precisionNormal;
+		return enumSliderPrecision::precisionNormal;
 }
 
 void cFrameSliderPopup::slotSliderReleased()
@@ -179,4 +185,17 @@ void cFrameSliderPopup::slotUpdateValue(double val)
 void cFrameSliderPopup::slotDialValueChanged(int val)
 {
 	emit valueChanged(double(val) / dialScale);
+}
+
+void cFrameSliderPopup::slotSelectedPrecisionFine()
+{
+	emit changedPrecision(enumSliderPrecision::precisionFine);
+}
+void cFrameSliderPopup::slotSelectedPrecisionNormal()
+{
+	emit changedPrecision(enumSliderPrecision::precisionNormal);
+}
+void cFrameSliderPopup::slotSelectedPrecisionCoarse()
+{
+	emit changedPrecision(enumSliderPrecision::precisionCoarse);
 }

@@ -41,6 +41,8 @@
 
 class cFrameSliderPopup;
 
+enum class enumSliderPrecision;
+
 class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
@@ -59,6 +61,8 @@ private:
 	cFrameSliderPopup *slider;
 	bool hasDial;
 	double valueBeforeSliderDrag;
+	enumSliderPrecision precision;
+	double defaultSingleStep;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
@@ -80,6 +84,7 @@ private slots:
 	void slotSliderPressed();
 	void slotSliderReleased();
 	void slotSliderMoved(int sliderPosition);
+	void slotChangedPrecision(enumSliderPrecision _precision);
 };
 
 #endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */
