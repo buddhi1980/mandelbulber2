@@ -15,7 +15,7 @@
 
 cFractalMengerPyramid::cFractalMengerPyramid() : cAbstractFractal()
 {
-	nameInComboBox = "Menger Pyramid";
+	nameInComboBox = "Menger - Pyramid";
 	internalName = "menger_pyramid";
 	internalID = fractal::mengerPyramid;
 	DEType = analyticDEType;
