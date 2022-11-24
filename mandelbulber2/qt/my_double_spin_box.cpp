@@ -292,9 +292,9 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 
 	int iDiff = sliderPosition - 500;
 
-	enumSliderPrecision precision = slider->precision();
+	enumSliderPrecision sliderPrecision = slider->precision();
 	double dPrecision = 1.0;
-	switch (precision)
+	switch (sliderPrecision)
 	{
 		case enumSliderPrecision::precisionFine: dPrecision = 0.3; break;
 		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;

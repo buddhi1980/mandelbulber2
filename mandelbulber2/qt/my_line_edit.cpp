@@ -57,6 +57,7 @@ MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapp
 	actionPasteVectorFromClipboard = nullptr;
 	slider = nullptr;
 	valueBeforeSliderDrag = 0.0;
+	precision = enumSliderPrecision::precisionNormal;
 }
 
 MyLineEdit::~MyLineEdit()
@@ -323,6 +324,9 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
+		precision = enumSliderPrecision::precisionNormal;
+		connect(slider, &cFrameSliderPopup::changedPrecision, this, &MyLineEdit::slotChangedPrecision);
+
 		// connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
@@ -424,6 +428,14 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 {
 	if (slider) // if it's edit field with slider (not text)
 	{
+		double dPrecision = 1.0;
+		switch (precision)
+		{
+			case enumSliderPrecision::precisionFine: dPrecision = 0.001; break;
+			case enumSliderPrecision::precisionNormal: dPrecision = 0.1; break;
+			case enumSliderPrecision::precisionCoarse: dPrecision = 0.5; break;
+		}
+
 		double value = systemData.locale.toDouble(text());
 
 		double change = event->angleDelta().y() / 360.0;
@@ -432,7 +444,7 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 
 		if (value < 0.0) change *= -1.0;
 
-		double multiplier = (1.0 + change / 10.0);
+		double multiplier = (1.0 + change * dPrecision);
 
 		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 15);
 		setText(text);
@@ -498,4 +510,9 @@ void MyLineEdit::slotSliderMoved(int sliderPosition)
 	const QString text = QString("%L1").arg(newValue, 0, 'g', 15);
 	setText(text);
 	emit editingFinished();
+}
+
+void MyLineEdit::slotChangedPrecision(enumSliderPrecision _precision)
+{
+	precision = _precision;
 }

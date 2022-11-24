@@ -40,6 +40,7 @@
 #include "common_my_widget_wrapper.h"
 
 class cFrameSliderPopup;
+enum class enumSliderPrecision;
 
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
@@ -66,6 +67,7 @@ private:
 
 	cFrameSliderPopup *slider;
 	double valueBeforeSliderDrag;
+	enumSliderPrecision precision;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
@@ -88,6 +90,7 @@ private slots:
 	void slotSliderPressed();
 	void slotSliderReleased();
 	void slotSliderMoved(int sliderPosition);
+	void slotChangedPrecision(enumSliderPrecision _precision);
 };
 
 #endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */
