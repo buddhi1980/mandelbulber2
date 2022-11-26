@@ -759,42 +759,34 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
           <property name="enabled">
            <bool>true</bool>
           </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="text">
-           <string>switch angle</string>
+          <property name="prefix">
+           <string/>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_39">
-          <property name="text">
-           <string>angle scale</string>
+          <property name="suffix">
+           <string/>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
-          <property name="enabled">
-           <bool>true</bool>
+          <property name="decimals">
+           <number>6</number>
           </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+          <property name="minimum">
+           <double>0.000000000000000</double>
           </property>
-          <property name="text">
-           <string>radius offset</string>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -826,11 +818,47 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_39">
+          <property name="text">
+           <string>angle scale</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>radius offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>switch angle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleC_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -847,13 +875,29 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>0.000000000000000</double>
+           <double>-99.998999999999995</double>
           </property>
           <property name="maximum">
            <double>99.998999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>radius taper</string>
           </property>
          </widget>
         </item>
@@ -2640,12 +2684,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>37</x>
-     <y>836</y>
+     <x>49</x>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
-     <x>258</x>
-     <y>893</y>
+     <x>319</x>
+     <y>793</y>
     </hint>
    </hints>
   </connection>
@@ -2656,12 +2700,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>122</x>
-     <y>99</y>
+     <x>130</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
-     <y>124</y>
+     <y>342</y>
     </hint>
    </hints>
   </connection>
@@ -2672,12 +2716,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>698</x>
-     <y>99</y>
+     <x>961</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>961</x>
-     <y>124</y>
+     <y>342</y>
     </hint>
    </hints>
   </connection>
@@ -2688,12 +2732,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>416</x>
-     <y>99</y>
+     <x>642</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>642</x>
-     <y>124</y>
+     <y>342</y>
     </hint>
    </hints>
   </connection>
@@ -2704,12 +2748,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>935</y>
+     <x>33</x>
+     <y>909</y>
     </hint>
     <hint type="destinationlabel">
-     <x>182</x>
-     <y>962</y>
+     <x>277</x>
+     <y>938</y>
     </hint>
    </hints>
   </connection>
@@ -2720,12 +2764,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>938</y>
+     <x>54</x>
+     <y>909</y>
     </hint>
     <hint type="destinationlabel">
-     <x>207</x>
-     <y>993</y>
+     <x>302</x>
+     <y>966</y>
     </hint>
    </hints>
   </connection>

@@ -104,12 +104,18 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		if (!fractal->transformCommon.functionEnabledOFalse)
-			ang = atan2(z.x, z.y) * fractal->transformCommon.scaleA1 * M_PI_2x_INV;
+			ang = atan2(z.x, z.y);
 		else
-			ang = atan2(z.y, z.x) * fractal->transformCommon.scaleA1 * M_PI_2x_INV;
+			ang = atan2(z.y, z.x);
+		 ang *= M_PI_2x_INV * fractal->transformCommon.scaleA1;
 
 		if (fractal->transformCommon.functionEnabledM)
 			z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;
+
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			z.y += z.z * fractal->transformCommon.scaleC0;
+		}
 
 		// stretch
 		if (fractal->transformCommon.functionEnabledAyFalse)
@@ -164,7 +170,7 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
 		if ((z.z < (fractal->transformCommon.scaleB1 + 0.5) * fractal->transformCommon.offset2)
-			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
+			&& (z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2))
 		{
 			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);

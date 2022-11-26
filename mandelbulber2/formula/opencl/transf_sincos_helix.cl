@@ -161,21 +161,29 @@ REAL4 TransfSincosHelixIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.y = temp * cosA - z.y * sinB;
 	}
 
-	if (fractal->transformCommon.functionEnabledMFalse)
+	// repeat
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux->i >= fractal->transformCommon.startIterationsTM
+			&& aux->i < fractal->transformCommon.stopIterationsTM1)
 	{
-		if ( z.z < (fractal->transformCommon.offsetA1 + 0.5) * fractal->transformCommon.offset2
+		if (z.z < (fractal->transformCommon.scaleA1 + 0.5) * fractal->transformCommon.offset2
 			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
 		{
 			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
-
-			// clip
-			if (fractal->transformCommon.functionEnabledEFalse)
-				z.z = max(aux->const_c.z - fractal->transformCommon.offsetE0, z.z);
-
-			if (fractal->transformCommon.functionEnabledFFalse)
-				z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
 		}
+	}
+
+	// clip
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux->i >= fractal->transformCommon.startIterationsT
+			&& aux->i < fractal->transformCommon.stopIterationsT1)
+	{
+		if (fractal->transformCommon.functionEnabledEFalse)
+			z.z = max(aux->const_c.z - fractal->transformCommon.offsetE0, z.z);
+
+		if (fractal->transformCommon.functionEnabledFFalse)
+			z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
 	}
 
 	// Analytic DE tweak

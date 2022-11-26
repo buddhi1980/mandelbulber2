@@ -115,7 +115,7 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		ang = atan2(z.x, z.y);
 	else
 		ang = atan2(z.y, z.x);
-	 ang *= M_PI_2x_INV * fractal->transformCommon.scaleA1;
+	ang *= M_PI_2x_INV * fractal->transformCommon.scaleA1;
 
 	if (fractal->transformCommon.functionEnabled)
 		z.y = sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.scale015;
@@ -130,8 +130,8 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 	if (fractal->transformCommon.functionEnabledAx)
 	{
 		double Voff = fractal->transformCommon.offset4;
-		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5f;
-		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5f;
+		temp = z.z - Voff * ang * fractal->transformCommon.int1 + Voff * 0.5;
+		z.z = temp - Voff * floor(temp / (Voff)) - Voff * 0.5;
 	}
 
 	// stretch
@@ -171,27 +171,34 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 		z.y = temp * cosA - z.y * sinB;
 	}
 
-	if (fractal->transformCommon.functionEnabledMFalse)
+	// repeat
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsTM
+			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
-		if ( z.z < (fractal->transformCommon.offsetA1 + 0.5) * fractal->transformCommon.offset2
-			&& z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2)
+		if ((z.z < (fractal->transformCommon.scaleA1 + 0.5) * fractal->transformCommon.offset2)
+			&& (z.z > (fractal->transformCommon.offsetT1 + 0.5) * -fractal->transformCommon.offset2))
 		{
 			z.z -= round(z.z / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
 			z.z = clamp(fabs(z.z), -fractal->transformCommon.offset1, fractal->transformCommon.offset1);
-
-			// clip
-			if (fractal->transformCommon.functionEnabledEFalse)
-				z.z = max(aux.const_c.z - fractal->transformCommon.offsetE0, z.z);
-
-			if (fractal->transformCommon.functionEnabledFFalse)
-				z.z = min(aux.const_c.z + fractal->transformCommon.offsetF0, -z.z);
 		}
+	}
+
+	// clip
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT1)
+	{
+		if (fractal->transformCommon.functionEnabledEFalse)
+			z.z = max(aux.const_c.z - fractal->transformCommon.offsetE0, z.z);
+
+		if (fractal->transformCommon.functionEnabledFFalse)
+			z.z = min(aux.const_c.z + fractal->transformCommon.offsetF0, -z.z);
 	}
 
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
@@ -208,7 +215,6 @@ void cFractalTransfSincosHelix::FormulaCode(CVector4 &z, const sFractal *fractal
 			aux.color += fractal->foldColor.difs0000.x * (z.x * z.x);
 			aux.color += fractal->foldColor.difs0000.z * (z.z * z.z);
 			aux.color += fractal->foldColor.difs0000.y * (z.y * z.y);
-
 		}
 	}
 }
