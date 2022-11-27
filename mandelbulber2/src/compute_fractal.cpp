@@ -110,8 +110,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector4 lastZ;
 	CVector4 lastLastZ;
 
+	int maxN;
+
+	if (in.forcedFormulaIndex >= 0)
+	{
+		maxN = fractals.GetFormulaMaxiter(in.forcedFormulaIndex) * in.maxiterMultiplier;
+	}
+	else
+	{
+		maxN = fractals.GetFormulaMaxiter(0) * in.maxiterMultiplier;
+	}
+	if (in.forcedMaxiter >= 0) maxN = in.forcedMaxiter;
+
 	// main iteration loop
-	for (i = 0; i < in.maxN; i++)
+	for (i = 0; i < maxN; i++)
 	{
 		lastGoodZ = lastZ;
 		lastLastZ = lastZ;
@@ -265,7 +277,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeDeltaDE2)
 			{
-				if (i == in.maxN) break;
+				if (i == maxN) break;
 			}
 			else if (Mode == calcModeColouring)
 			{
@@ -404,7 +416,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
-					//out->distance = 0.5 * r * log(r) / extendedAux.DE;
+					// out->distance = 0.5 * r * log(r) / extendedAux.DE;
 					if (extendedAux.r > 1.0)
 						out->distance = 0.5 * r * log(r) / extendedAux.DE;
 					else

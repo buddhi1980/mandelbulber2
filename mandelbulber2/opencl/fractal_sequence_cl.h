@@ -97,6 +97,8 @@ typedef struct
 	cl_float4 constantMultiplier[NUMBER_OF_FRACTALS];
 	cl_float initialWAxis[NUMBER_OF_FRACTALS];
 	cl_int useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
+	cl_int formulaMaxiter[NUMBER_OF_FRACTALS];
+	cl_float formulaDetailLevel[NUMBER_OF_FRACTALS];
 	enumDEAnalyticFunctionCl DEAnalyticFunction[NUMBER_OF_FRACTALS];
 	enumColoringFunctionCl coloringFunction[NUMBER_OF_FRACTALS];
 } sClFractalSequence;

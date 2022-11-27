@@ -95,6 +95,11 @@ public:
 	{
 		return coloringFunction[formulaIndex];
 	}
+	inline int GetFormulaMaxiter(int formulaIndex) const { return formulaMaxiter[formulaIndex]; }
+	inline int GetFormulaDetailLevel(int formulaIndex) const
+	{
+		return formulaDetailLevel[formulaIndex];
+	}
 
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
@@ -131,6 +136,8 @@ private:
 	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
 	double initialWAxis[NUMBER_OF_FRACTALS];
 	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
+	int formulaMaxiter[NUMBER_OF_FRACTALS];
+	int formulaDetailLevel[NUMBER_OF_FRACTALS];
 	cAbstractFractal *fractalFormulaFunctions[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(std::shared_ptr<const cParameterContainer> generalPar);

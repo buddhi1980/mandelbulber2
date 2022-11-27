@@ -42,7 +42,7 @@ sRGBAfloat cRenderWorker::FakeLights(
 
 	double delta = input.distThresh * params->smoothness;
 
-	sFractalIn fractIn(input.point, params->minN, params->N, &params->common, -1, false);
+	sFractalIn fractIn(input.point, params->minN, -1, 1, &params->common, -1, false);
 	sFractalOut fractOut;
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rr = fractOut.orbitTrapR;

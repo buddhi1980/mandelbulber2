@@ -234,11 +234,10 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 {
 	double distance = 0;
 
-	const int N =
-		(in.normalCalculationMode && params.common.iterThreshMode) ? params.N * 5 : params.N;
+	const int maxiterMultiplier = (in.normalCalculationMode && params.common.iterThreshMode) ? 5 : 1;
 
-	sFractalIn fractIn(
-		in.point, params.minN, N, &params.common, forcedFormulaIndex, in.normalCalculationMode);
+	sFractalIn fractIn(in.point, params.minN, -1, maxiterMultiplier, &params.common,
+		forcedFormulaIndex, in.normalCalculationMode);
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 
@@ -322,7 +321,8 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 			if (in.normalCalculationMode) maxiter = false;
 		}
 
-		fractIn.maxN = fractOut.iters; // for other directions must be the same number of iterations
+		fractIn.forcedMaxiter =
+			fractOut.iters; // for other directions must be the same number of iterations
 
 		fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);

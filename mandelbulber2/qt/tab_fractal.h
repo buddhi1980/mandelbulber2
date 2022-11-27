@@ -66,6 +66,7 @@ public:
 	void Init(bool firstTab, int _tabIndex);
 	void FormulaTransformSetVisible(bool visible) const;
 	void CConstantAdditionSetVisible(bool visible) const;
+	void CalculationParametersSetVisible(bool visible) const;
 	void MaterialSetVisible(bool visible) const;
 	void FrameIterationFormulaSetEnabled(bool enabled) const;
 	void FrameIterationFormulaSetWidgetsVisibility(bool visible) const;

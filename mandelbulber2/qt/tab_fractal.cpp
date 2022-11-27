@@ -295,6 +295,11 @@ void cTabFractal::CConstantAdditionSetVisible(bool visible) const
 	ui->groupBox_c_constant_addition->setVisible(visible);
 }
 
+void cTabFractal::CalculationParametersSetVisible(bool visible) const
+{
+	ui->groupBox_calculation_parameters->setVisible(visible);
+}
+
 void cTabFractal::SynchronizeInterface(
 	std::shared_ptr<cParameterContainer> par, qInterface::enumReadWrite mode) const
 {
@@ -309,6 +314,9 @@ void cTabFractal::SynchronizeInterface(
 
 	WriteLog("cTabFractal::SynchronizeInterface: groupBox_material_fractal", 3);
 	SynchronizeInterfaceWindow(ui->groupBox_material_fractal, par, mode);
+
+	WriteLog("cTabFractal::SynchronizeInterface: groupBox_material_fractal", 3);
+	SynchronizeInterfaceWindow(ui->groupBox_calculation_parameters, par, mode);
 }
 
 void cTabFractal::FrameIterationFormulaSetWidgetsVisibility(bool visible) const
