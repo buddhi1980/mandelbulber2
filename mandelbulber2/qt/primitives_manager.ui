@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>394</width>
+    <width>368</width>
     <height>736</height>
    </rect>
   </property>
@@ -255,6 +255,17 @@
      <property name="topMargin">
       <number>10</number>
      </property>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_deletePrimitive">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Delete
+primitive</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pushButton_placePrimitive">
        <property name="toolTip">
@@ -266,14 +277,14 @@ primitive</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_deletePrimitive">
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton_alignRotation">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected light source.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate the selected light source. All parameters will be copied to the new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Delete
-primitive</string>
+        <string>Align rotation
+to the camera</string>
        </property>
       </widget>
      </item>
@@ -288,14 +299,33 @@ primitive</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_alignRotation">
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButton_enableAll">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate the selected light source. All parameters will be copied to the new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Align rotation
-to the camera</string>
+        <string>Enable all</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="pushButton_disableAll">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate the selected light source. All parameters will be copied to the new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Disable all</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="pushButton_onlySelected">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Duplicate the selected light source. All parameters will be copied to the new one.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Only selected</string>
        </property>
       </widget>
      </item>

@@ -87,6 +87,13 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 	connect(ui->pushButton_alignRotation, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonAlignRotation);
 
+	connect(ui->pushButton_enableAll, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonEnableAll);
+	connect(ui->pushButton_disableAll, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonDisableAll);
+	connect(ui->pushButton_onlySelected, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonOnlySelected);
+
 	connect(ui->checkBox_show_wireframe_primitives, &MyCheckBox::stateChanged, this,
 		&cPrimitivesManager::slorChangedWireframeVisibikity);
 
@@ -410,4 +417,42 @@ void cPrimitivesManager::slotButtonAlignRotation()
 		gPar->Set(primitiveName + "_rotation", rotationAligned);
 		SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
 	}
+}
+
+void cPrimitivesManager::slotButtonEnableAll()
+{
+	QList<sPrimitiveItem> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
+	for (const sPrimitiveItem &item : listOfFoundPrimitives)
+	{
+		params->Set(item.fullName + "_enabled", true);
+	}
+	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
+}
+
+void cPrimitivesManager::slotButtonDisableAll()
+{
+	QList<sPrimitiveItem> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
+	for (const sPrimitiveItem &item : listOfFoundPrimitives)
+	{
+		params->Set(item.fullName + "_enabled", false);
+	}
+	SynchronizeInterfaceWindow(this, params, qInterface::write);
+}
+
+void cPrimitivesManager::slotButtonOnlySelected()
+{
+	QList<sPrimitiveItem> listOfFoundPrimitives = cPrimitives::GetListOfPrimitives(params);
+	for (const sPrimitiveItem &item : listOfFoundPrimitives)
+	{
+		params->Set(item.fullName + "_enabled", false);
+	}
+
+	int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+	if (currentTabIndex >= 0)
+	{
+		sPrimitiveItem currentPrimitiveItem = primitiveItemOnTab.at(currentTabIndex);
+		params->Set(currentPrimitiveItem.fullName + "_enabled", true);
+	}
+
+	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }

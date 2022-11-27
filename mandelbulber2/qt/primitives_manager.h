@@ -75,6 +75,9 @@ private slots:
 	void slotButtonDeletePrimitive();
 	void slotButtonPlacePrimitive();
 	void slotButtonAlignRotation();
+	void slotButtonEnableAll();
+	void slotButtonDisableAll();
+	void slotButtonOnlySelected();
 
 	void slotPeriodicRefresh();
 	void slorChangedWireframeVisibikity(int);
