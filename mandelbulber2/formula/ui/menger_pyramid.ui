@@ -673,7 +673,7 @@
          </font>
         </property>
         <property name="text">
-         <string>aux.DE  adjust (seldom helps)</string>
+         <string>aux.DE  adjust (sometimes helps)</string>
         </property>
        </widget>
       </item>

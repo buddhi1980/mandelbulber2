@@ -92,12 +92,37 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	zcd = zcd + (zcf - zcd) * fractal->transformCommon.scaleD1;
 
 	zcd -= fractal->transformCommon.offsetA0;
+
+			REAL colorDist = aux->dist;
+
 	aux->dist = min(aux->dist, zcd / (aux->DE + fractal->analyticDE.offset1));
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
+
+
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+			REAL colorAdd = 0.0f;
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux->dist) aux->color += colorAdd;
+		}
+		else
+			aux->color += colorAdd;
+	}
+
 
 	return z;
 }
