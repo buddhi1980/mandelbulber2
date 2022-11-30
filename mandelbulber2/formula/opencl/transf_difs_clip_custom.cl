@@ -18,7 +18,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	REAL4 c = aux->const_c;
 
-	if (fractal->transformCommon.functionEnabledzFalse) c = z; // hmmmmmmmmmmm
+	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
 	REAL dst = 1.0f;
 
 	// transform c

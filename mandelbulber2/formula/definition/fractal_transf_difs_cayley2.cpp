@@ -19,10 +19,10 @@ cFractalTransfDIFSCayley2::cFractalTransfDIFSCayley2() : cAbstractFractal()
 	internalName = "transf_difs_cayley2";
 	internalID = fractal::transfDIFSCayley2;
 	DEType = analyticDEType;
-	DEFunctionType = withoutDEFunction;
+	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
 	defaultBailout = 100.0;
-	DEAnalyticFunction = analyticFunctionNone;
+	DEAnalyticFunction = analyticFunctionCustomDE;
 	coloringFunction = coloringFunctionDefault;
 }
 
@@ -105,9 +105,31 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 
 	zcd -= fractal->transformCommon.offsetA0;
 
-		double colorDist = aux.dist;
+	double colorDist = aux.dist;
 
 	aux.dist = min(aux.dist, zcd / (aux.DE + fractal->analyticDE.offset1));
+
+	if (fractal->transformCommon.functionEnabledTFalse)
+	{
+		CVector4 c = aux.const_c;
+		double dst = 1.0;
+
+		if (!fractal->transformCommon.functionEnabledSFalse)
+		{
+			dst = c.Length() - fractal->transformCommon.offset4; // sphere
+		}
+		else
+		{
+			dst = max(fabs(c.x) - fractal->transformCommon.scale3D444.x,
+					fabs(c.y) - fractal->transformCommon.scale3D444.y); // sqr
+		}
+
+		//dst = clamp(dst, 0.0, 100.0);
+
+		dst = max(fabs(c.z) - fractal->transformCommon.scale3D444.z, dst);
+
+		aux.dist = max(aux.dist, dst);
+	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
@@ -115,13 +137,11 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 		z = zc;
 
 	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
-
+	if (fractal->foldColor.auxColorEnabledAFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+					&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-
 		double colorAdd = 0.0;
-
-
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
@@ -135,11 +155,4 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 		else
 			aux.color += colorAdd;
 	}
-
-
-
-
-
-
-
 }

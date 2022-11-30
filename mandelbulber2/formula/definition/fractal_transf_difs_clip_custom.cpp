@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * fragmentarium code, by knighty
+ * TransfDIFSClipCustom
  */
 
 #include "all_fractal_definitions.h"
@@ -32,7 +32,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 	CVector4 c = aux.const_c;
 
-	if (fractal->transformCommon.functionEnabledzFalse) c = z; // hmmmmmmmmmmm
+	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
 	double dst = 1.0;
 
 	// transform c

@@ -17,9 +17,9 @@ REAL4 TransfDIFSChessboardIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 {
 	REAL4 zc = z;
 
-	REAL4 col = zc+fractal->transformCommon.offset000;
+	REAL4 col = zc + fractal->transformCommon.offset000;
 	REAL4 repeats = fractal->transformCommon.scale3D444;
-	repeats.x = floor(repeats.x * col.x) ;
+	repeats.x = floor(repeats.x * col.x);
 	repeats.y = floor(repeats.y * col.y);
 	repeats.z = floor(repeats.z * col.z);
 	REAL auxCol;
@@ -33,33 +33,18 @@ REAL4 TransfDIFSChessboardIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	auxCol = (auxCol * 0.5f - floor(auxCol * 0.5f)) * 2.0f;
 
-
-	zc = fabs(zc) - fractal->transformCommon.offset110; // pos = size
-
 	REAL rDE;
 	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fabs(zc) - fractal->transformCommon.offset110; // size
 		rDE = max(zc.x, max(zc.y, zc.z));
+	}
 	else
 		rDE = zc.z;
 	zc = z;
 
-
 	aux->dist = rDE;
 	aux->color = auxCol;
 
-
-
-
-
-
-
-	/*REAL4 boxSize = fractal->transformCommon.additionConstant111;
-	zc = fabs(zc) - boxSize;
-	zc.x = max(zc.x, 0.0f);
-	zc.y = max(zc.y, 0.0f);
-	zc.z = max(zc.z, 0.0f);
-	REAL zcd = length(zc);
-
-	aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0)*/;
 	return z;
 }

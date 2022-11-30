@@ -97,6 +97,30 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	aux->dist = min(aux->dist, zcd / (aux->DE + fractal->analyticDE.offset1));
 
+	if (fractal->transformCommon.functionEnabledTFalse)
+	{
+		REAL4 c = aux->const_c;
+		REAL dst = 1.0;
+
+		if (!fractal->transformCommon.functionEnabledSFalse)
+		{
+			dst = length(c) - fractal->transformCommon.offset4; // sphere
+		}
+		else
+		{
+			dst = max(fabs(c.x) - fractal->transformCommon.scale3D444.x,
+					fabs(c.y) - fractal->transformCommon.scale3D444.y); // sqr
+		}
+
+		//dst = clamp(dst, 0.0, 100.0);
+
+		dst = max(fabs(c.z) - fractal->transformCommon.scale3D444.z, dst);
+
+		aux->dist = max(aux->dist, dst);
+	}
+
+
+
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
@@ -105,7 +129,9 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledAFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+					&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 			REAL colorAdd = 0.0f;
 

@@ -28,10 +28,9 @@ void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *frac
 {
 	CVector4 zc = z;
 
-
-	CVector4 col = zc+fractal->transformCommon.offset000;
+	CVector4 col = zc + fractal->transformCommon.offset000;
 	CVector4 repeats = fractal->transformCommon.scale3D444;
-	repeats.x = floor(repeats.x * col.x) ;
+	repeats.x = floor(repeats.x * col.x);
 	repeats.y = floor(repeats.y * col.y);
 	repeats.z = floor(repeats.z * col.z);
 
@@ -46,33 +45,16 @@ void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *frac
 	}
 	auxCol = (auxCol * 0.5 - floor(auxCol * 0.5)) * 2.0;
 
-
-	zc = fabs(zc) - fractal->transformCommon.offset110; // pos = size
-
 	double rDE;
 	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		zc = fabs(zc) - fractal->transformCommon.offset110; // pos = size
 		rDE = max(zc.x, max(zc.y, zc.z));
+	}
 	else
 		rDE = zc.z;
 	zc = z;
 
-
 	aux.dist = rDE;
 	aux.color = auxCol;
-
-
-
-
-
-
-
-
-/*	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-	zc = fabs(zc) - boxSize;
-	zc.x = max(zc.x, 0.0);
-	zc.y = max(zc.y, 0.0);
-	zc.z = max(zc.z, 0.0);
-	double zcd = zc.Length();
-
-	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);*/
 }
