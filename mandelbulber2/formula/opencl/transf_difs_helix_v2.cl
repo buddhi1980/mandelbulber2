@@ -144,9 +144,9 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = min(aux->dist,  rDE);
+		aux->dist = min(aux->dist, rDE);
 	else
-		aux->dist =  rDE;
+		aux->dist = rDE;
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc

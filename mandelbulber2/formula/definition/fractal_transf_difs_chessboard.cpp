@@ -48,13 +48,21 @@ void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *frac
 	double rDE;
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
-		zc = fabs(zc) - fractal->transformCommon.offset110; // pos = size
+		zc = fabs(zc) - fractal->transformCommon.offset110; // size
 		rDE = max(zc.x, max(zc.y, zc.z));
 	}
 	else
-		rDE = zc.z;
-	zc = z;
+		rDE = zc.z; // plane
 
-	aux.dist = rDE;
+	if (fractal->transformCommon.functionEnabledZcFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZc
+			&& aux.i < fractal->transformCommon.stopIterationsZc)
+		z = zc;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.dist = min(aux.dist, rDE);
+	else
+		aux.dist = rDE;
+
 	aux.color = auxCol;
 }

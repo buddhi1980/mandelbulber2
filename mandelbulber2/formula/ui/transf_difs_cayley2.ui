@@ -772,7 +772,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_116">
        <property name="text">
-        <string>offset:</string>
+        <string>tttttt offset:</string>
        </property>
       </widget>
      </item>
@@ -1552,7 +1552,7 @@ offset:</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,0,0,1">
+       <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,1,0,1">
         <item>
          <widget class="QLabel" name="label_98">
           <property name="text">
