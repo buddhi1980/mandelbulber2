@@ -99,10 +99,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 {
 	// begin
 	float dist = 0.0f;
-	int N = calcParam->N;
-
-	if (calcParam->normalCalculationMode && calcParam->iterThreshMode) N *= 5;
-	if (mode == calcModeColouring) N *= 4;
 
 	// repeat, move and rotate
 	float3 pointTransformed = point - consts->params.common.fractalPosition;
@@ -116,14 +112,26 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	z.y = pointTransformed.y;
 	z.z = pointTransformed.z;
 
+	int maxN;
+
 #ifdef BOOLEAN_OPERATORS
 	if (forcedFormulaIndex >= 0)
+	{
 		z.w = consts->sequence.initialWAxis[forcedFormulaIndex];
+		maxN = consts->sequence.formulaMaxiter[forcedFormulaIndex];
+	}
 	else
+	{
 		z.w = consts->sequence.initialWAxis[0];
+		maxN = consts->sequence.formulaMaxiter[0];
+	}
 #else
 	z.w = consts->sequence.initialWAxis[0];
+	maxN = consts->sequence.formulaMaxiter[0];
 #endif
+
+	if (calcParam->normalCalculationMode && calcParam->iterThreshMode) maxN *= 5;
+	if (mode == calcModeColouring) maxN *= 4;
 
 	float initialWAxisColor = z.w;
 
@@ -170,7 +178,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float4 lastLastZ = 0.0f;
 
 	// loop
-	for (i = 0; i < N; i++)
+	for (i = 0; i < maxN; i++)
 	{
 #if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 		if (forcedFormulaIndex >= 0)
