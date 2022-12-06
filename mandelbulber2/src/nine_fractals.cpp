@@ -129,7 +129,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
 			initialWAxis[i] = generalPar->Get<double>("initial_waxis", i + 1);
 			formulaMaxiter[i] = generalPar->Get<double>("formula_maxiter", i + 1);
-			formulaDetailLevel[i] = generalPar->Get<double>("formula_detail_level", i + 1);
 		}
 		else
 		{
@@ -138,7 +137,6 @@ cNineFractals::cNineFractals(std::shared_ptr<const cFractalContainer> par,
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
 			initialWAxis[i] = generalPar->Get<double>("initial_waxis");
 			formulaMaxiter[i] = generalPar->Get<double>("N");
-			formulaDetailLevel[i] = generalPar->Get<double>("detail_level");
 		}
 
 		useAdditionalBailoutCond[i] = false;
@@ -492,7 +490,6 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence) const
 		sequence->constantMultiplier[i] = toClFloat4(CVector4(constantMultiplier[i], 1.0));
 		sequence->initialWAxis[i] = initialWAxis[i];
 		sequence->formulaMaxiter[i] = formulaMaxiter[i];
-		sequence->formulaDetailLevel[i] = formulaDetailLevel[i];
 		sequence->DEAnalyticFunction[i] = static_cast<enumDEAnalyticFunctionCl>(DEAnalyticFunction[i]);
 		sequence->coloringFunction[i] = static_cast<enumColoringFunctionCl>(coloringFunction[i]);
 	}

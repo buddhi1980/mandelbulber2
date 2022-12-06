@@ -164,7 +164,6 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		par->addParam("check_for_bailout", i, true, morphLinear, paramStandard);
 		par->addParam("formula_material_id", i, 1, morphLinear, paramStandard);
 		par->addParam("formula_maxiter", i, 250, 1, 9999, morphLinear, paramStandard);
-		par->addParam("formula_detail_level", i, 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 	}
 	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
 
