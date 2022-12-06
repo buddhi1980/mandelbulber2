@@ -922,11 +922,11 @@ void RenderedImage::DisplayCrosshair() const
 	if (params->Get<bool>("stereo_enabled")
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
-		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, -1, -1,
+		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, 0, 0,
 			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-		image->AntiAliasedLine(crossCenter.x * 1.5f, 0, crossCenter.x * 1.5f, sh, -1, -1,
+		image->AntiAliasedLine(crossCenter.x * 1.5f, 0, crossCenter.x * 1.5f, sh, 0, 0,
 			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
+		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, 0, 0, sRGB8(255, 255, 255),
 			sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 	}
 	else
@@ -934,20 +934,20 @@ void RenderedImage::DisplayCrosshair() const
 		switch (gridType)
 		{
 			case gridTypeCrosshair:
-				image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 
 			case gridTypeThirds:
-				image->AntiAliasedLine(sw * 0.3333f, 0, sw * 0.3333f, sh, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(sw * 0.3333f, 0, sw * 0.3333f, sh, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(sw * 0.6666f, 0, sw * 0.6666f, sh, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(sw * 0.6666f, 0, sw * 0.6666f, sh, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(0, sh * 0.3333f, sw, sh * 0.3333f, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(0, sh * 0.3333f, sw, sh * 0.3333f, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(0, sh * 0.6666f, sw, sh * 0.6666f, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(0, sh * 0.6666f, sw, sh * 0.6666f, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 
@@ -955,13 +955,13 @@ void RenderedImage::DisplayCrosshair() const
 				float goldenRatio = (1.0f + sqrtf(5.0f)) / 2.0f;
 				float ratio1 = goldenRatio - 1.0f;
 				float ratio2 = 1.0f - ratio1;
-				image->AntiAliasedLine(sw * ratio1, 0, sw * ratio1, sh, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(sw * ratio1, 0, sw * ratio1, sh, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(sw * ratio2, 0, sw * ratio2, sh, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(sw * ratio2, 0, sw * ratio2, sh, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(0, sh * ratio1, sw, sh * ratio1, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(0, sh * ratio1, sw, sh * ratio1, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
-				image->AntiAliasedLine(0, sh * ratio2, sw, sh * ratio2, -1, -1, sRGB8(255, 255, 255),
+				image->AntiAliasedLine(0, sh * ratio2, sw, sh * ratio2, 0, 0, sRGB8(255, 255, 255),
 					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 				break;
 		}

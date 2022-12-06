@@ -931,7 +931,7 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 	const sRGB8 &color, const sRGBFloat &opacity, float thickness, int layer)
 {
 	previewMutex.lock();
-	if (z1 > 0.0 || z2 > 0.0)
+	if (z1 >= 0.0 || z2 >= 0.0)
 	//			&& ((x1 >= 0.0 && x1 < previewWidth && y1 >= 0.0 && y1 < previewHeight)
 	//					|| (x2 >= 0.0 && x2 < previewWidth && y2 >= 0.0 && y2 < previewHeight)))
 	{
@@ -1011,7 +1011,7 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 						z = kz * (ix - x1) + z1;
 					}
 
-					if (z > 0.0f)
+					if (z >= 0.0f)
 					{
 						float opacity2 = clamp(halfThickness - dist, 0.0f, 1.0f);
 
