@@ -27,23 +27,33 @@ cFractalTransfDIFSChessboard::cFractalTransfDIFSChessboard() : cAbstractFractal(
 void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
-
-	CVector4 col = zc + fractal->transformCommon.offset000;
-	CVector4 repeats = fractal->transformCommon.scale3D444;
-	repeats.x = floor(repeats.x * col.x);
-	repeats.y = floor(repeats.y * col.y);
-	repeats.z = floor(repeats.z * col.z);
-
-	double auxCol;
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	if (!fractal->foldColor.auxColorEnabledFalse)
 	{
-		auxCol = repeats.x + repeats.y;
+		CVector4 col = zc + fractal->transformCommon.offset000;
+		CVector4 repeats = fractal->transformCommon.scale3D444;
+		repeats.x = floor(repeats.x * col.x);
+		repeats.y = floor(repeats.y * col.y);
+		repeats.z = floor(repeats.z * col.z);
+
+		double auxCol;
+		if (!fractal->transformCommon.functionEnabledCFalse)
+		{
+			auxCol = repeats.x + repeats.y;
+		}
+		else
+		{
+			auxCol = repeats.x + repeats.y + repeats.z;
+		}
+		auxCol = (auxCol * 0.5 - floor(auxCol * 0.5)) * 2.0;
+		if (!fractal->foldColor.auxColorEnabledAFalse)
+		{
+			aux.color = auxCol;
+		}
+		else
+		{
+			aux.color += auxCol;
+		}
 	}
-	else
-	{
-		auxCol = repeats.x + repeats.y + repeats.z;
-	}
-	auxCol = (auxCol * 0.5 - floor(auxCol * 0.5)) * 2.0;
 
 	double rDE;
 	if (!fractal->transformCommon.functionEnabledFalse)
@@ -63,6 +73,4 @@ void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *frac
 		aux.dist = min(aux.dist, rDE);
 	else
 		aux.dist = rDE;
-
-	aux.color = auxCol;
 }

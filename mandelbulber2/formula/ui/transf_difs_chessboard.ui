@@ -274,7 +274,7 @@
      <property name="title">
       <string>aux.color</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -290,6 +290,20 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+        <property name="text">
+         <string>disable aux.color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabledA_false">
+        <property name="text">
+         <string>aux.color hybrid</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0,1">
         <property name="spacing">
