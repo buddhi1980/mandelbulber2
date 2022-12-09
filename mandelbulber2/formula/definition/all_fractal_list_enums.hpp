@@ -201,6 +201,8 @@ enum enumFractalFormula
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14, change to std r calc v2.21
 	scatorPower2Real = 156,			 // added V2.15, change to std r calc v2.21
+	scatorTest = 160,
+
 	scatorPower2 = 173,					 // added V2.15, change to aux.dist DE v2.21
 	scatorPower2StdR = 174,			 // added V2.15
 
