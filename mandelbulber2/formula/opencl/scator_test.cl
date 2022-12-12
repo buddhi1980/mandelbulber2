@@ -19,19 +19,29 @@
 
 REAL4 ScatorTestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
+	// Q_UNUSED(fractal);
+	// Q_UNUSED(aux);
 
 	REAL x2 = z.x * z.x; //+ 1e-030f
-	REAL y2 = z.y * z.y;
-	REAL z2 = z.z * z.z;
+	REAL y2 = z.y * z.y * fractal->transformCommon.scaleB1;
+	REAL z2 = z.z * z.z * fractal->transformCommon.scaleC1;
 
-	REAL newx = x2 + y2 + z2 + (y2 * z2) / x2;
+	REAL newx = x2 + y2 + z2 + (y2 * z2) * fractal->transformCommon.scaleA1 / x2;
 	REAL newy = 2.0f * z.x * z.y * (1.0f + z2 / x2);
 	REAL newz = 2.0f * z.x * z.z * (1.0f + y2 / x2);
 
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+					&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += fractal->foldColor.difs0000.x;
+	}
+
+
+
 	return z;
 }

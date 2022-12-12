@@ -177,57 +177,65 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledFFalse)
 			z.z = min(aux->const_c.z + fractal->transformCommon.offsetF0, -z.z);
 	}
-
-	// menger sponge
-	REAL4 Offset = fractal->transformCommon.offset111;
-	REAL Scale = fractal->transformCommon.scale3;
-
-	z = fabs(z);
-	// rotation
-	if (aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR1)
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
-	REAL col = 0.0f;
-	if (z.x < z.y)
+	int count = fractal->transformCommon.int1; // Menger Sponge
+	int k;
+	for (k = 0; k < count; k++)
 	{
-		temp = z.y;
-		z.y = z.x;
-		z.x = temp;
-		col += fractal->foldColor.difs0000.x;
+		// menger sponge
+		REAL4 Offset = fractal->transformCommon.offset111;
+		REAL Scale = fractal->transformCommon.scale3;
+
+		z = fabs(z);
+		// rotation
+		if (aux->i >= fractal->transformCommon.startIterationsR
+				&& aux->i < fractal->transformCommon.stopIterationsR1)
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
+		REAL col = 0.0f;
+		if (z.x < z.y)
+		{
+			temp = z.y;
+			z.y = z.x;
+			z.x = temp;
+			col += fractal->foldColor.difs0000.x;
+		}
+		if (z.x < z.z)
+		{
+			temp = z.z;
+			z.z = z.x;
+			z.x = temp;
+			col += fractal->foldColor.difs0000.y;
+		}
+		if (z.y < z.z)
+		{
+			temp = z.z;
+			z.z = z.y;
+			z.y = temp;
+			col += fractal->foldColor.difs0000.z;
+		}
+		if (fractal->foldColor.auxColorEnabledFalse
+				&& aux->i >= fractal->foldColor.startIterationsA
+				&& aux->i < fractal->foldColor.stopIterationsA)
+		{
+			aux->color += col;
+		}
+
+	//	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+
+		z.z = fabs(z.z - FRAC_1_3_F * Offset.z) + FRAC_1_3_F * Offset.z;
+		z = z * Scale - Offset * (Scale - 1.0f);
+		aux->DE = aux->DE * Scale;
+
+
+
+		// Analytic DE tweak
+		if (fractal->analyticDE.enabledFalse)
+			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+
+
 	}
-	if (z.x < z.z)
-	{
-		temp = z.z;
-		z.z = z.x;
-		z.x = temp;
-		col += fractal->foldColor.difs0000.y;
-	}
-	if (z.y < z.z)
-	{
-		temp = z.z;
-		z.z = z.y;
-		z.y = temp;
-		col += fractal->foldColor.difs0000.z;
-	}
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
-			&& aux->i < fractal->foldColor.stopIterationsA)
-	{
-		aux->color += col;
-	}
 
-//	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-
-	z.z = fabs(z.z - FRAC_1_3_F * Offset.z) + FRAC_1_3_F * Offset.z;
-	z = z * Scale - Offset * (Scale - 1.0f);
-	aux->DE = aux->DE * Scale;
-
-
-
-	// Analytic DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
