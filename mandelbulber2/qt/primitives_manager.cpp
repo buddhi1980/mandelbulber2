@@ -34,6 +34,7 @@
 
 #include "primitives_manager.h"
 
+#include <QInputDialog>
 #include "src/error_message.hpp"
 #include "src/my_ui_loader.h"
 #include "ui_primitives_manager.h"
@@ -100,6 +101,9 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 	connect(ui->tabWidget_primitives, &MyTabWidgetWithCheckboxes::currentChanged, this,
 		&cPrimitivesManager::slotChangedCurrentTab);
 
+	connect(ui->tabWidget_primitives, &MyTabWidgetWithCheckboxes::contextMenuRequested, this,
+		&cPrimitivesManager::slotContextMenu);
+
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
 	connect(autoRefreshTimer, &QTimer::timeout, this, &cPrimitivesManager::slotPeriodicRefresh);
@@ -141,10 +145,12 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 
 		if (init)
 		{
-			InitPrimitiveParams(objectType, primitiveFullName, params);
+			InitPrimitiveParams(primitive, params);
 		}
 
-		QString name = QString("%1 #%2").arg(primitiveType).arg(newId);
+		// QString name = QString("%1 #%2").arg(primitiveType).arg(newId);
+		QString name = params->Get<QString>(primitive.Name("name"));
+
 		ui->tabWidget_primitives->addTab(newEditor, name);
 
 		auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_primitives->tabBar());
@@ -455,4 +461,37 @@ void cPrimitivesManager::slotButtonOnlySelected()
 	}
 
 	SynchronizeInterfaceWindow(this, params, qInterface::write);
+}
+
+void cPrimitivesManager::slotContextMenu(const QPoint &screenPoint, int tabIndex)
+{
+	QMenu menu(this);
+	sPrimitiveItem currentPrimitiveItem = primitiveItemOnTab.at(tabIndex);
+
+	QAction *actionRename = menu.addAction(
+		tr("Rename %1 #%2").arg(currentPrimitiveItem.typeName).arg(currentPrimitiveItem.id));
+
+	QAction *selectedAction = menu.exec(screenPoint);
+
+	QString oldName = params->Get<QString>(currentPrimitiveItem.fullName + "_name");
+
+	if (selectedAction)
+	{
+		if (selectedAction == actionRename)
+		{
+			bool ok = false;
+			QString newName = QInputDialog::getText(this,
+				tr("Renaming %1 #%2").arg(currentPrimitiveItem.typeName).arg(currentPrimitiveItem.id),
+				tr("Enter name of the primitive %1 #%2")
+					.arg(currentPrimitiveItem.typeName)
+					.arg(currentPrimitiveItem.id),
+				QLineEdit::Normal, oldName, &ok);
+
+			if (ok)
+			{
+				params->Set(currentPrimitiveItem.fullName + "_name", newName);
+				ui->tabWidget_primitives->setTabText(tabIndex, newName);
+			}
+		}
+	}
 }

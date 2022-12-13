@@ -1154,7 +1154,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.boxEnable)
 	{
-		InitPrimitiveParams(fractal::objBox, "primitive_box_1", par);
+		sPrimitiveItem item(
+			fractal::objBox, 1, "primitive_box_1", cPrimitives::PrimitiveNames(fractal::objBox));
+		InitPrimitiveParams(item, par);
 		par->Set("primitive_box_1_position", oldData->fractal.doubles.primitives.boxCentre);
 		par->Set("primitive_box_1_color", oldData->primitiveBoxColour);
 		par->Set("primitive_box_1_reflection", oldData->doubles.primitiveBoxReflect);
@@ -1164,7 +1166,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.invertedBoxEnable)
 	{
-		InitPrimitiveParams(fractal::objBox, "primitive_box_2", par);
+		sPrimitiveItem item(
+			fractal::objBox, 2, "primitive_box_2", cPrimitives::PrimitiveNames(fractal::objBox));
+		InitPrimitiveParams(item, par);
 		par->Set("primitive_box_2_position", oldData->fractal.doubles.primitives.invertedBoxCentre);
 		par->Set("primitive_box_2_color", oldData->primitiveInvertedBoxColour);
 		par->Set("primitive_box_2_reflection", oldData->doubles.primitiveInvertedBoxReflect);
@@ -1175,7 +1179,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.sphereEnable)
 	{
-		InitPrimitiveParams(fractal::objSphere, "primitive_sphere_1", par);
+		sPrimitiveItem item(
+			fractal::objSphere, 1, "primitive_sphere_1", cPrimitives::PrimitiveNames(fractal::objSphere));
+		InitPrimitiveParams(item, par);
 		par->Set("primitive_sphere_1_position", oldData->fractal.doubles.primitives.sphereCentre);
 		par->Set("primitive_sphere_1_color", oldData->primitiveSphereColour);
 		par->Set("primitive_sphere_1_reflection", oldData->doubles.primitiveSphereReflect);
@@ -1185,7 +1191,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.invertedSphereEnable)
 	{
-		InitPrimitiveParams(fractal::objSphere, "primitive_sphere_2", par);
+		sPrimitiveItem item(
+			fractal::objSphere, 2, "primitive_sphere_2", cPrimitives::PrimitiveNames(fractal::objSphere));
+		InitPrimitiveParams(item, par);
 		par->Set(
 			"primitive_sphere_2_position", oldData->fractal.doubles.primitives.invertedSphereCentre);
 		par->Set("primitive_sphere_2_color", oldData->primitiveInvertedSphereColour);
@@ -1197,7 +1205,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.planeEnable)
 	{
-		InitPrimitiveParams(fractal::objPlane, "primitive_plane_1", par);
+		sPrimitiveItem item(
+			fractal::objPlane, 1, "primitive_plane_1", cPrimitives::PrimitiveNames(fractal::objPlane));
+		InitPrimitiveParams(item, par);
 		par->Set("primitive_plane_1_position", oldData->fractal.doubles.primitives.planeCentre);
 		par->Set("primitive_plane_1_color", oldData->primitivePlaneColour);
 		par->Set("primitive_plane_1_reflection", oldData->doubles.primitivePlaneReflect);
@@ -1212,7 +1222,9 @@ void cOldSettings::ConvertToNewContainer(
 
 	if (oldData->fractal.primitives.waterEnable)
 	{
-		InitPrimitiveParams(fractal::objWater, "primitive_water_1", par);
+		sPrimitiveItem item(
+			fractal::objWater, 1, "primitive_water_1", cPrimitives::PrimitiveNames(fractal::objWater));
+		InitPrimitiveParams(item, par);
 		par->Set("primitive_water_1_position",
 			CVector3(0, 0, oldData->fractal.doubles.primitives.waterHeight));
 		par->Set("primitive_water_1_color", oldData->primitiveWaterColour);

@@ -864,8 +864,10 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
+			int primitiveIndex = split.at(2).toInt();
 			fractal::enumObjectType objectType = cPrimitives::PrimitiveNameToEnum(split.at(1));
-			InitPrimitiveParams(objectType, primitiveName, par);
+			sPrimitiveItem item(objectType, primitiveIndex, primitiveName, split.at(1));
+			InitPrimitiveParams(item, par);
 			listOfLoadedPrimitives.append(primitiveName);
 		}
 	}

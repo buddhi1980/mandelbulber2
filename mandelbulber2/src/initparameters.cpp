@@ -1237,9 +1237,10 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	WriteLog("Fractal parameters initialization finished", 3);
 }
 
-void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName,
-	std::shared_ptr<cParameterContainer> par)
+void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParameterContainer> par)
 {
+	QString primitiveName = primitive.fullName;
+
 	par->addParam(
 		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
@@ -1256,8 +1257,10 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
 	par->addParam(QString(primitiveName) + "_calculation_order", 1, morphNone, paramStandard);
+	par->addParam(QString(primitiveName) + "_name",
+		QString("%1 #%2").arg(primitive.typeName).arg(primitive.id), morphNone, paramStandard);
 
-	switch (objectType)
+	switch (primitive.type)
 	{
 		case fractal::objBox:
 			par->addParam(

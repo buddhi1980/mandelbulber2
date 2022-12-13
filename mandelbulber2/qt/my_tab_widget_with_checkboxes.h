@@ -46,6 +46,10 @@ public:
 
 private slots:
 	void slotToggledFractalEnable(int fractalIndex, bool enabled) const;
+	void slotContextMenuRequested(const QPoint &point);
+
+signals:
+	void contextMenuRequested(const QPoint &screenPoint, int tabIndex);
 };
 
 #endif /* MANDELBULBER2_QT_MY_TAB_WIDGET_WITH_CHECKBOXES_H_ */
