@@ -99,6 +99,7 @@ script:
       make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
       
       cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true # https://github.com/buddhi1980/mandelbulber2/issues/453#issuecomment-475412753
+      cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/mandelbulber.png
       
       wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
       chmod a+x linuxdeployqt-continuous-x86_64.AppImage
