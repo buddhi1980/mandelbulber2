@@ -1691,6 +1691,8 @@ void InitLightParams(int lightId, std::shared_ptr<cParameterContainer> par)
 
 	par->addParam(cLight::Name("is_defined", lightId), false, morphNone, paramStandard);
 	par->addParam(
+		cLight::Name("name", lightId), QString("Light #%1").arg(lightId), morphNone, paramStandard);
+	par->addParam(
 		cLight::Name("enabled", lightId), (lightId == 1) ? true : false, morphNone, paramStandard);
 	par->addParam(cLight::Name("cast_shadows", lightId), true, morphLinear, paramStandard);
 	par->addParam(cLight::Name("penetrating", lightId), true, morphLinear, paramStandard);

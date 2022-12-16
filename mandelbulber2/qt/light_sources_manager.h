@@ -74,6 +74,7 @@ private slots:
 	void slotPeriodicRefresh();
 	void slorChangedWireframeVisibikity(int);
 	void slotChangedCurrentTab(int);
+	void slotContextMenu(const QPoint &screenPoint, int tabIndex);
 
 signals:
 	void signalChangeLightPlacementDistance(double);

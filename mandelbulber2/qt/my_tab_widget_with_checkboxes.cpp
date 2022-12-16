@@ -39,13 +39,22 @@
 MyTabWidgetWithCheckboxes::MyTabWidgetWithCheckboxes(QWidget *parent) : QTabWidget(parent)
 {
 	MyTabBarWithCheckBox *bar = new MyTabBarWithCheckBox(this);
+	bar->setContextMenuPolicy(Qt::CustomContextMenu);
 	setTabBar(bar);
 
 	connect(bar, &MyTabBarWithCheckBox::toggledEnable, this,
 		&MyTabWidgetWithCheckboxes::slotToggledFractalEnable);
+	connect(bar, &QTabBar::customContextMenuRequested, this,
+		&MyTabWidgetWithCheckboxes::slotContextMenuRequested);
 }
 
 void MyTabWidgetWithCheckboxes::slotToggledFractalEnable(int fractalIndex, bool enabled) const
 {
 	widget(fractalIndex - 1)->setEnabled(enabled);
+}
+
+void MyTabWidgetWithCheckboxes::slotContextMenuRequested(const QPoint &point)
+{
+	int tabIndex = tabBar()->tabAt(point);
+	emit contextMenuRequested(mapToGlobal(point), tabIndex);
 }

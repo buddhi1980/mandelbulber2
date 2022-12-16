@@ -34,6 +34,8 @@
 
 #include "light_sources_manager.h"
 
+#include <QInputDialog>
+
 #include "ui_light_sources_manager.h"
 
 #include "light_editor.h"
@@ -67,6 +69,9 @@ cLightSourcesManager::cLightSourcesManager(QWidget *parent)
 
 	connect(ui->tabWidget_lightSources, &MyTabWidgetWithCheckboxes::currentChanged, this,
 		&cLightSourcesManager::slotChangedCurrentTab);
+
+	connect(ui->tabWidget_lightSources, &MyTabWidgetWithCheckboxes::contextMenuRequested, this,
+		&cLightSourcesManager::slotContextMenu);
 
 	autoRefreshTimer = new QTimer(this);
 	autoRefreshTimer->setSingleShot(true);
@@ -116,7 +121,8 @@ void cLightSourcesManager::AddLight(bool init, int indexInParameters)
 		return;
 	}
 
-	QString name = QString("# %1").arg(indexInParameters);
+	// QString name = QString("# %1").arg(indexInParameters);
+	QString name = params->Get<QString>(cLight::Name("name", indexInParameters));
 	ui->tabWidget_lightSources->addTab(newEditor, name);
 
 	auto *tabBar = qobject_cast<MyTabBarWithCheckBox *>(ui->tabWidget_lightSources->tabBar());
@@ -293,6 +299,34 @@ void cLightSourcesManager::slotChangedCurrentTab(int index)
 				int comboIndex = mouseFunctionComboWidget->findData(item);
 				mouseFunctionComboWidget->setCurrentIndex(comboIndex);
 				renderedImageWidget->setClickMode(item);
+			}
+		}
+	}
+}
+
+void cLightSourcesManager::slotContextMenu(const QPoint &screenPoint, int tabIndex)
+{
+	QMenu menu(this);
+	int currentLightIndex = lightIndexOnTab.at(tabIndex);
+
+	QAction *actionRename = menu.addAction(tr("Rename light #%1").arg(currentLightIndex));
+
+	QAction *selectedAction = menu.exec(screenPoint);
+
+	QString oldName = params->Get<QString>(cLight::Name("name", currentLightIndex));
+
+	if (selectedAction)
+	{
+		if (selectedAction == actionRename)
+		{
+			bool ok = false;
+			QString newName = QInputDialog::getText(this, tr("Renaming light #%1").arg(currentLightIndex),
+				tr("Enter name of the light #%1").arg(currentLightIndex), QLineEdit::Normal, oldName, &ok);
+
+			if (ok)
+			{
+				params->Set(cLight::Name("name", currentLightIndex), newName);
+				ui->tabWidget_lightSources->setTabText(tabIndex, newName);
 			}
 		}
 	}
