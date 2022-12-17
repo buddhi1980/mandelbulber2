@@ -189,17 +189,11 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			z.z = min(aux.const_c.z + fractal->transformCommon.offsetF0, -z.z);
 	}
 
-//	if (aux.i >= fractal->transformCommon.startIterationsM
-//			&& aux.i < fractal->transformCommon.stopIterationsM)
-//	{
 	int count = fractal->transformCommon.int1; // Menger Sponge
 	int k;
 	for (k = 0; k < count; k++)
 	{
 		// menger sponge
-		CVector4 Offset = fractal->transformCommon.offset111;
-		double Scale = fractal->transformCommon.scale3;
-
 		z = fabs(z);
 		// rotation
 		if (aux.i >= fractal->transformCommon.startIterationsR
@@ -239,17 +233,16 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		// z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 
-		z.z = fabs(z.z - FRAC_1_3 * Offset.z) + FRAC_1_3 * Offset.z;
-		z = z * Scale - Offset * (Scale - 1.0);
-		aux.DE = aux.DE * Scale;
-
+		z.z = fabs(z.z - FRAC_1_3 * fractal->transformCommon.offset111.z)
+				+ FRAC_1_3 * fractal->transformCommon.offset111.z;
+		z = z * fractal->transformCommon.scale3
+				- fractal->transformCommon.offset111 * (fractal->transformCommon.scale3 - 1.0);
+		aux.DE = aux.DE * fractal->transformCommon.scale3;
 
 		// Analytic DE tweak
 		if (fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
 	}
-	//	}
 
 
 	if (fractal->transformCommon.functionEnabledPFalse)

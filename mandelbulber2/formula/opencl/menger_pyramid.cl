@@ -182,9 +182,6 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	for (k = 0; k < count; k++)
 	{
 		// menger sponge
-		REAL4 Offset = fractal->transformCommon.offset111;
-		REAL Scale = fractal->transformCommon.scale3;
-
 		z = fabs(z);
 		// rotation
 		if (aux->i >= fractal->transformCommon.startIterationsR
@@ -222,9 +219,11 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 	//	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 
-		z.z = fabs(z.z - FRAC_1_3_F * Offset.z) + FRAC_1_3_F * Offset.z;
-		z = z * Scale - Offset * (Scale - 1.0f);
-		aux->DE = aux->DE * Scale;
+		z.z = fabs(z.z - FRAC_1_3_F * fractal->transformCommon.offset111.z)
+				+ FRAC_1_3_F * fractal->transformCommon.offset111.z;
+		z = z * fractal->transformCommon.scale3
+				- fractal->transformCommon.offset111 * (fractal->transformCommon.scale3 - 1.0f);
+		aux->DE = aux->DE * fractal->transformCommon.scale3;
 
 
 
