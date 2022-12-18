@@ -21,7 +21,7 @@ cFractalMandelnest4d::cFractalMandelnest4d() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 100.0;
+	defaultBailout = 10.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }

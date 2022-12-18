@@ -21,15 +21,15 @@ cFractalMandelnestDual::cFractalMandelnestDual() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 100.0;
+	defaultBailout = 10.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }
 
 void cFractalMandelnestDual::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double Power = fractal->transformCommon.scale5;
-
+	double Power = fractal->bulb.power;
+	aux.DE = pow(aux.r, Power - 1.0f) * aux.DE * Power + 1.0;
 	// Dual +
 	CVector4 zp = z;
 	double M0 = zp.Length();
@@ -45,7 +45,9 @@ void cFractalMandelnestDual::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double M1 = zp.Length();
 	zp = zp * M0 / M1;
 	zp += fractal->transformCommon.offsetA000;
-	zp += aux.const_c * fractal->transformCommon.constantMultiplierA111;
+
+	if (!fractal->transformCommon.functionEnabledAFalse)
+		zp += aux.const_c * fractal->transformCommon.constantMultiplierA111;
 
 	// Dual -
 	CVector4 zm = z;
@@ -62,7 +64,8 @@ void cFractalMandelnestDual::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	M1 = zm.Length();
 	zm = zm * M0 / M1;
 	zm += fractal->transformCommon.offsetA000;
-	zm += aux.const_c * fractal->transformCommon.constantMultiplierA111;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+		zm += aux.const_c * fractal->transformCommon.constantMultiplierA111;
 
 	// Dual+ OR dual-
 	M0 = zp.Length();
@@ -75,89 +78,17 @@ void cFractalMandelnestDual::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	{
 		z = zm;
 	}
-
-	aux.DE = pow(aux.r, Power - 1.0f) * aux.DE * Power + 1.0;
-
-	if (fractal->analyticDE.enabledFalse)
-	{
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		if (fractal->transformCommon.functionEnabledBFalse)
-			aux.DE = max(aux.DE, fractal->analyticDE.offset2);
-
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-					double r = z.Length();
-			aux.dist = 0.5 * log(r) * r / aux.DE;
-			aux.dist = min(aux.dist, fractal->analyticDE.offset1);
-		}
-	}
-
-
-
-
-	/*double Power = fractal->bulb.power;
-	CVector4 shift = fractal->transformCommon.offset000 * M_PI;
-	CVector4 dual = fractal->transformCommon.scale3D111;
-
-
-
-	double r = z.Length();
-	double rN = fractal->transformCommon.scale1 / r;
-	aux.DE *= fabs(rN);
+	if (fractal->transformCommon.functionEnabledAFalse)
+		z += aux.const_c * fractal->transformCommon.constantMultiplierA111;
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+		zp.x = sign(aux.const_c.x);
+		zp.y = sign(aux.const_c.y);
+		zp.z = sign(aux.const_c.z);
+		z -= fractal->transformCommon.offset000 * zp;
 	}
 
-	CVector4 temp = z * rN;
-	if (!fractal->transformCommon.functionEnabledBxFalse) temp.x = asin(temp.x);
-	else temp.x = acos(temp.x);
-	if (!fractal->transformCommon.functionEnabledByFalse) temp.y = asin(temp.y);
-	else temp.y = acos(temp.y);
-	if (!fractal->transformCommon.functionEnabledBzFalse) temp.z = asin(temp.z);
-	else temp.z = acos(temp.z);
-
-	temp = shift + Power * dual * temp;
-
-	if (!fractal->transformCommon.functionEnabledCxFalse) z.x = sin(temp.x);
-	else z.x = cos(temp.x);
-	if (!fractal->transformCommon.functionEnabledCyFalse) z.y = sin(temp.y);
-	else z.y = cos(temp.y);
-	if (!fractal->transformCommon.functionEnabledCzFalse) z.z = sin(temp.z);
-	else z.z = cos(temp.z);
-
-	if (!fractal->transformCommon.functionEnabledAFalse)
-	{
-		rN = 1.0 / z.Length();
-		z *= rN;
-		aux.DE *= rN;
-	}
-
-	z *= pow(r, Power - fractal->transformCommon.offset1);
-
-	if (aux.i >= fractal->transformCommon.startIterationsS
-			&& aux.i < fractal->transformCommon.stopIterationsS)
-			z += fractal->transformCommon.offsetF000;
-
-	r = z.Length();
-
-	aux.DE = aux.DE * Power * r + 1.0;
 	if (fractal->analyticDE.enabledFalse)
-	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-	// aux.dist
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			aux.DE0 = 0.5 * log(r) * r / aux.DE;
-
-			if (aux.i <= fractal->transformCommon.startIterationsE)
-				aux.dist = min(aux.DE0, fractal->analyticDE.offset1);
-			else
-				aux.dist = min(aux.dist, aux.DE0); // hybrid
-		}
-	}*/
 }
