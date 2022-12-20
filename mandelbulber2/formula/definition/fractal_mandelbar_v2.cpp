@@ -6,17 +6,17 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Mandelbar or Tricorn
- * ref: https://en.wikipedia.org/wiki/Tricorn_(mathematics)
+ * Mandelbar or Tricorn version based on pow2 code from Davis Makin
+ * ref: http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalMandelbar::cFractalMandelbar() : cAbstractFractal()
+cFractalMandelbarV2::cFractalMandelbarV2() : cAbstractFractal()
 {
-	nameInComboBox = "Mandelbar";
-	internalName = "mandelbar";
-	internalID = fractal::mandelbar;
+	nameInComboBox = "Mandelbar V2";
+	internalName = "mandelbar_v2";
+	internalID = fractal::mandelbarV2;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelEnabledByDefault;
@@ -25,7 +25,7 @@ cFractalMandelbar::cFractalMandelbar() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalMandelbar::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelbarV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -33,12 +33,24 @@ void cFractalMandelbar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-		aux.DE = aux.DE * 2.0 * aux.r;
-		CVector4 dd = fractal->transformCommon.constantMultiplier122;
-		dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z;
-		dd.y = -dd.y * z.x * z.y;
-		dd.z = dd.z * z.x * z.z;
-		z = dd;
+
+	double m2 = z.x * z.x + z.y * z.y;
+	aux.DE = aux.DE * 2.0 * sqrt(m2 + z.z * z.z) + 1.0;
+	if (m2 == 0.0)
+	{
+		z.y = -z.z * z.z;
+		z.z = 0.0;
+	}
+	else
+	{
+		double temp = m2 - z.z * z.z;
+		z.z = 2.0 * sqrt(m2) * z.z;
+		m2 = temp / m2;
+		temp = 2.0 * z.x * z.y * m2;
+
+		z.y = (z.y * z.y - z.x * z.x) * m2;
+		z.x = -temp;
+	}
 
 	// offset (Julia)
 	z += fractal->transformCommon.additionConstant000;
@@ -47,5 +59,5 @@ void cFractalMandelbar::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

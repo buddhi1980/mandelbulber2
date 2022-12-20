@@ -17,7 +17,6 @@
 
 REAL4 MandelnestDualIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL Power = fractal->bulb.power;
 	aux->DE = pow(aux->r, Power - 1.0f) * aux->DE * Power + 1.0f;
 	// Dual +

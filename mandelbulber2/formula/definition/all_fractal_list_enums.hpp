@@ -296,7 +296,7 @@ enum enumFractalFormula
 	mengerSmoothChebyshev = 257,
 	mengerPyramid = 258,
 	mandelnestDual = 259,
-
+	mandelbarV2 = 260,
 
 
 	// mandelbulber dIFS
