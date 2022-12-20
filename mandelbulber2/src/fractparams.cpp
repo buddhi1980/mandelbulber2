@@ -227,6 +227,8 @@ sParamRender::sParamRender(
 		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
+		smoothDeCombineEnable[i] = container->Get<bool>("smooth_de_combine_enable", i + 1);
+		smoothDeCombineDistance[i] = container->Get<double>("smooth_de_combine_distance", i + 1);
 
 		if (objectData)
 		{

@@ -140,6 +140,7 @@ typedef struct
 	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
 	cl_int slowShading; // enable fake gradient calculation for shading
+	cl_int smoothDeCombineEnable[NUMBER_OF_FRACTALS];
 	cl_int SSAO_random_mode;
 	cl_int stereoSwapEyes;
 	cl_int texturedBackground; // enable textured background
@@ -221,6 +222,7 @@ typedef struct
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
+	cl_float smoothDeCombineDistance[NUMBER_OF_FRACTALS];
 	cl_float smoothness;
 	cl_float stereoEyeDistance;
 	cl_float stereoInfiniteCorrection;
@@ -331,6 +333,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
 	target.slowShading = source.slowShading;
+	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	{
+		target.smoothDeCombineEnable[i] = source.smoothDeCombineEnable[i];
+	}
 	target.SSAO_random_mode = source.SSAO_random_mode;
 	target.stereoSwapEyes = source.stereoSwapEyes;
 	target.texturedBackground = source.texturedBackground;
@@ -413,6 +419,10 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.relMaxMarchingStep = source.relMaxMarchingStep;
 	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.smoothDeCombineDistance[i] = source.smoothDeCombineDistance[i];
+	}
 	target.smoothness = source.smoothness;
 	target.stereoEyeDistance = source.stereoEyeDistance;
 	target.stereoInfiniteCorrection = source.stereoInfiniteCorrection;

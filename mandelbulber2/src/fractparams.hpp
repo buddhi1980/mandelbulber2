@@ -134,6 +134,7 @@ struct sParamRender
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;
 	bool slowShading; // enable fake gradient calculation for shading
+	bool smoothDeCombineEnable[NUMBER_OF_FRACTALS];
 	bool SSAO_random_mode;
 	bool stereoSwapEyes;
 	bool texturedBackground; // enable textured background
@@ -215,6 +216,7 @@ struct sParamRender
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates
+	double smoothDeCombineDistance[NUMBER_OF_FRACTALS];
 	double smoothness;
 	double stereoEyeDistance;
 	double stereoInfiniteCorrection;

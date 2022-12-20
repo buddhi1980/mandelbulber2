@@ -226,7 +226,8 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	QStringList gParFormulaSpecificFields({"formula", "formula_iterations", "formula_weight",
 		"formula_start_iteration", "formula_stop_iteration", "julia_mode", "julia_c",
 		"fractal_constant_factor", "formula_position", "formula_rotation", "formula_repeat",
-		"formula_scale", "dont_add_c_constant", "check_for_bailout"});
+		"formula_scale", "dont_add_c_constant", "check_for_bailout", "formula_maxiter",
+		"smooth_de_combine_enable", "smooth_de_combine_distance"});
 
 	for (int i = 0; i < gParFormulaSpecificFields.size(); i++)
 	{

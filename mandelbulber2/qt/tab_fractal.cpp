@@ -130,7 +130,8 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 
 	insertHeader << QPair<int, QString>(
 		fractal::transfHybridColor, QObject::tr("*** Hybrid coloring ***"));
-	insertHeader << QPair<int, QString>(fractal::testing, QObject::tr("*** Experimental Do Not Use***"));
+	insertHeader << QPair<int, QString>(
+		fractal::testing, QObject::tr("*** Experimental Do Not Use***"));
 
 	ui->comboBox_formula->populateItemsFromFractalList(
 		newFractalList, insertHeader, params->Get<int>("ui_colorize_random_seed"));

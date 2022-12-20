@@ -428,7 +428,15 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 						out.maxiter = outTemp.maxiter;
 						out.objectId = outTemp.objectId;
 					}
-					dist = min(distTemp, dist);
+					if (consts->params.smoothDeCombineEnable[i + 1])
+					{
+						dist = opSmoothUnion(distTemp, dist, consts->params.smoothDeCombineDistance[i + 1]);
+					}
+					else
+					{
+						dist = min(distTemp, dist);
+					}
+
 					break;
 				case booleanOperatorAND:
 					if (distTemp > dist)

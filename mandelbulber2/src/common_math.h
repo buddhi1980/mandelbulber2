@@ -79,6 +79,13 @@ inline double smoothMin(double a, double b, double k)
 	return std::min(a, b) - h * h * h * k * (1.0 / 6.0);
 }
 
+// ref https://iquilezles.org/articles/distfunctions/
+inline double opSmoothUnion(double d1, double d2, double k)
+{
+	double h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
+	return dmix(d2, d1, h) - k * h * (1.0 - h);
+}
+
 // polynomial smooth min;
 // reference: http://www.iquilezles.org/www/articles/smin/smin.htm
 inline double dsmin(double a, double b, double k = 1)

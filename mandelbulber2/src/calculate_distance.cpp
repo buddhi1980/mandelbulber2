@@ -133,8 +133,16 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 							outTemp.objectId = 1 + i;
 							*out = outTemp;
 						}
-						distance = min(distTemp, distance);
-						// distance = smoothMin(distance, distTemp, 0.2);
+
+						if (params.smoothDeCombineEnable[i + 1])
+						{
+							distance = opSmoothUnion(distTemp, distance, params.smoothDeCombineDistance[i + 1]);
+						}
+						else
+						{
+							distance = min(distTemp, distance);
+						}
+
 						break;
 					case params::booleanOperatorAND:
 						if (distTemp > distance)

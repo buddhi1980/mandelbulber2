@@ -215,6 +215,13 @@ inline float3 wrap(float3 x, float3 a, float3 s)
 	return out;
 }
 
+// ref https://iquilezles.org/articles/distfunctions/
+inline float opSmoothUnion(float d1, float d2, float k)
+{
+	float h = clamp(0.5f + 0.5f * (d2 - d1) / k, 0.0f, 1.0f);
+	return mix(d2, d1, h) - k * h * (1.0f - h);
+}
+
 //********** Random ******************************
 int RandomInt(int *randomSeed)
 {
