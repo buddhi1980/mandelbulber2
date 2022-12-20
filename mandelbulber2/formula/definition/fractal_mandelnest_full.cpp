@@ -13,11 +13,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalMandelnestDual::cFractalMandelnestDual() : cAbstractFractal()
+cFractalMandelnestFull::cFractalMandelnestFull() : cAbstractFractal()
 {
-	nameInComboBox = "Mandelnest Dual";
-	internalName = "mandelnest_dual";
-	internalID = fractal::mandelnestDual;
+	nameInComboBox = "Mandelnest Full";
+	internalName = "mandelnest_full";
+	internalID = fractal::mandelnestFull;
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -26,7 +26,7 @@ cFractalMandelnestDual::cFractalMandelnestDual() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalMandelnestDual::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalMandelnestFull::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double Power = fractal->bulb.power;
 	aux.DE = pow(aux.r, Power - 1.0f) * aux.DE * Power + 1.0;

@@ -100,17 +100,17 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		temp = sin(th);
-		z.x = temp * cos(ph);
-		z.y = temp * sin(ph);
-		z.z = cos(th);
-	}
-	else
-	{
 		temp = cos(th);
 		z.x = temp * cos(ph);
 		z.y = temp * sin(ph);
 		z.z = sin(th);
+	}
+	else
+	{
+		temp = sin(th);
+		z.x = temp * cos(ph);
+		z.y = temp * sin(ph);
+		z.z = cos(th);
 	}
 	z *= rp;
 

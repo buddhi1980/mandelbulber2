@@ -8,7 +8,7 @@
  *
  * MandelbulbPow2 v2  buffalo , Quick Dudley types and makin3D-2
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
- * and http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
+ * and https://www.facebook.com/david.makin.7
  */
 
 #include "all_fractal_definitions.h"
@@ -28,8 +28,6 @@ cFractalMandelbulbPow2V2::cFractalMandelbulbPow2V2() : cAbstractFractal()
 
 void cFractalMandelbulbPow2V2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(aux);
-
 	aux.DE = aux.DE * aux.r * 2.0;
 	CVector4 c = aux.const_c;
 	//  pre-abs

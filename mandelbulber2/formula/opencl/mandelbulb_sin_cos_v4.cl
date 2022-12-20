@@ -88,17 +88,17 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		temp = native_sin(th);
-		z.x = temp * native_cos(ph);
-		z.y = temp * native_sin(ph);
-		z.z = native_cos(th);
-	}
-	else
-	{
 		temp = native_cos(th);
 		z.x = temp * native_cos(ph);
 		z.y = temp * native_sin(ph);
 		z.z = native_sin(th);
+	}
+	else
+	{
+		temp = native_sin(th);
+		z.x = temp * native_cos(ph);
+		z.y = temp * native_sin(ph);
+		z.z = native_cos(th);
 	}
 	z *= rp;
 

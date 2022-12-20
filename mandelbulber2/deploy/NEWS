@@ -1,7 +1,9 @@
 Version history
 v2.29 (??? 2022)
 - Added new fractal formulas
+   mandelbarV2
    mandelbulbSinCosV4;
+   mandelnestFull
    mengerPyramid
    mengerSmoothChebyshev
    transfDIFSHelixV2

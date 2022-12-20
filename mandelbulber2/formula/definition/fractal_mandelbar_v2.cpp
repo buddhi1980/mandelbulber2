@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * Mandelbar or Tricorn version based on pow2 code from Davis Makin
- * ref: http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
+ * ref: https://www.facebook.com/david.makin.7
  */
 
 #include "all_fractal_definitions.h"

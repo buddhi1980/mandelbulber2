@@ -295,7 +295,7 @@ enum enumFractalFormula
 	mandelbulbSinCosV4 = 256,
 	mengerSmoothChebyshev = 257,
 	mengerPyramid = 258,
-	mandelnestDual = 259,
+	mandelnestFull = 259,
 	mandelbarV2 = 260,
 
 

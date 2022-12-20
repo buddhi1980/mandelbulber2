@@ -17,8 +17,6 @@
 
 REAL4 MandelbulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// Q_UNUSED(aux);
-
 	aux->DE = aux->DE * aux->r * 2.0f;
 	REAL4 c = aux->const_c;
 	//  pre-abs
