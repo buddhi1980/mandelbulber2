@@ -48,6 +48,8 @@ sPrimitiveBasic::sPrimitiveBasic(
 	enable = par->Get<bool>(fullName + "_enabled");
 	booleanOperator = enumPrimitiveBooleanOperator(par->Get<int>(fullName + "_boolean_operator"));
 	repeat = par->Get<CVector3>(fullName + "_repeat");
+	smoothDeCombineEnable = par->Get<bool>(fullName + "_smooth_de_combine_enable");
+	smoothDeCombineDistance = par->Get<double>(fullName + "_smooth_de_combine_distance");
 }
 std::vector<sPrimitiveBasic::sPrimitiveWireLine> sPrimitiveBasic::wireFrameShape = {};
 

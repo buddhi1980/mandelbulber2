@@ -47,8 +47,12 @@ public:
 	{
 		materialId = 0;
 		objectType = fractal::objNone;
+		smoothDeCombineEnable = false;
+		smoothDeCombineDistance = 0.0f;
 	}
 
+	bool smoothDeCombineEnable;
+	double smoothDeCombineDistance;
 	CVector3 position;
 	CVector3 size;
 	CVector3 repeat;

@@ -36,6 +36,7 @@
 
 #include <QtAlgorithms>
 
+#include "common_math.h"
 #include "displacement_map.hpp"
 #include "parameters.hpp"
 #include "write_log.hpp"
@@ -243,8 +244,14 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 						{
 							closestObject = primitive->objectId;
 						}
-						distance = min(distance, distTemp);
-						// distance = smoothMin(distance, distTemp, 0.1);
+						if (primitive->smoothDeCombineEnable)
+						{
+							distance = opSmoothUnion(distance, distTemp, primitive->smoothDeCombineDistance);
+						}
+						else
+						{
+							distance = min(distance, distTemp);
+						}
 						break;
 					}
 					case primBooleanOperatorAND:

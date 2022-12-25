@@ -1263,6 +1263,11 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 	par->addParam(QString(primitiveName) + "_name",
 		QString("%1 #%2").arg(primitive.typeName).arg(primitive.id), morphNone, paramStandard);
 
+	par->addParam(
+		QString(primitiveName) + "_smooth_de_combine_enable", false, morphLinear, paramStandard);
+	par->addParam(QString(primitiveName) + "_smooth_de_combine_distance", 0.1, 1e-15, 1e4, morphAkima,
+		paramStandard);
+
 	switch (primitive.type)
 	{
 		case fractal::objBox:
@@ -1771,6 +1776,8 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
 	par->DeleteParameter(QString(primitiveName) + "_boolean_operator");
 	par->DeleteParameter(QString(primitiveName) + "_calculation_order");
+	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_enable");
+	par->DeleteParameter(QString(primitiveName) + "_smooth_de_combine_distance");
 
 	switch (objectType)
 	{
