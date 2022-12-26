@@ -45,6 +45,8 @@ typedef struct
 {
 	cl_int enable;
 	cl_int objectId;
+	cl_int smoothDeCombineEnable;
+	cl_float smoothDeCombineDistance;
 	cl_float3 position;
 	cl_float3 size;
 	cl_float3 repeat;

@@ -321,7 +321,15 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 					{
 						closestObject = primitive->object.objectId;
 					}
-					dist = min(dist, distTemp);
+
+					if (primitive->object.smoothDeCombineEnable)
+					{
+						dist = opSmoothUnion(distTemp, dist, primitive->object.smoothDeCombineDistance);
+					}
+					else
+					{
+						dist = min(distTemp, dist);
+					}
 					break;
 				}
 				case clPrimBooleanOperatorAND:
