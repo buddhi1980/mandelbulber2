@@ -1,5 +1,5 @@
 Version history
-v2.29 (??? 2022)
+v2.29 (??? 2023)
 - Added new fractal formulas
    mandelbarV2
    mandelbulbSinCosV4;
@@ -19,6 +19,7 @@ v2.29 (??? 2022)
    mengerPolyFold, add aux.color
    mengerChebyshev, add aux.color
    transfAddSphericalInvert, update
+   transfBoxTilingV2, add create addCpixel
    transfCayley2V1, update
    transfMengerFoldV2, update
 

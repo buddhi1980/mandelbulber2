@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -45,7 +45,7 @@ void cFractalMsltoeToroidal::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	double rp = pow(aux.r, fractal->transformCommon.pwr4); // default 4.0
 
 	phi *= fractal->transformCommon.pwr8; // default 8
-	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
+	theta *= fractal->bulb.power; // default 9 gives 8 symmetry
 
 	// convert back to cartesian coordinates
 	double r1RpCosPhi = r1 + rp * cos(phi);
@@ -71,7 +71,7 @@ void cFractalMsltoeToroidal::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
 	// then add Cpixel constant vector
 }

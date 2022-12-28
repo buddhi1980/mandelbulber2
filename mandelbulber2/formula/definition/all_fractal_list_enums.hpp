@@ -297,6 +297,7 @@ enum enumFractalFormula
 	mengerPyramid = 258,
 	mandelnestFull = 259,
 	mandelbarV2 = 260,
+	msltoeToroidalV2 =261,
 
 
 	// mandelbulber dIFS

@@ -72,6 +72,9 @@ void cFractalTransfBoxTilingV2::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux.const_c = z * fractal->transformCommon.constantMultiplier111;
+
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
