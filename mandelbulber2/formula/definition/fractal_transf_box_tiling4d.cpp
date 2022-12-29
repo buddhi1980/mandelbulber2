@@ -27,7 +27,6 @@ cFractalTransfBoxTiling4d::cFractalTransfBoxTiling4d() : cAbstractFractal()
 void cFractalTransfBoxTiling4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 size = fractal->transformCommon.offset2222;
-	CVector4 oldZ = z;
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
@@ -75,14 +74,6 @@ void cFractalTransfBoxTiling4d::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledBxFalse)
-	{
-		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
-		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
-		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
-	}
-
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
@@ -92,4 +83,7 @@ void cFractalTransfBoxTiling4d::FormulaCode(CVector4 &z, const sFractal *fractal
 			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux.const_c = z;
 }

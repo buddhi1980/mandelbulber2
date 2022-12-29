@@ -19,7 +19,9 @@ v2.29 (??? 2023)
    mengerPolyFold, add aux.color
    mengerChebyshev, add aux.color
    transfAddSphericalInvert, update
-   transfBoxTilingV2, add create addCpixel
+   transfBoxTiling4d, add boxtiling addCpixel, remove diminish test
+   transfBoxTilingV2, add boxtiling addCpixel
+   transfBoxWrap4d, add boxwrap addCpixel, remove diminish test
    transfCayley2V1, update
    transfMengerFoldV2, update
 

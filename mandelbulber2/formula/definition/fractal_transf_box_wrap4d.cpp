@@ -72,19 +72,14 @@ void cFractalTransfBoxWrap4d::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			wrap_mode.w = z.w - 2.0 * box_size.w * floor(z.w / 2.0 * box_size.w);
 		z.w = wrap_mode.w - box_size.w;
 	}
-	if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
-		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
-		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
-	}
+
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
 	if (fractal->transformCommon.functionEnabledAwFalse) z.w *= sign(oldZ.w);
 
 	aux.DE *= fractal->analyticDE.scale1;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux.const_c = z;
 }

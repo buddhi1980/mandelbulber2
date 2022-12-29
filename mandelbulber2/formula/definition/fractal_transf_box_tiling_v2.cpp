@@ -72,9 +72,6 @@ void cFractalTransfBoxTilingV2::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-		aux.const_c = z * fractal->transformCommon.constantMultiplier111;
-
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
@@ -84,4 +81,7 @@ void cFractalTransfBoxTilingV2::FormulaCode(CVector4 &z, const sFractal *fractal
 			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux.const_c = z;
 }

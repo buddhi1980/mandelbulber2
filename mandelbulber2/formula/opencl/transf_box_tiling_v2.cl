@@ -61,9 +61,6 @@ REAL4 TransfBoxTilingV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-		aux->const_c = z * fractal->transformCommon.constantMultiplier111;
-
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
@@ -73,5 +70,8 @@ REAL4 TransfBoxTilingV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->DE = aux->DE * length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux->const_c = z;
 	return z;
 }

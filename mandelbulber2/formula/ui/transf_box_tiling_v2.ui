@@ -37,6 +37,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_76">
+     <property name="text">
+      <string>non-standard version of box tiling</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_81">
      <property name="spacing">
       <number>2</number>
@@ -44,7 +51,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_72">
        <property name="text">
-        <string>Enable Axis</string>
+        <string>enable axis</string>
        </property>
       </widget>
      </item>
@@ -380,7 +387,7 @@
         <item row="0" column="1" colspan="2">
          <widget class="QLabel" name="label_273">
           <property name="text">
-           <string>Pos. repeats</string>
+           <string>pos. repeats</string>
           </property>
          </widget>
         </item>
@@ -401,7 +408,7 @@
         <item row="0" column="3">
          <widget class="QLabel" name="label_274">
           <property name="text">
-           <string>Neg. repeats:</string>
+           <string>neg. repeats</string>
           </property>
          </widget>
         </item>
@@ -567,137 +574,16 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
-     <property name="title">
-      <string>create addCpixel&amp; for tiling</string>
+    <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled_false">
+     <property name="text">
+      <string notr="true">create addCpixel for tiling</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_64" columnstretch="0,0,0,1">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_129">
-          <property name="text">
-           <string notr="true">c.x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_130">
-          <property name="text">
-           <string notr="true">c.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="label_133">
-          <property name="text">
-           <string notr="true">c.z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_260">
-          <property name="text">
-           <string>scale_c:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
     </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="title">
-      <string>Analytic D&amp;E enabled</string>
+      <string>analytic D&amp;E enabled</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -801,7 +687,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Analytic DE alternative method</string>
+         <string>analytic DE alternative method</string>
         </property>
        </widget>
       </item>

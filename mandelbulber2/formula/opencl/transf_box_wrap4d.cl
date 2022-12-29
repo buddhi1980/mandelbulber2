@@ -61,20 +61,16 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			wrap_mode.w = z.w - 2.0f * box_size.w * floor(z.w / 2.0f * box_size.w);
 		z.w = wrap_mode.w - box_size.w;
 	}
-	if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
-	{
-		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0f);
-		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0f);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0f);
-		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0f);
-	}
+
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
 	if (fractal->transformCommon.functionEnabledAwFalse) z.w *= sign(oldZ.w);
 
 	aux->DE *= fractal->analyticDE.scale1;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+		aux->const_c = z;
+
 	return z;
 }
