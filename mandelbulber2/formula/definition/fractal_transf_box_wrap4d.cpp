@@ -35,6 +35,8 @@ void cFractalTransfBoxWrap4d::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 	if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 
+	z -= fractal->transformCommon.offset0000;
+
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		z.x += box_size.x;

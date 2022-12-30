@@ -551,7 +551,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform2());
 	fractalList->append(new cFractalJosKleinianV4());
 	fractalList->append(new cFractalMsltoeToroidalV2());
-
+	fractalList->append(new cFractalTransfBoxTilingV3());
 	fractalList->append(new cFractalTransfDIFSClipCustom());
 	fractalList->append(new cFractalTransfDIFSCayley2());
 	fractalList->append(new cFractalTransfDIFSChessboard());
