@@ -69,8 +69,5 @@ void cFractalTransfDIFSChessboard::FormulaCode(CVector4 &z, const sFractal *frac
 			&& aux.i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = min(aux.dist, rDE);
-	else
-		aux.dist = rDE;
+	aux.dist = min(aux.dist, rDE);
 }

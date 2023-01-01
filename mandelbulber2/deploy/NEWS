@@ -6,6 +6,7 @@ v2.29 (??? 2023)
    mandelnestFull
    mengerPyramid
    mengerSmoothChebyshev
+   transfDIFSChessboard
    transfDIFSHelixV2
    transfDIFSHelixMenger
    transfDIFSTorusMenger

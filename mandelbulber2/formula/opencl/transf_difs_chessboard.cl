@@ -57,10 +57,8 @@ REAL4 TransfDIFSChessboardIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
 
-	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = min(aux->dist, rDE);
-	else
-		aux->dist = rDE;
+
+	aux->dist = min(aux->dist, rDE);
 
 	return z;
 }
