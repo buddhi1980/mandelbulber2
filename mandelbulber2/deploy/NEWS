@@ -19,6 +19,7 @@ v2.29 (??? 2023)
    mengerSponge3, add aux.color
    mengerPolyFold, add aux.color
    mengerChebyshev, add aux.color
+   transfAbsAddConstant, add boxtiling addCpixel
    transfAddSphericalInvert, update
    transfBoxTiling4d, add boxtiling addCpixel, remove diminish test
    transfBoxTilingV2, add boxtiling addCpixel

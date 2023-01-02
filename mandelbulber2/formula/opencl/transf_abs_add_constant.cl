@@ -15,8 +15,6 @@
 
 REAL4 TransfAbsAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
-
 	z += fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
@@ -26,5 +24,11 @@ REAL4 TransfAbsAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
 	z += fractal->transformCommon.offsetA000;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+		aux->const_c = z;
+
 	return z;
 }

@@ -38,4 +38,9 @@ void cFractalTransfAbsAddConstant::FormulaCode(
 	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 
 	z += fractal->transformCommon.offsetA000;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+		aux.const_c = z;
 }

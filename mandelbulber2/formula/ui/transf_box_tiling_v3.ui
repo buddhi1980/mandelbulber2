@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>909</width>
-    <height>1840</height>
+    <height>2002</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -297,36 +297,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledA_false">
-     <property name="font">
-      <font>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="title">
-      <string>&amp;mirror  abs()</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-     </layout>
-    </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,1">

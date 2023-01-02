@@ -37,7 +37,9 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double rp;
 
-	if (!fractal->transformCommon.functionEnabledAFalse)
+//	if (!fractal->transformCommon.functionEnabledAFalse)
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{	// Toroidal bulb
 		double r1 = fractal->transformCommon.minR05; // default 0.5
 		double theta = atan2(z.y, z.x);
@@ -57,7 +59,9 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.z = -rp * sin(phi);
 		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0; //
 	}
-	else
+	//else
+	if (aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		double temp;
 
