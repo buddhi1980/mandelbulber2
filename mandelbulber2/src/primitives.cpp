@@ -57,6 +57,7 @@ QString cPrimitives::PrimitiveNames(enumObjectType primitiveType)
 		case objCone: return "cone";
 		case objCylinder: return "cylinder";
 		case objTorus: return "torus";
+		case objPrism: return "prism";
 		default: return "";
 	}
 }
@@ -82,6 +83,8 @@ enumObjectType cPrimitives::PrimitiveNameToEnum(const QString &primitiveType)
 		type = objCylinder;
 	else if (primitiveType == QString("torus"))
 		type = objTorus;
+	else if (primitiveType == QString("prism"))
+		type = objPrism;
 	else
 		qCritical() << "Wrong primitive name: " << primitiveType;
 
@@ -177,6 +180,11 @@ void cPrimitives::Set(
 			case objRectangle:
 			{
 				primitive.reset(new sPrimitiveRectangle(item.fullName, par));
+				break;
+			}
+			case objPrism:
+			{
+				primitive.reset(new sPrimitivePrism(item.fullName, par));
 				break;
 			}
 			default:

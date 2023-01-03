@@ -88,7 +88,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 		point = point - params.formulaPosition[0];
 		point = params.mRotFormulaRotation[0].RotateVector(point);
-		point = point.mod(params.formulaRepeat[0]);
+		point = point.repeatMod(params.formulaRepeat[0]);
 		point *= params.formulaScale[0];
 		inTemp.point = point;
 
@@ -109,7 +109,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 				point = in.point - params.formulaPosition[i + 1];
 				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
-				point = point.mod(params.formulaRepeat[i + 1]);
+				point = point.repeatMod(params.formulaRepeat[i + 1]);
 				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 

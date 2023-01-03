@@ -58,7 +58,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 				{
 					tempPoint = tempPoint - params->formulaPosition[formulaIndex];
 					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
-					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex]);
+					tempPoint = tempPoint.repeatMod(params->formulaRepeat[formulaIndex]);
 					tempPoint *= params->formulaScale[formulaIndex];
 				}
 
@@ -142,6 +142,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 		case fractal::objCone:
 		case fractal::objTorus:
 		case fractal::objCylinder:
+		case fractal::objPrism:
 		{
 			out.R = input.material->color.R;
 			out.G = input.material->color.G;

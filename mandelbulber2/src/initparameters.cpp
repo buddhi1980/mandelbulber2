@@ -1323,6 +1323,13 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 			par->addParam(QString(primitiveName) + "_tube_radius_lpow", 1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			break;
+		case fractal::objPrism:
+			par->addParam(QString(primitiveName) + "_trangle_height", 1.0, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_prism_angle", 60.0, 0.0, 180.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			break;
 
 		default: break;
 	}
@@ -1824,6 +1831,12 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_enable");
 			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_relative_amplitude");
+			break;
+		case fractal::objPrism:
+			par->DeleteParameter(QString(primitiveName) + "_trangle_height");
+			par->DeleteParameter(QString(primitiveName) + "_prism_angle");
+			par->DeleteParameter(QString(primitiveName) + "_height");
+			par->DeleteParameter(QString(primitiveName) + "_empty");
 			break;
 
 		default: break;

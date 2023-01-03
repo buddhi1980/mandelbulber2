@@ -78,6 +78,8 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 		&cPrimitivesManager::slotButtonAddPrimitive);
 	connect(ui->pushButton_add_primitive_water, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonAddPrimitive);
+	connect(ui->pushButton_add_primitive_prism, &QPushButton::clicked, this,
+		&cPrimitivesManager::slotButtonAddPrimitive);
 
 	connect(ui->pushButton_deletePrimitive, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonDeletePrimitive);
@@ -129,9 +131,6 @@ void cPrimitivesManager::AddPrimitive(bool init, const sPrimitiveItem &primitive
 	QString primitiveType = primitive.typeName;
 	QString uiFileName = systemDirectories.sharedDir + "formula" + QDir::separator() + "ui"
 											 + QDir::separator() + "primitive_" + primitiveType + ".ui";
-	fractal::enumObjectType objectType = primitive.type;
-
-	int newId = primitive.id;
 
 	// load ui
 	MyUiLoader loader;

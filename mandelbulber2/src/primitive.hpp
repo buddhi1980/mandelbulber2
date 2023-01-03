@@ -200,4 +200,19 @@ struct sPrimitiveRectangle : sPrimitiveBasic
 	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
 };
 
+struct sPrimitivePrism : sPrimitiveBasic
+{
+	sPrimitivePrism(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
+	bool empty;
+	double triangleHeight;
+	double height;
+	double prismAngle;
+	CVector3 normals;
+	double PrimitiveDistance(CVector3 _point) const override;
+
+	static tWireframeShape wireFrameShape;
+	static void InitPrimitiveWireframeShape();
+	virtual const tWireframeShape &GetWireFrameShape() override { return wireFrameShape; }
+};
+
 #endif // MANDELBULBER2_SRC_PRIMITIVE_HPP_

@@ -64,6 +64,7 @@ void sPrimitiveBasic::InitPrimitiveWireframeShapes()
 	sPrimitiveTorus::InitPrimitiveWireframeShape();
 	sPrimitiveCircle::InitPrimitiveWireframeShape();
 	sPrimitiveRectangle::InitPrimitiveWireframeShape();
+	sPrimitivePrism::InitPrimitiveWireframeShape();
 }
 
 sPrimitivePlane::sPrimitivePlane(
@@ -371,7 +372,7 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	point = point.mod(repeat);
+	point = point.repeatMod(repeat);
 
 	if (empty)
 	{
@@ -395,7 +396,7 @@ double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	point = point.mod(repeat);
+	point = point.repeatMod(repeat);
 	double dist = point.Length() - radius;
 	return empty ? fabs(dist) : dist;
 }
@@ -415,7 +416,7 @@ double sPrimitiveCylinder::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	point = point.mod(repeat);
+	point = point.repeatMod(repeat);
 
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - radius;
@@ -438,7 +439,7 @@ double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	point = point.mod(repeat);
+	point = point.repeatMod(repeat);
 
 	point.z -= height;
 	double q = sqrt(point.x * point.x + point.y * point.y);
@@ -519,9 +520,46 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	point = point.mod(repeat);
+	point = point.repeatMod(repeat);
 
 	double d1 = CVector2<double>(point.x, point.y).LengthPow(pow(2, radiusLPow)) - radius;
 	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tubeRadiusLPow)) - tubeRadius;
+	return empty ? fabs(dist) : dist;
+}
+
+sPrimitivePrism::sPrimitivePrism(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	height = par->Get<double>(fullName + "_height");
+	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
+	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
+	size = CVector3(1.0, 1.0, 1.0); // FIXME correct size
+}
+sPrimitiveBasic::tWireframeShape sPrimitivePrism::wireFrameShape = {};
+
+void sPrimitivePrism::InitPrimitiveWireframeShape()
+{
+	wireFrameShape = {
+		{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
+		{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
+		{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
+	};
+}
+
+double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
+{
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.repeatMod(repeat);
+
+	CVector3 q = fabs(point);
+
+	double dist = max(q.z - height,
+		max(q.x * normals.y + point.y * normals.z, -point.y + triangleHeight) - triangleHeight);
+
 	return empty ? fabs(dist) : dist;
 }

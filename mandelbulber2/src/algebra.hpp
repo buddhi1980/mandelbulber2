@@ -105,7 +105,7 @@ public:
 		return CVector3((vector.x > 0.0 ? fmod(x, vector.x) : x),
 			(vector.y > 0.0 ? fmod(y, vector.y) : y), (vector.z > 0.0 ? fmod(z, vector.z) : z));
 	}
-	inline CVector3 mod(const CVector3 &vector) const
+	inline CVector3 repeatMod(const CVector3 &vector) const
 	{
 		if (vector.Length() == 0.0) return *this;
 		return (((*this - vector * 0.5) % vector) + vector) % vector - vector * 0.5;

@@ -52,7 +52,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// repeat, move and rotate
 	CVector3 pointTransformed = in.point - in.common->fractalPosition;
 	pointTransformed = in.common->mRotFractalRotation.RotateVector(pointTransformed);
-	pointTransformed = pointTransformed.mod(in.common->repeat);
+	pointTransformed = pointTransformed.repeatMod(in.common->repeat);
 
 	CVector4 z = CVector4(pointTransformed, 0.0);
 
