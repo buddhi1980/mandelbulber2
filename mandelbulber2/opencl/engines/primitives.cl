@@ -214,6 +214,24 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 }
 #endif
 
+#ifdef USE_PRIMITIVE_PRISM
+float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
+{
+	float3 point = _point - primitive->object.position;
+	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
+	point = modRepeat(point, primitive->data.prism.repeat);
+
+	float3 q = fabs(point);
+
+	float prismDistance = max(q.z - primitive->data.prism.height,
+		max(q.x * primitive->data.prism.normals.y + point.y * primitive->data.prism.normals.z,
+			-point.y + primitive->data.prism.triangleHeight)
+			- primitive->data.prism.triangleHeight);
+
+	return primitive->data.prism.empty ? fabs(prismDistance) : prismDistance;
+}
+#endif
+
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
 	int *closestObjectId)
@@ -303,6 +321,14 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 				case objTorus:
 				{
 					distTemp = PrimitiveTorus(primitive, point2);
+					break;
+				}
+#endif
+
+#ifdef USE_PRIMITIVE_PRISM
+				case objPrism:
+				{
+					distTemp = PrimitivePrism(primitive, point2);
 					break;
 				}
 #endif

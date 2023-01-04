@@ -123,6 +123,16 @@ typedef struct
 
 typedef struct
 {
+	cl_int empty;
+	cl_float triangleHeight;
+	cl_float height;
+	cl_float prismAngle;
+	cl_float3 normals;
+	cl_float3 repeat;
+} sPrimitivePrismCl;
+
+typedef struct
+{
 	cl_float3 allPrimitivesPosition;
 	cl_float3 allPrimitivesRotation;
 	matrix33 mRotAllPrimitivesRotation;
@@ -140,6 +150,7 @@ typedef union
 	sPrimitiveTorusCl torus;
 	sPrimitiveCircleCl circle;
 	sPrimitiveRectangleCl rectangle;
+	sPrimitivePrismCl prism;
 } uPrimitiveCl;
 
 // full definition of primitive

@@ -606,6 +606,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	bool usePrimitiveCone = false;
 	bool usePrimitiveWater = false;
 	bool usePrimitiveTorus = false;
+	bool usePrimitivePrism = false;
 
 	// copy primitives data aligned to 16
 	for (int i = 0; i < numberOfPrimitives; i++)
@@ -782,6 +783,25 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 					break;
 				}
 
+				case fractal::objPrism:
+				{
+					const sPrimitivePrism *prism = dynamic_cast<const sPrimitivePrism *>(primitive.get());
+					if (prism)
+					{
+						primitiveCl.data.prism.empty = prism->empty;
+						primitiveCl.data.prism.triangleHeight = prism->triangleHeight;
+						primitiveCl.data.prism.height = prism->height;
+						primitiveCl.data.prism.prismAngle = prism->prismAngle;
+						primitiveCl.data.prism.normals = toClFloat3(prism->normals);
+						primitiveCl.data.prism.repeat = toClFloat3(prism->repeat);
+
+						usePrimitivePrism = true;
+					}
+					else
+						throw QString("sPrimitivePrism");
+					break;
+				}
+
 				default:
 				{
 					qCritical() << "cOpenClDynamicData::BuildPrimitivesData - invalid object type";
@@ -811,6 +831,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	if (usePrimitiveCone) definesCollector += " -DUSE_PRIMITIVE_CONE";
 	if (usePrimitiveCylinder) definesCollector += " -DUSE_PRIMITIVE_CYLINDER";
 	if (usePrimitivePlane) definesCollector += " -DUSE_PRIMITIVE_PLANE";
+	if (usePrimitivePrism) definesCollector += " -DUSE_PRIMITIVE_PRISM";
 	if (usePrimitiveRectangle) definesCollector += " -DUSE_PRIMITIVE_RECTANGLE";
 	if (usePrimitiveSphere) definesCollector += " -DUSE_PRIMITIVE_SPHERE";
 	if (usePrimitiveTorus) definesCollector += " -DUSE_PRIMITIVE_TORUS";
