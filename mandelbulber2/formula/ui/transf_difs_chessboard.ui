@@ -30,6 +30,13 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="QLabel" name="label_110">
+     <property name="text">
+      <string>Use aux.color - color by numbers - material editor</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>

@@ -37,7 +37,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double rp;
 
-//	if (!fractal->transformCommon.functionEnabledAFalse)
+
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{	// Toroidal bulb
@@ -74,37 +74,33 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		double r = rr + z.z * z.z;
 		r = sqrt(r);
 		aux.DE *= aux.r / r;
-temp = r;
+		temp = r;
 
-		/*double rr = sqrt(z.x * z.x + z.y * z.y) - r1;
-		rr = rr * rr;
-		rr = (rr)+ z.z * z.z;
-		rr = sqrt(rr);*/
-
-
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		rr = sqrt(z.x * z.x + z.y * z.y) - r1;
+		r = rr * rr + z.z * z.z;
+		r = sqrt(r);
+		aux.DE *= aux.r / r;
+	}
 
 		double phi;
-
-
-		if (!fractal->transformCommon.functionEnabledEFalse)
+		if (!fractal->transformCommon.functionEnabledFFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBFalse) temp = rr + z.z * z.z;
-			if (fractal->transformCommon.functionEnabledCFalse) temp = sqrt(rr);
-			if (fractal->transformCommon.functionEnabledDFalse) temp = (rr);
+			if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
+			if (fractal->transformCommon.functionEnabledCFalse) temp = rr + z.z * z.z;
+			if (fractal->transformCommon.functionEnabledDFalse) temp = r;
+			if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt(rr);
 			phi = atan2(z.z , temp);
 		}
 		else
 		{
 			rr = (z.x * z.x + z.y * z.y) - r1;
-		//	rr = rr * rr;
-		//	temp = (rr)+ z.z * z.z;
-//
-			temp = sqrt(rr * rr);
-
 
 			if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
-			if (fractal->transformCommon.functionEnabledCFalse) temp = sqrt(z.x * z.x + z.y * z.y) - r1;
+			if (fractal->transformCommon.functionEnabledCFalse) temp = rr + z.z * z.z;
 			if (fractal->transformCommon.functionEnabledDFalse) temp = rr * rr;
+			if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt(z.x * z.x + z.y * z.y) - r1;
 			phi = atan2(z.z , temp);
 		}
 
@@ -164,7 +160,7 @@ temp = r;
 					* fractal->analyticDE.scale1
 					+ fractal->analyticDE.offset1;
 
-
+	z.z *= fractal->transformCommon.scaleA1;
 
 
 /*	// DEcalc
