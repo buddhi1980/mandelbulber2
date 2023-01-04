@@ -532,12 +532,14 @@ sPrimitivePrism::sPrimitivePrism(
 		: sPrimitiveBasic(fullName, par)
 {
 	empty = par->Get<bool>(fullName + "_empty");
-	height = par->Get<double>(fullName + "_height");
+	height = par->Get<double>(fullName + "_height") / 2.0;
 	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
 	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
 	repeat = par->Get<CVector3>(fullName + "_repeat");
 	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
-	size = CVector3(1.0, 1.0, 1.0); // FIXME correct size
+	size =
+		CVector3(tan(prismAngle / 2.0) * triangleHeight * 4.0 / normals.x, triangleHeight / normals.x,
+			height * 2.0); // FIXME correct size
 }
 sPrimitiveBasic::tWireframeShape sPrimitivePrism::wireFrameShape = {};
 
