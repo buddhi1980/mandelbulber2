@@ -218,6 +218,17 @@ void cPrimitivesManager::Regenerate()
 	}
 
 	if (mouseFunctionComboWidget) cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
+
+	if (renderedImageWidget)
+	{
+		int currentTabIndex = ui->tabWidget_primitives->currentIndex();
+		if (currentTabIndex >= 0)
+		{
+			sPrimitiveItem currentPrimitiveItem = primitiveItemOnTab.at(currentTabIndex);
+			renderedImageWidget->SetCurrentPrimitiveItem(currentPrimitiveItem);
+			renderedImageWidget->update();
+		}
+	}
 }
 
 void cPrimitivesManager::slotButtonAddPrimitive()
