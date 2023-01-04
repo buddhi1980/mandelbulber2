@@ -360,6 +360,43 @@ void sPrimitiveCircle::InitPrimitiveWireframeShape()
 	}
 }
 
+sPrimitivePrism::sPrimitivePrism(
+	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
+		: sPrimitiveBasic(fullName, par)
+{
+	empty = par->Get<bool>(fullName + "_empty");
+	height = par->Get<double>(fullName + "_height") / 2.0;
+	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
+	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
+	repeat = par->Get<CVector3>(fullName + "_repeat");
+	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
+	size =
+		CVector3(tan(prismAngle / 2.0) * triangleHeight * 4.0 / normals.x, triangleHeight / normals.x,
+			height * 2.0); // FIXME correct size
+}
+sPrimitiveBasic::tWireframeShape sPrimitivePrism::wireFrameShape = {};
+
+void sPrimitivePrism::InitPrimitiveWireframeShape()
+{
+	wireFrameShape = {
+		{{0.0, 1.0, -0.5}, {0.0, 1.0, 0.5}},
+		{{-0.5, 0.0, -0.5}, {-0.5, 0.0, 0.5}},
+		{{0.5, 0.0, -0.5}, {0.5, 0.0, 0.5}},
+
+		{{-0.5, 0.0, -0.5}, {0.0, 1.0, -0.5}},
+		{{0.5, 0.0, -0.5}, {0.0, 1.0, -0.5}},
+		{{-0.5, 0.0, -0.5}, {0.5, 0.0, -0.5}},
+
+		{{-0.5, 0.0, 0.5}, {0.0, 1.0, 0.5}},
+		{{0.5, 0.0, 0.5}, {0.0, 1.0, 0.5}},
+		{{-0.5, 0.0, 0.5}, {0.5, 0.0, 0.5}},
+
+		{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
+		{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
+		{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
+	};
+}
+
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
@@ -525,31 +562,6 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	double d1 = CVector2<double>(point.x, point.y).LengthPow(pow(2, radiusLPow)) - radius;
 	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tubeRadiusLPow)) - tubeRadius;
 	return empty ? fabs(dist) : dist;
-}
-
-sPrimitivePrism::sPrimitivePrism(
-	const QString &fullName, const std::shared_ptr<cParameterContainer> par)
-		: sPrimitiveBasic(fullName, par)
-{
-	empty = par->Get<bool>(fullName + "_empty");
-	height = par->Get<double>(fullName + "_height") / 2.0;
-	prismAngle = par->Get<double>(fullName + "_prism_angle") * M_PI / 180.0 / 2.0;
-	triangleHeight = par->Get<double>(fullName + "_trangle_height") * sin(prismAngle);
-	repeat = par->Get<CVector3>(fullName + "_repeat");
-	normals = CVector3(sin(prismAngle), cos(prismAngle), sin(prismAngle));
-	size =
-		CVector3(tan(prismAngle / 2.0) * triangleHeight * 4.0 / normals.x, triangleHeight / normals.x,
-			height * 2.0); // FIXME correct size
-}
-sPrimitiveBasic::tWireframeShape sPrimitivePrism::wireFrameShape = {};
-
-void sPrimitivePrism::InitPrimitiveWireframeShape()
-{
-	wireFrameShape = {
-		{{0.1, 0.0, 0.0}, {-0.1, 0.0, 0.0}},
-		{{0.0, 0.1, 0.0}, {0.0, -0.1, 0.0}},
-		{{0.0, 0.0, 0.1}, {0.0, 0.0, -0.1}},
-	};
 }
 
 double sPrimitivePrism::PrimitiveDistance(CVector3 _point) const
