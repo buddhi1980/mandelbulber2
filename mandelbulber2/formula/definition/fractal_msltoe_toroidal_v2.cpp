@@ -37,7 +37,6 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	double rp;
 
-
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{	// Toroidal bulb
@@ -57,7 +56,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		z.x = r1RpCosPhi * cos(theta);
 		z.y = r1RpCosPhi * sin(theta);
 		z.z = -rp * sin(phi);
-		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0; //
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
 	}
 	//else
 	if (aux.i >= fractal->transformCommon.startIterationsB
@@ -76,13 +75,13 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= aux.r / r;
 		temp = r;
 
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{
-		rr = sqrt(z.x * z.x + z.y * z.y) - r1;
-		r = rr * rr + z.z * z.z;
-		r = sqrt(r);
-		aux.DE *= aux.r / r;
-	}
+		if (fractal->transformCommon.functionEnabledAFalse)
+		{
+			rr = sqrt(z.x * z.x + z.y * z.y) - r1;
+			r = rr * rr + z.z * z.z;
+			r = sqrt(r);
+			aux.DE *= aux.r / r;
+		}
 
 		double phi;
 		if (!fractal->transformCommon.functionEnabledFFalse)
@@ -154,6 +153,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 		}
 		z.z = -rp * sin(phi);
+
 	}
 
 	aux.DE = aux.DE
