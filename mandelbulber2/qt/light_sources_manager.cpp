@@ -193,18 +193,21 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 	int newTabIndex = ui->tabWidget_lightSources->count() - 1;
 	int newLightIndex = lightIndexOnTab.at(newTabIndex);
 
-	for (QString parameterName : cLight::paramsList)
+	for (const QString &parameterName : cLight::paramsList)
 	{
-		QString fullParameterNameSource =
-			QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
-		QString fullParameterNameDest = QString("light%1_%2").arg(newLightIndex).arg(parameterName);
+		if (parameterName != "name")
+		{
+			QString fullParameterNameSource =
+				QString("light%1_%2").arg(currentLightIndex).arg(parameterName);
+			QString fullParameterNameDest = QString("light%1_%2").arg(newLightIndex).arg(parameterName);
 
-		cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
-		cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
+			cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
+			cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
 
-		cOneParameter destPar = params->GetAsOneParameter(fullParameterNameDest);
-		destPar.SetMultiVal(sourceVar, valueActual);
-		params->SetFromOneParameter(fullParameterNameDest, destPar);
+			cOneParameter destPar = params->GetAsOneParameter(fullParameterNameDest);
+			destPar.SetMultiVal(sourceVar, valueActual);
+			params->SetFromOneParameter(fullParameterNameDest, destPar);
+		}
 	}
 
 	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::write);

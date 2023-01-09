@@ -274,21 +274,25 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 	QList<QString> listOfCurrentPrimitiveParams =
 		cPrimitives::GetListOfPrimitiveParams(currentPrimitive, params);
 
-	for (QString parameterName : listOfCurrentPrimitiveParams)
+	for (const QString &parameterName : listOfCurrentPrimitiveParams)
 	{
 		QString fullParameterNameSource = parameterName;
 		int firstIndexOfDash = parameterName.indexOf('_');
 		int secondIndexOfDash = parameterName.indexOf('_', firstIndexOfDash + 1);
 		int thirdIndexOfDash = parameterName.indexOf('_', secondIndexOfDash + 1);
 
-		QString fullParameterNameDest = newPrimitive.Name(parameterName.mid(thirdIndexOfDash + 1));
+		QString subParameterName = parameterName.mid(thirdIndexOfDash + 1);
+		if (subParameterName != "name") // to skip coppying "name" parameter
+		{
+			QString fullParameterNameDest = newPrimitive.Name(subParameterName);
 
-		cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
-		cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
+			cOneParameter sourcePar = params->GetAsOneParameter(fullParameterNameSource);
+			cMultiVal sourceVar = sourcePar.GetMultiVal(valueActual);
 
-		cOneParameter destPar = params->GetAsOneParameter(fullParameterNameDest);
-		destPar.SetMultiVal(sourceVar, valueActual);
-		params->SetFromOneParameter(fullParameterNameDest, destPar);
+			cOneParameter destPar = params->GetAsOneParameter(fullParameterNameDest);
+			destPar.SetMultiVal(sourceVar, valueActual);
+			params->SetFromOneParameter(fullParameterNameDest, destPar);
+		}
 	}
 
 	SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::write);
