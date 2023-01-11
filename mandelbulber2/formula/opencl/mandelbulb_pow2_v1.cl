@@ -27,9 +27,43 @@ REAL4 MandelbulbPow2V1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 	}
 
-	if (fractal->transformCommon.functionEnabledAyFalse
+	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		REAL m2 = z.x * z.x + z.z * z.z;
+		aux->DE = aux->DE * 2.0f * sqrt(m2 + z.y * z.y) + 1.0f;
+
+		if (m2 == 0.0f)
+		{
+			z.x = -z.y * z.y;
+			z.y = 0.0f;
+		}
+		else
+		{
+			REAL temp = -(m2 - z.y * z.y);
+			z.y = 2.0f * sqrt(m2) * z.y;
+			//if (fractal->transformCommon.functionEnabledAFalse && z.y < 0.0f) z.x = -z.x;
+			//if (fractal->transformCommon.functionEnabledBFalse && z.x < 0.0f) z.y = -z.y;
+			m2 = temp / m2;
+			temp = 2.0f * z.x * z.z * m2;
+			z.z = (z.z * z.z - z.x * z.x) * m2;
+			if (!fractal->transformCommon.functionEnabledBFalse)
+				z.x = temp;
+			else
+				z.x = -temp;
+			if (fractal->transformCommon.functionEnabledDFalse)
+			{
+				if (fractal->transformCommon.functionEnabledCFalse) aux->pos_neg *= -1.0;
+				z.y *= aux->pos_neg;
+				aux->pos_neg *= -1.0f;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 
 		REAL m2 = z.x * z.x + z.y * z.y;
@@ -52,38 +86,15 @@ REAL4 MandelbulbPow2V1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				z.x = temp;
 			else
 				z.x = -temp;
-			if (fractal->transformCommon.functionEnabledDFalse)
+			if (fractal->transformCommon.functionEnabledFFalse)
 			{
+				if (fractal->transformCommon.functionEnabledEFalse) aux->pos_neg *= -1.0;
 				z.z *= aux->pos_neg;
 				aux->pos_neg *= -1.0f;
 			}
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledAzFalse
-			&& aux->i >= fractal->transformCommon.startIterationsC
-			&& aux->i < fractal->transformCommon.stopIterationsC)
-	{
-		REAL m2 = z.x * z.x + z.z * z.z;
-		aux->DE = aux->DE * 2.0f * sqrt(m2 + z.y * z.y) + 1.0f;
-		REAL temp = -(m2 - z.y * z.y);
-
-		z.y = 2.0f * sqrt(m2) * z.y;
-		//if (fractal->transformCommon.functionEnabledAFalse && z.y < 0.0f) z.x = -z.x;
-		//if (fractal->transformCommon.functionEnabledBFalse && z.x < 0.0f) z.y = -z.y;
-		m2 = temp / m2;
-		temp = 2.0f * z.x * z.z * m2;
-		z.z = (z.z * z.z - z.x * z.x) * m2;
-		if (!fractal->transformCommon.functionEnabledBFalse)
-			z.x = temp;
-		else
-			z.x = -temp;
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			z.y *= aux->pos_neg;
-			aux->pos_neg *= -1.0f;
-		}
-	}
 
 
 
