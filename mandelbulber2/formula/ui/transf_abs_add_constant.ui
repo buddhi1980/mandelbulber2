@@ -116,27 +116,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="text">
-        <string notr="true">abs(z.x)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-       <property name="text">
-        <string notr="true">abs(z.y)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="text">
-        <string notr="true">abs(z.z)</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_23">
        <property name="text">
@@ -144,24 +123,10 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
-     <property name="spacing">
-      <number>2</number>
-     </property>
      <item row="0" column="1">
       <widget class="QLabel" name="label_122">
        <property name="text">
         <string notr="true">z.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_134">
-       <property name="text">
-        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -172,6 +137,20 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_134">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
      <item row="1" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
@@ -260,6 +239,27 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string notr="true">abs(z.x)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="text">
+        <string notr="true">abs(z.y)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+       <property name="text">
+        <string notr="true">abs(z.z)</string>
        </property>
       </widget>
      </item>

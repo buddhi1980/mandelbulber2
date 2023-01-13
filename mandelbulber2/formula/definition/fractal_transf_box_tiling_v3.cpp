@@ -30,6 +30,10 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
+
+		z.x -= fractal->transformCommon.offset0;
+
+
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
 		{
 			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
@@ -57,6 +61,8 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 	}
 	else
 	{
+		z.x -= fractal->transformCommon.offset0;
+
 		CVector4 repeatPos = fractal->transformCommon.offsetA1111;
 		CVector4 repeatNeg = fractal->transformCommon.offsetB1111;
 
@@ -89,6 +95,11 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
+
+	if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
+	if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
+	if (fractal->transformCommon.functionEnabledBwFalse) z.w = -z.w;
 
 	if (fractal->analyticDE.enabled)
 	{

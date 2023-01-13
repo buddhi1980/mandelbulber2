@@ -44,46 +44,74 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_81">
+    <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
+     <property name="suffix">
+      <string/>
+     </property>
+     <property name="decimals">
+      <number>6</number>
+     </property>
+     <property name="minimum">
+      <double>-99.989999999999995</double>
+     </property>
+     <property name="maximum">
+      <double>99.989999999999995</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,0,0,0,0">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="3" column="2">
+     <item row="0" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
         <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="4">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
-       <property name="text">
-        <string notr="true">z.w</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
-       <property name="text">
-        <string notr="true">z.z</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
+     <item row="0" column="0">
       <widget class="QLabel" name="label_72">
        <property name="text">
         <string>enable axis</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="0" column="4">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
+       <property name="text">
+        <string notr="true">z.w</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
         <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="1" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
        <property name="enabled">
         <bool>true</bool>
@@ -93,7 +121,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
+     <item row="1" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
        <property name="enabled">
         <bool>false</bool>
@@ -103,7 +131,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
+     <item row="1" column="3">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
        <property name="enabled">
         <bool>false</bool>
@@ -113,7 +141,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="4">
+     <item row="1" column="4">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCw_false">
        <property name="enabled">
         <bool>false</bool>
@@ -123,7 +151,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_73">
        <property name="text">
         <string>mirror</string>
@@ -781,6 +809,83 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,0,0,0,0">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_135">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
+       <property name="text">
+        <string notr="true">z.w</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+       <property name="text">
+        <string notr="true">z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_133">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBw_false">
+       <property name="text">
+        <string notr="true">z.w</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+       <property name="text">
+        <string notr="true">z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled_false">

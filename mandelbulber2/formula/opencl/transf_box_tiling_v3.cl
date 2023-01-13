@@ -19,6 +19,11 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
+		z.x -= fractal->transformCommon.offset0;
+
+
+
+
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0f)
 		{
 			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
@@ -46,6 +51,8 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else
 	{
+		z.x -= fractal->transformCommon.offset0;
+
 		REAL4 repeatPos = fractal->transformCommon.offsetA1111;
 		REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
 
@@ -78,6 +85,11 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
+
+	if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
+	if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
+	if (fractal->transformCommon.functionEnabledBwFalse) z.w = -z.w;
 
 	if (fractal->analyticDE.enabled)
 	{
