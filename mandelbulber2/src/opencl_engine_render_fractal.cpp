@@ -1347,12 +1347,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			aaSampleNumberTable.append(45);
 			aaSampleNumberTable.append(81);
 			aaSampleNumberTable.append(405);
-			aaSampleNumberTable.append(429);
+			aaSampleNumberTable.append(729);
 			numberOfSamples = aaSampleNumberTable.at(constantInBuffer->params.antialiasingOclDepth);
 			if (constantInBuffer->params.antialiasingAdaptive)
 			{
 				minNumberOfSamples = 0;
-				noiseTarget = 20.0 / (constantInBuffer->params.antialiasingOclDepth + 1);
+				noiseTarget = 100.0 / numberOfSamples;
 			}
 			else
 			{
@@ -1658,7 +1658,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						if (output.monteCarloLoop == 1)
 						{
 							// totalNoiseRect = (maxBrightness - minBrightness) / 3.0;
-							totalNoiseRect = maxEdge;
+							totalNoiseRect = weight * maxEdge;
 						}
 						else
 						{
