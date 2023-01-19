@@ -429,13 +429,14 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 	point = rotationMatrix.RotateVector(point);
 	point = point.repeatMod(repeat);
 
+	double boxDist = -1e10;
+
 	if (empty)
 	{
-		double boxDist = -1e10;
 		boxDist = max(fabs(point.x) - size.x * 0.5, boxDist);
 		boxDist = max(fabs(point.y) - size.y * 0.5, boxDist);
 		boxDist = max(fabs(point.z) - size.z * 0.5, boxDist);
-		return fabs(boxDist);
+		boxDist = fabs(boxDist);
 	}
 	else
 	{
@@ -443,8 +444,16 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 		boxTemp.x = max(fabs(point.x) - size.x * 0.5, 0.0);
 		boxTemp.y = max(fabs(point.y) - size.y * 0.5, 0.0);
 		boxTemp.z = max(fabs(point.z) - size.z * 0.5, 0.0);
-		return boxTemp.Length() - rounding;
+		boxDist = boxTemp.Length() - rounding;
 	}
+
+	if (limitsEnable)
+	{
+		CVector3 distanceAxial = max(point - limitsMax, limitsMin - point);
+		double limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		boxDist = max(boxDist, limitBoxDist);
+	}
+	return boxDist;
 }
 
 double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
