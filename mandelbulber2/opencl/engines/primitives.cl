@@ -51,13 +51,13 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
 	point = modRepeat(point, primitive->data.box.repeat);
 
+	float boxDist = -1e6f;
 	if (primitive->data.box.empty)
 	{
-		float boxDist = -1e6f;
 		boxDist = max(fabs(point.x) - primitive->object.size.x * 0.5f, boxDist);
 		boxDist = max(fabs(point.y) - primitive->object.size.y * 0.5f, boxDist);
 		boxDist = max(fabs(point.z) - primitive->object.size.z * 0.5f, boxDist);
-		return fabs(boxDist);
+		boxDist = fabs(boxDist);
 	}
 	else
 	{
@@ -65,8 +65,17 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 		boxTemp.x = max(fabs(point.x) - primitive->object.size.x * 0.5f, 0.0f);
 		boxTemp.y = max(fabs(point.y) - primitive->object.size.y * 0.5f, 0.0f);
 		boxTemp.z = max(fabs(point.z) - primitive->object.size.z * 0.5f, 0.0f);
-		return length(boxTemp) - primitive->data.box.rounding;
+		boxDist = length(boxTemp) - primitive->data.box.rounding;
 	}
+
+	if (primitive->data.box.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.box.limitsMax, primitive->data.box.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		boxDist = max(boxDist, limitBoxDist);
+	}
+	return boxDist;
 }
 #endif
 
@@ -77,7 +86,16 @@ float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 	point = Matrix33MulFloat3(primitive->object.rotationMatrix, point);
 	point = modRepeat(point, primitive->data.sphere.repeat);
 	float dist = length(point) - primitive->data.sphere.radius;
-	return primitive->data.sphere.empty ? fabs(dist) : dist;
+	dist = primitive->data.sphere.empty ? fabs(dist) : dist;
+
+	if (primitive->data.sphere.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.sphere.limitsMax, primitive->data.sphere.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
 #endif
 
@@ -104,7 +122,16 @@ float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 	float dist = length(cylTemp) - primitive->data.cylinder.radius;
 	if (!primitive->data.cylinder.caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - primitive->data.cylinder.height * 0.5f, dist);
-	return primitive->data.cylinder.empty ? fabs(dist) : dist;
+	dist = primitive->data.cylinder.empty ? fabs(dist) : dist;
+
+	if (primitive->data.cylinder.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.cylinder.limitsMax, primitive->data.cylinder.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
 #endif
 
@@ -132,7 +159,16 @@ float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 	float dist = dot(primitive->data.cone.wallNormal, vect);
 	if (!primitive->data.cone.caps) dist = fabs(dist);
 	dist = max(-point.z - primitive->data.cone.height, dist);
-	return primitive->data.cone.empty ? fabs(dist) : dist;
+	dist = primitive->data.cone.empty ? fabs(dist) : dist;
+
+	if (primitive->data.cone.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.cone.limitsMax, primitive->data.cone.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
 #endif
 
@@ -192,7 +228,16 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 
 		planeDistance += (waveX + waveY) * amplitude;
 	}
-	return primitive->data.water.empty ? fabs(planeDistance) : planeDistance;
+	planeDistance = primitive->data.water.empty ? fabs(planeDistance) : planeDistance;
+
+	if (primitive->data.water.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.water.limitsMax, primitive->data.water.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		planeDistance = max(planeDistance, limitBoxDist);
+	}
+	return planeDistance;
 }
 #endif
 
@@ -210,7 +255,16 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 
 	float dist = LengthPow(pointDZ, pow(2.0f, primitive->data.torus.tubeRadiusLPow))
 							 - primitive->data.torus.tubeRadius;
-	return primitive->data.torus.empty ? fabs(dist) : dist;
+	dist = primitive->data.torus.empty ? fabs(dist) : dist;
+
+	if (primitive->data.torus.limitsEnable)
+	{
+		float3 distanceAxial =
+			max(point - primitive->data.torus.limitsMax, primitive->data.torus.limitsMin - point);
+		float limitBoxDist = max(max(distanceAxial.x, distanceAxial.y), distanceAxial.z);
+		dist = max(dist, limitBoxDist);
+	}
+	return dist;
 }
 #endif
 

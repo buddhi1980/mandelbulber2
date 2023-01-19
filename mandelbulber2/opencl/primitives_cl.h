@@ -57,20 +57,27 @@ typedef struct
 typedef struct
 {
 	cl_int empty;
+	cl_int limitsEnable;
 	cl_float rounding;
 	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveBoxCl;
 
 typedef struct
 {
 	cl_int empty;
+	cl_int limitsEnable;
 	cl_float radius;
 	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveSphereCl;
 
 typedef struct
 {
 	cl_int empty;
+	cl_int limitsEnable;
 	cl_int waveFromObjectsEnable;
 	cl_float relativeAmplitude;
 	cl_float animSpeed;
@@ -79,35 +86,46 @@ typedef struct
 	cl_float waveFromObjectsRelativeAmplitude;
 	cl_int iterations;
 	cl_int animFrame;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveWaterCl;
 
 typedef struct
 {
 	cl_int empty;
 	cl_int caps;
+	cl_int limitsEnable;
 	cl_float radius;
 	cl_float height;
 	cl_float2 wallNormal;
 	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveConeCl;
 
 typedef struct
 {
 	cl_int empty;
 	cl_int caps;
+	cl_int limitsEnable;
 	cl_float radius;
 	cl_float height;
 	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveCylinderCl;
 
 typedef struct
 {
 	cl_int empty;
+	cl_int limitsEnable;
 	cl_float radius;
 	cl_float radiusLPow;
 	cl_float tubeRadius;
 	cl_float tubeRadiusLPow;
 	cl_float3 repeat;
+	cl_float3 limitsMax;
+	cl_float3 limitsMin;
 } sPrimitiveTorusCl;
 
 typedef struct
