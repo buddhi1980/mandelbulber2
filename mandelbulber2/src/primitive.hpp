@@ -88,8 +88,11 @@ struct sPrimitiveBox : sPrimitiveBasic
 {
 	sPrimitiveBox(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
+	bool limitsEnable;
 	double rounding;
 	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -101,8 +104,11 @@ struct sPrimitiveSphere : sPrimitiveBasic
 {
 	sPrimitiveSphere(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
+	bool limitsEnable;
 	double radius;
 	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -115,6 +121,7 @@ struct sPrimitiveWater : sPrimitiveBasic
 	sPrimitiveWater(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool waveFromObjectsEnable;
+	bool limitsEnable;
 	double relativeAmplitude;
 	double animSpeed;
 	double animProgressionSpeed;
@@ -124,6 +131,8 @@ struct sPrimitiveWater : sPrimitiveBasic
 	int animFrame;
 	double PrimitiveDistance(CVector3 _point) const override;
 	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 
 	static tWireframeShape wireFrameShape;
 	static void InitPrimitiveWireframeShape();
@@ -135,10 +144,13 @@ struct sPrimitiveCone : sPrimitiveBasic
 	sPrimitiveCone(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool caps;
+	bool limitsEnable;
 	double radius;
 	double height;
 	CVector2<double> wallNormal;
 	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -151,9 +163,12 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 	sPrimitiveCylinder(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
 	bool caps;
+	bool limitsEnable;
 	double radius;
 	double height;
 	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;
@@ -165,11 +180,14 @@ struct sPrimitiveTorus : sPrimitiveBasic
 {
 	sPrimitiveTorus(const QString &fullName, const std::shared_ptr<cParameterContainer> par);
 	bool empty;
+	bool limitsEnable;
 	double radius;
 	double radiusLPow;
 	double tubeRadius;
 	double tubeRadiusLPow;
 	CVector3 repeat;
+	CVector3 limitsMax;
+	CVector3 limitsMin;
 	double PrimitiveDistance(CVector3 _point) const override;
 
 	static tWireframeShape wireFrameShape;

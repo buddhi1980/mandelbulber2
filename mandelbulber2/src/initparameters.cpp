@@ -1275,6 +1275,11 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_rounding", 1e-15, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objCircle:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
@@ -1284,12 +1289,22 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_caps", true, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objCone:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_caps", true, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objPlane:
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
@@ -1297,10 +1312,20 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 		case fractal::objRectangle:
 			par->addParam(QString(primitiveName) + "_width", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objSphere:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objWater:
 			par->addParam(QString(primitiveName) + "_relative_amplitude", 0.2, morphAkima, paramStandard);
@@ -1314,6 +1339,11 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 				QString(primitiveName) + "_wave_from_objects_enable", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_wave_from_objects_relative_amplitude", 0.5,
 				morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 
 			break;
 		case fractal::objTorus:
@@ -1322,6 +1352,11 @@ void InitPrimitiveParams(const sPrimitiveItem &primitive, std::shared_ptr<cParam
 			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_tube_radius_lpow", 1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_enable", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_limits_max", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_limits_min", CVector3(-0.7, -0.7, -0.7), morphAkima,
+				paramStandard);
 			break;
 		case fractal::objPrism:
 			par->addParam(QString(primitiveName) + "_trangle_height", 1.0, morphAkima, paramStandard);
@@ -1792,6 +1827,9 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_size");
 			par->DeleteParameter(QString(primitiveName) + "_rounding");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objCircle: par->DeleteParameter(QString(primitiveName) + "_radius"); break;
 		case fractal::objCylinder:
@@ -1799,12 +1837,18 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objCone:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objPlane: par->DeleteParameter(QString(primitiveName) + "_empty"); break;
 		case fractal::objRectangle:
@@ -1814,6 +1858,9 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 		case fractal::objSphere:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objTorus:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
@@ -1821,6 +1868,9 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_tube_radius");
 			par->DeleteParameter(QString(primitiveName) + "_tube_radius_lpow");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objWater:
 			par->DeleteParameter(QString(primitiveName) + "_relative_amplitude");
@@ -1831,6 +1881,9 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_enable");
 			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_relative_amplitude");
+			par->DeleteParameter(QString(primitiveName) + "_limits_enable");
+			par->DeleteParameter(QString(primitiveName) + "_limits_max");
+			par->DeleteParameter(QString(primitiveName) + "_limits_min");
 			break;
 		case fractal::objPrism:
 			par->DeleteParameter(QString(primitiveName) + "_trangle_height");

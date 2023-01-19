@@ -242,6 +242,16 @@ inline CVector3 fabs(CVector3 v)
 	return v;
 }
 
+inline CVector3 max(const CVector3 &v1, const CVector3 &v2)
+{
+	return CVector3(std::max(v1.x, v2.x), std::max(v1.y, v2.y), std::max(v1.z, v2.z));
+}
+
+inline CVector3 min(const CVector3 &v1, const CVector3 &v2)
+{
+	return CVector3(std::min(v1.x, v2.x), std::min(v1.y, v2.y), std::min(v1.z, v2.z));
+}
+
 /******************* Structured vector 3D ****************/
 class StructuredCVector3
 {
