@@ -85,7 +85,10 @@ public:
 		std::shared_ptr<const cFractalContainer> fractalContainer,
 		std::shared_ptr<sParamRender> paramRender, std::shared_ptr<cNineFractals> fractals,
 		std::shared_ptr<sRenderData> renderData, bool meshExportModeEnable);
-	void SetDistanceMode() { distanceMode = true; }
+	void SetDistanceMode()
+	{
+		distanceMode = true;
+	}
 	void RegisterInputOutputBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
@@ -187,6 +190,8 @@ private:
 
 	std::unique_ptr<cOpenClDynamicData> dynamicData;
 	std::unique_ptr<cOpenClTexturesData> texturesData;
+
+	std::vector<bool> pixelMask;
 
 	QStringList listOfUsedFormulas;
 	QStringList customFormulaCodes;

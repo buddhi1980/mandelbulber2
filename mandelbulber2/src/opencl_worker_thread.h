@@ -49,6 +49,7 @@
 class cOpenCLWorkerOutputQueue;
 class cOpenClScheduler;
 class cOpenClEngine;
+class cOpenClHardware;
 
 class cOpenClWorkerThread : public QObject
 {
@@ -63,6 +64,7 @@ public:
 	void setImageWidth(quint64 imageWidth) { this->imageWidth = imageWidth; }
 	void setOptimalStepX(quint64 optimalStepX) { this->optimalStepX = optimalStepX; }
 	void setOptimalStepY(quint64 optimalStepY) { this->optimalStepY = optimalStepY; }
+	void setHardware(cOpenClHardware *_hardware) { hardware = _hardware; }
 	void setClKernel(const std::shared_ptr<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
 	void setClQueue(const std::shared_ptr<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
 	void setAntiAliasingDepth(int antiAliasingDepth) { this->antiAliasingDepth = antiAliasingDepth; }
@@ -75,6 +77,7 @@ public:
 	{
 		this->outputBuffers = outputBuffers;
 	}
+	void setPixelMask(std::vector<bool> *_pixelMask) { pixelMask = _pixelMask; }
 	void setOutputQueue(const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue)
 	{
 		this->outputQueue = outputQueue;
@@ -91,7 +94,10 @@ private:
 	bool ProcessClQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
 	static bool checkErr(cl_int err, QString functionName);
 	bool AddAntiAliasingParameters(int actualDepth, int repeatIndex);
+	bool UpdatePixelMask(
+		quint64 jobX, quint64 jobY, quint64 jobWidth, quint64 jobHeight, qint64 imageWidth);
 
+	cOpenClHardware *hardware;
 	std::shared_ptr<cl::Kernel> clKernel;
 	std::shared_ptr<cl::CommandQueue> clQueue;
 
@@ -99,6 +105,11 @@ private:
 	std::shared_ptr<cOpenClScheduler> scheduler;
 	QList<sClInputOutputBuffer> outputBuffers;
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
+
+	std::vector<bool> *pixelMask;
+	std::vector<cl_int> inPixelMaskBuffer;
+	std::shared_ptr<cl::Buffer> inClPixelMaskBuffer;
+
 	bool *stopRequest;
 
 	const int outputIndex = 0;

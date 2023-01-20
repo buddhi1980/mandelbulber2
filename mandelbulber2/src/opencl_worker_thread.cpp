@@ -43,6 +43,7 @@
 #include <QVector>
 
 #include "algebra.hpp"
+#include "opencl_hardware.h"
 #include "opencl_engine.h"
 #include "opencl_scheduler.h"
 #include "opencl_worker_output_queue.h"
@@ -129,6 +130,10 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			quint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			quint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
+			if (isFullEngine && jobWidth > 0 && jobHeight > 0)
+			{
+				UpdatePixelMask(jobX, jobY, jobWidth, jobHeight, imageWidth);
+			}
 			//			qDebug() << "starting tile" << tile << gridX << gridY << jobX << jobY << jobWidth
 			//							 << jobHeight;
 
@@ -345,7 +350,7 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 
 	cl_float2 antiAliasingOffset = {{offset.x, offset.y}};
 	cl_int err = clKernel->setArg(7, antiAliasingOffset);
-	if (!checkErr(err, "kernel->setArg(6, cl_int(actualDepth))"))
+	if (!checkErr(err, "kernel->setArg(7, cl_int(actualDepth))"))
 	{
 		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("antiAliasingDepth")),
 			cErrorMessage::errorMessage, nullptr);
@@ -355,4 +360,62 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 	return true;
 }
 
+bool cOpenClWorkerThread::UpdatePixelMask(
+	quint64 jobX, quint64 jobY, quint64 jobWidth, quint64 jobHeight, qint64 imageWidth)
+{
+	cl_int err = 0;
+
+	inPixelMaskBuffer.resize(jobWidth * jobHeight);
+
+	if (pixelMask->size() > 0)
+	{
+		for (quint64 y = 0; y < jobHeight; y++)
+		{
+			for (quint64 x = 0; x < jobWidth; x++)
+			{
+				inPixelMaskBuffer[x + y * jobWidth] = pixelMask->at((x + jobX) + (y + jobY) * imageWidth);
+			}
+		}
+	}
+	else
+	{
+		for (quint64 y = 0; y < jobHeight; y++)
+		{
+			for (quint64 x = 0; x < jobWidth; x++)
+			{
+				inPixelMaskBuffer[x + y * jobWidth] = 1;
+			}
+		}
+	}
+
+	inClPixelMaskBuffer.reset(
+		new cl::Buffer(*hardware->getContext(deviceIndex), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			inPixelMaskBuffer.size() * sizeof(cl_int), inPixelMaskBuffer.data(), &err));
+
+	if (!checkErr(err, "new cl::Buffer(...) for pixel mask"))
+	{
+		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = clQueue->enqueueWriteBuffer(*inClPixelMaskBuffer.get(), CL_TRUE, 0,
+		inPixelMaskBuffer.size() * sizeof(cl_int), inPixelMaskBuffer.data());
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for pixel mask"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = clKernel->setArg(8, *inClPixelMaskBuffer.get());
+	if (!checkErr(err, "kernel->setArg(8, inClPixelMaskBuffer)"))
+	{
+		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelMaskBuffer")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
 #endif // USE_OPENCL

@@ -1156,11 +1156,13 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setImageHeight(height);
 		workers[d]->setOptimalStepX(optimalJob.stepSizeX);
 		workers[d]->setOptimalStepY(optimalJob.stepSizeY);
+		workers[d]->setHardware(hardware);
 		workers[d]->setClKernel(clKernels[d]);
 		workers[d]->setClQueue(clQueues[d]);
 		workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); // 0 because not used
 		workers[d]->setOutputBuffers(outputBuffers[d]);
 		workers[d]->setOutputQueue(outputQueue);
+		workers[d]->setPixelMask(&pixelMask);
 		workers[d]->setMaxMonteCarloSamples(numberOfSamples);
 		workers[d]->setAntiAliasingDepth(antiAliasingDepth);
 		workers[d]->setStopRequest(stopRequest);
@@ -1396,6 +1398,25 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		std::unique_ptr<cDenoiser> denoiser(new cDenoiser(
 			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
 
+		std::vector<float> pixelNoiseBuffer;
+
+		if(monteCarlo)
+		{
+			pixelNoiseBuffer.resize(width * height);
+			pixelMask.resize(width * height);
+			std::fill(pixelMask.begin(), pixelMask.end(), 1);
+			std::fill(pixelNoiseBuffer.begin(), pixelNoiseBuffer.end(), 0.0);
+		}
+		else
+		{
+			pixelNoiseBuffer.clear();
+			pixelMask.clear();
+		}
+
+		// chebykoh 1m:31s
+		// josles 47s
+		// grid 44s
+
 		bool firstBlurcalculated = false;
 		bool autoRefreshBlurResetDone = false;
 
@@ -1416,6 +1437,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// counters for MC statistics
 		qint64 pixelsRendered = 0; // number of
 		int lastMonteCarloLoop = 1;
+
+		quint64 maskedPixelsCounter = 0;
+
+		double noiseFilterFactor = 10.0 / numberOfSamples;
 
 		int tilesRenderedCounter = 0;
 		QElapsedTimer pureRenderingTime;
@@ -1449,7 +1474,20 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					float maxNoise = 0.0;
 					float maxBrightness = 0.0;
 					float minBrightness = 100.0;
+
 					float maxEdge = 0.0;
+
+					bool anitiAliasingDepthFinished = true;
+					if (useAntiAlaising)
+					{
+						if (output.monteCarloLoop == 1)
+							anitiAliasingDepthFinished = true;
+						else
+						{
+							if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
+								anitiAliasingDepthFinished = false;
+						}
+					}
 
 					// processing pixels of tile
 					for (quint64 y = 0; y < jobHeight; y++)
@@ -1470,6 +1508,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if MC then paint pixels and calculate noise statistics
 							if (monteCarlo)
 							{
+								if (!pixelMask[xx + yy * width]) continue; // skip masked pixels
 								// painting pixels with reduced opacity (averaging of MC samples)
 								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 								pixel.R = min(pixel.R, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
@@ -1579,28 +1618,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								maxBrightness = max(sumBrightness, maxBrightness);
 								minBrightness = min(sumBrightness, minBrightness);
 
-								if (useAntiAlaising && output.monteCarloLoop == 1)
-								{
-									if (x > 0 && y > 0)
-									{
-										sRGBFloat pixelX2 = image->GetPixelImage(xx - 1, yy);
-										sRGBFloat pixelY2 = image->GetPixelImage(xx, yy - 1);
-										sRGBFloat pixelXY2 = image->GetPixelImage(xx - 1, yy - 1);
-
-										maxEdge = max(maxEdge, abs(newPixel.R - pixelX2.R));
-										maxEdge = max(maxEdge, abs(newPixel.G - pixelX2.G));
-										maxEdge = max(maxEdge, abs(newPixel.B - pixelX2.B));
-
-										maxEdge = max(maxEdge, abs(newPixel.R - pixelY2.R));
-										maxEdge = max(maxEdge, abs(newPixel.G - pixelY2.G));
-										maxEdge = max(maxEdge, abs(newPixel.B - pixelY2.B));
-
-										maxEdge = max(maxEdge, abs(newPixel.R - pixelXY2.R));
-										maxEdge = max(maxEdge, abs(newPixel.G - pixelXY2.G));
-										maxEdge = max(maxEdge, abs(newPixel.B - pixelXY2.B));
-									}
-								}
-
 								if (qIsInf(sumBrightness))
 								{
 									sumBrightness = 0.0;
@@ -1617,6 +1634,30 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								monteCarloNoiseSum += noise;
 								if (noise > maxNoise) maxNoise = noise;
+
+								float previousPixelNoise = pixelNoiseBuffer[xx + yy * width];
+								float newPixelNoise;
+								if (!useAntiAlaising
+										&& output.monteCarloLoop == 2) // to not filter noise at initial calculation
+								{
+									newPixelNoise = noise;
+								}
+								else
+								{
+									newPixelNoise =
+										noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+								}
+								pixelNoiseBuffer[xx + yy * width] = newPixelNoise;
+
+								if ((useAntiAlaising && (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
+										|| output.monteCarloLoop > minNumberOfSamples)
+								{
+									if (sqrtf(newPixelNoise) < 0.5 * noiseTarget / 100.0f)
+									{
+										pixelMask[xx + yy * width] = false;
+										maskedPixelsCounter++;
+									}
+								}
 							}
 							// if not MC then just paint pixels
 							else
@@ -1634,6 +1675,54 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							}
 						} // next y
 					}		// next x
+
+					if (useAntiAlaising && output.monteCarloLoop == 1)
+					{
+						for (int y = 0; y < jobHeight; y++)
+						{
+							for (int x = 0; x < jobWidth; x++)
+							{
+								float maxR = 0.0;
+								float maxG = 0.0;
+								float maxB = 0.0;
+								float minR = 1e10;
+								float minG = 1e10;
+								float minB = 1e10;
+
+								for (int yy = std::max(y - 1, 0); yy <= min(y + 1, int(jobHeight) - 1); yy++)
+								{
+									for (int xx = std::max(x - 1, 0); xx <= min(x + 1, int(jobWidth) - 1); xx++)
+									{
+										int xxx = xx + jobX;
+										int yyy = yy + jobY;
+
+										sRGBFloat pixel = image->GetPixelImage(xxx, yyy);
+										maxR = max(pixel.R, maxR);
+										maxG = max(pixel.G, maxG);
+										maxB = max(pixel.B, maxB);
+
+										minR = min(pixel.R, minR);
+										minG = min(pixel.G, minG);
+										minB = min(pixel.B, minB);
+									}
+								}
+
+								float edge = max(max(maxR - minR, maxG - minG), maxB - minB);
+
+								int xxx = x + jobX;
+								int yyy = y + jobY;
+
+								maxEdge = max(maxEdge, edge);
+
+								pixelNoiseBuffer[xxx + yyy * width] = maxEdge;
+								if (maxEdge < noiseTarget / 100.0f)
+								{
+									pixelMask[xxx + yyy * width] = false;
+									maskedPixelsCounter++;
+								}
+							}
+						}
+					}
 
 					// denoiser
 
@@ -1672,18 +1761,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 																: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
 						// smothedNoiseLevel = totalNoiseRect;
 						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
-
-						bool anitiAliasingDepthFinished = true;
-						if (useAntiAlaising)
-						{
-							if (output.monteCarloLoop == 1)
-								anitiAliasingDepthFinished = true;
-							else
-							{
-								if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
-									anitiAliasingDepthFinished = false;
-							}
-						}
 
 						if (noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
 								&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
@@ -1782,7 +1859,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				}
 			}
 			if (!outputQueue->isEmpty()) continueWhileLoop = true;
-
 		} while (continueWhileLoop);
 
 		// finall refresh of image
