@@ -1508,8 +1508,16 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if MC then paint pixels and calculate noise statistics
 							if (monteCarlo)
 							{
-								if (!pixelMask[xx + yy * width]) continue; // skip masked pixels
+								if (!pixelMask[xx + yy * width]) // skip masked pixels
 								// painting pixels with reduced opacity (averaging of MC samples)
+								{
+									if (useDenoiser)
+									{
+										denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
+											image->GetPixelZBuffer(xx, yy), 0.0); // use zero noise for masked pixels
+									}
+									continue;
+								}
 								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 								pixel.R = min(pixel.R, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
 								pixel.G = min(pixel.G, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
@@ -1741,7 +1749,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
-					//qDebug() << output.monteCarloLoop << double(maskedPixelsCounter) / (width * height);
+					// qDebug() << output.monteCarloLoop << double(maskedPixelsCounter) / (width * height);
 
 					// denoiser
 					if (monteCarlo && useDenoiser)
