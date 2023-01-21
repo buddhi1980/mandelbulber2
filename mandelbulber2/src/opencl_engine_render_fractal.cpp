@@ -1400,7 +1400,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		std::vector<float> pixelNoiseBuffer;
 
-		if(monteCarlo)
+		if (monteCarlo)
 		{
 			pixelNoiseBuffer.resize(width * height);
 			pixelMask.resize(width * height);
@@ -1637,20 +1637,37 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								float previousPixelNoise = pixelNoiseBuffer[xx + yy * width];
 								float newPixelNoise;
-								if (!useAntiAlaising
-										&& output.monteCarloLoop == 2) // to not filter noise at initial calculation
-								{
-									newPixelNoise = noise;
-								}
-								else
+
+								if (useAntiAlaising)
 								{
 									newPixelNoise =
 										noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
 								}
+								else
+								{
+									if (output.monteCarloLoop == 2)
+									{
+										newPixelNoise = noise;
+									}
+									else if (output.monteCarloLoop < minNumberOfSamples)
+									{
+										newPixelNoise = previousPixelNoise + noise;
+									}
+									else if (output.monteCarloLoop == minNumberOfSamples)
+									{
+										newPixelNoise = (previousPixelNoise + noise)
+																		/ minNumberOfSamples; // average noise from last n runs
+									}
+									else
+									{
+										newPixelNoise =
+											noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+									}
+								}
 								pixelNoiseBuffer[xx + yy * width] = newPixelNoise;
 
 								if ((useAntiAlaising && (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
-										|| output.monteCarloLoop > minNumberOfSamples)
+										|| (!useAntiAlaising && output.monteCarloLoop > minNumberOfSamples))
 								{
 									if (sqrtf(newPixelNoise) < 0.5 * noiseTarget / 100.0f)
 									{
@@ -1678,9 +1695,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 					if (useAntiAlaising && output.monteCarloLoop == 1)
 					{
-						for (int y = 0; y < jobHeight; y++)
+						for (int y = 0; y < int(jobHeight); y++)
 						{
-							for (int x = 0; x < jobWidth; x++)
+							for (int x = 0; x < int(jobWidth); x++)
 							{
 								float maxR = 0.0;
 								float maxG = 0.0;
@@ -1715,7 +1732,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								maxEdge = max(maxEdge, edge);
 
 								pixelNoiseBuffer[xxx + yyy * width] = maxEdge;
-								if (maxEdge < noiseTarget / 100.0f)
+								if (edge < noiseTarget / 100.0f)
 								{
 									pixelMask[xxx + yyy * width] = false;
 									maskedPixelsCounter++;
@@ -1724,8 +1741,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
-					// denoiser
+					//qDebug() << output.monteCarloLoop << double(maskedPixelsCounter) / (width * height);
 
+					// denoiser
 					if (monteCarlo && useDenoiser)
 					{
 						if (output.monteCarloLoop > 2)
