@@ -91,10 +91,11 @@ public:
 	bool wasFishedWithSuccess() { return finishedWithSuccess; }
 
 private:
-	bool ProcessClQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
+	bool ProcessClQueue(
+		quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY, quint64 seqienceSize);
 	static bool checkErr(cl_int err, QString functionName);
 	bool AddAntiAliasingParameters(int actualDepth, int repeatIndex);
-	bool UpdatePixelMask(
+	quint64 UpdatePixelSequence(
 		quint64 jobX, quint64 jobY, quint64 jobWidth, quint64 jobHeight, qint64 imageWidth);
 
 	cOpenClHardware *hardware;
@@ -107,8 +108,8 @@ private:
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 
 	std::vector<bool> *pixelMask;
-	std::vector<cl_int> inPixelMaskBuffer;
-	std::shared_ptr<cl::Buffer> inClPixelMaskBuffer;
+	std::vector<cl_int> inPixelSequenceBuffer;
+	std::shared_ptr<cl::Buffer> inClPixelSequenceBuffer;
 
 	bool *stopRequest;
 

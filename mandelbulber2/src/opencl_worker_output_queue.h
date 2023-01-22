@@ -41,6 +41,8 @@
 #include <QQueue>
 
 #ifdef USE_OPENCL
+#include "include_header_wrapper.hpp"
+
 class cOpenCLWorkerOutputQueue
 {
 public:
@@ -69,6 +71,7 @@ public:
 		int monteCarloLoop;
 		int aaDepth;
 		QList<sClDataBuffer> outputBuffers;
+		std::vector<cl_int> pixelSequence;
 	};
 
 	cOpenCLWorkerOutputQueue();

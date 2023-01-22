@@ -56,6 +56,8 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 	cOpenClEngine *engine, const std::shared_ptr<cOpenClScheduler> scheduler, int _deviceIndex)
 		: QObject(), deviceIndex(_deviceIndex)
 {
+	hardware = nullptr;
+	pixelMask = nullptr;
 	this->scheduler = scheduler;
 	optimalStepX = 0;
 	optimalStepY = 0;
@@ -129,10 +131,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			quint64 pixelsLeftY = imageHeight - jobY;
 			quint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			quint64 jobHeight = min(optimalStepY, pixelsLeftY);
+			quint64 sequenceSize = 0;
 
 			if (isFullEngine && jobWidth > 0 && jobHeight > 0)
 			{
-				UpdatePixelMask(jobX, jobY, jobWidth, jobHeight, imageWidth);
+				sequenceSize = UpdatePixelSequence(jobX, jobY, jobWidth, jobHeight, imageWidth);
 			}
 			//			qDebug() << "starting tile" << tile << gridX << gridY << jobX << jobY << jobWidth
 			//							 << jobHeight;
@@ -147,7 +150,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			if (jobX < imageWidth && jobY < imageHeight)
 			{
 				openclProcessingTime.restart();
-				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
+				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY, sequenceSize);
 				if (!result)
 				{
 					emit finished();
@@ -187,6 +190,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				outputDataForQueue.monteCarloLoop = monteCarloLoop;
 				outputDataForQueue.aaDepth = actualAADepth;
 				outputDataForQueue.outputBuffers.append(dataBuffer);
+				outputDataForQueue.pixelSequence = inPixelSequenceBuffer;
 
 				outputQueue->AddToQueue(&outputDataForQueue);
 
@@ -233,15 +237,25 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 }
 
 bool cOpenClWorkerThread::ProcessClQueue(
-	quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY)
+	quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY, quint64 sequenceSize)
 {
 	size_t stepSizeX = optimalStepX;
 	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
 	size_t stepSizeY = optimalStepY;
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
-	cl_int err = clQueue->enqueueNDRangeKernel(
-		*clKernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+	cl_int err = 0;
+
+	if (sequenceSize == 0)
+	{
+		err = clQueue->enqueueNDRangeKernel(
+			*clKernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+	}
+	else
+	{
+		err = clQueue->enqueueNDRangeKernel(
+			*clKernel, cl::NDRange(jobX + jobY * imageWidth), cl::NDRange(sequenceSize), cl::NullRange);
+	}
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -360,62 +374,104 @@ bool cOpenClWorkerThread::AddAntiAliasingParameters(int actualDepth, int repeatI
 	return true;
 }
 
-bool cOpenClWorkerThread::UpdatePixelMask(
+quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	quint64 jobX, quint64 jobY, quint64 jobWidth, quint64 jobHeight, qint64 imageWidth)
 {
 	cl_int err = 0;
 
-	inPixelMaskBuffer.resize(jobWidth * jobHeight);
+	inPixelSequenceBuffer.resize(jobWidth * jobHeight);
+	quint64 sequenceSize = 0;
+
+	int workGroup = hardware->getSelectedDevicesInformation().at(deviceIndex).maxWorkGroupSize;
+	int subTileSize = sqrt(workGroup);
 
 	if (pixelMask->size() > 0)
 	{
-		for (quint64 y = 0; y < jobHeight; y++)
+		quint64 sequenceIndex = 0;
+		for (quint64 y = 0; y < jobHeight; y += subTileSize)
 		{
-			for (quint64 x = 0; x < jobWidth; x++)
+			for (quint64 x = 0; x < jobWidth; x += subTileSize)
 			{
-				inPixelMaskBuffer[x + y * jobWidth] = pixelMask->at((x + jobX) + (y + jobY) * imageWidth);
+				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+				{
+					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+					{
+						if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
+						{
+							inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
+							sequenceIndex++;
+						}
+					}
+				}
 			}
 		}
+		sequenceSize = sequenceIndex;
 	}
 	else
 	{
-		for (quint64 y = 0; y < jobHeight; y++)
+		quint64 sequenceIndex = 0;
+		for (quint64 y = 0; y < jobHeight; y += subTileSize)
 		{
-			for (quint64 x = 0; x < jobWidth; x++)
+			for (quint64 x = 0; x < jobWidth; x += subTileSize)
 			{
-				inPixelMaskBuffer[x + y * jobWidth] = 1;
+				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+				{
+					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+					{
+						inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
+						sequenceIndex++;
+					}
+				}
 			}
 		}
+		sequenceSize = sequenceIndex;
 	}
 
-	inClPixelMaskBuffer.reset(
+	inClPixelSequenceBuffer.reset(
 		new cl::Buffer(*hardware->getContext(deviceIndex), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			inPixelMaskBuffer.size() * sizeof(cl_int), inPixelMaskBuffer.data(), &err));
+			sequenceSize * sizeof(cl_int), inPixelSequenceBuffer.data(), &err));
 
 	if (!checkErr(err, "new cl::Buffer(...) for pixel mask"))
 	{
 		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
-		return false;
+		return 0;
 	}
 
-	err = clQueue->enqueueWriteBuffer(*inClPixelMaskBuffer.get(), CL_TRUE, 0,
-		inPixelMaskBuffer.size() * sizeof(cl_int), inPixelMaskBuffer.data());
+	err = clQueue->enqueueWriteBuffer(*inClPixelSequenceBuffer.get(), CL_TRUE, 0,
+		sequenceSize * sizeof(cl_int), inPixelSequenceBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for pixel mask"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL pixel mask"),
 			cErrorMessage::errorMessage, nullptr);
-		return false;
+		return 0;
 	}
 
-	err = clKernel->setArg(8, *inClPixelMaskBuffer.get());
-	if (!checkErr(err, "kernel->setArg(8, inClPixelMaskBuffer)"))
+	err = clKernel->setArg(8, cl_int(sequenceSize));
+	if (!checkErr(err, "kernel->setArg(8, sequenceSize)"))
 	{
-		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelMaskBuffer")),
+		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("sequenceSize")),
 			cErrorMessage::errorMessage, nullptr);
-		return false;
+		return 0;
 	}
 
-	return true;
+	err = clKernel->setArg(9, cl_int(jobWidth));
+	if (!checkErr(err, "kernel->setArg(8, jobWidth)"))
+	{
+		emit showErrorMessage(tr("Cannot set OpenCL argument for %1").arg(tr("jobWidth")),
+			cErrorMessage::errorMessage, nullptr);
+		return 0;
+	}
+
+	err = clKernel->setArg(10, *inClPixelSequenceBuffer.get());
+	if (!checkErr(err, "kernel->setArg(8, inClPixelSequenceBuffer)"))
+	{
+		emit showErrorMessage(
+			tr("Cannot set OpenCL argument for %1").arg(tr("inClPixelSequenceBuffer")),
+			cErrorMessage::errorMessage, nullptr);
+		return 0;
+	}
+
+	return sequenceSize;
 }
 #endif // USE_OPENCL
