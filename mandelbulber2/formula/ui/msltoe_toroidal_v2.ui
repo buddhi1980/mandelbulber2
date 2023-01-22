@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>1795</height>
+    <height>1902</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -510,6 +510,20 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+     <property name="text">
+      <string notr="true">X</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+     <property name="text">
+      <string notr="true">Y</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,1">
      <item>
       <widget class="QLabel" name="label_96">
@@ -519,7 +533,7 @@
       </widget>
      </item>
      <item>
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -605,7 +619,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_177">
        <property name="text">
-        <string>Analytic DE offset1:</string>
+        <string>Analytic DE offset0:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -651,7 +665,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

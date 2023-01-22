@@ -24,28 +24,7 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE *= length(z) / aux->r;
 	}
 	REAL rp;
-	//	if (!fractal->transformCommon.functionEnabledAFalse)
-	if (aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
-	{	// Toroidal bulb
-		REAL r1 = fractal->transformCommon.minR05; // default 0.5f
-		REAL theta = atan2(z.y, z.x);
-		REAL x1 = r1 * native_cos(theta);
-		REAL y1 = r1 * native_sin(theta);
-		aux->r = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1) + z.z * z.z; //+ 1e-030f
-		REAL phi = asin(z.z / native_sqrt(aux->r));
-		REAL rp = pow(aux->r, fractal->transformCommon.pwr4); // default 4.0f
 
-		phi *= fractal->transformCommon.pwr8; // default 8
-		theta *= fractal->bulb.power; // default 9 gives 8 symmetry
-
-		// convert back to cartesian coordinates
-		REAL r1RpCosPhi = r1 + rp * native_cos(phi);
-		z.x = r1RpCosPhi * native_cos(theta);
-		z.y = r1RpCosPhi * native_sin(theta);
-		z.z = -rp * native_sin(phi);
-		aux->DE = rp * aux->DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0; //
-	}
 	//else
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -57,10 +36,12 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		REAL theta = atan2(z.y, z.x);
 		REAL x1 = r1 * cos(theta);
 		REAL y1 = r1 * sin(theta);
-		REAL rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
-		REAL r = rr + z.z * z.z;
+		REAL rr;
+		REAL r;
+		rr = sqrt((z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1));
+		r = rr + z.z * z.z;
 		r = sqrt(r);
-		aux->DE *= aux->r / r;
+	//	aux->DE *= aux->r / r;
 		temp = r;
 
 		if (fractal->transformCommon.functionEnabledAFalse)
@@ -69,15 +50,21 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			r = rr * rr + z.z * z.z;
 			r = sqrt(r);
 			aux->DE *= aux->r / r;
+			aux->DE *= aux->r / r;
 		}
+
+		//aux.DE *= aux.r / r; // hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+
 
 		REAL phi;
 		if (!fractal->transformCommon.functionEnabledFFalse)
 		{
+			rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
+
 			if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
 			if (fractal->transformCommon.functionEnabledCFalse) temp = rr + z.z * z.z;
-			if (fractal->transformCommon.functionEnabledDFalse) temp = r;
-			if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt(rr);
+			if (fractal->transformCommon.functionEnabledDFalse) temp = rr * rr;
+			if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt((z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1));
 			phi = atan2(z.z , temp);
 		}
 		else
@@ -90,45 +77,28 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt(z.x * z.x + z.y * z.y) - r1;
 			phi = atan2(z.z , temp);
 		}
+		//phi = atan2(z.z, temp); // pppppppppppppppppppppppppppppppppppppppppppppppp
+		if (fractal->transformCommon.functionEnabledXFalse)
+			phi = atan2(z.z, sqrt(z.x * z.x + z.y * z.y) - r1);
+		if (fractal->transformCommon.functionEnabledYFalse)
+			phi = asin(z.z / r);
 
-		/*{
-			if (!fractal->transformCommon.functionEnabledCFalse)
-				phi = atan2(z.z , sqrt(temp)); // this
-			else
-				phi = atan2(z.z , r);
-		}
-		else
-		{
-			if (!fractal->transformCommon.functionEnabledCFalse) // phi = asin(z.z / r);asin(z.z / temp);sqrt(z.x * z.x + z.y * z.y) - r1
-				phi = atan2(z.z , (temp + z.z * z.z));
-			else
-				phi = atan2(z.z , (temp));
-		}*/
+		r = r + (aux->r - r) * fractal->transformCommon.offsetR0;
+		rp = pow(r, fractal->bulb.power - 1.0);
 
-		//if (!fractal->transformCommon.functionEnabledDFalse)
-		//{
-		//	rp = pow(r, fractal->bulb.power - 1.0);
-		//}
-		//else
-		//{
-		//	temp = pow(aux.r, fractal->bulb.power - 1.0);
-		//}
 
-		r = r + (aux->r - r) * fractal->transformCommon.radius1;
-			rp = pow(r, fractal->bulb.power - 1.0);
-		//rp = pow(r, fractal->bulb.power)/pow(fractal->transformCommon.radius1, fractal->bulb.power-1.0); // default 4.0f
+		aux->DE = rp * aux->DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
+
+
+		rp *= r;
 
 		phi *= fractal->bulb.power; // default 8
 		theta *= fractal->bulb.power; // default 9 gives 8 symmetry
-		aux->DE = (rp * aux->DE) * fractal->bulb.power + 1.0;
+
 		// convert back to cartesian coordinates
-
-		// rp = pow(r, fractal->bulb.power - 1.0); // pow(fractal->transformCommon.radius1, fractal->bulb.power);
-		rp *= r;
-
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
-			double r1RpCosPhi = r1 + rp * cos(phi);
+			REAL r1RpCosPhi = r1 + rp * cos(phi);
 			z.x = r1RpCosPhi * cos(theta);
 			z.y = r1RpCosPhi * sin(theta);
 		}
@@ -136,27 +106,15 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			z.x = (sign(z.x) * x1 + rp * cos(phi)) * cos(theta);
 			z.y = (sign(z.y) * y1 + rp * cos(phi)) * sin(theta);
-
-
 		}
 		z.z = -rp * sin(phi);
-	}
-	aux->DE = aux->DE
-					* fractal->analyticDE.scale1
-					+ fractal->analyticDE.offset1;
-	z.z *= fractal->transformCommon.scaleA1;
 
-	// DEcalc
-/*	if (!fractal->analyticDE.enabledFalse)
-	{
-		aux->DE = rp * aux->DE * (fractal->transformCommon.pwr4 + 1.0f) + 1.0f;
 	}
-	else
-	{
-		aux->DE = rp * aux->DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
-								* fractal->analyticDE.scale1
-							+ fractal->analyticDE.offset1;
-	}*/
+
+	aux->DE = aux->DE
+					* fractal->analyticDE.scale1;
+
+	z.z *= fractal->transformCommon.scaleA1;
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
