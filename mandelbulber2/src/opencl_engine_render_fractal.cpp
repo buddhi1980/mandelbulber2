@@ -1835,6 +1835,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					percentDone = double(pixelsRendered) / numberOfPixels / numberOfSamples;
 
 					percentDone = percentDone * (1.0 - doneMC) + doneMC;
+
+					double maskedPixelsPerc = min(1.0, double(maskedPixelsCounter) / (width * height));
+					percentDone = percentDone * (1.0 - maskedPixelsPerc) + maskedPixelsPerc;
 				}
 				emit updateProgressAndStatus(
 					tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
