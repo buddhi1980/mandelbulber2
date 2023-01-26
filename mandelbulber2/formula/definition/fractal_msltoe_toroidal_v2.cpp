@@ -35,7 +35,6 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= z.Length() / aux.r;
 	}
 
-
 	double temp;
 
 	// Toroidal bulb
@@ -43,83 +42,43 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double theta = atan2(z.y, z.x);
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
-	double rr;
-	double r2;
-	double r;
 
-	if (!fractal->transformCommon.functionEnabledAFalse)
-	{
-		r2 = sqrt(z.x * z.x + z.y * z.y) - r1;
-		rr = r2 * r2;
-	}
-	else
-	{
-		rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
-	}
-
-	r = rr + z.z * z.z;
-	r = sqrt(r);
-
-
-	aux.DE *= aux.r / r;
-	if (fractal->transformCommon.functionEnabledAyFalse) aux.DE *= aux.r / r;
-
+	double rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
+	double r = sqrt(rr + z.z * z.z);
 	temp = r;
 
-	double phi = 0.0;
-
-	/*if (!fractal->transformCommon.functionEnabledFFalse)
+	if (fractal->transformCommon.functionEnabledXFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
+		if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
+		if (fractal->transformCommon.functionEnabledCFalse) temp = sqrt(rr);
 	}
+
+	double phi = 0.0;
+	if (!fractal->transformCommon.functionEnabledYFalse)
+		phi = atan2(z.z, temp);
 	else
-	{
-		rr = (z.x * z.x + z.y * z.y) - r1;
-	}*/
+		phi = asin(z.z / temp);
 
-	if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
-	if (fractal->transformCommon.functionEnabledCFalse) temp = rr + z.z * z.z;
-	if (fractal->transformCommon.functionEnabledDFalse) temp = rr * rr;
-	if (fractal->transformCommon.functionEnabledEFalse) temp = sqrt(rr);
-	phi = atan2(z.z , temp);
+	r = aux.r + (r - aux.r) * fractal->transformCommon.offsetR0;
 
-
-	if (fractal->transformCommon.functionEnabledXFalse)
-		phi = atan2(z.z, sqrt(z.x * z.x + z.y * z.y) - r1);
-	if (fractal->transformCommon.functionEnabledYFalse)
-		phi = asin(z.z / r);
-double rp;
-	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
-	rp = pow(r, fractal->bulb.power - 1.0);
-
+	double rp = pow(r, fractal->bulb.power - 1.0)/ fractal->transformCommon.scaleB1;
 	aux.DE = rp * aux.DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
-
 	rp *= r;
 
-	phi *= fractal->transformCommon.pwr8; // default 8
-	theta *= fractal->bulb.power; // default 9 gives 8 symmetry
+	phi *= fractal->transformCommon.pwr8;
+	theta *= fractal->bulb.power;
 
 	// convert back to cartesian coordinates
-	if (!fractal->transformCommon.functionEnabledSwFalse)
-	{
-		double r1RpCosPhi = r1 + rp * cos(phi);
-		z.x = r1RpCosPhi * cos(theta);
-		z.y = r1RpCosPhi * sin(theta);
-	}
-	else
-	{
-		z.x = (sign(z.x) * x1 + rp * cos(phi)) * cos(theta);
-		z.y = (sign(z.y) * y1 + rp * cos(phi)) * sin(theta);
-	}
-	z.z = -rp * sin(phi);
-
-
+	temp = rp * cos(phi);
+	z.x = (sign(z.x) * x1 + temp) * cos(theta);
+	z.y = (sign(z.y) * y1 + temp) * sin(theta);
+	z.z = rp * sin(phi);
+	z.z *= fractal->transformCommon.scaleA1;
 
 	aux.DE = aux.DE
 					* fractal->analyticDE.scale1;
-
-	z.z *= fractal->transformCommon.scaleA1;
-
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
