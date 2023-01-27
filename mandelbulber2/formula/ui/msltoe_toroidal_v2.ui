@@ -366,7 +366,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>&amp;modes</string>
+      <string>atan2 &amp;modes</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -445,14 +445,14 @@
         <item row="0" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
           <property name="text">
-           <string notr="true">C</string>
+           <string notr="true">sqrt(rr xy)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
           <property name="text">
-           <string notr="true">B</string>
+           <string notr="true">rr xy</string>
           </property>
          </widget>
         </item>
@@ -464,14 +464,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
      <property name="text">
-      <string notr="true">temp</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-     <property name="text">
-      <string notr="true">Sw</string>
+      <string notr="true">asin</string>
      </property>
     </widget>
    </item>
@@ -480,7 +473,7 @@
      <item>
       <widget class="QLabel" name="label_96">
        <property name="text">
-        <string>mix:</string>
+        <string>r - aux.r mix:</string>
        </property>
       </widget>
      </item>
@@ -561,7 +554,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_177">
        <property name="text">
-        <string>Analytic DE offset0:</string>
+        <string>analytic DE offset0:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -571,7 +564,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_176">
        <property name="text">
-        <string>Analytic DE scale1:</string>
+        <string>analytic DE scale1:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -642,7 +635,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Spherical Offse&amp;t</string>
+      <string>spherical Offse&amp;t</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -671,7 +664,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_132">
           <property name="text">
-           <string>Offset Radius:</string>
+           <string>offset radius:</string>
           </property>
          </widget>
         </item>
@@ -700,7 +693,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_128">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>

@@ -61,7 +61,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	else
 		phi = asin(z.z / temp);
 
-	r = aux.r + (r - aux.r) * fractal->transformCommon.offsetR0;
+	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
 
 	double rp = pow(r, fractal->bulb.power - 1.0)/ fractal->transformCommon.scaleB1;
 	aux.DE = rp * aux.DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
@@ -77,8 +77,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	z.z = rp * sin(phi);
 	z.z *= fractal->transformCommon.scaleA1;
 
-	aux.DE = aux.DE
-					* fractal->analyticDE.scale1;
+	aux.DE *= fractal->analyticDE.scale1;
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{

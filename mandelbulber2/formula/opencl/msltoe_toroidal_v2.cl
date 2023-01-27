@@ -43,16 +43,16 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledCFalse) temp = sqrt(rr);
 	}
 
-	REAL phi = 0.0;
+	REAL phi = 0.0f;
 	if (!fractal->transformCommon.functionEnabledYFalse)
 		phi = atan2(z.z, temp);
 	else
 		phi = asin(z.z / temp);
 
-	r = aux->r + (r - aux->r) * fractal->transformCommon.offsetR0;
+	r = r + (aux->r - r) * fractal->transformCommon.offsetR0;
 
-	REAL rp = pow(r, fractal->bulb.power -1.0f) / fractal->transformCommon.scaleB1;
-	aux->DE = rp * aux->DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
+	REAL rp = pow(r, fractal->bulb.power - 1.0f) / fractal->transformCommon.scaleB1;
+	aux->DE = rp * aux->DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0f;
 	rp *= r;
 
 	phi *= fractal->transformCommon.pwr8; // default 8
@@ -65,8 +65,7 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	z.z = rp * sin(phi);
 
 	z.z *= fractal->transformCommon.scaleA1;
-	aux->DE = aux->DE
-					* fractal->analyticDE.scale1;
+	aux->DE *= fractal->analyticDE.scale1;
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
