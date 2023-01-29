@@ -179,7 +179,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>pre-Scale:</string>
+           <string>pre-scale:</string>
           </property>
          </widget>
         </item>
@@ -345,7 +345,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
@@ -506,6 +506,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
+     <property name="text">
+      <string notr="true">sw</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,1">

@@ -24,16 +24,15 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		aux->DE *= length(z) / aux->r;
 	}
 
-	REAL temp;
 	// Toroidal bulb
 	REAL r1 = fractal->transformCommon.minR05; // default 0.5f
 	REAL theta = atan2(z.y, z.x);
-	REAL x1 = r1 * cos(theta);
-	REAL y1 = r1 * sin(theta);
+	REAL x1 = r1 * native_cos(theta);
+	REAL y1 = r1 * native_sin(theta);
 
-	REAL rr = rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
+	REAL rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
 	REAL r = sqrt(rr + z.z * z.z);
-	temp = r;
+	REAL temp = r;
 
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
@@ -59,11 +58,19 @@ REAL4 MsltoeToroidalV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	theta *= fractal->bulb.power; // default 9 gives 8 symmetry
 
 	// convert back to cartesian coordinates
-	temp = rp * cos(phi);
-	z.x = (sign(z.x) * x1 + temp) * cos(theta);
-	z.y = (sign(z.y) * y1 + temp) * sin(theta);
-	z.z = rp * sin(phi);
-
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		temp = rp * native_cos(phi);
+		z.x = (sign(z.x) * x1 + temp) * native_cos(theta);
+		z.y = (sign(z.y) * y1 + temp) * native_sin(theta);
+	}
+	else
+	{
+		temp = r1 + rp * native_cos(phi);
+		z.x = temp * native_cos(theta);
+		z.y = temp * native_sin(theta);
+	}
+	z.z = rp * native_sin(phi);
 	z.z *= fractal->transformCommon.scaleA1;
 	aux->DE *= fractal->analyticDE.scale1;
 

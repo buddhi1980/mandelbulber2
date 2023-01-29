@@ -878,7 +878,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>271</y>
+     <y>93</y>
     </hint>
    </hints>
   </connection>
@@ -894,7 +894,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>299</y>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -910,7 +910,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>327</y>
+     <y>149</y>
     </hint>
    </hints>
   </connection>
@@ -925,8 +925,8 @@
      <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>290</x>
-     <y>429</y>
+     <x>323</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>
@@ -942,7 +942,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>900</x>
-     <y>429</y>
+     <y>251</y>
     </hint>
    </hints>
   </connection>
@@ -957,8 +957,8 @@
      <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>345</x>
-     <y>457</y>
+     <x>378</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>
@@ -974,7 +974,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>900</x>
-     <y>457</y>
+     <y>279</y>
     </hint>
    </hints>
   </connection>
@@ -989,8 +989,8 @@
      <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>341</x>
-     <y>485</y>
+     <x>374</x>
+     <y>307</y>
     </hint>
    </hints>
   </connection>
@@ -1006,7 +1006,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>900</x>
-     <y>485</y>
+     <y>307</y>
     </hint>
    </hints>
   </connection>
@@ -1021,8 +1021,8 @@
      <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>221</x>
-     <y>513</y>
+     <x>254</x>
+     <y>335</y>
     </hint>
    </hints>
   </connection>
@@ -1038,7 +1038,23 @@
     </hint>
     <hint type="destinationlabel">
      <x>900</x>
-     <y>513</y>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledw_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_2222_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>772</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>257</x>
+     <y>170</y>
     </hint>
    </hints>
   </connection>

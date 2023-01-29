@@ -35,17 +35,14 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= z.Length() / aux.r;
 	}
 
-	double temp;
-
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5f
 	double theta = atan2(z.y, z.x);
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
-
 	double rr = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1);
 	double r = sqrt(rr + z.z * z.z);
-	temp = r;
+	double temp = r;
 
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
@@ -71,9 +68,18 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	theta *= fractal->bulb.power;
 
 	// convert back to cartesian coordinates
-	temp = rp * cos(phi);
-	z.x = (sign(z.x) * x1 + temp) * cos(theta);
-	z.y = (sign(z.y) * y1 + temp) * sin(theta);
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		temp = rp * cos(phi);
+		z.x = (sign(z.x) * x1 + temp) * cos(theta);
+		z.y = (sign(z.y) * y1 + temp) * sin(theta);
+	}
+	else
+	{
+		temp = r1 + rp * cos(phi);
+		z.x = temp * cos(theta);
+		z.y = temp * sin(theta);
+	}
 	z.z = rp * sin(phi);
 	z.z *= fractal->transformCommon.scaleA1;
 
