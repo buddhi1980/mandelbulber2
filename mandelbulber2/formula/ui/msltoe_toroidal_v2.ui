@@ -57,18 +57,15 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_78">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_70">
+       <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,1,0,1">
+        <item>
+         <widget class="QLabel" name="label_99">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start at iteration:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item>
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -87,7 +84,14 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
+        <item>
+         <widget class="QLabel" name="label_69">
+          <property name="text">
+           <string>stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -97,13 +101,6 @@
           </property>
           <property name="maximum">
            <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="label_50">
-          <property name="text">
-           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -182,7 +179,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>Pre-Scale:</string>
+           <string>pre-scale:</string>
           </property>
          </widget>
         </item>
@@ -221,35 +218,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_129">
        <property name="text">
-        <string>Phi power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_4">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+        <string>phi power:</string>
        </property>
       </widget>
      </item>
@@ -281,7 +250,21 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_253">
+       <property name="text">
+        <string>radius:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_130">
+       <property name="text">
+        <string>power:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_power">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -309,14 +292,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_130">
-       <property name="text">
-        <string>Theta power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
+     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_05">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -344,182 +320,151 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_253">
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_178">
        <property name="text">
-        <string>Minimum Radius:</string>
+        <string>scale:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_127">
-       <property name="text">
-        <string>Radius power:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,1,0,1">
-     <item>
-      <widget class="QLabel" name="label_95">
-       <property name="text">
-        <string>start at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+     <item row="3" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
        <property name="minimum">
-        <number>0</number>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>999</number>
+        <double>99.000000000000000</double>
        </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_67">
-       <property name="text">
-        <string>stop at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
-     <property name="text">
-      <string notr="true">A temp</string>
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledX_false">
+     <property name="toolTip">
+      <string/>
      </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1,0,1">
-     <item>
-      <widget class="QLabel" name="label_98">
-       <property name="text">
-        <string>start at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_68">
-       <property name="text">
-        <string>stop at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-     <property name="text">
-      <string notr="true">B</string>
+     <property name="title">
+      <string>atan2 &amp;modes</string>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
-     <property name="text">
-      <string notr="true">C</string>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-     <property name="text">
-      <string notr="true">D</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-     <property name="text">
-      <string notr="true">E</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
-     <property name="text">
-      <string notr="true">F</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-     <property name="text">
-      <string notr="true">Sw</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-     <property name="text">
-      <string notr="true">X</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_51">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="0,1,0,1">
+        <item>
+         <widget class="QLabel" name="label_100">
+          <property name="text">
+           <string>start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_70">
+          <property name="text">
+           <string>stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+          <property name="text">
+           <string notr="true">sqrt(rr xy)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+          <property name="text">
+           <string notr="true">rr xy</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
      <property name="text">
-      <string notr="true">Y</string>
+      <string notr="true">asin</string>
      </property>
     </widget>
    </item>
@@ -528,7 +473,7 @@
      <item>
       <widget class="QLabel" name="label_96">
        <property name="text">
-        <string>mix:</string>
+        <string>r - aux.r mix:</string>
        </property>
       </widget>
      </item>
@@ -561,6 +506,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
+     <property name="text">
+      <string notr="true">sw</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,1">
@@ -606,20 +558,10 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_178">
-       <property name="text">
-        <string>Analytic DE offset2:</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_177">
        <property name="text">
-        <string>Analytic DE offset0:</string>
+        <string>analytic DE offset0:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -629,7 +571,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_176">
        <property name="text">
-        <string>Analytic DE scale1:</string>
+        <string>analytic DE scale1:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -692,75 +634,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
     </layout>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
-     <property name="toolTip">
-      <string/>
-     </property>
-     <property name="title">
-      <string>Analytic &amp;DE extra controls</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_52">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>( may need to force Delta DE method)</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx_false">
@@ -768,7 +642,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Spherical Offse&amp;t</string>
+      <string>spherical Offse&amp;t</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -797,7 +671,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_132">
           <property name="text">
-           <string>Offset Radius:</string>
+           <string>offset radius:</string>
           </property>
          </widget>
         </item>
@@ -826,7 +700,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_128">
           <property name="text">
-           <string>Scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -1021,10 +895,7 @@
   <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
-  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
-  <tabstop>spinbox_transf_pwr_4</tabstop>
   <tabstop>spinbox_transf_pwr_8</tabstop>
-  <tabstop>spinbox_power</tabstop>
   <tabstop>groupCheck_transf_function_enabledAx_false</tabstop>
   <tabstop>spinbox_transf_offset</tabstop>
   <tabstop>spinbox_transf_scale</tabstop>
