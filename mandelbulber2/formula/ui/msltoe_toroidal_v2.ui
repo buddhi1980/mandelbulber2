@@ -361,12 +361,12 @@
     </layout>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledX_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledY_false">
      <property name="toolTip">
       <string/>
      </property>
      <property name="title">
-      <string>atan2 &amp;modes</string>
+      <string>asin -&gt; atan2&amp;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -387,6 +387,13 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+        <property name="text">
+         <string notr="true">modes - default rr xy</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="0,1,0,1">
         <item>
@@ -438,34 +445,20 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
-          <property name="text">
-           <string notr="true">sqrt(rr xy)</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
           <property name="text">
-           <string notr="true">rr xy</string>
+           <string notr="true">sqrt(rr xy) mode</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
-     <property name="text">
-      <string notr="true">asin</string>
-     </property>
     </widget>
    </item>
    <item>
@@ -510,7 +503,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="text">
-      <string notr="true">sw</string>
+      <string notr="true">swap</string>
      </property>
     </widget>
    </item>
@@ -524,7 +517,7 @@
       </widget>
      </item>
      <item>
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_neg1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -697,13 +690,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_128">
-          <property name="text">
-           <string>scale:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
           <property name="sizePolicy">
@@ -726,10 +712,54 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_131">
+          <property name="text">
+           <string>scale:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0,0">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+       <property name="text">
+        <string>custom DE</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>min aux.dist</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">

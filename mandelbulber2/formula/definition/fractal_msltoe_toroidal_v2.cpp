@@ -44,19 +44,22 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	double r = sqrt(rr + z.z * z.z);
 	double temp = r;
 
-	if (fractal->transformCommon.functionEnabledXFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
-	{
-		if (fractal->transformCommon.functionEnabledBFalse) temp = rr;
-		if (fractal->transformCommon.functionEnabledCFalse) temp = sqrt(rr);
-	}
-
 	double phi = 0.0;
 	if (!fractal->transformCommon.functionEnabledYFalse)
-		phi = atan2(z.z, temp);
-	else
+	{
 		phi = asin(z.z / temp);
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledXFalse
+				&& aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			if (!fractal->transformCommon.functionEnabledBFalse) temp = rr;
+			else temp = sqrt(rr);
+		}
+		phi = atan2(z.z, temp);
+	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
 
@@ -70,18 +73,18 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	// convert back to cartesian coordinates
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		temp = rp * cos(phi);
-		z.x = (sign(z.x) * x1 + temp) * cos(theta);
-		z.y = (sign(z.y) * y1 + temp) * sin(theta);
-	}
-	else
-	{
 		temp = r1 + rp * cos(phi);
 		z.x = temp * cos(theta);
 		z.y = temp * sin(theta);
 	}
+	else
+	{
+		temp = rp * cos(phi);
+		z.x = (sign(z.x) * x1 + temp) * cos(theta);
+		z.y = (sign(z.y) * y1 + temp) * sin(theta);
+	}
 	z.z = rp * sin(phi);
-	z.z *= fractal->transformCommon.scaleA1;
+	z.z *= fractal->transformCommon.scaleNeg1;
 
 	aux.DE *= fractal->analyticDE.scale1;
 
@@ -95,4 +98,18 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
 	// then add Cpixel constant vector
+
+
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		aux.DE0 = z.Length();
+		if (aux.DE0 > 1.0)
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
+		else
+			aux.DE0 = 0.0;
+		if (!fractal->transformCommon.functionEnabledCFalse)
+			aux.dist = aux.DE0;
+		else
+			aux.dist = min(aux.dist, aux.DE0);
+	}
 }

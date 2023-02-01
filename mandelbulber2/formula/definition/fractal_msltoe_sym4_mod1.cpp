@@ -115,7 +115,7 @@ void cFractalMsltoeSym4Mod1::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	{
 		aux.DE0 = z.Length();
 		if (aux.DE0 > 1.0)
-			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
 		else
 			aux.DE0 = 0.0;
 		if (!fractal->transformCommon.functionEnabledYFalse)
