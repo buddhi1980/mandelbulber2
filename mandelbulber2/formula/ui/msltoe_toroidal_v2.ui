@@ -388,11 +388,28 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
-        <property name="text">
-         <string notr="true">modes - default rr xy</string>
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0">
+        <property name="spacing">
+         <number>2</number>
         </property>
-       </widget>
+        <item row="0" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string notr="true">sqrt(rr xy) mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
+          <property name="text">
+           <string notr="true">modes - default rr xy</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="0,1,0,1">
@@ -439,20 +456,6 @@
           </property>
           <property name="maximum">
            <number>999</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-          <property name="text">
-           <string notr="true">sqrt(rr xy) mode</string>
           </property>
          </widget>
         </item>
@@ -547,31 +550,11 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,0,1">
+    <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_177">
-       <property name="text">
-        <string>analytic DE offset0:</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_176">
-       <property name="text">
-        <string>analytic DE scale1:</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -599,7 +582,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -624,6 +607,26 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_176">
+       <property name="text">
+        <string>analytic DE scale1:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_177">
+       <property name="text">
+        <string>analytic DE offset0:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -657,18 +660,11 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_24" columnstretch="0,1">
+       <layout class="QGridLayout" name="gridLayout_28" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_132">
-          <property name="text">
-           <string>offset radius:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -690,7 +686,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -712,7 +708,14 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_132">
+          <property name="text">
+           <string>offset radius:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QLabel" name="label_131">
           <property name="text">
            <string>scale:</string>
@@ -725,39 +728,23 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0,0">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
        <property name="text">
-        <string>custom DE</string>
+        <string notr="true">customDE</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
-        <string>min aux.dist</string>
+        <string notr="true">min aux.dist</string>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>
@@ -927,10 +914,41 @@
   <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
   <tabstop>spinbox_transf_pwr_8</tabstop>
   <tabstop>groupCheck_transf_function_enabledAx_false</tabstop>
-  <tabstop>spinbox_transf_offset</tabstop>
-  <tabstop>spinbox_transf_scale</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledO_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledC_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>592</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>498</x>
+     <y>590</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledX_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledB_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

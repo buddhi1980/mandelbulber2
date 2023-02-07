@@ -244,7 +244,6 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
-
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
 		CVector4 zc = z;

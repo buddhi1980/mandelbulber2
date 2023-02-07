@@ -76,8 +76,8 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 
 	zc.z *= fractal->transformCommon.scaleA1;
 
-	CVector4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
-	double zd = min(min(zdv.x, zdv.y), zdv.z);
+//	CVector4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
+//	double zd = min(min(zdv.x, zdv.y), zdv.z);
 
 	zc = fabs(zc) - fractal->transformCommon.offset110;
 
@@ -96,10 +96,15 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 	double ll = sqrt(bxy * bxy + bz * bz);
 	double zcf = min(mm, 0.0) + ll;
 
-	if (fractal->transformCommon.functionEnabledEFalse)
-		zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
-	if (fractal->transformCommon.functionEnabledFFalse)
-		zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
+	if (fractal->transformCommon.functionEnabledOFalse)
+	{
+		CVector4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
+		double zd = min(min(zdv.x, zdv.y), zdv.z);
+		if (fractal->transformCommon.functionEnabledEFalse)
+			zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
+		if (fractal->transformCommon.functionEnabledFFalse)
+			zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
+	}
 
 	zcd = zcd + (zcf - zcd) * fractal->transformCommon.scaleD1;
 

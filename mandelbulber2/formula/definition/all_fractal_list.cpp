@@ -136,6 +136,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMsltoeSym4Mod());
 	fractalList->append(new cFractalMsltoeSym4Mod1());
 	fractalList->append(new cFractalMsltoeToroidal());
+	fractalList->append(new cFractalMsltoeToroidalV2());
 	fractalList->append(new cFractalMsltoeToroidalMulti());
 
 	// Quaternion formulas
@@ -552,7 +553,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 	fractalList->append(new cFractalJosKleinianV4());
-	fractalList->append(new cFractalMsltoeToroidalV2());
+
 	fractalList->append(new cFractalTransfBoxTilingV3());
 	fractalList->append(new cFractalTransfDIFSClipCustom());
 	fractalList->append(new cFractalTransfDIFSCayley2());

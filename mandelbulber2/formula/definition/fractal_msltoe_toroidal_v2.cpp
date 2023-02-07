@@ -99,7 +99,6 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 	// then add Cpixel constant vector
 
-
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
 		aux.DE0 = z.Length();
@@ -111,5 +110,7 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			aux.dist = aux.DE0;
 		else
 			aux.dist = min(aux.dist, aux.DE0);
+
+
 	}
 }
