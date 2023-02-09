@@ -687,14 +687,7 @@
    <item>
     <widget class="QLabel" name="label_40">
      <property name="text">
-      <string>DE</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <string>Custom DE</string>
      </property>
     </widget>
    </item>
@@ -1020,13 +1013,6 @@ offset:</string>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledO_false">

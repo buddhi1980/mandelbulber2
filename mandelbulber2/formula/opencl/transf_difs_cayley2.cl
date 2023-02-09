@@ -64,8 +64,8 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	zc.z *= fractal->transformCommon.scaleA1;
 
-//	REAL4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
-//	REAL zd = min(min(zdv.x, zdv.y), zdv.z);
+	REAL4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
+	REAL zd = min(min(zdv.x, zdv.y), zdv.z);
 
 	zc = fabs(zc) - fractal->transformCommon.offset110;
 
@@ -86,8 +86,6 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (fractal->transformCommon.functionEnabledOFalse)
 	{
-		REAL4 zdv = fabs(zc) - fractal->transformCommon.additionConstant000;
-		REAL zd = min(min(zdv.x, zdv.y), zdv.z);
 		if (fractal->transformCommon.functionEnabledEFalse)
 			zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
 		if (fractal->transformCommon.functionEnabledFFalse)
@@ -98,7 +96,7 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	zcd -= fractal->transformCommon.offsetA0;
 
-			REAL colorDist = aux->dist;
+	REAL colorDist = aux->dist;
 
 	aux->dist = min(aux->dist, zcd / (aux->DE + fractal->analyticDE.offset1));
 
@@ -124,14 +122,10 @@ REAL4 TransfDIFSCayley2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		aux->dist = max(aux->dist, dst);
 	}
 
-
-
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux->i >= fractal->transformCommon.startIterationsZc
 			&& aux->i < fractal->transformCommon.stopIterationsZc)
 		z = zc;
-
-
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabledAFalse
