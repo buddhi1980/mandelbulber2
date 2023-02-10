@@ -65,7 +65,7 @@ public:
 	void EnableOpenCLModeComboBox(bool enabled) const;
 	void HideSomeButtons();
 	void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
-		std::shared_ptr<cFractalContainer> _fractalParams, bool *stopRequest);
+		std::shared_ptr<cFractalContainer> _fractalParams);
 
 private slots:
 	void slotStartRender();
@@ -97,10 +97,10 @@ private:
 
 	std::shared_ptr<cParameterContainer> params;
 	std::shared_ptr<cFractalContainer> fractalParams;
-	bool *stopRequest;
 
 signals:
 	void signalRender();
+	void signalStop();
 	void signalCameraMovementModeChanged(int index);
 };
 

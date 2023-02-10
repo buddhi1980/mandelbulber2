@@ -279,7 +279,7 @@ void RenderWindow::slotKeyHandle()
 				break;
 			case enumShortcuts::stop:
 				currentKeyEvents.removeOne(currentKeyEvents.at(i)); // long press not allowed
-				gMainInterface->stopRequest = true;
+				gMainInterface->StopRender();
 				break;
 
 			default: break;

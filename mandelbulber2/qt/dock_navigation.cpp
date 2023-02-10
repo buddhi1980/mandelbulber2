@@ -65,14 +65,13 @@ cDockNavigation::~cDockNavigation()
 	delete ui;
 }
 
-void cDockNavigation::AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
-	std::shared_ptr<cFractalContainer> _fractalParams, bool *_stopRequest)
+void cDockNavigation::AssignParameterContainers(
+	std::shared_ptr<cParameterContainer> _params, std::shared_ptr<cFractalContainer> _fractalParams)
 {
 	params = _params;
 	fractalParams = _fractalParams;
 	manipulations->AssignParameterContainers(_params, _fractalParams);
 	manipulations->AssignWidgets(nullptr, this, nullptr, nullptr);
-	stopRequest = _stopRequest;
 }
 
 void cDockNavigation::RenderButtonSetEnabled(bool enabled) const
@@ -231,7 +230,7 @@ void cDockNavigation::slotStartRender()
 
 void cDockNavigation::slotStopRender()
 {
-	*stopRequest = true;
+	emit signalStop();
 }
 
 void cDockNavigation::LockAllFunctions() const

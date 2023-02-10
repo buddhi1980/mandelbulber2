@@ -71,6 +71,7 @@ public:
 	void SynchronizeInterface(std::shared_ptr<cParameterContainer> par,
 		std::shared_ptr<cFractalContainer> parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
+	bool StopRender();
 	void RefreshMainImage();
 	void RefreshImageAdjustments();
 
@@ -142,6 +143,7 @@ public:
 	std::shared_ptr<cImage> mainImage;
 	QTimer *autoRefreshTimer;
 	QTimer *stopRequestPulseTimer;
+	QElapsedTimer timerForAbortWarnings;
 	QString autoRefreshLastHash;
 	bool autoRefreshLastState;
 	cMaterialItemModel *materialListModel;

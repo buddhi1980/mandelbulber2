@@ -47,6 +47,8 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->widgetNavigationButtons, &cDockNavigation::signalRender, this,
 		&cNavigatorWindow::StartRender);
+	connect(
+		ui->widgetNavigationButtons, &cDockNavigation::signalStop, this, &cNavigatorWindow::StopRender);
 	connect(manipulations, &cManipulations::signalRender, this, &cNavigatorWindow::StartRender);
 	connect(manipulations, &cManipulations::signalStop, this, &cNavigatorWindow::StopRender);
 
@@ -89,7 +91,7 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->widgetRenderedImage, &RenderedImage::keyRelease, this,
 		&cNavigatorWindow::slotKeyReleaseOnImage);
 
-	gMainInterface->stopRequest = true;
+	gMainInterface->StopRender();
 
 	buttonPressTimer = new QTimer(this);
 	connect(buttonPressTimer, &QTimer::timeout, this, &cNavigatorWindow::slotButtonLongPress);
@@ -185,7 +187,7 @@ void cNavigatorWindow::SetInitialParameters(
 	image->UpdatePreview();
 
 	ui->widgetRenderedImage->AssignParameters(params, fractalParams);
-	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams, &stopRequest);
+	ui->widgetNavigationButtons->AssignParameterContainers(params, fractalParams);
 
 	cMyWidgetWithParams *widgetWithParams = dynamic_cast<cMyWidgetWithParams *>(leftWidget);
 

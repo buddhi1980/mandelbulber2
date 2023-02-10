@@ -156,7 +156,7 @@ void cSystemTray::slotStartRender()
 
 void cSystemTray::slotStopRender()
 {
-	gMainInterface->stopRequest = true;
+	gMainInterface->StopRender();
 }
 
 void cSystemTray::slotQuit()

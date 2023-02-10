@@ -218,7 +218,7 @@ void cInterface::ShowUi()
 	mainWindow->manipulations->AssignWidgets(renderedImage, mainWindow->GetWidgetDockNavigation(),
 		mainWindow->GetWidgetDockEffects(), mainWindow->GetWidgetDockFractal());
 
-	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal, &stopRequest);
+	mainWindow->ui->widgetDockNavigation->AssignParameterContainers(gPar, gParFractal);
 
 	mainWindow->ui->widgetEffects->AssignParameterContainers(gPar, gParFractal);
 	mainWindow->ui->widgetEffects->AssignSpecialWidgets(
@@ -349,6 +349,8 @@ void cInterface::ConnectSignals() const
 
 	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalCameraMovementModeChanged,
 		mainWindow, &RenderWindow::slotCameraMovementModeChanged);
+	connect(mainWindow->ui->widgetDockNavigation, &cDockNavigation::signalStop, mainWindow,
+		&RenderWindow::slotMenuStopRendering);
 
 	// manipulations class
 	connect(mainWindow->manipulations, &cManipulations::signalRender, mainWindow,
@@ -585,7 +587,9 @@ void cInterface::StartRender(bool noUndo)
 	else
 	{
 		WriteLog("cInterface::StartRender(void) - image was used by another instance", 2);
-		stopRequest = true;
+		bool isStopped = StopRender();
+		if (!isStopped) return;
+
 		while (mainImage->IsUsed())
 		{
 			gApplication->processEvents();
@@ -611,6 +615,8 @@ void cInterface::StartRender(bool noUndo)
 	if (!noUndo) gUndo->Store(gPar, gParFractal);
 
 	DisableJuliaPointMode();
+
+	timerForAbortWarnings.start();
 
 	cRenderJob *renderJob = new cRenderJob(
 		gPar, gParFractal, mainImage, &stopRequest, renderedImage); // deleted by deleteLater()
@@ -654,6 +660,47 @@ void cInterface::StartRender(bool noUndo)
 	thread->setObjectName("RenderJob");
 	thread->start();
 	mainWindow->manipulations->DecreaseNumberOfStartedRenders();
+}
+
+bool cInterface::StopRender()
+{
+	int closeResult = 0;
+
+	// if render time is lomger than 10 minutes
+	if (mainImage->IsUsed() && timerForAbortWarnings.elapsed() > 1000 * 60 * 10)
+	{
+		QMessageBox *messageBox = new QMessageBox(mainWindow);
+		QString messageText = QObject::tr("Are you sure to stop this long render?");
+		messageBox->setText(messageText);
+		messageBox->setWindowTitle(QObject::tr("Abort?"));
+		messageBox->setIcon(QMessageBox::Warning);
+		messageBox->addButton(QMessageBox::Ok);
+		messageBox->addButton(QMessageBox::Cancel);
+		messageBox->setDefaultButton(QMessageBox::Ok);
+		closeResult = messageBox->exec();
+
+		switch (closeResult)
+		{
+			case QMessageBox::Cancel:
+			{
+				// nothing
+				return false;
+				break;
+			}
+			case QMessageBox::Yes:
+			default:
+			{
+				stopRequest = true;
+				return true;
+				break;
+			}
+		}
+	}
+	else
+	{
+		stopRequest = true;
+		return true;
+	}
 }
 
 void cInterface::IFSDefaultsDodecahedron(std::shared_ptr<cParameterContainer> parFractal) const

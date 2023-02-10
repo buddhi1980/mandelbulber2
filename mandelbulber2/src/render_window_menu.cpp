@@ -788,7 +788,7 @@ void RenderWindow::slotMenuRenderImage()
 
 void RenderWindow::slotMenuStopRendering()
 {
-	gMainInterface->stopRequest = true;
+	gMainInterface->StopRender();
 }
 
 void RenderWindow::slotUpdateDocksAndToolbarByAction()

@@ -122,7 +122,7 @@ cRandomizerDialog::cRandomizerDialog(QWidget *parent)
 		connect(button, &QToolButton::clicked, this, &cRandomizerDialog::slotClickedSaveButton);
 	}
 
-	gMainInterface->stopRequest = true;
+	gMainInterface->StopRender();
 	gMainInterface->DisablePeriodicRefresh();
 
 	// local copy of parameters
@@ -938,7 +938,7 @@ std::shared_ptr<cParameterContainer> cRandomizerDialog::ContainerSelector(QStrin
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-        const int index = containerName.right(1).toInt();
+		const int index = containerName.right(1).toInt();
 		if (index < NUMBER_OF_FRACTALS)
 		{
 			container = fractal->at(index);
