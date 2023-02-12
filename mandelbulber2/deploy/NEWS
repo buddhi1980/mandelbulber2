@@ -8,6 +8,7 @@ v2.29 (??? 2023)
    mengerPyramid
    mengerSmoothChebyshev
    msltoeToroidalV2
+   transfDIFSCayley2
    transfDIFSChessboard
    transfDIFSHelixV2
    transfDIFSHelixMenger

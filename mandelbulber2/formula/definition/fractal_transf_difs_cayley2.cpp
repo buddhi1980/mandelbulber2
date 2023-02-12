@@ -88,7 +88,9 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 	double zcd = zcv.Length();
 
 	double dxy = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
-	double dz = fabs(zc.z) - fractal->transformCommon.offset01;
+	double dz = fabs(zc.z) - fractal->transformCommon.offset01 * aux.pseudoKleinianDE;
+	aux.pseudoKleinianDE *= fractal->transformCommon.scaleB1;
+
 	double bxy = max(dxy - fractal->transformCommon.offsetA000.x,
 					-fractal->transformCommon.offsetA000.y);
 	double bz = max(dz - fractal->transformCommon.offsetA000.z, 0.0);
@@ -96,13 +98,10 @@ void cFractalTransfDIFSCayley2::FormulaCode(
 	double ll = sqrt(bxy * bxy + bz * bz);
 	double zcf = min(mm, 0.0) + ll;
 
-	if (fractal->transformCommon.functionEnabledOFalse)
-	{
-		if (fractal->transformCommon.functionEnabledEFalse)
-			zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
-		if (fractal->transformCommon.functionEnabledFFalse)
-			zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
-	}
+	if (fractal->transformCommon.functionEnabledEFalse)
+		zcd = max(zd, zcd) - fractal->transformCommon.offsetC0;
+	if (fractal->transformCommon.functionEnabledFFalse)
+		zcf = max(zd, zcf) - fractal->transformCommon.offsetD0;
 
 	zcd = zcd + (zcf - zcd) * fractal->transformCommon.scaleD1;
 
