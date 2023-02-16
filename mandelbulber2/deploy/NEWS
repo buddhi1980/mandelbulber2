@@ -29,6 +29,7 @@ v2.29 (??? 2023)
    transfBoxWrap4d, add boxwrap addCpixel, remove diminish test
    transfCayley2V1, update
    transfMengerFoldV2, update
+   transfRotateAboutVec3, optimise and add mode2
 
 v2.28 (July 2022)
 
