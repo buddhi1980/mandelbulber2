@@ -16,20 +16,95 @@
 REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 size = fractal->transformCommon.offset2222;
+	z -= fractal->transformCommon.offsetA0000;
+	//REAL4 repeatPos = fractal->transformCommon.offsetA1111;
+	//REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
 
-	if (!fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledx)
 	{
-		z.x -= fractal->transformCommon.offset0;
-
-
-
-
-		if (fractal->transformCommon.functionEnabledx && size.x != 0.0f)
+		if (!fractal->transformCommon.functionEnabledAxFalse)
 		{
 			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 			z.x -= fractal->transformCommon.offset0000.x;
 			z.x -= round(z.x / size.x) * size.x;
 		}
+		else
+		{
+			if (z.x < (fractal->transformCommon.offsetA1111.x + 0.5) * size.x
+					&& z.x > (fractal->transformCommon.offsetB1111.x + 0.5) * -size.x)
+			{
+				if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+				z.x -= fractal->transformCommon.offset0000.x;
+				z.x -= round(z.x / size.x) * size.x;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledyFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledAyFalse)
+		{
+			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+			z.y -= fractal->transformCommon.offset0000.y;
+			z.y -= round(z.y / size.y) * size.y;
+		}
+		else
+		{
+			if (z.y < (fractal->transformCommon.offsetA1111.y + 0.5) * size.y
+					&& z.y > (fractal->transformCommon.offsetB1111.y + 0.5) * -size.y)
+			{
+				if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+				z.y -= fractal->transformCommon.offset0000.y;
+				z.y -= round(z.y / size.y) * size.y;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledAzFalse)
+		{
+			if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+			z.z -= fractal->transformCommon.offset0000.z;
+			z.z -= round(z.z / size.z) * size.z;
+		}
+		else
+		{
+			if (z.z < (fractal->transformCommon.offsetA1111.z + 0.5) * size.z
+					&& z.z > (fractal->transformCommon.offsetB1111.z + 0.5) * -size.z)
+			{
+				if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+				z.z -= fractal->transformCommon.offset0000.z;
+				z.z -= round(z.z / size.z) * size.z;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledwFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledAwFalse)
+		{
+			if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
+			z.w -= fractal->transformCommon.offset0000.w;
+			z.w -= round(z.w / size.w) * size.w;
+		}
+		else
+		{
+			if (z.w < (fractal->transformCommon.offsetA1111.w + 0.5) * size.w
+					&& z.w > (fractal->transformCommon.offsetB1111.w + 0.5) * -size.w)
+			{
+				if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
+				z.w -= fractal->transformCommon.offset0000.w;
+				z.w -= round(z.w / size.w) * size.w;
+			}
+		}
+	}
+
+
+
+/*	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+
 		if (fractal->transformCommon.functionEnabledyFalse && size.y != 0.0f)
 		{
 			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
@@ -51,8 +126,6 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else
 	{
-		z.x -= fractal->transformCommon.offset0;
-
 		REAL4 repeatPos = fractal->transformCommon.offsetA1111;
 		REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
 
@@ -84,7 +157,7 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z.w -= fractal->transformCommon.offset0000.w;
 			z.w -= round(z.w / size.w) * size.w;
 		}
-	}
+	}*/
 
 	if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;

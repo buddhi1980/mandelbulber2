@@ -27,11 +27,12 @@ cFractalTransfBoxTilingV3::cFractalTransfBoxTilingV3() : cAbstractFractal()
 void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 size = fractal->transformCommon.offset2222;
+	z -= fractal->transformCommon.offsetA0000;
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 
-		z.x -= fractal->transformCommon.offset0;
+
 
 
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
@@ -61,8 +62,6 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 	}
 	else
 	{
-		z.x -= fractal->transformCommon.offset0;
-
 		CVector4 repeatPos = fractal->transformCommon.offsetA1111;
 		CVector4 repeatNeg = fractal->transformCommon.offsetB1111;
 
