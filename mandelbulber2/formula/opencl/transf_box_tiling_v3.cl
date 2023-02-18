@@ -15,29 +15,28 @@
 
 REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 size = fractal->transformCommon.offset2222;
-	z -= fractal->transformCommon.offsetA0000;
-	//REAL4 repeatPos = fractal->transformCommon.offsetA1111;
-	//REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
+	REAL4 size = fractal->transformCommon.offset222;
+	z -= fractal->transformCommon.additionConstantA000;
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		if (!fractal->transformCommon.functionEnabledAxFalse)
 		{
 			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
-			z.x -= fractal->transformCommon.offset0000.x;
+			z.x -= fractal->transformCommon.offset000.x;
 			z.x -= round(z.x / size.x) * size.x;
 		}
 		else
 		{
-			if (z.x < (fractal->transformCommon.offsetA1111.x + 0.5) * size.x
-					&& z.x > (fractal->transformCommon.offsetB1111.x + 0.5) * -size.x)
+			if (z.x < (fractal->transformCommon.offsetA111.x + 0.5f) * size.x
+					&& z.x > (fractal->transformCommon.offsetB111.x + 0.5f) * -size.x)
 			{
 				if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
-				z.x -= fractal->transformCommon.offset0000.x;
+				z.x -= fractal->transformCommon.offset000.x;
 				z.x -= round(z.x / size.x) * size.x;
 			}
 		}
+		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
 	}
 
 	if (fractal->transformCommon.functionEnabledyFalse)
@@ -45,19 +44,20 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (!fractal->transformCommon.functionEnabledAyFalse)
 		{
 			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
-			z.y -= fractal->transformCommon.offset0000.y;
+			z.y -= fractal->transformCommon.offset000.y;
 			z.y -= round(z.y / size.y) * size.y;
 		}
 		else
 		{
-			if (z.y < (fractal->transformCommon.offsetA1111.y + 0.5) * size.y
-					&& z.y > (fractal->transformCommon.offsetB1111.y + 0.5) * -size.y)
+			if (z.y < (fractal->transformCommon.offsetA111.y + 0.5f) * size.y
+					&& z.y > (fractal->transformCommon.offsetB111.y + 0.5f) * -size.y)
 			{
 				if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
-				z.y -= fractal->transformCommon.offset0000.y;
+				z.y -= fractal->transformCommon.offset000.y;
 				z.y -= round(z.y / size.y) * size.y;
 			}
 		}
+		if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledzFalse)
@@ -65,104 +65,21 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (!fractal->transformCommon.functionEnabledAzFalse)
 		{
 			if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
-			z.z -= fractal->transformCommon.offset0000.z;
+			z.z -= fractal->transformCommon.offset000.z;
 			z.z -= round(z.z / size.z) * size.z;
 		}
 		else
 		{
-			if (z.z < (fractal->transformCommon.offsetA1111.z + 0.5) * size.z
-					&& z.z > (fractal->transformCommon.offsetB1111.z + 0.5) * -size.z)
+			if (z.z < (fractal->transformCommon.offsetA111.z + 0.5f) * size.z
+					&& z.z > (fractal->transformCommon.offsetB111.z + 0.5f) * -size.z)
 			{
 				if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
-				z.z -= fractal->transformCommon.offset0000.z;
+				z.z -= fractal->transformCommon.offset000.z;
 				z.z -= round(z.z / size.z) * size.z;
 			}
 		}
+		if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
 	}
-
-	if (fractal->transformCommon.functionEnabledwFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledAwFalse)
-		{
-			if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
-			z.w -= fractal->transformCommon.offset0000.w;
-			z.w -= round(z.w / size.w) * size.w;
-		}
-		else
-		{
-			if (z.w < (fractal->transformCommon.offsetA1111.w + 0.5) * size.w
-					&& z.w > (fractal->transformCommon.offsetB1111.w + 0.5) * -size.w)
-			{
-				if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
-				z.w -= fractal->transformCommon.offset0000.w;
-				z.w -= round(z.w / size.w) * size.w;
-			}
-		}
-	}
-
-
-
-/*	if (!fractal->transformCommon.functionEnabledFalse)
-	{
-
-		if (fractal->transformCommon.functionEnabledyFalse && size.y != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
-			z.y -= fractal->transformCommon.offset0000.y;
-			z.y -= round(z.y / size.y) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledzFalse && size.z != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
-			z.z -= fractal->transformCommon.offset0000.z;
-			z.z -= round(z.z / size.z) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledwFalse && size.w != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
-			z.w -= fractal->transformCommon.offset0000.w;
-			z.w -= round(z.w / size.w) * size.w;
-		}
-	}
-	else
-	{
-		REAL4 repeatPos = fractal->transformCommon.offsetA1111;
-		REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
-
-		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * size.x
-				&& z.x > (repeatNeg.x + 0.5) * -size.x && size.x != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
-			z.x -= fractal->transformCommon.offset0000.x;
-			z.x -= round(z.x / size.x) * size.x;
-		}
-		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
-			z.y -= fractal->transformCommon.offset0000.y;
-			z.y -= round(z.y / size.y) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
-			z.z -= fractal->transformCommon.offset0000.z;
-			z.z -= round(z.z / size.z) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0f)
-		{
-			if (fractal->transformCommon.functionEnabledCwFalse) z.w = fabs(z.w);
-			z.w -= fractal->transformCommon.offset0000.w;
-			z.w -= round(z.w / size.w) * size.w;
-		}
-	}*/
-
-	if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
-	if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
-	if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
-	if (fractal->transformCommon.functionEnabledBwFalse) z.w = -z.w;
 
 	if (fractal->analyticDE.enabled)
 	{
