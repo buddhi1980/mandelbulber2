@@ -142,6 +142,7 @@
     <file>tooltips_images/gamepad Keymap.png</file>
   </qresource>
   <qresource prefix="/primitives">
+    <file>icons/prism.png</file>
     <file>icons/box.png</file>
     <file>icons/circle.png</file>
     <file>icons/cone.png</file>

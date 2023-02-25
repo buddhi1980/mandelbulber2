@@ -62,6 +62,7 @@ public:
 
 private:
 	void AddPrimitive(bool init, const sPrimitiveItem &primitive);
+	void SetIconSizes();
 
 	QList<sPrimitiveItem> primitiveItemOnTab;
 	Ui::cPrimitivesManager *ui;

@@ -60,6 +60,8 @@ cPrimitivesManager::cPrimitivesManager(QWidget *parent)
 	// FIXME:	connect(ui->pushButton_newPrimitive, &QPushButton::clicked, this,
 	//		&cPrimitivesManager::slotButtonAddPrimitive);
 
+	SetIconSizes();
+
 	connect(ui->pushButton_add_primitive_box, &QPushButton::clicked, this,
 		&cPrimitivesManager::slotButtonAddPrimitive);
 	connect(ui->pushButton_add_primitive_circle, &QPushButton::clicked, this,
@@ -509,3 +511,21 @@ void cPrimitivesManager::slotContextMenu(const QPoint &screenPoint, int tabIndex
 		}
 	}
 }
+
+void cPrimitivesManager::SetIconSizes()
+{
+	QFontMetrics fm(font());
+	int pixelFontSize = fm.height();
+	QSize iconSize(int(pixelFontSize * 2.5), int(pixelFontSize * 2.5));
+	ui->pushButton_add_primitive_box->setIconSize(iconSize);
+	ui->pushButton_add_primitive_circle->setIconSize(iconSize);
+	ui->pushButton_add_primitive_cone->setIconSize(iconSize);
+	ui->pushButton_add_primitive_cylinder->setIconSize(iconSize);
+	ui->pushButton_add_primitive_plane->setIconSize(iconSize);
+	ui->pushButton_add_primitive_prism->setIconSize(iconSize);
+	ui->pushButton_add_primitive_rectangle->setIconSize(iconSize);
+	ui->pushButton_add_primitive_sphere->setIconSize(iconSize);
+	ui->pushButton_add_primitive_torus->setIconSize(iconSize);
+	ui->pushButton_add_primitive_water->setIconSize(iconSize);
+}
+

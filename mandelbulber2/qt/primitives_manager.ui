@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
+    <width>299</width>
     <height>685</height>
    </rect>
   </property>
@@ -256,8 +256,9 @@
          <verstretch>1</verstretch>
         </sizepolicy>
        </property>
-       <property name="text">
-        <string>Prism</string>
+       <property name="icon">
+        <iconset resource="icons.qrc">
+         <normaloff>:/primitives/icons/prism.png</normaloff>:/primitives/icons/prism.png</iconset>
        </property>
        <property name="iconSize">
         <size>
