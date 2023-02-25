@@ -228,6 +228,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 		case objCone:
 		case objTorus:
 		case objCylinder:
+		case objPrism:
 		{
 			color = input->material->color;
 			break;
