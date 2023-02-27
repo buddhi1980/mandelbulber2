@@ -39,18 +39,9 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 		}
 		else
 		{
-
-
-
-
-
 			if (z.x < (fractal->transformCommon.offsetA111.x + 0.5) * size.x
 					&& z.x > (fractal->transformCommon.offsetB111.x + 0.5) * -size.x)
 			{
-//				z.x = max(aux.const_c.x - fractal->transformCommon.offsetF000.x, z.x); // mmmmmmmmmmmmmmmmmmmmmm
-//								z.x = min(aux.const_c.x + fractal->transformCommon.offsetA000.x, -z.x); // mmmmmmmmmmmmmmmmmmmmmm
-
-
 
 				if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 				z.x -= fractal->transformCommon.offset000.x;
@@ -60,7 +51,22 @@ void cFractalTransfBoxTilingV3::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
 
 
+		if (fractal->surfBox.enabledX2False)
+		{
+			if (fractal->surfBox.enabledX4False)
+			{
+				z.x = max(aux.const_c.x - fractal->transformCommon.offsetF000.x, z.x); // mmmmmmmmmmmmmmmmmmmmmm
+				z.x = min(aux.const_c.x + fractal->transformCommon.offsetA000.x, -z.x); // mmmmmmmmmmmmmmmmmmmmmm
+			}
+			else
+			{
+				z.x = min(aux.const_c.x + fractal->transformCommon.offsetA000.x, -z.x); // mmmmmmmmmmmmmmmmmmmmmm
+				z.x = max(aux.const_c.x - fractal->transformCommon.offsetF000.x, z.x); // mmmmmmmmmmmmmmmmmmmmmm
+			}
+		}
 	}
+
+
 
 	if (fractal->transformCommon.functionEnabledyFalse)
 	{

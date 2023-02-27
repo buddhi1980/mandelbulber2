@@ -36,7 +36,23 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				z.x -= round(z.x / size.x) * size.x;
 			}
 		}
+
 		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
+
+		if (fractal->surfBox.enabledX2False)
+		{
+			if (fractal->surfBox.enabledX4False)
+			{
+				z.x = max(aux->const_c.x - fractal->transformCommon.offsetF000.x, z.x); // mmmmmmmmmmmmmmmmmmmmmm
+				z.x = min(aux->const_c.x + fractal->transformCommon.offsetA000.x, -z.x); // mmmmmmmmmmmmmmmmmmmmmm
+			}
+			else
+			{
+				z.x = min(aux->const_c.x + fractal->transformCommon.offsetA000.x, -z.x); // mmmmmmmmmmmmmmmmmmmmmm
+				z.x = max(aux->const_c.x - fractal->transformCommon.offsetF000.x, z.x); // mmmmmmmmmmmmmmmmmmmmmm
+			}
+
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledyFalse)
@@ -45,7 +61,7 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 			z.y -= fractal->transformCommon.offset000.y;
-			z.y -= round(z.y / size.y) * size.y;
+													z.y -= round(z.y / size.y) * size.y;
 		}
 		else
 		{
