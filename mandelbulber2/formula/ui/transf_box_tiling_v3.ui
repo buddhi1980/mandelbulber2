@@ -404,7 +404,7 @@
          <item>
           <widget class="MyCheckBox" name="checkBox_surfBox_enabledX4_false">
            <property name="text">
-            <string notr="true">X4 swap</string>
+            <string notr="true">swap</string>
            </property>
           </widget>
          </item>
@@ -545,6 +545,9 @@
         </property>
         <item row="2" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string notr="true">flip mirror</string>
           </property>
@@ -660,7 +663,7 @@
         <item row="5" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetB_111_y">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -691,7 +694,7 @@
         <item row="4" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_y">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -720,6 +723,140 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_surfBox_enabledY2_false">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="title">
+         <string>c offsets&amp; default min(-) pos(+)</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledY4_false">
+           <property name="text">
+            <string notr="true">swap</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledY3_false">
+           <property name="text">
+            <string notr="true">X3 temp</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledY5_false">
+           <property name="text">
+            <string notr="true">X5</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_88">
+             <property name="text">
+              <string>pos. c offset:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_000_y">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_y">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_283">
+             <property name="text">
+              <string>neg. c offset:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -758,6 +895,9 @@
         </property>
         <item row="2" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string notr="true">flip mirror</string>
           </property>
@@ -873,7 +1013,7 @@
         <item row="4" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_z">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -904,7 +1044,7 @@
         <item row="5" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetB_111_z">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -933,6 +1073,140 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyGroupBox" name="groupCheck_surfBox_enabledZ2_false">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="title">
+         <string>c offsets&amp; default min(-) pos(+)</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ4_false">
+           <property name="text">
+            <string notr="true">swap</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ3_false">
+           <property name="text">
+            <string notr="true">X3 temp</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ5_false">
+           <property name="text">
+            <string notr="true">X5</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,1">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_89">
+             <property name="text">
+              <string>pos. c offset:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_000_z">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_z">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="maximum">
+              <double>99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_284">
+             <property name="text">
+              <string>neg. c offset:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -1251,34 +1525,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledCy_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledBy_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>23</x>
-     <y>576</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>162</x>
-     <y>578</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>checkBox_transf_function_enabledCz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledBz_false</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>8</x>
-     <y>768</y>
+     <x>16</x>
+     <y>957</y>
     </hint>
     <hint type="destinationlabel">
-     <x>135</x>
-     <y>765</y>
+     <x>230</x>
+     <y>957</y>
     </hint>
    </hints>
   </connection>
@@ -1311,6 +1569,86 @@
     <hint type="destinationlabel">
      <x>266</x>
      <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledBy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>575</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>583</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetA_111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>597</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>632</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetB_111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>599</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>162</x>
+     <y>656</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetA_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>970</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>159</x>
+     <y>1001</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetB_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>971</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>183</x>
+     <y>1029</y>
     </hint>
    </hints>
   </connection>
