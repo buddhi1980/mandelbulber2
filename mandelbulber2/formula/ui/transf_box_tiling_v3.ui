@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>909</width>
-    <height>2348</height>
+    <height>2706</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -409,20 +409,6 @@
           </widget>
          </item>
          <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledX3_false">
-           <property name="text">
-            <string notr="true">X3 temp</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledX5_false">
-           <property name="text">
-            <string notr="true">X5</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,1">
            <property name="spacing">
             <number>2</number>
@@ -755,20 +741,6 @@
           <widget class="MyCheckBox" name="checkBox_surfBox_enabledY4_false">
            <property name="text">
             <string notr="true">swap</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledY3_false">
-           <property name="text">
-            <string notr="true">X3 temp</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledY5_false">
-           <property name="text">
-            <string notr="true">X5</string>
            </property>
           </widget>
          </item>
@@ -1109,20 +1081,6 @@
           </widget>
          </item>
          <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ3_false">
-           <property name="text">
-            <string notr="true">X3 temp</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ5_false">
-           <property name="text">
-            <string notr="true">X5</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,1">
            <property name="spacing">
             <number>2</number>
@@ -1226,7 +1184,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1318,16 +1276,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>analytic DE alternative method</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

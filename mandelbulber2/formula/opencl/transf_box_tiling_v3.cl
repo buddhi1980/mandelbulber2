@@ -36,20 +36,19 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				z.x -= round(z.x / size.x) * size.x;
 			}
 		}
-
 		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
 
 		if (fractal->surfBox.enabledX2False)
 		{
-			if (fractal->surfBox.enabledX4False)
+			if (!fractal->surfBox.enabledX4False)
 			{
-				z.x = max(aux->const_c.x - fractal->transformCommon.offsetF000.x, z.x);
 				z.x = min(aux->const_c.x + fractal->transformCommon.offsetA000.x, -z.x);
+				z.x = max(aux->const_c.x - fractal->transformCommon.offsetF000.x, z.x);
 			}
 			else
 			{
-				z.x = min(aux->const_c.x + fractal->transformCommon.offsetA000.x, -z.x);
 				z.x = max(aux->const_c.x - fractal->transformCommon.offsetF000.x, z.x);
+				z.x = min(aux->const_c.x + fractal->transformCommon.offsetA000.x, -z.x);
 			}
 		}
 	}
@@ -76,15 +75,15 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->surfBox.enabledY2False)
 		{
-			if (fractal->surfBox.enabledY4False)
+			if (!fractal->surfBox.enabledY4False)
 			{
-				z.y = max(aux->const_c.y - fractal->transformCommon.offsetF000.y, z.y);
 				z.y = min(aux->const_c.y + fractal->transformCommon.offsetA000.y, -z.y);
+				z.y = max(aux->const_c.y - fractal->transformCommon.offsetF000.y, z.y);
 			}
 			else
 			{
-				z.y = min(aux->const_c.y + fractal->transformCommon.offsetA000.y, -z.y);
 				z.y = max(aux->const_c.y - fractal->transformCommon.offsetF000.y, z.y);
+				z.y = min(aux->const_c.y + fractal->transformCommon.offsetA000.y, -z.y);
 			}
 		}
 	}
@@ -111,27 +110,22 @@ REAL4 TransfBoxTilingV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->surfBox.enabledZ2False)
 		{
-			if (fractal->surfBox.enabledZ4False)
+			if (!fractal->surfBox.enabledZ4False)
 			{
-				z.z = max(aux->const_c.z - fractal->transformCommon.offsetF000.z, z.z);
 				z.z = min(aux->const_c.z + fractal->transformCommon.offsetA000.z, -z.z);
+				z.z = max(aux->const_c.z - fractal->transformCommon.offsetF000.z, z.z);
 			}
 			else
 			{
-				z.z = min(aux->const_c.z + fractal->transformCommon.offsetA000.z, -z.z);
 				z.z = max(aux->const_c.z - fractal->transformCommon.offsetF000.z, z.z);
+				z.z = min(aux->const_c.z + fractal->transformCommon.offsetA000.z, -z.z);
 			}
 		}
 	}
 
 	if (fractal->analyticDE.enabled)
 	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		else
-		{
-			aux->DE = aux->DE * length(z) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		}
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
