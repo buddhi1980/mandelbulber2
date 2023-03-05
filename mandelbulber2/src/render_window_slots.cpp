@@ -90,8 +90,11 @@ void RenderWindow::slotChangedComboImageScale(int index) const
 		gMainInterface->mainImage->CreatePreview(
 			scale, areaWidth, areaHeight, gMainInterface->renderedImage);
 		gMainInterface->mainImage->UpdatePreview();
+
+		double dpiScale = devicePixelRatioF();
 		gMainInterface->renderedImage->setMinimumSize(
-			gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
+			gMainInterface->mainImage->GetPreviewWidth() / dpiScale,
+			gMainInterface->mainImage->GetPreviewHeight() / dpiScale);
 
 		gPar->Set("image_preview_scale", index);
 	}
