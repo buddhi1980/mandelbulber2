@@ -919,6 +919,9 @@ void RenderedImage::DisplayCrosshair() const
 	crossCenter.x = (sw * 0.5f) * (1.0f + 2.0f * crossShift.x);
 	crossCenter.y = (sh * 0.5f) * (1.0f + 2.0f * crossShift.y);
 
+	double crossHairThickness = clamp(sw / 1000.0, 1.0, 10.0);
+	int blackShift = crossHairThickness * 3;
+
 	if (params->Get<bool>("stereo_enabled")
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
@@ -935,20 +938,46 @@ void RenderedImage::DisplayCrosshair() const
 		{
 			case gridTypeCrosshair:
 				image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+
+				image->AntiAliasedLine(crossCenter.x + blackShift, crossCenter.y - sh / 10,
+					crossCenter.x + blackShift, crossCenter.y - blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x + blackShift, crossCenter.y + sh / 10,
+					crossCenter.x + blackShift, crossCenter.y + blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x - blackShift, crossCenter.y - sh / 10,
+					crossCenter.x - blackShift, crossCenter.y - blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x - blackShift, crossCenter.y + sh / 10,
+					crossCenter.x - blackShift, crossCenter.y + blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+
+				image->AntiAliasedLine(crossCenter.x - sw / 10, crossCenter.y + blackShift,
+					crossCenter.x - blackShift, crossCenter.y + blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x + sw / 10, crossCenter.y + blackShift,
+					crossCenter.x + blackShift, crossCenter.y + blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x - sw / 10, crossCenter.y - blackShift,
+					crossCenter.x - blackShift, crossCenter.y - blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
+				image->AntiAliasedLine(crossCenter.x + sw / 10, crossCenter.y - blackShift,
+					crossCenter.x + blackShift, crossCenter.y - blackShift, 0, 0, sRGB8(0, 0, 0),
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				break;
 
 			case gridTypeThirds:
 				image->AntiAliasedLine(sw * 0.3333f, 0, sw * 0.3333f, sh, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(sw * 0.6666f, 0, sw * 0.6666f, sh, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(0, sh * 0.3333f, sw, sh * 0.3333f, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(0, sh * 0.6666f, sw, sh * 0.6666f, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				break;
 
 			case gridTypeGolden:
@@ -956,13 +985,13 @@ void RenderedImage::DisplayCrosshair() const
 				float ratio1 = goldenRatio - 1.0f;
 				float ratio2 = 1.0f - ratio1;
 				image->AntiAliasedLine(sw * ratio1, 0, sw * ratio1, sh, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(sw * ratio2, 0, sw * ratio2, sh, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(0, sh * ratio1, sw, sh * ratio1, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				image->AntiAliasedLine(0, sh * ratio2, sw, sh * ratio2, 0, 0, sRGB8(255, 255, 255),
-					sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+					sRGBFloat(0.3f, 0.3f, 0.3f), crossHairThickness, 1);
 				break;
 		}
 	}
