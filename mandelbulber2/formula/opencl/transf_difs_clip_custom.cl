@@ -15,6 +15,21 @@
 
 REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		REAL4 zc = z;
+		REAL4 boxSize = fractal->transformCommon.additionConstant111;
+		zc = fabs(zc) - boxSize;
+		zc.x = max(zc.x, 0.0f);
+		zc.y = max(zc.y, 0.0f);
+		zc.z = max(zc.z, 0.0f);
+		REAL zcd = length(zc);
+
+		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
+	}
+
+
+
 
 	REAL4 c = aux->const_c;
 
@@ -22,22 +37,38 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL dst = 1.0f;
 
 	// transform c
+
+		// polyfold
+	if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		c.y = fabs(c.y);
+		REAL psi = M_PI_F / fractal->transformCommon.int6;
+		psi = fabs(fmod(atan2(c.y, c.x) + psi, 2.0f * psi) - psi);
+		REAL len = native_sqrt(c.x * c.x + c.y * c.y);
+		c.x = native_cos(psi) * len;
+		c.y = native_sin(psi) * len;
+	}
+
 	c *= fractal->transformCommon.scale3D111;
 	c += fractal->transformCommon.offset000;
 	c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, c);
 
-	REAL4 f = fractal->transformCommon.scale3D222;
+
+
+
+
+	REAL4 f = fractal->transformCommon.constantMultiplier111;
 
 	REAL4 g = fabs(c) - (REAL4){f.x, f.y, f.z, 0.0f};
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		dst = max(fabs(c.x) - fractal->transformCommon.scale3D222.x,
-			fabs(c.y) - fractal->transformCommon.scale3D222.y); // sqr
+		dst = max(fabs(c.x) - fractal->transformCommon.constantMultiplier111.x,
+			fabs(c.y) - fractal->transformCommon.constantMultiplier111.y); // sqr
 	}
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		dst = length(c) - fractal->transformCommon.offsetR2; // sphere
+		dst = length(c) - fractal->transformCommon.offsetR1; // sphere
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)
@@ -46,20 +77,20 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	if (fractal->transformCommon.functionEnabledDFalse) // cyl
 	{
-		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR2;
+		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
 	}
 	if (fractal->transformCommon.functionEnabledEFalse) // cone
 	{
 		REAL CZ = -c.z;
 		if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
 		if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
-		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR2 * CZ;
+		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
 	}
 
 	dst = clamp(dst, 0.0f, 100.0f);
 	//	if (fractal->transformCommon.functionEnabledJFalse) // z clip
 	//	{
-	dst = max(fabs(c.z) - fractal->transformCommon.scale3D222.z, dst);
+	dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
 	//	}
 
 	dst = max(aux->dist, dst);
