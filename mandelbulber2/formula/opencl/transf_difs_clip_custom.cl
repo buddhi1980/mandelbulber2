@@ -18,14 +18,20 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL4 zc = z;
-		REAL4 boxSize = fractal->transformCommon.additionConstant111;
-		zc = fabs(zc) - boxSize;
+		zc += fractal->transformCommon.offsetA000;
+		zc = fabs(zc) - fractal->transformCommon.additionConstant111;
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
 		REAL zcd = length(zc);
-
-		aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
+		if (!fractal->transformCommon.functionEnabledNFalse)
+		{
+			aux->dist =  zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0;
+		}
+		else
+		{
+			aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
+		}
 	}
 
 
@@ -34,7 +40,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 c = aux->const_c;
 
 	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
-	REAL dst = 1.0f;
+
 
 	// transform c
 
@@ -54,38 +60,43 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, c);
 
 
-
+	REAL dst = 1.0f;
 
 
 	REAL4 f = fractal->transformCommon.constantMultiplier111;
 
 	REAL4 g = fabs(c) - (REAL4){f.x, f.y, f.z, 0.0f};
 
-	if (fractal->transformCommon.functionEnabledAx)
+	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
 		dst = max(fabs(c.x) - fractal->transformCommon.constantMultiplier111.x,
 			fabs(c.y) - fractal->transformCommon.constantMultiplier111.y); // sqr
 	}
-	if (fractal->transformCommon.functionEnabledBFalse)
+	else
 	{
-		dst = length(c) - fractal->transformCommon.offsetR1; // sphere
+		//if (fractal->transformCommon.functionEnabledBFalse)
+		//{
+			dst = length(c) - fractal->transformCommon.offsetR1; // sphere
+		//}
+
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			dst = length(c) - length(g);
+		}
+		if (fractal->transformCommon.functionEnabledDFalse) // cyl
+		{
+			dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
+		}
+		if (fractal->transformCommon.functionEnabledEFalse) // cone
+		{
+			REAL CZ = -c.z;
+			if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
+			if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
+			dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
+		}
+
 	}
 
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		dst = length(c) - length(g);
-	}
-	if (fractal->transformCommon.functionEnabledDFalse) // cyl
-	{
-		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
-	}
-	if (fractal->transformCommon.functionEnabledEFalse) // cone
-	{
-		REAL CZ = -c.z;
-		if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
-		if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
-		dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
-	}
 
 	dst = clamp(dst, 0.0f, 100.0f);
 	//	if (fractal->transformCommon.functionEnabledJFalse) // z clip
@@ -104,16 +115,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
 	else zc = z;
 
-	// polyfold
-	if (fractal->transformCommon.functionEnabledPFalse)
-	{
-		zc.y = fabs(z.y);
-		REAL psi = M_PI_F / fractal->transformCommon.int6;
-		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0f * psi) - psi);
-		REAL len = native_sqrt(zc.x * zc.x + zc.y * zc.y);
-		zc.x = native_cos(psi) * len;
-		zc.y = native_sin(psi) * len;
-	}
+
 	// tile
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{

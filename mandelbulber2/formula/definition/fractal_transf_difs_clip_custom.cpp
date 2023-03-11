@@ -27,25 +27,40 @@ cFractalTransfDIFSClipCustom::cFractalTransfDIFSClipCustom() : cAbstractFractal(
 void cFractalTransfDIFSClipCustom::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// prebox optiom
-	if (fractal->transformCommon.functionEnabledPFalse)
+
+
+	// prebox option
+	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		CVector4 zc = z;
-		CVector4 boxSize = fractal->transformCommon.additionConstant111;
-		zc = fabs(zc) - boxSize;
+		zc += fractal->transformCommon.offsetA000;
+		zc = fabs(zc) - fractal->transformCommon.additionConstant111;
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
 		double zcd = zc.Length();
+		//aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
 
-		aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
+		//if (!fractal->transformCommon.functionEnabledIFalse)
+		if (!fractal->transformCommon.functionEnabledNFalse)
+		{
+			aux.dist = zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0;
+		}
+		else
+		{
+			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
+		}
+
+
+
+
+
 	}
 
 	// transform c
 	CVector4 c = aux.const_c;
 
 	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
-	double dst = 1.0;
 
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse)
@@ -64,37 +79,41 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 
-
+	double dst = 1.0;
 
 	CVector4 f = fractal->transformCommon.constantMultiplier111;
 
 	CVector4 g = fabs(c) - CVector4(f.x, f.y, f.z, 0.0);
 
-	if (fractal->transformCommon.functionEnabledAx)
+	if (!fractal->transformCommon.functionEnabledBFalse)
 	{
 		dst = max(fabs(c.x) - fractal->transformCommon.constantMultiplier111.x,
 				fabs(c.y) - fractal->transformCommon.constantMultiplier111.y); // sqr
 	}
-	if (fractal->transformCommon.functionEnabledBFalse)
+	else
 	{
-		dst = c.Length() - fractal->transformCommon.offsetR1; // sphere
+		//if (fractal->transformCommon.functionEnabledBFalse)
+		//{
+			dst = c.Length() - fractal->transformCommon.offsetR1; // sphere
+		//}
+
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			dst = c.Length() - g.Length();
+		}
+		if (fractal->transformCommon.functionEnabledDFalse) // cyl
+		{
+			dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
+		}
+		if (fractal->transformCommon.functionEnabledEFalse) // cone
+		{
+			double CZ = -c.z;
+			if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
+			if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
+			dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
+		}
 	}
 
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		dst = c.Length() - g.Length();
-	}
-	if (fractal->transformCommon.functionEnabledDFalse) // cyl
-	{
-		dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
-	}
-	if (fractal->transformCommon.functionEnabledEFalse) // cone
-	{
-		double CZ = -c.z;
-		if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
-		if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
-		dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
-	}
 
 	dst = clamp(dst, 0.0, 100.0);
 //	if (fractal->transformCommon.functionEnabledJFalse) // z clip
