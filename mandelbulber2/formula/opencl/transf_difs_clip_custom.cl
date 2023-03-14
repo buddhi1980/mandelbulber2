@@ -15,6 +15,7 @@
 
 REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+		// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		REAL4 zc = z;
@@ -23,26 +24,22 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
-		REAL zcd = length(zc);
+		REAL zcd = length(zc) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
-			aux->dist =  zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0;
+			aux->dist =  zcd
 		}
 		else
 		{
-			aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
+			aux->dist = min(aux->dist, zcd);
 		}
 	}
 
-
-
-
+	// transform c
 	REAL4 c = aux->const_c;
 
 	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
 
-
-	// transform c
 
 		// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse)
@@ -54,7 +51,9 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		c.x = native_cos(psi) * len;
 		c.y = native_sin(psi) * len;
 	}
-
+	if (fractal->transformCommon.functionEnabledAxFalse) c.x = fabs(c.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) c.y = fabs(c.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) c.z = fabs(c.z);
 	c *= fractal->transformCommon.scale3D111;
 	c += fractal->transformCommon.offset000;
 	c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, c);
@@ -74,7 +73,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 	else
 	{
-		//if (fractal->transformCommon.functionEnabledBFalse)
+		//if (fractal->transformCommon.functionEnabledIFalse)
 		//{
 			dst = length(c) - fractal->transformCommon.offsetR1; // sphere
 		//}
@@ -99,17 +98,17 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 
 	dst = clamp(dst, 0.0f, 100.0f);
-	//	if (fractal->transformCommon.functionEnabledJFalse) // z clip
-	//	{
-	dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
-	//	}
+	if (fractal->transformCommon.functionEnabledJFalse) // z clip
+	{
+		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
+	}
 
 	dst = max(aux->dist, dst);
 
-	// if (!fractal->analyticDE.enabledFalse)
-	aux->dist = dst;
-	// else
-	//	aux->dist = min( dst, aux->dist);
+	 if (!fractal->analyticDE.enabledFalse)
+		aux->dist = dst;
+	else
+		aux->dist = min( dst, aux->dist);
 
 	/*REAL temp;
 	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;

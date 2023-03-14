@@ -29,7 +29,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 {
 
 
-	// prebox option
+	// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		CVector4 zc = z;
@@ -38,23 +38,16 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
-		double zcd = zc.Length();
-		//aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
+		double zcd = zc.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
 
-		//if (!fractal->transformCommon.functionEnabledIFalse)
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
-			aux.dist = zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0;
+			aux.dist = zcd;
 		}
 		else
 		{
-			aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
+			aux.dist = min(aux.dist, zcd);
 		}
-
-
-
-
-
 	}
 
 	// transform c
@@ -62,7 +55,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
 
-	// polyfold
+			// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
 		c.y = fabs(c.y);
@@ -72,6 +65,10 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		c.x = cos(psi) * len;
 		c.y = sin(psi) * len;
 	}
+
+	if (fractal->transformCommon.functionEnabledAxFalse) c.x = fabs(c.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) c.y = fabs(c.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) c.z = fabs(c.z);
 
 	c *= fractal->transformCommon.scale3D111;
 	c += fractal->transformCommon.offset000;
@@ -92,7 +89,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 	}
 	else
 	{
-		//if (fractal->transformCommon.functionEnabledBFalse)
+		//if (fractal->transformCommon.functionEnabledIFalse)
 		//{
 			dst = c.Length() - fractal->transformCommon.offsetR1; // sphere
 		//}
@@ -116,17 +113,17 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 	dst = clamp(dst, 0.0, 100.0);
-//	if (fractal->transformCommon.functionEnabledJFalse) // z clip
-//	{
-	dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
-//	}
+	if (fractal->transformCommon.functionEnabledJFalse) // z clip
+	{
+		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
+	}
 
 	dst = max(aux.dist , dst);
 
-	//if (!fractal->analyticDE.enabledFalse)
+	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = dst;
-	//else
-	//	aux.dist = min( dst, aux.dist);
+	else
+		aux.dist = min( dst, aux.dist);
 
 
 
@@ -177,9 +174,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
-		if (fractal->transformCommon.functionEnabledMFalse) zc.x = fabs(z.x);
+
 		if (fractal->transformCommon.functionEnabledNFalse) zc.y = fabs(z.y);
 		zc.x -= fractal->transformCommon.offsetA000.x;
 		zc.y -= fractal->transformCommon.offsetA000.y;
