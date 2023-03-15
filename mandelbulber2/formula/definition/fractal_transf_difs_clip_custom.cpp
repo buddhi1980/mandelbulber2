@@ -113,12 +113,12 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 	dst = clamp(dst, 0.0, 100.0);
-	if (fractal->transformCommon.functionEnabledJFalse) // z clip
+	if (!fractal->transformCommon.functionEnabledJFalse) // z clip
 	{
-		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
+		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst); // mmmmmmmmmmmmmmmm
 	}
 
-	dst = max(aux.dist , dst);
+	dst = max(aux.dist , dst / (aux.DE + fractal->analyticDE.offset1));
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = dst;
