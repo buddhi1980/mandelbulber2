@@ -93,9 +93,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
 			dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
 		}
-
 	}
-
 
 	dst = clamp(dst, 0.0f, 100.0f);
 	if (!fractal->transformCommon.functionEnabledJFalse) // z clip
@@ -103,17 +101,14 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
 	}
 
-	dst = max(aux->dist, dst / (aux.DE + fractal->analyticDE.offset1));
+	dst = max(aux->dist, dst / (aux->DE + fractal->analyticDE.offset1));
 
 	 if (!fractal->analyticDE.enabledFalse)
 		aux->dist = dst;
 	else
 		aux->dist = min( dst, aux->dist);
 
-	/*REAL temp;
-	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
-	else zc = z;
-
+	/*
 
 	// tile
 	if (fractal->transformCommon.functionEnabledTFalse)
@@ -148,64 +143,14 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.y -= fractal->transformCommon.offsetA000.y;
 	}
 
-	// scales
-	zc.x *= fractal->transformCommon.scale3D111.x;
-	zc.y *= fractal->transformCommon.scale3D111.y;
-	zc.z *= fractal->transformCommon.scale3D111.z;
-
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.x;
 	if (fractal->transformCommon.functionEnabledGFalse)
 		zc.y = zc.y + native_sin(zc.x) * fractal->transformCommon.scale3D000.y;
 
-	// square
-	if (fractal->transformCommon.functionEnabledBxFalse) zc.x = max(fabs(zc.x), fabs(zc.y));
-	// circle
-	if (fractal->transformCommon.functionEnabledOFalse) zc.x = native_sqrt((zc.x * zc.x) + (zc.y *
-	zc.y));
-
 	// plane
 	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0)
 			- fractal->transformCommon.offsetAp01;
-
-	// rec clip plane
-	REAL d = 1000.0f;
-	if (fractal->transformCommon.functionEnabledCy)
-	{
-		REAL4 rec = zc;
-		if (fractal->transformCommon.functionEnabledEFalse)
-			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.scaleE1);
-
-		if (fractal->transformCommon.functionEnabledXFalse)
-			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.scaleF1);
-
-		REAL4 f = fabs(rec);
-		f.x -= fractal->transformCommon.offset111.x;
-		f.y -= fractal->transformCommon.offset111.y;
-		f.z -= fractal->transformCommon.offsetBp01;
-		d = max(f.x, max(f.y, f.z));
-
-		// discs
-		if (fractal->transformCommon.functionEnabledSFalse)
-			d = native_sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR1;
-	}
-
-	// cir clip plane
-	REAL e = 1000.0f;
-	if (fractal->transformCommon.functionEnabledCxFalse)
-	{
-		REAL4 cir = zc;
-		e = fractal->transformCommon.radius1;
-		if (fractal->transformCommon.functionEnabledCFalse)
-			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
-
-		if (!fractal->transformCommon.functionEnabledYFalse)
-			e = clamp(native_sqrt(cir.x * cir.x + cir.y * cir.y * fractal->transformCommon.scaleA1) - e,
-	0.0f, 100.0f); // circle, else e = clamp(native_sqrt(cir.x * cir.x + cir.y * cir.y + cir.z * cir.z
-	* fractal->transformCommon.scaleA1) - e, 0.0f, 100.0f); // sphere
-	}
-
-	aux->DE0 = min(e, d); //clip value
 
 	// base plane
 	REAL a = 1000.0f;
@@ -227,18 +172,6 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			aux->color = addColor;
 		else
 			aux->color += addColor;
-	}
-
-
-
-	aux->DE0 = (max(plD, aux->DE0) - fractal->transformCommon.offset0005)
-			/ (aux->DE * fractal->analyticDE.scale1);
-
-	if (!fractal->analyticDE.enabledFalse)
-		aux->dist = aux->DE0;
-	else
-		aux->dist = min(aux->dist, aux->DE0);
-
-	if (fractal->transformCommon.functionEnabledzFalse) z = zc;*/
+	}*/
 	return z;
 }

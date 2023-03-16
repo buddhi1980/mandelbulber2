@@ -27,7 +27,7 @@ cFractalTransfDIFSClipCustom::cFractalTransfDIFSClipCustom() : cAbstractFractal(
 void cFractalTransfDIFSClipCustom::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
+	//if (fractal->transformCommon.functionEnabledFalse) aux.dist = z.Length() / fabs(aux.DE);
 
 	// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
@@ -126,29 +126,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		aux.dist = min( dst, aux.dist);
 
 
-
-
-
-
-
-
-
-
-
-	/*double temp;
-	if (!fractal->transformCommon.functionEnabledDFalse) zc = c;
-	else zc = z;
-
-	// polyfold
-	if (fractal->transformCommon.functionEnabledPFalse)
-	{
-		zc.y = fabs(z.y);
-		double psi = M_PI / fractal->transformCommon.int6;
-		psi = fabs(fmod(atan2(zc.y, zc.x) + psi, 2.0 * psi) - psi);
-		double len = sqrt(zc.x * zc.x + zc.y * zc.y);
-		zc.x = cos(psi) * len;
-		zc.y = sin(psi) * len;
-	}
+	/*
 	// tile
 	if (fractal->transformCommon.functionEnabledTFalse)
 	{
@@ -180,20 +158,11 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		zc.y -= fractal->transformCommon.offsetA000.y;
 	}
 
-	// scales
-	zc.x *= fractal->transformCommon.scale3D111.x;
-	zc.y *= fractal->transformCommon.scale3D111.y;
-	zc.z *= fractal->transformCommon.scale3D111.z;
 
 	if (fractal->transformCommon.functionEnabledFFalse)
 		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
 	if (fractal->transformCommon.functionEnabledGFalse)
 		zc.y = zc.y + sin(zc.x) * fractal->transformCommon.scale3D000.y;
-
-	// square
-	if (fractal->transformCommon.functionEnabledBxFalse) zc.x = max(fabs(zc.x), fabs(zc.y));
-	// circle
-	if (fractal->transformCommon.functionEnabledOFalse) zc.x = sqrt((zc.x * zc.x) + (zc.y * zc.y));
 
 	// plane
 	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
@@ -221,30 +190,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR1;
 	}
 
-	// cir clip plane
-	double e = 1000.0;
-	if (fractal->transformCommon.functionEnabledCxFalse)
-	{
-		CVector4 cir = zc;
-		e = fractal->transformCommon.radius1;
-		if (fractal->transformCommon.functionEnabledCFalse)
-			cir.y = cir.y - (fabs(cir.x) * fractal->transformCommon.constantMultiplier000.x);
 
-		if (!fractal->transformCommon.functionEnabledYFalse)
-			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y * fractal->transformCommon.scaleA1) - e, 0.0, 100.0); // circle,
-		else
-			e = clamp(sqrt(cir.x * cir.x + cir.y * cir.y + cir.z * cir.z * fractal->transformCommon.scaleA1) - e, 0.0, 100.0); // sphere
-	}
-
-	aux.DE0 = min(e, d); //clip value
-
-	// base plane
-	double a = 1000.0;
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		a = (c.z - fractal->transformCommon.offsetA0);
-		aux.DE0 = min(aux.DE0, a);
-	}
 
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
@@ -258,17 +204,5 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 			aux.color = addColor;
 		else
 			aux.color += addColor;
-	}
-
-
-
-	aux.DE0 = (max(plD, aux.DE0) - fractal->transformCommon.offset0005)
-			/ (aux.DE * fractal->analyticDE.scale1);
-
-	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = aux.DE0;
-	else
-		aux.dist = min(aux.dist, aux.DE0);
-
-	if (fractal->transformCommon.functionEnabledzFalse) z = zc;*/
+	}*/
 }
