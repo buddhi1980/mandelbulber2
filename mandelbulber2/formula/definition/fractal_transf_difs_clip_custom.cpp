@@ -76,47 +76,54 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 
-	double dst = 1.0;
+	double dst = 0.0;
 
-	CVector4 f = fractal->transformCommon.constantMultiplier111;
-
-	CVector4 g = fabs(c) - CVector4(f.x, f.y, f.z, 0.0);
-
-	if (!fractal->transformCommon.functionEnabledBFalse)
+	if (fractal->transformCommon.functionEnabledBx)
 	{
-		dst = max(fabs(c.x) - fractal->transformCommon.constantMultiplier111.x,
-				fabs(c.y) - fractal->transformCommon.constantMultiplier111.y); // sqr
-	}
-	else
-	{
-		//if (fractal->transformCommon.functionEnabledIFalse)
-		//{
-			dst = c.Length() - fractal->transformCommon.offsetR1; // sphere
-		//}
-
-		if (fractal->transformCommon.functionEnabledCFalse)
+		CVector4 g = fabs(c) - fractal->transformCommon.offsetC111;
+		if (!fractal->transformCommon.functionEnabledCFalse)
+		{
+			dst = max(max(g.x, g.y), g.z);
+		}
+		else
 		{
 			dst = c.Length() - g.Length();
 		}
-		if (fractal->transformCommon.functionEnabledDFalse) // cyl
-		{
-			dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
-		}
-		if (fractal->transformCommon.functionEnabledEFalse) // cone
-		{
-			double CZ = -c.z;
-			if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
-			if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
-			dst = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
-		}
 	}
-
-
-	dst = clamp(dst, 0.0, 100.0);
-	if (!fractal->transformCommon.functionEnabledJFalse) // z clip
+	if (fractal->transformCommon.functionEnabledBFalse) // sphere
 	{
-		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst); // mmmmmmmmmmmmmmmm
+		double dst1 = 0.0;
+		if (!fractal->transformCommon.functionEnabledIFalse)
+		{
+			dst1 = c.Length() - fractal->transformCommon.offsetR1; // sphere
+		}
+		else // cyl or cone
+		{
+			if (!fractal->transformCommon.functionEnabledEFalse) // cyl
+			{
+				dst1 = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
+			}
+			else // cones
+			{
+				double CZ = -c.z;
+				if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
+				if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
+				dst1 = sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
+			}
+		}
+
+		if (!fractal->transformCommon.functionEnabledJFalse) // z clip
+		{
+			dst1 = max(fabs(c.z) - fractal->transformCommon.offset1, dst1);
+		}
+
+		if (!fractal->transformCommon.functionEnabledDFalse) dst = dst1;
+		else dst = max(dst, dst1);
 	}
+
+
+	//dst = clamp(dst, 0.0, 100.0);
+
 
 	dst = max(aux.dist , dst / (aux.DE + fractal->analyticDE.offset1));
 
@@ -127,71 +134,6 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 	/*
-	// tile
-	if (fractal->transformCommon.functionEnabledTFalse)
-	{
-		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
-	}
-
-	// rot
-	if (fractal->transformCommon.functionEnabledIFalse)
-	{
-		double angle = M_PI_2x / (fractal->transformCommon.int16);
-		double sector = round(atan2(zc.x, zc.y) / angle);
-		double an = sector * angle;
-		double sinan = sin(an);
-		double cosan = cos(an);
-		temp = zc.x;
-		zc.x = zc.x * cosan - zc.y * sinan;
-		zc.y = temp * sinan + zc.y * cosan;
-	}
-
-	zc.x += fractal->transformCommon.offset000.x;
-	zc.y += fractal->transformCommon.offset000.y;
-
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{
-
-		if (fractal->transformCommon.functionEnabledNFalse) zc.y = fabs(z.y);
-		zc.x -= fractal->transformCommon.offsetA000.x;
-		zc.y -= fractal->transformCommon.offsetA000.y;
-	}
-
-
-	if (fractal->transformCommon.functionEnabledFFalse)
-		zc.x = zc.x + sin(zc.y) * fractal->transformCommon.scale3D000.x;
-	if (fractal->transformCommon.functionEnabledGFalse)
-		zc.y = zc.y + sin(zc.x) * fractal->transformCommon.scale3D000.y;
-
-	// plane
-	double plD = fabs(c.z - fractal->transformCommon.offsetF0)
-			- fractal->transformCommon.offsetAp01;
-
-	// rec clip plane
-	double d = 1000.0;
-	if (fractal->transformCommon.functionEnabledCy)
-	{
-		CVector4 rec = zc;
-		if (fractal->transformCommon.functionEnabledEFalse)
-			rec.x = fabs(rec.x) - ((rec.y) * fractal->transformCommon.scaleE1);
-
-		if (fractal->transformCommon.functionEnabledXFalse)
-			rec.x = rec.x - (fabs(rec.y) * fractal->transformCommon.scaleF1);
-
-		CVector4 f = fabs(rec);
-		f.x -= fractal->transformCommon.offset111.x;
-		f.y -= fractal->transformCommon.offset111.y;
-		f.z -= fractal->transformCommon.offsetBp01;
-		d = max(f.x, max(f.y, f.z));
-
-		// discs
-		if (fractal->transformCommon.functionEnabledSFalse)
-			d = sqrt(f.x * f.x + f.y * f.y) - fractal->transformCommon.offsetR1;
-	}
-
-
-
 	// aux->color
 	if (fractal->foldColor.auxColorEnabled)
 	{

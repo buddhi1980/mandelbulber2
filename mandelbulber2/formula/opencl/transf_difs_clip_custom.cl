@@ -59,47 +59,56 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, c);
 
 
-	REAL dst = 1.0f;
+	REAL dst = 0.0f;
 
 
-	REAL4 f = fractal->transformCommon.constantMultiplier111;
 
-	REAL4 g = fabs(c) - (REAL4){f.x, f.y, f.z, 0.0f};
 
-	if (!fractal->transformCommon.functionEnabledBFalse)
+	if (fractal->transformCommon.functionEnabledBx)
 	{
-		dst = max(fabs(c.x) - fractal->transformCommon.constantMultiplier111.x,
-			fabs(c.y) - fractal->transformCommon.constantMultiplier111.y); // sqr
-	}
-	else
-	{
-		//if (fractal->transformCommon.functionEnabledIFalse)
-		//{
-			dst = length(c) - fractal->transformCommon.offsetR1; // sphere
-		//}
-
-		if (fractal->transformCommon.functionEnabledCFalse)
+		REAL4 g = fabs(c) - fractal->transformCommon.offsetC111;
+		if (!fractal->transformCommon.functionEnabledCFalse)
+		{
+			dst = max(max(g.x, g.y), g.z);
+		}
+		else
 		{
 			dst = length(c) - length(g);
 		}
-		if (fractal->transformCommon.functionEnabledDFalse) // cyl
+	}
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		REAL dst1 = 0.0;
+		if (!fractal->transformCommon.functionEnabledIFalse)
 		{
-			dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
+			dst1 = length(c) - fractal->transformCommon.offsetR1; // sphere
 		}
-		if (fractal->transformCommon.functionEnabledEFalse) // cone
+		else // cyl or cone
 		{
+			if (!fractal->transformCommon.functionEnabledEFalse) // cyl
+			{
+				dst1 = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1;
+			}
+			else // cones
+			{
 			REAL CZ = -c.z;
 			if (fractal->transformCommon.functionEnabledFFalse) CZ = fabs(c.z);
 			if (fractal->transformCommon.functionEnabledGFalse) CZ = c.z * c.z;
-			dst = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
+			dst1 = native_sqrt(c.x * c.x + c.y * c.y) - fractal->transformCommon.offsetR1 * CZ;
+			}
 		}
+
+		if (!fractal->transformCommon.functionEnabledJFalse) // z clip
+		{
+			dst1 = max(fabs(c.z) - fractal->transformCommon.offset1, dst1);
+		}
+
+		if (!fractal->transformCommon.functionEnabledDFalse) dst = dst1;
+		else dst = max(dst, dst1);
 	}
 
-	dst = clamp(dst, 0.0f, 100.0f);
-	if (!fractal->transformCommon.functionEnabledJFalse) // z clip
-	{
-		dst = max(fabs(c.z) - fractal->transformCommon.constantMultiplier111.z, dst);
-	}
+	//dst = clamp(dst, 0.0f, 100.0f);
+
 
 	dst = max(aux->dist, dst / (aux->DE + fractal->analyticDE.offset1));
 
