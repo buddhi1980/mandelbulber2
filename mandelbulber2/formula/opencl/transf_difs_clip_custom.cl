@@ -37,9 +37,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	// transform c
 	REAL4 c = aux->const_c;
-
-	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
-
+	if (fractal->transformCommon.functionEnabledFalse) c = z;
 
 		// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse)
@@ -58,12 +56,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	c += fractal->transformCommon.offset000;
 	c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, c);
 
-
 	REAL dst = 0.0f;
-
-
-
-
 	if (fractal->transformCommon.functionEnabledBx)
 	{
 		REAL4 g = fabs(c) - fractal->transformCommon.offsetC111;
@@ -76,9 +69,11 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			dst = length(c) - length(g);
 		}
 	}
+
+	REAL dst1 = 0.0;
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		REAL dst1 = 0.0;
+
 		if (!fractal->transformCommon.functionEnabledIFalse)
 		{
 			dst1 = length(c) - fractal->transformCommon.offsetR1; // sphere
@@ -107,8 +102,17 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		else dst = max(dst, dst1);
 	}
 
-	//dst = clamp(dst, 0.0f, 100.0f);
-
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		double addColor = 0.0;
+		if (dst > aux->dist) addColor += fractal->foldColor.difs0000.x;
+		if (dst1 > aux->dist) addColor += fractal->foldColor.difs0000.y;
+		if (!fractal->transformCommon.functionEnabledyFalse)
+			aux->color = addColor;
+		else
+			aux->color += addColor;
+	}
 
 	dst = max(aux->dist, dst / (aux->DE + fractal->analyticDE.offset1));
 
@@ -117,70 +121,5 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	else
 		aux->dist = min( dst, aux->dist);
 
-	/*
-
-	// tile
-	if (fractal->transformCommon.functionEnabledTFalse)
-	{
-		zc.x -= round(zc.x / fractal->transformCommon.offset2) * fractal->transformCommon.offset2;
-		zc.y -= round(zc.y / fractal->transformCommon.offsetA2) * fractal->transformCommon.offsetA2;
-	}
-
-	// rot
-	if (fractal->transformCommon.functionEnabledIFalse)
-	{
-		REAL angle = M_PI_2x_F / (fractal->transformCommon.int16);
-		REAL sector = round(atan2(zc.x, zc.y) / angle);
-		REAL an = sector * angle;
-		REAL sinan = native_sin(an);
-		REAL cosan = native_cos(an);
-		temp = zc.x;
-		zc.x = zc.x * cosan - zc.y * sinan;
-		zc.y = temp * sinan + zc.y * cosan;
-	}
-
-	zc.x += fractal->transformCommon.offset000.x;
-	zc.y += fractal->transformCommon.offset000.y;
-
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{
-		if (fractal->transformCommon.functionEnabledAxFalse) zc.x = fabs(zc.x);
-		if (fractal->transformCommon.functionEnabledAyFalse) zc.y = fabs(zc.y);
-		if (fractal->transformCommon.functionEnabledMFalse) zc.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledNFalse) zc.y = fabs(z.y);
-		zc.x -= fractal->transformCommon.offsetA000.x;
-		zc.y -= fractal->transformCommon.offsetA000.y;
-	}
-
-	if (fractal->transformCommon.functionEnabledFFalse)
-		zc.x = zc.x + native_sin(zc.y) * fractal->transformCommon.scale3D000.x;
-	if (fractal->transformCommon.functionEnabledGFalse)
-		zc.y = zc.y + native_sin(zc.x) * fractal->transformCommon.scale3D000.y;
-
-	// plane
-	REAL plD = fabs(c.z - fractal->transformCommon.offsetF0)
-			- fractal->transformCommon.offsetAp01;
-
-	// base plane
-	REAL a = 1000.0f;
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		a = (c.z - fractal->transformCommon.offsetA0);
-		aux->DE0 = min(aux->DE0, a);
-	}
-
-	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		REAL addColor = 0.0f;
-		if (e > d) addColor += fractal->foldColor.difs0000.x;
-		if (e < d) addColor += fractal->foldColor.difs0000.y;
-		if (aux->DE0 == a) addColor += fractal->foldColor.difs0000.z;
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			aux->color = addColor;
-		else
-			aux->color += addColor;
-	}*/
 	return z;
 }

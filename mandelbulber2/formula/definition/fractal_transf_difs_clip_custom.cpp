@@ -27,8 +27,6 @@ cFractalTransfDIFSClipCustom::cFractalTransfDIFSClipCustom() : cAbstractFractal(
 void cFractalTransfDIFSClipCustom::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	//if (fractal->transformCommon.functionEnabledFalse) aux.dist = z.Length() / fabs(aux.DE);
-
 	// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -52,8 +50,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 	// transform c
 	CVector4 c = aux.const_c;
-
-	if (fractal->transformCommon.functionEnabledFalse) c = z; // hmmmmmmmmmmm
+	if (fractal->transformCommon.functionEnabledFalse) c = z;
 
 			// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse)
@@ -74,10 +71,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 	c += fractal->transformCommon.offset000;
 	c = fractal->transformCommon.rotationMatrix.RotateVector(c);
 
-
-
 	double dst = 0.0;
-
 	if (fractal->transformCommon.functionEnabledBx)
 	{
 		CVector4 g = fabs(c) - fractal->transformCommon.offsetC111;
@@ -90,9 +84,13 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 			dst = c.Length() - g.Length();
 		}
 	}
+
+
+
+	double dst1 = 0.0;
 	if (fractal->transformCommon.functionEnabledBFalse) // sphere
 	{
-		double dst1 = 0.0;
+
 		if (!fractal->transformCommon.functionEnabledIFalse)
 		{
 			dst1 = c.Length() - fractal->transformCommon.offsetR1; // sphere
@@ -122,10 +120,20 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 	}
 
 
-	//dst = clamp(dst, 0.0, 100.0);
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		double addColor = 0.0;
+		if (dst > aux.dist) addColor += fractal->foldColor.difs0000.x;
+		if (dst1 > aux.dist) addColor += fractal->foldColor.difs0000.y;
+		if (!fractal->transformCommon.functionEnabledyFalse)
+			aux.color = addColor;
+		else
+			aux.color += addColor;
+	}
 
 
-	dst = max(aux.dist , dst / (aux.DE + fractal->analyticDE.offset1));
+	dst = max(aux.dist, dst / (aux.DE + fractal->analyticDE.offset1));
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = dst;
@@ -133,18 +141,5 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		aux.dist = min( dst, aux.dist);
 
 
-	/*
-	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
-	{
-		double addColor = 0.0;
-		if (e > d) addColor += fractal->foldColor.difs0000.x;
-		if (e < d) addColor += fractal->foldColor.difs0000.y;
-		if (aux.DE0 == a) addColor += fractal->foldColor.difs0000.z;
 
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			aux.color = addColor;
-		else
-			aux.color += addColor;
-	}*/
 }
