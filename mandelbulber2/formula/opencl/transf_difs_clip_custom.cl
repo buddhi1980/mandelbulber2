@@ -117,12 +117,21 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			aux->color += addColor;
 	}
 
-	dst = max(aux->dist, dst * fractal->analyticDE.scale1);
+	if (!fractal->transformCommon.functionEnabledxFalse)
+	{
+		dst *= fractal->analyticDE.scale1;
+	}
+	else
+	{
+		dst *= fractal->analyticDE.scale1 / aux->DE;
+	}
+
+	dst = max(aux->dist, dst);
 
 	 if (!fractal->analyticDE.enabledFalse)
 		aux->dist = dst;
 	else
-		aux->dist = min( dst, aux->dist);
+		aux->dist = min(dst, aux->dist);
 
 	return z;
 }

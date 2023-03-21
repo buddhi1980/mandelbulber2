@@ -1210,6 +1210,16 @@ scale:</string>
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string notr="true">apply aux.DE</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -1654,12 +1664,12 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>219</x>
-     <y>967</y>
+     <x>384</x>
+     <y>1013</y>
     </hint>
     <hint type="destinationlabel">
-     <x>59</x>
-     <y>1004</y>
+     <x>67</x>
+     <y>1042</y>
     </hint>
    </hints>
   </connection>
@@ -1670,12 +1680,12 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>244</x>
-     <y>968</y>
+     <x>409</x>
+     <y>1013</y>
     </hint>
     <hint type="destinationlabel">
-     <x>243</x>
-     <y>1000</y>
+     <x>408</x>
+     <y>1042</y>
     </hint>
    </hints>
   </connection>
@@ -1686,12 +1696,28 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>972</y>
+     <x>79</x>
+     <y>1013</y>
     </hint>
     <hint type="destinationlabel">
-     <x>292</x>
-     <y>974</y>
+     <x>457</x>
+     <y>1013</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledJ_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offset_1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>23</x>
+     <y>1058</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>217</x>
+     <y>1064</y>
     </hint>
    </hints>
   </connection>
