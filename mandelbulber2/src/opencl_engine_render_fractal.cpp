@@ -1691,6 +1691,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 										pixelsToDoCounter++;
 									}
 								}
+								else
+								{
+									pixelsToDoCounter++;
+								}
 							}
 							// if not MC then just paint pixels
 							else
