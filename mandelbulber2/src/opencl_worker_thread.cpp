@@ -70,6 +70,7 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 	finishedWithSuccess = false;
 	antiAliasingDepth = 0;
 	isFullEngine = false;
+	maxWorkgroupSize = 0;
 }
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
@@ -382,8 +383,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	inPixelSequenceBuffer.resize(jobWidth * jobHeight);
 	quint64 sequenceSize = 0;
 
-	int workGroup = hardware->getSelectedDevicesInformation().at(deviceIndex).maxWorkGroupSize;
-	int subTileSize = sqrt(workGroup);
+	int subTileSize = sqrt(maxWorkgroupSize);
 
 	if (pixelMask->size() > 0)
 	{

@@ -88,6 +88,7 @@ public:
 	}
 	void setStopRequest(bool *stopRequest) { this->stopRequest = stopRequest; }
 	void setReservedGpuTime(double reservedGpuTime) { this->reservedGpuTime = reservedGpuTime; }
+	void setMaxWorkgroupSize(int _maxWorkgroupSize) { this->maxWorkgroupSize = _maxWorkgroupSize; }
 	bool wasFishedWithSuccess() { return finishedWithSuccess; }
 
 private:
@@ -126,6 +127,7 @@ private:
 	bool finishedWithSuccess;
 	int antiAliasingDepth;
 	int isFullEngine;
+	int maxWorkgroupSize;
 
 	const int deviceIndex;
 

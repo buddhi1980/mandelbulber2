@@ -1168,6 +1168,8 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setStopRequest(stopRequest);
 		workers[d]->setReservedGpuTime(reservedGpuTime);
 		workers[d]->setFullEngineFlag(renderEngineMode == clRenderEngineTypeFull);
+		workers[d]->setMaxWorkgroupSize(
+			hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize);
 		// stating threads
 		workers[d]->moveToThread(threads[d].get());
 		QObject::connect(
