@@ -37,6 +37,13 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
+     <property name="text">
+      <string notr="true">temp</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledA_false">
      <property name="toolTip">
       <string/>
@@ -201,13 +208,6 @@
           </property>
          </widget>
         </item>
-        <item row="9" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
-          <property name="text">
-           <string notr="true">min aux.dist</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_000_x">
           <property name="sizePolicy">
@@ -341,15 +341,8 @@
           </property>
          </widget>
         </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="label_111">
-          <property name="text">
-           <string>aux.dist tweak:</string>
-          </property>
-         </widget>
-        </item>
         <item row="8" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -373,6 +366,20 @@
           </property>
           <property name="singleStep">
            <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="2">
+         <widget class="QLabel" name="label_111">
+          <property name="text">
+           <string>aux.dist tweak:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
+          <property name="text">
+           <string notr="true">min aux.dist</string>
           </property>
          </widget>
         </item>
@@ -1037,30 +1044,10 @@ scale:</string>
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
           <property name="text">
-           <string notr="true">cone mirror</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string notr="true">cone</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-          <property name="text">
-           <string>z clip off</string>
+           <string notr="true">cylinder and cones</string>
           </property>
          </widget>
         </item>
@@ -1099,6 +1086,43 @@ scale:</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string notr="true">cone mirror</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">max(box clip, sphere clip);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+          <property name="text">
+           <string>z clip off</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string notr="true">cone mirror curve</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
           <property name="sizePolicy">
@@ -1127,30 +1151,13 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+        <item row="1" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
           <property name="enabled">
            <bool>false</bool>
           </property>
           <property name="text">
-           <string notr="true">cone mirror curve</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
-          <property name="text">
-           <string notr="true">cylinder and cones</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="text">
-           <string notr="true">max(box clip, sphere clip);</string>
+           <string notr="true">cone</string>
           </property>
          </widget>
         </item>
@@ -1164,7 +1171,7 @@ scale:</string>
      <item row="0" column="0">
       <widget class="QLabel" name="label_147">
        <property name="text">
-        <string notr="true">tweak</string>
+        <string notr="true">aux.dist tweak</string>
        </property>
       </widget>
      </item>
@@ -1176,7 +1183,7 @@ scale:</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1213,41 +1220,7 @@ scale:</string>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,0,0">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label_44">
-       <property name="text">
-        <string notr="true">Hybrid controls</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
-       <property name="text">
-        <string>z = zc</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">
+    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
       <string>aux color c&amp;omponents</string>
      </property>
@@ -1270,7 +1243,7 @@ scale:</string>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
         <property name="text">
-         <string>y</string>
+         <string>iter color</string>
         </property>
        </widget>
       </item>
@@ -1279,13 +1252,6 @@ scale:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_59">
-          <property name="text">
-           <string>y</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
@@ -1321,13 +1287,6 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_61">
-          <property name="text">
-           <string>base plane:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
           <property name="sizePolicy">
@@ -1353,6 +1312,13 @@ scale:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_59">
+          <property name="text">
+           <string>y</string>
           </property>
          </widget>
         </item>

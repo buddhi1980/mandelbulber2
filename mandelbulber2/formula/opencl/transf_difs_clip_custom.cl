@@ -15,6 +15,9 @@
 
 REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
+	if (fractal->transformCommon.functionEnabledwFalse) aux->dist = length(z) / aux->DE;
+
 		// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -24,7 +27,8 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
-		REAL zcd = length(zc) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
+		//REAL zcd = length(zc) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
+		REAL zcd = length(zc) * fractal->transformCommon.scale1 - fractal->transformCommon.offsetB0;
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
 			aux->dist =  zcd;
@@ -73,7 +77,6 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL dst1 = 0.0;
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-
 		if (!fractal->transformCommon.functionEnabledIFalse)
 		{
 			dst1 = length(c) - fractal->transformCommon.offsetR1; // sphere
@@ -103,7 +106,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double addColor = 0.0;
 		if (dst > aux->dist) addColor += fractal->foldColor.difs0000.x;
@@ -114,7 +117,7 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			aux->color += addColor;
 	}
 
-	dst = max(aux->dist, dst / (aux->DE + fractal->analyticDE.offset1));
+	dst = max(aux->dist, dst * fractal->analyticDE.scale1);
 
 	 if (!fractal->analyticDE.enabledFalse)
 		aux->dist = dst;

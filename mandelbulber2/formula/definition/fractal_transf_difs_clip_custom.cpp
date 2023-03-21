@@ -27,6 +27,8 @@ cFractalTransfDIFSClipCustom::cFractalTransfDIFSClipCustom() : cAbstractFractal(
 void cFractalTransfDIFSClipCustom::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledwFalse) aux.dist = z.Length() / aux.DE;
+
 	// pre-box option
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
@@ -36,8 +38,8 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
-		double zcd = zc.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
-
+		//double zcd = zc.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
+		double zcd = zc.Length() * fractal->transformCommon.scale1 - fractal->transformCommon.offsetB0;
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
 			aux.dist = zcd;
@@ -121,7 +123,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 
 
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		double addColor = 0.0;
 		if (dst > aux.dist) addColor += fractal->foldColor.difs0000.x;
@@ -132,8 +134,7 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 			aux.color += addColor;
 	}
 
-
-	dst = max(aux.dist, dst / (aux.DE + fractal->analyticDE.offset1));
+	dst = max(aux.dist, dst * fractal->analyticDE.scale1);
 
 	if (!fractal->analyticDE.enabledFalse)
 		aux.dist = dst;
