@@ -39,7 +39,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
      <property name="text">
-      <string notr="true">temp</string>
+      <string notr="true">convert linearDE formula input to customDE</string>
      </property>
     </widget>
    </item>
@@ -886,6 +886,13 @@ scale:</string>
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_146">
+          <property name="text">
+           <string notr="true">y</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetC_111_y">
           <property name="sizePolicy">
@@ -914,6 +921,23 @@ scale:</string>
           </property>
           <property name="value">
            <double>0.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_144">
+          <property name="text">
+           <string notr="true">z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">polyhedron</string>
           </property>
          </widget>
         </item>
@@ -955,13 +979,6 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_144">
-          <property name="text">
-           <string notr="true">z</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetC_111_x">
           <property name="sizePolicy">
@@ -993,20 +1010,51 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_146">
-          <property name="text">
-           <string notr="true">y</string>
+        <item row="5" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetC_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_148">
+          <property name="text">
+           <string notr="true">thick</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="text">
-           <string notr="true">polyhedron</string>
+           <string notr="true">hollow</string>
           </property>
          </widget>
         </item>
@@ -1044,10 +1092,20 @@ scale:</string>
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
-        <item row="1" column="0">
+        <item row="1" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
           <property name="text">
            <string notr="true">cylinder and cones</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">hollow</string>
           </property>
          </widget>
         </item>
@@ -1086,34 +1144,7 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string notr="true">cone mirror</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="text">
-           <string notr="true">max(box clip, sphere clip);</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-          <property name="text">
-           <string>z clip off</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
           <property name="enabled">
            <bool>false</bool>
@@ -1123,7 +1154,24 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string notr="true">cone</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+          <property name="text">
+           <string>z clip off</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1151,13 +1199,61 @@ scale:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+        <item row="7" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">max(box clip, sphere clip);</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
           <property name="enabled">
            <bool>false</bool>
           </property>
           <property name="text">
-           <string notr="true">cone</string>
+           <string notr="true">cone mirror</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_149">
+          <property name="text">
+           <string notr="true">width:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
           </property>
          </widget>
         </item>
@@ -1265,7 +1361,7 @@ scale:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string>x:</string>
+           <string>box</string>
           </property>
          </widget>
         </item>
@@ -1328,7 +1424,7 @@ scale:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_59">
           <property name="text">
-           <string>y</string>
+           <string>sphere</string>
           </property>
          </widget>
         </item>
@@ -1664,12 +1760,12 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>384</x>
-     <y>1013</y>
+     <x>111</x>
+     <y>1103</y>
     </hint>
     <hint type="destinationlabel">
-     <x>67</x>
-     <y>1042</y>
+     <x>75</x>
+     <y>1132</y>
     </hint>
    </hints>
   </connection>
@@ -1680,12 +1776,12 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>409</x>
-     <y>1013</y>
+     <x>111</x>
+     <y>1103</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>1042</y>
+     <x>526</x>
+     <y>1132</y>
     </hint>
    </hints>
   </connection>
@@ -1696,12 +1792,12 @@ scale:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
-     <y>1013</y>
+     <x>87</x>
+     <y>1074</y>
     </hint>
     <hint type="destinationlabel">
-     <x>457</x>
-     <y>1013</y>
+     <x>111</x>
+     <y>1103</y>
     </hint>
    </hints>
   </connection>
@@ -1712,12 +1808,44 @@ scale:</string>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>23</x>
-     <y>1058</y>
+     <x>31</x>
+     <y>1162</y>
     </hint>
     <hint type="destinationlabel">
-     <x>217</x>
-     <y>1064</y>
+     <x>335</x>
+     <y>1164</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledM_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offsetA_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>1178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>1215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledO_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offsetC_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>14</x>
+     <y>946</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>205</x>
+     <y>967</y>
     </hint>
    </hints>
   </connection>
