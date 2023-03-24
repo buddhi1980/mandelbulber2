@@ -27,7 +27,6 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
-		//REAL zcd = length(zc) / (aux->DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
 		REAL zcd = length(zc) * fractal->transformCommon.scale1 - fractal->transformCommon.offsetB0;
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
@@ -72,6 +71,10 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			dst = length(c) - length(g);
 		}
+		if (fractal->transformCommon.functionEnabledOFalse)
+		{
+			dst = fabs(dst) - fractal->transformCommon.offsetC0;
+		}
 	}
 
 	REAL dst1 = 0.0;
@@ -100,7 +103,10 @@ REAL4 TransfDIFSClipCustomIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			dst1 = max(fabs(c.z) - fractal->transformCommon.offset1, dst1);
 		}
-
+		if (fractal->transformCommon.functionEnabledMFalse)
+		{
+			dst1 = fabs(dst1) - fractal->transformCommon.offsetA0;
+		}
 		if (!fractal->transformCommon.functionEnabledDFalse) dst = dst1;
 		else dst = max(dst, dst1);
 	}
