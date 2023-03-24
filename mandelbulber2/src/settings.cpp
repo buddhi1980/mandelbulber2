@@ -1493,6 +1493,18 @@ void cSettings::Compatibility2(
 			}
 		}
 	}
+
+	if (fileVersion < 2.29)
+	{
+		if (par->Get<bool>("boolean_operators"))
+		{
+			int maxiter = par->Get<int>("N");
+			for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+			{
+				par->Set("formula_maxiter", i, maxiter);
+			}
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(QString line, std::shared_ptr<cParameterContainer> par,

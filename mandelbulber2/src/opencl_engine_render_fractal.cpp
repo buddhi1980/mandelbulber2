@@ -1168,6 +1168,8 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setStopRequest(stopRequest);
 		workers[d]->setReservedGpuTime(reservedGpuTime);
 		workers[d]->setFullEngineFlag(renderEngineMode == clRenderEngineTypeFull);
+		workers[d]->setMaxWorkgroupSize(
+			hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize);
 		// stating threads
 		workers[d]->moveToThread(threads[d].get());
 		QObject::connect(
@@ -1477,6 +1479,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 					float maxEdge = 0.0;
 
+					int pixelsToDoCounter = 0;
+
 					bool anitiAliasingDepthFinished = true;
 					if (useAntiAlaising)
 					{
@@ -1682,6 +1686,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 										pixelMask[xx + yy * width] = false;
 										maskedPixelsCounter++;
 									}
+									else
+									{
+										pixelsToDoCounter++;
+									}
+								}
+								else
+								{
+									pixelsToDoCounter++;
 								}
 							}
 							// if not MC then just paint pixels
@@ -1703,6 +1715,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 					if (useAntiAlaising && output.monteCarloLoop == 1)
 					{
+						pixelsToDoCounter = 0;
 						for (int y = 0; y < int(jobHeight); y++)
 						{
 							for (int x = 0; x < int(jobWidth); x++)
@@ -1744,6 +1757,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								{
 									pixelMask[xxx + yyy * width] = false;
 									maskedPixelsCounter++;
+								}
+								else
+								{
+									pixelsToDoCounter++;
 								}
 							}
 						}
@@ -1788,8 +1805,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						// smothedNoiseLevel = totalNoiseRect;
 						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
 
-						if (noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
-								&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
+						if ((noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
+									&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
+								|| pixelsToDoCounter == 0)
 						{
 							scheduler->DisableTile(output.tileIndex);
 							doneMCpixels += jobWidth * jobHeight;
