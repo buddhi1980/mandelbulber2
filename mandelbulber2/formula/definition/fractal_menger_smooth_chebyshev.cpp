@@ -34,7 +34,6 @@ void cFractalMengerSmoothChebyshev::FormulaCode(CVector4 &z, const sFractal *fra
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		if (fractal->transformCommon.functionEnabledSwFalse) swap(z.x, z.y);
-		double t = 0.0;
 		double F = z.x / z.y;
 		if (z.y == 0.0) t = (z.x > 0.0 ? 0.0: 4.0);
 		else if (fabs(F) < 1.0)

@@ -546,6 +546,7 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/M_PI_8([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_8_F$1' : 'M_PI_8$1')), // replace Math constant
 		array('find' => "/M_PI_4([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_4_F$1' : 'M_PI_4$1')), // replace Math constant
 		array('find' => "/M_PI_2x([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_2x_F$1' : 'M_PI_2x$1')), // replace Math constant
+		array('find' => "/M_PI_2x_INV([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_2x_INV_F$1' : 'M_PI_2x_INV$1')), // replace Math constant		
 		array('find' => "/SQRT_1_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_1_3_F$1' : 'SQRT_1_3$1')), // replace Math constant
 		array('find' => "/SQRT_1_2([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_1_2_F$1' : 'SQRT_1_2$1')), // replace Math constant
 		array('find' => "/SQRT_2_3([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'SQRT_2_3_F$1' : 'SQRT_2_3$1')), // replace Math constant

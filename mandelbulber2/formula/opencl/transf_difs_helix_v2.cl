@@ -157,7 +157,7 @@ REAL4 TransfDIFSHelixV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
-			REAL ang =
+			ang =
 				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV;
 			if (fmod(ang, 2.0f) < 1.0f)
 				aux->color += fractal->foldColor.difs0000.z;

@@ -24,11 +24,10 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			REAL temp = z.x;
+			t = z.x;
 			z.x = z.y;
-			z.y = temp;
+			z.y = t;
 		}
-		REAL t = 0.0f;
 		REAL F = z.x / z.y;
 		if (z.y == 0.0f)
 			t = (z.x > 0.0f ? 0.0 : 4.0f);
