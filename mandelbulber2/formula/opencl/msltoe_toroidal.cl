@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -60,7 +60,7 @@ REAL4 MsltoeToroidalIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
 		z *= 1.0f + fractal->transformCommon.offset / lengthTempZ;
 		z *= fractal->transformCommon.scale;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scale);
 	}
 	// then add Cpixel constant vector
 	return z;

@@ -50,8 +50,10 @@ REAL4 MandelbulbTailsIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	REAL4 t = z;
 	REAL temp;
-	if (!fractal->transformCommon.functionEnabledFalse) temp = 1.0f / dot(t, t);
-	else temp = 1.0f / length(t);
+	if (!fractal->transformCommon.functionEnabledFalse)
+		temp = 1.0f / dot(t, t);
+	else
+		temp = 1.0f / length(t);
 	t.x = -t.x;
 	//	t.y = t.y;
 	t.z = -t.z;

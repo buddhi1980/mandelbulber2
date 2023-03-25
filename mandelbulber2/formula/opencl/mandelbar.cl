@@ -22,7 +22,6 @@ REAL4 MandelbarIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
 	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL4 dd = fractal->transformCommon.constantMultiplier122;
 	dd.x = z.x * z.x * dd.x - z.y * z.y - z.z * z.z;

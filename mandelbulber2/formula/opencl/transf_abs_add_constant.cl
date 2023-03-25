@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -15,6 +15,8 @@
 
 REAL4 TransfAbsAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	Q_UNUSED(aux);
+
 	z += fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
@@ -29,6 +31,5 @@ REAL4 TransfAbsAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 		aux->const_c = z;
-
 	return z;
 }

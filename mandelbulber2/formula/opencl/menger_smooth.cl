@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -41,15 +41,14 @@ REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z.y = z.y - t;
 	z.z = z.z + t;
 
-	t = fractal->transformCommon.offset1105.z * sc2;
-	z.z -= t; // sc2 reduces C.z
+	t = fractal->transformCommon.offset1105.z * sc2; // sc2 reduces C.z
+	z.z -= t;
 	z.z = -native_sqrt(z.z * z.z + OffsetS);
 	z.z += t;
 
 	z.x = fractal->transformCommon.scale3 * z.x
-			- fractal->transformCommon.offset1105.x * sc1; // sc1 scales up C.x
-	z.y = fractal->transformCommon.scale3 * z.y
-			- fractal->transformCommon.offset1105.y * sc1;
+				- fractal->transformCommon.offset1105.x * sc1; // sc1 scales up C.x
+	z.y = fractal->transformCommon.scale3 * z.y - fractal->transformCommon.offset1105.y * sc1;
 	z.z = fractal->transformCommon.scale3 * z.z;
 
 	aux->DE *= fractal->transformCommon.scale3;

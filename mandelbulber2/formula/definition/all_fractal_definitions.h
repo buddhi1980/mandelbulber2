@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
@@ -150,9 +150,9 @@ FRACTAL_CLASS(cFractalMandelbulbTailsV2)
 FRACTAL_CLASS(cFractalMandelbulbVaryPowerV1)
 FRACTAL_CLASS(cFractalMandelcup)
 FRACTAL_CLASS(cFractalMandelnest)
+FRACTAL_CLASS(cFractalMandelnest4d)
 FRACTAL_CLASS(cFractalMandelnestFull)
 FRACTAL_CLASS(cFractalMandelnestV2)
-FRACTAL_CLASS(cFractalMandelnest4d)
 FRACTAL_CLASS(cFractalMandeltorus)
 FRACTAL_CLASS(cFractalMandeltorusV2)
 FRACTAL_CLASS(cFractalMenger3)
@@ -167,15 +167,13 @@ FRACTAL_CLASS(cFractalMengerMiddleMod)
 FRACTAL_CLASS(cFractalMengerMod1)
 FRACTAL_CLASS(cFractalMengerOcto)
 FRACTAL_CLASS(cFractalMengerPolyFold)
-
 FRACTAL_CLASS(cFractalMengerPrismShape)
 FRACTAL_CLASS(cFractalMengerPrismShape2)
 FRACTAL_CLASS(cFractalMengerPwr2Poly)
 FRACTAL_CLASS(cFractalMengerPyramid)
-
 FRACTAL_CLASS(cFractalMengerSmooth)
-FRACTAL_CLASS(cFractalMengerSmoothMod1)
 FRACTAL_CLASS(cFractalMengerSmoothChebyshev)
+FRACTAL_CLASS(cFractalMengerSmoothMod1)
 FRACTAL_CLASS(cFractalMengerSponge)
 FRACTAL_CLASS(cFractalMengerV2)
 FRACTAL_CLASS(cFractalMengerV3)
@@ -400,8 +398,8 @@ FRACTAL_CLASS(cFractalTransfSinOrCos)
 FRACTAL_CLASS(cFractalTransfSinTan)
 FRACTAL_CLASS(cFractalTransfSinYM3d)
 FRACTAL_CLASS(cFractalTransfSincos)
-FRACTAL_CLASS(cFractalTransfSincosV2)
 FRACTAL_CLASS(cFractalTransfSincosHelix)
+FRACTAL_CLASS(cFractalTransfSincosV2)
 FRACTAL_CLASS(cFractalTransfSmooth)
 FRACTAL_CLASS(cFractalTransfSmoothV2)
 FRACTAL_CLASS(cFractalTransfSphericalCoordInvs)

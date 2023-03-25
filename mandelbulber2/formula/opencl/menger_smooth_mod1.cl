@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -34,22 +34,19 @@ REAL4 MengerSmoothMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL OffsetS = fractal->transformCommon.offset0005;
 
 	t = z.x - z.y;
-	t =
-		fractal->transformCommon.scale05
+	t = fractal->transformCommon.scale05
 			* (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.x));
 	z.x = z.x - t;
 	z.y = z.y + t;
 
 	t = z.x - z.z;
-	t =
-		fractal->transformCommon.scale05
+	t = fractal->transformCommon.scale05
 			* (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.y));
 	z.x = z.x - t;
 	z.z = z.z + t;
 
 	t = z.y - z.z;
-	t =
-		fractal->transformCommon.scale05
+	t = fractal->transformCommon.scale05
 			* (t - native_sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.z));
 	z.y = z.y - t;
 	z.z = z.z + t;

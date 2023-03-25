@@ -187,7 +187,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;rotation&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;compatible order of rotation for M3D&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/newtonPow3_mbulbTails.fract&lt;br&gt;gannjondal - newton- license Creative Commons (CC-BY 4.0)/newtonPow3-PolyFoldSym-delta-gnj-016d.fract&lt;br&gt;gannjondal - newton- license Creative Commons (CC-BY 4.0)/newtonPow3-PolyFoldSym-delta-gnj-016e.fract&lt;br&gt;gannjondal - newton- license Creative Commons (CC-BY 4.0)/newtonPow3-PolyFoldSym-delta-gnj-017b.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

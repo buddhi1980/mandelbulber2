@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -37,7 +37,7 @@ REAL4 KnotV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	zc.x = c * zc.x + s * zc.z;
 	zc.z = -s * temp + c * zc.z;
 
-	REAL m = 1.0f * polyfoldOrder * M_PI_2x_INV_F;
+	REAL m = 1.0f * polyfoldOrder * M_PI_2x_INV;
 	REAL angle1 = floor(0.5f + m * (M_PI_2 - atan2(zc.x, zc.z))) / m;
 
 	temp = zc.x;

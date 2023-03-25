@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,6 +29,7 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 									* fractal->transformCommon.scale1;
 		}
 	}
+
 	useAngle *= M_PI_180_F;
 	if (!fractal->transformCommon.functionEnabledFFalse)
 	{
@@ -38,6 +39,7 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		REAL temp = 1.0f - c;
 		REAL s = native_sin(useAngle);
 		REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
+
 		rotVec.x = z.x * (c + temp * v.x * v.x) + z.y * (temp * v.x * v.y + s * v.z)
 							 + z.z * (temp * v.x * v.z - s * v.y);
 		rotVec.y = z.x * (temp * v.x * v.y - s * v.z) + z.y * (c + temp * v.y * v.y)
@@ -48,9 +50,8 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	}
 	else
 	{
-		z = RotateAroundVectorByAngle4(z, (REAL3){fractal->transformCommon.vec111.xyz}, -useAngle);
+		z = RotateAroundVectorByAngle4(z, fractal->transformCommon.vec111.xyz, -useAngle);
 	}
-
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

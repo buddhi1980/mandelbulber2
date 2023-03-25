@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -41,23 +41,23 @@ REAL4 TransfBoxTiling4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL4 repeatPos = fractal->transformCommon.offsetA1111;
 		REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
 
-		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * size.x
-				&& z.x > (repeatNeg.x + 0.5) * -size.x && size.x != 0.0f)
+		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5f) * size.x
+				&& z.x > (repeatNeg.x + 0.5f) * -size.x && size.x != 0.0f)
 		{
 			z.x -= round(z.x / size.x) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0f)
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5f) * size.y
+				&& z.y > (repeatNeg.y + 0.5f) * -size.y && size.y != 0.0f)
 		{
 			z.y -= round(z.y / size.y) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0f)
+		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5f) * size.z
+				&& z.z > (repeatNeg.z + 0.5f) * -size.z && size.z != 0.0f)
 		{
 			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0f)
+		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5f) * size.w
+				&& z.w > (repeatNeg.w + 0.5f) * -size.w && size.w != 0.0f)
 		{
 			z.w -= round(z.w / size.w) * size.w;
 		}
@@ -73,7 +73,6 @@ REAL4 TransfBoxTiling4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-		aux->const_c = z;
+	if (fractal->transformCommon.addCpixelEnabledFalse) aux->const_c = z;
 	return z;
 }

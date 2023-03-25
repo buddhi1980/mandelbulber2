@@ -16,7 +16,7 @@
 cFractalTransfSinYM3d::cFractalTransfSinYM3d() : cAbstractFractal()
 {
 	nameInComboBox = "T>SinY M3D";
-	internalName = "transf_sinY_m3d";
+	internalName = "transf_sin_y_m3d";
 	internalID = fractal::transfSinYM3d;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;

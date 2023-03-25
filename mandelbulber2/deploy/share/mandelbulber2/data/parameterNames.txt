@@ -293,6 +293,7 @@ transformCommon.scale3 REAL transf_scale_3
 transformCommon.scaleA3 REAL transf_scaleA_3
 transformCommon.scaleB3 REAL transf_scaleB_3
 transformCommon.scale4 REAL transf_scale_4
+transformCommon.scale5 REAL transf_scale_5
 transformCommon.scale6 REAL transf_scale_6
 transformCommon.scale8 REAL transf_scale_8
 transformCommon.scale16 REAL transf_scale_16

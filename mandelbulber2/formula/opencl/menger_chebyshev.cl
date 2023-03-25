@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -29,7 +29,8 @@ REAL4 MengerChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		REAL tmp = 0.0f;
 		REAL F = z.x / z.y;
-		if (z.y == 0.0f) tmp = (z.x > 0.0f ? 0.0 : 4.0f);
+		if (z.y == 0.0f)
+			tmp = (z.x > 0.0f ? 0.0 : 4.0f);
 		else if (fabs(F) < 1.0f)
 		{
 			if (z.y > 0.0f)
