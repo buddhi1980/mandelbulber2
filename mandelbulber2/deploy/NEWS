@@ -11,6 +11,7 @@ v2.29 (??? 2023)
    transfBoxTilingV3
    transfDIFSCayley2
    transfDIFSChessboard
+   transfDIFSClipCustom
    transfDIFSHelixV2
    transfDIFSHelixMenger
    transfDIFSTorusMenger

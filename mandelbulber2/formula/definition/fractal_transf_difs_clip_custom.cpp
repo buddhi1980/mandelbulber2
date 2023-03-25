@@ -38,7 +38,6 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
-		//double zcd = zc.Length() / (aux.DE + fractal->analyticDE.offset0) - fractal->transformCommon.offsetB0;
 		double zcd = zc.Length() * fractal->transformCommon.scale1 - fractal->transformCommon.offsetB0;
 		if (!fractal->transformCommon.functionEnabledNFalse)
 		{
@@ -85,9 +84,11 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		{
 			dst = c.Length() - g.Length();
 		}
+		if (fractal->transformCommon.functionEnabledOFalse)
+		{
+			dst = fabs(dst) - fractal->transformCommon.offsetC0;
+		}
 	}
-
-
 
 	double dst1 = 0.0;
 	if (fractal->transformCommon.functionEnabledBFalse) // sphere
@@ -115,6 +116,10 @@ void cFractalTransfDIFSClipCustom::FormulaCode(
 		if (!fractal->transformCommon.functionEnabledJFalse) // z clip
 		{
 			dst1 = max(fabs(c.z) - fractal->transformCommon.offset1, dst1);
+		}
+		if (fractal->transformCommon.functionEnabledMFalse)
+		{
+			dst1 = fabs(dst1) - fractal->transformCommon.offsetA0;
 		}
 
 		if (!fractal->transformCommon.functionEnabledDFalse) dst = dst1;
