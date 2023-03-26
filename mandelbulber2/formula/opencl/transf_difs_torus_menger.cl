@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -31,7 +31,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	aux->DE *= fractal->transformCommon.scale2;
 
 	// torus
-	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV;
+	REAL ang = atan2(zc.y, zc.x) * M_PI_2x_INV_F;
 
 	zc.y = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.scaleMain2;
 
@@ -178,7 +178,7 @@ REAL4 TransfDIFSTorusMengerIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		if (!fractal->transformCommon.functionEnabledGFalse)
 		{
 			REAL ang =
-				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV;
+				(M_PI_F - 2.0f * fabs(atan(fractal->foldColor.difs1 * zc.y / zc.z))) * 4.0f * M_PI_2x_INV_F;
 			if (fmod(ang, 2.0f) < 1.0f)
 				aux->color += fractal->foldColor.difs0000.z;
 			else

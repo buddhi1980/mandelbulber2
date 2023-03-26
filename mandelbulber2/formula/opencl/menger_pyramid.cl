@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -102,7 +102,7 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			ang = atan2(z.x, z.y);
 		else
 			ang = atan2(z.y, z.x);
-		ang *= M_PI_2x_INV * fractal->transformCommon.scaleA1;
+		ang *= M_PI_2x_INV_F * fractal->transformCommon.scaleA1;
 
 		if (fractal->transformCommon.functionEnabledM)
 			z.y = native_sqrt(z.x * z.x + z.y * z.y) - fractal->transformCommon.radius1;

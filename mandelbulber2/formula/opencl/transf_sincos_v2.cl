@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -31,7 +31,7 @@ REAL4 TransfSincosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	REAL ang = atan2(z.y, z.x) * M_PI_2x_INV;
+	REAL ang = atan2(z.y, z.x) * M_PI_2x_INV_F;
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{

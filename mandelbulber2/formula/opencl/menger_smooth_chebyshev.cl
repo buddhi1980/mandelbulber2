@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,9 +24,9 @@ REAL4 MengerSmoothChebyshevIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			t = z.x;
+			REAL temp = z.x;
 			z.x = z.y;
-			z.y = t;
+			z.y = temp;
 		}
 		REAL F = z.x / z.y;
 		if (z.y == 0.0f)

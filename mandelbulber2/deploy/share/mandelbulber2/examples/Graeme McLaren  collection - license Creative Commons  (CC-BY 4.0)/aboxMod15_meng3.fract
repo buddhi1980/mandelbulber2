@@ -1,0 +1,74 @@
+# Mandelbulber settings file
+# version 2.29
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+antialiasing_enabled true;
+background_3_colors_enable false;
+background_color_1 5500 aa00 ff00;
+camera -4 -0.716561372282656 -4.24323980955834;
+camera_distance_to_target 0.756720427371688;
+camera_rotation 0 18.7500000000007 -180;
+camera_top -1.22464679914735e-16 0.321439465303173 -0.946930129495102;
+constant_DE_threshold true;
+DE_factor 0.609794756730424;
+DE_thresh 0.0003125;
+detail_level 0.25;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 226;
+formula_2 226;
+formula_3 207;
+formula_iterations_1 3;
+formula_iterations_2 4;
+formula_stop_iteration_1 3;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+julia_c 0 0 20;
+julia_mode true;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation -45 0 0;
+mat1_coloring_palette_offset 0.06;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_aux_color_weight 2;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_i_start_value 1;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_orbit_trap_weight 0.5;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+N 31;
+target -4 0 -4;
+volumetric_fog_density 0.25;
+volumetric_fog_enabled true;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 0 0 0.06 0;
+mandelbox_color_Sp1 0;
+transf_addition_constant_111 2 2 2;
+transf_minR2_p25 0;
+transf_offset_p01 0.05;
+transf_offsetA_p01 0.05;
+transf_offsetB_p01 0.02;
+transf_scale_2 1.12;
+[fractal_2]
+analyticDE_offset_1 0;
+fold_color_difs_0000 0 0 0 0.1;
+mandelbox_color_Sp1 0;
+transf_addition_constant_111 4 4 4;
+transf_minR2_p25 0;
+transf_offset_p01 0.05;
+transf_offsetA_p01 0.05;
+transf_offsetB_p01 0.02;
+transf_scale_2 2.4;
+[fractal_3]
+fold_color_aux_color_enabled_false true;
+fold_color_difs_0000 2.8 0 0 0;
+fold_color_start_iterations_A 12;
+fold_color_stop_iterations_A 13;
+transf_rotation 29.197486 0 0;
+transf_scale_3 2;
