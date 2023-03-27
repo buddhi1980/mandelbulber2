@@ -191,8 +191,8 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		// menger sponge
 		z = fabs(z);
 		// rotation
-		if (aux->i >= fractal->transformCommon.startIterationsR
-				&& aux->i < fractal->transformCommon.stopIterationsR1)
+		if (k >= fractal->transformCommon.startIterationsR
+				&& k < fractal->transformCommon.stopIterationsR1)
 		{
 			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 		}
@@ -219,8 +219,8 @@ REAL4 MengerPyramidIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z.y = temp;
 			col += fractal->foldColor.difs0000.z;
 		}
-		if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-				&& aux->i < fractal->foldColor.stopIterationsA)
+		if (fractal->foldColor.auxColorEnabledFalse && k >= fractal->foldColor.startIterationsA
+				&& k < fractal->foldColor.stopIterationsA)
 		{
 			aux->color += col;
 		}

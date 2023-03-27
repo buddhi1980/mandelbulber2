@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_pyramid</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>5778</height>
+    <height>6458</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1668,7 +1668,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Menger sub-loop Iterations</string>
+           <string>Menger sub-loop Iterations k</string>
           </property>
          </widget>
         </item>
@@ -1719,7 +1719,7 @@
            <item>
             <widget class="QLabel" name="label_100">
              <property name="text">
-              <string>start at iteration:</string>
+              <string>start at iteration k:</string>
              </property>
             </widget>
            </item>
@@ -1745,7 +1745,7 @@
            <item>
             <widget class="QLabel" name="label_72">
              <property name="text">
-              <string>stop at iteration:</string>
+              <string>stop at iteration k:</string>
              </property>
             </widget>
            </item>
@@ -2327,7 +2327,7 @@
         <item>
          <widget class="QLabel" name="label_102">
           <property name="text">
-           <string>start at iteration:</string>
+           <string>start at iteration k:</string>
           </property>
          </widget>
         </item>
@@ -2353,7 +2353,7 @@
         <item>
          <widget class="QLabel" name="label_74">
           <property name="text">
-           <string>stop at iteration:</string>
+           <string>stop at iteration k:</string>
           </property>
          </widget>
         </item>
@@ -2539,7 +2539,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;MengerPyramidIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;MengerPyramidIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; temp&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; ang&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;

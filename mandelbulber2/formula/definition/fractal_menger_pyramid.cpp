@@ -196,8 +196,8 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		// menger sponge
 		z = fabs(z);
 		// rotation
-		if (aux.i >= fractal->transformCommon.startIterationsR
-				&& aux.i < fractal->transformCommon.stopIterationsR1)
+		if (k >= fractal->transformCommon.startIterationsR
+				&& k < fractal->transformCommon.stopIterationsR1)
 		{
 			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		}
@@ -225,8 +225,8 @@ void cFractalMengerPyramid::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			col += fractal->foldColor.difs0000.z;
 		}
 		if (fractal->foldColor.auxColorEnabledFalse
-				&& aux.i >= fractal->foldColor.startIterationsA
-						&& aux.i < fractal->foldColor.stopIterationsA)
+				&& k >= fractal->foldColor.startIterationsA
+						&& k < fractal->foldColor.stopIterationsA)
 		{
 			aux.color += col;
 		}
