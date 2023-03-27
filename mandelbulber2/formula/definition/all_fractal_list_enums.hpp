@@ -203,8 +203,8 @@ enum enumFractalFormula
 	scatorPower2Real = 156,			 // added V2.15, change to std r calc v2.21
 	scatorTest = 160,
 
-	scatorPower2 = 173,					 // added V2.15, change to aux.dist DE v2.21
-	scatorPower2StdR = 174,			 // added V2.15
+	scatorPower2 = 173,			// added V2.15, change to aux.dist DE v2.21
+	scatorPower2StdR = 174, // added V2.15
 
 	// 2.20
 	riemannSphereHoboldPow4 = 180,
@@ -297,9 +297,8 @@ enum enumFractalFormula
 	mengerPyramid = 258,
 	mandelnestFull = 259,
 	mandelbarV2 = 260,
-	msltoeToroidalV2 =261,
+	msltoeToroidalV2 = 261,
 	mandelbulbPow2V1 = 262,
-
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -544,7 +543,6 @@ enum enumFractalFormula
 	transfDIFSHelixMenger = 1638,
 	transfDIFSChessboard = 1639,
 	transfDIFSTorusMenger = 1640,
-
 
 	// hybrid color
 	transfHybridColor = 2000,

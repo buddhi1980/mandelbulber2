@@ -47,7 +47,7 @@ function getFormulasData()
 {
 	$formulas = array();
 	$indexIdLookup = getIndexIdLookUp();
-
+	
 	foreach (glob(PROJECT_PATH . 'formula/definition/*.cpp') as $key => $file) {
 		if(strpos($file, 'abstract_fractal.cpp') !== false) continue;
 		if(strpos($file, 'all_fractal_list.cpp') !== false) continue;
@@ -111,7 +111,7 @@ function getFormulasData()
 			continue;
 			// die('could not read code for index: ' . $index);
 		}
-
+		
 		$formulas[$index] = array_merge($f, array(
 			'uiFile' => PROJECT_PATH . 'formula/ui/' . $f['internalName'] . '.ui',
 			'definitionFileName' => basename($file),

@@ -333,7 +333,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;
 	target.slowShading = source.slowShading;
-	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		target.smoothDeCombineEnable[i] = source.smoothDeCombineEnable[i];
 	}

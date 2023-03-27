@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * MsltoeToroidal
+ * MsltoeToroidalV2
  * @reference http://www.fractalforums.com/theory/toroidal-coordinates/msg9428/
  */
 
@@ -55,15 +55,17 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 		{
-			if (!fractal->transformCommon.functionEnabledBFalse) temp = rr;
-			else temp = sqrt(rr);
+			if (!fractal->transformCommon.functionEnabledBFalse)
+				temp = rr;
+			else
+				temp = sqrt(rr);
 		}
 		phi = atan2(z.z, temp);
 	}
 
 	r = r + (aux.r - r) * fractal->transformCommon.offsetR0;
 
-	double rp = pow(r, fractal->bulb.power - 1.0)/ fractal->transformCommon.scaleB1;
+	double rp = pow(r, fractal->bulb.power - 1.0) / fractal->transformCommon.scaleB1;
 	aux.DE = rp * aux.DE * (fractal->bulb.power + fractal->analyticDE.offset0) + 1.0;
 	rp *= r;
 
@@ -90,10 +92,10 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
-		//double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+		// double lengthTempZ = -z.Length();
+		//  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 		z *= 1.0 - fractal->transformCommon.offset / z.Length();
-		//aux.DE = aux.DE * fabs(1.0 + fractal->transformCommon.offset / -z.Length());
+		// aux.DE = aux.DE * fabs(1.0 + fractal->transformCommon.offset / -z.Length());
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
 	}
@@ -110,7 +112,5 @@ void cFractalMsltoeToroidalV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 			aux.dist = aux.DE0;
 		else
 			aux.dist = min(aux.dist, aux.DE0);
-
-
 	}
 }
