@@ -35,7 +35,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -156,8 +156,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>374</width>
+                <height>808</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1" stretch="1,0">
@@ -746,8 +746,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>362</width>
-            <height>857</height>
+            <width>276</width>
+            <height>811</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -2282,8 +2282,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>380</width>
-            <height>851</height>
+            <width>382</width>
+            <height>853</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">

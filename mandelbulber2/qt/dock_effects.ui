@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>1078</height>
+            <width>573</width>
+            <height>1082</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1257,8 +1257,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>553</width>
-            <height>1557</height>
+            <width>555</width>
+            <height>1439</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2728,8 +2728,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>272</width>
-            <height>409</height>
+            <width>243</width>
+            <height>379</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3446,8 +3446,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>376</width>
-            <height>1110</height>
+            <width>335</width>
+            <height>1020</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4487,8 +4487,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>227</width>
-            <height>215</height>
+            <width>203</width>
+            <height>203</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
