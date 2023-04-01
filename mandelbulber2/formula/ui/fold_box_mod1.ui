@@ -1417,7 +1417,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Modified Mandelbox (ABox) formula&lt;br&gt;This formula contains aux.color and aux.actualScaleA&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;fabs_box_mod1_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/foldbox sphereFoldParabolic ede6.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;fabs_box_mod1_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T-DifsChessboard_coloredBy FoldBox.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/foldbox sphereFoldParabolic ede6.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
