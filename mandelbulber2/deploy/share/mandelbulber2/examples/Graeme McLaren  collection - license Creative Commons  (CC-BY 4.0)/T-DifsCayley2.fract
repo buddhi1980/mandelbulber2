@@ -1,0 +1,40 @@
+# Mandelbulber settings file
+# version 2.29
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+camera 1.59185815073867e-15 4.23718816088807 -7.33902517588748;
+camera_distance_to_target 8.47437632177615;
+camera_rotation -180 59.9999999999999 -180;
+camera_top 2.28522203787226e-16 -0.866025403784439 -0.5;
+DE_factor 0.5;
+detail_level 0.5;
+flight_last_to_render 0;
+formula_1 1637;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_fractal_coloring_aux_color_false true;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 550000 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 550000 9000 aba53c;
+N 2;
+view_distance_max 25;
+[fractal_1]
+fold_color_aux_color_enabledA_false true;
+transf_function_enabledE_false true;
+transf_function_enabledZc_false true;
+transf_offset_000 0 0.5 0;
+transf_offset_01 0.4;
+transf_offset_110 1 1 0.2;
+transf_offsetA_000 -0.1 0.4 0;
+transf_offsetC_0 0.2;
+transf_radius_1 0.8;
+transf_scale_1 0.8;
+transf_scaleB_1 0.2;
+transf_scaleD_1 0.8;

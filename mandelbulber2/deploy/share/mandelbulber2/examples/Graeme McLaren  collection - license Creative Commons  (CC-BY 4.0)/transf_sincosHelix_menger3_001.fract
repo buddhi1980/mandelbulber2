@@ -1,0 +1,27 @@
+# Mandelbulber settings file
+# version 2.29
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -7.7715611723761e-16 -7.19731071089754e-16 7;
+camera_rotation -47.1969592256103 -90 -47.1969592256103;
+camera_top 1.11022302462516e-16 1 4.16061652623125e-17;
+DE_factor 0.218296604938271;
+flight_last_to_render 0;
+formula_1 1149;
+formula_2 207;
+formula_stop_iteration_1 3;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+keyframe_last_to_render 0;
+light1_is_defined true;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_use_colors_from_palette false;
+N 19;
+[fractal_1]
+transf_function_enabledAx false;
+transf_scale_015 1;
+[fractal_2]
+formula_code AAAIgnjanVZLT9tAED7bv2J6s/Nw7Ag41IUqgSBVaqWKSlXLJdr4AZbsNfVuJMeI/96ZfZgElRh6Wu/MN69vdmd9s1p8PYHLrZB19UVmDZNFzb0bJe0msF4nNReScQniumGJZOVlCaNcf05ArFqZ8TRLF9uWFGzb+u6jY+wTOIcudtUWZFY94HeRg2fMpxeyYVzkdVNd1lVV8yDf8oQSWHG2KbP0mpUi813n0XUc5exVwzrPRSbDMIQp5GwjvC7xMZgzm0EH47cYIvrJNakyfofBGJY9R0cB8jDFpfVhBt/W37+s523svq+SxX4pKsZPjHysIpGwMlvMY4sn+ojOJNhhjfMghJH2MVLpjtUmVkQh4lzjXwDzsq4bT2lm4D2rfB+Rxv7JJdJcctOhG/GnkcRBi1C1jEFp1K4ju1craFhabEWEPt/H1bLnyrHFC9lkMrkf5ivCxHRdmpQoCHsGq0HzZWQIbBHqmaBUY9WT9yydQUUqHYGODkUcHQlRcHmGfvQJWl/be5HUYoHhcPHQg2/FouBL4r/gVrx3AmLXttk0QzkZ69MxUrZx30Jltw8hg6nBmGg/qPxBfqLY3JATWNbt8H1cRBExioVDP1sEHKcoOkMLFIFHZhzRYYzLpz0PuB+P1V3q58Lelaf2ETP61F4oTnz4DFr+Ue1bC+wOgZ0FdhrYWeDOAneHwJ0F7ogaw82GsJpRdT585Bv5im22WkU3CPWvAHGQTi+uVntoI4l10YEaaxvVSyGzBzunwuAUJSj39wbaCaSHJJmulxn//YYuhvEz/nYYvwxjBwOn6halanIM3NpQpZTSZBse1XSiUqx7GPoQYSKOzaRirYdfEwiR6FiHs1IaqUSGUua+iWC1ndbe9lrXtidEDGru5L2XHp2F/TNzitZ6HH7owYyzcieL5GoVZIcPn46TFkLSe2Rj4uy2x2MM//JiolEdGTp64aeikWL3k/9w67/39ful64FODSzMCkfotuH0b/Dk/gW/v5Zi;
