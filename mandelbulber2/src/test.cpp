@@ -75,7 +75,10 @@ void Test::renderExamplesWrapper() const
 {
 	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE { renderExamples(); }
+		QBENCHMARK_ONCE
+		{
+			renderExamples();
+		}
 	}
 	else
 	{
@@ -163,7 +166,7 @@ void Test::renderExamples() const
 #ifdef USE_OPENCL
 	if (gPar->Get<bool>("opencl_enabled"))
 	{
-		loopRepeats = 2;
+		loopRepeats = 3;
 	}
 #endif
 
@@ -177,23 +180,34 @@ void Test::renderExamples() const
 
 			switch (repeat)
 			{
-				case 0: // CPU mode
-				{
 #ifdef USE_OPENCL
-					testPar->Set("opencl_mode", 0);
-#endif
-					cpuGpuString = "CPU";
+				case 0: // GPU mode
+				{
+					testPar->Set("opencl_mode", 3);
+					cpuGpuString = "GPU1";
 					break;
 				}
 				case 1: // GPU mode
 				{
-#ifdef USE_OPENCL
 					testPar->Set("opencl_mode", 3);
-#endif
-					cpuGpuString = "GPU";
+					cpuGpuString = "GPU2";
+					break;
+				}
+				case 2: // CPU mode
+				{
+					testPar->Set("opencl_mode", 0);
+					cpuGpuString = "CPU";
 					break;
 				}
 				default: break;
+#else
+				case 0: // CPU mode
+				{
+					cpuGpuString = "CPU";
+					break;
+				}
+				default: break;
+#endif
 			}
 
 			QElapsedTimer timer;
@@ -265,7 +279,10 @@ void Test::testFlightWrapper() const
 {
 	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE { testFlight(); }
+		QBENCHMARK_ONCE
+		{
+			testFlight();
+		}
 	}
 	else
 	{
@@ -324,7 +341,10 @@ void Test::testKeyframeWrapper() const
 {
 	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE { testKeyframe(); }
+		QBENCHMARK_ONCE
+		{
+			testKeyframe();
+		}
 	}
 	else
 	{
@@ -383,7 +403,10 @@ void Test::renderSimpleWrapper() const
 {
 	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE { renderSimple(); }
+		QBENCHMARK_ONCE
+		{
+			renderSimple();
+		}
 	}
 	else
 	{
@@ -443,7 +466,10 @@ void Test::testImageSaveWrapper() const
 {
 	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE { renderImageSave(); }
+		QBENCHMARK_ONCE
+		{
+			renderImageSave();
+		}
 	}
 	else
 	{
