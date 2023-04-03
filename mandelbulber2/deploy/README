@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.28
+                              MANDELBULBER 2.29
 
 1. What is Mandelbulber
 -----------------------
@@ -151,13 +151,11 @@ make install
 ------------
 
 - Debian Bookworm x64
-- Ubuntu 20.10
 
-- gcc 11.2
-- clang 13.0.1
-- msvc17
-
-- Qt 5.15.2
+- gcc 12.2
+- clang 14.0.6
+- msvc19
+- Qt 5.15.8
 
 7. USAGE
 --------
