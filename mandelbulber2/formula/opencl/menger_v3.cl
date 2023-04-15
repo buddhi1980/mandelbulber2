@@ -17,10 +17,11 @@
 
 REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t;
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x);
 	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
 	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -30,26 +31,26 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			z.x = fabs(z.x);
 			REAL psi = M_PI_F / fractal->transformCommon.int6;
 			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
-			REAL len = native_sqrt(z.x * z.x + z.y * z.y);
-			z.x = native_cos(psi) * len;
-			z.y = native_sin(psi) * len;
+			t = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * t;
+			z.y = native_sin(psi) * t;
 		}
 		// abs offsets
 		if (fractal->transformCommon.functionEnabledCFalse)
 		{
-			REAL xOffset = fractal->transformCommon.offsetC0;
-			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+			t = fractal->transformCommon.offsetC0;
+			if (z.x < t) z.x = fabs(z.x - t) + t;
 		}
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			REAL yOffset = fractal->transformCommon.offsetD0;
-			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+			REAL t = fractal->transformCommon.offsetD0;
+			if (z.y < t) z.y = fabs(z.y - t) + t;
 		}
 	}
 
 	// scale
 	z *= fractal->transformCommon.scale1;
-	aux->DE *= fabs(fractal->transformCommon.scale1);
+	aux->DE *= fractal->transformCommon.scale1;
 
 	// DE
 	REAL4 zc = z;
@@ -57,6 +58,8 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
+		int k = 0.0;
+		REAL e = 0.0;
 		REAL rr = 0.0f;
 		REAL4 one = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
 		{
@@ -70,40 +73,56 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		int count = fractal->transformCommon.int8X;
 		for (int k = 0; k < count && rr < 10.0f; k++)
 		{
-			REAL pax = fmod(zc.x * aux->DE, modOff) - 0.5f * modOff;
-			REAL pay = fmod(zc.y * aux->DE, modOff) - 0.5f * modOff;
-			REAL paz = fmod(zc.z * aux->DE, modOff) - 0.5f * modOff;
-			REAL4 pp = (REAL4){pax, pay, paz, 0.0f};
-
-			pp += fractal->transformCommon.offsetA000;
-			rr = dot(pp, pp);
-
+			zc += fractal->transformCommon.offset000;
 			// rotation
 			if (fractal->transformCommon.functionEnabledRFalse
 					&& k >= fractal->transformCommon.startIterationsR
 					&& k < fractal->transformCommon.stopIterationsR)
 			{
-				pp = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, pp);
+				zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
 			}
+			zc += fractal->transformCommon.offsetA000;
+
+			t = 0.5f * modOff;
+			REAL4 pp = z;
+			pp.x = fmod(zc.x * aux->DE, modOff) - t;
+			pp.y = fmod(zc.y * aux->DE, modOff) - t;
+			pp.z = fmod(zc.z * aux->DE, modOff) - t;
+
+			rr = dot(pp, pp);
+
 			aux->DE0 = max(aux->DE0, (fractal->transformCommon.offset1 - length(pp)) / aux->DE);
 			aux->DE *= fractal->transformCommon.scale3;
 		}
 		if (!fractal->transformCommon.functionEnabledAFalse)
 		{
 			// Use this to crop to a sphere:
-			REAL e;
 			if (!fractal->transformCommon.functionEnabledBFalse)
 				e = length(z);
 			else
 				e = length(zc);
 			e = clamp(e - fractal->transformCommon.offset2, 0.0f, 100.0f);
-			aux->dist = max(aux->DE0, e);
+			t = max(aux->DE0, e);
 		}
 		else
 		{
-			aux->dist = aux->DE0;
+			t = aux->DE0;
 		}
-		aux->dist *= fractal->analyticDE.scale1;
+		t *= fractal->analyticDE.scale1;
+		REAL colDist = aux->dist;
+		if (!fractal->analyticDE.enabledFalse)
+			aux->dist = t;
+		else
+			aux->dist = min(aux->dist, t);
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			double colorAdd = 0.0;
+			if (colDist != aux->dist) colorAdd = fractal->foldColor.difs0000.x;
+			if (t == e) colorAdd = fractal->foldColor.difs0000.y;
+
+			aux->color += colorAdd;
+		}
 	}
 	return z;
 }
