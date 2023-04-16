@@ -73,7 +73,9 @@ void cFractalMengerV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		double e = 0.0;
 		double rr = 0.0;
 		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
-		swap(zc.y, zc.z);
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.y, zc.z);
+
+
 		zc += one;
 		double modOff = fractal->transformCommon.offset3;
 		aux.DE += fractal->analyticDE.offset0;
@@ -126,7 +128,7 @@ void cFractalMengerV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			double colorAdd = 0.0;
 			if (colDist != aux.dist) colorAdd = fractal->foldColor.difs0000.x;
-			if (t == e) colorAdd = fractal->foldColor.difs0000.y;
+			if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
 
 			aux.color += colorAdd;
 		}
