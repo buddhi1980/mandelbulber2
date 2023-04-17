@@ -62,12 +62,7 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		REAL e = 0.0;
 		REAL rr = 0.0f;
 		REAL4 one = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			REAL temp = zc.y;
-			zc.y = zc.z;
-			zc.z = temp;
-		}
+
 		zc += one;
 		REAL modOff = fractal->transformCommon.offset3;
 		aux->DE += fractal->analyticDE.offset0;

@@ -491,6 +491,10 @@ enum enumFractalFormula
 	transfSincosHelix = 1149,
 	transfBoxTilingV3 = 1150,
 
+	// 2.30
+	transfDotFold = 1151,
+
+
 	// mandelbulber transfdIFS
 	// 2.20
 	transfDIFSBox = 1600,

@@ -73,8 +73,6 @@ void cFractalMengerV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		double e = 0.0;
 		double rr = 0.0;
 		CVector4 one = CVector4(1.0, 1.0, 1.0, 0.0);
-		if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.y, zc.z);
-
 
 		zc += one;
 		double modOff = fractal->transformCommon.offset3;

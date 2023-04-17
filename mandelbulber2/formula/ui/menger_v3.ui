@@ -307,7 +307,7 @@
      <property name="title">
       <string>Menger Sponge controls</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -381,19 +381,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>swap z.y z.z</string>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1">
