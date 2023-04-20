@@ -300,6 +300,10 @@ enum enumFractalFormula
 	msltoeToroidalV2 = 261,
 	mandelbulbPow2V1 = 262,
 
+	// 2.30
+	mengerV6 = 263,
+
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,

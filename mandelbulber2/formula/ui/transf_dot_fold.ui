@@ -44,7 +44,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_35">
        <property name="text">
-        <string notr="true">pitch:</string>
+        <string notr="true">pitch (x axis):</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -82,7 +82,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_34">
        <property name="text">
-        <string notr="true">yaw:</string>
+        <string notr="true">yaw (y axis):</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

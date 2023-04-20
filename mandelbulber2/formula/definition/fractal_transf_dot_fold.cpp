@@ -31,10 +31,10 @@ void cFractalTransfDotFold::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
-		t = cos(fractal->transformCommon.angleDegA);
-		n = CVector4(t * sin(fractal->transformCommon.angleDegB),
-			sin(fractal->transformCommon.angleDegA),
-				t * cos(fractal->transformCommon.angleDegB), 0.0);
+		t = fractal->transformCommon.cosA;
+		n = CVector4(t * fractal->transformCommon.sinB,
+			fractal->transformCommon.sinA,
+				t * fractal->transformCommon.cosB, 0.0);
 		n += fractal->transformCommon.offset000;
 	}
 	else
@@ -54,7 +54,7 @@ void cFractalTransfDotFold::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 
 		// scale
 	z *= fractal->transformCommon.scale1;
-	aux.DE *= fractal->transformCommon.scale1;
+	aux.DE = aux.DE * fractal->transformCommon.scale1 + fractal->analyticDE.offset0;
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
