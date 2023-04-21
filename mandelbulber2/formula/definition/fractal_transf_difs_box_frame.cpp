@@ -128,12 +128,19 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 	len.z += tv.Length();
 
 	double D = min(min(len.x, len.y), len.z) / (aux.DE + fractal->analyticDE.offset0);
-
+	double colDist = aux.dist;
 	if (aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 		aux.dist = min(aux.dist, D);
 	else
 		aux.dist = D;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc

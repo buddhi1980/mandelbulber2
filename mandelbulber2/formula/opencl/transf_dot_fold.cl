@@ -19,7 +19,6 @@ REAL4 TransfDotFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 {
 	REAL t;
 	REAL4 n;
-
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		t = fractal->transformCommon.cosA;
@@ -44,7 +43,7 @@ REAL4 TransfDotFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		// scale
 	z *= fractal->transformCommon.scale1;
-	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	aux->DE = aux->DE * fractal->transformCommon.scale1 + fractal->analyticDE.offset0;
 
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 

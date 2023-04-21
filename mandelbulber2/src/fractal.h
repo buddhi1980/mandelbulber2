@@ -502,7 +502,7 @@ struct sFractalTransformCommon
 	double sinA;
 	double sinB;
 	double sinC;
-
+	double angle45;
 	double angle72;
 	double alphaAngleOffset;
 	double betaAngleOffset;

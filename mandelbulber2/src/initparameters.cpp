@@ -868,6 +868,7 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_angle_deg_A", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_angle_deg_B", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_angle_deg_C", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("transf_angle_45", 45.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_angle_72", 72.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);

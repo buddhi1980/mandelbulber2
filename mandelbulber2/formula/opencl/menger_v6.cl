@@ -19,8 +19,16 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 {
 	REAL t;
 	REAL4 n;
-	z.y  *= -fractal->transformCommon.scaleA1;
-	z  *=  0.5f;
+
+	// abs z
+	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
+
+
+
+	z.y  *= fractal->transformCommon.scaleA1;
+	z  *= 0.5f;
 
 	for (int k = 0; k < fractal->transformCommon.int8X; k++)
 	{
@@ -39,10 +47,10 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		t = dot(z, n) * 2.0f;
 		z -= max(t, 0.0f) * n;
 
-		z.z -= -Offset1.z;
+		z.z += Offset1.z;
 
-		t = cos(fractal->transformCommon.angle0);
-		n = (REAL4){t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle0), t * fractal->transformCommon.cosC, 0.0f};
+		t = cos(fractal->transformCommon.angle45 * M_PI_180_F);
+		n = (REAL4){t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180_F), t * fractal->transformCommon.cosC, 0.0f};
 		t = length(n);
 		if (t == 0.0f) t = 1e-21f;
 		n /= t;
@@ -51,16 +59,21 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		t = max((z.x + z.y), 0.0f);
 		z.y = z.y - t;
 		z.x = z.x - t + fractal->transformCommon.offset2;
-		z.x = z.x - (2.0 * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
-		z.x = z.x - (2.0 * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
+		z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
+		z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
 
 		t = max((z.x + z.y), 0.0f);
-		z.x = z.x - t;
-		z.y = z.y - t;
+		z.x -= t;
+		z.y -= t;
 
-		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+		// rotation
+		if (fractal->transformCommon.functionEnabledRFalse
+				&& k >= fractal->transformCommon.startIterationsR
+				&& k < fractal->transformCommon.stopIterationsR)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+		}
 
-		//REAL r = dot(z, z);
 	}
 
 	REAL4 edgeDist = fabs(z) - (REAL4){1.0f, 1.0f, 1.0f, 0.0f};

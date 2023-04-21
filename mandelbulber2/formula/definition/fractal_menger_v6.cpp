@@ -29,11 +29,15 @@ cFractalMengerV6::cFractalMengerV6() : cAbstractFractal()
 void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t;
-	//double cp;
 	CVector4 n;
-	//REAL d;
-	z.y  *= -fractal->transformCommon.scaleA1;
-	z  *=  0.5;
+
+	// abs z
+	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y); // hmmmmmm
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
+
+	z.y  *= fractal->transformCommon.scaleA1;
+	z  *= 0.5;
 
 	for (int k = 0; k < fractal->transformCommon.int8X; k++)
 	{
@@ -52,10 +56,10 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		t = z.Dot(n) * 2.0;
 		z -= max(t, 0.0) * n;
 
-		z.z -= -Offset1.z;
+		z.z += Offset1.z;
 
-		t = cos(fractal->transformCommon.angle0);
-		n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle0), t * fractal->transformCommon.cosC, 0.0};
+		t = cos(fractal->transformCommon.angle45 * M_PI_180);
+		n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
 		t = n.Length();
 		if (t == 0.0) t = 1e-21;
 		n /= t;
@@ -68,12 +72,18 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
 
 		t = max((z.x + z.y), 0.0);
-		z.x = z.x - t;
-		z.y = z.y - t;
+		z.x -= t;
+		z.y -= t;
 
-		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		if (fractal->transformCommon.functionEnabledRFalse
+					&& k >= fractal->transformCommon.startIterationsR
+					&& k < fractal->transformCommon.stopIterationsR)
+		{
+			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		}
 
-		//double r = dot(z, z);
+
+
 	}
 
 	CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};

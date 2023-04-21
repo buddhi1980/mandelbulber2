@@ -270,6 +270,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.angleDegA = container->Get<double>("transf_angle_deg_A");
 	transformCommon.angleDegB = container->Get<double>("transf_angle_deg_B");
 	transformCommon.angleDegC = container->Get<double>("transf_angle_deg_C");
+	transformCommon.angle45 = container->Get<double>("transf_angle_45");
 	transformCommon.angle72 = container->Get<double>("transf_angle_72");
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");

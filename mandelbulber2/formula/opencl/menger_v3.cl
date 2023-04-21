@@ -76,8 +76,8 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 					&& k < fractal->transformCommon.stopIterationsR)
 			{
 				zc = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, zc);
+				zc += fractal->transformCommon.offsetA000;
 			}
-			zc += fractal->transformCommon.offsetA000;
 
 			t = 0.5f * modOff;
 			REAL4 pp = z;

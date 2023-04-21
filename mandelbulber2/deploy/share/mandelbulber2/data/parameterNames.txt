@@ -217,6 +217,7 @@ transformCommon.angle0 REAL transf_angle_0
 transformCommon.angleDegA REAL transf_angle_deg_A
 transformCommon.angleDegB REAL transf_angle_deg_B
 transformCommon.angleDegC REAL transf_angle_deg_C
+transformCommon.angle45 REAL transf_angle_45
 transformCommon.angle72 REAL transf_angle_72
 transformCommon.alphaAngleOffset REAL transf_alpha_angle_offset
 transformCommon.betaAngleOffset REAL transf_beta_angle_offset

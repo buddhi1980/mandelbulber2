@@ -86,8 +86,8 @@ void cFractalMengerV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 						&& k < fractal->transformCommon.stopIterationsR)
 			{
 				zc = fractal->transformCommon.rotationMatrix.RotateVector(zc);
+				zc += fractal->transformCommon.offsetA000;
 			}
-			zc += fractal->transformCommon.offsetA000;
 
 			t = 0.5 * modOff;
 			CVector4 pp = z;
