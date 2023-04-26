@@ -1766,7 +1766,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
-					// qDebug() << output.monteCarloLoop << double(maskedPixelsCounter) / (width * height);
+//					qDebug() << output.monteCarloLoop
+//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
 
 					// denoiser
 					if (monteCarlo && useDenoiser)
