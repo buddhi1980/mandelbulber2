@@ -1766,6 +1766,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
+					renderData->statistics.maskedPixels =  double(maskedPixelsCounter) / (width * height);
+
 //					qDebug() << output.monteCarloLoop
 //									 << double(maskedPixelsCounter) / (width * height) * 100.0;
 
@@ -1813,6 +1815,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							scheduler->DisableTile(output.tileIndex);
 							doneMCpixels += jobWidth * jobHeight;
 							doneMC = double(doneMCpixels) / double(numberOfPixels);
+							renderData->statistics.tilesDone += (double)jobWidth * jobHeight / (width * height);
 						}
 						lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
 

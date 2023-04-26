@@ -59,6 +59,8 @@ public:
 
 	void UpdateLabelAverageDOFSamples(const QString &avg);
 	void UpdateLabelAverageDOFNoise(const QString &avg);
+	void UpdateLabelMaskedPixels(const QString &avg);
+	void UpdateLabelTilesDone(const QString &avg);
 	void RegenerateLights();
 	virtual void AssignParameterContainers(std::shared_ptr<cParameterContainer> _params,
 		std::shared_ptr<cFractalContainer> _fractalParams) override;

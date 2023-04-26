@@ -50,6 +50,8 @@ public:
 	int missedDE;
 	int numberOfRaymarchings;
 	size_t numberOfRenderedPixels;
+	double maskedPixels;
+	double tilesDone;
 	long long totalNumberOfDOFRepeats;
 	double totalNoise;
 	double time;
@@ -69,6 +71,9 @@ public:
 	}
 	double GetAverageDOFNoise() const { return totalNoise / numberOfRenderedPixels; }
 	void Reset();
+
+	double getMaskedPixels() const { return maskedPixels; }
+	double getTilesDone() const { return tilesDone; }
 };
 
 #endif /* MANDELBULBER2_SRC_STATISTICS_H_ */

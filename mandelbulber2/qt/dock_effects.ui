@@ -523,27 +523,19 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_DOF_samples">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_358">
+                  <property name="text">
+                   <string>Max number of samples
+per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_360">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_359">
                   <property name="text">
-                   <string>Max noise level
-(percentage)</string>
+                   <string>Min number of samples
+per pixel:</string>
                   </property>
                  </widget>
                 </item>
@@ -564,6 +556,16 @@
                   </property>
                  </widget>
                 </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="QLabel" name="label_average_DOF_noise">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Average noise:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="1">
                  <widget class="MySpinBox" name="spinboxInt_DOF_min_samples">
                   <property name="sizePolicy">
@@ -580,29 +582,47 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_359">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_360">
                   <property name="text">
-                   <string>Min number of samples
-per pixel:</string>
+                   <string>Max noise level
+(percentage)</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_358">
-                  <property name="text">
-                   <string>Max number of samples
-per pixel:</string>
+                <item row="0" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_DOF_samples">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0" colspan="2">
-                 <widget class="QLabel" name="label_average_DOF_noise">
+                <item row="5" column="0" colspan="2">
+                 <widget class="QLabel" name="label_masked_pixels">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
-                   <string>Average noise:</string>
+                   <string>Masked pixels:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0" colspan="2">
+                 <widget class="QLabel" name="label_tiles_done">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Tiles done:</string>
                   </property>
                  </widget>
                 </item>
@@ -2728,8 +2748,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>243</width>
-            <height>379</height>
+            <width>573</width>
+            <height>1082</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3446,8 +3466,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>335</width>
-            <height>1020</height>
+            <width>573</width>
+            <height>1082</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4487,8 +4507,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>203</width>
-            <height>203</height>
+            <width>573</width>
+            <height>1074</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

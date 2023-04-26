@@ -43,6 +43,8 @@ cStatistics::cStatistics()
 	totalNumberOfDOFRepeats = 0;
 	totalNoise = 0;
 	time = 0.0;
+	tilesDone = 0.0;
+	maskedPixels = 0.0;
 }
 
 cStatistics::~cStatistics() = default;

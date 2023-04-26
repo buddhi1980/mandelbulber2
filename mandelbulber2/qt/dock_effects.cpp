@@ -212,6 +212,16 @@ void cDockEffects::UpdateLabelAverageDOFNoise(const QString &avg)
 	ui->label_average_DOF_noise->setText(avg);
 }
 
+void cDockEffects::UpdateLabelMaskedPixels(const QString &avg)
+{
+	ui->label_masked_pixels->setText(avg);
+}
+
+void cDockEffects::UpdateLabelTilesDone(const QString &avg)
+{
+	ui->label_tiles_done->setText(avg);
+}
+
 void cDockEffects::slotChangedEnableMCDOF(bool state)
 {
 	if (state)

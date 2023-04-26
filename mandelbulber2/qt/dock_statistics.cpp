@@ -82,5 +82,9 @@ void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFSamples(
 		tr("Average number of MC samples: %1").arg(stat.GetAverageDOFSamples()));
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFNoise(
-		tr("Average noise [%]: %1").arg(stat.GetAverageDOFNoise() * 100.0));
+		tr("Average noise: %1 %").arg(stat.GetAverageDOFNoise() * 100.0));
+	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelTilesDone(
+		tr("Tiles done: %1 %").arg(stat.getTilesDone() * 100.0));
+	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelMaskedPixels(
+		tr("Masked pixels: %1 %").arg(stat.getMaskedPixels() * 100.0));
 }
