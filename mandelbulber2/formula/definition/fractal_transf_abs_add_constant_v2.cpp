@@ -11,11 +11,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfAbsAddConstant::cFractalTransfAbsAddConstant() : cAbstractFractal()
+cFractalTransfAbsAddConstantV2::cFractalTransfAbsAddConstantV2() : cAbstractFractal()
 {
-	nameInComboBox = "T>Abs Add Constant";
-	internalName = "transf_abs_add_constant";
-	internalID = fractal::transfAbsAddConstant;
+	nameInComboBox = "T>Abs Add Constant V2";
+	internalName = "transf_abs_add_constant_v2";
+	internalID = fractal::transfAbsAddConstantV2;
 	DEType = analyticDEType;
 	DEFunctionType = withoutDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -24,18 +24,21 @@ cFractalTransfAbsAddConstant::cFractalTransfAbsAddConstant() : cAbstractFractal(
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfAbsAddConstant::FormulaCode(
+void cFractalTransfAbsAddConstantV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z += fractal->transformCommon.additionConstant000;
 
-	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x) + fractal->transformCommon.offset000.x;
+	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y) + fractal->transformCommon.offset000.y;
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z) + fractal->transformCommon.offset000.z;
 
-	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-
-	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-	z += fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledx)
+		z.x = fractal->transformCommon.offsetA000.x - fabs(fractal->transformCommon.offsetA000.x - z.x);
+	if (fractal->transformCommon.functionEnabledy)
+		z.y = fractal->transformCommon.offsetA000.y - fabs(fractal->transformCommon.offsetA000.y - z.y);
+	if (fractal->transformCommon.functionEnabledz)
+		z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD

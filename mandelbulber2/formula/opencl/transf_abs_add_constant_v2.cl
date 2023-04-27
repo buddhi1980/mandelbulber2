@@ -13,21 +13,25 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfAbsAddConstantIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfAbsAddConstantV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z += fractal->transformCommon.additionConstant000;
 
-	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x) + fractal->transformCommon.offset000.x;
+	if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y) + fractal->transformCommon.offset000.y;
+	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z) + fractal->transformCommon.offset000.z;
 
-	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-
-	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-	z += fractal->transformCommon.offsetA000;
+	if (fractal->transformCommon.functionEnabledx)
+		z.x = fractal->transformCommon.offsetA000.x - fabs(fractal->transformCommon.offsetA000.x - z.x);
+	if (fractal->transformCommon.functionEnabledy)
+		z.y = fractal->transformCommon.offsetA000.y - fabs(fractal->transformCommon.offsetA000.y - z.y);
+	if (fractal->transformCommon.functionEnabledz)
+		z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 		aux->const_c = z;
+
 	return z;
 }

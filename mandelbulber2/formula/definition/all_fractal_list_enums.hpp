@@ -497,7 +497,7 @@ enum enumFractalFormula
 
 	// 2.30
 	transfDotFold = 1151,
-
+	transfAbsAddConstantV2 = 1152,
 
 	// mandelbulber transfdIFS
 	// 2.20
