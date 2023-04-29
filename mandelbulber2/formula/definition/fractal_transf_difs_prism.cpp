@@ -34,6 +34,12 @@ void cFractalTransfDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	double priD = max(fabs(zc.x) - fractal->transformCommon.offset1,
 		max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - fractal->transformCommon.offset05);
-
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+	}
 }

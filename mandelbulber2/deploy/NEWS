@@ -8,8 +8,10 @@ v2.30 (??? 2023)
 
 - modified fractal formulas
    mengerV3, update abs(z) enabled default, and other things
+   transfDIFSBox add auxColor
    transfDIFSBoxFrame add auxColor
-
+   transfDIFSHexprism add auxColor
+   transfDIFSPrism add auxColor
 
 v2.29 (April 2023)
 
