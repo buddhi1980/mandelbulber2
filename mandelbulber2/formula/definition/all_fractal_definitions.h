@@ -437,5 +437,6 @@ FRACTAL_CLASS(cFractalTransfSurfFoldMulti)
 FRACTAL_CLASS(cFractalTransfZvectorAxisSwap)
 FRACTAL_CLASS(cFractalVicsek)
 FRACTAL_CLASS(cFractalXenodreambuie)
+FRACTAL_CLASS(cFractalXenodreambuieV2)
 
 #endif /* MANDELBULBER2_FORMULA_DEFINITION_ALL_FRACTAL_DEFINITIONS_H_ */
