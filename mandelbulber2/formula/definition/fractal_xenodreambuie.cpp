@@ -32,12 +32,15 @@ void cFractalXenodreambuie::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 	rp *= aux.r;
 
-	double th = atan2(z.y, z.x) + fractal->bulb.betaAngleOffset;
+	double th = (atan2(z.y, z.x) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	double ph = acos(z.z / aux.r) + fractal->bulb.alphaAngleOffset;
 
 	if (fabs(ph) > 0.5 * M_PI) ph = sign(ph) * M_PI - ph;
 
-	z.x = rp * cos(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
-	z.y = rp * sin(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
-	z.z = rp * cos(ph * fractal->bulb.power);
+	ph *= fractal->bulb.power;
+
+	double sph = sin(ph);
+	z.x = rp * cos(th) * sph;
+	z.y = rp * sin(th) * sph;
+	z.z = rp * cos(ph);
 }

@@ -15,15 +15,21 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 XenodreambuieV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL th = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
-	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-	REAL rp = pow(aux->r, fractal->bulb.power - 1.0f);
+	REAL th = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset)
+			* fractal->bulb.power * fractal->transformCommon.scaleA1;
+	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
+			* fractal->bulb.power * fractal->transformCommon.scaleB1;
+	REAL rp = pow(aux->r, fractal->bulb.power - fractal->transformCommon.offset1);
 
-	if (cos(th) < 0.0f) ph = ph + M_PI_F;
+	if (aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterationsX)
+	{
+		if (cos(th) < 0.0f) ph = ph + M_PI_F;
+	}
 
-	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + 1.0f;
+	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
 	rp *= aux->r;
 	// polar to cartesian
 	REAL cth = native_cos(th);

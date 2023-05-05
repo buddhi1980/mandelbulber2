@@ -158,6 +158,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalXenodreambuie());
 	fractalList->append(new cFractalXenodreambuieV2());
+	fractalList->append(new cFractalXenodreambuieV3());
 
 	// ----- Linear -------
 
