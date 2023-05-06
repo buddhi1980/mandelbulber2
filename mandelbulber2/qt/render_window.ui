@@ -78,7 +78,7 @@
             <x>0</x>
             <y>0</y>
             <width>1193</width>
-            <height>787</height>
+            <height>790</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -324,6 +324,7 @@
     <addaction name="actionReset_to_default"/>
     <addaction name="actionLoad_settings"/>
     <addaction name="actionLoad_settings_from_clipboard"/>
+    <addaction name="actionSettings_browser"/>
     <addaction name="actionLoad_example"/>
     <addaction name="menuRecent_Settings_list"/>
     <addaction name="separator"/>
@@ -580,7 +581,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>133</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -647,7 +648,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>133</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -714,7 +715,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>133</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1090,7 +1091,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>329</height>
+          <height>331</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1615,6 +1616,15 @@
   <action name="actionDelete_default_settings">
    <property name="text">
     <string>Delete default settings</string>
+   </property>
+  </action>
+  <action name="actionSettings_browser">
+   <property name="icon">
+    <iconset theme="document-open" resource="icons.qrc">
+     <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Settings browser...</string>
    </property>
   </action>
  </widget>

@@ -416,6 +416,8 @@ void cInterface::ConnectSignals() const
 		&RenderWindow::slotMenuLoadSettingsFromClipboard);
 	connect(mainWindow->ui->actionLoad_example, &QAction::triggered, mainWindow,
 		&RenderWindow::slotMenuLoadExample);
+	connect(mainWindow->ui->actionSettings_browser, &QAction::triggered, mainWindow,
+		&RenderWindow::slotMenuSettingsBrowser);
 	connect(mainWindow->ui->actionSave_as_default_settings, &QAction::triggered, mainWindow,
 		&RenderWindow::slotSaveSettingsAsDefaut);
 	connect(mainWindow->ui->actionReset_to_default, &QAction::triggered, mainWindow,
@@ -2078,6 +2080,7 @@ void cInterface::slotRefreshPostEffects()
 
 void cInterface::LoadDefaultSettings()
 {
+	QString previousSettings = systemData.lastSettingsFile;
 	QString filename = QDir::toNativeSeparators(systemDirectories.GetDefaultSettingsFile());
 	if (QFile::exists(filename))
 	{
@@ -2085,4 +2088,7 @@ void cInterface::LoadDefaultSettings()
 			gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 		mainWindow->slotMenuLoadSettingsFromFile(filename);
 	}
+
+	// to not modify last settings file in the file browser
+	systemData.lastSettingsFile = previousSettings;
 }

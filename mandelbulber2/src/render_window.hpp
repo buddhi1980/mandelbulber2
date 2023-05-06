@@ -146,6 +146,7 @@ private slots:
 	void slotMenuLoadSettings();
 	void slotMenuLoadSettingsFromFile(QString fileName);
 	void slotMenuLoadSettingsFromClipboard();
+	void slotMenuSettingsBrowser();
 
 	void slotMenuResetDocksPositions();
 	void slotMenuAnimationDocksPositions();

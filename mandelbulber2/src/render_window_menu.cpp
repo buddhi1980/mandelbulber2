@@ -56,6 +56,7 @@
 
 #include "qt/image_save_dialog.h"
 #include "qt/preview_file_dialog.h"
+#include "qt/settings_browser.h"
 
 void RenderWindow::slotImportOldSettings()
 {
@@ -509,6 +510,14 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		cErrorMessage::showMessage(QObject::tr("Cannot load settings from clipboard!"),
 			cErrorMessage::errorMessage, gMainInterface->mainWindow);
 	}
+}
+
+void RenderWindow::slotMenuSettingsBrowser()
+{
+	cSettingsBrowser *browser = new cSettingsBrowser();
+	browser->exec();
+
+	delete browser;
 }
 
 void RenderWindow::slotMenuRedo()

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2020-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2023 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -34,11 +34,14 @@
 
 #include "settings_browser.h"
 
-#include "src/system_data.hpp"
 #include "ui_settings_browser.h"
 #include "thumbnail_widget.h"
+#include "src/system_data.hpp"
 
 #include <QCloseEvent>
+#include <QDebug>
+#include <QString>
+#include <QDir>
 
 cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsBrowser)
 {
@@ -47,12 +50,18 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	setModal(true);
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
-	int sizeMultiply = 2.0;
-	int previewWidth = sizeMultiply * baseSize * 4 / 3;
-	int previewHeight = sizeMultiply * baseSize;
+	int sizeMultiply = 1.0;
+	previewWidth = sizeMultiply * baseSize * 4 / 3;
+	previewHeight = sizeMultiply * baseSize;
 
 	connect(ui->pushButton_load, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedLoad);
 	connect(ui->pushButton_cancel, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedCancel);
+
+	actualDirectory = QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath());
+
+	ui->lineEdit_folder->setText(actualDirectory);
+
+	CreateListOfSettings();
 }
 
 cSettingsBrowser::~cSettingsBrowser()
@@ -73,4 +82,19 @@ void cSettingsBrowser::slotPressedLoad()
 void cSettingsBrowser::slotPressedCancel()
 {
 	close();
+}
+
+void cSettingsBrowser::CreateListOfSettings()
+{
+	settingsList.clear();
+	QDir dir(actualDirectory);
+	QFileInfoList fileList = dir.entryInfoList(QStringList({"*.fract"}), QDir::Files, QDir::Name);
+
+	for (const QFileInfo &fileInfo : fileList)
+	{
+		sSettingsListItem newItem;
+		newItem.filename = fileInfo.fileName();
+		newItem.dateTime = fileInfo.lastModified();
+		settingsList.append(newItem);
+	}
 }

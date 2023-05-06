@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2020 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2023 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -36,6 +36,7 @@
 #define MANDELBULBER2_QT_SETTINGS_BROWSER_H_
 
 #include <QDialog>
+#include <QDateTime>
 
 namespace Ui
 {
@@ -46,6 +47,15 @@ class cSettingsBrowser : public QDialog
 {
 	Q_OBJECT
 
+	struct sSettingsListItem
+	{
+		QString filename;
+		QDateTime dateTime;
+		QString version;
+		bool hasAnimation;
+		QString fractals;
+	};
+
 public:
 	explicit cSettingsBrowser(QWidget *parent = nullptr);
 	~cSettingsBrowser();
@@ -53,12 +63,20 @@ public:
 	// events
 	void closeEvent(QCloseEvent *event) override;
 
+private:
+	void CreateListOfSettings();
+
 private slots:
 	void slotPressedLoad();
 	void slotPressedCancel();
 
 private:
 	Ui::cSettingsBrowser *ui;
+
+	QString actualDirectory;
+	QList<sSettingsListItem> settingsList;
+	int previewWidth;
+	int previewHeight;
 };
 
-#endif /* MANDELBULBER2_QT_SETTINGS_CLEANER_H_ */
+#endif /* MANDELBULBER2_QT_SETTINGS_BROWSER_H_ */
