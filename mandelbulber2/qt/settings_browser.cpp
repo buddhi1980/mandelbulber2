@@ -122,7 +122,12 @@ void cSettingsBrowser::PrepareTable()
 			newRowIndex, fileNameColumnIndex, new QTableWidgetItem(QString(item.filename)));
 		ui->tableWidget->setItem(
 			newRowIndex, dateColumnIndex, new QTableWidgetItem(QString(item.dateTime.toString())));
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 		longestName = qMax(fm.horizontalAdvance(item.filename), longestName);
+#else
+		longestName = qMax(fm.width(item.filename), longestName);
+#endif
 	}
 	ui->tableWidget->setColumnWidth(1, longestName);
 }
