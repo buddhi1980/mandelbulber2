@@ -65,6 +65,7 @@ public:
 
 private:
 	void CreateListOfSettings();
+	void PrepareTable();
 
 private slots:
 	void slotPressedLoad();
@@ -77,6 +78,11 @@ private:
 	QList<sSettingsListItem> settingsList;
 	int previewWidth;
 	int previewHeight;
+
+	const int previewColumnIndex = 0;
+	const int fileNameColumnIndex = 1;
+	const int dateColumnIndex = 2;
+	const int numberOfColumns = 3;
 };
 
 #endif /* MANDELBULBER2_QT_SETTINGS_BROWSER_H_ */

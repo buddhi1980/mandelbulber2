@@ -514,10 +514,8 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 void RenderWindow::slotMenuSettingsBrowser()
 {
-	cSettingsBrowser *browser = new cSettingsBrowser();
-	browser->exec();
-
-	delete browser;
+	cSettingsBrowser browser(this);
+	browser.exec();
 }
 
 void RenderWindow::slotMenuRedo()

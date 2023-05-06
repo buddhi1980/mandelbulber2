@@ -62,11 +62,13 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->lineEdit_folder->setText(actualDirectory);
 
 	CreateListOfSettings();
+	PrepareTable();
 }
 
 cSettingsBrowser::~cSettingsBrowser()
 {
 	delete ui;
+	qDebug() << "delete cSettingsBrowser";
 }
 
 void cSettingsBrowser::closeEvent(QCloseEvent *event)
@@ -97,4 +99,30 @@ void cSettingsBrowser::CreateListOfSettings()
 		newItem.dateTime = fileInfo.lastModified();
 		settingsList.append(newItem);
 	}
+}
+
+void cSettingsBrowser::PrepareTable()
+{
+	QFontMetrics fm(font());
+
+	ui->tableWidget->setRowCount(0);
+	ui->tableWidget->setColumnCount(numberOfColumns);
+	ui->tableWidget->clear();
+	ui->tableWidget->setColumnWidth(0, previewWidth);
+	ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Preview")));
+	ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Filename")));
+	ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Last modifued")));
+
+	int longestName = 0;
+	for (const sSettingsListItem &item : settingsList)
+	{
+		int newRowIndex = ui->tableWidget->rowCount();
+		ui->tableWidget->insertRow(newRowIndex);
+		ui->tableWidget->setItem(
+			newRowIndex, fileNameColumnIndex, new QTableWidgetItem(QString(item.filename)));
+		ui->tableWidget->setItem(
+			newRowIndex, dateColumnIndex, new QTableWidgetItem(QString(item.dateTime.toString())));
+		longestName = qMax(fm.horizontalAdvance(item.filename), longestName);
+	}
+	ui->tableWidget->setColumnWidth(1, longestName);
 }
