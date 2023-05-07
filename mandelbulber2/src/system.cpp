@@ -358,7 +358,7 @@ bool CreateDefaultFolders()
 		QDir::toNativeSeparators(actualFileNames.actualFilenamePalette);
 
 	ClearNetRenderCache();
-	DeleteOldChache(systemDirectories.GetThumbnailsFolder(), 90);
+	DeleteOldChache(systemDirectories.GetThumbnailsFolder(), 365);
 	DeleteOldChache(systemDirectories.GetHttpCacheFolder(), 10);
 
 	return result;

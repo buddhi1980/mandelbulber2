@@ -117,6 +117,7 @@ cThumbnailWidget::~cThumbnailWidget()
 		// qDebug() << "cThumbnailWidget trying to delete" << instanceIndex;
 		while (image->IsUsed())
 		{
+			stopRequest = true;
 		}
 		image.reset();
 		// qDebug() << "cThumbnailWidget image deleted" << instanceIndex;

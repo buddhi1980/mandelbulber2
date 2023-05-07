@@ -514,7 +514,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 void RenderWindow::slotMenuSettingsBrowser()
 {
-	cSettingsBrowser browser(this);
+	cSettingsBrowser browser;
 	browser.exec();
 }
 

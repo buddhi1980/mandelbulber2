@@ -34,9 +34,14 @@
 
 #include "settings_browser.h"
 
+#include <memory>
 #include "ui_settings_browser.h"
 #include "thumbnail_widget.h"
+#include "src/settings.hpp"
 #include "src/system_data.hpp"
+#include "src/initparameters.hpp"
+#include "src/fractal_enums.h"
+#include "src/fractal_container.hpp"
 
 #include <QCloseEvent>
 #include <QDebug>
@@ -63,6 +68,10 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	CreateListOfSettings();
 	PrepareTable();
+
+	timer.setSingleShot(true);
+	timer.start(100);
+	connect(&timer, &QTimer::timeout, this, &cSettingsBrowser::slotTimer);
 }
 
 cSettingsBrowser::~cSettingsBrowser()
@@ -97,6 +106,7 @@ void cSettingsBrowser::CreateListOfSettings()
 		sSettingsListItem newItem;
 		newItem.filename = fileInfo.fileName();
 		newItem.dateTime = fileInfo.lastModified();
+		newItem.loaded = false;
 		settingsList.append(newItem);
 	}
 }
@@ -112,6 +122,7 @@ void cSettingsBrowser::PrepareTable()
 	ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Preview")));
 	ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Filename")));
 	ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Last modifued")));
+	ui->tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem(tr("Formulas")));
 
 	int longestName = 0;
 	for (const sSettingsListItem &item : settingsList)
@@ -128,6 +139,53 @@ void cSettingsBrowser::PrepareTable()
 #else
 		longestName = qMax(fm.width(item.filename), longestName);
 #endif
+
+		ui->tableWidget->setRowHeight(newRowIndex, previewHeight);
 	}
 	ui->tableWidget->setColumnWidth(1, longestName);
+}
+
+void cSettingsBrowser::slotTimer()
+{
+	int firstRowVisible = ui->tableWidget->rowAt(0);
+	int lastRowVisible = ui->tableWidget->rowAt(ui->tableWidget->height());
+	if (lastRowVisible == -1) lastRowVisible = ui->tableWidget->rowCount() - 1;
+
+	for (int row = firstRowVisible; row <= lastRowVisible; row++)
+	{
+		if (!settingsList.at(row).loaded)
+		{
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			if (parSettings.LoadFromFile(actualDirectory + QDir::separator() + settingsList.at(row).filename))
+			{
+				//			progressBar->show();
+				std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+				std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+				InitParams(par);
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					InitFractalParams(parFractal->at(i));
+
+				InitMaterialParams(1, par);
+
+				if (parSettings.Decode(par, parFractal))
+				{
+					par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+					par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+					if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
+
+					double dpiScale = ui->tableWidget->devicePixelRatioF();
+					cThumbnailWidget *thumbWidget =
+						new cThumbnailWidget(previewWidth, previewHeight, dpiScale, ui->tableWidget);
+					thumbWidget->UseOneCPUCore(true);
+					thumbWidget->AssignParameters(par, parFractal);
+					ui->tableWidget->setCellWidget(row, previewColumnIndex, thumbWidget);
+				}
+			}
+			settingsList[row].loaded = true;
+			break; // do not create next thumbnail in this cycle
+		}
+	}
+
+	timer.start(100);
 }

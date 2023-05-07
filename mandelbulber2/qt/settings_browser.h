@@ -37,6 +37,7 @@
 
 #include <QDialog>
 #include <QDateTime>
+#include <QTimer>
 
 namespace Ui
 {
@@ -52,8 +53,9 @@ class cSettingsBrowser : public QDialog
 		QString filename;
 		QDateTime dateTime;
 		QString version;
-		bool hasAnimation;
+		bool hasAnimation = false;
 		QString fractals;
+		bool loaded = false;
 	};
 
 public:
@@ -70,6 +72,7 @@ private:
 private slots:
 	void slotPressedLoad();
 	void slotPressedCancel();
+	void slotTimer();
 
 private:
 	Ui::cSettingsBrowser *ui;
@@ -82,7 +85,10 @@ private:
 	const int previewColumnIndex = 0;
 	const int fileNameColumnIndex = 1;
 	const int dateColumnIndex = 2;
-	const int numberOfColumns = 3;
+	const int fractalsColumnIndex = 3;
+	const int numberOfColumns = 4;
+
+	QTimer timer;
 };
 
 #endif /* MANDELBULBER2_QT_SETTINGS_BROWSER_H_ */
