@@ -683,11 +683,14 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	connect(gOpenCl->openClEngineRenderFractal, &cOpenClEngineRenderFractal::signalSmallPartRendered,
 		this, &cRenderJob::signalSmallPartRendered, Qt::UniqueConnection);
 
+	emit updateProgressAndStatus(
+		tr("OpenCl - waiting for free GPU"), progressText->getText(0.0), 0.0);
+
 	gOpenCl->openClEngineRenderFractal->Lock();
 	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
-	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
+	if (!*stopRequest && gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	{
 		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
 		WriteLogDouble("OpenCl render fractal - needed mem:",

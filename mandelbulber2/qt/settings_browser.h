@@ -68,6 +68,7 @@ public:
 private:
 	void CreateListOfSettings();
 	void PrepareTable();
+	void DeleteAllThumbnails();
 
 private slots:
 	void slotPressedLoad();

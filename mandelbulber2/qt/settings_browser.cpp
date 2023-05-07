@@ -42,11 +42,15 @@
 #include "src/initparameters.hpp"
 #include "src/fractal_enums.h"
 #include "src/fractal_container.hpp"
+#include "src/nine_fractals.hpp"
+#include "formula/definition/abstract_fractal.h"
+#include "formula/definition/all_fractal_list.hpp"
 
 #include <QCloseEvent>
 #include <QDebug>
 #include <QString>
 #include <QDir>
+#include <QList>
 
 cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsBrowser)
 {
@@ -76,12 +80,37 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 
 cSettingsBrowser::~cSettingsBrowser()
 {
+	DeleteAllThumbnails();
 	delete ui;
-	qDebug() << "delete cSettingsBrowser";
+	// qDebug() << "delete cSettingsBrowser";
+}
+
+void cSettingsBrowser::DeleteAllThumbnails()
+{
+	for (int row = 0; row < ui->tableWidget->rowCount(); row++)
+	{
+		if (ui->tableWidget->cellWidget(row, previewColumnIndex))
+		{
+			qobject_cast<cThumbnailWidget *>(ui->tableWidget->cellWidget(row, previewColumnIndex))
+				->StopRequest();
+			// qDebug() << "row" << row << "stopping";
+		}
+	}
+
+	for (int row = 0; row < ui->tableWidget->rowCount(); row++)
+	{
+		if (QWidget *widget = ui->tableWidget->cellWidget(row, previewColumnIndex))
+		{
+			ui->tableWidget->removeCellWidget(row, previewColumnIndex);
+			delete widget;
+			// qDebug() << "row" << row << "deleted";
+		}
+	}
 }
 
 void cSettingsBrowser::closeEvent(QCloseEvent *event)
 {
+	DeleteAllThumbnails();
 	event->accept();
 }
 
@@ -151,40 +180,80 @@ void cSettingsBrowser::slotTimer()
 	int lastRowVisible = ui->tableWidget->rowAt(ui->tableWidget->height());
 	if (lastRowVisible == -1) lastRowVisible = ui->tableWidget->rowCount() - 1;
 
+	int rowToAdd = -1;
+
 	for (int row = firstRowVisible; row <= lastRowVisible; row++)
 	{
 		if (!settingsList.at(row).loaded)
 		{
-			cSettings parSettings(cSettings::formatFullText);
-			parSettings.BeQuiet(true);
-			if (parSettings.LoadFromFile(actualDirectory + QDir::separator() + settingsList.at(row).filename))
-			{
-				//			progressBar->show();
-				std::shared_ptr<cParameterContainer> par(new cParameterContainer);
-				std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
-				InitParams(par);
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-					InitFractalParams(parFractal->at(i));
-
-				InitMaterialParams(1, par);
-
-				if (parSettings.Decode(par, parFractal))
-				{
-					par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
-					par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
-					if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
-
-					double dpiScale = ui->tableWidget->devicePixelRatioF();
-					cThumbnailWidget *thumbWidget =
-						new cThumbnailWidget(previewWidth, previewHeight, dpiScale, ui->tableWidget);
-					thumbWidget->UseOneCPUCore(true);
-					thumbWidget->AssignParameters(par, parFractal);
-					ui->tableWidget->setCellWidget(row, previewColumnIndex, thumbWidget);
-				}
-			}
-			settingsList[row].loaded = true;
-			break; // do not create next thumbnail in this cycle
+			rowToAdd = row;
 		}
+	}
+
+	if (rowToAdd == -1)
+	{
+		for (int row = 0; row < ui->tableWidget->rowCount(); row++)
+		{
+			if (!settingsList.at(row).loaded)
+			{
+				rowToAdd = row;
+				break;
+			}
+		}
+	}
+
+	if (rowToAdd >= 0)
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		if (parSettings.LoadFromFile(
+					actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
+		{
+			// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
+
+			//			progressBar->show();
+			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+			InitParams(par);
+			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				InitFractalParams(parFractal->at(i));
+
+			InitMaterialParams(1, par);
+
+			if (parSettings.Decode(par, parFractal))
+			{
+				QString listOfFormulas;
+				QString prefix;
+				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
+				if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
+				for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
+				{
+					fractal::enumFractalFormula eFormula =
+						fractal::enumFractalFormula(par->Get<int>("formula", f));
+					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+					{
+						cAbstractFractal *fractalFormula =
+							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
+						if (listOfFormulas.length() > 0) listOfFormulas += "; ";
+						listOfFormulas += fractalFormula->getNameInComboBox();
+					}
+				}
+				ui->tableWidget->setItem(
+					rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
+
+				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
+
+				double dpiScale = ui->tableWidget->devicePixelRatioF();
+				cThumbnailWidget *thumbWidget =
+					new cThumbnailWidget(previewWidth, previewHeight, dpiScale * 2.0, nullptr);
+				thumbWidget->UseOneCPUCore(true);
+				thumbWidget->AssignParameters(par, parFractal);
+				ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
+			}
+		}
+		settingsList[rowToAdd].loaded = true;
 	}
 
 	timer.start(100);

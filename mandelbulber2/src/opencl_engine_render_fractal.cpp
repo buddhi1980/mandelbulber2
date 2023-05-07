@@ -1285,6 +1285,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 	bool finallResult = true; // true if rendering was compiled successfully
 
+	if (*stopRequest) return false;
+
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
@@ -1766,10 +1768,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
-					renderData->statistics.maskedPixels =  double(maskedPixelsCounter) / (width * height);
+					renderData->statistics.maskedPixels = double(maskedPixelsCounter) / (width * height);
 
-//					qDebug() << output.monteCarloLoop
-//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
+					//					qDebug() << output.monteCarloLoop
+					//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
 
 					// denoiser
 					if (monteCarlo && useDenoiser)

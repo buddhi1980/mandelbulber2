@@ -435,6 +435,7 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	{
 		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
+		qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size" << sequenceSize;
 		return 0;
 	}
 
