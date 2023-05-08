@@ -90,7 +90,8 @@ private:
 	const int fileNameColumnIndex = 1;
 	const int dateColumnIndex = 2;
 	const int fractalsColumnIndex = 3;
-	const int numberOfColumns = 4;
+	const int effectsColumnIndex = 4;
+	const int numberOfColumns = 5;
 
 	const int refreshTimeMsec = 100;
 
