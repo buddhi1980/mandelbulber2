@@ -620,6 +620,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("navigator_volumetrics", true, morphNone, paramApp);
 	par->addParam("navigator_dark_glow", false, morphNone, paramApp);
 
+	par->addParam("settings_browser_use_opencl", false, morphNone, paramApp);
+
 	par->addParam("key_render", QString("R"), morphNone, paramApp);
 	par->addParam("key_stop", QString("T"), morphNone, paramApp);
 	par->addParam("key_move_forward", QString("Q"), morphNone, paramApp);

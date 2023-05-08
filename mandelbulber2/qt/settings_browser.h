@@ -61,11 +61,12 @@ class cSettingsBrowser : public QDialog
 public:
 	explicit cSettingsBrowser(QWidget *parent = nullptr);
 	~cSettingsBrowser();
+	QString getSelectedFileName() { return selectedFileName; }
 
+private:
 	// events
 	void closeEvent(QCloseEvent *event) override;
 
-private:
 	void CreateListOfSettings();
 	void PrepareTable();
 	void DeleteAllThumbnails();
@@ -73,6 +74,7 @@ private:
 private slots:
 	void slotPressedLoad();
 	void slotPressedCancel();
+	void slotPressedSelectDirectory();
 	void slotTimer();
 
 private:
@@ -82,12 +84,15 @@ private:
 	QList<sSettingsListItem> settingsList;
 	int previewWidth;
 	int previewHeight;
+	QString selectedFileName;
 
 	const int previewColumnIndex = 0;
 	const int fileNameColumnIndex = 1;
 	const int dateColumnIndex = 2;
 	const int fractalsColumnIndex = 3;
 	const int numberOfColumns = 4;
+
+	const int refreshTimeMsec = 100;
 
 	QTimer timer;
 };

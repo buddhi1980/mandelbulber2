@@ -514,8 +514,16 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 void RenderWindow::slotMenuSettingsBrowser()
 {
+	gMainInterface->SynchronizeInterface(
+		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+
 	cSettingsBrowser browser;
 	browser.exec();
+	QString fileName = browser.getSelectedFileName();
+	if (!fileName.isEmpty())
+	{
+		slotMenuLoadSettingsFromFile(fileName);
+	}
 }
 
 void RenderWindow::slotMenuRedo()

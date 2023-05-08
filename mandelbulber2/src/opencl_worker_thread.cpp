@@ -427,6 +427,12 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 		sequenceSize = sequenceIndex;
 	}
 
+	if (sequenceSize == 0)
+	{
+		sequenceSize = 1;
+		inPixelSequenceBuffer[0] = 0;
+	}
+
 	inClPixelSequenceBuffer.reset(
 		new cl::Buffer(*hardware->getContext(deviceIndex), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 			sequenceSize * sizeof(cl_int), inPixelSequenceBuffer.data(), &err));
@@ -435,7 +441,8 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 	{
 		emit showErrorMessage(QObject::tr("OpenCL bufer for pixel mask cannot be created!"),
 			cErrorMessage::errorMessage, nullptr);
-		qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size" << sequenceSize;
+		qDebug() << "jobWidth" << jobWidth << "jobHeight" << jobHeight << "sequence size"
+						 << sequenceSize;
 		return 0;
 	}
 

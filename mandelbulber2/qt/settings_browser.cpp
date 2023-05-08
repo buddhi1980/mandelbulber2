@@ -50,6 +50,7 @@
 #include <QDebug>
 #include <QString>
 #include <QDir>
+#include <QFileDialog>
 #include <QList>
 
 cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsBrowser)
@@ -65,16 +66,26 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	connect(ui->pushButton_load, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedLoad);
 	connect(ui->pushButton_cancel, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedCancel);
+	connect(ui->pushButton_select_folder, &QPushButton::clicked, this,
+		&cSettingsBrowser::slotPressedSelectDirectory);
 
 	actualDirectory = QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath());
 
 	ui->lineEdit_folder->setText(actualDirectory);
 
+	if (!gPar->Get<bool>("opencl_enabled"))
+	{
+		ui->checkBox_useOpenCL->setChecked(false);
+		ui->checkBox_useOpenCL->setDisabled(true);
+	}
+
+	ui->checkBox_useOpenCL->setChecked(gPar->Get<bool>("settings_browser_use_opencl"));
+
 	CreateListOfSettings();
 	PrepareTable();
 
 	timer.setSingleShot(true);
-	timer.start(100);
+	timer.start(refreshTimeMsec);
 	connect(&timer, &QTimer::timeout, this, &cSettingsBrowser::slotTimer);
 }
 
@@ -116,6 +127,15 @@ void cSettingsBrowser::closeEvent(QCloseEvent *event)
 
 void cSettingsBrowser::slotPressedLoad()
 {
+	int row = ui->tableWidget->currentRow();
+	if (row >= 0)
+	{
+		selectedFileName =
+			QDir::toNativeSeparators(actualDirectory + QDir::separator() + settingsList[row].filename);
+	}
+
+	gPar->Set("settings_browser_use_opencl", ui->checkBox_useOpenCL->isChecked());
+
 	close();
 }
 
@@ -148,10 +168,13 @@ void cSettingsBrowser::PrepareTable()
 	ui->tableWidget->setColumnCount(numberOfColumns);
 	ui->tableWidget->clear();
 	ui->tableWidget->setColumnWidth(0, previewWidth);
-	ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Preview")));
-	ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Filename")));
-	ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem(tr("Last modifued")));
-	ui->tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem(tr("Formulas")));
+	ui->tableWidget->setHorizontalHeaderItem(previewColumnIndex, new QTableWidgetItem(tr("Preview")));
+	ui->tableWidget->setHorizontalHeaderItem(
+		fileNameColumnIndex, new QTableWidgetItem(tr("Filename")));
+	ui->tableWidget->setHorizontalHeaderItem(
+		dateColumnIndex, new QTableWidgetItem(tr("Last modifued")));
+	ui->tableWidget->setHorizontalHeaderItem(
+		fractalsColumnIndex, new QTableWidgetItem(tr("Formulas")));
 
 	int longestName = 0;
 	for (const sSettingsListItem &item : settingsList)
@@ -171,7 +194,8 @@ void cSettingsBrowser::PrepareTable()
 
 		ui->tableWidget->setRowHeight(newRowIndex, previewHeight);
 	}
-	ui->tableWidget->setColumnWidth(1, longestName);
+	ui->tableWidget->setColumnWidth(fileNameColumnIndex, longestName);
+	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth);
 }
 
 void cSettingsBrowser::slotTimer()
@@ -241,8 +265,17 @@ void cSettingsBrowser::slotTimer()
 				ui->tableWidget->setItem(
 					rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
 
-				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
-				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+				if (ui->checkBox_useOpenCL->isChecked())
+				{
+					par->Set("opencl_enabled", true);
+					par->Set("opencl_mode", 3);
+				}
+				else
+				{
+					par->Set("opencl_enabled", false);
+					par->Set("opencl_mode", 0);
+				}
+
 				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
 
 				double dpiScale = ui->tableWidget->devicePixelRatioF();
@@ -256,5 +289,23 @@ void cSettingsBrowser::slotTimer()
 		settingsList[rowToAdd].loaded = true;
 	}
 
-	timer.start(100);
+	timer.start(refreshTimeMsec);
+}
+
+void cSettingsBrowser::slotPressedSelectDirectory()
+{
+	QString dir = QFileDialog::getExistingDirectory(this, tr("Select folder with fractal settings"),
+		actualDirectory, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+	if (!dir.isEmpty())
+	{
+		actualDirectory = dir;
+		ui->lineEdit_folder->setText(actualDirectory);
+
+		timer.stop();
+		DeleteAllThumbnails();
+		CreateListOfSettings();
+		PrepareTable();
+		timer.start(refreshTimeMsec);
+	}
 }
