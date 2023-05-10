@@ -28,6 +28,9 @@ REAL4 TransfAddCpixelTileIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		cv.z = round(p.z * rs.z);
 		z = (p * rs - cv) * fractal->transformCommon.scale3D444;
 
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+
 		cv = cv * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.offset000;
 
 		if (fractal->transformCommon.functionEnabledBFalse)
