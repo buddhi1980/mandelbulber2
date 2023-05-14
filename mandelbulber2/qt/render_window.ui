@@ -1624,7 +1624,7 @@
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
-    <string>Settings browser...</string>
+    <string>Thumbnail browser...</string>
    </property>
   </action>
  </widget>

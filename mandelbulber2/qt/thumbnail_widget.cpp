@@ -303,7 +303,7 @@ void cThumbnailWidget::slotRender()
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
 
-		if (!disableTimer && cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+		if (!disableTimer && cRenderJob::GetRunningJobCount() > systemData.numberOfThreads * 2)
 		{
 			// try again after some random time
 			timer->start(Random(5000) + 1);
@@ -373,7 +373,7 @@ void cThumbnailWidget::slotFullyRendered()
 
 void cThumbnailWidget::slotRandomRender()
 {
-	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads * 2)
 	{
 		// if it's to busy, render later
 		timer->start(Random(1000) * 10 + 1);

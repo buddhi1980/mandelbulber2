@@ -439,6 +439,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 					thumbWidget->UseOneCPUCore(true);
 					par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 					par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+					if (!par->Get<bool>("DOF_monte_carlo")) par->Set("opencl_mode", 0);
 					if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
 					thumbWidget->AssignParameters(par, parFractal);
 				}

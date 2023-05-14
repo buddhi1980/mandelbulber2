@@ -70,12 +70,15 @@ private:
 	void CreateListOfSettings();
 	void PrepareTable();
 	void DeleteAllThumbnails();
+	void AddRow(int rowToAdd);
+	void RefreshTable();
 
 private slots:
 	void slotPressedLoad();
 	void slotPressedCancel();
 	void slotPressedSelectDirectory();
 	void slotTimer();
+	void slotChangedOpenCLMode(int);
 
 private:
 	Ui::cSettingsBrowser *ui;

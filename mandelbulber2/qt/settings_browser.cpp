@@ -58,10 +58,11 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->setupUi(this);
 
 	setModal(true);
+	setWindowTitle("Thumbnail browser");
 
 	int baseSize = int(systemData.GetPreferredThumbnailSize());
 	int sizeMultiply = 1.0;
-	previewWidth = sizeMultiply * baseSize * 4 / 3;
+	previewWidth = (sizeMultiply * baseSize * 4 / 3);
 	previewHeight = sizeMultiply * baseSize;
 
 	connect(ui->pushButton_load, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedLoad);
@@ -75,11 +76,13 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 
 	if (!gPar->Get<bool>("opencl_enabled"))
 	{
-		ui->checkBox_useOpenCL->setChecked(false);
-		ui->checkBox_useOpenCL->setDisabled(true);
+		ui->comboBoxOpenCLMode->setCurrentIndex(0);
+		ui->comboBoxOpenCLMode->setDisabled(true);
 	}
 
-	ui->checkBox_useOpenCL->setChecked(gPar->Get<bool>("settings_browser_use_opencl"));
+	ui->comboBoxOpenCLMode->setCurrentIndex(gPar->Get<int>("settings_browser_use_opencl"));
+	connect(ui->comboBoxOpenCLMode, qOverload<int>(&QComboBox::currentIndexChanged), this,
+		&cSettingsBrowser::slotChangedOpenCLMode);
 
 	CreateListOfSettings();
 	PrepareTable();
@@ -134,7 +137,7 @@ void cSettingsBrowser::slotPressedLoad()
 			QDir::toNativeSeparators(actualDirectory + QDir::separator() + settingsList[row].filename);
 	}
 
-	gPar->Set("settings_browser_use_opencl", ui->checkBox_useOpenCL->isChecked());
+	gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
 
 	close();
 }
@@ -199,6 +202,97 @@ void cSettingsBrowser::PrepareTable()
 	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth);
 }
 
+void cSettingsBrowser::AddRow(int rowToAdd)
+{
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	if (parSettings.LoadFromFile(
+				actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
+	{
+		// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
+		//			progressBar->show();
+		std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+		std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+		InitParams(par);
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			InitFractalParams(parFractal->at(i));
+		InitMaterialParams(1, par);
+		if (parSettings.Decode(par, parFractal))
+		{
+			QString listOfFormulas;
+			QString prefix;
+			if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
+
+			if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
+
+			for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
+			{
+				fractal::enumFractalFormula eFormula =
+					fractal::enumFractalFormula(par->Get<int>("formula", f));
+				if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+				{
+					cAbstractFractal *fractalFormula =
+						newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
+					if (listOfFormulas.length() > 0) listOfFormulas += "; ";
+
+					listOfFormulas += fractalFormula->getNameInComboBox();
+				}
+			}
+			ui->tableWidget->setItem(
+				rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
+
+			QString listOfEffects;
+			bool isMC = false;
+			if (par->Get<bool>("DOF_monte_carlo"))
+			{
+				listOfEffects += "MC ";
+				isMC = true;
+			}
+			if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
+			if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
+			if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
+			if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
+			if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
+			if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
+			if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
+			if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
+			if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
+			if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
+			if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
+			if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
+			if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
+			if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
+
+			ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
+			if (ui->comboBoxOpenCLMode->currentIndex() >= 2
+					|| (ui->comboBoxOpenCLMode->currentIndex() == 1 && isMC))
+			{
+				par->Set("opencl_enabled", true);
+				par->Set("opencl_mode", 3);
+			}
+			else
+			{
+				par->Set("opencl_enabled", false);
+				par->Set("opencl_mode", 0);
+			}
+			if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
+
+			double resolution = 1.0;
+			if (ui->comboBoxOpenCLMode->currentIndex() == 3) resolution = 2.0;
+
+			double dpiScale = ui->tableWidget->devicePixelRatioF();
+			cThumbnailWidget *thumbWidget =
+				new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
+			thumbWidget->UseOneCPUCore(true);
+			par->Set("image_width", previewWidth * dpiScale * resolution);
+			par->Set("image_height", previewHeight * dpiScale * resolution);
+			thumbWidget->AssignParameters(par, parFractal);
+			ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
+		}
+	}
+	settingsList[rowToAdd].loaded = true;
+}
+
 void cSettingsBrowser::slotTimer()
 {
 	int firstRowVisible = ui->tableWidget->rowAt(0);
@@ -229,85 +323,18 @@ void cSettingsBrowser::slotTimer()
 
 	if (rowToAdd >= 0)
 	{
-		cSettings parSettings(cSettings::formatFullText);
-		parSettings.BeQuiet(true);
-		if (parSettings.LoadFromFile(
-					actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
-		{
-			// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
-
-			//			progressBar->show();
-			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
-			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
-			InitParams(par);
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-				InitFractalParams(parFractal->at(i));
-
-			InitMaterialParams(1, par);
-
-			if (parSettings.Decode(par, parFractal))
-			{
-				QString listOfFormulas;
-				QString prefix;
-				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
-				if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
-				for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
-				{
-					fractal::enumFractalFormula eFormula =
-						fractal::enumFractalFormula(par->Get<int>("formula", f));
-					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
-					{
-						cAbstractFractal *fractalFormula =
-							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
-						if (listOfFormulas.length() > 0) listOfFormulas += "; ";
-						listOfFormulas += fractalFormula->getNameInComboBox();
-					}
-				}
-				ui->tableWidget->setItem(
-					rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
-
-				QString listOfEffects;
-				if (par->Get<bool>("DOF_monte_carlo")) listOfEffects += "MC ";
-				if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
-				if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
-				if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
-				if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
-				if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
-				if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
-				if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
-				if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
-				if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
-				if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
-				if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
-				if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
-				if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
-				if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
-				ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
-
-				if (ui->checkBox_useOpenCL->isChecked())
-				{
-					par->Set("opencl_enabled", true);
-					par->Set("opencl_mode", 3);
-				}
-				else
-				{
-					par->Set("opencl_enabled", false);
-					par->Set("opencl_mode", 0);
-				}
-
-				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
-
-				double dpiScale = ui->tableWidget->devicePixelRatioF();
-				cThumbnailWidget *thumbWidget =
-					new cThumbnailWidget(previewWidth, previewHeight, dpiScale * 2.0, nullptr);
-				thumbWidget->UseOneCPUCore(true);
-				thumbWidget->AssignParameters(par, parFractal);
-				ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
-			}
-		}
-		settingsList[rowToAdd].loaded = true;
+		AddRow(rowToAdd);
 	}
 
+	timer.start(refreshTimeMsec);
+}
+
+void cSettingsBrowser::RefreshTable()
+{
+	timer.stop();
+	DeleteAllThumbnails();
+	CreateListOfSettings();
+	PrepareTable();
 	timer.start(refreshTimeMsec);
 }
 
@@ -320,11 +347,12 @@ void cSettingsBrowser::slotPressedSelectDirectory()
 	{
 		actualDirectory = dir;
 		ui->lineEdit_folder->setText(actualDirectory);
-
-		timer.stop();
-		DeleteAllThumbnails();
-		CreateListOfSettings();
-		PrepareTable();
-		timer.start(refreshTimeMsec);
+		RefreshTable();
 	}
+}
+
+void cSettingsBrowser::slotChangedOpenCLMode(int currentIindex)
+{
+	gPar->Set("settings_browser_use_opencl", currentIindex);
+	RefreshTable();
 }

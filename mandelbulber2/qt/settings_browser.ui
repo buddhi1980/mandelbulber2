@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1258</width>
-    <height>928</height>
+    <width>1231</width>
+    <height>884</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
      <item>
       <widget class="QLineEdit" name="lineEdit_folder"/>
      </item>
@@ -31,10 +31,30 @@
       </widget>
      </item>
      <item>
-      <widget class="MyCheckBox" name="checkBox_useOpenCL">
-       <property name="text">
-        <string>Use OpenCL</string>
+      <widget class="QComboBox" name="comboBoxOpenCLMode">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
        </property>
+       <item>
+        <property name="text">
+         <string>Don't use OpenCL</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Use OpenCL for MC</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Use OpenCL for all</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Use OpenCL for all, HQ</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -49,8 +69,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1242</width>
-        <height>848</height>
+        <width>1215</width>
+        <height>804</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -81,13 +101,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="icons.qrc"/>
  </resources>
