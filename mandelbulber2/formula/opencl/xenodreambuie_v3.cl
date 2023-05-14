@@ -17,6 +17,15 @@
 
 REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+	}
+
 	REAL th = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleA1;
 	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)

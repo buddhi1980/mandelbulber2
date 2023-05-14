@@ -40,6 +40,9 @@ void cFractalTransfAddCpixelTile::FormulaCode(
 		cv.z = round(p.z * rs.z);
 		z = (p * rs - cv) * fractal->transformCommon.scale3D444;
 
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+
 		cv = cv * fractal->transformCommon.constantMultiplier111
 				+ fractal->transformCommon.offset000;
 
