@@ -88,7 +88,8 @@ private slots:
 	void slotPressedCancel();
 	void slotPressedSelectDirectory();
 	void slotTimer();
-	void slotChangedOpenCLMode(int);
+	void slotChangedOpenCLMode(int index);
+	void slotCellDoubleClicked(int row, int column);
 
 private:
 	Ui::cSettingsBrowser *ui;

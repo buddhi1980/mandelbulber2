@@ -69,6 +69,8 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->pushButton_cancel, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedCancel);
 	connect(ui->pushButton_select_folder, &QPushButton::clicked, this,
 		&cSettingsBrowser::slotPressedSelectDirectory);
+	connect(ui->tableWidget, &QTableWidget::cellDoubleClicked, this,
+		&cSettingsBrowser::slotCellDoubleClicked);
 
 	if (!gPar->Get<bool>("opencl_enabled"))
 	{
@@ -123,7 +125,7 @@ void cSettingsBrowser::DeleteAllThumbnails()
 {
 	for (int row = 0; row < ui->tableWidget->rowCount(); row++)
 	{
-		if (ui->tableWidget->cellWidget(row, previewColumnIndex))
+		if (qobject_cast<cThumbnailWidget *>(ui->tableWidget->cellWidget(row, previewColumnIndex)))
 		{
 			qobject_cast<cThumbnailWidget *>(ui->tableWidget->cellWidget(row, previewColumnIndex))
 				->StopRequest();
@@ -160,6 +162,23 @@ void cSettingsBrowser::slotPressedLoad()
 	gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
 
 	close();
+}
+
+void cSettingsBrowser::slotCellDoubleClicked(int _row, int _column)
+{
+	if (_column == 0)
+	{
+		int row = _row;
+		if (row >= 0)
+		{
+			selectedFileName =
+				QDir::toNativeSeparators(actualDirectory + QDir::separator() + settingsList[row].filename);
+		}
+
+		gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
+
+		close();
+	}
 }
 
 void cSettingsBrowser::slotPressedCancel()
