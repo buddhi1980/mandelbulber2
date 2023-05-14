@@ -436,6 +436,9 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 				{
 					thumbWidget = new cThumbnailWidget(
 						gPar->Get<int>("toolbar_icon_size"), gPar->Get<int>("toolbar_icon_size"), 2, this);
+					par->Set("image_width", gPar->Get<int>("toolbar_icon_size") * 2);
+					par->Set("image_height", gPar->Get<int>("toolbar_icon_size") * 2);
+
 					thumbWidget->UseOneCPUCore(true);
 					par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
 					par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));

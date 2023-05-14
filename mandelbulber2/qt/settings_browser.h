@@ -58,9 +58,19 @@ class cSettingsBrowser : public QDialog
 		bool loaded = false;
 	};
 
+	enum enumOpenclMode
+	{
+		modeNoOpenCL = 0,
+		modeOnlyMC = 1,
+		modeOnlyMCHQ = 2,
+		modeAll = 3,
+		modeAllHQ = 4
+	};
+
 public:
 	explicit cSettingsBrowser(QWidget *parent = nullptr);
 	~cSettingsBrowser();
+	void SetInitialFileName(const QString &_initFilename);
 	QString getSelectedFileName() { return selectedFileName; }
 
 private:
@@ -88,6 +98,7 @@ private:
 	int previewWidth;
 	int previewHeight;
 	QString selectedFileName;
+	QString initFilename;
 
 	const int previewColumnIndex = 0;
 	const int fileNameColumnIndex = 1;
@@ -96,7 +107,7 @@ private:
 	const int effectsColumnIndex = 4;
 	const int numberOfColumns = 5;
 
-	const int refreshTimeMsec = 100;
+	const int refreshTimeMsec = 20;
 
 	QTimer timer;
 };

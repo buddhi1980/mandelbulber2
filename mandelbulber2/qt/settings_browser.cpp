@@ -70,10 +70,6 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->pushButton_select_folder, &QPushButton::clicked, this,
 		&cSettingsBrowser::slotPressedSelectDirectory);
 
-	actualDirectory = QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath());
-
-	ui->lineEdit_folder->setText(actualDirectory);
-
 	if (!gPar->Get<bool>("opencl_enabled"))
 	{
 		ui->comboBoxOpenCLMode->setCurrentIndex(0);
@@ -84,12 +80,36 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->comboBoxOpenCLMode, qOverload<int>(&QComboBox::currentIndexChanged), this,
 		&cSettingsBrowser::slotChangedOpenCLMode);
 
+	connect(&timer, &QTimer::timeout, this, &cSettingsBrowser::slotTimer);
+}
+
+void cSettingsBrowser::SetInitialFileName(const QString &_initFilename)
+{
+	initFilename = _initFilename;
+	if (!initFilename.isEmpty())
+	{
+		actualDirectory = QDir::toNativeSeparators(QFileInfo(initFilename).absolutePath());
+	}
+
+	// actualDirectory =
+	// QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath());
+	ui->lineEdit_folder->setText(actualDirectory);
+
 	CreateListOfSettings();
 	PrepareTable();
 
+	QString filename = QDir::toNativeSeparators(QFileInfo(initFilename).fileName());
+	for (int row = 0; row < settingsList.size(); row++)
+	{
+		if (settingsList.at(row).filename == filename)
+		{
+			ui->tableWidget->setCurrentCell(row, fileNameColumnIndex);
+			break;
+		}
+	}
+
 	timer.setSingleShot(true);
 	timer.start(refreshTimeMsec);
-	connect(&timer, &QTimer::timeout, this, &cSettingsBrowser::slotTimer);
 }
 
 cSettingsBrowser::~cSettingsBrowser()
@@ -151,7 +171,8 @@ void cSettingsBrowser::CreateListOfSettings()
 {
 	settingsList.clear();
 	QDir dir(actualDirectory);
-	QFileInfoList fileList = dir.entryInfoList(QStringList({"*.fract"}), QDir::Files, QDir::Name);
+	QFileInfoList fileList =
+		dir.entryInfoList(QStringList({"*.fract"}), QDir::Files, QDir::Name | QDir::IgnoreCase);
 
 	for (const QFileInfo &fileInfo : fileList)
 	{
@@ -264,8 +285,11 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 			if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
 
 			ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
-			if (ui->comboBoxOpenCLMode->currentIndex() >= 2
-					|| (ui->comboBoxOpenCLMode->currentIndex() == 1 && isMC))
+
+			enumOpenclMode openClMode = enumOpenclMode(ui->comboBoxOpenCLMode->currentIndex());
+
+			if (openClMode >= modeAll
+					|| ((openClMode == modeOnlyMC || openClMode == modeOnlyMCHQ) && isMC))
 			{
 				par->Set("opencl_enabled", true);
 				par->Set("opencl_mode", 3);
@@ -277,13 +301,22 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 			}
 			if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
 
-			double resolution = 1.0;
-			if (ui->comboBoxOpenCLMode->currentIndex() == 3) resolution = 2.0;
-
 			double dpiScale = ui->tableWidget->devicePixelRatioF();
+
+			double resolution = 1.0;
+			if (openClMode == modeOnlyMCHQ || openClMode == modeAllHQ) // high quality mode
+			{
+				resolution = 2.0;
+				int originalWidth = par->Get<int>("image_width");
+				double detailMultiplier = double(originalWidth) / previewWidth * dpiScale * resolution;
+				if (detailMultiplier > 4.0) detailMultiplier = 4.0;
+				par->Set("detail_level", par->Get<double>("detail_level") * detailMultiplier);
+			}
+
 			cThumbnailWidget *thumbWidget =
 				new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
 			thumbWidget->UseOneCPUCore(true);
+
 			par->Set("image_width", previewWidth * dpiScale * resolution);
 			par->Set("image_height", previewHeight * dpiScale * resolution);
 			thumbWidget->AssignParameters(par, parFractal);

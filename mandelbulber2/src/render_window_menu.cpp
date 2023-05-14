@@ -412,21 +412,34 @@ void RenderWindow::SaveSettingsToRecent(QString fileName)
 
 void RenderWindow::slotMenuLoadExample()
 {
-	PreviewFileDialog dialog(this);
-	dialog.setOption(QFileDialog::DontUseNativeDialog);
-	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(QDir::toNativeSeparators(
+	//	PreviewFileDialog dialog(this);
+	//	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	//	dialog.setFileMode(QFileDialog::ExistingFile);
+	//	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	//	dialog.setDirectory(QDir::toNativeSeparators(
+	//		systemDirectories.sharedDir + QDir::separator() + "examples" + QDir::separator()));
+	//	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).fileName()));
+	//	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	//	dialog.setWindowTitle(tr("Load example settings..."));
+	//	QStringList filenames;
+	//	if (dialog.exec())
+	//	{
+	//		filenames = dialog.selectedFiles();
+	//		QString filename = QDir::toNativeSeparators(filenames.first());
+	//		slotMenuLoadSettingsFromFile(filename);
+	//	}
+
+	gMainInterface->SynchronizeInterface(
+		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+
+	cSettingsBrowser browser;
+	browser.SetInitialFileName(QDir::toNativeSeparators(
 		systemDirectories.sharedDir + QDir::separator() + "examples" + QDir::separator()));
-	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).fileName()));
-	dialog.setAcceptMode(QFileDialog::AcceptOpen);
-	dialog.setWindowTitle(tr("Load example settings..."));
-	QStringList filenames;
-	if (dialog.exec())
+	browser.exec();
+	QString fileName = browser.getSelectedFileName();
+	if (!fileName.isEmpty())
 	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
-		slotMenuLoadSettingsFromFile(filename);
+		slotMenuLoadSettingsFromFile(fileName);
 	}
 }
 
@@ -518,6 +531,7 @@ void RenderWindow::slotMenuSettingsBrowser()
 		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 
 	cSettingsBrowser browser;
+	browser.SetInitialFileName(systemData.lastSettingsFile);
 	browser.exec();
 	QString fileName = browser.getSelectedFileName();
 	if (!fileName.isEmpty())

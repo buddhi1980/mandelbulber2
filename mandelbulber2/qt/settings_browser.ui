@@ -47,6 +47,11 @@
        </item>
        <item>
         <property name="text">
+         <string>Use OpenCL for MC, HQ</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Use OpenCL for all</string>
         </property>
        </item>
