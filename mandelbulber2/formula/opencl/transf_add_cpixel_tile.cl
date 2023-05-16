@@ -22,14 +22,29 @@ REAL4 TransfAddCpixelTileIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (aux->i == fractal->transformCommon.startIterations)
 	{
 		REAL4 p = aux->const_c;
-		REAL4 rs = 1.0f / fractal->transformCommon.scale3D444;
-		cv.x = round(p.x * rs.x);
-		cv.y = round(p.y * rs.y);
-		cv.z = round(p.z * rs.z);
-		z = (p * rs - cv) * fractal->transformCommon.scale3D444;
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			cv.x = round(p.x / fractal->transformCommon.scale3D444.x);
+			z.x = p.x - cv.x * fractal->transformCommon.scale3D444.x;
+		}
 
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			cv.y = round(p.y / fractal->transformCommon.scale3D444.y);
+			z.y = p.y - cv.y * fractal->transformCommon.scale3D444.y;
+		}
+
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			cv.z = round(p.z / fractal->transformCommon.scale3D444.z);
+			z.z = p.z - cv.z * fractal->transformCommon.scale3D444.z;
+		}
+
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+
+		if (fractal->transformCommon.functionEnabledAxFalse) cv = z;
+
 
 		cv = cv * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.offset000;
 
@@ -52,7 +67,7 @@ REAL4 TransfAddCpixelTileIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			cv.z *= sign(z.z);
 		}
 		z += cv;
-		aux->c = cv;
+		// aux->c = cv;
 	}
 
 	// Analytic DE tweak

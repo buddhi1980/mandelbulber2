@@ -31,17 +31,33 @@ void cFractalTransfAddCpixelTile::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 cv = aux.const_c;
-	if (aux.i == fractal->transformCommon.startIterations)
+	if (aux.i == fractal->transformCommon.startIterations) // tiling iteration
 	{
 		CVector4 p = aux.const_c;
-		CVector4 rs = 1.0 / fractal->transformCommon.scale3D444;
-		cv.x = round(p.x * rs.x);
-		cv.y = round(p.y * rs.y);
-		cv.z = round(p.z * rs.z);
-		z = (p * rs - cv) * fractal->transformCommon.scale3D444;
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			cv.x = round(p.x / fractal->transformCommon.scale3D444.x);
+			z.x = p.x - cv.x * fractal->transformCommon.scale3D444.x;
+		}
+
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			cv.y = round(p.y / fractal->transformCommon.scale3D444.y);
+			z.y = p.y - cv.y * fractal->transformCommon.scale3D444.y;
+		}
+
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			cv.z = round(p.z / fractal->transformCommon.scale3D444.z);
+			z.z = p.z - cv.z * fractal->transformCommon.scale3D444.z;
+		}
+
+			//z = p - cv * fractal->transformCommon.scale3D444;
 
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+
+		if (fractal->transformCommon.functionEnabledAxFalse) cv = z;
 
 		cv = cv * fractal->transformCommon.constantMultiplier111
 				+ fractal->transformCommon.offset000;
@@ -65,7 +81,7 @@ void cFractalTransfAddCpixelTile::FormulaCode(
 			cv.z *= sign(z.z);
 		}
 		z += cv;
-		aux.c = cv;
+		// aux.c = cv;
 	}
 
 	// Analytic DE tweak
