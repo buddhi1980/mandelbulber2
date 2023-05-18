@@ -54,7 +54,53 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	rp *= aux.r;
 	// polar to cartesian
 	double cth = cos(th);
-	z.x = cth * cos(ph) * rp;
-	z.y = cth * sin(ph) * rp;
+	if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
+	else z.x = cos(ph) * rp; // temp
+	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
+	else z.y = sin(ph) * rp; // temp
 	z.z = sin(th) * rp;
+
+	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		aux.DE0 = z.Length();
+		if (!fractal->transformCommon.functionEnabledBxFalse)
+		{
+			if (aux.DE0 > 1.0)
+				aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+			else
+				aux.DE0 = 0.0; // 0.01 artifacts in openCL
+		}
+		else // temp
+		{
+			if (aux.DE0 > 1.0)
+				aux.DE0 = 1.0 / aux.DE0 / (aux.DE);
+			else
+				aux.DE0 = 0.0; // 0.01 artifacts in openCL
+		}
+
+
+		/*if (aux.i >= fractal->transformCommon.startIterationsC
+					&& aux.i < fractal->transformCommon.stopIterationsC)
+			aux.dist = min(aux.dist, aux.DE0);
+		else
+			aux.dist = aux.DE0;*/
+
+		if (!fractal->transformCommon.functionEnabledByFalse)
+		{
+			aux.dist = aux.DE0;
+		}
+		else
+		{	if (aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+					aux.dist = min(aux.dist, aux.DE0);
+			else aux.dist = aux.DE0;
+		}
+
+
+
+
+
+	}
 }

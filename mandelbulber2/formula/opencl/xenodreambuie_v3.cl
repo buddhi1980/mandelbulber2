@@ -42,8 +42,55 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	rp *= aux->r;
 	// polar to cartesian
 	REAL cth = native_cos(th);
-	z.x = cth * native_cos(ph) * rp;
-	z.y = cth * native_sin(ph) * rp;
+	if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
+	else z.x = cos(ph) * rp; // temp
+	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
+	else z.y = sin(ph) * rp; // temp
+	//z.x = cth * native_cos(ph) * rp;
+	//z.y = cth * native_sin(ph) * rp;
 	z.z = native_sin(th) * rp;
+
+	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		aux->DE0 = length(z);
+		if (!fractal->transformCommon.functionEnabledBxFalse)
+		{
+			if (aux->DE0 > 1.0f)
+				aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+			else
+				aux->DE0 = 0.0f;
+		}
+		else // temp
+		{
+			if (aux->DE0 > 1.0f)
+				aux->DE0 = 1.0 / aux->DE0 / aux->DE;
+			else
+				aux->DE0 = 0.0f;
+		}
+
+
+
+
+		/*if (aux->DE0 > 1.0f)
+			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+		else
+			aux->DE0 = 0.0f; // 0.01f artifacts in openCL*/
+		if (!fractal->transformCommon.functionEnabledByFalse)
+		{
+			aux->dist = aux->DE0;
+		}
+		else
+		{	if (aux->i >= fractal->transformCommon.startIterationsC
+				&& aux->i < fractal->transformCommon.stopIterationsC)
+					aux->dist = min(aux->dist, aux->DE0);
+			else aux->dist = aux->DE0;
+		}
+
+
+	}
+
+
 	return z;
 }
