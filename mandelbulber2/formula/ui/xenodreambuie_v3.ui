@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>863</height>
+    <height>1088</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx_false">
      <property name="title">
-      <string>Pre-Abs fun&amp;ctions</string>
+      <string>pre-abs fun&amp;ctions</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -179,7 +179,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
@@ -207,7 +207,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
@@ -235,7 +235,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
@@ -279,24 +279,14 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Beta angle offset:</string>
+        <string>beta angle offset:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>z:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+        <string>asin(z.z /  r):</string>
        </property>
       </widget>
      </item>
@@ -322,7 +312,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
@@ -338,18 +328,32 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>xy:</string>
+        <string>atan2(z.y, z.x):</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>Alpha angle offset:</string>
+        <string>alpha angle offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>power:</string>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_76">
+     <property name="text">
+      <string>xeno variation </string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1,0,1">
@@ -579,11 +583,43 @@ offset:</string>
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="label_12">
-     <property name="text">
-      <string>Power:</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,0">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+       <property name="text">
+        <string notr="true">BZ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledC_false">
@@ -624,14 +660,7 @@ offset:</string>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,1">
-        <item>
-         <widget class="QLabel" name="label_76">
-          <property name="text">
-           <string>start at iteration:</string>
-          </property>
-         </widget>
-        </item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,1">
         <item>
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
           <property name="sizePolicy">
