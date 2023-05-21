@@ -17,6 +17,7 @@
 
 REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t;
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -26,7 +27,9 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 	}
 
-	REAL th = (asin(z.z / aux->r) + fractal->bulb.betaAngleOffset)
+	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux->r);
+	else t = acos(z.z / aux->r);
+	REAL th = (t + fractal->bulb.betaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleA1;
 	REAL ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
@@ -40,10 +43,22 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
 	rp *= aux->r;
+
 	// polar to cartesian
 	REAL cth = native_cos(th);
-	if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
-	else z.x = cos(ph) * rp; // temp
+
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z.x = cos(ph) * rp; // temp
+		z.x = (cth + (1.0f - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+	}
+	else
+	{
+		z.x = cth * cos(ph) * rp;
+	}
+
 	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
 	else z.y = sin(ph) * rp; // temp
 	//z.x = cth * native_cos(ph) * rp;

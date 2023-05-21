@@ -28,6 +28,7 @@ cFractalXenodreambuieV3::cFractalXenodreambuieV3() : cAbstractFractal()
 
 void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t; //temp
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -37,7 +38,9 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 	}
 
-	double th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset)
+	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux.r);
+	else t = acos(z.z / aux.r);
+	double th = (t + fractal->bulb.betaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleA1;
 	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
@@ -48,14 +51,32 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
 		if (cos(th) < 0.0) ph = ph + M_PI;
+		//if (int(fabs(th * 2/ M_PI) + 3) & 3 < 2) ph = ph + M_PI;
 	}
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
 	rp *= aux.r;
 	// polar to cartesian
 	double cth = cos(th);
-	if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
-	else z.x = cos(ph) * rp; // temp
+
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		//z.x = cos(ph) * rp; // temp
+		z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+	}
+	else
+	{
+		z.x = cth * cos(ph) * rp;
+	}
+
+
+	//if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
+	//else z.x = cos(ph) * rp; // temp
+
+
+
 	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
 	else z.y = sin(ph) * rp; // temp
 	z.z = sin(th) * rp;
