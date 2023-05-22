@@ -15,12 +15,12 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL t;
-	if (fractal->transformCommon.functionEnabledAxFalse
-			&& aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
@@ -35,7 +35,8 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
 	REAL rp = pow(aux->r, fractal->bulb.power - fractal->transformCommon.offset1);
 
-	if (aux->i >= fractal->transformCommon.startIterationsX
+	if (fractal->transformCommon.functionEnabledXFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
 		if ((int)(fabs(th * 2.0f/ M_PI) + 3.0f) & 3 < 2) ph = ph + M_PI; //if (cos(th) < 0.0f) ph = ph + M_PI_F;
@@ -47,24 +48,29 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	// polar to cartesian
 	REAL cth = native_cos(th);
-
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
-		z.x = cos(ph) * rp; // temp
 		z.x = (cth + (1.0f - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
 	}
 	else
 	{
 		z.x = cth * cos(ph) * rp;
 	}
-
-	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
-	else z.y = sin(ph) * rp; // temp
-	//z.x = cth * native_cos(ph) * rp;
-	//z.y = cth * native_sin(ph) * rp;
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		z.y = (cth + (1.0f - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
+	}
+	else
+	{
+		z.y = cth * sin(ph) * rp;
+	}
 	z.z = native_sin(th) * rp;
+
+
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 	z += fractal->transformCommon.offset000;
 

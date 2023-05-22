@@ -304,6 +304,7 @@ enum enumFractalFormula
 	mengerV6 = 263,
 	xenodreambuieV2 = 264,
 	xenodreambuieV3 = 265,
+	mandelbulbPupuku = 266,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
