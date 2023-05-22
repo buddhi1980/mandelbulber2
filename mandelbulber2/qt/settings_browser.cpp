@@ -52,6 +52,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QList>
+#include <QLabel>
 
 cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui::cSettingsBrowser)
 {
@@ -171,13 +172,24 @@ void cSettingsBrowser::slotCellDoubleClicked(int _row, int _column)
 		int row = _row;
 		if (row >= 0)
 		{
-			selectedFileName =
-				QDir::toNativeSeparators(actualDirectory + QDir::separator() + settingsList[row].filename);
+			gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
+
+			if (settingsList.at(row).isFolder)
+			{
+				actualDirectory = QDir::toNativeSeparators(
+					actualDirectory + QDir::separator() + settingsList.at(row).filename);
+				QDir dir(actualDirectory);
+				actualDirectory = dir.absolutePath();
+				ui->lineEdit_folder->setText(actualDirectory);
+				RefreshTable();
+			}
+			else
+			{
+				selectedFileName = QDir::toNativeSeparators(
+					actualDirectory + QDir::separator() + settingsList[row].filename);
+				close();
+			}
 		}
-
-		gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
-
-		close();
 	}
 }
 
@@ -190,6 +202,20 @@ void cSettingsBrowser::CreateListOfSettings()
 {
 	settingsList.clear();
 	QDir dir(actualDirectory);
+
+	QFileInfoList folderList =
+		dir.entryInfoList(QStringList(), QDir::Dirs, QDir::Name | QDir::IgnoreCase);
+
+	for (const QFileInfo &fileInfo : folderList)
+	{
+		sSettingsListItem newItem;
+		newItem.filename = fileInfo.fileName();
+		newItem.dateTime = fileInfo.lastModified();
+		newItem.loaded = false;
+		newItem.isFolder = true;
+		settingsList.append(newItem);
+	}
+
 	QFileInfoList fileList =
 		dir.entryInfoList(QStringList({"*.fract"}), QDir::Files, QDir::Name | QDir::IgnoreCase);
 
@@ -244,102 +270,114 @@ void cSettingsBrowser::PrepareTable()
 
 void cSettingsBrowser::AddRow(int rowToAdd)
 {
-	cSettings parSettings(cSettings::formatFullText);
-	parSettings.BeQuiet(true);
-	if (parSettings.LoadFromFile(
-				actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
+	if (settingsList.at(rowToAdd).isFolder)
 	{
-		// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
-		//			progressBar->show();
-		std::shared_ptr<cParameterContainer> par(new cParameterContainer);
-		std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
-		InitParams(par);
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-			InitFractalParams(parFractal->at(i));
-		InitMaterialParams(1, par);
-		if (parSettings.Decode(par, parFractal))
+		QIcon icon(":/system/icons/folder.svg");
+		QPixmap pixmap = icon.pixmap(QSize(previewHeight / 2, previewHeight / 2));
+		QLabel *label = new QLabel();
+		label->setPixmap(pixmap);
+		ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, label);
+		ui->tableWidget->setRowHeight(rowToAdd, previewHeight / 2);
+	}
+	else
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		if (parSettings.LoadFromFile(
+					actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
 		{
-			QString listOfFormulas;
-			QString prefix;
-			if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
-
-			if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
-
-			for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
+			// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
+			//			progressBar->show();
+			std::shared_ptr<cParameterContainer> par(new cParameterContainer);
+			std::shared_ptr<cFractalContainer> parFractal(new cFractalContainer);
+			InitParams(par);
+			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				InitFractalParams(parFractal->at(i));
+			InitMaterialParams(1, par);
+			if (parSettings.Decode(par, parFractal))
 			{
-				fractal::enumFractalFormula eFormula =
-					fractal::enumFractalFormula(par->Get<int>("formula", f));
-				if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+				QString listOfFormulas;
+				QString prefix;
+				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
+
+				if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
+
+				for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
 				{
-					cAbstractFractal *fractalFormula =
-						newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
-					if (listOfFormulas.length() > 0) listOfFormulas += "; ";
+					fractal::enumFractalFormula eFormula =
+						fractal::enumFractalFormula(par->Get<int>("formula", f));
+					if (eFormula != fractal::none && par->Get<bool>("fractal_enable", f + 1))
+					{
+						cAbstractFractal *fractalFormula =
+							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
+						if (listOfFormulas.length() > 0) listOfFormulas += "; ";
 
-					listOfFormulas += fractalFormula->getNameInComboBox();
+						listOfFormulas += fractalFormula->getNameInComboBox();
+					}
 				}
+				ui->tableWidget->setItem(
+					rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
+
+				QString listOfEffects;
+				bool isMC = false;
+				if (par->Get<bool>("DOF_monte_carlo"))
+				{
+					listOfEffects += "MC ";
+					isMC = true;
+				}
+				if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
+				if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
+				if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
+				if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
+				if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
+				if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
+				if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
+				if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
+				if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
+				if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
+				if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
+				if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
+				if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
+				if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
+
+				ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
+
+				enumOpenclMode openClMode = enumOpenclMode(ui->comboBoxOpenCLMode->currentIndex());
+
+				if (openClMode >= modeAll
+						|| ((openClMode == modeOnlyMC || openClMode == modeOnlyMCHQ) && isMC))
+				{
+					par->Set("opencl_enabled", true);
+					par->Set("opencl_mode", 3);
+				}
+				else
+				{
+					par->Set("opencl_enabled", false);
+					par->Set("opencl_mode", 0);
+				}
+				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
+
+				double dpiScale = ui->tableWidget->devicePixelRatioF();
+
+				double resolution = 1.0;
+				if (openClMode == modeOnlyMCHQ || openClMode == modeAllHQ) // high quality mode
+				{
+					resolution = 2.0;
+					int originalWidth = par->Get<int>("image_width");
+					double detailMultiplier = double(originalWidth) / previewWidth * dpiScale * resolution;
+					if (detailMultiplier > 4.0) detailMultiplier = 4.0;
+					par->Set("detail_level", par->Get<double>("detail_level") * detailMultiplier);
+				}
+
+				cThumbnailWidget *thumbWidget =
+					new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
+				thumbWidget->UseOneCPUCore(true);
+
+				par->Set("image_width", previewWidth * dpiScale * resolution);
+				par->Set("image_height", previewHeight * dpiScale * resolution);
+				thumbWidget->AssignParameters(par, parFractal);
+				ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
 			}
-			ui->tableWidget->setItem(
-				rowToAdd, fractalsColumnIndex, new QTableWidgetItem(prefix + listOfFormulas));
-
-			QString listOfEffects;
-			bool isMC = false;
-			if (par->Get<bool>("DOF_monte_carlo"))
-			{
-				listOfEffects += "MC ";
-				isMC = true;
-			}
-			if (par->Get<bool>("DOF_enabled")) listOfEffects += "DOF ";
-			if (par->Get<bool>("DOF_MC_global_illumination")) listOfEffects += "GI ";
-			if (par->Get<bool>("DOF_MC_CA_enable")) listOfEffects += "CA ";
-			if (par->Get<bool>("antialiasing_enabled")) listOfEffects += "AA ";
-			if (par->Get<bool>("interior_mode")) listOfEffects += "interior ";
-			if (par->Get<bool>("stereo_enabled")) listOfEffects += "stereo ";
-			if (par->Get<bool>("ambient_occlusion")) listOfEffects += "AO ";
-			if (par->Get<bool>("glow_enabled")) listOfEffects += "glow ";
-			if (par->Get<bool>("basic_fog_enabled")) listOfEffects += "fog ";
-			if (par->Get<bool>("volumetric_fog_enabled")) listOfEffects += "distFog ";
-			if (par->Get<bool>("iteration_fog_enable")) listOfEffects += "iterFog ";
-			if (par->Get<bool>("clouds_enable")) listOfEffects += "clouds ";
-			if (par->Get<bool>("random_lights_group")) listOfEffects += "randLights ";
-			if (par->Get<bool>("fake_lights_enabled")) listOfEffects += "trapLights ";
-
-			ui->tableWidget->setItem(rowToAdd, effectsColumnIndex, new QTableWidgetItem(listOfEffects));
-
-			enumOpenclMode openClMode = enumOpenclMode(ui->comboBoxOpenCLMode->currentIndex());
-
-			if (openClMode >= modeAll
-					|| ((openClMode == modeOnlyMC || openClMode == modeOnlyMCHQ) && isMC))
-			{
-				par->Set("opencl_enabled", true);
-				par->Set("opencl_mode", 3);
-			}
-			else
-			{
-				par->Set("opencl_enabled", false);
-				par->Set("opencl_mode", 0);
-			}
-			if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
-
-			double dpiScale = ui->tableWidget->devicePixelRatioF();
-
-			double resolution = 1.0;
-			if (openClMode == modeOnlyMCHQ || openClMode == modeAllHQ) // high quality mode
-			{
-				resolution = 2.0;
-				int originalWidth = par->Get<int>("image_width");
-				double detailMultiplier = double(originalWidth) / previewWidth * dpiScale * resolution;
-				if (detailMultiplier > 4.0) detailMultiplier = 4.0;
-				par->Set("detail_level", par->Get<double>("detail_level") * detailMultiplier);
-			}
-
-			cThumbnailWidget *thumbWidget =
-				new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
-			thumbWidget->UseOneCPUCore(true);
-
-			par->Set("image_width", previewWidth * dpiScale * resolution);
-			par->Set("image_height", previewHeight * dpiScale * resolution);
-			thumbWidget->AssignParameters(par, parFractal);
-			ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
 		}
 	}
 	settingsList[rowToAdd].loaded = true;

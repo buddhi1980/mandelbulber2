@@ -50,6 +50,7 @@ class cSettingsBrowser : public QDialog
 
 	struct sSettingsListItem
 	{
+		bool isFolder = false;
 		QString filename;
 		QDateTime dateTime;
 		QString version;
