@@ -51,7 +51,7 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
-		if ((int)(fabs(th * 2/ M_PI) + 3) & 3 < 2) ph = ph + M_PI; // if (cos(th) < 0.0) ph = ph + M_PI;
+		if (cos(th) < 0.0) ph = ph + M_PI;
 	}
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;

@@ -38,11 +38,11 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
-		if ((int)(fabs(th * 2.0f/ M_PI) + 3.0f) & 3 < 2) ph = ph + M_PI; //if (cos(th) < 0.0f) ph = ph + M_PI_F;
-
+		if (cos(th) < 0.0f) ph = ph + M_PI_F;
 	}
 
 	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
+
 	rp *= aux->r;
 
 	// polar to cartesian

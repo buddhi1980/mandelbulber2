@@ -6,8 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Menger Smooth Mod1, based on :
+ * Menger - Smooth Chebyshev, based on :
  * http://www.fractalforums.com/fragmentarium/help-t22583/
+ * and Chebyshev rotation from eiffie
  */
 
 #include "all_fractal_definitions.h"
@@ -80,7 +81,7 @@ void cFractalMengerSmoothChebyshev::FormulaCode(CVector4 &z, const sFractal *fra
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
 	double OffsetS = 0.0;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1201</height>
+    <height>1285</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,13 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
+   <item>
+    <widget class="QLabel" name="label_15">
+     <property name="text">
+      <string>mandelbulb variation from fractal forums user Pupukuusikko</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="title">
@@ -430,13 +437,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_76">
-     <property name="text">
-      <string>xeno variation </string>
-     </property>
     </widget>
    </item>
    <item>

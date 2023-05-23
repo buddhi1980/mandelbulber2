@@ -28,9 +28,19 @@ cFractalXenodreambuieV2::cFractalXenodreambuieV2() : cAbstractFractal()
 
 void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
+	{
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+		if (fractal->transformCommon.functionEnabledTFalse) aux.r = z.Length();
+	}
+
 	double th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
 	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 
 	if (cos(th) < 0.0) ph = ph + M_PI;
