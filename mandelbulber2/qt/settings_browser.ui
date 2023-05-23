@@ -15,9 +15,20 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
      <item>
       <widget class="QLineEdit" name="lineEdit_folder"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_parent_folder">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="go-previous" resource="icons.qrc">
+         <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_select_folder">

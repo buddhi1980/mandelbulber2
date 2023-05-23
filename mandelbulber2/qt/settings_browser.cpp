@@ -70,6 +70,8 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(ui->pushButton_cancel, &QPushButton::clicked, this, &cSettingsBrowser::slotPressedCancel);
 	connect(ui->pushButton_select_folder, &QPushButton::clicked, this,
 		&cSettingsBrowser::slotPressedSelectDirectory);
+	connect(ui->pushButton_parent_folder, &QPushButton::clicked, this,
+		&cSettingsBrowser::slotPressedParent);
 	connect(ui->tableWidget, &QTableWidget::cellDoubleClicked, this,
 		&cSettingsBrowser::slotCellDoubleClicked);
 
@@ -208,12 +210,15 @@ void cSettingsBrowser::CreateListOfSettings()
 
 	for (const QFileInfo &fileInfo : folderList)
 	{
-		sSettingsListItem newItem;
-		newItem.filename = fileInfo.fileName();
-		newItem.dateTime = fileInfo.lastModified();
-		newItem.loaded = false;
-		newItem.isFolder = true;
-		settingsList.append(newItem);
+		if (fileInfo.fileName() != ".")
+		{
+			sSettingsListItem newItem;
+			newItem.filename = fileInfo.fileName();
+			newItem.dateTime = fileInfo.lastModified();
+			newItem.loaded = false;
+			newItem.isFolder = true;
+			settingsList.append(newItem);
+		}
 	}
 
 	QFileInfoList fileList =
@@ -385,37 +390,39 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 
 void cSettingsBrowser::slotTimer()
 {
-	int firstRowVisible = ui->tableWidget->rowAt(0);
-	int lastRowVisible = ui->tableWidget->rowAt(ui->tableWidget->height());
-	if (lastRowVisible == -1) lastRowVisible = ui->tableWidget->rowCount() - 1;
-
-	int rowToAdd = -1;
-
-	for (int row = firstRowVisible; row <= lastRowVisible; row++)
+	if (!settingsList.isEmpty())
 	{
-		if (!settingsList.at(row).loaded)
-		{
-			rowToAdd = row;
-		}
-	}
+		int firstRowVisible = ui->tableWidget->rowAt(0);
+		int lastRowVisible = ui->tableWidget->rowAt(ui->tableWidget->height());
+		if (lastRowVisible == -1) lastRowVisible = ui->tableWidget->rowCount() - 1;
 
-	if (rowToAdd == -1)
-	{
-		for (int row = 0; row < ui->tableWidget->rowCount(); row++)
+		int rowToAdd = -1;
+
+		for (int row = firstRowVisible; row <= lastRowVisible; row++)
 		{
 			if (!settingsList.at(row).loaded)
 			{
 				rowToAdd = row;
-				break;
 			}
 		}
-	}
 
-	if (rowToAdd >= 0)
-	{
-		AddRow(rowToAdd);
-	}
+		if (rowToAdd == -1)
+		{
+			for (int row = 0; row < ui->tableWidget->rowCount(); row++)
+			{
+				if (!settingsList.at(row).loaded)
+				{
+					rowToAdd = row;
+					break;
+				}
+			}
+		}
 
+		if (rowToAdd >= 0)
+		{
+			AddRow(rowToAdd);
+		}
+	}
 	timer.start(refreshTimeMsec);
 }
 
@@ -445,4 +452,15 @@ void cSettingsBrowser::slotChangedOpenCLMode(int currentIindex)
 {
 	gPar->Set("settings_browser_use_opencl", currentIindex);
 	RefreshTable();
+}
+
+void cSettingsBrowser::slotPressedParent()
+{
+	QDir dir(actualDirectory);
+	if (dir.cdUp())
+	{
+		actualDirectory = dir.absolutePath();
+		ui->lineEdit_folder->setText(actualDirectory);
+		RefreshTable();
+	}
 }

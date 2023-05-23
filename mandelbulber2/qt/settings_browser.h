@@ -87,6 +87,7 @@ private:
 private slots:
 	void slotPressedLoad();
 	void slotPressedCancel();
+	void slotPressedParent();
 	void slotPressedSelectDirectory();
 	void slotTimer();
 	void slotChangedOpenCLMode(int index);
