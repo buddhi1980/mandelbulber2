@@ -74,7 +74,8 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 {
 	WriteLog("Create settings text", 3);
 	settingsText.clear();
-	settingsText += CreateHeader();
+	QString header = CreateHeader();
+	settingsText += header;
 	if ((format == formatFullText || format == formatCondensedText) && par->IfExists("description")
 			&& par->Get<QString>("description") != "")
 	{
@@ -136,7 +137,8 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 
 	// hash code will be needed for generating thumbnails
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-	hashCrypt.addData(settingsText.toLocal8Bit());
+	QStringRef settingTextWithoutHeader(&settingsText, header.length(), settingsText.length() - header.length());
+	hashCrypt.addData(settingTextWithoutHeader.toLocal8Bit());
 	hash = hashCrypt.result();
 	// qDebug() << "hash code" << hash.toHex();
 

@@ -360,7 +360,6 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 					par->Set("opencl_enabled", false);
 					par->Set("opencl_mode", 0);
 				}
-				if (!gPar->Get<bool>("thumbnails_with_opencl")) par->Set("opencl_enabled", false);
 
 				double dpiScale = ui->tableWidget->devicePixelRatioF();
 
