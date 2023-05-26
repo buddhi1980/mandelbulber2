@@ -84,7 +84,7 @@ REAL4 MandelbulbSinCosV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			 * (fractal->bulb.power + fractal->transformCommon.offsetA0);
 
 	REAL rp = pow(aux->r, (fractal->bulb.power - 1.0f) * fractal->transformCommon.scaleA1);
-	aux->DE = aux->DE * rp * fractal->bulb.power + 1.0f;
+	aux->DE = aux->DE * rp * fabs(fractal->bulb.power) + 1.0f;
 	rp *= aux->r * fractal->transformCommon.scaleB1;
 
 	// polar to cartesian

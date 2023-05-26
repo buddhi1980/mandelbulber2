@@ -36,7 +36,14 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 		z += fractal->transformCommon.offsetA000;
-		if (fractal->transformCommon.functionEnabledTFalse) aux.r = z.Length();
+		double t = z.Length();
+		aux.DE *= t / aux.r;
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			double t = z.Length();
+			aux.DE *= t / aux.r;
+			aux.r = t;
+		}
 	}
 
 	double th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;

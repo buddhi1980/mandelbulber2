@@ -664,6 +664,13 @@
     </layout>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+     <property name="text">
+      <string notr="true">D</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,0">
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">

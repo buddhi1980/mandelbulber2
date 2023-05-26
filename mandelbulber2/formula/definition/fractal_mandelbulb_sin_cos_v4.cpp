@@ -94,7 +94,7 @@ void cFractalMandelbulbSinCosV4::FormulaCode(CVector4 &z, const sFractal *fracta
 	ph = (ph+ fractal->bulb.alphaAngleOffset) * (fractal->bulb.power + fractal->transformCommon.offsetA0);
 
 	double rp = pow(aux.r, (fractal->bulb.power - 1.0f) * fractal->transformCommon.scaleA1);
-	aux.DE = aux.DE * rp * fractal->bulb.power + 1.0f;
+	aux.DE = aux.DE * rp * fabs(fractal->bulb.power) + 1.0f;
 	rp *= aux.r * fractal->transformCommon.scaleB1;
 
 	// polar to cartesian

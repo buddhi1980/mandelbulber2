@@ -58,28 +58,38 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	rp *= aux.r;
 
 	// polar to cartesian
-	double cth = cos(th);
-	if (fractal->transformCommon.functionEnabledBFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
+	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+		double cth = cos(th);
+		if (fractal->transformCommon.functionEnabledBFalse
+				&& aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+		}
+		else
+		{
+			z.x = cth * cos(ph) * rp;
+		}
+		if (fractal->transformCommon.functionEnabledAFalse
+				&& aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			z.y = (cth + (1.0 - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
+		}
+		else
+		{
+			z.y = cth * sin(ph) * rp;
+		}
+		z.z = sin(th) * rp;
 	}
 	else
 	{
-		z.x = cth * cos(ph) * rp;
+		double sth = sin(th);
+		z.x = sth * cos(ph) * rp;
+		z.y = sth * sin(ph) * rp;
+		z.z = cos(th) * rp;
 	}
-	if (fractal->transformCommon.functionEnabledAFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-	{
-		z.y = (cth + (1.0 - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
-	}
-	else
-	{
-		z.y = cth * sin(ph) * rp;
-	}
-	z.z = sin(th) * rp;
 
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 	z += fractal->transformCommon.offset000;
