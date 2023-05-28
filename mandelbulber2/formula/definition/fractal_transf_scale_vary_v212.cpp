@@ -48,13 +48,13 @@ void cFractalTransfScaleVaryV212::FormulaCode(
 		}
 
 		z *= temp;
-		aux.DE = aux.DE * fabs(temp) + 1.0;
+		aux.DE = aux.DE * fabs(temp) + fractal->analyticDE.offset1;
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + 1.0);
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + fractal->analyticDE.offset1);
 	}
 	else
 	{
@@ -63,6 +63,6 @@ void cFractalTransfScaleVaryV212::FormulaCode(
 			aux.actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux.actualScaleA;
-		aux.DE = aux.DE * fabs(aux.actualScaleA + 1.0);
+		aux.DE = aux.DE * fabs(aux.actualScaleA + fractal->analyticDE.offset1);
 	}
 }

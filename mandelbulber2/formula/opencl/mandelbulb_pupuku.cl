@@ -81,8 +81,12 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
+
+
 	z += fractal->transformCommon.offset000;
 
+	z *= fractal->transformCommon.scaleC1;
+	aux->DE *= fabs(fractal->transformCommon.scaleC1);
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{

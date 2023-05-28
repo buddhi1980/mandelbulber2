@@ -92,7 +92,11 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
+
 	z += fractal->transformCommon.offset000;
+
+
+	z.z *= fractal->transformCommon.scaleC1;
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{

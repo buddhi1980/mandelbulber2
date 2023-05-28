@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1285</height>
+    <height>1310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -666,7 +666,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
-      <string notr="true">D</string>
+      <string notr="true">switch to sinth</string>
      </property>
     </widget>
    </item>
@@ -824,6 +824,45 @@
        <property name="text">
         <string>Julia
 offset:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_101">
+       <property name="text">
+        <string>sc</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleC_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>

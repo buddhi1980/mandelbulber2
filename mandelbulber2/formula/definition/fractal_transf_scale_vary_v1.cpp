@@ -43,5 +43,5 @@ void cFractalTransfScaleVaryV1::FormulaCode(CVector4 &z, const sFractal *fractal
 		tempVC = (tempVC + fractal->transformCommon.offset0);
 	}
 	z *= tempVC;
-	aux.DE = aux.DE * fabs(tempVC) + 1.0;
+	aux.DE = aux.DE * fabs(tempVC) + fractal->analyticDE.offset1;
 }

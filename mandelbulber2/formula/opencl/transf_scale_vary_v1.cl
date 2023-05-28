@@ -32,6 +32,6 @@ REAL4 TransfScaleVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		tempVC = (tempVC + fractal->transformCommon.offset0);
 	}
 	z *= tempVC;
-	aux->DE = aux->DE * fabs(tempVC) + 1.0f;
+	aux->DE = aux->DE * fabs(tempVC) + fractal->analyticDE.offset1;
 	return z;
 }
