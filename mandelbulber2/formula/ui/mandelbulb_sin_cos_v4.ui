@@ -373,7 +373,7 @@ scales</string>
       <item>
        <widget class="QLabel" name="label_18">
         <property name="text">
-         <string notr="true">sign() * (abs() + offset)</string>
+         <string notr="true">sign() * (offset - abs()  )</string>
         </property>
        </widget>
       </item>
