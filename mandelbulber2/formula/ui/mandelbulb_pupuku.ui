@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1340</height>
+    <height>1398</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -666,7 +666,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
-      <string notr="true">switch to sinth</string>
+      <string notr="true">switch to sinth  (standard acos uses this)</string>
      </property>
     </widget>
    </item>
@@ -828,6 +828,13 @@ offset:</string>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+     <property name="text">
+      <string notr="true">j</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="0,1,0,1">

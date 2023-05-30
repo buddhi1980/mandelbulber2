@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -43,7 +43,11 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
+
+
 	rp *= aux->r;
+
+
 
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
@@ -88,8 +92,10 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		z *= fractal->transformCommon.scaleC1;
-		aux->DE *= fabs(fractal->transformCommon.scaleC1);
+		if (!fractal->transformCommon.functionEnabledJFalse) z *= fractal->transformCommon.scaleC1;
+		else aux->DE *= fabs(fractal->transformCommon.scaleC1);
+
+		// a // mmmmmmmmmmmmmmmmmmmmmmmm
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)

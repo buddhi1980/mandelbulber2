@@ -55,7 +55,10 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
-	rp *= aux.r;
+
+
+	if (fractal->bulb.power > 0.0) rp *= aux.r;
+	else rp /= aux.r;
 
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
@@ -99,7 +102,7 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		z.z *= fractal->transformCommon.scaleC1;
-		aux.DE *= fabs(fractal->transformCommon.scaleC1);
+		// aux.DE *= fabs(fractal->transformCommon.scaleC1); // NO
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)
