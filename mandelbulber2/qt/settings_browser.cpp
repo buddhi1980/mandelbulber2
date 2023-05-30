@@ -252,25 +252,29 @@ void cSettingsBrowser::PrepareTable()
 	ui->tableWidget->setHorizontalHeaderItem(effectsColumnIndex, new QTableWidgetItem(tr("Effects")));
 
 	int longestName = 0;
+	int longestDate = 0;
 	for (const sSettingsListItem &item : settingsList)
 	{
 		int newRowIndex = ui->tableWidget->rowCount();
 		ui->tableWidget->insertRow(newRowIndex);
 		ui->tableWidget->setItem(
 			newRowIndex, fileNameColumnIndex, new QTableWidgetItem(QString(item.filename)));
-		ui->tableWidget->setItem(
-			newRowIndex, dateColumnIndex, new QTableWidgetItem(QString(item.dateTime.toString())));
+		QString date = item.dateTime.toString("yyyy.MM.dd\nhh:mm:ss");
+		ui->tableWidget->setItem(newRowIndex, dateColumnIndex, new QTableWidgetItem(date));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
 		longestName = qMax(fm.horizontalAdvance(item.filename), longestName);
+		longestDate = qMax(fm.horizontalAdvance(date), longestDate);
 #else
 		longestName = qMax(fm.width(item.filename), longestName);
+		longestDate = qMax(fm.width(date), longestDate);
 #endif
 
 		ui->tableWidget->setRowHeight(newRowIndex, previewHeight);
 	}
-	ui->tableWidget->setColumnWidth(fileNameColumnIndex, longestName);
-	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth);
+	ui->tableWidget->setColumnWidth(fileNameColumnIndex, longestName * 1.1);
+	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth*2);
+	ui->tableWidget->setColumnWidth(dateColumnIndex, longestDate);
 }
 
 void cSettingsBrowser::AddRow(int rowToAdd)
@@ -303,9 +307,9 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 			{
 				QString listOfFormulas;
 				QString prefix;
-				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid: ";
+				if (par->Get<bool>("hybrid_fractal_enable")) prefix += "hybrid:\n";
 
-				if (par->Get<bool>("boolean_operators")) prefix += "boolean: ";
+				if (par->Get<bool>("boolean_operators")) prefix += "boolean:\n";
 
 				for (int f = 1; f <= NUMBER_OF_FRACTALS; f++)
 				{
@@ -315,7 +319,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 					{
 						cAbstractFractal *fractalFormula =
 							newFractalList[cNineFractals::GetIndexOnFractalList(eFormula)];
-						if (listOfFormulas.length() > 0) listOfFormulas += "; ";
+						if (listOfFormulas.length() > 0) listOfFormulas += "\n";
 
 						listOfFormulas += fractalFormula->getNameInComboBox();
 					}
