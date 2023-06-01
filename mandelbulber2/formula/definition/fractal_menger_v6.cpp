@@ -28,84 +28,101 @@ cFractalMengerV6::cFractalMengerV6() : cAbstractFractal()
 
 void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double t;
-	CVector4 n;
-
-	// abs z
-	if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y); // hmmmmmm
-	if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z);
-
-	z.y  *= fractal->transformCommon.scaleA1;
-	z  *= 0.5;
-
-	for (int k = 0; k < fractal->transformCommon.int8X; k++)
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z *= fractal->transformCommon.scale3;
-		aux.DE *= fractal->transformCommon.scale3;
-		CVector4 Offset1 = fractal->transformCommon.offset222;
-		z.y = z.y - (2.0 * max(z.y, 0.0)) + Offset1.y;
-		z.x = -(z.x - (2.0 * max(z.x, 0.0)) + Offset1.x);
+		z += fractal->transformCommon.additionConstant000;
 
-		t = fractal->transformCommon.cosA;
-		n = CVector4{t * fractal->transformCommon.sinB, fractal->transformCommon.sinA, t * fractal->transformCommon.cosB, 0.0};
+		if (fractal->transformCommon.functionEnabledAx) z.x = fabs(z.x) + fractal->transformCommon.offset000.x;
+		if (fractal->transformCommon.functionEnabledAy) z.y = fabs(z.y) + fractal->transformCommon.offset000.y;
+		if (fractal->transformCommon.functionEnabledAz) z.z = fabs(z.z) + fractal->transformCommon.offset000.z;
 
-		t = n.Length();
-		if (t == 0.0) t = 1e-21;
-		n /= t;
-		t = z.Dot(n) * 2.0;
-		z -= max(t, 0.0) * n;
-
-		z.z += Offset1.z;
-
-		t = cos(fractal->transformCommon.angle45 * M_PI_180);
-		n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
-		t = n.Length();
-		if (t == 0.0) t = 1e-21;
-		n /= t;
-		t = z.Dot(n) * 2.0;
-		z -= max(t, 0.0) * n;
-		t = max((z.x + z.y), 0.0);
-		z.y = z.y - t;
-		z.x = z.x - t + fractal->transformCommon.offset2;
-		z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
-		z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
-
-		t = max((z.x + z.y), 0.0);
-		z.x -= t;
-		z.y -= t;
-
-		if (fractal->transformCommon.functionEnabledRFalse
-					&& k >= fractal->transformCommon.startIterationsR
-					&& k < fractal->transformCommon.stopIterationsR)
-		{
-			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-		}
-
-
-
+		if (fractal->transformCommon.functionEnabledx)
+			z.x = fractal->transformCommon.offsetA000.x - fabs(fractal->transformCommon.offsetA000.x - z.x);
+		if (fractal->transformCommon.functionEnabledy)
+			z.y = fractal->transformCommon.offsetA000.y - fabs(fractal->transformCommon.offsetA000.y - z.y);
+		if (fractal->transformCommon.functionEnabledz)
+			z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 	}
 
-	CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};
-	edgeDist.x = max(edgeDist.x, 0.0);
-	edgeDist.y = max(edgeDist.y, 0.0);
-	edgeDist.z = max(edgeDist.z, 0.0);
-	t = edgeDist.Length(); // + min(max(edgeDist.x, max(edgeDist.y, edgeDist.z)));
-
-	t /= aux.DE;
-
-	double colDist = aux.dist;
-	if (!fractal->analyticDE.enabledFalse)
-		aux.dist = t;
-	else
-		aux.dist = min(aux.dist, t);
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		double colorAdd = 0.0;
-		if (colDist != aux.dist) colorAdd = fractal->foldColor.difs0000.x;
-		//if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
+		double t;
+		CVector4 n;
 
-		aux.color += colorAdd;
+		z.y *= fractal->transformCommon.scaleA1;
+		z *= 0.5;
+
+		for (int k = 0; k < fractal->transformCommon.int8X; k++)
+		{
+			z *= fractal->transformCommon.scale3;
+			aux.DE *= fractal->transformCommon.scale3;
+			CVector4 Offset1 = fractal->transformCommon.offset222;
+			z.y = z.y - (2.0 * max(z.y, 0.0)) + Offset1.y;
+			z.x = -(z.x - (2.0 * max(z.x, 0.0)) + Offset1.x);
+
+			t = fractal->transformCommon.cosA;
+			n = CVector4{t * fractal->transformCommon.sinB, fractal->transformCommon.sinA, t * fractal->transformCommon.cosB, 0.0};
+
+			t = n.Length();
+			if (t == 0.0) t = 1e-21;
+			n /= t;
+			t = z.Dot(n) * 2.0;
+			z -= max(t, 0.0) * n;
+
+			z.z += Offset1.z;
+
+			t = cos(fractal->transformCommon.angle45 * M_PI_180);
+			n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
+			t = n.Length();
+			if (t == 0.0) t = 1e-21;
+			n /= t;
+			t = z.Dot(n) * 2.0;
+			z -= max(t, 0.0) * n;
+			t = max((z.x + z.y), 0.0);
+			z.y = z.y - t;
+			z.x = z.x - t + fractal->transformCommon.offset2;
+			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+
+			t = max((z.x + z.y), 0.0);
+			z.x -= t;
+			z.y -= t;
+
+			if (fractal->transformCommon.functionEnabledRFalse
+						&& k >= fractal->transformCommon.startIterationsR
+						&& k < fractal->transformCommon.stopIterationsR)
+			{
+				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+			}
+
+
+
+		}
+
+		CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};
+		edgeDist.x = max(edgeDist.x, 0.0);
+		edgeDist.y = max(edgeDist.y, 0.0);
+		edgeDist.z = max(edgeDist.z, 0.0);
+		t = edgeDist.Length(); // + min(max(edgeDist.x, max(edgeDist.y, edgeDist.z)));
+
+		t /= aux.DE;
+
+		double colDist = aux.dist;
+		if (!fractal->analyticDE.enabledFalse)
+			aux.dist = t;
+		else
+			aux.dist = min(aux.dist, t);
+
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			double colorAdd = 0.0;
+			if (colDist != aux.dist) colorAdd = fractal->foldColor.difs0000.x;
+			//if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
+
+			aux.color += colorAdd;
+		}
 	}
 }

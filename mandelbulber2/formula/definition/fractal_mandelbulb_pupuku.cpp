@@ -57,8 +57,8 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
 
 
-	if (fractal->bulb.power > 0.0) rp *= aux.r;
-	else rp /= aux.r;
+	rp *= aux.r;
+
 
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
@@ -101,7 +101,9 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		z.z *= fractal->transformCommon.scaleC1;
+		if (!fractal->transformCommon.functionEnabledJFalse) z *= fractal->transformCommon.scaleC1;
+		else aux.DE *= fabs(fractal->transformCommon.scaleC1);
+
 		// aux.DE *= fabs(fractal->transformCommon.scaleC1); // NO
 	}
 
@@ -111,14 +113,14 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			if (aux.DE0 > 1.0)
-				aux.DE0 = fractal->transformCommon.scale05 * log(aux.DE0) * aux.DE0 / (aux.DE);
+				aux.DE0 = fractal->transformCommon.scale05 * log(aux.DE0) * aux.DE0 / aux.DE;
 			else
 				aux.DE0 = 0.0; // 0.01 artifacts in openCL
 		}
-		else // temp
+		else // temp test inv
 		{
 			if (aux.DE0 > 1.0)
-				aux.DE0 = 1.0 / aux.DE0 / (aux.DE);
+				aux.DE0 = 1.0 / aux.DE0 / aux.DE;
 			else
 				aux.DE0 = 0.0; // 0.01 artifacts in openCL
 		}

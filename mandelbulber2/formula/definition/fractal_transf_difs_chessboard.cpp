@@ -6,7 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsBoxIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDIFSChessboard a chessboard pattern on a sdf box
+ * http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 
 #include "all_fractal_definitions.h"
