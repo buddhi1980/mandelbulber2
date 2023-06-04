@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -28,6 +28,7 @@ cFractalXenodreambuieV2::cFractalXenodreambuieV2() : cAbstractFractal()
 
 void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t; //temp
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP)
@@ -36,27 +37,44 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 		z += fractal->transformCommon.offsetA000;
-		double t = z.Length();
-		aux.DE *= t / aux.r;
+
 		if (fractal->transformCommon.functionEnabledTFalse)
 		{
-			double t = z.Length();
-			aux.DE *= t / aux.r;
-			aux.r = t;
+			//t = z.Length();
+			//aux.DE *= t / aux.r;
+
+			aux.r = z.Length();
 		}
 	}
 
-	double th = (asin(z.z / aux.r) + fractal->bulb.betaAngleOffset) * fractal->bulb.power;
-	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset) * fractal->bulb.power;
-	double rp = pow(aux.r, fractal->bulb.power - 1.0);
+	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux.r);
+	else t = acos(z.z / aux.r);
+	double th = (t + fractal->bulb.betaAngleOffset)
+			* fractal->bulb.power * fractal->transformCommon.scaleA1;
+	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
+			* fractal->bulb.power * fractal->transformCommon.scaleB1;
+
+	double rp = pow(aux.r, fractal->bulb.power - fractal->transformCommon.offset1);
 
 	if (cos(th) < 0.0) ph = ph + M_PI;
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + 1.0;
 	rp *= aux.r;
+
 	// polar to cartesian
-	double cth = cos(th);
-	z.x = cth * cos(ph) * rp;
-	z.y = cth * sin(ph) * rp;
+	t = cos(th);
+	z.x = t * cos(ph) * rp;
+	z.y = t * sin(ph) * rp;
 	z.z = sin(th) * rp;
+
+	z += fractal->transformCommon.offset000;
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		z *= fractal->transformCommon.scaleC1;
+		aux.DE *= fabs(fractal->transformCommon.scaleC1);
+	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
