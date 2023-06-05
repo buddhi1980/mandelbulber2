@@ -40,9 +40,6 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 		if (fractal->transformCommon.functionEnabledTFalse)
 		{
-			//t = z.Length();
-			//aux.DE *= t / aux.r;
-
 			aux.r = z.Length();
 		}
 	}
@@ -56,7 +53,11 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	double rp = pow(aux.r, fractal->bulb.power - fractal->transformCommon.offset1);
 
-	if (cos(th) < 0.0) ph = ph + M_PI;
+	if (aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterationsX)
+	{
+		if (cos(th) < 0.0) ph = ph + M_PI;
+	}
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + 1.0;
 	rp *= aux.r;
@@ -69,11 +70,8 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	z += fractal->transformCommon.offset000;
 
-	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		z *= fractal->transformCommon.scaleC1;
-		aux.DE *= fabs(fractal->transformCommon.scaleC1);
-	}
+	z *= fractal->transformCommon.scaleC1;
+	aux.DE *= fabs(fractal->transformCommon.scaleC1);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

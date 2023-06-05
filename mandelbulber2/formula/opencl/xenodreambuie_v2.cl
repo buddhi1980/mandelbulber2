@@ -41,7 +41,12 @@ REAL4 XenodreambuieV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
 	REAL rp = pow(aux->r, fractal->bulb.power - fractal->transformCommon.offset1);
 
-	if (cos(th) < 0.0f) ph = ph + M_PI_F;
+
+	if (aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterationsX)
+	{
+		if (native_cos(th) < 0.0f) ph = ph + M_PI_F;
+	}
 
 	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + 1.0f;
 	rp *= aux->r;
@@ -54,11 +59,8 @@ REAL4 XenodreambuieV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	z += fractal->transformCommon.offset000;
 
-	if (fractal->transformCommon.functionEnabledJFalse)
-	{
-		z *= fractal->transformCommon.scaleC1;
-		aux->DE *= fabs(fractal->transformCommon.scaleC1);
-	}
+	z *= fractal->transformCommon.scaleC1;
+	aux->DE *= fabs(fractal->transformCommon.scaleC1);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
