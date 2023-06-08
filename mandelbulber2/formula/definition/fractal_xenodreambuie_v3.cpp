@@ -29,23 +29,34 @@ cFractalXenodreambuieV3::cFractalXenodreambuieV3() : cAbstractFractal()
 void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t; //temp
-	if (fractal->transformCommon.functionEnabledAxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			aux.r = z.Length();
+		}
 	}
 
 	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux.r);
 	else t = acos(z.z / aux.r);
-	double th = (t + fractal->bulb.betaAngleOffset)
-			* fractal->bulb.power * fractal->transformCommon.scaleA1;
+	t = (t + fractal->bulb.betaAngleOffset);
+	double th = t * fractal->bulb.power * fractal->transformCommon.scaleA1;
+
+
 	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
 
 	double rp = pow(aux.r, fractal->bulb.power - fractal->transformCommon.offset1);
+	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + 1.0;
+	rp *= aux.r;
+
 
 	if (aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
@@ -53,21 +64,55 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (cos(th) < 0.0) ph = ph + M_PI;
 	}
 
-	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
-	rp *= aux.r;
-	// polar to cartesian
-	double cth = cos(th);
 
-	if (fractal->transformCommon.functionEnabledBFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
+
+	// polar to cartesian
+	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		//z.x = cos(ph) * rp; // temp
-		z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+		if (aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+		{
+			if (cos(th) < 0.0) ph = ph + M_PI;
+		}
+		double cth = cos(th);
+
+		if (fractal->transformCommon.functionEnabledBFalse
+				&& aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			//z.x = cos(ph) * rp; // temp
+			z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+		}
+		else
+		{
+			z.x = cth * cos(ph) * rp;
+		}
+		if (fractal->transformCommon.functionEnabledAFalse
+				&& aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			z.y = (cth + (1.0f - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
+		}
+		else
+		{
+			z.y = cth * sin(ph) * rp;
+		}
+		z.z = sin(th) * rp;
 	}
 	else
 	{
-		z.x = cth * cos(ph) * rp;
+
+		if (aux.i >= fractal->transformCommon.startIterationsY
+				&& aux.i < fractal->transformCommon.stopIterationsY)
+		{
+			if (fabs(t) > 0.5f * M_PI) t = sign(t) * M_PI - t;
+		}
+		th = t * fractal->bulb.power * fractal->transformCommon.scaleA1;
+
+		double sth = sin(th);
+		z.x = sth * cos(ph) * rp;
+		z.y = sth * sin(ph) * rp;
+		z.z = cos(th) * rp;
 	}
 
 
@@ -76,9 +121,9 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 
 
-	if (!fractal->transformCommon.functionEnabledAzFalse) z.y = cth * sin(ph) * rp;
-	else z.y = sin(ph) * rp; // temp
-	z.z = sin(th) * rp;
+
+
+
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 
 
