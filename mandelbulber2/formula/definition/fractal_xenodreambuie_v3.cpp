@@ -57,15 +57,6 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + 1.0;
 	rp *= aux.r;
 
-
-	if (aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
-	{
-		if (cos(th) < 0.0) ph = ph + M_PI;
-	}
-
-
-
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
@@ -115,17 +106,7 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		z.z = cos(th) * rp;
 	}
 
-
-	//if (!fractal->transformCommon.functionEnabledAyFalse) z.x = cth * cos(ph) * rp;
-	//else z.x = cos(ph) * rp; // temp
-
-
-
-
-
-
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
-
 
 	z += fractal->transformCommon.offset000;
 
