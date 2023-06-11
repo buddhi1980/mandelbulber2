@@ -135,6 +135,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 	systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
 	systemData.threadsPriority = enumRenderingThreadPriority(gPar->Get<int>("threads_priority"));
+	systemData.enableConsoleOutput = gPar->Get<bool>("console_output_enable");
 
 #ifdef USE_OPENCL
 	// OpenCL preference dialogue supports (1) platform

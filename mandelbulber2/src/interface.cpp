@@ -313,6 +313,7 @@ void cInterface::ShowUi()
 
 	systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
 	systemData.threadsPriority = enumRenderingThreadPriority(gPar->Get<int>("threads_priority"));
+	systemData.enableConsoleOutput = gPar->Get<bool>("console_output_enable");
 
 	ComboMouseClickUpdate();
 

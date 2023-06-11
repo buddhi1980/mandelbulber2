@@ -91,7 +91,7 @@ struct sSystem
 	int numberOfThreads;
 	bool noGui;
 	bool silent;
-    QString decimalPoint;
+	QString decimalPoint;
 	QLocale locale;
 	int terminalWidth;
 	bool statsOnCLI;
@@ -106,6 +106,7 @@ struct sSystem
 	int preferredCustomFormulaFontSize;
 	int preferredThumbnailSize;
 	bool isOutputTty;
+	bool enableConsoleOutput = true;
 };
 
 struct sActualFileNames

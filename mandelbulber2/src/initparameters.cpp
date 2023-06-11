@@ -596,6 +596,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
+	par->addParam("console_output_enable", false, morphNone, paramApp);
 
 	par->addParam("opencl_enabled", false, morphNone, paramApp);
 	par->addParam("opencl_platform", 0, morphNone, paramApp);

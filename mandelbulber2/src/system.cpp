@@ -443,23 +443,25 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 	{
 #if QT_VERSION >= 0x050500
 		case QtInfoMsg:
-			fprintf(stderr, "Info: %s\n", localMsg.constData());
+			if (systemData.enableConsoleOutput) fprintf(stderr, "Info: %s\n", localMsg.constData());
 			text = QString("Info: ") + QString(localMsg.constData());
 			break;
 #endif
 		case QtDebugMsg:
-			fprintf(stderr, "Debug: %s\n", localMsg.constData());
+			if (systemData.enableConsoleOutput) fprintf(stderr, "Debug: %s\n", localMsg.constData());
 			text = QString("Debug: ") + QString(localMsg.constData());
 			break;
 		case QtWarningMsg:
-			fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
-				context.line, context.function);
+			if (systemData.enableConsoleOutput)
+				fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+					context.line, context.function);
 			text = QString("Warning: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;
 			break;
 		case QtCriticalMsg:
-			fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
-				context.line, context.function);
+			if (systemData.enableConsoleOutput)
+				fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+					context.line, context.function);
 			text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;
 			break;

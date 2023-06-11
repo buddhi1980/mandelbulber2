@@ -574,19 +574,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_logging_verbosity">
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>3</number>
-                  </property>
-                  <property name="value">
-                   <number>1</number>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="MyComboBox" name="comboBox_threads_priority">
                   <property name="frame">
@@ -612,20 +599,6 @@
                     <string>High priority</string>
                    </property>
                   </item>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_threads_priority">
-                  <property name="text">
-                   <string>Rendering threads priority</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_15">
-                  <property name="text">
-                   <string>Image auto-refresh period [seconds]</string>
-                  </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
@@ -656,6 +629,40 @@
                   </property>
                   <property name="singleStep">
                    <double>0.100000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>Image auto-refresh period [seconds]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_threads_priority">
+                  <property name="text">
+                   <string>Rendering threads priority</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_logging_verbosity">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>3</number>
+                  </property>
+                  <property name="value">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_console_output_enable">
+                  <property name="text">
+                   <string>Console debug output</string>
                   </property>
                  </widget>
                 </item>
@@ -740,8 +747,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>634</width>
-            <height>862</height>
+            <width>369</width>
+            <height>855</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1515,8 +1522,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>240</width>
-            <height>797</height>
+            <width>269</width>
+            <height>831</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1902,8 +1909,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>132</width>
-            <height>422</height>
+            <width>148</width>
+            <height>454</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
