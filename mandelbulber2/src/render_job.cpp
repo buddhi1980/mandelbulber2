@@ -105,6 +105,7 @@ cRenderJob::cRenderJob(const std::shared_ptr<cParameterContainer> _params,
 }
 int cRenderJob::id = 0;
 int cRenderJob::runningJobs = 0;
+bool cRenderJob::busyOpenCl = false;
 
 cRenderJob::~cRenderJob()
 {
@@ -686,6 +687,7 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	emit updateProgressAndStatus(
 		tr("OpenCl - waiting for free GPU"), progressText->getText(0.0), 0.0);
 
+	busyOpenCl = true;
 	gOpenCl->openClEngineRenderFractal->Lock();
 	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
@@ -704,6 +706,7 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	gOpenCl->openClEngineRenderFractal->ReleaseMemory();
 	WriteLog("OpenCL memory released", 2);
 	gOpenCl->openClEngineRenderFractal->Unlock();
+	busyOpenCl = false;
 
 	emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText->getText(1.0), 1.0);
 	return result;
@@ -724,6 +727,7 @@ void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
+			busyOpenCl = true;
 			gOpenCl->openClEngineRenderSSAO->Lock();
 			gOpenCl->openClEngineRenderSSAO->SetParameters(params.get(), region);
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
@@ -771,6 +775,7 @@ void cRenderJob::RenderSSAOWithOpenCl(std::shared_ptr<sParamRender> params,
 			}
 			gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
 			gOpenCl->openClEngineRenderSSAO->Unlock();
+			busyOpenCl = false;
 
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering SSAO finished"), progressText->getText(1.0), 1.0);
@@ -812,7 +817,7 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				}
 
 				if (skip) continue;
-
+				busyOpenCl = true;
 				gOpenCl->openclEngineRenderPostFilter->Lock();
 				gOpenCl->openclEngineRenderPostFilter->SetParameters(
 					params.get(), region, cOpenClEngineRenderPostFilter::enumPostEffectType(i));
@@ -835,6 +840,7 @@ void cRenderJob::RenderPostFiltersWithOpenCl(std::shared_ptr<sParamRender> param
 				}
 				gOpenCl->openclEngineRenderPostFilter->ReleaseMemory();
 				gOpenCl->openclEngineRenderPostFilter->Unlock();
+				busyOpenCl = false;
 			}
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering Post Filter finished"), progressText->getText(1.0), 1.0);

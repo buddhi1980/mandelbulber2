@@ -303,10 +303,19 @@ void cThumbnailWidget::slotRender()
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
 
-		if (!disableTimer && cRenderJob::GetRunningJobCount() > systemData.numberOfThreads * 2)
+		if (!disableTimer
+				&& (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads * 2
+						|| (params->Get<bool>("opencl_enabled") && cRenderJob::IfOpenCLBusy())))
 		{
 			// try again after some random time
-			timer->start(Random(5000) + 1);
+			if (visibleRegion().isEmpty())
+			{
+				timer->start(Random(600000) + 1);
+			}
+			else
+			{
+				timer->start(Random(1000) + 1);
+			}
 			return;
 		}
 

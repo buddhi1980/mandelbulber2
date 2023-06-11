@@ -90,6 +90,7 @@ public:
 		const std::shared_ptr<cFractalContainer> _fractal);
 	void UpdateConfig(const cRenderingConfiguration &config) const;
 	static int GetRunningJobCount() { return runningJobs; }
+	static bool IfOpenCLBusy() { return busyOpenCl; }
 	cStatistics GetStatistics() const;
 	void RefreshImageAdjustments();
 	void RefreshPostEffects();
@@ -140,6 +141,7 @@ private:
 
 	static int id; // global identifier of actual rendering job
 	static int runningJobs;
+	static bool busyOpenCl;
 
 signals:
 	void finished();
