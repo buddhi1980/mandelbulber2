@@ -76,6 +76,45 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QComboBox" name="comboBox_filterBy">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Filter by Name</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Filter by Fractal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Filter by Effect</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Filter:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_filterText"/>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -86,7 +125,7 @@
         <x>0</x>
         <y>0</y>
         <width>1215</width>
-        <height>804</height>
+        <height>760</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">

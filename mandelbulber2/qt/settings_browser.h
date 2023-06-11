@@ -68,6 +68,13 @@ class cSettingsBrowser : public QDialog
 		modeAllHQ = 4
 	};
 
+	enum class enumFilterType
+	{
+		byName = 0,
+		byFractal = 1,
+		byEffect = 2
+	};
+
 public:
 	explicit cSettingsBrowser(QWidget *parent = nullptr);
 	~cSettingsBrowser();
@@ -92,12 +99,15 @@ private slots:
 	void slotTimer();
 	void slotChangedOpenCLMode(int index);
 	void slotCellDoubleClicked(int row, int column);
+	void slotFilterTextChanged(const QString &text);
+	void slotFilterTypeChanged(int index);
 
 private:
 	Ui::cSettingsBrowser *ui;
 
 	QString actualDirectory;
 	QList<sSettingsListItem> settingsList;
+	QList<sSettingsListItem> settingsListFiltered;
 	int previewWidth;
 	int previewHeight;
 	QString selectedFileName;
@@ -110,7 +120,7 @@ private:
 	const int effectsColumnIndex = 4;
 	const int numberOfColumns = 5;
 
-	const int refreshTimeMsec = 20;
+	const int refreshTimeMsec = 1;
 
 	QTimer timer;
 };

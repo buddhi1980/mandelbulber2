@@ -74,6 +74,10 @@ cSettingsBrowser::cSettingsBrowser(QWidget *parent) : QDialog(parent), ui(new Ui
 		&cSettingsBrowser::slotPressedParent);
 	connect(ui->tableWidget, &QTableWidget::cellDoubleClicked, this,
 		&cSettingsBrowser::slotCellDoubleClicked);
+	connect(ui->lineEdit_filterText, &QLineEdit::textEdited, this,
+		&cSettingsBrowser::slotFilterTextChanged);
+	connect(ui->comboBox_filterBy, qOverload<int>(&QComboBox::currentIndexChanged), this,
+		&cSettingsBrowser::slotFilterTypeChanged);
 
 	if (!gPar->Get<bool>("opencl_enabled"))
 	{
@@ -104,9 +108,9 @@ void cSettingsBrowser::SetInitialFileName(const QString &_initFilename)
 	PrepareTable();
 
 	QString filename = QDir::toNativeSeparators(QFileInfo(initFilename).fileName());
-	for (int row = 0; row < settingsList.size(); row++)
+	for (int row = 0; row < settingsListFiltered.size(); row++)
 	{
-		if (settingsList.at(row).filename == filename)
+		if (settingsListFiltered.at(row).filename == filename)
 		{
 			ui->tableWidget->setCurrentCell(row, fileNameColumnIndex);
 			break;
@@ -158,8 +162,8 @@ void cSettingsBrowser::slotPressedLoad()
 	int row = ui->tableWidget->currentRow();
 	if (row >= 0)
 	{
-		selectedFileName =
-			QDir::toNativeSeparators(actualDirectory + QDir::separator() + settingsList[row].filename);
+		selectedFileName = QDir::toNativeSeparators(
+			actualDirectory + QDir::separator() + settingsListFiltered[row].filename);
 	}
 
 	gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
@@ -176,10 +180,10 @@ void cSettingsBrowser::slotCellDoubleClicked(int _row, int _column)
 		{
 			gPar->Set("settings_browser_use_opencl", ui->comboBoxOpenCLMode->currentIndex());
 
-			if (settingsList.at(row).isFolder)
+			if (settingsListFiltered.at(row).isFolder)
 			{
 				actualDirectory = QDir::toNativeSeparators(
-					actualDirectory + QDir::separator() + settingsList.at(row).filename);
+					actualDirectory + QDir::separator() + settingsListFiltered.at(row).filename);
 				QDir dir(actualDirectory);
 				actualDirectory = dir.absolutePath();
 				ui->lineEdit_folder->setText(actualDirectory);
@@ -188,7 +192,7 @@ void cSettingsBrowser::slotCellDoubleClicked(int _row, int _column)
 			else
 			{
 				selectedFileName = QDir::toNativeSeparators(
-					actualDirectory + QDir::separator() + settingsList[row].filename);
+					actualDirectory + QDir::separator() + settingsListFiltered[row].filename);
 				close();
 			}
 		}
@@ -232,6 +236,7 @@ void cSettingsBrowser::CreateListOfSettings()
 		newItem.loaded = false;
 		settingsList.append(newItem);
 	}
+	settingsListFiltered = settingsList;
 }
 
 void cSettingsBrowser::PrepareTable()
@@ -253,7 +258,7 @@ void cSettingsBrowser::PrepareTable()
 
 	int longestName = 0;
 	int longestDate = 0;
-	for (const sSettingsListItem &item : settingsList)
+	for (const sSettingsListItem &item : settingsListFiltered)
 	{
 		int newRowIndex = ui->tableWidget->rowCount();
 		ui->tableWidget->insertRow(newRowIndex);
@@ -273,13 +278,15 @@ void cSettingsBrowser::PrepareTable()
 		ui->tableWidget->setRowHeight(newRowIndex, previewHeight);
 	}
 	ui->tableWidget->setColumnWidth(fileNameColumnIndex, longestName * 1.1);
-	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth*2);
+	ui->tableWidget->setColumnWidth(fractalsColumnIndex, previewWidth * 2);
 	ui->tableWidget->setColumnWidth(dateColumnIndex, longestDate);
 }
 
 void cSettingsBrowser::AddRow(int rowToAdd)
 {
-	if (settingsList.at(rowToAdd).isFolder)
+	if (rowToAdd > settingsListFiltered.length() - 1) return;
+
+	if (settingsListFiltered.at(rowToAdd).isFolder)
 	{
 		QIcon icon(":/system/icons/folder.svg");
 		QPixmap pixmap = icon.pixmap(QSize(previewHeight / 2, previewHeight / 2));
@@ -293,7 +300,7 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(
-					actualDirectory + QDir::separator() + settingsList.at(rowToAdd).filename))
+					actualDirectory + QDir::separator() + settingsListFiltered.at(rowToAdd).filename))
 		{
 			// qDebug() << rowToAdd << settingsList.at(rowToAdd).filename;
 			//			progressBar->show();
@@ -377,6 +384,48 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 					par->Set("detail_level", par->Get<double>("detail_level") * detailMultiplier);
 				}
 
+				QString filterText = ui->lineEdit_filterText->text();
+				enumFilterType filterType = enumFilterType(ui->comboBox_filterBy->currentIndex());
+				if (filterText.length() > 0)
+				{
+					switch (filterType)
+					{
+						case enumFilterType::byName:
+						{
+							if (!settingsListFiltered.at(rowToAdd).filename.contains(
+										filterText, Qt::CaseInsensitive))
+							{
+								ui->tableWidget->removeRow(rowToAdd);
+								settingsListFiltered.removeAt(rowToAdd);
+								return;
+							}
+							break;
+						}
+						case enumFilterType::byFractal:
+						{
+							if (!listOfFormulas.contains(filterText, Qt::CaseInsensitive)
+									|| listOfFormulas.isEmpty())
+							{
+								ui->tableWidget->removeRow(rowToAdd);
+								settingsListFiltered.removeAt(rowToAdd);
+								return;
+							}
+							break;
+						}
+						case enumFilterType::byEffect:
+						{
+							if (!listOfEffects.contains(filterText, Qt::CaseInsensitive)
+									|| listOfEffects.isEmpty())
+							{
+								ui->tableWidget->removeRow(rowToAdd);
+								settingsListFiltered.removeAt(rowToAdd);
+								return;
+							}
+							break;
+						}
+					}
+				}
+
 				cThumbnailWidget *thumbWidget =
 					new cThumbnailWidget(previewWidth, previewHeight, dpiScale * resolution, nullptr);
 				thumbWidget->UseOneCPUCore(true);
@@ -386,14 +435,20 @@ void cSettingsBrowser::AddRow(int rowToAdd)
 				thumbWidget->AssignParameters(par, parFractal);
 				ui->tableWidget->setCellWidget(rowToAdd, previewColumnIndex, thumbWidget);
 			}
+			else // if not possible to decode settings
+			{
+				ui->tableWidget->removeRow(rowToAdd);
+				settingsListFiltered.removeAt(rowToAdd);
+				return;
+			}
 		}
 	}
-	settingsList[rowToAdd].loaded = true;
+	settingsListFiltered[rowToAdd].loaded = true;
 }
 
 void cSettingsBrowser::slotTimer()
 {
-	if (!settingsList.isEmpty())
+	if (!settingsListFiltered.isEmpty())
 	{
 		int firstRowVisible = ui->tableWidget->rowAt(0);
 		int lastRowVisible = ui->tableWidget->rowAt(ui->tableWidget->height());
@@ -403,7 +458,7 @@ void cSettingsBrowser::slotTimer()
 
 		for (int row = firstRowVisible; row <= lastRowVisible; row++)
 		{
-			if (!settingsList.at(row).loaded)
+			if (!settingsListFiltered.at(row).loaded)
 			{
 				rowToAdd = row;
 			}
@@ -413,7 +468,7 @@ void cSettingsBrowser::slotTimer()
 		{
 			for (int row = 0; row < ui->tableWidget->rowCount(); row++)
 			{
-				if (!settingsList.at(row).loaded)
+				if (!settingsListFiltered.at(row).loaded)
 				{
 					rowToAdd = row;
 					break;
@@ -466,4 +521,24 @@ void cSettingsBrowser::slotPressedParent()
 		ui->lineEdit_folder->setText(actualDirectory);
 		RefreshTable();
 	}
+}
+
+void cSettingsBrowser::slotFilterTextChanged(const QString &text)
+{
+	Q_UNUSED(text);
+	timer.stop();
+	settingsListFiltered = settingsList;
+	DeleteAllThumbnails();
+	PrepareTable();
+	timer.start(refreshTimeMsec);
+}
+
+void cSettingsBrowser::slotFilterTypeChanged(int index)
+{
+	Q_UNUSED(index);
+	timer.stop();
+	settingsListFiltered = settingsList;
+	DeleteAllThumbnails();
+	PrepareTable();
+	timer.start(refreshTimeMsec);
 }
