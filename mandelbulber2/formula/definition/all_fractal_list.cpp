@@ -566,7 +566,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalScatorPower2StdR());
 	fractalList->append(new cFractalScatorPower2());
 	fractalList->append(new cFractalScatorTest());
-
+	fractalList->append(new cFractalSphereCluster());
 
 
 	//====================== FRACTAL LIST - END ==================

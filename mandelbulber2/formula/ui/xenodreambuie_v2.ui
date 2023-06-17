@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1151</height>
+    <height>1185</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,14 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
+   <item>
+    <widget class="QLabel" name="label_17">
+     <property name="text">
+      <string>Formula allows for negative powers
+Some settings require even maximum iterations</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="title">

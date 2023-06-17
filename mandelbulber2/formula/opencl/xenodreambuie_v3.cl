@@ -43,8 +43,6 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	aux->DE = rp * aux->DE * fabs(fractal->bulb.power) + 1.0f;
 	rp *= aux->r;
 
-
-
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
