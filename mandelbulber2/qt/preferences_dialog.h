@@ -79,7 +79,7 @@ private slots:
 
 private:
 #ifdef USE_OPENCL
-	void UpdateOpenCLListBoxes();
+	void UpdateOpenCLListBoxes(bool refreshOpenClPlatforms);
 	void UpdateOpenCLMemoryLimits();
 #endif
 

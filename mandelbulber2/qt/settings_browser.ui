@@ -21,6 +21,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_parent_folder">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -32,6 +35,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_select_folder">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="text">
         <string/>
        </property>

@@ -103,7 +103,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	ui->label_path_to_logfile->setText(tr("Path to log file: %1").arg(systemData.logfileName));
 
 #ifdef USE_OPENCL
-	UpdateOpenCLListBoxes();
+	UpdateOpenCLListBoxes(false);
 	UpdateOpenCLMemoryLimits();
 #else	 // USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
@@ -138,9 +138,14 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.enableConsoleOutput = gPar->Get<bool>("console_output_enable");
 
 #ifdef USE_OPENCL
+	bool openClSettingsChanged = false;
+
 	// OpenCL preference dialogue supports (1) platform
 	int selectedPlatform = ui->listWidget_opencl_platform_list->currentIndex().row();
 	if (selectedPlatform < 0) selectedPlatform = 0;
+
+	if (selectedPlatform != gPar->Get<int>("opencl_platform")) openClSettingsChanged = true;
+
 	gPar->Set("opencl_platform", selectedPlatform);
 
 	QList<QListWidgetItem *> selectedDevicesItems =
@@ -153,15 +158,20 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	}
 	QString listString = activeDevices.join("|");
 
-	// OpenCL preference dialogue supports multiple devices
-	gOpenCl->Reset();
-	cOpenClDevice::enumOpenClDeviceType deviceType =
-		cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
-	gOpenCl->openClHardware->ListOpenClDevices(selectedPlatform, deviceType);
-	gPar->Set("opencl_device_list", listString);
-	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
+	if (listString != gPar->Get<QString>("opencl_device_list")) openClSettingsChanged = true;
 
-	gOpenCl->openClHardware->CreateAllContexts(selectedPlatform, deviceType);
+	if (openClSettingsChanged)
+	{
+		// OpenCL preference dialogue supports multiple devices
+		gOpenCl->Reset();
+		cOpenClDevice::enumOpenClDeviceType deviceType =
+			cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
+		gOpenCl->openClHardware->ListOpenClDevices(selectedPlatform, deviceType);
+		gPar->Set("opencl_device_list", listString);
+		gOpenCl->openClHardware->EnableDevicesByHashList(listString);
+
+		gOpenCl->openClHardware->CreateAllContexts(selectedPlatform, deviceType);
+	}
 
 	gTextureCache->setMaxSize(gPar->Get<int>("maximum_texture_cache_size") * 1024L * 1024L);
 
@@ -309,7 +319,6 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 		int thumbnailSize = systemData.GetPreferredThumbnailSize() * 1.5;
 		std::unique_ptr<cThumbnailWidget> thumbWidget(
 			new cThumbnailWidget(thumbnailSize, thumbnailSize, dpiScale));
-
 
 		QObject::connect(thumbWidget.get(),
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
@@ -517,7 +526,7 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 					cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
 			}
 
-			UpdateOpenCLListBoxes();
+			UpdateOpenCLListBoxes(true);
 		}
 		else
 		{
@@ -528,10 +537,13 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 	gMainInterface->mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(state);
 }
 
-void cPreferencesDialog::UpdateOpenCLListBoxes()
+void cPreferencesDialog::UpdateOpenCLListBoxes(bool refreshOpenClPlatforms)
 {
 	// list of platforms
-	gOpenCl->openClHardware->ListOpenClPlatforms();
+	if (refreshOpenClPlatforms)
+	{
+		gOpenCl->openClHardware->ListOpenClPlatforms();
+	}
 
 	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
 		gOpenCl->openClHardware->getPlatformsInformation();
@@ -553,7 +565,10 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 
 		cOpenClDevice::enumOpenClDeviceType deviceType =
 			cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type"));
-		gOpenCl->openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
+		if (refreshOpenClPlatforms)
+		{
+			gOpenCl->openClHardware->ListOpenClDevices(selectedPlatformIndex, deviceType);
+		}
 		ui->listWidget_opencl_device_list->clear();
 		QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 		QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
