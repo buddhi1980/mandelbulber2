@@ -30,8 +30,8 @@ cFractalScatorTest::cFractalScatorTest() : cAbstractFractal()
 
 void cFractalScatorTest::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(fractal);
-	// Q_UNUSED(aux);
+	Q_UNUSED(fractal);
+	 Q_UNUSED(aux);
 
 	double x2 = z.x * z.x; //+ 1e-061
 	double y2 = z.y * z.y * fractal->transformCommon.scaleB1;
@@ -44,6 +44,10 @@ void cFractalScatorTest::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
+
+	z += aux.const_c;
+	aux.DE = aux.DE * z.Length() / aux.r + fractal->analyticDE.offset1;
+	aux.DE *= fractal->analyticDE.scale1;
 
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA

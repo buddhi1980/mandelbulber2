@@ -21,8 +21,8 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL3 p = (REAL3){z.xyz}; // convert to vec3
 //	REAL PackRatio = fractal->transformCommon.offset1;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-	REAL phi = (1.0 + sqrt(5.0)) / 2.0;
-
+//	REAL phi = (1.0 + sqrt(5.0)) / 2.0;
+	REAL phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	REAL3 ta0 = (REAL3){0.0, 1.0, phi};
 	REAL3 ta1 = (REAL3){0.0, -1.0, phi};
@@ -64,16 +64,17 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL l, r;
 	REAL3 mid;
 	aux->DE = 1.0 * fractal->transformCommon.scale1;
-
+int i;
 	bool recurse = true;
-	for (int i = 0; i < fractal->transformCommon.int8X; i++)
+	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
 		if (recurse)
 		{
 			if (length(p) > excess)
-			{p = (REAL3){0.0f, 0.0f, 0.0f};
-				break;
-				//return (length(p) - 1.0) / aux->DE;
+			{
+			//	p = (REAL3){0.0f, 0.0f, 0.0f};
+
+				return (length(p) - 1.0) / aux->DE;
 			}
 			if (is_b)
 			{
@@ -148,8 +149,8 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		REAL dist = length(p - mid * l);
 		if (dist < r || i == fractal->transformCommon.int8X - 1)
 		{
-			ColV.x += 1.0;
-			p -= mid*l;
+			ColV.x += 1.0 * (i + 1);
+			p -= mid * l;
 			REAL sc = r * r / dot(p, p);
 			p *= sc;
 			aux->DE *= sc;
@@ -158,7 +159,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			REAL m = minr * k;
 			if (length(p) < minr)
 			{
-				ColV.y += 1.0;
+				ColV.y += 1.0 * (i + 1);
 				p /= m;
 				aux->DE /= m;
 
@@ -167,6 +168,9 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				recurse = true;
 			}
 		}
+		p *= fractal->transformCommon.scaleF1;
+		aux->DE *= fabs(fractal->transformCommon.scaleF1);
+
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 	//z.xyz = p.xyz;
@@ -184,9 +188,9 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 ColV.w += 1.0* aux->DE;
 	// aux->color
-	if (fractal->foldColor.auxColorEnabled)
+	if (i >= fractal->foldColor.startIterationsA && i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+			aux->color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 									+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 	}
 	return z;

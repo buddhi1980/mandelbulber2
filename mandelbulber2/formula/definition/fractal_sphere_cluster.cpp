@@ -28,11 +28,11 @@ cFractalSphereCluster::cFractalSphereCluster() : cAbstractFractal()
 void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-	CVector3 p = CVector3{z.x, z.y, z.z}; // convert to vec3
+	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	//	double PackRatio = fractal->transformCommon.offset1;
-	CVector4 ColV = CVector4{0.0, 0.0, 0.0, 0.0};
-	double phi = (1.0 + sqrt(5.0)) / 2.0;
-
+	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
+//	double phi = (1.0 + sqrt(5.0)) / 2.0;
+	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	CVector3 ta0 = CVector3(0.0, 1.0, phi);
 	CVector3 ta1 = CVector3(0.0, -1.0, phi);
@@ -52,11 +52,11 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double minra = (la - ra * fractal->transformCommon.scaleC1) * fractal->transformCommon.scaleA1;
 
 	// Dodecahedral geometry
-	CVector3 tb0 = CVector3{1.0 / phi, 0.0, phi};
-	CVector3 tb1 = CVector3{1.0, -1.0, 1.0};
-	CVector3 tb2 = CVector3{phi, -1.0 / phi, 0.0};
-	CVector3 tb3 = CVector3{phi, 1.0 / phi, 0.0};
-	CVector3 tb4 = CVector3{1.0, 1.0, 1.0};
+	CVector3 tb0 = CVector3(1.0 / phi, 0.0, phi);
+	CVector3 tb1 = CVector3(1.0, -1.0, 1.0);
+	CVector3 tb2 = CVector3(phi, -1.0 / phi, 0.0);
+	CVector3 tb3 = CVector3(phi, 1.0 / phi, 0.0);
+	CVector3 tb4 = CVector3(1.0, 1.0, 1.0);
 
 	CVector3 nb0 = (tb0.Cross(tb1 - tb0));
 	nb0 = nb0 / nb0.Length();
@@ -84,112 +84,117 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double minr = 0.0;
 	double l, r;
 	CVector3 mid;
-	aux.DE = 1.0 * fractal->transformCommon.scale1;
-
+	aux.DE = 1.0 * fractal->transformCommon.scale1; // ,,,,,,,,,,,,,,,,,
+int i;
 	bool recurse = true;
-	for (int i = 0; i < fractal->transformCommon.int8X; i++)
+	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
-	if (recurse)
-	{
-		if (p.Length() > excess)
-		{ p = CVector3{0.0, 0.0, 0.0};
-			// (p.Length() - 1.0) / aux.DE;
-			break;
+		if (recurse)
+		{
+			if (p.Length() > excess)
+			{ p = CVector3(0.0, 0.0, 0.0);
+				// (p.Length() - 1.0) / aux.DE;
+			}
+			if (is_b)
+			{
+				minr = minrb;
+			}
+			else
+			{
+				minr = minra;
+			}
+			double sc = minr / p.Dot(p);
+			p *= sc;
+			aux.DE *= sc;
+			recurse = false;
+			ColV.z += 1.0;
 		}
 		if (is_b)
 		{
+			l = lb;
+			r = rb;
+			mid = midb;
 			minr = minrb;
+			if (p.Dot(nb0) < 0.0)
+				p -= 2.0 * nb0 * p.Dot(nb0);
+			if (p.Dot(nb1) < 0.0)
+				p -= 2.0 * nb1 * p.Dot(nb1);
+			if (p.Dot(nb2) < 0.0)
+				p -= 2.0 * nb2 * p.Dot(nb2);
+			if (p.Dot(nb3) < 0.0)
+				p -= 2.0 * nb3 * p.Dot(nb3);
+			if (p.Dot(nb4) < 0.0)
+				p -= 2.0 * nb4 * p.Dot(nb4);
+
+			if (p.Dot(nb0) < 0.0)
+				p -= 2.0 * nb0 * p.Dot(nb0);
+			if (p.Dot(nb1) < 0.0)
+				p -= 2.0 * nb1 * p.Dot(nb1);
+			if (p.Dot(nb2) < 0.0)
+				p -= 2.0 * nb2 * p.Dot(nb2);
+			if (p.Dot(nb3) < 0.0)
+				p -= 2.0 * nb3 * p.Dot(nb3);
+			if (p.Dot(nb4) < 0.0)
+				p -= 2.0 * nb4 * p.Dot(nb4);
 		}
 		else
 		{
+			l = la;
+			r = ra;
+			mid = mida;
 			minr = minra;
+			if (p.Dot(na0) < 0.0)
+				p -= 2.0 * na0 * p.Dot(na0);
+			if (p.Dot(na1) < 0.0)
+				p -= 2.0 * na1 * p.Dot(na1);
+			if (p.Dot(na2) < 0.0)
+				p -= 2.0 * na2 * p.Dot(na2);
+
+			if (p.Dot(na0) < 0.0)
+				p -= 2.0 * na0 * p.Dot(na0);
+			if (p.Dot(na1) < 0.0)
+				p -= 2.0 * na1 * p.Dot(na1);
+			if (p.Dot(na2) < 0.0)
+				p -= 2.0 * na2 * p.Dot(na2);
+
+			if (p.Dot(na0) < 0.0)
+				p -= 2.0 * na0 * p.Dot(na0);
+			if (p.Dot(na1) < 0.0)
+				p -= 2.0 * na1 * p.Dot(na1);
+			if (p.Dot(na2) < 0.0)
+				p -= 2.0 * na2 * p.Dot(na2);
 		}
-		double sc = minr / p.Dot(p);
-		p *= sc;
-		aux.DE *= sc;
-		recurse = false;
-		ColV.z += 1.0;
-	}
-	if (is_b)
-	{
-		l = lb;
-		r = rb;
-		mid = midb;
-		minr = minrb;
-		if (p.Dot(nb0) < 0.0)
-			p -= 2.0 * nb0 * p.Dot(nb0);
-		if (p.Dot(nb1) < 0.0)
-			p -= 2.0 * nb1 * p.Dot(nb1);
-		if (p.Dot(nb2) < 0.0)
-			p -= 2.0 * nb2 * p.Dot(nb2);
-		if (p.Dot(nb3) < 0.0)
-			p -= 2.0 * nb3 * p.Dot(nb3);
-		if (p.Dot(nb4) < 0.0)
-			p -= 2.0 * nb4 * p.Dot(nb4);
 
-		if (p.Dot(nb0) < 0.0)
-			p -= 2.0 * nb0 * p.Dot(nb0);
-		if (p.Dot(nb1) < 0.0)
-			p -= 2.0 * nb1 * p.Dot(nb1);
-		if (p.Dot(nb2) < 0.0)
-			p -= 2.0 * nb2 * p.Dot(nb2);
-		if (p.Dot(nb3) < 0.0)
-			p -= 2.0 * nb3 * p.Dot(nb3);
-		if (p.Dot(nb4) < 0.0)
-			p -= 2.0 * nb4 * p.Dot(nb4);
-	}
-	else
-	{
-		l = la;
-		r = ra;
-		mid = mida;
-		minr = minra;
-		if (p.Dot(na0) < 0.0)
-			p -= 2.0 * na0 * p.Dot(na0);
-		if (p.Dot(na1) < 0.0)
-			p -= 2.0 * na1 * p.Dot(na1);
-		if (p.Dot(na2) < 0.0)
-			p -= 2.0 * na2 * p.Dot(na2);
-
-		if (p.Dot(na0) < 0.0)
-			p -= 2.0 * na0 * p.Dot(na0);
-		if (p.Dot(na1) < 0.0)
-			p -= 2.0 * na1 * p.Dot(na1);
-		if (p.Dot(na2) < 0.0)
-			p -= 2.0 * na2 * p.Dot(na2);
-
-		if (p.Dot(na0) < 0.0)
-			p -= 2.0 * na0 * p.Dot(na0);
-		if (p.Dot(na1) < 0.0)
-			p -= 2.0 * na1 * p.Dot(na1);
-		if (p.Dot(na2) < 0.0)
-			p -= 2.0 * na2 * p.Dot(na2);
-	}
-
-	double dist = (p - mid * l).Length();
-	if (dist < r || i == fractal->transformCommon.int8X - 1)
-	{
-		ColV.x += 1.0;
-		p -= mid*l;
-		double sc = r * r / p.Dot(p);
-		p *= sc;
-		aux.DE *= sc;
-		p += mid * l;
-
-		double m = minr * k;
-		if (p.Length() < minr)
+		double dist = (p - mid * l).Length();
+		if (dist < r || i == fractal->transformCommon.int8X - 1)
 		{
-			ColV.y += 1.0;
-			p /= m;
-			aux.DE /= m;
+			ColV.x += 1.0 * (i + 1);
+			p -= mid * l;
+			double sc = r * r / p.Dot(p);
+			p *= sc;
+			aux.DE *= sc;
+			p += mid * l;
 
-			if (fractal->transformCommon.functionEnabledTFalse)
-				is_b = !is_b;
-			recurse = true;
+			double m = minr * k;
+			if (p.Length() < minr)
+			{
+				ColV.y += 1.0 * (i + 1);
+				p /= m;
+				aux.DE /= m;
+
+				if (fractal->transformCommon.functionEnabledTFalse) // toggle
+					is_b = !is_b;
+				recurse = true;
+			}
 		}
+		// post scale
+		p *= fractal->transformCommon.scaleF1;
+		aux.DE *= fabs(fractal->transformCommon.scaleF1);
+		// DE tweaks
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
-	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	}
+
+
 	z = CVector4{p.x, p.y, p.z, z.w};
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -203,11 +208,11 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	ColV.w += 1.0* aux.DE;
-	// aux.color
-	if (fractal->foldColor.auxColorEnabled)
+
+	// aux->color
+	if (i >= fractal->foldColor.startIterationsA && i < fractal->foldColor.stopIterationsA)
 	{
 		aux.color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 									+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 	}
-
 }
