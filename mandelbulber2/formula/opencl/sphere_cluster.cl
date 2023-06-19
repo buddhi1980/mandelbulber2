@@ -16,7 +16,7 @@
 
 REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
+	REAL4 oldZ = z;
 
 	REAL3 p = (REAL3){z.xyz}; // convert to vec3
 //	REAL PackRatio = fractal->transformCommon.offset1;
@@ -175,16 +175,25 @@ int i;
 	}
 	//z.xyz = p.xyz;
 	z = (REAL4){p.x, p.y, p.z, z.w};
+
+	REAL d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		aux->dist = (length(p) - minr * k) / aux->DE;
+		d = (length(p) - minr * k) / aux->DE;
 	}
 	else
 	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
-		REAL m = max(max(zc.x, zc.y), zc.z);
-		aux->dist = (m - minr * k) / aux->DE;
+		d = max(max(zc.x, zc.y), zc.z);
+		d = (d - minr * k) / aux->DE;
 	}
+
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux->dist = min(aux->dist, d);
+	else
+		aux->dist = d;
+
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 ColV.w += 1.0* aux->DE;
 	// aux->color

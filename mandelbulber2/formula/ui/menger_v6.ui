@@ -473,7 +473,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Fold&amp;s  mmmmmmmmmmm</string>
+      <string>fold&amp;s </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -778,18 +778,11 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>offset DE:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1" colspan="2">
+        <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -817,21 +810,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_16">
-          <property name="text">
-           <string>offset DE will change shape</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>menger scale:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -856,6 +835,27 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>offset DE:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>menger scale:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_18">
+          <property name="text">
+           <string>offset DE will change shape</string>
           </property>
          </widget>
         </item>

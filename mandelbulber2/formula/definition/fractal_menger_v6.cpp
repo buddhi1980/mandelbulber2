@@ -28,6 +28,8 @@ cFractalMengerV6::cFractalMengerV6() : cAbstractFractal()
 
 void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t;
+
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -46,10 +48,35 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 	}
 
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.y = fabs(z.y);
+			double psi = M_PI / fractal->transformCommon.int6;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+			t = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * t;
+			z.y = sin(psi) * t;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
+
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		double t;
 		CVector4 n;
 
 		z.y *= fractal->transformCommon.scaleA1;
@@ -97,9 +124,6 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 			}
-
-
-
 		}
 
 		CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};

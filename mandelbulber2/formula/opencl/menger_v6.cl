@@ -17,6 +17,8 @@
 
 REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t;
+
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -35,10 +37,35 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 	}
 
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.y = fabs(z.y);
+			REAL psi = M_PI_F / fractal->transformCommon.int6;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0f * psi) - psi);
+			t = native_sqrt(z.x * z.x + z.y * z.y);
+			z.x = native_cos(psi) * t;
+			z.y = native_sin(psi) * t;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			t = fractal->transformCommon.offsetC0;
+			if (z.x < t) z.x = fabs(z.x - t) + t;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			REAL t = fractal->transformCommon.offsetD0;
+			if (z.y < t) z.y = fabs(z.y - t) + t;
+		}
+	}
+
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		REAL t;
 		REAL4 n;
 
 		z.y *= fractal->transformCommon.scaleA1;
@@ -87,7 +114,6 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			{
 				z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 			}
-
 		}
 
 		REAL4 edgeDist = fabs(z) - (REAL4){1.0f, 1.0f, 1.0f, 0.0f};

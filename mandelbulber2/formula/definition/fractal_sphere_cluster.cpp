@@ -27,7 +27,7 @@ cFractalSphereCluster::cFractalSphereCluster() : cAbstractFractal()
 
 void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
+	CVector4 oldZ = z;
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	//	double PackRatio = fractal->transformCommon.offset1;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
@@ -196,16 +196,25 @@ int i;
 
 
 	z = CVector4{p.x, p.y, p.z, z.w};
+
+double d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		aux.dist = (z.Length() - minr * k) / aux.DE;
+		d = (z.Length() - minr * k) / aux.DE;
 	}
 	else
 	{
 		CVector4 zc = z - fractal->transformCommon.offset000;
-		double m = max(max(zc.x, zc.y), zc.z);
-		aux.dist = (m - minr * k) / aux.DE;
+		d = max(max(zc.x, zc.y), zc.z);
+		d = (d - minr * k) / aux.DE;
 	}
+
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux.dist = min(aux.dist, d);
+	else
+		aux.dist = d;
+
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	ColV.w += 1.0* aux.DE;
 
