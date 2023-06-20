@@ -67,7 +67,7 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
 		REAL4 n;
-
+		REAL col = 0.0f;
 		z.y *= fractal->transformCommon.scaleA1;
 		z *= 0.5f;
 
@@ -86,6 +86,8 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			if (t == 0.0f) t = 1e-21f;
 			n /= t;
 			t = dot(z, n) * 2.0f;
+
+			if (t < 0.0f) col += fractal->foldColor.difs0000.x;
 			z -= max(t, 0.0f) * n;
 
 			z.z += Offset1.z;
@@ -96,13 +98,19 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			if (t == 0.0f) t = 1e-21f;
 			n /= t;
 			t = dot(z, n) * 2.0f;
+
+			if (t < 0.0f) col += fractal->foldColor.difs0000.y; //mmmmmmmmmmmmmmmmmm;
 			z -= max(t, 0.0f) * n;
+
+			if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.z; //mmmmmmmmmmmmmmmmmm;
 			t = max((z.x + z.y), 0.0f);
+
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
 			z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
 			z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
 
+			if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
 			t = max((z.x + z.y), 0.0f);
 			z.x -= t;
 			z.y -= t;
@@ -114,6 +122,13 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			{
 				z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
 			}
+
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& k >= fractal->foldColor.startIterationsA
+							&& k < fractal->foldColor.stopIterationsA)
+			{
+				aux->color = col;
+			}
 		}
 
 		REAL4 edgeDist = fabs(z) - (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
@@ -124,20 +139,10 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 		t /= aux->DE;
 
-		REAL colDist = aux->dist;
 		if (!fractal->analyticDE.enabledFalse)
 			aux->dist = t;
 		else
 			aux->dist = min(aux->dist, t);
-
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			REAL colorAdd = 0.0f;
-			if (colDist != aux->dist) colorAdd = fractal->foldColor.difs0000.x;
-			//if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
-
-			aux->color += colorAdd;
-		}
 	}
 
 	return z;

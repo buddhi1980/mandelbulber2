@@ -78,7 +78,7 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
 		CVector4 n;
-
+		double col = 0.0;
 		z.y *= fractal->transformCommon.scaleA1;
 		z *= 0.5;
 
@@ -97,23 +97,28 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			if (t == 0.0) t = 1e-21;
 			n /= t;
 			t = z.Dot(n) * 2.0;
+
+			if (t < 0.0) col += fractal->foldColor.difs0000.x;  //mmmmmmmmmmmmmmmmmm;
 			z -= max(t, 0.0) * n;
 
 			z.z += Offset1.z;
-
 			t = cos(fractal->transformCommon.angle45 * M_PI_180);
 			n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
 			t = n.Length();
 			if (t == 0.0) t = 1e-21;
 			n /= t;
 			t = z.Dot(n) * 2.0;
+			if (t < 0.0) col += fractal->foldColor.difs0000.y; //mmmmmmmmmmmmmmmmmm;
 			z -= max(t, 0.0) * n;
+
+			if (z.x + z.y < 0.0) col += fractal->foldColor.difs0000.z; //mmmmmmmmmmmmmmmmmm;
 			t = max((z.x + z.y), 0.0);
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
 			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
 			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
 
+			if (z.x + z.y < 0.0) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
 			t = max((z.x + z.y), 0.0);
 			z.x -= t;
 			z.y -= t;
@@ -124,9 +129,16 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 			}
+
+			if (fractal->foldColor.auxColorEnabledFalse
+							&& k >= fractal->foldColor.startIterationsA
+							&& k < fractal->foldColor.stopIterationsA)
+			{
+				aux.color = col;
+			}
 		}
 
-		CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};
+		CVector4 edgeDist = fabs(z) - CVector4{1.0, 1.0, 1.0, 0.0};
 		edgeDist.x = max(edgeDist.x, 0.0);
 		edgeDist.y = max(edgeDist.y, 0.0);
 		edgeDist.z = max(edgeDist.z, 0.0);
@@ -134,19 +146,9 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 		t /= aux.DE;
 
-		double colDist = aux.dist;
 		if (!fractal->analyticDE.enabledFalse)
 			aux.dist = t;
 		else
 			aux.dist = min(aux.dist, t);
-
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			double colorAdd = 0.0;
-			if (colDist != aux.dist) colorAdd = fractal->foldColor.difs0000.x;
-			//if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
-
-			aux.color += colorAdd;
-		}
 	}
 }
