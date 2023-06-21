@@ -6,9 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * MengerV3Iteration
- * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
- * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
+ * MengerV6Iteration
+ * Based on code by blepfo 2020-05-28 https://www.shadertoy.com/view/wsjfzd
+ * https://fractalforums.org/fragmentarium/17/simple-menger-kifs-from-shadertoy/5076
  */
 
 #include "all_fractal_definitions.h"
@@ -97,8 +97,6 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			if (t == 0.0) t = 1e-21;
 			n /= t;
 			t = z.Dot(n) * 2.0;
-
-			if (t < 0.0) col += fractal->foldColor.difs0000.x;  //mmmmmmmmmmmmmmmmmm;
 			z -= max(t, 0.0) * n;
 
 			z.z += Offset1.z;
@@ -108,17 +106,20 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			if (t == 0.0) t = 1e-21;
 			n /= t;
 			t = z.Dot(n) * 2.0;
-			if (t < 0.0) col += fractal->foldColor.difs0000.y; //mmmmmmmmmmmmmmmmmm;
 			z -= max(t, 0.0) * n;
 
-			if (z.x + z.y < 0.0) col += fractal->foldColor.difs0000.z; //mmmmmmmmmmmmmmmmmm;
 			t = max((z.x + z.y), 0.0);
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
+			if (z.x > -3.0f && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.z; //cccccccccccc;
+
+			if (z.x > -fractal->foldColor.difs1 && z.z > -1.0f) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
 			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+
+			if (z.x < 1.0f  && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.y; //
 			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
 
-			if (z.x + z.y < 0.0) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
+			if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
 			t = max((z.x + z.y), 0.0);
 			z.x -= t;
 			z.y -= t;

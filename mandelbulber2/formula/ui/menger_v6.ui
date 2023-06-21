@@ -1503,10 +1503,10 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_143">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_141">
              <property name="text">
-              <string notr="true">c:</string>
+              <string notr="true">diag</string>
              </property>
             </widget>
            </item>
@@ -1566,15 +1566,36 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_141">
-             <property name="text">
-              <string notr="true">a:</string>
+           <item row="2" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.999899999999997</double>
+             </property>
+             <property name="maximum">
+              <double>99.999899999999997</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
+           <item row="3" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1608,8 +1629,22 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_144">
+             <property name="text">
+              <string notr="true">w</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_143">
+             <property name="text">
+              <string notr="true">c:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1633,13 +1668,6 @@
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_144">
-             <property name="text">
-              <string notr="true">d:</string>
              </property>
             </widget>
            </item>
