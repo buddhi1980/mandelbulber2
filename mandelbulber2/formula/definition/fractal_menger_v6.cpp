@@ -85,7 +85,7 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		for (int k = 0; k < fractal->transformCommon.int8X; k++)
 		{
 			z *= fractal->transformCommon.scale3;
-			aux.DE *= fractal->transformCommon.scale3;
+			aux.DE *= fabs(fractal->transformCommon.scale3);
 			CVector4 Offset1 = fractal->transformCommon.offset222;
 			z.y = z.y - (2.0 * max(z.y, 0.0)) + Offset1.y;
 			z.x = -(z.x - (2.0 * max(z.x, 0.0)) + Offset1.x);
@@ -111,15 +111,38 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			t = max((z.x + z.y), 0.0);
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
-			if (z.x > -3.0f && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.z; //cccccccccccc;
 
-			if (z.x > -fractal->foldColor.difs1 && z.z > -1.0f) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
-			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& k >= fractal->foldColor.startIterationsA
+							&& k < fractal->foldColor.stopIterationsA)
+			{
+				if (!fractal->transformCommon.functionEnabledOFalse)
+				{
+					if (z.z > -1.0) col += fractal->foldColor.difs0000.y; //
+				}
+				else
+				{
+					if (z.y < 1.0) col += fractal->foldColor.difs0000.y; //
+				}
 
-			if (z.x < 1.0f  && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.y; //
-			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+				if (z.x > -fractal->transformCommon.scaleA3 && z.y > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.z; // x y
 
-			if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
+				if (z.x > -fractal->transformCommon.scaleA3 && z.z > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.w; // x z
+
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+
+				if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
+
+				aux.color = col;
+			}
+			else
+			{
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+			}
 			t = max((z.x + z.y), 0.0);
 			z.x -= t;
 			z.y -= t;
@@ -129,13 +152,6 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 						&& k < fractal->transformCommon.stopIterationsR)
 			{
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-			}
-
-			if (fractal->foldColor.auxColorEnabledFalse
-							&& k >= fractal->foldColor.startIterationsA
-							&& k < fractal->foldColor.stopIterationsA)
-			{
-				aux.color = col;
 			}
 		}
 

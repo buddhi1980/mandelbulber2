@@ -74,7 +74,7 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		for (int k = 0; k < fractal->transformCommon.int8X; k++)
 		{
 			z *= fractal->transformCommon.scale3;
-			aux->DE *= fractal->transformCommon.scale3;
+			aux->DE *= fabs(fractal->transformCommon.scale3);
 			REAL4 Offset1 = fractal->transformCommon.offset222;
 			z.y = z.y - (2.0f * max(z.y, 0.0f)) + Offset1.y;
 			z.x = -(z.x - (2.0f * max(z.x, 0.0f)) + Offset1.x);
@@ -97,20 +97,44 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			t = dot(z, n) * 2.0f;
 			z -= max(t, 0.0f) * n;
 
-
-
 			t = max((z.x + z.y), 0.0f);
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
-			if (z.x > -3.0f && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.z; //cccccccccccc;
 
-			if (z.x > -fractal->foldColor.difs1 && z.z > -1.0f) col += fractal->foldColor.difs0000.w; //mmmmmmmmmmmmmmmmmm;
-			z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& k >= fractal->foldColor.startIterationsA
+							&& k < fractal->foldColor.stopIterationsA)
+			{
+				if (!fractal->transformCommon.functionEnabledOFalse)
+				{
+					if (z.z > -1.0f) col += fractal->foldColor.difs0000.y; //
+				}
+				else
+				{
+					if (z.y < 1.0f) col += fractal->foldColor.difs0000.y; //
+				}
 
-			if (z.x < 1.0f  && z.y > -fractal->foldColor.difs1) col += fractal->foldColor.difs0000.y; //
-			z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
+				if (z.x > -fractal->transformCommon.scaleA3 && z.y > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.z; // x  y
 
-			if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
+				if (z.x > -fractal->transformCommon.scaleA3 && z.z > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.w; // x z
+
+				z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
+
+				if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
+
+
+				aux->color = col;
+
+			}
+			else
+			{
+				z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0f * max(z.x, 0.0f)) + fractal->transformCommon.offsetT1;
+			}
+
 			t = max((z.x + z.y), 0.0f);
 			z.x -= t;
 			z.y -= t;
@@ -121,13 +145,6 @@ REAL4 MengerV6Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 					&& k < fractal->transformCommon.stopIterationsR)
 			{
 				z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-			}
-
-			if (fractal->foldColor.auxColorEnabledFalse
-					&& k >= fractal->foldColor.startIterationsA
-							&& k < fractal->foldColor.stopIterationsA)
-			{
-				aux->color = col;
 			}
 		}
 
