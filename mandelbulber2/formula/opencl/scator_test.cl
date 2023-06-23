@@ -19,8 +19,8 @@
 
 REAL4 ScatorTestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// Q_UNUSED(fractal);
-	// Q_UNUSED(aux);
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
 
 	REAL x2 = z.x * z.x; //+ 1e-030f
 	REAL y2 = z.y * z.y * fractal->transformCommon.scaleB1;
@@ -33,6 +33,12 @@ REAL4 ScatorTestIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;
+
+	z += aux->const_c;
+	aux->DE = aux->DE * length(z) / aux->r + fractal->analyticDE.offset1;
+	aux->DE *= fractal->analyticDE.scale1;
+
+
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)

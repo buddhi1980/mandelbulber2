@@ -6,9 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * MengerV3Iteration
- * Based on a fractal proposed by Buddhi, with a DE outlined by Knighty:
- * http://www.fractalforums.com/3d-fractal-generation/revenge-of-the-half-eaten-menger-sponge/
+ * MengerV6Iteration
+ * Based on code by blepfo 2020-05-28 https://www.shadertoy.com/view/wsjfzd
+ * https://fractalforums.org/fragmentarium/17/simple-menger-kifs-from-shadertoy/5076
  */
 
 #include "all_fractal_definitions.h"
@@ -28,6 +28,8 @@ cFractalMengerV6::cFractalMengerV6() : cAbstractFractal()
 
 void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t;
+
 	if (fractal->transformCommon.functionEnabledAFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -46,19 +48,44 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z.z = fractal->transformCommon.offsetA000.z - fabs(fractal->transformCommon.offsetA000.z - z.z);
 	}
 
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.y = fabs(z.y);
+			double psi = M_PI / fractal->transformCommon.int6;
+			psi = fabs(fmod(atan2(z.y, z.x) + psi, 2.0 * psi) - psi);
+			t = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * t;
+			z.y = sin(psi) * t;
+		}
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+	}
+
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		double t;
 		CVector4 n;
-
+		double col = 0.0;
 		z.y *= fractal->transformCommon.scaleA1;
 		z *= 0.5;
 
 		for (int k = 0; k < fractal->transformCommon.int8X; k++)
 		{
 			z *= fractal->transformCommon.scale3;
-			aux.DE *= fractal->transformCommon.scale3;
+			aux.DE *= fabs(fractal->transformCommon.scale3);
 			CVector4 Offset1 = fractal->transformCommon.offset222;
 			z.y = z.y - (2.0 * max(z.y, 0.0)) + Offset1.y;
 			z.x = -(z.x - (2.0 * max(z.x, 0.0)) + Offset1.x);
@@ -73,7 +100,6 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z -= max(t, 0.0) * n;
 
 			z.z += Offset1.z;
-
 			t = cos(fractal->transformCommon.angle45 * M_PI_180);
 			n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
 			t = n.Length();
@@ -81,12 +107,42 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			n /= t;
 			t = z.Dot(n) * 2.0;
 			z -= max(t, 0.0) * n;
+
 			t = max((z.x + z.y), 0.0);
 			z.y = z.y - t;
 			z.x = z.x - t + fractal->transformCommon.offset2;
-			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
-			z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
 
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& k >= fractal->foldColor.startIterationsA
+							&& k < fractal->foldColor.stopIterationsA)
+			{
+				if (!fractal->transformCommon.functionEnabledOFalse)
+				{
+					if (z.z > -1.0) col += fractal->foldColor.difs0000.y; //
+				}
+				else
+				{
+					if (z.y < 1.0) col += fractal->foldColor.difs0000.y; //
+				}
+
+				if (z.x > -fractal->transformCommon.scaleA3 && z.y > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.z; // x y
+
+				if (z.x > -fractal->transformCommon.scaleA3 && z.z > -fractal->foldColor.difs1)
+					col += fractal->foldColor.difs0000.w; // x z
+
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+
+				if (z.x + z.y < 0.0f) col += fractal->foldColor.difs0000.x; //diag;
+
+				aux.color = col;
+			}
+			else
+			{
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetA1;
+				z.x = z.x - (2.0 * max(z.x, 0.0)) + fractal->transformCommon.offsetT1;
+			}
 			t = max((z.x + z.y), 0.0);
 			z.x -= t;
 			z.y -= t;
@@ -97,12 +153,9 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 			}
-
-
-
 		}
 
-		CVector4 edgeDist = fabs(z) - CVector4{1., 1., 1., 0.0};
+		CVector4 edgeDist = fabs(z) - CVector4{1.0, 1.0, 1.0, 0.0};
 		edgeDist.x = max(edgeDist.x, 0.0);
 		edgeDist.y = max(edgeDist.y, 0.0);
 		edgeDist.z = max(edgeDist.z, 0.0);
@@ -110,19 +163,9 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 		t /= aux.DE;
 
-		double colDist = aux.dist;
 		if (!fractal->analyticDE.enabledFalse)
 			aux.dist = t;
 		else
 			aux.dist = min(aux.dist, t);
-
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			double colorAdd = 0.0;
-			if (colDist != aux.dist) colorAdd = fractal->foldColor.difs0000.x;
-			//if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
-
-			aux.color += colorAdd;
-		}
 	}
 }
