@@ -48,10 +48,20 @@ void cFractalTransfDIFSHextgrid2::FormulaCode(
 	double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
 	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 	double gridMin = min(gridMax - size * 0.5, yFloor);
+
+	double colDist = aux.dist;
+
 	if (!fractal->transformCommon.functionEnabledJFalse)
 		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 	else
 		hexD = max(fabs(gridMin), fabs(zc.z));
 
 	aux.dist = min(aux.dist, (hexD - fractal->transformCommon.offset0005) / (aux.DE + 1.0));
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+	}
 }

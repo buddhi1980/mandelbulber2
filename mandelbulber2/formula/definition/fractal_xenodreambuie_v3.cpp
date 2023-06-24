@@ -66,8 +66,14 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			if (cos(th) < 0.0) ph = ph + M_PI;
 		}
 		double cth = cos(th);
+		z.x = cth * cos(ph) * rp;
+		z.y = cth * sin(ph) * rp;
+		z.z = sin(th) * rp;
 
-		if (fractal->transformCommon.functionEnabledBFalse
+
+
+
+		/*if (fractal->transformCommon.functionEnabledBFalse
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 		{
@@ -88,7 +94,7 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			z.y = cth * sin(ph) * rp;
 		}
-		z.z = sin(th) * rp;
+		z.z = sin(th) * rp;*/
 	}
 	else
 	{

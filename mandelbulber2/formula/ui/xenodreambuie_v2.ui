@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1185</height>
+    <height>1221</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string>Formula allows for negative powers
+      <string>Formula allows for negative powers (may need to turnoff bailout check to reduce central noise)
 Some settings require even maximum iterations</string>
      </property>
     </widget>

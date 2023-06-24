@@ -4,13 +4,16 @@ v2.30 (??? 2023)
 
 - Added new fractal formulas
 
-   transfDotFold
+   mengerV6
    xenodreambuieV2
+   transfAbsAddConstantV2
+   transfDotFold
 
 - modified fractal formulas
    mengerV3, update abs(z) enabled default, and other things
    transfDIFSBox add auxColor
    transfDIFSBoxFrame add auxColor
+   transfDIFSHextgrid2 add auxColor
    transfDIFSHexprism add auxColor
    transfDIFSPrism add auxColor
 

@@ -335,6 +335,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalKnotV2());
 	fractalList->append(new cFractalMengerV2());
 	fractalList->append(new cFractalMengerV3());
+	fractalList->append(new cFractalMengerV6());
 	fractalList->append(new cFractalOctahedron());
 	fractalList->append(new cFractalPseudoKleinianStdDE());
 	fractalList->append(new cFractalPseudoKleinianMod3());
@@ -375,6 +376,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfAbsAddConditional());
 	fractalList->append(new cFractalTransfAbsAddConditional2());
 	fractalList->append(new cFractalTransfAbsAddConstant());
+	fractalList->append(new cFractalTransfAbsAddConstantV2());
 	fractalList->append(new cFractalTransfAbsAddConstant4d());
 	fractalList->append(new cFractalTransfAbsAddTgladFold());
 	fractalList->append(new cFractalTransfAbsAddTgladFold4d());
@@ -441,6 +443,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfCayley2V1());
 	fractalList->append(new cFractalTransfClamp4d());
 	fractalList->append(new cFractalTransfDiagonalFold());
+	fractalList->append(new cFractalTransfDotFold());
 	fractalList->append(new cFractalTransfFoldingTetra3d());
 	fractalList->append(new cFractalTransfGnarl());
 	fractalList->append(new cFractalTransfIterationWeight());
@@ -558,9 +561,9 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 	fractalList->append(new cFractalJosKleinianV4());
-	fractalList->append(new cFractalTransfAbsAddConstantV2());
-	fractalList->append(new cFractalTransfDotFold());
-	fractalList->append(new cFractalMengerV6());
+
+
+
 	fractalList->append(new cFractalMandelbulbPupuku());
 	fractalList->append(new cFractalTransfSupershape());
 	fractalList->append(new cFractalScatorPower2StdR());
