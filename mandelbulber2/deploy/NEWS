@@ -13,6 +13,7 @@ v2.30 (??? 2023)
    mengerV3, update abs(z) enabled default, and other things
    transfDIFSBox add auxColor
    transfDIFSBoxFrame add auxColor
+   transfDIFSGrid add auxColor
    transfDIFSHextgrid2 add auxColor
    transfDIFSHexprism add auxColor
    transfDIFSPrism add auxColor

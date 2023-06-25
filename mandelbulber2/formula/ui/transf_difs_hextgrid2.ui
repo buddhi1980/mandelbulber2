@@ -152,7 +152,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -168,13 +168,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-        <property name="text">
-         <string>square cross-section</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,1">
         <property name="spacing">
@@ -291,9 +284,16 @@
     </widget>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+     <property name="text">
+      <string>square cross-section</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
-      <string>aux color c&amp;omponents</string>
+      <string>aux color c&amp;omponents (hybrid use)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

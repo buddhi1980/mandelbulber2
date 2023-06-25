@@ -32,7 +32,8 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string>Formula allows for negative powers (may need to turnoff bailout check to reduce central noise)
+      <string>Formula allows for negative powers. For negative powers 
+may need to turnoff bailout check to reduce central noise
 Some settings require even maximum iterations</string>
      </property>
     </widget>
