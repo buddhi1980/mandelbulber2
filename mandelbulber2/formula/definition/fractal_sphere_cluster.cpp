@@ -92,7 +92,7 @@ int i;
 		if (recurse)
 		{
 			if (p.Length() > excess)
-			{ p = CVector3(0.0, 0.0, 0.0);
+			{ p = CVector3(0.0, 0.0, 1e-15);
 				// (p.Length() - 1.0) / aux.DE;
 			}
 			if (is_b)
@@ -200,7 +200,9 @@ int i;
 double d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		d = (z.Length() - minr * k) / aux.DE;
+		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
+		else d = min(1.0, k);
+		d = (z.Length() - minr * fractal->transformCommon.scaleE1 * d) / aux.DE;
 	}
 	else
 	{
@@ -208,6 +210,10 @@ double d;
 		d = max(max(zc.x, zc.y), zc.z);
 		d = (d - minr * k) / aux.DE;
 	}
+
+
+double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
+	d = max(d, dst1);
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, d);

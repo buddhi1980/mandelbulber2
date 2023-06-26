@@ -81,7 +81,15 @@ REAL4 TransfDIFSTriGridIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		tp = max(tp, e);
 	}
 	aux->DE0 = tp;
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + fractal->analyticDE.offset1));
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+	}
+
 	return z;
 }

@@ -132,17 +132,6 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
 		else
 			aux.DE0 = 0.0; // 0.01 artifacts in openCL
-
-
-		if (!fractal->transformCommon.functionEnabledBFalse)
-		{
 			aux.dist = aux.DE0;
-		}
-		else
-		{	if (aux.i >= fractal->transformCommon.startIterationsC
-				&& aux.i < fractal->transformCommon.stopIterationsC)
-					aux.dist = min(aux.dist, aux.DE0);
-			else aux.dist = aux.DE0;
-		}
 	}
 }

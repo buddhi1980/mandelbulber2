@@ -118,16 +118,7 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		else
 			aux->DE0 = 0.0f;
 
-		if (!fractal->transformCommon.functionEnabledByFalse)
-		{
 			aux->dist = aux->DE0;
-		}
-		else
-		{	if (aux->i >= fractal->transformCommon.startIterationsC
-				&& aux->i < fractal->transformCommon.stopIterationsC)
-					aux->dist = min(aux->dist, aux->DE0);
-			else aux->dist = aux->DE0;
-		}
 	}
 
 	return z;

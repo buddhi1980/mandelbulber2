@@ -72,9 +72,9 @@ int i;
 		{
 			if (length(p) > excess)
 			{
-			//	p = (REAL3){0.0f, 0.0f, 0.0f};
+				p = (REAL3){0.0f, 0.0f, 1e-15f};
 
-				return (length(p) - 1.0) / aux->DE;
+			//	return (length(p) - 1.0) / aux->DE;
 			}
 			if (is_b)
 			{
@@ -179,7 +179,10 @@ int i;
 	REAL d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		d = (length(p) - minr * k) / aux->DE;
+		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
+		else d = min(1.0f, k);
+		d = (length(p) - minr * fractal->transformCommon.scaleE1 * d) / aux->DE;
+
 	}
 	else
 	{
@@ -187,7 +190,8 @@ int i;
 		d = max(max(zc.x, zc.y), zc.z);
 		d = (d - minr * k) / aux->DE;
 	}
-
+	REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
+		d = max(d, dst1);
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, d);
 	else

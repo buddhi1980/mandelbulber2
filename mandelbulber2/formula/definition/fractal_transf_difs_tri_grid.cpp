@@ -92,7 +92,14 @@ void cFractalTransfDIFSTriGrid::FormulaCode(
 		tp = max(tp, e);
 	}
 	aux.DE0 = tp;
-
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, aux.DE0
 					/ (aux.DE + fractal->analyticDE.offset1));
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+	}
 }
