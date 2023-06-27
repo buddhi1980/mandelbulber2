@@ -194,10 +194,15 @@ int i;
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
-
 	z = CVector4{p.x, p.y, p.z, z.w};
 
 double d;
+
+if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
+
+
+
+
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
@@ -211,9 +216,12 @@ double d;
 		d = (d - minr * k) / aux.DE;
 	}
 
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
+		d = max(d, dst1);
+	}
 
-double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
-	d = max(d, dst1);
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, d);

@@ -190,8 +190,13 @@ int i;
 		d = max(max(zc.x, zc.y), zc.z);
 		d = (d - minr * k) / aux->DE;
 	}
-	REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		d = max(d, dst1);
+	}
+
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, d);
 	else

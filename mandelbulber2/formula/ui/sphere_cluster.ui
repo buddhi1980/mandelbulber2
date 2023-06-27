@@ -75,7 +75,7 @@ Use small ray step multiplier settings</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -194,13 +194,13 @@ Use small ray step multiplier settings</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
@@ -247,7 +247,7 @@ Use small ray step multiplier settings</string>
         <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
@@ -297,7 +297,7 @@ Use small ray step multiplier settings</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -360,7 +360,7 @@ Use small ray step multiplier settings</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -508,13 +508,20 @@ Use small ray step multiplier settings</string>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_179">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
           <property name="text">
-           <string>clip:</string>
+           <string>clip</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
+        <property name="text">
+         <string>temp</string>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,1">
