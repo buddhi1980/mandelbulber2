@@ -57,7 +57,7 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				&& aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
 		{
-			z.x = (cth + (1.0f - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+			z.x = (1.0f + (cth - 1.0f) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
 		}
 		else
 		{
@@ -67,7 +67,7 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 				&& aux->i >= fractal->transformCommon.startIterationsA
 				&& aux->i < fractal->transformCommon.stopIterationsA)
 		{
-			z.y = (cth + (1.0f - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
+			z.y = (1.0f + (cth - 1.0f) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
 		}
 		else
 		{
@@ -92,8 +92,8 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		if (!fractal->transformCommon.functionEnabledJFalse) z *= fractal->transformCommon.scaleC1;
-		else aux->DE *= fabs(fractal->transformCommon.scaleC1);
+		z *= fractal->transformCommon.scaleC1;
+		aux->DE *= fabs(fractal->transformCommon.scaleC1);
 
 		// a // mmmmmmmmmmmmmmmmmmmmmmmm
 	}

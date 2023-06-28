@@ -16,12 +16,10 @@
 
 REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL t = 0.0f;
 	REAL4 oldZ = z;
-
 	REAL3 p = (REAL3){z.xyz}; // convert to vec3
-//	REAL PackRatio = fractal->transformCommon.offset1;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-//	REAL phi = (1.0 + sqrt(5.0)) / 2.0;
 	REAL phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	REAL3 ta0 = (REAL3){0.0, 1.0, phi};
@@ -63,8 +61,8 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL minr = 0.0;
 	REAL l, r;
 	REAL3 mid;
-	aux->DE = 1.0 * fractal->transformCommon.scale1;
-int i;
+	aux->DE = 1.0;
+	int i;
 	bool recurse = true;
 	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
@@ -73,8 +71,6 @@ int i;
 			if (length(p) > excess)
 			{
 				p = (REAL3){0.0f, 0.0f, 1e-15f};
-
-			//	return (length(p) - 1.0) / aux->DE;
 			}
 			if (is_b)
 			{
@@ -88,7 +84,7 @@ int i;
 			p *= sc;
 			aux->DE *= sc;
 			recurse = false;
-			ColV.z += 1.0;
+			ColV.z += 1.0f;
 		}
 		if (is_b)
 		{
@@ -96,8 +92,8 @@ int i;
 			r = rb;
 			mid = midb;
 			minr = minrb;
-			if (dot(p, nb0) < 0.0)
-				p -= 2.0 * nb0 * dot(p, nb0);
+			if (dot(p, nb0) < 0.0f)
+				p -= 2.0f * nb0 * dot(p, nb0);
 			if (dot(p, nb1) < 0.0)
 				p -= 2.0 * nb1 * dot(p, nb1);
 			if (dot(p, nb2) < 0.0)
@@ -149,7 +145,7 @@ int i;
 		REAL dist = length(p - mid * l);
 		if (dist < r || i == fractal->transformCommon.int8X - 1)
 		{
-			ColV.x += 1.0 * (i + 1);
+			ColV.x += 1.0f;
 			p -= mid * l;
 			REAL sc = r * r / dot(p, p);
 			p *= sc;
@@ -159,7 +155,7 @@ int i;
 			REAL m = minr * k;
 			if (length(p) < minr)
 			{
-				ColV.y += 1.0 * (i + 1);
+				ColV.y += 1.0f;
 				p /= m;
 				aux->DE /= m;
 
@@ -172,8 +168,15 @@ int i;
 		aux->DE *= fabs(fractal->transformCommon.scaleF1);
 
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+		if (fractal->foldColor.auxColorEnabled
+				&& i >= fractal->foldColor.startIterationsA
+				&& i < fractal->foldColor.stopIterationsA)
+			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+												+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
+
 	}
-	//z.xyz = p.xyz;
+
 	z = (REAL4){p.x, p.y, p.z, z.w};
 
 	REAL d;
@@ -182,7 +185,6 @@ int i;
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
 		else d = min(1.0f, k);
 		d = (length(p) - minr * fractal->transformCommon.scaleE1 * d) / aux->DE;
-
 	}
 	else
 	{
@@ -204,12 +206,11 @@ int i;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-ColV.w += 1.0* aux->DE;
+	//if (d > length(p) * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
+
 	// aux->color
-	if (i >= fractal->foldColor.startIterationsA && i < fractal->foldColor.stopIterationsA)
-	{
-			aux->color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-									+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-	}
+
+	aux->color = t;
+
 	return z;
 }

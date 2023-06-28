@@ -57,6 +57,8 @@ REAL4 XenodreambuieV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	z.y = t * native_sin(ph) * rp;
 	z.z = native_sin(th) * rp;
 
+	if (fractal->transformCommon.functionEnabledBxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledByFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 
 	z += fractal->transformCommon.offset000;

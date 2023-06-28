@@ -68,7 +68,7 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 		{
-			z.x = (cth + (1.0 - cth) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
+			z.x = (1.0 + (cth - 1.0) * fractal->transformCommon.scaleB0) * cos(ph) * rp;
 		}
 		else
 		{
@@ -78,7 +78,7 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 				&& aux.i >= fractal->transformCommon.startIterationsA
 				&& aux.i < fractal->transformCommon.stopIterationsA)
 		{
-			z.y = (cth + (1.0 - cth) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
+			z.y = (1.0 + (cth - 1.0) * fractal->transformCommon.scaleA0) * sin(ph) * rp;
 		}
 		else
 		{
@@ -101,10 +101,8 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	if (aux.i >= fractal->transformCommon.startIterationsS
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		if (!fractal->transformCommon.functionEnabledJFalse) z *= fractal->transformCommon.scaleC1;
-		else aux.DE *= fabs(fractal->transformCommon.scaleC1);
-
-		// aux.DE *= fabs(fractal->transformCommon.scaleC1); // NO
+		z *= fractal->transformCommon.scaleC1;
+		aux.DE *= fabs(fractal->transformCommon.scaleC1);
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)

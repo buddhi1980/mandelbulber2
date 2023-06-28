@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1238</height>
+    <height>1287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -562,11 +562,18 @@ Some settings require even maximum iterations</string>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_28" columnstretch="0,0,1">
+    <layout class="QGridLayout" name="gridLayout_28" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="2">
+     <item row="0" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+       <property name="text">
+        <string notr="true">abs(z.y)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -594,17 +601,17 @@ Some settings require even maximum iterations</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="label_183">
+     <item row="1" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
        <property name="text">
-        <string>scale1:</string>
+        <string notr="true">z.y min offset:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
+     <item row="0" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
        <property name="text">
-        <string notr="true">bz</string>
+        <string notr="true">abs(z.x)</string>
        </property>
       </widget>
      </item>

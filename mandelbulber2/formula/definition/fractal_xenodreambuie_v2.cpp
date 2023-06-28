@@ -68,6 +68,8 @@ void cFractalXenodreambuieV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	z.y = t * sin(ph) * rp;
 	z.z = sin(th) * rp;
 
+	if (fractal->transformCommon.functionEnabledBxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledByFalse) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 
 	z += fractal->transformCommon.offset000;

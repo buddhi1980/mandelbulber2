@@ -27,11 +27,10 @@ cFractalSphereCluster::cFractalSphereCluster() : cAbstractFractal()
 
 void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double t = 0.0;
 	CVector4 oldZ = z;
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
-	//	double PackRatio = fractal->transformCommon.offset1;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-//	double phi = (1.0 + sqrt(5.0)) / 2.0;
 	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	CVector3 ta0 = CVector3(0.0, 1.0, phi);
@@ -85,15 +84,15 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double l, r;
 	CVector3 mid;
 	aux.DE = 1.0 * fractal->transformCommon.scale1; // ,,,,,,,,,,,,,,,,,
-int i;
+	int i;
 	bool recurse = true;
 	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
 		if (recurse)
 		{
 			if (p.Length() > excess)
-			{ p = CVector3(0.0, 0.0, 1e-15);
-				// (p.Length() - 1.0) / aux.DE;
+			{
+				p = CVector3(0.0, 0.0, 1e-15);
 			}
 			if (is_b)
 			{
@@ -168,7 +167,7 @@ int i;
 		double dist = (p - mid * l).Length();
 		if (dist < r || i == fractal->transformCommon.int8X - 1)
 		{
-			ColV.x += 1.0 * (i + 1);
+			ColV.x += 1.0;
 			p -= mid * l;
 			double sc = r * r / p.Dot(p);
 			p *= sc;
@@ -178,7 +177,7 @@ int i;
 			double m = minr * k;
 			if (p.Length() < minr)
 			{
-				ColV.y += 1.0 * (i + 1);
+				ColV.y += 1.0;
 				p /= m;
 				aux.DE /= m;
 
@@ -192,15 +191,20 @@ int i;
 		aux.DE *= fabs(fractal->transformCommon.scaleF1);
 		// DE tweaks
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+		if (fractal->foldColor.auxColorEnabled
+				&& i >= fractal->foldColor.startIterationsA
+				&& i < fractal->foldColor.stopIterationsA)
+			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+												+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
+
 	}
 
 	z = CVector4{p.x, p.y, p.z, z.w};
 
 double d;
 
-if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
-
-
+// if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
 
 
 	if (!fractal->transformCommon.functionEnabledSwFalse)
@@ -222,7 +226,6 @@ if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
 		d = max(d, dst1);
 	}
 
-
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, d);
 	else
@@ -230,12 +233,9 @@ if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	ColV.w += 1.0* aux.DE;
+	if (d > p.Length() * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
-	if (i >= fractal->foldColor.startIterationsA && i < fractal->foldColor.stopIterationsA)
-	{
-		aux.color += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-									+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-	}
+		aux.color = t;
+
 }
