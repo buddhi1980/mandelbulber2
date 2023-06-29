@@ -25,6 +25,12 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			aux->r = length(z);
+		}
 	}
 
 	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux->r);
@@ -86,7 +92,6 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabledBzFalse) z.y = min(z.y, fractal->transformCommon.offset0 - z.y);
 
-
 	z += fractal->transformCommon.offset000;
 
 	if (aux->i >= fractal->transformCommon.startIterationsS
@@ -94,49 +99,24 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		z *= fractal->transformCommon.scaleC1;
 		aux->DE *= fabs(fractal->transformCommon.scaleC1);
-
-		// a // mmmmmmmmmmmmmmmmmmmmmmmm
 	}
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		aux->DE0 = length(z);
-		if (!fractal->transformCommon.functionEnabledBxFalse)
+		if (aux->DE0 > 1.0f)
 		{
-			if (aux->DE0 > 1.0f)
-				aux->DE0 = fractal->transformCommon.scale05 * log(aux->DE0) * aux->DE0 / aux->DE;
-			else
-				aux->DE0 = 0.0f;
-		}
-		else // temp
-		{
-			if (aux->DE0 > 1.0f)
-				aux->DE0 = 1.0 / aux->DE0 / aux->DE;
-			else
-				aux->DE0 = 0.0f;
-		}
-
-
-
-
-		/*if (aux->DE0 > 1.0f)
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+		}
 		else
-			aux->DE0 = 0.0f; // 0.01f artifacts in openCL*/
-		if (!fractal->transformCommon.functionEnabledByFalse)
 		{
+			aux->DE0 = 0.0f;
+		}
+
 			aux->dist = aux->DE0;
-		}
-		else
-		{	if (aux->i >= fractal->transformCommon.startIterationsC
-				&& aux->i < fractal->transformCommon.stopIterationsC)
-					aux->dist = min(aux->dist, aux->DE0);
-			else aux->dist = aux->DE0;
-		}
-
-
 	}
-
-
 	return z;
 }

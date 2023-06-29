@@ -114,9 +114,13 @@ REAL4 XenodreambuieV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		aux->DE0 = length(z);
 		if (aux->DE0 > 1.0f)
+		{
 			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
+		}
 		else
+		{
 			aux->DE0 = 0.0f;
+		}
 
 			aux->dist = aux->DE0;
 	}

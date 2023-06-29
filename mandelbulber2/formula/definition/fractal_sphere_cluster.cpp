@@ -83,11 +83,13 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double minr = 0.0;
 	double l, r;
 	CVector3 mid;
-	aux.DE = 1.0 * fractal->transformCommon.scale1; // ,,,,,,,,,,,,,,,,,
+	aux.DE = 1.0; // * fractal->transformCommon.scale1; // ,,,,,,,,,,,,,,,,,
 	int i;
 	bool recurse = true;
 	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
+		k *= fractal->transformCommon.scale1; // PackRatio;
+
 		if (recurse)
 		{
 			if (p.Length() > excess)
@@ -195,18 +197,15 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		if (fractal->foldColor.auxColorEnabled
 				&& i >= fractal->foldColor.startIterationsA
 				&& i < fractal->foldColor.stopIterationsA)
+		{
 			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-												+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-
+												+ ColV.z * fractal->foldColor.difs0000.z;
+		}
 	}
 
 	z = CVector4{p.x, p.y, p.z, z.w};
 
-double d;
-
-// if (fractal->transformCommon.functionEnabledGFalse) aux.DE = fabs(aux.DE);
-
-
+	double d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
@@ -233,9 +232,8 @@ double d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	if (d > p.Length() * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
+	//if (d > p.Length() * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
-		aux.color = t;
-
+	aux.color = t;
 }

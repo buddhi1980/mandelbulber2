@@ -36,6 +36,12 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+		z += fractal->transformCommon.offsetA000;
+
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			aux.r = z.Length();
+		}
 	}
 
 	if (!fractal->transformCommon.functionEnabledSwFalse) t = asin(z.z / aux.r);
@@ -44,7 +50,6 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 			* fractal->bulb.power * fractal->transformCommon.scaleA1;
 	double ph = (atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset)
 			* fractal->bulb.power * fractal->transformCommon.scaleB1;
-
 	double rp = pow(aux.r, fractal->bulb.power - fractal->transformCommon.offset1);
 
 	if (fractal->transformCommon.functionEnabledXFalse
@@ -55,10 +60,7 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 
 	aux.DE = rp * aux.DE * fabs(fractal->bulb.power) + fractal->analyticDE.offset1;
-
-
 	rp *= aux.r;
-
 
 	// polar to cartesian
 	if (!fractal->transformCommon.functionEnabledDFalse)
@@ -105,40 +107,21 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 		aux.DE *= fabs(fractal->transformCommon.scaleC1);
 	}
 
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		aux.DE0 = z.Length();
-		if (!fractal->transformCommon.functionEnabledBxFalse)
-		{
-			if (aux.DE0 > 1.0)
-				aux.DE0 = fractal->transformCommon.scale05 * log(aux.DE0) * aux.DE0 / aux.DE;
-			else
-				aux.DE0 = 0.0; // 0.01 artifacts in openCL
-		}
-		else // temp test inv
-		{
-			if (aux.DE0 > 1.0)
-				aux.DE0 = 1.0 / aux.DE0 / aux.DE;
-			else
-				aux.DE0 = 0.0; // 0.01 artifacts in openCL
-		}
 
-
-		/*if (aux.i >= fractal->transformCommon.startIterationsC
-					&& aux.i < fractal->transformCommon.stopIterationsC)
-			aux.dist = min(aux.dist, aux.DE0);
-		else
-			aux.dist = aux.DE0;*/
-
-		if (!fractal->transformCommon.functionEnabledByFalse)
+		if (aux.DE0 > 1.0)
 		{
-			aux.dist = aux.DE0;
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
 		}
 		else
-		{	if (aux.i >= fractal->transformCommon.startIterationsC
-				&& aux.i < fractal->transformCommon.stopIterationsC)
-					aux.dist = min(aux.dist, aux.DE0);
-			else aux.dist = aux.DE0;
+		{
+			aux.DE0 = 0.0; // 0.01 artifacts in openCL
 		}
+		aux.dist = aux.DE0;
 	}
 }

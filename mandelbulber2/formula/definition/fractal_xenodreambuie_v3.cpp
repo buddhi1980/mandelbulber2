@@ -129,9 +129,13 @@ void cFractalXenodreambuieV3::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		aux.DE0 = z.Length();
 
 		if (aux.DE0 > 1.0)
+		{
 			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+		}
 		else
+		{
 			aux.DE0 = 0.0; // 0.01 artifacts in openCL
-			aux.dist = aux.DE0;
+		}
+		aux.dist = aux.DE0;
 	}
 }

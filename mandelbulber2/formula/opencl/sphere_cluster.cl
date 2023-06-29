@@ -54,7 +54,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL3 midb = dirb;
 	REAL minrb = (lb - rb * fractal->transformCommon.scaleD1) * fractal->transformCommon.scaleB1;
 
-	REAL k = fractal->transformCommon.scale08; // PackRatio;
+	REAL k = fractal->transformCommon.scale08; // // PackRatio;
 	REAL excess = fractal->transformCommon.offset105; // adds a skin width
 
 	bool is_b = fractal->transformCommon.functionEnabledDFalse;
@@ -66,6 +66,8 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	bool recurse = true;
 	for (i = 0; i < fractal->transformCommon.int8X; i++)
 	{
+		k *= fractal->transformCommon.scale1;
+
 		if (recurse)
 		{
 			if (length(p) > excess)
@@ -172,9 +174,10 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (fractal->foldColor.auxColorEnabled
 				&& i >= fractal->foldColor.startIterationsA
 				&& i < fractal->foldColor.stopIterationsA)
+		{
 			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-												+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-
+												+ ColV.z * fractal->foldColor.difs0000.z;
+		}
 	}
 
 	z = (REAL4){p.x, p.y, p.z, z.w};
@@ -209,7 +212,6 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	//if (d > length(p) * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
-
 	aux->color = t;
 
 	return z;
