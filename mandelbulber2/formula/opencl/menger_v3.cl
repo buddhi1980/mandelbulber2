@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -38,13 +38,13 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		// abs offsets
 		if (fractal->transformCommon.functionEnabledCFalse)
 		{
-			t = fractal->transformCommon.offsetC0;
-			if (z.x < t) z.x = fabs(z.x - t) + t;
+			REAL xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
 		}
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			REAL t = fractal->transformCommon.offsetD0;
-			if (z.y < t) z.y = fabs(z.y - t) + t;
+			REAL yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 		}
 	}
 
@@ -58,8 +58,8 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		int k = 0.0;
-		REAL e = 0.0;
+		int k = 0.0f;
+		REAL e = 0.0f;
 		REAL rr = 0.0f;
 		REAL4 one = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
 
@@ -67,10 +67,9 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		REAL modOff = fractal->transformCommon.offset3;
 		aux->DE += fractal->analyticDE.offset0;
 		int count = fractal->transformCommon.int8X;
-		for (int k = 0; k < count && rr < 10.0f; k++)
+		for (k = 0; k < count && rr < 10.0f; k++)
 		{
 			zc += fractal->transformCommon.offset000;
-			// rotation
 			if (fractal->transformCommon.functionEnabledRFalse
 					&& k >= fractal->transformCommon.startIterationsR
 					&& k < fractal->transformCommon.stopIterationsR)
@@ -93,6 +92,7 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		if (!fractal->transformCommon.functionEnabledAFalse)
 		{
 			// Use this to crop to a sphere:
+
 			if (!fractal->transformCommon.functionEnabledBFalse)
 				e = length(z);
 			else
@@ -104,7 +104,7 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			t = aux->DE0;
 		}
-		t *= fractal->analyticDE.scale1;
+		t = t * fractal->analyticDE.scale1;
 		REAL colDist = aux->dist;
 		if (!fractal->analyticDE.enabledFalse)
 			aux->dist = t;
@@ -113,7 +113,7 @@ REAL4 MengerV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			double colorAdd = 0.0;
+			REAL colorAdd = 0.0f;
 			if (colDist != aux->dist) colorAdd = fractal->foldColor.difs0000.x;
 			if (t <= e) colorAdd = fractal->foldColor.difs0000.y;
 

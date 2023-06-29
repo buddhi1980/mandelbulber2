@@ -166,7 +166,8 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 				p -= 2.0 * na2 * p.Dot(na2);
 		}
 
-		double dist = (p - mid * l).Length();
+		CVector3 tv = p - mid * l;
+		double dist = tv.Length();
 		if (dist < r || i == fractal->transformCommon.int8X - 1)
 		{
 			ColV.x += 1.0;
@@ -203,7 +204,7 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		}
 	}
 
-	z = CVector4{p.x, p.y, p.z, z.w};
+	z = CVector4(p.x, p.y, p.z, z.w);
 
 	double d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)

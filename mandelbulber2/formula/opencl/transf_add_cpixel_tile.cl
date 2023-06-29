@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,7 +19,7 @@
 REAL4 TransfAddCpixelTileIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 cv = aux->const_c;
-	if (aux->i == fractal->transformCommon.startIterations)
+	if (aux->i == fractal->transformCommon.startIterations) // tiling iteration
 	{
 		REAL4 p = aux->const_c;
 		if (fractal->transformCommon.functionEnabledAx)
@@ -40,11 +40,12 @@ REAL4 TransfAddCpixelTileIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			z.z = p.z - cv.z * fractal->transformCommon.scale3D444.z;
 		}
 
+		// z = p - cv * fractal->transformCommon.scale3D444;
+
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 
 		if (fractal->transformCommon.functionEnabledAxFalse) cv = z;
-
 
 		cv = cv * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.offset000;
 

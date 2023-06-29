@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,9 +25,10 @@ REAL4 XenodreambuieIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL ph = acos(z.z / aux->r) + fractal->bulb.alphaAngleOffset;
 
 	if (fabs(ph) > 0.5f * M_PI_F) ph = sign(ph) * M_PI_F - ph;
-	ph *= fractal->bulb.power;
-	REAL sph = native_sin(ph);
 
+	ph *= fractal->bulb.power;
+
+	REAL sph = native_sin(ph);
 	z.x = rp * native_cos(th) * sph;
 	z.y = rp * native_sin(th) * sph;
 	z.z = rp * native_cos(ph);

@@ -91,7 +91,7 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z.x = -(z.x - (2.0 * max(z.x, 0.0)) + Offset1.x);
 
 			t = fractal->transformCommon.cosA;
-			n = CVector4{t * fractal->transformCommon.sinB, fractal->transformCommon.sinA, t * fractal->transformCommon.cosB, 0.0};
+			n = CVector4(t * fractal->transformCommon.sinB, fractal->transformCommon.sinA, t * fractal->transformCommon.cosB, 0.0);
 
 			t = n.Length();
 			if (t == 0.0) t = 1e-21;
@@ -101,7 +101,7 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 			z.z += Offset1.z;
 			t = cos(fractal->transformCommon.angle45 * M_PI_180);
-			n = CVector4{t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0};
+			n = CVector4(t * fractal->transformCommon.sinC, sin(-fractal->transformCommon.angle45 * M_PI_180), t * fractal->transformCommon.cosC, 0.0);
 			t = n.Length();
 			if (t == 0.0) t = 1e-21;
 			n /= t;
@@ -118,11 +118,11 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				if (!fractal->transformCommon.functionEnabledOFalse)
 				{
-					if (z.z > -1.0) col += fractal->foldColor.difs0000.y; //
+					if (z.z > -1.0) col += fractal->foldColor.difs0000.y;
 				}
 				else
 				{
-					if (z.y < 1.0) col += fractal->foldColor.difs0000.y; //
+					if (z.y < 1.0) col += fractal->foldColor.difs0000.y;
 				}
 
 				if (z.x > -fractal->transformCommon.scaleA3 && z.y > -fractal->foldColor.difs1)
@@ -155,7 +155,7 @@ void cFractalMengerV6::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			}
 		}
 
-		CVector4 edgeDist = fabs(z) - CVector4{1.0, 1.0, 1.0, 0.0};
+		CVector4 edgeDist = fabs(z) - CVector4(1.0, 1.0, 1.0, 0.0);
 		edgeDist.x = max(edgeDist.x, 0.0);
 		edgeDist.y = max(edgeDist.y, 0.0);
 		edgeDist.z = max(edgeDist.z, 0.0);
