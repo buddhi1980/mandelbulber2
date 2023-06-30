@@ -40,6 +40,11 @@ void cFractalTransfDIFSTorus::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 	else
 		torD = max(fabs(T1), fabs(zc.z)) - fractal->transformCommon.offset05;
-
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, torD / (aux.DE + 1.0));
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+	}
 }

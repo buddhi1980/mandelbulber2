@@ -46,8 +46,7 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	aux->dist = min(aux->dist, (hexD - fractal->transformCommon.offset0005) / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-			&& aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
 	}

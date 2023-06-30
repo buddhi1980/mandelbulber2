@@ -46,7 +46,11 @@ REAL4 TransfDIFSTorusGridIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		torD = native_sqrt(torD * torD + zc.z * zc.z);
 	else
 		torD = max(fabs(torD), fabs(zc.z));
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, torD - fractal->transformCommon.offset0005 / (aux->DE + 1.0f));
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+	}
 	return z;
 }

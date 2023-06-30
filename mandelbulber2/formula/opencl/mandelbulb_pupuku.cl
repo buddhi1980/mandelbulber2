@@ -54,38 +54,39 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	rp *= aux->r;
 
 	// polar to cartesian
+	REAL zth;
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL cth = native_cos(th);
-		if (fractal->transformCommon.functionEnabledBFalse
-				&& aux->i >= fractal->transformCommon.startIterationsB
-				&& aux->i < fractal->transformCommon.stopIterationsB)
-		{
-			z.x = (1.0f + (cth - 1.0f) * fractal->transformCommon.scaleB0) * native_cos(ph) * rp;
-		}
-		else
-		{
-			z.x = cth * native_cos(ph) * rp;
-		}
-		if (fractal->transformCommon.functionEnabledAFalse
-				&& aux->i >= fractal->transformCommon.startIterationsA
-				&& aux->i < fractal->transformCommon.stopIterationsA)
-		{
-			z.y = (1.0f + (cth - 1.0f) * fractal->transformCommon.scaleA0) * native_sin(ph) * rp;
-		}
-		else
-		{
-			z.y = cth * native_sin(ph) * rp;
-		}
-		z.z = native_sin(th) * rp;
+		t = native_cos(th);
+		zth = native_sin(th);
 	}
 	else
 	{
-		REAL sth = native_sin(th);
-		z.x = sth * native_cos(ph) * rp;
-		z.y = sth * native_sin(ph) * rp;
-		z.z = native_cos(th) * rp;
+		t = native_sin(th);
+		zth = native_cos(th);
 	}
+	if (fractal->transformCommon.functionEnabledBFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		z.x = (1.0f + (t - 1.0f) * fractal->transformCommon.scaleB0) * native_cos(ph);
+	}
+	else
+	{
+		z.x = t * native_cos(ph);
+	}
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		z.y = (1.0f + (t - 1.0f) * fractal->transformCommon.scaleA0) * native_sin(ph);
+	}
+	else
+	{
+		z.y = t * native_sin(ph);
+	}
+	z.z = zth;
+	z *= rp;
 
 	if (fractal->transformCommon.functionEnabledBzFalse)
 		z.y = min(z.y, fractal->transformCommon.offset0 - z.y);

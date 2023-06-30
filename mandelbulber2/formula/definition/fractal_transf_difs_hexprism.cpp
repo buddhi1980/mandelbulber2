@@ -74,11 +74,11 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 
 	tp = sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;
+
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
 	}

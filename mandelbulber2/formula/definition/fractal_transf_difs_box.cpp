@@ -36,9 +36,7 @@ void cFractalTransfDIFSBox::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux.i >= fractal->foldColor.startIterationsA
-			&& aux.i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
 	}

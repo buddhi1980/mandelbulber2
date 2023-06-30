@@ -20,6 +20,8 @@ v2.30 (??? 2023)
    transfDIFSHexprism add auxColor
    transfDIFSPrism add auxColor
    transfDIFSTriGrid add auxColor
+   transfDIFSTorus add auxColor
+   transfDIFSTorusGrid add auxColor
 
 v2.29 (April 2023)
 

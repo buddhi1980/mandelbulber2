@@ -63,10 +63,11 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	tp = native_sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux->DE0 = min(max(dx, dy), 0.0f) + tp;
+
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + 1.0f));
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-			&& aux->i < fractal->foldColor.stopIterationsA)
+
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
 	}

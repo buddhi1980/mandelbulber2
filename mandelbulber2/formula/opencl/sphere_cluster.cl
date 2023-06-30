@@ -72,10 +72,10 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	REAL minr = 0.0f;
 	REAL l, r;
 	REAL3 mid;
-	aux->DE = 1.0f; // * fractal->transformCommon.scale1; // ,,,,,,,,,,,,,,,,,
-	int i;
+	aux->DE = 1.0f; //  // ,,,,,,,,,,,,,,,,,
+	int n;
 	bool recurse = true;
-	for (i = 0; i < fractal->transformCommon.int8X; i++)
+	for (n = 0; n < fractal->transformCommon.int8X; n++)
 	{
 		k *= fractal->transformCommon.scale1; // PackRatio;
 
@@ -138,7 +138,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		REAL3 tv = p - mid * l;
 		REAL dist = length(tv);
-		if (dist < r || i == fractal->transformCommon.int8X - 1)
+		if (dist < r || n == fractal->transformCommon.int8X - 1)
 		{
 			ColV.x += 1.0f;
 			p -= mid * l;
@@ -156,6 +156,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 				if (fractal->transformCommon.functionEnabledTFalse) // toggle
 					is_b = !is_b;
+
 				recurse = true;
 			}
 		}
@@ -165,11 +166,11 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-		if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
-				&& i < fractal->foldColor.stopIterationsA)
+		if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
+				&& n < fractal->foldColor.stopIterationsA)
 		{
-			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-					 + ColV.z * fractal->foldColor.difs0000.z;
+			t += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
+			if (fractal->foldColor.difs1 > dist) t += fractal->foldColor.difs0000.w;
 		}
 	}
 
