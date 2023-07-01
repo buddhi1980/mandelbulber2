@@ -328,6 +328,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	// ---- custom DE - non-dIFS Formulas----
 	fractalList->append(new cFractalFoldCutCube());
 	fractalList->append(new cFractalJosKleinianV3());
+	fractalList->append(new cFractalJosKleinianV4());
 	fractalList->append(new cFractalKoch());
 	fractalList->append(new cFractalKochV2());
 	fractalList->append(new cFractalKochV3());
@@ -561,7 +562,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTesting4d());
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
-	fractalList->append(new cFractalJosKleinianV4());
+
 
 
 	fractalList->append(new cFractalTransfSupershape());

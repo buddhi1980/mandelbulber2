@@ -117,12 +117,28 @@ void cFractalMandelbulbPupuku::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 		if (aux.DE0 > 1.0)
 		{
-			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / (aux.DE);
+			aux.DE0 = 0.5 * log(aux.DE0) * aux.DE0 / aux.DE;
 		}
 		else
 		{
 			aux.DE0 = 0.0; // 0.01 artifacts in openCL
 		}
-		aux.dist = aux.DE0;
+
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			aux.dist = aux.DE0;
+		}
+		else
+		{
+			if (aux.i >= fractal->transformCommon.startIterationsE
+				&& aux.i < fractal->transformCommon.stopIterationsE)
+			{
+				aux.dist = min(aux.dist, aux.DE0);
+			}
+			else
+			{
+				aux.dist = aux.DE0;
+			}
+		}
 	}
 }

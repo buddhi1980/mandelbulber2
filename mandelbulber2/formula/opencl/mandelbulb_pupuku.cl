@@ -109,13 +109,29 @@ REAL4 MandelbulbPupukuIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		if (aux->DE0 > 1.0f)
 		{
-			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / (aux->DE);
+			aux->DE0 = 0.5f * log(aux->DE0) * aux->DE0 / aux->DE;
 		}
 		else
 		{
 			aux->DE0 = 0.0f; // 0.01f artifacts in openCL
 		}
-		aux->dist = aux->DE0;
+
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			aux->dist = aux->DE0;
+		}
+		else
+		{
+			if (aux->i >= fractal->transformCommon.startIterationsE
+					&& aux->i < fractal->transformCommon.stopIterationsE)
+			{
+				aux->dist = min(aux->dist, aux->DE0);
+			}
+			else
+			{
+				aux->dist = aux->DE0;
+			}
+		}
 	}
 	return z;
 }

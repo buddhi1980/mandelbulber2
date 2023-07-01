@@ -262,7 +262,7 @@ enum enumFractalFormula
 	kochV4 = 227,
 	ifsGen = 228,
 	mandelnest = 229,
-	josKleinianV4 = 230, // still beta
+	josKleinianV4 = 230, // release v2.30
 	pseudoKleinianMod5 = 231,
 	// 2.26
 	mandelnestV2 = 232,
