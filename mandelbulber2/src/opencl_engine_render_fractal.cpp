@@ -1403,12 +1403,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
 
 		std::vector<float> pixelNoiseBuffer;
+		std::vector<bool> returnedMask;
 
 		if (monteCarlo)
 		{
 			pixelNoiseBuffer.resize(width * height);
 			pixelMask.resize(width * height);
+			returnedMask.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
 			std::fill(pixelMask.begin(), pixelMask.end(), 1);
+			std::fill(returnedMask.begin(), returnedMask.end(), 1);
 			std::fill(pixelNoiseBuffer.begin(), pixelNoiseBuffer.end(), 0.0);
 		}
 		else
@@ -1416,6 +1419,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			pixelNoiseBuffer.clear();
 			pixelMask.clear();
 		}
+
+		bool pixelLevelOptimization =
+			constantInBuffer->params.monteCarloPixelLevelOptimization || useAntiAlaising;
 
 		// chebykoh 1m:31s
 		// josles 47s
@@ -1495,6 +1501,19 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
+					// update pixel mask based on output data
+					if (monteCarlo && pixelLevelOptimization)
+					{
+						std::fill(returnedMask.begin(), returnedMask.end(), 0);
+						for (int i = 0; i < output.sequenceSize; i++)
+						{
+							int seq = output.pixelSequence[i];
+							int x = seq % jobWidth;
+							int y = seq / jobWidth;
+							returnedMask[x + y * jobWidth] = true;
+						}
+					}
+
 					// processing pixels of tile
 					for (quint64 y = 0; y < jobHeight; y++)
 					{
@@ -1514,7 +1533,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if MC then paint pixels and calculate noise statistics
 							if (monteCarlo)
 							{
-								if (!pixelMask[xx + yy * width]) // skip masked pixels
+								if (!returnedMask[x + y * jobWidth]) // skip masked pixels
 								// painting pixels with reduced opacity (averaging of MC samples)
 								{
 									if (useDenoiser)
@@ -1680,13 +1699,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								}
 								pixelNoiseBuffer[xx + yy * width] = newPixelNoise;
 
-								if ((useAntiAlaising && (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
-										|| (!useAntiAlaising && output.monteCarloLoop > minNumberOfSamples))
+								if (pixelLevelOptimization
+										&& ((useAntiAlaising
+													&& (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
+												|| (!useAntiAlaising && output.monteCarloLoop > minNumberOfSamples)))
 								{
 									if (sqrtf(newPixelNoise) < 0.5 * noiseTarget / 100.0f)
 									{
+										if (pixelMask[xx + yy * width]) maskedPixelsCounter++;
 										pixelMask[xx + yy * width] = false;
-										maskedPixelsCounter++;
 									}
 									else
 									{
@@ -1715,7 +1736,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						} // next y
 					}		// next x
 
-					if (useAntiAlaising && output.monteCarloLoop == 1)
+					if (useAntiAlaising && output.monteCarloLoop == 1 && pixelLevelOptimization)
 					{
 						pixelsToDoCounter = 0;
 						for (int y = 0; y < int(jobHeight); y++)

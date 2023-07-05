@@ -130,6 +130,7 @@ struct sParamRender
 	bool monteCarloGIVolumetric;
 	bool monteCarloDenoiserEnable;
 	bool monteCarloDenoiserPreserveGeometry;
+	bool monteCarloPixelLevelOptimization;
 	bool postChromaticAberrationEnabled;
 	bool postChromaticAberrationReverse;
 	bool raytracedReflections;

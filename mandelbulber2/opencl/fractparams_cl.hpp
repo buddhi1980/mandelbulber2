@@ -136,6 +136,7 @@ typedef struct
 	cl_int monteCarloGIVolumetric;
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
+	cl_int monteCarloPixelLevelOptimization;
 	cl_int postChromaticAberrationEnabled;
 	cl_int postChromaticAberrationReverse;
 	cl_int raytracedReflections;
@@ -329,6 +330,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
+	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;
 	target.postChromaticAberrationEnabled = source.postChromaticAberrationEnabled;
 	target.postChromaticAberrationReverse = source.postChromaticAberrationReverse;
 	target.raytracedReflections = source.raytracedReflections;

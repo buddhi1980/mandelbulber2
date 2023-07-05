@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>573</width>
-            <height>1082</height>
+            <width>571</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -627,6 +627,22 @@ per pixel:</string>
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <widget class="MyCheckBox" name="checkBox_MC_pixel_level_optimization">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables additonal optimization of MC rendering. The noise level is calculated separatelly for each pixel. If noise level is enough low, then the pixel is no longer calculated.&lt;/p&gt;&lt;p&gt;If the image is very noisy and there is low value of &lt;span style=&quot; font-style:italic;&quot;&gt;Min number of samples&lt;/span&gt;, then enabling this option can cause dark random pixels left on the image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Enable pixel level optimization</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="MyGroupBox" name="groupCheck_MC_denoiser_enable">
@@ -1277,8 +1293,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>1439</height>
+            <width>553</width>
+            <height>1557</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2748,8 +2764,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>573</width>
-            <height>1082</height>
+            <width>273</width>
+            <height>409</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3466,8 +3482,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>573</width>
-            <height>1082</height>
+            <width>380</width>
+            <height>1110</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4507,8 +4523,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>573</width>
-            <height>1074</height>
+            <width>230</width>
+            <height>215</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

@@ -170,6 +170,7 @@ sParamRender::sParamRender(
 	monteCarloDenoiserEnable = container->Get<bool>("MC_denoiser_enable");
 	monteCarloDenoiserStrength = container->Get<int>("MC_denoiser_strength");
 	monteCarloDenoiserPreserveGeometry = container->Get<bool>("MC_denoiser_preserve_geometry");
+	monteCarloPixelLevelOptimization = container->Get<bool>("MC_pixel_level_optimization");
 	N = container->Get<int>("N");
 	postChromaticAberrationEnabled = container->Get<bool>("post_chromatic_aberration_enabled");
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");

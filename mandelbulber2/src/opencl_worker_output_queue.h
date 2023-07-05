@@ -72,6 +72,7 @@ public:
 		int aaDepth;
 		QList<sClDataBuffer> outputBuffers;
 		std::vector<cl_int> pixelSequence;
+		quint64 sequenceSize;
 	};
 
 	cOpenCLWorkerOutputQueue();

@@ -192,6 +192,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				outputDataForQueue.aaDepth = actualAADepth;
 				outputDataForQueue.outputBuffers.append(dataBuffer);
 				outputDataForQueue.pixelSequence = inPixelSequenceBuffer;
+				outputDataForQueue.sequenceSize = sequenceSize;
 
 				outputQueue->AddToQueue(&outputDataForQueue);
 
@@ -392,11 +393,25 @@ quint64 cOpenClWorkerThread::UpdatePixelSequence(
 		{
 			for (quint64 x = 0; x < jobWidth; x += subTileSize)
 			{
+				bool havePixel = false;
 				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
 				{
 					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
 					{
 						if (pixelMask->at((xx + jobX) + (yy + jobY) * imageWidth))
+						{
+							havePixel = true;
+							break;
+						}
+					}
+					if (havePixel) break;
+				}
+
+				for (quint64 yy = y; yy < min(y + subTileSize, jobHeight); yy++)
+				{
+					for (quint64 xx = x; xx < min(x + subTileSize, jobWidth); xx++)
+					{
+						if (havePixel)
 						{
 							inPixelSequenceBuffer[sequenceIndex] = xx + yy * jobWidth;
 							sequenceIndex++;
