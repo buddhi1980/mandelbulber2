@@ -1704,7 +1704,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 													&& (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
 												|| (!useAntiAlaising && output.monteCarloLoop > minNumberOfSamples)))
 								{
-									if (sqrtf(newPixelNoise) < 0.5 * noiseTarget / 100.0f)
+									if (sqrtf(newPixelNoise) < noiseTarget / 100.0f)
 									{
 										if (pixelMask[xx + yy * width]) maskedPixelsCounter++;
 										pixelMask[xx + yy * width] = false;
