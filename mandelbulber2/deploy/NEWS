@@ -1,6 +1,6 @@
 Version history
 
-v2.30 (??? 2023)
+v2.30 (July 2023)
 
 - Added new fractal formulas
    jos_kleinian_v4
@@ -29,6 +29,7 @@ v2.30 (??? 2023)
 - UI: Thumbnaiils on the toolbar which do not have MC effects are rendered with CPU
 - UI: Thumbnails will be no longer re-rendered with program version change
 - OpenCL: fixed bug causing crash of OpenCL rendering when pixel sequence had zero length
+- OpenCL: fixed bug causing dark pixels in MC mode
 - Preferences: Added option to enable/disable console output
 - Preferences: fixed bug causing crash when Preferendes window was opened during OpenCL computation
 - Performance: fixed bug causing slower rendering of MC effects

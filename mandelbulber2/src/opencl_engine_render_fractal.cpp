@@ -1404,14 +1404,17 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		std::vector<float> pixelNoiseBuffer;
 		std::vector<bool> returnedMask;
+		std::vector<bool> donePixelsMask;
 
 		if (monteCarlo)
 		{
 			pixelNoiseBuffer.resize(width * height);
 			pixelMask.resize(width * height);
+			donePixelsMask.resize(width * height);
 			returnedMask.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
-			std::fill(pixelMask.begin(), pixelMask.end(), 1);
-			std::fill(returnedMask.begin(), returnedMask.end(), 1);
+			std::fill(pixelMask.begin(), pixelMask.end(), true);
+			std::fill(returnedMask.begin(), returnedMask.end(), true);
+			std::fill(returnedMask.begin(), returnedMask.end(), false);
 			std::fill(pixelNoiseBuffer.begin(), pixelNoiseBuffer.end(), 0.0);
 		}
 		else
@@ -1450,7 +1453,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		quint64 maskedPixelsCounter = 0;
 
-		double noiseFilterFactor = 10.0 / numberOfSamples;
+		double noiseFilterFactor = 1.0 / sqrt(numberOfSamples);
 
 		int tilesRenderedCounter = 0;
 		QElapsedTimer pureRenderingTime;
@@ -1533,7 +1536,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// if MC then paint pixels and calculate noise statistics
 							if (monteCarlo)
 							{
-								if (!returnedMask[x + y * jobWidth]) // skip masked pixels
+								if (!returnedMask[x + y * jobWidth] && pixelLevelOptimization) // skip masked pixels
 								// painting pixels with reduced opacity (averaging of MC samples)
 								{
 									if (useDenoiser)
@@ -1541,6 +1544,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 										denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
 											image->GetPixelZBuffer(xx, yy), 0.0); // use zero noise for masked pixels
 									}
+									if (!donePixelsMask[xx + yy * width]) maskedPixelsCounter++;
+									donePixelsMask[xx + yy * width] = true;
 									continue;
 								}
 								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
@@ -1706,7 +1711,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								{
 									if (sqrtf(newPixelNoise) < noiseTarget / 100.0f)
 									{
-										if (pixelMask[xx + yy * width]) maskedPixelsCounter++;
 										pixelMask[xx + yy * width] = false;
 									}
 									else
@@ -1779,7 +1783,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 								if (edge < noiseTarget / 100.0f)
 								{
 									pixelMask[xxx + yyy * width] = false;
-									maskedPixelsCounter++;
+									// maskedPixelsCounter++;
 								}
 								else
 								{
@@ -1826,8 +1830,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
 						float smothedNoiseLevel =
-							(useAntiAlaising) ? totalNoiseRect
-																: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * 0.3;
+							(useAntiAlaising)
+								? totalNoiseRect
+								: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * noiseFilterFactor;
 						// smothedNoiseLevel = totalNoiseRect;
 						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
 
