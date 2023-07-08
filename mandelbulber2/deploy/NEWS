@@ -23,6 +23,15 @@ v2.30 (??? 2023)
    transfDIFSTriGrid add auxColor
    transfDIFSTorus add auxColor
    transfDIFSTorusGrid add auxColor
+   
+- UI: Added Thumbnail Browser for easy browsing of settings
+- UI: Replaced standard file browser for examples with new Thumbnail Browser
+- UI: Thumbnaiils on the toolbar which do not have MC effects are rendered with CPU
+- UI: Thumbnails will be no longer re-rendered with program version change
+- OpenCL: fixed bug causing crash of OpenCL rendering when pixel sequence had zero length
+- Preferences: Added option to enable/disable console output
+- Preferences: fixed bug causing crash when Preferendes window was opened during OpenCL computation
+- Performance: fixed bug causing slower rendering of MC effects
 
 v2.29 (April 2023)
 
