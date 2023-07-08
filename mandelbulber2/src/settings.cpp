@@ -137,7 +137,14 @@ size_t cSettings::CreateText(std::shared_ptr<const cParameterContainer> par,
 
 	// hash code will be needed for generating thumbnails
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-	QStringRef settingTextWithoutHeader(&settingsText, header.length(), settingsText.length() - header.length());
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	QStringRef settingTextWithoutHeader(
+		&settingsText, header.length(), settingsText.length() - header.length());
+#else
+	QStringView settingTextWithoutHeader =
+		QStringView(settingsText).sliced(header.length(), settingsText.length() - header.length());
+#endif
+
 	hashCrypt.addData(settingTextWithoutHeader.toLocal8Bit());
 	hash = hashCrypt.result();
 	// qDebug() << "hash code" << hash.toHex();
