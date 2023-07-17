@@ -1453,7 +1453,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		quint64 maskedPixelsCounter = 0;
 
-		double noiseFilterFactor = 1.0 / sqrt(numberOfSamples);
+		double noiseFilterFactor = min(1.0 / sqrt(numberOfSamples), 0.5);
 
 		int tilesRenderedCounter = 0;
 		QElapsedTimer pureRenderingTime;
@@ -1830,7 +1830,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
 						float smothedNoiseLevel =
-							(useAntiAlaising)
+							(useAntiAlaising || output.monteCarloLoop == 1)
 								? totalNoiseRect
 								: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * noiseFilterFactor;
 						// smothedNoiseLevel = totalNoiseRect;
