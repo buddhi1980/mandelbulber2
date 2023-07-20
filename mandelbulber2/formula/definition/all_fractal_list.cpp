@@ -563,7 +563,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
 
-
+	fractalList->append(new cFractalSphereClusterV2());
 
 	fractalList->append(new cFractalTransfSupershape());
 	fractalList->append(new cFractalScatorPower2StdR());

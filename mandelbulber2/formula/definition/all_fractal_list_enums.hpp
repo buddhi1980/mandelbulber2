@@ -299,13 +299,16 @@ enum enumFractalFormula
 	mandelbarV2 = 260,
 	msltoeToroidalV2 = 261,
 	mandelbulbPow2V1 = 262,
-
 	// 2.30
 	mengerV6 = 263,
 	xenodreambuieV2 = 264,
 	xenodreambuieV3 = 265,
 	mandelbulbPupuku = 266,
 	sphereCluster = 267,
+
+	// 2.31
+	sphereClusterV2 = 268,
+
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
