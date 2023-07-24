@@ -32,6 +32,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
+
 	// Isocahedral geometry
 	CVector3 ta0 = CVector3(0.0, 1.0, phi);
 	CVector3 ta1 = CVector3(0.0, -1.0, phi);
@@ -48,7 +49,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double la = sqrt(1.0 + ra * ra);
 	CVector3 mida = (ta0 + ta1 + ta2);
 	mida = mida/ mida.Length();
-	double minra = (la - ra * fractal->transformCommon.scaleC1) * fractal->transformCommon.scaleA1;
+	double minra = (la * fractal->transformCommon.scaleC1 - ra) * fractal->transformCommon.scaleA1;
 
 	// Dodecahedral geometry
 	CVector3 tb0 = CVector3(1.0 / phi, 0.0, phi);
@@ -74,43 +75,73 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double rb =sqrt(2.0) / sqrt(-2.0 + xxb * xxb);
 	double lb = sqrt(1.0 + rb * rb);
 	CVector3 midb = dirb;
-	double minrb = (lb - rb * fractal->transformCommon.scaleD1) * fractal->transformCommon.scaleB1;
+	double minrb = (lb * fractal->transformCommon.scaleD1 - rb) * fractal->transformCommon.scaleB1;
 
 	double k = fractal->transformCommon.scale08; // PackRatio;
 	double excess = fractal->transformCommon.offset105; // adds a skin width
 
-	bool is_b = fractal->transformCommon.functionEnabledDFalse;
+	// bool is_b = fractal->transformCommon.functionEnabledDFalse;
 	double minr = 0.0;
 	double l, r;
 	CVector3 mid;
-	aux.DE = 1.0; //  // ,,,,,,,,,,,,,,,,,
+	// aux.DE = 1.0; //  // ,,,,,,,,,,,,,,,,,
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
 	{
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& n >= fractal->transformCommon.startIterationsP
+				&& n < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
+		//	p += fractal->transformCommon.offsetA000;
+
+	//		if (fractal->transformCommon.functionEnabledTFalse)
+	//		{
+	//			aux.r = z.Length();
+	//		}
+		}
+		bool is = true;
+		if (n >= fractal->transformCommon.startIterationsA
+				&& n < fractal->transformCommon.stopIterationsA) is = false;
+		bool on = true;
+		if (n >= fractal->transformCommon.startIterationsB
+			&& n < fractal->transformCommon.stopIterationsB) on = false;
+
+
 		k *= fractal->transformCommon.scale1; // PackRatio;
 
-		if (recurse)
+		if (recurse && n >= fractal->transformCommon.startIterationsC
+				&& n < fractal->transformCommon.stopIterationsC)
 		{
 			if (p.Length() > excess)
 			{
-				p = CVector3(0.0, 0.0, 1e-15);
+				break;
+				// p = CVector3(0.0, 0.0, 1e-15);
 			}
-			if (is_b)
+			//if (is_b)
+			if (is == true)
 			{
 				minr = minrb;
 			}
 			else
+
 			{
 				minr = minra;
 			}
-			double sc = minr / p.Dot(p);
-			p *= sc;
-			aux.DE *= sc;
-			recurse = false;
-			ColV.z += 1.0;
+			if (on == false)
+			{
+				double sc = minr / p.Dot(p);
+				p *= sc;
+				aux.DE *= sc;
+				recurse = false;
+				ColV.z += 1.0;
+			}
 		}
-		if (is_b)
+	//	if (is_b)
+		if (is == true)
 		{
 			l = lb;
 			r = rb;
@@ -178,17 +209,19 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			p += mid * l;
 
 			double m = minr * k;
-			if (p.Length() < minr)
+			if (p.Length() < minr && (on == false))
 			{
 				ColV.y += 1.0;
 				p /= m;
 				aux.DE /= m;
-
-				if (fractal->transformCommon.functionEnabledTFalse) // toggle
-					is_b = !is_b;
-
 				recurse = true;
 			}
+		}
+
+		if (on == true)
+		{
+			p /= minr * k;
+			aux.DE /= minr * k;
 		}
 		// post scale
 		p *= fractal->transformCommon.scaleF1;

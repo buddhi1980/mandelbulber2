@@ -65,7 +65,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL3 midb = dirb;
 	REAL minrb = (lb - rb * fractal->transformCommon.scaleD1) * fractal->transformCommon.scaleB1;
 
-	REAL k = fractal->transformCommon.scale08;				// PackRatio;
+	REAL k = fractal->transformCommon.scale08; // PackRatio;
 	REAL excess = fractal->transformCommon.offset105; // adds a skin width
 
 	bool is_b = fractal->transformCommon.functionEnabledDFalse;
@@ -77,15 +77,39 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
 	{
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& n >= fractal->transformCommon.startIterationsP
+				&& n < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
+			// p += fractal->transformCommon.offsetA000;
+
+		//	if (fractal->transformCommon.functionEnabledTFalse)
+		//	{
+		//		aux->r = length(z);
+		//	}
+		}
+		bool is = true;
+		if (n >= fractal->transformCommon.startIterationsA
+				&& n < fractal->transformCommon.stopIterationsA) is = false;
+		bool on = true;
+		if (n >= fractal->transformCommon.startIterationsB
+			&& n < fractal->transformCommon.stopIterationsB) on = false;
+
 		k *= fractal->transformCommon.scale1; // PackRatio;
 
-		if (recurse)
+		if (recurse && n >= fractal->transformCommon.startIterationsC
+				&& n < fractal->transformCommon.stopIterationsC)
 		{
 			if (length(p) > excess)
 			{
-				p = (REAL3){0.0f, 0.0f, 1e-15f};
+				break;
+				// p = (REAL3){0.0f, 0.0f, 1e-15f};
 			}
-			if (is_b)
+			//if (is_b)
+			if (is == true)
 			{
 				minr = minrb;
 			}
@@ -93,13 +117,18 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			{
 				minr = minra;
 			}
-			REAL sc = minr / dot(p, p);
-			p *= sc;
-			aux->DE *= sc;
-			recurse = false;
-			ColV.z += 1.0f;
+			if (on == false)
+			{
+				REAL sc = minr / dot(p, p);
+				p *= sc;
+				aux->DE *= sc;
+
+				recurse = false;
+				ColV.z += 1.0f;
+			}
 		}
-		if (is_b)
+		//if (is_b)
+		if (is == true)
 		{
 			l = lb;
 			r = rb;
@@ -148,18 +177,24 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			p += mid * l;
 
 			REAL m = minr * k;
-			if (length(p) < minr)
+			if ((length(p) < minr) && (on == false))
 			{
 				ColV.y += 1.0f;
 				p /= m;
 				aux->DE /= m;
 
-				if (fractal->transformCommon.functionEnabledTFalse) // toggle
-					is_b = !is_b;
-
 				recurse = true;
 			}
 		}
+
+		if (on == true)
+		{
+			p /= minr * k;
+			aux->DE /= minr * k;
+		}
+
+
+
 		// post scale
 		p *= fractal->transformCommon.scaleF1;
 		aux->DE *= fabs(fractal->transformCommon.scaleF1);
