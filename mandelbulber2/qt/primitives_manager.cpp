@@ -231,6 +231,8 @@ void cPrimitivesManager::Regenerate()
 			renderedImageWidget->update();
 		}
 	}
+
+	emit signalUpdatePrimitivesCombos();
 }
 
 void cPrimitivesManager::slotButtonAddPrimitive()
@@ -254,6 +256,8 @@ void cPrimitivesManager::slotButtonAddPrimitive()
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
 
 	renderedImageWidget->SetCurrentPrimitiveItem(newPrimitive);
+
+	emit signalUpdatePrimitivesCombos();
 }
 
 void cPrimitivesManager::slotButtonDuplicatePrimitive()
@@ -301,6 +305,8 @@ void cPrimitivesManager::slotButtonDuplicatePrimitive()
 
 	cInterface::ComboMouseClickUpdate(mouseFunctionComboWidget, params);
 	ui->tabWidget_primitives->setCurrentIndex(ui->tabWidget_primitives->count() - 1);
+
+	emit signalUpdatePrimitivesCombos();
 }
 
 void cPrimitivesManager::slotButtonDeletePrimitive()
@@ -507,6 +513,7 @@ void cPrimitivesManager::slotContextMenu(const QPoint &screenPoint, int tabIndex
 			{
 				params->Set(currentPrimitiveItem.fullName + "_name", newName);
 				ui->tabWidget_primitives->setTabText(tabIndex, newName);
+				emit signalUpdatePrimitivesCombos();
 			}
 		}
 	}
@@ -528,4 +535,3 @@ void cPrimitivesManager::SetIconSizes()
 	ui->pushButton_add_primitive_torus->setIconSize(iconSize);
 	ui->pushButton_add_primitive_water->setIconSize(iconSize);
 }
-

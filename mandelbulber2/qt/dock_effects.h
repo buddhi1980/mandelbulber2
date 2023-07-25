@@ -76,6 +76,7 @@ public slots:
 	void slotPressedButtonNavi();
 	void slotPressedButtonFogDistDouble();
 	void slotPressedButtonFogDistHalf();
+	void slotUpdatePrimitivesCombos();
 
 private slots:
 	void slotPressedButtonAutoFog();

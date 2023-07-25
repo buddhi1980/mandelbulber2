@@ -50,6 +50,7 @@
 // forward declarations
 class cParameterContainer;
 struct sRenderData;
+class QComboBox;
 
 class cPrimitives
 {
@@ -78,6 +79,7 @@ public:
 	static QString PrimitiveNames(fractal::enumObjectType primitiveType);
 	static fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
 	const QStringList &GetListOfPrimitiveNames() const { return namesOfPrimitives; }
+	static void PrepareComboBox(QComboBox *comboBox, const std::shared_ptr<cParameterContainer> par);
 
 	CVector3 allPrimitivesPosition;
 	CVector3 allPrimitivesRotation;

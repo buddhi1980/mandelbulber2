@@ -92,6 +92,9 @@ private slots:
 	void slotFractalSwap(int swapA, int swapB) const;
 	void slotChangedFractalTab(int index);
 
+signals:
+	void signalUpdatePrimitivesCombos();
+
 private:
 	void ConnectSignals() const;
 	Ui::cDockFractal *ui;

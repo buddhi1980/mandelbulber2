@@ -355,6 +355,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
 	par->addParam("basic_fog_visibility", 20.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), morphLinear, paramStandard);
+	par->addParam("basic_fog_primitive", 0, morphLinear, paramStandard);
 
 	// DOF
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);

@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1294,7 +1294,7 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
             <x>0</x>
             <y>0</y>
             <width>553</width>
-            <height>1557</height>
+            <height>1584</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1367,6 +1367,16 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="1" column="1">
+                 <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
                  <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
                   <property name="toolTip">
@@ -1391,13 +1401,19 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
+                <item row="2" column="1">
+                 <widget class="MyComboBox" name="comboBox_basic_fog_primitive">
+                  <item>
+                   <property name="text">
+                    <string>None</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_72">
+                  <property name="text">
+                   <string>Shape from primitive:</string>
                   </property>
                  </widget>
                 </item>
@@ -2764,8 +2780,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>273</width>
-            <height>409</height>
+            <width>571</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3482,7 +3498,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>380</width>
+            <width>553</width>
             <height>1110</height>
            </rect>
           </property>
@@ -4523,8 +4539,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>230</width>
-            <height>215</height>
+            <width>571</width>
+            <height>1070</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

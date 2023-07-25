@@ -535,6 +535,9 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->widgetEffects, &cDockEffects::signalRefreshPostEffects, this,
 		&cInterface::slotRefreshPostEffects);
 
+	connect(mainWindow->ui->widgetDockFractal, &cDockFractal::signalUpdatePrimitivesCombos,
+		mainWindow->ui->widgetEffects, &cDockEffects::slotUpdatePrimitivesCombos);
+
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
 }

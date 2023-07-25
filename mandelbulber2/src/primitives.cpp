@@ -35,6 +35,8 @@
 #include "primitives.h"
 
 #include <QtAlgorithms>
+#include <QComboBox>
+#include <QObject>
 
 #include "common_math.h"
 #include "displacement_map.hpp"
@@ -421,4 +423,21 @@ int cPrimitives::NewPrimitiveIndex(
 	}
 
 	return newId;
+}
+
+void cPrimitives::PrepareComboBox(
+	QComboBox *comboBox, const std::shared_ptr<cParameterContainer> par)
+{
+	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
+	comboBox->clear();
+
+	comboBox->addItem(QObject::tr("None"));
+
+	for (const sPrimitiveItem &item : listOfPrimitives)
+	{
+		QString primitiveName = par->Get<QString>(item.fullName + "_name");
+		QString text = QString("%1 #%2").arg(item.typeName).arg(item.id);
+		if (text != primitiveName) text += " (" + primitiveName + ")";
+		comboBox->addItem(text, QVariant(primitiveName));
+	}
 }

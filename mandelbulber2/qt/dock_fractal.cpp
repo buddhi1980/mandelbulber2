@@ -178,6 +178,9 @@ void cDockFractal::ConnectSignals() const
 
 	connect(
 		ui->tabWidget_fractals, SIGNAL(swapTabs(int, int)), this, SLOT(slotFractalSwap(int, int)));
+
+	connect(ui->widgetPrimitivesManager, &cPrimitivesManager::signalUpdatePrimitivesCombos, this,
+		&cDockFractal::signalUpdatePrimitivesCombos);
 }
 
 // initialize ui for hybrid fractal components

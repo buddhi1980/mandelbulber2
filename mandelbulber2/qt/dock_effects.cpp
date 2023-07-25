@@ -44,6 +44,7 @@
 #include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/primitives.h"
 #include "src/random.hpp"
 #include "src/render_window.hpp"
 #include "src/rendered_image_widget.hpp"
@@ -337,4 +338,9 @@ void cDockEffects::slotRandomLightColoringTypeChanged(int index)
 	ui->colorButton_random_lights_color->setVisible(index > 0);
 	ui->label_random_lights_second_color->setVisible(index >= 2);
 	ui->colorButton_random_lights_color_2->setVisible(index >= 2);
+}
+
+void cDockEffects::slotUpdatePrimitivesCombos()
+{
+	cPrimitives::PrepareComboBox(ui->comboBox_basic_fog_primitive, params);
 }

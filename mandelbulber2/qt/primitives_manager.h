@@ -87,6 +87,7 @@ private slots:
 
 signals:
 	void signalChangePrimitivePlacementDistance(double);
+	void signalUpdatePrimitivesCombos();
 };
 
 #endif /* MANDELBULBER2_QT_PRIMITIVES_MANAGER_H_ */
