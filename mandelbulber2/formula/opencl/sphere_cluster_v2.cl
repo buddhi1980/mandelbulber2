@@ -18,8 +18,11 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	REAL t = 0.0f;
 	REAL4 oldZ = z;
-	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
+	if (fractal->transformCommon.functionEnabledDFalse)	aux->DE = 1.0f;
+	REAL3 K3 = (REAL3){0.0f, 0.0f, 0.0f};
+
 	REAL phi = (1.0f + native_sqrt(5.0f)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	REAL3 ta0 = (REAL3){0.0f, 1.0f, phi};
@@ -68,11 +71,10 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL k = fractal->transformCommon.scale08; // PackRatio;
 	REAL excess = fractal->transformCommon.offset105; // adds a skin width
 
-	bool is_b = fractal->transformCommon.functionEnabledDFalse;
 	REAL minr = 0.0f;
 	REAL l, r;
 	REAL3 mid;
-	aux->DE = 1.0f; //  // ,,,,,,,,,,,,,,,,,
+
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
@@ -84,13 +86,8 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
 			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
 			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
-			// p += fractal->transformCommon.offsetA000;
-
-		//	if (fractal->transformCommon.functionEnabledTFalse)
-		//	{
-		//		aux->r = length(z);
-		//	}
 		}
+
 		bool is = true;
 		if (n >= fractal->transformCommon.startIterationsA
 				&& n < fractal->transformCommon.stopIterationsA) is = false;
@@ -98,7 +95,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (n >= fractal->transformCommon.startIterationsB
 			&& n < fractal->transformCommon.stopIterationsB) on = false;
 
-		k *= fractal->transformCommon.scale1; // PackRatio;
+		k *= fractal->transformCommon.scale1; // PackRatio scale;
 
 		if (recurse && n >= fractal->transformCommon.startIterationsC
 				&& n < fractal->transformCommon.stopIterationsC)
@@ -108,7 +105,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				break;
 				// p = (REAL3){0.0f, 0.0f, 1e-15f};
 			}
-			//if (is_b)
+
 			if (is == true)
 			{
 				minr = minrb;
@@ -120,14 +117,15 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			if (on == false)
 			{
 				REAL sc = minr / dot(p, p);
-				p *= sc;
 				aux->DE *= sc;
-
+				K3 += p * aux->DE / minr;
+				K3 -= 2.0 * p * dot(K3, p) / dot(p, p);
+				p *= sc;
 				recurse = false;
 				ColV.z += 1.0f;
 			}
 		}
-		//if (is_b)
+
 		if (is == true)
 		{
 			l = lb;
@@ -172,8 +170,10 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			ColV.x += 1.0f;
 			p -= mid * l;
 			REAL sc = r * r / dot(p, p);
-			p *= sc;
 			aux->DE *= sc;
+			K3 += p * aux->DE / minr;
+			K3 -= 2.0 * p * dot(K3, p) / dot(p, p);
+			p *= sc;
 			p += mid * l;
 
 			REAL m = minr * k;
@@ -210,23 +210,56 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 
 	z = (REAL4){p.x, p.y, p.z, z.w};
-
 	REAL d;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+	if (!fractal->transformCommon.functionEnabledEFalse)
+		d = k;
+	else
+		d = min(1.0f, k);
+	d = minr * fractal->transformCommon.scaleE1 * d;
+
+	if (fractal->transformCommon.functionEnabledOFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			d = k;
-		else
-			d = min(1.0f, k);
-		d = (length(z) - minr * fractal->transformCommon.scaleE1 * d) / aux->DE;
+		bool negate = false;
+		REAL den = dot(K3, K3);
+		REAL radius = d;
+		REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
+		if (den > 0.0001f)
+		{
+			REAL3 offset = K3 / den;
+			offset *= aux->DE; // since K is normalised to the scale
+			REAL rad = length(offset);
+			offset += p;
+
+			target -= offset;
+			REAL mag = length(target);
+			if (fabs(radius / mag) > 1.0f)
+			negate = true;
+			REAL3 t1 = target * (1.0f - radius / mag);
+			REAL3 t2 = target * (1.0f + radius / mag);
+			t1 *= rad * rad / dot(t1, t1);
+			t2 *= rad * rad / dot(t2, t2);
+			REAL3 mid = (t1 + t2) / 2.0f;
+			radius = length(t1 - t2) / 2.0f;
+			target = mid + offset;
+		}
+		REAL dist = (length(p - target) - radius);
+		if (negate)
+		dist = -dist;
+		d = dist / aux->DE;
 	}
 	else
 	{
-		REAL4 zc = z - fractal->transformCommon.offset000;
-		d = max(max(zc.x, zc.y), zc.z);
-		d = (d - minr * k) / aux->DE;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			d = (length(z) -  d) / aux->DE;
+		}
+		else
+		{
+			REAL4 zc = z - fractal->transformCommon.offset000;
+			d = max(max(zc.x, zc.y), zc.z);
+			d = (d - minr * k) / aux->DE;
+		}
 	}
-
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
@@ -237,6 +270,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		aux->dist = min(aux->dist, d);
 	else
 		aux->dist = d;
+
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 

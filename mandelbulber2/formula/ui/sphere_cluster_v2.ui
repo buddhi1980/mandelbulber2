@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>925</width>
-    <height>5131</height>
+    <height>5191</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@ Use small ray step multiplier settings</string>
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
-      <string>swap from Isocahedral to Dodecahedral</string>
+      <string>reset aux.DE to 1.0</string>
      </property>
     </widget>
    </item>
@@ -249,13 +249,6 @@ Use small ray step multiplier settings</string>
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
-     <property name="text">
-      <string>kkk</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1,0,1">
      <property name="topMargin">
       <number>0</number>
@@ -322,7 +315,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="QLabel" name="label_81">
        <property name="text">
-        <string>start iteration=</string>
+        <string>is start iteration=</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -381,7 +374,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="QLabel" name="label_83">
        <property name="text">
-        <string>start iterationCC=</string>
+        <string>rec  start iterationCC=</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -901,6 +894,13 @@ Use small ray step multiplier settings</string>
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+        <property name="text">
+         <string>O</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,1">
         <property name="spacing">
