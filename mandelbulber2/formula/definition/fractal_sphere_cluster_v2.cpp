@@ -52,7 +52,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double la = sqrt(1.0 + ra * ra);
 	CVector3 mida = (ta0 + ta1 + ta2);
 	mida = mida/ mida.Length();
-	double minra = (la * fractal->transformCommon.scaleC1 - ra) * fractal->transformCommon.scaleA1;
+	double minra = (la - ra * fractal->transformCommon.scaleC1) * fractal->transformCommon.scaleA1;
 
 	// Dodecahedral geometry
 	CVector3 tb0 = CVector3(1.0 / phi, 0.0, phi);
@@ -78,7 +78,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double rb =sqrt(2.0) / sqrt(-2.0 + xxb * xxb);
 	double lb = sqrt(1.0 + rb * rb);
 	CVector3 midb = dirb;
-	double minrb = (lb * fractal->transformCommon.scaleD1 - rb) * fractal->transformCommon.scaleB1;
+	double minrb = (lb - rb * fractal->transformCommon.scaleD1) * fractal->transformCommon.scaleB1;
 
 	double k = fractal->transformCommon.scale08; // PackRatio;
 	double excess = fractal->transformCommon.offset105; // adds a skin width
@@ -106,9 +106,6 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (n >= fractal->transformCommon.startIterationsB
 			&& n < fractal->transformCommon.stopIterationsB) on = false;
 
-
-		k *= fractal->transformCommon.scale1; // PackRatio;
-
 		if (recurse && n >= fractal->transformCommon.startIterationsC
 				&& n < fractal->transformCommon.stopIterationsC)
 		{
@@ -123,7 +120,6 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				minr = minrb;
 			}
 			else
-
 			{
 				minr = minra;
 			}
@@ -225,6 +221,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			p /= minr * k;
 			aux.DE /= minr * k;
 		}
+		k *= fractal->transformCommon.scale1; // PackRatioScale;
 		// post scale
 		p *= fractal->transformCommon.scaleF1;
 		aux.DE *= fabs(fractal->transformCommon.scaleF1);
@@ -240,70 +237,68 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		}
 	}
 
-
 	z = CVector4(p.x, p.y, p.z, z.w);
 	double d;
-	if (!fractal->transformCommon.functionEnabledEFalse) d = k;
-	else d = min(1.0, k);
-	d = minr * fractal->transformCommon.scaleE1 * d;
-
-	if (fractal->transformCommon.functionEnabledOFalse)
+	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		bool negate = false;
-		double den = K3.Dot(K3);
-		double radius = d;
+		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
+		else d = min(1.0, k);
+		d = minr * fractal->transformCommon.scaleE1 * d;
 
-		CVector3 target = CVector3(0.0, 0.0, 0.0);
-		if (den > 0.0001)
+		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
-			CVector3 offset = K3 / den;
-			offset *= aux.DE; // since K is normalised to the scale
-			double rad = offset.Length();
-			offset += p;
-
-			target -= offset;
-			double mag = target.Length();
-			if (fabs(radius / mag) > 1.0)
-			negate = true;
-			CVector3 t1 = target * (1.0 - radius / mag);
-			CVector3 t2 = target * (1.0 + radius / mag);
-			t1 *= rad * rad / t1.Dot(t1);
-			t2 *= rad * rad / t2.Dot(t2);
-			CVector3 mid = (t1 + t2) / 2.0;
-			radius = (t1 - t2).Length() / 2.0;
-			target = mid + offset;
-		}
-		double dist = ((p - target).Length() - radius);
-		if (negate)
-		dist = -dist;
-		d = dist / aux.DE;
-	}
-	else
-	{
-		if (!fractal->transformCommon.functionEnabledSwFalse)
-		{
-
 			d = (z.Length() - d) / aux.DE;
 		}
 		else
 		{
-			CVector4 zc = z - fractal->transformCommon.offset000;
-			d = max(max(zc.x, zc.y), zc.z);
-			d = (d - minr * k) / aux.DE;
+
+			bool negate = false;
+			double den = K3.Dot(K3);
+			double radius = d;
+
+			CVector3 target = CVector3(0.0, 0.0, 0.0);
+			if (den > 0.0001)
+			{
+				CVector3 offset = K3 / den;
+				offset *= aux.DE; // since K is normalised to the scale
+				double rad = offset.Length();
+				offset += p;
+
+				target -= offset;
+				double mag = target.Length();
+				if (fabs(radius / mag) > 1.0)
+				negate = true;
+				CVector3 t1 = target * (1.0 - radius / mag);
+				CVector3 t2 = target * (1.0 + radius / mag);
+				t1 *= rad * rad / t1.Dot(t1);
+				t2 *= rad * rad / t2.Dot(t2);
+				CVector3 mid = (t1 + t2) / 2.0;
+				radius = (t1 - t2).Length() / 2.0;
+				target = mid + offset;
+			}
+			double dist = ((p - target).Length() - radius);
+			if (negate)
+			dist = -dist;
+			d = dist / aux.DE;
 		}
 	}
+	else
+	{
+		CVector4 zc = fabs(z - fractal->transformCommon.offset000);
+		d = max(max(zc.x, zc.y), zc.z);
+		d = (d - minr * k) / aux.DE;
+	}
 
-		if (fractal->transformCommon.functionEnabledCFalse)
-		{
-			double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
-			d = max(d, dst1);
-		}
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
+		d = max(d, dst1);
+	}
 
-		if (!fractal->transformCommon.functionEnabledXFalse)
-			aux.dist = min(aux.dist, d);
-		else
-			aux.dist = d;
-
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux.dist = min(aux.dist, d);
+	else
+		aux.dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
