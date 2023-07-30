@@ -19,7 +19,7 @@ brew install llvm qt5 gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
 # adam - Fix OpenCL
 mkdir -p  ~/mandelbulber2/build/OpenCL
 git clone https://github.com/KhronosGroup/OpenCL-CLHPP.git ~/mandelbulber2/build/OpenCL
-cp -vfr ~/mandelbulber2/build/OpenCL-Source/include/CL/ ~/mandelbulber2/build/OpenCL
+cp -vfr ~/mandelbulber2/build/OpenCL/include/CL/ ~/mandelbulber2/build/OpenCL
 
 # build operation
 cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro
