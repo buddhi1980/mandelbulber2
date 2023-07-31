@@ -251,13 +251,13 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		}
 		else
 		{
-
 			bool negate = false;
 			double den = K3.Dot(K3);
 			double radius = d;
 
 			CVector3 target = CVector3(0.0, 0.0, 0.0);
-			if (den > 0.0001)
+			//if (den > 0.0001f)
+			if (den > fractal->transformCommon.scale0)
 			{
 				CVector3 offset = K3 / den;
 				offset *= aux.DE; // since K is normalised to the scale
@@ -276,15 +276,19 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				radius = (t1 - t2).Length() / 2.0;
 				target = mid + offset;
 			}
-			double dist = ((p - target).Length() - radius);
-			if (negate)
-			dist = -dist;
+			double dist = (p - target).Length() - radius;
+
+			if (!fractal->transformCommon.functionEnabledNFalse)
+			{
+				if (negate) dist = -dist;
+			}
 			d = dist / aux.DE;
 		}
 	}
 	else
 	{
-		CVector4 zc = fabs(z - fractal->transformCommon.offset000);
+		CVector4 zc = z - fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		d = max(max(zc.x, zc.y), zc.z);
 		d = (d - minr * k) / aux.DE;
 	}

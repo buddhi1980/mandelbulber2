@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
  * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
@@ -228,7 +228,8 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			REAL den = dot(K3, K3);
 			REAL radius = d;
 			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
-			if (den > 0.0001f)
+			//if (den > 0.0001f)
+			if (den > fractal->transformCommon.scale0)
 			{
 				REAL3 offset = K3 / den;
 				offset *= aux->DE; // since K is normalised to the scale
@@ -248,14 +249,17 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				target = mid + offset;
 			}
 			REAL dist = (length(p - target) - radius);
-			if (negate)
-			dist = -dist;
+			if (!fractal->transformCommon.functionEnabledNFalse)
+			{
+				if (negate) dist = -dist;
+			}
 			d = dist / aux->DE;
 		}
 	}
 	else
 	{
-		REAL4 zc = fabs(z - fractal->transformCommon.offset000);
+		REAL4 zc = z - fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		d = max(max(zc.x, zc.y), zc.z);
 		d = (d - minr * k) / aux->DE;
 	}
