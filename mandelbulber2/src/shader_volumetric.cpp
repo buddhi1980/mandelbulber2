@@ -455,6 +455,18 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		if (params->fogEnabled)
 		{
 			float fogDensity = step / params->fogVisibility;
+
+			if (params->primitives.primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+				double primitiveDist = params->primitives.TotalDistance(point, distance, input2.delta,
+					false, &closestId, data, params->primitives.primitiveIndexForBasicFog);
+				if (primitiveDist > input2.delta)
+				{
+					fogDensity = 0;
+				}
+			}
+
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
 			output.R = fogDensity * params->fogColor.R + (1.0f - fogDensity) * output.R;
 			output.G = fogDensity * params->fogColor.G + (1.0f - fogDensity) * output.G;

@@ -204,7 +204,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	}
 
 	distance = params.primitives.TotalDistance(
-		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data);
+		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
 
 	//****************************************************
 

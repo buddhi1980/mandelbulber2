@@ -113,6 +113,14 @@ void cPrimitives::Set(
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
 
+	int basicFogShapeIndex = par->Get<int>("basic_fog_primitive");
+	QString basicFogShapeName;
+	if (basicFogShapeIndex > 0)
+	{
+		basicFogShapeName =
+			listOfPrimitives.at(basicFogShapeIndex - 1).fullName; //-1 because 0 is "None"
+	}
+
 	// bubble sort by calculation order
 	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
 	{
@@ -204,6 +212,13 @@ void cPrimitives::Set(
 			objectData->append(*primitive.get());
 			primitive->objectId = objectData->size() - 1;
 		}
+
+		if (item.fullName == basicFogShapeName)
+		{
+			primitive->usedForVolumetric = true;
+			primitiveIndexForBasicFog = primitive->objectId;
+		}
+
 		allPrimitives.push_back(primitive);
 		namesOfPrimitives.push_back(item.fullName);
 	}
@@ -219,7 +234,8 @@ cPrimitives::~cPrimitives()
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double detailSize,
-	bool normalCalculationMode, int *closestObjectId, sRenderData *data) const
+	bool normalCalculationMode, int *closestObjectId, sRenderData *data,
+	int objectIdForVolumetrics) const
 {
 	using namespace fractal;
 	int closestObject = *closestObjectId;
@@ -244,6 +260,17 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 				{
 					distTemp = primitive->PrimitiveDistance(point2);
 				}
+
+				if (objectIdForVolumetrics == primitive->objectId)
+				{
+					return distTemp;
+				}
+				else
+				{
+					if (primitive->usedForVolumetric)
+						continue; // skip distance calculation if primitive is used for volumetric effects
+				}
+
 				distTemp = DisplacementMap(distTemp, point2, primitive->objectId, data);
 
 				switch (primitive->booleanOperator)

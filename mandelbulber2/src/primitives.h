@@ -65,7 +65,8 @@ public:
 		const std::shared_ptr<cParameterContainer> par, QVector<cObjectData> *objectData = nullptr);
 
 	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
-		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
+		bool normalCalculationMode, int *closestObjectId, sRenderData *data,
+		int objectIdForVolumetrics) const;
 	const std::shared_ptr<sPrimitiveBasic> GetPrimitive(const int index) const
 	{
 		return allPrimitives[index];
@@ -84,6 +85,8 @@ public:
 	CVector3 allPrimitivesPosition;
 	CVector3 allPrimitivesRotation;
 	CRotationMatrix mRotAllPrimitivesRotation;
+
+	int primitiveIndexForBasicFog = -1;
 
 private:
 	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;

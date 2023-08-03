@@ -49,9 +49,11 @@ public:
 		objectType = fractal::objNone;
 		smoothDeCombineEnable = false;
 		smoothDeCombineDistance = 0.0f;
+		usedForVolumetric = false;
 	}
 
 	bool smoothDeCombineEnable;
+	bool usedForVolumetric;
 	double smoothDeCombineDistance;
 	CVector3 position;
 	CVector3 size;
