@@ -1819,8 +1819,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						float totalNoiseRect;
 						if (output.monteCarloLoop == 1)
 						{
-							// totalNoiseRect = (maxBrightness - minBrightness) / 3.0;
-							totalNoiseRect = weight * maxEdge;
+							if(useAntiAlaising)
+								totalNoiseRect = weight * maxEdge;
+							else
+							 totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
 						}
 						else
 						{
