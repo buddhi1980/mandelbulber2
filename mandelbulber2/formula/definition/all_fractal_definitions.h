@@ -14,6 +14,7 @@
 
 FRACTAL_CLASS(cFractalNone)
 FRACTAL_CLASS(cFractalAbox4d)
+FRACTAL_CLASS(cFractalAboxDonut4d)
 FRACTAL_CLASS(cFractalAboxKlein)
 FRACTAL_CLASS(cFractalAboxMod1)
 FRACTAL_CLASS(cFractalAboxMod11)
