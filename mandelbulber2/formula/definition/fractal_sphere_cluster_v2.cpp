@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
  * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
  *                                        \><||i|=>>%)     / /   __/ /___/ /_
@@ -86,6 +86,8 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double minr = 0.0;
 	double l, r;
 	CVector3 mid;
+
+	double largest = p.Length() - 2.0;
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
@@ -125,12 +127,13 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			}
 			if (on == false)
 			{
-				double sc = minr / p.Dot(p);
+				double inv = 1.0 / p.Dot(p);
+				K3 += p * aux.DE * inv;
+				K3 -= 2.0 * p * K3.Dot(p) * inv;
+				double sc = minr * inv;
+				p *= sc;
 				aux.DE *= sc;
 
-				K3 += p * aux.DE / minr;
-				K3 -= 2.0 * p * K3.Dot(p) / p.Dot(p);
-				p *= sc;
 				recurse = false;
 				ColV.z += 1.0;
 			}
@@ -198,16 +201,19 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			ColV.x += 1.0;
 			p -= mid * l;
-			double sc = r * r / p.Dot(p);
-			aux.DE *= sc;
-			K3 += p * aux.DE / minr;
-			K3 -= 2.0 * p * K3.Dot(p) / p.Dot(p);
+
+			double inv = 1.0 / p.Dot(p);
+			K3 += p * aux.DE * inv;
+			K3 -= 2.0 * p * K3.Dot(p) * inv;
+			double sc = r * r * inv;
 			p *= sc;
+			aux.DE *= sc;
 
 			p += mid * l;
 
 			double m = minr * k;
-			if (p.Length() < minr && (on == false))
+			//if (p.Length() < minr && (on == false))
+			if (p.Length() < m * fractal->transformCommon.scaleG1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 			{
 				ColV.y += 1.0;
 				p /= m;
@@ -237,13 +243,13 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		}
 	}
 
-	z = CVector4(p.x, p.y, p.z, z.w);
+	z = CVector4(p.x, p.y, p.z, 0.0);
 	double d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
 		else d = min(1.0, k);
-		d = minr * fractal->transformCommon.scaleE1 * d;
+		d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
@@ -252,7 +258,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		else
 		{
 			bool negate = false;
-			double den = K3.Dot(K3);
+			double den = K3.Length();
 			double radius = d;
 
 			CVector3 target = CVector3(0.0, 0.0, 0.0);
@@ -276,6 +282,9 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				radius = (t1 - t2).Length() / 2.0;
 				target = mid + offset;
 			}
+
+		//	z = CVector4(p.x, p.y, p.z, 0.0);
+		//	CVector4 tar = CVector4(target.x, target.y, target.z, 0.0);
 			double dist = (p - target).Length() - radius;
 
 			if (!fractal->transformCommon.functionEnabledNFalse)

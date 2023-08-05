@@ -42,7 +42,7 @@ void cFractalTransfSphericalInvV2::FormulaCode(
 			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 			// double r = sqrt(rr);
-			aux.DE = (fractal->transformCommon.maxR2d1) / rr;
+			aux.DE *= (fractal->transformCommon.maxR2d1) / rr;
 		}
 	}
 

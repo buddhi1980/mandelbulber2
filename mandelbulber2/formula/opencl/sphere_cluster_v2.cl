@@ -75,6 +75,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL l, r;
 	REAL3 mid;
 
+	REAL largest = length(p) - 2.0;
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
@@ -116,10 +117,11 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			}
 			if (on == false)
 			{
-				REAL sc = minr / dot(p, p);
+				REAL inv = 1.0 / dot(p, p);
+				K3 += p * aux->DE * inv;
+				K3 -= 2.0 * p * dot(K3, p) * inv;
+				REAL sc = minr * inv;
 				aux->DE *= sc;
-				K3 += p * aux->DE / minr;
-				K3 -= 2.0 * p * dot(K3, p) / dot(p, p);
 				p *= sc;
 				recurse = false;
 				ColV.z += 1.0f;
@@ -169,15 +171,16 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			ColV.x += 1.0f;
 			p -= mid * l;
-			REAL sc = r * r / dot(p, p);
+			REAL inv = 1.0 / dot(p, p);
+			K3 += p * aux->DE * inv;
+			K3 -= 2.0 * p * dot(K3, p) * inv;
+			REAL sc = r * r * inv;
 			aux->DE *= sc;
-			K3 += p * aux->DE / minr;
-			K3 -= 2.0 * p * dot(K3, p) / dot(p, p);
 			p *= sc;
 			p += mid * l;
 
 			REAL m = minr * k;
-			if ((length(p) < minr) && (on == false))
+			if ((length(p) < m * fractal->transformCommon.scaleG1) && (on == false))
 			{
 				ColV.y += 1.0f;
 				p /= m;
@@ -216,7 +219,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			d = k;
 		else
 			d = min(1.0f, k);
-		d = minr * fractal->transformCommon.scaleE1 * d;
+		d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
@@ -225,7 +228,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		else
 		{
 			bool negate = false;
-			REAL den = dot(K3, K3);
+			REAL den = length(K3);
 			REAL radius = d;
 			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
 			//if (den > 0.0001f)

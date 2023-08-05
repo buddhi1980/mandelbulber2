@@ -495,16 +495,17 @@ enum enumFractalFormula
 	transfLowResMode = 1144,
 	transfMengerFoldV2 = 1145,
 	transfAddSphericalInvert = 1146,
-
 	// 2.29
 	transfSupershape = 1147,
 	transfSinYM3d = 1148,
 	transfSincosHelix = 1149,
 	transfBoxTilingV3 = 1150,
-
 	// 2.30
 	transfDotFold = 1151,
 	transfAbsAddConstantV2 = 1152,
+
+	// 2.31
+	transfSphericalInvV3 = 1153,
 
 	// mandelbulber transfdIFS
 	// 2.20
