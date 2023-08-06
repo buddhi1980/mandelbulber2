@@ -39,10 +39,17 @@ void cFractalTransfSphericalInvV2::FormulaCode(
 		{
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
+			double inv = 1.0 / rr;
+			z *= fractal->transformCommon.maxR2d1 * inv;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			// double r = sqrt(rr);
-			aux.DE *= (fractal->transformCommon.maxR2d1) / rr;
+
+			if (!fractal->transformCommon.functionEnabledNFalse)
+				aux.DE *= inv * fractal->transformCommon.maxR2d1;
+			else
+			{
+				double r = sqrt(rr);
+				aux.DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux.DE * fractal->transformCommon.scale0);
+			}
 		}
 	}
 
@@ -52,7 +59,7 @@ void cFractalTransfSphericalInvV2::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		rr = z.Dot(z);
-		double mode = rr;
+		double mode;
 		z += fractal->mandelbox.offset;
 
 		if (rr < fractal->mandelbox.foldingSphericalFixed)

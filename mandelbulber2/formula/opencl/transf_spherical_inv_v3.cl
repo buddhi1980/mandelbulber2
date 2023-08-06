@@ -21,12 +21,12 @@ REAL4 TransfSphericalInvV3Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
-		z = z - fractal->transformCommon.offset000 - fractal->transformCommon.additionConstant000;
+		z += fractal->transformCommon.offset000 + fractal->transformCommon.offsetA000;
 		REAL rr = dot(z, z);
 		REAL r = native_sqrt(rr);
 		REAL inv = 1.0 / rr;
 		z *= fractal->transformCommon.maxR2d1 * inv;
-		z += fractal->transformCommon.offset000;
+		z -= fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 
 		if (!fractal->transformCommon.functionEnabledNFalse)
 			aux->DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux->DE);

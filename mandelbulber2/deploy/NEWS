@@ -1,5 +1,18 @@
 Version history
 
+v2.31 (??? 2023)
+
+- Added new fractal formulas
+
+   transfSphericalInvV3
+
+- modified fractal formulas
+   transfSphericalInvV2, add DE tweak
+
+
+
+
+
 v2.30 (July 2023)
 
 - Added new fractal formulas

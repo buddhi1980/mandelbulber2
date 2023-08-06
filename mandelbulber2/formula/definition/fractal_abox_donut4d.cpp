@@ -29,22 +29,43 @@ cFractalAboxDonut4d::cFractalAboxDonut4d() : cAbstractFractal()
 void cFractalAboxDonut4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-
+double t;
 	CVector4 ct = CVector4(0.0, 0.0, 0.0, 0.0);
 	if (aux.i == 0)
 	{
 		double delta = fractal->transformCommon.offset0;
-		double angle = atan2(z.x, z.y) * fractal->transformCommon.scale3;
+		double angle = atan2(z.x, z.y) * fractal->transformCommon.scaleA2;
 		double radius = sqrt(z.x * z.x + z.y * z.y);
 		double t_radius = radius - fractal->transformCommon.offset4;
 
+		if (!fractal->transformCommon.functionEnabledAFalse)
+			t = radius;
+		else
+		{
+			t = radius * radius;
+			t = (t + (radius - t) * fractal->transformCommon.scaleA1);
+		}
+		ct.x = sin(angle) * t - delta;
 
-		double t = radius* radius;
+		if (!fractal->transformCommon.functionEnabledBFalse) t = radius;
+			else
+		{
+			t = radius * radius;
+			t = (t + (radius - t) * fractal->transformCommon.scaleB1);
+		}
+		ct.y = cos(angle) * t - delta;
 
-		ct.x = sin(angle) * radius - delta;
-		ct.y = cos(angle) * radius - delta;
+
+
 		ct.z = z.z - delta;
-		ct.w = t_radius * t_radius + z.z * z.z - delta;
+	//	ct.w = z.Length();
+		if (!fractal->transformCommon.functionEnabledDFalse) t = t_radius * t_radius;
+			else
+		{
+			t = t_radius;
+			t = (t + (t_radius * t_radius - t) * fractal->transformCommon.scaleD1);
+		}
+		ct.w = t + z.z * z.z - delta;
 		z = ct;
 		z = fabs(fabs(z) - fractal->transformCommon.offsetA0000);
 		aux.const_c = z;

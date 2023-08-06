@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * spherical invert ( v2.17)
+ * spherical invert v3
  * from M3D. Formula by Luca GN 2011, updated May 2012.
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -33,12 +33,12 @@ void cFractalTransfSphericalInvV3::FormulaCode(
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		z = z - fractal->transformCommon.offset000 - fractal->transformCommon.additionConstant000;
+		z += fractal->transformCommon.offset000 + fractal->transformCommon.offsetA000;
 		double rr = z.Dot(z);
 		double r = sqrt(rr);
 		double inv = 1.0 / rr;
 		z *= fractal->transformCommon.maxR2d1 * inv;
-		z += fractal->transformCommon.offset000;
+		z -= fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 
 		if (!fractal->transformCommon.functionEnabledNFalse)
 			aux.DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux.DE);

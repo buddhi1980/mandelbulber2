@@ -174,7 +174,14 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			REAL inv = 1.0 / dot(p, p);
 			K3 += p * aux->DE * inv;
 			K3 -= 2.0 * p * dot(K3, p) * inv;
-			REAL sc = r * r * inv;
+
+
+			REAL sc = r * r;
+			if (!fractal->transformCommon.functionEnabledMFalse)
+				sc = sc * inv;
+			else
+				sc = (sc + (minr - sc) * fractal->transformCommon.scale0) * inv;
+
 			aux->DE *= sc;
 			p *= sc;
 			p += mid * l;

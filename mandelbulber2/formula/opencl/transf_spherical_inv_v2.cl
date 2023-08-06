@@ -27,10 +27,17 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			z += fractal->transformCommon.offset000;
 			rr = dot(z, z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
+			REAL inv = 1.0 / rr;
+			z *= fractal->transformCommon.maxR2d1 * inv;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			// REAL r = native_sqrt(rr);
-			aux->DE = (fractal->transformCommon.maxR2d1) / rr;
+
+			if (!fractal->transformCommon.functionEnabledNFalse)
+				aux->DE *= inv * (fractal->transformCommon.maxR2d1);
+			else
+			{
+				REAL r = native_sqrt(rr);
+				aux->DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux->DE * fractal->transformCommon.scale0);
+			}
 		}
 	}
 
