@@ -308,8 +308,8 @@ enum enumFractalFormula
 
 	// 2.31
 	sphereClusterV2 = 268,
-	aboxDonut4d = 269,
-
+	aboxDonut4dV2 = 269,
+	aboxDonut4d = 270,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

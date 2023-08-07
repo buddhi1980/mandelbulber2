@@ -38,7 +38,7 @@ void cFractalTransfSphericalInvV3::FormulaCode(
 		double r = sqrt(rr);
 		double inv = 1.0 / rr;
 		z *= fractal->transformCommon.maxR2d1 * inv;
-		z -= fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z -= fractal->transformCommon.offset000;
 
 		if (!fractal->transformCommon.functionEnabledNFalse)
 			aux.DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux.DE);
