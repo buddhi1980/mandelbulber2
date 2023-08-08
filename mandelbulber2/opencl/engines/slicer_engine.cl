@@ -84,12 +84,12 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 
 	// primitives count
 	int numberOfPrimitives = GetInteger(primitivesMainOffset, inBuff);
-	int primitivesGlobalPositionOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
+	int primitivesGlobalDataOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
 	int primitivesOffset = GetInteger(primitivesMainOffset + 2 * sizeof(int), inBuff);
 
 	// global position of primitives
-	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition =
-		(__global sPrimitiveGlobalPositionCl *)&inBuff[primitivesGlobalPositionOffset];
+	__global sPrimitiveGlobalDataCl *primitivesGlobalData =
+		(__global sPrimitiveGlobalDataCl *)&inBuff[primitivesGlobalDataOffset];
 
 	// data for primitives
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
@@ -115,7 +115,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor,
 	renderData.materials = 0;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
-	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
+	renderData.primitivesGlobalData = primitivesGlobalData;
 
 	formulaOut outF;
 

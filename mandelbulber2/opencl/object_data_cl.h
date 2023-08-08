@@ -51,6 +51,7 @@ typedef struct
 	cl_float3 size;
 	cl_float3 repeat;
 	cl_int materialId;
+	cl_int usedForVolumetric;
 	enumObjectTypeCl objectType;
 	matrix33 rotationMatrix;
 } sObjectDataCl;

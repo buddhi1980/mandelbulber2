@@ -587,13 +587,14 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	globalPositionOffset = totalDataOffset;
-	sPrimitiveGlobalPositionCl globalPosition;
-	globalPosition.allPrimitivesPosition = toClFloat3(primitivesContainer->allPrimitivesPosition);
-	globalPosition.allPrimitivesRotation = toClFloat3(primitivesContainer->allPrimitivesRotation);
-	globalPosition.mRotAllPrimitivesRotation =
+	sPrimitiveGlobalDataCl globalData;
+	globalData.allPrimitivesPosition = toClFloat3(primitivesContainer->allPrimitivesPosition);
+	globalData.allPrimitivesRotation = toClFloat3(primitivesContainer->allPrimitivesRotation);
+	globalData.mRotAllPrimitivesRotation =
 		toClMatrix33(primitivesContainer->mRotAllPrimitivesRotation);
-	data.append(reinterpret_cast<char *>(&globalPosition), sizeof(globalPosition));
-	totalDataOffset += sizeof(globalPosition);
+	globalData.primitiveIndexForBasicFog = primitivesContainer->primitiveIndexForBasicFog;
+	data.append(reinterpret_cast<char *>(&globalData), sizeof(globalData));
+	totalDataOffset += sizeof(globalData);
 	data.replace(globalPositionOffsetAddress, sizeof(globalPositionOffset),
 		reinterpret_cast<char *>(&globalPositionOffset), sizeof(globalPositionOffset));
 
@@ -631,6 +632,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		primitiveCl.object.smoothDeCombineDistance = primitive->smoothDeCombineDistance;
 		primitiveCl.booleanOperator =
 			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
+		primitiveCl.object.usedForVolumetric = primitive->usedForVolumetric;
 
 		try
 		{

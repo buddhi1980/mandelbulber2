@@ -459,12 +459,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			if (params->primitives.primitiveIndexForBasicFog >= 0)
 			{
 				int closestId = -1;
-				double primitiveDist = params->primitives.TotalDistance(point, distance, input2.delta,
-					false, &closestId, data, params->primitives.primitiveIndexForBasicFog);
-				if (primitiveDist > input2.delta)
-				{
+				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
+							params->primitives.primitiveIndexForBasicFog)
+						> input2.delta)
 					fogDensity = 0;
-				}
 			}
 
 			if (fogDensity > 1.0f) fogDensity = 1.0f;

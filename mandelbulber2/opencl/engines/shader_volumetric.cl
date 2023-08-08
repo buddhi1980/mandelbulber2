@@ -402,6 +402,17 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef BASIC_FOG
 		{
 			float fogDensity = step / consts->params.fogVisibility;
+
+			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
+						> input2.delta)
+					fogDensity = 0;
+			}
+
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
 
 			output = fogDensity * consts->params.fogColor + (1.0f - fogDensity) * output;

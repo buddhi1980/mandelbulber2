@@ -307,7 +307,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #ifdef USE_PRIMITIVES
 	out.distance = TotalDistanceToPrimitives(consts, renderData, point, out.distance,
-		calcParam->detailSize, calcParam->normalCalculationMode, &closestObjectId);
+		calcParam->detailSize, calcParam->normalCalculationMode, &closestObjectId, -1);
 	out.objectId = closestObjectId;
 #endif
 
@@ -499,7 +499,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #ifdef USE_PRIMITIVES
 	dist = TotalDistanceToPrimitives(consts, renderData, point, dist, calcParam->detailSize,
-		calcParam->normalCalculationMode, &closestObjectId);
+		calcParam->normalCalculationMode, &closestObjectId, -1);
 	out.objectId = closestObjectId;
 #endif
 

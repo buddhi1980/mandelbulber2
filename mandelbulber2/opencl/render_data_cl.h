@@ -126,7 +126,7 @@ typedef struct
 	__global sLightCl *lights;
 #endif
 	__global sPrimitiveCl *primitives;
-	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
+	__global sPrimitiveGlobalDataCl *primitivesGlobalData;
 
 #if !defined(MESH_EXPORT) || 1
 	__global sObjectDataCl *objectsData;

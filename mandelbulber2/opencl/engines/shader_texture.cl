@@ -61,9 +61,9 @@ float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParam
 
 		if (objectData->objectType > objFractal)
 		{
-			pointModified = pointModified - renderData->primitivesGlobalPosition->allPrimitivesPosition;
+			pointModified = pointModified - renderData->primitivesGlobalData->allPrimitivesPosition;
 			pointModified = Matrix33MulFloat3(
-				renderData->primitivesGlobalPosition->mRotAllPrimitivesRotation, pointModified);
+				renderData->primitivesGlobalData->mRotAllPrimitivesRotation, pointModified);
 		}
 		else
 		{

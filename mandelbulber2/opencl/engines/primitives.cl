@@ -288,15 +288,14 @@ float PrimitivePrism(__global sPrimitiveCl *primitive, float3 _point)
 
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
-	int *closestObjectId)
+	int *closestObjectId, int objectIdForVolumetrics)
 {
 	int numberOfPrimitives = renderData->numberOfPrimitives;
 	int closestObject = *closestObjectId;
 	float dist = fractalDistance;
 
-	float3 point2 = point - renderData->primitivesGlobalPosition->allPrimitivesPosition;
-	point2 =
-		Matrix33MulFloat3(renderData->primitivesGlobalPosition->mRotAllPrimitivesRotation, point2);
+	float3 point2 = point - renderData->primitivesGlobalData->allPrimitivesPosition;
+	point2 = Matrix33MulFloat3(renderData->primitivesGlobalData->mRotAllPrimitivesRotation, point2);
 
 	for (int i = 0; i < numberOfPrimitives; i++)
 	{
@@ -387,6 +386,16 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 				}
 #endif
 				default: break;
+			}
+
+			if (objectIdForVolumetrics == primitive->object.objectId)
+			{
+				return distTemp;
+			}
+			else
+			{
+				if (primitive->object.usedForVolumetric)
+					continue; // skip distance calculation if primitive is used for volumetric effects
 			}
 
 #ifdef USE_DISPLACEMENT_TEXTURE
