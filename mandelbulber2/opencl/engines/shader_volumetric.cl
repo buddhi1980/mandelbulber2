@@ -410,7 +410,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
 							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
 						> input2.delta)
-					fogDensity = 0;
+					fogDensity = 0.0f;
 			}
 
 			if (fogDensity > 1.0f) fogDensity = 1.0f;

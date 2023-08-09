@@ -71,8 +71,8 @@ sRGBAfloat cRenderWorker::AuxShadow(
 	double maxSoft = 0.0;
 
 	const bool bSoft = !goThrough && !cloudMode && !params->iterFogEnabled
-										 && !params->distanceFogShadows && !params->common.iterThreshMode
-										 && !params->interiorMode && softRange > 0.0
+										 && !params->distanceFogShadows && !params->fogCastShadows
+										 && !params->common.iterThreshMode && !params->interiorMode && softRange > 0.0
 										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
@@ -159,6 +159,28 @@ sRGBAfloat cRenderWorker::AuxShadow(
 			double distanceToClouds = 0.0f;
 			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
 			lastDistanceToClouds = distanceToClouds;
+			opacity *= (distance - i) / distance;
+			opacity = qMin(opacity, 1.0);
+			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
+		}
+
+		if (params->fogEnabled && params->fogCastShadows)
+		{
+			double opacity = step / params->fogVisibility;
+			if (params->primitives.primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
+							params->primitives.primitiveIndexForBasicFog)
+						> dist_thresh)
+				{
+					opacity = 0.0f;
+				}
+				else
+				{
+					opacity = opacity * 1.0;
+				}
+			}
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;

@@ -117,6 +117,7 @@ struct sParamRender
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;
+	bool fogCastShadows;
 	bool glowEnabled;
 	bool hdrBlurEnabled;
 	bool hybridFractalEnable;

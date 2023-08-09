@@ -181,6 +181,21 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		float iterFogOpacity = 0.0f;
 		sRGBFloat iterFogCol;
 
+		float basicFogOpacity = 0.0f;
+		if (params->fogEnabled)
+		{
+			basicFogOpacity = step / params->fogVisibility;
+
+			if (params->primitives.primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
+							params->primitives.primitiveIndexForBasicFog)
+						> input2.delta)
+					basicFogOpacity = 0;
+			}
+		}
+
 		if (params->iterFogEnabled)
 		{
 			iterFogOpacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
@@ -308,6 +323,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					}
 
 					if (params->distanceFogShadows && distFogOpacity > 0.0)
+					{
+						lightNeeded = true;
+						shadowNeeded = true;
+					}
+
+					if (params->fogCastShadows && basicFogOpacity > 0.0)
 					{
 						lightNeeded = true;
 						shadowNeeded = true;
@@ -452,25 +473,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 
 		//----------------------- basic fog
-		if (params->fogEnabled)
+		if (params->fogEnabled && basicFogOpacity > 0.0)
 		{
-			float fogDensity = step / params->fogVisibility;
 
-			if (params->primitives.primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
-				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
-							params->primitives.primitiveIndexForBasicFog)
-						> input2.delta)
-					fogDensity = 0;
-			}
-
-			if (fogDensity > 1.0f) fogDensity = 1.0f;
-			output.R = fogDensity * params->fogColor.R + (1.0f - fogDensity) * output.R;
-			output.G = fogDensity * params->fogColor.G + (1.0f - fogDensity) * output.G;
-			output.B = fogDensity * params->fogColor.B + (1.0f - fogDensity) * output.B;
-			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
-			output.A = fogDensity + (1.0f - fogDensity) * output.A;
+			sRGBAfloat light =
+				(params->fogCastShadows) ? totalLightsWithShadows : sRGBFloat(1.0, 1.0, 1.0);
+			if (basicFogOpacity > 1.0f) basicFogOpacity = 1.0f;
+			output.R = basicFogOpacity * params->fogColor.R * (light.R + AO.R)
+								 + (1.0f - basicFogOpacity) * output.R;
+			output.G = basicFogOpacity * params->fogColor.G * (light.G + AO.G)
+								 + (1.0f - basicFogOpacity) * output.G;
+			output.B = basicFogOpacity * params->fogColor.B * (light.B + AO.B)
+								 + (1.0f - basicFogOpacity) * output.B;
+			totalOpacity = basicFogOpacity + (1.0f - basicFogOpacity) * totalOpacity;
+			output.A = basicFogOpacity + (1.0f - basicFogOpacity) * output.A;
 		}
 
 		//------------------ visible light

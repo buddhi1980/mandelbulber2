@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -1294,7 +1294,7 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
             <x>0</x>
             <y>0</y>
             <width>553</width>
-            <height>1584</height>
+            <height>1606</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1367,16 +1367,6 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="1" column="1">
-                 <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
                   <property name="toolTip">
@@ -1387,11 +1377,13 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_64">
-                  <property name="text">
-                   <string>Color:</string>
-                  </property>
+                <item row="3" column="1">
+                 <widget class="MyComboBox" name="comboBox_basic_fog_primitive">
+                  <item>
+                   <property name="text">
+                    <string>None</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                 <item row="0" column="0">
@@ -1401,19 +1393,34 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="MyComboBox" name="comboBox_basic_fog_primitive">
-                  <item>
-                   <property name="text">
-                    <string>None</string>
-                   </property>
-                  </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_64">
+                  <property name="text">
+                   <string>Color:</string>
+                  </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_72">
                   <property name="text">
                    <string>Shape from primitive:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_basic_fog_cast_shadows">
+                  <property name="text">
+                   <string>Cast / receive shadows</string>
                   </property>
                  </widget>
                 </item>

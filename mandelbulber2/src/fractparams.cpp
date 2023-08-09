@@ -129,6 +129,7 @@ sParamRender::sParamRender(
 	fogColor = toRGBFloat(container->Get<sRGB>("basic_fog_color"));
 	fogEnabled = container->Get<bool>("basic_fog_enabled");
 	fogVisibility = container->Get<double>("basic_fog_visibility");
+	fogCastShadows = container->Get<bool>("basic_fog_cast_shadows");
 	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
 	fov = CalcFOV(container->Get<double>("fov"), perspectiveType);
 	frameNo = container->Get<int>("frame_no");
