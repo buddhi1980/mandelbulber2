@@ -29,6 +29,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 {
 	double t = 0.0;
 	CVector4 oldZ = z;
+	double col = 0.0;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
@@ -87,7 +88,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double l, r;
 	CVector3 mid;
 
-	double largest = p.Length() - 2.0;
+	double largest = p.Length() - 2.0; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
@@ -103,7 +104,8 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 		bool is = true;
 		if (n >= fractal->transformCommon.startIterationsA
-				&& n < fractal->transformCommon.stopIterationsA) is = false;
+				&& n < fractal->transformCommon.stopIterationsA) is = false; // Isocahedral
+
 		bool on = true;
 		if (n >= fractal->transformCommon.startIterationsB
 			&& n < fractal->transformCommon.stopIterationsB) on = false;
@@ -116,14 +118,13 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				break;
 				// p = CVector3(0.0, 0.0, 1e-15);
 			}
-			//if (is_b)
 			if (is == true)
 			{
-				minr = minrb;
+				minr = minrb; // Dodecahedral
 			}
 			else
 			{
-				minr = minra;
+				minr = minra; // Isocahedral
 			}
 			if (on == false)
 			{
@@ -139,7 +140,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			}
 		}
 
-		if (is == true)
+		if (is == true) // Dodecahedral
 		{
 			l = lb;
 			r = rb;
@@ -167,7 +168,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			if (p.Dot(nb4) < 0.0)
 				p -= 2.0 * nb4 * p.Dot(nb4);
 		}
-		else
+		else // Isocahedral
 		{
 			l = la;
 			r = ra;
@@ -195,6 +196,8 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 				p -= 2.0 * na2 * p.Dot(na2);
 		}
 
+		double m = minr * k;
+		t = 1.0 / m;
 		CVector3 tv = p - mid * l;
 		double dist = tv.Length();
 		if (dist < r || n == fractal->transformCommon.int8X - 1)
@@ -206,7 +209,6 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			K3 += p * aux.DE * inv;
 			K3 -= 2.0 * p * K3.Dot(p) * inv;
 
-
 			double sc = r * r;
 			if (!fractal->transformCommon.functionEnabledMFalse)
 				sc = sc * inv;
@@ -215,24 +217,25 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 			p *= sc;
 			aux.DE *= sc;
-
 			p += mid * l;
 
-			double m = minr * k;
-			//if (p.Length() < minr && (on == false))
-			if (p.Length() < m * fractal->transformCommon.scaleG1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		//	double s;
+		//	if (!fractal->transformCommon.functionEnabledSFalse) s = m;
+		//	else s = minr;
+
+			if (p.Length() < minr * fractal->transformCommon.scaleG1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 			{
 				ColV.y += 1.0;
-				p /= m;
-				aux.DE /= m;
+				p *= t;
+				aux.DE *= t;
 				recurse = true;
 			}
 		}
 
 		if (on == true)
 		{
-			p /= minr * k;
-			aux.DE /= minr * k;
+			p *= t;
+			aux.DE *= t;
 		}
 		k *= fractal->transformCommon.scale1; // PackRatioScale;
 		// post scale
@@ -244,9 +247,9 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
 				&& n < fractal->foldColor.stopIterationsA)
 		{
-			t += ColV.y * fractal->foldColor.difs0000.y
+			col += ColV.y * fractal->foldColor.difs0000.y
 					 + ColV.z * fractal->foldColor.difs0000.z;
-			if (fractal->foldColor.difs1 > dist) t += fractal->foldColor.difs0000.w;
+			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
 		}
 	}
 
@@ -323,5 +326,5 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	//if (d > p.Length() * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
-	aux.color = t;
+	aux.color = col;
 }

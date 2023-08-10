@@ -18,6 +18,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	REAL t = 0.0f;
 	REAL4 oldZ = z;
+	REAL col = 0.0f;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse)	aux->DE = 1.0f;
@@ -75,7 +76,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL l, r;
 	REAL3 mid;
 
-	REAL largest = length(p) - 2.0;
+	REAL largest = length(p) - 2.0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	int n;
 	bool recurse = true;
 	for (n = 0; n < fractal->transformCommon.int8X; n++)
@@ -95,8 +96,6 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		bool on = true;
 		if (n >= fractal->transformCommon.startIterationsB
 			&& n < fractal->transformCommon.stopIterationsB) on = false;
-
-
 
 		if (recurse && n >= fractal->transformCommon.startIterationsC
 				&& n < fractal->transformCommon.stopIterationsC)
@@ -164,7 +163,8 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			if (dot(p, na1) < 0.0f) p -= 2.0f * na1 * dot(p, na1);
 			if (dot(p, na2) < 0.0f) p -= 2.0f * na2 * dot(p, na2);
 		}
-
+		REAL m = minr * k;
+		t = 1.0f / m;
 		REAL3 tv = p - mid * l;
 		REAL dist = length(tv);
 		if (dist < r || n == fractal->transformCommon.int8X - 1)
@@ -174,7 +174,6 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			REAL inv = 1.0 / dot(p, p);
 			K3 += p * aux->DE * inv;
 			K3 -= 2.0 * p * dot(K3, p) * inv;
-
 
 			REAL sc = r * r;
 			if (!fractal->transformCommon.functionEnabledMFalse)
@@ -186,21 +185,23 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			p *= sc;
 			p += mid * l;
 
-			REAL m = minr * k;
-			if ((length(p) < m * fractal->transformCommon.scaleG1) && (on == false))
+		//	REAL s;
+		//	if (!fractal->transformCommon.functionEnabledSFalse) s = m;
+		//	else s = minr;
+
+			if ((length(p) < minr * fractal->transformCommon.scaleG1) && (on == false))
 			{
 				ColV.y += 1.0f;
-				p /= m;
-				aux->DE /= m;
-
+				p *= t;
+				aux->DE *= t;
 				recurse = true;
 			}
 		}
 
 		if (on == true)
 		{
-			p /= minr * k;
-			aux->DE /= minr * k;
+			p *= t;
+			aux->DE *= t;
 		}
 
 		k *= fractal->transformCommon.scale1; // PackRatio scale;
@@ -213,8 +214,8 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
 				&& n < fractal->foldColor.stopIterationsA)
 		{
-			t += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
-			if (fractal->foldColor.difs1 > dist) t += fractal->foldColor.difs0000.w;
+			col = ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
+			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
 		}
 	}
 
@@ -290,6 +291,6 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// if (d > length(p) * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
-	aux->color = t;
+	aux->color = col;
 	return z;
 }
