@@ -123,6 +123,7 @@ typedef struct
 	cl_int envMappingEnable;
 	cl_int fakeLightsEnabled;
 	cl_int fogEnabled;
+	cl_int fogCastShadows;
 	cl_int glowEnabled;
 	cl_int hdrBlurEnabled;
 	cl_int hybridFractalEnable;
@@ -317,6 +318,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.envMappingEnable = source.envMappingEnable;
 	target.fakeLightsEnabled = source.fakeLightsEnabled;
 	target.fogEnabled = source.fogEnabled;
+	target.fogCastShadows = source.fogCastShadows;
 	target.glowEnabled = source.glowEnabled;
 	target.hdrBlurEnabled = source.hdrBlurEnabled;
 	target.hybridFractalEnable = source.hybridFractalEnable;

@@ -124,6 +124,24 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		}
 #endif // GLOW
 
+#ifdef BASIC_FOG
+		float basicFogOpacity = 0.0f;
+		{
+			basicFogOpacity = step / consts->params.fogVisibility;
+#ifdef USE_PRIMITIVES
+			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
+						> input2.delta)
+					basicFogOpacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
+		}
+#endif // BASIC_FOG
+
 #ifdef ITER_FOG
 		float iterFogOpacity = 0.0f;
 		float3 iterFogCol = 0.0f;
@@ -234,7 +252,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 // loop for proceessing all lights and volumetric effects
 #ifdef AUX_LIGHTS
 #if (defined(VOLUMETRIC_LIGHTS) || defined(ITER_FOG) || defined(DIST_FOG_SHADOWS) \
-		 || defined(CLOUDS))
+		 || defined(CLOUDS) || defined(BASIC_FOG))
 		for (int i = 0; i < numberOfLights; i++)
 		{
 			__global sLightCl *light = &renderData->lights[i];
@@ -270,6 +288,14 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 #ifdef VOLUMETRIC_FOG
 				if (consts->params.distanceFogShadows && distFogOpacity > 0.0f)
+				{
+					lightNeeded = true;
+					shadowNeeded = true;
+				}
+#endif
+
+#ifdef BASIC_FOG
+				if (consts->params.fogCastShadows && basicFogOpacity > 0.0f)
 				{
 					lightNeeded = true;
 					shadowNeeded = true;
@@ -400,25 +426,17 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 //----------------------- basic fog
 #ifdef BASIC_FOG
+		if (basicFogOpacity > 0)
 		{
-			float fogDensity = step / consts->params.fogVisibility;
+			float3 light = (consts->params.fogCastShadows) ? totalLightsWithShadows : 1.0f;
 
-			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
-			{
-				int closestId = -1;
+			if (basicFogOpacity > 1.0f) basicFogOpacity = 1.0f;
 
-				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
-							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
-						> input2.delta)
-					fogDensity = 0.0f;
-			}
+			output = basicFogOpacity * consts->params.fogColor * (light + AO)
+							 + (1.0f - basicFogOpacity) * output;
 
-			if (fogDensity > 1.0f) fogDensity = 1.0f;
-
-			output = fogDensity * consts->params.fogColor + (1.0f - fogDensity) * output;
-
-			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
-			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
+			totalOpacity = basicFogOpacity + (1.0f - basicFogOpacity) * totalOpacity;
+			out4.s3 = basicFogOpacity + (1.0f - basicFogOpacity) * out4.s3;
 		}
 #endif // BASIC_FOG
 

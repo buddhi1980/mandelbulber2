@@ -77,8 +77,9 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !goThrough && !cloudMode && !consts->params.iterFogEnabled
-										 && !consts->params.distanceFogShadows && !consts->params.common.iterThreshMode
-										 && !consts->params.interiorMode && softRange > 0.0f
+										 && !consts->params.distanceFogShadows && !consts->params.fogCastShadows
+										 && !consts->params.common.iterThreshMode && !consts->params.interiorMode
+										 && softRange > 0.0f
 										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
 #ifdef MC_SOFT_SHADOWS
@@ -171,6 +172,29 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
 #endif
+
+#ifdef BASIC_FOG
+		if (consts->params.fogCastShadows)
+		{
+			float opacity = step / consts->params.fogVisibility;
+
+#ifdef USE_PRIMITIVES
+			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForBasicFog)
+						> dist_thresh)
+					opacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
+
+			opacity *= (distance - i) / distance;
+			opacity = min(opacity, 1.0f);
+			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+		}
+#endif // BASIC_FOG
 
 #ifdef CLOUDS
 		{
