@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>925</width>
-    <height>5328</height>
+    <height>5353</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,6 +44,51 @@ Use small ray step multiplier settings</string>
       <string>reset aux.DE to 1.0</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_85">
+       <property name="text">
+        <string>master scale:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
@@ -746,34 +791,6 @@ Use small ray step multiplier settings</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="3" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_305">
        <property name="text">
@@ -840,7 +857,7 @@ Use small ray step multiplier settings</string>
      <item row="1" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
        <property name="text">
-        <string>mix</string>
+        <string>gasket</string>
        </property>
       </widget>
      </item>
@@ -854,12 +871,15 @@ Use small ray step multiplier settings</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_310">
        <property name="text">
-        <string>g1</string>
+        <string>rraadd11</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -886,7 +906,14 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="2" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+       <property name="text">
+        <string>mixss</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -904,20 +931,13 @@ Use small ray step multiplier settings</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.998999999999995</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
-       <property name="text">
-        <string>mixss</string>
        </property>
       </widget>
      </item>
@@ -1036,6 +1056,13 @@ Use small ray step multiplier settings</string>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
         <property name="text">
          <string>nnn</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+        <property name="text">
+         <string>largest</string>
         </property>
        </widget>
       </item>
@@ -1855,12 +1882,28 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>38</x>
-     <y>531</y>
+     <x>46</x>
+     <y>997</y>
     </hint>
     <hint type="destinationlabel">
-     <x>100</x>
-     <y>543</y>
+     <x>203</x>
+     <y>999</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledM_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_scale_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>611</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>618</y>
     </hint>
    </hints>
   </connection>

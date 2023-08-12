@@ -33,6 +33,10 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
+
+	p *= fractal->transformCommon.scaleG1; // master scale
+	aux.DE *= fractal->transformCommon.scaleG1;
+
 	CVector3 K3 = CVector3(0.0, 0.0, 0.0);
 
 	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
@@ -116,7 +120,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			if (p.Length() > excess)
 			{
 				break;
-				// p = CVector3(0.0, 0.0, 1e-15);
+				// p = CVector3(0.0, 0.0, 1e-15); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 			}
 			if (is == true)
 			{
@@ -130,7 +134,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			{
 				double inv = 1.0 / p.Dot(p);
 				K3 += p * aux.DE * inv;
-				K3 -= 2.0 * p * K3.Dot(p) * inv;
+				K3 -= 2.0 * p * (K3.Dot(p)) * inv; //   fabs>>
 				double sc = minr * inv;
 				p *= sc;
 				aux.DE *= sc;
@@ -207,7 +211,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 			double inv = 1.0 / p.Dot(p);
 			K3 += p * aux.DE * inv;
-			K3 -= 2.0 * p * K3.Dot(p) * inv;
+			K3 -= 2.0 * p * (K3.Dot(p)) * inv;
 
 			double sc = r * r;
 			if (!fractal->transformCommon.functionEnabledMFalse)
@@ -219,11 +223,11 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			aux.DE *= sc;
 			p += mid * l;
 
-		//	double s;
-		//	if (!fractal->transformCommon.functionEnabledSFalse) s = m;
-		//	else s = minr;
+			double s;
+			if (!fractal->transformCommon.functionEnabledSFalse) s = minr;
+			else s = m;
 
-			if (p.Length() < minr * fractal->transformCommon.scaleG1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			if (p.Length() < s * fractal->transformCommon.radius1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 			{
 				ColV.y += 1.0;
 				p *= t;
@@ -259,7 +263,9 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
 		else d = min(1.0, k);
-		d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
+
+		if (!fractal->transformCommon.functionEnabledFalse) {d = max(largest, minr * fractal->transformCommon.scaleE1 * d);}
+		else {d = minr * fractal->transformCommon.scaleE1 * d;}
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
@@ -272,33 +278,27 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			double radius = d;
 
 			CVector3 target = CVector3(0.0, 0.0, 0.0);
-			//if (den > 0.0001f)
-			//if (den > fractal->transformCommon.scale0)
-			{
-				CVector3 offset = K3 / den;
-				offset *= aux.DE; // since K is normalised to the scale
-				double rad = offset.Length();
-				offset += p;
 
-				target -= offset;
-				double mag = target.Length();
-				if (fabs(radius / mag) > 1.0)
-				negate = true;
-				CVector3 t1 = target * (1.0 - radius / mag);
-				CVector3 t2 = target * (1.0 + radius / mag);
-				t1 *= rad * rad / t1.Dot(t1);
-				t2 *= rad * rad / t2.Dot(t2);
-				CVector3 mid = (t1 + t2) / 2.0;
-				radius = (t1 - t2).Length() / 2.0;
-				target = mid + offset;
-			}
+			CVector3 offset = K3 / den;
+			offset *= aux.DE; // since K is normalised to the scale
+			double rad = offset.Length();
+			offset += p;
+
+			target -= offset;
+			double mag = target.Length();
+			if (fabs(radius / mag) > 1.0) negate = true;
+
+			CVector3 t1 = target * (1.0 - radius / mag);
+			CVector3 t2 = target * (1.0 + radius / mag);
+			t1 *= rad * rad / t1.Dot(t1);
+			t2 *= rad * rad / t2.Dot(t2);
+			CVector3 mid = (t1 + t2) / 2.0;
+			radius = (t1 - t2).Length() / 2.0;
+			target = mid + offset;
 
 			double dist = (p - target).Length() - radius;
 
-			if (!fractal->transformCommon.functionEnabledNFalse)
-			{
-				if (negate) dist = -dist;
-			}
+			if (negate) dist = -dist;
 			d = dist / aux.DE;
 		}
 	}
