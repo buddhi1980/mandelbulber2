@@ -189,8 +189,8 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			p += mid * l;
 
 			REAL s;
-			if (!fractal->transformCommon.functionEnabledSFalse) s = minr;
-			else s = m;
+			if (!fractal->transformCommon.functionEnabledSFalse) s = m;
+			else s = minr;
 
 			if ((length(p) < s * fractal->transformCommon.radius1) && (on == false))
 			{
@@ -217,7 +217,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
 				&& n < fractal->foldColor.stopIterationsA)
 		{
-			col = ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
+			col += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
 		}
 	}
@@ -231,7 +231,10 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		else
 			d = min(1.0f, k);
 
-		d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
+		if (!fractal->transformCommon.functionEnabledFalse)
+			d = minr * fractal->transformCommon.scaleE1 * d;
+		else
+			d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{

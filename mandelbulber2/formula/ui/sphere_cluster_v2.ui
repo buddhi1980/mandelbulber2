@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>925</width>
-    <height>5353</height>
+    <height>5382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -871,7 +871,7 @@ Use small ray step multiplier settings</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_310">
        <property name="text">
-        <string>rraadd11</string>
+        <string>rad offset:</string>
        </property>
       </widget>
      </item>
@@ -909,7 +909,7 @@ Use small ray step multiplier settings</string>
      <item row="2" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
        <property name="text">
-        <string>mixss</string>
+        <string>minr delete?</string>
        </property>
       </widget>
      </item>
@@ -1048,14 +1048,14 @@ Use small ray step multiplier settings</string>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
         <property name="text">
-         <string>alternate DE (slower)</string>
+         <string>alternate DE (slower) sometimes better quality</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
         <property name="text">
-         <string>nnn</string>
+         <string>excess</string>
         </property>
        </widget>
       </item>

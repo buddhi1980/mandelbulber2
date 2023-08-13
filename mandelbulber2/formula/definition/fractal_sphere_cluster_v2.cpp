@@ -117,7 +117,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (recurse && n >= fractal->transformCommon.startIterationsC
 				&& n < fractal->transformCommon.stopIterationsC)
 		{
-			if (p.Length() > excess)
+			if (!fractal->transformCommon.functionEnabledPFalse && p.Length() > excess)
 			{
 				break;
 				// p = CVector3(0.0, 0.0, 1e-15); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
@@ -223,11 +223,11 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			aux.DE *= sc;
 			p += mid * l;
 
-			double s;
-			if (!fractal->transformCommon.functionEnabledSFalse) s = minr;
-			else s = m;
+			double s; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm delete
+			if (!fractal->transformCommon.functionEnabledSFalse) s = m;
+			else s = minr;
 
-			if (p.Length() < s * fractal->transformCommon.radius1 && on == false) // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			if (p.Length() < s * fractal->transformCommon.radius1 && on == false)
 			{
 				ColV.y += 1.0;
 				p *= t;
@@ -264,8 +264,10 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		if (!fractal->transformCommon.functionEnabledEFalse) d = k;
 		else d = min(1.0, k);
 
-		if (!fractal->transformCommon.functionEnabledFalse) {d = max(largest, minr * fractal->transformCommon.scaleE1 * d);}
-		else {d = minr * fractal->transformCommon.scaleE1 * d;}
+		if (!fractal->transformCommon.functionEnabledFalse)
+			d = minr * fractal->transformCommon.scaleE1 * d;
+		else
+			d = max(largest, minr * fractal->transformCommon.scaleE1 * d);
 
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
