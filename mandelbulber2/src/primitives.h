@@ -87,6 +87,9 @@ public:
 	CRotationMatrix mRotAllPrimitivesRotation;
 
 	int primitiveIndexForBasicFog = -1;
+	int primitiveIndexForDistFog = -1;
+	int primitiveIndexForIterFog = -1;
+	int primitiveIndexForClouds = -1;
 
 private:
 	std::vector<std::shared_ptr<sPrimitiveBasic>> allPrimitives;

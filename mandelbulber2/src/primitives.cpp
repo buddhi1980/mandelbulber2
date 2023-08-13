@@ -114,12 +114,26 @@ void cPrimitives::Set(
 	QList<sPrimitiveItem> listOfPrimitives = GetListOfPrimitives(par);
 
 	int basicFogShapeIndex = par->Get<int>("basic_fog_primitive");
+	int distFogShapeIndex = par->Get<int>("distance_fog_primitive");
+	int iterFogShapeIndex = par->Get<int>("iteration_fog_primitive");
+	int cloudsShapeIndex = par->Get<int>("clouds_primitive");
+
 	QString basicFogShapeName;
 	if (basicFogShapeIndex > 0)
-	{
 		basicFogShapeName =
 			listOfPrimitives.at(basicFogShapeIndex - 1).fullName; //-1 because 0 is "None"
-	}
+
+	QString distFogShapeName;
+	if (distFogShapeIndex > 0)
+		distFogShapeName = listOfPrimitives.at(distFogShapeIndex - 1).fullName; //-1 because 0 is "None"
+
+	QString iterFogShapeName;
+	if (iterFogShapeIndex > 0)
+		iterFogShapeName = listOfPrimitives.at(iterFogShapeIndex - 1).fullName; //-1 because 0 is "None"
+
+	QString cloudsShapeName;
+	if (cloudsShapeIndex > 0)
+		cloudsShapeName = listOfPrimitives.at(cloudsShapeIndex - 1).fullName; //-1 because 0 is "None"
 
 	// bubble sort by calculation order
 	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
@@ -217,6 +231,24 @@ void cPrimitives::Set(
 		{
 			primitive->usedForVolumetric = true;
 			primitiveIndexForBasicFog = primitive->objectId;
+		}
+
+		if (item.fullName == distFogShapeName)
+		{
+			primitive->usedForVolumetric = true;
+			primitiveIndexForDistFog = primitive->objectId;
+		}
+
+		if (item.fullName == iterFogShapeName)
+		{
+			primitive->usedForVolumetric = true;
+			primitiveIndexForIterFog = primitive->objectId;
+		}
+
+		if (item.fullName == cloudsShapeName)
+		{
+			primitive->usedForVolumetric = true;
+			primitiveIndexForClouds = primitive->objectId;
 		}
 
 		allPrimitives.push_back(primitive);

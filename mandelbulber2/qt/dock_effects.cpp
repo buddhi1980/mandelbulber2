@@ -343,4 +343,7 @@ void cDockEffects::slotRandomLightColoringTypeChanged(int index)
 void cDockEffects::slotUpdatePrimitivesCombos()
 {
 	cPrimitives::PrepareComboBox(ui->comboBox_basic_fog_primitive, params);
+	cPrimitives::PrepareComboBox(ui->comboBox_distance_fog_primitive, params);
+	cPrimitives::PrepareComboBox(ui->comboBox_iteration_fog_primitive, params);
+	cPrimitives::PrepareComboBox(ui->comboBox_clouds_primitive, params);
 }

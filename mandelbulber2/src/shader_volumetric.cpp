@@ -201,6 +201,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			iterFogOpacity = IterOpacity(step, iterations, params->N, params->iterFogOpacityTrim,
 				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
+			if (iterFogOpacity > 0.0 && params->primitives.primitiveIndexForIterFog >= 0)
+			{
+				int closestId = -1;
+				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
+							params->primitives.primitiveIndexForIterFog)
+						> input2.delta)
+					iterFogOpacity = 0;
+			}
+
 			if (iterFogOpacity > 0.0)
 			{
 				// fog colour
@@ -236,7 +245,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double distanceToClouds = 0.0;
 			cloudDensity = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
 
-			if (!params->cloudsCastShadows)
+			if (cloudDensity > 0.0 && params->primitives.primitiveIndexForClouds >= 0)
+			{
+				int closestId = -1;
+				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
+							params->primitives.primitiveIndexForClouds)
+						> input2.delta)
+					cloudDensity = 0;
+			}
+
+			if (cloudDensity > 0.0 && !params->cloudsCastShadows)
 			{
 				double delta = params->cloudsPeriod / pow(2.0, params->cloudsIterations) * 5.0f;
 				double distanceToCloudsDummy = 0.0;
@@ -274,6 +292,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double distanceShifted;
 			distFogOpacity = DistanceFogOpacity(step, distance, params->volFogDistanceFromSurface,
 				params->volFogDistanceFactor, params->volFogDensity, distanceShifted);
+
+			if (distFogOpacity > 0.0 && params->primitives.primitiveIndexForDistFog >= 0)
+			{
+				int closestId = -1;
+				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
+							params->primitives.primitiveIndexForDistFog)
+						> input2.delta)
+					distFogOpacity = 0;
+			}
 
 			float k = distanceShifted / colourThresh;
 			if (k > 1) k = 1.0f;

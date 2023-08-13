@@ -299,6 +299,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam(
 		"volumetric_fog_distance_from_surface", 1e-15, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("distance_fog_shadows", false, morphLinear, paramStandard);
+	par->addParam("distance_fog_primitive", 0, morphLinear, paramStandard);
 
 	par->addParam("iteration_fog_enable", false, morphLinear, paramStandard);
 	par->addParam("iteration_fog_opacity", 1000.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -311,6 +312,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("iteration_fog_color", 3, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_brightness_boost", 1.0, 0.0, 1e6, morphLinear, paramStandard);
 	par->addParam("iteration_fog_shadows", true, morphLinear, paramStandard);
+	par->addParam("iteration_fog_primitive", 0, morphLinear, paramStandard);
 
 	par->addParam("clouds_enable", false, morphLinear, paramStandard);
 	par->addParam("clouds_noise_iterations", 5, 1, 150, morphLinear, paramStandard);
@@ -335,6 +337,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("clouds_speed", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("clouds_sharp_edges", false, morphLinear, paramStandard);
 	par->addParam("clouds_sharpness", 100.0, 1.0, 1e15, morphLinear, paramStandard);
+	par->addParam("clouds_primitive", 0, morphLinear, paramStandard);
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.0001, 1000.0, morphLinear, paramStandard);

@@ -128,7 +128,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		float basicFogOpacity = 0.0f;
 		{
 			basicFogOpacity = step / consts->params.fogVisibility;
-#ifdef USE_PRIMITIVES
+#if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
 			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
 			{
 				int closestId = -1;

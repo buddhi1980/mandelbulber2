@@ -857,6 +857,9 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	if (usePrimitiveTorus) definesCollector += " -DUSE_PRIMITIVE_TORUS";
 	if (usePrimitiveWater) definesCollector += " -DUSE_PRIMITIVE_WATER";
 
+	if (primitivesContainer->primitiveIndexForBasicFog >= 0)
+		definesCollector += " -DBASIC_FOG_SHAPE_FROM_PRIMITIVE";
+
 	return definesCollector;
 }
 

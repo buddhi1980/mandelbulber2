@@ -607,6 +607,7 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	{
 		definesCollector += " -DBASIC_FOG";
 		anyVolumetricShaderUsed = true;
+		if (paramRender->fogCastShadows) definesCollector += " -DBASIC_FOG_CAST_SHADOWS";
 	}
 	if (paramRender->volFogEnabled && paramRender->volFogDensity > 0)
 	{
@@ -1819,10 +1820,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						float totalNoiseRect;
 						if (output.monteCarloLoop == 1)
 						{
-							if(useAntiAlaising)
+							if (useAntiAlaising)
 								totalNoiseRect = weight * maxEdge;
 							else
-							 totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
+								totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
 						}
 						else
 						{

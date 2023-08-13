@@ -161,7 +161,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		}
 #endif
 
-#if (defined(VOLUMETRIC_FOG) || defined(DIST_FOG_SHADOWS))
+#if (defined(VOLUMETRIC_FOG) && defined(DIST_FOG_SHADOWS))
 		if (consts->params.distanceFogShadows)
 		{
 			float distanceShifted;
@@ -173,12 +173,12 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 		}
 #endif
 
-#ifdef BASIC_FOG
+#if (defined(BASIC_FOG) && defined(BASIC_FOG_CAST_SHADOWS))
 		if (consts->params.fogCastShadows)
 		{
 			float opacity = step / consts->params.fogVisibility;
 
-#ifdef USE_PRIMITIVES
+#if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
 			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
 			{
 				int closestId = -1;
