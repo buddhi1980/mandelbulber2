@@ -92,10 +92,10 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double l, r;
 	CVector3 mid;
 
-	double largest = p.Length() - 2.0; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
+//	double largest = p.Length() - 2.0; // mmmmmmmmmmmmmmmmmmmmmmmmmmm
 	int n;
 	bool recurse = true;
-	for (n = 0; n < fractal->transformCommon.int8X; n++)
+	for (n = 0; n < fractal->transformCommon.int16; n++)
 	{
 		if (fractal->transformCommon.functionEnabledPFalse
 				&& n >= fractal->transformCommon.startIterationsP
@@ -204,7 +204,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		t = 1.0 / m;
 		CVector3 tv = p - mid * l;
 		double dist = tv.Length();
-		if (dist < r || n == fractal->transformCommon.int8X - 1)
+		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{
 			ColV.x += 1.0;
 			p -= mid * l;
@@ -269,7 +269,11 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		else
 		{
 			bool negate = false;
-			double den = K3.Length();
+
+			double den;
+			if (fractal->transformCommon.functionEnabledNFalse) den = K3.Length();
+			else den = K3.Dot(K3); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 			double radius = d;
 
 			CVector3 target = CVector3(0.0, 0.0, 0.0);

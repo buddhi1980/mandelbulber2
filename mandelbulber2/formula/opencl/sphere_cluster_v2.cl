@@ -82,7 +82,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	int n;
 	bool recurse = true;
-	for (n = 0; n < fractal->transformCommon.int8X; n++)
+	for (n = 0; n < fractal->transformCommon.int16; n++)
 	{
 		if (fractal->transformCommon.functionEnabledPFalse
 				&& n >= fractal->transformCommon.startIterationsP
@@ -170,7 +170,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		t = 1.0f / m;
 		REAL3 tv = p - mid * l;
 		REAL dist = length(tv);
-		if (dist < r || n == fractal->transformCommon.int8X - 1)
+		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{
 			ColV.x += 1.0f;
 			p -= mid * l;
@@ -222,9 +222,9 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
-			d = k;
+		{	d = k;}
 		else
-			d = min(1.0f, k);
+		{d = min(1.0f, k);}
 
 		d = minr * fractal->transformCommon.scaleE1 * d;
 
