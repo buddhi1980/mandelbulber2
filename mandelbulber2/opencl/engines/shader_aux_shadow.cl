@@ -155,11 +155,23 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 				IterOpacity(step, outF.iters, consts->params.N, consts->params.iterFogOpacityTrim,
 					consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
 
+#if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
+			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog)
+						> dist_thresh)
+					opacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
+
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
-#endif
+#endif // ITER_FOG
 
 #if (defined(VOLUMETRIC_FOG) && defined(DIST_FOG_SHADOWS))
 		if (consts->params.distanceFogShadows)
@@ -167,11 +179,24 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			float distanceShifted;
 			float opacity = DistanceFogOpacity(step, dist, consts->params.volFogDistanceFromSurface,
 				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
+
+#if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
+			if (opacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog)
+						> dist_thresh)
+					opacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
+
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
-#endif
+#endif // VOL_OFG
 
 #if (defined(BASIC_FOG) && defined(BASIC_FOG_CAST_SHADOWS))
 		if (consts->params.fogCastShadows)
@@ -199,15 +224,41 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 #ifdef CLOUDS
 		{
 			float distanceToClouds = 0.0f;
-			float opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, dist_thresh,
-												&distanceToClouds)
-											* step;
+			bool calculateClouds = true;
+			float opacity = 0.0f;
+
+#if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
+			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point2, distance, dist_thresh, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds)
+						> dist_thresh)
+				{
+					opacity = 0.0f;
+					calculateClouds = false;
+				}
+			}
+#endif // USE_PRIMITIVES
+
+			if (calculateClouds)
+			{
+				opacity = CloudOpacity(consts, renderData->perlinNoiseSeeds, point2, dist, dist_thresh,
+										&distanceToClouds)
+									* step;
+			}
+			else
+			{
+				distanceToClouds = dist;
+			}
+
 			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = min(opacity, 1.0f);
 			totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 		}
-#endif
+#endif // CLOUS
 
 #if defined(USE_SUBSURFACE_SCATTERING) && defined(FULL_ENGINE)
 		if (goThrough && dist < dist_thresh)

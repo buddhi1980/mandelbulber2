@@ -172,16 +172,31 @@ sRGBAfloat cRenderWorker::AuxShadow(
 
 		if (cloudMode)
 		{
-			double distanceToClouds = 0.0f;
-			double opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
-			if (opacity > 0.0 && params->primitives.primitiveIndexForClouds >= 0)
+			double distanceToClouds = 0.0;
+			bool calculateClouds = true;
+			double opacity = 0.0;
+
+			if (params->primitives.primitiveIndexForClouds >= 0)
 			{
 				int closestId = -1;
 				if (params->primitives.TotalDistance(point2, dist, dist_thresh, false, &closestId, data,
 							params->primitives.primitiveIndexForClouds)
 						> dist_thresh)
+				{
 					opacity = 0.0f;
+					calculateClouds = false;
+				}
 			}
+
+			if (calculateClouds)
+			{
+				opacity = CloudOpacity(point2, dist, dist_thresh, &distanceToClouds) * step;
+			}
+			else
+			{
+				distanceToClouds = dist;
+			}
+
 			lastDistanceToClouds = distanceToClouds;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);

@@ -243,15 +243,27 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		if (params->cloudsEnable)
 		{
 			double distanceToClouds = 0.0;
-			cloudDensity = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
+			bool calculateClouds = true;
 
-			if (cloudDensity > 0.0 && params->primitives.primitiveIndexForClouds >= 0)
+			if (params->primitives.primitiveIndexForClouds >= 0)
 			{
 				int closestId = -1;
 				if (params->primitives.TotalDistance(point, distance, input2.delta, false, &closestId, data,
 							params->primitives.primitiveIndexForClouds)
 						> input2.delta)
+				{
 					cloudDensity = 0;
+					calculateClouds = false;
+				}
+			}
+
+			if (calculateClouds)
+			{
+				cloudDensity = CloudOpacity(point, distance, input2.delta, &distanceToClouds);
+			}
+			else
+			{
+				distanceToClouds = distance;
 			}
 
 			if (cloudDensity > 0.0 && !params->cloudsCastShadows)

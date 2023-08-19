@@ -128,6 +128,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		float basicFogOpacity = 0.0f;
 		{
 			basicFogOpacity = step / consts->params.fogVisibility;
+
 #if (defined(USE_PRIMITIVES) && defined(BASIC_FOG_SHAPE_FROM_PRIMITIVE))
 			if (renderData->primitivesGlobalData->primitiveIndexForBasicFog >= 0)
 			{
@@ -150,6 +151,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			int L = outF.iters;
 			iterFogOpacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
 				consts->params.iterFogOpacityTrimHigh, consts->params.iterFogOpacity);
+
+#if (defined(USE_PRIMITIVES) && defined(ITER_FOG_SHAPE_FROM_PRIMITIVE))
+			if (iterFogOpacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForIterFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForIterFog)
+						> input2.delta)
+					iterFogOpacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
 
 			if (iterFogOpacity > 0.0f)
 			{
@@ -185,10 +198,35 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		{
 			// perlin noise clouds
 			float distanceToClouds = 0.0f;
-			cloudDensity = CloudOpacity(
-				consts, renderData->perlinNoiseSeeds, point, distance, input2.delta, &distanceToClouds);
+			bool calculateClouds = true;
+
+#if (defined(USE_PRIMITIVES) && defined(CLOUDS_SHAPE_FROM_PRIMITIVE))
+			if (renderData->primitivesGlobalData->primitiveIndexForClouds >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForClouds)
+						> input2.delta)
+				{
+					cloudDensity = 0.0f;
+					calculateClouds = false;
+				}
+			}
+#endif // USE_PRIMITIVES
+
+			if (calculateClouds)
+			{
+				cloudDensity = CloudOpacity(
+					consts, renderData->perlinNoiseSeeds, point, distance, input2.delta, &distanceToClouds);
+			}
+			else
+			{
+				distanceToClouds = distance;
+			}
 
 #ifndef CLOUDSSHADOWS
+			if (cloudDensity > 0.0f)
 			{
 				float delta =
 					consts->params.cloudsPeriod / pown(2.0f, consts->params.cloudsIterations) * 5.0f;
@@ -231,6 +269,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float distanceShifted;
 			distFogOpacity = DistanceFogOpacity(step, distance, consts->params.volFogDistanceFromSurface,
 				consts->params.volFogDistanceFactor, consts->params.volFogDensity, &distanceShifted);
+
+#if (defined(USE_PRIMITIVES) && defined(DIST_FOG_SHAPE_FROM_PRIMITIVE))
+			if (distFogOpacity > 0.0f && renderData->primitivesGlobalData->primitiveIndexForDistFog >= 0)
+			{
+				int closestId = -1;
+
+				if (TotalDistanceToPrimitives(consts, renderData, point, distance, input2.delta, false,
+							&closestId, renderData->primitivesGlobalData->primitiveIndexForDistFog)
+						> input2.delta)
+					distFogOpacity = 0.0f;
+			}
+#endif // USE_PRIMITIVES
 
 			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;

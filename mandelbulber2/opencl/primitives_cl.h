@@ -155,6 +155,9 @@ typedef struct
 	cl_float3 allPrimitivesRotation;
 	matrix33 mRotAllPrimitivesRotation;
 	cl_int primitiveIndexForBasicFog;
+	cl_int primitiveIndexForDistFog;
+	cl_int primitiveIndexForIterFog;
+	cl_int primitiveIndexForClouds;
 } sPrimitiveGlobalDataCl;
 
 // union - variable container for primitive data

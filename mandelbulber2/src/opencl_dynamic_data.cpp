@@ -593,6 +593,9 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 	globalData.mRotAllPrimitivesRotation =
 		toClMatrix33(primitivesContainer->mRotAllPrimitivesRotation);
 	globalData.primitiveIndexForBasicFog = primitivesContainer->primitiveIndexForBasicFog;
+	globalData.primitiveIndexForDistFog = primitivesContainer->primitiveIndexForDistFog;
+	globalData.primitiveIndexForIterFog = primitivesContainer->primitiveIndexForIterFog;
+	globalData.primitiveIndexForClouds = primitivesContainer->primitiveIndexForClouds;
 	data.append(reinterpret_cast<char *>(&globalData), sizeof(globalData));
 	totalDataOffset += sizeof(globalData);
 	data.replace(globalPositionOffsetAddress, sizeof(globalPositionOffset),
@@ -859,6 +862,12 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 
 	if (primitivesContainer->primitiveIndexForBasicFog >= 0)
 		definesCollector += " -DBASIC_FOG_SHAPE_FROM_PRIMITIVE";
+	if (primitivesContainer->primitiveIndexForDistFog >= 0)
+		definesCollector += " -DDIST_FOG_SHAPE_FROM_PRIMITIVE";
+	if (primitivesContainer->primitiveIndexForIterFog >= 0)
+		definesCollector += " -DITER_FOG_SHAPE_FROM_PRIMITIVE";
+	if (primitivesContainer->primitiveIndexForClouds >= 0)
+		definesCollector += " -DCLOUDS_SHAPE_FROM_PRIMITIVE";
 
 	return definesCollector;
 }
