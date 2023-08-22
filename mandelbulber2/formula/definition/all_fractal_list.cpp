@@ -566,6 +566,9 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxDonut4d());
 	fractalList->append(new cFractalAboxDonut4dV2());
 	fractalList->append(new cFractalSphereClusterV2());
+
+	fractalList->append(new cFractalMengerV7());
+	fractalList->append(new cFractalSpheretreeV5());
 	fractalList->append(new cFractalTransfSphericalInvV3());
 	fractalList->append(new cFractalTransfSupershape());
 	fractalList->append(new cFractalScatorPower2StdR());

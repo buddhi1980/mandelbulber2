@@ -310,6 +310,10 @@ enum enumFractalFormula
 	sphereClusterV2 = 268,
 	aboxDonut4dV2 = 269,
 	aboxDonut4d = 270,
+	mengerV7 = 271,
+	spheretreeV5 = 272,
+
+
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

@@ -1,0 +1,228 @@
+/**
+ * Mandelbulber v2, a 3D fractal generator  _%}}i*<.         ______
+ * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,      / ____/ __    __
+ *                                        \><||i|=>>%)     / /   __/ /___/ /_
+ * This file is part of Mandelbulber.     )<=i=]=|=i<>    / /__ /_  __/_  __/
+ * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
+ * see also COPYING file in this folder.    ~+{i%+++
+ *
+ * formula by TGlad, extras by sabine62
+ * https://fractalforums.org/fractal-mathematics-and-new-theories/28/new-sphere-tree/3557/msg22100#msg22100
+ */
+
+#include "all_fractal_definitions.h"
+
+cFractalSpheretreeV5::cFractalSpheretreeV5() : cAbstractFractal()
+{
+	nameInComboBox = "Spheretree V5";
+	internalName = "spheretree_v5";
+	internalID = fractal::spheretreeV5;
+	DEType = analyticDEType;
+	DEFunctionType = customDEFunction;
+	cpixelAddition = cpixelDisabledByDefault;
+	defaultBailout = 100.0;
+	DEAnalyticFunction = analyticFunctionCustomDE;
+	coloringFunction = coloringFunctionDefault;
+}
+
+void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+
+	double t = 0.0;
+	CVector4 oldZ = z;
+	double col = 0.0;
+	CVector4 ColV = CVector4{0.0, 0.0, 0.0, 0.0};
+	CVector3 p = CVector3{z.x, z.y, z.z}; // convert to vec3
+	if (fractal->transformCommon.functionEnabledDFalse)	aux.DE = 1.0f;
+
+	p *= fractal->transformCommon.scaleG1; // master scale
+	aux.DE *= fractal->transformCommon.scaleG1;
+
+	CVector3 K3 = CVector3{0.0, 0.0, 0.0};
+
+	int Iterations = fractal->transformCommon.int32;
+	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
+	double BendAngle = fractal->transformCommon.scale08;
+	int NumChildren = fractal->transformCommon.int8X;
+
+
+	double o1 = 3.0;
+	if (NumChildren <= 4)
+		o1 = 5.0;
+	else if (NumChildren <= 6)
+		o1 = 4.0;
+	double o2 = fractal->transformCommon.offset3;
+	//double phi = (1.0 + sqrt(5.0)) / 2.0;
+	int n = NumChildren;
+	double sec = 1.0 / cos(M_PI / o1);
+	double csc = 1.0 / sin(M_PI / n);
+	double r = sec / sqrt(csc * csc - sec * sec);
+
+	double l = sqrt(1.0 + r * r);
+
+	double theta = asin(r * sin(M_PI - M_PI / o2) / l);
+	double L4 = l * sin(M_PI / o2 - theta) / sin(M_PI - M_PI / o2);
+	double minr = L4 * L4;
+
+
+	double bend = BendAngle;
+	double omega = M_PI / 2.0 - bend;
+	double bigR = 1.0 / cos(omega);
+	double d = tan(omega);
+
+	bool recurse = StartCurved;
+	for (int i = 0; i < Iterations; i++)
+	{
+		if (recurse)
+		{
+			p -= CVector3(0.0, 0.0, -d - bigR);
+			double sc = 4.0 * bigR * bigR / p.Dot(p);
+			p *= sc;
+			aux.DE *= sc;
+			p += CVector3(0.0, 0.0, -2.0 * bigR);
+			p.z = -p.z;
+			double size = 2.0 * bigR / (bigR + d);
+			aux.DE /= size;
+			p /= size;
+			recurse = false;
+		}
+		double angle = atan2(p.y, p.x);
+		if (angle < 0.0) angle += 2.0 * M_PI;
+		angle = fmod(angle, 2.0 * M_PI / n);
+		double mag = sqrt(p.x * p.x + p.y * p.y);
+		p.x = mag * cos(angle);
+		p.y = mag * sin(angle);
+
+		double ang1 = M_PI / n;
+		CVector3 circle_centre = l * CVector3(cos(ang1), sin(ang1), 0.0);
+		CVector3 temp = p - circle_centre;
+		double len = temp.Length();
+		if (len < r)
+		{
+			double sc = r * r / (len * len);
+			temp *= sc;
+			aux.DE *= sc;
+		}
+		p = temp + circle_centre;
+
+		double o2 = bend / 2.0;
+		double d2 = minr * tan(o2);
+		double R2 = minr / cos(o2);
+		CVector3 mid_offset = CVector3(0.0, 0.0, d2);
+		double amp = (p - mid_offset).Length();
+		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
+		if (amp <= R2) // || mag4 <= minr)
+		{
+			p /= minr;
+			aux.DE /= minr;
+			recurse = true;
+		}
+		else if (p.Length() < L4)
+		{
+			double sc = L4 * L4 / p.Dot(p);
+			p *= sc;
+			aux.DE *= sc;
+		}
+		bend *= fractal->transformCommon.scale1; // PackRatioScale;
+		// post scale
+		p *= fractal->transformCommon.scaleF1;
+		aux.DE *= fabs(fractal->transformCommon.scaleF1);
+		// DE tweaks
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	/*	if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
+				&& n < fractal->foldColor.stopIterationsA)
+		{
+			col += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
+			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
+		}*/
+	}
+
+	z = CVector4{p.x, p.y, p.z, z.w};
+
+double dt;
+
+		if (!fractal->transformCommon.functionEnabledSwFalse) dt = p.z / aux.DE;
+		else dt = (z.Length()- fractal->analyticDE.offset1)/ aux.DE;
+
+
+
+
+/*	double d;
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledEFalse)
+		{
+			d = k;
+		}
+		else
+		{
+			d = min(1.0f, k);
+		}
+
+		d = minr * fractal->transformCommon.scaleE1 * d;
+
+		if (!fractal->transformCommon.functionEnabledOFalse)
+		{
+			d = (length(z) - d) / aux.DE;
+		}
+		else
+		{
+			bool negate = false;
+
+			double den = length(K3);
+
+			double radius = d;
+			CVector3 target = (CVector3){0.0f, 0.0f, 0.0f};
+			if (den > 1e-13f)
+			{
+				CVector3 offset = K3 / den;
+				offset *= aux.DE; // since K is normalised to the scale
+				double rad = length(offset);
+				offset += p;
+
+				target -= offset;
+				double mag = length(target);
+				if (fabs(radius / mag) > 1.0f) negate = true;
+
+				CVector3 t1 = target * (1.0f - radius / mag);
+				CVector3 t2 = target * (1.0f + radius / mag);
+				t1 *= rad * rad / dot(t1, t1);
+				t2 *= rad * rad / dot(t2, t2);
+				CVector3 mid = (t1 + t2) / 2.0f;
+				radius = length(t1 - t2) / 2.0f;
+				target = mid + offset;
+			}
+
+			double dist = (length(p - target) - radius);
+
+			if (negate) dist = -dist;
+
+			d = dist / aux.DE;
+		}
+	}
+	else
+	{
+		double4 zc = z - fractal->transformCommon.offset000;
+		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		d = max(max(zc.x, zc.y), zc.z);
+		d = (d - minr * k) / aux.DE;
+	}*/
+
+	if (fractal->transformCommon.functionEnabledCFalse)
+	{
+		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
+		dt = max(dt, dst1);
+		dt = fabs(dt);
+	}
+
+	if (!fractal->transformCommon.functionEnabledXFalse)
+		aux.dist = min(aux.dist, dt);
+	else
+		aux.dist = dt;
+
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
+
+	aux.color = col;
+	//return z;
+}
