@@ -988,7 +988,7 @@ scale:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="title">
       <string>Analytic D&amp;E tweak controls</string>
      </property>
@@ -1017,7 +1017,7 @@ scale:</string>
          <number>2</number>
         </property>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1082,7 +1082,7 @@ scale:</string>
         <item row="1" column="0" colspan="2">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>offset0:</string>
+           <string>offset1:</string>
           </property>
          </widget>
         </item>

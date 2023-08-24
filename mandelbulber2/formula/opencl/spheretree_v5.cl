@@ -89,6 +89,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		REAL len = length(temp);
 		if (len < r)
 		{
+			ColV.x += 1.0;
 			REAL sc = r * r / (len * len);
 			temp *= sc;
 			aux->DE *= sc;
@@ -103,12 +104,14 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		//   REAL mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
+			ColV.z += 1.0;
 			p /= minr;
 			aux->DE /= minr;
 			recurse = true;
 		}
 		else if (length(p) < L4)
 		{
+			ColV.w += 1.0;
 			REAL sc = L4 * L4 / dot(p, p);
 			p *= sc;
 			aux->DE *= sc;
@@ -120,23 +123,25 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	/*	if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
-				&& n < fractal->foldColor.stopIterationsA)
-		{
-			col += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
-			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
-		}*/
+		ColV.y += length(p);
+
+				if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
+						&& i < fractal->foldColor.stopIterationsA)
+				{
+					t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+							 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
+				}
 	}
 
 	z = (REAL4){p.x, p.y, p.z, z.w};
 
 	REAL dt;
 	{
-		if (!fractal->transformCommon.functionEnabledSwFalse) dt = p.z / aux->DE;
-		else dt = (length(z)- fractal->analyticDE.offset1)/ aux->DE;
+		if (!fractal->transformCommon.functionEnabledEFalse) dt = (length(z) - fractal->transformCommon.offset0)/ aux->DE;
+		else dt = p.z / aux->DE;
+
 
 	}
-
 
 /*
 	if (!fractal->transformCommon.functionEnabledSwFalse)
@@ -160,7 +165,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			bool negate = false;
 
-			REAL den = length(K3);
+			REAL den = dot(K3, K3);
 
 			REAL radius = d;
 			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
@@ -213,6 +218,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux->color = col;
+	aux->color = t;
 	return z;
 }

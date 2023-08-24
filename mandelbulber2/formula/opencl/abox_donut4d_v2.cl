@@ -89,6 +89,8 @@ REAL4 AboxDonut4dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
 	zCol = z;
 
+	if (fractal->transformCommon.functionEnabledFFalse) z.w *= fractal->transformCommon.scaleNeg1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 	REAL rr = dot(z, z);
 	rrCol = rr;
 	z += fractal->transformCommon.offset0000;
@@ -198,8 +200,8 @@ REAL4 AboxDonut4dV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	// DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	if (fractal->analyticDE.enabled)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	return z;
 }

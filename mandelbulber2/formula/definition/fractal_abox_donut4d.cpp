@@ -99,6 +99,6 @@ void cFractalAboxDonut4d::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 	}
 
 	// DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	if (fractal->analyticDE.enabled)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

@@ -84,8 +84,8 @@ REAL4 AboxDonut4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 
 	// DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	if (fractal->analyticDE.enabled)
+		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 	return z;
 }

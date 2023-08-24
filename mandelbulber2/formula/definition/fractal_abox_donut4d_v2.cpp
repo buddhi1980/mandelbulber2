@@ -82,7 +82,11 @@ void cFractalAboxDonut4dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		}
 
 		z = ct;
+		CVector4 sgns = CVector4(sign(z.x), sign(z.y), sign(z.z), sign(z.w));
+
+
 		z = fabs(z) - fractal->transformCommon.offsetA0000;
+				if (fractal->transformCommon.functionEnabledFFalse) z = sgns * z;
 		aux.const_c = z;
 	}
 
@@ -103,6 +107,8 @@ void cFractalAboxDonut4dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
 				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
 	zCol = z;
+
+if (fractal->transformCommon.functionEnabledFFalse) z.w *= fractal->transformCommon.scaleNeg1; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	double rr = z.Dot(z);
 	rrCol = rr;
@@ -213,6 +219,6 @@ void cFractalAboxDonut4dV2::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	}
 
 	// DE tweak
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	if (fractal->analyticDE.enabled)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

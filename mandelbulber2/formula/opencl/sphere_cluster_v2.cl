@@ -239,7 +239,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			bool negate = false;
 
-			REAL den = length(K3);
+			REAL den = dot(K3, K3);
 
 			REAL radius = d;
 			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};

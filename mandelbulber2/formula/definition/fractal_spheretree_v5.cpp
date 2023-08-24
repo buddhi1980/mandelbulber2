@@ -99,6 +99,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		double len = temp.Length();
 		if (len < r)
 		{
+			ColV.x += 1.0;
 			double sc = r * r / (len * len);
 			temp *= sc;
 			aux.DE *= sc;
@@ -113,12 +114,14 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
+			ColV.z += 1.0;
 			p /= minr;
 			aux.DE /= minr;
 			recurse = true;
 		}
 		else if (p.Length() < L4)
 		{
+			ColV.w += 1.0;
 			double sc = L4 * L4 / p.Dot(p);
 			p *= sc;
 			aux.DE *= sc;
@@ -130,21 +133,23 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		// DE tweaks
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	/*	if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
-				&& n < fractal->foldColor.stopIterationsA)
-		{
-			col += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
-			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
-		}*/
+		ColV.y += p.Length();
+
+				if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
+						&& i < fractal->foldColor.stopIterationsA)
+				{
+					t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+							 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
+				}
 	}
 
 	z = CVector4{p.x, p.y, p.z, z.w};
 
 double dt;
 
-		if (!fractal->transformCommon.functionEnabledSwFalse) dt = p.z / aux.DE;
-		else dt = (z.Length()- fractal->analyticDE.offset1)/ aux.DE;
+		if (!fractal->transformCommon.functionEnabledEFalse) dt = (z.Length() - fractal->transformCommon.offset0)/ aux.DE;
 
+		else dt = p.z / aux.DE;
 
 
 
@@ -223,6 +228,6 @@ double dt;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux.color = col;
+	aux.color = t;
 	//return z;
 }
