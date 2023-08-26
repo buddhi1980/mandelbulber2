@@ -22,7 +22,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse)	aux->DE = 1.0f;
-
+REAL dist_to_sphere = length(p) - 1.;
 	p *= fractal->transformCommon.scaleG1; // master aux->DE
 	aux->DE *= fractal->transformCommon.scaleG1;
 
@@ -63,7 +63,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	{		REAL omega = M_PI_F / 2.0 - bend;
 		REAL bigR = 1.0 / cos(omega);
 		REAL d = tan(omega);
-		if (recurse)
+		if (recurse && i < fractal->transformCommon.int8Z)
 		{
 			p -= (REAL3)(0.0, 0.0, -d - bigR);
 			REAL sc = 4.0 * bigR * bigR / dot(p, p);
@@ -77,6 +77,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			recurse = false;
 		}
 		REAL angle = atan2(p.y, p.x);
+
 		if (angle < 0.0) angle += 2.0 * M_PI_F;
 		angle = fmod(angle, 2.0 * M_PI_F / n);
 		REAL mag = sqrt(p.x * p.x + p.y * p.y);
@@ -100,7 +101,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		REAL d2 = minr * tan(o2);
 		REAL R2 = minr / cos(o2);
 		REAL3 mid_offset = (REAL3)(0.0, 0.0, d2);
-		REAL amp = length(p - mid_offset);
+		REAL amp = length(p - mid_offset) * fractal->transformCommon.scaleA1;
 		//   REAL mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
@@ -138,7 +139,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL dt;
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse) dt = (length(z) - fractal->transformCommon.offset0)/ aux->DE;
-		else dt = p.z / aux->DE;
+		else dt = (p.z - fractal->analyticDE.offset0) / aux->DE;
 
 
 	}
@@ -210,7 +211,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-
+dt = max(dist_to_sphere, dt);
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
 	else

@@ -34,7 +34,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 ColV = CVector4{0.0, 0.0, 0.0, 0.0};
 	CVector3 p = CVector3{z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse)	aux.DE = 1.0f;
-
+double dist_to_sphere = p.Length() - 1.;
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
 
@@ -73,7 +73,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	bool recurse = StartCurved;
 	for (int i = 0; i < Iterations; i++)
 	{
-		if (recurse)
+		if (recurse && i < fractal->transformCommon.int8Z)
 		{
 			p -= CVector3(0.0, 0.0, -d - bigR);
 			double sc = 4.0 * bigR * bigR / p.Dot(p);
@@ -110,7 +110,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		double d2 = minr * tan(o2);
 		double R2 = minr / cos(o2);
 		CVector3 mid_offset = CVector3(0.0, 0.0, d2);
-		double amp = (p - mid_offset).Length();
+		double amp = (p - mid_offset).Length() * fractal->transformCommon.scaleA1;
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
@@ -149,7 +149,7 @@ double dt;
 
 		if (!fractal->transformCommon.functionEnabledEFalse) dt = (z.Length() - fractal->transformCommon.offset0)/ aux.DE;
 
-		else dt = p.z / aux.DE;
+		else dt = (p.z - fractal->analyticDE.offset0) / aux.DE;
 
 
 
@@ -220,7 +220,7 @@ double dt;
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-
+dt = max(dist_to_sphere, dt);
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
 	else
