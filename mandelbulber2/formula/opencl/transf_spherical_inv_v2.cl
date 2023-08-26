@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -27,16 +27,17 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			z += fractal->transformCommon.offset000;
 			rr = dot(z, z);
-			REAL inv = 1.0 / rr;
+			REAL inv = 1.0f / rr;
 			z *= fractal->transformCommon.maxR2d1 * inv;
 			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 
 			if (!fractal->transformCommon.functionEnabledNFalse)
-				aux->DE *= inv * (fractal->transformCommon.maxR2d1);
+				aux->DE *= inv * fractal->transformCommon.maxR2d1;
 			else
 			{
 				REAL r = native_sqrt(rr);
-				aux->DE *= inv * (fractal->transformCommon.maxR2d1 + r * aux->DE * fractal->transformCommon.scale0);
+				aux->DE *=
+					inv * (fractal->transformCommon.maxR2d1 + r * aux->DE * fractal->transformCommon.scale0);
 			}
 		}
 	}
@@ -47,7 +48,7 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		rr = dot(z, z);
-		REAL mode = rr;
+		REAL mode;
 		z += fractal->mandelbox.offset;
 
 		if (rr < fractal->mandelbox.foldingSphericalFixed)

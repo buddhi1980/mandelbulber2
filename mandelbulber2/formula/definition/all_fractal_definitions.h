@@ -183,9 +183,7 @@ FRACTAL_CLASS(cFractalMengerV3)
 FRACTAL_CLASS(cFractalMengerV4)
 FRACTAL_CLASS(cFractalMengerV5)
 FRACTAL_CLASS(cFractalMengerV6)
-
 FRACTAL_CLASS(cFractalMengerV7)
-
 FRACTAL_CLASS(cFractalMixPinski4d)
 FRACTAL_CLASS(cFractalModulusMandelbulb)
 FRACTAL_CLASS(cFractalModulusMengerSponge)

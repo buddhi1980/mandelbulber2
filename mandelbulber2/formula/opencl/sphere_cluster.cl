@@ -17,12 +17,11 @@
 REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL t = 0.0f;
+	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f};
 	REAL4 oldZ = z;
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-
-	REAL3 K3 = (REAL3){0.0f, 0.0f, 0.0f};
-
+	REAL3 K3 = tv;
 	REAL phi = (1.0f + native_sqrt(5.0f)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	REAL3 ta0 = (REAL3){0.0f, 1.0f, phi};
@@ -87,7 +86,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			if (length(p) > excess)
 			{
 				break;
-				// p = (REAL3){0.0f, 0.0f, 1e-15f};
+				//	p = (REAL3) {0.0f, 0.0f, 1e-15f};
 			}
 			if (is_b)
 			{
@@ -105,6 +104,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				REAL sc = minr * inv;
 				p *= sc;
 				aux->DE *= sc;
+
 				recurse = false;
 				ColV.z += 1.0f;
 			}
@@ -156,14 +156,13 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 			REAL inv = 1.0f / dot(p, p);
 			K3 += p * aux->DE * inv;
-			K3 -= 2.0f * p * dot(K3, p) * inv;
+			K3 -= 2.0f * p * (dot(K3, p)) * inv;
 
 			REAL sc = r * r / dot(p, p);
 			p *= sc;
 			aux->DE *= sc;
 			p += mid * l;
-
-
+			REAL m = 1.0f / (minr * k);
 			if ((length(p) < minr) && (!fractal->transformCommon.functionEnabledKFalse))
 			{
 				ColV.y += 1.0f;
@@ -176,7 +175,6 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				recurse = true;
 			}
 		}
-
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
 			p *= m;
@@ -184,7 +182,6 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 			if (fractal->transformCommon.functionEnabledTFalse) is_b = !is_b;
 		}
-
 		// post scale
 		p *= fractal->transformCommon.scaleF1;
 		aux->DE *= fabs(fractal->transformCommon.scaleF1);
@@ -200,6 +197,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 
 	z = (REAL4){p.x, p.y, p.z, z.w};
+
 	REAL d;
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -221,10 +219,8 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		else
 		{
 			bool negate = false;
-
-			REAL den = dot(K3, K3);
-
 			REAL radius = d;
+			REAL den = dot(K3, K3);
 			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
 			if (den > 1e-13f)
 			{
@@ -242,14 +238,15 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 				t1 *= rad * rad / dot(t1, t1);
 				t2 *= rad * rad / dot(t2, t2);
 				REAL3 mid = (t1 + t2) / 2.0f;
-				radius = length(t1 - t2) / 2.0f;
+				tv = t1 - t2;
+				radius = length(tv) / 2.0f;
 				target = mid + offset;
 			}
 
-			REAL dist = (length(p - target) - radius);
+			tv = p - target;
+			REAL dist = length(tv) - radius;
 
 			if (negate) dist = -dist;
-
 			d = dist / aux->DE;
 		}
 	}

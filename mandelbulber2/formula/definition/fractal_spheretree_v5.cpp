@@ -29,16 +29,17 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 {
 
 	double t = 0.0;
+	CVector3 tv = CVector3(0.0, 0.0, 0.0);
 	CVector4 oldZ = z;
 	double col = 0.0;
-	CVector4 ColV = CVector4{0.0, 0.0, 0.0, 0.0};
-	CVector3 p = CVector3{z.x, z.y, z.z}; // convert to vec3
+	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse)	aux.DE = 1.0f;
 double dist_to_sphere = p.Length() - 1.;
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
 
-	CVector3 K3 = CVector3{0.0, 0.0, 0.0};
+	CVector3 K3 = tv;
 
 	int Iterations = fractal->transformCommon.int32;
 	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
@@ -95,22 +96,23 @@ double dist_to_sphere = p.Length() - 1.;
 
 		double ang1 = M_PI / n;
 		CVector3 circle_centre = l * CVector3(cos(ang1), sin(ang1), 0.0);
-		CVector3 temp = p - circle_centre;
-		double len = temp.Length();
+		tv= p - circle_centre;
+		double len = tv.Length();
 		if (len < r)
 		{
 			ColV.x += 1.0;
 			double sc = r * r / (len * len);
-			temp *= sc;
+			tv *= sc;
 			aux.DE *= sc;
 		}
-		p = temp + circle_centre;
+		p = tv + circle_centre;
 
 		double o2 = bend / 2.0;
 		double d2 = minr * tan(o2);
 		double R2 = minr / cos(o2);
 		CVector3 mid_offset = CVector3(0.0, 0.0, d2);
-		double amp = (p - mid_offset).Length() * fractal->transformCommon.scaleA1;
+		tv = p - mid_offset;
+		double amp = tv.Length() * fractal->transformCommon.scaleA1;
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
@@ -143,7 +145,7 @@ double dist_to_sphere = p.Length() - 1.;
 				}
 	}
 
-	z = CVector4{p.x, p.y, p.z, z.w};
+	z = CVector4(p.x, p.y, p.z, z.w);
 
 double dt;
 

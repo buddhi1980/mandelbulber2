@@ -28,10 +28,11 @@ cFractalSphereCluster::cFractalSphereCluster() : cAbstractFractal()
 void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t = 0.0;
+	CVector3 tv = CVector3(0.0, 0.0, 0.0);
 	CVector4 oldZ = z;
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	CVector3 K3 = CVector3(0.0, 0.0, 0.0);
+	CVector3 K3 = tv;
 	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 	// Isocahedral geometry
 	CVector3 ta0 = CVector3(0.0, 1.0, phi);
@@ -268,10 +269,13 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 				t1 *= rad * rad / t1.Dot(t1);
 				t2 *= rad * rad / t2.Dot(t2);
 				CVector3 mid = (t1 + t2) / 2.0;
-				radius = (t1 - t2).Length() / 2.0;
+				tv = t1 - t2;
+				radius = tv.Length() / 2.0;
 				target = mid + offset;
 			}
-			double dist = (p - target).Length() - radius;
+
+			tv = p - target;
+			double dist = tv.Length() - radius;
 
 			if (negate) dist = -dist;
 			d = dist / aux.DE;
