@@ -139,9 +139,9 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		tv = (Zc - mag_Fv[side] * u_Fv[side]);
 		t = dot(tv, Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		REAL D_u_Fv_to_Zc = native_sqrt(t);
-
 		// REAL D_u_Fv_to_Zc = native_sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] *
 		// u_Fv[side]));
+
 		REAL3 u_Fv_to_Zc = (Zc - mag_Fv[side] * u_Fv[side]);
 		// REAL3 u_Fv_to_Zc;
 		if (D_u_Fv_to_Zc > 0.0f)

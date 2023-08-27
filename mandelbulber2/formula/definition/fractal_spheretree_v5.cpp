@@ -6,8 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * formula by TGlad, extras by sabine62
- * https://fractalforums.org/fractal-mathematics-and-new-theories/28/new-sphere-tree/3557/msg22100#msg22100
+ * formula by TGlad,
+ * https://https://fractalforums.org/fractal-mathematics-and-new-theories/28/sphere-inversion-trees/5113
  */
 
 #include "all_fractal_definitions.h"
@@ -35,16 +35,20 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse)	aux.DE = 1.0f;
-double dist_to_sphere = p.Length() - 1.;
+
+double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
+
+// double dist_to_sphere = p.Length() - 1.;
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
 
 	CVector3 K3 = tv;
 
 	int Iterations = fractal->transformCommon.int32;
+	int NumChildren = fractal->transformCommon.int8X;
 	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
 	double BendAngle = fractal->transformCommon.scale08;
-	int NumChildren = fractal->transformCommon.int8X;
+
 
 
 	double o1 = 3.0;
@@ -67,14 +71,27 @@ double dist_to_sphere = p.Length() - 1.;
 
 
 	double bend = BendAngle;
-	double omega = M_PI / 2.0 - bend;
-	double bigR = 1.0 / cos(omega);
-	double d = tan(omega);
+double omega, bigR, d;
 
+if (!fractal->transformCommon.functionEnabledzFalse)
+{
+	omega = M_PI / 2.0 - bend;
+	bigR = 1.0 / cos(omega);
+	d = tan(omega);
+}
 	bool recurse = StartCurved;
 	for (int i = 0; i < Iterations; i++)
 	{
-		if (recurse && i < fractal->transformCommon.int8Z)
+		if (fractal->transformCommon.functionEnabledzFalse)
+		{
+			omega = M_PI / 2.0 - bend;
+			bigR = 1.0 / cos(omega);
+			d = tan(omega);
+		}
+//		if (recurse && i < fractal->transformCommon.int8Z)
+//		{
+		if (recurse && i >= fractal->transformCommon.startIterationsC
+				&& i < fractal->transformCommon.stopIterationsC)
 		{
 			p -= CVector3(0.0, 0.0, -d - bigR);
 			double sc = 4.0 * bigR * bigR / p.Dot(p);
@@ -128,7 +145,7 @@ double dist_to_sphere = p.Length() - 1.;
 			p *= sc;
 			aux.DE *= sc;
 		}
-		bend *= fractal->transformCommon.scale1; // PackRatioScale;
+		bend *= fractal->transformCommon.scale1;
 		// post scale
 		p *= fractal->transformCommon.scaleF1;
 		aux.DE *= fabs(fractal->transformCommon.scaleF1);
@@ -222,7 +239,7 @@ double dt;
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-dt = max(dist_to_sphere, dt);
+if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
 	else

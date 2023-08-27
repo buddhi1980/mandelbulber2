@@ -152,11 +152,11 @@ void cFractalTinkerTowers::FormulaCode(
 		tv = (Zc - mag_Fv[side] * u_Fv[side]);
 		t = tv.Dot(Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		double D_u_Fv_to_Zc = sqrt(t);
-
 		// double D_u_Fv_to_Zc = sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] * u_Fv[side]));
+
 		CVector3 u_Fv_to_Zc = (Zc - mag_Fv[side] * u_Fv[side]);
 		//CVector3 u_Fv_to_Zc;
-		if	(D_u_Fv_to_Zc > 0.0)
+		if (D_u_Fv_to_Zc > 0.0)
 		{
 			u_Fv_to_Zc = u_Fv_to_Zc / D_u_Fv_to_Zc;
 		}
@@ -190,7 +190,7 @@ void cFractalTinkerTowers::FormulaCode(
 		double D = 0.0;
 		CVector3  Axis = CVector3(0.0, 0.0, 1.0); // angel does not matter if D=0;
 		//D = sqrt((Zc - mag_Fv * u_Fv[side]).Dot(Zc - mag_Fv * u_Fv[side]))/w;
-		if ( w > 0.0)
+		if (w > 0.0)
 		{
 			D = D_u_Fv_to_Zc / w;
 			Axis = u_Fv[side].Cross(zXYZ);

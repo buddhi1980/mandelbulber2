@@ -354,10 +354,10 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="maximum">
-           <double>100.000000000000000</double>
+           <double>99.998999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -378,145 +378,6 @@
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
           <property name="text">
            <string>enable A</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox_main_rotation_enabled">
-     <property name="title">
-      <string>&amp;Main rotation</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string notr="true">gamma</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string notr="true">beta</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string notr="true">alpha</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -1145,8 +1006,6 @@
   <tabstop>spinbox3_mandelbox_offset_y</tabstop>
   <tabstop>spinbox3_mandelbox_offset_z</tabstop>
   <tabstop>spinbox_transf_offset_05</tabstop>
-  <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
   <tabstop>spinbox_mandelbox_color_R</tabstop>
   <tabstop>spinbox3_mandelbox_color_x</tabstop>
   <tabstop>spinbox3_mandelbox_color_y</tabstop>

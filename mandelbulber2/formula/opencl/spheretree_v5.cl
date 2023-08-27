@@ -24,16 +24,17 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
-	REAL dist_to_sphere = length(p) - 1.f;
+	REAL dist_to_sphere = length(p) - fractal->transformCommon.radius1;
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;
 
 	REAL3 K3 = tv;
 
 	int Iterations = fractal->transformCommon.int32;
+	int NumChildren = fractal->transformCommon.int8X;
 	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
 	REAL BendAngle = fractal->transformCommon.scale08;
-	int NumChildren = fractal->transformCommon.int8X;
+
 
 	REAL o1 = 3.0f;
 	if (NumChildren <= 4)
@@ -54,15 +55,30 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL minr = L4 * L4;
 
 	REAL bend = BendAngle;
-	REAL omega = M_PI_F / 2.0f - bend;
-	REAL bigR = 1.0f / native_cos(omega);
-	REAL d = tan(omega);
+
+REAL omega, bigR, d;
+	if (!fractal->transformCommon.functionEnabledzFalse)
+	{
+		omega = M_PI_F / 2.0f - bend;
+		bigR = 1.0f / native_cos(omega);
+		d = tan(omega);
+	}
 
 	bool recurse = StartCurved;
 	for (int i = 0; i < Iterations; i++)
 	{
-		if (recurse && i < fractal->transformCommon.int8Z)
+		if (fractal->transformCommon.functionEnabledzFalse)
 		{
+			omega = M_PI_F / 2.0f - bend;
+			bigR = 1.0f / native_cos(omega);
+			d = tan(omega);
+		}
+
+		//		if (recurse && i < fractal->transformCommon.int8Z)
+		//		{
+				if (recurse && i >= fractal->transformCommon.startIterationsC
+						&& i < fractal->transformCommon.stopIterationsC)
+				{
 			p -= (REAL3){0.0f, 0.0f, -d - bigR};
 			REAL sc = 4.0f * bigR * bigR / dot(p, p);
 			p *= sc;
@@ -209,7 +225,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-	dt = max(dist_to_sphere, dt);
+if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
 	else
@@ -218,6 +234,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	aux->color = t;
-	// return z;
+
 	return z;
 }
