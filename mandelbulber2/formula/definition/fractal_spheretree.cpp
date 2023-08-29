@@ -52,7 +52,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		}
 
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
-		if (n == 0) maxH = -100;
+		if (n == 0) maxH = -100.0;
 
 		CVector4 zC = z - CVector4(0.0, 0.0, t, 0.0);
 		if (z.z > maxH && zC.Dot(zC) > t * t) break; // definitely outside
@@ -60,7 +60,7 @@ void cFractalSpheretree::FormulaCode(CVector4 &z, const sFractal *fractal, sExte
 		CVector4 zD = z - CVector4(0.0, 0.0, 0.5, 0.0);
 		double invSC = fractal->transformCommon.scaleF1 / z.Dot(z);
 
-		if (z.z < maxH && zD.Dot(zD) > 0.5 * 0.5)
+		if (z.z < maxH && zD.Dot(zD) > 0.25)
 		{
 			// needs a sphere inverse
 			Dd *= invSC;

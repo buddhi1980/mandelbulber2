@@ -41,7 +41,7 @@ REAL4 SpheretreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		}
 
 		REAL maxH = 0.4f * fractal->transformCommon.scaleG1;
-		if (n == 0) maxH = -100;
+		if (n == 0) maxH = -100.0f;
 
 		REAL4 zC = z - (REAL4){0.0f, 0.0f, t, 0.0f};
 		if (z.z > maxH && dot(zC, zC) > t * t) break; // definitely outside
@@ -49,7 +49,7 @@ REAL4 SpheretreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL4 zD = z - (REAL4){0.0f, 0.0f, 0.5f, 0.0f};
 		REAL invSC = fractal->transformCommon.scaleF1 / dot(z, z);
 
-		if (z.z < maxH && dot(zD, zD) > 0.5f * 0.5f)
+		if (z.z < maxH && dot(zD, zD) > 0.25f)
 		{
 			// needs a sphere inverse
 			Dd *= invSC;

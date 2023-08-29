@@ -128,8 +128,8 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 		double d2 = minr * tan(o2);
 		double R2 = minr / cos(o2);
 		CVector3 mid_offset = CVector3(0.0, 0.0, d2);
-		tv = p - mid_offset;
-		double amp = tv.Length() * fractal->transformCommon.scaleA1;
+		tv = p - mid_offset * fractal->transformCommon.scaleA1;
+		double amp = tv.Length() * fractal->transformCommon.scaleD1;
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
@@ -145,10 +145,10 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 			p *= sc;
 			aux.DE *= sc;
 		}
-		bend *= fractal->transformCommon.scale1;
+		bend *= fractal->transformCommon.scaleB1;
 		// post scale
-		p *= fractal->transformCommon.scaleF1;
-		aux.DE *= fabs(fractal->transformCommon.scaleF1);
+		p *= fractal->transformCommon.scaleC1;
+		aux.DE *= fabs(fractal->transformCommon.scaleC1);
 		// DE tweaks
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 

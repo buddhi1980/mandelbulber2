@@ -76,9 +76,9 @@ REAL omega, bigR, d;
 
 		//		if (recurse && i < fractal->transformCommon.int8Z)
 		//		{
-				if (recurse && i >= fractal->transformCommon.startIterationsC
-						&& i < fractal->transformCommon.stopIterationsC)
-				{
+		if (recurse && i >= fractal->transformCommon.startIterationsC
+				&& i < fractal->transformCommon.stopIterationsC)
+		{
 			p -= (REAL3){0.0f, 0.0f, -d - bigR};
 			REAL sc = 4.0f * bigR * bigR / dot(p, p);
 			p *= sc;
@@ -114,8 +114,8 @@ REAL omega, bigR, d;
 		REAL d2 = minr * tan(o2);
 		REAL R2 = minr / native_cos(o2);
 		REAL3 mid_offset = (REAL3){0.0f, 0.0f, d2};
-		tv = p - mid_offset;
-		REAL amp = length(tv) * fractal->transformCommon.scaleA1;
+		tv = p - mid_offset * fractal->transformCommon.scaleA1;
+		REAL amp = length(tv) * fractal->transformCommon.scaleD1;
 		//   REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2) // || mag4 <= minr)
 		{
@@ -131,10 +131,10 @@ REAL omega, bigR, d;
 			p *= sc;
 			aux->DE *= sc;
 		}
-		bend *= fractal->transformCommon.scale1; // PackRatioScale;
+		bend *= fractal->transformCommon.scaleB1;
 		// post scale
-		p *= fractal->transformCommon.scaleF1;
-		aux->DE *= fabs(fractal->transformCommon.scaleF1);
+		p *= fractal->transformCommon.scaleC1;
+		aux->DE *= fabs(fractal->transformCommon.scaleC1);
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 

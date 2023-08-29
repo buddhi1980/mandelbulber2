@@ -78,7 +78,9 @@ void cFractalSpheretreeV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double innerScale = k * scl / (kk + scl);
 	double innerScaleB = innerScale * innerScale * 0.25;
 	double shift = (kk + scl) / (k * (1.0 + scl));
-	double mid = 0.5 * (k + 1.0) / 2.0;
+//	double mid = 0.5 * (k + 1.0) / 2.0;
+	double mid = 0.25 * (k + 1.0);
+	// (k + 1.0) * .25 mmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	double bufferRad = t * k;
 
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
@@ -90,14 +92,14 @@ void cFractalSpheretreeV2::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		}
 
 		double maxH = 0.4 * fractal->transformCommon.scaleG1;
-		if (n == 0) maxH = -100;
+		if (n == 0) maxH = -100.0;
 
 		CVector4 zC = z - CVector4(0.0, 0.0, bufferRad, 0.0);
 		if (z.z > maxH && zC.Dot(zC) > bufferRad * bufferRad) break; // definitely outside
 
 		CVector4 zD = z - CVector4(0.0, 0.0, mid, 0.0);
-		double invSC = 1.0 / z.Dot(z) * fractal->transformCommon.scaleF1;
-
+		double invSC = fractal->transformCommon.scaleF1 / z.Dot(z);
+		// double invSC = 1.0 / z.Dot(z) * fractal->transformCommon.scaleF1; // mmmmmmmmmmmmmmmmmmmmmmm
 		if (z.z < maxH && zD.Dot(zD) > mid * mid)
 		{
 			// needs a sphere inverse
