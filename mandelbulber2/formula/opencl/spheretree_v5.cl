@@ -35,14 +35,13 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
 	REAL BendAngle = fractal->transformCommon.scale08;
 
-
 	REAL o1 = 3.0f;
 	if (NumChildren <= 4)
 		o1 = 5.0f;
 	else if (NumChildren <= 6)
 		o1 = 4.0f;
 	REAL o2 = fractal->transformCommon.offset3;
-	// REAL phi = (1.0f + native_sqrt(5.0f)) / 2.0f;
+
 	int n = NumChildren;
 	REAL sec = 1.0f / native_cos(M_PI_F / o1);
 	REAL csc = 1.0f / native_sin(M_PI_F / n);
@@ -56,7 +55,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL bend = BendAngle;
 
-REAL omega, bigR, d;
+	REAL omega = 0.0;
+	REAL bigR = 0.0;
+	REAL d = 0.0;
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
 		omega = M_PI_F / 2.0f - bend;
@@ -74,20 +75,18 @@ REAL omega, bigR, d;
 			d = tan(omega);
 		}
 
-		//		if (recurse && i < fractal->transformCommon.int8Z)
-		//		{
 		if (recurse && i >= fractal->transformCommon.startIterationsC
 				&& i < fractal->transformCommon.stopIterationsC)
 		{
-			p -= (REAL3){0.0f, 0.0f, -d - bigR};
+			p.z += d + bigR;
 			REAL sc = 4.0f * bigR * bigR / dot(p, p);
 			p *= sc;
 			aux->DE *= sc;
-			p += (REAL3){0.0f, 0.0f, -2.0f * bigR};
+			p.z += -2.0f * bigR;
 			p.z = -p.z;
-			REAL size = 2.0f * bigR / (bigR + d);
-			aux->DE /= size;
-			p /= size;
+			REAL invSize = (bigR + d) / (2.0f * bigR);
+			aux->DE *= invSize;
+			p *= invSize;
 			recurse = false;
 		}
 		REAL angle = atan2(p.y, p.x);
@@ -110,18 +109,19 @@ REAL omega, bigR, d;
 		}
 		p = tv + circle_centre;
 
-		REAL o2 = bend / 2.0f;
+		o2 = bend / 2.0f;
 		REAL d2 = minr * tan(o2);
 		REAL R2 = minr / native_cos(o2);
 		REAL3 mid_offset = (REAL3){0.0f, 0.0f, d2};
 		tv = p - mid_offset * fractal->transformCommon.scaleA1;
 		REAL amp = length(tv) * fractal->transformCommon.scaleD1;
-		//   REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
-		if (amp <= R2) // || mag4 <= minr)
+		// REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
+		if (amp <= R2 - fractal->transformCommon.scale0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
-			p /= minr;
-			aux->DE /= minr;
+			t = 1.0f / minr;
+			p *= t;
+			aux->DE *= t;
 			recurse = true;
 		}
 		else if (length(p) < L4)
@@ -131,7 +131,10 @@ REAL omega, bigR, d;
 			p *= sc;
 			aux->DE *= sc;
 		}
-		bend *= fractal->transformCommon.scaleB1;
+		if (i >= fractal->transformCommon.startIterationsA
+				&& i < fractal->transformCommon.stopIterationsA)
+		{bend *= fractal->transformCommon.scaleB1;}
+
 		// post scale
 		p *= fractal->transformCommon.scaleC1;
 		aux->DE *= fabs(fractal->transformCommon.scaleC1);
@@ -143,7 +146,7 @@ REAL omega, bigR, d;
 		if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
 				&& i < fractal->foldColor.stopIterationsA)
 		{
-			t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 					 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 		}
 	}
@@ -154,9 +157,12 @@ REAL omega, bigR, d;
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		dt = (length(z) - fractal->transformCommon.offset0) / aux->DE;
-
 	else
-		dt = (p.z - fractal->analyticDE.offset0) / aux->DE;
+		dt = (p.z - fractal->transformCommon.offset0) / aux->DE;
+
+
+
+
 
 	/*	REAL d;
 		if (!fractal->transformCommon.functionEnabledSwFalse)
@@ -225,7 +231,11 @@ REAL omega, bigR, d;
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
+
+
+	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
+
+
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
 	else
@@ -233,7 +243,7 @@ if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt)
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux->color = t;
+	aux->color += col;
 
 	return z;
 }

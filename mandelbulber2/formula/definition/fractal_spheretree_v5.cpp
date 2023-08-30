@@ -34,11 +34,10 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double col = 0.0;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse)	aux.DE = 1.0f;
+	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
 
-double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
+	double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
 
-// double dist_to_sphere = p.Length() - 1.;
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
 
@@ -57,7 +56,7 @@ double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
 	else if (NumChildren <= 6)
 		o1 = 4.0;
 	double o2 = fractal->transformCommon.offset3;
-	//double phi = (1.0 + sqrt(5.0)) / 2.0;
+
 	int n = NumChildren;
 	double sec = 1.0 / cos(M_PI / o1);
 	double csc = 1.0 / sin(M_PI / n);
@@ -71,14 +70,16 @@ double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
 
 
 	double bend = BendAngle;
-double omega, bigR, d;
+	double omega = 0.0;
+	double bigR = 0.0;
+	double d = 0.0;
+	if (!fractal->transformCommon.functionEnabledzFalse)
+	{
+		omega = M_PI / 2.0 - bend;
+		bigR = 1.0 / cos(omega);
+		d = tan(omega);
+	}
 
-if (!fractal->transformCommon.functionEnabledzFalse)
-{
-	omega = M_PI / 2.0 - bend;
-	bigR = 1.0 / cos(omega);
-	d = tan(omega);
-}
 	bool recurse = StartCurved;
 	for (int i = 0; i < Iterations; i++)
 	{
@@ -88,20 +89,19 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 			bigR = 1.0 / cos(omega);
 			d = tan(omega);
 		}
-//		if (recurse && i < fractal->transformCommon.int8Z)
-//		{
+
 		if (recurse && i >= fractal->transformCommon.startIterationsC
 				&& i < fractal->transformCommon.stopIterationsC)
 		{
-			p -= CVector3(0.0, 0.0, -d - bigR);
+			p.z += d + bigR;
 			double sc = 4.0 * bigR * bigR / p.Dot(p);
 			p *= sc;
 			aux.DE *= sc;
-			p += CVector3(0.0, 0.0, -2.0 * bigR);
+			p.z += -2.0 * bigR;
 			p.z = -p.z;
-			double size = 2.0 * bigR / (bigR + d);
-			aux.DE /= size;
-			p /= size;
+			double invSize = (bigR + d) / (2.0 * bigR);
+			aux.DE *= invSize;
+			p *= invSize;
 			recurse = false;
 		}
 		double angle = atan2(p.y, p.x);
@@ -113,9 +113,9 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 
 		double ang1 = M_PI / n;
 		CVector3 circle_centre = l * CVector3(cos(ang1), sin(ang1), 0.0);
-		tv= p - circle_centre;
+		tv = p - circle_centre;
 		double len = tv.Length();
-		if (len < r)
+		if (len < r) // mmmmmmmmmmmmmmmmmmmmmmm
 		{
 			ColV.x += 1.0;
 			double sc = r * r / (len * len);
@@ -124,18 +124,19 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 		}
 		p = tv + circle_centre;
 
-		double o2 = bend / 2.0;
+		o2 = bend / 2.0;
 		double d2 = minr * tan(o2);
 		double R2 = minr / cos(o2);
 		CVector3 mid_offset = CVector3(0.0, 0.0, d2);
 		tv = p - mid_offset * fractal->transformCommon.scaleA1;
 		double amp = tv.Length() * fractal->transformCommon.scaleD1;
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
-		if (amp <= R2) // || mag4 <= minr)
+		if (amp <= R2 - fractal->transformCommon.scale0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0;
-			p /= minr;
-			aux.DE /= minr;
+			t = 1.0 / minr;
+			p *= t;
+			aux.DE *= t;
 			recurse = true;
 		}
 		else if (p.Length() < L4)
@@ -145,7 +146,11 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 			p *= sc;
 			aux.DE *= sc;
 		}
-		bend *= fractal->transformCommon.scaleB1;
+		if (i >= fractal->transformCommon.startIterationsA
+				&& i < fractal->transformCommon.stopIterationsA)
+		{bend *= fractal->transformCommon.scaleB1;}
+
+
 		// post scale
 		p *= fractal->transformCommon.scaleC1;
 		aux.DE *= fabs(fractal->transformCommon.scaleC1);
@@ -154,21 +159,22 @@ if (!fractal->transformCommon.functionEnabledzFalse)
 
 		ColV.y += p.Length();
 
-				if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
-						&& i < fractal->foldColor.stopIterationsA)
-				{
-					t += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
-							 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-				}
+		if (fractal->foldColor.auxColorEnabled && i >= fractal->foldColor.startIterationsA
+				&& i < fractal->foldColor.stopIterationsA)
+		{
+			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
+					+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
+		}
 	}
 
 	z = CVector4(p.x, p.y, p.z, z.w);
 
-double dt;
+	double dt;
 
-		if (!fractal->transformCommon.functionEnabledEFalse) dt = (z.Length() - fractal->transformCommon.offset0)/ aux.DE;
-
-		else dt = (p.z - fractal->analyticDE.offset0) / aux.DE;
+	if (!fractal->transformCommon.functionEnabledEFalse)
+		dt = (z.Length() - fractal->transformCommon.offset0) / aux.DE;
+	else
+		dt = (p.z - fractal->transformCommon.offset0) / aux.DE;
 
 
 
@@ -239,7 +245,10 @@ double dt;
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
+
+
+	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
+
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
 	else
@@ -247,6 +256,6 @@ if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt)
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux.color = t;
+	aux.color += col;
 	//return z;
 }
