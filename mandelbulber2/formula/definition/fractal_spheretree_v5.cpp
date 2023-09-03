@@ -36,7 +36,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
 
-	double dist_to_sphere = p.Length() - fractal->transformCommon.radius1;
+	double dist_to_sphere = p.Length();
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
@@ -180,67 +180,52 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	double dt = 0.0;
 
-	if (!fractal->transformCommon.functionEnabledEFalse)
-		dt = (z.Length() - fractal->transformCommon.offset0) / aux.DE;
-	else
-		dt = (p.z - fractal->transformCommon.offset0) / aux.DE;
 
-
-
-/*	double d;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
-		{
-			d = k;
-		}
+			dt = (z.Length() - fractal->transformCommon.offset0);
 		else
-		{
-			d = min(1.0f, k);
-		}
-
-		d = minr * fractal->transformCommon.scaleE1 * d;
-
-		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			d = (length(z) - d) / aux.DE;
-		}
-		else
-		{
-			bool negate = false;
-
-			double den = length(K3);
-
-			double radius = d;
-			CVector3 target = (CVector3){0.0f, 0.0f, 0.0f};
-			if (den > 1e-13f)
-			{
-				CVector3 offset = K3 / den;
-				offset *= aux.DE; // since K is normalised to the scale
-				double rad = length(offset);
-				offset += p;
-
-				target -= offset;
-				double mag = length(target);
-				if (fabs(radius / mag) > 1.0f) negate = true;
-
-				CVector3 t1 = target * (1.0f - radius / mag);
-				CVector3 t2 = target * (1.0f + radius / mag);
-				t1 *= rad * rad / dot(t1, t1);
-				t2 *= rad * rad / dot(t2, t2);
-				CVector3 mid = (t1 + t2) / 2.0f;
-				radius = length(t1 - t2) / 2.0f;
-				target = mid + offset;
-			}
-
-			double dist = (length(p - target) - radius);
-
-			if (negate) dist = -dist;
-
-			d = dist / aux.DE;
-		}
+			dt = (p.z - fractal->transformCommon.offset0);
 	}
 	else
+	{
+		bool negate = false;
+
+		double den = K3.Length();
+
+		double radius = bend;
+
+		CVector3 target = CVector3(0.0, 0.0, 0.0);
+		if (den > 1e-13)
+		{
+			CVector3 offset = K3 / den;
+			offset *= aux.DE; // since K is normalised to the scale
+			double rad = offset.Length();
+			offset += p;
+
+			target -= offset;
+			double mag = target.Length();
+			if (fabs(radius / mag) > 1.0) negate = true;
+
+			CVector3 t1 = target * (1.0 - radius / mag);
+			CVector3 t2 = target * (1.0 + radius / mag);
+			t1 *= rad * rad / t1.Dot(t1);
+			t2 *= rad * rad / t2.Dot(t2);
+			CVector3 mid = (t1 + t2) / 2.0;
+			tv = t1 - t2;
+			radius = tv.Length() / 2.0;
+			target = mid + offset;
+		}
+		tv = p - target;
+		double dist = tv.Length() - radius;
+
+		if (negate) dist = -dist;
+
+		dt = dist;
+		if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
+	}
+	/*else
 	{
 		double4 zc = z - fractal->transformCommon.offset000;
 		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
@@ -256,8 +241,9 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 
 
-	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
 
+
+	dt /= aux.DE;
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
 	else
