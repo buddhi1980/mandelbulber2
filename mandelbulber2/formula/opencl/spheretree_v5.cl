@@ -16,7 +16,6 @@
 
 REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL t = 0.0f;
 	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f};
 	REAL4 oldZ = z;
@@ -24,7 +23,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
-	REAL dist_to_sphere = length(p) - fractal->transformCommon.radius1;
+
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;
 
@@ -34,8 +33,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	int NumChildren = fractal->transformCommon.int8X;
 	int n = NumChildren;
 	REAL ang1 = M_PI_F / n;
-//	bool StartCurved = fractal->transformCommon.functionEnabledFalse;
-//	REAL BendAngle = fractal->transformCommon.scale08;
 
 	REAL o1 = 3.0f;
 	if (NumChildren <= 4)
@@ -43,7 +40,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	else if (NumChildren <= 6)
 		o1 = 4.0f;
 	REAL o2 = fractal->transformCommon.offset3;
-
 
 	REAL sec = 1.0f / native_cos(M_PI_F / o1);
 	REAL csc = 1.0f / native_sin(M_PI_F / n);
@@ -95,14 +91,11 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 		REAL angle = atan2(p.y, p.x);
 		if (angle < 0.0f) angle += M_PI_2x_F;
-
-
 		angle = fmod(angle, M_PI_2x_F / n);
 		REAL mag = native_sqrt(p.x * p.x + p.y * p.y);
 		p.x = mag * native_cos(angle);
 		p.y = mag * native_sin(angle);
 
-	//	REAL ang1 = M_PI_F / n;
 		REAL3 circle_centre = l * (REAL3){native_cos(ang1), native_sin(ang1), 0.0f};
 		tv = p - circle_centre;
 		REAL len = length(tv);
@@ -116,10 +109,11 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		p = tv + circle_centre;
 
 		o2 = bend / 2.0f;
-		REAL d2 = minr * tan(o2);
+	//	REAL d2 = minr * tan(o2);
 		REAL R2 = minr / native_cos(o2);
-		REAL3 mid_offset = (REAL3){0.0f, 0.0f, d2};
-		tv = p - mid_offset * fractal->transformCommon.scaleA1;
+	//	REAL3 mid_offset = (REAL3){0.0f, 0.0f, d2};
+		tv = p; // - mid_offset * fractal->transformCommon.scaleA1;
+		tv.z -= minr * tan(o2);
 		REAL amp = length(tv) * fractal->transformCommon.scaleD1;
 		// REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2 - fractal->transformCommon.offsetA0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
@@ -147,6 +141,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// post scale
 		p *= fractal->transformCommon.scaleC1;
 		aux->DE *= fabs(fractal->transformCommon.scaleC1);
+
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
@@ -165,9 +160,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL dt = 0.0f;
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
-		dt = (length(z) - fractal->transformCommon.offset0) / aux->DE;
+		dt = (length(z) - fractal->transformCommon.offset0);
 	else
-		dt = (p.z - fractal->transformCommon.offset0) / aux->DE;
+		dt = (p.z - fractal->transformCommon.offset0);
 
 
 
@@ -222,7 +217,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				REAL dist = (length(p - target) - radius);
 
 				if (negate) dist = -dist;
-
+	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
 				d = dist / aux->DE;
 			}
 		}
@@ -234,16 +229,15 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			d = (d - minr * k) / aux->DE;
 		}*/
 
+
+	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		dt = fabs(dt);
 	}
-
-
-	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere, dt);
-
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
