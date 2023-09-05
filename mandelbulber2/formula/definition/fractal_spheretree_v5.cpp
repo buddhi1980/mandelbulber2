@@ -59,8 +59,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	t = sin(M_PI - M_PI / o2);
 	double theta = asin(r * t / l);
 	double L4 = l * sin(M_PI / o2 - theta) / t;
-	double minr = L4 * L4;
-
+	double minr = L4 * L4 * fractal->transformCommon.scaleD1;
 	double bend = fractal->transformCommon.scale08;
 	double omega = 0.0;
 	double bigR = 0.0;
@@ -128,8 +127,8 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		double R2 = minr / cos(o2);
 	//	CVector3 mid_offset = CVector3(0.0, 0.0, d2);
 		tv = p; // - mid_offset * fractal->transformCommon.scaleA1;
-		tv.z -= minr * tan(o2);
-		double amp = tv.Length() * fractal->transformCommon.scaleD1;
+		tv.z -= minr * tan(o2) * fractal->transformCommon.scaleA1;
+		double amp = tv.Length();
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2 - fractal->transformCommon.offsetA0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
@@ -206,9 +205,10 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			target -= offset;
 			double mag = target.Length();
 			if (fabs(radius / mag) > 1.0) negate = true;
+			t = radius / mag;
 
-			CVector3 t1 = target * (1.0 - radius / mag);
-			CVector3 t2 = target * (1.0 + radius / mag);
+			CVector3 t1 = target * (1.0 - t);
+			CVector3 t2 = target * (1.0 + t);
 			t1 *= rad * rad / t1.Dot(t1);
 			t2 *= rad * rad / t2.Dot(t2);
 			CVector3 mid = (t1 + t2) / 2.0;
@@ -237,7 +237,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	{
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
-		dt = fabs(dt);
+		//dt = fabs(dt);
 	}
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 
