@@ -150,6 +150,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
+			aux->temp1000 = min(aux->temp1000, length(z));
+			ColV.y = aux->temp1000;
+
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 					 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 		}

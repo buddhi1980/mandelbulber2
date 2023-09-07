@@ -170,6 +170,9 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
+			aux.temp1000 = min(aux.temp1000, z.Length());
+			ColV.y = aux.temp1000;
+
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 					+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
 		}
