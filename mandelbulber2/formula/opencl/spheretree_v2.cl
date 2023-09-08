@@ -69,7 +69,9 @@ REAL4 SpheretreeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL innerScale = k * scl / (kk + scl);
 	REAL innerScaleB = innerScale * innerScale * 0.25f;
 	REAL shift = (kk + scl) / (k * (1.0f + scl));
-	REAL mid = 0.5f * (k + 1.0f) / 2.0f;
+	//	REAL mid = 0.5f * (k + 1.0f) / 2.0f;
+	REAL mid = 0.25f * (k + 1.0f);
+	// (k + 1.0f) * .25f mmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	REAL bufferRad = t * k;
 
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
@@ -81,14 +83,14 @@ REAL4 SpheretreeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 
 		REAL maxH = 0.4f * fractal->transformCommon.scaleG1;
-		if (n == 0) maxH = -100;
+		if (n == 0) maxH = -100.0f;
 
 		REAL4 zC = z - (REAL4){0.0f, 0.0f, bufferRad, 0.0f};
 		if (z.z > maxH && dot(zC, zC) > bufferRad * bufferRad) break; // definitely outside
 
 		REAL4 zD = z - (REAL4){0.0f, 0.0f, mid, 0.0f};
-		REAL invSC = 1.0f / dot(z, z) * fractal->transformCommon.scaleF1;
-
+		REAL invSC = fractal->transformCommon.scaleF1 / dot(z, z);
+		// REAL invSC = 1.0f / dot(z, z) * fractal->transformCommon.scaleF1; // mmmmmmmmmmmmmmmmmmmmmmm
 		if (z.z < maxH && dot(zD, zD) > mid * mid)
 		{
 			// needs a sphere inverse

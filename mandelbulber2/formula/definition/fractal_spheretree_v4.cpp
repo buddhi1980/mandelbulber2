@@ -59,13 +59,13 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double omega = 0.0;
 	double bigR = 0.0;
 	double d = 0.0;
+
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
 		omega = M_PI_2 - bend;
 		bigR = 1.0 / cos(omega);
 		d = tan(omega);
 	}
-
 	// iteration loop
 	bool recurse = true;
 	if (fractal->transformCommon.functionEnabledFalse) recurse = false;
@@ -93,9 +93,9 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			z *= invSize;
 			recurse = false;
 		}
+
 		double angle = atan2(z.y, z.x);
 		if (angle < 0.0) angle += M_PI_2x;
-
 		angle = fmod(angle, M_PI_2x / n);
 		double mag = sqrt(z.x * z.x + z.y * z.y);
 		z.x = mag * cos(angle);
@@ -114,9 +114,7 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		z = tv + circle_centre;
 
 		o2 = bend / 2.0;
-
 		double R2 = minr / cos(o2);
-
 		tv = z;
 		tv.z -= minr * tan(o2) * fractal->transformCommon.scaleA1;
 		double amp = tv.Length();
@@ -137,6 +135,7 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			z *= sc;
 			aux.DE *= sc;
 		}
+
 		if (c >= fractal->transformCommon.startIterationsA
 				&& c < fractal->transformCommon.stopIterationsA)
 		{
@@ -163,7 +162,7 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 
 	aux.DE = aux.DE + fractal->analyticDE.offset1;
-
+	if (fractal->analyticDE.enabledFalse) z = oldZ;
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		aux.color += col;
 	else

@@ -90,8 +90,9 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	//
 	// Scale is used as the power.
 	REAL power = fractal->mandelbox.scale;
-	// Solid is used for selecting fractal(==0) or target map(!=0).
-//	REAL solid = fractal->mandelbox.solid;
+	// fractal->transformCommon.functionEnabledAFalse is used for selecting fractal(disabled) or
+	// target map(enabled).
+	//	REAL solid = fractal->mandelbox.solid;
 
 	// Find the lowest cutting plane that cuts the ray from the origin through zXYZ.
 	// The parameterized equation for this ray is L_Z(h) = h * u_zXYX.
@@ -137,7 +138,8 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// u_Fv[side] dot unclipped circle = mag_Fv.
 
 		tv = (Zc - mag_Fv[side] * u_Fv[side]);
-		t = dot(tv, Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		t = dot(
+			tv, Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		REAL D_u_Fv_to_Zc = native_sqrt(t);
 		// REAL D_u_Fv_to_Zc = native_sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] *
 		// u_Fv[side]));
@@ -202,7 +204,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			// zXYZ = zXYZ *(1.0f - .0*flat);  // Does not play well with power DE
 			// zXYZ =  RotateAroundVectorByAngle4(zXYZ, u_Fv[side], 3.14159/3.0); // Taffy
-			zXYZ = RotateAroundVectorByAngle(zXYZ, Axis, rot_angle); // php angel4 ??
+			zXYZ = RotateAroundVectorByAngle4(zXYZ, Axis, rot_angle); // php angel4 ??
 		}
 		else
 		{
@@ -221,11 +223,8 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL rp = pow(mag_zXYZ, power - 1.0f);
 
-	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	aux->DE = rp * aux->DE * power + 1.0f;
-
-
-
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	zXYZ = zXYZ * rp;
 

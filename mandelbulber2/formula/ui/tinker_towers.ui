@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>tinker_towers</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -724,7 +724,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TinkerTowersIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TinkerTowersIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
   CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; t &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -799,9 +799,9 @@
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;//&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// Scale is used as the power.&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; scale &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// Solid is used for selecting fractal(==0) or target map(!=0).&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; solid &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;solid&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; power &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// fractal-&amp;gt;transformCommon.functionEnabledAFalse is used for selecting fractal(disabled) or target map(enabled).&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;//  double solid = fractal-&amp;gt;mandelbox.solid;&lt;/span&gt;
 
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// Find the lowest cutting plane that cuts the ray from the origin through zXYZ.&lt;/span&gt;
@@ -848,18 +848,13 @@
     &lt;span style=&quot;color:#2929cc&quot;&gt;// u_Fv[side] dot unclipped circle = mag_Fv.&lt;/span&gt;
 
     tv &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;Zc &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; mag_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;] *&lt;/span&gt; u_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;]);&lt;/span&gt;
-    t &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tv&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Dot&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;Zc &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; mag_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;] *&lt;/span&gt; u_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;]);&lt;/span&gt;
-
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//REAL3 tv3 =&lt;/span&gt;
-
-
-        &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; D_u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt;
-            &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;t&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-
+    t &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tv&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Dot&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;Zc &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; mag_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;] *&lt;/span&gt; u_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;]);&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; D_u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;t&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;// double D_u_Fv_to_Zc = sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] * u_Fv[side]));&lt;/span&gt;
+
     CVector3 u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;Zc &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; mag_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;] *&lt;/span&gt; u_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;]);&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;//CVector3 u_Fv_to_Zc;&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt;  &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;D_u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;D_u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
       u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; D_u_Fv_to_Zc&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
@@ -893,7 +888,7 @@
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; D &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     CVector3  Axis &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;CVector3&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// angel does not matter if D=0;&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;//D = sqrt((Zc - mag_Fv * u_Fv[side]).Dot(Zc - mag_Fv * u_Fv[side]))/w;&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt; w &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;w &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
       D &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; D_u_Fv_to_Zc &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; w&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       Axis &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; u_Fv&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;side&lt;span style=&quot;color:#676767&quot;&gt;].&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Cross&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zXYZ&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
@@ -934,9 +929,12 @@
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// zXYZ ray hits unit sphere first.&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; rp &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;pow&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;mag_zXYZ&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; scale&lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; rp &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; scale &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; rp &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;pow&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;mag_zXYZ&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; power &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
 
+
+
+  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; rp &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; power &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
   zXYZ &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; zXYZ &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; rp&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
