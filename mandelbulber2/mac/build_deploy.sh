@@ -8,17 +8,18 @@ BUILD=$SRC/build/
 rm -rf $BUILD
 mkdir -p $BUILD
 
-# opencl: download cl.hpp file from Khronos
-mkdir -p $BUILD/OpenCL
-CLFILE="$BUILD/OpenCL/cl.hpp"
-CLSRC="https://www.khronos.org/registry/cl/api/2.1/cl.hpp"
-if [ -f $CLFILE ];
-then
-echo "$CLFILE found"
-else
-echo "Downloading $CLSRC"
-wget -O $CLFILE $CLSRC
-fi
+# Minimum Requirement
+# Check Homebrew Install
+tput bold ; echo ; echo '♻️ ' Check Homebrew Install ; tput sgr0 ; sleep 1
+if ls /usr/local/bin/ | grep brew > /dev/null ; then tput sgr0 ; echo "HomeBrew AllReady Installed" ; else tput bold ; echo "Installing HomeBrew" ; tput sgr0 ; /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" ; fi
+
+brew update
+brew install llvm qt5 gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
+
+# adam - Fix OpenCL
+mkdir -p  ~/mandelbulber2/build/OpenCL
+git clone https://github.com/KhronosGroup/OpenCL-CLHPP.git ~/mandelbulber2/build/OpenCL
+cp -vfr ~/mandelbulber2/build/OpenCL/include/CL/ ~/mandelbulber2/build/OpenCL
 
 # build operation
 cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl-mac.pro
