@@ -40,7 +40,6 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	CVector3 K3 = tv;
 
-	int Iterations = fractal->transformCommon.int16;
 	int NumChildren = fractal->transformCommon.int8X;
 	int n = NumChildren;
 	double ang1 = M_PI / n;
@@ -64,22 +63,32 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	double omega = 0.0;
 	double bigR = 0.0;
 	double d = 0.0;
+
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
 		omega = M_PI_2 - bend;
 		bigR = 1.0 / cos(omega);
 		d = tan(omega);
 	}
-
-	bool recurse = false;
-	if (fractal->transformCommon.functionEnabledFalse) recurse = true;
-	for (int c = 0; c < Iterations; c++)
+	// iteration loop
+	bool recurse = true;
+	if (fractal->transformCommon.functionEnabledFalse) recurse = false;
+	for (int c = 0; c < fractal->transformCommon.int16; c++)
 	{
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
 			omega = M_PI_2 - bend;
 			bigR = 1.0 / cos(omega);
 			d = tan(omega);
+		}
+
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& c >= fractal->transformCommon.startIterationsP
+				&& c < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
 		}
 
 		if (recurse == true && c >= fractal->transformCommon.startIterationsC
@@ -130,7 +139,9 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		tv.z -= minr * tan(o2) * fractal->transformCommon.scaleA1;
 		double amp = tv.Length();
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
-		if (amp <= R2 - fractal->transformCommon.offsetA0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+		if (amp <= R2 - fractal->transformCommon.offsetA0
+			&& c >= fractal->transformCommon.startIterationsB
+			&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0;
 			t = 1.0 / minr;
@@ -165,12 +176,13 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		// DE tweaks
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-		ColV.y += p.Length();
+		// ColV.y += p.Length();
 
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
-			aux.temp1000 = min(aux.temp1000, z.Length());
+			//t =  z.Length();
+			aux.temp1000 = min(aux.temp1000, p.Length());
 			ColV.y = aux.temp1000;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
@@ -185,9 +197,9 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
-			dt = (z.Length() - fractal->transformCommon.offset0);
+			dt = z.Length() - fractal->transformCommon.offset0;
 		else
-			dt = (p.z - fractal->transformCommon.offset0);
+			dt = p.z - fractal->transformCommon.offset0;
 	}
 	else
 	{

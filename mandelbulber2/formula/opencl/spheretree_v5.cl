@@ -16,7 +16,7 @@
 
 REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL t = 0.0f;												// temp
+	REAL t = 0.0f; // temp
 	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f}; // temp vector
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
@@ -29,7 +29,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL3 K3 = tv;
 
-	int Iterations = fractal->transformCommon.int16;
 	int NumChildren = fractal->transformCommon.int8X;
 	int n = NumChildren;
 	REAL ang1 = M_PI_F / n;
@@ -59,16 +58,25 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		bigR = 1.0f / native_cos(omega);
 		d = tan(omega);
 	}
-
-	bool recurse = false;
-	if (fractal->transformCommon.functionEnabledFalse) recurse = true;
-	for (int c = 0; c < Iterations; c++)
+	// iteration loop
+	bool recurse = true;
+	if (fractal->transformCommon.functionEnabledFalse) recurse = false;
+	for (int c = 0; c < fractal->transformCommon.int16; c++)
 	{
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
 			omega = M_PI_2 - bend;
 			bigR = 1.0f / native_cos(omega);
 			d = tan(omega);
+		}
+
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& c >= fractal->transformCommon.startIterationsP
+				&& c < fractal->transformCommon.stopIterationsP1)
+		{
+			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
 		}
 
 		if (recurse == true && c >= fractal->transformCommon.startIterationsC
@@ -119,8 +127,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		tv.z -= minr * tan(o2) * fractal->transformCommon.scaleA1;
 		REAL amp = length(tv);
 		//   REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
-		if (amp
-				<= R2 - fractal->transformCommon.offsetA0) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+		if (amp <= R2 - fractal->transformCommon.offsetA0
+				&& c >= fractal->transformCommon.startIterationsB
+				&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;
@@ -155,12 +164,14 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-		ColV.y += length(p);
+
 
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
-			aux->temp1000 = min(aux->temp1000, length(z));
+			t = length(p);
+
+			aux->temp1000 = min(aux->temp1000, t);
 			ColV.y = aux->temp1000;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
@@ -175,9 +186,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledEFalse)
-			dt = (length(z) - fractal->transformCommon.offset0);
+			dt = length(z) - fractal->transformCommon.offset0;
 		else
-			dt = (p.z - fractal->transformCommon.offset0);
+			dt = p.z - fractal->transformCommon.offset0;
 	}
 	else
 	{
