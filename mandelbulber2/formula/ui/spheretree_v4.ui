@@ -371,13 +371,6 @@ Use small ray step multiplier settings</string>
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QGroupBox" name="groupBox_7">
         <property name="title">
          <string> inversion iteration controls</string>
@@ -884,13 +877,6 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-          <property name="text">
-           <string>DE deform</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
           <property name="enabled">
@@ -922,6 +908,13 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_182">
+          <property name="text">
+           <string>aux.DE tweak and deform:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -931,6 +924,13 @@ Use small ray step multiplier settings</string>
     <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
      <property name="text">
       <string>z = oldZ (spheres)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+     <property name="text">
+      <string>reset z (color)</string>
      </property>
     </widget>
    </item>
@@ -1101,7 +1101,7 @@ Use small ray step multiplier settings</string>
         <item row="4" column="0">
          <widget class="QLabel" name="label_122">
           <property name="text">
-           <string notr="true">w</string>
+           <string notr="true">radius:</string>
           </property>
          </widget>
         </item>
@@ -1136,14 +1136,14 @@ Use small ray step multiplier settings</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string notr="true">z</string>
+           <string notr="true">amp:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string notr="true">x</string>
+           <string notr="true">length:</string>
           </property>
          </widget>
         </item>

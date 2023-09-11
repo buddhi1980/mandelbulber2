@@ -32,6 +32,11 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 oldZ = z;
 	double col = 0.0;
 	CVector4 ColV = tv;
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		aux.DE = 1.0;
+		z = aux.const_c;
+	}
 
 	z *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
@@ -131,7 +136,6 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		}
 		else if (z.Length() < L4)
 		{
-			ColV.w += 1.0;
 			double inv = 1.0 / z.Dot(z);
 			double sc =  L4 * L4  * inv;
 			z *= sc;
@@ -155,10 +159,11 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
-			//t = z.Length();
+			t = z.Length();
 
-			aux.temp1000 = min(aux.temp1000, z.Length());
+			aux.temp1000 = min(aux.temp1000, t);
 			ColV.y = aux.temp1000;
+			ColV.w  = t;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 					+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
@@ -166,12 +171,14 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	}
 
 	aux.DE = aux.DE + fractal->analyticDE.offset1;
-	if (fractal->transformCommon.functionEnabledJFalse)
+	if (fractal->transformCommon.offset0 != 0.0)
 	{
 		t = z.Length();
 		aux.DE *= t / (t - fractal->transformCommon.offset0);
 	}
+
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
+
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		aux.color += col;
 	else

@@ -21,6 +21,14 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		aux->DE = 1.0f;
+		z = aux->const_c;
+	}
+	REAL dist_to_sphere = length(z);
+
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
 	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
 
@@ -139,7 +147,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 		else if (length(p) < L4)
 		{
-			ColV.w += 1.0f;
+
 			// REAL sc = L4 * L4 / dot(p, p);
 
 			REAL inv = 1.0f / dot(p, p);
@@ -173,6 +181,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			aux->temp1000 = min(aux->temp1000, t);
 			ColV.y = aux->temp1000;
+			ColV.w  = t;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 						 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
@@ -244,7 +253,12 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		dt = max(dt, dst1);
 		// dt = fabs(dt);
 	}
+	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
+
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
+
+
+
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);

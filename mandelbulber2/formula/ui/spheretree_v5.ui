@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1132</width>
-    <height>5532</height>
+    <height>5651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,13 +35,6 @@
       <string>When run as a single formula, set maximum number
 of iterations to 1 on the Render Engine tab
 Use small ray step multiplier settings</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-     <property name="text">
-      <string>reset aux.DE to 1.0</string>
      </property>
     </widget>
    </item>
@@ -1058,10 +1051,20 @@ Use small ray step multiplier settings</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="text">
-           <string>clip</string>
+           <string>alternate DE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
@@ -1093,10 +1096,24 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>alternate DE</string>
+           <string>(slower) sometimes better quality</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+          <property name="text">
+           <string>clip</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+          <property name="text">
+           <string>swap to ,z.z/ de</string>
           </property>
          </widget>
         </item>
@@ -1131,24 +1148,45 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-          <property name="text">
-           <string>swap to ,z.z/ de</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_178">
-          <property name="text">
-           <string>(slower) sometimes better quality</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_180">
           <property name="text">
            <string>d offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetF_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_181">
+          <property name="text">
+           <string>clip offset</string>
           </property>
          </widget>
         </item>
@@ -1158,6 +1196,48 @@ Use small ray step multiplier settings</string>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
         <property name="text">
          <string>G</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+        <property name="text">
+         <string>Y</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyDoubleSpinBox" name="spinbox_transf_radius_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="prefix">
+         <string/>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="minimum">
+         <double>-99.998999999999995</double>
+        </property>
+        <property name="maximum">
+         <double>99.998999999999995</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+        <property name="text">
+         <string>reset z (color)</string>
         </property>
        </widget>
       </item>

@@ -32,8 +32,14 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	CVector4 oldZ = z;
 	double col = 0.0;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
+
+	if (fractal->transformCommon.functionEnabledJFalse)
+	{
+		aux.DE = 1.0;
+		z = aux.const_c;
+	}
+	double dist_to_sphere = z.Length();
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
@@ -114,7 +120,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		double angle = atan2(p.y, p.x);
 		if (angle < 0.0) angle += M_PI_2x;
 
-		angle = fmod(angle, M_PI_2x / n); // mmmmmmmmmmmmmmmm??? x - y * trunc (x/y).
+		angle = fmod(angle, M_PI_2x / n);
 		double mag = sqrt(p.x * p.x + p.y * p.y);
 		p.x = mag * cos(angle);
 		p.y = mag * sin(angle);
@@ -151,7 +157,6 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		}
 		else if (p.Length() < L4)
 		{
-			ColV.w += 1.0;
 			//double sc = L4 * L4 / p.Dot(p);
 
 			double inv = 1.0 / p.Dot(p);
@@ -176,14 +181,13 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		// DE tweaks
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-		// ColV.y += p.Length();
-
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
-			//t =  z.Length();
-			aux.temp1000 = min(aux.temp1000, p.Length());
+			t = p.Length();
+			aux.temp1000 = min(aux.temp1000, t);
 			ColV.y = aux.temp1000;
+			ColV.w  = t;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 					+ ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
@@ -250,11 +254,16 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
+		aux.const_c.z += fractal->transformCommon.offsetF0;
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		//dt = fabs(dt);
 	}
+		if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
+
+
+
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
