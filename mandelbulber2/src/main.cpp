@@ -62,6 +62,8 @@
 
 #include "formula/definition/all_fractal_list.hpp"
 
+#include <QJSEngine>
+
 int main(int argc, char *argv[])
 {
 	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -189,6 +191,10 @@ int main(int argc, char *argv[])
 	gOpenCl->Reset();
 	gOpenCl->InitPlatfromAndDevices();
 #endif
+
+	QJSEngine myEngine;
+	QJSValue test = myEngine.evaluate("1 + 2");
+	qDebug() << test.toInt();
 
 	if (!commandLineInterface.isNoGUI())
 	{
