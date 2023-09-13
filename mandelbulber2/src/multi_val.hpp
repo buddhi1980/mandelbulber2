@@ -68,14 +68,46 @@ public:
 	enumVarType Store(const CVector4 &val);
 	enumVarType Store(const sRGB &val);
 	enumVarType Store(bool val);
-	void Get(double &val) const;
-	void Get(int &val) const;
-	void Get(long long &val) const;
-	void Get(QString &val) const;
-	void Get(CVector3 &val) const;
-	void Get(CVector4 &val) const;
-	void Get(sRGB &val) const;
-	void Get(bool &val) const;
+
+	inline void Get(double &val) const { val = dVal[0]; }
+	inline void Get(int &val) const { val = iVal[0]; }
+	inline void Get(long long &val) const { val = iVal[0]; }
+	inline void Get(CVector3 &val) const { val = CVector3(dVal[0], dVal[1], dVal[2]); }
+	inline void Get(CVector4 &val) const { val = CVector4(dVal[0], dVal[1], dVal[2], dVal[3]); }
+	inline void Get(sRGB &val) const { val = sRGB(iVal[0], iVal[1], iVal[2]); }
+	inline void Get(bool &val) const { val = iVal[0]; }
+
+	void Get(QString &val) const
+	{
+		switch (type)
+		{
+			case typeBool: val = QString::number(iVal[0]);
+			case typeInt: val = QString::number(iVal[0]); break;
+			case typeDouble: val = QString("%L1").arg(dVal[0], 0, 'g', 15); break;
+			case typeString: val = sVal; break;
+			case typeVector3:
+				val = QString("%L1 %L2 %L3")
+								.arg(dVal[0], 0, 'g', 15)
+								.arg(dVal[1], 0, 'g', 15)
+								.arg(dVal[2], 0, 'g', 15);
+				break;
+			case typeVector4:
+				val = QString("%L1 %L2 %L3 %L4")
+								.arg(dVal[0], 0, 'g', 15)
+								.arg(dVal[1], 0, 'g', 15)
+								.arg(dVal[2], 0, 'g', 15)
+								.arg(dVal[3], 0, 'g', 15);
+				break;
+			case typeRgb:
+				val = QString("%1 %2 %3")
+								.arg(iVal[0], 4, 16, QChar('0'))
+								.arg(iVal[1], 4, 16, QChar('0'))
+								.arg(iVal[2], 4, 16, QChar('0'));
+				break;
+			case typeNull: val = QString(); break;
+		}
+	}
+
 	enumVarType GetDefaultType() const { return type; }
 	bool operator==(const cMultiVal &m) const;
 

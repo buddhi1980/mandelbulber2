@@ -97,14 +97,31 @@ public:
 	template <class T>
 	void Set(const T &val, enumValueSelection selection);
 	void SetScript(const QString &_script) { script = _script; }
-	template <class T>
-	T Get(enumValueSelection selection) const;
+	// template <class T>
+	//  T Get(enumValueSelection selection) const;
 	void LimitValue(cMultiVal &multi) const;
 	QStringList GetEnumLookup() const { return enumLookup; }
 	void SetEnumLookup(QStringList _enumLookup) { enumLookup = _enumLookup; }
 	bool IsEnumeration() { return !enumLookup.empty(); }
 	QString GetValueByEnumeration() const;
 	int GetIndexByEnumeration(QString value) const;
+
+	// get parameter value
+	template <class T>
+	T Get(enumValueSelection selection) const
+	{
+		T val = T();
+		actualVal.Get(val);
+
+		switch (selection)
+		{
+			case valueActual: actualVal.Get(val); break;
+			case valueDefault: defaultVal.Get(val); break;
+			case valueMin: minVal.Get(val); break;
+			case valueMax: maxVal.Get(val); break;
+		}
+		return val;
+	}
 
 private:
 	// parameter data
@@ -134,13 +151,5 @@ extern template void cOneParameter::Set<CVector4>(
 extern template void cOneParameter::Set<sRGB>(const sRGB &val, enumValueSelection selection);
 extern template void cOneParameter::Set<bool>(const bool &val, enumValueSelection selection);
 
-extern template double cOneParameter::Get<double>(enumValueSelection selection) const;
-extern template int cOneParameter::Get<int>(enumValueSelection selection) const;
-extern template long long cOneParameter::Get<long long>(enumValueSelection selection) const;
-extern template QString cOneParameter::Get<QString>(enumValueSelection selection) const;
-extern template CVector3 cOneParameter::Get<CVector3>(enumValueSelection selection) const;
-extern template CVector4 cOneParameter::Get<CVector4>(enumValueSelection selection) const;
-extern template sRGB cOneParameter::Get<sRGB>(enumValueSelection selection) const;
-extern template bool cOneParameter::Get<bool>(enumValueSelection selection) const;
 
 #endif /* MANDELBULBER2_SRC_ONE_PARAMETER_HPP_ */
