@@ -52,7 +52,7 @@ cOneParameter::cOneParameter()
 
 // set parameter value
 template <class T>
-void cOneParameter::Set(T val, enumValueSelection selection)
+void cOneParameter::Set(const T &val, enumValueSelection selection)
 {
 	switch (selection)
 	{
@@ -72,14 +72,14 @@ void cOneParameter::Set(T val, enumValueSelection selection)
 	}
 	isEmpty = false;
 }
-template void cOneParameter::Set<double>(double val, enumValueSelection selection);
-template void cOneParameter::Set<int>(int val, enumValueSelection selection);
-template void cOneParameter::Set<long long>(long long val, enumValueSelection selection);
-template void cOneParameter::Set<QString>(QString val, enumValueSelection selection);
-template void cOneParameter::Set<CVector3>(CVector3 val, enumValueSelection selection);
-template void cOneParameter::Set<CVector4>(CVector4 val, enumValueSelection selection);
-template void cOneParameter::Set<sRGB>(sRGB val, enumValueSelection selection);
-template void cOneParameter::Set<bool>(bool val, enumValueSelection selection);
+template void cOneParameter::Set<double>(const double &val, enumValueSelection selection);
+template void cOneParameter::Set<int>(const int &val, enumValueSelection selection);
+template void cOneParameter::Set<long long>(const long long &val, enumValueSelection selection);
+template void cOneParameter::Set<QString>(const QString &val, enumValueSelection selection);
+template void cOneParameter::Set<CVector3>(const CVector3 &val, enumValueSelection selection);
+template void cOneParameter::Set<CVector4>(const CVector4 &val, enumValueSelection selection);
+template void cOneParameter::Set<sRGB>(const sRGB &val, enumValueSelection selection);
+template void cOneParameter::Set<bool>(const bool &val, enumValueSelection selection);
 
 // get parameter value
 template <class T>

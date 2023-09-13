@@ -68,7 +68,7 @@ cParameterContainer &cParameterContainer::operator=(const cParameterContainer &p
 
 // defining of params without limits
 template <class T>
-void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType,
+void cParameterContainer::addParam(const QString &name, T defaultVal, enumMorphType morphType,
 	enumParameterType parType, QStringList enumLookup)
 {
 	QMutexLocker lock(&m_lock);
@@ -95,24 +95,24 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal,
+template void cParameterContainer::addParam<double>(const QString &name, double defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal,
+template void cParameterContainer::addParam<int>(const QString &name, int defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<QString>(QString name, QString defaultVal,
+template void cParameterContainer::addParam<QString>(const QString &name, QString defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+template void cParameterContainer::addParam<CVector3>(const QString &name, CVector3 defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+template void cParameterContainer::addParam<CVector4>(const QString &name, CVector4 defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
+template void cParameterContainer::addParam<sRGB>(const QString &name, sRGB defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
+template void cParameterContainer::addParam<bool>(const QString &name, bool defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 
 // defining of params with limits
 template <class T>
-void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal,
+void cParameterContainer::addParam(const QString &name, T defaultVal, T minVal, T maxVal,
 	enumMorphType morphType, enumParameterType parType)
 {
 	QMutexLocker lock(&m_lock);
@@ -135,21 +135,21 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal,
-	double maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal,
+template void cParameterContainer::addParam<double>(const QString &name, double defaultVal,
+	double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(const QString &name, int defaultVal, int minVal,
 	int maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+template void cParameterContainer::addParam<CVector3>(const QString &name, CVector3 defaultVal,
 	CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+template void cParameterContainer::addParam<CVector4>(const QString &name, CVector4 defaultVal,
 	CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal,
+template void cParameterContainer::addParam<sRGB>(const QString &name, sRGB defaultVal, sRGB minVal,
 	sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
 // defining of params without limits and with index
 template <class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType,
-	enumParameterType parType, QStringList enumLookup)
+void cParameterContainer::addParam(const QString &name, int index, T defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -163,7 +163,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 		newRecord.SetOriginalContainerName(containerName);
 		newRecord.SetEnumLookup(enumLookup);
 
-		QString indexName = nameWithIndex(&name, index);
+		QString indexName = nameWithIndex(name, index);
 		if (myMap.find(indexName) != myMap.end())
 		{
 			qWarning() << "addParam(): element '" << indexName << "' already existed";
@@ -178,24 +178,24 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
+template void cParameterContainer::addParam<double>(const QString &name, int index,
+	double defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<int>(const QString &name, int index, int defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+template void cParameterContainer::addParam<QString>(const QString &name, int index,
+	QString defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector3>(const QString &name, int index,
+	CVector3 defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector4>(const QString &name, int index,
+	CVector4 defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<sRGB>(const QString &name, int index, sRGB defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal,
-	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
-	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
-	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
-	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal,
+template void cParameterContainer::addParam<bool>(const QString &name, int index, bool defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 
 // defining of params with limits and index
 template <class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal,
+void cParameterContainer::addParam(const QString &name, int index, T defaultVal, T minVal, T maxVal,
 	enumMorphType morphType, enumParameterType parType)
 {
 	QMutexLocker lock(&m_lock);
@@ -211,7 +211,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		newRecord.SetParameterType(parType);
 		newRecord.SetOriginalContainerName(containerName);
 
-		QString indexName = nameWithIndex(&name, index);
+		QString indexName = nameWithIndex(name, index);
 		if (myMap.find(indexName) != myMap.end())
 		{
 			qWarning() << "addParam(): element '" << indexName << "' already existed";
@@ -226,20 +226,23 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
-	double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+template void cParameterContainer::addParam<double>(const QString &name, int index,
+	double defaultVal, double minVal, double maxVal, enumMorphType morphType,
+	enumParameterType parType);
+template void cParameterContainer::addParam<int>(const QString &name, int index, int defaultVal,
 	int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
-	CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
-	CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+template void cParameterContainer::addParam<CVector3>(const QString &name, int index,
+	CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType,
+	enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(const QString &name, int index,
+	CVector4 defaultVal, CVector4 minVal, CVector4 maxVal, enumMorphType morphType,
+	enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(const QString &name, int index, sRGB defaultVal,
 	sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
 // set parameter value by name
 template <class T>
-void cParameterContainer::Set(QString name, T val)
+void cParameterContainer::Set(const QString &name, const T &val)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -254,23 +257,23 @@ void cParameterContainer::Set(QString name, T val)
 		qWarning() << "Set(): element '" << name << "' doesn't exists";
 	}
 }
-template void cParameterContainer::Set<double>(QString name, double val);
-template void cParameterContainer::Set<int>(QString name, int val);
-template void cParameterContainer::Set<QString>(QString name, QString val);
-template void cParameterContainer::Set<CVector3>(QString name, CVector3 val);
-template void cParameterContainer::Set<CVector4>(QString name, CVector4 val);
-template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
-template void cParameterContainer::Set<bool>(QString name, bool val);
+template void cParameterContainer::Set<double>(const QString &name, const double &val);
+template void cParameterContainer::Set<int>(const QString &name, const int &val);
+template void cParameterContainer::Set<QString>(const QString &name, const QString &val);
+template void cParameterContainer::Set<CVector3>(const QString &name, const CVector3 &val);
+template void cParameterContainer::Set<CVector4>(const QString &name, const CVector4 &val);
+template void cParameterContainer::Set<sRGB>(const QString &name, const sRGB &val);
+template void cParameterContainer::Set<bool>(const QString &name, const bool &val);
 
 // set parameter value by name and index
 template <class T>
-void cParameterContainer::Set(QString name, int index, T val)
+void cParameterContainer::Set(const QString &name, int index, const T &val)
 {
 	QMutexLocker lock(&m_lock);
 
 	if (index >= 0)
 	{
-		QString indexName = nameWithIndex(&name, index);
+		QString indexName = nameWithIndex(name, index);
 		QMap<QString, cOneParameter>::iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
@@ -287,17 +290,19 @@ void cParameterContainer::Set(QString name, int index, T val)
 		qWarning() << "Set(): element '" << name << "' has negative index (" << index << ")";
 	}
 }
-template void cParameterContainer::Set<double>(QString name, int index, double val);
-template void cParameterContainer::Set<int>(QString name, int index, int val);
-template void cParameterContainer::Set<QString>(QString name, int index, QString val);
-template void cParameterContainer::Set<CVector3>(QString name, int index, CVector3 val);
-template void cParameterContainer::Set<CVector4>(QString name, int index, CVector4 val);
-template void cParameterContainer::Set<sRGB>(QString name, int index, sRGB val);
-template void cParameterContainer::Set<bool>(QString name, int index, bool val);
+template void cParameterContainer::Set<double>(const QString &name, int index, const double &val);
+template void cParameterContainer::Set<int>(const QString &name, int index, const int &val);
+template void cParameterContainer::Set<QString>(const QString &name, int index, const QString &val);
+template void cParameterContainer::Set<CVector3>(
+	const QString &name, int index, const CVector3 &val);
+template void cParameterContainer::Set<CVector4>(
+	const QString &name, int index, const CVector4 &val);
+template void cParameterContainer::Set<sRGB>(const QString &name, int index, const sRGB &val);
+template void cParameterContainer::Set<bool>(const QString &name, int index, const bool &val);
 
 // get parameter value by name
 template <class T>
-T cParameterContainer::Get(QString name) const
+T cParameterContainer::Get(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -314,30 +319,30 @@ T cParameterContainer::Get(QString name) const
 	}
 	return val;
 }
-template double cParameterContainer::Get<double>(QString name) const;
-template int cParameterContainer::Get<int>(QString name) const;
-template QString cParameterContainer::Get<QString>(QString name) const;
-template CVector3 cParameterContainer::Get<CVector3>(QString name) const;
-template CVector4 cParameterContainer::Get<CVector4>(QString name) const;
-template sRGB cParameterContainer::Get<sRGB>(QString name) const;
-template bool cParameterContainer::Get<bool>(QString name) const;
+template double cParameterContainer::Get<double>(const QString &name) const;
+template int cParameterContainer::Get<int>(const QString &name) const;
+template QString cParameterContainer::Get<QString>(const QString &name) const;
+template CVector3 cParameterContainer::Get<CVector3>(const QString &name) const;
+template CVector4 cParameterContainer::Get<CVector4>(const QString &name) const;
+template sRGB cParameterContainer::Get<sRGB>(const QString &name) const;
+template bool cParameterContainer::Get<bool>(const QString &name) const;
 
 template <>
-float cParameterContainer::Get<float>(QString name) const
+float cParameterContainer::Get<float>(const QString &name) const
 {
 	return float(Get<double>(name));
 }
 
 // get parameter value by name and index
 template <class T>
-T cParameterContainer::Get(QString name, int index) const
+T cParameterContainer::Get(const QString &name, int index) const
 {
 	QMutexLocker lock(&m_lock);
 
 	T val = T();
 	if (index >= 0)
 	{
-		QString indexName = nameWithIndex(&name, index);
+		QString indexName = nameWithIndex(name, index);
 		QMap<QString, cOneParameter>::const_iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
@@ -355,23 +360,23 @@ T cParameterContainer::Get(QString name, int index) const
 	}
 	return val;
 }
-template double cParameterContainer::Get<double>(QString name, int index) const;
-template int cParameterContainer::Get<int>(QString name, int index) const;
-template QString cParameterContainer::Get<QString>(QString name, int index) const;
-template CVector3 cParameterContainer::Get<CVector3>(QString name, int index) const;
-template CVector4 cParameterContainer::Get<CVector4>(QString name, int index) const;
-template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
-template bool cParameterContainer::Get<bool>(QString name, int index) const;
+template double cParameterContainer::Get<double>(const QString &name, int index) const;
+template int cParameterContainer::Get<int>(const QString &name, int index) const;
+template QString cParameterContainer::Get<QString>(const QString &name, int index) const;
+template CVector3 cParameterContainer::Get<CVector3>(const QString &name, int index) const;
+template CVector4 cParameterContainer::Get<CVector4>(const QString &name, int index) const;
+template sRGB cParameterContainer::Get<sRGB>(const QString &name, int index) const;
+template bool cParameterContainer::Get<bool>(const QString &name, int index) const;
 
 template <>
-float cParameterContainer::Get<float>(QString name, int index) const
+float cParameterContainer::Get<float>(const QString &name, int index) const
 {
 	return float(Get<double>(name, index));
 }
 
 // get parameter default value by name
 template <class T>
-T cParameterContainer::GetDefault(QString name) const
+T cParameterContainer::GetDefault(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -388,24 +393,24 @@ T cParameterContainer::GetDefault(QString name) const
 	}
 	return val;
 }
-template double cParameterContainer::GetDefault<double>(QString name) const;
-template int cParameterContainer::GetDefault<int>(QString name) const;
-template QString cParameterContainer::GetDefault<QString>(QString name) const;
-template CVector3 cParameterContainer::GetDefault<CVector3>(QString name) const;
-template CVector4 cParameterContainer::GetDefault<CVector4>(QString name) const;
-template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
-template bool cParameterContainer::GetDefault<bool>(QString name) const;
+template double cParameterContainer::GetDefault<double>(const QString &name) const;
+template int cParameterContainer::GetDefault<int>(const QString &name) const;
+template QString cParameterContainer::GetDefault<QString>(const QString &name) const;
+template CVector3 cParameterContainer::GetDefault<CVector3>(const QString &name) const;
+template CVector4 cParameterContainer::GetDefault<CVector4>(const QString &name) const;
+template sRGB cParameterContainer::GetDefault<sRGB>(const QString &name) const;
+template bool cParameterContainer::GetDefault<bool>(const QString &name) const;
 
 // get parameter value by name and index
 template <class T>
-T cParameterContainer::GetDefault(QString name, int index) const
+T cParameterContainer::GetDefault(const QString &name, int index) const
 {
 	QMutexLocker lock(&m_lock);
 
 	T val = T();
 	if (index >= 0)
 	{
-		QString indexName = nameWithIndex(&name, index);
+		QString indexName = nameWithIndex(name, index);
 		QMap<QString, cOneParameter>::const_iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
@@ -423,22 +428,22 @@ T cParameterContainer::GetDefault(QString name, int index) const
 	}
 	return val;
 }
-template double cParameterContainer::GetDefault<double>(QString name, int index) const;
-template int cParameterContainer::GetDefault<int>(QString name, int index) const;
-template QString cParameterContainer::GetDefault<QString>(QString name, int index) const;
-template CVector3 cParameterContainer::GetDefault<CVector3>(QString name, int index) const;
-template CVector4 cParameterContainer::GetDefault<CVector4>(QString name, int index) const;
-template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
-template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
+template double cParameterContainer::GetDefault<double>(const QString &name, int index) const;
+template int cParameterContainer::GetDefault<int>(const QString &name, int index) const;
+template QString cParameterContainer::GetDefault<QString>(const QString &name, int index) const;
+template CVector3 cParameterContainer::GetDefault<CVector3>(const QString &name, int index) const;
+template CVector4 cParameterContainer::GetDefault<CVector4>(const QString &name, int index) const;
+template sRGB cParameterContainer::GetDefault<sRGB>(const QString &name, int index) const;
+template bool cParameterContainer::GetDefault<bool>(const QString &name, int index) const;
 
-QString cParameterContainer::nameWithIndex(QString *str, int index)
+QString cParameterContainer::nameWithIndex(const QString &str, int index)
 {
-	QString name = *str + "_" + QString::number(index);
+	const QString name = str + "_" + QString::number(index);
 	return name;
 }
 
 void cParameterContainer::Copy(
-	QString name, std::shared_ptr<const cParameterContainer> sourceContainer)
+	const QString &name, std::shared_ptr<const cParameterContainer> sourceContainer)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -486,7 +491,7 @@ void cParameterContainer::PrintListOfParameters() const
 	WriteLog(parametersOutput, 1);
 }
 
-enumVarType cParameterContainer::GetVarType(QString name) const
+enumVarType cParameterContainer::GetVarType(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -505,7 +510,7 @@ enumVarType cParameterContainer::GetVarType(QString name) const
 	return type;
 }
 
-enumParameterType cParameterContainer::GetParameterType(QString name) const
+enumParameterType cParameterContainer::GetParameterType(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -524,7 +529,7 @@ enumParameterType cParameterContainer::GetParameterType(QString name) const
 	return type;
 }
 
-bool cParameterContainer::isDefaultValue(QString name) const
+bool cParameterContainer::isDefaultValue(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -538,7 +543,7 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::isDefaultValue(QString name): element '" << name
+		qWarning() << "cParameterContainer::isDefaultValue(const QString &name): element '" << name
 							 << "' doesn't exists";
 	}
 	return isDefault;
@@ -591,7 +596,7 @@ void cParameterContainer::DeleteParameter(const QString &name)
 	}
 }
 
-cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
+cOneParameter cParameterContainer::GetAsOneParameter(const QString &name) const
 {
 	QMutexLocker lock(&m_lock);
 
@@ -604,13 +609,13 @@ cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name
+		qWarning() << "cParameterContainer::GetAsOneParameter(const QString &name): element '" << name
 							 << "' doesn't exists";
 	}
 	return val;
 }
 
-void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter)
+void cParameterContainer::SetFromOneParameter(const QString &name, const cOneParameter &parameter)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -622,21 +627,24 @@ void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter 
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter "
-									"&parameter): element '"
-							 << name << "' doesn't exists";
+		qWarning()
+			<< "cParameterContainer::SetFromOneParameter(const QString &name, const cOneParameter "
+				 "&parameter): element '"
+			<< name << "' doesn't exists";
 	}
 }
 
-void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter)
+void cParameterContainer::AddParamFromOneParameter(
+	const QString &name, const cOneParameter &parameter)
 {
 	QMutexLocker lock(&m_lock);
 
 	if (myMap.find(name) != myMap.end())
 	{
-		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter "
-									"&parameter): element '"
-							 << name << "' already existed";
+		qWarning()
+			<< "cParameterContainer::AddParamFromOneParameter(const QString &name, const cOneParameter "
+				 "&parameter): element '"
+			<< name << "' already existed";
 	}
 	else
 	{
@@ -688,7 +696,7 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 	return map;
 }
 
-void cParameterContainer::SetAsGradient(QString name)
+void cParameterContainer::SetAsGradient(const QString &name)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -700,7 +708,7 @@ void cParameterContainer::SetAsGradient(QString name)
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::SetAsGradient(QString name): element '" << name
+		qWarning() << "cParameterContainer::SetAsGradient(const QString &name): element '" << name
 							 << "' doesn't exists";
 	}
 }

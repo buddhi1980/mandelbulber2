@@ -84,7 +84,7 @@ enumVarType cMultiVal::Store(long long val)
 	return typeInt;
 }
 
-enumVarType cMultiVal::Store(QString val)
+enumVarType cMultiVal::Store(const QString &val)
 {
 	switch (type)
 	{
@@ -128,7 +128,7 @@ enumVarType cMultiVal::Store(QString val)
 	return typeString;
 }
 
-enumVarType cMultiVal::Store(CVector3 val)
+enumVarType cMultiVal::Store(const CVector3 &val)
 {
 	dVal[0] = val.x;
 	dVal[1] = val.y;
@@ -143,7 +143,7 @@ enumVarType cMultiVal::Store(CVector3 val)
 	return type;
 }
 
-enumVarType cMultiVal::Store(CVector4 val)
+enumVarType cMultiVal::Store(const CVector4 &val)
 {
 	dVal[0] = val.x;
 	dVal[1] = val.y;
@@ -163,7 +163,7 @@ enumVarType cMultiVal::Store(CVector4 val)
 	return type;
 }
 
-enumVarType cMultiVal::Store(sRGB val)
+enumVarType cMultiVal::Store(const sRGB &val)
 {
 	dVal[0] = val.R;
 	dVal[1] = val.G;
@@ -190,37 +190,37 @@ enumVarType cMultiVal::Store(bool val)
 	return typeBool;
 }
 
-enumVarType cMultiVal::Get(double &val) const
+void cMultiVal::Get(double &val) const
 {
 	val = dVal[0];
-	return typeDouble;
+	// return typeDouble;
 }
 
-enumVarType cMultiVal::Get(int &val) const
+void cMultiVal::Get(int &val) const
 {
 	val = iVal[0];
-	return typeInt;
+	// return typeInt;
 }
 
-enumVarType cMultiVal::Get(long long &val) const
+void cMultiVal::Get(long long &val) const
 {
 	val = iVal[0];
-	return typeInt;
+	// eturn typeInt;
 }
 
-enumVarType cMultiVal::Get(CVector3 &val) const
+void cMultiVal::Get(CVector3 &val) const
 {
 	val = CVector3(dVal[0], dVal[1], dVal[2]);
-	return typeVector3;
+	// return typeVector3;
 }
 
-enumVarType cMultiVal::Get(CVector4 &val) const
+void cMultiVal::Get(CVector4 &val) const
 {
 	val = CVector4(dVal[0], dVal[1], dVal[2], dVal[3]);
-	return typeVector4;
+	// return typeVector4;
 }
 
-enumVarType cMultiVal::Get(QString &val) const
+void cMultiVal::Get(QString &val) const
 {
 	switch (type)
 	{
@@ -250,19 +250,19 @@ enumVarType cMultiVal::Get(QString &val) const
 		case typeNull: val = QString(); break;
 	}
 
-	return typeString;
+	// return typeString;
 }
 
-enumVarType cMultiVal::Get(sRGB &val) const
+void cMultiVal::Get(sRGB &val) const
 {
 	val = sRGB(iVal[0], iVal[1], iVal[2]);
-	return typeRgb;
+	// return typeRgb;
 }
 
-enumVarType cMultiVal::Get(bool &val) const
+void cMultiVal::Get(bool &val) const
 {
 	val = iVal[0];
-	return typeBool;
+	// return typeBool;
 }
 
 bool cMultiVal::isEqual(const cMultiVal &m) const

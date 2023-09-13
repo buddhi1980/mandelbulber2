@@ -62,20 +62,20 @@ public:
 
 	enumVarType Store(double val);
 	enumVarType Store(int val);
-    enumVarType Store(long long val);
-	enumVarType Store(QString val);
-	enumVarType Store(CVector3 val);
-	enumVarType Store(CVector4 val);
-	enumVarType Store(sRGB val);
+	enumVarType Store(long long val);
+	enumVarType Store(const QString &val);
+	enumVarType Store(const CVector3 &val);
+	enumVarType Store(const CVector4 &val);
+	enumVarType Store(const sRGB &val);
 	enumVarType Store(bool val);
-	enumVarType Get(double &val) const;
-	enumVarType Get(int &val) const;
-    enumVarType Get(long long &val) const;
-	enumVarType Get(QString &val) const;
-	enumVarType Get(CVector3 &val) const;
-	enumVarType Get(CVector4 &val) const;
-	enumVarType Get(sRGB &val) const;
-	enumVarType Get(bool &val) const;
+	void Get(double &val) const;
+	void Get(int &val) const;
+	void Get(long long &val) const;
+	void Get(QString &val) const;
+	void Get(CVector3 &val) const;
+	void Get(CVector4 &val) const;
+	void Get(sRGB &val) const;
+	void Get(bool &val) const;
 	enumVarType GetDefaultType() const { return type; }
 	bool operator==(const cMultiVal &m) const;
 
