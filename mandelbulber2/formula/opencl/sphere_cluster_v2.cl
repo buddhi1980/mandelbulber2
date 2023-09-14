@@ -180,7 +180,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL dist = length(tv);
 		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{
-			ColV.x += 1.0f;
+		//	ColV.z += 1.0f;
 			p -= mid * l;
 
 			REAL inv = 1.0f / dot(p, p);
@@ -210,6 +210,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			p *= t;
 			aux->DE *= t;
+
 		}
 		k *= fractal->transformCommon.scale1; // PackRatioScale;
 		// post scale
@@ -221,7 +222,13 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fractal->foldColor.auxColorEnabled && n >= fractal->foldColor.startIterationsA
 				&& n < fractal->foldColor.stopIterationsA)
 		{
-			col += ColV.y * fractal->foldColor.difs0000.y + ColV.z * fractal->foldColor.difs0000.z;
+			t = length(z);
+			aux->temp1000 = min(aux->temp1000, t);
+			ColV.x = aux->temp1000;
+
+			col += ColV.x * fractal->foldColor.difs0000.x
+					+ ColV.y * fractal->foldColor.difs0000.y
+					+ ColV.z * fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
 		}
 	}
@@ -300,6 +307,9 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux->color = col;
+	if (!fractal->transformCommon.functionEnabledGFalse)
+		aux->color += col;
+	else
+		aux->color = col;
 	return z;
 }

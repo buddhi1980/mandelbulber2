@@ -246,7 +246,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		//d = (d - minr * k) / aux->DE;
 	}
 
-	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
 		aux->const_c.z += fractal->transformCommon.offsetF0;
@@ -256,7 +256,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
 
-	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
+	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 
 
 
@@ -268,6 +268,10 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux->color += col;
+	if (!fractal->transformCommon.functionEnabledKFalse)
+		aux->color += col;
+	else
+		aux->color = col;
+
 	return z;
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1132</width>
-    <height>5773</height>
+    <height>5798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -893,7 +893,7 @@ Use small ray step multiplier settings</string>
         <item>
          <widget class="QLabel" name="label_308">
           <property name="text">
-           <string>post scale:</string>
+           <string>scale:</string>
           </property>
          </widget>
         </item>
@@ -1047,7 +1047,7 @@ Use small ray step multiplier settings</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_38" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_38" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1451,6 +1451,13 @@ offset:</string>
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
+        <property name="text">
+         <string>disable hybrid color</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_22" columnstretch="0,1,0,1">
         <property name="spacing">

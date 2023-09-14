@@ -167,7 +167,6 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-
 	if (!fractal->transformCommon.functionEnabledCFalse)
 		aux->color += col;
 	else
