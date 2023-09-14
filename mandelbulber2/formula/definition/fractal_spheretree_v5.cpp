@@ -243,13 +243,13 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		dt = dist;
 		//if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
 	}
-	/*else
+	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		double4 zc = z - fractal->transformCommon.offset000;
+		CVector4 zc = z - fractal->transformCommon.offset000;
 		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
-		d = max(max(zc.x, zc.y), zc.z);
-		d = (d - minr * k) / aux.DE;
-	}*/
+		dt = max(max(zc.x, zc.y), zc.z);
+		//d = (d - minr * k) / aux.DE;
+	}
 
 	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 	if (fractal->transformCommon.functionEnabledCFalse)
@@ -259,7 +259,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		dt = max(dt, dst1);
 		//dt = fabs(dt);
 	}
-		if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
+		if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 
 

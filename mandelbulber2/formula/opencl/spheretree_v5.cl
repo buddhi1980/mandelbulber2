@@ -238,17 +238,18 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere -
 		// fractal->transformCommon.radius1, dt);
 	}
-	/*else
+	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
 		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
-		d = max(max(zc.x, zc.y), zc.z);
-		d = (d - minr * k) / aux->DE;
-	}*/
+		dt = max(max(zc.x, zc.y), zc.z);
+		//d = (d - minr * k) / aux->DE;
+	}
 
 	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
+		aux->const_c.z += fractal->transformCommon.offsetF0;
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		// dt = fabs(dt);

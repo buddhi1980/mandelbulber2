@@ -170,11 +170,12 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		}
 	}
 
-	aux.DE = aux.DE + fractal->analyticDE.offset1;
+	aux.DE = aux.DE + fractal->transformCommon.offsetF0;
 	if (fractal->transformCommon.offset0 != 0.0)
 	{
 		t = z.Length();
 		aux.DE *= t / (t - fractal->transformCommon.offset0);
+		aux.dist = t / aux.DE;
 	}
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1132</width>
-    <height>5651</height>
+    <height>5773</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -950,10 +950,10 @@ Use small ray step multiplier settings</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-100.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>100.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -985,10 +985,10 @@ Use small ray step multiplier settings</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-100.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>100.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -1051,10 +1051,38 @@ Use small ray step multiplier settings</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
           <property name="text">
-           <string>alternate DE</string>
+           <string>clip</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
+          <property name="text">
+           <string>swap to ,z.z/ de</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_180">
+          <property name="text">
+           <string>d offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_178">
+          <property name="text">
+           <string>(slower) sometimes better quality</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_181">
+          <property name="text">
+           <string>clip radius</string>
           </property>
          </widget>
         </item>
@@ -1096,66 +1124,21 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_178">
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="text">
-           <string>(slower) sometimes better quality</string>
+           <string>alternate DE</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_184">
           <property name="text">
-           <string>clip</string>
+           <string>clip offset</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
-          <property name="text">
-           <string>swap to ,z.z/ de</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_1">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.998999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.998999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_180">
-          <property name="text">
-           <string>d offset</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
+        <item row="5" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetF_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1183,10 +1166,34 @@ Use small ray step multiplier settings</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_181">
-          <property name="text">
-           <string>clip offset</string>
+        <item row="4" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1231,6 +1238,13 @@ Use small ray step multiplier settings</string>
         </property>
         <property name="singleStep">
          <double>0.010000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+        <property name="text">
+         <string>D</string>
         </property>
        </widget>
       </item>

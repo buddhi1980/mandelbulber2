@@ -158,11 +158,12 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 	}
 
-	aux->DE = aux->DE + fractal->analyticDE.offset1;
+	aux->DE = aux->DE + fractal->transformCommon.offsetF0;
 	if (fractal->transformCommon.offset0 != 0.0)
 	{
 		t = length(z);
 		aux->DE *= t / (t - fractal->transformCommon.offset0);
+		aux->dist = t / aux->DE;
 	}
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 

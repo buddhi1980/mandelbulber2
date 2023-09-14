@@ -762,10 +762,10 @@ Use small ray step multiplier settings</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-100.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>100.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -797,10 +797,10 @@ Use small ray step multiplier settings</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-100.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>100.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -845,12 +845,12 @@ Use small ray step multiplier settings</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_180">
           <property name="text">
-           <string>aux.DE offset1:</string>
+           <string>aux.DE offseff00</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetF_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -864,13 +864,13 @@ Use small ray step multiplier settings</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-99.998999999999995</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.998999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
