@@ -255,6 +255,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalSierpinski3dV3());
 	fractalList->append(new cFractalSierpinski3dV4());
 	fractalList->append(new cFractalSierpinski4d());
+	fractalList->append(new cFractalSpheretreeV4());
 	fractalList->append(new cFractalVicsek());
 
 	// ----- JosLeys-Kleinian -----
@@ -267,6 +268,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinianMod2());
 	fractalList->append(new cFractalPseudoKleinianMod4());
 	fractalList->append(new cFractalPseudoKleinianMod5());
+
 
 	// ----- custom DE - dIFS formulas------
 	fractalList->append(new cFractalDIFSAmazingIfs());
@@ -572,7 +574,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTinkerTowers());
 	fractalList->append(new cFractalMengerV7());
 
-	fractalList->append(new cFractalSpheretreeV4());
+
 	fractalList->append(new cFractalSpheretreeV5());
 	fractalList->append(new cFractalTransfSphericalInvV3());
 	fractalList->append(new cFractalTransfSupershape());

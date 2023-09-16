@@ -172,8 +172,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// DE tweaks
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-
-
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
@@ -191,59 +189,61 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z = (REAL4){p.x, p.y, p.z, z.w};
 
 	REAL dt = 0.0f;
-
-	if (!fractal->transformCommon.functionEnabledOFalse)
+	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			dt = length(z) - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledOFalse)
+		{
+			if (!fractal->transformCommon.functionEnabledEFalse)
+				dt = length(z) - fractal->transformCommon.offset0;
+			else
+				dt = p.z - fractal->transformCommon.offset0;
+		}
 		else
-			dt = p.z - fractal->transformCommon.offset0;
+		{
+			bool negate = false;
+
+			REAL den = length(K3);
+
+			REAL radius = bend;
+
+			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
+			if (den > 1e-13f)
+			{
+				REAL3 offset = K3 / den;
+				offset *= aux->DE; // since K is normalised to the scale
+				REAL rad = length(offset);
+				offset += p;
+
+				target -= offset;
+				REAL mag = length(target);
+				if (fabs(radius / mag) > 1.0f) negate = true;
+				t = radius / mag;
+
+				REAL3 t1 = target * (1.0f - t);
+				REAL3 t2 = target * (1.0f + t);
+				t1 *= rad * rad / dot(t1, t1);
+				t2 *= rad * rad / dot(t2, t2);
+				REAL3 mid = (t1 + t2) / 2.0f;
+				tv = t1 - t2;
+				radius = length(tv) / 2.0f;
+				target = mid + offset;
+			}
+			tv = p - target;
+			REAL dist = length(tv) - radius;
+
+			if (negate) dist = -dist;
+
+			dt = dist;
+			// if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere -
+			// fractal->transformCommon.radius1, dt);
+		}
 	}
 	else
 	{
-		bool negate = false;
-
-		REAL den = length(K3);
-
-		REAL radius = bend;
-
-		REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
-		if (den > 1e-13f)
-		{
-			REAL3 offset = K3 / den;
-			offset *= aux->DE; // since K is normalised to the scale
-			REAL rad = length(offset);
-			offset += p;
-
-			target -= offset;
-			REAL mag = length(target);
-			if (fabs(radius / mag) > 1.0f) negate = true;
-			t = radius / mag;
-
-			REAL3 t1 = target * (1.0f - t);
-			REAL3 t2 = target * (1.0f + t);
-			t1 *= rad * rad / dot(t1, t1);
-			t2 *= rad * rad / dot(t2, t2);
-			REAL3 mid = (t1 + t2) / 2.0f;
-			tv = t1 - t2;
-			radius = length(tv) / 2.0f;
-			target = mid + offset;
-		}
-		tv = p - target;
-		REAL dist = length(tv) - radius;
-
-		if (negate) dist = -dist;
-
-		dt = dist;
-		// if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere -
-		// fractal->transformCommon.radius1, dt);
-	}
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		//if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		dt = max(max(zc.x, zc.y), zc.z);
-		//d = (d - minr * k) / aux->DE;
+
 	}
 
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
@@ -257,8 +257,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
 
 	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
-
-
 
 
 	if (!fractal->transformCommon.functionEnabledXFalse)

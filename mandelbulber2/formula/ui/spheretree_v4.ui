@@ -195,7 +195,7 @@ Use small ray step multiplier settings</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_311">
        <property name="text">
-        <string>o2 offset:</string>
+        <string>denominator o2:</string>
        </property>
       </widget>
      </item>

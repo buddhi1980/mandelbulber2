@@ -197,58 +197,60 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 	z = CVector4(p.x, p.y, p.z, z.w);
 
 	double dt = 0.0;
-
-	if (!fractal->transformCommon.functionEnabledOFalse)
+	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-			dt = z.Length() - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledOFalse)
+		{
+			if (!fractal->transformCommon.functionEnabledEFalse)
+				dt = z.Length() - fractal->transformCommon.offset0;
+			else
+				dt = p.z - fractal->transformCommon.offset0;
+		}
 		else
-			dt = p.z - fractal->transformCommon.offset0;
+		{
+			bool negate = false;
+
+			double den = K3.Length();
+
+			double radius = bend;
+
+			CVector3 target = CVector3(0.0, 0.0, 0.0);
+			if (den > 1e-13)
+			{
+				CVector3 offset = K3 / den;
+				offset *= aux.DE; // since K is normalised to the scale
+				double rad = offset.Length();
+				offset += p;
+
+				target -= offset;
+				double mag = target.Length();
+				if (fabs(radius / mag) > 1.0) negate = true;
+				t = radius / mag;
+
+				CVector3 t1 = target * (1.0 - t);
+				CVector3 t2 = target * (1.0 + t);
+				t1 *= rad * rad / t1.Dot(t1);
+				t2 *= rad * rad / t2.Dot(t2);
+				CVector3 mid = (t1 + t2) / 2.0;
+				tv = t1 - t2;
+				radius = tv.Length() / 2.0;
+				target = mid + offset;
+			}
+			tv = p - target;
+			double dist = tv.Length() - radius;
+
+			if (negate) dist = -dist;
+
+			dt = dist;
+			//if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
+		}
 	}
 	else
 	{
-		bool negate = false;
-
-		double den = K3.Length();
-
-		double radius = bend;
-
-		CVector3 target = CVector3(0.0, 0.0, 0.0);
-		if (den > 1e-13)
-		{
-			CVector3 offset = K3 / den;
-			offset *= aux.DE; // since K is normalised to the scale
-			double rad = offset.Length();
-			offset += p;
-
-			target -= offset;
-			double mag = target.Length();
-			if (fabs(radius / mag) > 1.0) negate = true;
-			t = radius / mag;
-
-			CVector3 t1 = target * (1.0 - t);
-			CVector3 t2 = target * (1.0 + t);
-			t1 *= rad * rad / t1.Dot(t1);
-			t2 *= rad * rad / t2.Dot(t2);
-			CVector3 mid = (t1 + t2) / 2.0;
-			tv = t1 - t2;
-			radius = tv.Length() / 2.0;
-			target = mid + offset;
-		}
-		tv = p - target;
-		double dist = tv.Length() - radius;
-
-		if (negate) dist = -dist;
-
-		dt = dist;
-		//if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
-	}
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
 		CVector4 zc = z - fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		//if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		dt = max(max(zc.x, zc.y), zc.z);
-		//d = (d - minr * k) / aux.DE;
+
 	}
 
 	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE; //delete after
