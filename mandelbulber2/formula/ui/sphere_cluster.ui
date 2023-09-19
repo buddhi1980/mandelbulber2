@@ -604,7 +604,7 @@ Use small ray step multiplier settings</string>
         <item row="2" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="text">
-           <string>alternate DE</string>
+           <string>alternative DE</string>
           </property>
          </widget>
         </item>

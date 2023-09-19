@@ -30,7 +30,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL dist_to_sphere = length(z);
 
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
+//	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;
@@ -233,9 +233,8 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			if (negate) dist = -dist;
 
-			dt = dist;
-			// if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere -
-			// fractal->transformCommon.radius1, dt);
+			dt = dist + .5f + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 		}
 	}
 	else

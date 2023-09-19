@@ -75,7 +75,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL3 midb = dirb;
 	REAL minrb = (lb - rb * fractal->transformCommon.scaleD1) * fractal->transformCommon.scaleB1;
 
-	REAL k = fractal->transformCommon.scale08;				// PackRatio;
+	REAL k = fractal->transformCommon.scale08; // PackRatio;
 	REAL excess = fractal->transformCommon.offset105; // adds a skin width
 
 	REAL minr = 0.0f;
@@ -113,7 +113,12 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			if (length(p) > excess)
 			{
-				break;
+				if (fractal->transformCommon.functionEnabledAFalse)
+				{
+					tv = (REAL3){0.0f, 0.0f, 0.0f};
+					p = fabs(tv);
+				}
+				if (!fractal->transformCommon.functionEnabledBFalse) break;
 			}
 			if (is == true)
 			{
@@ -176,7 +181,7 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 		REAL m = minr * k;
 		t = 1.0f / m;
-		REAL3 tv = p - mid * l;
+		tv = p - mid * l;
 		REAL dist = length(tv);
 		if (dist < r || n == fractal->transformCommon.int16 - 1)
 		{

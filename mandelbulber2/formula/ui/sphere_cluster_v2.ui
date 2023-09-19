@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1069</width>
-    <height>6846</height>
+    <height>6903</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -787,6 +787,27 @@ Use small ray step multiplier settings</string>
     </layout>
    </item>
    <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+     <property name="text">
+      <string>J</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+     <property name="text">
+      <string>p = fabs(tv)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+     <property name="text">
+      <string>disable break</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_41" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
@@ -1119,7 +1140,7 @@ Use small ray step multiplier settings</string>
         <item row="2" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="text">
-           <string>alternate DE</string>
+           <string>alternative DE</string>
           </property>
          </widget>
         </item>
@@ -1134,16 +1155,6 @@ Use small ray step multiplier settings</string>
          <widget class="QLabel" name="label_180">
           <property name="text">
            <string>d scale:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>

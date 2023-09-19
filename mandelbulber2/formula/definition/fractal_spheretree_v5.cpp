@@ -241,8 +241,8 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 			if (negate) dist = -dist;
 
-			dt = dist;
-			//if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt);
+			dt = dist + 0.5 + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
 		}
 	}
 	else

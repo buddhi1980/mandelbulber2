@@ -119,7 +119,12 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 		{
 			if (p.Length() > excess)
 			{
-				break;
+				if (fractal->transformCommon.functionEnabledAFalse)
+				{
+					tv = CVector3(z.x, z.y, z.z);
+					p = fabs(tv);
+				}
+				if (!fractal->transformCommon.functionEnabledBFalse) break;
 			}
 			if (is == true)
 			{
