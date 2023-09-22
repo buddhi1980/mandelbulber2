@@ -38,7 +38,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		aux.DE = 1.0;
 		z = aux.const_c;
 	}
-	double dist_to_sphere = z.Length();
+
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
 
 	p *= fractal->transformCommon.scaleG1; // master scale
@@ -241,7 +241,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 			if (negate) dist = -dist;
 
-			dt = dist + 0.5 + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 
 		}
 	}
@@ -253,16 +253,16 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	}
 
-	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE; //delete after
-	if (fractal->transformCommon.functionEnabledCFalse)
+	dt /= aux.DE;
+
+	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
 		aux.const_c.z += fractal->transformCommon.offsetF0;
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		//dt = fabs(dt);
 	}
-		if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
-	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE; //delete after
+
 
 
 

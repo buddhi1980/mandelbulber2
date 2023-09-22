@@ -16,7 +16,7 @@
 
 REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL t = 0.0f; // temp
+	REAL t = 0.0f;												// temp
 	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f}; // temp vector
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
@@ -27,10 +27,8 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->DE = 1.0f;
 		z = aux->const_c;
 	}
-	REAL dist_to_sphere = length(z);
 
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
-//	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;
@@ -60,6 +58,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL omega = 0.0f;
 	REAL bigR = 0.0f;
 	REAL d = 0.0f;
+
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
 		omega = M_PI_2 - bend;
@@ -82,9 +81,12 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				&& c >= fractal->transformCommon.startIterationsP
 				&& c < fractal->transformCommon.stopIterationsP1)
 		{
-			if (fractal->transformCommon.functionEnabledCxFalse) p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
-			if (fractal->transformCommon.functionEnabledCyFalse) p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
-			if (fractal->transformCommon.functionEnabledCzFalse) p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
+			if (fractal->transformCommon.functionEnabledCxFalse)
+				p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse)
+				p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse)
+				p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
 		}
 
 		if (recurse == true && c >= fractal->transformCommon.startIterationsC
@@ -110,7 +112,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		REAL angle = atan2(p.y, p.x);
 		if (angle < 0.0f) angle += M_PI_2x_F;
 
-		angle = fmod(angle, M_PI_2x_F / n); // mmmmmmmmmmmmmmmm??? x - y * trunc (x/y).
+		angle = fmod(angle, M_PI_2x_F / n);
 		REAL mag = native_sqrt(p.x * p.x + p.y * p.y);
 		p.x = mag * native_cos(angle);
 		p.y = mag * native_sin(angle);
@@ -137,7 +139,8 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		//   REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 				&& c >= fractal->transformCommon.startIterationsB
-				&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+				&& c < fractal->transformCommon
+								 .stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;
@@ -147,7 +150,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 		else if (length(p) < L4)
 		{
-
 			// REAL sc = L4 * L4 / dot(p, p);
 
 			REAL inv = 1.0f / dot(p, p);
@@ -176,10 +178,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				&& c < fractal->foldColor.stopIterationsA)
 		{
 			t = length(p);
-
 			aux->temp1000 = min(aux->temp1000, t);
 			ColV.y = aux->temp1000;
-			ColV.w  = t;
+			ColV.w = t;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 						 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
@@ -233,30 +234,25 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			if (negate) dist = -dist;
 
-			dt = dist + .5f + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-
+			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		}
 	}
 	else
 	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
-		//if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		// if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		dt = max(max(zc.x, zc.y), zc.z);
-
 	}
 
-	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
-	if (fractal->transformCommon.functionEnabledCFalse)
+	dt /= aux->DE;
+
+	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
 		aux->const_c.z += fractal->transformCommon.offsetF0;
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		// dt = fabs(dt);
 	}
-	if (fractal->transformCommon.functionEnabledYFalse) dt = max(dist_to_sphere - fractal->transformCommon.radius1, dt); //delete after
-
-	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
-
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
@@ -269,6 +265,5 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->color += col;
 	else
 		aux->color = col;
-
 	return z;
 }

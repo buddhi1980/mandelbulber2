@@ -314,6 +314,7 @@ enum enumFractalFormula
 	spheretreeV5 = 272,
 	tinkerTowers = 273,
 	spheretreeV4 = 274,
+	sphereClusterV3 = 275,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

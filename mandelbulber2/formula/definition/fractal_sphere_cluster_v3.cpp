@@ -12,11 +12,11 @@
 
 #include "all_fractal_definitions.h"
 
-cFractalSphereClusterV2::cFractalSphereClusterV2() : cAbstractFractal()
+cFractalSphereClusterV3::cFractalSphereClusterV3() : cAbstractFractal()
 {
-	nameInComboBox = "Sphere Cluster V2";
-	internalName = "sphere_cluster_v2";
-	internalID = fractal::sphereClusterV2;
+	nameInComboBox = "Sphere Cluster V3";
+	internalName = "sphere_cluster_v3";
+	internalID = fractal::sphereClusterV3;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalSphereClusterV2::cFractalSphereClusterV2() : cAbstractFractal()
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void cFractalSphereClusterV3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double t = 0.0;
 	CVector3 tv = CVector3(0.0, 0.0, 0.0);
@@ -37,8 +37,6 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;
-
-	CVector3 K3 = tv;
 
 	double phi = (1.0 + sqrt(5.0)) / fractal->transformCommon.scale2;
 
@@ -121,6 +119,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			{
 				if (fractal->transformCommon.functionEnabledAFalse)
 				{
+					//tv = CVector3(0.0, 0.0, 0.0);
 					tv = CVector3(z.x, z.y, z.z);
 					p = fabs(tv);
 				}
@@ -136,10 +135,8 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			}
 			if (on == false)
 			{
-				double inv = 1.0 / p.Dot(p);
-				K3 += p * aux.DE * inv;
-				K3 -= 2.0 * p * K3.Dot(p) * inv;
-				double sc = minr * inv;
+
+				double sc = minr / p.Dot(p);
 				p *= sc;
 				aux.DE *= sc;
 				ColV.z += 1.0;
@@ -213,8 +210,7 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			p -= mid * l;
 
 			double inv = 1.0 / p.Dot(p);
-			K3 += p * aux.DE * inv;
-			K3 -= 2.0 * p * (K3.Dot(p)) * inv;
+
 
 			double sc = r * r;
 			if (!fractal->transformCommon.functionEnabledMFalse)
@@ -278,70 +274,20 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	}
 
 	z = CVector4(p.x, p.y, p.z, z.w);
-	double d;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
-	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-		{
-			d = k;
-		}
-		else
-		{
-			d = min(1.0, k);
-		}
 
-		d = minr * fractal->transformCommon.scaleE1 * d;
-
-		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			d = (z.Length() - d) / aux.DE;
-		}
-		else
-		{
-			bool negate = false;
-			double radius = d;
-			double den = K3.Dot(K3);
-			CVector3 target = CVector3(0.0, 0.0, 0.0);
-			if (den > 1e-13)
-			{
-				CVector3 offset = K3 / den;
-				offset *= aux.DE; // since K is normalised to the scale
-				double rad = offset.Length();
-				offset += p;
-
-				target -= offset;
-				double mag = target.Length();
-				if (fabs(radius / mag) > 1.0) negate = true;
-
-				CVector3 t1 = target * (1.0 - radius / mag);
-				CVector3 t2 = target * (1.0 + radius / mag);
-				t1 *= rad * rad / t1.Dot(t1);
-				t2 *= rad * rad / t2.Dot(t2);
-				CVector3 mid = (t1 + t2) / 2.0;
-				tv = t1 - t2;
-				radius = tv.Length() / 2.0;
-				target = mid + offset;
-			}
-			tv = p - target;
-			double dist = tv.Length() - radius;
-
-			if (negate) dist = -dist;
-			d = dist / aux.DE;
-		}
-	}
-	else
-	{
-		CVector4 zc = z - fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
-		d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
-		d = (d - minr * k) / aux.DE;
-	}
+	CVector4 zc = z - fractal->transformCommon.offset000;
+	if (!fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+	double d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
+	d = (d - minr * k) / aux.DE;
+//if (d < 0.0) d = 0.0; // mmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
-		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
+		CVector4 cv = aux.const_c;
+		cv.z += fractal->transformCommon.offsetF0;
+		double dst1 = cv.Length() - fractal->transformCommon.offsetR1;
 		d = max(d, dst1);
-		d = fabs(d);
+//		d = fabs(d); // mmmmmmmmmmmmmmmmmmmmmmmmmm
 	}
 
 	if (!fractal->transformCommon.functionEnabledXFalse)

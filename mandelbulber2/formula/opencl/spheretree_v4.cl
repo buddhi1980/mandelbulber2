@@ -16,7 +16,7 @@
 
 REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL t = 0.0f; // temp
+	REAL t = 0.0f;															// temp
 	REAL4 tv = (REAL4){0.0f, 0.0f, 0.0f, 0.0f}; // temp vector
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
@@ -115,7 +115,8 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// REAL mag4 = native_sqrt(z.x * z.x + z.y * z.y};
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 				&& c >= fractal->transformCommon.startIterationsB
-				&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+				&& c < fractal->transformCommon
+								 .stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;
@@ -149,9 +150,10 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				&& c < fractal->foldColor.stopIterationsA)
 		{
 			t = length(z);
+
 			aux->temp1000 = min(aux->temp1000, t);
 			ColV.y = aux->temp1000;
-			ColV.w  = t;
+			ColV.w = t;
 
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 						 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
@@ -159,12 +161,13 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	aux->DE = aux->DE + fractal->transformCommon.offsetF0;
-	if (fractal->transformCommon.offset0 != 0.0)
+	if (fractal->transformCommon.offset0 != 0.0f)
 	{
 		t = length(z);
 		aux->DE *= t / (t - fractal->transformCommon.offset0);
 		aux->dist = t / aux->DE;
 	}
+
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
 	if (!fractal->transformCommon.functionEnabledCFalse)
