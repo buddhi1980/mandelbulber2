@@ -252,62 +252,53 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 	z = (REAL4){p.x, p.y, p.z, z.w};
 	REAL d;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+
+	if (!fractal->transformCommon.functionEnabledEFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-		{
-			d = k;
-		}
-		else
-		{
-			d = min(1.0f, k);
-		}
-
-		d = minr * fractal->transformCommon.scaleE1 * d;
-
-		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			d = (length(z) - d) / aux->DE;
-		}
-		else
-		{
-			bool negate = false;
-			REAL radius = d;
-			REAL den = dot(K3, K3);
-			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
-			if (den > 1e-13f)
-			{
-				REAL3 offset = K3 / den;
-				offset *= aux->DE; // since K is normalised to the scale
-				REAL rad = length(offset);
-				offset += p;
-
-				target -= offset;
-				REAL mag = length(target);
-				if (fabs(radius / mag) > 1.0f) negate = true;
-
-				REAL3 t1 = target * (1.0f - radius / mag);
-				REAL3 t2 = target * (1.0f + radius / mag);
-				t1 *= rad * rad / dot(t1, t1);
-				t2 *= rad * rad / dot(t2, t2);
-				REAL3 mid = (t1 + t2) / 2.0f;
-				tv = t1 - t2;
-				radius = length(tv) / 2.0f;
-				target = mid + offset;
-			}
-			tv = p - target;
-			REAL dist = length(tv) - radius;
-
-			if (negate) dist = -dist;
-			d = dist / aux->DE;
-		}
+		d = k;
 	}
 	else
 	{
-		REAL4 zc = z - fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
-		d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
-		d = (d - minr * k) / aux->DE;
+		d = min(1.0f, k);
+	}
+
+	d = minr * fractal->transformCommon.scaleE1 * d;
+
+	if (!fractal->transformCommon.functionEnabledOFalse)
+	{
+		d = (length(z) - d) / aux->DE;
+	}
+	else
+	{
+		bool negate = false;
+		REAL radius = d;
+		REAL den = dot(K3, K3);
+		REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
+		if (den > 1e-13f)
+		{
+			REAL3 offset = K3 / den;
+			offset *= aux->DE; // since K is normalised to the scale
+			REAL rad = length(offset);
+			offset += p;
+
+			target -= offset;
+			REAL mag = length(target);
+			if (fabs(radius / mag) > 1.0f) negate = true;
+
+			REAL3 t1 = target * (1.0f - radius / mag);
+			REAL3 t2 = target * (1.0f + radius / mag);
+			t1 *= rad * rad / dot(t1, t1);
+			t2 *= rad * rad / dot(t2, t2);
+			REAL3 mid = (t1 + t2) / 2.0f;
+			tv = t1 - t2;
+			radius = length(tv) / 2.0f;
+			target = mid + offset;
+		}
+		tv = p - target;
+		REAL dist = length(tv) - radius;
+
+		if (negate) dist = -dist;
+		d = dist / aux->DE;
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)

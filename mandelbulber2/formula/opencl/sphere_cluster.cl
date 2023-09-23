@@ -85,8 +85,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			if (length(p) > excess)
 			{
-				break;
-				//	p = (REAL3) {0.0f, 0.0f, 1e-15f};
+				p = (REAL3){0.0f, 0.0f, 1e-15f};
 			}
 			if (is_b)
 			{
@@ -253,7 +252,7 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	else
 	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
-		d = max(max(zc.x, zc.y), zc.z);
+		d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
 		d = (d - minr * k) / aux->DE;
 	}
 

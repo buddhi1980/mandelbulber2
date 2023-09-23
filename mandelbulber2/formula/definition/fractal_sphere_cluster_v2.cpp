@@ -279,62 +279,53 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 	z = CVector4(p.x, p.y, p.z, z.w);
 	double d;
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+
+	if (!fractal->transformCommon.functionEnabledEFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledEFalse)
-		{
-			d = k;
-		}
-		else
-		{
-			d = min(1.0, k);
-		}
-
-		d = minr * fractal->transformCommon.scaleE1 * d;
-
-		if (!fractal->transformCommon.functionEnabledOFalse)
-		{
-			d = (z.Length() - d) / aux.DE;
-		}
-		else
-		{
-			bool negate = false;
-			double radius = d;
-			double den = K3.Dot(K3);
-			CVector3 target = CVector3(0.0, 0.0, 0.0);
-			if (den > 1e-13)
-			{
-				CVector3 offset = K3 / den;
-				offset *= aux.DE; // since K is normalised to the scale
-				double rad = offset.Length();
-				offset += p;
-
-				target -= offset;
-				double mag = target.Length();
-				if (fabs(radius / mag) > 1.0) negate = true;
-
-				CVector3 t1 = target * (1.0 - radius / mag);
-				CVector3 t2 = target * (1.0 + radius / mag);
-				t1 *= rad * rad / t1.Dot(t1);
-				t2 *= rad * rad / t2.Dot(t2);
-				CVector3 mid = (t1 + t2) / 2.0;
-				tv = t1 - t2;
-				radius = tv.Length() / 2.0;
-				target = mid + offset;
-			}
-			tv = p - target;
-			double dist = tv.Length() - radius;
-
-			if (negate) dist = -dist;
-			d = dist / aux.DE;
-		}
+		d = k;
 	}
 	else
 	{
-		CVector4 zc = z - fractal->transformCommon.offset000;
-		if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
-		d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
-		d = (d - minr * k) / aux.DE;
+		d = min(1.0, k);
+	}
+
+	d = minr * fractal->transformCommon.scaleE1 * d;
+
+	if (!fractal->transformCommon.functionEnabledOFalse)
+	{
+		d = (z.Length() - d) / aux.DE;
+	}
+	else
+	{
+		bool negate = false;
+		double radius = d;
+		double den = K3.Dot(K3);
+		CVector3 target = CVector3(0.0, 0.0, 0.0);
+		if (den > 1e-13)
+		{
+			CVector3 offset = K3 / den;
+			offset *= aux.DE; // since K is normalised to the scale
+			double rad = offset.Length();
+			offset += p;
+
+			target -= offset;
+			double mag = target.Length();
+			if (fabs(radius / mag) > 1.0) negate = true;
+
+			CVector3 t1 = target * (1.0 - radius / mag);
+			CVector3 t2 = target * (1.0 + radius / mag);
+			t1 *= rad * rad / t1.Dot(t1);
+			t2 *= rad * rad / t2.Dot(t2);
+			CVector3 mid = (t1 + t2) / 2.0;
+			tv = t1 - t2;
+			radius = tv.Length() / 2.0;
+			target = mid + offset;
+		}
+		tv = p - target;
+		double dist = tv.Length() - radius;
+
+		if (negate) dist = -dist;
+		d = dist / aux.DE;
 	}
 
 	if (fractal->transformCommon.functionEnabledCFalse)

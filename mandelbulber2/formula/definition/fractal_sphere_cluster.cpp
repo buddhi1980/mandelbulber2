@@ -96,8 +96,7 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		{
 			if (p.Length() > excess)
 			{
-				break;
-			//	p = CVector3(0.0, 0.0, 1e-15);
+				p = CVector3(0.0, 0.0, 1e-15);
 			}
 			if (is_b)
 			{
@@ -284,7 +283,7 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	else
 	{
 		CVector4 zc = z - fractal->transformCommon.offset000;
-		d = max(max(zc.x, zc.y), zc.z);
+		d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
 		d = (d - minr * k) / aux.DE;
 	}
 
