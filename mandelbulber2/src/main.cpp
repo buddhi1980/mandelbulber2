@@ -60,9 +60,9 @@
 #include "undo.h"
 #include "write_log.hpp"
 
-#include "formula/definition/all_fractal_list.hpp"
+#include "scripts.h"
 
-#include <QJSEngine>
+#include "formula/definition/all_fractal_list.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -192,9 +192,11 @@ int main(int argc, char *argv[])
 	gOpenCl->InitPlatfromAndDevices();
 #endif
 
-	QJSEngine myEngine;
-	QJSValue test = myEngine.evaluate("1 + 2");
-	qDebug() << test.toInt();
+	// test code for QJSEngine scripting
+	cOneParameter parameter = gPar->GetAsOneParameter("view_distance_min");
+	parameter.SetScript("1 + 'view_distance_max' / 10.188 * Math.sin('fov')");
+	gPar->SetFromOneParameter("view_distance_min", parameter);
+	cScripts::EvaluateAll(gPar, gParFractal);
 
 	if (!commandLineInterface.isNoGUI())
 	{

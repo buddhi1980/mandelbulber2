@@ -97,8 +97,8 @@ public:
 	template <class T>
 	void Set(const T &val, enumValueSelection selection);
 	void SetScript(const QString &_script) { script = _script; }
-	// template <class T>
-	//  T Get(enumValueSelection selection) const;
+	const QString &GetScript() { return script; }
+
 	void LimitValue(cMultiVal &multi) const;
 	QStringList GetEnumLookup() const { return enumLookup; }
 	void SetEnumLookup(QStringList _enumLookup) { enumLookup = _enumLookup; }
@@ -150,6 +150,5 @@ extern template void cOneParameter::Set<CVector4>(
 	const CVector4 &val, enumValueSelection selection);
 extern template void cOneParameter::Set<sRGB>(const sRGB &val, enumValueSelection selection);
 extern template void cOneParameter::Set<bool>(const bool &val, enumValueSelection selection);
-
 
 #endif /* MANDELBULBER2_SRC_ONE_PARAMETER_HPP_ */
