@@ -22,7 +22,6 @@ REAL4 SphereClusterV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	REAL col = 0.0f;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;

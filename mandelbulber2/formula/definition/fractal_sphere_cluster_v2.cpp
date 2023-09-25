@@ -33,7 +33,6 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 	double col = 0.0;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
 
 	p *= fractal->transformCommon.scaleG1; // master scale
 	aux.DE *= fractal->transformCommon.scaleG1;

@@ -126,7 +126,7 @@ void cFractalSpheretreeV4::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		// double mag4 = sqrt(z.x * z.x + z.y * z.y};
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 				&& c >= fractal->transformCommon.startIterationsB
-				&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+				&& c < fractal->transformCommon.stopIterationsB) // || mag4 <= minr)
 		{
 			ColV.z += 1.0;
 			t = 1.0 / minr;

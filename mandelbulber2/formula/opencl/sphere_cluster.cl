@@ -161,7 +161,6 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			p *= sc;
 			aux->DE *= sc;
 			p += mid * l;
-			REAL m = 1.0f / (minr * k);
 			if ((length(p) < minr) && (!fractal->transformCommon.functionEnabledKFalse))
 			{
 				ColV.y += 1.0f;
@@ -269,8 +268,6 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
-
-	// if (d > length(p) * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
 	aux->color = t;

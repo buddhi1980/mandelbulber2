@@ -191,7 +191,6 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 			p *= sc;
 			aux.DE *= sc;
 			p += mid * l;
-			double m = 1.0f / (minr * k);
 			if ((p.Length() < minr) && (!fractal->transformCommon.functionEnabledKFalse))
 			{
 				ColV.y += 1.0;
@@ -300,8 +299,6 @@ void cFractalSphereCluster::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 		aux.dist = d;
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
-
-	//if (d > p.Length() * fractal->foldColor.difs0000.w) ColV.w = 1.0f;
 
 	// aux->color
 	aux.color = t;
