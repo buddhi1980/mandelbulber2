@@ -283,9 +283,9 @@ REAL4 SphereClusterV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			target -= offset;
 			REAL mag = length(target);
 			if (fabs(radius / mag) > 1.0f) negate = true;
-
-			REAL3 t1 = target * (1.0f - radius / mag);
-			REAL3 t2 = target * (1.0f + radius / mag);
+			t = radius / mag;
+			REAL3 t1 = target * (1.0f - t);
+			REAL3 t2 = target * (1.0f + t);
 			t1 *= rad * rad / dot(t1, t1);
 			t2 *= rad * rad / dot(t2, t2);
 			REAL3 mid = (t1 + t2) / 2.0f;

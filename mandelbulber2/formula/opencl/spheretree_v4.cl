@@ -116,7 +116,7 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 				&& c >= fractal->transformCommon.startIterationsB
 				&& c < fractal->transformCommon
-								 .stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+								 .stopIterationsB) // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;

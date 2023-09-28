@@ -310,9 +310,9 @@ void cFractalSphereClusterV2::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			target -= offset;
 			double mag = target.Length();
 			if (fabs(radius / mag) > 1.0) negate = true;
-
-			CVector3 t1 = target * (1.0 - radius / mag);
-			CVector3 t2 = target * (1.0 + radius / mag);
+			t = radius / mag;
+			CVector3 t1 = target * (1.0 - t);
+			CVector3 t2 = target * (1.0 + t);
 			t1 *= rad * rad / t1.Dot(t1);
 			t2 *= rad * rad / t2.Dot(t2);
 			CVector3 mid = (t1 + t2) / 2.0;

@@ -253,7 +253,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 	}
 
-	dt /= aux.DE;
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 
 	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
@@ -263,7 +263,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		//dt = fabs(dt);
 	}
 
-
+	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 
 
 

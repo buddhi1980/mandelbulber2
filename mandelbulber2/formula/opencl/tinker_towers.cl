@@ -204,7 +204,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			// zXYZ = zXYZ *(1.0f - .0*flat);  // Does not play well with power DE
 			// zXYZ =  RotateAroundVectorByAngle4(zXYZ, u_Fv[side], 3.14159/3.0); // Taffy
-			zXYZ = RotateAroundVectorByAngle4(zXYZ, Axis, rot_angle); // php angel4 ??
+//			zXYZ = RotateAroundVectorByAngle4(zXYZ, Axis, rot_angle); // php angel4 ??
 		}
 		else
 		{

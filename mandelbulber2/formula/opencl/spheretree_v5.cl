@@ -140,7 +140,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 				&& c >= fractal->transformCommon.startIterationsB
 				&& c < fractal->transformCommon
-								 .stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+								 .stopIterationsB) // || mag4 <= minr)
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;
@@ -234,7 +234,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			if (negate) dist = -dist;
 
-			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmm
 		}
 	}
 	else
@@ -244,7 +244,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		dt = max(max(zc.x, zc.y), zc.z);
 	}
 
-	dt /= aux->DE;
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 
 	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
@@ -253,6 +253,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		dt = max(dt, dst1);
 		// dt = fabs(dt);
 	}
+	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
