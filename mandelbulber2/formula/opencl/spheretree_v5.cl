@@ -195,9 +195,9 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
 			if (!fractal->transformCommon.functionEnabledEFalse)
-				dt = length(z) - fractal->transformCommon.offset0;
+				dt = length(z);
 			else
-				dt = p.z - fractal->transformCommon.offset0;
+				dt = p.z;
 		}
 		else
 		{
@@ -234,26 +234,28 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			if (negate) dist = -dist;
 
-			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmm
+			dt = dist; // mmmmmmmmmm
 		}
 	}
 	else
 	{
 		REAL4 zc = z - fractal->transformCommon.offset000;
-		// if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		if (!fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		dt = max(max(zc.x, zc.y), zc.z);
 	}
 
-	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
+	dt -= fractal->transformCommon.offset0;
 
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
 		aux->const_c.z += fractal->transformCommon.offsetF0;
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		// dt = fabs(dt);
+		if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	}
-	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
+
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);

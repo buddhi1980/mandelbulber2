@@ -85,7 +85,14 @@ REAL4 SphereClusterIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		{
 			if (length(p) > excess)
 			{
-				p = (REAL3){0.0f, 0.0f, 1e-15f};
+				if (!fractal->transformCommon.functionEnabledYFalse)
+				{
+					p = (REAL3){0.0f, 0.0f, 1e-15f};
+				}
+				else
+				{
+					break;
+				}
 			}
 			if (is_b)
 			{

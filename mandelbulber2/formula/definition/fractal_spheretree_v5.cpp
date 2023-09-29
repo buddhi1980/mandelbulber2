@@ -147,7 +147,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		//   double mag4 = sqrt(p[0]*p[0] + p[1]*p[1]);
 		if (amp <= R2 - fractal->transformCommon.offsetA0
 			&& c >= fractal->transformCommon.startIterationsB
-			&& c < fractal->transformCommon.stopIterationsB) // mmmmmmmmmmmmmmmmmmmmmmm // || mag4 <= minr)
+			&& c < fractal->transformCommon.stopIterationsB) // || mag4 <= minr)
 		{
 			ColV.z += 1.0;
 			t = 1.0 / minr;
@@ -202,9 +202,9 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		if (!fractal->transformCommon.functionEnabledOFalse)
 		{
 			if (!fractal->transformCommon.functionEnabledEFalse)
-				dt = z.Length() - fractal->transformCommon.offset0;
+				dt = z.Length();
 			else
-				dt = p.z - fractal->transformCommon.offset0;
+				dt = p.z;
 		}
 		else
 		{
@@ -241,31 +241,28 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 			if (negate) dist = -dist;
 
-			dt = dist + fractal->transformCommon.offset0; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			dt = dist; // mmmmmmmmmm
 
 		}
 	}
 	else
 	{
 		CVector4 zc = z - fractal->transformCommon.offset000;
-		//if (fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
+		if (!fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 		dt = max(max(zc.x, zc.y), zc.z);
-
 	}
 
-	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
+	dt -= fractal->transformCommon.offset0;
 
+	if (!fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 	if (fractal->transformCommon.functionEnabledCFalse) // clip
 	{
 		aux.const_c.z += fractal->transformCommon.offsetF0;
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
 		dt = max(dt, dst1);
 		//dt = fabs(dt);
+		if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
 	}
-
-	if (fractal->transformCommon.functionEnabledGFalse) dt /= aux.DE;
-
-
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux.dist = min(aux.dist, dt);
