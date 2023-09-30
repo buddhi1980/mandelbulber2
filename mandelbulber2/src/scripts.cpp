@@ -26,6 +26,7 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 		qDebug() << script;
 		int i = 0;
 		bool hasError = false;
+
 		while (i < script.length())
 		{
 			int firstQuote = script.indexOf('\'', i);
@@ -33,9 +34,31 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 
 			int lastQuote = script.indexOf('\'', firstQuote + 1);
 			QString scriptParameterName = script.mid(firstQuote + 1, lastQuote - firstQuote - 1);
+
+			QChar vectorComponent = QChar::Null;
+			if (scriptParameterName.at(scriptParameterName.length() - 2) == '.')
+			{
+				vectorComponent = scriptParameterName.at(scriptParameterName.length() - 1);
+				scriptParameterName = scriptParameterName.left(scriptParameterName.length() - 2);
+			}
+
 			if (params->IfExists(scriptParameterName))
 			{
 				QString value = params->Get<QString>(scriptParameterName);
+
+				if (vectorComponent != QChar::Null)
+				{
+					QStringList split = value.split(' ');
+					switch (vectorComponent.toLatin1())
+					{
+						case 'x': value = split.at(0); break;
+						case 'y': value = split.at(1); break;
+						case 'z': value = split.at(2); break;
+						case 'w': value = split.at(3); break;
+						default: value = "";
+					}
+				}
+
 				script.replace(firstQuote, lastQuote - firstQuote + 1, value);
 				qDebug() << script;
 			}

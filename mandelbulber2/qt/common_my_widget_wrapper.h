@@ -60,6 +60,7 @@ public:
 		actionRemoveFromFlightAnimation = nullptr;
 		actionAddToKeyframeAnimation = nullptr;
 		actionRemoveFromKeyframeAnimation = nullptr;
+		actionEditScript = nullptr;
 		parameterContainer = nullptr;
 		gotDefault = false;
 		widget = referenceWidget;
@@ -80,6 +81,7 @@ private:
 	QAction *actionRemoveFromFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
 	QAction *actionRemoveFromKeyframeAnimation;
+	QAction *actionEditScript;
 
 public:
 	// these methods have to be implemented by widgets inheriting this class

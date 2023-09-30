@@ -44,6 +44,7 @@
 #include <QContextMenuEvent>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QInputDialog>
 
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
@@ -104,6 +105,8 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 					QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
 				actionRemoveFromKeyframeAnimation->setIcon(iconDelete);
 			}
+			actionEditScript =
+				menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Edit script"));
 		}
 
 		selectedItem = menu->exec(event->globalPos());
@@ -135,6 +138,19 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 				gKeyframes->RemoveAnimatedParameter(
 					parameterContainer->GetContainerName() + "_" + getFullParameterName());
 				gKeyframeAnimation->RefreshTable();
+			}
+			else if (selectedItem == actionEditScript)
+			{
+				cOneParameter parameter = parameterContainer->GetAsOneParameter(getFullParameterName());
+				QString script = parameter.GetScript();
+				bool ok;
+				QString newScript = QInputDialog::getText(widget,
+					QCoreApplication::translate("CommonMyWidgetWrapper", "Edit script for parameter %1")
+						.arg(getFullParameterName()),
+					QCoreApplication::translate("CommonMyWidgetWrapper", "Script:"), QLineEdit::Normal,
+					script, &ok);
+				if (ok) parameter.SetScript(newScript);
+				parameterContainer->SetFromOneParameter(getFullParameterName(), parameter);
 			}
 		}
 	}
