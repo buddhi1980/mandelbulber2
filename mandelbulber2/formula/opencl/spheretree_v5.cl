@@ -17,7 +17,7 @@
 REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL t = 0.0f;												// temp
-	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f}; // temp vector
+	REAL4 tv = (REAL4){0.0f, 0.0f, 0.0f, 0.0f}; // temp vector
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
@@ -28,12 +28,10 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z = aux->const_c;
 	}
 
-	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
-
-	p *= fractal->transformCommon.scaleG1; // master scale
+	z *= fractal->transformCommon.scaleG1; // master scale
 	aux->DE *= fractal->transformCommon.scaleG1;
 
-	REAL3 K3 = tv;
+	REAL4 K3 = tv;
 
 	int NumChildren = fractal->transformCommon.int8X;
 	int n = NumChildren;
@@ -82,43 +80,41 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 				&& c < fractal->transformCommon.stopIterationsP1)
 		{
 			if (fractal->transformCommon.functionEnabledCxFalse)
-				p.x = fabs(p.x) + fractal->transformCommon.offsetA000.x;
+				z.x = fabs(z.x) + fractal->transformCommon.offsetA000.x;
 			if (fractal->transformCommon.functionEnabledCyFalse)
-				p.y = fabs(p.y) + fractal->transformCommon.offsetA000.y;
+				z.y = fabs(z.y) + fractal->transformCommon.offsetA000.y;
 			if (fractal->transformCommon.functionEnabledCzFalse)
-				p.z = fabs(p.z) + fractal->transformCommon.offsetA000.z;
+				z.z = fabs(z.z) + fractal->transformCommon.offsetA000.z;
 		}
 
 		if (recurse == true && c >= fractal->transformCommon.startIterationsC
 				&& c < fractal->transformCommon.stopIterationsC)
 		{
-			p.z += d + bigR;
-			// REAL sc = 4.0f * bigR * bigR / dot(p, p);
-
-			REAL inv = 1.0f / dot(p, p);
-			K3 += p * aux->DE * inv;
-			K3 -= 2.0f * p * dot(K3, p) * inv;
+			z.z += d + bigR;
+			REAL inv = 1.0f / dot(z, z);
+			K3 += z * aux->DE * inv;
+			K3 -= 2.0f * z * dot(K3, z) * inv;
 			REAL sc = 4.0f * bigR * bigR * inv;
 
-			p *= sc;
+			z *= sc;
 			aux->DE *= sc;
-			p.z += -2.0f * bigR;
-			p.z = -p.z;
+			z.z += -2.0f * bigR;
+			z.z = -z.z;
 			REAL invSize = (bigR + d) / (2.0f * bigR);
 			aux->DE *= invSize;
-			p *= invSize;
+			z *= invSize;
 			recurse = false;
 		}
-		REAL angle = atan2(p.y, p.x);
+		REAL angle = atan2(z.y, z.x);
 		if (angle < 0.0f) angle += M_PI_2x_F;
 
 		angle = fmod(angle, M_PI_2x_F / n);
-		REAL mag = native_sqrt(p.x * p.x + p.y * p.y);
-		p.x = mag * native_cos(angle);
-		p.y = mag * native_sin(angle);
+		REAL mag = native_sqrt(z.x * z.x + z.y * z.y);
+		z.x = mag * native_cos(angle);
+		z.y = mag * native_sin(angle);
 
-		REAL3 circle_centre = l * (REAL3){native_cos(ang1), native_sin(ang1), 0.0f};
-		tv = p - circle_centre;
+		REAL4 circle_centre = l * (REAL4){native_cos(ang1), native_sin(ang1), 0.0f, 0.0f};
+		tv = z - circle_centre;
 		REAL len = length(tv);
 		if (len < r)
 		{
@@ -127,13 +123,13 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			tv *= sc;
 			aux->DE *= sc;
 		}
-		p = tv + circle_centre;
+		z = tv + circle_centre;
 
 		o2 = bend / 2.0f;
 		//	REAL d2 = minr * tan(o2);
 		REAL R2 = minr / native_cos(o2);
 		//	REAL3 mid_offset = (REAL3) {0.0f, 0.0f, d2};
-		tv = p; // - mid_offset * fractal->transformCommon.scaleA1;
+		tv = z; // - mid_offset * fractal->transformCommon.scaleA1;
 		tv.z -= minr * tan(o2) * fractal->transformCommon.scaleA1;
 		REAL amp = length(tv);
 		//   REAL mag4 = native_sqrt(p[0]*p[0] + p[1]*p[1]);
@@ -144,20 +140,18 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		{
 			ColV.z += 1.0f;
 			t = 1.0f / minr;
-			p *= t;
+			z *= t;
 			aux->DE *= t;
 			recurse = true;
 		}
-		else if (length(p) < L4)
+		else if (length(z) < L4)
 		{
-			// REAL sc = L4 * L4 / dot(p, p);
-
-			REAL inv = 1.0f / dot(p, p);
-			K3 += p * aux->DE * inv;
-			K3 -= 2.0f * p * dot(K3, p) * inv;
+			REAL inv = 1.0f / dot(z, z);
+			K3 += z * aux->DE * inv;
+			K3 -= 2.0f * z * dot(K3, z) * inv;
 			REAL sc = L4 * L4 * inv;
 
-			p *= sc;
+			z *= sc;
 			aux->DE *= sc;
 		}
 		if (c >= fractal->transformCommon.startIterationsA
@@ -168,7 +162,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 
 		// post scale
-		p *= fractal->transformCommon.scaleC1;
+		z *= fractal->transformCommon.scaleC1;
 		aux->DE *= fabs(fractal->transformCommon.scaleC1);
 
 		// DE tweaks
@@ -177,7 +171,7 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		if (fractal->foldColor.auxColorEnabled && c >= fractal->foldColor.startIterationsA
 				&& c < fractal->foldColor.stopIterationsA)
 		{
-			t = length(p);
+			t = length(z);
 			aux->temp1000 = min(aux->temp1000, t);
 			ColV.y = aux->temp1000;
 			ColV.w = t;
@@ -187,8 +181,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 	}
 
-	z = (REAL4){p.x, p.y, p.z, z.w};
-
 	REAL dt = 0.0f;
 	if (!fractal->transformCommon.functionEnabledDFalse)
 	{
@@ -197,39 +189,37 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			if (!fractal->transformCommon.functionEnabledEFalse)
 				dt = length(z);
 			else
-				dt = p.z;
+				dt = z.z;
 		}
 		else
 		{
 			bool negate = false;
-
 			REAL den = length(K3);
-
-			REAL radius = bend;
-
-			REAL3 target = (REAL3){0.0f, 0.0f, 0.0f};
+	//		REAL radius = bend;
+REAL radius = bend + (length(z)- bend) * fractal->transformCommon.scaleB0;
+			REAL4 target = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 			if (den > 1e-13f)
 			{
-				REAL3 offset = K3 / den;
+				REAL4 offset = K3 / den;
 				offset *= aux->DE; // since K is normalised to the scale
 				REAL rad = length(offset);
-				offset += p;
+				offset += z;
 
 				target -= offset;
 				REAL mag = length(target);
-				if (fabs(radius / mag) > 1.0f) negate = true;
+				if ((radius / mag) > 1.0f) negate = true;
 				t = radius / mag;
 
-				REAL3 t1 = target * (1.0f - t);
-				REAL3 t2 = target * (1.0f + t);
+				REAL4 t1 = target * (1.0f - t);
+				REAL4 t2 = target * (1.0f + t);
 				t1 *= rad * rad / dot(t1, t1);
 				t2 *= rad * rad / dot(t2, t2);
-				REAL3 mid = (t1 + t2) / 2.0f;
+				REAL4 mid = (t1 + t2) / 2.0f;
 				tv = t1 - t2;
 				radius = length(tv) / 2.0f;
 				target = mid + offset;
 			}
-			tv = p - target;
+			tv = z - target;
 			REAL dist = length(tv) - radius;
 
 			if (negate) dist = -dist;
@@ -255,7 +245,6 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// dt = fabs(dt);
 		if (fractal->transformCommon.functionEnabledGFalse) dt /= aux->DE;
 	}
-
 
 	if (!fractal->transformCommon.functionEnabledXFalse)
 		aux->dist = min(aux->dist, dt);
