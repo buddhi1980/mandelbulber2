@@ -189,14 +189,14 @@ REAL4 SpheretreeV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			if (!fractal->transformCommon.functionEnabledEFalse)
 				dt = length(z);
 			else
-				dt = z.z;
+				dt = z.z + (length(z) - z.z) * fractal->transformCommon.scaleC0;
 		}
 		else
 		{
 			bool negate = false;
 			REAL den = length(K3);
 	//		REAL radius = bend;
-REAL radius = bend + (length(z)- bend) * fractal->transformCommon.scaleB0;
+			REAL radius = bend + (length(z)- bend) * fractal->transformCommon.scaleB0;
 			REAL4 target = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 			if (den > 1e-13f)
 			{
@@ -224,7 +224,7 @@ REAL radius = bend + (length(z)- bend) * fractal->transformCommon.scaleB0;
 
 			if (negate) dist = -dist;
 
-			dt = dist; // mmmmmmmmmm
+			dt = dist + 1.0f; // mmmmmmmmmm
 		}
 	}
 	else

@@ -178,6 +178,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalAboxModKaliEiffie());
 	fractalList->append(new cFractalAboxModKaliV2());
 	fractalList->append(new cFractalAboxModKaliV3());
+	fractalList->append(new cFractalAboxDonut4d());
+	fractalList->append(new cFractalAboxDonut4dV2());
 	fractalList->append(new cFractalAboxKlein());
 	fractalList->append(new cFractalAboxSphere4d());
 	fractalList->append(new cFractalAboxSmooth());
@@ -349,6 +351,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalPseudoKleinianMod6());
 	fractalList->append(new cFractalPseudoKleinian4d());
 	fractalList->append(new cFractalSphereCluster());
+	fractalList->append(new cFractalSphereClusterV2());
+	fractalList->append(new cFractalSphereClusterV3());
 	fractalList->append(new cFractalSpheretree());
 	fractalList->append(new cFractalSpheretreeV2());
 	fractalList->append(new cFractalTransfDEControls());
@@ -568,10 +572,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTesting4d());
 	fractalList->append(new cFractalTestingTransform());
 	fractalList->append(new cFractalTestingTransform2());
-	fractalList->append(new cFractalAboxDonut4d());
-	fractalList->append(new cFractalAboxDonut4dV2());
-	fractalList->append(new cFractalSphereClusterV2());
-	fractalList->append(new cFractalSphereClusterV3());
+
+
 	fractalList->append(new cFractalTinkerTowers());
 	fractalList->append(new cFractalMengerV7());
 

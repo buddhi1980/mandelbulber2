@@ -74,6 +74,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 		bigR = 1.0 / cos(omega);
 		d = tan(omega);
 	}
+
 	// iteration loop
 	bool recurse = true;
 	if (fractal->transformCommon.functionEnabledFalse) recurse = false;
@@ -90,9 +91,12 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 				&& c >= fractal->transformCommon.startIterationsP
 				&& c < fractal->transformCommon.stopIterationsP1)
 		{
-			if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x) + fractal->transformCommon.offsetA000.x;
-			if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y) + fractal->transformCommon.offsetA000.y;
-			if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z) + fractal->transformCommon.offsetA000.z;
+			if (fractal->transformCommon.functionEnabledCxFalse)
+				z.x = fabs(z.x) + fractal->transformCommon.offsetA000.x;
+			if (fractal->transformCommon.functionEnabledCyFalse)
+				z.y = fabs(z.y) + fractal->transformCommon.offsetA000.y;
+			if (fractal->transformCommon.functionEnabledCzFalse)
+				z.z = fabs(z.z) + fractal->transformCommon.offsetA000.z;
 		}
 
 		if (recurse == true && c >= fractal->transformCommon.startIterationsC
@@ -197,7 +201,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 			if (!fractal->transformCommon.functionEnabledEFalse)
 				dt = z.Length();
 			else
-				dt = z.z;
+				dt = z.z + (z.Length() - z.z) * fractal->transformCommon.scaleC0;
 		}
 		else
 		{
@@ -234,7 +238,7 @@ void cFractalSpheretreeV5::FormulaCode(CVector4 &z, const sFractal *fractal, sEx
 
 			if (negate) dist = -dist;
 
-			dt = dist; // mmmmmmmmmm
+			dt = dist + 1.0; // mmmmmmmmmm
 		}
 	}
 	else
