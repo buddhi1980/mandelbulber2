@@ -17,6 +17,24 @@ cScripts::cScripts()
 	// TODO Auto-generated constructor stub
 }
 
+double cScripts::EvaluateScript(const QString &script, const QString &parameterName, QString &error)
+{
+	QJSEngine myEngine;
+	QJSValue scriptValue = myEngine.evaluate(script);
+	if (scriptValue.isError())
+	{
+		error += QString("In the script for parameter '%1' there is an error:\n%2\n")
+							 .arg(parameterName)
+							 .arg(scriptValue.toString());
+		return 0.0;
+	}
+	else
+	{
+		qDebug() << scriptValue.toNumber();
+		return scriptValue.toNumber();
+	}
+}
+
 QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &params,
 	const QString &parameterName, cOneParameter &parameter, QString &error)
 {
@@ -27,12 +45,21 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 		int i = 0;
 		bool hasError = false;
 
+		// replace parameter names by values
 		while (i < script.length())
 		{
 			int firstQuote = script.indexOf('\'', i);
 			if (firstQuote < 0) break; // quote not found
 
 			int lastQuote = script.indexOf('\'', firstQuote + 1);
+
+			if (lastQuote < 0)
+			{
+				error += QString("In the script for parameter '%1' there is missing second quote\n")
+									 .arg(parameterName);
+				hasError = true;
+				break;
+			}
 			QString scriptParameterName = script.mid(firstQuote + 1, lastQuote - firstQuote - 1);
 
 			QChar vectorComponent = QChar::Null;
@@ -55,11 +82,14 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 						case 'y': value = split.at(1); break;
 						case 'z': value = split.at(2); break;
 						case 'w': value = split.at(3); break;
-						default: value = "";
+						default: value = ""; break;
 					}
 				}
 
 				script.replace(firstQuote, lastQuote - firstQuote + 1, value);
+				// correction of cursor by replacement length difference
+				lastQuote += value.length() - (lastQuote - firstQuote + 1);
+
 				qDebug() << script;
 			}
 			else
@@ -71,22 +101,68 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 			}
 			i = lastQuote + 1;
 		}
+
+		// process scripts
 		if (!hasError)
 		{
-			QJSEngine myEngine;
-			QJSValue scriptValue = myEngine.evaluate(script);
-			if (scriptValue.isError())
+			parameterContainer::enumVarType varType = parameter.GetValueType();
+
+			switch (varType)
 			{
-				error += QString("In the script for parameter '%1' there is an error:\n%2\n")
-									 .arg(parameterName)
-									 .arg(scriptValue.toString());
+				case parameterContainer::typeVector3:
+				case parameterContainer::typeVector4:
+				{
+					i = 0;
+					while (i < script.length())
+					{
+						int firstPosition = script.indexOf(':', i);
+						if (firstPosition < 1) break; // it also cannot be first char
+
+						int secondPosition = script.indexOf(':', firstPosition + 1);
+
+						if (secondPosition < 0)
+							secondPosition = script.length() - 1;
+						else
+							secondPosition = secondPosition - 2;
+
+						QChar component = script.at(firstPosition - 1);
+						QString subScript = script.mid(firstPosition+1, secondPosition - firstPosition);
+
+						qDebug() << component << subScript;
+
+						double value =
+							EvaluateScript(subScript, QString("%1.%2").arg(parameterName).arg(component), error);
+
+						CVector4 vector = parameter.Get<CVector4>(parameterContainer::valueActual);
+						switch (component.toLatin1())
+						{
+							case 'x': vector.x = value; break;
+							case 'y': vector.y = value; break;
+							case 'z': vector.z = value; break;
+							case 'w': vector.w = value; break;
+							default:
+							{
+								hasError = true;
+								error += QString("Unknown vector component (%1) of parameter '%2'\n")
+													 .arg(component)
+													 .arg(parameterName);
+							}
+						}
+						parameter.Set(vector, parameterContainer::valueActual);
+
+						i = secondPosition + 1;
+					}
+
+					break;
+				}
+				default:
+				{
+					double value = EvaluateScript(script, parameterName, error);
+					parameter.Set(value, parameterContainer::valueActual);
+					break;
+				}
 			}
-			else
-			{
-				qDebug() << scriptValue.toNumber();
-				parameter.Set(scriptValue.toNumber(), parameterContainer::valueActual);
-				params->SetFromOneParameter(parameterName, parameter);
-			}
+			params->SetFromOneParameter(parameterName, parameter);
 		}
 	}
 	return script;

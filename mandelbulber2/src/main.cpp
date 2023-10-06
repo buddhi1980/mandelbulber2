@@ -193,10 +193,11 @@ int main(int argc, char *argv[])
 #endif
 
 	// test code for QJSEngine scripting
-	cOneParameter parameter = gPar->GetAsOneParameter("view_distance_min");
-	parameter.SetScript("1 + 'camera.x' / 10.188 * Math.sin('camera.y')");
-	gPar->SetFromOneParameter("view_distance_min", parameter);
+	cOneParameter parameter = gPar->GetAsOneParameter("target");
+	parameter.SetScript("x:'camera.x' * 2 y: 'camera.y' * 3 z:'camera.x'+'camera.y'+'camera.z'");
+	gPar->SetFromOneParameter("target", parameter);
 	cScripts::EvaluateAll(gPar, gParFractal);
+	qDebug() << gPar->Get<CVector3>("target").Debug();
 
 	if (!commandLineInterface.isNoGUI())
 	{

@@ -25,6 +25,7 @@ public:
 private:
 	static QString EvaluateParameter(const std::shared_ptr<cParameterContainer> &params,
 		const QString &parameterName, cOneParameter &parameter, QString &error);
+	static double EvaluateScript(const QString &script, const QString &parameterName, QString &error);
 };
 
 #endif /* MANDELBULBER2_SRC_SCRIPTS_H_ */
