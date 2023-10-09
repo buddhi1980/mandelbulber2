@@ -25,78 +25,105 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 	REAL scale = fractal->transformCommon.scale3;
 	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-	REAL3 p = (REAL3){z.x, z.y, z.z}; // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux->DE = 1.0f;
+	//REAL4 z = z; // convert to vec3
 
-	p *= fractal->transformCommon.scaleG1; // master scale
-	aux->DE *= fractal->transformCommon.scaleG1;
+	z *= fractal->transformCommon.scale015; // master scale
+	aux->DE *= fractal->transformCommon.scale015;
 
 	// REAL scale = 1.0f;
-	p *= scale;
-	aux->DE *= scale;
-	REAL min_dist = 100000.0f;
-	for (int n = 0; n < fractal->transformCommon.int16; n++)
+//	z *= fractal->transformCommon.scale3;
+//	aux->DE *= fractal->transformCommon.scale3;
+//	REAL min_dist = 100000.0f;
+	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
-		p.x = fabs(p.x);
-		p.y = fabs(p.y);
-		p.z = fabs(p.z);
+		z = fabs(z);
+
 		if (fractal->transformCommon.functionEnabledPFalse
 				&& n >= fractal->transformCommon.startIterationsP
 				&& n < fractal->transformCommon.stopIterationsP1)
 		{
-			p.x += fractal->transformCommon.offsetA000.x;
-			p.y += fractal->transformCommon.offsetA000.y;
-			p.z += fractal->transformCommon.offsetA000.z;
+			z += fractal->transformCommon.offset000;
 		}
 
-		if (p.y > p.x)
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
+		if (z.y > z.x)
 		{
-			t = p.x;
-			p.x = p.y;
-			p.y = t;
-		}
-		if (p.z > p.x)
-		{
-			t = p.x;
-			p.x = p.z;
-			p.z = t;
+			t = z.x;
+			z.x = z.y;
+			z.y = t;
 		}
 
-		if (fractal->transformCommon.functionEnabledAFalse)
+		if (z.z > z.x)
 		{
-			if (p.z > p.y)
-			{
-				t = p.y;
-				p.y = p.z;
-				p.z = t;
-			}
+			t = z.x;
+			z.x = z.z;
+			z.z = t;
 		}
-		REAL3 q = (REAL3){1.0f, 0.0f, 0.0f};
-		if (children >= 3 || mat_struct == 3) q = (REAL3){1.0f, 1.0f, 1.0f};
-		REAL3 p1 = p - q;
-		REAL3 p2 = p - (REAL3){1.0f, 0.0f, 1.0f};
 
-		if (!fractal->transformCommon.functionEnabledMFalse)
+		if (fractal->transformCommon.functionEnabled
+				&& n >= fractal->transformCommon.startIterations
+				&& n < fractal->transformCommon.stopIterations
+				&& z.z > z.y)
 		{
-			if (children < 2) p2 = p - (REAL3){2.0f, 0.0f, 0.0f};
+			t = z.y;
+			z.y = z.z;
+			z.z = t;
 		}
-		else
+
+		REAL4  p1 = z - fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
+		if (fractal->transformCommon.functionEnabledAFalse
+				&& n >= fractal->transformCommon.startIterationsA
+				&& n < fractal->transformCommon.stopIterationsA)
 		{
-			p2 = p - (REAL3){2.0f, 0.0f, 0.0f};
+			p1 = z - fractal->transformCommon.offsetA000;
 		}
-		REAL3 p3 = p - (REAL3){1.0f, 1.0f, 0.0f};
-		REAL3 p4 = p; //- (REAL3) {0.0f, 0.0f, 0.0f};
-		if (mat_struct == 3)
+
+
+
+
+
+		REAL4 p2 = z - (REAL4){1.0f, 0.0f, 1.0f, 0.0f};
+		if (fractal->transformCommon.functionEnabledEFalse
+				&& n >= fractal->transformCommon.startIterationsE
+				&& n < fractal->transformCommon.stopIterationsE)
 		{
-			if (p.x <= 1.5f)
+			 p2 = z - (REAL4){2.0f, 0.0f, 0.0f, 0.0f};
+		}
+
+		REAL4 p3 = z - fractal->transformCommon.offset110;
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& n >= fractal->transformCommon.startIterationsD
+				&& n < fractal->transformCommon.stopIterationsD)
+		{
+			p3 += fractal->transformCommon.offsetF000;
+		}
+
+		REAL4 p4 = z; //- (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+				if (fractal->transformCommon.functionEnabledFFalse
+				&& n >= fractal->transformCommon.startIterationsF
+				&& n < fractal->transformCommon.stopIterationsF)
+		{
+
+
+			p4 = z - (REAL4){2.0f, 0.0f, 0.0f, 0.0f};
+		}
+
+	if (fractal->transformCommon.functionEnabledIFalse
+				&& n >= fractal->transformCommon.startIterationsI
+				&& n < fractal->transformCommon.stopIterationsI)
+		{
+			if (z.x <= 1.5f)
 			{
 				// f = (p.x - 1.5f) / aux->DE;
 				// on = true;
 				break;
 			}
 
-			p4 = p - (REAL3){2.0f, 0.0f, 0.0f};
+
 		}
+
+
 
 		REAL d1, d2, d3, d4;
 		d1 = dot(p1, p1);
@@ -106,31 +133,49 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 		if (d1 < d2 && d1 < d3 && d1 < d4)
 		{
-			p = p1;
+			z = p1;
 			ColV.x = 1.0f;
 		}
 		else if (d2 < d1 && d2 < d3 && d2 < d4)
 		{
-			p = p2;
+			z = p2;
 			ColV.y = 1.0f;
 		}
 		else if (d3 < d1 && d3 < d2 && d3 < d4)
 		{
-			p = p3;
+			z = p3;
 			ColV.z = 1.0f;
 		}
-		else if (mat_struct >= 2)
+		else if(fractal->transformCommon.functionEnabledGFalse
+				&& n >= fractal->transformCommon.startIterationsG
+				&& n < fractal->transformCommon.stopIterationsG)
 		{
-			p = p4;
+			z = p4;
 			ColV.w = 1.0f;
-			if (mat_struct == 2)
+
+		}
+		else if(fractal->transformCommon.functionEnabledJFalse
+				&& n >= fractal->transformCommon.startIterationsJ
+				&& n < fractal->transformCommon.stopIterationsJ)
+		{
+			z = p4;
+			ColV.w = 1.0f;
+
 			{
-				p *= scale;
+				z *= scale;
 				aux->DE *= scale;
 				break;
 			}
 		}
-		p *= scale;
+	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+	//	z.z = fabs(z.z - FRAC_1_3_F * 1.) + FRAC_1_3_F * Offset.z;
+	//	z = z * Scale - Offset * (Scale - 1.0f);
+	//	aux->DE = aux->DE * Scale;
+
+	//	z.z = fabs(z.z - FRAC_1_3_F * 1.) + FRAC_1_3_F * 1.;
+
+	//	z = z * scale - 1. * (scale - 1.0f);
+		z *= scale;
 		aux->DE *= scale;
 
 		// DE tweaks
@@ -145,19 +190,19 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		}
 	}
 
-	z = (REAL4){p.x, p.y, p.z, z.w};
+	// z = (REAL4){z.x, z.y, z.z, z.w};
 
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		d = min(min_dist,
-			(max(fabs(p.x), max(fabs(p.y), fabs(p.z))) - fractal->transformCommon.offset105) / aux->DE);
+		d =
+			max(fabs(z.x), max(fabs(z.y), fabs(z.z))) - fractal->transformCommon.offset0;
 	}
 	else
 	{
-		d = (length(z) - fractal->transformCommon.offset105) / aux->DE;
+		d = length(z) - fractal->transformCommon.offset0;
 	}
-
-	if (fractal->transformCommon.functionEnabledCFalse)
+d = d * fractal->transformCommon.scaleB1 / aux->DE;
+	if (fractal->transformCommon.functionEnabledYFalse)
 	{
 		REAL dst1 = length(aux->const_c) - fractal->transformCommon.offsetR1;
 		d = max(d, dst1);

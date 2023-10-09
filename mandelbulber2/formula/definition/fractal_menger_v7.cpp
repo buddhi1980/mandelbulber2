@@ -27,92 +27,108 @@ cFractalMengerV7::cFractalMengerV7() : cAbstractFractal()
 
 void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double dt = 0.0; // mmmmmmmmmmmmmmmmmm
 	double t = 0.0;
 	CVector4 oldZ = z;
 	double col = 0.0;
 	double d;
-	int mat_struct = fractal->transformCommon.int1;
-	int children = fractal->transformCommon.int3;
+	//int mat_struct = fractal->transformCommon.int1;
+	//int children = fractal->transformCommon.int3;
 
-		double scale = fractal->transformCommon.scale3;
+	double scale = fractal->transformCommon.scale3;
 	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
-	CVector3 p = CVector3(z.x, z.y, z.z); // convert to vec3
-	if (fractal->transformCommon.functionEnabledDFalse) aux.DE = 1.0;
 
-	p *= fractal->transformCommon.scaleG1; // master scale
-	aux.DE *= fractal->transformCommon.scaleG1;
+	z *= fractal->transformCommon.scale015; // master scale
+	aux.DE *= fractal->transformCommon.scale015;
 
-
-
-	//REAL scale = 1.0;
-	p *= scale;
-	aux.DE *= scale;
-	double min_dist = 100000.0;
-	for (int n = 0; n < fractal->transformCommon.int16; n++)
+//	z *= fractal->transformCommon.scale3;
+//	aux.DE *= fractal->transformCommon.scale3;
+//	double min_dist = 100000.0;
+	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
-		p.x = fabs(p.x);
-		p.y = fabs(p.y);
-		p.z = fabs(p.z);
+		z = fabs(z);
 		if (fractal->transformCommon.functionEnabledPFalse
 				&& n >= fractal->transformCommon.startIterationsP
 				&& n < fractal->transformCommon.stopIterationsP1)
 		{
-			p.x += fractal->transformCommon.offsetA000.x;
-			p.y += fractal->transformCommon.offsetA000.y;
-			p.z += fractal->transformCommon.offsetA000.z;
+			z += fractal->transformCommon.offset000;
 		}
 
-		if (p.y > p.x)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+		if (z.y > z.x)
 		{
-			t = p.x;
-			p.x = p.y;
-			p.y = t;
+			t = z.x;
+			z.x = z.y;
+			z.y = t;
 		}
-		if (p.z > p.x)
+
+		if (z.z > z.x)
 		{
-			t = p.x;
-			p.x = p.z;
-			p.z = t;
+			t = z.x;
+			z.x = z.z;
+			z.z = t;
+		}
+
+		if (fractal->transformCommon.functionEnabled
+				&& n >= fractal->transformCommon.startIterations
+				&& n < fractal->transformCommon.stopIterations
+				&& z.z > z.y)
+		{
+			t = z.y;
+			z.y = z.z;
+			z.z = t;
+		}
+
+		CVector4 p1 = z - fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
+		if (fractal->transformCommon.functionEnabledAFalse
+				&& n >= fractal->transformCommon.startIterationsA
+				&& n < fractal->transformCommon.stopIterationsA)
+		{
+			p1 = z - fractal->transformCommon.offsetA000;
 		}
 
 
-		if (fractal->transformCommon.functionEnabledAFalse)
-		{ if (p.z > p.y)
+
+
+		CVector4 p2 = z - CVector4(1.0, 0.0, 1.0, 0.0);
+		if (fractal->transformCommon.functionEnabledEFalse
+				&& n >= fractal->transformCommon.startIterationsE
+				&& n < fractal->transformCommon.stopIterationsE)
+		{
+			 p2 = z - CVector4(2.0, 0.0, 0.0, 0.0);
+		}
+
+
+		CVector4 p3 = z - fractal->transformCommon.offset110;
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& n >= fractal->transformCommon.startIterationsD
+				&& n < fractal->transformCommon.stopIterationsD)
+		{
+			p3 += fractal->transformCommon.offsetF000;
+		}
+
+
+		CVector4 p4 = z; //- (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+				if (fractal->transformCommon.functionEnabledFFalse
+				&& n >= fractal->transformCommon.startIterationsF
+				&& n < fractal->transformCommon.stopIterationsF)
+		{
+			p4 = z - CVector4(2.0, 0.0, 0.0, 0.0);
+		}
+
+
+		if (fractal->transformCommon.functionEnabledIFalse
+					&& n >= fractal->transformCommon.startIterationsI
+					&& n < fractal->transformCommon.stopIterationsI)
+		{
+			if (z.x <= 1.5)
 			{
-				t= p.y;
-				p.y = p.z;
-				p.z = t;
-			}
-		}
-		CVector3 q = CVector3(1.0, 0.0, 0.0);
-		if (children >= 3 || mat_struct == 3) q = CVector3(1.0, 1.0, 1.0);
-		CVector3 p1 = p - q;
-		CVector3 p2 = p - CVector3(1.0, 0.0, 1.0);
-
-
-		if (!fractal->transformCommon.functionEnabledMFalse)
-		{
-			if (children < 2)
-				p2 = p - CVector3(2.0, 0.0, 0.0);
-		}
-		else
-		{
-			p2 = p - CVector3(2.0, 0.0, 0.0);
-		}
-		CVector3 p3 = p - CVector3(1.0, 1.0, 0.0);
-		CVector3 p4 = p; //- CVector3(0.0, 0.0, 0.0);
-		if (mat_struct == 3)
-		{
-			if (p.x <= 1.5)
-			{
-				//f = (p.x - 1.5) / aux->DE;
-				//on = true;
+				//aux.dist = (z.x - 1.5) / aux.DE;
 				break;
 			}
-
-			p4 = p - CVector3(2.0, 0.0, 0.0);
-
 		}
+
 
 		double d1, d2, d3, d4;
 		d1 = p1.Dot(p1);
@@ -122,32 +138,51 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 		if (d1 < d2 && d1 < d3 && d1 < d4)
 		{
-			p = p1;
+			z = p1;
 			ColV.x = 1.0;
 		}
 		else if (d2 < d1 && d2 < d3 && d2 < d4)
 		{
-			p = p2;
+			z = p2;
 			ColV.y = 1.0;
 		}
 		else if (d3 < d1 && d3 < d2 && d3 < d4)
 		{
-			p = p3;
+			z = p3;
 			ColV.z = 1.0;
 		}
-		else if (mat_struct >= 2)
+		else if (fractal->transformCommon.functionEnabledGFalse
+				&& n >= fractal->transformCommon.startIterationsG
+				&& n < fractal->transformCommon.stopIterationsG)
 		{
-			p = p4;
+			z = p4;
 			ColV.w = 1.0;
-			if (mat_struct == 2)
+
+		}
+		else if (fractal->transformCommon.functionEnabledJFalse
+				&& n >= fractal->transformCommon.startIterationsJ
+				&& n < fractal->transformCommon.stopIterationsJ)
+		{
+			z = p4;
+			ColV.w = 1.0;
+
 			{
-				p *= scale;
+				z *= scale;
 				aux.DE *= scale;
 				break;
 			}
 		}
-		p *= scale;
+
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+		z *= scale;
 		aux.DE *= scale;
+/*	z.z = fabs(z.z - FRAC_1_3 * 1.) + FRAC_1_3 * 1.;
+	z = z * scale - CVector4(1.0, 1.0, 1.0, 0.0) * (scale - 1.0);
+		aux.DE = aux.DE * scale;*/
+
+
+
 
 
 		// DE tweaks
@@ -164,20 +199,21 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		}
 	}
 
-	z = CVector4(p.x, p.y, p.z, z.w);
-
 
 	if (!fractal->transformCommon.functionEnabledSwFalse)
 	{
-		d = min(min_dist, (max(fabs(p.x), max(fabs(p.y), fabs(p.z))) - fractal->transformCommon.offset105) / aux.DE);
+		d = max(fabs(z.x), max(fabs(z.y), fabs(z.z))) - fractal->transformCommon.offset0;
 	}
 	else
 	{
-		d = (z.Length() - fractal->transformCommon.offset105) / aux.DE;
+		d = z.Length() - fractal->transformCommon.offset0;
 	}
 
+	d= d * fractal->transformCommon.scaleB1 / aux.DE;
 
-	if (fractal->transformCommon.functionEnabledCFalse)
+
+
+	if (fractal->transformCommon.functionEnabledYFalse)
 	{
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
 		d = max(d, dst1);
