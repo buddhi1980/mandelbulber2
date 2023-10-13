@@ -53,8 +53,12 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			z += fractal->transformCommon.offset000;
 		}
-
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		// rotation
+		if (n >= fractal->transformCommon.startIterationsR
+				&& n < fractal->transformCommon.stopIterationsR)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
 
 		if (z.y > z.x)
 		{
@@ -199,14 +203,22 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		}
 	}
 
-
-	if (!fractal->transformCommon.functionEnabledSwFalse)
+	if (!fractal->transformCommon.functionEnabledOFalse)
 	{
-		d = max(fabs(z.x), max(fabs(z.y), fabs(z.z))) - fractal->transformCommon.offset0;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			d = max(fabs(z.x), max(fabs(z.y), fabs(z.z))) - fractal->transformCommon.offset0;
+		}
+		else
+		{
+			d = z.Length() - fractal->transformCommon.offset0;
+		}
 	}
 	else
 	{
-		d = z.Length() - fractal->transformCommon.offset0;
+		double r = z.Length() - fractal->transformCommon.offsetA0;
+		double m = (max(fabs(z.x), max(fabs(z.y), fabs(z.z)))) - fractal->transformCommon.offsetB0;
+		d = r + (m - r) * fractal->transformCommon.scale0;
 	}
 
 	d= d * fractal->transformCommon.scaleB1 / aux.DE;
