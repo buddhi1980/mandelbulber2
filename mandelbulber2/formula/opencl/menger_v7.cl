@@ -17,20 +17,18 @@
 REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL t = 0.0f;
+	REAL4 tV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
 	REAL d;
-	int mat_struct = fractal->transformCommon.int1;
-	int children = fractal->transformCommon.int3;
 
 	REAL scale = fractal->transformCommon.scale3;
-	REAL4 ColV = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-	//REAL4 z = z; // convert to vec3
+	REAL4 ColV = tV;
 
 	z *= fractal->transformCommon.scale015; // master scale
 	aux->DE *= fractal->transformCommon.scale015;
 
-	// REAL scale = 1.0f;
+
 //	z *= fractal->transformCommon.scale3;
 //	aux->DE *= fractal->transformCommon.scale3;
 //	REAL min_dist = 100000.0f;
@@ -75,42 +73,39 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			z.z = t;
 		}
 
-		REAL4  p1 = z - fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
+		tV = fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
 		if (fractal->transformCommon.functionEnabledAFalse
 				&& n >= fractal->transformCommon.startIterationsA
 				&& n < fractal->transformCommon.stopIterationsA)
 		{
-			p1 = z - fractal->transformCommon.offsetA000;
+			tV = fractal->transformCommon.offsetA000;
 		}
+		REAL4  p1 = z - tV;
 
-
-
-
-
-		REAL4 p2 = z - (REAL4){1.0f, 0.0f, 1.0f, 0.0f};
+		tV = (REAL4){1.0f, 0.0f, 1.0f, 0.0f};
 		if (fractal->transformCommon.functionEnabledEFalse
 				&& n >= fractal->transformCommon.startIterationsE
 				&& n < fractal->transformCommon.stopIterationsE)
 		{
-			 p2 = z - (REAL4){2.0f, 0.0f, 0.0f, 0.0f};
+			 tV = fractal->transformCommon.offsetA200;
 		}
+		REAL4 p2 = z - tV;
 
-		REAL4 p3 = z - fractal->transformCommon.offset110;
+		tV = fractal->transformCommon.offset110;
 		if (fractal->transformCommon.functionEnabledDFalse
 				&& n >= fractal->transformCommon.startIterationsD
 				&& n < fractal->transformCommon.stopIterationsD)
 		{
-			p3 += fractal->transformCommon.offsetF000;
+			tV = fractal->transformCommon.offsetF000;
 		}
+		REAL4 p3 = z - tV;
 
 		REAL4 p4 = z; //- (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 				if (fractal->transformCommon.functionEnabledFFalse
 				&& n >= fractal->transformCommon.startIterationsF
 				&& n < fractal->transformCommon.stopIterationsF)
 		{
-
-
-			p4 = z - (REAL4){2.0f, 0.0f, 0.0f, 0.0f};
+			p4 = z - fractal->transformCommon.offset200;
 		}
 
 	if (fractal->transformCommon.functionEnabledIFalse
@@ -123,8 +118,6 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 				// on = true;
 				break;
 			}
-
-
 		}
 
 

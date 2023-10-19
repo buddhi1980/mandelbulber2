@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -832,7 +835,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_270">
        <property name="text">
-        <string>P!offset:</string>
+        <string>P1 offset:</string>
        </property>
       </widget>
      </item>
@@ -863,6 +866,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item>
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -889,6 +895,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item>
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -903,7 +912,114 @@ Use small ray step multiplier settings</string>
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_6">
+    <layout class="QGridLayout" name="gridLayout_24" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_200_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_200_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_200_x">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="label_275">
+       <property name="text">
+        <string>P2 offset:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -1025,6 +1141,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item>
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1051,6 +1170,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item>
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1071,6 +1193,9 @@ Use small ray step multiplier settings</string>
      </property>
      <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1099,6 +1224,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1127,6 +1255,9 @@ Use small ray step multiplier settings</string>
      </item>
      <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_x">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1163,10 +1294,251 @@ Use small ray step multiplier settings</string>
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,0,1,0,1">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
+       <property name="text">
+        <string>Fp4</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_107">
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_F">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_77">
+       <property name="text">
+        <string>stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_F">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_200_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_200_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_200_x">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="label_274">
+       <property name="text">
+        <string>P4 offset:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="0,0,1,0,1">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
+       <property name="text">
+        <string>IBreak</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_109">
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_I">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_79">
+       <property name="text">
+        <string>stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_I">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,0,0">
      <property name="spacing">
       <number>2</number>
      </property>
+     <item row="12" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+       <property name="text">
+        <string>J</string>
+       </property>
+      </widget>
+     </item>
      <item row="11" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
        <property name="text">
@@ -1174,8 +1546,8 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_F">
+     <item row="12" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1206,46 +1578,6 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
-     <item row="12" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_J">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_F">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="Line" name="line_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-       <property name="text">
-        <string>J</string>
-       </property>
-      </widget>
-     </item>
      <item row="11" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_G">
        <property name="sizePolicy">
@@ -1265,8 +1597,8 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_I">
+     <item row="12" column="2">
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_J">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1277,172 +1609,6 @@ Use small ray step multiplier settings</string>
         <number>999</number>
        </property>
       </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
-       <property name="text">
-        <string>Fp4</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_I">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
-       <property name="text">
-        <string>I</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,0,1,0,1">
-       <item>
-        <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-         <property name="text">
-          <string>B</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_107">
-         <property name="text">
-          <string>start at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_77">
-         <property name="text">
-          <string>stop at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="0,0,1,0,1">
-       <item>
-        <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
-         <property name="text">
-          <string>Cp011</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_109">
-         <property name="text">
-          <string>start at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_79">
-         <property name="text">
-          <string>stop at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </item>
@@ -1654,21 +1820,7 @@ Use small ray step multiplier settings</string>
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -1700,7 +1852,7 @@ Use small ray step multiplier settings</string>
         <item row="0" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
           <property name="text">
-           <string>Sw</string>
+           <string>swap to length</string>
           </property>
          </widget>
         </item>
@@ -1735,7 +1887,7 @@ Use small ray step multiplier settings</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_311">
           <property name="text">
-           <string>de off 0</string>
+           <string>de offset:</string>
           </property>
          </widget>
         </item>
@@ -1798,7 +1950,7 @@ Use small ray step multiplier settings</string>
            <item row="1" column="0">
             <widget class="QLabel" name="label_314">
              <property name="text">
-              <string>b0</string>
+              <string>maximum:</string>
              </property>
             </widget>
            </item>
@@ -1833,7 +1985,7 @@ Use small ray step multiplier settings</string>
            <item row="0" column="0">
             <widget class="QLabel" name="label_313">
              <property name="text">
-              <string>a0</string>
+              <string>length:</string>
              </property>
             </widget>
            </item>
@@ -1868,7 +2020,7 @@ Use small ray step multiplier settings</string>
            <item row="2" column="0">
             <widget class="QLabel" name="label_315">
              <property name="text">
-              <string>sxal0</string>
+              <string>mix scale:</string>
              </property>
             </widget>
            </item>
@@ -2099,7 +2251,7 @@ Use small ray step multiplier settings</string>
         <item row="4" column="0">
          <widget class="QLabel" name="label_122">
           <property name="text">
-           <string notr="true">w</string>
+           <string notr="true">P4:</string>
           </property>
          </widget>
         </item>
@@ -2197,14 +2349,14 @@ Use small ray step multiplier settings</string>
         <item row="1" column="0" rowspan="2">
          <widget class="QLabel" name="label_59">
           <property name="text">
-           <string notr="true">y</string>
+           <string notr="true">P2:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string notr="true">z</string>
+           <string notr="true">P3:</string>
           </property>
          </widget>
         </item>
@@ -2239,7 +2391,7 @@ Use small ray step multiplier settings</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string notr="true">x</string>
+           <string notr="true">P1:</string>
           </property>
          </widget>
         </item>
@@ -2535,12 +2687,12 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>49</x>
-     <y>1521</y>
+     <x>52</x>
+     <y>1694</y>
     </hint>
     <hint type="destinationlabel">
-     <x>730</x>
-     <y>1523</y>
+     <x>1047</x>
+     <y>1696</y>
     </hint>
    </hints>
   </connection>
@@ -2551,12 +2703,12 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>15</x>
-     <y>543</y>
+     <x>18</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>237</x>
-     <y>556</y>
+     <x>421</x>
+     <y>594</y>
     </hint>
    </hints>
   </connection>
@@ -2567,12 +2719,12 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>543</y>
+     <x>38</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>718</x>
-     <y>552</y>
+     <x>1047</x>
+     <y>594</y>
     </hint>
    </hints>
   </connection>
@@ -2583,12 +2735,12 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>551</y>
+     <x>39</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>165</x>
-     <y>578</y>
+     <x>237</x>
+     <y>624</y>
     </hint>
    </hints>
   </connection>
@@ -2599,12 +2751,12 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>545</y>
+     <x>35</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>598</y>
+     <x>233</x>
+     <y>652</y>
     </hint>
    </hints>
   </connection>
@@ -2615,12 +2767,252 @@ Use small ray step multiplier settings</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>547</y>
+     <x>23</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>191</x>
-     <y>638</y>
+     <x>263</x>
+     <y>680</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetF_000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>14</x>
+     <y>912</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>946</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetF_000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>26</x>
+     <y>906</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>247</x>
+     <y>979</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetF_000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>911</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>261</x>
+     <y>1004</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledF_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offset_200_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>1032</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>175</x>
+     <y>1066</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledF_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offset_200_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>1046</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>1099</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledF_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offset_200_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>1032</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>1126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledE_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetA_200_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>13</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>734</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledE_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetA_200_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>697</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>193</x>
+     <y>760</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledE_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetA_200_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>706</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>132</x>
+     <y>790</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledF_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_F</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>1040</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>281</x>
+     <y>1046</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledF_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_F</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>1037</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>769</x>
+     <y>1033</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>912</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>257</x>
+     <y>919</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledD_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>909</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>726</x>
+     <y>924</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledE_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>704</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>193</x>
+     <y>705</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledE_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>699</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>737</x>
+     <y>706</y>
     </hint>
    </hints>
   </connection>

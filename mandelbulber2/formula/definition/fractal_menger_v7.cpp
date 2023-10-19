@@ -27,16 +27,13 @@ cFractalMengerV7::cFractalMengerV7() : cAbstractFractal()
 
 void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double dt = 0.0; // mmmmmmmmmmmmmmmmmm
 	double t = 0.0;
+	CVector4 tV = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 oldZ = z;
 	double col = 0.0;
 	double d;
-	//int mat_struct = fractal->transformCommon.int1;
-	//int children = fractal->transformCommon.int3;
-
 	double scale = fractal->transformCommon.scale3;
-	CVector4 ColV = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 ColV = tV;
 
 	z *= fractal->transformCommon.scale015; // master scale
 	aux.DE *= fractal->transformCommon.scale015;
@@ -84,43 +81,40 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z.z = t;
 		}
 
-		CVector4 p1 = z - fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
+		tV = fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
 		if (fractal->transformCommon.functionEnabledAFalse
 				&& n >= fractal->transformCommon.startIterationsA
 				&& n < fractal->transformCommon.stopIterationsA)
 		{
-			p1 = z - fractal->transformCommon.offsetA000;
+			tV = fractal->transformCommon.offsetA000;
 		}
+		CVector4 p1 = z - tV;
 
-
-
-
-		CVector4 p2 = z - CVector4(1.0, 0.0, 1.0, 0.0);
+		tV = CVector4(1.0, 0.0, 1.0, 0.0);
 		if (fractal->transformCommon.functionEnabledEFalse
 				&& n >= fractal->transformCommon.startIterationsE
 				&& n < fractal->transformCommon.stopIterationsE)
 		{
-			 p2 = z - CVector4(2.0, 0.0, 0.0, 0.0);
+			tV = fractal->transformCommon.offsetA200;
 		}
+		CVector4 p2 = z - tV;
 
-
-		CVector4 p3 = z - fractal->transformCommon.offset110;
+		tV = fractal->transformCommon.offset110;
 		if (fractal->transformCommon.functionEnabledDFalse
 				&& n >= fractal->transformCommon.startIterationsD
 				&& n < fractal->transformCommon.stopIterationsD)
 		{
-			p3 += fractal->transformCommon.offsetF000;
+			tV = fractal->transformCommon.offsetF000;
 		}
-
+		CVector4 p3 = z - tV;
 
 		CVector4 p4 = z; //- (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 				if (fractal->transformCommon.functionEnabledFFalse
 				&& n >= fractal->transformCommon.startIterationsF
 				&& n < fractal->transformCommon.stopIterationsF)
 		{
-			p4 = z - CVector4(2.0, 0.0, 0.0, 0.0);
+			p4 = z - fractal->transformCommon.offset200;
 		}
-
 
 		if (fractal->transformCommon.functionEnabledIFalse
 					&& n >= fractal->transformCommon.startIterationsI
