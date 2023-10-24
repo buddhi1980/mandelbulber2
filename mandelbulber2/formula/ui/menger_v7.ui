@@ -87,6 +87,81 @@ Use small ray step multiplier settings</string>
     </layout>
    </item>
    <item>
+    <widget class="QLabel" name="label_44">
+     <property name="text">
+      <string notr="true">Iteration Loop</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_43" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_296">
+       <property name="text">
+        <string>iterations:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_308">
+       <property name="text">
+        <string>scale3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_int8_X">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.998999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.998999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="title">
       <string> offset fun&amp;ctions</string>
@@ -264,7 +339,7 @@ Use small ray step multiplier settings</string>
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Rotation1</string>
+      <string>rotation 1</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <property name="leftMargin">
@@ -442,74 +517,6 @@ Use small ray step multiplier settings</string>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_40" columnstretch="0,1">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="0" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_int8_X">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.998999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_296">
-       <property name="text">
-        <string>iterations:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_308">
-       <property name="text">
-        <string>scale3</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="0,0,1,0,1">
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
@@ -665,7 +672,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_265">
        <property name="text">
-        <string>P1:</string>
+        <string>P1 #1:</string>
        </property>
       </widget>
      </item>
@@ -676,7 +683,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
        <property name="text">
-        <string>Ap1</string>
+        <string>P1 #2</string>
        </property>
       </widget>
      </item>
@@ -835,7 +842,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_270">
        <property name="text">
-        <string>P1 offset:</string>
+        <string>P1 #2:</string>
        </property>
       </widget>
      </item>
@@ -849,11 +856,109 @@ Use small ray step multiplier settings</string>
     </widget>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_101_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_101_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_101_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="label_266">
+       <property name="text">
+        <string>P2 #1:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="0,0,1,0,1">
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
        <property name="text">
-        <string>Ep2</string>
+        <string>P2 #2</string>
        </property>
       </widget>
      </item>
@@ -1012,7 +1117,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_275">
        <property name="text">
-        <string>P2 offset:</string>
+        <string>P2 #2:</string>
        </property>
       </widget>
      </item>
@@ -1117,7 +1222,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_271">
        <property name="text">
-        <string>P3:</string>
+        <string>P3 #1:</string>
        </property>
       </widget>
      </item>
@@ -1128,7 +1233,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
        <property name="text">
-        <string>Dp3</string>
+        <string>P3 #2</string>
        </property>
       </widget>
      </item>
@@ -1287,7 +1392,7 @@ Use small ray step multiplier settings</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_273">
        <property name="text">
-        <string>P3offset:</string>
+        <string>P3 #2:</string>
        </property>
       </widget>
      </item>
@@ -1305,7 +1410,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
        <property name="text">
-        <string>Fp4</string>
+        <string>P4</string>
        </property>
       </widget>
      </item>
@@ -1532,36 +1637,10 @@ Use small ray step multiplier settings</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="12" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-       <property name="text">
-        <string>J</string>
-       </property>
-      </widget>
-     </item>
      <item row="11" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
        <property name="text">
         <string>G</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
        </property>
       </widget>
      </item>
@@ -1597,6 +1676,32 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
+     <item row="12" column="1">
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+       <property name="text">
+        <string>J</string>
+       </property>
+      </widget>
+     </item>
      <item row="12" column="2">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_J">
        <property name="sizePolicy">
@@ -1610,12 +1715,22 @@ Use small ray step multiplier settings</string>
        </property>
       </widget>
      </item>
+     <item row="13" column="1">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Rotation2</string>
+      <string>rotation 2</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <property name="leftMargin">
@@ -1630,6 +1745,56 @@ Use small ray step multiplier settings</string>
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_29" stretch="0,1,0,1">
+        <item>
+         <widget class="QLabel" name="label_113">
+          <property name="text">
+           <string>start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_T">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_82">
+          <property name="text">
+           <string>stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_T">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_7" columnstretch="0,1">
         <item row="1" column="1">
@@ -1887,7 +2052,7 @@ Use small ray step multiplier settings</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_311">
           <property name="text">
-           <string>de offset:</string>
+           <string>aux.dist offset:</string>
           </property>
          </widget>
         </item>
@@ -2037,14 +2202,14 @@ Use small ray step multiplier settings</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_268">
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_312">
        <property name="text">
-        <string>mat_struct</string>
+        <string>B1</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
+     <item row="8" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2069,13 +2234,6 @@ Use small ray step multiplier settings</string>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_312">
-       <property name="text">
-        <string>B1</string>
        </property>
       </widget>
      </item>
@@ -2214,6 +2372,13 @@ Use small ray step multiplier settings</string>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+        <property name="text">
+         <string>z = addddd aux.color</string>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">

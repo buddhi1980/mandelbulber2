@@ -494,6 +494,7 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.offset002 = CVector4(container->Get<CVector3>("transf_offset_002"), 0.0);
 	transformCommon.offset010 = CVector4(container->Get<CVector3>("transf_offset_010"), 0.0);
 	transformCommon.offset100 = CVector4(container->Get<CVector3>("transf_offset_100"), 0.0);
+	transformCommon.offset101 = CVector4(container->Get<CVector3>("transf_offset_101"), 0.0);
 	transformCommon.offset110 = CVector4(container->Get<CVector3>("transf_offset_110"), 0.0);
 	transformCommon.offset1105 = CVector4(container->Get<CVector3>("transf_offset_1105"), 0.0);
 	transformCommon.offset111 = CVector4(container->Get<CVector3>("transf_offset_111"), 0.0);

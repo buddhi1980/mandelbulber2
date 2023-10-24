@@ -704,6 +704,7 @@ struct sFractalTransformCommon
 	CVector4 offset002;
 	CVector4 offset010;
 	CVector4 offset100;
+	CVector4 offset101;
 	CVector4 offset110;
 	CVector4 offset1105;
 	CVector4 offset111;

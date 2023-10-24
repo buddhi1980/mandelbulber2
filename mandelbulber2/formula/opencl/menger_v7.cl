@@ -21,16 +21,12 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	REAL4 oldZ = z;
 	REAL col = 0.0f;
 	REAL d;
-
 	REAL scale = fractal->transformCommon.scale3;
 	REAL4 ColV = tV;
 
 	z *= fractal->transformCommon.scale015; // master scale
 	aux->DE *= fractal->transformCommon.scale015;
 
-
-//	z *= fractal->transformCommon.scale3;
-//	aux->DE *= fractal->transformCommon.scale3;
 //	REAL min_dist = 100000.0f;
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
@@ -82,12 +78,12 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		}
 		REAL4  p1 = z - tV;
 
-		tV = (REAL4){1.0f, 0.0f, 1.0f, 0.0f};
+		tV = fractal->transformCommon.offset101;
 		if (fractal->transformCommon.functionEnabledEFalse
 				&& n >= fractal->transformCommon.startIterationsE
 				&& n < fractal->transformCommon.stopIterationsE)
 		{
-			 tV = fractal->transformCommon.offsetA200;
+			tV = fractal->transformCommon.offsetA200;
 		}
 		REAL4 p2 = z - tV;
 
@@ -108,7 +104,7 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 			p4 = z - fractal->transformCommon.offset200;
 		}
 
-	if (fractal->transformCommon.functionEnabledIFalse
+		if (fractal->transformCommon.functionEnabledIFalse
 				&& n >= fractal->transformCommon.startIterationsI
 				&& n < fractal->transformCommon.stopIterationsI)
 		{
@@ -119,8 +115,6 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 				break;
 			}
 		}
-
-
 
 		REAL d1, d2, d3, d4;
 		d1 = dot(p1, p1);
@@ -164,7 +158,12 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 				break;
 			}
 		}
-	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+
+		if (n >= fractal->transformCommon.startIterationsT
+				&& n < fractal->transformCommon.stopIterationsT)
+		{
+			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+		}
 	//	z.z = fabs(z.z - FRAC_1_3_F * 1.) + FRAC_1_3_F * Offset.z;
 	//	z = z * Scale - Offset * (Scale - 1.0f);
 	//	aux->DE = aux->DE * Scale;
@@ -221,6 +220,9 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux->color = col;
+
+	if (!fractal->foldColor.auxColorEnabledFalse) aux->color = col;
+	else aux->color += col;
+
 	return z;
 }

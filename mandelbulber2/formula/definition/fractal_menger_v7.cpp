@@ -6,8 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * formula by TGlad,
- * https://fractalforums.org/fractal-mathematics-and-new-theories/28/fractal-clusters/5107
+ * Menger V7 based on formula by TGlad,
+ * https://www.shadertoy.com/view/cslfWn
  */
 
 #include "all_fractal_definitions.h"
@@ -38,8 +38,6 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 	z *= fractal->transformCommon.scale015; // master scale
 	aux.DE *= fractal->transformCommon.scale015;
 
-//	z *= fractal->transformCommon.scale3;
-//	aux.DE *= fractal->transformCommon.scale3;
 //	double min_dist = 100000.0;
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
@@ -90,7 +88,7 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		}
 		CVector4 p1 = z - tV;
 
-		tV = CVector4(1.0, 0.0, 1.0, 0.0);
+		tV = fractal->transformCommon.offset101;
 		if (fractal->transformCommon.functionEnabledEFalse
 				&& n >= fractal->transformCommon.startIterationsE
 				&& n < fractal->transformCommon.stopIterationsE)
@@ -170,8 +168,12 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 				break;
 			}
 		}
-
-		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		// rotation 2
+		if (n >= fractal->transformCommon.startIterationsT
+				&& n < fractal->transformCommon.stopIterationsT)
+		{
+			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		}
 
 		z *= scale;
 		aux.DE *= scale;
@@ -233,5 +235,8 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 	if (fractal->analyticDE.enabledFalse) z = oldZ;
 
-	aux.color = col;
+	if (!fractal->foldColor.auxColorEnabledFalse) aux.color = col;
+	else aux.color += col;
+
+
 }
