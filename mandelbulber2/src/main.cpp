@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 
 	// test code for QJSEngine scripting
 	cOneParameter parameter = gPar->GetAsOneParameter("target");
-	parameter.SetScript("x:'camera.x' * 2 y: 'camera.y' * 3 z:'camera.x'+'camera.y'+'camera.z'");
+	parameter.SetScript("x:'main_camera.x' * 2 y: 'main_camera.y' * 3 z:'main_camera.x'+'main_camera.y'+'main_camera.z'");
 	gPar->SetFromOneParameter("target", parameter);
 	cScripts::EvaluateAll(gPar, gParFractal);
 	qDebug() << gPar->Get<CVector3>("target").Debug();

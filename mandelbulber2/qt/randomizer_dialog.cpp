@@ -45,6 +45,7 @@
 #include "src/animation_keyframes.hpp"
 #include "src/cimage.hpp"
 #include "src/color_gradient.h"
+#include "src/container_selector.hpp"
 #include "src/fractal_container.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
@@ -373,7 +374,7 @@ void cRandomizerDialog::AssignParameters(const QStringList &list)
 	for (const QString &parameter : list)
 	{
 		std::shared_ptr<cParameterContainer> container =
-			ContainerSelector(parameter, gPar, gParFractal);
+			parameterContainer::ContainerSelector(parameter, gPar, gParFractal);
 		int firstDashIndex = parameter.indexOf("_");
 		QString parameterName = parameter.mid(firstDashIndex + 1);
 		enumVarType varType = container->GetVarType(parameterName);
@@ -738,7 +739,7 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 
 				QString fullParameterNameToCheck = parametersTree.GetString(parentIndex);
 				std::shared_ptr<cParameterContainer> container =
-					ContainerSelector(fullParameterNameToCheck, params, fractal);
+					parameterContainer::ContainerSelector(fullParameterNameToCheck, params, fractal);
 				int firstDashIndex = fullParameterNameToCheck.indexOf("_");
 				QString parameterName = fullParameterNameToCheck.mid(firstDashIndex + 1);
 				if (!container->Get<bool>(parameterName))
@@ -774,7 +775,7 @@ void cRandomizerDialog::RandomizeParameters(enimRandomizeStrength strength,
 
 			// enable group
 			std::shared_ptr<cParameterContainer> container =
-				ContainerSelector(fullParameterName, params, fractal);
+				parameterContainer::ContainerSelector(fullParameterName, params, fractal);
 			int firstDashIndex = fullParameterName.indexOf("_");
 			QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 			container->Set(parameterName, true);
@@ -793,7 +794,7 @@ void cRandomizerDialog::RandomizeOneParameter(QString fullParameterName, double 
 	int widgetIndex)
 {
 	std::shared_ptr<cParameterContainer> container =
-		ContainerSelector(fullParameterName, params, fractal);
+		parameterContainer::ContainerSelector(fullParameterName, params, fractal);
 	int firstDashIndex = fullParameterName.indexOf("_");
 	QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 	// qDebug() << "---Randomizing: " << container->GetContainerName() << parameterName;
@@ -881,7 +882,7 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 				// exceptions
 				if (parameterName == "") continue;
 				std::shared_ptr<cParameterContainer> container =
-					ContainerSelector(fullParameterName, gPar, gParFractal);
+					parameterContainer::ContainerSelector(fullParameterName, gPar, gParFractal);
 				if (container->GetParameterType(parameterName) != parameterContainer::paramStandard)
 					continue;
 				if (parameterName.contains("material_id")) continue;
@@ -922,39 +923,6 @@ void cRandomizerDialog::CreateParametersTreeInWidget(
 		}
 	}
 	level--;
-}
-
-std::shared_ptr<cParameterContainer> cRandomizerDialog::ContainerSelector(QString fullParameterName,
-	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
-{
-	std::shared_ptr<cParameterContainer> container = nullptr;
-
-	int firstDashIndex = fullParameterName.indexOf("_");
-	QString containerName = fullParameterName.left(firstDashIndex);
-
-	if (containerName == "main")
-	{
-		container = params;
-	}
-	else if (containerName.indexOf("fractal") >= 0)
-	{
-		const int index = containerName.right(1).toInt();
-		if (index < NUMBER_OF_FRACTALS)
-		{
-			container = fractal->at(index);
-		}
-		else
-		{
-			qWarning() << "cRandomizerDialog::ContainerSelector(): wrong fractal container index"
-								 << containerName << index;
-		}
-	}
-	else
-	{
-		qWarning() << "cRandomizerDialog::ContainerSelector(): wrong container name" << containerName;
-	}
-
-	return container;
 }
 
 void cRandomizerDialog::slotClickedSelectButton()
@@ -1270,13 +1238,13 @@ void cRandomizerDialog::slotCleanUp()
 		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 
 		std::shared_ptr<cParameterContainer> containerOrigin =
-			ContainerSelector(fullParameterName, gPar, gParFractal);
+			parameterContainer::ContainerSelector(fullParameterName, gPar, gParFractal);
 
-		std::shared_ptr<cParameterContainer> containerCleaned =
-			ContainerSelector(fullParameterName, actualParamsCleaned, actualFractParamsCleaned);
+		std::shared_ptr<cParameterContainer> containerCleaned = parameterContainer::ContainerSelector(
+			fullParameterName, actualParamsCleaned, actualFractParamsCleaned);
 
 		std::shared_ptr<cParameterContainer> containerActual =
-			ContainerSelector(fullParameterName, actualParams, actualFractParams);
+			parameterContainer::ContainerSelector(fullParameterName, actualParams, actualFractParams);
 
 		cOneParameter parameterOrigin = containerOrigin->GetAsOneParameter(parameterName);
 		containerCleaned->SetFromOneParameter(parameterName, parameterOrigin);
@@ -1335,7 +1303,7 @@ void cRandomizerDialog::slotAddToKeyframes()
 		QString parameterName = fullParameterName.mid(firstDashIndex + 1);
 
 		std::shared_ptr<cParameterContainer> container =
-			ContainerSelector(fullParameterName, gPar, gParFractal);
+			parameterContainer::ContainerSelector(fullParameterName, gPar, gParFractal);
 
 		if (gKeyframes->IndexOnList(parameterName, container->GetContainerName()) == -1)
 		{

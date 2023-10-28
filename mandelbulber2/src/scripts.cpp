@@ -11,6 +11,7 @@
 #include "scripts.h"
 #include "fractal_container.hpp"
 #include "parameters.hpp"
+#include "container_selector.hpp"
 
 cScripts::cScripts()
 {
@@ -36,7 +37,8 @@ double cScripts::EvaluateScript(const QString &script, const QString &parameterN
 }
 
 QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &params,
-	const QString &parameterName, cOneParameter &parameter, QString &error)
+	const std::shared_ptr<cFractalContainer> fractal, const QString &parameterName,
+	cOneParameter &parameter, QString &error)
 {
 	QString script = parameter.GetScript();
 	if (script.length() > 0)
@@ -60,18 +62,25 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 				hasError = true;
 				break;
 			}
-			QString scriptParameterName = script.mid(firstQuote + 1, lastQuote - firstQuote - 1);
+			QString scriptFullParameterName = script.mid(firstQuote + 1, lastQuote - firstQuote - 1);
 
 			QChar vectorComponent = QChar::Null;
-			if (scriptParameterName.at(scriptParameterName.length() - 2) == '.')
+			if (scriptFullParameterName.at(scriptFullParameterName.length() - 2) == '.')
 			{
-				vectorComponent = scriptParameterName.at(scriptParameterName.length() - 1);
-				scriptParameterName = scriptParameterName.left(scriptParameterName.length() - 2);
+				vectorComponent = scriptFullParameterName.at(scriptFullParameterName.length() - 1);
+				scriptFullParameterName =
+					scriptFullParameterName.left(scriptFullParameterName.length() - 2);
 			}
 
-			if (params->IfExists(scriptParameterName))
+			const std::shared_ptr<cParameterContainer> container =
+				parameterContainer::ContainerSelector(scriptFullParameterName, params, fractal);
+
+			int firstDashIndex = scriptFullParameterName.indexOf("_");
+			QString scriptParameterName = scriptFullParameterName.mid(firstDashIndex + 1);
+
+			if (container->IfExists(scriptParameterName))
 			{
-				QString value = params->Get<QString>(scriptParameterName);
+				QString value = container->Get<QString>(scriptParameterName);
 
 				if (vectorComponent != QChar::Null)
 				{
@@ -96,7 +105,7 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 			{
 				error += QString("In the script for parameter '%1' there is unknown parameter '%2'\n")
 									 .arg(parameterName)
-									 .arg(scriptParameterName);
+									 .arg(scriptFullParameterName);
 				hasError = true;
 			}
 			i = lastQuote + 1;
@@ -126,7 +135,7 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 							secondPosition = secondPosition - 2;
 
 						QChar component = script.at(firstPosition - 1);
-						QString subScript = script.mid(firstPosition+1, secondPosition - firstPosition);
+						QString subScript = script.mid(firstPosition + 1, secondPosition - firstPosition);
 
 						qDebug() << component << subScript;
 
@@ -178,8 +187,19 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 	for (const QString &parameterName : listOfParametrs)
 	{
 		cOneParameter parameter = params->GetAsOneParameter(parameterName);
-		QString script = EvaluateParameter(params, parameterName, parameter, error);
+		QString script = EvaluateParameter(params, fractal, parameterName, parameter, error);
 	}
+
+	QList<QString> listOfFractalParametrs = fractal->at(0)->GetListOfParameters();
+	for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+	{
+		for (const QString &parameterName : listOfFractalParametrs)
+		{
+			cOneParameter parameter = fractal->at(f)->GetAsOneParameter(parameterName);
+			QString script = EvaluateParameter(params, fractal, parameterName, parameter, error);
+		}
+	}
+
 	if (error.length() > 0)
 	{
 		qDebug().noquote() << error;

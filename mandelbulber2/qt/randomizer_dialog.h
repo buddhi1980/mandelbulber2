@@ -109,8 +109,6 @@ private:
 
 	void CreateParametersTreeInWidget(
 		cTreeStringList *tree, const QWidget *widget, int &level, int parentId);
-	static std::shared_ptr<cParameterContainer> ContainerSelector(QString fullParameterName,
-		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal);
 	void RandomizeParameters(enimRandomizeStrength strength,
 		std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal,
 		int widgetIndex);
