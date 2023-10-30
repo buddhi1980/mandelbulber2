@@ -177,6 +177,8 @@ sParamRender::sParamRender(
 	postChromaticAberrationRadius = container->Get<float>("post_chromatic_aberration_radius");
 	postChromaticAberrationIntensity = container->Get<float>("post_chromatic_aberration_intensity");
 	postChromaticAberrationReverse = container->Get<bool>("post_chromatic_aberration_reverse");
+	rayleighScatteringBlue = container->Get<float>("rayleigh_scattering_blue");
+	rayleighScatteringRed = container->Get<float>("rayleigh_scattering_red");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");

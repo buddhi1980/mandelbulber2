@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -3561,7 +3561,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
             <x>0</x>
             <y>0</y>
             <width>553</width>
-            <height>1110</height>
+            <height>1166</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3606,6 +3606,32 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                 <property name="topMargin">
                  <number>0</number>
                 </property>
+                <item row="1" column="1">
+                 <widget class="MyLineEdit" name="logedit_all_lights_intensity">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="MyLineEdit" name="logedit_all_lights_size">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_fill_light_color" native="true">
                   <property name="toolTip">
@@ -3616,10 +3642,27 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_3">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_2">
                   <property name="text">
-                   <string>All lights visibility</string>
+                   <string>All lights intensity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>All lights size</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="MyLineEdit" name="logedit_rayleigh_scattering_blue">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                  </widget>
                 </item>
@@ -3636,10 +3679,10 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_2">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>All lights intensity</string>
+                   <string>All lights visibility</string>
                   </property>
                  </widget>
                 </item>
@@ -3650,36 +3693,27 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="MyLineEdit" name="logedit_all_lights_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_4">
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>All lights size</string>
+                   <string>Rayleigh scattering blue:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="MyLineEdit" name="logedit_all_lights_size">
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Rayleigh scattering red:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="MyLineEdit" name="logedit_rayleigh_scattering_red">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>

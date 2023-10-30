@@ -215,6 +215,8 @@ struct sParamRender
 	float monteCarloGIRadianceLimit;
 	float postChromaticAberrationIntensity;
 	float postChromaticAberrationRadius;
+	float rayleighScatteringBlue;
+	float rayleighScatteringRed;
 	double relMaxMarchingStep;
 	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates

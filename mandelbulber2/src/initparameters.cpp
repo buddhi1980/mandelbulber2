@@ -427,6 +427,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 		"fake_lights_orbit_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("fake_lights_orbit_trap_size", 1.0, 0.0, 1e15, morphAkimaAngle, paramStandard);
 
+	par->addParam("rayleigh_scattering_blue", 0.0, 0.0, 1e15, morphAkimaAngle, paramStandard);
+	par->addParam("rayleigh_scattering_red", 0.0, 0.0, 1e15, morphAkimaAngle, paramStandard);
+
 	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("all_primitives_invisible_alpha", false, morphLinear, paramStandard);

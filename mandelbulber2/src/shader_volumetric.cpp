@@ -399,10 +399,38 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 								lightShadow = sRGBAfloat();
 						}
 
+						sRGBFloat raleighScatteringRGB(1.0, 1.0, 1.0);
+						sRGBFloat mieScatteringRGB(1.0, 1.0, 1.0);
+
+						if (params->rayleighScatteringBlue > 0.0f)
+						{
+							float raleighScattering = (1.0 + pow(lightVectorTemp.Dot(input.viewVector), 2.0))
+																				* params->rayleighScatteringBlue * step;
+
+							raleighScatteringRGB.R = 1.0;
+							raleighScatteringRGB.G = (1.0 + 0.2 * raleighScattering);
+							raleighScatteringRGB.B = (1.0 + 2.0 * raleighScattering);
+						}
+
+						if (params->rayleighScatteringRed > 0.0f)
+						{
+							float mieScatteringR = pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 15.0)
+																		 * params->rayleighScatteringRed * step;
+							float mieScatteringG = pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 4.0)
+																		 * params->rayleighScatteringRed * step;
+
+							mieScatteringRGB.R = (1.0 + 5.0 * mieScatteringR);
+							mieScatteringRGB.G = (1.0 + mieScatteringG);
+							mieScatteringRGB.B = 1.0;
+						}
+
 						sRGBFloat calculatedLight(0.0, 0.0, 0.0);
-						calculatedLight.R = light->color.R * lightIntensity * textureColor.R;
-						calculatedLight.G = light->color.G * lightIntensity * textureColor.G;
-						calculatedLight.B = light->color.B * lightIntensity * textureColor.B;
+						calculatedLight.R = light->color.R * lightIntensity * textureColor.R
+																* raleighScatteringRGB.R * mieScatteringRGB.R;
+						calculatedLight.G = light->color.G * lightIntensity * textureColor.G
+																* raleighScatteringRGB.G * mieScatteringRGB.G;
+						calculatedLight.B = light->color.B * lightIntensity * textureColor.B
+																* raleighScatteringRGB.B * mieScatteringRGB.B;
 
 						totalLightsWithShadows.R += calculatedLight.R * lightShadow.R;
 						totalLightsWithShadows.G += calculatedLight.G * lightShadow.G;
