@@ -33,6 +33,32 @@
  */
 
 #ifdef FULL_ENGINE
+
+#ifdef RAYLEIGH_SCATTERING
+void RayleighScattering(__constant sClInConstants *consts, float3 lightVectorTemp,
+	sShaderInputDataCl *input, float3 *raleighScatteringRGB, float3 *mieScatteringRGB)
+{
+	if (consts->params.rayleighScatteringBlue > 0.0f)
+	{
+		float raleighScattering = (1.0f + pow(dot(lightVectorTemp, input->viewVector), 2.0f))
+															* consts->params.rayleighScatteringBlue;
+		raleighScatteringRGB->s0 = 1.0f;
+		raleighScatteringRGB->s1 = (1.0f + 0.2f * raleighScattering);
+		raleighScatteringRGB->s2 = (1.0f + 2.0f * raleighScattering);
+	}
+	if (consts->params.rayleighScatteringRed > 0.0f)
+	{
+		float mieScatteringR = pow(dot(lightVectorTemp, input->viewVector) * 0.5f + 0.5f, 15.0f)
+													 * consts->params.rayleighScatteringRed;
+		float mieScatteringG = pow(dot(lightVectorTemp, input->viewVector) * 0.5f + 0.5f, 10.0f)
+													 * consts->params.rayleighScatteringRed;
+		mieScatteringRGB->s0 = (1.0f + 5.0f * mieScatteringR);
+		mieScatteringRGB->s1 = (1.0f + mieScatteringG);
+		mieScatteringRGB->s2 = 1.0f;
+	}
+}
+#endif // RAYLEIGH_SCATTERING
+
 //------------ Volumetric shader ----------------
 float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
@@ -385,7 +411,16 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					}
 #endif
 
-					float3 calculatedLight = light->color * lightIntensity * textureColor;
+					float3 raleighScatteringRGB = 1.0f;
+					float3 mieScatteringRGB = 1.0f;
+
+#ifdef RAYLEIGH_SCATTERING
+					RayleighScattering(
+						consts, lightVectorTemp, input, &raleighScatteringRGB, &mieScatteringRGB);
+#endif
+
+					float3 calculatedLight =
+						light->color * lightIntensity * textureColor * raleighScatteringRGB * mieScatteringRGB;
 					totalLightsWithShadows += calculatedLight * lightShadow;
 					totalLights += calculatedLight;
 

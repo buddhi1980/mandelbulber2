@@ -263,6 +263,8 @@ private:
 	float RoughnessTexture(const sShaderInputData &input) const;
 	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
 	sRGBFloat GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const;
+	void RayleighScattering(const CVector3 &lightVectorTemp, const sShaderInputData &input,
+		sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const;
 
 	// data got from main thread
 	const sParamRender *params;

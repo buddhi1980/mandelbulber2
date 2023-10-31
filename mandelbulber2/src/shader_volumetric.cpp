@@ -46,6 +46,29 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
+void cRenderWorker::RayleighScattering(const CVector3 &lightVectorTemp,
+	const sShaderInputData &input, sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const
+{
+	if (params->rayleighScatteringBlue > 0.0f)
+	{
+		float raleighScattering =
+			(1.0 + pow(lightVectorTemp.Dot(input.viewVector), 2.0)) * params->rayleighScatteringBlue;
+		raleighScatteringRGB.R = 1.0;
+		raleighScatteringRGB.G = (1.0 + 0.2 * raleighScattering);
+		raleighScatteringRGB.B = (1.0 + 2.0 * raleighScattering);
+	}
+	if (params->rayleighScatteringRed > 0.0f)
+	{
+		float mieScatteringR =
+			pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 15.0) * params->rayleighScatteringRed;
+		float mieScatteringG =
+			pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 10.0) * params->rayleighScatteringRed;
+		mieScatteringRGB.R = (1.0 + 5.0 * mieScatteringR);
+		mieScatteringRGB.G = (1.0 + mieScatteringG);
+		mieScatteringRGB.B = 1.0;
+	}
+}
+
 sRGBAfloat cRenderWorker::VolumetricShader(
 	const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const
 {
@@ -402,27 +425,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						sRGBFloat raleighScatteringRGB(1.0, 1.0, 1.0);
 						sRGBFloat mieScatteringRGB(1.0, 1.0, 1.0);
 
-						if (params->rayleighScatteringBlue > 0.0f)
-						{
-							float raleighScattering = (1.0 + pow(lightVectorTemp.Dot(input.viewVector), 2.0))
-																				* params->rayleighScatteringBlue * step;
-
-							raleighScatteringRGB.R = 1.0;
-							raleighScatteringRGB.G = (1.0 + 0.2 * raleighScattering);
-							raleighScatteringRGB.B = (1.0 + 2.0 * raleighScattering);
-						}
-
-						if (params->rayleighScatteringRed > 0.0f)
-						{
-							float mieScatteringR = pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 15.0)
-																		 * params->rayleighScatteringRed * step;
-							float mieScatteringG = pow(lightVectorTemp.Dot(input.viewVector) * 0.5 + 0.5, 4.0)
-																		 * params->rayleighScatteringRed * step;
-
-							mieScatteringRGB.R = (1.0 + 5.0 * mieScatteringR);
-							mieScatteringRGB.G = (1.0 + mieScatteringG);
-							mieScatteringRGB.B = 1.0;
-						}
+						RayleighScattering(lightVectorTemp, input, raleighScatteringRGB, mieScatteringRGB);
 
 						sRGBFloat calculatedLight(0.0, 0.0, 0.0);
 						calculatedLight.R = light->color.R * lightIntensity * textureColor.R

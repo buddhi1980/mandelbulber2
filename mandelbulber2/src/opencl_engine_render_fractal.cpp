@@ -699,6 +699,9 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 	{
 		definesCollector += " -DUSE_ENV_MAPPING";
 	}
+
+	if (paramRender->rayleighScatteringBlue > 0.0 || paramRender->rayleighScatteringRed > 0.0)
+		definesCollector += " -DRAYLEIGH_SCATTERING";
 }
 
 void cOpenClEngineRenderFractal::SetParametersForStereoscopic(sRenderData *renderData)

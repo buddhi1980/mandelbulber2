@@ -221,6 +221,8 @@ typedef struct
 	cl_float monteCarloGIRadianceLimit;
 	cl_float postChromaticAberrationIntensity;
 	cl_float postChromaticAberrationRadius;
+	cl_float rayleighScatteringBlue;
+	cl_float rayleighScatteringRed;
 	cl_float relMaxMarchingStep;
 	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
@@ -420,6 +422,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.monteCarloGIRadianceLimit = source.monteCarloGIRadianceLimit;
 	target.postChromaticAberrationIntensity = source.postChromaticAberrationIntensity;
 	target.postChromaticAberrationRadius = source.postChromaticAberrationRadius;
+	target.rayleighScatteringBlue = source.rayleighScatteringBlue;
+	target.rayleighScatteringRed = source.rayleighScatteringRed;
 	target.relMaxMarchingStep = source.relMaxMarchingStep;
 	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;
