@@ -300,7 +300,9 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 {
 	QString text;
 
-	enumParameterType parType = par->GetParameterType(name);
+	cOneParameter parameter = par->GetAsOneParameter(name);
+
+	enumParameterType parType = parameter.GetParameterType();
 
 	bool selNormal =
 		(format == formatFullText || format == formatCondensedText) && parType == paramStandard;
@@ -319,23 +321,23 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 	if (selNormal || selNetRender || selAppSettings)
 	{
 		QString value;
-		enumVarType type = par->GetVarType(name);
-		if (!par->isDefaultValue(name) || format == formatFullText || format == formatNetRender)
+		enumVarType type = parameter.GetValueType();
+		if (!parameter.isDefaultValue() || format == formatFullText || format == formatNetRender)
 		{
 			if (type == typeBool)
 			{
-				bool bValue = par->Get<bool>(name);
+				bool bValue = parameter.Get<bool>(valueActual);
 				value = bValue ? "true" : "false";
 			}
 			else
 			{
-				if (par->GetAsOneParameter(name).IsEnumeration())
+				if (parameter.IsEnumeration())
 				{
-					value = par->GetAsOneParameter(name).GetValueByEnumeration();
+					value = parameter.GetValueByEnumeration();
 				}
 				else
 				{
-					value = par->Get<QString>(name);
+					value = parameter.Get<QString>(valueActual);
 				}
 			}
 
@@ -344,7 +346,16 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 				value = CompressAndCode(value);
 			}
 
-			text = name + " " + value + ";\n";
+			QString script = parameter.GetScript();
+
+			if (script.isEmpty())
+			{
+				text = QString("%1 %2;\n").arg(name).arg(value);
+			}
+			else
+			{
+				text = QString("%1 %2;%3;\n").arg(name).arg(value).arg(script);
+			}
 		}
 	}
 	return text;
@@ -862,9 +873,18 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 	int semicolon = line.indexOf(';');
 	QString parameterName = line.left(firstSpace);
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
+	QString script;
+
+	// lokking for script
+	if (semicolon < line.length() - 2)
+	{
+		int semicolon2 = line.indexOf(';', semicolon + 1);
+		script = line.mid(semicolon + 1, semicolon2 - semicolon - 1);
+	}
 
 	Compatibility(parameterName, value);
 
+	// skip processing of parameter in case of compatibility issue
 	if (parameterName == "skip") return true;
 
 	if (parameterName.left(parameterName.indexOf('_')) == "primitive")
@@ -994,6 +1014,9 @@ bool cSettings::DecodeOneLine(std::shared_ptr<cParameterContainer> par, QString 
 		{
 			par->Set(parameterName, value);
 		}
+
+		if (!script.isEmpty()) par->SetScript(parameterName, script);
+
 		return true;
 	}
 }

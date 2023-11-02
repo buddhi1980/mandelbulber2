@@ -300,6 +300,22 @@ template void cParameterContainer::Set<CVector4>(
 template void cParameterContainer::Set<sRGB>(const QString &name, int index, const sRGB &val);
 template void cParameterContainer::Set<bool>(const QString &name, int index, const bool &val);
 
+void cParameterContainer::SetScript(const QString &name, const QString &script)
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		it->SetScript(script);
+	}
+	else
+	{
+		qWarning() << "SetScript(): element '" << name << "' doesn't exists";
+	}
+}
+
 // get parameter value by name
 template <class T>
 T cParameterContainer::Get(const QString &name) const
@@ -560,7 +576,10 @@ void cParameterContainer::ResetAllToDefault(const QStringList &exclude)
 		{
 			cOneParameter record = it.value();
 			if (record.GetParameterType() != paramApp)
+			{
 				it.value().SetMultiVal(record.GetMultiVal(valueDefault), valueActual);
+				it.value().SetScript(QString());
+			}
 		}
 		++it;
 	}

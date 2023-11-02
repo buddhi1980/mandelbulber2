@@ -76,6 +76,8 @@ public:
 	template <class T>
 	void Set(const QString &name, int index, const T &val);
 
+	void SetScript(const QString &name, const QString &script);
+
 	template <class T>
 	T Get(const QString &name) const;
 
