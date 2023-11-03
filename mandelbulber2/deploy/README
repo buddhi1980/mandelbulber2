@@ -49,13 +49,13 @@ packages needed to RUN
 
 packages needed to COMPILE
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev  
-	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev
+	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev qtdeclarative5-dev
 
 Installing packages on Ubuntu, Debian stable (jessie) or Mint: 
 sudo apt-get install build-essential qtbase5-dev \
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
 	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins \
-	liblzo2-2 liblzo2-dev
+	liblzo2-2 liblzo2-dev qtdeclarative5-dev
 
 Compiling from source:
 cd makefiles
