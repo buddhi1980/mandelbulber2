@@ -79,7 +79,7 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z.z = t;
 		}
 
-		tV = fractal->transformCommon.offsetA111; // mmmmmmmmmmmmm
+		tV = fractal->transformCommon.offsetA111;
 		if (fractal->transformCommon.functionEnabledAFalse
 				&& n >= fractal->transformCommon.startIterationsA
 				&& n < fractal->transformCommon.stopIterationsA)
@@ -124,7 +124,6 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 				break;
 			}
 		}
-
 
 		double d1, d2, d3, d4;
 		d1 = p1.Dot(p1);
