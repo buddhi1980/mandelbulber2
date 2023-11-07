@@ -152,7 +152,6 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			z = p4;
 			ColV.w = 1.0;
-
 		}
 		else if (fractal->transformCommon.functionEnabledJFalse
 				&& n >= fractal->transformCommon.startIterationsJ
@@ -161,11 +160,10 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 			z = p4;
 			ColV.w = 1.0;
 
-			{
-				z *= scale;
-				aux.DE *= scale;
-				break;
-			}
+			z *= scale;
+			aux.DE *= scale;
+			break;
+
 		}
 		// rotation 2
 		if (n >= fractal->transformCommon.startIterationsT

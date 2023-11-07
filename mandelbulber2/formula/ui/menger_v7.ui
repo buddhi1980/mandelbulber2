@@ -1580,7 +1580,7 @@ Use small ray step multiplier settings</string>
      <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledI_false">
        <property name="text">
-        <string>IBreak</string>
+        <string>if (z.x &lt;= 1.5) break</string>
        </property>
       </widget>
      </item>
@@ -1640,7 +1640,7 @@ Use small ray step multiplier settings</string>
      <item row="11" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledG_false">
        <property name="text">
-        <string>G</string>
+        <string>enable p4</string>
        </property>
       </widget>
      </item>
@@ -1698,7 +1698,7 @@ Use small ray step multiplier settings</string>
      <item row="12" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
        <property name="text">
-        <string>J</string>
+        <string>enable p4 break</string>
        </property>
       </widget>
      </item>
