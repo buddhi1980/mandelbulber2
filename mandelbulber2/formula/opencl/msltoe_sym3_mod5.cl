@@ -16,6 +16,15 @@
 
 REAL4 MsltoeSym3Mod5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD)
+	{
+		z = fabs(z + fractal->transformCommon.additionConstant000)
+				- fabs(z - fractal->transformCommon.additionConstant000) - z;
+		aux->r = length(z);
+	}
+
 	REAL4 c = aux->const_c;
 	aux->DE = aux->DE * 2.0f * aux->r;
 

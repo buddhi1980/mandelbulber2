@@ -20,13 +20,22 @@ cFractalMsltoeSym3Mod5::cFractalMsltoeSym3Mod5() : cAbstractFractal()
 	DEType = analyticDEType;
 	DEFunctionType = logarithmicDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
-	defaultBailout = 10.0;
+	defaultBailout = 100.0;
 	DEAnalyticFunction = analyticFunctionLogarithmic;
 	coloringFunction = coloringFunctionDefault;
 }
 
 void cFractalMsltoeSym3Mod5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.functionEnabledCFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+	{
+		z = fabs(z + fractal->transformCommon.additionConstant000)
+				- fabs(z - fractal->transformCommon.additionConstant000) - z;
+		aux.r = z.Length();
+	}
+
 	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
 

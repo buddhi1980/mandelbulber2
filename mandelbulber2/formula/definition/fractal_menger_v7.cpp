@@ -38,7 +38,7 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 	z *= fractal->transformCommon.scale015; // master scale
 	aux.DE *= fractal->transformCommon.scale015;
 
-//	double min_dist = 100000.0;
+	double minDist = 100000.0;
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
 		z = fabs(z);
@@ -192,7 +192,12 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 					+ ColV.y * fractal->foldColor.difs0000.y
 					+ ColV.z * fractal->foldColor.difs0000.z
 					+ ColV.w * fractal->foldColor.difs0000.w;
-		//	if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
+			if (fractal->transformCommon.functionEnabledzFalse)
+			{
+				double oT = max(fabs(z.x), max(fabs(z.y), fabs(z.z)));
+				minDist = min(oT, minDist);
+				col += minDist * fractal->foldColor.difs1;
+			}
 		}
 	}
 
@@ -216,8 +221,6 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 	d= d * fractal->transformCommon.scaleB1 / aux.DE;
 
-
-
 	if (fractal->transformCommon.functionEnabledYFalse)
 	{
 		double dst1 = aux.const_c.Length() - fractal->transformCommon.offsetR1;
@@ -234,6 +237,4 @@ void cFractalMengerV7::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 	if (!fractal->foldColor.auxColorEnabledFalse) aux.color = col;
 	else aux.color += col;
-
-
 }

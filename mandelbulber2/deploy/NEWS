@@ -11,6 +11,7 @@ v2.31 (??? 2023)
    transfSphericalInvV3
 
 - modified fractal formulas
+   msltoeSym3Mod5 add boxfold
    sphereCluster update DE calc, add void mode
    transfSphericalInvV2, add DE tweak
 

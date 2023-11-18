@@ -23,10 +23,13 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL3 u_zXYZ = (REAL3){0.0f, 0.0f, 1.0f}; // angel does matter if mag_zXYZ==0
 	REAL mag_zXYZ = 0.0f;
-	if ((dot(zXYZ, zXYZ)) > 0.0f)
+
+	t = dot(zXYZ, zXYZ);
+	if (t > 0.0f)
 	{
-		u_zXYZ = zXYZ / native_sqrt(dot(zXYZ, zXYZ));
-		mag_zXYZ = native_sqrt(dot(zXYZ, zXYZ));
+		t = native_sqrt(t);
+		u_zXYZ = zXYZ / t;
+		mag_zXYZ = t;
 	}
 
 	REAL flat = 0.0f;
@@ -89,7 +92,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	//
 	// Scale is used as the power.
-	REAL power = fractal->mandelbox.scale;
+	REAL power = fractal->transformCommon.pwr4;
 	// Solid is used for selecting fractal(==0) or target map(!=0).
 //	REAL solid = fractal->mandelbox.solid;
 
@@ -198,7 +201,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			// Sign of rot_angel determines the patch includes self
 			// rot_angle = rot_angle * ((side & 2)-1); // mix it up
 			// rot_angle = rot_angle;  // Exclude self
-			rot_angle = -rot_angle; // Include self
+			if (!fractal->transformCommon.functionEnabledBFalse) {rot_angle = -rot_angle;}// Include self
 
 			// zXYZ = zXYZ *(1.0f - .0*flat);  // Does not play well with power DE
 			// zXYZ =  RotateAroundVectorByAngle4(zXYZ, u_Fv[side], 3.14159/3.0); // Taffy
@@ -207,9 +210,9 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		else
 		{
 			zXYZ = zXYZ / flat;
-			REAL ramp = 5.0f * D - (int)(5.0f * D);			 // (int)
+			REAL ramp = 5.0f * D - (int)(5.0f * D);	 // (int)
 			REAL saw = -1.0f + 2.0f * fabs(ramp - 0.5f); // fabs
-			saw = (saw + 0.6f) + fabs(saw + 0.6f);			 // fabs
+			saw = (saw + 0.6f) + fabs(saw + 0.6f); // fabs
 			saw = 0.02f * saw * saw;
 			REAL rings = 1.0f - (saw * (1.0f - 0.1f * ramp));
 			if (D < 0.02f) rings = rings * 0.98f;
@@ -221,14 +224,10 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	REAL rp = pow(mag_zXYZ, power - 1.0f);
 
-	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	aux->DE = rp * aux->DE * power + 1.0f;
 
-
-
-
 	zXYZ = zXYZ * rp;
-
+	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	z = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, z.w};
 	return z;
 }

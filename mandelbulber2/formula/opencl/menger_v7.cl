@@ -27,7 +27,7 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	z *= fractal->transformCommon.scale015; // master scale
 	aux->DE *= fractal->transformCommon.scale015;
 
-//	REAL min_dist = 100000.0f;
+	REAL minDist = 100000.0f;
 	for (int n = 0; n < fractal->transformCommon.int8X; n++)
 	{
 		z = fabs(z);
@@ -182,7 +182,12 @@ REAL4 MengerV7Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			col += ColV.x * fractal->foldColor.difs0000.x + ColV.y * fractal->foldColor.difs0000.y
 						 + ColV.z * fractal->foldColor.difs0000.z + ColV.w * fractal->foldColor.difs0000.w;
-			//	if (fractal->foldColor.difs1 > dist) col += fractal->foldColor.difs0000.w;
+			if (fractal->transformCommon.functionEnabledzFalse)
+			{
+				REAL oT = max(fabs(z.x), max(fabs(z.y), fabs(z.z)));
+				minDist = min(oT, minDist);
+				col += minDist * fractal->foldColor.difs1;
+			}
 		}
 	}
 
