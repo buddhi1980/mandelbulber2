@@ -58,6 +58,7 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
+#include "scripts.h"
 #include "settings.hpp"
 #include "system_data.hpp"
 #include "system_directories.hpp"
@@ -1020,6 +1021,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
 
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
+
+			cScripts::EvaluateAll(params, fractalParams);
 
 			// recalculation of camera rotation and distance (just for display purposes)
 			UpdateCameraAndTarget();

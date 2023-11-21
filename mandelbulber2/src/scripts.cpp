@@ -80,7 +80,12 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 
 			if (container->IfExists(scriptParameterName))
 			{
-				QString value = container->Get<QString>(scriptParameterName);
+				cOneParameter oneParameter = container->GetAsOneParameter(scriptParameterName);
+
+				// recursive calculation of parameters
+				EvaluateParameter(params, fractal, scriptParameterName, oneParameter, error);
+
+				QString value = oneParameter.Get<QString>(parameterContainer::valueActual);
 
 				if (vectorComponent != QChar::Null)
 				{
@@ -114,6 +119,8 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 		// process scripts
 		if (!hasError)
 		{
+			script.replace(',', '.');
+
 			parameterContainer::enumVarType varType = parameter.GetValueType();
 
 			switch (varType)

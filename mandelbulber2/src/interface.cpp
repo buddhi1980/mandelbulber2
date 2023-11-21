@@ -72,6 +72,7 @@
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
+#include "scripts.h"
 #include "synchronize_interface.hpp"
 #include "system_data.hpp"
 #include "trace_behind.h"
@@ -617,6 +618,10 @@ void cInterface::StartRender(bool noUndo)
 		tempSettings.CreateText(gPar, gParFractal);
 		autoRefreshLastHash = tempSettings.GetHashCode();
 	}
+
+	cScripts::EvaluateAll(gPar, gParFractal);
+
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	if (!noUndo) gUndo->Store(gPar, gParFractal);
 

@@ -60,8 +60,6 @@
 #include "undo.h"
 #include "write_log.hpp"
 
-#include "scripts.h"
-
 #include "formula/definition/all_fractal_list.hpp"
 
 int main(int argc, char *argv[])
