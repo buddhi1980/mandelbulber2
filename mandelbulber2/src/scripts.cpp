@@ -64,6 +64,13 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 			}
 			QString scriptFullParameterName = script.mid(firstQuote + 1, lastQuote - firstQuote - 1);
 
+			if (scriptFullParameterName.left(4) != "main"
+					and scriptFullParameterName.left(7) != "fractal")
+			{
+				// can be used parameter name without "main" prefix
+				scriptFullParameterName = QString("main_") + scriptFullParameterName;
+			}
+
 			QChar vectorComponent = QChar::Null;
 			if (scriptFullParameterName.at(scriptFullParameterName.length() - 2) == '.')
 			{
