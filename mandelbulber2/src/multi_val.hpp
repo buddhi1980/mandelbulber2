@@ -81,7 +81,7 @@ public:
 	{
 		switch (type)
 		{
-			case typeBool: val = QString::number(iVal[0]);
+			case typeBool: val = QString::number(iVal[0]); break;
 			case typeInt: val = QString::number(iVal[0]); break;
 			case typeDouble: val = QString("%L1").arg(dVal[0], 0, 'g', 15); break;
 			case typeString: val = sVal; break;
