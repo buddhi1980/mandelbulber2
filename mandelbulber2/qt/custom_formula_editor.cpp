@@ -157,6 +157,7 @@ void cCustomFormulaEditor::slotLoadBuiltIn()
 
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	lastListOfParametersInTheCode = parametersInCode;
 	BuildUI(list);
 }
 
@@ -225,6 +226,7 @@ void cCustomFormulaEditor::slotCheckSyntax()
 	// create list of parameters used in the code
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	lastListOfParametersInTheCode = parametersInCode;
 	BuildUI(list);
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -614,6 +616,7 @@ void cCustomFormulaEditor::slotLoad()
 
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
+	lastListOfParametersInTheCode = parametersInCode;
 	BuildUI(list);
 };
 
@@ -622,7 +625,11 @@ void cCustomFormulaEditor::slotRebuildUI()
 	// create list of parameters used in the code
 	QStringList parametersInCode = CreateListOfParametersInCode();
 	QList<sParameterDesctiption> list = ConvertListOfParameters(parametersInCode);
-	BuildUI(list);
+	if (parametersInCode != lastListOfParametersInTheCode)
+	{
+		BuildUI(list);
+	}
+	lastListOfParametersInTheCode = parametersInCode;
 }
 
 void cCustomFormulaEditor::slotCursorMoved()

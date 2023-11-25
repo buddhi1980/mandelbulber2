@@ -91,6 +91,7 @@ private:
 	QMap<QString, QString> conversionTable;
 	QMap<QString, QString> parameterTypes;
 	QString actualFormulaFileName;
+	QStringList lastListOfParametersInTheCode;
 };
 
 #endif /* MANDELBULBER2_QT_CUSTOM_FORMULA_EDITOR_H_ */
