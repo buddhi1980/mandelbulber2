@@ -128,6 +128,8 @@ void SynchronizeInterfaceQLineEdit(
 		{
 			QLineEdit *lineEdit = widget;
 
+			if (lineEdit->hasFocus() && mode == qInterface::write) continue;
+
 			if (props.className == QString("MyLineEdit"))
 			{
 				MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(widget);
@@ -220,6 +222,8 @@ void SynchronizeInterfaceQDoubleSpinBox(
 		{
 			QDoubleSpinBox *spinbox = *it;
 
+			if (spinbox->hasFocus() && mode == qInterface::write) continue;
+
 			if (props.className == QString("MyDoubleSpinBox"))
 			{
 				MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
@@ -286,6 +290,9 @@ void SynchronizeInterfaceQSpinBox(
 		if (props.allowed)
 		{
 			QSpinBox *spinbox = *it;
+
+			if (spinbox->hasFocus() && mode == qInterface::write) continue;
+
 			if (props.className == QString("MySpinBox"))
 			{
 				MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
@@ -390,6 +397,9 @@ void SynchronizeInterfaceFileSelectWidget(
 		if (props.allowed)
 		{
 			FileSelectWidget *fileSelectWidget = *it;
+
+			if (fileSelectWidget->hasFocus() && mode == qInterface::write) continue;
+
 			fileSelectWidget->AssignParameterContainer(par);
 			fileSelectWidget->AssignParameterName(props.paramName);
 
@@ -527,6 +537,8 @@ void SynchronizeInterfaceQPlainTextEdit(
 		{
 			QPlainTextEdit *textEdit = *it;
 
+			if (textEdit->hasFocus() && mode == qInterface::write) continue;
+
 			//----------- get texts ------------
 			if (props.typeName == QString("text"))
 			{
@@ -555,6 +567,8 @@ void SynchronizeInterfaceQTextEdit(
 		if (props.allowed)
 		{
 			QTextEdit *textEdit = *it;
+
+			if (textEdit->hasFocus() && mode == qInterface::write) continue;
 
 			//----------- get texts ------------
 			if (props.typeName == QString("textEdit"))
