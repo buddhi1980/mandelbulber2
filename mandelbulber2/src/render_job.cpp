@@ -694,7 +694,7 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
 	// if (!*stopRequest &&
 	// gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
-	if (!*stopRequest && gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
+	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	{
 		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
 		WriteLogDouble("OpenCl render fractal - needed mem:",
