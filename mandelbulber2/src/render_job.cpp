@@ -692,6 +692,8 @@ bool cRenderJob::RenderFractalWithOpenCl(std::shared_ptr<sParamRender> params,
 	progressText->ResetTimer();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
 		paramsContainer, fractalContainer, params, fractals, renderData, false);
+	// if (!*stopRequest &&
+	// gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	if (!*stopRequest && gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 	{
 		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
