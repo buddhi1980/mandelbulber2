@@ -33,7 +33,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -747,8 +747,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>369</width>
-            <height>855</height>
+            <width>634</width>
+            <height>862</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1439,7 +1439,14 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="2">
+                <item row="1" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_thumbnails_with_opencl">
+                  <property name="text">
+                   <string>Render thumbnails with OpenCL (if OpenCL enabled)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
                  <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
                   <property name="text">
                    <string>Generate</string>
@@ -1458,24 +1465,6 @@ and will only be present after enabling and re-render.</string>
                   <property name="icon">
                    <iconset theme="process-stop" resource="icons.qrc">
                     <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
-                  <property name="text">
-                   <string>Load</string>
-                  </property>
-                  <property name="icon">
-                   <iconset theme="document-save" resource="icons.qrc">
-                    <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0" colspan="3">
-                 <widget class="MyCheckBox" name="checkBox_thumbnails_with_opencl">
-                  <property name="text">
-                   <string>Render thumbnails with OpenCL (if OpenCL enabled)</string>
                   </property>
                  </widget>
                 </item>
@@ -2167,7 +2156,6 @@ and will only be present after enabling and re-render.</string>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
   <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
-  <tabstop>pushButton_load_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>
   <tabstop>scrollArea_OpenCL</tabstop>
   <tabstop>groupCheck_opencl_enabled</tabstop>

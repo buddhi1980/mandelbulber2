@@ -25,13 +25,18 @@ public:
 	explicit cScriptDialog(QWidget *parent = nullptr);
 	~cScriptDialog() override;
 
-	void AssignParameterName(const QString &parameter, const QString containerName);
+	void AssignParameterName(const QString &parameterName, const QString &containerName);
 
 protected:
 	void closeEvent(QCloseEvent *event) override;
 
+private slots:
+	void slotAccepted();
+
 private:
 	Ui::cScriptDialog *ui;
+	QString parameterName;
+	QString containerName;
 };
 
 #endif /* MANDELBULBER2_QT_SCRIPT_DIALOG_H_ */

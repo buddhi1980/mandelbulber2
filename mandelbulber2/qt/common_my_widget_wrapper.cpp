@@ -46,6 +46,7 @@
 #include <QDebug>
 #include <QInputDialog>
 
+#include "script_dialog.h"
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 
@@ -141,16 +142,10 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			else if (selectedItem == actionEditScript)
 			{
-				cOneParameter parameter = parameterContainer->GetAsOneParameter(getFullParameterName());
-				QString script = parameter.GetScript();
-				bool ok;
-				QString newScript = QInputDialog::getText(widget,
-					QCoreApplication::translate("CommonMyWidgetWrapper", "Edit script for parameter %1")
-						.arg(getFullParameterName()),
-					QCoreApplication::translate("CommonMyWidgetWrapper", "Script:"), QLineEdit::Normal,
-					script, &ok);
-				if (ok) parameter.SetScript(newScript);
-				parameterContainer->SetFromOneParameter(getFullParameterName(), parameter);
+				cScriptDialog *dialog = new cScriptDialog();
+				dialog->setAttribute(Qt::WA_DeleteOnClose);
+				dialog->AssignParameterName(getFullParameterName(), parameterContainer->GetContainerName());
+				dialog->show();
 			}
 		}
 	}
