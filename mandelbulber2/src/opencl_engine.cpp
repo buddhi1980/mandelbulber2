@@ -173,7 +173,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 					{
 						std::vector<size_t> sizes;
 						err = clPrograms[d]->getInfo(CL_PROGRAM_BINARY_SIZES, &sizes);
-						WriteLogInt("Program size", sizes[d], 2);
+						WriteLogInt("Program size", sizes[0], 2);
 					}
 					return true;
 				}
