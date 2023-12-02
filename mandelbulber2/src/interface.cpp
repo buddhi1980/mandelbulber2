@@ -78,6 +78,7 @@
 #include "trace_behind.h"
 #include "tree_string_list.h"
 #include "undo.h"
+#include "wait.hpp"
 #include "write_log.hpp"
 
 #include "qt/detached_window.h"
@@ -599,7 +600,7 @@ void cInterface::StartRender(bool noUndo)
 
 		while (mainImage->IsUsed())
 		{
-			gApplication->processEvents();
+			Wait(10);
 			stopRequest = true;
 		}
 		mainImage->BlockImage();
