@@ -45,6 +45,8 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QInputDialog>
+#include <QClipboard>
+#include <QApplication>
 
 #include "script_dialog.h"
 #include "src/animation_flight.hpp"
@@ -108,6 +110,8 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			actionEditScript =
 				menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Edit script"));
+			actionCopyParameterName = menu->addAction(
+				QCoreApplication::translate("CommonMyWidgetWrapper", "Copy parameter name"));
 		}
 
 		selectedItem = menu->exec(event->globalPos());
@@ -146,6 +150,11 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 				dialog->setAttribute(Qt::WA_DeleteOnClose);
 				dialog->AssignParameterName(getFullParameterName(), parameterContainer->GetContainerName());
 				dialog->show();
+			}
+			else if (selectedItem == actionCopyParameterName)
+			{
+				QClipboard *clipboard = QApplication::clipboard();
+				clipboard->setText(parameterContainer->GetContainerName() + "_" + parameterName);
 			}
 		}
 	}

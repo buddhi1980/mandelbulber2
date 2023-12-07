@@ -61,6 +61,7 @@ public:
 		actionAddToKeyframeAnimation = nullptr;
 		actionRemoveFromKeyframeAnimation = nullptr;
 		actionEditScript = nullptr;
+		actionCopyParameterName = nullptr;
 		parameterContainer = nullptr;
 		gotDefault = false;
 		widget = referenceWidget;
@@ -82,6 +83,7 @@ private:
 	QAction *actionAddToKeyframeAnimation;
 	QAction *actionRemoveFromKeyframeAnimation;
 	QAction *actionEditScript;
+	QAction *actionCopyParameterName;
 
 public:
 	// these methods have to be implemented by widgets inheriting this class

@@ -34,6 +34,7 @@
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
 #include "src/synchronize_interface.hpp"
+#include "src/wait.hpp"
 #include "src/write_log.hpp"
 
 cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui::cNavigatorWindow)
@@ -260,7 +261,7 @@ void cNavigatorWindow::StartRender()
 		stopRequest = true;
 		while (image->IsUsed())
 		{
-			gApplication->processEvents();
+			Wait(10);
 			stopRequest = true;
 		}
 		image->BlockImage();

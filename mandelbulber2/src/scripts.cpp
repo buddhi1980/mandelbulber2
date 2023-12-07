@@ -184,7 +184,11 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 					break;
 				}
 			}
-			params->SetFromOneParameter(parameterName, parameter);
+
+			const std::shared_ptr<cParameterContainer> containerOut =
+				parameterContainer::ContainerSelector(
+					parameter.GetOriginalContainerName() + "_" + parameterName, params, fractal);
+			containerOut->SetFromOneParameter(parameterName, parameter);
 		}
 	}
 	return script;
