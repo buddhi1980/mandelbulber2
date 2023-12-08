@@ -21,12 +21,13 @@ public:
 	cScripts();
 	static QString EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 		const std::shared_ptr<cFractalContainer> fractal);
-
-private:
 	static QString EvaluateParameter(const std::shared_ptr<cParameterContainer> &params,
 		const std::shared_ptr<cFractalContainer> fractal, const QString &parameterName,
-		cOneParameter &parameter, QString &error);
-	static double EvaluateScript(const QString &script, const QString &parameterName, QString &error);
+		cOneParameter &parameter, QString &error, QString &evaluation);
+
+private:
+	static double EvaluateScript(
+		const QString &script, const QString &parameterName, QString &error, QString &evaluation);
 };
 
 #endif /* MANDELBULBER2_SRC_SCRIPTS_H_ */

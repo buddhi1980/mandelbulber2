@@ -71,16 +71,22 @@ void cScriptDialog::slotTest()
 		containerName + "_" + parameterName, paramsCopy, fractalParamsCopy);
 
 	container->SetScript(parameterName, ui->lineEdit_script->text());
+	cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
 
-	QString error = cScripts::EvaluateAll(paramsCopy, fractalParamsCopy);
+	QString error;
+	QString evaluation;
+	cScripts::EvaluateParameter(
+		paramsCopy, fractalParamsCopy, parameterName, oneParameter, error, evaluation);
 
 	if (error.isEmpty())
 	{
 		QString value = container->Get<QString>(parameterName);
-		ui->textBrowser_result->setText(value);
+		ui->textBrowser_result->setText(
+			QString("evaluated value: %1\n\nEvaluation steps:\n%2").arg(value).arg(evaluation));
 	}
 	else
 	{
-		ui->textBrowser_result->setText(error);
+		ui->textBrowser_result->setText(
+			QString("Error: %1\n\nEvaluation steps: %2").arg(error).arg(evaluation));
 	}
 }

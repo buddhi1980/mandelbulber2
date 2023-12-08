@@ -18,7 +18,8 @@ cScripts::cScripts()
 	// TODO Auto-generated constructor stub
 }
 
-double cScripts::EvaluateScript(const QString &script, const QString &parameterName, QString &error)
+double cScripts::EvaluateScript(
+	const QString &script, const QString &parameterName, QString &error, QString &evaluation)
 {
 	QJSEngine myEngine;
 	QJSValue scriptValue = myEngine.evaluate(script);
@@ -31,19 +32,23 @@ double cScripts::EvaluateScript(const QString &script, const QString &parameterN
 	}
 	else
 	{
-		qDebug() << scriptValue.toNumber();
+		evaluation += QString("value: %1\n").arg(scriptValue.toNumber());
 		return scriptValue.toNumber();
 	}
 }
 
 QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &params,
 	const std::shared_ptr<cFractalContainer> fractal, const QString &parameterName,
-	cOneParameter &parameter, QString &error)
+	cOneParameter &parameter, QString &error, QString &evaluation)
 {
 	QString script = parameter.GetScript();
 	if (script.length() > 0)
 	{
-		qDebug() << script;
+		evaluation += QString("Evaluation of script for parameter %1_%2\n")
+										.arg(parameter.GetOriginalContainerName())
+										.arg(parameterName);
+		evaluation += QString("Script: %1\n").arg(script);
+
 		int i = 0;
 		bool hasError = false;
 
@@ -89,7 +94,7 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 				cOneParameter oneParameter = container->GetAsOneParameter(scriptParameterName);
 
 				// recursive calculation of parameters
-				EvaluateParameter(params, fractal, scriptParameterName, oneParameter, error);
+				EvaluateParameter(params, fractal, scriptParameterName, oneParameter, error, evaluation);
 
 				QString value = oneParameter.Get<QString>(parameterContainer::valueActual);
 
@@ -105,12 +110,14 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 						default: value = ""; break;
 					}
 				}
+				evaluation +=
+					QString("Value of parameter '%1': %2\n").arg(scriptFullParameterName).arg(value);
 
 				script.replace(firstQuote, lastQuote - firstQuote + 1, value);
 				// correction of cursor by replacement length difference
 				lastQuote += value.length() - (lastQuote - firstQuote + 1);
 
-				qDebug() << script;
+				evaluation += QString("Script after substitution: '%1'\n").arg(script);
 			}
 			else
 			{
@@ -150,10 +157,12 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 						QChar component = script.at(firstPosition - 1);
 						QString subScript = script.mid(firstPosition + 1, secondPosition - firstPosition);
 
-						qDebug() << component << subScript;
+						evaluation += QString("Evaluation of component '%1' with script: %2\n")
+														.arg(component)
+														.arg(subScript);
 
-						double value =
-							EvaluateScript(subScript, QString("%1.%2").arg(parameterName).arg(component), error);
+						double value = EvaluateScript(
+							subScript, QString("%1.%2").arg(parameterName).arg(component), error, evaluation);
 
 						CVector4 vector = parameter.Get<CVector4>(parameterContainer::valueActual);
 						switch (component.toLatin1())
@@ -179,7 +188,7 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 				}
 				default:
 				{
-					double value = EvaluateScript(script, parameterName, error);
+					double value = EvaluateScript(script, parameterName, error, evaluation);
 					parameter.Set(value, parameterContainer::valueActual);
 					break;
 				}
@@ -190,6 +199,10 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 					parameter.GetOriginalContainerName() + "_" + parameterName, params, fractal);
 			containerOut->SetFromOneParameter(parameterName, parameter);
 		}
+
+		evaluation += QString("Finished evaluation of script for parameter %1_%2\n")
+										.arg(parameter.GetOriginalContainerName())
+										.arg(parameterName);
 	}
 	return script;
 }
@@ -198,13 +211,15 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 	const std::shared_ptr<cFractalContainer> fractal)
 {
 	QString error;
+	QString evaluation;
 
 	QList<QString> listOfParametrs = params->GetListOfParameters();
 
 	for (const QString &parameterName : listOfParametrs)
 	{
 		cOneParameter parameter = params->GetAsOneParameter(parameterName);
-		QString script = EvaluateParameter(params, fractal, parameterName, parameter, error);
+		QString script =
+			EvaluateParameter(params, fractal, parameterName, parameter, error, evaluation);
 	}
 
 	QList<QString> listOfFractalParametrs = fractal->at(0)->GetListOfParameters();
@@ -213,7 +228,8 @@ QString cScripts::EvaluateAll(const std::shared_ptr<cParameterContainer> params,
 		for (const QString &parameterName : listOfFractalParametrs)
 		{
 			cOneParameter parameter = fractal->at(f)->GetAsOneParameter(parameterName);
-			QString script = EvaluateParameter(params, fractal, parameterName, parameter, error);
+			QString script =
+				EvaluateParameter(params, fractal, parameterName, parameter, error, evaluation);
 		}
 	}
 
