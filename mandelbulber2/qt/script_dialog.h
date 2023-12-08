@@ -32,6 +32,7 @@ protected:
 
 private slots:
 	void slotAccepted();
+	void slotTest();
 
 private:
 	Ui::cScriptDialog *ui;
