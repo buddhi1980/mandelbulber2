@@ -40,6 +40,7 @@
 #include "my_tab_bar.h"
 
 #include "src/automated_widgets.hpp"
+#include "src/ao_modes.h"
 #include "src/error_message.hpp"
 #include "src/fractal_enums.h"
 #include "src/global_data.hpp"
@@ -358,6 +359,7 @@ void cDockFractal::slotChangedJuliaPoint() const
 		params->Set("target", target);
 		params->Set("julia_mode", true);
 		params->Set("ambient_occlusion_enabled", true);
+		params->Set("ambient_occlusion_mode", int(params::AOModeFast));
 		params->Copy("camera_top", gPar);
 		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 		{

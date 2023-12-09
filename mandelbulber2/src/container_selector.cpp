@@ -45,4 +45,34 @@ std::shared_ptr<cParameterContainer> ContainerSelector(QString fullParameterName
 
 	return container;
 }
+
+std::shared_ptr<cParameterContainer> ContainerSelectorByContainerName(QString containerName,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
+{
+	std::shared_ptr<cParameterContainer> container = nullptr;
+
+	if (containerName == "main")
+	{
+		container = params;
+	}
+	else if (containerName.indexOf("fractal") >= 0)
+	{
+		const int index = containerName.right(1).toInt();
+		if (index < NUMBER_OF_FRACTALS)
+		{
+			container = fractal->at(index);
+		}
+		else
+		{
+			qWarning() << "ContainerSelector(): wrong fractal container index" << containerName << index;
+		}
+	}
+	else
+	{
+		qWarning() << "ContainerSelector(): wrong container name" << containerName;
+	}
+
+	return container;
+}
+
 } // namespace parameterContainer

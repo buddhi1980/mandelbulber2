@@ -9,6 +9,7 @@
 #define MANDELBULBER2_QT_SCRIPT_DIALOG_H_
 
 #include <QDialog>
+#include <QStringList>
 
 class cOneParameter;
 
@@ -33,6 +34,8 @@ protected:
 private slots:
 	void slotAccepted();
 	void slotTest();
+	void slotInsertParameter();
+	void slotPopulateComboWithParameters();
 
 private:
 	Ui::cScriptDialog *ui;

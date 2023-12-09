@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>956</width>
-    <height>258</height>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,13 @@
     <widget class="QLineEdit" name="lineEdit_script"/>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QPushButton" name="pushButton_insertParameter">
        <property name="text">
@@ -36,6 +42,19 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_container"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_parameter"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QPushButton" name="pushButton_Test">
        <property name="text">
@@ -60,19 +79,6 @@
    </item>
    <item>
     <widget class="QTextBrowser" name="textBrowser_result"/>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

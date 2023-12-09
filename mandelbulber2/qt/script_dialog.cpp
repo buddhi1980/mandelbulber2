@@ -14,6 +14,7 @@
 #include "src/one_parameter.hpp"
 #include "src/scripts.h"
 #include <QDebug>
+#include <QAbstractItemView>
 
 cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScriptDialog)
 {
@@ -21,6 +22,19 @@ cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScr
 	setModal(false);
 	connect(this, &cScriptDialog::accepted, this, &cScriptDialog::slotAccepted);
 	connect(ui->pushButton_Test, &QPushButton::clicked, this, &cScriptDialog::slotTest);
+	connect(ui->pushButton_insertParameter, &QPushButton::clicked, this,
+		&cScriptDialog::slotInsertParameter);
+	connect(ui->comboBox_container, qOverload<int>(&QComboBox::currentIndexChanged), this,
+		&cScriptDialog::slotPopulateComboWithParameters);
+
+	ui->comboBox_container->addItem("Last used", QVariant(QString("last")));
+	ui->comboBox_container->addItem("Modified", QVariant(QString("modified")));
+	ui->comboBox_container->addItem("Main parameters", QVariant(QString("main")));
+	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		ui->comboBox_container->addItem(
+			QString("Fractal #%1").arg(i), QVariant(QString("fractal%1").arg(i - 1)));
+	}
 }
 
 cScriptDialog::~cScriptDialog()
@@ -37,18 +51,18 @@ void cScriptDialog::AssignParameterName(
 	containerName = _containerName;
 
 	const std::shared_ptr<cParameterContainer> container =
-		parameterContainer::ContainerSelector(containerName + "_" + parameterName, gPar, gParFractal);
+		parameterContainer::ContainerSelectorByContainerName(containerName, gPar, gParFractal);
 	cOneParameter parameter = container->GetAsOneParameter(parameterName);
 	QString script = parameter.GetScript();
 	ui->lineEdit_script->setText(script);
-	setWindowTitle(tr("Edti script for parameter '%1_%2'").arg(containerName).arg(parameterName));
+	setWindowTitle(tr("Edit script for parameter '%1_%2'").arg(containerName).arg(parameterName));
 }
 
 void cScriptDialog::slotAccepted()
 {
 
 	const std::shared_ptr<cParameterContainer> container =
-		parameterContainer::ContainerSelector(containerName + "_" + parameterName, gPar, gParFractal);
+		parameterContainer::ContainerSelectorByContainerName(containerName, gPar, gParFractal);
 
 	cOneParameter parameter = container->GetAsOneParameter(parameterName);
 	QString script = ui->lineEdit_script->text();
@@ -67,8 +81,9 @@ void cScriptDialog::slotTest()
 	*paramsCopy = *gPar;
 	*fractalParamsCopy = *gParFractal;
 
-	const std::shared_ptr<cParameterContainer> container = parameterContainer::ContainerSelector(
-		containerName + "_" + parameterName, paramsCopy, fractalParamsCopy);
+	const std::shared_ptr<cParameterContainer> container =
+		parameterContainer::ContainerSelectorByContainerName(
+			containerName, paramsCopy, fractalParamsCopy);
 
 	container->SetScript(parameterName, ui->lineEdit_script->text());
 	cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
@@ -88,5 +103,63 @@ void cScriptDialog::slotTest()
 	{
 		ui->textBrowser_result->setText(
 			QString("Error: %1\n\nEvaluation steps: %2").arg(error).arg(evaluation));
+	}
+}
+
+void cScriptDialog::slotInsertParameter() {}
+
+void cScriptDialog::slotPopulateComboWithParameters()
+{
+	ui->comboBox_parameter->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	ui->comboBox_parameter->clear();
+
+	QString selectedContainer = ui->comboBox_container->currentData().toString();
+	if (selectedContainer == "last")
+	{
+		// TODO list of last used parameters
+	}
+	else if (selectedContainer == "modified")
+	{
+		QStringList listOfAllModifiedParameters;
+
+		QList<QString> listOfMainParameters = gPar->GetListOfParameters();
+		for (const QString &parName : listOfMainParameters)
+		{
+			if (!gPar->isDefaultValue(parName) && gPar->GetParameterType(parName) == paramStandard)
+			{
+				listOfAllModifiedParameters.append(gPar->GetContainerName() + "_" + parName);
+			}
+		}
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		{
+			QList<QString> listOfFractalParameters = gParFractal->at(i)->GetListOfParameters();
+			for (const QString &parName : listOfFractalParameters)
+			{
+				if (!gParFractal->at(i)->isDefaultValue(parName)
+						&& gParFractal->at(i)->GetParameterType(parName) == paramStandard)
+				{
+					listOfAllModifiedParameters.append(
+						gParFractal->at(i)->GetContainerName() + "_" + parName);
+				}
+			}
+		}
+
+		for (const QString &parName : listOfAllModifiedParameters)
+		{
+			ui->comboBox_parameter->addItem(parName);
+		}
+	}
+	else
+	{
+		const std::shared_ptr<cParameterContainer> container =
+			parameterContainer::ContainerSelectorByContainerName(selectedContainer, gPar, gParFractal);
+		QList<QString> listOfMainParameters = container->GetListOfParameters();
+		for (const QString &parName : listOfMainParameters)
+		{
+			if (container->GetParameterType(parName) == paramStandard && !parName.startsWith("animsound"))
+			{
+				ui->comboBox_parameter->addItem(selectedContainer + "_" + parName);
+			}
+		}
 	}
 }

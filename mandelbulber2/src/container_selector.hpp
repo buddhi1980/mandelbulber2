@@ -19,6 +19,9 @@ namespace parameterContainer
 std::shared_ptr<cParameterContainer> ContainerSelector(QString fullParameterName,
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal);
 
+std::shared_ptr<cParameterContainer> ContainerSelectorByContainerName(QString containerName,
+	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal);
+
 // const std::shared_ptr<cParameterContainer> ContainerSelector(QString fullParameterName,
 //	const std::shared_ptr<cParameterContainer> params,
 //	const std::shared_ptr<cFractalContainer> fractal);
