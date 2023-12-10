@@ -36,11 +36,13 @@ private slots:
 	void slotTest();
 	void slotInsertParameter();
 	void slotPopulateComboWithParameters();
+	void slotCursorPositionChanged(int oldPos, int newPos);
 
 private:
 	Ui::cScriptDialog *ui;
 	QString parameterName;
 	QString containerName;
+	int lastCursorPosition = 0;
 };
 
 #endif /* MANDELBULBER2_QT_SCRIPT_DIALOG_H_ */

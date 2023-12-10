@@ -13,6 +13,7 @@
 #include "src/fractal_container.hpp"
 #include "src/one_parameter.hpp"
 #include "src/scripts.h"
+#include <QCompleter>
 #include <QDebug>
 #include <QAbstractItemView>
 
@@ -26,6 +27,8 @@ cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScr
 		&cScriptDialog::slotInsertParameter);
 	connect(ui->comboBox_container, qOverload<int>(&QComboBox::currentIndexChanged), this,
 		&cScriptDialog::slotPopulateComboWithParameters);
+	connect(ui->lineEdit_script, &QLineEdit::cursorPositionChanged, this,
+		&cScriptDialog::slotCursorPositionChanged);
 
 	ui->comboBox_container->addItem("Last used", QVariant(QString("last")));
 	ui->comboBox_container->addItem("Modified", QVariant(QString("modified")));
@@ -106,7 +109,27 @@ void cScriptDialog::slotTest()
 	}
 }
 
-void cScriptDialog::slotInsertParameter() {}
+void cScriptDialog::slotInsertParameter()
+{
+	QString parameter;
+
+	if (ui->comboBox_parameter->currentIndex() >= 0)
+	{
+		parameter = ui->comboBox_parameter->currentText();
+	}
+	if (parameter.startsWith("main_"))
+	{
+		parameter = parameter.mid(5);
+	}
+
+	qDebug() << parameter << lastCursorPosition;
+
+	QString script = ui->lineEdit_script->text();
+	script.insert(lastCursorPosition, QString("'%1'").arg(parameter));
+	ui->lineEdit_script->setText(script);
+	ui->lineEdit_script->setCursorPosition(lastCursorPosition + parameter.length() + 2);
+	ui->lineEdit_script->setFocus();
+}
 
 void cScriptDialog::slotPopulateComboWithParameters()
 {
@@ -162,4 +185,10 @@ void cScriptDialog::slotPopulateComboWithParameters()
 			}
 		}
 	}
+}
+
+void cScriptDialog::slotCursorPositionChanged(int oldPos, int newPos)
+{
+	Q_UNUSED(oldPos)
+	lastCursorPosition = newPos;
 }
