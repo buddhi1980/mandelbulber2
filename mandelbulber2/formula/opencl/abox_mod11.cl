@@ -231,8 +231,10 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 
 	// color updated v2.14
-	if (fractal->foldColor.auxColorEnabled)
-	{
+    if (fractal->foldColor.auxColorEnabled
+            && aux->i >= fractal->transformCommon.startIterationsN
+            && aux->i < fractal->transformCommon.stopIterationsN)
+    {
 		aux->color += colorAdd;
 	}
 	return z;

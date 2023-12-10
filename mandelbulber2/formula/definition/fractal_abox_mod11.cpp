@@ -241,8 +241,10 @@ void cFractalAboxMod11::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// color updated v2.14
-	if (fractal->foldColor.auxColorEnabled)
-	{
+    if (fractal->foldColor.auxColorEnabled
+            && aux.i >= fractal->transformCommon.startIterationsN
+            && aux.i < fractal->transformCommon.stopIterationsN)
+    {
 		aux.color += colorAdd;
 	}
 }
