@@ -129,6 +129,29 @@ void cScriptDialog::slotInsertParameter()
 	ui->lineEdit_script->setText(script);
 	ui->lineEdit_script->setCursorPosition(lastCursorPosition + parameter.length() + 2);
 	ui->lineEdit_script->setFocus();
+
+	QStringList listOfLastUsed = gPar->Get<QString>("script_last_used_parameters").split(' ');
+	if (!listOfLastUsed.contains(parameter))
+	{
+		listOfLastUsed.insert(0, parameter);
+		if (listOfLastUsed.length() > 20)
+		{
+			listOfLastUsed.removeLast();
+		}
+
+		QString newList = listOfLastUsed.join(' ');
+		gPar->Set("script_last_used_parameters", newList);
+
+		QString selectedContainer = ui->comboBox_container->currentData().toString();
+		if (selectedContainer == "last")
+		{
+			ui->comboBox_parameter->clear();
+			for (const QString &parName : listOfLastUsed)
+			{
+				ui->comboBox_parameter->addItem(parName);
+			}
+		}
+	}
 }
 
 void cScriptDialog::slotPopulateComboWithParameters()
@@ -139,7 +162,11 @@ void cScriptDialog::slotPopulateComboWithParameters()
 	QString selectedContainer = ui->comboBox_container->currentData().toString();
 	if (selectedContainer == "last")
 	{
-		// TODO list of last used parameters
+		QStringList split = gPar->Get<QString>("script_last_used_parameters").split(' ');
+		for (const QString &parName : split)
+		{
+			ui->comboBox_parameter->addItem(parName);
+		}
 	}
 	else if (selectedContainer == "modified")
 	{
@@ -148,7 +175,7 @@ void cScriptDialog::slotPopulateComboWithParameters()
 		QList<QString> listOfMainParameters = gPar->GetListOfParameters();
 		for (const QString &parName : listOfMainParameters)
 		{
-			if (!gPar->isDefaultValue(parName) && gPar->GetParameterType(parName) == paramStandard)
+			if (!gPar->isDefaultValue(parName) && gPar->GetParameterType(parName) != paramApp)
 			{
 				listOfAllModifiedParameters.append(gPar->GetContainerName() + "_" + parName);
 			}
@@ -159,7 +186,7 @@ void cScriptDialog::slotPopulateComboWithParameters()
 			for (const QString &parName : listOfFractalParameters)
 			{
 				if (!gParFractal->at(i)->isDefaultValue(parName)
-						&& gParFractal->at(i)->GetParameterType(parName) == paramStandard)
+						&& gParFractal->at(i)->GetParameterType(parName) != paramApp)
 				{
 					listOfAllModifiedParameters.append(
 						gParFractal->at(i)->GetContainerName() + "_" + parName);
@@ -179,7 +206,7 @@ void cScriptDialog::slotPopulateComboWithParameters()
 		QList<QString> listOfMainParameters = container->GetListOfParameters();
 		for (const QString &parName : listOfMainParameters)
 		{
-			if (container->GetParameterType(parName) == paramStandard && !parName.startsWith("animsound"))
+			if (container->GetParameterType(parName) != paramApp && !parName.startsWith("animsound"))
 			{
 				ui->comboBox_parameter->addItem(selectedContainer + "_" + parName);
 			}

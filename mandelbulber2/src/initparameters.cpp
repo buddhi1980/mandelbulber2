@@ -523,6 +523,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("randomizer_only_floats", false, morphNone, paramApp);
 	par->addParam("randomizer_dont_randomize_camera", false, morphNone, paramApp);
 
+	// scripts
+	par->addParam("script_last_used_parameters", QString("frame_no"), morphNone, paramApp);
+
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
