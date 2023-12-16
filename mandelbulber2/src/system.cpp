@@ -360,6 +360,7 @@ bool CreateDefaultFolders()
 	ClearNetRenderCache();
 	DeleteOldChache(systemDirectories.GetThumbnailsFolder(), 365);
 	DeleteOldChache(systemDirectories.GetHttpCacheFolder(), 10);
+	DeleteOldChache(systemDirectories.GetHistoryFolder(), 365);
 
 	return result;
 }
