@@ -164,22 +164,25 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 						double value = EvaluateScript(
 							subScript, QString("%1.%2").arg(parameterName).arg(component), error, evaluation);
 
-						CVector4 vector = parameter.Get<CVector4>(parameterContainer::valueActual);
-						switch (component.toLatin1())
+						if (!qIsNaN(value))
 						{
-							case 'x': vector.x = value; break;
-							case 'y': vector.y = value; break;
-							case 'z': vector.z = value; break;
-							case 'w': vector.w = value; break;
-							default:
+							CVector4 vector = parameter.Get<CVector4>(parameterContainer::valueActual);
+							switch (component.toLatin1())
 							{
-								hasError = true;
-								error += QString("Unknown vector component (%1) of parameter '%2'\n")
-													 .arg(component)
-													 .arg(parameterName);
+								case 'x': vector.x = value; break;
+								case 'y': vector.y = value; break;
+								case 'z': vector.z = value; break;
+								case 'w': vector.w = value; break;
+								default:
+								{
+									hasError = true;
+									error += QString("Unknown vector component (%1) of parameter '%2'\n")
+														 .arg(component)
+														 .arg(parameterName);
+								}
 							}
+							parameter.Set(vector, parameterContainer::valueActual);
 						}
-						parameter.Set(vector, parameterContainer::valueActual);
 
 						i = secondPosition + 1;
 					}
@@ -189,7 +192,10 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 				default:
 				{
 					double value = EvaluateScript(script, parameterName, error, evaluation);
-					parameter.Set(value, parameterContainer::valueActual);
+					if (!qIsNaN(value))
+					{
+						parameter.Set(value, parameterContainer::valueActual);
+					}
 					break;
 				}
 			}

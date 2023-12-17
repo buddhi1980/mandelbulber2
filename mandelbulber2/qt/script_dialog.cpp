@@ -60,6 +60,18 @@ void cScriptDialog::AssignParameterName(
 	QString script = parameter.GetScript();
 	ui->lineEdit_script->setText(script);
 	setWindowTitle(tr("Edit script for parameter '%1_%2'").arg(containerName).arg(parameterName));
+
+	if (script.isEmpty())
+	{
+		if (parameter.GetValueType() == typeVector3)
+		{
+			ui->lineEdit_script->setText("x: y: z:");
+		}
+		else if (parameter.GetValueType() == typeVector4)
+		{
+			ui->lineEdit_script->setText("x: y: z: w:");
+		}
+	}
 }
 
 void cScriptDialog::slotAccepted()
@@ -77,7 +89,6 @@ void cScriptDialog::slotAccepted()
 	QString evaluation;
 	cScripts::EvaluateParameter(gPar, gParFractal, parameterName, oneParameter, error, evaluation);
 	container->SetFromOneParameter(parameterName, oneParameter);
-	qDebug() << parentWidget;
 	if (parentWidget) SynchronizeInterfaceWindow(parentWidget, container, qInterface::write);
 }
 

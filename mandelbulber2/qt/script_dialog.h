@@ -44,7 +44,7 @@ private:
 	QString parameterName;
 	QString containerName;
 	int lastCursorPosition = 0;
-	QWidget *parentWidget;
+	QWidget *parentWidget = nullptr;
 };
 
 #endif /* MANDELBULBER2_QT_SCRIPT_DIALOG_H_ */
