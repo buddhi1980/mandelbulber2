@@ -113,6 +113,7 @@ cImage::cImage(cImage &source)
 	previewWidth = 0;
 	previewHeight = 0;
 	previewScale = 1.0;
+	dpiScale = 1.0;
 	previewVisibleWidth = 0;
 	previewVisibleHeight = 0;
 	isMainImage = source.isMainImage;
@@ -550,7 +551,7 @@ quint8 *cImage::CreatePreview(
 {
 	previewMutex.lock();
 
-	double dpiScale = widget->devicePixelRatioF();
+	dpiScale = widget->devicePixelRatioF();
 
 	quint64 w = quint64(width * scale * dpiScale);
 	quint64 h = quint64(height * scale * dpiScale);
@@ -815,8 +816,6 @@ void cImage::RedrawInWidget(QWidget *qWidget)
 
 		QImage qImage(GetPreviewConstPtr(), int(previewWidth), int(previewHeight),
 			int(previewWidth * sizeof(sRGB8)), QImage::Format_RGB888);
-
-		double dpiScale = widget->devicePixelRatioF();
 
 		painter.drawImage(QRect(0, 0, int(previewWidth / dpiScale), int(previewHeight / dpiScale)),
 			qImage, QRect(0, 0, int(previewWidth), int(previewHeight)));

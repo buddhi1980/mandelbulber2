@@ -170,7 +170,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		if (params && cursorVisible && clickMode != clickFlightSpeedControl)
 		{
 			CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
-			double dpiScale = devicePixelRatioF();
+			double dpiScale = image->GetDpiScale();
 			Compass(rotation,
 				QPointF(
 					image->GetPreviewWidth() * 0.9 / dpiScale, image->GetPreviewHeight() * 0.9 / dpiScale),
@@ -181,7 +181,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		{
 			if (clickMode == clickFlightSpeedControl)
 			{
-				double dpiScale = devicePixelRatioF();
+				double dpiScale = image->GetDpiScale();
 				Compass(flightData.rotation,
 					QPointF(
 						image->GetPreviewWidth() * 0.5 / dpiScale, image->GetPreviewHeight() * 0.5 / dpiScale),
@@ -263,7 +263,7 @@ void RenderedImage::DisplayCoordinates()
 		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, text);
 		textRect.setHeight(textRect.height() + 2);
 
-		double dpiScale = devicePixelRatioF();
+		double dpiScale = image->GetDpiScale();
 
 		textRect.moveBottomLeft(
 			QPoint(lastMousePosition.x / dpiScale + 30, lastMousePosition.y / dpiScale - 3));
@@ -297,7 +297,7 @@ void RenderedImage::DisplayCoordinates()
 	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, textCoordinates);
 	textRect2.setHeight(textRect2.height() + 2);
 
-	double dpiScale = devicePixelRatioF();
+	double dpiScale = image->GetDpiScale();
 	textRect2.moveTopLeft(
 		QPoint(lastMousePosition.x / dpiScale + 30, lastMousePosition.y / dpiScale + 3));
 	painter.setOpacity(0.8);
@@ -578,7 +578,7 @@ void RenderedImage::Draw3DBox(
 
 void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 {
-	double dpiScale = devicePixelRatioF();
+	double dpiScale = image->GetDpiScale();
 
 	CVector2<int> screenPoint(event->x() * dpiScale, event->y() * dpiScale);
 
@@ -642,7 +642,7 @@ void RenderedImage::mousePressEvent(QMouseEvent *event)
 		if (clickModesEnables)
 		{
 			draggingInitStarted = true;
-			double dpiScale = devicePixelRatioF();
+			double dpiScale = image->GetDpiScale();
 			dragStartPosition = CVector2<int>(event->x() * dpiScale, event->y() * dpiScale);
 			dragButtons = event->buttons();
 		}
@@ -656,7 +656,7 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 	{
 		if (clickModesEnables)
 		{
-			double dpiScale = devicePixelRatioF();
+			double dpiScale = image->GetDpiScale();
 			emit singleClick(event->x() * dpiScale, event->y() * dpiScale, event->button());
 		}
 	}
@@ -829,7 +829,7 @@ void RenderedImage::wheelEvent(QWheelEvent *event)
 
 		event->accept(); // do not propagate event to parent widgets - prevents from scrolling
 
-		double dpiScale = devicePixelRatioF();
+		double dpiScale = image->GetDpiScale();
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 		emit mouseWheelRotatedWithKey(
@@ -925,8 +925,8 @@ void RenderedImage::DisplayCrosshair() const
 	if (params->Get<bool>("stereo_enabled")
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
-		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, 0, 0,
-			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
+		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, 0, 0, sRGB8(255, 255, 255),
+			sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 		image->AntiAliasedLine(crossCenter.x * 1.5f, 0, crossCenter.x * 1.5f, sh, 0, 0,
 			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1.0f, 1);
 		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, 0, 0, sRGB8(255, 255, 255),
@@ -1329,7 +1329,7 @@ void RenderedImage::PaintLastRenderedTilesInfo()
 
 	QList<QPair<int, int>> listOfPaintedTiles;
 
-	double dpiScale = devicePixelRatioF();
+	double dpiScale = image->GetDpiScale();
 
 	for (sRenderedTileData &tile : listOfRenderedTilesData)
 	{
