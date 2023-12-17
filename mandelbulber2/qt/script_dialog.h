@@ -27,6 +27,7 @@ public:
 	~cScriptDialog() override;
 
 	void AssignParameterName(const QString &parameterName, const QString &containerName);
+	void AssignParentWidget(QWidget *_parentWidget) { parentWidget = _parentWidget; }
 
 protected:
 	void closeEvent(QCloseEvent *event) override;
@@ -43,6 +44,7 @@ private:
 	QString parameterName;
 	QString containerName;
 	int lastCursorPosition = 0;
+	QWidget *parentWidget;
 };
 
 #endif /* MANDELBULBER2_QT_SCRIPT_DIALOG_H_ */

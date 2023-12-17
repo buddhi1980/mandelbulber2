@@ -13,6 +13,7 @@
 #include "src/fractal_container.hpp"
 #include "src/one_parameter.hpp"
 #include "src/scripts.h"
+#include "src/synchronize_interface.hpp"
 #include <QCompleter>
 #include <QDebug>
 #include <QAbstractItemView>
@@ -63,15 +64,21 @@ void cScriptDialog::AssignParameterName(
 
 void cScriptDialog::slotAccepted()
 {
-
 	const std::shared_ptr<cParameterContainer> container =
 		parameterContainer::ContainerSelectorByContainerName(containerName, gPar, gParFractal);
 
 	cOneParameter parameter = container->GetAsOneParameter(parameterName);
 	QString script = ui->lineEdit_script->text();
 	parameter.SetScript(script);
-
 	container->SetFromOneParameter(parameterName, parameter);
+
+	cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
+	QString error;
+	QString evaluation;
+	cScripts::EvaluateParameter(gPar, gParFractal, parameterName, oneParameter, error, evaluation);
+	container->SetFromOneParameter(parameterName, oneParameter);
+	qDebug() << parentWidget;
+	if (parentWidget) SynchronizeInterfaceWindow(parentWidget, container, qInterface::write);
 }
 
 void cScriptDialog::slotTest()

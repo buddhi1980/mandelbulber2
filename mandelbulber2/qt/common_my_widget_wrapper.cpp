@@ -146,9 +146,11 @@ const QAction *CommonMyWidgetWrapper::contextMenuEvent(
 			}
 			else if (selectedItem == actionEditScript)
 			{
+				widget->clearFocus();
 				cScriptDialog *dialog = new cScriptDialog();
 				dialog->setAttribute(Qt::WA_DeleteOnClose);
 				dialog->AssignParameterName(getFullParameterName(), parameterContainer->GetContainerName());
+				dialog->AssignParentWidget(qobject_cast<QWidget *>(widget->parent()));
 				dialog->show();
 			}
 			else if (selectedItem == actionCopyParameterName)
