@@ -986,6 +986,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			int index = keyframes->GetKeyframeIndex(frameIndex);
 			int subIndex = keyframes->GetSubIndex(frameIndex);
 
+			params->Set("frame_no", frameIndex);
+
 			// skip already rendered frame
 			if (alreadyRenderedFrames[frameIndex]) continue;
 			if (reservedFrames[frameIndex]) continue;
@@ -1028,7 +1030,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			UpdateCameraAndTarget();
 
 			// render frame
-			params->Set("frame_no", frameIndex);
 			renderJob->UpdateParameters(params, fractalParams);
 			result = renderJob->Execute();
 			if (!result) throw false;

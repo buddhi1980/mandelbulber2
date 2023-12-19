@@ -7,8 +7,10 @@
 
 #include <QJSEngine>
 #include <QDebug>
+#include <QRegularExpression>
 
 #include "scripts.h"
+
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 #include "container_selector.hpp"
@@ -128,6 +130,13 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 			}
 			i = lastQuote + 1;
 		}
+
+		// regex (?<!Math\.)\b(sin|cos|tan)\b - any fuction without Math. prefix
+		QRegularExpression re(
+			"(?<!Math\\.)\\b(abs|acos|asin|atan|atan2|ceil|cos|exp|floor|log|max|min|pow|random|round|"
+			"sin|sqrt|tan)\\b");
+		script.replace(re, "Math.\\1");
+		evaluation += QString("Adding Math. prefixes: %1\n").arg(script);
 
 		// process scripts
 		if (!hasError)
