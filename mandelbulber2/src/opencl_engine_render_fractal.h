@@ -158,7 +158,7 @@ private:
 
 	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, unsigned short newAlpha,
 		const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld, unsigned short opacity,
-		std::shared_ptr<cImage> &image);
+		cImage *image);
 	void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
 		const sRGBFloat &specular, const sRGBFloat &world, const sRGBFloat &shadows,
 		const sRGBFloat &gi, const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image);

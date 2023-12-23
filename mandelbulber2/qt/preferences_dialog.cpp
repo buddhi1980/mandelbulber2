@@ -250,30 +250,30 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 	}
 }
 
-void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked() const
-{
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(nullptr,
-		QObject::tr("Are you sure to load the thumbnail cache from the server?"),
-		QObject::tr("This will try to load missing common thumbnails from the server.\nProceed?"),
-		QMessageBox::Yes | QMessageBox::No);
-
-	if (reply == QMessageBox::Yes)
-	{
-		cFileDownloader fileDownloader(
-			QString("http://cdn.mandelbulber.org/thumbnail/%1").arg(MANDELBULBER_VERSION_STRING),
-			systemDirectories.GetThumbnailsFolder());
-		QObject::connect(&fileDownloader,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-			gMainInterface->mainWindow,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-		fileDownloader.downloadFileList();
-	}
-	else
-	{
-		return;
-	}
-}
+// void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked() const
+//{
+//	QMessageBox::StandardButton reply;
+//	reply = QMessageBox::question(nullptr,
+//		QObject::tr("Are you sure to load the thumbnail cache from the server?"),
+//		QObject::tr("This will try to load missing common thumbnails from the server.\nProceed?"),
+//		QMessageBox::Yes | QMessageBox::No);
+//
+//	if (reply == QMessageBox::Yes)
+//	{
+//		cFileDownloader fileDownloader(
+//			QString("http://cdn.mandelbulber.org/thumbnail/%1").arg(MANDELBULBER_VERSION_STRING),
+//			systemDirectories.GetThumbnailsFolder());
+//		QObject::connect(&fileDownloader,
+//			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+//			gMainInterface->mainWindow,
+//			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+//		fileDownloader.downloadFileList();
+//	}
+//	else
+//	{
+//		return;
+//	}
+// }
 
 void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 {

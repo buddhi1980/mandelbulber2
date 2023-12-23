@@ -81,6 +81,16 @@
     <widget class="QTextBrowser" name="textBrowser_result"/>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Remark: Parameter names need to be in single quotes (e.g. 'detail_level')
+Vector components of parameters should be after dot (e.g. 'camera.x')
+Vector components of destination parameter shoud be prefixed by x:, y: and z:
+Example: x: target.x*10, y: target.y*10, z: sin('frame_no'*0.1</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

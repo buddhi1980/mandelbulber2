@@ -60,7 +60,6 @@ private slots:
 	void on_pushButton_select_textures_path_clicked();
 	void on_pushButton_select_toolbar_path_clicked();
 	void on_pushButton_clear_thumbnail_cache_clicked() const;
-	void on_pushButton_load_thumbnail_cache_clicked() const;
 	void on_pushButton_generate_thumbnail_cache_clicked();
 	void on_comboBox_ui_style_type_currentIndexChanged(int index) const;
 	void on_comboBox_ui_skin_currentIndexChanged(int index) const;

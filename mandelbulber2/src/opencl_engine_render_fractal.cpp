@@ -1200,19 +1200,17 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 	}
 	else
 	{
-		newPixel.R =
-			oldPixel.R * (1.0f - 1.0f / output.monteCarloLoop) + pixel.R * (1.0f / output.monteCarloLoop);
-		newPixel.G =
-			oldPixel.G * (1.0f - 1.0f / output.monteCarloLoop) + pixel.G * (1.0f / output.monteCarloLoop);
-		newPixel.B =
-			oldPixel.B * (1.0f - 1.0f / output.monteCarloLoop) + pixel.B * (1.0f / output.monteCarloLoop);
+		float mixFactor = 1.0f / output.monteCarloLoop;
+		newPixel.R = oldPixel.R * (1.0f - mixFactor) + pixel.R * mixFactor;
+		newPixel.G = oldPixel.G * (1.0f - mixFactor) + pixel.G * mixFactor;
+		newPixel.B = oldPixel.B * (1.0f - mixFactor) + pixel.B * mixFactor;
 	}
 	return newPixel;
 }
 
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
 	unsigned short newAlpha, const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld,
-	unsigned short opacity, std::shared_ptr<cImage> &image)
+	unsigned short opacity, cImage *image)
 {
 	image->PutPixelImage(xx, yy, newPixel);
 	image->PutPixelZBuffer(xx, yy, zDepth);
@@ -1469,6 +1467,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		{
 			// repeat loop until there is something in output queue
 			int queueCounter = 0;
+
 			while (!outputQueue->isEmpty() && queueCounter < 100)
 			{
 				queueCounter++;
@@ -1546,7 +1545,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 									if (useDenoiser)
 									{
 										denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
-											image->GetPixelZBuffer(xx, yy), 0.0); // use zero noise for masked pixels
+											image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
 									}
 									if (!donePixelsMask[xx + yy * width]) maskedPixelsCounter++;
 									donePixelsMask[xx + yy * width] = true;
@@ -1633,11 +1632,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 								unsigned short newAlpha =
-									ushort(double(oldAlpha) * (1.0 - 1.0 / output.monteCarloLoop)
-												 + alpha * (1.0 / output.monteCarloLoop));
+									ushort(float(oldAlpha) * (1.0f - 1.0f / output.monteCarloLoop)
+												 + alpha * (1.0f / output.monteCarloLoop));
 
 								PutMultiPixel(
-									xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, image);
+									xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, image.get());
 
 								if (useOptionalImageChannels)
 								{
@@ -1731,7 +1730,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							else
 							{
 								PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer,
-									clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, image);
+									clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, image.get());
 
 								if (useOptionalImageChannels)
 								{
