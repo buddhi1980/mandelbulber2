@@ -73,7 +73,8 @@ typedef enum
 	texLuminosity = 2,
 	texDisplacement = 3,
 	texReflectance = 4,
-	texTransparency = 5
+	texTransparency = 5,
+	texTransparencyAlpha = 6
 } enumTextureSelectionCl;
 
 #endif /* MANDELBULBER2_OPENCL_TEXTURE_ENUMS_CL_HPP_ */

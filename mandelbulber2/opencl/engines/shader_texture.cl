@@ -35,7 +35,7 @@
 #ifdef USE_TEXTURES
 #if defined(USE_COLOR_TEXTURE) || defined(USE_DIFFUSION_TEXTURE)         \
 	|| defined(USE_LUMINOSITY_TEXTURE) || defined(USE_REFLECTANCE_TEXTURE) \
-	|| defined(USE_TRANSPARENCY_TEXTURE)
+	|| defined(USE_TRANSPARENCY_TEXTURE) || defined(USE_TRANSPARENCY_ALPHA_TEXTURE)
 float3 TextureShader(__constant sClInConstants *consts, sClCalcParams *calcParams,
 	sShaderInputDataCl *input, sRenderData *renderData, __global sObjectDataCl *objectData,
 	int textureIndex, float3 substituteColor)

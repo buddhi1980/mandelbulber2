@@ -695,6 +695,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				shaderInputData.texTransparency = TextureShader(consts, &calcParam, &shaderInputData,
 					renderData, objectData, shaderInputData.material->transparencyTextureIndex, 1.0f);
 #endif
+
+#ifdef USE_TRANSPARENCY_ALPHA_TEXTURE
+				shaderInputData.texTransparencyAlpha = TextureShader(consts, &calcParam, &shaderInputData,
+					renderData, objectData, shaderInputData.material->transparencyAlphaTextureIndex, 1.0f);
+#endif
 #endif
 
 				sClGradientsCollection gradients;
@@ -819,6 +824,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						reflectDiffused *= shaderInputData.material->reflectionsColor;
 
 #ifdef USE_REFRACTION
+#ifdef USE_TRANSPARENCY_ALPHA_TEXTURE
+					if (shaderInputData.material->useTransparencyAlphaTexture)
+					{
+						transparent = transparent * (1.0f - shaderInputData.texTransparencyAlpha.s0);
+					}
+#endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 					resultShader = transparentShader * transparent * reflectanceN
 												 + (1.0f - transparent * reflectanceN) * resultShader;
 #endif // USE_REFRACTION

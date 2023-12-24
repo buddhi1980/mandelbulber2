@@ -72,6 +72,7 @@ private:
 	bool useDisplacementMap;
 	bool useReflectanceTexture;
 	bool useTransparencyTexture;
+	bool useTransparencyAlphaTexture;
 	bool useRoughnessTexture;
 
 	bool useLightTexture;

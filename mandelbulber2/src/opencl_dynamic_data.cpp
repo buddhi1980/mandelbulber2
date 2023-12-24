@@ -182,6 +182,10 @@ int cOpenClDynamicData::BuildMaterialsData(
 			materialCl.transparencyTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
+			textureName = material.transparencyAlphaTexture.GetFileName();
+			materialCl.transparencyAlphaTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
 			textureName = material.roughnessTexture.GetFileName();
 			materialCl.roughnessTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;

@@ -59,6 +59,7 @@ cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 	useDisplacementMap = false;
 	useReflectanceTexture = false;
 	useTransparencyTexture = false;
+	useTransparencyAlphaTexture = false;
 	useRoughnessTexture = false;
 
 	useLightTexture = false;
@@ -93,6 +94,7 @@ int cOpenClTexturesData::CheckNumberOfTextures(
 		CountTexture(&material.normalMapTexture, false, &listOfTextures, &texturesCounter);
 		CountTexture(&material.reflectanceTexture, false, &listOfTextures, &texturesCounter);
 		CountTexture(&material.transparencyTexture, false, &listOfTextures, &texturesCounter);
+		CountTexture(&material.transparencyAlphaTexture, false, &listOfTextures, &texturesCounter);
 		CountTexture(&material.roughnessTexture, false, &listOfTextures, &texturesCounter);
 	}
 
@@ -150,6 +152,7 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	useDisplacementMap = false;
 	useReflectanceTexture = false;
 	useTransparencyTexture = false;
+	useTransparencyAlphaTexture = false;
 	useRoughnessTexture = false;
 
 	useLightTexture = false;
@@ -213,6 +216,13 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 		{
 			BuildTextureData(&material.transparencyTexture, textureIndex, false);
 			textureIndexes->insert(material.transparencyTexture.GetFileName(), textureIndex);
+		}
+
+		if (material.transparencyAlphaTexture.IsLoaded()) useTransparencyAlphaTexture = true;
+		if (CountTexture(&material.transparencyAlphaTexture, false, &listOfTextures, &textureIndex))
+		{
+			BuildTextureData(&material.transparencyAlphaTexture, textureIndex, false);
+			textureIndexes->insert(material.transparencyAlphaTexture.GetFileName(), textureIndex);
 		}
 
 		if (material.roughnessTexture.IsLoaded()) useRoughnessTexture = true;
@@ -329,6 +339,7 @@ QString cOpenClTexturesData::GetDefinesCollector() const
 	if (useDisplacementMap) definesCollector += " -DUSE_DISPLACEMENT_TEXTURE";
 	if (useReflectanceTexture) definesCollector += " -DUSE_REFLECTANCE_TEXTURE";
 	if (useTransparencyTexture) definesCollector += " -DUSE_TRANSPARENCY_TEXTURE";
+	if (useTransparencyAlphaTexture) definesCollector += " -DUSE_TRANSPARENCY_ALPHA_TEXTURE";
 	if (useRoughnessTexture) definesCollector += " -DUSE_ROUGHNESS_TEXTURE";
 	if (useLightTexture) definesCollector += " -DUSE_LIGHT_TEXTURE";
 	if (usePlanarMapping) definesCollector += " -DUSE_PLANAR_MAPPING";

@@ -68,6 +68,7 @@ typedef struct
 	cl_float luminosityTextureIntensity;
 	cl_float reflectanceTextureIntensity;
 	cl_float transparencyTextureIntensity;
+	cl_float transparencyAlphaTextureIntensity;
 	cl_float roughnessTextureIntensity;
 	cl_float displacementTextureHeight;
 	cl_float normalMapTextureHeight;
@@ -104,6 +105,7 @@ typedef struct
 	cl_int normalMapTextureInvertGreen;
 	cl_int useReflectanceTexture;
 	cl_int useTransparencyTexture;
+	cl_int useTransparencyAlphaTexture;
 	cl_int useRoughnessTexture;
 	cl_int iridescenceEnabled;
 	cl_int textureFractalize;
@@ -118,6 +120,7 @@ typedef struct
 	cl_int normalMapTextureIndex;
 	cl_int reflectanceTextureIndex;
 	cl_int transparencyTextureIndex;
+	cl_int transparencyAlphaTextureIndex;
 	cl_int roughnessTextureIndex;
 
 	cl_int surfaceGradientEnable;
@@ -158,6 +161,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.luminosityTextureIntensity = source.luminosityTextureIntensity;
 	target.reflectanceTextureIntensity = source.reflectanceTextureIntensity;
 	target.transparencyTextureIntensity = source.transparencyTextureIntensity;
+	target.transparencyAlphaTextureIntensity = source.transparencyAlphaTextureIntensity;
 	target.roughnessTextureIntensity = source.roughnessTextureIntensity;
 	target.displacementTextureHeight = source.displacementTextureHeight;
 	target.normalMapTextureHeight = source.normalMapTextureHeight;
@@ -194,6 +198,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.normalMapTextureInvertGreen = source.normalMapTextureInvertGreen;
 	target.useReflectanceTexture = source.useReflectanceTexture;
 	target.useTransparencyTexture = source.useTransparencyTexture;
+	target.useTransparencyAlphaTexture = source.useTransparencyAlphaTexture;
 	target.useRoughnessTexture = source.useRoughnessTexture;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 	target.textureFractalize = source.textureFractalize;
