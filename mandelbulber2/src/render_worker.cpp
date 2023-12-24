@@ -1101,6 +1101,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			else
 				shaderInputData.texTransparency = sRGBFloat(1.0, 1.0, 1.0);
 
+			if (shaderInputData.material->transparencyAlphaTexture.IsLoaded())
+				shaderInputData.texTransparencyAlpha =
+					TextureShader(shaderInputData, texture::texTransparencyAlpha, shaderInputData.material);
+			else
+				shaderInputData.texTransparencyAlpha = sRGBFloat(1.0, 1.0, 1.0);
+
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
 
@@ -1244,6 +1250,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R;
 						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G;
 						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B;
+					}
+
+					if (shaderInputData.material->useTransparencyAlphaTexture)
+					{
+						transparent = transparent * (1.0 - shaderInputData.texTransparencyAlpha.R);
 					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN

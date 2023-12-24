@@ -190,6 +190,7 @@ private:
 		sRGBFloat texLuminosity;
 		sRGBFloat texReflectance;
 		sRGBFloat texTransparency;
+		sRGBFloat texTransparencyAlpha;
 	};
 
 	struct sRayStack

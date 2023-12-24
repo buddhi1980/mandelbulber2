@@ -52,7 +52,8 @@ enum enumTextureSelection
 	texLuminosity = 2,
 	texDisplacement = 3,
 	texReflectance = 4,
-	texTransparency = 5
+	texTransparency = 5,
+	texTransparencyAlpha = 6
 };
 } // namespace texture
 

@@ -128,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2176</y>
+        <y>-2604</y>
         <width>466</width>
-        <height>4014</height>
+        <height>4087</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4013,7 +4013,7 @@ direction vector:</string>
              <item>
               <widget class="MyGroupBox" name="groupCheck_use_transparency_texture">
                <property name="title">
-                <string>Use transparency map texture</string>
+                <string>Use transparency color map texture</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -4065,6 +4065,89 @@ direction vector:</string>
                   </item>
                   <item row="1" column="2">
                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_texture_intensity">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="MyGroupBox" name="groupCheck_use_transparency_alpha_texture">
+               <property name="title">
+                <string>Use transparency texture (alpha)</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_153">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_105" rowstretch="0,0" columnstretch="0,0,1">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_403">
+                    <property name="text">
+                     <string>Texture intensity:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_404">
+                    <property name="text">
+                     <string>Texture path:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="2">
+                   <widget class="FileSelectWidget" name="text_file_transparency_alpha_texture" native="true">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_transparency_alpha_texture_intensity">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>

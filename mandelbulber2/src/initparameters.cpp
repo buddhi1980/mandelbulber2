@@ -1434,6 +1434,10 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		QDir::toNativeSeparators(
 			systemDirectories.sharedDir + "textures" + QDir::separator() + "transparency_texture.jpg"),
 		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_transparency_alpha_texture", materialId),
+		QDir::toNativeSeparators(systemDirectories.sharedDir + "textures" + QDir::separator()
+														 + "transparency_alpha_texture.jpg"),
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_roughness_texture", materialId),
 		QDir::toNativeSeparators(
 			systemDirectories.sharedDir + "textures" + QDir::separator() + "roughness_texture.jpg"),
@@ -1641,6 +1645,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		paramStandard);
 	par->addParam(cMaterial::Name("transparency_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("transparency_alpha_texture_intensity", materialId), 1.0, 0.0, 1e10,
+		morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(
@@ -1657,6 +1663,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		cMaterial::Name("use_reflectance_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_transparency_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_transparency_alpha_texture", materialId), false, morphLinear,
+		paramStandard);
 	par->addParam(
 		cMaterial::Name("use_roughness_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(

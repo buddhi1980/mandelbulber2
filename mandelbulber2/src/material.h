@@ -90,6 +90,7 @@ public:
 	float luminosityTextureIntensity;
 	float reflectanceTextureIntensity;
 	float transparencyTextureIntensity;
+	float transparencyAlphaTextureIntensity;
 	float roughnessTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;
@@ -119,6 +120,7 @@ public:
 	cTexture normalMapTexture;
 	cTexture reflectanceTexture;
 	cTexture transparencyTexture;
+	cTexture transparencyAlphaTexture;
 	cTexture roughnessTexture;
 
 	CVector3 textureCenter;
@@ -143,6 +145,7 @@ public:
 	bool normalMapTextureInvertGreen;
 	bool useReflectanceTexture;
 	bool useTransparencyTexture;
+	bool useTransparencyAlphaTexture;
 	bool useRoughnessTexture;
 	bool iridescenceEnabled;
 	bool textureFractalize;

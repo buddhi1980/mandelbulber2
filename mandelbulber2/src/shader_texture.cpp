@@ -73,9 +73,9 @@ sRGBFloat cRenderWorker::TextureShader(
 		pointModified = params->common.mRotFractalRotation.RotateVector(pointModified);
 	}
 
-	CVector2<float> texPoint = TextureMapping(pointModified, input.normal, objectData, mat,
-															 &textureVectorX, &textureVectorY)
-														 + CVector2<float>(0.5, 0.5);
+	CVector2<float> texPoint =
+		TextureMapping(pointModified, input.normal, objectData, mat, &textureVectorX, &textureVectorY)
+		+ CVector2<float>(0.5, 0.5);
 
 	if (!mat->textureFractalize)
 	{
@@ -130,6 +130,11 @@ sRGBFloat cRenderWorker::TextureShader(
 		case texture::texTransparency:
 		{
 			tex = input.material->transparencyTexture.Pixel(texPoint, texturePixelSize);
+			break;
+		}
+		case texture::texTransparencyAlpha:
+		{
+			tex = input.material->transparencyAlphaTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
 	}

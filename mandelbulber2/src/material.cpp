@@ -122,6 +122,7 @@ QStringList cMaterial::paramsList = {
 	"file_normal_map_texture",
 	"file_reflectance_texture",
 	"file_transparency_texture",
+	"file_transparency_alpha_texture",
 	"file_roughness_texture",
 	"fractal_coloring_add_enabled_false",
 	"fractal_coloring_add_max",
@@ -228,6 +229,7 @@ QStringList cMaterial::paramsList = {
 	"transparency_of_interior",
 	"transparency_of_surface",
 	"transparency_texture_intensity",
+	"transparency_alpha_texture_intensity",
 	"use_color_texture",
 	"use_colors_from_palette",
 	"use_diffusion_texture",
@@ -236,6 +238,7 @@ QStringList cMaterial::paramsList = {
 	"use_normal_map_texture",
 	"use_reflectance_texture",
 	"use_transparency_texture",
+	"use_transparency_alpha_texture",
 	"use_roughness_texture",
 	"surface_gradient_enable",
 	"specular_gradient_enable",
@@ -333,6 +336,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	useNormalMapTexture = materialParam->Get<bool>(Name("use_normal_map_texture", id));
 	useReflectanceTexture = materialParam->Get<bool>(Name("use_reflectance_texture", id));
 	useTransparencyTexture = materialParam->Get<bool>(Name("use_transparency_texture", id));
+	useTransparencyAlphaTexture =
+		materialParam->Get<bool>(Name("use_transparency_alpha_texture", id));
 	useRoughnessTexture = materialParam->Get<bool>(Name("use_roughness_texture", id));
 	normalMapTextureFromBumpmap =
 		materialParam->Get<bool>(Name("normal_map_texture_from_bumpmap", id));
@@ -348,6 +353,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		materialParam->Get<float>(Name("reflectance_texture_intensity", id));
 	transparencyTextureIntensity =
 		materialParam->Get<float>(Name("transparency_texture_intensity", id));
+	transparencyAlphaTextureIntensity =
+		materialParam->Get<float>(Name("transparency_alpha_texture_intensity", id));
 	roughnessTextureIntensity = materialParam->Get<float>(Name("roughness_texture_intensity", id));
 
 	iridescenceEnabled = materialParam->Get<bool>(Name("iridescence_enabled", id));
@@ -578,6 +585,11 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		if (useTransparencyTexture)
 			transparencyTexture =
 				cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
+					cTexture::useMipmaps, frameNo, quiet, useNetRender);
+
+		if (useTransparencyAlphaTexture)
+			transparencyAlphaTexture =
+				cTexture(materialParam->Get<QString>(Name("file_transparency_alpha_texture", id)),
 					cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useRoughnessTexture)
