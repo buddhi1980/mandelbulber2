@@ -159,7 +159,11 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
 #endif
 
+#ifdef MONTE_CARLO
+		step *= (1.0f - Random(1000, randomSeed) / 5000.0f);
+#else
 		step *= (1.0f - Random(1000, randomSeed) / 10000.0f);
+#endif
 
 #ifdef ADVANCED_QUALITY
 		step = clamp(step, consts->params.absMinMarchingStep, consts->params.absMaxMarchingStep);

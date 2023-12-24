@@ -123,6 +123,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			size_t yy = y + boxY;
 
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
+			if (filterRadius <= 0.01f) continue;
 
 			float z = 0;
 			CVector3 normal;
@@ -271,6 +272,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 			size_t yy = y + boxY;
 
 			float filterRadius = blurRadiusBuffer[xx + yy * width];
+			if (filterRadius <= 0.01f) continue;
 
 			float z = 0.0f;
 			CVector3 normal;

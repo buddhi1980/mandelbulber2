@@ -116,7 +116,11 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		float step = (min(distance, lastCloudDistance) - 0.5f * input2.distThresh)
 								 * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
 
+#ifdef MONTE_CARLO
+		step *= (1.0f - Random(1000, &input->randomSeed) / 4000.0f);
+#else
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
+#endif
 
 #ifdef ADVANCED_QUALITY
 		step = clamp(step, consts->params.absMinMarchingStep, consts->params.absMaxMarchingStep);
