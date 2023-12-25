@@ -66,6 +66,7 @@ cMaterial::cMaterial()
 	useNormalMapTexture = false;
 	useReflectanceTexture = false;
 	useTransparencyTexture = false;
+	useTransparencyAlphaTexture = false;
 	useRoughnessTexture = false;
 	iridescenceEnabled = false;
 	textureMappingType = texture::mappingPlanar;
@@ -74,6 +75,9 @@ cMaterial::cMaterial()
 	luminosityTextureIntensity = 0.0;
 	reflectanceTextureIntensity = 0.0;
 	transparencyTextureIntensity = 0.0;
+	transparencyTextureIntensityVol = 0.0;
+	transparencyAlphaTextureIntensity = 0.0;
+	transparencyAlphaTextureIntensityVol = 0.0;
 	roughnessTextureIntensity = 0.0;
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
@@ -230,6 +234,8 @@ QStringList cMaterial::paramsList = {
 	"transparency_of_surface",
 	"transparency_texture_intensity",
 	"transparency_alpha_texture_intensity",
+	"transparency_texture_intensity_vol",
+	"transparency_alpha_texture_intensity_vol",
 	"use_color_texture",
 	"use_colors_from_palette",
 	"use_diffusion_texture",
@@ -355,6 +361,10 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		materialParam->Get<float>(Name("transparency_texture_intensity", id));
 	transparencyAlphaTextureIntensity =
 		materialParam->Get<float>(Name("transparency_alpha_texture_intensity", id));
+	transparencyTextureIntensityVol =
+		materialParam->Get<float>(Name("transparency_texture_intensity_vol", id));
+	transparencyAlphaTextureIntensityVol =
+		materialParam->Get<float>(Name("transparency_alpha_texture_intensity_vol", id));
 	roughnessTextureIntensity = materialParam->Get<float>(Name("roughness_texture_intensity", id));
 
 	iridescenceEnabled = materialParam->Get<bool>(Name("iridescence_enabled", id));

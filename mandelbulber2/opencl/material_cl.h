@@ -69,6 +69,8 @@ typedef struct
 	cl_float reflectanceTextureIntensity;
 	cl_float transparencyTextureIntensity;
 	cl_float transparencyAlphaTextureIntensity;
+	cl_float transparencyTextureIntensityVol;
+	cl_float transparencyAlphaTextureIntensityVol;
 	cl_float roughnessTextureIntensity;
 	cl_float displacementTextureHeight;
 	cl_float normalMapTextureHeight;
@@ -162,6 +164,8 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.reflectanceTextureIntensity = source.reflectanceTextureIntensity;
 	target.transparencyTextureIntensity = source.transparencyTextureIntensity;
 	target.transparencyAlphaTextureIntensity = source.transparencyAlphaTextureIntensity;
+	target.transparencyTextureIntensityVol = source.transparencyTextureIntensityVol;
+	target.transparencyAlphaTextureIntensityVol = source.transparencyAlphaTextureIntensityVol;
 	target.roughnessTextureIntensity = source.roughnessTextureIntensity;
 	target.displacementTextureHeight = source.displacementTextureHeight;
 	target.normalMapTextureHeight = source.normalMapTextureHeight;

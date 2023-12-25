@@ -91,6 +91,8 @@ public:
 	float reflectanceTextureIntensity;
 	float transparencyTextureIntensity;
 	float transparencyAlphaTextureIntensity;
+	float transparencyTextureIntensityVol;
+	float transparencyAlphaTextureIntensityVol;
 	float roughnessTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;

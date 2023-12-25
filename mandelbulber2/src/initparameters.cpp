@@ -1645,8 +1645,12 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		paramStandard);
 	par->addParam(cMaterial::Name("transparency_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("transparency_texture_intensity_vol", materialId), 1.0, 0.0, 1e10,
+		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("transparency_alpha_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("transparency_alpha_texture_intensity_vol", materialId), 1.0, 0.0,
+		1e10, morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(

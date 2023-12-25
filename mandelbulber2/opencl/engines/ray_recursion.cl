@@ -832,6 +832,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 														 - shaderInputData.texTransparencyAlpha.s0
 																 * shaderInputData.material->transparencyAlphaTextureIntensity);
 					}
+
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 					resultShader = transparentShader * transparent * reflectanceN
 												 + (1.0f - transparent * reflectanceN) * resultShader;
@@ -923,7 +924,9 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					{
 						float3 tex = TextureShader(consts, &calcParam, &input2, renderData, objectData,
 							shaderInputData.material->transparencyTextureIndex, 1.0f);
-						transparentColor.xyz *= tex * shaderInputData.material->transparencyTextureIntensity;
+						float intensN = 1.0f - shaderInputData.material->transparencyTextureIntensityVol;
+						transparentColor.xyz *=
+							tex * shaderInputData.material->transparencyTextureIntensityVol + intensN;
 					}
 #endif
 
@@ -934,7 +937,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						float3 tex = TextureShader(consts, &calcParam, &input2, renderData, objectData,
 							shaderInputData.material->transparencyAlphaTextureIndex, 1.0f);
 						texOpacity =
-							(1.0f - tex.s0) * shaderInputData.material->transparencyAlphaTextureIntensity + 1e-6f;
+							(1.0f - tex.s0) * shaderInputData.material->transparencyAlphaTextureIntensityVol
+							+ 1e-6f;
 					}
 #endif
 
