@@ -1319,17 +1319,45 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					{
 						sGradientsCollection gradients;
 						sRGBAfloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
-						transparentColor.R *= color.R;
-						transparentColor.G *= color.G;
-						transparentColor.B *= color.B;
+						transparentColor.R *= color.R * shaderInputData.material->transparencyTextureIntensity;
+						transparentColor.G *= color.G * shaderInputData.material->transparencyTextureIntensity;
+						transparentColor.B *= color.B * shaderInputData.material->transparencyTextureIntensity;
+
+						if (shaderInputData.material->useTransparencyTexture)
+						{
+							if (shaderInputData.material->transparencyTexture.IsLoaded())
+							{
+								sRGBFloat tex =
+									TextureShader(input2, texture::texTransparency, shaderInputData.material);
+								transparentColor.R *=
+									tex.R * shaderInputData.material->transparencyAlphaTextureIntensity;
+								transparentColor.G *=
+									tex.G * shaderInputData.material->transparencyAlphaTextureIntensity;
+								transparentColor.B *=
+									tex.B * shaderInputData.material->transparencyAlphaTextureIntensity;
+							}
+						}
 
 						if (shaderInputData.material->diffuseGradientEnable)
 							opacityGradient = gradients.diffuse.R;
 					}
 
-					double opacity =
-						(-1.0f + 1.0f / (shaderInputData.material->transparencyOfInterior * opacityGradient))
-						* float(step);
+					float texOpacity = 0.0;
+					if (shaderInputData.material->useTransparencyAlphaTexture)
+					{
+						if (shaderInputData.material->transparencyAlphaTexture.IsLoaded())
+						{
+							sRGBFloat tex =
+								TextureShader(input2, texture::texTransparencyAlpha, shaderInputData.material);
+							texOpacity = (1.0f - tex.R) + 1e-6;
+						}
+					}
+
+					float opacityCollected =
+						shaderInputData.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity)
+						+ texOpacity;
+
+					double opacity = (-1.0f + 1.0f / opacityCollected) * float(step);
 					if (opacity > 1.0f) opacity = 1.0f;
 
 					sRGBFloat lightColor;
@@ -1379,9 +1407,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					resultShader.B =
 						opacity * transparentColor.B * lightColor.B + (1.0f - opacity) * resultShader.B;
 
-					endStep = shaderInputData.material->transparencyOfInterior
-										* CalcDistThresh(shaderInputData.point);
-					step = std::max((endStep - startStep) * (scan / depth) + startStep, 1e-15);
+					endStep = opacityCollected * CalcDistThresh(shaderInputData.point);
+					step = std::max((endStep - startStep) * (scan / depth) + startStep, depth / 1000);
 				}
 			}
 			else // if now is outside the object, then calculate all volumetric effects like fog, glow...
