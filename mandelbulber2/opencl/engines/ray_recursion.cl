@@ -827,7 +827,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #ifdef USE_TRANSPARENCY_ALPHA_TEXTURE
 					if (shaderInputData.material->useTransparencyAlphaTexture)
 					{
-						transparent = transparent * (1.0f - shaderInputData.texTransparencyAlpha.s0);
+						transparent = transparent
+													* (1.0f
+														 - shaderInputData.texTransparencyAlpha.s0
+																 * shaderInputData.material->transparencyAlphaTextureIntensity);
 					}
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 					resultShader = transparentShader * transparent * reflectanceN
@@ -905,6 +908,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						sClGradientsCollection gradients;
 						transparentColor.xyz *=
 							SurfaceColor(consts, renderData, &input2, &calcParam, &gradients);
+
 #ifdef USE_DIFFUSE_GRADIENT
 						if (shaderInputData.material->diffuseGradientEnable)
 						{
@@ -914,9 +918,31 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					}
 #endif // USE_INNER_COLORING
 
-					float opacity =
-						(-1.0f + 1.0f / (shaderInputData.material->transparencyOfInterior * opacityGradient))
-						* step;
+#ifdef USE_TRANSPARENCY_TEXTURE
+					if (shaderInputData.material->useTransparencyTexture)
+					{
+						float3 tex = TextureShader(consts, &calcParam, &input2, renderData, objectData,
+							shaderInputData.material->transparencyTextureIndex, 1.0f);
+						transparentColor.xyz *= tex * shaderInputData.material->transparencyTextureIntensity;
+					}
+#endif
+
+					float texOpacity = 0.0f;
+#ifdef USE_TRANSPARENCY_ALPHA_TEXTURE
+					if (shaderInputData.material->useTransparencyAlphaTexture)
+					{
+						float3 tex = TextureShader(consts, &calcParam, &input2, renderData, objectData,
+							shaderInputData.material->transparencyAlphaTextureIndex, 1.0f);
+						texOpacity =
+							(1.0f - tex.s0) * shaderInputData.material->transparencyAlphaTextureIntensity + 1e-6f;
+					}
+#endif
+
+					float opacityCollected =
+						shaderInputData.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity)
+						+ texOpacity;
+
+					float opacity = (-1.0f + 1.0f / opacityCollected) * step;
 					if (opacity > 1.0f) opacity = 1.0f;
 
 					float4 lightColor = 0.0f;
@@ -972,10 +998,13 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 					resultShader = opacity * lightColor * transparentColor + (1.0f - opacity) * resultShader;
 
-					endStep = shaderInputData.material->transparencyOfInterior
-										* CalcDistThresh(shaderInputData.point, consts);
+					endStep = opacityCollected * CalcDistThresh(shaderInputData.point, consts);
 
-					step = max((endStep - startStep) * (scan / depth) + startStep, 1e-6f);
+					step = max((endStep - startStep) * (scan / depth) + startStep, max(depth / 1000.0, 1e-6));
+#ifdef MONTE_CARLO
+					step *= (1.0f - Random(1000, &shaderInputData.randomSeed) / 4000.0f);
+#endif
+
 					scan += step;
 				}
 			}
@@ -1019,7 +1048,6 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			rayIndex--;
 		}
 		// prepare final result
-
 	} while (rayIndex >= 0);
 
 	sRayRecursionOut out = rayStack[0].out;

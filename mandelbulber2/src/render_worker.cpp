@@ -1254,7 +1254,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 					if (shaderInputData.material->useTransparencyAlphaTexture)
 					{
-						transparent = transparent * (1.0 - shaderInputData.texTransparencyAlpha.R);
+						transparent = transparent
+													* (1.0
+														 - shaderInputData.texTransparencyAlpha.R
+																 * shaderInputData.material->transparencyAlphaTextureIntensity);
 					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN
@@ -1319,27 +1322,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					{
 						sGradientsCollection gradients;
 						sRGBAfloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
-						transparentColor.R *= color.R * shaderInputData.material->transparencyTextureIntensity;
-						transparentColor.G *= color.G * shaderInputData.material->transparencyTextureIntensity;
-						transparentColor.B *= color.B * shaderInputData.material->transparencyTextureIntensity;
-
-						if (shaderInputData.material->useTransparencyTexture)
-						{
-							if (shaderInputData.material->transparencyTexture.IsLoaded())
-							{
-								sRGBFloat tex =
-									TextureShader(input2, texture::texTransparency, shaderInputData.material);
-								transparentColor.R *=
-									tex.R * shaderInputData.material->transparencyAlphaTextureIntensity;
-								transparentColor.G *=
-									tex.G * shaderInputData.material->transparencyAlphaTextureIntensity;
-								transparentColor.B *=
-									tex.B * shaderInputData.material->transparencyAlphaTextureIntensity;
-							}
-						}
+						transparentColor.R *= color.R;
+						transparentColor.G *= color.G;
+						transparentColor.B *= color.B;
 
 						if (shaderInputData.material->diffuseGradientEnable)
 							opacityGradient = gradients.diffuse.R;
+					}
+
+					if (shaderInputData.material->useTransparencyTexture)
+					{
+						if (shaderInputData.material->transparencyTexture.IsLoaded())
+						{
+							sRGBFloat tex =
+								TextureShader(input2, texture::texTransparency, shaderInputData.material);
+							transparentColor.R *= tex.R * shaderInputData.material->transparencyTextureIntensity;
+							transparentColor.G *= tex.G * shaderInputData.material->transparencyTextureIntensity;
+							transparentColor.B *= tex.B * shaderInputData.material->transparencyTextureIntensity;
+						}
 					}
 
 					float texOpacity = 0.0;
@@ -1349,7 +1349,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						{
 							sRGBFloat tex =
 								TextureShader(input2, texture::texTransparencyAlpha, shaderInputData.material);
-							texOpacity = (1.0f - tex.R) + 1e-6;
+							texOpacity =
+								(1.0f - tex.R) * shaderInputData.material->transparencyAlphaTextureIntensity
+								+ 1e-6f;
 						}
 					}
 
