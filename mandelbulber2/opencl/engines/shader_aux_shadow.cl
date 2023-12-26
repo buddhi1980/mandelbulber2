@@ -70,7 +70,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 	bool goThrough = input->material->subsurfaceScattering;
 
-#if defined(USE_SUBSURFACE_SCATTERING) && defined(USE_INNER_COLORING)
+#if defined(USE_SUBSURFACE_SCATTERING) \
+	&& (defined(USE_INNER_COLORING) || defined(USE_TRANSPARENCY_ALPHA_TEXTURE))
 	sShaderInputDataCl input2 = *input;
 #endif
 
@@ -292,7 +293,22 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			}
 #endif // USE_INNER_COLORING && USE_DIFFUSE_GRADIENT
 
-			float opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
+			float texOpacity = 0.0f;
+#ifdef USE_TRANSPARENCY_ALPHA_TEXTURE
+			if (input->material->useTransparencyAlphaTexture)
+			{
+				float3 tex = TextureShader(consts, calcParam, &input2, renderData, objectData,
+					input2.material->transparencyAlphaTextureIndex, 1.0f);
+				texOpacity =
+					(1.0f - tex.s0) * input2.material->transparencyAlphaTextureIntensityVol + 1e-6f;
+			}
+#endif // USE_TRANSPARENCY_ALPHA_TEXTURE
+
+			float opacityCollected =
+				input->material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity) + texOpacity;
+
+			float opacity = (-1.0f + 1.0f / opacityCollected) * step;
+
 #ifdef MC_SOFT_SHADOWS
 			opacity *= opacityFactor;
 #endif
@@ -307,7 +323,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			lightVector = lightVectorUnmodified;
 			wentThrough = false;
 		}
-#endif
+#endif // USE_SUBSURFACE_SCATTERING
 
 		shadowTemp = 1.0f - totalOpacity;
 

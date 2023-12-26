@@ -245,12 +245,12 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight_combined.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fast_ambient_occlusion.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_ambient_occlusion.cl");
+			AddInclude(programEngine, openclEnginePath + "shader_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_aux_shadow.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_light_shading.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_aux_lights_shader.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fake_lights.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_iridescence.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_normal_map_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_roughness_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fresnel.cl");

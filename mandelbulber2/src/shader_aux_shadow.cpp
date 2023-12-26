@@ -231,7 +231,21 @@ sRGBAfloat cRenderWorker::AuxShadow(
 				opacityGradient = gradients.diffuse.R;
 			}
 
-			double opacity = (-1.0f + 1.0f / (material->transparencyOfInterior * opacityGradient)) * step;
+			float texOpacity = 0.0;
+			if (input.material->useTransparencyAlphaTexture)
+			{
+				if (input.material->transparencyAlphaTexture.IsLoaded())
+				{
+					sRGBFloat tex = TextureShader(input2, texture::texTransparencyAlpha, input.material);
+					texOpacity =
+						(1.0f - tex.R) * input.material->transparencyAlphaTextureIntensityVol + 1e-6f;
+				}
+			}
+
+			float opacityCollected =
+				input.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity) + texOpacity;
+
+			double opacity = (-1.0f + 1.0f / opacityCollected) * step;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
