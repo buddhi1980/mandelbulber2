@@ -1483,8 +1483,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			if (collectedOuputs.size() > 0)
 			{
 #pragma omp parallel for schedule(dynamic, 1)
-				for (const cOpenCLWorkerOutputQueue::sClSingleOutput output : collectedOuputs)
+				for (int tileIndex = 0; tileIndex < numberOfTilesToProcess; tileIndex++)
 				{
+					const cOpenCLWorkerOutputQueue::sClSingleOutput output = collectedOuputs[tileIndex];
+					
 					tilesRenderedCounter++;
 
 					// information about tile coordinates
