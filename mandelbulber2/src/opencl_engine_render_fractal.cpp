@@ -1482,6 +1482,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 			if (collectedOuputs.size() > 0)
 			{
+				int numberOfTilesToProcess = collectedOuputs.size();
+				
 #pragma omp parallel for schedule(dynamic, 1)
 				for (int tileIndex = 0; tileIndex < numberOfTilesToProcess; tileIndex++)
 				{
