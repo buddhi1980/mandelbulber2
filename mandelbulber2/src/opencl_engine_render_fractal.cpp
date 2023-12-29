@@ -1405,7 +1405,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
 
 		std::vector<float> pixelNoiseBuffer;
-		std::vector<bool> returnedMask;
+
 		std::vector<bool> donePixelsMask;
 
 		if (monteCarlo)
@@ -1413,10 +1413,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			pixelNoiseBuffer.resize(width * height);
 			pixelMask.resize(width * height);
 			donePixelsMask.resize(width * height);
-			returnedMask.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
+
 			std::fill(pixelMask.begin(), pixelMask.end(), true);
-			std::fill(returnedMask.begin(), returnedMask.end(), true);
-			std::fill(returnedMask.begin(), returnedMask.end(), false);
 			std::fill(pixelNoiseBuffer.begin(), pixelNoiseBuffer.end(), 0.0);
 		}
 		else
@@ -1468,6 +1466,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			// repeat loop until there is something in output queue
 			int queueCounter = 0;
 
+			QList<cOpenCLWorkerOutputQueue::sClSingleOutput> collectedOuputs;
+
 			while (!outputQueue->isEmpty() && queueCounter < 100)
 			{
 				queueCounter++;
@@ -1475,6 +1475,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
 
 				if (scheduler->IsTileEnabled(output.tileIndex))
+				{
+					collectedOuputs.append(output);
+				}
+			}
+
+			if (collectedOuputs.size() > 0)
+			{
+#pragma omp parallel for schedule(dynamic, 1)
+				for (const cOpenCLWorkerOutputQueue::sClSingleOutput output : collectedOuputs)
 				{
 					tilesRenderedCounter++;
 
@@ -1507,9 +1516,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						}
 					}
 
+					std::vector<bool> returnedMask;
+
 					// update pixel mask based on output data
 					if (monteCarlo && pixelLevelOptimization)
 					{
+						returnedMask.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
 						std::fill(returnedMask.begin(), returnedMask.end(), 0);
 						for (int i = 0; i < output.sequenceSize; i++)
 						{
@@ -1856,15 +1868,25 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
 						renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
 
-						listOfRenderedTilesData.append(
-							sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
+#pragma omp critical
+						{
+							listOfRenderedTilesData.append(
+								sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
+						}
 					} // endif montecarlo
 					else
 					{
-						listOfRenderedTilesData.append(sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
+#pragma omp critical
+						{
+							listOfRenderedTilesData.append(
+								sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
+						}
 					}
 
-					lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+#pragma omp critical
+					{
+						lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+					}
 
 					if (!*stopRequest && tilesRenderedCounter > tileSequence.size() / 10)
 						emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
@@ -1873,9 +1895,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					{
 						gApplication->processEvents();
 					}
-				} // is tile still enabled
 
-			} // while something in queue
+				} // parallel for
+			}
 
 			// refreshing progress bar and statistics (not more than once per 100ms)
 			if (lastRenderedRects.size() > 0 && progressRefreshTimer.elapsed() > 100)

@@ -208,9 +208,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			// slow down to reduce length of queue
 			int queueLength = outputQueue->getQueueLength();
-			if (queueLength > 100)
+			if (queueLength > 200)
 			{
-				Wait((queueLength - 100));
+				Wait((queueLength - 200));
 			}
 		} // next tile
 
