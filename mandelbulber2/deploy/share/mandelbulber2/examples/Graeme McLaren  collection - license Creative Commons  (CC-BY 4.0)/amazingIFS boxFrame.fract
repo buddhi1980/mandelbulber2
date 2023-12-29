@@ -1,0 +1,54 @@
+# Mandelbulber settings file
+# version 2.31
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -0.815642058047977 0.0642236422710629 0.0866631011386709;
+camera_distance_to_target 0.0605968235718783;
+camera_rotation -11.6524183779588 -46.3853308293829 -1.6996884217741E-11;
+camera_top 0.146228239650487 0.709074371253764 0.689804927468483;
+constant_DE_threshold true;
+DE_factor 0.5;
+DE_thresh 4.8828125E-06;
+flight_last_to_render 0;
+formula_1 239;
+formula_2 1633;
+formula_start_iteration_2 6;
+formula_stop_iteration_2 37;
+fov 53.130102354156;
+hybrid_fractal_enable true;
+image_height 1536;
+image_proportion 1;
+image_width 1536;
+keyframe_last_to_render 0;
+light1_is_defined true;
+light1_rotation -40.03 45 0;
+mat1_file_color_texture C:\Users\mclar\Downloads\mandelbulber-Release-x64-502dde6a482d3bb8cc2d1f48e9e3de6aa00aebf3 (1)\build-win\Release\x64\textures\lightmap.jpg;
+mat1_is_defined true;
+mat1_specular 1.25;
+mat1_specular_color ff00 ff00 7f00;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+mat1_texture_fractalize true;
+mat1_texture_fractalize_start_iteration 5;
+mat1_use_color_texture true;
+mat1_use_colors_from_palette false;
+N 86;
+target -0.807199546367698 0.105162168753996 0.0427912870328485;
+[fractal_1]
+transf_addition_constant 0 0 -0.1;
+transf_addition_constant_0555 0.9 0.9 0;
+transf_addition_constantA_000 0 0.1 0.1;
+transf_function_enabledK_false true;
+transf_minR2_p25 0.1;
+transf_offset_000 1 0 0;
+transf_offsetA_000 0 0.4 0;
+transf_rotation2 13.626995 -4 10;
+transf_scale_2 1.1;
+transf_scale_vary_0 0.9;
+transf_scaleC_1 0.150048;
+transf_sphere_inversion_enabled_false true;
+[fractal_2]
+transf_function_enabledCx_false true;
+transf_function_enabledSw_false true;
+transf_int8_X 5;
+transf_start_iterations_A 17;
