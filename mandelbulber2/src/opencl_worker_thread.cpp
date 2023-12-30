@@ -195,15 +195,6 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				outputDataForQueue.sequenceSize = sequenceSize;
 
 				outputQueue->AddToQueue(&outputDataForQueue);
-
-				// reserve GPU time for the system
-				if (reservedGpuTime > 0.0)
-				{
-					unsigned long int waitTime =
-						reservedGpuTime * openclprocessingTimeNanoSeconds / 1000.0 / 100.0;
-					if (waitTime == 0) waitTime = 1;
-					thread()->usleep(waitTime);
-				}
 			}
 
 			// slow down to reduce length of queue
