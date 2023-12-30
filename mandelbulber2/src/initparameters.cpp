@@ -622,7 +622,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("opencl_disable_build_cache", false, morphNone, paramApp);
 	par->addParam("opencl_use_fast_relaxed_math", true, morphNone, paramApp);
 	par->addParam("opencl_job_size_multiplier", 2, morphNone, paramApp);
-	par->addParam("opencl_reserved_gpu_time", 0.1, morphNone, paramApp);
+	par->addParam("opencl_reserved_gpu_time", 0.0, morphNone, paramApp);
 	par->addParam("thumbnails_with_opencl", false, morphNone, paramApp);
 	par->addParam("clang_format_path", QString("clang-format"), morphNone, paramApp);
 
