@@ -61,6 +61,7 @@ struct sRenderData;
 class cOpenClScheduler;
 class cOpenCLWorkerOutputQueue;
 class cOpenClWorkerThread;
+class cDenoiser;
 
 class cOpenClEngineRenderFractal : public cOpenClEngine
 {
@@ -73,6 +74,60 @@ public:
 		clRenderEngineTypeFast = 1,
 		clRenderEngineTypeLimited = 2,
 		clRenderEngineTypeFull = 3
+	};
+
+	struct sConcurentTileProcessSharedData
+	{
+		bool firstBlurcalculated;
+		int tilesRenderedCounter;
+		int lastMonteCarloLoop;
+		qint64 pixelsRendered;
+		quint64 maskedPixelsCounter;
+		qint64 doneMCpixels;
+		double doneMC;
+		std::vector<bool> donePixelsMask;
+		std::vector<float> pixelNoiseBuffer;
+		std::vector<float> noiseTable;
+
+		// list of latest rendered tiles - needed for image refreshing
+		QList<sRenderedTileData> listOfRenderedTilesData;
+		QList<QRect> lastRenderedRects;
+
+		// common mutex for concurent tasks
+		QMutex mutex;
+	};
+
+	struct sConcurentTileProcessInputData
+	{
+		bool useAntiAliasing;
+		bool pixelLevelOptimization;
+		bool useDenoiser;
+		bool monteCarlo;
+		bool useOptionalImageChannels;
+		int minNumberOfSamples;
+		int outputIndex;
+		float noiseTarget;
+		double noiseFilterFactor;
+		quint64 width;
+		quint64 height;
+		quint64 gridWidth;
+		quint64 gridHeight;
+		quint64 numberOfPixels;
+		QVector<int> aaSampleNumberTable;
+		cOpenClEngine::sOptimalJob *optimalJob;
+	};
+
+	struct sConcurentTileProcess
+	{
+		cOpenCLWorkerOutputQueue::sClSingleOutput tile;
+		sConcurentTileProcessSharedData *inOut;
+		sConcurentTileProcessInputData *in;
+		std::shared_ptr<cImage> image;
+		std::shared_ptr<cOpenClScheduler> scheduler;
+		std::shared_ptr<cDenoiser> denoiser;
+		sRenderData *renderData;
+		sParamRenderCl *params;
+		std::vector<bool> *pixelMask;
 	};
 
 	cOpenClEngineRenderFractal(cOpenClHardware *_hardware);
@@ -153,13 +208,13 @@ private:
 		const std::shared_ptr<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
 		int antiAliasingDepth, QList<std::shared_ptr<QThread>> &threads,
 		QList<std::shared_ptr<cOpenClWorkerThread>> &workers, bool *stopRequest);
-	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
-		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 
-	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, unsigned short newAlpha,
-		const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld, unsigned short opacity,
-		cImage *image);
-	void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
+	static sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
+		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
+	static void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
+		unsigned short newAlpha, const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld,
+		unsigned short opacity, cImage *image);
+	static void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
 		const sRGBFloat &specular, const sRGBFloat &world, const sRGBFloat &shadows,
 		const sRGBFloat &gi, const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image);
 
@@ -167,6 +222,7 @@ private:
 		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
 		QList<sRenderedTileData> &listOfRenderedTilesData);
 	void FinallRefreshOfImage(QList<QRect> lastRenderedRects, std::shared_ptr<cImage> image);
+	static void ConcurentProcessTile(sConcurentTileProcess &data);
 
 	std::unique_ptr<sClInConstants> constantInBuffer;
 	QList<std::shared_ptr<cl::Buffer>> inCLConstBuffer;

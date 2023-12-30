@@ -1,5 +1,5 @@
 # qt dependencies
-QT += core gui uitools widgets network testlib multimedia qml
+QT += core gui uitools widgets network testlib multimedia qml concurrent
 macx:QT += svg
 
 CONFIG += link_pkgconfig

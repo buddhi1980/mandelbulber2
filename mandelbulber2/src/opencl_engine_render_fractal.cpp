@@ -40,6 +40,7 @@
 #include <memory>
 
 #include <QtAlgorithms>
+#include <QtConcurrent>
 
 #include "camera_target.hpp"
 #include "cimage.hpp"
@@ -1279,6 +1280,427 @@ void cOpenClEngineRenderFractal::FinallRefreshOfImage(
 	lastRenderedRects.clear();
 }
 
+void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &data)
+{
+	const cOpenCLWorkerOutputQueue::sClSingleOutput &output = data.tile;
+
+	data.inOut->tilesRenderedCounter++;
+
+	// information about tile coordinates
+	quint64 jobWidth = output.jobWidth;
+	quint64 jobHeight = output.jobHeight;
+	quint64 jobX = output.jobX;
+	quint64 jobY = output.jobY;
+
+	data.inOut->pixelsRendered += jobWidth * jobHeight;
+
+	float monteCarloNoiseSum = 0.0;
+	float maxNoise = 0.0;
+	float maxBrightness = 0.0;
+	float minBrightness = 100.0;
+
+	float maxEdge = 0.0;
+
+	int pixelsToDoCounter = 0;
+
+	bool anitiAliasingDepthFinished = true;
+	if (data.in->useAntiAliasing)
+	{
+		if (output.monteCarloLoop == 1)
+			anitiAliasingDepthFinished = true;
+		else
+		{
+			if (output.monteCarloLoop + 1 != data.in->aaSampleNumberTable.at(output.aaDepth - 1))
+				anitiAliasingDepthFinished = false;
+		}
+	}
+
+	std::vector<bool> returnedMask;
+
+	// update pixel mask based on output data
+	if (data.in->monteCarlo && data.in->pixelLevelOptimization)
+	{
+		returnedMask.resize(data.in->optimalJob->stepSizeX * data.in->optimalJob->stepSizeY);
+		std::fill(returnedMask.begin(), returnedMask.end(), 0);
+		for (int i = 0; i < output.sequenceSize; i++)
+		{
+			int seq = output.pixelSequence[i];
+			int x = seq % jobWidth;
+			int y = seq / jobWidth;
+			returnedMask[x + y * jobWidth] = true;
+		}
+	}
+
+	// processing pixels of tile
+	for (quint64 y = 0; y < jobHeight; y++)
+	{
+		for (quint64 x = 0; x < jobWidth; x++)
+		{
+			// getting pixel from output buffer
+			sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
+				output.outputBuffers.at(data.in->outputIndex).data.data())[x + y * jobWidth];
+			sRGBFloat pixel = {pixelCl.image.s0, pixelCl.image.s1, pixelCl.image.s2};
+			sRGB8 color = {pixelCl.color.s0, pixelCl.color.s1, pixelCl.color.s2};
+			unsigned short opacity = pixelCl.opacity;
+			unsigned short alpha = pixelCl.alpha;
+
+			size_t xx = x + jobX;
+			size_t yy = y + jobY;
+
+			// if MC then paint pixels and calculate noise statistics
+			if (data.in->monteCarlo)
+			{
+				if (!returnedMask[x + y * jobWidth]
+						&& data.in->pixelLevelOptimization) // skip masked pixels
+				// painting pixels with reduced opacity (averaging of MC samples)
+				{
+					if (data.in->useDenoiser)
+					{
+						data.denoiser->UpdatePixel(xx, yy, data.image->GetPixelImage(xx, yy),
+							data.image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
+					}
+					if (!data.inOut->donePixelsMask[xx + yy * data.in->width])
+						data.inOut->maskedPixelsCounter++;
+					data.inOut->donePixelsMask[xx + yy * data.in->width] = true;
+					continue;
+				}
+				sRGBFloat oldPixel = data.image->GetPixelImage(xx, yy);
+				pixel.R = min(pixel.R, data.params->monteCarloGIRadianceLimit * 2.0f);
+				pixel.G = min(pixel.G, data.params->monteCarloGIRadianceLimit * 2.0f);
+				pixel.B = min(pixel.B, data.params->monteCarloGIRadianceLimit * 2.0f);
+
+				sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
+
+				float zDepthOld = data.image->GetPixelZBuffer(xx, yy);
+				float zDepth = zDepthOld;
+
+				sRGBFloat nornalOld;
+				sRGBFloat normalWorld;
+				sRGBFloat globalIlluminationOut;
+				sRGBFloat notDenoisedOut;
+
+				if (output.monteCarloLoop == 1)
+				{
+					zDepth = pixelCl.zBuffer;
+					normalWorld =
+						sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+
+					if (data.image->GetImageOptional()->optionalNormalWorld)
+						normalWorld = clFloat3TosRGBFloat(pixelCl.normalWorld);
+
+					if (data.image->GetImageOptional()->optionalGlobalIlluination)
+						globalIlluminationOut = clFloat3TosRGBFloat(pixelCl.globalIllumination);
+
+					if (data.image->GetImageOptional()->optionalNotDenoised) notDenoisedOut = pixel;
+				}
+				else
+				{
+
+					zDepth = 1.0f
+									 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
+											+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
+
+					if (data.image->GetImageOptional()->optionalNormalWorld)
+					{
+						sRGBFloat normalNew =
+							sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+
+						nornalOld = data.image->GetPixelNormalWorld(xx, yy);
+
+						normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+														+ normalNew.R * (1.0f / output.monteCarloLoop);
+						normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+														+ normalNew.G * (1.0f / output.monteCarloLoop);
+						normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+														+ normalNew.B * (1.0f / output.monteCarloLoop);
+					}
+
+					if (data.image->GetImageOptional()->optionalGlobalIlluination)
+					{
+						sRGBFloat globalIlluminationOutOld = data.image->GetPixelGlobalIllumination(xx, yy);
+
+						globalIlluminationOut.R =
+							globalIlluminationOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+							+ pixelCl.globalIllumination.s0 * (1.0f / output.monteCarloLoop);
+						globalIlluminationOut.G =
+							globalIlluminationOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+							+ pixelCl.globalIllumination.s1 * (1.0f / output.monteCarloLoop);
+						globalIlluminationOut.B =
+							globalIlluminationOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+							+ pixelCl.globalIllumination.s2 * (1.0f / output.monteCarloLoop);
+					}
+
+					if (data.image->GetImageOptional()->optionalNotDenoised)
+					{
+						sRGBFloat notDenoisedOutOld = data.image->GetPixelNotDenoised(xx, yy);
+
+						notDenoisedOut.R = notDenoisedOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
+															 + pixel.R * (1.0f / output.monteCarloLoop);
+						notDenoisedOut.G = notDenoisedOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
+															 + pixel.G * (1.0f / output.monteCarloLoop);
+						notDenoisedOut.B = notDenoisedOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
+															 + pixel.B * (1.0f / output.monteCarloLoop);
+					}
+				}
+
+				unsigned short oldAlpha = data.image->GetPixelAlpha(xx, yy);
+				unsigned short newAlpha = ushort(float(oldAlpha) * (1.0f - 1.0f / output.monteCarloLoop)
+																				 + alpha * (1.0f / output.monteCarloLoop));
+
+				PutMultiPixel(
+					xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, data.image.get());
+
+				if (data.in->useOptionalImageChannels)
+				{
+					PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
+						clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
+						clFloat3TosRGBFloat(pixelCl.shadows), globalIlluminationOut, notDenoisedOut,
+						data.image);
+				}
+
+				// noise estimation
+				float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
+											+ (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
+											+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
+				noise *= 0.3333f;
+
+				//								qDebug() << noise << 0.01f * sqrtf(noise);
+				//								noise = 0.01f * sqrtf(noise);
+
+				float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.333f;
+				maxBrightness = max(sumBrightness, maxBrightness);
+				minBrightness = min(sumBrightness, minBrightness);
+
+				if (qIsInf(sumBrightness))
+				{
+					sumBrightness = 0.0;
+					noise = 0.0;
+					data.image->PutPixelImage(xx, yy, sRGBFloat());
+				}
+
+				if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
+
+				if (data.in->useDenoiser)
+				{
+					data.denoiser->UpdatePixel(xx, yy, newPixel, zDepth, noise);
+				}
+
+				monteCarloNoiseSum += noise;
+				if (noise > maxNoise) maxNoise = noise;
+
+				float previousPixelNoise = data.inOut->pixelNoiseBuffer[xx + yy * data.in->width];
+				float newPixelNoise;
+
+				if (data.in->useAntiAliasing)
+				{
+					newPixelNoise =
+						data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+				}
+				else
+				{
+					if (output.monteCarloLoop == 2)
+					{
+						newPixelNoise = noise;
+					}
+					else if (output.monteCarloLoop < data.in->minNumberOfSamples)
+					{
+						newPixelNoise = previousPixelNoise + noise;
+					}
+					else if (output.monteCarloLoop == data.in->minNumberOfSamples)
+					{
+						newPixelNoise = (previousPixelNoise + noise)
+														/ data.in->minNumberOfSamples; // average noise from last n runs
+					}
+					else
+					{
+						newPixelNoise =
+							data.in->noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
+					}
+				}
+				data.inOut->pixelNoiseBuffer[xx + yy * data.in->width] = newPixelNoise;
+
+				if (data.in->pixelLevelOptimization
+						&& ((data.in->useAntiAliasing
+									&& (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
+								|| (!data.in->useAntiAliasing
+										&& output.monteCarloLoop > data.in->minNumberOfSamples)))
+				{
+					if (sqrtf(newPixelNoise) < data.in->noiseTarget / 100.0f)
+					{
+						data.pixelMask->at(xx + yy * data.in->width) = false;
+					}
+					else
+					{
+						pixelsToDoCounter++;
+					}
+				}
+				else
+				{
+					pixelsToDoCounter++;
+				}
+			}
+			// if not MC then just paint pixels
+			else
+			{
+				PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer,
+					clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, data.image.get());
+
+				if (data.in->useOptionalImageChannels)
+				{
+					PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
+						clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
+						clFloat3TosRGBFloat(pixelCl.shadows), clFloat3TosRGBFloat(pixelCl.globalIllumination),
+						sRGBFloat(), data.image);
+				}
+			}
+		} // next y
+	}		// next x
+
+	if (data.in->useAntiAliasing && output.monteCarloLoop == 1 && data.in->pixelLevelOptimization)
+	{
+		pixelsToDoCounter = 0;
+		for (int y = 0; y < int(jobHeight); y++)
+		{
+			for (int x = 0; x < int(jobWidth); x++)
+			{
+				float maxR = 0.0;
+				float maxG = 0.0;
+				float maxB = 0.0;
+				float minR = 1e10;
+				float minG = 1e10;
+				float minB = 1e10;
+
+				for (int yy = std::max(y - 1, 0); yy <= min(y + 1, int(jobHeight) - 1); yy++)
+				{
+					for (int xx = std::max(x - 1, 0); xx <= min(x + 1, int(jobWidth) - 1); xx++)
+					{
+						int xxx = xx + jobX;
+						int yyy = yy + jobY;
+
+						sRGBFloat pixel = data.image->GetPixelImage(xxx, yyy);
+						maxR = max(pixel.R, maxR);
+						maxG = max(pixel.G, maxG);
+						maxB = max(pixel.B, maxB);
+
+						minR = min(pixel.R, minR);
+						minG = min(pixel.G, minG);
+						minB = min(pixel.B, minB);
+					}
+				}
+
+				float edge = max(max(maxR - minR, maxG - minG), maxB - minB);
+
+				int xxx = x + jobX;
+				int yyy = y + jobY;
+
+				maxEdge = max(maxEdge, edge);
+
+				data.inOut->pixelNoiseBuffer[xxx + yyy * data.in->width] = maxEdge;
+				if (edge < data.in->noiseTarget / 100.0f)
+				{
+					data.pixelMask->at(xxx + yyy * data.in->width) = false;
+					// maskedPixelsCounter++;
+				}
+				else
+				{
+					pixelsToDoCounter++;
+				}
+			}
+		}
+	}
+
+	data.renderData->statistics.maskedPixels =
+		double(data.inOut->maskedPixelsCounter) / (data.in->width * data.in->height);
+
+	//					qDebug() << output.monteCarloLoop
+	//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
+
+	// denoiser
+	if (data.in->monteCarlo && data.in->useDenoiser)
+	{
+		if (output.monteCarloLoop > 2)
+		{
+			data.inOut->firstBlurcalculated = true;
+			data.denoiser->Denoise(jobX, jobY, jobWidth, jobHeight,
+				data.params->monteCarloDenoiserPreserveGeometry, data.image, output.monteCarloLoop);
+		}
+	}
+	//-----------
+
+	// total noise in last rectangle
+	if (data.in->monteCarlo)
+	{
+		float weight = 0.3f;
+
+		float totalNoiseRect;
+		if (output.monteCarloLoop == 1)
+		{
+			if (data.in->useAntiAliasing)
+				totalNoiseRect = weight * maxEdge;
+			else
+				totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
+		}
+		else
+		{
+			totalNoiseRect =
+				sqrtf((1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
+		}
+
+		float previousNoiseLevel =
+			data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)];
+		float smothedNoiseLevel =
+			(data.in->useAntiAliasing || output.monteCarloLoop == 1)
+				? totalNoiseRect
+				: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * data.in->noiseFilterFactor;
+		// smothedNoiseLevel = totalNoiseRect;
+		data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)] =
+			smothedNoiseLevel;
+
+		if ((data.inOut->noiseTable[output.gridX + output.gridY * (data.in->gridWidth + 1)]
+						< data.in->noiseTarget / 100.0f
+					&& output.monteCarloLoop > data.in->minNumberOfSamples && anitiAliasingDepthFinished)
+				|| pixelsToDoCounter == 0)
+		{
+			data.scheduler->DisableTile(output.tileIndex);
+			data.inOut->doneMCpixels += jobWidth * jobHeight;
+			data.inOut->doneMC = double(data.inOut->doneMCpixels) / double(data.in->numberOfPixels);
+			data.renderData->statistics.tilesDone +=
+				(double)jobWidth * jobHeight / (data.in->width * data.in->height);
+		}
+		data.inOut->lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
+
+		if (data.inOut->lastMonteCarloLoop == 1)
+			data.renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
+		data.renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
+
+		data.inOut->mutex.lock();
+		data.inOut->listOfRenderedTilesData.append(
+			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
+		data.inOut->mutex.unlock();
+
+	} // endif montecarlo
+	else
+	{
+		data.inOut->mutex.lock();
+		data.inOut->listOfRenderedTilesData.append(
+			sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
+		data.inOut->mutex.unlock();
+	}
+
+	data.inOut->mutex.lock();
+	data.inOut->lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+	data.inOut->mutex.unlock();
+
+	// FIXME
+	//	if (!*data.stopRequest && data.inOut->tilesRenderedCounter > data.in->sequenceSize / 10)
+	//		emit signalSmallPartRendered(data.pureRenderingTime->elapsed() / 1000.0);
+
+	if (gNetRender->IsServer())
+	{
+		gApplication->processEvents();
+	}
+}
+
 // Multi-threaded version of OpenCL render function
 bool cOpenClEngineRenderFractal::RenderMulti(
 	std::shared_ptr<cImage> image, bool *stopRequest, sRenderData *renderData)
@@ -1321,12 +1743,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		WriteLog(QString("Setting grid size to %1 x %2").arg(gridWidth).arg(gridHeight), 2);
 
+		sConcurentTileProcessSharedData tileSharedData;
+
 		// preparation of table for noise statistics used in MC method
 		const quint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
-		std::vector<float> noiseTable(noiseTableSize);
+		tileSharedData.noiseTable.resize(noiseTableSize);
 		for (quint64 i = 0; i < noiseTableSize; i++)
 		{
-			noiseTable[i] = 0.0;
+			tileSharedData.noiseTable[i] = 0.0;
 		}
 
 		// maximum count of rendering loop
@@ -1339,15 +1763,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		}
 
 		int antiAliasingDepth = 0;
-		bool useAntiAlaising = constantInBuffer->params.antialiasingEnabled
+		bool useAntiAliasing = constantInBuffer->params.antialiasingEnabled
 													 && renderEngineMode == clRenderEngineTypeFull
 													 && !constantInBuffer->params.DOFMonteCarlo;
 
 		bool useDenoiser = monteCarlo && constantInBuffer->params.monteCarloDenoiserEnable
-											 && !useAntiAlaising && renderEngineMode == clRenderEngineTypeFull;
+											 && !useAntiAliasing && renderEngineMode == clRenderEngineTypeFull;
 
 		QVector<int> aaSampleNumberTable;
-		if (useAntiAlaising)
+		if (useAntiAliasing)
 		{
 			antiAliasingDepth = constantInBuffer->params.antialiasingOclDepth + 1;
 			aaSampleNumberTable.append(5);
@@ -1368,18 +1792,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			}
 		}
 
-		// list of latest rendered tiles - needed for image refreshing
-		QList<QRect> lastRenderedRects;
-		QList<sRenderedTileData> listOfRenderedTilesData;
-
 		// counters for MC statistins
-		double doneMC = 0.0;
-		qint64 doneMCpixels = 0;
+		tileSharedData.doneMC = 0.0;
+		tileSharedData.doneMCpixels = 0;
 
 		// calculation of tile sequence (growing ellipse)
 		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
 
-		// writing all data to OpenCL queue
+		// writing all inOut to OpenCL queue
 		if (!WriteBuffersToQueue()) throw;
 
 		// writing background texture data to OpenCL queue
@@ -1401,36 +1821,33 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// create output FIFO buffer
 		std::shared_ptr<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
-		std::unique_ptr<cDenoiser> denoiser(new cDenoiser(
+		std::shared_ptr<cDenoiser> denoiser(new cDenoiser(
 			width, height, cDenoiser::enumStrength(constantInBuffer->params.monteCarloDenoiserStrength)));
-
-		std::vector<float> pixelNoiseBuffer;
-
-		std::vector<bool> donePixelsMask;
 
 		if (monteCarlo)
 		{
-			pixelNoiseBuffer.resize(width * height);
+			tileSharedData.pixelNoiseBuffer.resize(width * height);
 			pixelMask.resize(width * height);
-			donePixelsMask.resize(width * height);
+			tileSharedData.donePixelsMask.resize(width * height);
 
 			std::fill(pixelMask.begin(), pixelMask.end(), true);
-			std::fill(pixelNoiseBuffer.begin(), pixelNoiseBuffer.end(), 0.0);
+			std::fill(
+				tileSharedData.pixelNoiseBuffer.begin(), tileSharedData.pixelNoiseBuffer.end(), 0.0);
 		}
 		else
 		{
-			pixelNoiseBuffer.clear();
+			tileSharedData.pixelNoiseBuffer.clear();
 			pixelMask.clear();
 		}
 
 		bool pixelLevelOptimization =
-			constantInBuffer->params.monteCarloPixelLevelOptimization || useAntiAlaising;
+			constantInBuffer->params.monteCarloPixelLevelOptimization || useAntiAliasing;
 
 		// chebykoh 1m:31s
 		// josles 47s
 		// grid 44s
 
-		bool firstBlurcalculated = false;
+		tileSharedData.firstBlurcalculated = false;
 		bool autoRefreshBlurResetDone = false;
 
 		if (useDenoiser)
@@ -1448,476 +1865,92 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		bool continueWhileLoop = false;
 
 		// counters for MC statistics
-		qint64 pixelsRendered = 0; // number of
-		int lastMonteCarloLoop = 1;
+		tileSharedData.pixelsRendered = 0; // number of
+		tileSharedData.lastMonteCarloLoop = 1;
 
-		quint64 maskedPixelsCounter = 0;
+		tileSharedData.maskedPixelsCounter = 0;
 
 		double noiseFilterFactor = min(1.0 / sqrt(numberOfSamples), 0.5);
 
-		int tilesRenderedCounter = 0;
+		sConcurentTileProcessInputData tileInputData;
+		tileInputData.useAntiAliasing = useAntiAliasing;
+		tileInputData.pixelLevelOptimization = pixelLevelOptimization;
+		tileInputData.useDenoiser = useDenoiser;
+		tileInputData.monteCarlo = monteCarlo;
+		tileInputData.useOptionalImageChannels = useOptionalImageChannels;
+		tileInputData.minNumberOfSamples = minNumberOfSamples;
+		tileInputData.outputIndex = outputIndex;
+		tileInputData.noiseTarget = noiseTarget;
+		tileInputData.noiseFilterFactor = noiseFilterFactor;
+		tileInputData.width = width;
+		tileInputData.height = height;
+		tileInputData.gridWidth = gridWidth;
+		tileInputData.gridHeight = gridHeight;
+		tileInputData.numberOfPixels = numberOfPixels;
+		tileInputData.aaSampleNumberTable = aaSampleNumberTable;
+		tileInputData.optimalJob = &optimalJob;
+
+		tileSharedData.tilesRenderedCounter = 0;
 		QElapsedTimer pureRenderingTime;
 		pureRenderingTime.start();
 
-		// main image data collection loop
+		// main image inOut collection loop
 		WriteLog(QString("Starting main rendering loop"), 2);
 		do
 		{
 			// repeat loop until there is something in output queue
 			int queueCounter = 0;
 
-			QList<cOpenCLWorkerOutputQueue::sClSingleOutput> collectedOuputs;
+			QList<sConcurentTileProcess> collectedOuputs;
 
 			while (!outputQueue->isEmpty() && queueCounter < 100)
 			{
 				queueCounter++;
-				// getting image data from queue
-				cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
 
-				if (scheduler->IsTileEnabled(output.tileIndex))
+				sConcurentTileProcess itemToProcess;
+				// getting image inOut from queue
+				itemToProcess.tile = outputQueue->GetFromQueue();
+
+				if (scheduler->IsTileEnabled(itemToProcess.tile.tileIndex))
 				{
-					collectedOuputs.append(output);
+					itemToProcess.inOut = &tileSharedData;
+					itemToProcess.in = &tileInputData;
+					itemToProcess.image = image;
+					itemToProcess.scheduler = scheduler;
+					itemToProcess.denoiser = denoiser;
+					itemToProcess.renderData = renderData;
+					itemToProcess.params = &constantInBuffer->params;
+					itemToProcess.pixelMask = &pixelMask;
+
+					collectedOuputs.append(itemToProcess);
 				}
 			}
 
 			if (collectedOuputs.size() > 0)
 			{
 				int numberOfTilesToProcess = collectedOuputs.size();
-				
-#pragma omp parallel for schedule(dynamic, 1)
-				for (int tileIndex = 0; tileIndex < numberOfTilesToProcess; tileIndex++)
-				{
-					const cOpenCLWorkerOutputQueue::sClSingleOutput output = collectedOuputs[tileIndex];
-					
-					tilesRenderedCounter++;
 
-					// information about tile coordinates
-					quint64 jobWidth = output.jobWidth;
-					quint64 jobHeight = output.jobHeight;
-					quint64 jobX = output.jobX;
-					quint64 jobY = output.jobY;
+				QtConcurrent::blockingMap(collectedOuputs, ConcurentProcessTile);
 
-					pixelsRendered += jobWidth * jobHeight;
-
-					float monteCarloNoiseSum = 0.0;
-					float maxNoise = 0.0;
-					float maxBrightness = 0.0;
-					float minBrightness = 100.0;
-
-					float maxEdge = 0.0;
-
-					int pixelsToDoCounter = 0;
-
-					bool anitiAliasingDepthFinished = true;
-					if (useAntiAlaising)
-					{
-						if (output.monteCarloLoop == 1)
-							anitiAliasingDepthFinished = true;
-						else
-						{
-							if (output.monteCarloLoop + 1 != aaSampleNumberTable.at(output.aaDepth - 1))
-								anitiAliasingDepthFinished = false;
-						}
-					}
-
-					std::vector<bool> returnedMask;
-
-					// update pixel mask based on output data
-					if (monteCarlo && pixelLevelOptimization)
-					{
-						returnedMask.resize(optimalJob.stepSizeX * optimalJob.stepSizeY);
-						std::fill(returnedMask.begin(), returnedMask.end(), 0);
-						for (int i = 0; i < output.sequenceSize; i++)
-						{
-							int seq = output.pixelSequence[i];
-							int x = seq % jobWidth;
-							int y = seq / jobWidth;
-							returnedMask[x + y * jobWidth] = true;
-						}
-					}
-
-					// processing pixels of tile
-					for (quint64 y = 0; y < jobHeight; y++)
-					{
-						for (quint64 x = 0; x < jobWidth; x++)
-						{
-							// getting pixel from output buffer
-							sClPixel pixelCl = reinterpret_cast<const sClPixel *>(
-								output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
-							sRGBFloat pixel = {pixelCl.image.s0, pixelCl.image.s1, pixelCl.image.s2};
-							sRGB8 color = {pixelCl.color.s0, pixelCl.color.s1, pixelCl.color.s2};
-							unsigned short opacity = pixelCl.opacity;
-							unsigned short alpha = pixelCl.alpha;
-
-							size_t xx = x + jobX;
-							size_t yy = y + jobY;
-
-							// if MC then paint pixels and calculate noise statistics
-							if (monteCarlo)
-							{
-								if (!returnedMask[x + y * jobWidth] && pixelLevelOptimization) // skip masked pixels
-								// painting pixels with reduced opacity (averaging of MC samples)
-								{
-									if (useDenoiser)
-									{
-										denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
-											image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
-									}
-									if (!donePixelsMask[xx + yy * width]) maskedPixelsCounter++;
-									donePixelsMask[xx + yy * width] = true;
-									continue;
-								}
-								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
-								pixel.R = min(pixel.R, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
-								pixel.G = min(pixel.G, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
-								pixel.B = min(pixel.B, constantInBuffer->params.monteCarloGIRadianceLimit * 2.0f);
-
-								sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
-
-								float zDepthOld = image->GetPixelZBuffer(xx, yy);
-								float zDepth = zDepthOld;
-
-								sRGBFloat nornalOld;
-								sRGBFloat normalWorld;
-								sRGBFloat globalIlluminationOut;
-								sRGBFloat notDenoisedOut;
-
-								if (output.monteCarloLoop == 1)
-								{
-									zDepth = pixelCl.zBuffer;
-									normalWorld = sRGBFloat(
-										pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
-
-									if (image->GetImageOptional()->optionalNormalWorld)
-										normalWorld = clFloat3TosRGBFloat(pixelCl.normalWorld);
-
-									if (image->GetImageOptional()->optionalGlobalIlluination)
-										globalIlluminationOut = clFloat3TosRGBFloat(pixelCl.globalIllumination);
-
-									if (image->GetImageOptional()->optionalNotDenoised) notDenoisedOut = pixel;
-								}
-								else
-								{
-
-									zDepth = 1.0f
-													 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
-															+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
-
-									if (image->GetImageOptional()->optionalNormalWorld)
-									{
-										sRGBFloat normalNew = sRGBFloat(
-											pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
-
-										nornalOld = image->GetPixelNormalWorld(xx, yy);
-
-										normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-																		+ normalNew.R * (1.0f / output.monteCarloLoop);
-										normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-																		+ normalNew.G * (1.0f / output.monteCarloLoop);
-										normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-																		+ normalNew.B * (1.0f / output.monteCarloLoop);
-									}
-
-									if (image->GetImageOptional()->optionalGlobalIlluination)
-									{
-										sRGBFloat globalIlluminationOutOld = image->GetPixelGlobalIllumination(xx, yy);
-
-										globalIlluminationOut.R =
-											globalIlluminationOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-											+ pixelCl.globalIllumination.s0 * (1.0f / output.monteCarloLoop);
-										globalIlluminationOut.G =
-											globalIlluminationOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-											+ pixelCl.globalIllumination.s1 * (1.0f / output.monteCarloLoop);
-										globalIlluminationOut.B =
-											globalIlluminationOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-											+ pixelCl.globalIllumination.s2 * (1.0f / output.monteCarloLoop);
-									}
-
-									if (image->GetImageOptional()->optionalNotDenoised)
-									{
-										sRGBFloat notDenoisedOutOld = image->GetPixelNotDenoised(xx, yy);
-
-										notDenoisedOut.R = notDenoisedOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-																			 + pixel.R * (1.0f / output.monteCarloLoop);
-										notDenoisedOut.G = notDenoisedOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-																			 + pixel.G * (1.0f / output.monteCarloLoop);
-										notDenoisedOut.B = notDenoisedOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-																			 + pixel.B * (1.0f / output.monteCarloLoop);
-									}
-								}
-
-								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
-								unsigned short newAlpha =
-									ushort(float(oldAlpha) * (1.0f - 1.0f / output.monteCarloLoop)
-												 + alpha * (1.0f / output.monteCarloLoop));
-
-								PutMultiPixel(
-									xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, image.get());
-
-								if (useOptionalImageChannels)
-								{
-									PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
-										clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
-										clFloat3TosRGBFloat(pixelCl.shadows), globalIlluminationOut, notDenoisedOut,
-										image);
-								}
-
-								// noise estimation
-								float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
-															+ (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
-															+ (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
-								noise *= 0.3333f;
-
-								//								qDebug() << noise << 0.01f * sqrtf(noise);
-								//								noise = 0.01f * sqrtf(noise);
-
-								float sumBrightness = (newPixel.R + newPixel.G + newPixel.B) * 0.333f;
-								maxBrightness = max(sumBrightness, maxBrightness);
-								minBrightness = min(sumBrightness, minBrightness);
-
-								if (qIsInf(sumBrightness))
-								{
-									sumBrightness = 0.0;
-									noise = 0.0;
-									image->PutPixelImage(xx, yy, sRGBFloat());
-								}
-
-								if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
-
-								if (useDenoiser)
-								{
-									denoiser->UpdatePixel(xx, yy, newPixel, zDepth, noise);
-								}
-
-								monteCarloNoiseSum += noise;
-								if (noise > maxNoise) maxNoise = noise;
-
-								float previousPixelNoise = pixelNoiseBuffer[xx + yy * width];
-								float newPixelNoise;
-
-								if (useAntiAlaising)
-								{
-									newPixelNoise =
-										noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
-								}
-								else
-								{
-									if (output.monteCarloLoop == 2)
-									{
-										newPixelNoise = noise;
-									}
-									else if (output.monteCarloLoop < minNumberOfSamples)
-									{
-										newPixelNoise = previousPixelNoise + noise;
-									}
-									else if (output.monteCarloLoop == minNumberOfSamples)
-									{
-										newPixelNoise = (previousPixelNoise + noise)
-																		/ minNumberOfSamples; // average noise from last n runs
-									}
-									else
-									{
-										newPixelNoise =
-											noiseFilterFactor * (noise - previousPixelNoise) + previousPixelNoise;
-									}
-								}
-								pixelNoiseBuffer[xx + yy * width] = newPixelNoise;
-
-								if (pixelLevelOptimization
-										&& ((useAntiAlaising
-													&& (output.monteCarloLoop > 1 && anitiAliasingDepthFinished))
-												|| (!useAntiAlaising && output.monteCarloLoop > minNumberOfSamples)))
-								{
-									if (sqrtf(newPixelNoise) < noiseTarget / 100.0f)
-									{
-										pixelMask[xx + yy * width] = false;
-									}
-									else
-									{
-										pixelsToDoCounter++;
-									}
-								}
-								else
-								{
-									pixelsToDoCounter++;
-								}
-							}
-							// if not MC then just paint pixels
-							else
-							{
-								PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer,
-									clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, image.get());
-
-								if (useOptionalImageChannels)
-								{
-									PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
-										clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
-										clFloat3TosRGBFloat(pixelCl.shadows),
-										clFloat3TosRGBFloat(pixelCl.globalIllumination), sRGBFloat(), image);
-								}
-							}
-						} // next y
-					}		// next x
-
-					if (useAntiAlaising && output.monteCarloLoop == 1 && pixelLevelOptimization)
-					{
-						pixelsToDoCounter = 0;
-						for (int y = 0; y < int(jobHeight); y++)
-						{
-							for (int x = 0; x < int(jobWidth); x++)
-							{
-								float maxR = 0.0;
-								float maxG = 0.0;
-								float maxB = 0.0;
-								float minR = 1e10;
-								float minG = 1e10;
-								float minB = 1e10;
-
-								for (int yy = std::max(y - 1, 0); yy <= min(y + 1, int(jobHeight) - 1); yy++)
-								{
-									for (int xx = std::max(x - 1, 0); xx <= min(x + 1, int(jobWidth) - 1); xx++)
-									{
-										int xxx = xx + jobX;
-										int yyy = yy + jobY;
-
-										sRGBFloat pixel = image->GetPixelImage(xxx, yyy);
-										maxR = max(pixel.R, maxR);
-										maxG = max(pixel.G, maxG);
-										maxB = max(pixel.B, maxB);
-
-										minR = min(pixel.R, minR);
-										minG = min(pixel.G, minG);
-										minB = min(pixel.B, minB);
-									}
-								}
-
-								float edge = max(max(maxR - minR, maxG - minG), maxB - minB);
-
-								int xxx = x + jobX;
-								int yyy = y + jobY;
-
-								maxEdge = max(maxEdge, edge);
-
-								pixelNoiseBuffer[xxx + yyy * width] = maxEdge;
-								if (edge < noiseTarget / 100.0f)
-								{
-									pixelMask[xxx + yyy * width] = false;
-									// maskedPixelsCounter++;
-								}
-								else
-								{
-									pixelsToDoCounter++;
-								}
-							}
-						}
-					}
-
-					renderData->statistics.maskedPixels = double(maskedPixelsCounter) / (width * height);
-
-					//					qDebug() << output.monteCarloLoop
-					//									 << double(maskedPixelsCounter) / (width * height) * 100.0;
-
-					// denoiser
-					if (monteCarlo && useDenoiser)
-					{
-						if (output.monteCarloLoop > 2)
-						{
-							firstBlurcalculated = true;
-							denoiser->Denoise(jobX, jobY, jobWidth, jobHeight,
-								constantInBuffer->params.monteCarloDenoiserPreserveGeometry, image,
-								output.monteCarloLoop);
-						}
-					}
-					//-----------
-
-					// total noise in last rectangle
-					if (monteCarlo)
-					{
-						float weight = 0.3f;
-
-						float totalNoiseRect;
-						if (output.monteCarloLoop == 1)
-						{
-							if (useAntiAlaising)
-								totalNoiseRect = weight * maxEdge;
-							else
-								totalNoiseRect = weight * (maxBrightness - minBrightness) / 3.0;
-						}
-						else
-						{
-							totalNoiseRect = sqrtf(
-								(1.0f - weight) * monteCarloNoiseSum / jobWidth / jobHeight + weight * maxNoise);
-						}
-
-						float previousNoiseLevel = noiseTable[output.gridX + output.gridY * (gridWidth + 1)];
-						float smothedNoiseLevel =
-							(useAntiAlaising || output.monteCarloLoop == 1)
-								? totalNoiseRect
-								: previousNoiseLevel + (totalNoiseRect - previousNoiseLevel) * noiseFilterFactor;
-						// smothedNoiseLevel = totalNoiseRect;
-						noiseTable[output.gridX + output.gridY * (gridWidth + 1)] = smothedNoiseLevel;
-
-						if ((noiseTable[output.gridX + output.gridY * (gridWidth + 1)] < noiseTarget / 100.0f
-									&& output.monteCarloLoop > minNumberOfSamples && anitiAliasingDepthFinished)
-								|| pixelsToDoCounter == 0)
-						{
-							scheduler->DisableTile(output.tileIndex);
-							doneMCpixels += jobWidth * jobHeight;
-							doneMC = double(doneMCpixels) / double(numberOfPixels);
-							renderData->statistics.tilesDone += (double)jobWidth * jobHeight / (width * height);
-						}
-						lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
-
-						if (lastMonteCarloLoop == 1)
-							renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
-						renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
-
-#pragma omp critical
-						{
-							listOfRenderedTilesData.append(
-								sRenderedTileData(jobX, jobY, jobWidth, jobHeight, smothedNoiseLevel));
-						}
-					} // endif montecarlo
-					else
-					{
-#pragma omp critical
-						{
-							listOfRenderedTilesData.append(
-								sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
-						}
-					}
-
-#pragma omp critical
-					{
-						lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
-					}
-
-					if (!*stopRequest && tilesRenderedCounter > tileSequence.size() / 10)
-						emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
-
-					if (gNetRender->IsServer())
-					{
-						gApplication->processEvents();
-					}
-
-				} // parallel for
+				emit signalSmallPartRendered(pureRenderingTime.elapsed() / 1000.0);
 			}
 
 			// refreshing progress bar and statistics (not more than once per 100ms)
-			if (lastRenderedRects.size() > 0 && progressRefreshTimer.elapsed() > 100)
+			if (tileSharedData.lastRenderedRects.size() > 0 && progressRefreshTimer.elapsed() > 100)
 			{
 				double percentDone;
 				if (!monteCarlo)
 				{
-					percentDone = double(pixelsRendered) / numberOfPixels;
+					percentDone = double(tileSharedData.pixelsRendered) / numberOfPixels;
 				}
 				else
 				{
-					percentDone = double(pixelsRendered) / numberOfPixels / numberOfSamples;
+					percentDone = double(tileSharedData.pixelsRendered) / numberOfPixels / numberOfSamples;
 
-					percentDone = percentDone * (1.0 - doneMC) + doneMC;
+					percentDone = percentDone * (1.0 - tileSharedData.doneMC) + tileSharedData.doneMC;
 
-					double maskedPixelsPerc = min(1.0, double(maskedPixelsCounter) / (width * height));
+					double maskedPixelsPerc =
+						min(1.0, double(tileSharedData.maskedPixelsCounter) / (width * height));
 					percentDone = percentDone * (1.0 - maskedPixelsPerc) + maskedPixelsPerc;
 				}
 				emit updateProgressAndStatus(
@@ -1926,7 +1959,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				float totalNoise = 0.0;
 				for (quint64 i = 0; i < noiseTableSize; i++)
 				{
-					totalNoise += noiseTable[i];
+					totalNoise += tileSharedData.noiseTable[i];
 				}
 				totalNoise /= noiseTableSize;
 				renderData->statistics.totalNoise = totalNoise * width * height;
@@ -1937,11 +1970,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			}
 
 			// refreshing image (refreshing period depends on refreshing speed)
-			if (lastRenderedRects.size() > 0 && timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
+			if (tileSharedData.lastRenderedRects.size() > 0
+					&& timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
 			{
-				lastRefreshTime = PeriodicRefreshOfTiles(
-					lastRefreshTime, timerImageRefresh, image, lastRenderedRects, listOfRenderedTilesData);
-				if (firstBlurcalculated & !autoRefreshBlurResetDone)
+				lastRefreshTime = PeriodicRefreshOfTiles(lastRefreshTime, timerImageRefresh, image,
+					tileSharedData.lastRenderedRects, tileSharedData.listOfRenderedTilesData);
+				if (tileSharedData.firstBlurcalculated & !autoRefreshBlurResetDone)
 				{
 					lastRefreshTime = 0;
 					autoRefreshBlurResetDone = true;
@@ -1972,9 +2006,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		} while (continueWhileLoop);
 
 		// finall refresh of image
-		if (lastRenderedRects.size() > 0)
+		if (tileSharedData.lastRenderedRects.size() > 0)
 		{
-			FinallRefreshOfImage(lastRenderedRects, image);
+			FinallRefreshOfImage(tileSharedData.lastRenderedRects, image);
 		}
 
 		emit updateProgressAndStatus(
@@ -2058,15 +2092,16 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input data")),
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 
 	if (!meshExportMode && !distanceMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		err = clKernels.at(deviceIndex)
-						->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input data in global memory
+		err =
+			clKernels.at(deviceIndex)
+				->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input inOut in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
 			emit showErrorMessage(
@@ -2078,11 +2113,11 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 
 	err = clKernels.at(deviceIndex)
 					->setArg(argIterator++,
-						*inCLConstBuffer[deviceIndex]); // input data in constant memory (faster than global)
+						*inCLConstBuffer[deviceIndex]); // input inOut in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant data")),
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant inOut")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -2091,12 +2126,12 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	{
 		err = clKernels.at(deviceIndex)
 						->setArg(argIterator++,
-							*inCLConstMeshExportBuffer[deviceIndex]); // input data in constant memory (faster
+							*inCLConstMeshExportBuffer[deviceIndex]); // input inOut in constant memory (faster
 																												// than global)
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant mesh data")),
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant mesh inOut")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -2121,7 +2156,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	{
 		err = clKernels.at(deviceIndex)
 						->setArg(argIterator++,
-							*inCLPerlinNoiseSeedsBuffer[deviceIndex]); // input data for perlin noise seeds
+							*inCLPerlinNoiseSeedsBuffer[deviceIndex]); // input inOut for perlin noise seeds
 		if (!checkErr(err, "kernel->setArg(4, *inCLPerlinNoiseSeedsBuffer)"))
 		{
 			emit showErrorMessage(
@@ -2374,7 +2409,7 @@ bool cOpenClEngineRenderFractal::Render(std::vector<double> *distances, std::vec
 
 	constantInMeshExportBuffer->sliceIndex = sliceIndex;
 
-	// writing data to queue
+	// writing inOut to queue
 	if (!WriteBuffersToQueue()) return false;
 
 	// assign parameters to kernel
@@ -2423,7 +2458,7 @@ float cOpenClEngineRenderFractal::CalculateDistance(CVector3 point)
 {
 	pointToCalculateDistance = {{cl_float(point.x), cl_float(point.y), cl_float(point.z)}};
 
-	// writing data to queue
+	// writing inOut to queue
 	if (!WriteBuffersToQueue()) return false;
 
 	// assign parameters to kernel

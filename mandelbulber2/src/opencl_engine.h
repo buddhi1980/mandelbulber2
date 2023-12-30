@@ -52,6 +52,7 @@ class cOpenClEngine : public QObject
 {
 	Q_OBJECT
 
+public:
 	struct sOptimalJob
 	{
 		sOptimalJob() {}
