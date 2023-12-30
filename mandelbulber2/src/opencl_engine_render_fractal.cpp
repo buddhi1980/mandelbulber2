@@ -2024,7 +2024,7 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	int quartV1 = cV1.x() > 0.0f ? (cV1.y() > 0.0f ? 1 : 0) : (cV1.y() > 0.0f ? 2 : 3);
 	int quartV2 = cV2.x() > 0.0f ? (cV2.y() > 0.0f ? 1 : 0) : (cV2.y() > 0.0f ? 2 : 3);
 	if (quartV1 != quartV2) return quartV1 < quartV2;
-	return quartV1 < 2 ? v1.y() >= v2.y() : v1.y() < v2.y();
+	return quartV1 < 2 ? v1.y() > v2.y() : v1.y() < v2.y();
 }
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
