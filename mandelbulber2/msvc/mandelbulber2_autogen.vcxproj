@@ -354,6 +354,7 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Test.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Widgets.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Qml.dll&quot; &quot;$(OutDir)&quot;" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Concurrent.dll&quot; &quot;$(OutDir)&quot;" />
   </Target>
   <Target Name="Copy-QTLIBS-Debug" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Cored.dll&quot; &quot;$(OutDir)&quot;" />
@@ -367,5 +368,6 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Testd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Widgetsd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Qmld.dll&quot; &quot;$(OutDir)&quot;" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Concurrentd.dll&quot; &quot;$(OutDir)&quot;" />
   </Target>
 </Project>
