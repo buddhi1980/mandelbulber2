@@ -126,6 +126,7 @@ public:
 	QList<QVariant> GetMouseClickFunction();
 	static void SetQuickRenderParameters(const std::shared_ptr<cParameterContainer> &tempParam);
 	void LoadDefaultSettings();
+	void CheckForMissingTextures();
 
 	QSettings settings;
 

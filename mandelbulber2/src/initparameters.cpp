@@ -485,7 +485,9 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	par->addParam("default_image_path", systemDirectories.GetImagesFolder(), morphNone, paramApp);
 	par->addParam(
-		"default_textures_path", systemDirectories.sharedDir + "textures", morphNone, paramApp);
+		"default_textures_path", systemDirectories.GetTexturesFolder(), morphNone, paramApp);
+	par->addParam(
+		"default_user_textures_path", systemDirectories.GetUserTexturesFolder(), morphNone, paramApp);
 	par->addParam(
 		"default_settings_path", systemDirectories.GetSettingsFolder(), morphNone, paramApp);
 	par->addParam("toolbar_path", systemDirectories.GetToolbarFolder(), morphNone, paramApp);

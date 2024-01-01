@@ -213,6 +213,17 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 	}
 }
 
+void cPreferencesDialog::on_pushButton_select_user_textures_path_clicked()
+{
+	QString dir = QDir::toNativeSeparators(
+		QFileDialog::getExistingDirectory(this, tr("Select directory for user textures"),
+			QDir::toNativeSeparators(ui->text_default_user_textures_path->text())));
+	if (dir.length() > 0)
+	{
+		ui->text_default_user_textures_path->setText(dir);
+	}
+}
+
 void cPreferencesDialog::on_pushButton_select_toolbar_path_clicked()
 {
 	QString dir = QDir::toNativeSeparators(

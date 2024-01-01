@@ -58,6 +58,7 @@ private slots:
 	void on_pushButton_select_image_path_clicked();
 	void on_pushButton_select_settings_path_clicked();
 	void on_pushButton_select_textures_path_clicked();
+	void on_pushButton_select_user_textures_path_clicked();
 	void on_pushButton_select_toolbar_path_clicked();
 	void on_pushButton_clear_thumbnail_cache_clicked() const;
 	void on_pushButton_generate_thumbnail_cache_clicked();

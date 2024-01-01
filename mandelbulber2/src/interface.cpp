@@ -606,6 +606,8 @@ void cInterface::StartRender(bool noUndo)
 		mainImage->BlockImage();
 	}
 
+	CheckForMissingTextures();
+
 	gNetRender->SetAnimation(false);
 
 	repeatRequest = false;
@@ -2101,4 +2103,74 @@ void cInterface::LoadDefaultSettings()
 
 	// to not modify last settings file in the file browser
 	systemData.lastSettingsFile = previousSettings;
+}
+
+void cInterface::CheckForMissingTextures()
+{
+	QStringList listOfAllParameters = gPar->GetListOfParameters();
+	QStringList listOfTextureParameters;
+	for (const QString &parameterName : listOfAllParameters)
+	{
+		if (parameterName.contains("file_") && parameterName.contains("texture"))
+			listOfTextureParameters.append(parameterName);
+	}
+	listOfTextureParameters.append("file_background");
+	listOfTextureParameters.append("file_envmap");
+	listOfTextureParameters.append("file_lightmap");
+
+	for (const QString &parameterName : listOfTextureParameters)
+	{
+		QString textureFile = gPar->Get<QString>(parameterName);
+		if (!QFile::exists(textureFile))
+		{
+			QMessageBox msgBox;
+			msgBox.setText(tr("Missing texture"));
+			msgBox.setWindowTitle("Missing texture");
+			msgBox.setInformativeText(
+				tr("Parameter %1\nuses texture file\n%2\nwhich is missing.\n\nWhat you would like to do?")
+					.arg(parameterName)
+					.arg(textureFile));
+			msgBox.addButton(tr("Use default"), QMessageBox::ActionRole);
+			msgBox.addButton(tr("Select file..."), QMessageBox::ActionRole);
+			msgBox.addButton(tr("Search..."), QMessageBox::ActionRole);
+			msgBox.addButton(tr("Ignore"), QMessageBox::DestructiveRole);
+			int ret = msgBox.exec();
+			switch (ret)
+			{
+				case 0: // use default
+				{
+					gPar->Set(parameterName, gPar->GetDefault<QString>(parameterName));
+					break;
+				}
+				case 1: // select file
+				{
+					QDir dir(textureFile);
+					QString dirName = dir.dirName();
+					if (!QDir(dirName).exists())
+					{
+						dirName = gPar->Get<QString>("default_user_textures_path");
+						qDebug() << dirName;
+					}
+
+					PreviewFileDialog dialog(mainWindow);
+					dialog.setFileMode(QFileDialog::ExistingFile);
+					dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp *.hdr)"));
+					dialog.setDirectory(QDir::toNativeSeparators(dirName));
+					dialog.selectFile(QDir::toNativeSeparators(textureFile));
+					dialog.setAcceptMode(QFileDialog::AcceptOpen);
+					dialog.setWindowTitle(tr("Select file for %1").arg(objectName()));
+					QStringList filenames;
+					if (dialog.exec())
+					{
+						filenames = dialog.selectedFiles();
+						QString fileName = QDir::toNativeSeparators(filenames.first());
+						gPar->Set(parameterName, fileName);
+					}
+					break;
+				}
+
+				default: break;
+			}
+		}
+	}
 }

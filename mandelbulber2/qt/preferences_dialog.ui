@@ -100,26 +100,8 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_textures_path">
-                  <property name="text">
-                   <string>Textures:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QPushButton" name="pushButton_select_settings_path">
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset theme="folder" resource="icons.qrc">
-                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="MyLineEdit" name="text_default_image_path"/>
+                <item row="2" column="2">
+                 <widget class="MyLineEdit" name="text_default_textures_path"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_settings_path">
@@ -128,25 +110,34 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="2">
+                 <widget class="MyLineEdit" name="text_toolbar_path"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_image_path">
+                  <property name="text">
+                   <string>Images:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="MyLineEdit" name="text_default_settings_path"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_textures_path">
+                  <property name="text">
+                   <string>Default textures:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_textures_path_2">
                   <property name="text">
                    <string>Toolbar</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="pushButton_select_image_path">
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset theme="folder" resource="icons.qrc">
-                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
+                <item row="2" column="3">
                  <widget class="QPushButton" name="pushButton_select_textures_path">
                   <property name="text">
                    <string/>
@@ -157,24 +148,54 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="MyLineEdit" name="text_default_textures_path"/>
-                </item>
-                <item row="1" column="1">
-                 <widget class="MyLineEdit" name="text_default_settings_path"/>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_image_path">
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_textures_path_3">
                   <property name="text">
-                   <string>Images:</string>
+                   <string>User textures:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="MyLineEdit" name="text_toolbar_path"/>
+                <item row="0" column="2">
+                 <widget class="MyLineEdit" name="text_default_image_path"/>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QPushButton" name="pushButton_select_image_path">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="folder" resource="icons.qrc">
+                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="3">
+                 <widget class="QPushButton" name="pushButton_select_toolbar_path">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="folder" resource="icons.qrc">
+                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QPushButton" name="pushButton_select_settings_path">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="folder" resource="icons.qrc">
+                    <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
+                  </property>
+                 </widget>
                 </item>
                 <item row="3" column="2">
-                 <widget class="QPushButton" name="pushButton_select_toolbar_path">
+                 <widget class="MyLineEdit" name="text_default_user_textures_path"/>
+                </item>
+                <item row="3" column="3">
+                 <widget class="QPushButton" name="pushButton_select_user_textures_path">
                   <property name="text">
                    <string/>
                   </property>
