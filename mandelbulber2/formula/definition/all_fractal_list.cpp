@@ -345,6 +345,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalMengerV2());
 	fractalList->append(new cFractalMengerV3());
 	fractalList->append(new cFractalMengerV6());
+    fractalList->append(new cFractalMengerV7());
 	fractalList->append(new cFractalOctahedron());
 	fractalList->append(new cFractalPseudoKleinianStdDE());
 	fractalList->append(new cFractalPseudoKleinianMod3());
@@ -576,7 +577,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 
 	fractalList->append(new cFractalTinkerTowers());
-	fractalList->append(new cFractalMengerV7());
+
 
 
 
