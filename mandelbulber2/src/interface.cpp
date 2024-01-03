@@ -2121,7 +2121,8 @@ bool cInterface::CheckForMissingTextures()
 	for (const QString &parameterName : listOfTextureParameters)
 	{
 		QString textureFile = gPar->Get<QString>(parameterName);
-		if (!textureFile.contains("%") && !QFile::exists(textureFile))
+		QFileInfo fi(textureFile);
+		if (!textureFile.contains("%") && (!fi.exists(textureFile) || fi.isDir()))
 		{
 			QMessageBox msgBox;
 			msgBox.setText(tr("Missing texture"));
