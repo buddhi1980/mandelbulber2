@@ -975,6 +975,16 @@ void RenderWindow::slotStartRender()
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToFile(systemDirectories.GetHistoryFileName());
+
+	if (sender()->objectName() == "widgetDockNavigation")
+	{
+		bool correctionApplied = gMainInterface->CheckForMissingTextures();
+		if (correctionApplied)
+		{
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+		}
+	}
+
 	gMainInterface->StartRender();
 }
 

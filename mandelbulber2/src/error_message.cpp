@@ -46,10 +46,14 @@
 
 cErrorMessage *gErrorMessage = nullptr;
 
+QString cErrorMessage::lastMessage;
+QElapsedTimer cErrorMessage::lastMessageTime;
+
 cErrorMessage::cErrorMessage(QObject *parent) : QObject(parent)
 {
 	connect(this, &cErrorMessage::signalShowMessage, this, &cErrorMessage::slotShowMessage,
 		Qt::QueuedConnection);
+	lastMessageTime.start();
 }
 
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)
@@ -87,27 +91,31 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		else if (messageType == infoMessage)
 			out << messageText << "\n";
 
-		QMessageBox *messageBox = new QMessageBox(parent);
-		messageBox->setText(messageText);
+		if (lastMessage != text && lastMessageTime.elapsed() > 1000)
+		{
+			QMessageBox *messageBox = new QMessageBox(parent);
+			messageBox->setText(messageText);
 
-		if (messageType == warningMessage)
-		{
-			messageBox->setWindowTitle(QObject::tr("Mandelbulber warning"));
-			messageBox->setIcon(QMessageBox::Warning);
+			if (messageType == warningMessage)
+			{
+				messageBox->setWindowTitle(QObject::tr("Mandelbulber warning"));
+				messageBox->setIcon(QMessageBox::Warning);
+			}
+			else if (messageType == errorMessage)
+			{
+				messageBox->setWindowTitle(QObject::tr("Mandelbulber error"));
+				messageBox->setIcon(QMessageBox::Critical);
+			}
+			else if (messageType == infoMessage)
+			{
+				messageBox->setWindowTitle(QObject::tr("Mandelbulber information"));
+				messageBox->setIcon(QMessageBox::Information);
+			}
+			int result = messageBox->exec();
+			Q_UNUSED(result);
+			delete messageBox;
+			lastMessageTime.restart();
 		}
-		else if (messageType == errorMessage)
-		{
-			messageBox->setWindowTitle(QObject::tr("Mandelbulber error"));
-			messageBox->setIcon(QMessageBox::Critical);
-		}
-		else if (messageType == infoMessage)
-		{
-			messageBox->setWindowTitle(QObject::tr("Mandelbulber information"));
-			messageBox->setIcon(QMessageBox::Information);
-		}
-		int result = messageBox->exec();
-		Q_UNUSED(result);
-		delete messageBox;
 	}
 	else
 	{
@@ -135,6 +143,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 
 		out << header << messageText << "\n";
 	}
+	lastMessage = text;
 }
 
 void cErrorMessage::slotShowMessage(QString text, enumMessageType messageType, QWidget *parent)

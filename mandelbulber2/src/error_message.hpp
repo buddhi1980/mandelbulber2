@@ -39,6 +39,7 @@
 #include <QObject>
 #include <QString>
 #include <QWidget>
+#include <QElapsedTimer>
 
 class cErrorMessage : public QObject
 {
@@ -56,6 +57,9 @@ public:
 	static void showMessage(QString text, enumMessageType messageType, QWidget *parent = nullptr);
 	void showMessageFromOtherThread(
 		QString text, enumMessageType messageType, QWidget *parent = nullptr);
+
+	static QString lastMessage;
+	static QElapsedTimer lastMessageTime;
 
 public slots:
 	static void slotShowMessage(

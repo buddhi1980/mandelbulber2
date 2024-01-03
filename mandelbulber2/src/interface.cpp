@@ -622,8 +622,6 @@ void cInterface::StartRender(bool noUndo)
 
 	cScripts::EvaluateAll(gPar, gParFractal);
 
-	CheckForMissingTextures();
-
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	if (!noUndo) gUndo->Store(gPar, gParFractal);
@@ -2105,8 +2103,9 @@ void cInterface::LoadDefaultSettings()
 	systemData.lastSettingsFile = previousSettings;
 }
 
-void cInterface::CheckForMissingTextures()
+bool cInterface::CheckForMissingTextures()
 {
+	bool correctionApplied = false;
 	QStringList listOfAllParameters = gPar->GetListOfParameters();
 	QStringList listOfTextureParameters;
 	for (const QString &parameterName : listOfAllParameters)
@@ -2141,6 +2140,7 @@ void cInterface::CheckForMissingTextures()
 				case 0: // use default
 				{
 					gPar->Set(parameterName, gPar->GetDefault<QString>(parameterName));
+					correctionApplied = true;
 					break;
 				}
 				case 1: // select file
@@ -2165,6 +2165,7 @@ void cInterface::CheckForMissingTextures()
 						filenames = dialog.selectedFiles();
 						QString fileName = QDir::toNativeSeparators(filenames.first());
 						gPar->Set(parameterName, fileName);
+						correctionApplied = true;
 					}
 					break;
 				}
@@ -2210,6 +2211,7 @@ void cInterface::CheckForMissingTextures()
 						{
 							qDebug() << "substitution" << substitution;
 							gPar->Set(parameterName, substitution);
+							correctionApplied = true;
 						}
 					}
 
@@ -2224,4 +2226,5 @@ void cInterface::CheckForMissingTextures()
 			}
 		}
 	}
+	return correctionApplied;
 }
