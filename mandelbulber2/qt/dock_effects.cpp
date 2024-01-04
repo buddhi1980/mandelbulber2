@@ -167,6 +167,7 @@ void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
 
 void cDockEffects::slotPressedButtonAutoFog()
 {
+	SynchronizeInterfaceWindow(this, params, qInterface::read);
 	gMainInterface->AutoFog(params, fractalParams);
 	SynchronizeInterfaceWindow(this, params, qInterface::write);
 }
