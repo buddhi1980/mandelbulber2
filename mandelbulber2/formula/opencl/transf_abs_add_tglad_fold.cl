@@ -29,7 +29,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		REAL4 length = 2.0f * limit;
 		REAL4 tgladS = 1.0f / length;
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-		;
+
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;

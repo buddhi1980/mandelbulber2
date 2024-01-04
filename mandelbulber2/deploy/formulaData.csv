@@ -179,7 +179,7 @@ msltoeSym3Mod,"Msltoe - Sym3 Mod",analyticDEType,logarithmicDEFunction,cpixelEna
 msltoeSym3Mod2,"Msltoe - Julia Bulb Mod2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod3,"Msltoe - Julia Bulb Mod3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod4,"Msltoe - Julia Bulb Mod4",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
-msltoeSym3Mod5,"Msltoe - Julia Bulb Mod5",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeSym3Mod5,"Msltoe - Julia Bulb Mod5",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod6,"Msltoe - Julia Bulb Mod6",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym4Mod,"Msltoe - Sym4 Mod",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym4Mod1,"Msltoe - Sym4 Mod1",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10.0,analyticFunctionLogarithmic,coloringFunctionDefault

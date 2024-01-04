@@ -219,7 +219,11 @@ void cFractalTinkerTowers::FormulaCode(
 
 			//zXYZ = zXYZ *(1.0 - .0*flat);  // Does not play well with power DE
 			//zXYZ =  zXYZ.RotateAroundVectorByAngle(u_Fv[side], 3.14159/3.0); // Taffy
-			zXYZ = zXYZ.RotateAroundVectorByAngle(Axis, rot_angle);  // php angel4 ??
+
+            CVector4 v4 = CVector4(zXYZ.x, zXYZ.y, zXYZ.z, 0.0);
+            v4 = v4.RotateAroundVectorByAngle(Axis, rot_angle);  // php angel4 ?? mmmmmmmmmmmfix
+             zXYZ = CVector3(v4.x, v4.y, v4.z);
+
 		}
 		else
 		{

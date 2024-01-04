@@ -112,8 +112,8 @@ REAL4 SphereClusterV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			{
 				if (fractal->transformCommon.functionEnabledAFalse)
 				{
-					// tv = (REAL3){0.0f, 0.0f, 0.0f};
-					tv = (REAL3) {z.x, z.y, z.z};
+					// tv = (REAL3) {0.0f, 0.0f, 0.0f};
+					tv = (REAL3){z.x, z.y, z.z};
 					p = fabs(tv);
 				}
 				if (!fractal->transformCommon.functionEnabledBFalse) break;
@@ -250,7 +250,7 @@ REAL4 SphereClusterV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (!fractal->transformCommon.functionEnabledFFalse) zc = fabs(zc);
 	REAL d = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offset0;
 	d = (d - minr * k) / aux->DE;
-//	if (d < 0.0f) d = 0.0f; // mmmmmmmmmmmmmmmmmmmmmmmmmm
+	// if (d < 0.0f) d = 0.0f; // mmmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->transformCommon.functionEnabledCFalse)
 	{
@@ -258,7 +258,7 @@ REAL4 SphereClusterV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		cv.z += fractal->transformCommon.offsetF0;
 		REAL dst1 = length(cv) - fractal->transformCommon.offsetR1;
 		d = max(d, dst1);
-	//	d = fabs(d); // mmmmmmmmmmmmmmmmmmmmmmmmmm
+		//		d = fabs(d); // mmmmmmmmmmmmmmmmmmmmmmmmmm
 	}
 
 	if (!fractal->transformCommon.functionEnabledXFalse)

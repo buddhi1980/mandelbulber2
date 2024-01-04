@@ -21,7 +21,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL3 tv = (REAL3){0.0f, 0.0f, 0.0f};
 	REAL3 zXYZ = z.xyz;
 
-	REAL3 u_zXYZ = (REAL3){0.0f, 0.0f, 1.0f}; // angel does matter if mag_zXYZ==0
+	REAL3 u_zXYZ = (REAL3){0.0f, 0.0f, 1.0f}; // angle does matter if mag_zXYZ==0
 	REAL mag_zXYZ = 0.0f;
 
 	t = dot(zXYZ, zXYZ);
@@ -93,12 +93,13 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	//
 	// Scale is used as the power.
 	REAL power = fractal->transformCommon.pwr4;
-	// Solid is used for selecting fractal(==0) or target map(!=0).
-//	REAL solid = fractal->mandelbox.solid;
+	// fractal->transformCommon.functionEnabledAFalse is used for selecting fractal(disabled) or
+	// target map(enabled).
+	//	REAL solid = fractal->mandelbox.solid;
 
 	// Find the lowest cutting plane that cuts the ray from the origin through zXYZ.
 	// The parameterized equation for this ray is L_Z(h) = h * u_zXYX.
-	// The plane equation is X dot u_Fv =  mag_Fv;
+	// The plane equation is X dot u_Fv = mag_Fv;
 	// The value of h at the intersection point is h = mag_Fv/(u_zXYZ dot u_Fv)
 
 	int side = -1; // Assume no facet found before unit sphere.
@@ -106,7 +107,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL my_h;
 	for (i = 0; i < sides; i++)
 	{
-		my_h = 2; // just needs to be >1
+		my_h = 2.0f; // just needs to be >1
 		REAL u_zXYZ_dot_u_Fvi = dot(u_zXYZ, u_Fv[i]);
 		if (u_zXYZ_dot_u_Fvi > 0.0f)
 		{
@@ -140,7 +141,8 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// u_Fv[side] dot unclipped circle = mag_Fv.
 
 		tv = (Zc - mag_Fv[side] * u_Fv[side]);
-		t = dot(tv, Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		t = dot(
+			tv, Zc - mag_Fv[side] * u_Fv[side]); // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		REAL D_u_Fv_to_Zc = native_sqrt(t);
 		// REAL D_u_Fv_to_Zc = native_sqrt((Zc - mag_Fv[side] * u_Fv[side]).Dot(Zc - mag_Fv[side] *
 		// u_Fv[side]));
@@ -180,7 +182,7 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		// The ratio of the distance (|mag_nv * u_Fv - Zc|)/w is the radial parameter for the patch map.
 
 		REAL D = 0.0f;
-		REAL3 Axis = (REAL3){0.0f, 0.0f, 1.0f}; // angel does not matter if D=0;
+		REAL3 Axis = (REAL3){0.0f, 0.0f, 1.0f}; // angle does not matter if D=0;
 		// D = native_sqrt((Zc - mag_Fv * u_Fv[side]).Dot(Zc - mag_Fv * u_Fv[side]))/w;
 		if (w > 0.0f)
 		{
@@ -200,19 +202,32 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 			// Sign of rot_angel determines the patch includes self
 			// rot_angle = rot_angle * ((side & 2)-1); // mix it up
+
+			if (!fractal->transformCommon.functionEnabledBFalse)
+			{
+				rot_angle = -rot_angle;
+			}
 			// rot_angle = rot_angle;  // Exclude self
-			if (!fractal->transformCommon.functionEnabledBFalse) {rot_angle = -rot_angle;}// Include self
+			// rot_angle = -rot_angle; // Include self
 
 			// zXYZ = zXYZ *(1.0f - .0*flat);  // Does not play well with power DE
 			// zXYZ =  RotateAroundVectorByAngle4(zXYZ, u_Fv[side], 3.14159/3.0); // Taffy
-			zXYZ = RotateAroundVectorByAngle(zXYZ, Axis, rot_angle); // php angel4 ??
+
+
+			// zXYZ = RotateAroundVectorByAngle4(zXYZ, Axis, rot_angle);  // php angel4 ?? mmmmmmmmmmmfix
+//v4 = RotateAroundVectorByAngle4(v4, Axis, rot_angle);
+
+            REAL4 v4 = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, 0.0};
+            v4 = RotateAroundVectorByAngle4(v4, Axis, rot_angle); // php angel4 ?? mmmmmmmmmmmfix
+             zXYZ = (REAL3){v4.x, v4.y, v4.z};
+
 		}
 		else
 		{
 			zXYZ = zXYZ / flat;
-			REAL ramp = 5.0f * D - (int)(5.0f * D);	 // (int)
+			REAL ramp = 5.0f * D - (int)(5.0f * D);			 // (int)
 			REAL saw = -1.0f + 2.0f * fabs(ramp - 0.5f); // fabs
-			saw = (saw + 0.6f) + fabs(saw + 0.6f); // fabs
+			saw = (saw + 0.6f) + fabs(saw + 0.6f);			 // fabs
 			saw = 0.02f * saw * saw;
 			REAL rings = 1.0f - (saw * (1.0f - 0.1f * ramp));
 			if (D < 0.02f) rings = rings * 0.98f;
@@ -222,11 +237,12 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	// zXYZ ray hits unit sphere first.
 
-	REAL rp = pow(mag_zXYZ, power - 1.0f);
+	REAL rp = pow(mag_zXYZ, power - 1.0f); // what about julia bulb or proper bulb
 
 	aux->DE = rp * aux->DE * power + 1.0f;
 
 	zXYZ = zXYZ * rp;
+
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	z = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, z.w};
 	return z;
