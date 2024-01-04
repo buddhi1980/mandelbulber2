@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2023 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -213,14 +213,9 @@ REAL4 TinkerTowersIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 			// zXYZ = zXYZ *(1.0f - .0*flat);  // Does not play well with power DE
 			// zXYZ =  RotateAroundVectorByAngle4(zXYZ, u_Fv[side], 3.14159/3.0); // Taffy
 
-
-			// zXYZ = RotateAroundVectorByAngle4(zXYZ, Axis, rot_angle);  // php angel4 ?? mmmmmmmmmmmfix
-//v4 = RotateAroundVectorByAngle4(v4, Axis, rot_angle);
-
-            REAL4 v4 = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, 0.0};
-            v4 = RotateAroundVectorByAngle4(v4, Axis, rot_angle); // php angel4 ?? mmmmmmmmmmmfix
-             zXYZ = (REAL3){v4.x, v4.y, v4.z};
-
+			REAL4 v4 = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, 0.0f};
+			v4 = RotateAroundVectorByAngle4(v4, Axis, rot_angle); // php angel4 ?? mmmmmmmmmmmfix
+			zXYZ = (REAL3){v4.x, v4.y, v4.z};
 		}
 		else
 		{

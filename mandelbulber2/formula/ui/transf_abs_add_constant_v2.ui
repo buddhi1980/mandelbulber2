@@ -486,7 +486,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;abs add  constant,  z = fabs( z + pre-offset) + post-offset&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/menger3 absAddConstV2.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transf_absAddConstantV2_mbulb.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_donut4d_abs.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/menger3 absAddConstV2.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transf_absAddConstantV2_mbulb.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

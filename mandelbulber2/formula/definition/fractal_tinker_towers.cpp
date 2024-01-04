@@ -222,7 +222,7 @@ void cFractalTinkerTowers::FormulaCode(
 
             CVector4 v4 = CVector4(zXYZ.x, zXYZ.y, zXYZ.z, 0.0);
             v4 = v4.RotateAroundVectorByAngle(Axis, rot_angle);  // php angel4 ?? mmmmmmmmmmmfix
-             zXYZ = CVector3(v4.x, v4.y, v4.z);
+            zXYZ = CVector3(v4.x, v4.y, v4.z);
 
 		}
 		else

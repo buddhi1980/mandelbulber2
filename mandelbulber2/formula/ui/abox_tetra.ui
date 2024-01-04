@@ -1923,7 +1923,7 @@ Multiplier:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;Tetra folding with Mandelbox&lt;br&gt;Tetrahedral symmetry folding Code taken from the forums, KIFS original thread&lt;br&gt;Reference http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010&lt;br&gt;http://www.fractalforums.com/3d-fractal-generation/realtime-rendering-on-gpu/&lt;br&gt;Other options by mclarekin&lt;br&gt;This formula contains aux.color and aux.actualScaleA&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_tetra.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_tetra.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transfSphereInvV3_abxTetra_OT.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
