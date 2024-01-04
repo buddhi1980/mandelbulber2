@@ -76,3 +76,10 @@ void MyCheckBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	CommonMyWidgetWrapper::contextMenuEvent(event);
 }
+
+void MyCheckBox::UpdateScriptAppearance(bool hasScript)
+{
+	QFont f = font();
+	f.setItalic(hasScript);
+	setFont(f);
+}

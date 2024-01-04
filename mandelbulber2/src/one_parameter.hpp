@@ -97,7 +97,8 @@ public:
 	template <class T>
 	void Set(const T &val, enumValueSelection selection);
 	void SetScript(const QString &_script) { script = _script; }
-	const QString &GetScript() { return script; }
+	const QString &GetScript() const { return script; }
+	bool HasScript() const { return !script.isEmpty(); }
 
 	void LimitValue(cMultiVal &multi) const;
 	QStringList GetEnumLookup() const { return enumLookup; }

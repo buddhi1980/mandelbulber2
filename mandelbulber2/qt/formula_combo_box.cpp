@@ -255,3 +255,5 @@ QString cFormulaComboBox::getFullParameterName()
 {
 	return parameterName;
 }
+
+void cFormulaComboBox::UpdateScriptAppearance(bool hasScript) {}

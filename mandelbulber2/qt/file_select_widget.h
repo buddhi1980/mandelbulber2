@@ -51,6 +51,7 @@ public:
 	~FileSelectWidget() override;
 	QString GetPath() const { return lineEdit->text(); }
 	void SetPath(QString path);
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private slots:
 	void slotSelectFile();

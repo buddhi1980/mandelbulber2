@@ -729,3 +729,5 @@ QString cGradientEditWidget::getFullParameterName()
 {
 	return parameterName;
 }
+
+void cGradientEditWidget::UpdateScriptAppearance(bool hasScript) {}

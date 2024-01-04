@@ -346,3 +346,15 @@ void MyDoubleSpinBox::slotChangedPrecision(enumSliderPrecision _precision)
 		case enumSliderPrecision::precisionCoarse: setSingleStep(defaultSingleStep * 10.0); break;
 	}
 }
+
+void MyDoubleSpinBox::UpdateScriptAppearance(bool hasScript)
+{
+	QFont f = font();
+	f.setItalic(hasScript);
+	setFont(f);
+
+	if (hasScript)
+		setStyleSheet("MyLineEdit {color: yellow;  background-color: blue}");
+	else
+		setStyleSheet(qobject_cast<QWidget *>(this->parent())->styleSheet());
+}

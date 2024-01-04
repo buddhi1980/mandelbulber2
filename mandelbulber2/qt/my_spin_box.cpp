@@ -221,3 +221,15 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 
 	emit editingFinished();
 }
+
+void MySpinBox::UpdateScriptAppearance(bool hasScript)
+{
+	QFont f = font();
+	f.setItalic(hasScript);
+	setFont(f);
+
+	if (hasScript)
+		setStyleSheet("MyLineEdit {color: yellow;  background-color: blue}");
+	else
+		setStyleSheet(qobject_cast<QWidget *>(this->parent())->styleSheet());
+}

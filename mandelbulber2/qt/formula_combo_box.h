@@ -63,6 +63,7 @@ public:
 	void resetToDefault() override;
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
+	void UpdateScriptAppearance(bool hasScript) override;
 
 protected:
 	void paintEvent(QPaintEvent *event) override;

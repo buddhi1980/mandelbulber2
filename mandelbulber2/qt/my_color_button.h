@@ -59,6 +59,7 @@ public:
 	void resetToDefault() override;
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private:
 	void mousePressEvent(QMouseEvent *event) override;

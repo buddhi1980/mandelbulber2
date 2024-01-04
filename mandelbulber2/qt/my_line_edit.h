@@ -49,6 +49,7 @@ class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 public:
 	MyLineEdit(QWidget *parent = nullptr);
 	~MyLineEdit() override;
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private:
 	QAction *actionResetVectorToDefault;

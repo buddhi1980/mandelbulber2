@@ -92,6 +92,7 @@ public:
 	// these methods have to be implemented by widgets inheriting this class
 	virtual QString getDefaultAsString() = 0;
 	virtual QString getFullParameterName() = 0;
+	virtual void UpdateScriptAppearance(bool hasScript) = 0;
 	QString getParameterContainerName();
 
 protected:

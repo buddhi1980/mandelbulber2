@@ -48,6 +48,7 @@ class MySpinBox : public QSpinBox, public CommonMyWidgetWrapper
 public:
 	MySpinBox(QWidget *parent = nullptr);
 	~MySpinBox() override;
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private:
 	int GetDefault();

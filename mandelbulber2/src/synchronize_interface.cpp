@@ -154,6 +154,11 @@ void SynchronizeInterfaceQLineEdit(
 					SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
 					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
+					if (props.className == QString("MyLineEdit"))
+					{
+						MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(widget);
+						myLineEdit->UpdateScriptAppearance(par->HasScript(nameVect));
+					}
 				}
 			}
 
@@ -174,6 +179,11 @@ void SynchronizeInterfaceQLineEdit(
 					SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
 					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
+					if (props.className == QString("MyLineEdit"))
+					{
+						MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(widget);
+						myLineEdit->UpdateScriptAppearance(par->HasScript(nameVect));
+					}
 				}
 			}
 
@@ -190,6 +200,11 @@ void SynchronizeInterfaceQLineEdit(
 					double value = par->Get<double>(props.paramName);
 					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 15));
 					lineEdit->setCursorPosition(0);
+					if (props.className == QString("MyLineEdit"))
+					{
+						MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(widget);
+						myLineEdit->UpdateScriptAppearance(par->HasScript(props.paramName));
+					}
 				}
 			}
 
@@ -242,6 +257,11 @@ void SynchronizeInterfaceQDoubleSpinBox(
 				{
 					double value = par->Get<double>(props.paramName);
 					spinbox->setValue(value);
+					if (props.className == QString("MyDoubleSpinBox"))
+					{
+						MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
+						myDoubleSpinBox->UpdateScriptAppearance(par->HasScript(props.paramName));
+					}
 				}
 			}
 			else if (props.typeName == QString("spinbox3") || props.typeName == QString("spinboxd3"))
@@ -258,6 +278,11 @@ void SynchronizeInterfaceQDoubleSpinBox(
 					double value = 0;
 					SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
 					spinbox->setValue(value);
+					if (props.className == QString("MyDoubleSpinBox"))
+					{
+						MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
+						myDoubleSpinBox->UpdateScriptAppearance(par->HasScript(nameVect));
+					}
 				}
 			}
 			else if (props.typeName == QString("spinbox4") || props.typeName == QString("spinboxd4"))
@@ -274,6 +299,11 @@ void SynchronizeInterfaceQDoubleSpinBox(
 					double value = 0;
 					SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
 					spinbox->setValue(value);
+					if (props.className == QString("MyDoubleSpinBox"))
+					{
+						MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
+						myDoubleSpinBox->UpdateScriptAppearance(par->HasScript(nameVect));
+					}
 				}
 			}
 		}
@@ -298,6 +328,7 @@ void SynchronizeInterfaceQSpinBox(
 				MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
 				mySpinBox->AssignParameterContainer(par);
 				mySpinBox->AssignParameterName(props.paramName);
+				mySpinBox->UpdateScriptAppearance(par->HasScript(props.paramName));
 			}
 
 			if (props.typeName == QString("spinboxInt"))
@@ -334,6 +365,7 @@ void SynchronizeInterfaceQCheckBox(
 				MyCheckBox *myCheckBox = static_cast<MyCheckBox *>(*it);
 				myCheckBox->AssignParameterContainer(par);
 				myCheckBox->AssignParameterName(props.paramName);
+				myCheckBox->UpdateScriptAppearance(par->HasScript(props.paramName));
 			}
 
 			if (props.typeName == QString("checkBox"))
@@ -368,6 +400,7 @@ void SynchronizeInterfaceQGroupBox(
 				MyGroupBox *myGroupBox = static_cast<MyGroupBox *>(*it);
 				myGroupBox->AssignParameterContainer(par);
 				myGroupBox->AssignParameterName(props.paramName);
+				myGroupBox->UpdateScriptAppearance(par->HasScript(props.paramName));
 			}
 
 			if (props.typeName == QString("groupCheck"))
@@ -402,6 +435,7 @@ void SynchronizeInterfaceFileSelectWidget(
 
 			fileSelectWidget->AssignParameterContainer(par);
 			fileSelectWidget->AssignParameterName(props.paramName);
+			fileSelectWidget->UpdateScriptAppearance(par->HasScript(props.paramName));
 
 			if (mode == qInterface::read)
 			{
@@ -427,6 +461,7 @@ void SynchronizeInterfaceMyColorButton(
 			MyColorButton *colorButton = *it;
 			colorButton->AssignParameterContainer(par);
 			colorButton->AssignParameterName(props.paramName);
+			colorButton->UpdateScriptAppearance(par->HasScript(props.paramName));
 
 			if (mode == qInterface::read)
 			{
@@ -458,6 +493,7 @@ void SynchronizeInterfaceQComboBox(
 				MyComboBox *myComboBox = static_cast<MyComboBox *>(*it);
 				myComboBox->AssignParameterContainer(par);
 				myComboBox->AssignParameterName(props.paramName);
+				myComboBox->UpdateScriptAppearance(par->HasScript(props.paramName));
 			}
 
 			if (props.typeName == QString("comboBox"))
@@ -510,6 +546,7 @@ void SynchronizeInterfaceMaterialSelector(
 			cMaterialSelector *materialSelector = *it;
 			materialSelector->AssignParameterContainer(par);
 			materialSelector->AssignParameterName(props.paramName);
+			materialSelector->UpdateScriptAppearance(par->HasScript(props.paramName));
 
 			if (props.typeName == QString("materialselector"))
 			{
@@ -603,6 +640,7 @@ void SynchronizeInterfaceColorGradientWidget(QList<cGradientEditWidget *> widget
 			cGradientEditWidget *colorGradientWidget = static_cast<cGradientEditWidget *>(*it);
 			colorGradientWidget->AssignParameterContainer(par);
 			colorGradientWidget->AssignParameterName(props.paramName);
+			colorGradientWidget->UpdateScriptAppearance(par->HasScript(props.paramName));
 
 			if (props.typeName == QString("colorpalette"))
 			{

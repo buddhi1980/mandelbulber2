@@ -150,3 +150,5 @@ void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
 {
 	CommonMyWidgetWrapper::contextMenuEvent(event);
 }
+
+void MyColorButton::UpdateScriptAppearance(bool hasScript) {}

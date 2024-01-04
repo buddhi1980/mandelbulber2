@@ -80,3 +80,5 @@ int MyComboBox::GetDefault()
 	}
 	return defaultValue;
 }
+
+void MyComboBox::UpdateScriptAppearance(bool hasScript) {}

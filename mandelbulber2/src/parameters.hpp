@@ -107,6 +107,8 @@ public:
 	void DeleteParameter(const QString &name);
 	QMap<QString, QString> getImageMeta();
 	void SetAsGradient(const QString &name);
+	bool HasScript(const QString &name) const;
+	QString GetScript(const QString &name) const;
 
 private:
 	static QString nameWithIndex(const QString &str, int index);

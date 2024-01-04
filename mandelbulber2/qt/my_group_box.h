@@ -45,6 +45,7 @@ class MyGroupBox : public QGroupBox, public CommonMyWidgetWrapper
 
 public:
 	MyGroupBox(QWidget *parent = nullptr);
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private:
 	bool GetDefault();

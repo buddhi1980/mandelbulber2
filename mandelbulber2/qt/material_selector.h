@@ -55,6 +55,7 @@ public:
 
 	void SetMaterialIndex(int materialIndex);
 	int GetMaterialIndex() const { return actualValue; }
+	void UpdateScriptAppearance(bool hasScript) override;
 
 private:
 	cMaterialWidget *materialWidget;

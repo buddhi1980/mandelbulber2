@@ -182,3 +182,5 @@ void FileSelectWidget::slotChangedFile()
 		}
 	}
 }
+
+void FileSelectWidget::UpdateScriptAppearance(bool hasScript) {}

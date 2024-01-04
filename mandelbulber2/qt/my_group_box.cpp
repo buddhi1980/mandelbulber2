@@ -176,3 +176,5 @@ void MyGroupBox::slotRandomize()
 {
 	gMainInterface->RandomizeLocalSettings(this);
 }
+
+void MyGroupBox::UpdateScriptAppearance(bool hasScript) {}

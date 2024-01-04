@@ -731,3 +731,40 @@ void cParameterContainer::SetAsGradient(const QString &name)
 							 << "' doesn't exists";
 	}
 }
+
+bool cParameterContainer::HasScript(const QString &name) const
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::const_iterator it;
+	it = myMap.find(name);
+	bool val;
+	if (it != myMap.end())
+	{
+		val = it.value().HasScript();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::HasScript(const QString &name): element '" << name
+							 << "' doesn't exists";
+	}
+	return val;
+}
+QString cParameterContainer::GetScript(const QString &name) const
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::const_iterator it;
+	it = myMap.find(name);
+	QString val;
+	if (it != myMap.end())
+	{
+		val = it.value().GetScript();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::GetScript(const QString &name): element '" << name
+							 << "' doesn't exists";
+	}
+	return val;
+}
