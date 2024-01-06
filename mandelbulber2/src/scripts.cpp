@@ -131,6 +131,8 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 			i = lastQuote + 1;
 		}
 
+		script.replace("pi()", "3.14159265359");
+
 		// regex (?<!Math\.)\b(sin|cos|tan)\b - any fuction without Math. prefix
 		QRegularExpression re(
 			"(?<!Math\\.)\\b(abs|acos|asin|atan|atan2|ceil|cos|exp|floor|log|max|min|pow|random|round|"
