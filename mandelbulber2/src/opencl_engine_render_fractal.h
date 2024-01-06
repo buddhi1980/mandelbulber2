@@ -117,6 +117,7 @@ public:
 		cOpenClEngine::sOptimalJob *optimalJob;
 	};
 
+#ifdef USE_OPENCL
 	struct sConcurentTileProcess
 	{
 		cOpenCLWorkerOutputQueue::sClSingleOutput tile;
@@ -129,6 +130,7 @@ public:
 		sParamRenderCl *params;
 		std::vector<bool> *pixelMask;
 	};
+#endif
 
 	cOpenClEngineRenderFractal(cOpenClHardware *_hardware);
 	~cOpenClEngineRenderFractal() override;
