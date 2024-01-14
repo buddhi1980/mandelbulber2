@@ -16,6 +16,7 @@ v2.31 (??? 2023)
    msltoeSym3Mod5 add boxfold
    sphereCluster update DE calc, add void mode
    transfSphericalInvV2, add DE tweak
+   transfSphericalInvC, add prev2.17 code
 
 
 v2.30 (July 2023)

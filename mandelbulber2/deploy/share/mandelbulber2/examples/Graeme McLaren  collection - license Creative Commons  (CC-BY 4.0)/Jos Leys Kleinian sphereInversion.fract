@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.17
+# version 2.31
 # only modified parameters
 [description]
 DeltaDE is often best with spherical inversion. If using AnalyticDE then try adjusting the AnalyticDE controls.
@@ -7,40 +7,27 @@ DeltaDE is often best with spherical inversion. If using AnalyticDE then try adj
 ambient_occlusion_enabled true;
 background_3_colors_enable false;
 background_color_1 5600 6c00 8600;
-background_color_3 8000 b600 8700;
-camera -0.6094595388152376 1.834205112590468 2.269979570960382;
+camera -0.609459538815238 1.83420511259047 2.26997957096038;
 camera_distance_to_target 2.4;
-camera_rotation -109.2786341870297 -63.40028950966381 69.66698083211317;
+camera_rotation -109.27863418703 -63.4002895096638 69.6669808321132;
 camera_top -0.01631427228639287 -0.9876879369613946 0.1555840084992987;
-check_for_bailout_3 false;
 DE_factor 0.5;
-delta_DE_method 2;
 detail_level 1.5;
 flight_last_to_render 0;
 formula_1 122;
-formula_2 1084;
-formula_3 1038;
-formula_start_iteration_3 5;
-formula_stop_iteration_2 1;
-formula_stop_iteration_3 6;
-fractal_enable_2 false;
-fractal_enable_3 false;
-hybrid_fractal_enable true;
 image_height 800;
 image_proportion 1;
 keyframe_last_to_render 0;
-mat1_fractal_coloring_aux_color_scale1 0;
+light1_is_defined true;
 mat1_fractal_coloring_extra_color_enabled_false true;
-mat1_fractal_coloring_orbit_trap_scale1 0;
 mat1_fractal_coloring_orbit_trap_true false;
-mat1_fractal_coloring_rad_div_de_weight 16;
 mat1_fractal_coloring_rad_enabled_false true;
 mat1_fractal_coloring_rad_weight 32;
 mat1_is_defined true;
 mat1_specular_plastic_enable false;
-mat1_surface_color_palette 550000 698403 550000 000000 550000 55ffff 550000 000000 550000 698403;
+mat1_surface_color_gradient 0 550000 999 698403 1999 550000 2999 000000 3999 550000 5000 55ffff 5999 550000 7000 000000 7999 550000 9000 698403;
 N 16;
-target 0.4048916901842924 1.479408952020279 0.1240039726201316;
+target 0.404891690184292 1.47940895202028 0.124003972620132;
 view_distance_max 7;
 [fractal_1]
 transf_folding_value 1.98;
