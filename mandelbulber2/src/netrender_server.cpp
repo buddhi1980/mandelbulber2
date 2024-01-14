@@ -291,6 +291,7 @@ void cNetRenderServer::SetCurrentJob(std::shared_ptr<const cParameterContainer> 
 {
 	WriteLog(QString("NetRender - Sending job to %1 client(s)").arg(clients.size()), 2);
 	cSettings settingsData(cSettings::formatNetRender);
+	settingsData.SetListAppSettings(listOfAppSettingToTransfer);
 	size_t dataSize = settingsData.CreateText(settings, fractal);
 	if (dataSize > 0)
 	{
