@@ -1,8 +1,6 @@
 # Mandelbulber settings file
 # version 2.31
 # only modified parameters
-[description]
-DeltaDE is often best with spherical inversion. If using AnalyticDE then try adjusting the AnalyticDE controls.
 [main_parameters]
 ambient_occlusion_enabled true;
 background_3_colors_enable false;

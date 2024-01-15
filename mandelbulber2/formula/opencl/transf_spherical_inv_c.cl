@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -20,36 +20,36 @@ REAL4 TransfSphericalInvCIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 {
 	REAL rSqrL;
 	REAL4 tempC;
-    if (!fractal->transformCommon.functionEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledFalse)
 	{
-        tempC = aux->const_c;
-        tempC *= fractal->transformCommon.constantMultiplier111;
-        rSqrL = dot(tempC, tempC);
-        // if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-        rSqrL = 1.0f / rSqrL;
-        tempC *= rSqrL;
+		tempC = aux->const_c;
+		tempC *= fractal->transformCommon.constantMultiplier111;
+		rSqrL = dot(tempC, tempC);
+		// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
+		rSqrL = 1.0f / rSqrL;
+		tempC *= rSqrL;
 	}
 	else
 	{
-        tempC = aux->c;
-        if (!fractal->transformCommon.functionEnabledAFalse)
-        {
-            tempC *= fractal->transformCommon.constantMultiplier111;
-            rSqrL = dot(tempC, tempC);
-            // if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-            rSqrL = 1.0f / rSqrL;
-            tempC *= rSqrL;
-            aux->c = tempC;
-        }
-        else
-        {
-            rSqrL = dot(tempC, tempC);
-            // if (rSqrL < 1e-21f) rSqrL = 1e-21f;
-            rSqrL = 1.0f / rSqrL;
-            tempC *= rSqrL;
-            aux->c = tempC;
-            tempC *= fractal->transformCommon.constantMultiplier111;
-        }
+		tempC = aux->c;
+		if (!fractal->transformCommon.functionEnabledAFalse)
+		{
+			tempC *= fractal->transformCommon.constantMultiplier111;
+			rSqrL = dot(tempC, tempC);
+			// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
+			rSqrL = 1.0f / rSqrL;
+			tempC *= rSqrL;
+			aux->c = tempC;
+		}
+		else
+		{
+			rSqrL = dot(tempC, tempC);
+			// if (rSqrL < 1e-21f) rSqrL = 1e-21f;
+			rSqrL = 1.0f / rSqrL;
+			tempC *= rSqrL;
+			aux->c = tempC;
+			tempC *= fractal->transformCommon.constantMultiplier111;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledAwFalse)

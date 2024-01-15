@@ -32,36 +32,36 @@ void cFractalTransfSphericalInvC::FormulaCode(
 {
 	double rSqrL;
 	CVector4 tempC;
-    if (!fractal->transformCommon.functionEnabledFalse)
+if (!fractal->transformCommon.functionEnabledFalse)
 	{
-        tempC = aux.const_c;
-        tempC *= fractal->transformCommon.constantMultiplier111;
-        rSqrL = tempC.Dot(tempC);
-        // if (rSqrL < 1e-21) rSqrL = 1e-21;
-        rSqrL = 1.0 / rSqrL;
-        tempC *= rSqrL;
+	 tempC = aux.const_c;
+		tempC *= fractal->transformCommon.constantMultiplier111;
+		rSqrL = tempC.Dot(tempC);
+		// if (rSqrL < 1e-21) rSqrL = 1e-21;
+		rSqrL = 1.0 / rSqrL;
+		tempC *= rSqrL;
 	}
 	else
-    {
-        tempC = aux.c;
-        if (!fractal->transformCommon.functionEnabledAFalse)
-        {
-            tempC *= fractal->transformCommon.constantMultiplier111;
-            rSqrL = tempC.Dot(tempC);
-            // if (rSqrL < 1e-21) rSqrL = 1e-21;
-            rSqrL = 1.0 / rSqrL;
-            tempC *= rSqrL;
-            aux.c = tempC;
-        }
-        else
-        {
-            rSqrL = tempC.Dot(tempC);
-            // if (rSqrL < 1e-21) rSqrL = 1e-21;
-            rSqrL = 1.0 / rSqrL;
-            tempC *= rSqrL;
-            aux.c = tempC;
-            tempC *= fractal->transformCommon.constantMultiplier111;
-        }
+	{
+		tempC = aux.c;
+		if (!fractal->transformCommon.functionEnabledAFalse)
+		{
+			tempC *= fractal->transformCommon.constantMultiplier111;
+			rSqrL = tempC.Dot(tempC);
+			// if (rSqrL < 1e-21) rSqrL = 1e-21;
+			rSqrL = 1.0 / rSqrL;
+			tempC *= rSqrL;
+			aux.c = tempC;
+		}
+		else
+		{
+			rSqrL = tempC.Dot(tempC);
+			// if (rSqrL < 1e-21) rSqrL = 1e-21;
+			rSqrL = 1.0 / rSqrL;
+			tempC *= rSqrL;
+			aux.c = tempC;
+			tempC *= fractal->transformCommon.constantMultiplier111;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledAwFalse)
