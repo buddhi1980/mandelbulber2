@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.30
+                              MANDELBULBER 2.31
 
 1. What is Mandelbulber
 -----------------------
@@ -51,7 +51,7 @@ packages needed to COMPILE
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev  
 	libpng-dev libgsl-dev libsndfile1-dev liblzo2-dev qtdeclarative5-dev
 
-Installing packages on Ubuntu, Debian stable (jessie) or Mint: 
+Installing packages on Ubuntu, Debian stable (bookworm) or Mint: 
 sudo apt-get install build-essential qtbase5-dev \
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
 	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins \
@@ -142,7 +142,7 @@ mkdir mandelbulberStandalone
 
 Compiling from source (example):
 qmake SHARED_PATH="/tmp/customDataDirectory" PREFIX=/tmp/mandelbulber mandelbulber-opencl.pro
-make -j4
+make -j8
 
 installation in specified directory:
 make install
@@ -150,12 +150,12 @@ make install
 6. TESTED ON
 ------------
 
-- Debian Bookworm x64
+- Debian Trixie x64
 
 - gcc 12.2
 - clang 14.0.6
 - msvc19
-- Qt 5.15.8
+- Qt 5.15.8, Qt 6.3
 
 7. USAGE
 --------
