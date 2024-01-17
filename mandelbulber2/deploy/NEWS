@@ -18,6 +18,26 @@ v2.31 (??? 2023)
    transfSphericalInvV2, add DE tweak
    transfSphericalInvC, add prev2.17 code
 
+- Scripts: added possibility to attach Java Script one-line scripts to the fractal parameters
+- Effects: primitive objects can be used to define shape of volumetric effects like basic fog or clouds   
+- Effects: basic fog can cast / receive shadows
+- Effects: added Rayleigh scattering to volumetric effects which cast / receive shadows
+- Fractals: fixed problem with calculation of negative power bulbs
+- Shaders: Improved quality of volumetric effects in MC mode
+- Shaders: Added transparency (alpha) texture mapping for surface transparency and subsurface scattering
+- Shaders: Added transparency color texture mapping for subsurface scattering
+- UI: Added dialog with allows to substitute missing textures by selecting file, searching or using default one.
+- UI: Fixed bug causing UI glitches when auto-refresh is enabled and one of parameters from custom formula is edited
+- UI: Added "Copy parameter name" action in context menu for any parameter
+- UI: Fixed bug leading to stack overflow when user rotated mouse wheel very fast and long.
+- Performance: added parallel processing of already rendered tiles wich improves speed of MC rendering.
+- Performance: Removed option for reserving GPU time for the system (it caused significant CPU load on Windows and slowed down rendering)
+- OpenCL: Fixed illegal memory access in cOpenClEngine::Build()
+- NetRender: Corrected sending settings to NetRender client (e.g. there was missing OpenCL mode)
+- Files: Added deletion of history files older than one year
+- Files: Corrected default path for textures
+- Installation: corrected icon name in mandelbulber2.desktop
+- Compilation: corrected script for building MacOs version
 
 v2.30 (July 2023)
 
