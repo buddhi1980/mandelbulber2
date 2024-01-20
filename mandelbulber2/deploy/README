@@ -37,7 +37,7 @@ LICENCE:         GNU GPL v3.0
 
 - Linux OS with installed Qt 5 libraries (version >5.7)
 - very fast CPU (recommended 3GHz, 4 cores)
-- 2GB RAM
+- 4GB RAM
 
 4. COMPILING stable version
 ---------------------------
