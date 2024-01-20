@@ -151,6 +151,7 @@ make install
 ------------
 
 - Debian Trixie x64
+- Ubuntu 22
 
 - gcc 12.2
 - clang 14.0.6
