@@ -38,6 +38,7 @@ private slots:
 	void slotInsertParameter();
 	void slotPopulateComboWithParameters();
 	void slotCursorPositionChanged(int oldPos, int newPos);
+	void slotDeleteScript();
 
 private:
 	Ui::cScriptDialog *ui;

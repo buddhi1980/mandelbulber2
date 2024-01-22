@@ -51,6 +51,12 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 										.arg(parameterName);
 		evaluation += QString("Script: %1\n").arg(script);
 
+		if (script.left(1) == "#")
+		{
+			evaluation += "Skipping evaluation\n";
+			return script;
+		}
+
 		int i = 0;
 		bool hasError = false;
 

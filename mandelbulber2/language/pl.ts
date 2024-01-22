@@ -18395,31 +18395,49 @@ wybrany</translation>
     <name>cScriptDialog</name>
     <message>
         <location filename="../qt/script_dialog.ui" line="14"/>
-        <location filename="../qt/ui_script_dialog.h" line="128"/>
+        <location filename="../qt/ui_script_dialog.h" line="134"/>
         <source>Dialog</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/script_dialog.ui" line="23"/>
-        <location filename="../qt/ui_script_dialog.h" line="129"/>
+        <location filename="../qt/ui_script_dialog.h" line="135"/>
         <source>Script for parameter:</source>
         <translation>Skrypt dla parametru:</translation>
     </message>
     <message>
         <location filename="../qt/script_dialog.ui" line="41"/>
-        <location filename="../qt/ui_script_dialog.h" line="130"/>
+        <location filename="../qt/ui_script_dialog.h" line="136"/>
         <source>Insert parameter</source>
         <translation>Wstaw parametr</translation>
     </message>
     <message>
         <location filename="../qt/script_dialog.ui" line="61"/>
-        <location filename="../qt/ui_script_dialog.h" line="131"/>
+        <location filename="../qt/ui_script_dialog.h" line="137"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="../qt/script_dialog.ui" line="86"/>
-        <location filename="../qt/ui_script_dialog.h" line="132"/>
+        <location filename="../qt/script_dialog.ui" line="68"/>
+        <location filename="../qt/ui_script_dialog.h" line="138"/>
+        <source>Delete script</source>
+        <translation>Usuń skrypt</translation>
+    </message>
+    <message>
+        <location filename="../qt/script_dialog.ui" line="93"/>
+        <source>Remark: Parameter names need to be in single quotes (e.g. &apos;detail_level&apos;)
+Vector components of parameters should be after dot (e.g. &apos;camera.x&apos;)
+Vector components of destination parameter shoud be prefixed by x:, y: and z:
+Example: x: &apos;target.x&apos; * 10, y: &apos;target.y&apos; * 10, z: sin(&apos;frame_no&apos; / pi() * 0.1)
+If the script begins with # then evaluation of script is ommited</source>
+        <translation>Uwaga: Nazwy parametrów muszą zawierać się między apostrofami (np. &apos;detail_level&apos;)
+Składowe wektorów muszą być poprzedzone kropką (e.g. &apos;camera.x&apos;)
+Składowe wektora docelowego parametru muszą być poprzedzone x:, y: lub z:
+Przykład: x: &apos;target.x&apos; * 10, y: &apos;target.y&apos; * 10, z: sin(&apos;frame_no&apos; / pi() * 0.1)
+Jeżeli pierwszym znakiem w skrypcie jest # to przetwarzanie skryptu zostanie ominięte.</translation>
+    </message>
+    <message>
+        <location filename="../qt/ui_script_dialog.h" line="139"/>
         <source>Remark: Parameter names need to be in single quotes (e.g. &apos;detail_level&apos;)
 Vector components of parameters should be after dot (e.g. &apos;camera.x&apos;)
 Vector components of destination parameter shoud be prefixed by x:, y: and z:
@@ -18430,7 +18448,7 @@ Składowe wektora docelowego parametru muszą być poprzedzone x:, y: lub z:
 Przykład: x: &apos;target.x&apos; * 10, y: &apos;target.y&apos; * 10, z: sin(&apos;frame_no&apos; / pi() * 0.1)</translation>
     </message>
     <message>
-        <location filename="../qt/script_dialog.cpp" line="62"/>
+        <location filename="../qt/script_dialog.cpp" line="63"/>
         <source>Edit script for parameter &apos;%1_%2&apos;</source>
         <translation>Edycja skryptu dla parametru &apos;%1_%2&apos;</translation>
     </message>

@@ -26,6 +26,7 @@ cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScr
 	connect(ui->pushButton_Test, &QPushButton::clicked, this, &cScriptDialog::slotTest);
 	connect(ui->pushButton_insertParameter, &QPushButton::clicked, this,
 		&cScriptDialog::slotInsertParameter);
+	connect(ui->pushButton_delete, &QPushButton::clicked, this, &cScriptDialog::slotDeleteScript);
 	connect(ui->comboBox_container, qOverload<int>(&QComboBox::currentIndexChanged), this,
 		&cScriptDialog::slotPopulateComboWithParameters);
 	connect(ui->lineEdit_script, &QLineEdit::cursorPositionChanged, this,
@@ -236,4 +237,14 @@ void cScriptDialog::slotCursorPositionChanged(int oldPos, int newPos)
 {
 	Q_UNUSED(oldPos)
 	lastCursorPosition = newPos;
+}
+
+void cScriptDialog::slotDeleteScript()
+{
+	const std::shared_ptr<cParameterContainer> container =
+		parameterContainer::ContainerSelectorByContainerName(containerName, gPar, gParFractal);
+	container->SetScript(parameterName, QString());
+
+	if (parentWidget) SynchronizeInterfaceWindow(parentWidget, container, qInterface::write);
+	close();
 }

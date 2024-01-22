@@ -63,6 +63,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_delete">
+       <property name="text">
+        <string>Delete script</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -86,7 +93,8 @@
       <string>Remark: Parameter names need to be in single quotes (e.g. 'detail_level')
 Vector components of parameters should be after dot (e.g. 'camera.x')
 Vector components of destination parameter shoud be prefixed by x:, y: and z:
-Example: x: 'target.x' * 10, y: 'target.y' * 10, z: sin('frame_no' / pi() * 0.1)</string>
+Example: x: 'target.x' * 10, y: 'target.y' * 10, z: sin('frame_no' / pi() * 0.1)
+If the script begins with # then evaluation of script is ommited</string>
      </property>
     </widget>
    </item>
