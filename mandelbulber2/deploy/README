@@ -44,8 +44,12 @@ LICENCE:         GNU GPL v3.0
 
 4.1. Compilation with qmake
 packages needed to RUN
+Ubuntu:
     libqt5gui5 libpng16-16, libgsl2 liblzo2-2 libgomp1 libqt5multimedia5
-    libqt5multimedia5-plugins libsndfile1 liblzo2-2
+    libqt5multimedia5-plugins libsndfile1 liblzo2-2 libqt5concurrent5
+    
+Debian Bullseye:
+    libQt5Widgets libQt5Multimedia libQt5Test libQt5Concurrent
 
 packages needed to COMPILE
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev  
@@ -55,7 +59,7 @@ Installing packages on Ubuntu, Debian stable (bookworm) or Mint:
 sudo apt-get install build-essential qtbase5-dev \
 	qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev libqt5gui5 qtmultimedia5-dev \ 
 	libpng16-16 libpng-dev libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins \
-	liblzo2-2 liblzo2-dev qtdeclarative5-dev
+	liblzo2-2 liblzo2-dev qtdeclarative5-dev libqt5concurrent5
 
 Compiling from source:
 cd makefiles

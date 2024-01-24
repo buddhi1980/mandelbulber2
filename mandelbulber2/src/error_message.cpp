@@ -91,7 +91,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		else if (messageType == infoMessage)
 			out << messageText << "\n";
 
-		if (lastMessage != text && lastMessageTime.elapsed() > 1000)
+		if ((lastMessage != text && lastMessageTime.elapsed() > 1000) || lastMessage.isEmpty())
 		{
 			QMessageBox *messageBox = new QMessageBox(parent);
 			messageBox->setText(messageText);

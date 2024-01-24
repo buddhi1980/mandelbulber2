@@ -225,6 +225,11 @@ bool InitSystem()
 		QDir::toNativeSeparators(systemDirectories.homeDir + ".mandelbulber" + QDir::separator()));
 	systemDirectories.SetDataDirectoryPublic(
 		QDir::toNativeSeparators(systemDirectories.homeDir + "mandelbulber" + QDir::separator()));
+
+	if (!systemData.IsUpgraded())
+	{
+		systemData.Upgrade();
+	}
 #endif
 	out << "Program data files directory " << systemDirectories.sharedDir << "\n";
 	;
