@@ -78,7 +78,7 @@
             <x>0</x>
             <y>0</y>
             <width>1193</width>
-            <height>790</height>
+            <height>782</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -107,7 +107,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0,0,0">
+          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0,0,0,0">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -237,6 +237,98 @@
                <string>No action</string>
               </property>
              </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QToolButton" name="toolButton_multiMode">
+                <property name="text">
+                 <string>Multi</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton_rotMode">
+                <property name="text">
+                 <string>Rot</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton_rollMode">
+                <property name="text">
+                 <string>Roll</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton_rotAroundMode">
+                <property name="text">
+                 <string>RotA</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton_moveMode">
+                <property name="text">
+                 <string>Move</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -581,7 +673,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>133</height>
+          <height>132</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -648,7 +740,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>133</height>
+          <height>132</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -715,7 +807,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>133</height>
+          <height>132</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1091,7 +1183,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>331</height>
+          <height>329</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">

@@ -33,6 +33,23 @@ public:
 	~cManipulations();
 
 private:
+	enum class enumDragMode
+	{
+		rotate,
+		rotateAroundPoint,
+		roll,
+		move,
+	};
+
+	enum class enumDragOption
+	{
+		multi,
+		rotate,
+		rotateAroundPoint,
+		roll,
+		move,
+	};
+
 	struct sMouseDragInitData
 	{
 		sMouseDragInitData() {}
@@ -90,10 +107,10 @@ public:
 	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
-	void MouseDragCameraLeftButton(const sMouseDragTempData &dragTempData);
-	void MouseDragCaneraRightButton(int dx, int dy, const sMouseDragTempData &dragTempData);
-	void MouseDragCameraMiddleButton(int dx);
-	void MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData);
+	void MouseDragCameraRorate(const sMouseDragTempData &dragTempData);
+	void MouseDragCaneraRotateAroundPoint(int dx, int dy, const sMouseDragTempData &dragTempData);
+	void MouseDragCameraRoll(int dx);
+	void MouseDragCameraMove(const sMouseDragTempData &dragTempData);
 	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
 	void MoveLightByWheel(double deltaWheel);
@@ -104,9 +121,15 @@ public:
 	void IncreaseNumberOfStartedRenders() { numberOfStartedRenders++; }
 	void DecreaseNumberOfStartedRenders() { numberOfStartedRenders--; }
 	int GetNumberOfStartedRenders() { return numberOfStartedRenders; }
+	void SetDragOption(enumDragOption option);
 
 public slots:
 	void slotSmallPartRendered(double time);
+	void slotToggledOtpionMulti(bool checked);
+	void slotToggledOtpionRotate(bool checked);
+	void slotToggledOtpionRotateAround(bool checked);
+	void slotToggledOtpionRoll(bool checked);
+	void slotToggledOtpionMove(bool checked);
 
 private:
 	std::shared_ptr<cParameterContainer> par;
@@ -119,6 +142,7 @@ private:
 
 	int numberOfStartedRenders = 0;
 	bool smallPartRendered = true;
+	enumDragOption dragOption = enumDragOption::multi;
 
 signals:
 	void signalRender();

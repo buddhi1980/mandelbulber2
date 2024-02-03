@@ -384,6 +384,16 @@ void cInterface::ConnectSignals() const
 		&cInterface::slotRefreshPostEffects);
 	connect(mainWindow->manipulations, &cManipulations::signalShowMeasuremetsDock, mainWindow,
 		&RenderWindow::slotShowMeasuremetDock);
+	connect(mainWindow->ui->toolButton_multiMode, &QToolButton::toggled, mainWindow->manipulations,
+		&cManipulations::slotToggledOtpionMulti);
+	connect(mainWindow->ui->toolButton_rotMode, &QToolButton::toggled, mainWindow->manipulations,
+		&cManipulations::slotToggledOtpionRotate);
+	connect(mainWindow->ui->toolButton_rotAroundMode, &QToolButton::toggled,
+		mainWindow->manipulations, &cManipulations::slotToggledOtpionRotateAround);
+	connect(mainWindow->ui->toolButton_rollMode, &QToolButton::toggled, mainWindow->manipulations,
+		&cManipulations::slotToggledOtpionRoll);
+	connect(mainWindow->ui->toolButton_moveMode, &QToolButton::toggled, mainWindow->manipulations,
+		&cManipulations::slotToggledOtpionMove);
 
 	// menu actions
 	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);
