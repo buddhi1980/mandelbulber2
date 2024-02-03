@@ -736,7 +736,7 @@ void cManipulations::MouseDragFinish()
 	mouseDragData.draggingStarted = false;
 }
 
-void cManipulations::MouseDragCameraRorate(const sMouseDragTempData &dragTempData)
+void cManipulations::MouseDragCameraLeftButton(const sMouseDragTempData &dragTempData)
 {
 	CVector3 camera = mouseDragData.startCamera;
 	cCameraTarget cameraTarget(camera, mouseDragData.startTarget, mouseDragData.startTopVector);
@@ -790,7 +790,7 @@ void cManipulations::MouseDragCameraRorate(const sMouseDragTempData &dragTempDat
 	par->Set("camera_distance_to_target", dist);
 }
 
-void cManipulations::MouseDragCaneraRotateAroundPoint(
+void cManipulations::MouseDragCaneraRightButton(
 	int dx, int dy, const sMouseDragTempData &dragTempData)
 {
 	cCameraTarget cameraTarget(
@@ -829,7 +829,7 @@ void cManipulations::MouseDragCaneraRotateAroundPoint(
 	par->Set("camera_distance_to_target", dist);
 }
 
-void cManipulations::MouseDragCameraRoll(int dx)
+void cManipulations::MouseDragCameraMiddleButton(int dx)
 {
 	double angle = -(double)(dx) / image->GetPreviewHeight() * M_PI_2;
 	cCameraTarget cameraTarget(
@@ -843,7 +843,7 @@ void cManipulations::MouseDragCameraRoll(int dx)
 	par->Set("camera_rotation", rotation * (180.0 / M_PI));
 }
 
-void cManipulations::MouseDragCameraMove(const sMouseDragTempData &dragTempData)
+void cManipulations::MouseDragLeftRightButtons(const sMouseDragTempData &dragTempData)
 {
 	CVector3 camera = mouseDragData.startCamera;
 	cCameraTarget cameraTarget(camera, mouseDragData.startTarget, mouseDragData.startTopVector);
@@ -1008,56 +1008,32 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 			dragTempData.aspectRatio = double(dragTempData.width) / dragTempData.height;
 			if (dragTempData.perspType == params::perspEquirectangular) dragTempData.aspectRatio = 2.0;
 
-			enumDragMode dragMode;
-
 			if (mouseDragData.cameraDrag)
 			{
-				switch (dragOption)
+				switch (mouseDragData.button)
 				{
-					case enumDragOption::multi:
+					case Qt::LeftButton:
 					{
-						switch (mouseDragData.button)
-						{
-							case Qt::LeftButton: dragMode = enumDragMode::rotate; break;
-							case Qt::RightButton: dragMode = enumDragMode::rotateAroundPoint; break;
-							case Qt::MiddleButton: dragMode = enumDragMode::roll; break;
-							case (Qt::LeftButton | Qt::RightButton): dragMode = enumDragMode::move; break;
-							default: dragMode = enumDragMode::rotate; break;
-						}
+						MouseDragCameraLeftButton(dragTempData);
 						break;
 					}
-					case enumDragOption::rotate: dragMode = enumDragMode::rotate; break;
-					case enumDragOption::rotateAroundPoint: dragMode = enumDragMode::rotateAroundPoint; break;
-					case enumDragOption::roll: dragMode = enumDragMode::roll; break;
-					case enumDragOption::move: dragMode = enumDragMode::move; break;
-				}
-			}
-
-			if (mouseDragData.cameraDrag)
-			{
-				switch (dragMode)
-				{
-					case enumDragMode::rotate:
+					case Qt::RightButton:
 					{
-						MouseDragCameraRorate(dragTempData);
+						MouseDragCaneraRightButton(dx, dy, dragTempData);
 						break;
 					}
-					case enumDragMode::rotateAroundPoint:
+					case Qt::MiddleButton:
 					{
-						MouseDragCaneraRotateAroundPoint(dx, dy, dragTempData);
-						break;
-					}
-					case enumDragMode::roll:
-					{
-						MouseDragCameraRoll(dx);
+						MouseDragCameraMiddleButton(dx);
 						break;
 					}
 
-					case (enumDragMode::move):
+					case (Qt::LeftButton | Qt::RightButton):
 					{
-						MouseDragCameraMove(dragTempData);
+						MouseDragLeftRightButtons(dragTempData);
 						break;
 					}
+
 					default: break;
 				}
 
@@ -1172,30 +1148,4 @@ void cManipulations::slotSmallPartRendered(double time)
 {
 	Q_UNUSED(time);
 	smallPartRendered = true;
-}
-
-void cManipulations::SetDragOption(enumDragOption option)
-{
-	dragOption = option;
-}
-
-void cManipulations::slotToggledOtpionMulti(bool checked)
-{
-	if (checked) SetDragOption(enumDragOption::multi);
-}
-void cManipulations::slotToggledOtpionRotate(bool checked)
-{
-	if (checked) SetDragOption(enumDragOption::rotate);
-}
-void cManipulations::slotToggledOtpionRotateAround(bool checked)
-{
-	if (checked) SetDragOption(enumDragOption::rotateAroundPoint);
-}
-void cManipulations::slotToggledOtpionRoll(bool checked)
-{
-	if (checked) SetDragOption(enumDragOption::roll);
-}
-void cManipulations::slotToggledOtpionMove(bool checked)
-{
-	if (checked) SetDragOption(enumDragOption::move);
 }
