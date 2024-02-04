@@ -121,6 +121,8 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 				evaluation +=
 					QString("Value of parameter '%1': %2\n").arg(scriptFullParameterName).arg(value);
 
+				value.replace(',', '.');
+
 				script.replace(firstQuote, lastQuote - firstQuote + 1, value);
 				// correction of cursor by replacement length difference
 				lastQuote += value.length() - (lastQuote - firstQuote + 1);
@@ -149,7 +151,6 @@ QString cScripts::EvaluateParameter(const std::shared_ptr<cParameterContainer> &
 		// process scripts
 		if (!hasError)
 		{
-			script.replace(',', '.');
 
 			parameterContainer::enumVarType varType = parameter.GetValueType();
 
