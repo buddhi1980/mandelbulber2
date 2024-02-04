@@ -1350,8 +1350,8 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 			// if MC then paint pixels and calculate noise statistics
 			if (data.in->monteCarlo)
 			{
-				if (!returnedMask[x + y * jobWidth]
-						&& data.in->pixelLevelOptimization) // skip masked pixels
+				if (data.in->pixelLevelOptimization
+						&& !returnedMask[x + y * jobWidth]) // skip masked pixels
 				// painting pixels with reduced opacity (averaging of MC samples)
 				{
 					if (data.in->useDenoiser)
