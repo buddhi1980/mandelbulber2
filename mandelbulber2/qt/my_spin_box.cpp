@@ -196,7 +196,7 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
 	}
 
-	double dDiff = iDiff / 500.0 * dPrecision;
+	double dDiff = iDiff / 500.0 * dPrecision * 0.5;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
 	double digits = log10(double(maximum()));
 

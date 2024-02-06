@@ -473,9 +473,9 @@ void MyLineEdit::slotSliderMoved(int sliderPosition)
 	double dPrecision = 1.0;
 	switch (precision)
 	{
-		case enumSliderPrecision::precisionFine: dPrecision = 0.1; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 0.2; break;
 		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
-		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = 1.3; break;
 	}
 
 	double dDiff = iDiff / 500.0 * dPrecision;
@@ -489,20 +489,20 @@ void MyLineEdit::slotSliderMoved(int sliderPosition)
 		}
 		else
 		{
-			newValue = sign * pow(10.0, dDiff * dDiff * 4.0 - 3.0);
+			newValue = sign * pow(10.0, dDiff * dDiff * 3.0 - 3.0);
 		}
 	}
 	else
 	{
 		if (objectName().left(3) == QString("log"))
 		{
-			double change = pow(10.0, pow(dDiff, 3.0) * 2.0);
+			double change = pow(10.0, pow(dDiff, 3.0) * 1.0);
 			newValue = valueBeforeSliderDrag * change;
 		}
 		else
 		{
 			double change =
-				sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.7 - 10.0) * fabs(valueBeforeSliderDrag);
+				sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.3 - 10.0) * fabs(valueBeforeSliderDrag);
 			newValue = valueBeforeSliderDrag + change;
 		}
 	}
