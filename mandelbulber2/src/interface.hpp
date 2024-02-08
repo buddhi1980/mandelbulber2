@@ -127,6 +127,7 @@ public:
 	static void SetQuickRenderParameters(const std::shared_ptr<cParameterContainer> &tempParam);
 	void LoadDefaultSettings();
 	bool CheckForMissingTextures();
+	static void UpdateCameraRotation(std::shared_ptr<cParameterContainer> params);
 
 	QSettings settings;
 
