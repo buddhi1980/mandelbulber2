@@ -622,6 +622,8 @@ void cInterface::StartRender(bool noUndo)
 
 	cScripts::EvaluateAll(gPar, gParFractal);
 
+	UpdateCameraRotation(gPar);
+
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	if (!noUndo) gUndo->Store(gPar, gParFractal);
@@ -2228,4 +2230,15 @@ bool cInterface::CheckForMissingTextures()
 		}
 	}
 	return correctionApplied;
+}
+
+void cInterface::UpdateCameraRotation(std::shared_ptr<cParameterContainer> params)
+{
+	// recalculation of camera rotation and distance (just for display purposes)
+	const CVector3 camera = params->Get<CVector3>("camera");
+	const CVector3 target = params->Get<CVector3>("target");
+	const CVector3 top = params->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, top);
+	params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+	params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 }
