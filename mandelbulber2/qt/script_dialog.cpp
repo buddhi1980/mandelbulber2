@@ -10,7 +10,7 @@
 
 #include "src/container_selector.hpp"
 #include "src/initparameters.hpp"
-#include "src/interface.cpp"
+#include "src/interface.hpp"
 #include "src/fractal_container.hpp"
 #include "src/one_parameter.hpp"
 #include "src/scripts.h"
