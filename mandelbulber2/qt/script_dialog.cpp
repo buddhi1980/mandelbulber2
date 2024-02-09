@@ -10,6 +10,7 @@
 
 #include "src/container_selector.hpp"
 #include "src/initparameters.hpp"
+#include "src/interface.cpp"
 #include "src/fractal_container.hpp"
 #include "src/one_parameter.hpp"
 #include "src/scripts.h"
@@ -22,6 +23,9 @@ cScriptDialog::cScriptDialog(QWidget *parent) : QDialog(parent), ui(new Ui::cScr
 {
 	ui->setupUi(this);
 	setModal(false);
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+
 	connect(this, &cScriptDialog::accepted, this, &cScriptDialog::slotAccepted);
 	connect(ui->pushButton_Test, &QPushButton::clicked, this, &cScriptDialog::slotTest);
 	connect(ui->pushButton_insertParameter, &QPushButton::clicked, this,
@@ -99,6 +103,8 @@ void cScriptDialog::slotTest()
 	std::shared_ptr<cFractalContainer> fractalParamsCopy;
 	paramsCopy.reset(new cParameterContainer());
 	fractalParamsCopy.reset(new cFractalContainer());
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 	*paramsCopy = *gPar;
 	*fractalParamsCopy = *gParFractal;
