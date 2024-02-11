@@ -1,5 +1,16 @@
 Version history
 
+v2.31-1
+- Scripts: Added Delete Script button 
+- Scripts: Added possibity to ommit script evaluation by adding # character as a first letter of the script
+- Scripts: Fixed bug in scripts evaluation. Commas were replaced by dots in a whole script. Now it is replaced only in a value field.
+- Scripts: Added missing recalculation of camera rotation after processing scripts
+- Scripts: Added missing refreshing of parameters values in gPar when Script editor is opened and Test used
+- OpenCL: Program crashed when Pixel Level Optimization was off
+- UI: Fixed problem with missing error messages at program startup
+- Files: Fixed problem with wrong default directories on Linux
+
+
 v2.31 (January 2023)
 
 - Added new fractal formulas
