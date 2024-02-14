@@ -56,7 +56,7 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		omega = M_PI_2 - bend;
+		omega = M_PI_2_F - bend;
 		bigR = 1.0f / native_cos(omega);
 		d = tan(omega);
 	}
@@ -67,7 +67,7 @@ REAL4 SpheretreeV4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	{
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
-			omega = M_PI_2 - bend;
+			omega = M_PI_2_F - bend;
 			bigR = 1.0f / native_cos(omega);
 			d = tan(omega);
 		}

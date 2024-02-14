@@ -47,7 +47,7 @@ REAL4 TransfSincosV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 					- 2.0f * floor((fractal->transformCommon.scaleA2 * ang + 1.0f) / 2.0f) - 1.0f;
 	}
 
-	ang = fractal->transformCommon.int6 * M_PI_2 * ang;
+	ang = fractal->transformCommon.int6 * M_PI_2_F * ang;
 	REAL cosA = native_cos(ang);
 	REAL sinB = native_sin(ang);
 	REAL temp = z.z;

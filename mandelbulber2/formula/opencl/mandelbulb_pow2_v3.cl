@@ -50,11 +50,11 @@ REAL4 MandelbulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL thetatemp = theta;
 
 	REAL phi_pow = 2.0f * phi + M_PI_F;
-	REAL theta_pow = theta + M_PI_F + M_PI_2;
+	REAL theta_pow = theta + M_PI_F + M_PI_2_F;
 
 	if (fractal->transformCommon.functionEnabledBFalse) theta_pow = theta + thetatemp + M_PI_4_F;
 
-	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI_2;
+	if (fractal->transformCommon.functionEnabledCFalse) theta_pow = theta + thetatemp + M_PI_2_F;
 
 	if (fractal->transformCommon.functionEnabledDFalse) theta_pow = theta + thetatemp + M_PI_F;
 

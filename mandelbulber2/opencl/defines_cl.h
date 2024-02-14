@@ -81,6 +81,14 @@
 #define M_PI_4_F 0.7853981633974f
 #endif
 
+#ifndef M_PI_2
+#define M_PI_2 1.57079632679489661923132169163975
+#endif
+
+#ifndef M_PI_2_F
+#define M_PI_2_F 1.57079632679489661923132169163975f
+#endif
+
 #ifndef M_PI_2x
 #define M_PI_2x 6.283185307179586476925286766559
 #endif
