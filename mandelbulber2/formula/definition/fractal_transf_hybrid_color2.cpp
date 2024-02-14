@@ -62,7 +62,7 @@ void cFractalTransfHybridColor2::FormulaCode(
 				CVector4 oldPt = aux.old_z;
 				double lastZ = oldPt.Length(); // aux.old_r;
 				double newZ = aux.r;
-				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
+				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
 				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 				lastVec *= fractal->transformCommon.scaleB1;

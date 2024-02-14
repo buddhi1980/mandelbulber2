@@ -50,7 +50,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				REAL4 oldPt = aux->old_z;
 				REAL lastZ = length(oldPt); // aux->old_r;
 				REAL newZ = aux->r;
-				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
+				if (fractal->transformCommon.functionEnabledBwFalse) lastVec = newZ / lastZ;
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
 				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 				lastVec *= fractal->transformCommon.scaleB1;
