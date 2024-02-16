@@ -88,12 +88,32 @@
       <number>0</number>
      </property>
      <item>
+      <widget class="QRadioButton" name="radioButton_super_fine">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string>0.001</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_very_fine">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string>0.01</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QRadioButton" name="radioButton_fine">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>Fine</string>
+        <string>0.1</string>
        </property>
       </widget>
      </item>
@@ -103,7 +123,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>Normal</string>
+        <string>1</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -116,7 +136,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>Coarse</string>
+        <string>10</string>
        </property>
       </widget>
      </item>

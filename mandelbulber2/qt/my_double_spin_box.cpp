@@ -35,6 +35,7 @@
 #include "my_double_spin_box.h"
 
 #include <QLineEdit>
+#include <QDebug>
 
 #include "frame_slider_popup.h"
 
@@ -296,24 +297,26 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 	double dPrecision = 1.0;
 	switch (sliderPrecision)
 	{
-		case enumSliderPrecision::precisionFine: dPrecision = 0.3; break;
-		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
-		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionSuperFine: dPrecision = 3.0; break;
+		case enumSliderPrecision::precisionVeryFine: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 1.0; break;
+		case enumSliderPrecision::precisionNormal: dPrecision = 0.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = -1.0; break;
 	}
 
-	double dDiff = iDiff / 500.0 * dPrecision * 0.5;
+	double dDiff = iDiff / 500.0;
+	qDebug() << dDiff;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
-	double digits = decimals();
 
 	if (valueBeforeSliderDrag == 0.0 && !hasDial)
 	{
 		if (minimum() >= 0.0)
 		{
-			newValue = pow(10.0, dDiff * (digits + 1.0) - digits);
+			newValue = pow(10.0, dDiff - dPrecision - 1.0);
 		}
 		else
 		{
-			newValue = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits);
+			newValue = sign * pow(10.0, fabs(dDiff) - dPrecision - 1.0);
 		}
 	}
 	else
@@ -321,11 +324,11 @@ void MyDoubleSpinBox::slotSliderMoved(int sliderPosition)
 		double change = 0.0;
 		if (hasDial)
 		{
-			change = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits) * 18.0;
+			change = sign * pow(10.0, fabs(dDiff) - dPrecision - 1.0) * 18.0;
 		}
 		else
 		{
-			change = sign * pow(10.0, pow(fabs(dDiff), 0.3) * (digits + 0.7) - digits)
+			change = sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.0 - 10.0 - dPrecision)
 							 * fabs(valueBeforeSliderDrag);
 		}
 		newValue = valueBeforeSliderDrag + change;
@@ -341,6 +344,8 @@ void MyDoubleSpinBox::slotChangedPrecision(enumSliderPrecision _precision)
 	precision = _precision;
 	switch (precision)
 	{
+		case enumSliderPrecision::precisionSuperFine: setSingleStep(defaultSingleStep * 0.001); break;
+		case enumSliderPrecision::precisionVeryFine: setSingleStep(defaultSingleStep * 0.01); break;
 		case enumSliderPrecision::precisionFine: setSingleStep(defaultSingleStep * 0.1); break;
 		case enumSliderPrecision::precisionNormal: setSingleStep(defaultSingleStep * 1.0); break;
 		case enumSliderPrecision::precisionCoarse: setSingleStep(defaultSingleStep * 10.0); break;

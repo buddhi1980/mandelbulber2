@@ -142,11 +142,11 @@
               <bool>true</bool>
              </property>
              <property name="currentIndex">
-              <number>3</number>
+              <number>0</number>
              </property>
              <item>
               <property name="text">
-               <string>Fit to window</string>
+               <string>Fit</string>
               </property>
              </item>
              <item>
@@ -197,7 +197,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Show cursor</string>
+              <string>Cursor</string>
              </property>
             </widget>
            </item>
@@ -211,7 +211,7 @@
            <item>
             <widget class="QLabel" name="label_mouse_click_functions">
              <property name="text">
-              <string>Mouse click function:</string>
+              <string>Mouse function:</string>
              </property>
             </widget>
            </item>

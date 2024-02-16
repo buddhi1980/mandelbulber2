@@ -431,7 +431,9 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 		double dPrecision = 1.0;
 		switch (precision)
 		{
-			case enumSliderPrecision::precisionFine: dPrecision = 0.001; break;
+			case enumSliderPrecision::precisionSuperFine: dPrecision = 0.0001; break;
+			case enumSliderPrecision::precisionVeryFine: dPrecision = 0.001; break;
+			case enumSliderPrecision::precisionFine: dPrecision = 0.01; break;
 			case enumSliderPrecision::precisionNormal: dPrecision = 0.1; break;
 			case enumSliderPrecision::precisionCoarse: dPrecision = 0.5; break;
 		}
@@ -473,36 +475,38 @@ void MyLineEdit::slotSliderMoved(int sliderPosition)
 	double dPrecision = 1.0;
 	switch (precision)
 	{
-		case enumSliderPrecision::precisionFine: dPrecision = 0.2; break;
-		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
-		case enumSliderPrecision::precisionCoarse: dPrecision = 1.3; break;
+		case enumSliderPrecision::precisionSuperFine: dPrecision = 3.0; break;
+		case enumSliderPrecision::precisionVeryFine: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 1.0; break;
+		case enumSliderPrecision::precisionNormal: dPrecision = 0.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = -1.0; break;
 	}
 
-	double dDiff = iDiff / 500.0 * dPrecision;
+	double dDiff = iDiff / 500.0;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
 
 	if (valueBeforeSliderDrag == 0.0)
 	{
 		if (objectName().left(3) == QString("log"))
 		{
-			newValue = pow(10.0, dDiff);
+			newValue = pow(10.0, dDiff - dPrecision - 1.0);
 		}
 		else
 		{
-			newValue = sign * pow(10.0, dDiff * dDiff * 3.0 - 3.0);
+			newValue = sign * pow(10.0, dDiff * dDiff * 3.0 - 3.0 - dPrecision);
 		}
 	}
 	else
 	{
 		if (objectName().left(3) == QString("log"))
 		{
-			double change = pow(10.0, pow(dDiff, 3.0) * 1.0);
+			double change = pow(10.0, pow(dDiff * pow(1.0 / 2.5, dPrecision + 1), 3.0));
 			newValue = valueBeforeSliderDrag * change;
 		}
 		else
 		{
-			double change =
-				sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.3 - 10.0) * fabs(valueBeforeSliderDrag);
+			double change = sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.0 - 10.0 - dPrecision)
+											* fabs(valueBeforeSliderDrag);
 			newValue = valueBeforeSliderDrag + change;
 		}
 	}

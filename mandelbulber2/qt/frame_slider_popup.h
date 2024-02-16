@@ -46,6 +46,8 @@ class cFrameSliderPopup;
 
 enum class enumSliderPrecision
 {
+	precisionSuperFine,
+	precisionVeryFine,
 	precisionFine,
 	precisionNormal,
 	precisionCoarse
@@ -79,6 +81,8 @@ private slots:
 	void slotUpdateValue(int val);
 	void slotUpdateValue(double val);
 	void slotDialValueChanged(int val);
+	void slotSelectedPrecisionSuperFine();
+	void slotSelectedPrecisionVeryFine();
 	void slotSelectedPrecisionFine();
 	void slotSelectedPrecisionNormal();
 	void slotSelectedPrecisionCoarse();

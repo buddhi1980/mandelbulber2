@@ -191,12 +191,14 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 	double dPrecision = 1.0;
 	switch (precision)
 	{
-		case enumSliderPrecision::precisionFine: dPrecision = 0.5; break;
-		case enumSliderPrecision::precisionNormal: dPrecision = 1.0; break;
-		case enumSliderPrecision::precisionCoarse: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionSuperFine: dPrecision = 3.0; break;
+		case enumSliderPrecision::precisionVeryFine: dPrecision = 2.0; break;
+		case enumSliderPrecision::precisionFine: dPrecision = 1.0; break;
+		case enumSliderPrecision::precisionNormal: dPrecision = 0.0; break;
+		case enumSliderPrecision::precisionCoarse: dPrecision = -1.0; break;
 	}
 
-	double dDiff = iDiff / 500.0 * dPrecision * 0.5;
+	double dDiff = iDiff / 500.0;
 	double sign = (iDiff > 0) ? 1.0 : -1.0;
 	double digits = log10(double(maximum()));
 
@@ -204,16 +206,17 @@ void MySpinBox::slotSliderMoved(int sliderPosition)
 	{
 		if (minimum() >= 0.0)
 		{
-			newValue = pow(10.0, dDiff * (digits + 1.0) - digits);
+			newValue = pow(10.0, dDiff - dPrecision - 1.0);
 		}
 		else
 		{
-			newValue = sign * pow(10.0, fabs(dDiff) * (digits + 1.0) - digits);
+			newValue = sign * pow(10.0, fabs(dDiff) - dPrecision - 1.0);
 		}
 	}
 	else
 	{
-		double change = sign * pow(10.0, fabs(dDiff) * digits);
+		double change = sign * pow(10.0, pow(fabs(dDiff), 0.3) * 10.0 - 10.0 - dPrecision)
+										* fabs(valueBeforeSliderDrag);
 		newValue = valueBeforeSliderDrag + change;
 	}
 

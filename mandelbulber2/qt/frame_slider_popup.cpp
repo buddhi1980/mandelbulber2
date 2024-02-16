@@ -57,6 +57,10 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 	connect(ui->buReset, SIGNAL(pressed()), this, SIGNAL(resetPressed()));
 	connect(ui->buZero, SIGNAL(pressed()), this, SIGNAL(zeroPressed()));
 	connect(ui->buMinus, SIGNAL(pressed()), this, SIGNAL(minusPressed()));
+	connect(ui->radioButton_super_fine, &QRadioButton::pressed, this,
+		&cFrameSliderPopup::slotSelectedPrecisionSuperFine);
+	connect(ui->radioButton_very_fine, &QRadioButton::pressed, this,
+		&cFrameSliderPopup::slotSelectedPrecisionVeryFine);
 	connect(ui->radioButton_fine, &QRadioButton::pressed, this,
 		&cFrameSliderPopup::slotSelectedPrecisionFine);
 	connect(ui->radioButton_normal, &QRadioButton::pressed, this,
@@ -101,7 +105,11 @@ int cFrameSliderPopup::value() const
 
 enumSliderPrecision cFrameSliderPopup::precision() const
 {
-	if (ui->radioButton_fine->isChecked())
+	if (ui->radioButton_super_fine->isChecked())
+		return enumSliderPrecision::precisionSuperFine;
+	else if (ui->radioButton_very_fine->isChecked())
+		return enumSliderPrecision::precisionVeryFine;
+	else if (ui->radioButton_fine->isChecked())
 		return enumSliderPrecision::precisionFine;
 	else if (ui->radioButton_normal->isChecked())
 		return enumSliderPrecision::precisionNormal;
@@ -187,6 +195,14 @@ void cFrameSliderPopup::slotDialValueChanged(int val)
 	emit valueChanged(double(val) / dialScale);
 }
 
+void cFrameSliderPopup::slotSelectedPrecisionSuperFine()
+{
+	emit changedPrecision(enumSliderPrecision::precisionSuperFine);
+}
+void cFrameSliderPopup::slotSelectedPrecisionVeryFine()
+{
+	emit changedPrecision(enumSliderPrecision::precisionVeryFine);
+}
 void cFrameSliderPopup::slotSelectedPrecisionFine()
 {
 	emit changedPrecision(enumSliderPrecision::precisionFine);
