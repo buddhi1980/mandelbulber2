@@ -70,6 +70,7 @@ struct sSystemDirectories
 	QString GetNetrenderFolder() const { return dataDirectoryHidden + "netrender"; }
 	QString GetOpenCLTempFolder() const { return dataDirectoryHidden + "openclTemp"; }
 	QString GetOpenCLCustomFormulasFolder() const { return dataDirectoryHidden + "customFormulas"; }
+	QString GetOpenCLCacheFolder() const { return dataDirectoryHidden + "openclCache"; }
 	QString GetUndoFolder() const { return dataDirectoryHidden + "undo"; }
 	QString GetHistoryFileName() const;
 	QString GetDefaultSettingsFile() const { return dataDirectoryPublic + "default.fract"; }

@@ -58,7 +58,7 @@
 #include "CoreFoundation/CoreFoundation.h"
 #endif
 
-//#define CLSUPPORT
+// #define CLSUPPORT
 
 sSystem systemData;
 sActualFileNames actualFileNames;
@@ -320,6 +320,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemDirectories.GetGradientsFolder());
 	result &= CreateFolder(systemDirectories.GetOpenCLTempFolder());
 	result &= CreateFolder(systemDirectories.GetOpenCLCustomFormulasFolder());
+	result &= CreateFolder(systemDirectories.GetOpenCLCacheFolder());
 	result &= CreateFolder(systemDirectories.GetUndoFolder());
 	result &= CreateFolder(systemDirectories.GetHistoryFolder());
 	result &= PutClangFormatFileToDataDirectoryHidden();
@@ -366,6 +367,7 @@ bool CreateDefaultFolders()
 	DeleteOldChache(systemDirectories.GetThumbnailsFolder(), 365);
 	DeleteOldChache(systemDirectories.GetHttpCacheFolder(), 10);
 	DeleteOldChache(systemDirectories.GetHistoryFolder(), 365);
+	DeleteOldChache(systemDirectories.GetOpenCLCacheFolder(), 30);
 
 	return result;
 }

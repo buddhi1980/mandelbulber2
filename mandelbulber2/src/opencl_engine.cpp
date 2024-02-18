@@ -47,6 +47,7 @@
 #include "error_message.hpp"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
+#include "system_directories.hpp"
 #include "write_log.hpp"
 
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
@@ -110,7 +111,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 		hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
 		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
-		definesCollector += " -DCODEHASH=" + QString(hashProgram.toHex());
+		QString programHashString = hashProgram.toHex();
+
+		definesCollector += " -DCODEHASH=" + programHashString;
 
 		if (!useBuildCache) DeleteKernelCache();
 
@@ -162,7 +165,29 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 					std::vector<cl::Device> oneDevice;
 					oneDevice.push_back(*enabledDevices[d]);
 
-					err = clPrograms[d]->build(oneDevice, buildParams.c_str());
+					QFile CurrentFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
+														+ programHashString + QString("%1").arg(d));
+
+					// try to load program from cache
+					if (CurrentFile.open(QIODevice::ReadOnly))
+					{
+						QByteArray dataFile = CurrentFile.readAll();
+						cl::Program::Binaries binaries;
+						binaries.push_back({dataFile.data(), dataFile.length()});
+						std::vector<cl_int> binaryStatus;
+
+						clPrograms[d] = std::shared_ptr<cl::Program>(
+							new cl::Program(*hardware->getContext(d), oneDevice, binaries, &binaryStatus, &err));
+
+						if (err == CL_SUCCESS)
+						{
+							err = clPrograms[d]->build(oneDevice);
+						}
+					}
+					else // if not in cache then compile
+					{
+						err = clPrograms[d]->build(oneDevice, buildParams.c_str());
+					}
 				}
 
 				if (checkErr(err, "program->build()"))
@@ -174,6 +199,19 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 						std::vector<size_t> sizes;
 						err = clPrograms[d]->getInfo(CL_PROGRAM_BINARY_SIZES, &sizes);
 						WriteLogInt("Program size", sizes[0], 2);
+
+						// save program to disk cache
+						char **binariesData = new char *[1];
+						binariesData[0] = new char[sizes[0]];
+						clGetProgramInfo(clPrograms[d]->get(), CL_PROGRAM_BINARIES, sizeof(binariesData),
+							binariesData, nullptr);
+						QByteArray openclBinary(binariesData[0], sizes[0]);
+						QFile newFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
+													+ programHashString + QString("%1").arg(d));
+						if (newFile.open(QIODevice::WriteOnly))
+						{
+							newFile.write(openclBinary);
+						}
 					}
 					return true;
 				}
@@ -444,6 +482,10 @@ void cOpenClEngine::DeleteKernelCache()
 #endif
 	if (dir.exists()) dir.removeRecursively();
 	if (!dir.exists()) QDir().mkdir(dir.absolutePath());
+
+	QDir dirCache(systemDirectories.GetOpenCLCacheFolder());
+	if (dirCache.exists()) dir.removeRecursively();
+	if (!dirCache.exists()) QDir().mkdir(dir.absolutePath());
 }
 
 bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params)
