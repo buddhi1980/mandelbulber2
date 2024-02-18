@@ -203,7 +203,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 						// save program to disk cache
 						char **binariesData = new char *[1];
 						binariesData[0] = new char[sizes[0]];
-						clGetProgramInfo(clPrograms[d]->get(), CL_PROGRAM_BINARIES, sizeof(binariesData),
+						cl::Program *prog = clPrograms[d].get();
+						clGetProgramInfo(
+							(*prog)(), CL_PROGRAM_BINARIES, sizeof(binariesData),
 							binariesData, nullptr);
 						QByteArray openclBinary(binariesData[0], sizes[0]);
 						QFile newFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
