@@ -113,7 +113,6 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 
 		definesCollector += " -DCODEHASH=" + QString(hashProgram.toHex());
 
-
 		hashCryptProgram.addData(definesCollector.toLocal8Bit());
 		QByteArray hashBuildCache = hashCryptProgram.result();
 		QString programBuildCacheHashString = hashBuildCache.toHex();
@@ -208,8 +207,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 						binariesData[0] = new char[sizes[0]];
 						cl::Program *prog = clPrograms[d].get();
 						clGetProgramInfo(
-							(*prog)(), CL_PROGRAM_BINARIES, sizeof(binariesData),
-							binariesData, nullptr);
+							(*prog)(), CL_PROGRAM_BINARIES, sizeof(binariesData), binariesData, nullptr);
 						QByteArray openclBinary(binariesData[0], sizes[0]);
 						QFile newFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
 													+ programBuildCacheHashString + QString("%1").arg(d));
@@ -217,6 +215,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 						{
 							newFile.write(openclBinary);
 						}
+						delete[] binariesData[0];
+						delete[] binariesData;
 					}
 					return true;
 				}
