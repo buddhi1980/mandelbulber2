@@ -111,9 +111,12 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 		hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
 		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
-		QString programHashString = hashProgram.toHex();
+		definesCollector += " -DCODEHASH=" + QString(hashProgram.toHex());
 
-		definesCollector += " -DCODEHASH=" + programHashString;
+
+		hashCryptProgram.addData(definesCollector.toLocal8Bit());
+		QByteArray hashBuildCache = hashCryptProgram.result();
+		QString programBuildCacheHashString = hashBuildCache.toHex();
 
 		if (!useBuildCache) DeleteKernelCache();
 
@@ -166,7 +169,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 					oneDevice.push_back(*enabledDevices[d]);
 
 					QFile CurrentFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
-														+ programHashString + QString("%1").arg(d));
+														+ programBuildCacheHashString + QString("%1").arg(d));
 
 					// try to load program from cache
 					if (CurrentFile.open(QIODevice::ReadOnly))
@@ -207,7 +210,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 							binariesData, nullptr);
 						QByteArray openclBinary(binariesData[0], sizes[0]);
 						QFile newFile(systemDirectories.GetOpenCLCacheFolder() + QDir().separator()
-													+ programHashString + QString("%1").arg(d));
+													+ programBuildCacheHashString + QString("%1").arg(d));
 						if (newFile.open(QIODevice::WriteOnly))
 						{
 							newFile.write(openclBinary);
