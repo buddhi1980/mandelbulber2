@@ -101,8 +101,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText, b
 		// recompile also if selected devices changed
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
-			hashCryptProgram.addData(
-				reinterpret_cast<char *>(&hardware->getSelectedDevicesIndices()[d]), sizeof(int));
+			QByteArray deviceHash = hardware->getClWorkers()[d].getDeviceInformation().hash;
+			hashCryptProgram.addData(deviceHash);
 		}
 		QByteArray hashProgram = hashCryptProgram.result();
 
