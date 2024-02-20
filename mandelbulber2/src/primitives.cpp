@@ -119,20 +119,20 @@ void cPrimitives::Set(
 	int cloudsShapeIndex = par->Get<int>("clouds_primitive");
 
 	QString basicFogShapeName;
-	if (basicFogShapeIndex > 0 && basicFogShapeIndex < listOfPrimitives.count())
+	if (basicFogShapeIndex > 0 && basicFogShapeIndex - 1 < listOfPrimitives.count())
 		basicFogShapeName =
 			listOfPrimitives.at(basicFogShapeIndex - 1).fullName; //-1 because 0 is "None"
 
 	QString distFogShapeName;
-	if (distFogShapeIndex > 0 && basicFogShapeIndex < listOfPrimitives.count())
+	if (distFogShapeIndex > 0 && distFogShapeIndex - 1 < listOfPrimitives.count())
 		distFogShapeName = listOfPrimitives.at(distFogShapeIndex - 1).fullName; //-1 because 0 is "None"
 
 	QString iterFogShapeName;
-	if (iterFogShapeIndex > 0 && basicFogShapeIndex < listOfPrimitives.count())
+	if (iterFogShapeIndex > 0 && iterFogShapeIndex - 1 < listOfPrimitives.count())
 		iterFogShapeName = listOfPrimitives.at(iterFogShapeIndex - 1).fullName; //-1 because 0 is "None"
 
 	QString cloudsShapeName;
-	if (cloudsShapeIndex > 0 && basicFogShapeIndex < listOfPrimitives.count())
+	if (cloudsShapeIndex > 0 && cloudsShapeIndex - 1 < listOfPrimitives.count())
 		cloudsShapeName = listOfPrimitives.at(cloudsShapeIndex - 1).fullName; //-1 because 0 is "None"
 
 	// bubble sort by calculation order
