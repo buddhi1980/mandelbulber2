@@ -140,6 +140,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotCellDoubleClicked);
 		connect(ui->tableWidget_keyframe_animation, &QTableWidget::cellClicked, this,
 			&cKeyframeAnimation::slotCellClicked);
+		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, this,
+			&cKeyframeAnimation::slotSliderMovedActualFrame);
 
 		// connect system tray
 		connect(mainInterface->systemTray, &cSystemTray::notifyRenderKeyframes, this,
@@ -1615,6 +1617,7 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 	ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
 
 	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
+	ui->horizontalSlider_actualFrame->setMaximum(noOfFrames);
 
 	if (lastToRenderMax)
 	{
@@ -2250,6 +2253,29 @@ void cKeyframeAnimation::AddAnimatedParameter(
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	keyframes->AddAnimatedParameter(
 		parameterName, parameterContainer->GetAsOneParameter(parameterName));
+}
+
+void cKeyframeAnimation::slotSliderMovedActualFrame(int frameIndex)
+{
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	keyframes->ClearMorphCache();
+
+	int index = keyframes->GetKeyframeIndex(frameIndex);
+	int subIndex = keyframes->GetSubIndex(frameIndex);
+
+	params->Set("frame_no", frameIndex);
+
+	keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
+
+	cScripts::EvaluateAll(params, fractalParams);
+
+	// recalculation of camera rotation and distance (just for display purposes)
+	UpdateCameraAndTarget();
+
+	table->selectColumn(index + reservedColumns);
+	ui->label_actualFrame->setText(QString("Frame: %1").arg(frameIndex));
+
+	mainInterface->StartRender();
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()

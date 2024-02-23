@@ -224,7 +224,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>473</width>
+              <width>477</width>
               <height>407</height>
              </rect>
             </property>
@@ -659,7 +659,7 @@
       <attribute name="title">
        <string>Keyframe animation (only keyframes)</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_15">
+      <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,1">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -941,7 +941,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>404</width>
+              <width>407</width>
               <height>634</height>
              </rect>
             </property>
@@ -1444,17 +1444,64 @@ keyframes</string>
         </layout>
        </item>
        <item>
-        <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>3</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>22</number>
-         </attribute>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_actualFrame">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="horizontalSlider_actualFrame">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButton_previousFrame">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset theme="arrow-left">
+               <normaloff>.</normaloff>.</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButton_next_frame">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset theme="arrow-right">
+               <normaloff>.</normaloff>.</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>3</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>22</number>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -1538,7 +1585,6 @@ keyframes</string>
   <tabstop>comboBox_keyframe_animation_image_type</tabstop>
   <tabstop>spinboxInt_keyframe_first_to_render</tabstop>
   <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
-  <tabstop>tableWidget_keyframe_animation</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>
