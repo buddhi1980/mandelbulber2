@@ -41,6 +41,7 @@
 #include "animation_keyframes.hpp"
 
 #include <memory>
+#include <QFontMetrics>
 
 #include "ui_dock_animation.h"
 
@@ -1712,10 +1713,13 @@ void cKeyframeAnimation::slotValidate()
 	}
 }
 
-void cKeyframeAnimation::slotCellDoubleClicked(int row, int column) const
+void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 {
 	if (row == 0)
 	{
+		int frameIndex = keyframes->GetFrameIndexForKeyframe(column - reservedColumns);
+		ui->horizontalSlider_actualFrame->setValue(frameIndex);
+		updateFrameIndexLabel(frameIndex);
 		RenderFrame(column - reservedColumns);
 	}
 }
@@ -2255,6 +2259,14 @@ void cKeyframeAnimation::AddAnimatedParameter(
 		parameterName, parameterContainer->GetAsOneParameter(parameterName));
 }
 
+void cKeyframeAnimation::updateFrameIndexLabel(int frameIndex)
+{
+	QFontMetrics fm(ui->tab_keyframe_animation->font());
+	int textWidth = fm.width(tr("Frame: 000000"));
+	ui->label_actualFrame->setFixedWidth(textWidth);
+	ui->label_actualFrame->setText(tr("Frame: %1").arg(frameIndex));
+}
+
 void cKeyframeAnimation::slotSliderMovedActualFrame(int frameIndex)
 {
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
@@ -2273,8 +2285,8 @@ void cKeyframeAnimation::slotSliderMovedActualFrame(int frameIndex)
 	UpdateCameraAndTarget();
 
 	table->selectColumn(index + reservedColumns);
-	ui->label_actualFrame->setText(QString("Frame: %1").arg(frameIndex));
 
+	updateFrameIndexLabel(frameIndex);
 	mainInterface->StartRender();
 }
 

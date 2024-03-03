@@ -140,7 +140,7 @@ private slots:
 	void slotMovedSliderFirstFrame() const;
 	void slotMovedSliderLastFrame();
 	void slotValidate();
-	void slotCellDoubleClicked(int row, int column) const;
+	void slotCellDoubleClicked(int row, int column);
 	void slotCellClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
 	void slotUpdateAnimationPathSelection();
@@ -176,6 +176,7 @@ private:
 		const sFrameRanges &frameRanges, cProgressText *progressText, const int frameIndex, int index);
 	double GetCameraSpeed(const cAnimationFrames::sAnimationFrame &frame,
 		const cAnimationFrames::sAnimationFrame &previousFrame);
+	void updateFrameIndexLabel(int frameIndex);
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
