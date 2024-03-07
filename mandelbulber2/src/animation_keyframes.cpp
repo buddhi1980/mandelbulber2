@@ -2262,7 +2262,11 @@ void cKeyframeAnimation::AddAnimatedParameter(
 void cKeyframeAnimation::updateFrameIndexLabel(int frameIndex)
 {
 	QFontMetrics fm(ui->tab_keyframe_animation->font());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+	int textWidth = fm.horizontalAdvance(tr("Frame: 000000"));
+#else
 	int textWidth = fm.width(tr("Frame: 000000"));
+#endif
 	ui->label_actualFrame->setFixedWidth(textWidth);
 	ui->label_actualFrame->setText(tr("Frame: %1").arg(frameIndex));
 }
