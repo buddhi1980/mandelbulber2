@@ -143,6 +143,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotCellClicked);
 		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, this,
 			&cKeyframeAnimation::slotSliderMovedActualFrame);
+		connect(ui->toolButton_next_frame, &QToolButton::clicked, this,
+			&cKeyframeAnimation::slotClickedNextFrame);
+		connect(ui->toolButton_previousFrame, &QToolButton::clicked, this,
+			&cKeyframeAnimation::slotClickedPrevFrame);
 
 		// connect system tray
 		connect(mainInterface->systemTray, &cSystemTray::notifyRenderKeyframes, this,
@@ -2292,6 +2296,25 @@ void cKeyframeAnimation::slotSliderMovedActualFrame(int frameIndex)
 
 	updateFrameIndexLabel(frameIndex);
 	mainInterface->StartRender();
+}
+
+void cKeyframeAnimation::slotClickedNextFrame()
+{
+	int actualFrameIndex = ui->horizontalSlider_actualFrame->value();
+	if (actualFrameIndex + 1 < keyframes->GetTotalNumberOfFrames())
+	{
+		ui->horizontalSlider_actualFrame->setValue(actualFrameIndex + 1);
+		slotSliderMovedActualFrame(actualFrameIndex + 1);
+	}
+}
+void cKeyframeAnimation::slotClickedPrevFrame()
+{
+	int actualFrameIndex = ui->horizontalSlider_actualFrame->value();
+	if (actualFrameIndex - 1 >= 0)
+	{
+		ui->horizontalSlider_actualFrame->setValue(actualFrameIndex - 1);
+		slotSliderMovedActualFrame(actualFrameIndex - 1);
+	}
 }
 
 cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()

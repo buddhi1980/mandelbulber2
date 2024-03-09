@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1422</width>
-    <height>1040</height>
+    <height>1061</height>
    </rect>
   </property>
   <property name="font">
@@ -78,7 +78,7 @@
             <x>0</x>
             <y>0</y>
             <width>1193</width>
-            <height>782</height>
+            <height>799</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -262,8 +262,15 @@
               </property>
               <item>
                <widget class="QToolButton" name="toolButton_multiMode">
+                <property name="toolTip">
+                 <string>Auto - Rotation mode depends on used button</string>
+                </property>
                 <property name="text">
                  <string>Multi</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/navigation/icons/auto.svg</normaloff>:/navigation/icons/auto.svg</iconset>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -278,8 +285,15 @@
               </item>
               <item>
                <widget class="QToolButton" name="toolButton_rotMode">
+                <property name="toolTip">
+                 <string>Rotate camera</string>
+                </property>
                 <property name="text">
                  <string>Rot</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/navigation/icons/rot.svg</normaloff>:/navigation/icons/rot.svg</iconset>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -291,8 +305,15 @@
               </item>
               <item>
                <widget class="QToolButton" name="toolButton_rollMode">
+                <property name="toolTip">
+                 <string>Roll camera</string>
+                </property>
                 <property name="text">
                  <string>Roll</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/navigation/icons/roll.svg</normaloff>:/navigation/icons/roll.svg</iconset>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -304,8 +325,15 @@
               </item>
               <item>
                <widget class="QToolButton" name="toolButton_rotAroundMode">
+                <property name="toolTip">
+                 <string>Rotate around indicated point</string>
+                </property>
                 <property name="text">
                  <string>RotA</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/navigation/icons/rot-around.svg</normaloff>:/navigation/icons/rot-around.svg</iconset>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -317,8 +345,15 @@
               </item>
               <item>
                <widget class="QToolButton" name="toolButton_moveMode">
+                <property name="toolTip">
+                 <string>Move camera</string>
+                </property>
                 <property name="text">
                  <string>Move</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/navigation/icons/cross.svg</normaloff>:/navigation/icons/cross.svg</iconset>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -558,7 +593,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>136</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -673,7 +708,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>136</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -740,7 +775,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>137</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -807,7 +842,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>136</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1043,7 +1078,7 @@
           <x>0</x>
           <y>0</y>
           <width>92</width>
-          <height>313</height>
+          <height>321</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1104,7 +1139,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>132</height>
+          <height>136</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1183,7 +1218,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>329</height>
+          <height>338</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">

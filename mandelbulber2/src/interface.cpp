@@ -153,6 +153,13 @@ void cInterface::ShowUi()
 
 	mainWindow = new RenderWindow();
 
+	QSize iconSize(int(pixelFontSize * 1.0), int(pixelFontSize * 1.0));
+	mainWindow->ui->toolButton_moveMode->setIconSize(iconSize);
+	mainWindow->ui->toolButton_multiMode->setIconSize(iconSize);
+	mainWindow->ui->toolButton_rollMode->setIconSize(iconSize);
+	mainWindow->ui->toolButton_rotAroundMode->setIconSize(iconSize);
+	mainWindow->ui->toolButton_rotMode->setIconSize(iconSize);
+
 	WriteLog("Restoring window geometry", 2);
 
 	if (gPar->Get<bool>("image_detached"))

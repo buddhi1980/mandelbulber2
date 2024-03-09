@@ -149,6 +149,8 @@ private slots:
 	void slotAddAllParameters();
 	void slotSetFramesPerKeyframeToAllKeyframes(void);
 	void slotSliderMovedActualFrame(int);
+	void slotClickedNextFrame();
+	void slotClickedPrevFrame();
 
 private:
 	void PrepareTable();

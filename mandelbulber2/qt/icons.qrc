@@ -154,6 +154,11 @@
     <file>icons/water.png</file>
   </qresource>
   <qresource prefix="/navigation">
+    <file>icons/auto.svg</file>
+    <file>icons/rot.svg</file>
+    <file>icons/roll.svg</file>
+    <file>icons/rot-around.svg</file>
+    <file>icons/cross.svg</file>
     <file>icons/arrow-down-double.png</file>
     <file>icons/arrow-up-double.png</file>
     <file>icons/go-down.png</file>
