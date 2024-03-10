@@ -108,11 +108,12 @@ public:
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
 	void MouseDragCameraRorate(const sMouseDragTempData &dragTempData);
-	void MouseDragCaneraRotateAroundPoint(int dx, int dy, const sMouseDragTempData &dragTempData);
-	void MouseDragCameraRoll(int dx);
+	void MouseDragCaneraRotateAroundPoint(
+		double dx, double dy, const sMouseDragTempData &dragTempData);
+	void MouseDragCameraRoll(double dx);
 	void MouseDragCameraMove(const sMouseDragTempData &dragTempData);
-	void LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
-	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy);
+	void LightDragLeftButton(const sMouseDragTempData &dragTempData, double dx, double dy);
+	void PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, double dx, double dy);
 	void MoveLightByWheel(double deltaWheel);
 	void MovePrimitiveByWheel(double deltaWheel);
 
@@ -130,6 +131,7 @@ public slots:
 	void slotToggledOtpionRotateAround(bool checked);
 	void slotToggledOtpionRoll(bool checked);
 	void slotToggledOtpionMove(bool checked);
+	void slotToggledOPtionPreciseRotation(bool checked);
 
 private:
 	std::shared_ptr<cParameterContainer> par;
@@ -143,6 +145,7 @@ private:
 	int numberOfStartedRenders = 0;
 	bool smallPartRendered = true;
 	enumDragOption dragOption = enumDragOption::multi;
+	bool preciseRotation = false;
 
 signals:
 	void signalRender();

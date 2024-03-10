@@ -401,6 +401,8 @@ void cInterface::ConnectSignals() const
 		&cManipulations::slotToggledOtpionRoll);
 	connect(mainWindow->ui->toolButton_moveMode, &QToolButton::toggled, mainWindow->manipulations,
 		&cManipulations::slotToggledOtpionMove);
+	connect(mainWindow->ui->toolButton_preciseRotation, &QToolButton::toggled,
+		mainWindow->manipulations, &cManipulations::slotToggledOPtionPreciseRotation);
 
 	// menu actions
 	connect(mainWindow->ui->actionQuit, &QAction::triggered, mainWindow, &RenderWindow::slotQuit);

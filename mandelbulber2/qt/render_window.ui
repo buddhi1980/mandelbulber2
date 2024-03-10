@@ -107,7 +107,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0,0,0,0">
+          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0,0,0,0,0">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -364,6 +364,23 @@
                </widget>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButton_preciseRotation">
+             <property name="toolTip">
+              <string>Precise rotations</string>
+             </property>
+             <property name="text">
+              <string>P</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/navigation/icons/precise.svg</normaloff>:/navigation/icons/precise.svg</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -708,7 +725,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>136</height>
+          <height>137</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -775,7 +792,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>137</height>
+          <height>135</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -842,7 +859,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>136</height>
+          <height>137</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1078,7 +1095,7 @@
           <x>0</x>
           <y>0</y>
           <width>92</width>
-          <height>321</height>
+          <height>322</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">

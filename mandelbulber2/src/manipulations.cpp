@@ -791,7 +791,7 @@ void cManipulations::MouseDragCameraRorate(const sMouseDragTempData &dragTempDat
 }
 
 void cManipulations::MouseDragCaneraRotateAroundPoint(
-	int dx, int dy, const sMouseDragTempData &dragTempData)
+	double dx, double dy, const sMouseDragTempData &dragTempData)
 {
 	cCameraTarget cameraTarget(
 		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
@@ -799,9 +799,9 @@ void cManipulations::MouseDragCaneraRotateAroundPoint(
 	CVector3 shiftedCamera = mouseDragData.startCamera - mouseDragData.startIndicatedPoint;
 	CVector3 shiftedTarget = mouseDragData.startTarget - mouseDragData.startIndicatedPoint;
 	shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
-		cameraTarget.GetTopVector(), (double)(dx) / image->GetPreviewWidth() * M_PI_2);
+		cameraTarget.GetTopVector(), dx / image->GetPreviewWidth() * M_PI_2);
 	shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
-		cameraTarget.GetTopVector(), (double)(dx) / image->GetPreviewWidth() * M_PI_2);
+		cameraTarget.GetTopVector(), dx / image->GetPreviewWidth() * M_PI_2);
 
 	CVector3 newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
 	CVector3 newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
@@ -809,9 +809,9 @@ void cManipulations::MouseDragCaneraRotateAroundPoint(
 	cameraTarget.SetTarget(newTarget, dragTempData.rollMode);
 
 	shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
-		cameraTarget.GetRightVector(), (double)(dy) / image->GetPreviewHeight() * M_PI_2);
+		cameraTarget.GetRightVector(), dy / image->GetPreviewHeight() * M_PI_2);
 	shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
-		cameraTarget.GetRightVector(), (double)(dy) / image->GetPreviewHeight() * M_PI_2);
+		cameraTarget.GetRightVector(), dy / image->GetPreviewHeight() * M_PI_2);
 
 	newCamera = shiftedCamera + mouseDragData.startIndicatedPoint;
 	newTarget = shiftedTarget + mouseDragData.startIndicatedPoint;
@@ -829,9 +829,9 @@ void cManipulations::MouseDragCaneraRotateAroundPoint(
 	par->Set("camera_distance_to_target", dist);
 }
 
-void cManipulations::MouseDragCameraRoll(int dx)
+void cManipulations::MouseDragCameraRoll(double dx)
 {
-	double angle = -(double)(dx) / image->GetPreviewHeight() * M_PI_2;
+	double angle = -dx / image->GetPreviewHeight() * M_PI_2;
 	cCameraTarget cameraTarget(
 		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
 	CVector3 newTopVector =
@@ -880,7 +880,8 @@ void cManipulations::MouseDragCameraMove(const sMouseDragTempData &dragTempData)
 	par->Set("camera_distance_to_target", dist);
 }
 
-void cManipulations::LightDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy)
+void cManipulations::LightDragLeftButton(
+	const sMouseDragTempData &dragTempData, double dx, double dy)
 {
 	bool relativePosition =
 		par->Get<bool>(cLight::Name("relative_position", mouseDragData.lightIndex));
@@ -937,7 +938,8 @@ void cManipulations::LightDragLeftButton(const sMouseDragTempData &dragTempData,
 	par->Set(cLight::Name("position", mouseDragData.lightIndex), newLightPosition);
 }
 
-void cManipulations::PrimitiveDragLeftButton(const sMouseDragTempData &dragTempData, int dx, int dy)
+void cManipulations::PrimitiveDragLeftButton(
+	const sMouseDragTempData &dragTempData, double dx, double dy)
 {
 	cCameraTarget cameraTarget(
 		mouseDragData.startCamera, mouseDragData.startTarget, mouseDragData.startTopVector);
@@ -975,6 +977,14 @@ void cManipulations::PrimitiveDragLeftButton(const sMouseDragTempData &dragTempD
 
 void cManipulations::MouseDragDelta(int dx, int dy)
 {
+	double ddx = double(dx);
+	double ddy = double(dy);
+	if (preciseRotation)
+	{
+		ddx *= 0.1;
+		ddy *= 0.1;
+	}
+
 	if (mouseDragData.draggingStarted)
 	{
 		if (GetNumberOfStartedRenders() > 1) emit signalStop();
@@ -1000,7 +1010,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				cCameraTarget::enumRotationMode(par->Get<int>("camera_straight_rotation"));
 
 			dragTempData.newScreenPoint = CVector2<double>(
-				mouseDragData.startScreenPoint.x - dx, mouseDragData.startScreenPoint.y - dy);
+				mouseDragData.startScreenPoint.x - ddx, mouseDragData.startScreenPoint.y - ddy);
 			dragTempData.imagePoint = dragTempData.newScreenPoint / image->GetPreviewScale();
 
 			dragTempData.width = image->GetWidth();
@@ -1044,12 +1054,12 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 					}
 					case enumDragMode::rotateAroundPoint:
 					{
-						MouseDragCaneraRotateAroundPoint(dx, dy, dragTempData);
+						MouseDragCaneraRotateAroundPoint(ddx, ddy, dragTempData);
 						break;
 					}
 					case enumDragMode::roll:
 					{
-						MouseDragCameraRoll(dx);
+						MouseDragCameraRoll(ddx);
 						break;
 					}
 
@@ -1075,7 +1085,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				{
 					case Qt::LeftButton:
 					{
-						LightDragLeftButton(dragTempData, dx, dy);
+						LightDragLeftButton(dragTempData, ddx, ddy);
 						break;
 					}
 					default:
@@ -1095,7 +1105,7 @@ void cManipulations::MouseDragDelta(int dx, int dy)
 				{
 					case Qt::LeftButton:
 					{
-						PrimitiveDragLeftButton(dragTempData, dx, dy);
+						PrimitiveDragLeftButton(dragTempData, ddx, ddy);
 						break;
 					}
 					default:
@@ -1198,4 +1208,9 @@ void cManipulations::slotToggledOtpionRoll(bool checked)
 void cManipulations::slotToggledOtpionMove(bool checked)
 {
 	if (checked) SetDragOption(enumDragOption::move);
+}
+
+void cManipulations::slotToggledOPtionPreciseRotation(bool checked)
+{
+	preciseRotation = checked;
 }
