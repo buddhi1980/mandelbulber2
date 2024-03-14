@@ -1,5 +1,19 @@
 Version history
 
+v2.32 (January 2023)
+
+- Added new fractal formulas
+
+
+
+- modified fractal formulas
+   transfSphericalInv, fix modes
+	 transfHybridColor2, fix parameter
+	 pseudoKleinianMod2, correct UI
+	 define M_PI_2_F for a few formulas
+
+
+
 v2.31-1
 - Scripts: Added Delete Script button 
 - Scripts: Added possibity to ommit script evaluation by adding # character as a first letter of the script
@@ -11,7 +25,7 @@ v2.31-1
 - Files: Fixed problem with wrong default directories on Linux
 
 
-v2.31 (January 2023)
+v2.31 (January 2024)
 
 - Added new fractal formulas
    aboxDonut4d

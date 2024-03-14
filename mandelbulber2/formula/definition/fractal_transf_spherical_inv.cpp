@@ -43,10 +43,11 @@ void cFractalTransfSphericalInv::FormulaCode(
 	else // conditional
 	{
 		double rr = z.Dot(z);
-		z += fractal->mandelbox.offset;
+		z += fractal->transformCommon.offset000;
 		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
-			double mode = 0.0;
+			//double mode = 0.0;
+			double mode = fractal->mandelbox.foldingSphericalFixed;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
 				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
@@ -58,6 +59,7 @@ void cFractalTransfSphericalInv::FormulaCode(
 			mode = 1.0 / mode;
 			z *= mode;
 			aux.DE *= fabs(mode);
+			z -= fractal->transformCommon.offset000;
 		}
 	}
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;

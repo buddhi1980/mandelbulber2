@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -2062,26 +2062,11 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAy">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="toolTip">
-      <string/>
-     </property>
+    <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Pseudo &amp;Kleinian</string>
+      <string>Pseudo Kleinian</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_35" stretch="0,0,0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
       <property name="leftMargin">
        <number>2</number>
       </property>
@@ -2094,6 +2079,13 @@ offset:</string>
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
+        <property name="text">
+         <string>Pseudo Kleinian standard</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_17">
         <item row="0" column="3">
@@ -2166,8 +2158,8 @@ offset:</string>
        <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAy_false">
         <property name="font">
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="toolTip">
@@ -2270,12 +2262,12 @@ offset:</string>
        <widget class="QLabel" name="label_264">
         <property name="font">
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
-         <string>Pseudo Kleinian (DE parameters only works in slot #1)</string>
+         <string> (DE parameters only works in slot #1)</string>
         </property>
        </widget>
       </item>
@@ -3685,7 +3677,7 @@ Multiplier:</string>
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Pseudo Kleinian Mod2, Knighty - Theli-at&#039;s Pseudo Kleinian (Scale 1 JuliaBox + Something&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Pseudo Kleinian Mod2, Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://github.com/Syntopia/Fragmentarium/blob/master/&quot;&gt;https://github.com/Syntopia/Fragmentarium/blob/master/&lt;br&gt;
 &lt;a href=&quot;Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag&quot;&gt;Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
@@ -3710,7 +3702,7 @@ Multiplier:</string>
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;PseudoKleinianMod2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;PseudoKleinianMod2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
   CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   CVector4 oldZ &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -4119,7 +4111,6 @@ Multiplier:</string>
   <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
   <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
   <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
-  <tabstop>groupCheck_transf_function_enabledAy</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
