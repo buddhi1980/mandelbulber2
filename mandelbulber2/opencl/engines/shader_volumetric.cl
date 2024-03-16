@@ -61,7 +61,8 @@ void RayleighScattering(__constant sClInConstants *consts, float3 lightVectorTem
 
 //------------ Volumetric shader ----------------
 float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderData,
-	sShaderInputDataCl *input, sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
+	sShaderInputDataCl *input, sClCalcParams *calcParam, image2d_t image2dBackground, float4 oldPixel,
+	float *opacityOut)
 {
 	float4 out4 = oldPixel;
 	float3 output = oldPixel.xyz;
@@ -445,14 +446,24 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #endif // VOLUMETRIC_LIGHTS
 #endif // AUX_LIGHTS
 
+#if !defined(MC_GI_VOLUMETRIC) && defined(MC_GI_FOG_ILLUMINATION) \
+	&& defined(MONTE_CARLO_DOF_GLOBAL_ILLUMINATION)
+		{
+			float3 gi =
+				GlobalIlumination(consts, renderData, &input2, calcParam, image2dBackground, 1.0f, true);
+			totalLights += gi;
+			totalLightsWithShadows += gi;
+		}
+#endif
+
 		float3 AO = 0.0f;
 		bool aoNeeded = false;
 #ifdef ITER_FOG
 		if (iterFogOpacity > 0.0f) aoNeeded = true;
 #endif
-			//#ifdef VOLUMETRIC_FOG
+			// #ifdef VOLUMETRIC_FOG
 			//		if (distFogOpacity > 0.0f) aoNeeded = true;
-			//#endif
+			// #endif
 
 #ifdef AO_MODE_MULTIPLE_RAYS
 		if (aoNeeded)

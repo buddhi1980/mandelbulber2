@@ -168,6 +168,7 @@ sParamRender::sParamRender(
 	monteCarloSoftShadows = container->Get<bool>("MC_soft_shadows_enable");
 	monteCarloGIRadianceLimit = container->Get<float>("MC_GI_radiance_limit");
 	monteCarloGIVolumetric = container->Get<bool>("MC_global_illumination_volumetric");
+	monteCarloGIOfVolumetric = container->Get<bool>("MC_fog_illumination");
 	monteCarloDenoiserEnable = container->Get<bool>("MC_denoiser_enable");
 	monteCarloDenoiserStrength = container->Get<int>("MC_denoiser_strength");
 	monteCarloDenoiserPreserveGeometry = container->Get<bool>("MC_denoiser_preserve_geometry");

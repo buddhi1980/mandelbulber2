@@ -257,8 +257,16 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_fresnel.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_env_mapping.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_object.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_volumetric.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_global_illumination.cl");
+			if (params->Get<bool>("MC_fog_illumination"))
+			{
+				AddInclude(programEngine, openclEnginePath + "shader_global_illumination.cl");
+				AddInclude(programEngine, openclEnginePath + "shader_volumetric.cl");
+			}
+			else
+			{
+				AddInclude(programEngine, openclEnginePath + "shader_volumetric.cl");
+				AddInclude(programEngine, openclEnginePath + "shader_global_illumination.cl");
+			}
 		}
 		if (renderEngineMode == clRenderEngineTypeFull)
 		{
@@ -676,6 +684,10 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		if (paramRender->monteCarloGIVolumetric)
 		{
 			definesCollector += " -DMC_GI_VOLUMETRIC";
+		}
+		if (paramRender->monteCarloGIOfVolumetric)
+		{
+			definesCollector += " -DMC_GI_FOG_ILLUMINATION";
 		}
 	}
 	if (paramRender->texturedBackground)

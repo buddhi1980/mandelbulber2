@@ -1135,7 +1135,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
 					// calculate global illumination
-					sRGBFloat globalIlumination = GlobalIlumination(shaderInputData, objectColour);
+					sRGBFloat globalIlumination = GlobalIlumination(shaderInputData, objectColour, false);
 					objectShader.R += globalIlumination.R;
 					objectShader.G += globalIlumination.G;
 					objectShader.B += globalIlumination.B;

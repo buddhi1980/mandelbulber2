@@ -205,13 +205,13 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			distance = outF.distance;
 			out->objectId = outF.objectId;
 
-			//#ifdef USE_REFRACTION
+			// #ifdef USE_REFRACTION
 			if (in.invertMode)
 			{
 				distance = distThresh * 1.99f - distance;
 				if (distance < 0.0f) distance = 0.0f;
 			}
-			//#endif
+			// #endif
 
 			step *= 0.5f;
 		}
@@ -714,7 +714,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(
-					consts, renderData, &shaderInputData, &calcParam, image2dBackground, objectColour);
+					consts, renderData, &shaderInputData, &calcParam, image2dBackground, objectColour, false);
 				objectShader += globalIllumination;
 				recursionOut.outGlobalIllumination = globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
@@ -1015,8 +1015,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			else
 #endif
 			{
-				resultShader = VolumetricShader(
-					consts, renderData, &shaderInputData, &calcParam, resultShader, &opacityOut);
+				resultShader = VolumetricShader(consts, renderData, &shaderInputData, &calcParam,
+					image2dBackground, resultShader, &opacityOut);
 			}
 
 			recursionOut.point = point;

@@ -135,6 +135,7 @@ typedef struct
 	cl_int limitsEnabled; // enable limits (intersections)
 	cl_int monteCarloSoftShadows;
 	cl_int monteCarloGIVolumetric;
+	cl_int monteCarloGIOfVolumetric;
 	cl_int monteCarloDenoiserEnable;
 	cl_int monteCarloDenoiserPreserveGeometry;
 	cl_int monteCarloPixelLevelOptimization;
@@ -332,6 +333,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.limitsEnabled = source.limitsEnabled;
 	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
 	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
+	target.monteCarloGIOfVolumetric = source.monteCarloGIOfVolumetric;
 	target.monteCarloDenoiserEnable = source.monteCarloDenoiserEnable;
 	target.monteCarloDenoiserPreserveGeometry = source.monteCarloDenoiserPreserveGeometry;
 	target.monteCarloPixelLevelOptimization = source.monteCarloPixelLevelOptimization;

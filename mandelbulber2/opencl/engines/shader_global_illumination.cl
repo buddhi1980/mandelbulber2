@@ -35,7 +35,7 @@
 #if defined(MONTE_CARLO_DOF_GLOBAL_ILLUMINATION) && defined(FULL_ENGINE)
 float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, image2d_t image2dBackground,
-	float3 objectColor)
+	float3 objectColor, bool volumetricMode)
 {
 	float3 out = 0.0f;
 	sShaderInputDataCl inputCopy = *input;
@@ -43,7 +43,8 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 	float totalOpacity = 0.0f;
 
 	bool finished = false;
-	for (int rayDepth = 0; rayDepth < consts->params.reflectionsMax; rayDepth++)
+	int maxDepth = (volumetricMode) ? 2 : consts->params.reflectionsMax;
+	for (int rayDepth = 0; maxDepth; rayDepth++)
 	{
 		float3 reflectedDirection = inputCopy.normal;
 		float randomX = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
@@ -51,7 +52,15 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		float randomZ = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
 		float3 randomVector = (float3){randomX * 1.2f, randomY * 1.2f, randomZ * 1.2f};
 
-		float3 randomizedDirection = normalize(reflectedDirection + randomVector);
+		float3 randomizedDirection;
+		if (volumetricMode && rayDepth == 0)
+		{
+			randomizedDirection = normalize(randomVector);
+		}
+		else
+		{
+			randomizedDirection = normalize(reflectedDirection + randomVector);
+		}
 		inputCopy.viewVector = randomizedDirection;
 
 		float dist = 0.0f;
@@ -181,9 +190,9 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 		float opacityOut = 0.0f;
 
-#ifdef MC_GI_VOLUMETRIC
-		resultShader =
-			VolumetricShader(consts, renderData, &inputCopy, calcParam, resultShader, &opacityOut);
+#if defined(MC_GI_VOLUMETRIC) && !defined(MC_GI_FOG_ILLUMINATION)
+		resultShader = VolumetricShader(
+			consts, renderData, &inputCopy, calcParam, image2dBackground, resultShader, &opacityOut);
 #endif
 
 		float influence = clamp(1.0f - totalOpacity, 0.0f, 1.0f);

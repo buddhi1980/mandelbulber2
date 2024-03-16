@@ -39,7 +39,7 @@
 #include "render_worker.hpp"
 
 sRGBFloat cRenderWorker::GlobalIlumination(
-	const sShaderInputData &input, sRGBAfloat objectColor) const
+	const sShaderInputData &input, sRGBAfloat objectColor, bool volumetricMode) const
 {
 	sRGBFloat out;
 	sShaderInputData inputCopy = input;
@@ -54,7 +54,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 	double totalOpacity = 0.0;
 
 	bool finished = false;
-	for (int rayDepth = 0; rayDepth < params->reflectionsMax; rayDepth++)
+	int maxDepth = (volumetricMode) ? 2 : params->reflectionsMax;
+	for (int rayDepth = 0; rayDepth < maxDepth; rayDepth++)
 	{
 		CVector3 reflectedDirection = inputCopy.normal;
 		double randomX = (Random(20000) - 10000) / 10000.0;
@@ -165,7 +166,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		}
 
 		sRGBAfloat opacity;
-		if (params->monteCarloGIVolumetric)
+		if (params->monteCarloGIVolumetric && !volumetricMode)
 		{
 			resultShader = VolumetricShader(inputCopy, resultShader, &opacity);
 		}

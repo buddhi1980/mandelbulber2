@@ -464,6 +464,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			}			// if any light enabled
 		}				// next light
 
+		if (params->DOFMonteCarloGlobalIllumination && params->monteCarloGIOfVolumetric)
+		{
+			sRGBFloat gi = GlobalIlumination(input2, sRGBAfloat(1.0, 1.0, 1.0, 0.0), true);
+			totalLights.R += gi.R;
+			totalLights.G += gi.G;
+			totalLights.B += gi.B;
+			totalLightsWithShadows.R += gi.R;
+			totalLightsWithShadows.G += gi.G;
+			totalLightsWithShadows.B += gi.B;
+		}
+
 		sRGBAfloat AO(0.0, 0.0, 0.0, 0.0);
 
 		if (params->ambientOcclusionEnabled
