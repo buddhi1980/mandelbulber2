@@ -81,6 +81,19 @@ cNavigatorWindow::cNavigatorWindow(QWidget *parent) : QDialog(parent), ui(new Ui
 	connect(manipulations, &cManipulations::signalRefreshPostEffects, this,
 		&cNavigatorWindow::slotRefreshMainImage);
 
+	connect(ui->toolButton_multiMode, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOtpionMulti);
+	connect(ui->toolButton_rotMode, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOtpionRotate);
+	connect(ui->toolButton_rotAroundMode, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOtpionRotateAround);
+	connect(ui->toolButton_rollMode, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOtpionRoll);
+	connect(ui->toolButton_moveMode, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOtpionMove);
+	connect(ui->toolButton_preciseRotation, &QToolButton::toggled, manipulations,
+		&cManipulations::slotToggledOPtionPreciseRotation);
+
 	connect(ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboMouseClickFunction(int)));
 
