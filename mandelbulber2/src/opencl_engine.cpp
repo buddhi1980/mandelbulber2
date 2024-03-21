@@ -489,8 +489,8 @@ void cOpenClEngine::DeleteKernelCache()
 	if (!dir.exists()) QDir().mkdir(dir.absolutePath());
 
 	QDir dirCache(systemDirectories.GetOpenCLCacheFolder());
-	if (dirCache.exists()) dir.removeRecursively();
-	if (!dirCache.exists()) QDir().mkdir(dir.absolutePath());
+	if (dirCache.exists()) dirCache.removeRecursively();
+	if (!dirCache.exists()) QDir().mkdir(dirCache.absolutePath());
 }
 
 bool cOpenClEngine::PreAllocateBuffers(std::shared_ptr<const cParameterContainer> params)
