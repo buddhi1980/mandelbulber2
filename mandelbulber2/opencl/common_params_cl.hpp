@@ -80,6 +80,7 @@ typedef struct
 typedef struct
 {
 	cl_int iterThreshMode;
+	cl_int fakeLightsRelativeCenter;
 
 	cl_int fakeLightsMaxIter;
 	cl_int fakeLightsMinIter;
@@ -118,6 +119,7 @@ inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 {
 	sCommonParamsCl target;
 	target.iterThreshMode = source.iterThreshMode;
+	target.fakeLightsRelativeCenter = source.fakeLightsRelativeCenter;
 	target.fakeLightsMaxIter = source.fakeLightsMaxIter;
 	target.fakeLightsMinIter = source.fakeLightsMinIter;
 	target.fakeLightsOrbitTrapShape = source.fakeLightsOrbitTrapShape;

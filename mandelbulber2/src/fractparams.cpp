@@ -266,6 +266,7 @@ sParamRender::sParamRender(
 		params::enumFakeLightsShape(container->Get<int>("fake_lights_orbit_trap_shape"));
 	common.fakeLightsOrbitTrapSize = container->Get<double>("fake_lights_orbit_trap_size");
 	common.fakeLightsThickness = container->Get<double>("fake_lights_thickness");
+	common.fakeLightsRelativeCenter = container->Get<double>("fake_lights_relative_center");
 	common.fakeLightsRotation = container->Get<CVector3>("fake_lights_orbit_rotation");
 	common.foldings.boxEnable = container->Get<bool>("box_folding");
 	common.foldings.boxLimit = container->Get<double>("box_folding_limit");

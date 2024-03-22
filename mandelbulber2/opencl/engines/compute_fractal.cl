@@ -419,7 +419,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				float distance = OrbitTrapShapeDistance(z, consts);
+				float distance = (consts->params.common.fakeLightsRelativeCenter)
+													 ? OrbitTrapShapeDistance(z - aux.const_c, consts)
+													 : OrbitTrapShapeDistance(z, consts);
 
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)

@@ -359,7 +359,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			else if (Mode == calcModeOrbitTrap)
 			{
-				double distance = OrbitTrapShapeDistance(z, in.common);
+				double distance = (in.common->fakeLightsRelativeCenter)
+														? OrbitTrapShapeDistance(z - aux.const_c, in.common)
+														: OrbitTrapShapeDistance(z, in.common);
 
 				if (i >= in.common->fakeLightsMinIter && i <= in.common->fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));

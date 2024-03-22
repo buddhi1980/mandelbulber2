@@ -414,6 +414,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	// fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);
+	par->addParam("fake_lights_relative_center", false, morphLinear, paramStandard);
 	par->addParam("fake_lights_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_visibility_size", 5.0, 0.1, 1e15, morphLinear, paramStandard);
