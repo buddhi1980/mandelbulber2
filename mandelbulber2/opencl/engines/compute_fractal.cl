@@ -318,15 +318,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (consts->sequence.useAdditionalBailoutCond[sequence])
 				{
 					out.maxiter = false;
-					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
-					{
-						break;
-					}
-
-					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
-					{
-						break;
-					}
+					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence]) break;
+					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence]) break;
 				}
 			}
 			else if (mode == calcModeDeltaDE2)
@@ -407,7 +400,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					{
 						if (len < colorMin) colorMin = len;
 						if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
-						break;
 					}
 					else
 					{
