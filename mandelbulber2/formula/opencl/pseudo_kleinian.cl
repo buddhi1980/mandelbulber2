@@ -17,6 +17,9 @@
 
 REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL oldZz = z.z;
+	REAL oldDE = aux->DE;
+
 	// sphere inversion slot#1 iter == 0 added v2.17
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
@@ -27,14 +30,10 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			rr = dot(z, z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
-			// REAL r = native_sqrt(rr);
 			aux->DE = aux->DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
 		}
 	}
 
-	REAL4 gap = fractal->transformCommon.constantMultiplier000;
-	REAL t;
-	REAL dot1;
 	// prism shape
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -42,24 +41,23 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
-		t = max(0.0f, dot1);
+		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scale;
+		REAL t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		z.y = fabs(z.y - t);
-
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
-		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
+		z -= fractal->transformCommon.constantMultiplier000 * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 		// z was pos, now some points neg (ie neg shift)
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
 		}
 		if (z.x > 0.0f)
 		{
@@ -107,20 +105,42 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			aux->color += fractal->mandelbox.color.factor.z;
 		}
 	}
+
 	// PseudoKleinian
-	z = fabs(z + fractal->transformCommon.additionConstant0777)
-			- fabs(z - fractal->transformCommon.additionConstant0777) - z;
+	REAL4 tempZ = z;
+	REAL4 cSize = fractal->transformCommon.additionConstant0777;
+	if (z.x > cSize.x) tempZ.x = cSize.x;
+	if (z.x < -cSize.x) tempZ.x = -cSize.x;
+	if (z.y > cSize.y) tempZ.y = cSize.y;
+	if (z.y < -cSize.y) tempZ.y = -cSize.y;
+	if (z.z > cSize.z) tempZ.z = cSize.z;
+	if (z.z < -cSize.z) tempZ.z = -cSize.z;
+	z = tempZ * 2.0f - z;
 	REAL k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 	z *= k;
 	aux->DE *= k + fractal->analyticDE.tweak005;
+	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
+
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	// offset
 	z += fractal->transformCommon.additionConstant000;
 
-	aux->pseudoKleinianDE = fractal->analyticDE.scale1;
+	// color
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+		&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		REAL colorAdd = 0.0;
+
+		//colorAdd += fractal->foldColor.difs0000.x * sqrt(bb);
+		colorAdd += fractal->foldColor.difs0000.y * fabs(aux->DE - oldDE) * 0.01f;
+		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
+		colorAdd += fractal->foldColor.difs0000.w * fabs(z.z - oldZz);
+		aux->color += colorAdd;
+	}
 	return z;
 }

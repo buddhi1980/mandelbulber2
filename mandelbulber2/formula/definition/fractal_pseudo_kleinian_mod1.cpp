@@ -29,8 +29,6 @@ cFractalPseudoKleinianMod1::cFractalPseudoKleinianMod1() : cAbstractFractal()
 void cFractalPseudoKleinianMod1::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 gap = fractal->transformCommon.constantMultiplier000;
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -42,10 +40,20 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z) swap(z.y, z.z);
-		z -= gap * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
+		if (z.y > z.z)
+		{
+			t = z.y;
+			z.y = z.z;
+			z.z = t;
+		}
+		z -= fractal->transformCommon.constantMultiplier000 * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
 		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x) swap(z.z, z.x);
+		if (z.z > z.x)
+		{
+			t = z.z;
+			z.z = z.x;
+			z.x = t;
+		}
 		if (z.x > 0.0)
 		{
 			z.y = max(0.0, z.y);
@@ -145,7 +153,6 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector4 tempZ = z; //  correct c++ version. non conditional mult 2.0
-
 		if (z.x > cSize.x) tempZ.x = cSize.x;
 		if (z.x < -cSize.x) tempZ.x = -cSize.x;
 		if (z.y > cSize.y) tempZ.y = cSize.y;
@@ -160,6 +167,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
+		aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse
@@ -177,6 +185,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
+		aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
 
 	z += fractal->transformCommon.additionConstant000;
@@ -186,9 +195,26 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		double temp;
+		z = fabs(z);
+		if (z.x - z.y < 0.0)
+		{
+			temp = z.y;
+			z.y = z.x;
+			z.x = temp;
+		}
+		if (z.x - z.z < 0.0)
+		{
+			temp = z.z;
+			z.z = z.x;
+			z.x = temp;
+		}
+		if (z.y - z.z < 0.0)
+		{
+			temp = z.z;
+			z.z = z.y;
+			z.y = temp;
+		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -197,5 +223,4 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
-	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 }
