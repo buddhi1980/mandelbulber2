@@ -609,21 +609,38 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef FAKE_LIGHTS
 		// fake lights (orbit trap)
 		{
-			formulaOut outF;
-			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1);
-			float r = outF.orbitTrapR;
-			r = sqrt(1.0f / (r + 1.0e-20f));
-			float fakeLight = 1.0f
-												/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
-														 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
-													 + 0.1f);
-			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
+			int fakeLightMaxLoop = 1;
+			if (consts->params.common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
+			if (consts->params.common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
+
+			for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
+			{
+				calcParam->orbitTrapIndex = fakeLightLoop;
+				formulaOut outF;
+				outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1);
+				float r = outF.orbitTrapR;
+				r = sqrt(1.0f / (r + 1.0e-20f));
+				float fakeLight = 1.0f
+													/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
+															 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+														 + 0.1f);
+				float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 #ifdef CLOUDS
-			light *= 1.0f + consts->params.cloudsLightsBoost * cloudDensity;
+				light *= 1.0f + consts->params.cloudsLightsBoost * cloudDensity;
 #endif
 
-			output += light * consts->params.fakeLightsColor;
-			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
+				float3 color;
+				switch (fakeLightLoop)
+				{
+					case 0: color = consts->params.fakeLightsColor; break;
+					case 1: color = consts->params.fakeLightsColor2; break;
+					case 2: color = consts->params.fakeLightsColor3; break;
+					default: color = consts->params.fakeLightsColor; break;
+				}
+
+				output += light * color;
+				out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
+			}
 		}
 #endif // FAKE_LIGHTS
 

@@ -96,7 +96,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -179,8 +179,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>315</width>
-            <height>1090</height>
+            <width>450</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1309,8 +1309,8 @@ To do mapping of radiance use HDRI texture as a background texture.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>269</width>
-            <height>1713</height>
+            <width>432</width>
+            <height>1698</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2858,8 +2858,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>273</width>
-            <height>409</height>
+            <width>450</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4752,8 +4752,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>230</width>
-            <height>215</height>
+            <width>450</width>
+            <height>1070</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

@@ -37,51 +37,66 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	sClCalcParams *calcParams, float3 surfaceColor, sClGradientsCollection *gradients,
 	float3 *specularOut)
 {
-	float3 fakeLights;
+	float3 fakeLights = 0.0f;
 
-	float delta = input->distThresh * consts->params.smoothness;
+	int fakeLightMaxLoop = 1;
+	if (consts->params.common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
+	if (consts->params.common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
 
-	formulaOut outF;
+	for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
+	{
+		float delta = input->distThresh * consts->params.smoothness;
 
-	outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1);
-	float rr = outF.orbitTrapR;
-	float r = 1.0f / (rr + 1e-20f);
+		calcParams->orbitTrapIndex = fakeLightLoop;
+		formulaOut outF;
+		outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL, -1);
+		float rr = outF.orbitTrapR;
+		float r = 1.0f / (rr + 1e-20f);
 
-	float fakeLight = consts->params.fakeLightsIntensity / r;
+		float fakeLight = consts->params.fakeLightsIntensity / r;
 
-	float3 out;
-	calcParams->distThresh = input->distThresh;
-	calcParams->detailSize = input->delta;
+		float3 out;
+		calcParams->distThresh = input->distThresh;
+		calcParams->detailSize = input->delta;
 
-	outF = Fractal(
-		consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
-	float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
+		outF = Fractal(
+			consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
+		float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-	outF = Fractal(
-		consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
-	float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
+		outF = Fractal(
+			consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL, -1);
+		float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-	outF = Fractal(
-		consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL, -1);
-	float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
+		outF = Fractal(
+			consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL, -1);
+		float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-	float3 fakeLightNormal;
-	fakeLightNormal.x = r - rx;
-	fakeLightNormal.y = r - ry;
-	fakeLightNormal.z = r - rz;
+		float3 fakeLightNormal;
+		fakeLightNormal.x = r - rx;
+		fakeLightNormal.y = r - ry;
+		fakeLightNormal.z = r - rz;
 
-	fakeLightNormal = normalize(fakeLightNormal);
+		fakeLightNormal = normalize(fakeLightNormal);
 
-	float fakeLight2 = fakeLight * dot(input->normal, fakeLightNormal);
-	if (fakeLight2 < 0.0f) fakeLight2 = 0.0f;
+		float fakeLight2 = fakeLight * dot(input->normal, fakeLightNormal);
+		if (fakeLight2 < 0.0f) fakeLight2 = 0.0f;
 
-	fakeLights = fakeLight2 * consts->params.fakeLightsColor;
+		float3 color;
+		switch (fakeLightLoop)
+		{
+			case 0: color = consts->params.fakeLightsColor; break;
+			case 1: color = consts->params.fakeLightsColor2; break;
+			case 2: color = consts->params.fakeLightsColor3; break;
+			default: color = consts->params.fakeLightsColor; break;
+		}
 
-	float3 fakeSpec =
-		SpecularHighlightCombined(input, calcParams, fakeLightNormal, surfaceColor, gradients);
-	fakeSpec = fakeSpec * consts->params.fakeLightsColor / r;
+		fakeLights += fakeLight2 * color;
 
-	fakeSpec = 0.0f; // TODO to check why in CPU code it's zero
+		//	float3 fakeSpec =
+		//		SpecularHighlightCombined(input, calcParams, fakeLightNormal, surfaceColor, gradients);
+		//	fakeSpec = fakeSpec * consts->params.fakeLightsColor / r;
+	}
+	float3 fakeSpec = 0.0f; // TODO to check why in CPU code it's zero
 	*specularOut = fakeSpec;
 	return fakeLights;
 }

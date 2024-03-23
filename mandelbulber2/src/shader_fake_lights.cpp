@@ -38,7 +38,7 @@
 sRGBAfloat cRenderWorker::FakeLights(
 	const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const
 {
-	sRGBAfloat fakeLights;
+	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
 
 	int fakeLightMaxLoop = 1;
 	if (params->common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
@@ -49,7 +49,7 @@ sRGBAfloat cRenderWorker::FakeLights(
 
 		double delta = input.distThresh * params->smoothness;
 
-		sFractalIn fractIn(input.point, params->minN, -1, 1, 0, &params->common, -1, false);
+		sFractalIn fractIn(input.point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
 		sFractalOut fractOut;
 		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 		double rr = fractOut.orbitTrapR;
@@ -105,7 +105,7 @@ sRGBAfloat cRenderWorker::FakeLights(
 
 		//		sRGBAfloat fakeSpecular =
 		//			SpecularHighlightCombined(input, fakeLightNormal, surfaceColor,
-		//sRGBFloat(1.0, 1.0, 1.0));
+		// sRGBFloat(1.0, 1.0, 1.0));
 		//
 		//		fakeSpec->R = fakeSpecular.R / r * params->fakeLightsColor.R;
 		//		fakeSpec->G = fakeSpecular.G / r * params->fakeLightsColor.G;

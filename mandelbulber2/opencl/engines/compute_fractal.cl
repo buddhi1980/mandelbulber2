@@ -177,6 +177,28 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float4 lastZ = 0.0f;
 	float4 lastLastZ = 0.0f;
 
+#ifdef FAKE_LIGHTS
+	// orbit trap lights initialization
+	int fakeLightsMinIter = consts->params.common.fakeLightsMinIter;
+	int fakeLightsMaxIter = consts->params.common.fakeLightsMaxIter;
+
+	if (calcParam->orbitTrapIndex == 0)
+	{
+		if (consts->params.common.fakeLightsColor2Enabled) fakeLightsMaxIter = fakeLightsMinIter;
+	}
+	else if (calcParam->orbitTrapIndex == 1)
+	{
+		fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 1;
+		fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
+		if (consts->params.common.fakeLightsColor3Enabled) fakeLightsMaxIter = fakeLightsMinIter;
+	}
+	else if (calcParam->orbitTrapIndex == 2)
+	{
+		fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 2;
+		fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
+	}
+#endif // FAKE_LIGHTS
+
 	// loop
 	for (i = 0; i < maxN; i++)
 	{
@@ -415,8 +437,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 													 ? OrbitTrapShapeDistance(z - aux.const_c, consts)
 													 : OrbitTrapShapeDistance(z, consts);
 
-				if (i >= consts->params.common.fakeLightsMinIter
-						&& i <= consts->params.common.fakeLightsMaxIter)
+				if (i >= fakeLightsMinIter && i <= fakeLightsMaxIter)
 					orbitTrapTotal += (1.0f / (distance * distance));
 				if (distance > consts->sequence.bailout[sequence])
 				{
