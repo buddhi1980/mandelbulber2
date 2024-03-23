@@ -2259,19 +2259,6 @@ offset:</string>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_264">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string> (DE parameters only works in slot #1)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>

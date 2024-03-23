@@ -206,24 +206,32 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL k;
 	// Pseudo kleinian
+	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		//  correct c++ version. non conditional mult 2.0f
-		z = fabs(z + fractal->transformCommon.additionConstant0777)
-				- fabs(z - fractal->transformCommon.additionConstant0777) - z;
+		REAL4 tempZ = z; //  correct c++ version. non conditional mult 2.0f
+
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+
+		z = tempZ * 2.0f - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
+			aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
-		//  variation from openCL  conditional mult 2.0f
-		REAL4 cSize = fractal->transformCommon.additionConstant0777;
+		//  variation from openCL conditional mult 2.0f
 		if (z.x > cSize.x) z.x = cSize.x * 2.0f - z.x;
 		if (z.x < -cSize.x) z.x = -cSize.x * 2.0f - z.x;
 		if (z.y > cSize.y) z.y = cSize.y * 2.0f - z.y;
@@ -234,8 +242,8 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
+			aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
-
 	z += fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.functionEnabledFFalse
@@ -283,7 +291,7 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
-	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
+
 	// aux->pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 
 	// color updated v2.13 & mode2 v2.14
