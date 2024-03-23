@@ -182,20 +182,23 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int fakeLightsMinIter = consts->params.common.fakeLightsMinIter;
 	int fakeLightsMaxIter = consts->params.common.fakeLightsMaxIter;
 
-	if (calcParam->orbitTrapIndex == 0)
+	if (mode == calcModeOrbitTrap)
 	{
-		if (consts->params.common.fakeLightsColor2Enabled) fakeLightsMaxIter = fakeLightsMinIter;
-	}
-	else if (calcParam->orbitTrapIndex == 1)
-	{
-		fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 1;
-		fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
-		if (consts->params.common.fakeLightsColor3Enabled) fakeLightsMaxIter = fakeLightsMinIter;
-	}
-	else if (calcParam->orbitTrapIndex == 2)
-	{
-		fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 2;
-		fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
+		if (calcParam->orbitTrapIndex == 0)
+		{
+			if (consts->params.common.fakeLightsColor2Enabled) fakeLightsMaxIter = fakeLightsMinIter;
+		}
+		else if (calcParam->orbitTrapIndex == 1)
+		{
+			fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 1;
+			fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
+			if (consts->params.common.fakeLightsColor3Enabled) fakeLightsMaxIter = fakeLightsMinIter;
+		}
+		else if (calcParam->orbitTrapIndex == 2)
+		{
+			fakeLightsMinIter = consts->params.common.fakeLightsMinIter + 2;
+			fakeLightsMaxIter = max(fakeLightsMinIter, consts->params.common.fakeLightsMaxIter);
+		}
 	}
 #endif // FAKE_LIGHTS
 
