@@ -150,6 +150,8 @@ struct sParamRender
 	sRGBFloat background_color3;
 	sRGBFloat cloudsColor;
 	sRGBFloat fakeLightsColor;
+	sRGBFloat fakeLightsColor2;
+	sRGBFloat fakeLightsColor3;
 	sRGBFloat fillLightColor;
 	sRGBFloat fogColor;
 	sRGBFloat glowColor1;

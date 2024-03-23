@@ -414,6 +414,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	// fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);
+	par->addParam("fake_lights_color_2_enabled", false, morphLinear, paramStandard);
+	par->addParam("fake_lights_color_3_enabled", false, morphLinear, paramStandard);
 	par->addParam("fake_lights_relative_center", false, morphLinear, paramStandard);
 	par->addParam("fake_lights_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -423,6 +425,8 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("fake_lights_color_2", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("fake_lights_color_3", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("fake_lights_orbit_trap_shape", 0, morphNone, paramStandard,
 		QStringList({"point", "line", "circle", "square", "sphere", "cube"}));
 	par->addParam(

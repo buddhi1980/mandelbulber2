@@ -51,18 +51,20 @@ struct sFractalIn
 	int minN;
 	int forcedMaxiter;
 	int maxiterMultiplier;
+	int orbitTrapIndex;
 	const sCommonParams *common;
 	int forcedFormulaIndex;
 	bool normalCalculationMode;
 	const cMaterial *material;
 
 	sFractalIn(CVector3 _point, int _minN, int _forcedMaxiter, int _maxiterMultiplier,
-		const sCommonParams *_common, int _forcedFormulaIndex, bool _normalCalculationMode,
-		const cMaterial *_material = nullptr)
+		int _orbitTrapIndex, const sCommonParams *_common, int _forcedFormulaIndex,
+		bool _normalCalculationMode, const cMaterial *_material = nullptr)
 			: point(_point),
 				minN(_minN),
 				forcedMaxiter(_forcedMaxiter),
 				maxiterMultiplier(_maxiterMultiplier),
+				orbitTrapIndex(_orbitTrapIndex),
 				common(_common),
 				forcedFormulaIndex(_forcedFormulaIndex),
 				normalCalculationMode(_normalCalculationMode),

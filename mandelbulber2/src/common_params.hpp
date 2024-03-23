@@ -64,6 +64,8 @@ struct sCommonParams
 {
 	bool iterThreshMode;
 	bool fakeLightsRelativeCenter;
+	bool fakeLightsColor2Enabled;
+	bool fakeLightsColor3Enabled;
 
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;

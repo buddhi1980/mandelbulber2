@@ -74,7 +74,7 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
 		if (mat->textureFractalize)
 		{
-			sFractalIn fractIn(point, 0, -1, 1, &params.common, forcedFormulaIndex, false, mat);
+			sFractalIn fractIn(point, 0, -1, 1, 0, &params.common, forcedFormulaIndex, false, mat);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeCubeOrbitTrap>(fractals, fractIn, &fractOut);
 			pointFractalized = fractOut.z;

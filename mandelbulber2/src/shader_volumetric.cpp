@@ -638,25 +638,38 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// fake lights (orbit trap)
 		if (params->fakeLightsEnabled)
 		{
-			sFractalIn fractIn(point, params->minN, -1, 1, &params->common, -1, false);
-			sFractalOut fractOut;
-			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-			float r = fractOut.orbitTrapR;
-			r = sqrtf(1.0f / (r + 1.0e-20f));
-			float fakeLight = 1.0f
-												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
-														 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
-													 + 0.1f);
+			int fakeLightMaxLoop = 1;
+			if (params->common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
+			if (params->common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
 
-			fakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
+			for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
+			{
+				sFractalIn fractIn(point, params->minN, -1, 1, fakeLightLoop, &params->common, -1, false);
+				sFractalOut fractOut;
+				Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+				float r = fractOut.orbitTrapR;
+				r = sqrtf(1.0f / (r + 1.0e-20f));
+				float fakeLight = 1.0f
+													/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+															 * powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+														 + 0.1f);
 
-			output.R +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
-			output.G +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G;
-			output.B +=
-				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B;
-			output.A += fakeLight * float(step) * params->fakeLightsVisibility;
+				fakeLight *= 1.0f + params->cloudsLightsBoost * cloudDensity;
+
+				sRGBFloat color;
+				switch (fakeLightLoop)
+				{
+					case 0: color = params->fakeLightsColor; break;
+					case 1: color = params->fakeLightsColor2; break;
+					case 2: color = params->fakeLightsColor3; break;
+					default: color = params->fakeLightsColor; break;
+				}
+
+				output.R += fakeLight * float(step) * params->fakeLightsVisibility * color.R;
+				output.G += fakeLight * float(step) * params->fakeLightsVisibility * color.G;
+				output.B += fakeLight * float(step) * params->fakeLightsVisibility * color.B;
+				output.A += fakeLight * float(step) * params->fakeLightsVisibility;
+			}
 		}
 
 		if (totalOpacity > 1.0f) totalOpacity = 1.0f;

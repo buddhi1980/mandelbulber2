@@ -121,6 +121,8 @@ sParamRender::sParamRender(
 	DOFMonteCarloCACameraDispersion = container->Get<float>("DOF_MC_CA_camera_dispersion");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsColor = toRGBFloat(container->Get<sRGB>("fake_lights_color"));
+	fakeLightsColor2 = toRGBFloat(container->Get<sRGB>("fake_lights_color_2"));
+	fakeLightsColor3 = toRGBFloat(container->Get<sRGB>("fake_lights_color_3"));
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
@@ -259,6 +261,8 @@ sParamRender::sParamRender(
 		(*objectData)[0].objectType = fractal::objFractal;
 	}
 
+	common.fakeLightsColor2Enabled = container->Get<bool>("fake_lights_color_2_enabled");
+	common.fakeLightsColor3Enabled = container->Get<bool>("fake_lights_color_3_enabled");
 	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");
 	common.fakeLightsMinIter = container->Get<int>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
@@ -266,7 +270,7 @@ sParamRender::sParamRender(
 		params::enumFakeLightsShape(container->Get<int>("fake_lights_orbit_trap_shape"));
 	common.fakeLightsOrbitTrapSize = container->Get<double>("fake_lights_orbit_trap_size");
 	common.fakeLightsThickness = container->Get<double>("fake_lights_thickness");
-	common.fakeLightsRelativeCenter = container->Get<double>("fake_lights_relative_center");
+	common.fakeLightsRelativeCenter = container->Get<bool>("fake_lights_relative_center");
 	common.fakeLightsRotation = container->Get<CVector3>("fake_lights_orbit_rotation");
 	common.foldings.boxEnable = container->Get<bool>("box_folding");
 	common.foldings.boxLimit = container->Get<double>("box_folding_limit");

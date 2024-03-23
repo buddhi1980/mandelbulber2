@@ -40,60 +40,78 @@ sRGBAfloat cRenderWorker::FakeLights(
 {
 	sRGBAfloat fakeLights;
 
-	double delta = input.distThresh * params->smoothness;
+	int fakeLightMaxLoop = 1;
+	if (params->common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
+	if (params->common.fakeLightsColor3Enabled) fakeLightMaxLoop = 3;
 
-	sFractalIn fractIn(input.point, params->minN, -1, 1, &params->common, -1, false);
-	sFractalOut fractOut;
-	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double rr = fractOut.orbitTrapR;
-	double r = 1.0 / (rr + 1e-30);
-
-	double fakeLight = params->fakeLightsIntensity / r;
-
-	CVector3 deltaX(delta, 0.0, 0.0);
-	CVector3 deltaY(0.0, delta, 0.0);
-	CVector3 deltaZ(0.0, 0.0, delta);
-
-	fractIn.point = input.point + deltaX;
-	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-	fractIn.point = input.point + deltaY;
-	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-	fractIn.point = input.point + deltaZ;
-	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
-
-	CVector3 fakeLightNormal;
-	fakeLightNormal.x = r - rx;
-	fakeLightNormal.y = r - ry;
-	fakeLightNormal.z = r - rz;
-
-	if (qFuzzyIsNull(fakeLightNormal.x) && qFuzzyIsNull(fakeLightNormal.y)
-			&& qFuzzyIsNull(fakeLightNormal.z))
+	for (int fakeLightLoop = 0; fakeLightLoop < fakeLightMaxLoop; fakeLightLoop++)
 	{
-		fakeLightNormal.x = 0.0;
+
+		double delta = input.distThresh * params->smoothness;
+
+		sFractalIn fractIn(input.point, params->minN, -1, 1, 0, &params->common, -1, false);
+		sFractalOut fractOut;
+		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		double rr = fractOut.orbitTrapR;
+		double r = 1.0 / (rr + 1e-30);
+
+		double fakeLight = params->fakeLightsIntensity / r;
+
+		CVector3 deltaX(delta, 0.0, 0.0);
+		CVector3 deltaY(0.0, delta, 0.0);
+		CVector3 deltaZ(0.0, 0.0, delta);
+
+		fractIn.point = input.point + deltaX;
+		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+		fractIn.point = input.point + deltaY;
+		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+		fractIn.point = input.point + deltaZ;
+		Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
+		double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
+
+		CVector3 fakeLightNormal;
+		fakeLightNormal.x = r - rx;
+		fakeLightNormal.y = r - ry;
+		fakeLightNormal.z = r - rz;
+
+		if (qFuzzyIsNull(fakeLightNormal.x) && qFuzzyIsNull(fakeLightNormal.y)
+				&& qFuzzyIsNull(fakeLightNormal.z))
+		{
+			fakeLightNormal.x = 0.0;
+		}
+		else
+		{
+			fakeLightNormal.Normalize();
+		}
+		float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
+		if (fakeLight2 < 0) fakeLight2 = 0;
+
+		sRGBFloat color;
+		switch (fakeLightLoop)
+		{
+			case 0: color = params->fakeLightsColor; break;
+			case 1: color = params->fakeLightsColor2; break;
+			case 2: color = params->fakeLightsColor3; break;
+			default: color = params->fakeLightsColor; break;
+		}
+
+		fakeLights.R += fakeLight2 * color.R;
+		fakeLights.G += fakeLight2 * color.G;
+		fakeLights.B += fakeLight2 * color.B;
+
+		//		sRGBAfloat fakeSpecular =
+		//			SpecularHighlightCombined(input, fakeLightNormal, surfaceColor,
+		//sRGBFloat(1.0, 1.0, 1.0));
+		//
+		//		fakeSpec->R = fakeSpecular.R / r * params->fakeLightsColor.R;
+		//		fakeSpec->G = fakeSpecular.G / r * params->fakeLightsColor.G;
+		//		fakeSpec->B = fakeSpecular.B / r * params->fakeLightsColor.B;
+
+		*fakeSpec = sRGBAfloat();
 	}
-	else
-	{
-		fakeLightNormal.Normalize();
-	}
-	float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
-	if (fakeLight2 < 0) fakeLight2 = 0;
-
-	fakeLights.R = fakeLight2 * params->fakeLightsColor.R;
-	fakeLights.G = fakeLight2 * params->fakeLightsColor.G;
-	fakeLights.B = fakeLight2 * params->fakeLightsColor.B;
-
-	sRGBAfloat fakeSpecular =
-		SpecularHighlightCombined(input, fakeLightNormal, surfaceColor, sRGBFloat(1.0, 1.0, 1.0));
-
-	fakeSpec->R = fakeSpecular.R / r * params->fakeLightsColor.R;
-	fakeSpec->G = fakeSpecular.G / r * params->fakeLightsColor.G;
-	fakeSpec->B = fakeSpecular.B / r * params->fakeLightsColor.B;
-
-	*fakeSpec = sRGBAfloat();
 	return fakeLights;
 }

@@ -109,6 +109,25 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector4 lastZ;
 	CVector4 lastLastZ;
 
+	int fakeLightsMinIter = in.common->fakeLightsMinIter;
+	int fakeLightsMaxIter = in.common->fakeLightsMaxIter;
+
+	if (in.orbitTrapIndex == 0)
+	{
+		if (in.common->fakeLightsColor2Enabled) fakeLightsMaxIter = fakeLightsMinIter + 1;
+	}
+	else if (in.orbitTrapIndex == 1)
+	{
+		fakeLightsMinIter = in.common->fakeLightsMinIter + 1;
+		fakeLightsMaxIter = max(fakeLightsMinIter, in.common->fakeLightsMaxIter);
+		if (in.common->fakeLightsColor3Enabled) fakeLightsMaxIter = fakeLightsMinIter + 1;
+	}
+	else if (in.orbitTrapIndex == 2)
+	{
+		fakeLightsMinIter = in.common->fakeLightsMinIter + 2;
+		fakeLightsMaxIter = max(fakeLightsMinIter, in.common->fakeLightsMaxIter);
+	}
+
 	int maxN;
 
 	if (in.forcedFormulaIndex >= 0)
@@ -363,7 +382,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 														? OrbitTrapShapeDistance(z - aux.const_c, in.common)
 														: OrbitTrapShapeDistance(z, in.common);
 
-				if (i >= in.common->fakeLightsMinIter && i <= in.common->fakeLightsMaxIter)
+				if (i >= fakeLightsMinIter && i <= fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
 				if (distance > fractals.GetBailout(sequence))
 				{
