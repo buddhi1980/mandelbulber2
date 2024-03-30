@@ -134,9 +134,16 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 		&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0;
-
-		//colorAdd += fractal->foldColor.difs0000.x * sqrt(bb);
+		REAL colorAdd = 0.0f;
+		/*REAL bb = (2.0f * cSize.x);
+		bb = ((aux->const_c.x) + bb) / bb;
+			//	bb = (z.x + bb) / bb;
+		bb = fabs(bb - round(bb));
+		REAL cc = 2.0f * cSize.y;
+		cc = (aux->const_c.y + cc) / cc;
+			//	cc = (z.y + cc) / cc;
+		cc = fabs(cc - round(cc));*/
+		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(aux->DE - oldDE) * 0.01f;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.w * fabs(z.z - oldZz);

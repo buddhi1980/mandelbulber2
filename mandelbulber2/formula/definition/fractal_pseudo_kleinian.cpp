@@ -146,6 +146,15 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 		&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		double colorAdd = 0.0;
+		/*double bb = (2.0 * cSize.x);
+		bb = ((aux.const_c.x) + bb) / bb;
+			//	bb = (z.x + bb) / bb;
+		bb = fabs(bb - round(bb));
+		double cc = 2.0 * cSize.y;
+		cc = (aux.const_c.y + cc) / cc;
+			//	cc = (z.y + cc) / cc;
+		cc = fabs(cc - round(cc));*/
+
 		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(aux.DE - oldDE) * 0.01;
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
