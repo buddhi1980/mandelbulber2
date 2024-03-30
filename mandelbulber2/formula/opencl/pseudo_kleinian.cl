@@ -135,18 +135,37 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-		/*REAL bb = (2.0f * cSize.x);
-		bb = ((aux->const_c.x) + bb) / bb;
-			//	bb = (z.x + bb) / bb;
-		bb = fabs(bb - round(bb));
-		REAL cc = 2.0f * cSize.y;
-		cc = (aux->const_c.y + cc) / cc;
-			//	cc = (z.y + cc) / cc;
-		cc = fabs(cc - round(cc));*/
+
 		colorAdd += fractal->foldColor.difs0000.x * k;
-		colorAdd += fractal->foldColor.difs0000.y * fabs(aux->DE - oldDE) * 0.01f;
-		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z);
-		colorAdd += fractal->foldColor.difs0000.w * fabs(z.z - oldZz);
+		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
+		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			//REAL4 tV = 0.0f;
+		//	if (fractal->foldColor.auxColorEnabledA) tV = z;
+		//	else tV = aux->const_c;
+		//	REAL4 tV = aux->const_c * (1.0f - fractal->foldColor.difs0000.w) + z * fractal->foldColor.difs0000.w; // x * (1-a) +y * a
+
+			REAL Ax = 2.0f * cSize.x;
+			REAL Ay = 2.0f * cSize.y;
+
+			REAL bb = (z.x + Ax) / Ax;
+			bb = fabs(bb - round(bb)) * fractal->transformCommon.scaleA1;
+			REAL cc = (z.y + Ay) / Ay;
+			cc = fabs(cc - round(cc)) * fractal->transformCommon.scaleB1;
+			bb = bb + cc;
+
+
+			REAL dd = (aux->const_c.x + Ax) / Ax;
+			dd = fabs(dd - round(dd)) * fractal->transformCommon.scaleA1;
+			REAL ee = (aux->const_c.y + Ay) / Ay;
+			ee = fabs(ee - round(ee)) * fractal->transformCommon.scaleB1;
+			dd = dd + ee;
+
+			bb = dd * (1.0f - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
+			colorAdd += fractal->foldColor.difs0000.w * bb;
+		}
 		aux->color += colorAdd;
 	}
 	return z;

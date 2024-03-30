@@ -1,13 +1,14 @@
 Version history
 
 v2.32 (January 2023)
-
+TODO check all is finished with escape conditions
 - Added new fractal formulas
 
 
 
 - modified fractal formulas
-   transfSphericalInv, fix modes
+   aboxMod13, add missing xyz plane checkbox
+	 transfSphericalInv, fix modes
 	 transfHybridColor2, fix parameter
 	 pseudoKleinianMod2, correct UI
 	 define M_PI_2_F for a few formulas
