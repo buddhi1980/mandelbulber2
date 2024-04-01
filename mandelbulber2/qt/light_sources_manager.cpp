@@ -218,6 +218,8 @@ void cLightSourcesManager::slotButtonDuplicateLight()
 
 void cLightSourcesManager::slotButtonDeleteLight()
 {
+	SynchronizeInterfaceWindow(ui->tabWidget_lightSources, params, qInterface::read);
+
 	int currentTabIndex = ui->tabWidget_lightSources->currentIndex();
 	if (currentTabIndex >= 0)
 	{
