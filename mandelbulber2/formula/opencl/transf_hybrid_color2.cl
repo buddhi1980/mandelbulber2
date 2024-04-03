@@ -26,6 +26,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL distL = 0.0f;
 		REAL newR = 0.0f;
 		REAL lastVec = 0.0f;
+		REAL colTiling = 0.0f;
 
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)
@@ -84,8 +85,44 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			orbitPoints *= fractal->transformCommon.scaleA1;
 		}
 
+
+
+		if (fractal->transformCommon.functionEnabledTFalse)
+		{
+			// REAL4 tV = 0.0f;
+			//	if (fractal->foldColor.auxColorEnabledA) tV = z;
+			//	else tV = aux->const_c;
+			//	REAL4 tV = aux->const_c * (1.0f - fractal->foldColor.difs0000.w) + z *
+			//fractal->foldColor.difs0000.w; // x * (1-a) +y * a
+
+			REAL Ax = 2.0f * fractal->transformCommon.scale3D111.x;
+			REAL Ay = 2.0f * fractal->transformCommon.scale3D111.y;
+
+			REAL bb = ((z.x + Ax) / Ax) + fractal->transformCommon.additionConstantP000.x;
+			bb = fabs(bb - round(bb)) * fractal->transformCommon.offsetC111.x;
+			REAL cc = ((z.y + Ay) / Ay) + fractal->transformCommon.additionConstantP000.y;
+			cc = fabs(cc - round(cc)) * fractal->transformCommon.offsetC111.y;
+			bb = bb + cc;
+
+			REAL dd = ((aux->const_c.x + Ax) / Ax) + fractal->transformCommon.additionConstantP000.x;
+			dd = fabs(dd - round(dd)) * fractal->transformCommon.offsetC111.x;
+			REAL ee = ((aux->const_c.y + Ay) / Ay) + fractal->transformCommon.additionConstantP000.y;
+			ee = fabs(ee - round(ee)) * fractal->transformCommon.offsetC111.y;
+			dd = dd + ee;
+
+			bb = dd * (1.0f - fractal->foldColor.difs0000.w) + bb * fractal->foldColor.difs0000.w; // mix
+
+
+			colTiling = fractal->foldColor.difs1 * bb;
+		}
+
+
+
+
+
+
 		// build  componentMaster
-		componentMaster = (distL + orbitPoints + lastVec + newR);
+		componentMaster = (distL + orbitPoints + lastVec + newR + colTiling);
 		componentMaster *= fractal->transformCommon.scale;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
