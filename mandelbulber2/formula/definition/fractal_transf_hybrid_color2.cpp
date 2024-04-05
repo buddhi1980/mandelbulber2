@@ -97,7 +97,6 @@ void cFractalTransfHybridColor2::FormulaCode(
 			orbitPoints *= fractal->transformCommon.scaleA1;
 		}
 
-
 		if (fractal->transformCommon.functionEnabledTFalse)
 			if (fractal->transformCommon.functionEnabledTFalse)
 			{
@@ -107,23 +106,31 @@ void cFractalTransfHybridColor2::FormulaCode(
 				//	REAL4 tV = aux->const_c * (1.0f - fractal->foldColor.difs0000.w) + z *
 				//fractal->foldColor.difs0000.w; // x * (1-a) +y * a
 
-				double Ax = 2.0 * fractal->transformCommon.scale3D111.x;
-				double Ay = 2.0 * fractal->transformCommon.scale3D111.y;
-
-				double bb = ((z.x + Ax) / Ax) + fractal->transformCommon.additionConstantP000.x;
+				double Size = 2.0 * fractal->transformCommon.scale3D111.x;
+				double bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 				bb = fabs(bb - round(bb)) * fractal->transformCommon.offsetC111.x;
-				double cc = ((z.y + Ay) / Ay) + fractal->transformCommon.additionConstantP000.y;
-				cc = fabs(cc - round(cc)) * fractal->transformCommon.offsetC111.y;
-				bb = bb + cc;
-
-				double dd = ((aux.const_c.x + Ax) / Ax) + fractal->transformCommon.additionConstantP000.x;
+				double dd = ((aux.const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 				dd = fabs(dd - round(dd)) * fractal->transformCommon.offsetC111.x;
-				double ee = ((aux.const_c.y + Ay) / Ay) + fractal->transformCommon.additionConstantP000.y;
+
+				Size = 2.0 * fractal->transformCommon.scale3D111.y;
+				double cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+				cc = fabs(cc - round(cc)) * fractal->transformCommon.offsetC111.y;
+				double ee = ((aux.const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 				ee = fabs(ee - round(ee)) * fractal->transformCommon.offsetC111.y;
+
+				bb = bb + cc;
 				dd = dd + ee;
 
+				if (fractal->transformCommon.functionEnabledAFalse)
+				{	Size = 2.0 * fractal->transformCommon.scale3D111.z;
+					double aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+					aa = fabs(aa - round(aa)) * fractal->transformCommon.offsetC111.z;
+					bb = bb + aa;
+					double ff = ((aux.const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+					ff = fabs(ff - round(ff)) * fractal->transformCommon.offsetC111.z;
+					dd = dd + ff;
+				}
 				bb = dd * (1.0 - fractal->foldColor.difs0000.w) + bb * fractal->foldColor.difs0000.w; // mix
-
 
 				colTiling = fractal->foldColor.difs1 * bb;
 			}

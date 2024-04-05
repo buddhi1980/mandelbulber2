@@ -33,24 +33,28 @@ void cFractalTransfSphericalCoordInvs::FormulaCode(
 	Q_UNUSED(aux);
 
 	CVector4 t = z;
-	if (fractal->transformCommon.functionEnabled)
+	double sn = 0.0;
+	if (fractal->transformCommon.functionEnabled) // M3D version
 	{
-		t.x = z.x * sin(z.y) * cos(z.z);
-		t.y = z.x * sin(z.y) * sin(z.z);
+		sn = z.x * sin(z.y);
+		t.x = sn * cos(z.z);
+		t.y = sn * sin(z.z);
 		t.z = z.x * cos(z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		t.x = z.z * sin(z.x) * sin(z.y);
-		t.z = z.z * sin(z.x) * cos(z.y);
+		sn = z.z * sin(z.x);
+		t.x = sn * sin(z.y);
 		t.y = z.z * cos(z.x);
+		t.z = sn * cos(z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		t.y = z.y * sin(z.x) * cos(z.z);
-		t.x = z.y * sin(z.x) * sin(z.z);
+		sn = z.y * sin(z.x);
+		t.x = sn * sin(z.z);
+		t.y = sn * cos(z.z);
 		t.z = z.y * cos(z.x);
 	}
 
