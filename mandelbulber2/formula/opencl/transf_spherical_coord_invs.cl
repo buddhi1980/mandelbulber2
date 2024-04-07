@@ -22,24 +22,28 @@ REAL4 TransfSphericalCoordInvsIteration(
 	Q_UNUSED(aux);
 
 	REAL4 t = z;
+	REAL sn = 0.0f;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		t.x = z.x * native_sin(z.y) * native_cos(z.z);
-		t.y = z.x * native_sin(z.y) * native_sin(z.z);
+		sn = z.x * native_sin(z.y);
+		t.x = sn * native_cos(z.z);
+		t.y = sn * native_sin(z.z);
 		t.z = z.x * native_cos(z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
-		t.x = z.z * native_sin(z.x) * native_sin(z.y);
-		t.z = z.z * native_sin(z.x) * native_cos(z.y);
+		sn = z.z * native_sin(z.x);
+		t.x = sn * native_sin(z.y);
 		t.y = z.z * native_cos(z.x);
+		t.z = sn * native_cos(z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		t.y = z.y * native_sin(z.x) * native_cos(z.z);
-		t.x = z.y * native_sin(z.x) * native_sin(z.z);
+		sn = z.y * native_sin(z.x);
+		t.x = sn * native_sin(z.z);
+		t.y = sn * native_cos(z.z);
 		t.z = z.y * native_cos(z.x);
 	}
 

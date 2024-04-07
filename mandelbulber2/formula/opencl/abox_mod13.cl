@@ -23,6 +23,8 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 {
 	REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
+	REAL4 zCol = z;
+	REAL rrCol = 0.0f;
 	// invert c
 	if (fractal->transformCommon.functionEnabledAzFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -65,28 +67,30 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}
-	}
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
-	{
-		REAL4 limit = fractal->transformCommon.additionConstant111;
-		REAL4 length = 2.0f * limit;
-		REAL4 tgladS = 1.0f / length;
-		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
+
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
+		{
+			REAL4 limit = fractal->transformCommon.additionConstant111;
+			REAL4 length = 2.0f * limit;
+			REAL4 tgladS = 1.0f / length;
+			REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
+		zCol = z;
 	}
 	// swap
 	if (fractal->transformCommon.functionEnabledSwFalse)
@@ -98,7 +102,7 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		REAL rr = dot(z, z);
-
+		rrCol = rr;
 		z += fractal->mandelbox.offset;
 
 		// if (r2 < 1e-21f) r2 = 1e-21f;
@@ -207,8 +211,34 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// color updated v2.13
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabled && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			colorAdd = 0.0f;
+			if (zCol.x != oldZ.x)
+				colorAdd += fractal->mandelbox.color.factor.x
+										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+			if (zCol.y != oldZ.y)
+				colorAdd += fractal->mandelbox.color.factor.y
+										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+			if (zCol.z != oldZ.z)
+				colorAdd += fractal->mandelbox.color.factor.z
+										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+			if (rrCol < fractal->transformCommon.maxR2d1)
+			{
+				if (rrCol < fractal->transformCommon.minR2p25)
+					colorAdd +=
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+				else
+					colorAdd +=
+						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			}
+		}
 		aux->color += colorAdd;
 	}
 	return z;

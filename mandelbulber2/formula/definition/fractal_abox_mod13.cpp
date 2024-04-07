@@ -34,6 +34,8 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 {
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
+	CVector4 zCol = z;
+	double rrCol = 0.0;
 	// invert c
 	if (fractal->transformCommon.functionEnabledAzFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -70,34 +72,37 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
+
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}
-	}
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		CVector4 limit = fractal->transformCommon.additionConstant111;
-		CVector4 length = 2.0 * limit;
-		CVector4 tgladS = 1.0 / length;
-		CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
+
+		if (fractal->transformCommon.functionEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
+		{
+			CVector4 limit = fractal->transformCommon.additionConstant111;
+			CVector4 length = 2.0 * limit;
+			CVector4 tgladS = 1.0 / length;
+			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+			Add *= fractal->transformCommon.scale3D000;
+			z.x = (z.x - (sign(z.x) * (Add.x)));
+			z.y = (z.y - (sign(z.y) * (Add.y)));
+			z.z = (z.z - (sign(z.z) * (Add.z)));
+		}
+		zCol = z;
 	}
 	// swap
 	if (fractal->transformCommon.functionEnabledSwFalse)
@@ -109,7 +114,7 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		double rr = z.Dot(z);
-
+		rrCol = rr;
 		z += fractal->mandelbox.offset;
 
 		// if (r2 < 1e-21) r2 = 1e-21;
@@ -217,9 +222,36 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE = aux.DE * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 
-	// color updated v2.13
-	if (fractal->foldColor.auxColorEnabled)
+	// color updated v2.13 and v2.32
+	if (fractal->foldColor.auxColorEnabled && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			colorAdd = 0.0;
+			if (zCol.x != oldZ.x)
+				colorAdd += fractal->mandelbox.color.factor.x
+										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+			if (zCol.y != oldZ.y)
+				colorAdd += fractal->mandelbox.color.factor.y
+										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+			if (zCol.z != oldZ.z)
+				colorAdd += fractal->mandelbox.color.factor.z
+										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+			if (rrCol < fractal->transformCommon.maxR2d1)
+			{
+				if (rrCol < fractal->transformCommon.minR2p25)
+					colorAdd +=
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+				else
+					colorAdd +=
+						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			}
+		}
+
 		aux.color += colorAdd;
 	}
 }
