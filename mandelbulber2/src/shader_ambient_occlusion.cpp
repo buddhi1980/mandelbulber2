@@ -42,7 +42,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 {
 	sRGBAfloat AO(0, 0, 0, 1.0);
 
-	double start_dist = input.delta;
+	double start_dist = input.distThresh;
 	double end_dist = input.delta / params->resolution;
 	double intense;
 
