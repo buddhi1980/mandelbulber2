@@ -50,6 +50,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_271">
+     <property name="text">
+      <string>Note 3): Disable Menger Sponge option for pseudo kleinian only</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="toolTip">
       <string/>
@@ -314,7 +324,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_174">
           <property name="text">
-           <string>shift/offset scale:</string>
+           <string>shift scale:</string>
           </property>
          </widget>
         </item>

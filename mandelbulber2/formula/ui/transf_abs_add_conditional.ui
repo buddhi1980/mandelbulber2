@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_conditional</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -37,35 +37,32 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_81">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="3" column="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+    <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,1,1,1">
+     <item>
+      <widget class="QLabel" name="label_72">
        <property name="text">
-        <string notr="true">z.z</string>
+        <string>axis:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
         <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
         <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_72">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="text">
-        <string>Enable Axis</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -106,6 +103,9 @@
      </item>
      <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_y">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -149,7 +149,7 @@
      <item row="8" column="0" colspan="2">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>Analytic DE Tweak:</string>
+        <string>Analytic DE tweak:</string>
        </property>
       </widget>
      </item>
@@ -267,6 +267,9 @@
      </item>
      <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_z">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -309,6 +312,9 @@
      </item>
      <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_y">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -403,7 +409,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:&#039;Courier New&#039;,monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfAbsAddConditionalIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfAbsAddConditionalIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;
   CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledx&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;

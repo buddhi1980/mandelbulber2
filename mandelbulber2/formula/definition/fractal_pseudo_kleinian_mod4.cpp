@@ -63,6 +63,7 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 	k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 	z *= k;
 	aux.DE *= k + fractal->analyticDE.tweak005;
+	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -83,12 +84,13 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 		z = fabs(z + fractal->transformCommon.offsetA000)
 				- fabs(z - fractal->transformCommon.offsetA000) - z;
 	}
+
 	if (fractal->transformCommon.functionEnabledNFalse
 			&& aux.i >= fractal->transformCommon.startIterationsN
 			&& aux.i < fractal->transformCommon.stopIterationsN)
 	{
-		double foldX = fractal->transformCommon.offset1;
-		double foldY = fractal->transformCommon.offsetA1;
+	//	double foldX = fractal->transformCommon.offset1;
+	//	double foldY = fractal->transformCommon.offsetA1;
 
 		double t;
 		z.x = fabs(z.x);
@@ -119,18 +121,17 @@ void cFractalPseudoKleinianMod4::FormulaCode(
 		if (fractal->transformCommon.functionEnabledAx
 				&& aux.i >= fractal->transformCommon.startIterationsR
 				&& aux.i < fractal->transformCommon.stopIterationsR)
-					z.x = foldX - fabs(z.x + foldX);
+					z.x = fractal->transformCommon.offset1 - fabs(z.x + fractal->transformCommon.offset1);
 		if (fractal->transformCommon.functionEnabledAxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsRV
 				&& aux.i < fractal->transformCommon.stopIterationsRV)
-					z.y = foldY - fabs(z.y + foldY);
+					z.y = fractal->transformCommon.offsetA1 - fabs(z.y + fractal->transformCommon.offsetA1);
 	}
 
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 
-	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

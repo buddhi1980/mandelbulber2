@@ -21,16 +21,6 @@ REAL4 TransfAbsAddConditionalIteration(REAL4 z, __constant sFractalCl *fractal, 
 					* (fractal->transformCommon.offset111.x - fabs(z.x)
 						 + fabs(z.x) * fractal->transformCommon.scale3D000.x);
 	}
-	/*{
-		REAL signZx = sign(z.x);
-		z.x = (signZx * fractal->transformCommon.offset111.x)
-			- fabs(z.x) * (signZx - fractal->transformCommon.offset000.x);
-	}*/
-	/*{
-		REAL Absx = fabs(z.x);
-		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - Absx
-			+ Absx * fractal->transformCommon.offset000.x);
-	}*/
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
