@@ -452,7 +452,7 @@ QList<QString> cPrimitives::GetListOfPrimitiveParams(
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	for (auto &parameterName : listOfParameters)
 	{
-		if (parameterName.contains(item.fullName))
+		if (parameterName.contains(item.fullName + "_"))
 		{
 			listOfPrimitiveParams.push_back(parameterName);
 		}
