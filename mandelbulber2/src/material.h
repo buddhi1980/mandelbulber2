@@ -136,6 +136,7 @@ public:
 	bool useColorsFromPalette;
 	bool specularPlasticEnable;
 	bool metallic;
+	bool perlinNoiseEnable;
 	bool roughSurface;
 
 	bool useColorTexture;

@@ -99,8 +99,6 @@ void cRenderWorker::doWork()
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
 
-	perlinNoise.reset(new cPerlinNoiseOctaves(params->cloudsRandomSeed));
-
 	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler.get();
 
@@ -1106,6 +1104,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					TextureShader(shaderInputData, texture::texTransparencyAlpha, shaderInputData.material);
 			else
 				shaderInputData.texTransparencyAlpha = sRGBFloat(1.0, 1.0, 1.0);
+
+			if (shaderInputData.material->perlinNoiseEnable)
+			{
+				double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
+					point.x / params->cloudsPeriod * 30.0, point.y / params->cloudsPeriod * 10,
+					point.z / params->cloudsPeriod * 10, params->cloudsSpeed.x * params->frameNo,
+					params->cloudsSpeed.y * params->frameNo, params->cloudsSpeed.z * params->frameNo, 10);
+				perlin = fabs(perlin - 0.5) * 2.0 + 0.5;
+			}
 
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;

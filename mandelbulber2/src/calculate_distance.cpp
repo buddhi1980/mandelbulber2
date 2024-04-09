@@ -47,6 +47,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "nine_fractals.hpp"
+#include "perlin_noise_octaves.h"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
 #include "write_log.hpp"
@@ -205,6 +206,21 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 	distance = params.primitives.TotalDistance(
 		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
+
+	if (data)
+	{
+		const cMaterial *mat = &data->materials[data->objectData[out->objectId].materialId];
+		if (mat->perlinNoiseEnable)
+		{
+			double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
+				in.point.x / params.cloudsPeriod * 50, in.point.y / params.cloudsPeriod * 100,
+				in.point.z / params.cloudsPeriod * 500, params.cloudsSpeed.x * params.frameNo,
+				params.cloudsSpeed.y * params.frameNo, params.cloudsSpeed.z * params.frameNo, 6);
+			perlin = fabs(perlin - 0.5) * 2.0;
+
+			distance -= perlin * 0.005;
+		}
+	}
 
 	//****************************************************
 

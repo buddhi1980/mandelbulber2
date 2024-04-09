@@ -53,7 +53,6 @@ struct sRenderData;
 struct sParamRender;
 class cNineFractals;
 class cScheduler;
-class cPerlinNoiseOctaves;
 
 #define MAX_RAYMARCHING 10000
 
@@ -294,7 +293,6 @@ private:
 	std::vector<sRayBuffer> rayBuffer;
 	std::vector<sRayStack> rayStack;
 	std::vector<sVectorsAround> AOVectorsAround;
-	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise;
 
 public slots:
 	void doWork();

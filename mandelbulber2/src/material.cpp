@@ -90,6 +90,7 @@ cMaterial::cMaterial()
 	textureFractalizeStartIteration = 0;
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
+	perlinNoiseEnable = false;
 	roughSurface = false;
 	insideColoringEnable = false;
 	subsurfaceScattering = false;
@@ -204,6 +205,7 @@ QStringList cMaterial::paramsList = {
 	"normal_map_texture_from_bumpmap",
 	"normal_map_texture_height",
 	"normal_map_texture_invert_green",
+	"perlin_noise_enable",
 	"reflectance",
 	"reflections_color",
 	"reflectance_texture_intensity",
@@ -296,6 +298,7 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	reflectionsColor = toRGBFloat(materialParam->Get<sRGB>(Name("reflections_color", id)));
 	transparencyColor = toRGBFloat(materialParam->Get<sRGB>(Name("transparency_color", id)));
 
+	perlinNoiseEnable = materialParam->Get<bool>(Name("perlin_noise_enable", id));
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
 
 	insideColoringEnable = materialParam->Get<bool>(Name("inside_coloring", id));

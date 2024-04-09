@@ -52,6 +52,7 @@
 #include "opencl_engine_render_post_filter.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
+#include "perlin_noise_octaves.h"
 #include "post_effect_hdr_blur.h"
 #include "progress_text.hpp"
 #include "render_data.hpp"
@@ -338,6 +339,9 @@ void cRenderJob::PrepareData()
 
 	renderData->lights.Set(paramsContainer, fractalContainer, loadTextures,
 		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
+
+	renderData->perlinNoise.reset(
+		new cPerlinNoiseOctaves(paramsContainer->Get<int>("clouds_random_seed")));
 
 	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
 }

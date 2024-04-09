@@ -36,12 +36,14 @@
 #define MANDELBULBER2_SRC_RENDER_DATA_HPP_
 
 #include <map>
+#include <memory>
 
 #include <QDebug>
 
 #include "lights.hpp"
 #include "material.h"
 #include "object_data.hpp"
+#include "perlin_noise_octaves.h"
 #include "region.hpp"
 #include "rendering_configuration.hpp"
 #include "statistics.h"
@@ -79,6 +81,7 @@ struct sRenderData
 	QVector<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;
 
+	std::unique_ptr<cPerlinNoiseOctaves> perlinNoise;
 	std::map<int, cMaterial> materials; // 'int' is an ID
 	QVector<cObjectData> objectData;
 	cStereo stereo;

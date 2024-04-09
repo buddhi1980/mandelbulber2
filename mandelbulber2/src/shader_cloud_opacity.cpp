@@ -37,6 +37,7 @@
 #include "common_math.h"
 #include "fractparams.hpp"
 #include "perlin_noise_octaves.h"
+#include "render_data.hpp"
 #include "render_worker.hpp"
 
 double cRenderWorker::CloudOpacity(
@@ -78,7 +79,7 @@ double cRenderWorker::CloudOpacity(
 	double distToCloud = distToGeometry;
 	if (h > 0)
 	{
-		double opacity = perlinNoise->normalizedOctaveNoise3D_0_1(point2.x / params->cloudsPeriod,
+		double opacity = data->perlinNoise->normalizedOctaveNoise3D_0_1(point2.x / params->cloudsPeriod,
 			point2.y / params->cloudsPeriod, point2.z / params->cloudsPeriod,
 			params->cloudsSpeed.x * params->frameNo, params->cloudsSpeed.y * params->frameNo,
 			params->cloudsSpeed.z * params->frameNo, params->cloudsIterations);
