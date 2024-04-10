@@ -203,6 +203,6 @@ REAL4 AmazingSurfMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
 
-	aux->color += colorAdd;
+	if (fractal->foldColor.auxColorEnabled) aux->color += colorAdd;
 	return z;
 }

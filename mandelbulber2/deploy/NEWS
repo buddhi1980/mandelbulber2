@@ -8,6 +8,7 @@ TODO check all is finished with escape conditions
 
 - modified fractal formulas
    aboxMod13, add missing xyz plane checkbox
+	 amazingSurfMulti, fix enable auc.color
 	 transfSphericalInv, fix modes
 	 transfHybridColor2, fix parameter
 	 pseudoKleinianMod2, correct UI

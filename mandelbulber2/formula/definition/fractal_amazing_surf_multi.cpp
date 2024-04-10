@@ -214,5 +214,5 @@ void cFractalAmazingSurfMulti::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 		z = fractal->mandelbox.mainRot.RotateVector(z);
 
-	aux.color += colorAdd;
+	if (fractal->foldColor.auxColorEnabled) aux.color += colorAdd;
 }
