@@ -11,6 +11,7 @@ TODO check all is finished with escape conditions
 	 amazingSurfMulti, fix enable auc.color
 	 transfSphericalInv, fix modes
 	 transfHybridColor2, fix parameter
+	 pseudoKleinianMod, add iter controls to sphere inversion
 	 pseudoKleinianMod2, correct UI
 	 define M_PI_2_F for a few formulas
 

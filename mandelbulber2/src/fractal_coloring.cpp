@@ -102,7 +102,6 @@ sFractalColoring::sFractalColoring()
 	parabScale = 0.0;
 	parabStartValue = 0.0;
 	radDivDeWeight = 0.0;
-	radDivDeWeight = 0.0;
 	radWeight = 0.0;
 	roundScale = 0.0;
 	sphereRadius = 0.0;

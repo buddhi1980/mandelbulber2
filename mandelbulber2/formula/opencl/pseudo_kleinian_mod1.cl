@@ -17,6 +17,8 @@
 
 REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL oldZz = z.z;
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -133,7 +135,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z += fractal->transformCommon.offsetA000;
 	}
 
-	REAL k;
+	REAL k = 0.0f;
 	// Pseudo kleinian
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -211,6 +213,56 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
+	// color
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+		&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		REAL colorAdd = 0.0f;
 
+		colorAdd += fractal->foldColor.difs0000.x * k;
+		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
+		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			REAL Size = 2.0 * cSize.x * fractal->transformCommon.scale3D111.x;
+			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
+			REAL dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
+
+			Size = 2.0 * cSize.y * fractal->transformCommon.scale3D111.y;
+			REAL cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
+			REAL ee = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.y;
+
+			if (!fractal->transformCommon.functionEnabledAxFalse)
+			{
+				bb = bb + cc;
+				dd = dd + ee;
+			}
+			else
+			{
+				bb = bb * bb + cc * cc;
+				dd = dd * dd + ee * ee;
+			}
+
+			if (fractal->transformCommon.functionEnabledAFalse)
+			{
+				Size = 2.0 * cSize.z * fractal->transformCommon.scale3D111.z;
+				REAL aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
+				bb = bb + aa;
+				REAL ff = ((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.z;
+				dd = dd + ff;
+			}
+			bb = dd * (1.0f - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
+
+			colorAdd += fractal->foldColor.difs0000.w * bb;
+		}
+		aux->color += colorAdd;
+	}
 	return z;
 }

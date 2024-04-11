@@ -32,17 +32,16 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	// double oldDE = aux.DE;
 
 	// sphere inversion slot#1 iter == 0 added v2.17
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+		&& aux.i >= fractal->transformCommon.startIterationsX
+		&& aux.i < fractal->transformCommon.stopIterations1)
 	{
-		if (aux.i < 1)
-		{
-			double rr = 1.0;
-			z += fractal->transformCommon.offset000;
-			rr = z.Dot(z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
-			aux.DE = aux.DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
-		}
+		double rr = 1.0;
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
+		aux.DE = aux.DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
 	}
 
 	// prism shape

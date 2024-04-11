@@ -18,20 +18,19 @@
 REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL oldZz = z.z;
-	REAL oldDE = aux->DE;
+	//REAL oldDE = aux->DE;
 
 	// sphere inversion slot#1 iter == 0 added v2.17
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
+			&& aux->i < fractal->transformCommon.stopIterations1)
 	{
-		if (aux->i < 1)
-		{
-			REAL rr = 1.0f;
-			z += fractal->transformCommon.offset000;
-			rr = dot(z, z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
-			aux->DE = aux->DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
-		}
+		REAL rr = 1.0f;
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
+		aux->DE = aux->DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
 	}
 
 	// prism shape

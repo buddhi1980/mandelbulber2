@@ -29,6 +29,8 @@ cFractalPseudoKleinianMod1::cFractalPseudoKleinianMod1() : cAbstractFractal()
 void cFractalPseudoKleinianMod1::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double oldZz = z.z;
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -145,7 +147,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		z += fractal->transformCommon.offsetA000;
 	}
 
-	double k;
+	double k = 0.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -222,5 +224,56 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
 
 		z += fractal->transformCommon.additionConstantA000;
+	}
+	// color
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+		&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colorAdd = 0.0;
+		colorAdd += fractal->foldColor.difs0000.x * k;
+		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
+		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			double Size = 2.0 * cSize.x * fractal->transformCommon.scale3D111.x;
+			double bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
+			double dd = ((aux.const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
+
+			Size = 2.0 * cSize.y * fractal->transformCommon.scale3D111.y;
+			double cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
+			double ee = ((aux.const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.y;
+
+
+			if (!fractal->transformCommon.functionEnabledAxFalse)
+			{
+				bb = bb + cc;
+				dd = dd + ee;
+			}
+			else
+			{
+				bb = bb * bb + cc * cc;
+				dd = dd * dd + ee * ee;
+			}
+
+			if (fractal->transformCommon.functionEnabledAFalse)
+			{	Size = 2.0 * cSize.z * fractal->transformCommon.scale3D111.z;
+				double aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
+				bb = bb + aa;
+				double ff = ((aux.const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.z;
+				dd = dd + ff;
+			}
+			bb = dd * (1.0 - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
+
+			colorAdd += fractal->foldColor.difs0000.w * bb;
+		}
+
+		aux.color += colorAdd;
 	}
 }
