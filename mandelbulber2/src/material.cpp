@@ -90,7 +90,6 @@ cMaterial::cMaterial()
 	textureFractalizeStartIteration = 0;
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
-	perlinNoiseEnable = false;
 	roughSurface = false;
 	insideColoringEnable = false;
 	subsurfaceScattering = false;
@@ -101,6 +100,14 @@ cMaterial::cMaterial()
 	roughnessGradientEnable = false;
 	reflectanceGradientEnable = false;
 	transparencyGradientEnable = false;
+	perlinNoiseEnable = false;
+	perlinNoiseIterations = 0;
+	perlinNoiseRandomSeed = 0;
+	perlinNoiseValueOffset = 0.0f;
+	perlinNoiseColorIntensity = 0.0f;
+	perlinNoiseAbs = false;
+	perlinNoiseColorEnable = false;
+	perlinNoiseColorInvert = false;
 }
 
 cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam,
@@ -211,6 +218,9 @@ QStringList cMaterial::paramsList = {
 	"perlin_noise_period",
 	"perlin_noise_value_offset",
 	"perlin_noise_abs",
+	"perlin_noise_color_enable",
+	"perlin_noise_color_intensity",
+	"perlin_noise_color_invert",
 	"reflectance",
 	"reflections_color",
 	"reflectance_texture_intensity",
@@ -303,7 +313,6 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	reflectionsColor = toRGBFloat(materialParam->Get<sRGB>(Name("reflections_color", id)));
 	transparencyColor = toRGBFloat(materialParam->Get<sRGB>(Name("transparency_color", id)));
 
-	perlinNoiseEnable = materialParam->Get<bool>(Name("perlin_noise_enable", id));
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
 
 	insideColoringEnable = materialParam->Get<bool>(Name("inside_coloring", id));
@@ -519,6 +528,16 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		materialParam->Get<double>(Name("fractal_coloring_max_color_value", id));
 	fractalColoring.minColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_min_color_value", id));
+
+	perlinNoiseEnable = materialParam->Get<bool>(Name("perlin_noise_enable", id));
+	perlinNoiseIterations = materialParam->Get<int>(Name("perlin_noise_iterations", id));
+	perlinNoiseRandomSeed = materialParam->Get<int>(Name("perlin_noise_random_seed", id));
+	perlinNoisePeriod = materialParam->Get<CVector3>(Name("perlin_noise_period", id));
+	perlinNoiseValueOffset = materialParam->Get<double>(Name("perlin_noise_value_offset", id));
+	perlinNoiseAbs = materialParam->Get<bool>(Name("perlin_noise_abs", id));
+	perlinNoiseColorEnable = materialParam->Get<bool>(Name("perlin_noise_color_enable", id));
+	perlinNoiseColorIntensity = materialParam->Get<double>(Name("perlin_noise_color_intensity", id));
+	perlinNoiseColorInvert = materialParam->Get<bool>(Name("perlin_noise_color_invert", id));
 
 	if (loadTextures)
 	{

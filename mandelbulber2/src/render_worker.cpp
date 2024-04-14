@@ -1105,15 +1105,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			else
 				shaderInputData.texTransparencyAlpha = sRGBFloat(1.0, 1.0, 1.0);
 
-			if (shaderInputData.material->perlinNoiseEnable)
-			{
-				double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
-					point.x / params->cloudsPeriod * 30.0, point.y / params->cloudsPeriod * 10,
-					point.z / params->cloudsPeriod * 10, params->cloudsSpeed.x * params->frameNo,
-					params->cloudsSpeed.y * params->frameNo, params->cloudsSpeed.z * params->frameNo, 10);
-				perlin = fabs(perlin - 0.5) * 2.0 + 0.5;
-			}
-
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
 
@@ -1132,6 +1123,25 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			if (rayMarchingOut.found)
 			{
+				if (shaderInputData.material->perlinNoiseEnable)
+				{
+					float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
+						point.x / shaderInputData.material->perlinNoisePeriod.x,
+						point.y / shaderInputData.material->perlinNoisePeriod.y,
+						point.z / shaderInputData.material->perlinNoisePeriod.z, 0.0, 0.0, 0.0,
+						shaderInputData.material->perlinNoiseIterations);
+
+					perlin += shaderInputData.material->perlinNoiseValueOffset;
+
+					if (shaderInputData.material->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
+					perlin = clamp(perlin, 0.0f, 1.0f);
+					shaderInputData.perlinNoise = perlin;
+				}
+				else
+				{
+					shaderInputData.perlinNoise = 0.0f;
+				}
+
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
 				sGradientsCollection gradients;

@@ -1604,13 +1604,20 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		cMaterial::Name("perlin_noise_enable", materialId), false, morphNone, paramStandard);
 	par->addParam(
 		cMaterial::Name("perlin_noise_iterations", materialId), 5, 0, 100, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("perlin_noise_random_seed", materialId), 5, 0, 100, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_random_seed", materialId), 12345, 0, 100, morphNone,
+		paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_period", materialId), CVector3(1.0, 1.0, 1.0),
 		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("perlin_noise_value_offset", materialId), 1.0, 1e-15, 1e15,
+	par->addParam(cMaterial::Name("perlin_noise_value_offset", materialId), 0.0, -1.0, 1.0,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_abs", materialId), false, morphNone, paramStandard);
+
+	par->addParam(
+		cMaterial::Name("perlin_noise_color_enable", materialId), false, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_color_intensity", materialId), 1.0, 1e-15, 1e15,
+		morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("perlin_noise_color_invert", materialId), false, morphNone, paramStandard);
 
 	par->addParam(
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);

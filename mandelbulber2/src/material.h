@@ -69,6 +69,8 @@ public:
 
 	int id;
 	int textureFractalizeStartIteration;
+	int perlinNoiseIterations;
+	int perlinNoiseRandomSeed;
 
 	float shading;
 	float specular;
@@ -99,6 +101,8 @@ public:
 	double iridescenceIntensity;
 	double iridescenceSubsurfaceThickness;
 	double textureFractalizeCubeSize;
+	float perlinNoiseValueOffset;
+	float perlinNoiseColorIntensity;
 
 	sRGBFloat color;
 	sRGBFloat luminosityColor;
@@ -128,6 +132,7 @@ public:
 	CVector3 textureCenter;
 	CVector3 textureRotation;
 	CVector3 textureScale;
+	CVector3 perlinNoisePeriod;
 
 	CRotationMatrix rotMatrix;
 
@@ -136,8 +141,12 @@ public:
 	bool useColorsFromPalette;
 	bool specularPlasticEnable;
 	bool metallic;
-	bool perlinNoiseEnable;
 	bool roughSurface;
+
+	bool perlinNoiseEnable;
+	bool perlinNoiseAbs;
+	bool perlinNoiseColorEnable;
+	bool perlinNoiseColorInvert;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

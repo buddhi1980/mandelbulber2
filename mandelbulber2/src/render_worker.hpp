@@ -190,6 +190,7 @@ private:
 		sRGBFloat texReflectance;
 		sRGBFloat texTransparency;
 		sRGBFloat texTransparencyAlpha;
+		float perlinNoise;
 	};
 
 	struct sRayStack

@@ -207,7 +207,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	distance = params.primitives.TotalDistance(
 		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
 
-	if (data)
+	if (data && false) // temporarly off
 	{
 		const cMaterial *mat = &data->materials[data->objectData[out->objectId].materialId];
 		if (mat->perlinNoiseEnable)

@@ -69,9 +69,35 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat colour = SurfaceColour(input.point, input, gradients);
 	float texColInt = mat->colorTextureIntensity;
 	float texColIntN = 1.0f - mat->colorTextureIntensity;
+
 	colour.R *= input.texColor.R * texColInt + texColIntN;
 	colour.G *= input.texColor.G * texColInt + texColIntN;
 	colour.B *= input.texColor.B * texColInt + texColIntN;
+
+	if (mat->perlinNoiseColorEnable)
+	{
+		float perlinColInt = mat->perlinNoiseColorIntensity;
+		float perlinIntN = 1.0f - mat->perlinNoiseColorIntensity;
+		float perlin = (mat->perlinNoiseColorInvert) ? 1.0 - input.perlinNoise : input.perlinNoise;
+
+		if (input.material->surfaceGradientEnable)
+		{
+			double colorPosition =
+				fmod(perlin * input.material->coloring_speed + input.material->paletteOffset, 1.0);
+			sRGBFloat gradientColor = input.material->gradientSurface.GetColorFloat(colorPosition, false);
+			colour.R *= gradientColor.R * perlinColInt + perlinIntN;
+			colour.G *= gradientColor.G * perlinColInt + perlinIntN;
+			colour.B *= gradientColor.B * perlinColInt + perlinIntN;
+		}
+		else
+		{
+			float perlinCol = perlin * perlinColInt + perlinIntN;
+			colour.R *= perlinCol;
+			colour.G *= perlinCol;
+			colour.B *= perlinCol;
+		}
+	}
+
 	*surfaceColour = colour;
 
 	// ambient occlusion
