@@ -47,6 +47,8 @@ typedef struct
 {
 	cl_int id;
 	cl_int textureFractalizeStartIteration;
+	cl_int perlinNoiseIterations;
+	cl_int perlinNoiseRandomSeed;
 
 	cl_float shading;
 	cl_float specular;
@@ -77,6 +79,8 @@ typedef struct
 	cl_float iridescenceIntensity;
 	cl_float iridescenceSubsurfaceThickness;
 	cl_float textureFractalizeCubeSize;
+	cl_float perlinNoiseValueOffset;
+	cl_float perlinNoiseColorIntensity;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -88,6 +92,7 @@ typedef struct
 	cl_float3 textureCenter;
 	cl_float3 textureRotation;
 	cl_float3 textureScale;
+	cl_float3 perlinNoisePeriod;
 
 	matrix33 rotMatrix;
 
@@ -97,6 +102,11 @@ typedef struct
 	cl_int specularPlasticEnable;
 	cl_int metallic;
 	cl_int roughSurface;
+
+	cl_int perlinNoiseEnable;
+	cl_int perlinNoiseAbs;
+	cl_int perlinNoiseColorEnable;
+	cl_int perlinNoiseColorInvert;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -143,6 +153,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 
 	target.id = source.id;
 	target.textureFractalizeStartIteration = source.textureFractalizeStartIteration;
+	target.perlinNoiseIterations = source.perlinNoiseIterations;
+	target.perlinNoiseRandomSeed = source.perlinNoiseRandomSeed;
+
 	target.shading = source.shading;
 	target.specular = source.specular;
 	target.specularWidth = source.specularWidth;
@@ -172,6 +185,8 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.iridescenceIntensity = source.iridescenceIntensity;
 	target.iridescenceSubsurfaceThickness = source.iridescenceSubsurfaceThickness;
 	target.textureFractalizeCubeSize = source.textureFractalizeCubeSize;
+	target.perlinNoiseValueOffset = source.perlinNoiseValueOffset;
+	target.perlinNoiseColorIntensity = source.perlinNoiseColorIntensity;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -183,6 +198,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.textureCenter = toClFloat3(source.textureCenter);
 	target.textureRotation = toClFloat3(source.textureRotation);
 	target.textureScale = toClFloat3(source.textureScale);
+	target.perlinNoisePeriod = toClFloat3(source.perlinNoisePeriod);
 
 	target.rotMatrix = toClMatrix33(source.rotMatrix);
 
@@ -192,6 +208,11 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.specularPlasticEnable = source.specularPlasticEnable;
 	target.metallic = source.metallic;
 	target.roughSurface = source.roughSurface;
+
+	target.perlinNoiseEnable = source.perlinNoiseEnable;
+	target.perlinNoiseAbs = source.perlinNoiseAbs;
+	target.perlinNoiseColorEnable = source.perlinNoiseColorEnable;
+	target.perlinNoiseColorInvert = source.perlinNoiseColorInvert;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

@@ -788,6 +788,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasRoughnessGradient = false;
 	bool anyMaterialHasReflectanceGradient = false;
 	bool anyMaterialHasTransparencyGradient = false;
+	bool anyMaterialHasPerlin = false;
 
 	for (auto const &materialPair : renderData->materials) // for each material from materials
 	{
@@ -812,6 +813,7 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		if (material.roughnessGradientEnable) anyMaterialHasRoughnessGradient = true;
 		if (material.reflectanceGradientEnable) anyMaterialHasReflectanceGradient = true;
 		if (material.transparencyGradientEnable) anyMaterialHasTransparencyGradient = true;
+		if (material.perlinNoiseEnable) anyMaterialHasPerlin = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 
@@ -851,6 +853,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasRoughnessGradient) definesCollector += " -DUSE_ROUGHNESS_GRADIENT";
 	if (anyMaterialHasReflectanceGradient) definesCollector += " -DUSE_REFLECTANCE_GRADIENT";
 	if (anyMaterialHasTransparencyGradient) definesCollector += " -DUSE_TRANSPARENCY_GRADIENT";
+
+	if (anyMaterialHasPerlin) definesCollector += " -DUSE_PERLIN_NOISE";
 }
 
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(

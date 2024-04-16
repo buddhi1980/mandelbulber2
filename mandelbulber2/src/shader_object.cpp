@@ -65,16 +65,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	gradients->specular = sRGBFloat(1.0, 1.0, 1.0);
 
-	// calculate surface colour
-	sRGBAfloat colour = SurfaceColour(input.point, input, gradients);
-	float texColInt = mat->colorTextureIntensity;
-	float texColIntN = 1.0f - mat->colorTextureIntensity;
+	sRGBAfloat colour(1.0, 1.0, 1.0, 1.0);
 
-	colour.R *= input.texColor.R * texColInt + texColIntN;
-	colour.G *= input.texColor.G * texColInt + texColIntN;
-	colour.B *= input.texColor.B * texColInt + texColIntN;
-
-	if (mat->perlinNoiseColorEnable)
+	if (mat->perlinNoiseEnable && mat->perlinNoiseColorEnable)
 	{
 		float perlinColInt = mat->perlinNoiseColorIntensity;
 		float perlinIntN = 1.0f - mat->perlinNoiseColorIntensity;
@@ -96,6 +89,17 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 			colour.G *= perlinCol;
 			colour.B *= perlinCol;
 		}
+	}
+	else
+	{
+		// calculate surface colour
+		colour = SurfaceColour(input.point, input, gradients);
+		float texColInt = mat->colorTextureIntensity;
+		float texColIntN = 1.0f - mat->colorTextureIntensity;
+
+		colour.R *= input.texColor.R * texColInt + texColIntN;
+		colour.G *= input.texColor.G * texColInt + texColIntN;
+		colour.B *= input.texColor.B * texColInt + texColIntN;
 	}
 
 	*surfaceColour = colour;
@@ -162,6 +166,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
 									 + mat->luminosity * mat->luminosityColor.B;
 	}
+
 	luminosityEmissiveOut->R = luminosity.R * mat->luminosityEmissive;
 	luminosityEmissiveOut->G = luminosity.G * mat->luminosityEmissive;
 	luminosityEmissiveOut->B = luminosity.B * mat->luminosityEmissive;

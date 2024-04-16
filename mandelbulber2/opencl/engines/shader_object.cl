@@ -46,15 +46,45 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 fillLight = consts->params.fillLightColor;
 
-	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam, gradients);
+	float3 surfaceColor = 1.0f;
+
+#ifdef USE_PERLIN_NOISE
+	if (input->material->perlinNoiseEnable && input->material->perlinNoiseColorEnable)
+	{
+		float perlinColInt = input->material->perlinNoiseColorIntensity;
+		float perlinIntN = 1.0f - input->material->perlinNoiseColorIntensity;
+		float perlin =
+			(input->material->perlinNoiseColorInvert) ? 1.0f - input->perlinNoise : input->perlinNoise;
+
+		if (input->material->surfaceGradientEnable)
+		{
+			float colorPosition =
+				fmod(perlin * input->material->coloring_speed + input->material->paletteOffset, 1.0f);
+
+			float3 gradientColor = GetColorFromGradient(colorPosition, false, input->paletteSurfaceLength,
+				input->palette + input->paletteSurfaceOffset);
+
+			surfaceColor *= gradientColor * perlinColInt + perlinIntN;
+		}
+		else
+		{
+			float perlinCol = perlin * perlinColInt + perlinIntN;
+			surfaceColor *= perlinCol;
+		}
+	}
+	else
+#endif // USE_PERLIN_NOISE
+	{
+		surfaceColor = SurfaceColor(consts, renderData, input, calcParam, gradients);
 
 #ifdef USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE
-	float texColInt = input->material->colorTextureIntensity;
-	float texColIntN = 1.0f - texColInt;
-	surfaceColor *= input->texColor * texColInt + texColIntN;
+		float texColInt = input->material->colorTextureIntensity;
+		float texColIntN = 1.0f - texColInt;
+		surfaceColor *= input->texColor * texColInt + texColIntN;
 #endif
 #endif
+	}
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)

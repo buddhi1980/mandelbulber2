@@ -60,7 +60,7 @@
 //
 //----------------------------------------------------------------------------------------
 
-#ifdef CLOUDS
+#if defined(CLOUDS) || defined(USE_PERLIN_NOISE)
 
 float PrelinFade(float t)
 {

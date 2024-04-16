@@ -410,7 +410,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.objectsData = objectsData;
 		renderData.mRot = rot;
 		renderData.mRotInv = rotInv;
-#ifdef CLOUDS
+#if defined(CLOUDS) || defined(USE_PERLIN_NOISE)
 		renderData.perlinNoiseSeeds = perlinNoiseSeeds;
 #endif
 #ifdef USE_TEXTURES

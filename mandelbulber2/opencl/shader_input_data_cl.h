@@ -51,6 +51,10 @@ typedef struct
 	float lastDist;
 	float delta; // initial step distance for shaders based on distance form camera
 	float depth;
+#ifdef USE_PERLIN_NOISE
+	float perlinNoise;
+#endif
+
 	int stepCount;
 	int randomSeed;
 	int objectId;

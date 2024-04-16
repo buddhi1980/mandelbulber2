@@ -112,7 +112,7 @@ typedef struct
 
 #endif
 
-#ifdef CLOUDS
+#if defined(CLOUDS) || defined(USE_PERLIN_NOISE)
 	__global uchar *perlinNoiseSeeds;
 #endif
 
