@@ -81,6 +81,7 @@ typedef struct
 	cl_float textureFractalizeCubeSize;
 	cl_float perlinNoiseValueOffset;
 	cl_float perlinNoiseColorIntensity;
+	cl_float perlinNoiseLuminosityIntensity;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -107,6 +108,8 @@ typedef struct
 	cl_int perlinNoiseAbs;
 	cl_int perlinNoiseColorEnable;
 	cl_int perlinNoiseColorInvert;
+	cl_int perlinNoiseLuminosityEnable;
+	cl_int perlinNoiseLuminosityInvert;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -187,6 +190,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.textureFractalizeCubeSize = source.textureFractalizeCubeSize;
 	target.perlinNoiseValueOffset = source.perlinNoiseValueOffset;
 	target.perlinNoiseColorIntensity = source.perlinNoiseColorIntensity;
+	target.perlinNoiseLuminosityIntensity = source.perlinNoiseLuminosityIntensity;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -213,6 +217,8 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.perlinNoiseAbs = source.perlinNoiseAbs;
 	target.perlinNoiseColorEnable = source.perlinNoiseColorEnable;
 	target.perlinNoiseColorInvert = source.perlinNoiseColorInvert;
+	target.perlinNoiseLuminosityEnable = source.perlinNoiseLuminosityEnable;
+	target.perlinNoiseLuminosityInvert = source.perlinNoiseLuminosityInvert;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

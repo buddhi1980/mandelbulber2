@@ -1620,6 +1620,13 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		cMaterial::Name("perlin_noise_color_invert", materialId), false, morphNone, paramStandard);
 
 	par->addParam(
+		cMaterial::Name("perlin_noise_luminosity_enable", materialId), false, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_luminosity_intensity", materialId), 1.0, 1e-15, 1e15,
+		morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("perlin_noise_luminosity_invert", materialId), false, morphNone, paramStandard);
+
+	par->addParam(
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("reflections_color", materialId), sRGB(65535, 65535, 65535),
 		morphLinear, paramStandard);

@@ -103,6 +103,7 @@ public:
 	double textureFractalizeCubeSize;
 	float perlinNoiseValueOffset;
 	float perlinNoiseColorIntensity;
+	float perlinNoiseLuminosityIntensity;
 
 	sRGBFloat color;
 	sRGBFloat luminosityColor;
@@ -147,6 +148,8 @@ public:
 	bool perlinNoiseAbs;
 	bool perlinNoiseColorEnable;
 	bool perlinNoiseColorInvert;
+	bool perlinNoiseLuminosityEnable;
+	bool perlinNoiseLuminosityInvert;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

@@ -105,9 +105,12 @@ cMaterial::cMaterial()
 	perlinNoiseRandomSeed = 0;
 	perlinNoiseValueOffset = 0.0f;
 	perlinNoiseColorIntensity = 0.0f;
+	perlinNoiseLuminosityIntensity = 0.0f;
 	perlinNoiseAbs = false;
 	perlinNoiseColorEnable = false;
 	perlinNoiseColorInvert = false;
+	perlinNoiseLuminosityEnable = false;
+	perlinNoiseLuminosityInvert = false;
 }
 
 cMaterial::cMaterial(int _id, const std::shared_ptr<cParameterContainer> materialParam,
@@ -221,6 +224,9 @@ QStringList cMaterial::paramsList = {
 	"perlin_noise_color_enable",
 	"perlin_noise_color_intensity",
 	"perlin_noise_color_invert",
+	"perlin_noise_luminosity_enable",
+	"perlin_noise_luminosity_intensity",
+	"perlin_noise_luminosity_invert",
 	"reflectance",
 	"reflections_color",
 	"reflectance_texture_intensity",
@@ -538,6 +544,12 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	perlinNoiseColorEnable = materialParam->Get<bool>(Name("perlin_noise_color_enable", id));
 	perlinNoiseColorIntensity = materialParam->Get<double>(Name("perlin_noise_color_intensity", id));
 	perlinNoiseColorInvert = materialParam->Get<bool>(Name("perlin_noise_color_invert", id));
+	perlinNoiseLuminosityEnable =
+		materialParam->Get<bool>(Name("perlin_noise_luminosity_enable", id));
+	perlinNoiseLuminosityIntensity =
+		materialParam->Get<double>(Name("perlin_noise_luminosity_intensity", id));
+	perlinNoiseLuminosityInvert =
+		materialParam->Get<bool>(Name("perlin_noise_luminosity_invert", id));
 
 	if (loadTextures)
 	{

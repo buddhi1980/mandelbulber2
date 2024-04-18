@@ -56,6 +56,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		float perlin =
 			(input->material->perlinNoiseColorInvert) ? 1.0f - input->perlinNoise : input->perlinNoise;
 
+#ifdef USE_SURFACE_GRADIENT
 		if (input->material->surfaceGradientEnable)
 		{
 			float colorPosition =
@@ -67,6 +68,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 			surfaceColor *= gradientColor * perlinColInt + perlinIntN;
 		}
 		else
+#endif // USE_SURFACE_GRADIENT
 		{
 			float perlinCol = perlin * perlinColInt + perlinIntN;
 			surfaceColor *= perlinCol;
@@ -147,7 +149,35 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	{
 		luminosity = input->material->luminosity * input->material->luminosityColor;
 	}
-	*outLuminosityEmissive = luminosity * input->material->luminosityEmissive;
+
+#ifdef USE_PERLIN_NOISE
+	if (input->material->perlinNoiseEnable && input->material->perlinNoiseLuminosityEnable)
+	{
+		float perlinLumInt = input->material->perlinNoiseLuminosityIntensity;
+		float perlin = (input->material->perlinNoiseLuminosityInvert) ? 1.0f - input->perlinNoise
+																																	: input->perlinNoise;
+#ifdef USE_LUMINOSITY_GRADIENT
+		if (input->material->luminosityGradientEnable)
+		{
+			float colorPosition =
+				fmod(perlin * input->material->coloring_speed + input->material->paletteOffset, 1.0f);
+
+			float3 gradientColor = GetColorFromGradient(colorPosition, false, input->paletteSurfaceLength,
+				input->palette + input->paletteLuminosityOffset);
+
+			luminosity += gradientColor * perlinLumInt;
+		}
+		else
+#endif // USE_LUMINOSITY_GRADIENT
+		{
+			float perlinCol = perlin * perlinLumInt;
+			luminosity *= perlinCol;
+		}
+	}
+	else
+#endif // USE_PERLIN_NOISE
+
+		*outLuminosityEmissive = luminosity * input->material->luminosityEmissive;
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE

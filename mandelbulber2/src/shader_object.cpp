@@ -167,6 +167,30 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 									 + mat->luminosity * mat->luminosityColor.B;
 	}
 
+	if (mat->perlinNoiseEnable && mat->perlinNoiseLuminosityEnable)
+	{
+		float perlin = (mat->perlinNoiseLuminosityInvert) ? 1.0 - input.perlinNoise : input.perlinNoise;
+		float perlinLumInt = mat->perlinNoiseLuminosityIntensity;
+
+		if (input.material->luminosityGradientEnable)
+		{
+
+			double colorPosition =
+				fmod(perlin * input.material->coloring_speed + input.material->paletteOffset, 1.0);
+			sRGBFloat gradientColor = input.material->gradientLuminosity.GetColorFloat(colorPosition, false);
+			luminosity.R += gradientColor.R * perlinLumInt;
+			luminosity.G += gradientColor.G * perlinLumInt;
+			luminosity.B += gradientColor.B * perlinLumInt;
+		}
+		else
+		{
+			float perlinCol = perlin * perlinLumInt;
+			luminosity.R *= perlinCol;
+			luminosity.G *= perlinCol;
+			luminosity.B *= perlinCol;
+		}
+	}
+
 	luminosityEmissiveOut->R = luminosity.R * mat->luminosityEmissive;
 	luminosityEmissiveOut->G = luminosity.G * mat->luminosityEmissive;
 	luminosityEmissiveOut->B = luminosity.B * mat->luminosityEmissive;
