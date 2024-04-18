@@ -705,10 +705,22 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #ifdef USE_PERLIN_NOISE
 				if (shaderInputData.material->perlinNoiseEnable)
 				{
+					float3 pointModified = point;
+
+#ifdef FRACTALIZE_TEXTURE
+					if (shaderInputData.material->textureFractalize)
+					{
+						formulaOut outF;
+						outF = Fractal(
+							consts, point, &calcParam, calcModeCubeOrbitTrap, shaderInputData.material, -1);
+						pointModified = outF.z.xyz;
+					}
+#endif
+
 					float perlin = NormalizedOctavePerlinNoise3D_0_1(
-						point.x / shaderInputData.material->perlinNoisePeriod.x,
-						point.y / shaderInputData.material->perlinNoisePeriod.y,
-						point.z / shaderInputData.material->perlinNoisePeriod.z, 0.0f,
+						pointModified.x / shaderInputData.material->perlinNoisePeriod.x,
+						pointModified.y / shaderInputData.material->perlinNoisePeriod.y,
+						pointModified.z / shaderInputData.material->perlinNoisePeriod.z, 0.0f,
 						shaderInputData.material->perlinNoiseIterations, renderData->perlinNoiseSeeds);
 
 					perlin += shaderInputData.material->perlinNoiseValueOffset;

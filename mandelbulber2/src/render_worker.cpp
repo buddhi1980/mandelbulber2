@@ -1125,10 +1125,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			{
 				if (shaderInputData.material->perlinNoiseEnable)
 				{
+					CVector3 pointModified;
+					if (shaderInputData.material->textureFractalize)
+					{
+						sFractalIn fractIn(shaderInputData.point, 0, -1, 1, 0, &params->common, -1, false,
+							shaderInputData.material);
+						sFractalOut fractOut;
+						Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
+						pointModified = fractOut.z;
+					}
+					else
+					{
+						pointModified = shaderInputData.point;
+					}
+
 					float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
-						point.x / shaderInputData.material->perlinNoisePeriod.x,
-						point.y / shaderInputData.material->perlinNoisePeriod.y,
-						point.z / shaderInputData.material->perlinNoisePeriod.z, 0.0, 0.0, 0.0,
+						pointModified.x / shaderInputData.material->perlinNoisePeriod.x,
+						pointModified.y / shaderInputData.material->perlinNoisePeriod.y,
+						pointModified.z / shaderInputData.material->perlinNoisePeriod.z, 0.0, 0.0, 0.0,
 						shaderInputData.material->perlinNoiseIterations);
 
 					perlin += shaderInputData.material->perlinNoiseValueOffset;
