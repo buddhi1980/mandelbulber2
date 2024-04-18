@@ -44,7 +44,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 	bool finished = false;
 	int maxDepth = (volumetricMode) ? 2 : consts->params.reflectionsMax;
-	for (int rayDepth = 0; maxDepth; rayDepth++)
+	for (int rayDepth = 0; rayDepth < maxDepth; rayDepth++)
 	{
 		float3 reflectedDirection = inputCopy.normal;
 		float randomX = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
