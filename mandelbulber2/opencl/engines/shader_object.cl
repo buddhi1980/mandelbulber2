@@ -162,8 +162,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 			float colorPosition =
 				fmod(perlin * input->material->coloring_speed + input->material->paletteOffset, 1.0f);
 
-			float3 gradientColor = GetColorFromGradient(colorPosition, false, input->paletteSurfaceLength,
-				input->palette + input->paletteLuminosityOffset);
+			float3 gradientColor = GetColorFromGradient(colorPosition, false,
+				input->paletteLuminosityLength, input->palette + input->paletteLuminosityOffset);
 
 			luminosity += gradientColor * perlinLumInt;
 		}
@@ -174,12 +174,11 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 			luminosity *= perlinCol;
 		}
 	}
-	else
 #endif // USE_PERLIN_NOISE
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE
-		luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
+	luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
 #endif
 #endif
 
