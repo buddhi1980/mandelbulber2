@@ -145,7 +145,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			else
 				inputCopy.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
-			// FIXME add calculation of perlin noise
+			PerlinNoiseForShaders(&inputCopy);
 
 			sGradientsCollection gradients;
 			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,

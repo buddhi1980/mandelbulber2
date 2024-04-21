@@ -177,13 +177,13 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	else
 #endif // USE_PERLIN_NOISE
 
-		*outLuminosityEmissive = luminosity * input->material->luminosityEmissive;
-
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE
-	luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
+		luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
 #endif
 #endif
+
+	*outLuminosityEmissive = luminosity * input->material->luminosityEmissive;
 
 	color = surfaceColor * (fillLight + auxLights + fakeLights + AO) + envMapping + totalSpecular
 					+ luminosity;

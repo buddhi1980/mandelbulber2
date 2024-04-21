@@ -267,6 +267,7 @@ private:
 		const sShaderInputData &input, sRGBAfloat objectColor, bool volumetricMode) const;
 	void RayleighScattering(const CVector3 &lightVectorTemp, const sShaderInputData &input,
 		sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const;
+	void PerlinNoiseForShaders(sShaderInputData *shaderInputData) const;
 
 	// data got from main thread
 	const sParamRender *params;
