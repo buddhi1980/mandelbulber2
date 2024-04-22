@@ -229,15 +229,18 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			colorAdd = 0.0;
-			if (zCol.x != oldZ.x)
-				colorAdd += fractal->mandelbox.color.factor.x
-										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
-			if (zCol.y != oldZ.y)
-				colorAdd += fractal->mandelbox.color.factor.y
-										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
-			if (zCol.z != oldZ.z)
-				colorAdd += fractal->mandelbox.color.factor.z
-										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				if (zCol.x != oldZ.x)
+					colorAdd += fractal->mandelbox.color.factor.x
+											* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+				if (zCol.y != oldZ.y)
+					colorAdd += fractal->mandelbox.color.factor.y
+											* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+				if (zCol.z != oldZ.z)
+					colorAdd += fractal->mandelbox.color.factor.z
+											* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+			}
 
 			if (rrCol < fractal->transformCommon.maxR2d1)
 			{

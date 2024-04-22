@@ -18,29 +18,39 @@
 
 REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c * fractal->transformCommon.constantMultiplier100;
-	REAL4 zz = z * z;
-	aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 	aux->DE = aux->r * aux->DE * 2.0f + 1.0f;
 
-	REAL t = 1.0f;
-	REAL temp = zz.y + zz.z;
-	if (temp > 0.0f) t = 2.0f * z.x / native_sqrt(temp);
-	temp = z.z;
-	z.x = (zz.x - zz.y - zz.z);
-	z.y = (2.0f * t * z.y * temp);
-	z.z = (t * (zz.y - zz.z));
-	// c.yz swap
-	z.x += c.x;
-	z.z += c.y;
-	z.y += c.z;
+	REAL4 temp = z;
+
+	z *= z;
+	REAL t = z.y + z.z;
+	z.x -= t;
+
+	if (t > 0.0)
+	{
+		temp.x = 2.0f * temp.x / sqrt(t);
+		z.z = temp.x * (z.y - z.z);
+		z.y = 2.0f * temp.x * temp.y * temp.z;
+	}
+	else
+	{
+		z.z = z.y - z.z;
+		z.y = 2.0f * temp.y * temp.z;
+	}
+
+	z.x += aux->const_c.x * fractal->transformCommon.constantMultiplier100.x;
+		// c.yz swap
+	z.z += aux->const_c.y * fractal->transformCommon.constantMultiplier100.y;
+	z.y += aux->const_c.z * fractal->transformCommon.constantMultiplier100.z;
 
 	if (fractal->transformCommon.angle0 != 0)
 	{
-		REAL tempY = z.y;
-		REAL beta = fractal->transformCommon.angle0 * M_PI_180_F;
-		z.y = z.y * native_cos(beta) + z.z * native_sin(beta);
-		z.z = tempY * -native_sin(beta) + z.z * native_cos(beta);
+		temp.y = z.y;
+		t = fractal->transformCommon.angle0 * M_PI_180_F;
+		temp.x = native_sin(t);
+		temp.z = native_cos(t);
+		z.y = z.y * temp.z + z.z * temp.x;
+		z.z = temp.y * -temp.x + z.z * temp.z;
 	}
 	return z;
 }

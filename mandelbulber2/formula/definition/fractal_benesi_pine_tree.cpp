@@ -29,28 +29,38 @@ cFractalBenesiPineTree::cFractalBenesiPineTree() : cAbstractFractal()
 
 void cFractalBenesiPineTree::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c * fractal->transformCommon.constantMultiplier100;
-	CVector4 zz = z * z;
-	aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 	aux.DE = aux.r * aux.DE * 2.0 + 1.0;
 
-	double t = 1.0;
-	double temp = zz.y + zz.z;
-	if (temp > 0.0) t = 2.0 * z.x / sqrt(temp);
-	temp = z.z;
-	z.x = (zz.x - zz.y - zz.z);
-	z.y = (2.0 * t * z.y * temp);
-	z.z = (t * (zz.y - zz.z));
-	// c.yz swap
-	z.x += c.x;
-	z.z += c.y;
-	z.y += c.z;
+	CVector4 temp = z;
+
+	z *= z;
+	double t = z.y + z.z;
+	z.x -= t;
+
+	if (t > 0.0)
+	{
+		temp.x = 2.0 * temp.x / sqrt(t);
+		z.z = temp.x * (z.y - z.z);
+		z.y = 2.0 * temp.x * temp.y * temp.z;
+	}
+	else
+	{
+		z.z = z.y - z.z;
+		z.y = 2.0 * temp.y * temp.z;
+	}
+
+	z.x += aux.const_c.x * fractal->transformCommon.constantMultiplier100.x;
+		// c.yz swap
+	z.z += aux.const_c.y * fractal->transformCommon.constantMultiplier100.y;
+	z.y += aux.const_c.z * fractal->transformCommon.constantMultiplier100.z;
 
 	if (fractal->transformCommon.angle0 != 0)
 	{
-		double tempY = z.y;
-		double beta = fractal->transformCommon.angle0 * M_PI_180;
-		z.y = z.y * cos(beta) + z.z * sin(beta);
-		z.z = tempY * -sin(beta) + z.z * cos(beta);
+		temp.y = z.y;
+		t = fractal->transformCommon.angle0 * M_PI_180;
+		temp.x = sin(t);
+		temp.z = cos(t);
+		z.y = z.y * temp.z + z.z * temp.x;
+		z.z = temp.y * -temp.x + z.z * temp.z;
 	}
 }
