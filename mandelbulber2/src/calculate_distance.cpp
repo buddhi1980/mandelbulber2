@@ -207,18 +207,17 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	distance = params.primitives.TotalDistance(
 		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
 
-	if (data && false) // temporarly off
+	if (data)
 	{
 		const cMaterial *mat = &data->materials[data->objectData[out->objectId].materialId];
-		if (mat->perlinNoiseEnable)
+		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{
 			double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
-				in.point.x / params.cloudsPeriod * 50, in.point.y / params.cloudsPeriod * 100,
-				in.point.z / params.cloudsPeriod * 500, params.cloudsSpeed.x * params.frameNo,
-				params.cloudsSpeed.y * params.frameNo, params.cloudsSpeed.z * params.frameNo, 6);
-			perlin = fabs(perlin - 0.5) * 2.0;
+				in.point.x / mat->perlinNoisePeriod.x, in.point.y / mat->perlinNoisePeriod.y,
+				in.point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
+			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
 
-			distance -= perlin * 0.005;
+			distance -= perlin * mat->perlinNoiseDisplacementIntensity;
 		}
 	}
 

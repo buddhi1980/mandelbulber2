@@ -128,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2449</y>
+        <y>-3433</y>
         <width>466</width>
-        <height>4474</height>
+        <height>4545</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4656,6 +4656,57 @@ direction vector:</string>
              </widget>
             </item>
            </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="MyGroupBox" name="groupCheck_perlin_noise_displacement_enable">
+         <property name="title">
+          <string>Use perlin noise for displacement</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_31" rowstretch="0,0" columnstretch="0,1,0">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_50">
+            <property name="text">
+             <string>intensity</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="3">
+           <widget class="MyCheckBox" name="checkBox_perlin_noise_displacement_invert">
+            <property name="text">
+             <string>invert</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="MyLineEdit" name="logedit_perlin_noise_displacement_intensity">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of displacement. Height is in the same units as object sizes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
