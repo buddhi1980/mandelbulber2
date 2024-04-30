@@ -35,14 +35,19 @@ void cFractalMandelbulbKali::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	}
 
 	double th0 =
-		acos(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch
+		acos(z.z / aux.r) + fractal->bulb.betaAngleOffset; // MUST keep exception catch
 	double ph0 = atan(z.y / z.x) + fractal->bulb.alphaAngleOffset;
 	th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 	double sinth = sin(th0);
 	z = aux.r * CVector4(sinth * cos(ph0), sin(ph0) * sinth, cos(th0), 0.0);
 
-	th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset
-				+ 1e-061; // MUST keep exception catch ??;
+	if (z.x * z.x + z.y * z.y == 0.0)
+	{
+		z.y = z.z * z.z;
+		z.z = 0.0;
+	}
+
+	th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset; // MUST keep exception catch ??;
 	ph0 = atan(z.y / z.x);
 	ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 	double zp = pow(aux.r, fractal->transformCommon.pwr8);
