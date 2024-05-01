@@ -350,21 +350,21 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>analytic DE scale1:</string>
+           <string>DE scale1:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>analytic DE offset1:</string>
+           <string>DE offset1:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>analytic DE offset2:</string>
+           <string>DE offset2:</string>
           </property>
          </widget>
         </item>

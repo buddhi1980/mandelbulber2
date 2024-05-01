@@ -25,7 +25,7 @@ REAL4 MandelbulbKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	REAL th0 =
 		acos(z.z / aux->r) + fractal->bulb.betaAngleOffset; // + 1e-030f MUST keep exception catch
-	REAL ph0 = atan(z.y / z.x) + fractal->bulb.alphaAngleOffset;
+	REAL ph0 = atan2(z.y , z.x) + fractal->bulb.alphaAngleOffset;
 	th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 	REAL sinth = native_sin(th0);
 
@@ -38,7 +38,7 @@ REAL4 MandelbulbKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 	th0 = acos(z.z / aux->r) + fractal->transformCommon.betaAngleOffset; // + 1e-030f MUST keep exception catch
-	ph0 = atan(z.y / z.x);
+	ph0 = atan2(z.y , z.x);
 	ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 	REAL zp = pow(aux->r, fractal->transformCommon.pwr8);
 	sinth = native_sin(th0);
