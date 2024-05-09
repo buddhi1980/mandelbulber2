@@ -61,7 +61,9 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
-		if (fractal->foldColor.auxColorEnabledFalse)
+		if (fractal->foldColor.auxColorEnabledFalse
+				&& aux->i >= fractal->transformCommon.startIterationsG
+				&& aux->i < fractal->transformCommon.stopIterationsG)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
@@ -217,7 +219,9 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			colorAdd = 0.0f;
-			if (fractal->foldColor.auxColorEnabledFalse)
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& aux->i >= fractal->transformCommon.startIterationsG
+					&& aux->i < fractal->transformCommon.stopIterationsG)
 			{
 				if (zCol.x != oldZ.x)
 					colorAdd += fractal->mandelbox.color.factor.x

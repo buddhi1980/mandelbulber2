@@ -8,11 +8,18 @@ TODO check all is finished with escape conditions
 
 - modified fractal formulas
    aboxMod13, add missing xyz plane checkbox
-	 amazingSurfMulti, fix enable auc.color
-	 transfSphericalInv, fix modes
-	 transfHybridColor2, fix parameter
+	 amazingSurfMulti, fix enable aux.color
+	 benesiPineTree, rework code
+	 benesiT1PineTree, remove post offset iter controls (no code)
+	 josKleinian, added more aux.color
+	 pseudoKleinian, added aux.color
+	 pseudoKleinianMod, added aux.color
 	 pseudoKleinianMod, add iter controls to sphere inversion
 	 pseudoKleinianMod2, correct UI
+	 transfSphericalInv, fix modes
+	 transfHybridColor2, fix parameter and add color tiling
+
+
 	 define M_PI_2_F for a few formulas
 
 

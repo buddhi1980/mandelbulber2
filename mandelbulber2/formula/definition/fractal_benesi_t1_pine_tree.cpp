@@ -66,7 +66,7 @@ void cFractalBenesiT1PineTree::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector4 zz = z * z;
-		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux.r = sqrt(zz.x + zz.y + zz.z);
 		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
 
 		double t = 1.0;

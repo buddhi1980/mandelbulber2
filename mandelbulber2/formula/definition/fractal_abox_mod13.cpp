@@ -73,7 +73,9 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
 
-		if (fractal->foldColor.auxColorEnabledFalse)
+		if (fractal->foldColor.auxColorEnabledFalse
+				&& aux.i >= fractal->transformCommon.startIterationsG
+				&& aux.i < fractal->transformCommon.stopIterationsG)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
@@ -229,7 +231,9 @@ void cFractalAboxMod13::FormulaCode(CVector4 &z, const sFractal *fractal, sExten
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			colorAdd = 0.0;
-			if (fractal->foldColor.auxColorEnabledFalse)
+			if (fractal->foldColor.auxColorEnabledFalse
+					&& aux.i >= fractal->transformCommon.startIterationsG
+					&& aux.i < fractal->transformCommon.stopIterationsG)
 			{
 				if (zCol.x != oldZ.x)
 					colorAdd += fractal->mandelbox.color.factor.x

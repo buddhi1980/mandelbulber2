@@ -55,7 +55,7 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		REAL4 zz = z * z;
-		aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux->r = native_sqrt(zz.x + zz.y + zz.z);
 		aux->DE = aux->r * aux->DE * 2.0f + 1.0f;
 
 		REAL t = 1.0f;
