@@ -147,7 +147,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		z += fractal->transformCommon.offsetA000;
 	}
 
-	double k = 0.0;
+	double k = 1.0;
 	// Pseudo kleinian
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
@@ -162,8 +162,8 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		if (z.z > cSize.z) tempZ.z = cSize.z;
 		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
-		z.z *= fractal->transformCommon.scaleB1;
-		aux.DE *= fractal->transformCommon.scaleB1;
+		z *= fractal->transformCommon.scaleB1;
+		aux.DE *= fabs(fractal->transformCommon.scaleB1);
 
 		z = tempZ * 2.0 - z;
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);

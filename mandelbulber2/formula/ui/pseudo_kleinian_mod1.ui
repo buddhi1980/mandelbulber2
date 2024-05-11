@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>929</width>
-    <height>5357</height>
+    <height>5894</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1895,7 +1895,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z.z tweak scale:</string>
+           <string>z tweak scale:</string>
           </property>
          </widget>
         </item>
@@ -1923,7 +1923,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>0.000000000000000</double>
+           <double>-99.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.000000000000000</double>
