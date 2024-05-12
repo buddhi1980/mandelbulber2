@@ -82,6 +82,7 @@ typedef struct
 	cl_float perlinNoiseValueOffset;
 	cl_float perlinNoiseColorIntensity;
 	cl_float perlinNoiseLuminosityIntensity;
+	cl_float perlinNoiseDisplacementIntensity;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -110,6 +111,8 @@ typedef struct
 	cl_int perlinNoiseColorInvert;
 	cl_int perlinNoiseLuminosityEnable;
 	cl_int perlinNoiseLuminosityInvert;
+	cl_int perlinNoiseDisplacementEnable;
+	cl_int perlinNoiseDisplacementInvert;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -191,6 +194,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.perlinNoiseValueOffset = source.perlinNoiseValueOffset;
 	target.perlinNoiseColorIntensity = source.perlinNoiseColorIntensity;
 	target.perlinNoiseLuminosityIntensity = source.perlinNoiseLuminosityIntensity;
+	target.perlinNoiseDisplacementIntensity = source.perlinNoiseDisplacementIntensity;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -219,6 +223,8 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.perlinNoiseColorInvert = source.perlinNoiseColorInvert;
 	target.perlinNoiseLuminosityEnable = source.perlinNoiseLuminosityEnable;
 	target.perlinNoiseLuminosityInvert = source.perlinNoiseLuminosityInvert;
+	target.perlinNoiseDisplacementEnable = source.perlinNoiseDisplacementEnable;
+	target.perlinNoiseDisplacementInvert = source.perlinNoiseDisplacementInvert;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

@@ -217,6 +217,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				in.point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
 			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
 
+			perlin += mat->perlinNoiseValueOffset;
+
 			distance -= perlin * mat->perlinNoiseDisplacementIntensity;
 		}
 	}

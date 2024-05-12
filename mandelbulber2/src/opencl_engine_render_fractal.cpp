@@ -216,6 +216,8 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "bicubic_interpolation.cl");
 			// calculate displacement from textures
 			AddInclude(programEngine, openclEnginePath + "displacement_map.cl");
+
+			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
 		}
 	}
 	// compute fractal
@@ -237,7 +239,6 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			// shaders
 			AddInclude(programEngine, openclEnginePath + "shader_iter_opacity.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_distance_fog_opacity.cl");
-			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_clouds_opacity.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_hsv2rgb.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_background.cl");

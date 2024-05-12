@@ -311,6 +311,26 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.objectId = closestObjectId;
 #endif
 
+#ifdef USE_PERLIN_NOISE
+	{
+		__global sObjectDataCl *objectData = &renderData->objectsData[closestObjectId];
+		__global sMaterialCl *mat = renderData->materials[objectData->materialId];
+
+		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
+		{
+			float perlin = NormalizedOctavePerlinNoise3D_0_1(point.x / mat->perlinNoisePeriod.x,
+				point.y / mat->perlinNoisePeriod.y, point.z / mat->perlinNoisePeriod.z, 0.0f,
+				mat->perlinNoiseIterations, renderData->perlinNoiseSeeds);
+
+			perlin += mat->perlinNoiseValueOffset;
+
+			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5f) * 2.0f;
+
+			out.distance -= perlin * mat->perlinNoiseDisplacementIntensity;
+		}
+	}
+#endif // USE_PERLIN_NOISE
+
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
 	{
