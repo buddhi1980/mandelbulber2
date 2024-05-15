@@ -135,8 +135,8 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z += fractal->transformCommon.offsetA000;
 	}
 
-	REAL k = 1.0;
 	// Pseudo kleinian
+	REAL k = 1.0f;
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux->i >= fractal->transformCommon.startIterationsC

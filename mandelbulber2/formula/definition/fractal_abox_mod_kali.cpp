@@ -64,4 +64,11 @@ void cFractalAboxModKali::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 	double m = fractal->transformCommon.scale015 / dividend;
 	z = z * m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
+
+	// color added v2.32
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		aux.color += fractal->foldColor.difs0000.x * dividend;
+	}
 }

@@ -113,6 +113,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
 			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
 	}
+
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
@@ -147,8 +148,8 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		z += fractal->transformCommon.offsetA000;
 	}
 
-	double k = 1.0;
 	// Pseudo kleinian
+	double k = 1.0;
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux.i >= fractal->transformCommon.startIterationsC
@@ -273,7 +274,6 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}
-
 		aux.color += colorAdd;
 	}
 }
