@@ -47,19 +47,27 @@ REAL4 TransfSphericalFoldXYZBiasIteration(
 	REAL rr = dot(z, z);
 	z += fractal->transformCommon.offset000;
 
+	REAL colorAdd = 0.0f;
 	if (rr < minR2)
 	{
 		m *= fractal->transformCommon.maxR2d1 / minR2;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		m *= fractal->transformCommon.maxR2d1 / rr;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset000;
 
 	z *= m;
 	aux->DE = aux->DE * fabs(m) + 1.0f;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		colorAdd += fractal->foldColor.difs0000.x * m;
+		aux->color += colorAdd;
+	}
+
 	return z;
 }

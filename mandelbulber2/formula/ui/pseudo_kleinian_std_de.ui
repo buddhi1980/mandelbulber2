@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>983</width>
-    <height>5342</height>
+    <height>5898</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2395,7 +2395,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z subtr. scale:</string>
+           <string>z scale:</string>
           </property>
          </widget>
         </item>
@@ -3948,14 +3948,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
