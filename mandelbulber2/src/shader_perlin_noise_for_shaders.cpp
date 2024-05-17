@@ -33,6 +33,7 @@
  *
  */
 
+#include "shader_perlin_noise_for_shaders.hpp"
 #include "common_math.h"
 #include "render_worker.hpp"
 #include "material.h"
@@ -73,4 +74,24 @@ void cRenderWorker::PerlinNoiseForShaders(sShaderInputData *shaderInputData) con
 	{
 		shaderInputData->perlinNoise = 0.0f;
 	}
+}
+
+double PerlinNoiseDisplacement(
+	double distance, const CVector3 &point, sRenderData *data, int objectId)
+{
+	if (data)
+	{
+		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
+		{
+			double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
+				point.x / mat->perlinNoisePeriod.x, point.y / mat->perlinNoisePeriod.y,
+				point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
+			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
+
+			perlin += mat->perlinNoiseValueOffset;
+			distance -= perlin * mat->perlinNoiseDisplacementIntensity;
+		}
+	}
+	return distance;
 }

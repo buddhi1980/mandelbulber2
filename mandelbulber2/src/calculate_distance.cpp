@@ -49,6 +49,7 @@
 #include "nine_fractals.hpp"
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
+#include "shader_perlin_noise_for_shaders.hpp"
 #include "texture_mapping.hpp"
 #include "write_log.hpp"
 
@@ -123,6 +124,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 					FractalizeTexture(inTemp.point, data, params, fractals, i + 1, &reduceDisplacement);
 
 				distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, data);
+				distance = PerlinNoiseDisplacement(distance, pointFractalized, data, i + 1);
 
 				const params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
@@ -202,26 +204,11 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		pointFractalized = FractalizeTexture(in.point, data, params, fractals, -1, &reduceDisplacement);
 
 		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
+		distance = PerlinNoiseDisplacement(distance, in.point, data, 0);
 	}
 
 	distance = params.primitives.TotalDistance(
 		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data, -1);
-
-	if (data)
-	{
-		const cMaterial *mat = &data->materials[data->objectData[out->objectId].materialId];
-		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
-		{
-			double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
-				in.point.x / mat->perlinNoisePeriod.x, in.point.y / mat->perlinNoisePeriod.y,
-				in.point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
-			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
-
-			perlin += mat->perlinNoiseValueOffset;
-
-			distance -= perlin * mat->perlinNoiseDisplacementIntensity;
-		}
-	}
 
 	//****************************************************
 

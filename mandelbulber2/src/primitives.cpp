@@ -41,6 +41,7 @@
 #include "common_math.h"
 #include "displacement_map.hpp"
 #include "parameters.hpp"
+#include "shader_perlin_noise_for_shaders.hpp"
 #include "write_log.hpp"
 
 using namespace fractal;
@@ -304,6 +305,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 				}
 
 				distTemp = DisplacementMap(distTemp, point2, primitive->objectId, data);
+				distTemp = PerlinNoiseDisplacement(distTemp, point2, data, primitive->objectId);
 
 				switch (primitive->booleanOperator)
 				{
