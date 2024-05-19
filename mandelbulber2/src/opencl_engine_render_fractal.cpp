@@ -218,6 +218,8 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "displacement_map.cl");
 
 			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
+
+			AddInclude(programEngine, openclEnginePath + "shader_perlin_noise_for_shaders.cl");
 		}
 	}
 	// compute fractal
@@ -257,7 +259,6 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_roughness_texture.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fresnel.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_env_mapping.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_perlin_noise_for_shaders.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_object.cl");
 			if (params->Get<bool>("MC_fog_illumination"))
 			{

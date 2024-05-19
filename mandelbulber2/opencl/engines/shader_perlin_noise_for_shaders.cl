@@ -67,4 +67,25 @@ void PerlinNoiseForShaders(sShaderInputDataCl *shaderInputData, sRenderData *ren
 		shaderInputData->perlinNoise = 0.0f;
 	}
 }
+
+float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderData, int objectId)
+{
+	__global sObjectDataCl *objectData = &renderData->objectsData[objectId];
+	__global sMaterialCl *mat = renderData->materials[objectData->materialId];
+
+	if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
+	{
+		float perlin = NormalizedOctavePerlinNoise3D_0_1(point.x / mat->perlinNoisePeriod.x,
+			point.y / mat->perlinNoisePeriod.y, point.z / mat->perlinNoisePeriod.z, 0.0f,
+			mat->perlinNoiseIterations, renderData->perlinNoiseSeeds);
+
+		perlin += mat->perlinNoiseValueOffset;
+
+		if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5f) * 2.0f;
+
+		distance -= perlin * mat->perlinNoiseDisplacementIntensity;
+	}
+	return distance;
+}
+
 #endif // USE_PERLIN_NOISE

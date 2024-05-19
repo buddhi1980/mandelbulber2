@@ -292,7 +292,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #ifndef BOOLEAN_OPERATORS
 
-#ifdef USE_DISPLACEMENT_TEXTURE
 	float3 pointFractalized = point;
 	float reduceDisplacement = 1.0f;
 
@@ -301,35 +300,20 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		FractalizeTexture(point, consts, calcParam, renderData, closestObjectId, &reduceDisplacement);
 #endif // FRACTALIZE_TEXTURE
 
+#ifdef USE_DISPLACEMENT_TEXTURE
 	out.distance =
 		DisplacementMap(out.distance, pointFractalized, out.objectId, renderData, reduceDisplacement);
 #endif // USE_DISPLACEMENT_TEXTURE
+
+#ifdef USE_PERLIN_NOISE
+	out.distance = PerlinNoiseDisplacement(out.distance, pointFractalized, renderData, out.objectId);
+#endif // USE_PERLIN_NOISE
 
 #ifdef USE_PRIMITIVES
 	out.distance = TotalDistanceToPrimitives(consts, renderData, point, out.distance,
 		calcParam->detailSize, calcParam->normalCalculationMode, &closestObjectId, -1);
 	out.objectId = closestObjectId;
 #endif
-
-#ifdef USE_PERLIN_NOISE
-	{
-		__global sObjectDataCl *objectData = &renderData->objectsData[closestObjectId];
-		__global sMaterialCl *mat = renderData->materials[objectData->materialId];
-
-		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
-		{
-			float perlin = NormalizedOctavePerlinNoise3D_0_1(point.x / mat->perlinNoisePeriod.x,
-				point.y / mat->perlinNoisePeriod.y, point.z / mat->perlinNoisePeriod.z, 0.0f,
-				mat->perlinNoiseIterations, renderData->perlinNoiseSeeds);
-
-			perlin += mat->perlinNoiseValueOffset;
-
-			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5f) * 2.0f;
-
-			out.distance -= perlin * mat->perlinNoiseDisplacementIntensity;
-		}
-	}
-#endif // USE_PERLIN_NOISE
 
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
@@ -393,7 +377,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		dist = out.distance / consts->params.formulaScale[0];
 		out.objectId = 0;
 
-#ifdef USE_DISPLACEMENT_TEXTURE
 		float3 pointFractalized = pointTemp;
 		float reduceDisplacement = 1.0f;
 
@@ -402,8 +385,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			FractalizeTexture(pointTemp, consts, calcParam, renderData, 0, &reduceDisplacement);
 #endif // FRACTALIZE_TEXTURE
 
+#ifdef USE_DISPLACEMENT_TEXTURE
 		dist = DisplacementMap(dist, pointFractalized, out.objectId, renderData, reduceDisplacement);
 #endif // USE_DISPLACEMENT_TEXTURE
+
+#ifdef USE_PERLIN_NOISE
+		dist = PerlinNoiseDisplacement(dist, pointFractalized, renderData, out.objectId);
+#endif // USE_PERLIN_NOISE
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
@@ -420,7 +408,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
 
-#ifdef USE_DISPLACEMENT_TEXTURE
 			float3 pointFractalized = pointTemp;
 			float reduceDisplacement = 1.0f;
 
@@ -429,8 +416,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 				FractalizeTexture(pointTemp, consts, calcParam, renderData, i + 1, &reduceDisplacement);
 #endif // FRACTALIZE_TEXTURE
 
+#ifdef USE_DISPLACEMENT_TEXTURE
 			distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, renderData, reduceDisplacement);
 #endif
+
+#ifdef USE_PERLIN_NOISE
+			distTemp = PerlinNoiseDisplacement(distTemp, pointFractalized, renderData, i + 1);
+#endif // USE_PERLIN_NOISE
 
 			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];
 
