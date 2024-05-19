@@ -5383,7 +5383,7 @@ object size)</string>
                <string/>
               </property>
               <property name="decimals">
-               <number>2</number>
+               <number>6</number>
               </property>
               <property name="minimum">
                <double>-1.000000000000000</double>

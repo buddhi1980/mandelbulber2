@@ -84,12 +84,15 @@ double PerlinNoiseDisplacement(
 		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
 		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{
-			double perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
+			float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
 				point.x / mat->perlinNoisePeriod.x, point.y / mat->perlinNoisePeriod.y,
 				point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
 			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
 
 			perlin += mat->perlinNoiseValueOffset;
+			if (mat->perlinNoiseDisplacementInvert) perlin = 1.0 - perlin;
+			perlin = clamp(perlin, 0.0f, 1.0f);
+
 			distance -= perlin * mat->perlinNoiseDisplacementIntensity;
 		}
 	}

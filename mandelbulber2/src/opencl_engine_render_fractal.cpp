@@ -857,7 +857,8 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasReflectanceGradient) definesCollector += " -DUSE_REFLECTANCE_GRADIENT";
 	if (anyMaterialHasTransparencyGradient) definesCollector += " -DUSE_TRANSPARENCY_GRADIENT";
 
-	if (anyMaterialHasPerlin) definesCollector += " -DUSE_PERLIN_NOISE";
+	if (renderEngineMode != clRenderEngineTypeFast && anyMaterialHasPerlin)
+		definesCollector += " -DUSE_PERLIN_NOISE";
 }
 
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(

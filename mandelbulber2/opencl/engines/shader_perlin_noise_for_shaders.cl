@@ -82,6 +82,8 @@ float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderD
 		perlin += mat->perlinNoiseValueOffset;
 
 		if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5f) * 2.0f;
+		if (mat->perlinNoiseDisplacementInvert) perlin = 1.0 - perlin;
+		perlin = clamp(perlin, 0.0f, 1.0f);
 
 		distance -= perlin * mat->perlinNoiseDisplacementIntensity;
 	}
