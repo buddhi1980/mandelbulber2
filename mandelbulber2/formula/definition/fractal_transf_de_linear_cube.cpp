@@ -26,16 +26,24 @@ cFractalTransfDELinearCube::cFractalTransfDELinearCube() : cAbstractFractal()
 }
 
 void cFractalTransfDELinearCube::FormulaCode(
-	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+	CVector4 &z, const sFractal *fractal, sExtendedAux &aux) // x×(1−a)+y×a .
 {
 	double R;
-	if (!fractal->transformCommon.functionEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
-		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
+		if (!fractal->transformCommon.functionEnabledFalse)
+		{
+			R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
+		}
+		else
+		{
+			R = z.Length();
+		}
 	}
-	else
+	else // mix
 	{
-		R = z.Length();
+		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z))
+				* (1.0 - fractal->transformCommon.scaleA0) + z.Length() * fractal->transformCommon.scaleA0;
 	}
 	aux.dist =
 		(fractal->transformCommon.scale1 * R / aux.DE) - fractal->transformCommon.offset0 / 100.0;

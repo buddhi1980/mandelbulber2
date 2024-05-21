@@ -21,6 +21,7 @@ REAL4 TransfSphericalFoldParabIteration(
 {
 	REAL m = 1.0f;
 	REAL rr;
+	REAL colorAdd = 0.0f;
 	// spherical fold
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& aux->i >= fractal->transformCommon.startIterationsS
@@ -35,10 +36,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux->color += fractal->mandelbox.color.factorSp1;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -46,10 +44,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux->color += fractal->mandelbox.color.factorSp2;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 	}
 	if (aux->i >= fractal->transformCommon.startIterations
@@ -73,10 +68,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux->color += fractal->mandelbox.color.factorSp1;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < maxR2)
 		{
@@ -84,10 +76,8 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux->color += fractal->mandelbox.color.factorSp2;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp2;
+
 			z -= fractal->mandelbox.offset;
 		}
 	}
@@ -114,6 +104,13 @@ REAL4 TransfSphericalFoldParabIteration(
 	{
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		colorAdd += fractal->foldColor.difs0000.x * m;
+		aux->color += colorAdd;
 	}
 	return z;
 }

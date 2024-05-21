@@ -32,6 +32,7 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 {
 	double m = 1.0;
 	double rr;
+	double colorAdd = 0.0;
 	// spherical fold
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& aux.i >= fractal->transformCommon.startIterationsS
@@ -46,10 +47,7 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux.color += fractal->mandelbox.color.factorSp1;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -57,10 +55,7 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux.color += fractal->mandelbox.color.factorSp2;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 	}
 	if (aux.i >= fractal->transformCommon.startIterations
@@ -84,10 +79,7 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux.color += fractal->mandelbox.color.factorSp1;
-			}
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < maxR2)
 		{
@@ -95,12 +87,12 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				aux.color += fractal->mandelbox.color.factorSp2;
-			}
-			z -= fractal->mandelbox.offset;
+			colorAdd += fractal->mandelbox.color.factorSp2;
+
+			// z -= fractal->mandelbox.offset; //  TOSO check this not fixed in opwnCL yet
 		}
+
+		z -= fractal->mandelbox.offset; //  TOSO check this
 	}
 
 	double useScale = fractal->transformCommon.scaleA1;
@@ -125,5 +117,12 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 	{
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		colorAdd += fractal->foldColor.difs0000.x * m;
+		aux.color += colorAdd;
 	}
 }

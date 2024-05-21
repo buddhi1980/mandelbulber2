@@ -17,13 +17,21 @@
 REAL4 TransfDELinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL R;
-	if (!fractal->transformCommon.functionEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
-		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
+		if (!fractal->transformCommon.functionEnabledFalse)
+		{
+			R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z));
+		}
+		else
+		{
+			R = length(z);
+		}
 	}
-	else
+	else // mix
 	{
-		R = length(z);
+		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z))
+				* (1.0f - fractal->transformCommon.scaleA0) + length(z) * fractal->transformCommon.scaleA0;
 	}
 	aux->dist =
 		(fractal->transformCommon.scale1 * R / aux->DE) - fractal->transformCommon.offset0 / 100.0f;

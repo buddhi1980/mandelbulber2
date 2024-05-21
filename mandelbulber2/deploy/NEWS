@@ -18,12 +18,13 @@ TODO check all is finished with escape conditions
 	 pseudoKleinianMod1, add iter controls to sphere inversion
 	 pseudoKleinianMod2, correct UI
    pseudoKleinianStdDE, correct z scale and add aux.color
+	 transfDELinearCube, add mix option
 	 transfSphericalInv, fix modes
 	 transfSphericalFoldXYZBias, correct and update aux.color
 	 transfHybridColor2, fix parameter and add color tiling
 
 
-	 define M_PI_2_F for a few formulas
+   define M_PI_2_F for a few formulas
 
 
 
