@@ -23,42 +23,46 @@ REAL4 Menger4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		z += fractal->transformCommon.additionConstant0000; // offset
 	}
 
+	REAL temp = 0.0;
+	REAL col = 0.0;
 	z = fabs(z);
 	if (z.x - z.y < 0.0f)
 	{
-		REAL temp = z.y;
+		temp = z.y;
 		z.y = z.x;
 		z.x = temp;
 	}
 	if (z.x - z.z < 0.0f)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.x;
 		z.x = temp;
 	}
 	if (z.y - z.z < 0.0f)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.y;
 		z.y = temp;
 	}
 	if (z.x - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.x;
 		z.x = temp;
+		col += fractal->foldColor.difs0000.x;
 	}
 	if (z.y - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.y;
 		z.y = temp;
 	}
 	if (z.z - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.z;
 		z.z = temp;
+		col += fractal->foldColor.difs0000.y;
 	}
 
 	// 6 plane rotation
@@ -133,14 +137,14 @@ REAL4 Menger4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		{
 			z *= fractal->transformCommon.maxMinR2factor;
 			aux->DE *= fractal->transformCommon.maxMinR2factor;
-			aux->color += fractal->mandelbox.color.factorSp1;
+			col += fractal->mandelbox.color.factorSp1;
 		}
 		else if (r2 < fractal->transformCommon.maxR2d1)
 		{
 			REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			aux->color += fractal->mandelbox.color.factorSp2;
+			col += fractal->mandelbox.color.factorSp2;
 		}
 	}
 
@@ -155,5 +159,13 @@ REAL4 Menger4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	}
 
 	aux->DE *= fractal->analyticDE.scale1;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+					&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += col;
+	}
+
 	return z;
 }

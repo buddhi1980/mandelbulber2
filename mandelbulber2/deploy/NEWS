@@ -13,6 +13,9 @@ TODO check all is finished with escape conditions
 	 benesiPineTree, rework code
 	 benesiT1PineTree, remove post offset iter controls (no code)
 	 josKleinian, added more aux.color
+	 menger4d, added aux.color
+	 menger4dMod1, added aux.color
+	 menger4dMod2, added aux.color
 	 pseudoKleinian, added aux.color
 	 pseudoKleinianMod1, correct z scale and add aux.color
 	 pseudoKleinianMod1, add iter controls to sphere inversion

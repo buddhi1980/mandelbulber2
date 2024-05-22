@@ -41,41 +41,45 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z += fractal->transformCommon.additionConstant0000; // offset
 	}
 
-	if (z.x < z.y)
+	REAL temp = 0.0;
+	REAL col = 0.0;
+	if (z.x - z.y < 0.0f)
 	{
-		REAL temp = z.y;
+		temp = z.y;
 		z.y = z.x;
 		z.x = temp;
 	}
-	if (z.x < z.z)
+	if (z.x - z.z < 0.0f)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.x;
 		z.x = temp;
 	}
-	if (z.y < z.z)
+	if (z.y - z.z < 0.0f)
 	{
-		REAL temp = z.z;
+		temp = z.z;
 		z.z = z.y;
 		z.y = temp;
 	}
-	if (z.x < z.w)
+	if (z.x - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.x;
 		z.x = temp;
+		col += fractal->foldColor.difs0000.x;
 	}
-	if (z.y < z.w)
+	if (z.y - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.y;
 		z.y = temp;
 	}
-	if (z.z < z.w)
+	if (z.z - z.w < 0.0f)
 	{
-		REAL temp = z.w;
+		temp = z.w;
 		z.w = z.z;
 		z.z = temp;
+		col += fractal->foldColor.difs0000.y;
 	}
 
 	// 6 plane rotation
@@ -162,5 +166,13 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+					&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		aux->color += col;
+	}
+
 	return z;
 }
