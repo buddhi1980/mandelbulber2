@@ -894,24 +894,33 @@ double CRotationMatrix44::GetZeta() const
 
 CRotationMatrix44 CRotationMatrix44::Transpose() const
 {
+	// Create a new rotation matrix to store the transposed result
 	CRotationMatrix44 m;
+
+	// Transpose the matrix by swapping rows and columns:
 	m.matrix.m11 = matrix.m11;
 	m.matrix.m12 = matrix.m21;
 	m.matrix.m13 = matrix.m31;
 	m.matrix.m14 = matrix.m41;
+
 	m.matrix.m21 = matrix.m12;
 	m.matrix.m22 = matrix.m22;
 	m.matrix.m23 = matrix.m32;
 	m.matrix.m24 = matrix.m42;
+
 	m.matrix.m31 = matrix.m13;
 	m.matrix.m32 = matrix.m23;
 	m.matrix.m33 = matrix.m33;
 	m.matrix.m34 = matrix.m43;
+
 	m.matrix.m41 = matrix.m14;
 	m.matrix.m42 = matrix.m24;
 	m.matrix.m43 = matrix.m34;
 	m.matrix.m44 = matrix.m44;
 
+	// Set the 'zero' flag to false since the resulting matrix isn't a zero matrix
 	m.zero = false;
+
+	// Return the new transposed matrix
 	return m;
 }
