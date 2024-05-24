@@ -39,11 +39,19 @@
 
 #include "algebra.hpp"
 
+// Rotates this CVector3 around an axis by the specified angle.
 CVector3 CVector3::RotateAroundVectorByAngle(const CVector3 &axis, double angle) const
 {
+	// Calculate the component of the original vector times the cosine of the angle
 	CVector3 vector = *this * cos(angle);
+
+	// Add the cross times the sine of the angle
 	vector += (axis.Cross(*this)) * sin(angle);
+
+	// Add the dot times one minus the cosine of the angle
 	vector += axis * axis.Dot(*this) * (1 - cos(angle));
+
+	// Return the newly calculated results
 	return vector;
 }
 
@@ -56,25 +64,38 @@ CVector4 CVector4::RotateAroundVectorByAngle(const CVector3 &axis, double angle)
 	return CVector4(vector, w);
 }
 
+// Accessing Vector Components by Name (Character)
 double CVector3::itemByName(char item) const
 {
+	// Switch Statement for Character-Based Indexing
 	switch (item)
 	{
+		// If 'x', return the x-component
 		case 'x': return x;
+		// If 'y', return the y-component
 		case 'y': return y;
+		// If 'z', return the z-component
 		case 'z': return z;
+		// Default: Invalid Input
 		default: return 0.0;
 	}
 }
 
+// Accessing Vector4 Components by Name (Character)
 double CVector4::itemByName(char item) const
 {
+	// Switch Statement for Character-Based Indexing
 	switch (item)
 	{
+		// If 'x', return the x-component
 		case 'x': return x;
+		// If 'y', return the y-component
 		case 'y': return y;
+		// If 'z', return the z-component
 		case 'z': return z;
+		// If 'w', return the w-component (unique to 4D vectors)
 		case 'w': return w;
+		// Default: Invalid Input (return 0.0)
 		default: return 0.0;
 	}
 }
@@ -121,27 +142,48 @@ CMatrix33::CMatrix33(const CVector3 &v1, const CVector3 &v2, const CVector3 &v3)
 
 CMatrix33 &CMatrix33::operator=(const CMatrix33 &matrix) = default;
 
+// Matrix Multiplication Operator Overloading for 3x3 Matrices
 CMatrix33 CMatrix33::operator*(const CMatrix33 &matrix) const
 {
+	// Create a new matrix to store the result
 	CMatrix33 result;
+
+	// Calculate each element of the result matrix using matrix multiplication rules
+	// Row 1
 	result.m11 = m11 * matrix.m11 + m12 * matrix.m21 + m13 * matrix.m31;
 	result.m12 = m11 * matrix.m12 + m12 * matrix.m22 + m13 * matrix.m32;
 	result.m13 = m11 * matrix.m13 + m12 * matrix.m23 + m13 * matrix.m33;
+
+	// Row 2
 	result.m21 = m21 * matrix.m11 + m22 * matrix.m21 + m23 * matrix.m31;
 	result.m22 = m21 * matrix.m12 + m22 * matrix.m22 + m23 * matrix.m32;
 	result.m23 = m21 * matrix.m13 + m22 * matrix.m23 + m23 * matrix.m33;
+
+	// Row 3
 	result.m31 = m31 * matrix.m11 + m32 * matrix.m21 + m33 * matrix.m31;
 	result.m32 = m31 * matrix.m12 + m32 * matrix.m22 + m33 * matrix.m32;
 	result.m33 = m31 * matrix.m13 + m32 * matrix.m23 + m33 * matrix.m33;
+
+	// Return the calculated result matrix
 	return result;
 }
 
+// This function overloads the '*' operator for CMatrix33 objects.
 CVector3 CMatrix33::operator*(const CVector3 &vector) const
 {
+	// Create a new CVector3 object to hold the result of the multiplication
 	CVector3 result;
+
+	// Calculate the x-component of the result
 	result.x = m11 * vector.x + m12 * vector.y + m13 * vector.z;
+
+	// Calculate the y-component of the result
 	result.y = m21 * vector.x + m22 * vector.y + m23 * vector.z;
+
+	// Calculate the z-component of the result
 	result.z = m31 * vector.x + m32 * vector.y + m33 * vector.z;
+	
+	// Return the calculated resulting vector
 	return result;
 }
 
@@ -160,53 +202,86 @@ CRotationMatrix::CRotationMatrix()
 	zero = true;
 }
 
+// Rotates this CRotationMatrix around the X-axis by the specified angle
 void CRotationMatrix::RotateX(double angle)
 {
+	// Only perform the rotation if the angle is not zero
 	if (angle != 0.0)
 	{
+		// Create a new temporary rotation matrix 'rot'
 		CMatrix33 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix 'rot' for a rotation around the X-axis.
 		rot.m11 = 1.0;
 		rot.m22 = c;
 		rot.m33 = c;
 		rot.m23 = -s;
 		rot.m32 = s;
+
+		// Multiply the current rotation matrix 'matrix' (member of the CRotationMatrix object)
 		matrix = matrix * rot;
+
+		// Set 'zero' to false to indicate that the rotation matrix is no longer an identity matrix
 		zero = false;
 	}
 }
 
+// Rotates this CRotationMatrix around the Y-axis by the specified angle
 void CRotationMatrix::RotateY(double angle)
 {
+	// Check if the rotation angle is non-zero (avoid unnecessary calculations)
 	if (angle != 0.0)
 	{
+		// Create a temporary 3x3 rotation matrix
 		CMatrix33 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix according to the standard rotation formula
 		rot.m22 = 1.0;
 		rot.m33 = c;
 		rot.m11 = c;
 		rot.m31 = -s;
 		rot.m13 = s;
+
+		// Multiply the current rotation matrix (matrix) by the new rotation matrix (rot).
 		matrix = matrix * rot;
+
+		// Flag the rotation matrix as non-zero (meaning it represents a rotation)
 		zero = false;
 	}
 }
 
+// Rotates this CRotationMatrix around the Z-axis by the specified angle
 void CRotationMatrix::RotateZ(double angle)
 {
+	// Check if the rotation angle is non-zero (avoid unnecessary calculations)
 	if (angle != 0.0)
 	{
+		// Create a temporary 3x3 rotation matrix
 		CMatrix33 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix according to the standard Z-axis rotation formula
 		rot.m33 = 1.0;
 		rot.m11 = c;
 		rot.m22 = c;
 		rot.m12 = -s;
 		rot.m21 = s;
+
+		// Multiply the current rotation matrix (matrix) by the new rotation matrix (rot)
 		matrix = matrix * rot;
+
+		// Flag the rotation matrix as non-zero (meaning it represents a rotation)
 		zero = false;
 	}
 }
@@ -235,14 +310,22 @@ void CRotationMatrix::SetRotation(const CVector3 &rotation)
 	RotateY(rotation.z);
 }
 
+// This function constructs a rotation matrix that aligns an object
 void CRotationMatrix::SetRotation(const CVector3 &direction, const CVector3 &up)
 {
+	// Use cross product to find the perpendicular vector
 	CVector3 xaxis = up.Cross(direction);
+
+	// Normalize to make it a unit vector (length = 1)
 	xaxis.Normalize();
 
+	// Calculate the Y-axis of the rotation matrix
 	CVector3 yaxis = direction.Cross(xaxis);
+
+	// Normalize for consistency
 	yaxis.Normalize();
 
+	// Assign the calculated X, Y, and Z axes (direction) directly to the rotation matrix
 	matrix.m11 = xaxis.x;
 	matrix.m12 = xaxis.y;
 	matrix.m13 = xaxis.z;
@@ -255,6 +338,7 @@ void CRotationMatrix::SetRotation(const CVector3 &direction, const CVector3 &up)
 	matrix.m32 = direction.y;
 	matrix.m33 = direction.z;
 
+	// Indicate that the matrix now represents a valid rotation
 	zero = false;
 }
 
@@ -282,28 +366,40 @@ void CRotationMatrix::SetRotation4(const CVector3 &rotation)
 	RotateZ(rotation.z);
 }
 
+// Rotates a given 3D vector by this CRotationMatrix
 CVector3 CRotationMatrix::RotateVector(const CVector3 &vector) const
 {
+	// Check if the rotation matrix is a non-zero rotation (not identity)
 	if (!zero)
 	{
+		// Perform the rotation by multiplying the matrix with the vector
 		CVector3 vector2 = matrix * vector;
+
+		// Return the rotated vector
 		return vector2;
 	}
 	else
 	{
+		// If the rotation matrix is an identity matrix (zero rotation), return the original vector
 		return vector;
 	}
 }
 
+// This function takes a 4D vector and applies a rotation
 CVector4 CRotationMatrix::RotateVector(const CVector4 &vector) const
 {
+	// Check if the rotation matrix is the zero matrix (no rotation)
 	if (!zero)
 	{
+		// Apply the rotation to the vector's XYZ components
 		CVector4 vector2 = CVector4(matrix * vector.GetXYZ(), vector.w);
+
+		// Return the rotated vector
 		return vector2;
 	}
 	else
 	{
+		// If the rotation matrix is zero, return the original vector (unchanged)
 		return vector;
 	}
 }
@@ -417,14 +513,20 @@ CMatrix44::CMatrix44(const CVector4 &v1, const CVector4 &v2, const CVector4 &v3,
 
 CMatrix44 &CMatrix44::operator=(const CMatrix44 &matrix) = default;
 
+// Overload the * operator to multiply two 4x4 matrices
 CMatrix44 CMatrix44::operator*(const CMatrix44 &matrix) const
 {
+	// Create a new matrix to store the result
 	CMatrix44 result;
+
+	// Calculate each element of the resulting matrix using standard matrix multiplication rules
 	result.m11 = m11 * matrix.m11 + m12 * matrix.m21 + m13 * matrix.m31 + m14 * matrix.m41;
 	result.m12 = m11 * matrix.m12 + m12 * matrix.m22 + m13 * matrix.m32 + m14 * matrix.m42;
 	result.m13 = m11 * matrix.m13 + m12 * matrix.m23 + m13 * matrix.m33 + m14 * matrix.m43;
 	result.m14 = m11 * matrix.m14 + m12 * matrix.m24 + m13 * matrix.m34 + m14 * matrix.m44;
 
+	// Resulting matrix element (i,j) is the dot product of row i of the first matrix and column j of
+	// the second matrix
 	result.m21 = m21 * matrix.m11 + m22 * matrix.m21 + m23 * matrix.m31 + m24 * matrix.m41;
 	result.m22 = m21 * matrix.m12 + m22 * matrix.m22 + m23 * matrix.m32 + m24 * matrix.m42;
 	result.m23 = m21 * matrix.m13 + m22 * matrix.m23 + m23 * matrix.m33 + m24 * matrix.m43;
@@ -440,16 +542,23 @@ CMatrix44 CMatrix44::operator*(const CMatrix44 &matrix) const
 	result.m43 = m41 * matrix.m13 + m42 * matrix.m23 + m43 * matrix.m33 + m44 * matrix.m43;
 	result.m44 = m41 * matrix.m14 + m42 * matrix.m24 + m43 * matrix.m34 + m44 * matrix.m44;
 
+	// Return the calculated product matrix
 	return result;
 }
 
+// Overload the * operator to multiply a 4x4 matrix by a 4D vector
 CVector4 CMatrix44::operator*(const CVector4 &vector) const
 {
+	// Create a new vector to store the result
 	CVector4 result;
+
+	// Calculate each component of the resulting vector as a dot product of a matrix row and the input vector
 	result.x = m11 * vector.x + m12 * vector.y + m13 * vector.z + m14 * vector.w;
 	result.y = m21 * vector.x + m22 * vector.y + m23 * vector.z + m24 * vector.w;
 	result.z = m31 * vector.x + m32 * vector.y + m33 * vector.z + m34 * vector.w;
 	result.w = m41 * vector.x + m42 * vector.y + m43 * vector.z + m44 * vector.w;
+
+	// Return the calculated resulting vector
 	return result;
 }
 
@@ -475,110 +584,183 @@ CRotationMatrix44::CRotationMatrix44()
 	zero = true;
 }
 
+// Rotates a 4x4 rotation matrix around the X and Y axes by the specified angle
 void CRotationMatrix44::RotateXY(double angle)
 {
+	// Check if the angle is non-zero (if it's zero, no rotation is needed)
 	if (angle != 0.0)
 	{
+		// Create a new 4x4 matrix to represent the rotation
 		CMatrix44 rot;
+
+		// Calculate sine and cosine of the angle for rotation calculations
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Populate the rotation matrix with the calculated values
 		rot.m11 = c;
 		rot.m12 = s;
 		rot.m21 = -s;
 		rot.m22 = c;
+
+		// Set other diagonal elements to 1 (for identity rotation in z and w)
 		rot.m33 = 1.0;
 		rot.m44 = 1.0;
+
+		// Apply the rotation by multiplying the existing matrix by the rotation matrix
 		matrix = matrix * rot;
+
+		// Mark the matrix as non-zero (it now contains a rotation)
 		zero = false;
 	}
 }
 
 void CRotationMatrix44::RotateYZ(double angle)
 {
+	// Check if the rotation angle is non-zero
 	if (angle != 0.0)
 	{
+		// Create a temporary 4x4 rotation matrix
 		CMatrix44 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix based on the angle:
 		rot.m22 = c;
 		rot.m23 = s;
 		rot.m11 = -s;
 		rot.m31 = c;
+
+		// Set other relevant matrix elements to maintain identity for non-rotated axes:
 		rot.m11 = 1.0;
 		rot.m44 = 1.0;
+
+		// Apply the rotation by multiplying the current matrix (this->matrix) by the rotation matrix
 		matrix = matrix * rot;
+
+		// Indicate that the matrix is no longer the identity matrix after the rotation
 		zero = false;
 	}
 }
 
 void CRotationMatrix44::RotateXZ(double angle)
 {
+	// Check if the rotation angle is non-zero
 	if (angle != 0.0)
 	{
+		// Create a temporary 4x4 rotation matrix
 		CMatrix44 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix based on the angle:
 		rot.m11 = c;
 		rot.m13 = -s;
 		rot.m31 = s;
 		rot.m33 = c;
+
+		// Set other relevant matrix elements to maintain identity for non-rotated axes:
 		rot.m22 = 1.0;
 		rot.m44 = 1.0;
+
+		// Apply the rotation by multiplying the current matrix (this->matrix) by the rotation matrix
 		matrix = matrix * rot;
+
+		// Indicate that the matrix is no longer the identity matrix after the rotation
 		zero = false;
 	}
 }
 
 void CRotationMatrix44::RotateXW(double angle)
 {
+	// Check if the rotation angle is non-zero
 	if (angle != 0.0)
 	{
+		// Create a temporary 4x4 rotation matrix
 		CMatrix44 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix based on the angle:
 		rot.m11 = c;
 		rot.m14 = s;
 		rot.m41 = -s;
 		rot.m44 = c;
+
+		// Set other relevant matrix elements to maintain identity for non-rotated axes:
 		rot.m22 = 1.0;
 		rot.m33 = 1.0;
+
+		// Apply the rotation by multiplying the current matrix (this->matrix) by the rotation matrix
 		matrix = matrix * rot;
+
+		// Indicate that the matrix is no longer the identity matrix after the rotation
 		zero = false;
 	}
 }
 
 void CRotationMatrix44::RotateYW(double angle)
 {
+	// Check if the rotation angle is non-zero
 	if (angle != 0.0)
 	{
+		// Create a temporary 4x4 rotation matrix
 		CMatrix44 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix based on the angle:
 		rot.m22 = c;
 		rot.m24 = -s;
 		rot.m42 = s;
 		rot.m44 = c;
+
+		// Set other relevant matrix elements to maintain identity for non-rotated axes:
 		rot.m11 = 1.0;
 		rot.m33 = 1.0;
+
+		// Apply the rotation by multiplying the current matrix (this->matrix) by the rotation matrix
 		matrix = matrix * rot;
+
+		// Indicate that the matrix is no longer the identity matrix after the rotation
 		zero = false;
 	}
 }
 
 void CRotationMatrix44::RotateZW(double angle)
 {
+	// Check if the rotation angle is non-zero
 	if (angle != 0.0)
 	{
+		// Create a temporary 4x4 rotation matrix
 		CMatrix44 rot;
+
+		// Pre-calculate sine and cosine of the angle for efficiency
 		const double s = sin(angle);
 		const double c = cos(angle);
+
+		// Set the elements of the rotation matrix based on the angle:
 		rot.m33 = c;
 		rot.m34 = -s;
 		rot.m43 = s;
 		rot.m44 = c;
+
+		// Set other relevant matrix elements to maintain identity for non-rotated axes:
 		rot.m11 = 1.0;
 		rot.m22 = 1.0;
+
+		// Apply the rotation by multiplying the current matrix (this->matrix) by the rotation matrix
 		matrix = matrix * rot;
+
+		// Indicate that the matrix is no longer the identity matrix after the rotation
 		zero = false;
 	}
 }
