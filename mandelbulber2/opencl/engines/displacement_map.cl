@@ -63,6 +63,8 @@ float DisplacementMap(
 
 	return distance;
 }
+#endif // USE_DISPLACEMENT_TEXTURE
+#endif // USE_TEXTURES
 
 #ifdef FRACTALIZE_TEXTURE
 float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCalcParams *calcParams,
@@ -87,6 +89,3 @@ float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCal
 	return pointFractalized;
 }
 #endif // FRACTALIZE_TEXTURE
-
-#endif // USE_DISPLACEMENT_TEXTURE
-#endif // USE_TEXTURES
