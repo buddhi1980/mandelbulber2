@@ -37,39 +37,39 @@ void cFractalMandelboxVariable::FormulaCode(CVector4 &z, const sFractal *fractal
 	CVector4 oldZ = z;
 	CVector4 limit4 = fractal->transformCommon.additionConstant111;
 	CVector4 value4 = 2.0 * fractal->transformCommon.additionConstant111;
-	if (fractal->transformCommon.functionEnabledFalse)
-		value4 = fractal->transformCommon.additionConstant222;
+//	if (fractal->transformCommon.functionEnabledFalse)
+//		value4 = fractal->transformCommon.additionConstant222;
 
 	if (fractal->mandelbox.rotationsEnabled)
 	{ // TODO evaluate implementation of vec3 limit and value
-		/*	CVector4 zRot;
-			// cast vector to array pointer for address taking of components in opencl
-			double *zRotP = reinterpret_cast<double *>(&zRot);
-			const double *colP = reinterpret_cast<const double *>(&fractal->mandelbox.color.factor);
-			for (int dim = 0; dim < 3; dim++)
-			{
-				// handle each dimension x, y and z sequentially in pointer var dim
-				double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
-				const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
+		CVector4 zRot;
+		// cast vector to array pointer for address taking of components in opencl
+		double *zRotP = reinterpret_cast<double *>(&zRot);
+		const double *colP = reinterpret_cast<const double *>(&fractal->mandelbox.color.factor);
+		for (int dim = 0; dim < 3; dim++)
+		{
+			// handle each dimension x, y and z sequentially in pointer var dim
+			double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+			const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
-				zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
-				if (*rotDim > fractal->mandelbox.foldingLimit)
+			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
+			if (*rotDim > fractal->mandelbox.foldingLimit)
+			{
+				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
+				aux.color += *colorFactor;
+			}
+			else
+			{
+				zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
+				if (*rotDim < -fractal->mandelbox.foldingLimit)
 				{
-					*rotDim = fractal->mandelbox.foldingValue - *rotDim;
-					z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
+					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
 					aux.color += *colorFactor;
 				}
-				else
-				{
-					zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
-					if (*rotDim < -fractal->mandelbox.foldingLimit)
-					{
-						*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
-						z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
-						aux.color += *colorFactor;
-					}
-				}
-			}*/
+			}
+		}
 	}
 	else
 	{

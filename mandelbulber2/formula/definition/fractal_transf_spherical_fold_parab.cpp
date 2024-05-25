@@ -89,10 +89,9 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 			aux.DE = aux.DE * m;
 			colorAdd += fractal->mandelbox.color.factorSp2;
 
-			// z -= fractal->mandelbox.offset; //  TOSO check
+			// z -= fractal->mandelbox.offset; //  fixed v2.32
 		}
-
-		z -= fractal->mandelbox.offset; //  TOSO check this
+		z -= fractal->mandelbox.offset;
 	}
 
 	double useScale = fractal->transformCommon.scaleA1;

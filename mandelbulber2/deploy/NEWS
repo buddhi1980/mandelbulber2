@@ -13,6 +13,7 @@ TODO check all is finished with escape conditions
 	 benesiPineTree, rework code
 	 benesiT1PineTree, remove post offset iter controls (no code)
 	 josKleinian, added more aux.color
+	 mandelboxMenger, z.z scale now works with rotation of separate planes
 	 menger4d, added aux.color
 	 menger4dMod1, added aux.color
 	 menger4dMod2, added aux.color
@@ -23,6 +24,7 @@ TODO check all is finished with escape conditions
    pseudoKleinianStdDE, correct z scale and add aux.color
 	 transfDELinearCube, add mix option
 	 transfSphericalInv, fix modes
+	 transfSphericalFoldParab, fixed reverse offset and update aux.color
 	 transfSphericalFoldXYZBias, correct and update aux.color
 	 transfHybridColor2, fix parameter and add color tiling
 

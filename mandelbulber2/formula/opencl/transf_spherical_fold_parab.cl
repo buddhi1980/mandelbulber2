@@ -78,7 +78,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			aux->DE = aux->DE * m;
 			colorAdd += fractal->mandelbox.color.factorSp2;
 
-			// z -= fractal->mandelbox.offset;
+			// z -= fractal->mandelbox.offset; fixed v2.32
 		}
 		z -= fractal->mandelbox.offset;
 	}

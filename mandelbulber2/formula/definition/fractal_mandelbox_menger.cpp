@@ -44,18 +44,27 @@ void cFractalMandelboxMenger::FormulaCode(CVector4 &z, const sFractal *fractal, 
 			const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
 			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
-			if (*rotDim > fractal->mandelbox.foldingLimit)
+
+			double mLimit = fractal->mandelbox.foldingLimit;
+			double mValue = fractal->mandelbox.foldingValue;
+			if (dim == 2)
 			{
-				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				mLimit *= fractal->transformCommon.scale1;
+				mValue *= fractal->transformCommon.scale1;
+			}
+
+			if (*rotDim > mLimit)
+			{
+				*rotDim = mValue - *rotDim;
 				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
 				colorAdd += *colorFactor;
 			}
 			else
 			{
 				zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
-				if (*rotDim < -fractal->mandelbox.foldingLimit)
+				if (*rotDim < -mLimit)
 				{
-					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					*rotDim = -mValue - *rotDim;
 					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
 					colorAdd += *colorFactor;
 				}

@@ -33,18 +33,27 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			__constant REAL *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
 			zRot = Matrix33MulFloat4(fractal->mandelbox.rot[0][dim], z);
-			if (*rotDim > fractal->mandelbox.foldingLimit)
+
+			REAL mLimit = fractal->mandelbox.foldingLimit;
+			REAL mValue = fractal->mandelbox.foldingValue;
+			if (dim == 2)
 			{
-				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				mLimit *= fractal->transformCommon.scale1;
+				mValue *= fractal->transformCommon.scale1;
+			}
+
+			if (*rotDim > mLimit)
+			{
+				*rotDim = mValue - *rotDim;
 				z = Matrix33MulFloat4(fractal->mandelbox.rotinv[0][dim], zRot);
 				colorAdd += *colorFactor;
 			}
 			else
 			{
 				zRot = Matrix33MulFloat4(fractal->mandelbox.rot[1][dim], z);
-				if (*rotDim < -fractal->mandelbox.foldingLimit)
+				if (*rotDim < -mLimit)
 				{
-					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					*rotDim = -mValue - *rotDim;
 					z = Matrix33MulFloat4(fractal->mandelbox.rotinv[1][dim], zRot);
 					colorAdd += *colorFactor;
 				}

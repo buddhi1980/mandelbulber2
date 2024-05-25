@@ -37,7 +37,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,1,1,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="1,1,1,1">
      <item>
       <widget class="QLabel" name="label_72">
        <property name="text">
@@ -149,7 +149,7 @@
      <item row="8" column="0" colspan="2">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>Analytic DE tweak:</string>
+        <string>DE tweak:</string>
        </property>
       </widget>
      </item>
@@ -479,15 +479,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
