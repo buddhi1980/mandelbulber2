@@ -218,7 +218,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "displacement_map.cl");
 
 			AddInclude(programEngine, openclEnginePath + "perlin_noise.cl");
-
+			AddInclude(programEngine, openclEnginePath + "shader_surface_color.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_perlin_noise_for_shaders.cl");
 		}
 	}
@@ -244,7 +244,6 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			AddInclude(programEngine, openclEnginePath + "shader_clouds_opacity.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_hsv2rgb.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_background.cl");
-			AddInclude(programEngine, openclEnginePath + "shader_surface_color.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_specular_highlight_combined.cl");
 			AddInclude(programEngine, openclEnginePath + "shader_fast_ambient_occlusion.cl");

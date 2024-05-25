@@ -76,6 +76,40 @@ void cRenderWorker::PerlinNoiseForShaders(sShaderInputData *shaderInputData) con
 	}
 }
 
+void cRenderWorker::PerlinNoiseForReflectance(
+	const sShaderInputData &shaderInputData, sRGBFloat &reflectance)
+{
+	{
+		float perlin = (shaderInputData.material->perlinNoiseReflectanceInvert)
+										 ? 1.0 - shaderInputData.perlinNoise
+										 : shaderInputData.perlinNoise;
+		sRGBFloat reflectancePerlin;
+		if (shaderInputData.material->reflectanceGradientEnable)
+		{
+			double colorPosition = fmod(
+				perlin * shaderInputData.material->coloring_speed + shaderInputData.material->paletteOffset,
+				1.0);
+			sRGBFloat gradientColor =
+				shaderInputData.material->gradientReflectance.GetColorFloat(colorPosition, false);
+			reflectancePerlin.R = gradientColor.R;
+			reflectancePerlin.G = gradientColor.G;
+			reflectancePerlin.B = gradientColor.B;
+		}
+		else
+		{
+			float perlinCol = perlin;
+			reflectancePerlin.R = perlinCol;
+			reflectancePerlin.G = perlinCol;
+			reflectancePerlin.B = perlinCol;
+		}
+		float perlinRefInt = shaderInputData.material->perlinNoiseReflectanceIntensity;
+		float perlinRefIntN = 1.0f - shaderInputData.material->perlinNoiseReflectanceIntensity;
+		reflectance.R *= reflectancePerlin.R * perlinRefInt + perlinRefIntN;
+		reflectance.G *= reflectancePerlin.G * perlinRefInt + perlinRefIntN;
+		reflectance.B *= reflectancePerlin.B * perlinRefInt + perlinRefIntN;
+	}
+}
+
 double PerlinNoiseDisplacement(
 	double distance, const CVector3 &point, sRenderData *data, int objectId)
 {

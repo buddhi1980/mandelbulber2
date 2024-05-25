@@ -69,6 +69,40 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 	}
 }
 
+float3 PerlinNoiseForReflectance(sShaderInputDataCl *shaderInputData, float3 reflectance)
+{
+	{
+		float perlin = (shaderInputData->material->perlinNoiseReflectanceInvert)
+										 ? 1.0f - shaderInputData->perlinNoise
+										 : shaderInputData->perlinNoise;
+		float3 reflectancePerlin = 1.0f;
+
+#ifdef USE_REFLECTANCE_GRADIENT
+		if (shaderInputData->material->reflectanceGradientEnable)
+		{
+			float colorPosition = fmod(perlin * shaderInputData->material->coloring_speed
+																	 + shaderInputData->material->paletteOffset,
+				1.0f);
+
+			float3 gradientColor =
+				GetColorFromGradient(colorPosition, false, shaderInputData->paletteReflectanceLength,
+					shaderInputData->palette + shaderInputData->paletteReflectanceOffset);
+
+			reflectancePerlin = gradientColor;
+		}
+		else
+#endif // USE_REFLECTANCE_GRADIENT
+		{
+			float perlinCol = perlin;
+			reflectancePerlin = perlinCol;
+		}
+		float perlinRefInt = shaderInputData->material->perlinNoiseReflectanceIntensity;
+		float perlinRefIntN = 1.0f - shaderInputData->material->perlinNoiseReflectanceIntensity;
+		reflectance *= reflectancePerlin * perlinRefInt + perlinRefIntN;
+	}
+	return reflectance;
+}
+
 float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderData, int objectId)
 {
 	__global sObjectDataCl *objectData = &renderData->objectsData[objectId];

@@ -821,7 +821,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #ifdef USE_REFLECTANCE_GRADIENT
 					if (shaderInputData.material->useColorsFromPalette
-							&& shaderInputData.material->reflectanceGradientEnable)
+							&& shaderInputData.material->reflectanceGradientEnable
+							&& !shaderInputData.material->perlinNoiseReflectanceEnable)
 						reflectDiffused *= gradients.reflectance;
 					else
 #endif // USE_REFLECTANCE_GRADIENT
@@ -851,6 +852,15 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						reflectDiffused *= shaderInputData.texReflectance * texReflInt + texReflIntN;
 					}
 #endif // USE_REFLECTANCE_TEXTURE
+
+#ifdef USE_PERLIN_NOISE
+					// reflectance perlin noise
+					if (shaderInputData.material->perlinNoiseEnable
+							&& shaderInputData.material->perlinNoiseReflectanceEnable)
+					{
+						reflectDiffused = PerlinNoiseForReflectance(&shaderInputData, reflectDiffused);
+					}
+#endif // USE_PERLIN_NOISE
 
 					float reflectDiffusedAvg =
 						(reflectDiffused.s0 + reflectDiffused.s1 + reflectDiffused.s2) / 3.0f;

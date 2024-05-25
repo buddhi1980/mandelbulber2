@@ -268,6 +268,8 @@ private:
 	void RayleighScattering(const CVector3 &lightVectorTemp, const sShaderInputData &input,
 		sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const;
 	void PerlinNoiseForShaders(sShaderInputData *shaderInputData) const;
+	void PerlinNoiseForReflectance(
+		const sShaderInputData &shaderInputData, sRGBFloat &reflectDiffused);
 
 	// data got from main thread
 	const sParamRender *params;
