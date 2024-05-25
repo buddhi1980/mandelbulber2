@@ -105,6 +105,7 @@ public:
 	float perlinNoiseColorIntensity;
 	float perlinNoiseLuminosityIntensity;
 	float perlinNoiseDisplacementIntensity;
+	float perlinNoiseReflectanceIntensity;
 
 	sRGBFloat color;
 	sRGBFloat luminosityColor;
@@ -153,6 +154,8 @@ public:
 	bool perlinNoiseLuminosityInvert;
 	bool perlinNoiseDisplacementEnable;
 	bool perlinNoiseDisplacementInvert;
+	bool perlinNoiseReflectanceEnable;
+	bool perlinNoiseReflectanceInvert;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

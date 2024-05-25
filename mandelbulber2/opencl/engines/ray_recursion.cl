@@ -703,7 +703,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #endif
 
 #ifdef USE_PERLIN_NOISE
-				PerlinNoiseForShaders(&shaderInputData, renderData);
+				PerlinNoiseForShaders(consts, &calcParam, &shaderInputData, renderData);
 #endif
 
 				sClGradientsCollection gradients;

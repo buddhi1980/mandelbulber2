@@ -34,7 +34,8 @@
  */
 
 #ifdef USE_PERLIN_NOISE
-void PerlinNoiseForShaders(sShaderInputDataCl *shaderInputData, sRenderData *renderData)
+void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *calcParam,
+	sShaderInputDataCl *shaderInputData, sRenderData *renderData)
 {
 	if (shaderInputData->material->perlinNoiseEnable)
 	{
@@ -44,8 +45,8 @@ void PerlinNoiseForShaders(sShaderInputDataCl *shaderInputData, sRenderData *ren
 		if (shaderInputData->material->textureFractalize)
 		{
 			formulaOut outF;
-			outF =
-				Fractal(consts, point, &calcParam, calcModeCubeOrbitTrap, shaderInputData->material, -1);
+			outF = Fractal(
+				consts, pointModified, calcParam, calcModeCubeOrbitTrap, shaderInputData->material, -1);
 			pointModified = outF.z.xyz;
 		}
 #endif
