@@ -30,41 +30,50 @@ cFractalTransfSphericalInv::cFractalTransfSphericalInv() : cAbstractFractal()
 void cFractalTransfSphericalInv::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 oldZ = z;
+	double RR = 1.0;
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 
+	if (!fractal->transformCommon.functionEnabledyFalse) RR = z.Dot(z);
+	else RR = oldZ.Dot(oldZ);
+
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		double r2Inv = 1.0 / z.Dot(z);
-		z *= r2Inv;
-		aux.DE *= r2Inv;
+		RR = 1.0 / RR;
+		z *= RR;
+		aux.DE *= RR;
 	}
 	else // conditional
 	{
-		double rr = z.Dot(z);
 		z += fractal->transformCommon.offset000;
-		if (rr < fractal->mandelbox.foldingSphericalFixed)
+		if (RR < fractal->mandelbox.foldingSphericalFixed)
 		{
-			//double mode = 0.0;
-			double mode = fractal->mandelbox.foldingSphericalFixed;
+			RR = fractal->mandelbox.foldingSphericalFixed;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
-				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
+				if (RR < fractal->transformCommon.minR0) RR = fractal->transformCommon.minR0;
 			}
 			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 			{
-				if (rr < fractal->transformCommon.minR0) mode = 2.0 * fractal->transformCommon.minR0 - rr;
+				if (RR < fractal->transformCommon.minR0) RR = 2.0 * fractal->transformCommon.minR0 - RR;
 			}
-			mode = 1.0 / mode;
-			z *= mode;
-			aux.DE *= fabs(mode);
+			RR = 1.0 / RR;
+			z *= RR;
+			aux.DE *= fabs(RR);
 			z -= fractal->transformCommon.offset000;
 		}
 	}
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		aux.color += RR * fractal->transformCommon.scale0;
 	}
 }

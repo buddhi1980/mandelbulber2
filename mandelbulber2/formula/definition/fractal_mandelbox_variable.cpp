@@ -36,7 +36,7 @@ void cFractalMandelboxVariable::FormulaCode(CVector4 &z, const sFractal *fractal
 	CVector4 zCol = z;
 	CVector4 oldZ = z;
 	CVector4 limit4 = fractal->transformCommon.additionConstant111;
-	CVector4 value4 = 2.0 * fractal->transformCommon.additionConstant111;
+//	CVector4 value4 = 2.0 * fractal->transformCommon.additionConstant111;
 //	if (fractal->transformCommon.functionEnabledFalse)
 //		value4 = fractal->transformCommon.additionConstant222;
 

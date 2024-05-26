@@ -25,7 +25,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 zCol = z;
 	REAL4 oldZ = z;
 	REAL4 limit4 = fractal->transformCommon.additionConstant111;
-	REAL4 value4 = 2.0f * fractal->transformCommon.additionConstant111;
+//	REAL4 value4 = 2.0f * fractal->transformCommon.additionConstant111;
 //	if (fractal->transformCommon.functionEnabledFalse)
 //		value4 = fractal->transformCommon.additionConstant222;
 
