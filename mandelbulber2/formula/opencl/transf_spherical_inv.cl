@@ -35,25 +35,29 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else // conditional
 	{
-	//	REAL rr = dot(z, z);
+		REAL mde = RR;
 		z += fractal->transformCommon.offset000;
-		if (RR < fractal->mandelbox.foldingSphericalFixed)
+
+		if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 		{
-			//REAL mode = 0.0f;
-			RR = fractal->mandelbox.foldingSphericalFixed;
-			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
-			{
-				if (RR < fractal->transformCommon.minR0) RR = fractal->transformCommon.minR0;
-			}
-			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
-			{
-				if (RR < fractal->transformCommon.minR0) RR = 2.0f * fractal->transformCommon.minR0 - RR;
-			}
-			RR = 1.0f / RR;
-			z *= RR;
-			aux->DE *= fabs(RR);
-			z -= fractal->transformCommon.offset000;
+			if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.minR0)
+				mde = fractal->transformCommon.minR0;
 		}
+		if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
+		{
+			if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.minR0)
+				mde = 2.0f * fractal->transformCommon.minR0 - RR;
+		}
+
+
+//RR = mode;
+
+
+		RR = 1.0f / mde;
+		z *= RR;
+		aux->DE *= fabs(RR);
+		z -= fractal->transformCommon.offset000;
+
 	}
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	if (fractal->analyticDE.enabledFalse)
