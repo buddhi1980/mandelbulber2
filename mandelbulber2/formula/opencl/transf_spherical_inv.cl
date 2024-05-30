@@ -25,17 +25,19 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
 	if (!fractal->transformCommon.functionEnabledyFalse) RR = dot(z, z);
-		else RR = dot(oldZ, oldZ);
+	else RR = dot(oldZ, oldZ);
+	REAL mde = RR;
+
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		RR = 1.0f / RR;
-		z *= RR;
-		aux->DE *= RR;
+		mde = 1.0f / mde;
+		z *= mde;
+		aux->DE *= mde;
 	}
 	else // conditional
 	{
-		REAL mde = RR;
+
 		z += fractal->transformCommon.offset000;
 
 		if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
@@ -49,13 +51,23 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				mde = 2.0f * fractal->transformCommon.minR0 - RR;
 		}
 
+		if (fractal->transformCommon.functionEnabledAFalse) // Mode 3
+		{
+			if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
+			if (RR < fractal->transformCommon.minR0) mde = fractal->transformCommon.minR0;
+		}
 
-//RR = mode;
+		if (fractal->transformCommon.functionEnabledBFalse) // Mode 4
+		{
+			if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
+			if (RR < fractal->transformCommon.minR0) mde = 2.0 * fractal->transformCommon.minR0 - RR;
+
+		}
 
 
-		RR = 1.0f / mde;
-		z *= RR;
-		aux->DE *= fabs(RR);
+		mde = 1.0f / mde;
+		z *= mde;
+		aux->DE *= fabs(mde);
 		z -= fractal->transformCommon.offset000;
 
 	}
@@ -65,9 +77,16 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	// color added v2.32
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += RR * fractal->transformCommon.scale0;
+		REAL addCol = 0.0f;
+		addCol += fractal->foldColor.difs0000.x * mde;
+		if (RR > fractal->mandelbox.foldingSphericalFixed) addCol += fractal->foldColor.difs0000.y;
+		if (RR < fractal->transformCommon.minR0) addCol += fractal->foldColor.difs0000.z;
+
+		aux->color += addCol;
 	}
 	return z;
 }

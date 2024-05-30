@@ -38,16 +38,17 @@ void cFractalTransfSphericalInv::FormulaCode(
 
 	if (!fractal->transformCommon.functionEnabledyFalse) RR = z.Dot(z);
 	else RR = oldZ.Dot(oldZ);
+	double mde = RR;
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		RR = 1.0 / RR;
-		z *= RR;
-		aux.DE *= RR;
+		mde = 1.0 / mde;
+		z *= mde;
+		aux.DE *= mde;
 	}
 	else // conditional
 	{
-		double mde = RR;
+
 		z += fractal->transformCommon.offset000;
 		//if (RR < fractal->mandelbox.foldingSphericalFixed)
 		{
@@ -64,9 +65,28 @@ void cFractalTransfSphericalInv::FormulaCode(
 					mde = 2.0 * fractal->transformCommon.minR0 - RR;
 			}
 
-			RR = 1.0 / mde;
-			z *= RR;
-			aux.DE *= fabs(RR);
+			if (fractal->transformCommon.functionEnabledAFalse) // Mode 3
+			{
+				if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
+				if (RR < fractal->transformCommon.minR0) mde = fractal->transformCommon.minR0;
+			}
+
+			if (fractal->transformCommon.functionEnabledBFalse) // Mode 4
+			{
+				if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
+				if (RR < fractal->transformCommon.minR0) mde = 2.0 * fractal->transformCommon.minR0 - RR;
+
+			}
+			if (fractal->transformCommon.functionEnabledCFalse) // Mode 5
+			{
+
+
+			}
+
+
+			mde = 1.0 / mde;
+			z *= mde;
+			aux.DE *= fabs(mde);
 			z -= fractal->transformCommon.offset000;
 		}
 	}
@@ -77,8 +97,17 @@ void cFractalTransfSphericalInv::FormulaCode(
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	// color added v2.32
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += RR * fractal->transformCommon.scale0;
+		double addCol = 0.0f;
+		addCol += fractal->foldColor.difs0000.x * mde;
+		if (RR > fractal->mandelbox.foldingSphericalFixed) addCol += fractal->foldColor.difs0000.y;
+		if (RR < fractal->transformCommon.minR0) addCol += fractal->foldColor.difs0000.z;
+
+	//	aux.color = addCol;
+
+		aux.color += addCol;
 	}
 }
