@@ -23,6 +23,7 @@ TODO check all is finished with escape conditions
 	 pseudoKleinianMod2, correct UI
    pseudoKleinianStdDE, correct z scale and add aux.color
 	 transfDELinearCube, add mix option
+	 transfScaleVaryV212, fix DE
 	 transfSphericalInv, fix modes
 	 transfSphericalFoldParab, fixed reverse offset and update aux.color
 	 transfSphericalFoldXYZBias, correct and update aux.color

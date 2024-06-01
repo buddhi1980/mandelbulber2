@@ -42,7 +42,7 @@ REAL4 TransfScaleVaryV212Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	else if (aux->i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleMain2 + fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleMain2) + fractal->analyticDE.offset1;
 	}
 	else
 	{
@@ -51,7 +51,7 @@ REAL4 TransfScaleVaryV212Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			aux->actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux->actualScaleA;
-		aux->DE = aux->DE * fabs(aux->actualScaleA + fractal->analyticDE.offset1);
+		aux->DE = aux->DE * fabs(aux->actualScaleA) + fractal->analyticDE.offset1;
 	}
 	return z;
 }
