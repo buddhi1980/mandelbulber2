@@ -37,33 +37,34 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else // conditional
 	{
-
 		z += fractal->transformCommon.offset000;
+		REAL mn = 0.0;
+		if (!fractal->transformCommon.functionEnabledxFalse) mn = fractal->transformCommon.minR0;
+		else mn = 2.0 * fractal->transformCommon.minR0 - RR;
 
 		if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
-		{
+		{ // RR > RR > min
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.minR0)
-				mde = fractal->transformCommon.minR0;
-		}
-		if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
-		{
-			if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.minR0)
-				mde = 2.0f * fractal->transformCommon.minR0 - RR;
+				mde = mn;
 		}
 
-		if (fractal->transformCommon.functionEnabledAFalse) // Mode 3
-		{
+		if (fractal->transformCommon.functionEnabledAFalse) // Mode 2
+		{ // max > RR > min
 			if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
-			if (RR < fractal->transformCommon.minR0) mde = fractal->transformCommon.minR0;
+			if (RR < fractal->transformCommon.minR0) mde = mn;
 		}
 
-		if (fractal->transformCommon.functionEnabledBFalse) // Mode 4
+		if (fractal->transformCommon.functionEnabledBFalse) // Mode 3
 		{
-			if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
-			if (RR < fractal->transformCommon.minR0) mde = 2.0 * fractal->transformCommon.minR0 - RR;
-
+			if (RR < fractal->mandelbox.foldingSphericalFixed && RR > fractal->transformCommon.minR0)
+				mde = mn;
 		}
 
+		if (fractal->transformCommon.functionEnabledCFalse) // Mode 4
+		{
+			if (RR < fractal->mandelbox.foldingSphericalFixed)
+				mde = mn;
+		}
 
 		mde = 1.0f / mde;
 		z *= mde;

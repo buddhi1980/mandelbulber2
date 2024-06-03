@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>1800</height>
+    <height>1893</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -272,161 +272,28 @@ offset:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="8" column="1">
-         <widget class="QLabel" name="label_16">
-          <property name="text">
-           <string>max:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
-          <property name="text">
-           <string>Mode 1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="label_48">
-          <property name="text">
-           <string>rrMode = 2 * minRR - rr (non conformal &quot;reversal&quot; inversion)</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
-          <property name="text">
-           <string>Mode 3</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_21">
-          <property name="text">
-           <string>rrMode = minRR (conformal - undo the inversion inside a sphere)</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>999.999000000000024</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_22">
-          <property name="text">
-           <string>if (  minRR  &lt; rr &lt; maxRR)  z *=1 / rr;
-if ( z &gt; minRR) z *= 1/  rrMode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_23">
-          <property name="text">
-           <string>Mode condition</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
-          <property name="text">
-           <string>C</string>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
-          <property name="text">
-           <string>D</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_fixed_radius">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>999.999000000000024</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
-          <property name="text">
-           <string>Mode 4</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="1">
-         <widget class="QLabel" name="label_47">
-          <property name="text">
-           <string>minRR:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
           <property name="text">
            <string>Mode 2</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
+        <item row="10" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
           <property name="text">
            <string>E</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
+        <item row="7" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
+          <property name="text">
+           <string>Mode 3</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -454,6 +321,139 @@ if ( z &gt; minRR) z *= 1/  rrMode</string>
           </property>
          </widget>
         </item>
+        <item row="5" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+          <property name="text">
+           <string>Mode 1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_23">
+          <property name="text">
+           <string>Mode condition</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
+          <property name="text">
+           <string>D</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_47">
+          <property name="text">
+           <string>minRR:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledC_false">
+          <property name="text">
+           <string>Mode 4</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="label_48">
+          <property name="text">
+           <string>rrModeB = 2 * minRR - rr (non conformal &quot;reversal&quot; inversion)</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>999.999000000000024</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+          <property name="text">
+           <string>rrModeB</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_21">
+          <property name="text">
+           <string>rrModeA = minRR (conformal - undo the inversion inside a sphere)</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string>if (  minRR  &lt; rr &lt; maxRR)  z *=1 / rr;
+if ( z &gt; minRR) z *= 1/  rrMode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_fixed_radius">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>999.999000000000024</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>max:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -461,20 +461,6 @@ if ( z &gt; minRR) z *= 1/  rrMode</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_257">
-          <property name="text">
-           <string>mode offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_124">
-          <property name="text">
-           <string notr="true">y</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_125">
           <property name="text">
@@ -510,31 +496,10 @@ if ( z &gt; minRR) z *= 1/  rrMode</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_124">
+          <property name="text">
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -570,6 +535,41 @@ if ( z &gt; minRR) z *= 1/  rrMode</string>
          <widget class="QLabel" name="label_126">
           <property name="text">
            <string notr="true">z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_257">
+          <property name="text">
+           <string>mode offset:</string>
           </property>
          </widget>
         </item>
