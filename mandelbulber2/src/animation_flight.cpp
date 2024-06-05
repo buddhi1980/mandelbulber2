@@ -190,63 +190,87 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface,
 
 void cFlightAnimation::slotRecordFlight()
 {
+	// Check if the 'frames' member variable is valid (not null or zero)
 	if (frames)
 	{
+		// If 'frames' is valid, call the RecordFlight function with 'false' as an argument.
 		RecordFlight(false);
 	}
 	else
 	{
+		// If 'frames' is not valid, log a critical error message to the console.
 		qCritical() << "gAnimFrames not allocated";
 	}
 }
 
 void cFlightAnimation::slotContinueRecording()
 {
+	// Check if the 'frames' member variable is valid (not null or zero)
 	if (frames)
 	{
+		// If 'frames' is valid, call the RecordFlight function with 'true' as an argument
 		RecordFlight(true);
 	}
 	else
 	{
+		// If 'frames' is not valid, log a critical error message to the console.
 		qCritical() << "gAnimFrames not allocated";
 	}
 }
 
 bool cFlightAnimation::slotRenderFlight()
 {
-	// get latest values of all parameters
+	// Synchronize Parameters (if main window exists)
 	if (mainInterface->mainWindow)
 	{
+		// Synchronize the animation parameters, fractal parameters, and interface settings
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
 
+	// Create and Save Parameter Text
 	cSettings parSettings(cSettings::formatCondensedText);
+
+	// Create a text representation of the current parameter settings and save it to a history file
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToFile(systemDirectories.GetHistoryFileName());
 
+	// Validate and Render Flight
 	if (frames)
 	{
+		// Check for Empty Frames
 		if (frames->GetNumberOfFrames() == 0)
 		{
+			// Display an error message to the user indicating no frames are present
 			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
 				mainInterface->mainWindow->GetCentralWidget());
 		}
+
+		// Check for Valid Output Directory
 		else if (!QDir(params->Get<QString>("anim_flight_dir")).exists())
 		{
+			// Display an error message to the user indicating the specified directory is invalid
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
 					.arg(params->Get<QString>("anim_flight_dir")),
 				cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
 		}
+
+		// Perform Rendering
 		else
 		{
+			// Render the flight animation, potentially with stop request handling
 			return RenderFlight(&gMainInterface->stopRequest);
 		}
 	}
+
+	// Handle Missing Frame Data
 	else
 	{
+		// Log a critical error if the animation frame data is not allocated
 		qCritical() << "gAnimFrames not allocated";
 	}
+
+	// Indicate Failure
 	return false;
 }
 
@@ -559,44 +583,71 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
+	// Block table's signals temporarily to prevent unnecessary updates during thumbnail generation.
 	table->blockSignals(true);
+
+	// Convert the internal image data (image->ConvertTo8bitChar()) to a QImage in RGB888 format.
 	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bitChar()),
 		int(image->GetWidth()), int(image->GetHeight()), int(image->GetWidth() * sizeof(sRGB8)),
 		QImage::Format_RGB888);
+
+	// Create a QPixmap from the QImage.
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
+
+	// Scale the pixmap to the desired preview size while maintaining aspect ratio and using smooth
+	// transformation.
 	const QIcon icon(
 		pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+
+	// Create a new QTableWidgetItem with the scaled icon and an empty string as text.
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
+
+	// Re-enable table's signals for normal behavior.
 	table->blockSignals(false);
 }
 
 void cFlightAnimation::PrepareTable()
 {
+	// Clear existing table data and structure
 	table->setRowCount(0);
 	table->setColumnCount(0);
 	table->clear();
 	tableRowNames.clear();
+
+	// Adjust row height based on font metrics
 	QFontMetrics fm(mainInterface->mainWindow->font());
 	table->verticalHeader()->setDefaultSectionSize(fm.height() + 6);
+
+	// Create new rows in the table
 	CreateRowsInTable();
 }
 
 void cFlightAnimation::CreateRowsInTable()
 {
+	// Get a list of parameters used in the animation frames.
 	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
+
+	// Set the icon size for the table.
 	table->setIconSize(previewSize);
+
+	// Insert a row at index 0 for the preview.
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
 	table->setRowHeight(0, previewSize.height());
 	tableRowNames.append(tr("preview"));
 
+	// Clear the row parameter list and append -1 as the initial value.
 	rowParameter.clear();
 	rowParameter.append(-1);
 
+	// Clear the list of parameter rows.
 	parameterRows.clear();
+
+	// Iterate through each parameter in the list.
 	for (int i = 0; i < parList.size(); ++i)
 	{
+		// Add a row to the table for the current parameter and get its row index.
 		int row = AddVariableToTable(parList[i], i);
 		parameterRows.append(row);
 	}
@@ -755,68 +806,111 @@ int cFlightAnimation::AddColumn(
 
 std::shared_ptr<cRenderJob> cFlightAnimation::PrepareRenderJob(bool *stopRequest)
 {
+	// Create a new render job, passing in the necessary parameters and objects.
 	std::shared_ptr<cRenderJob> renderJob(
 		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
+
+	// Connect the updateProgressAndStatus signal to propagate progress updates to a higher level.
 	connect(renderJob.get(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+	// Connect the updateStatistics signal to propagate statistics updates to a higher level.
 	connect(renderJob.get(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
+
+	// If we're not running in a GUI-less environment (systemData.noGui is false)...
 	if (!systemData.noGui)
 	{
+		// Connect the updateImage signal to the mainInterface's renderedImage slot to update
 		connect(renderJob.get(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+
+		// Connect the sendRenderedTilesList signal to the mainInterface's renderedImage slot
 		connect(renderJob.get(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
 			mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 	}
+
+	// Return the prepared renderJob as a shared_ptr, allowing multiple objects to manage it
 	return renderJob;
 }
 
 bool cFlightAnimation::InitFrameRanges(sFrameRanges *frameRanges)
 {
-	// range of frames to render
+	// Get the starting frame to render from the parameters
 	frameRanges->startFrame = params->Get<int>("flight_first_to_render");
+
+	// Get the ending frame to render from the parameters
 	frameRanges->endFrame = params->Get<int>("flight_last_to_render");
+
+	// Get the total number of frames in the animation
 	frameRanges->totalFrames = frames->GetNumberOfFrames();
+
+	// Ensure that the totalFrames isn't invalid (less than 1)
 	if (frameRanges->totalFrames < 1) frameRanges->totalFrames = 1;
 
+	// If the end frame is not specified (0), set it to the total number of frames
 	if (frameRanges->endFrame == 0) frameRanges->endFrame = frameRanges->totalFrames;
 
+	// Check if the start and end frames are the same (meaning there's nothing to render)
 	if (frameRanges->startFrame == frameRanges->endFrame)
 	{
+		// Emit an error message indicating that there are no frames to render
 		emit showErrorMessage(
 			QObject::tr(
 				"There is no frame to render: first frame to render and last frame to render are equals."),
 			cErrorMessage::warningMessage);
+
+		// Return false to indicate an error (initialization failed)
 		return false;
 	}
+
+	// Return true to indicate successful initialization of frame ranges
 	return true;
 }
 
 void cFlightAnimation::InitFrameMarkers(const sFrameRanges &frameRanges)
 {
+	// Resize the `alreadyRenderedFrames` vector to match the total number of frames
 	alreadyRenderedFrames.resize(frameRanges.totalFrames);
+
+	// Fill it with 'false' (indicating no frames have been rendered yet)
 	alreadyRenderedFrames.fill(false);
+
+	// Clear the `reservedFrames` vector (in case it was used previously)
 	reservedFrames.clear();
+
+	// Resize the `reservedFrames` vector to match the total number of frames
 	reservedFrames.resize(frameRanges.totalFrames);
+
+	// Fill it with 'false' (indicating no frames are currently reserved)
 	reservedFrames.fill(false);
 }
 
 void cFlightAnimation::CheckWhichFramesAreAlreadyRendered(const sFrameRanges &frameRanges)
 {
-	// Check if frames have already been rendered
+	// Iterate through each frame in the flight animation
 	for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
+		// Construct the filename for the current frame
 		const QString filename = GetFlightFilename(index, false);
+
+		// Check if the frame file exists, or if it's outside the specified rendering range
 		alreadyRenderedFrames[index] =
 			QFile(filename).exists() || index < frameRanges.startFrame || index >= frameRanges.endFrame;
 
+		// If in a net-rendering client environment
 		if (gNetRender->IsClient())
 		{
+			// If there are frames to render in the network list
 			if (netRenderListOfFramesToRender.size() > 0)
 			{
+				// If the current frame index is before the first frame in the net render list, mark it as
+				// rendered
 				if (index < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[index] = true;
 			}
 		}
+
+		// Mark the frame as reserved if it's already rendered
 		reservedFrames[index] = alreadyRenderedFrames[index];
 	}
 }
@@ -824,12 +918,16 @@ void cFlightAnimation::CheckWhichFramesAreAlreadyRendered(const sFrameRanges &fr
 bool cFlightAnimation::AllFramesAlreadyRendered(
 	const sFrameRanges &frameRanges, bool *startRenderKeyframesAgain)
 {
+	// Assume all frames are rendered initially
 	bool result = true;
 
+	// If not in a net-rendering client environment
 	if (!gNetRender->IsClient())
 	{
+		// If there are frames and no unrendered frames before the render
 		if (frames->GetNumberOfFrames() > 0 && frameRanges.unrenderedTotalBeforeRender == 0)
 		{
+			// Ask the user if they want to delete the existing render
 			bool deletePreviousRender;
 			const QString questionTitle = QObject::tr("Truncate Image Folder");
 			const QString questionText =
@@ -839,6 +937,7 @@ bool cFlightAnimation::AllFramesAlreadyRendered(
 					"folder?\n")
 				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
+			// If not in GUI-less mode, display a confirmation dialog
 			if (!systemData.noGui)
 			{
 				QMessageBox::StandardButton reply = QMessageBox::NoButton;
@@ -846,44 +945,56 @@ bool cFlightAnimation::AllFramesAlreadyRendered(
 					questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
 				while (reply == QMessageBox::NoButton)
 				{
+					// Process events until the user answers
 					gApplication->processEvents();
 				}
 				deletePreviousRender = (reply == QMessageBox::Yes);
 			}
 			else
 			{
-				// Exit if silent mode
+				// Exit silently if in silent mode
 				if (systemData.silent)
 				{
 					exit(0);
 				}
 
+				// Get confirmation in headless mode
 				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 			}
 
+			// If the user confirms deletion
 			if (deletePreviousRender)
 			{
+				// Delete the existing frames
 				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
+
+				// If not in GUI-less mode and this is the main image
 				if (!systemData.noGui && image->IsMainImage())
 				{
+					// Unlock interface functions and enable click modes
 					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 					imageWidget->SetEnableClickModes(true);
 				}
 
+				// Set flag to start rendering keyframes again
 				*startRenderKeyframesAgain = true;
 			}
+			// If the user doesn't confirm deletion
 			else
 			{
+				// Indicate that not all frames are rendered
 				result = false;
 			}
 		}
 	}
 
+	// Return whether all frames are rendered
 	return result;
 }
 
 void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 {
+	// Determine the number of frames to assign to each net-render client
 	int numberOfFramesForNetRender;
 	if (gNetRender->GetClientCount() == 0)
 	{
@@ -891,24 +1002,31 @@ void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 	}
 	else
 	{
+		// Divide the total unrendered frames among clients, adjusted to avoid small workloads
 		numberOfFramesForNetRender =
 			frameRanges.unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
 		if (numberOfFramesForNetRender < minFramesForNetRender)
 			numberOfFramesForNetRender = minFramesForNetRender;
 	}
+
+	// Enforce a maximum number of frames per client
 	if (numberOfFramesForNetRender > maxFramesForNetRender)
 		numberOfFramesForNetRender = maxFramesForNetRender;
 
+	// Generate a random ID for this render job
 	qint32 renderId = rand();
 	gNetRender->SetCurrentRenderId(renderId);
 	gNetRender->SetAnimation(true);
+
+	// Iterate through each connected net-render client
 	int frameIndex = 0;
 	for (int i = 0; i < gNetRender->GetClientCount(); i++)
 	{
+		// Create a list of frame indices to assign to this client
 		QList<int> startingFrames;
 		for (int i = 0; i < numberOfFramesForNetRender; i++)
 		{
-			// looking for next unrendered frame
+			// Find the next unrendered frame
 			bool notFound = false;
 			while (alreadyRenderedFrames[frameIndex])
 			{
@@ -919,10 +1037,12 @@ void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 					break;
 				}
 			}
+
 			if (notFound)
 			{
 				break;
 			}
+			// If we found an unrendered frame within the range
 			else
 			{
 				startingFrames.append(frameIndex);
@@ -930,27 +1050,43 @@ void cFlightAnimation::InitJobsForClients(const sFrameRanges &frameRanges)
 				frameIndex++;
 			}
 		}
+
+		// If we assigned any frames to this client
 		if (startingFrames.size() > 0)
 		{
+			// Send the frame indices to the client for rendering
 			emit SendNetRenderSetup(i, startingFrames);
 		}
 	}
+
+	// Send the animation parameters to all clients
 	emit NetRenderCurrentAnimation(params, fractalParams, true);
 }
 
 void cFlightAnimation::UpadeProgressInformation(
 	const sFrameRanges &frameRanges, cProgressText *progressText, int index)
 {
+	// Variable to store the percentage of frames rendered
 	double percentDoneFrame;
 
+	// Calculate the percentage of frames rendered
 	if (frameRanges.unrenderedTotalBeforeRender > 0)
+	{
+		// If there are still frames to render, calculate percentage
 		percentDoneFrame = (double(renderedFramesCount)) / frameRanges.unrenderedTotalBeforeRender;
+	}
 	else
+	{
+		// If all frames are rendered, set percentage to 100% (1.0)
 		percentDoneFrame = 1.0;
+	}
 
+	// Get the formatted progress text based on the percentage done
 	const QString progressTxt = progressText->getText(percentDoneFrame);
 
+	// Emit a signal to update the progress and status information:
 	emit updateProgressAndStatus(QObject::tr("Animation start"),
+		// Detailed progress text: Frame number, total frames, and progress
 		QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " "
 			+ progressTxt,
 		percentDoneFrame, cProgressText::progress_ANIMATION);
@@ -958,21 +1094,31 @@ void cFlightAnimation::UpadeProgressInformation(
 
 void cFlightAnimation::UpdateCameraAndTarget()
 {
-	// recalculation of camera rotation and distance (just for display purposes)
+	// Get camera, target, and top vector parameters from animation configuration
 	const CVector3 camera = params->Get<CVector3>("camera");
 	const CVector3 target = params->Get<CVector3>("target");
 	const CVector3 top = params->Get<CVector3>("camera_top");
+
+	// Create a helper object for camera-target calculations
 	cCameraTarget cameraTarget(camera, target, top);
+
+	// Update the camera rotation parameter (in degrees) in the animation configuration
 	params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+
+	// Update the distance between camera and target in the animation configuration
 	params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
+	// Check if GUI is enabled, image is the main image, and not in network rendering client mode
 	if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 	{
+		// Synchronize interface parameters with animation and fractal parameters
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
-		// show distance in statistics table
+		// Calculate the distance between the camera and the fractal
 		const double distance =
 			mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
+
+		// Update the displayed distance in the statistics table within the main window
 		mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 	}
 }
@@ -980,11 +1126,19 @@ void cFlightAnimation::UpdateCameraAndTarget()
 void cFlightAnimation::ConfirmAndSendRenderedFrames(
 	const int frameIndex, const QStringList &listOfSavedFiles)
 {
+	// Signal the completion of rendering a frame to the network renderer.
 	emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
+
+	// Remove the completed frame index from the list of frames to be rendered.
 	netRenderListOfFramesToRender.removeAll(frameIndex);
+
+	// Notify the network rendering client about the updated status.
 	emit NetRenderNotifyClientStatus();
+
+	// Iterate through the list of saved files (rendered channels).
 	for (QString channelFileName : listOfSavedFiles)
 	{
+		// Signal that a file (rendered channel) should be sent to the client.
 		emit NetRenderAddFileToSender(channelFileName);
 	}
 }
@@ -1186,94 +1340,159 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 void cFlightAnimation::RefreshTable()
 {
+	// Remove parameters that are not found in both 'params' and 'fractalParams' from 'frames'.
 	frames->RemoveMissingParameters(params, fractalParams);
 
+	// Prepare the table for data insertion.
 	PrepareTable();
+
+	// Process any pending events in the application's event queue.
 	gApplication->processEvents();
 
+	// Get the total number of frames in the 'frames' container.
 	const int noOfFrames = frames->GetNumberOfFrames();
 
-	// it is needed to do it also here, because limits must be set just after loading of settings
+	// Update limits for the frame range (needed after loading settings).
 	UpdateLimitsForFrameRange();
 
+	// Synchronize the interface window's values with the 'params' container.
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, qInterface::read);
 
+	// Create temporary copies of 'params' and 'fractalParams' using shared pointers.
 	auto tempPar = std::make_shared<cParameterContainer>();
 	*tempPar = *params;
 	auto tempFract = std::make_shared<cFractalContainer>();
 	*tempFract = *fractalParams;
 
+	// Set the number of columns in the table to the number of frames.
 	table->setColumnCount(noOfFrames);
 
+	// Iterate through each frame.
 	for (int i = 0; i < noOfFrames; i++)
 	{
+		// Add a new column for the current frame.
 		const int newColumn = AddColumn(frames->GetFrame(i), i);
 
+		// If the "show thumbnails" checkbox is checked.
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
+			// Create a new thumbnail widget for the current frame.
 			cThumbnailWidget *thumbWidget =
 				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+
+			// Configure the thumbnail widget to use one CPU core.
 			thumbWidget->UseOneCPUCore(true);
+
+			// Get the parameters and consolidate them for the current frame.
 			frames->GetFrameAndConsolidate(i, tempPar, tempFract);
+
+			// Assign the consolidated parameters to the thumbnail widget.
 			thumbWidget->AssignParameters(tempPar, tempFract);
+
+			// Set the thumbnail widget as the cell widget for the current column and row 0.
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
+
+		// Every 100 frames, update the progress and status.
 		if (i % 100 == 0)
 		{
 			emit updateProgressAndStatus(QObject::tr("Refreshing animation"),
 				tr("Refreshing animation frames"), double(i) / noOfFrames,
 				cProgressText::progress_ANIMATION);
+
+			// Process any pending events in the application's event queue.
 			gApplication->processEvents();
 		}
 
+		// If a global stop request has been made, exit the loop.
 		if (systemData.globalStopRequest) break;
 	}
+
+	// Update limits for the frame range.
 	UpdateLimitsForFrameRange();
+
+	// Hide the progress update signal.
 	emit updateProgressHide();
 }
 
 QString cFlightAnimation::GetParameterName(int rowNumber)
 {
+	// Get the parameter number associated with the given row number from the rowParameter array.
 	const int parameterNumber = rowParameter[rowNumber];
 
+	// Initialize a string to store the full parameter name.
 	QString fullParameterName;
+
+	// Get the list of used parameters from the animation frames container.
 	QList<cAnimationFrames::sParameterDescription> list = frames->GetListOfUsedParameters();
+
+	// If the parameter number is valid (>= 0), construct the full parameter name.
 	if (parameterNumber >= 0)
 	{
 		fullParameterName =
 			list[parameterNumber].containerName + "_" + list[parameterNumber].parameterName;
 	}
+	// If the parameter number is invalid, log an error message.
 	else
 	{
 		qCritical() << "cFlightAnimation::GetParameterNumber(int rowNumber): row not found";
 	}
+
+	// Return the full parameter name.
 	return fullParameterName;
 }
 
 void cFlightAnimation::RenderFrame(int index) const
 {
+	// Read the parameter values from the main interface and update `params` and `fractalParams`
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
+	// Retrieve the parameters for the specified frame `index` and consolidate them
 	frames->GetFrameAndConsolidate(index, params, fractalParams);
+
+	// Write the updated parameters back to the main interface to reflect the current
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
+	// Start rendering the frame using the updated parameter values.
 	mainInterface->StartRender();
 }
 
+// Method to delete animation frames from a specified index onward
 void cFlightAnimation::DeleteFramesFrom(int index) const
 {
+	// Store Undo Information
 	gUndo->Store(params, fractalParams, frames, nullptr);
+
+	// Remove Frames from Table
 	for (int i = frames->GetNumberOfFrames() - 1; i >= index; i--)
+	{
 		table->removeColumn(index);
+	}
+
+	// Delete Frames from Storage
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
+
+	// Update Limits
 	UpdateLimitsForFrameRange();
 }
 
+// Method to delete animation frames up to a specified index
 void cFlightAnimation::DeleteFramesTo(int index) const
 {
+	// Store current state of animation parameters, fractal parameters, and frames for undo
 	gUndo->Store(params, fractalParams, frames, nullptr);
+
+	// Remove frame data from the table
 	for (int i = 0; i <= index; i++)
+	{
+		// Remove the column at index 0 (since frames are removed, shifting the data)
 		table->removeColumn(0);
+	}
+
+	// Delete the frames themselves from the internal data structure
 	frames->DeleteFrames(0, index);
+
+	// Update any limits or constraints based on the new range of frames
 	UpdateLimitsForFrameRange();
 }
 
@@ -1287,23 +1506,40 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 	yawAndPitch = _yawAndPitch;
 }
 
+// Slot function to change the speed of the flight animation
 void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
+	// Read and synchronize current parameters from the user interface
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
+
+	// Calculate the new linear speed based on the current speed and the change amount
 	linearSpeedSp = params->Get<double>("flight_speed") * amount;
+
+	// Update the 'flight_speed' parameter in the parameter set
 	params->Set("flight_speed", linearSpeedSp);
+
+	// Write and synchronize the updated parameters back to the user interface
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);
 }
 
 void cFlightAnimation::slotFlightSetSpeed(double amount)
 {
+	// Synchronize the interface window with the flight animation parameters
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
+
+	// Determine if the flight is in reverse (negative speed)
 	negativeFlightSpeed = (amount < 0) ? true : false;
+
+	// Get the absolute value of the speed (magnitude)
 	linearSpeedSp = fabs(amount);
+
+	// Update the 'flight_speed' parameter in the local object
 	params->Set("flight_speed", linearSpeedSp);
+
+	// Synchronize the interface window again, this time writing the updated parameters back to the UI
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);
 }
@@ -1320,42 +1556,77 @@ void cFlightAnimation::slotOrthogonalStrafe(bool _orthogonalStrafe)
 
 void cFlightAnimation::slotSelectAnimFlightImageDir() const
 {
+	// Create a file dialog for selecting a directory
 	QFileDialog dialog;
+
+	// Set the file dialog mode to directory selection
 	dialog.setFileMode(QFileDialog::Directory);
+
+	// Set the name filter for the dialog to "Animation Image Folder"
 	dialog.setNameFilter(QObject::tr("Animation Image Folder"));
+
+	// Set the initial directory of the dialog to the previously selected animation image directory
 	dialog.setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_flight_dir")));
+
+	// Set the accept mode to open, indicating that the user should select an existing folder
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+	// Set the window title of the dialog to "Choose Animation Image Folder"
 	dialog.setWindowTitle(QObject::tr("Choose Animation Image Folder"));
+
+	// Set the option to show only directories in the dialog
 	dialog.setOption(QFileDialog::ShowDirsOnly);
 
+	// Execute the file dialog and check if the user selected a directory
 	if (dialog.exec())
 	{
+		// Get the list of selected files (which should contain only the selected directory)
 		QStringList fileNames = dialog.selectedFiles();
+
+		// Get the first selected file (the directory), convert it to native separators, and append a
+		// directory separator
 		const QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
+
+		// Set the text of the ui->text_anim_flight_dir widget to the selected directory
 		ui->text_anim_flight_dir->setText(filename);
+
+		// Update the "anim_flight_dir" parameter in the params object with the selected directory
 		params->Set("anim_flight_dir", filename);
 	}
 }
 
 void cFlightAnimation::slotTableCellChanged(int row, int column)
 {
+	// Check if the changed cell is not in the header row (row 0)
 	if (row > 0)
 	{
+		// Temporarily block signals from the table to prevent recursive updates
 		table->blockSignals(true);
+
+		// Get a pointer to the modified table cell item
 		QTableWidgetItem *cell = table->item(row, column);
 		QString cellText = cell->text();
 
+		// Retrieve the corresponding animation frame
 		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
+		// Get the name of the parameter being edited based on the row
 		const QString parameterName = GetParameterName(row);
+
+		// Determine the first row associated with this parameter and calculate the vector index
 		const int parameterFirstRow = parameterRows[rowParameter[row]];
 		const int vectIndex = row - parameterFirstRow;
 
+		// Use the parameterContainer namespace for convenient access to types
 		using namespace parameterContainer;
+
+		// Get the data type of the parameter being edited
 		const enumVarType type = frame.parameters.GetVarType(parameterName);
 
+		// Handle updates based on the parameter type
 		if (type == typeVector3)
 		{
+			// Update a CVector3 parameter based on the vector index
 			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
 			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
 			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
@@ -1364,6 +1635,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		}
 		else if (type == typeVector4)
 		{
+			// Update a CVector4 parameter based on the vector index
 			CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
 			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
 			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
@@ -1373,6 +1645,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		}
 		else if (type == typeRgb)
 		{
+			// Update an sRGB (color) parameter based on the vector index
 			sRGB col = frame.parameters.Get<sRGB>(parameterName);
 			if (vectIndex == 0) col.R = cellText.toInt();
 			if (vectIndex == 1) col.G = cellText.toInt();
@@ -1381,24 +1654,31 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		}
 		else
 		{
+			// Update a simple string parameter
 			frame.parameters.Set(parameterName, cellText);
 		}
 
+		// Store the modified frame back into the animation frames
 		frames->ModifyFrame(column, frame);
 
-		// update thumbnail
+		// Update thumbnail if the option is enabled
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
+			// Create temporary parameter and fractal containers
 			auto tempPar = std::make_shared<cParameterContainer>();
 			*tempPar = *params;
 			auto tempFract = std::make_shared<cFractalContainer>();
 			*tempFract = *fractalParams;
 
+			// Get and consolidate the frame data
 			frames->GetFrameAndConsolidate(column, tempPar, tempFract);
+
+			// Get or create a thumbnail widget for the cell
 			cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
 
 			if (!thumbWidget)
 			{
+				// Create a new thumbnail widget if it doesn't exist
 				thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
@@ -1406,24 +1686,29 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 			}
 			else
 			{
+				// Update the existing thumbnail widget
 				thumbWidget->AssignParameters(tempPar, tempFract);
 			}
 		}
 
+		// Unblock signals to allow further updates
 		table->blockSignals(false);
 	}
 }
 
 void cFlightAnimation::slotDeleteAllImages() const
 {
+	// Ensure the user interface parameters are synchronized with the underlying data model
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 
+	// Display a confirmation dialog asking the user if they want to proceed
 	const QMessageBox::StandardButton reply = QMessageBox::question(
 		mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Truncate Image Folder"),
 		QObject::tr("This will delete all images in the image folder.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
 
+	// If the user clicks "Yes", delete all images in the specified folder
 	if (reply == QMessageBox::Yes)
 	{
 		cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
@@ -1432,17 +1717,23 @@ void cFlightAnimation::slotDeleteAllImages() const
 
 void cFlightAnimation::slotShowAnimation() const
 {
+	// Log a message indicating preparation of the image sequence player
 	WriteLog("Prepare PlayerWidget class", 2);
 
+	// Synchronize the user interface parameters with the underlying data model
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
+	// If the image sequence player doesn't exist, create a new one
 	if (!mainInterface->imageSequencePlayer)
 	{
 		mainInterface->imageSequencePlayer = new PlayerWidget;
 	}
 
+	// Set the file path for the image sequence player to the animation directory
 	mainInterface->imageSequencePlayer->SetFilePath(params->Get<QString>("anim_flight_dir"));
+
+	// Show, raise, and activate the image sequence player window
 	mainInterface->imageSequencePlayer->show();
 	mainInterface->imageSequencePlayer->raise();
 	mainInterface->imageSequencePlayer->activateWindow();
@@ -1456,18 +1747,24 @@ void cFlightAnimation::slotRecordPause()
 
 void cFlightAnimation::InterpolateForward(int row, int column)
 {
+	// Store the current state (parameters, fractal params, frames) for undo functionality
 	gUndo->Store(params, fractalParams, frames, nullptr);
 
+	// Get the value in the selected cell of the animation table
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
 
+	// Determine the name of the parameter being edited (e.g., "Zoom", "Rotation", etc.)
 	const QString parameterName = GetParameterName(row);
 
+	// Retrieve the animation frame at the specified column
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
+	// Get the data type of the parameter (e.g., integer, double, text)
 	using namespace parameterContainer;
 	const enumVarType type = frame.parameters.GetVarType(parameterName);
 
+	// Initialize variables to hold the value depending on its type
 	bool valueIsInteger = false;
 	bool valueIsDouble = false;
 	bool valueIsText = false;
@@ -1475,13 +1772,16 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	double valueDouble = 0.0;
 	QString valueText;
 
+	// Prompt the user for the last frame number to interpolate to
 	bool ok;
 	const int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
 		"Enter last frame number", column + 1, column + 2, frames->GetNumberOfFrames(), 1, &ok);
 	if (!ok) return;
 
+	// Calculate the total number of frames to interpolate across
 	const int numberOfFrames = (lastFrame - column - 1);
 
+	// Determine the appropriate value type based on the parameter type
 	switch (type)
 	{
 		case typeBool:
@@ -1490,7 +1790,6 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsInteger = true;
 			valueInteger = cellText.toInt();
-			// qDebug() << valueInteger;
 			break;
 		}
 		case typeDouble:
@@ -1499,7 +1798,6 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsDouble = true;
 			valueDouble = systemData.locale.toDouble(cellText);
-			// qDebug() << valueDouble;
 			break;
 		}
 		default:
@@ -1510,15 +1808,18 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		}
 	}
 
+	// Calculate interpolation steps for integer and double values
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
+	// If the value is an integer, get the final integer value and calculate the step
 	if (valueIsInteger)
 	{
 		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow,
 			"Parameter interpolation", "Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
 		integerStep = double(finalInteger - valueInteger) / numberOfFrames;
 	}
+	// If the value is a double, get the final double value and calculate the step
 	else if (valueIsDouble)
 	{
 		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(
@@ -1527,11 +1828,16 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
+	// If the user didn't cancel, perform the interpolation
 	if (!ok) return;
 
+	// Interpolate across the specified frames
 	for (int i = column; i < lastFrame; i++)
 	{
+		// String to hold the interpolated value for the current frame
 		QString newCellText;
+
+		// Calculate and format the interpolated value based on the type
 		if (valueIsInteger)
 		{
 			const int newValue = int(integerStep * (i - column) + valueInteger);
@@ -1546,6 +1852,8 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			newCellText = valueText;
 		}
+
+		// Update the cell in the table with the interpolated value
 		QTableWidgetItem *newCell = ui->tableWidget_flightAnimation->item(row, i);
 		newCell->setText(newCellText);
 	}
@@ -1558,45 +1866,64 @@ void cFlightAnimation::slotRefreshTable()
 
 QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) const
 {
+	// Determine the directory where the flight animation images will be stored
 	QString dir;
+
+	// If using network rendering cache, store images in a temporary network folder
 	if (netRenderCache)
 	{
 		dir = systemDirectories.GetNetrenderFolder() + QDir::separator()
 					+ QString("pid%1_").arg(QCoreApplication::applicationPid());
 	}
+	// Otherwise, use the user-specified animation directory
 	else
 	{
 		dir = params->Get<QString>("anim_flight_dir");
 	}
 
+	// Construct the filename using a standardized format
 	QString filename = dir + "frame_" + QString("%1").arg(index, 7, 10, QChar('0'));
+
+	// Append the appropriate file extension based on the image type specified in the parameters
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(
 								ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type")));
+
 	return filename;
 }
 
 void cFlightAnimation::slotExportFlightToKeyframes() const
 {
+	// Ensure the main interface parameters and fractal parameters are synchronized for reading
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
+	// Store the current state of parameters, fractal parameters, animation frames, and keyframes
 	gUndo->Store(params, fractalParams, gAnimFrames, gKeyframes);
 
+	// Check if there are already captured keyframes
 	if (gKeyframes->GetFrames().size() > 0)
 	{
+		// Ask the user if they want to discard the existing keyframes
 		const QMessageBox::StandardButton reply = QMessageBox::question(
 			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export flight to keyframes"),
 			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
 			QMessageBox::Yes | QMessageBox::No);
 
+		// If the user chooses not to discard, exit the function
 		if (reply == QMessageBox::No) return;
 	}
 
+	// Clear all existing keyframes and associated morph cache
 	gKeyframes->ClearAll();
 	gKeyframes->ClearMorphCache();
+
+	// Set the list of parameters for the keyframes and clear them, using the animation frames
 	gKeyframes->SetListOfParametersAndClear(gAnimFrames->GetListOfParameters(), params);
 
+	// Determine the step size for capturing keyframes (frames per keyframe)
 	const int step = params->Get<int>("frames_per_keyframe");
 
+	// Iterate through the animation frames and capture keyframes at the specified intervals
 	for (int i = 0; i < frames->GetNumberOfFrames(); i += step)
 	{
 		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(i);
@@ -1604,20 +1931,28 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 		gKeyframes->AddFrame(frame);
 	}
 
+	// Update the indexes table for the keyframes
 	gKeyframes->UpdateFramesIndexesTable();
 
+	// Switch to the keyframe tab in the UI
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(1);
+
+	// Trigger an animated click on the refresh keyframe table button
 	ui->pushButton_refresh_keyframe_table->animateClick();
 }
 
 void cFlightAnimation::UpdateLimitsForFrameRange() const
 {
+	// Get the total number of frames in the animation
 	const int noOfFrames = frames->GetNumberOfFrames();
 
+	// Set the maximum value for the "first frame to render" spinbox
 	ui->spinboxInt_flight_first_to_render->setMaximum(noOfFrames);
 
+	// Set the maximum value for the "last frame to render" spinbox
 	ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
 
+	// Synchronize the interface window with the updated parameters, allowing writing
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, qInterface::write);
 }
 
@@ -1650,36 +1985,42 @@ void cFlightAnimation::SetNetRenderStartingFrames(const QVector<int> &startingFr
 void cFlightAnimation::slotNetRenderFinishedFrame(
 	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
+	// Indicates that frameIndex is not used in this function
 	Q_UNUSED(frameIndex);
 
+	// Increment the count of rendered frames
 	renderedFramesCount++;
+
+	// Mark the frame as already rendered if it's within the range of alreadyRenderedFrames
 	if (frameIndex < alreadyRenderedFrames.size())
 	{
 		alreadyRenderedFrames[frameIndex] = true;
 	}
 
+	// Check if animation is still running and hasn't been stopped or completed
 	if (!animationStopRequest && animationIsRendered)
 	{
 		// qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
-		// counting left frames
+		// Count the number of frames left to render
 		int countLeft = reservedFrames.count(false);
 
-		// calculate maximum list size
+		// Calculate the maximum list size for net rendering
 		int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2;
 		if (numberOfFramesForNetRender < minFramesForNetRender)
 			numberOfFramesForNetRender = minFramesForNetRender;
 		if (numberOfFramesForNetRender > maxFramesForNetRender)
 			numberOfFramesForNetRender = maxFramesForNetRender;
 
-		// calculate number for frames to supplement
+		// Calculate the number of new frames to add to the to-do list
 		int numberOfNewFrames = numberOfFramesForNetRender - sizeOfToDoList;
 
+		// If there are new frames to add...
 		if (numberOfNewFrames > 0)
 		{
 			QList<int> toDoList;
 
-			// looking for not reserved frame
+			// Look for frames that are not yet reserved
 			for (int f = 0; f < reservedFrames.size(); f++)
 			{
 				if (!reservedFrames[f])
@@ -1689,7 +2030,10 @@ void cFlightAnimation::slotNetRenderFinishedFrame(
 				}
 				if (toDoList.size() >= numberOfNewFrames) break;
 			}
+
+			// Send the updated to-do list to the client
 			NetRenderSendFramesToDoList(clientIndex, toDoList);
+
 			// qDebug() << "Server: new toDo list" << toDoList;
 		}
 	}
@@ -1716,11 +2060,24 @@ cFligtAnimRenderThread::cFligtAnimRenderThread(QString &_settingsText) : QThread
 
 void cFligtAnimRenderThread::startAnimationRender()
 {
+	// Create a settings object with full text formatting
 	cSettings parSettings(cSettings::formatFullText);
+
+	// Suppress console output from settings operations
 	parSettings.BeQuiet(true);
+
+	// Load settings from the 'settingsText' string
 	parSettings.LoadFromString(settingsText);
+
+	// Decode settings into global parameter structures (gPar, gParFractal, gAnimFrames)
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr);
+
+	// Set the global network renderer to animation mode
 	gNetRender->SetAnimation(true);
+
+	// Execute the flight animation rendering process, monitoring for stop requests
 	gFlightAnimation->RenderFlight(&gMainInterface->stopRequest);
+
+	// Signal the completion of the rendering process (using Qt's signal-slot mechanism)
 	emit renderingFinished();
 }
