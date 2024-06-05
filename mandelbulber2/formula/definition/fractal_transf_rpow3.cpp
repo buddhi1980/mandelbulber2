@@ -30,7 +30,6 @@ cFractalTransfRpow3::cFractalTransfRpow3() : cAbstractFractal()
 void cFractalTransfRpow3::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double sqrRout = z.Dot(z) * fractal->transformCommon.scale;
-
 	z *= sqrRout;
 	aux.DE = aux.DE * fabs(sqrRout) + fractal->analyticDE.offset1;
 }
