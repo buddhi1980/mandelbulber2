@@ -30,6 +30,7 @@ cFractalTransfSurfBoxFold::cFractalTransfSurfBoxFold() : cAbstractFractal()
 
 void cFractalTransfSurfBoxFold::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 oldZ = z; // aux.lastZ
 	if (fractal->surfBox.enabledX1)
 	{
 		z.x =
@@ -48,12 +49,12 @@ void cFractalTransfSurfBoxFold::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (z.x > fractal->surfBox.offset2B111.x)
 		{
 			z.x = fractal->surfBox.offset1A222.x - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
+			// aux.color += fractal->mandelbox.color.factor.x;
 		}
 		else if (z.x < -fractal->surfBox.offset2B111.x)
 		{
 			z.x = -fractal->surfBox.offset1A222.x - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
+			// aux.color += fractal->mandelbox.color.factor.x;
 		}
 	}
 	if (fractal->surfBox.enabledX5False)
@@ -81,12 +82,12 @@ void cFractalTransfSurfBoxFold::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (z.y > fractal->surfBox.offset2B111.y)
 		{
 			z.y = fractal->surfBox.offset1A222.y - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
+			// aux.color += fractal->mandelbox.color.factor.y;
 		}
 		else if (z.y < -fractal->surfBox.offset2B111.y)
 		{
 			z.y = -fractal->surfBox.offset1A222.y - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
+			// aux.color += fractal->mandelbox.color.factor.y;
 		}
 	}
 	if (fractal->surfBox.enabledY5False)
@@ -119,12 +120,12 @@ void cFractalTransfSurfBoxFold::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (z.z > zLimit)
 		{
 			z.z = zValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
+			// aux.color += fractal->mandelbox.color.factor.z;
 		}
 		else if (z.z < -zLimit)
 		{
 			z.z = -zValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
+			// aux.color += fractal->mandelbox.color.factor.z;
 		}
 	}
 
@@ -135,4 +136,21 @@ void cFractalTransfSurfBoxFold::FormulaCode(CVector4 &z, const sFractal *fractal
 					- fractal->surfBox.offset3A111.z;
 	}
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+				&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		double colorAdd = 0.0;
+		CVector4 zCol = fabs(z - oldZ);
+
+		if (zCol.x > 0.0f)
+			colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+		if (zCol.y > 0.0f)
+			colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+		if (zCol.z > 0.0f)
+			colorAdd += fractal->foldColor.difs0000.z * zCol.z;
+
+		aux.color += colorAdd;
+	}
 }
