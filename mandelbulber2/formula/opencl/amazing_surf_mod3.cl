@@ -188,9 +188,9 @@ REAL4 AmazingSurfMod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			// if (r2 < 1e-21f) r2 = 1e-21f;
 			if (rr < fractal->transformCommon.minR0)
 			{
-				REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-				z *= tglad_factor1;
-				aux->DE *= tglad_factor1;
+				// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+				z *= fractal->transformCommon.maxMinR0factor;
+				aux->DE *= fractal->transformCommon.maxMinR0factor;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{

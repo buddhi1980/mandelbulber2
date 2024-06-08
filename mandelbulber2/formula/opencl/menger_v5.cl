@@ -58,7 +58,7 @@ REAL4 MengerV5Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 		if (rr < fractal->transformCommon.minR0)
 		{
-			m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+			m = fractal->transformCommon.maxMinR0factor;
 			z *= m;
 			aux->DE *= m;
 		}

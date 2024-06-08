@@ -548,6 +548,7 @@ struct sFractalTransformCommon
 	double minR06;
 	double minR2p25;
 	double maxR2d1;
+	double maxMinR0factor;
 	double maxMinR2factor;
 	double radius1;
 	double scaleNeg1;

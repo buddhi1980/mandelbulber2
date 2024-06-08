@@ -685,6 +685,7 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.inv0 = 1.0 / transformCommon.invert0;			// Invmin
 	transformCommon.inv1 = 1.0 / transformCommon.invert1;			// Invmax
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
+	transformCommon.maxMinR0factor = transformCommon.maxR2d1 / transformCommon.minR0;
 
 	// Generalized Fold Box pre calculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);

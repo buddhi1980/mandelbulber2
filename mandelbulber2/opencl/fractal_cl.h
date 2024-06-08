@@ -558,6 +558,7 @@ typedef struct
 	cl_float minR06;
 	cl_float minR2p25;
 	cl_float maxR2d1;
+	cl_float maxMinR0factor;
 	cl_float maxMinR2factor;
 	cl_float radius1;
 	cl_float scaleNeg1;
@@ -1342,6 +1343,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.minR06 = source.minR06;
 	target.minR2p25 = source.minR2p25;
 	target.maxR2d1 = source.maxR2d1;
+	target.maxMinR0factor = source.maxMinR0factor;
 	target.maxMinR2factor = source.maxMinR2factor;
 	target.radius1 = source.radius1;
 	target.scaleNeg1 = source.scaleNeg1;

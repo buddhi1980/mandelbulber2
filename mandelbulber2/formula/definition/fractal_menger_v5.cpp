@@ -70,7 +70,7 @@ void cFractalMengerV5::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 
 		if (rr < fractal->transformCommon.minR0)
 		{
-			m = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+			m = fractal->transformCommon.maxMinR0factor;
 			z *= m;
 			aux.DE *= m;
 		}

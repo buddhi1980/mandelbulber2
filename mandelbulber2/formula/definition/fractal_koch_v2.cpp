@@ -69,9 +69,9 @@ void cFractalKochV2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtended
 
 			if (rr < fractal->transformCommon.minR0)
 			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-				z *= tglad_factor1;
-				aux.DE *= tglad_factor1;
+				// double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+				z *= fractal->transformCommon.maxMinR0factor;
+				aux.DE *= fractal->transformCommon.maxMinR0factor;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{

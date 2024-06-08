@@ -60,9 +60,9 @@ REAL4 AboxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 	if (rr < fractal->transformCommon.minR0)
 	{
-		REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-		z *= tglad_factor1;
-		aux->DE *= tglad_factor1;
+		// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+		z *= fractal->transformCommon.maxMinR0factor;
+		aux->DE *= fractal->transformCommon.maxMinR0factor;
 		aux->color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)

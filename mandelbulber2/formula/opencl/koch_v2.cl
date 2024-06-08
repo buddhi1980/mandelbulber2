@@ -68,10 +68,10 @@ REAL4 KochV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 
 			if (rr < fractal->transformCommon.minR0)
 			{
-				REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
-				z *= tglad_factor1;
+				// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+				z *= fractal->transformCommon.maxMinR0factor;
 				aux->DE *= tglad_factor1;
-			}
+			}fractal->transformCommon.maxMinR0factor;
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
 				REAL tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
