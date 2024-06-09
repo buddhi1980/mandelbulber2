@@ -128,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2555</y>
-        <width>466</width>
-        <height>4620</height>
+        <y>-3196</y>
+        <width>472</width>
+        <height>5073</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -791,7 +791,6 @@ direction vector:</string>
                 <widget class="QLabel" name="label_88">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -832,7 +831,6 @@ direction vector:</string>
                 <widget class="QLabel" name="label_89">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -901,7 +899,6 @@ direction vector:</string>
                 <widget class="QLabel" name="label_90">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -951,7 +948,6 @@ direction vector:</string>
                 <widget class="QLabel" name="label_64">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1246,7 +1242,6 @@ direction vector:</string>
                     <widget class="QLabel" name="label_78">
                      <property name="font">
                       <font>
-                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1259,7 +1254,6 @@ direction vector:</string>
                     <widget class="QLabel" name="label_81">
                      <property name="font">
                       <font>
-                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1277,7 +1271,6 @@ direction vector:</string>
                       <widget class="QLabel" name="label_62">
                        <property name="font">
                         <font>
-                         <weight>75</weight>
                          <bold>true</bold>
                         </font>
                        </property>
@@ -1356,7 +1349,6 @@ direction vector:</string>
                     <widget class="QLabel" name="label_83">
                      <property name="font">
                       <font>
-                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -1374,7 +1366,6 @@ direction vector:</string>
                       <widget class="QLabel" name="label_58">
                        <property name="font">
                         <font>
-                         <weight>50</weight>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -1418,7 +1409,6 @@ direction vector:</string>
                       <widget class="QLabel" name="label_59">
                        <property name="font">
                         <font>
-                         <weight>50</weight>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -1580,7 +1570,6 @@ direction vector:</string>
                     <widget class="QLabel" name="label_84">
                      <property name="font">
                       <font>
-                       <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
@@ -4461,6 +4450,156 @@ direction vector:</string>
                    </widget>
                   </item>
                  </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="MyGroupBox" name="groupCheck_perlin_noise_transparency_color_enable">
+               <property name="title">
+                <string>Use perlin noise for transparency color</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_35" rowstretch="0,0" columnstretch="0,1">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="0" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_perlin_noise_transparency_color_intensity">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>1000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_60">
+                  <property name="text">
+                   <string>intensity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_perlin_noise_transparency_color_invert">
+                  <property name="text">
+                   <string>invert</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="MyGroupBox" name="groupCheck_perlin_noise_transparency_alpha_enable">
+               <property name="title">
+                <string>Use perlin noise for alpha</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_36" rowstretch="0,0" columnstretch="0,1">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="0" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_perlin_noise_transparency_alpha_intensity">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>1000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_61">
+                  <property name="text">
+                   <string>intensity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_perlin_noise_transparency_alpha_invert">
+                  <property name="text">
+                   <string>invert</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>

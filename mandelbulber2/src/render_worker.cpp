@@ -1183,7 +1183,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader.A = objectShader.A;
 
 				if (shaderInputData.material->useColorsFromPalette
-						&& shaderInputData.material->transparencyGradientEnable)
+						&& shaderInputData.material->transparencyGradientEnable
+						&& !shaderInputData.material->perlinNoiseTransparencyColorEnable)
 				{
 					transparentShader.R *= gradients.trasparency.R;
 					transparentShader.G *= gradients.trasparency.G;
@@ -1203,6 +1204,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					transparentShader.R *= shaderInputData.texTransparency.R * texTransInt + texTransIntN;
 					transparentShader.G *= shaderInputData.texTransparency.G * texTransInt + texTransIntN;
 					transparentShader.B *= shaderInputData.texTransparency.B * texTransInt + texTransIntN;
+				}
+
+				// transparency perlin noise
+				if (shaderInputData.material->perlinNoiseEnable
+						&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
+				{
+					PerlinNoiseForTransparency(shaderInputData, transparentShader);
 				}
 
 				if (reflectionsMax > 0)
@@ -1267,6 +1275,17 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 													* (1.0
 														 - shaderInputData.texTransparencyAlpha.R
 																 * shaderInputData.material->transparencyAlphaTextureIntensity);
+					}
+
+					if (shaderInputData.material->perlinNoiseEnable
+							&& shaderInputData.material->perlinNoiseTransparencyAlphaEnable)
+					{
+						float alpha = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
+														? 1.0f - shaderInputData.perlinNoise
+														: shaderInputData.perlinNoise;
+						alpha = clamp(
+							alpha * shaderInputData.material->perlinNoiseTransparencyAlphaIntensity, 0.0f, 1.0f);
+						transparent = transparent * (1.0f - alpha);
 					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN

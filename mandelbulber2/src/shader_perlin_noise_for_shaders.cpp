@@ -81,14 +81,14 @@ void cRenderWorker::PerlinNoiseForReflectance(
 {
 	{
 		float perlin = (shaderInputData.material->perlinNoiseReflectanceInvert)
-										 ? 1.0 - shaderInputData.perlinNoise
+										 ? 1.0f - shaderInputData.perlinNoise
 										 : shaderInputData.perlinNoise;
 		sRGBFloat reflectancePerlin;
 		if (shaderInputData.material->reflectanceGradientEnable)
 		{
-			double colorPosition = fmod(
+			float colorPosition = fmod(
 				perlin * shaderInputData.material->coloring_speed + shaderInputData.material->paletteOffset,
-				1.0);
+				1.0f);
 			sRGBFloat gradientColor =
 				shaderInputData.material->gradientReflectance.GetColorFloat(colorPosition, false);
 			reflectancePerlin.R = gradientColor.R;
@@ -107,6 +107,40 @@ void cRenderWorker::PerlinNoiseForReflectance(
 		reflectance.R *= reflectancePerlin.R * perlinRefInt + perlinRefIntN;
 		reflectance.G *= reflectancePerlin.G * perlinRefInt + perlinRefIntN;
 		reflectance.B *= reflectancePerlin.B * perlinRefInt + perlinRefIntN;
+	}
+}
+
+void cRenderWorker::PerlinNoiseForTransparency(
+	const sShaderInputData &shaderInputData, sRGBAfloat &transparency)
+{
+	{
+		float perlin = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
+										 ? 1.0f - shaderInputData.perlinNoise
+										 : shaderInputData.perlinNoise;
+		sRGBFloat transparencyPerlin;
+		if (shaderInputData.material->transparencyGradientEnable)
+		{
+			float colorPosition = fmod(
+				perlin * shaderInputData.material->coloring_speed + shaderInputData.material->paletteOffset,
+				1.0f);
+			sRGBFloat gradientColor =
+				shaderInputData.material->gradientTransparency.GetColorFloat(colorPosition, false);
+			transparencyPerlin.R = gradientColor.R;
+			transparencyPerlin.G = gradientColor.G;
+			transparencyPerlin.B = gradientColor.B;
+		}
+		else
+		{
+			float perlinCol = perlin;
+			transparencyPerlin.R = perlinCol;
+			transparencyPerlin.G = perlinCol;
+			transparencyPerlin.B = perlinCol;
+		}
+		float perlinRefInt = shaderInputData.material->perlinNoiseTransparencyColorIntensity;
+		float perlinRefIntN = 1.0f - shaderInputData.material->perlinNoiseTransparencyColorIntensity;
+		transparency.R *= transparencyPerlin.R * perlinRefInt + perlinRefIntN;
+		transparency.G *= transparencyPerlin.G * perlinRefInt + perlinRefIntN;
+		transparency.B *= transparencyPerlin.B * perlinRefInt + perlinRefIntN;
 	}
 }
 

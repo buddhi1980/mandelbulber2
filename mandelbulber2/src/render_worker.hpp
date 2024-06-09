@@ -270,6 +270,8 @@ private:
 	void PerlinNoiseForShaders(sShaderInputData *shaderInputData) const;
 	void PerlinNoiseForReflectance(
 		const sShaderInputData &shaderInputData, sRGBFloat &reflectDiffused);
+	void PerlinNoiseForTransparency(
+		const sShaderInputData &shaderInputData, sRGBAfloat &transparency);
 
 	// data got from main thread
 	const sParamRender *params;

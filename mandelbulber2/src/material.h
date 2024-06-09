@@ -85,8 +85,8 @@ public:
 	float transparencyIndexOfRefraction;
 	float transparencyOfInterior;
 	float transparencyOfSurface;
-	double paletteOffset;
-	double coloring_speed;
+	float paletteOffset;
+	float coloring_speed;
 	float colorTextureIntensity;
 	float diffusionTextureIntensity;
 	float luminosityTextureIntensity;
@@ -106,6 +106,8 @@ public:
 	float perlinNoiseLuminosityIntensity;
 	float perlinNoiseDisplacementIntensity;
 	float perlinNoiseReflectanceIntensity;
+	float perlinNoiseTransparencyColorIntensity;
+	float perlinNoiseTransparencyAlphaIntensity;
 
 	sRGBFloat color;
 	sRGBFloat luminosityColor;
@@ -156,6 +158,10 @@ public:
 	bool perlinNoiseDisplacementInvert;
 	bool perlinNoiseReflectanceEnable;
 	bool perlinNoiseReflectanceInvert;
+	bool perlinNoiseTransparencyColorEnable;
+	bool perlinNoiseTransparencyColorInvert;
+	bool perlinNoiseTransparencyAlphaEnable;
+	bool perlinNoiseTransparencyAlphaInvert;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;
