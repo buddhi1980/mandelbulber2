@@ -101,7 +101,7 @@ using sRGB = tsRGB<qint32>;
 
 using sRGBA8 = tsRGBA<quint8>;
 using sRGBA16 = tsRGBA<quint16>;
-using sRGBAfloat = tsRGBA<float>;
+using sRGBAFloat = tsRGBA<float>;
 
 inline sRGBFloat toRGBFloat(const sRGB &c)
 {

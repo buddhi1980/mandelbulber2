@@ -36,9 +36,9 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
+sRGBAFloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 {
-	sRGBAfloat pixel2;
+	sRGBAFloat pixel2;
 
 	if (params->texturedBackground)
 	{

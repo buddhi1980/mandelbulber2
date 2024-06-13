@@ -36,20 +36,20 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfloat surfaceColor,
-	sGradientsCollection *gradients, sRGBAfloat *specularOut, sRGBAfloat *outShadow) const
+sRGBAFloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAFloat surfaceColor,
+	sGradientsCollection *gradients, sRGBAFloat *specularOut, sRGBAFloat *outShadow) const
 {
 
 	int numberOfLights = data->lights.GetNumberOfLights();
-	sRGBAfloat shadeAuxSum;
-	sRGBAfloat specularAuxSum;
+	sRGBAFloat shadeAuxSum;
+	sRGBAFloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)
 	{
 		const cLight *light = data->lights.GetLight(i);
 		if (light->enabled)
 		{
-			sRGBAfloat specularAuxOutTemp;
-			sRGBAfloat shadeAux =
+			sRGBAFloat specularAuxOutTemp;
+			sRGBAFloat shadeAux =
 				LightShading(input, surfaceColor, light, gradients, &specularAuxOutTemp, outShadow);
 			shadeAuxSum.R += shadeAux.R;
 			shadeAuxSum.G += shadeAux.G;

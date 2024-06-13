@@ -1108,7 +1108,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 
 		for (int x = 0; x < width; x++)
 		{
-			sRGBAfloat pixel;
+			sRGBAFloat pixel;
 			switch (imageChannel.contentType)
 			{
 				case IMAGE_CONTENT_NORMAL: pixel = image->GetPixelNormal(x, y); break;
@@ -1121,7 +1121,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 					pixel = image->GetPixelGlobalIllumination(x, y);
 					break;
 				case IMAGE_CONTENT_NOT_DENOISED: pixel = image->GetPixelNotDenoised(x, y); break;
-				default: pixel = sRGBAfloat(); break;
+				default: pixel = sRGBAFloat(); break;
 			}
 			sRGB8 pixel8 = sRGB8(uchar(clamp(pixel.R * 255.0f, 0.0f, 255.0f)),
 				uchar(clamp(pixel.G * 255.0f, 0.0f, 255.0f)), uchar(clamp(pixel.B * 255.0f, 0.0f, 255.0f)));
@@ -1661,7 +1661,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filenameInput, std::shared_ptr<cImage> 
 					{
 						if (appendAlpha)
 						{
-							sRGBAfloat *typedColorPtr = reinterpret_cast<sRGBAfloat *>(&colorPtr[ptr]);
+							sRGBAFloat *typedColorPtr = reinterpret_cast<sRGBAFloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
 							typedColorPtr->R = rgbPointer.R / 65536.0f;
 							typedColorPtr->G = rgbPointer.G / 65536.0f;

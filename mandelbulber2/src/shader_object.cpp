@@ -36,11 +36,11 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
-	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sRGBAfloat *outShadow,
+sRGBAFloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAFloat *surfaceColour,
+	sRGBAFloat *specularOut, sRGBFloat *iridescenceOut, sRGBAFloat *outShadow,
 	sRGBFloat *luminosityEmissiveOut, sGradientsCollection *gradients) const
 {
-	sRGBAfloat output;
+	sRGBAFloat output;
 	float alpha = 1.0f;
 
 	// normal vector
@@ -50,7 +50,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	input.normal = vn;
 
 	// fill light
-	sRGBAfloat fillLight;
+	sRGBAFloat fillLight;
 	fillLight.R = params->fillLightColor.R;
 	fillLight.G = params->fillLightColor.G;
 	fillLight.B = params->fillLightColor.B;
@@ -65,7 +65,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	gradients->specular = sRGBFloat(1.0, 1.0, 1.0);
 
-	sRGBAfloat colour(1.0, 1.0, 1.0, 1.0);
+	sRGBAFloat colour(1.0, 1.0, 1.0, 1.0);
 
 	if (mat->perlinNoiseEnable && mat->perlinNoiseColorEnable)
 	{
@@ -105,7 +105,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	*surfaceColour = colour;
 
 	// ambient occlusion
-	sRGBAfloat ambient(0.0, 0.0, 0.0, 0.0);
+	sRGBAFloat ambient(0.0, 0.0, 0.0, 0.0);
 	if (params->ambientOcclusionEnabled)
 	{
 		// fast mode
@@ -118,13 +118,13 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 			ambient = AmbientOcclusion(input);
 		}
 	}
-	sRGBAfloat ambient2;
+	sRGBAFloat ambient2;
 	ambient2.R = ambient.R * params->ambientOcclusion * params->ambientOcclusionColor.R;
 	ambient2.G = ambient.G * params->ambientOcclusion * params->ambientOcclusionColor.G;
 	ambient2.B = ambient.B * params->ambientOcclusion * params->ambientOcclusionColor.B;
 
 	// environment mapping
-	sRGBAfloat envMapping(0.0, 0.0, 0.0, 0.0);
+	sRGBAFloat envMapping(0.0, 0.0, 0.0, 0.0);
 	if (params->envMappingEnable)
 	{
 		envMapping = EnvMapping(input);
@@ -134,20 +134,20 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	envMapping.B *= mat->reflectance * input.texDiffuse.B;
 
 	// additional lights
-	sRGBAfloat auxLights;
-	sRGBAfloat auxLightsSpecular;
+	sRGBAFloat auxLights;
+	sRGBAFloat auxLightsSpecular;
 	auxLights = AuxLightsShader(input, colour, gradients, &auxLightsSpecular, outShadow);
 
 	// fake orbit trap lights
-	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
-	sRGBAfloat fakeLightsSpecular(0.0, 0.0, 0.0, 0.0);
+	sRGBAFloat fakeLights(0.0, 0.0, 0.0, 0.0);
+	sRGBAFloat fakeLightsSpecular(0.0, 0.0, 0.0, 0.0);
 	if (params->fakeLightsEnabled)
 	{
 		fakeLights = FakeLights(input, colour, &fakeLightsSpecular);
 	}
 
 	// luminosity
-	sRGBAfloat luminosity;
+	sRGBAFloat luminosity;
 	if (mat->useColorsFromPalette && mat->luminosityGradientEnable)
 	{
 		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity

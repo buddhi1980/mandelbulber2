@@ -36,10 +36,10 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::AuxShadow(
+sRGBAFloat cRenderWorker::AuxShadow(
 	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
-	sRGBAfloat lightShaded(1.0, 1.0, 1.0, 1.0);
+	sRGBAFloat lightShaded(1.0, 1.0, 1.0, 1.0);
 	double totalOpacity = 0.0;
 	double shadowTemp = 1.0;
 

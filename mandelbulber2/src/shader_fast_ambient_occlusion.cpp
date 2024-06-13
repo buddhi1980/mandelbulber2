@@ -37,7 +37,7 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) const
+sRGBAFloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) const
 {
 	// reference Iñigo Quilez –iq/rgba:
 	// http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf
@@ -61,6 +61,6 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) co
 	}
 	float ao = 1.0f - 0.2f * aoTemp;
 	if (ao < 0) ao = 0;
-	sRGBAfloat output(ao, ao, ao, 1.0f);
+	sRGBAFloat output(ao, ao, ao, 1.0f);
 	return output;
 }

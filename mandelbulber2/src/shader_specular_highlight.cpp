@@ -35,10 +35,10 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
+sRGBAFloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
 	float specularWidth, float roughness, sRGBFloat diffuseGradient) const
 {
-	sRGBAfloat specular;
+	sRGBAFloat specular;
 	CVector3 half = lightVector - input.viewVector;
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);

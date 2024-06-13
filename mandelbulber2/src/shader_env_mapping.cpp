@@ -35,9 +35,9 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input) const
+sRGBAFloat cRenderWorker::EnvMapping(const sShaderInputData &input) const
 {
-	sRGBAfloat envReflect;
+	sRGBAFloat envReflect;
 	CVector3 reflect;
 	double dot = -input.viewVector.Dot(input.normal);
 	reflect = input.normal * 2.0 * dot + input.viewVector;

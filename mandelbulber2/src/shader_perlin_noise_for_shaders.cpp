@@ -111,7 +111,7 @@ void cRenderWorker::PerlinNoiseForReflectance(
 }
 
 void cRenderWorker::PerlinNoiseForTransparency(
-	const sShaderInputData &shaderInputData, sRGBAfloat &transparency)
+	const sShaderInputData &shaderInputData, sRGBAFloat &transparency)
 {
 	{
 		float perlin = (shaderInputData.material->perlinNoiseTransparencyColorInvert)

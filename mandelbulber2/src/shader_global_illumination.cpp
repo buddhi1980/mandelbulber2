@@ -39,18 +39,18 @@
 #include "render_worker.hpp"
 
 sRGBFloat cRenderWorker::GlobalIlumination(
-	const sShaderInputData &input, sRGBAfloat objectColor, bool volumetricMode) const
+	const sShaderInputData &input, sRGBAFloat objectColor, bool volumetricMode) const
 {
 	sRGBFloat out;
 	sShaderInputData inputCopy = input;
-	sRGBAfloat objectColorTemp = objectColor;
+	sRGBAFloat objectColorTemp = objectColor;
 
 	std::vector<sStep> stepBuff(maxRaymarchingSteps + 2);
 	inputCopy.stepBuff = stepBuff.data();
 	inputCopy.stepCount = 0;
 
-	sRGBAfloat resultShader;
-	sRGBAfloat newColor = objectColor;
+	sRGBAFloat resultShader;
+	sRGBAFloat newColor = objectColor;
 	double totalOpacity = 0.0;
 
 	bool finished = false;
@@ -117,10 +117,10 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 
 		if (found)
 		{
-			sRGBAfloat objectColor;
-			sRGBAfloat specular;
+			sRGBAFloat objectColor;
+			sRGBAFloat specular;
 			sRGBFloat iridescence;
-			sRGBAfloat outShadow;
+			sRGBAFloat outShadow;
 			sRGBFloat outLuminosityEmissive;
 
 			cObjectData objectData = data->objectData[inputCopy.objectId];
@@ -148,7 +148,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			PerlinNoiseForShaders(&inputCopy);
 
 			sGradientsCollection gradients;
-			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,
+			sRGBAFloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,
 				&outShadow, &outLuminosityEmissive, &gradients);
 
 			newColor = objectColor;
@@ -162,12 +162,12 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		}
 		else
 		{
-			sRGBAfloat backgroundShader = BackgroundShader(inputCopy);
+			sRGBAFloat backgroundShader = BackgroundShader(inputCopy);
 			resultShader = backgroundShader;
 			finished = true;
 		}
 
-		sRGBAfloat opacity;
+		sRGBAFloat opacity;
 		if (params->monteCarloGIVolumetric && !volumetricMode)
 		{
 			resultShader = VolumetricShader(inputCopy, resultShader, &opacity);

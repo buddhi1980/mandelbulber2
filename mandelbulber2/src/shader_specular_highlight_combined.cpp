@@ -36,11 +36,11 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::SpecularHighlightCombined(const sShaderInputData &input,
-	CVector3 lightVector, sRGBAfloat surfaceColor, sRGBFloat diffuseGradient) const
+sRGBAFloat cRenderWorker::SpecularHighlightCombined(const sShaderInputData &input,
+	CVector3 lightVector, sRGBAFloat surfaceColor, sRGBFloat diffuseGradient) const
 {
-	sRGBAfloat specular;
-	sRGBAfloat specularPlastic;
+	sRGBAFloat specular;
+	sRGBAFloat specularPlastic;
 	if (input.material->specularPlasticEnable)
 	{
 		specularPlastic =
@@ -50,7 +50,7 @@ sRGBAfloat cRenderWorker::SpecularHighlightCombined(const sShaderInputData &inpu
 		specularPlastic.B *= input.material->specular;
 	}
 
-	sRGBAfloat specularMetallic;
+	sRGBAFloat specularMetallic;
 	if (input.material->metallic)
 	{
 		specularMetallic = SpecularHighlight(input, lightVector, input.material->specularMetallicWidth,

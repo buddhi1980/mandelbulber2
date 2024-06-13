@@ -69,10 +69,10 @@ void cRenderWorker::RayleighScattering(const CVector3 &lightVectorTemp,
 	}
 }
 
-sRGBAfloat cRenderWorker::VolumetricShader(
-	const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const
+sRGBAFloat cRenderWorker::VolumetricShader(
+	const sShaderInputData &input, sRGBAFloat oldPixel, sRGBAFloat *opacityOut) const
 {
-	sRGBAfloat output;
+	sRGBAFloat output;
 	float totalOpacity = 0.0;
 
 	output.R = oldPixel.R;
@@ -352,9 +352,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			distFogColor.B = fogTempB * kn + params->volFogColour3.B * k2;
 		}
 
-		sRGBAfloat totalLightsWithShadows(0.0, 0.0, 0.0, 0.0);
-		sRGBAfloat totalLights(0.0, 0.0, 0.0, 0.0);
-		sRGBAfloat totalLightsClouds(0.0, 0.0, 0.0, 0.0);
+		sRGBAFloat totalLightsWithShadows(0.0, 0.0, 0.0, 0.0);
+		sRGBAFloat totalLights(0.0, 0.0, 0.0, 0.0);
+		sRGBAFloat totalLightsClouds(0.0, 0.0, 0.0, 0.0);
 
 		for (int i = 0; i < data->lights.GetNumberOfLights(); i++)
 		{
@@ -413,13 +413,13 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						sRGBFloat textureColor(0.0, 0.0, 0.0);
 						lightIntensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
-						sRGBAfloat lightShadow(0.0, 0.0, 0.0, 0.0);
+						sRGBAFloat lightShadow(0.0, 0.0, 0.0, 0.0);
 						if (shadowNeeded)
 						{
 							if (lightIntensity > 1e-3)
 								lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);
 							else
-								lightShadow = sRGBAfloat();
+								lightShadow = sRGBAFloat();
 						}
 
 						sRGBFloat raleighScatteringRGB(1.0, 1.0, 1.0);
@@ -466,7 +466,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		if (params->DOFMonteCarloGlobalIllumination && params->monteCarloGIOfVolumetric)
 		{
-			sRGBFloat gi = GlobalIlumination(input2, sRGBAfloat(1.0, 1.0, 1.0, 0.0), true);
+			sRGBFloat gi = GlobalIlumination(input2, sRGBAFloat(1.0, 1.0, 1.0, 0.0), true);
 			totalLights.R += gi.R;
 			totalLights.G += gi.G;
 			totalLights.B += gi.B;
@@ -475,7 +475,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			totalLightsWithShadows.B += gi.B;
 		}
 
-		sRGBAfloat AO(0.0, 0.0, 0.0, 0.0);
+		sRGBAFloat AO(0.0, 0.0, 0.0, 0.0);
 
 		if (params->ambientOcclusionEnabled
 				&& params->ambientOcclusionMode == params::AOModeMultipleRays)
@@ -492,7 +492,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		if (params->iterFogEnabled && iterFogOpacity > 0.0)
 		{
-			sRGBAfloat light = (params->iterFogShadows) ? totalLightsWithShadows : totalLights;
+			sRGBAFloat light = (params->iterFogShadows) ? totalLightsWithShadows : totalLights;
 
 			if (iterFogOpacity > 1.0f) iterFogOpacity = 1.0f;
 
@@ -514,7 +514,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		if (params->cloudsEnable && cloudsOpacity > 0.0)
 		{
-			sRGBAfloat light = (params->cloudsCastShadows) ? totalLightsWithShadows : totalLightsClouds;
+			sRGBAFloat light = (params->cloudsCastShadows) ? totalLightsWithShadows : totalLightsClouds;
 
 			double ambient = params->cloudsAmbientLight;
 			double nAmbient = 1.0 - params->cloudsAmbientLight;
@@ -537,7 +537,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		if (params->volFogEnabled && distFogOpacity > 0.0)
 		{
-			sRGBAfloat light =
+			sRGBAFloat light =
 				(params->distanceFogShadows) ? totalLightsWithShadows : sRGBFloat(1.0, 1.0, 1.0);
 
 			if (distFogOpacity > 1.0) distFogOpacity = 1.0;
@@ -557,7 +557,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		if (params->fogEnabled && basicFogOpacity > 0.0)
 		{
 
-			sRGBAfloat light =
+			sRGBAFloat light =
 				(params->fogCastShadows) ? totalLightsWithShadows : sRGBFloat(1.0, 1.0, 1.0);
 			if (basicFogOpacity > 1.0f) basicFogOpacity = 1.0f;
 			output.R = basicFogOpacity * params->fogColor.R * (light.R + AO.R)

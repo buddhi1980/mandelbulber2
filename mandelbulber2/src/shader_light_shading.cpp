@@ -37,11 +37,11 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-	const cLight *light, sGradientsCollection *gradients, sRGBAfloat *outSpecular,
-	sRGBAfloat *outShadow) const
+sRGBAFloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAFloat surfaceColor,
+	const cLight *light, sGradientsCollection *gradients, sRGBAFloat *outSpecular,
+	sRGBAFloat *outShadow) const
 {
-	sRGBAfloat shading;
+	sRGBAFloat shading;
 
 	double distance = 0.0;
 	CVector3 lightVector = light->CalculateLightVector(
@@ -71,7 +71,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	if (shade > 500.0f) shade = 500.0f;
 
 	// specular
-	sRGBAfloat specular =
+	sRGBAFloat specular =
 		SpecularHighlightCombined(input, lightVector, surfaceColor, gradients->diffuse);
 	specular.R *= intensity;
 	specular.G *= intensity;
@@ -87,7 +87,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	float specularMax = dMax(specular.R, specular.G, specular.B);
 
 	// calculate shadow
-	sRGBAfloat auxShadow(1.0, 1.0, 1.0, 1.0);
+	sRGBAFloat auxShadow(1.0, 1.0, 1.0, 1.0);
 	if (light->castShadows)
 	{
 		if (shade > 0.001f || specularMax > 0.001f)
@@ -99,8 +99,8 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		}
 		else
 		{
-			auxShadow = sRGBAfloat();
-			specular = sRGBAfloat();
+			auxShadow = sRGBAFloat();
+			specular = sRGBAFloat();
 		}
 	}
 

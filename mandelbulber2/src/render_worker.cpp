@@ -275,8 +275,8 @@ void cRenderWorker::doWork()
 					}
 				}
 
-				sRGBAfloat resultShader;
-				sRGBAfloat objectColour;
+				sRGBAFloat resultShader;
+				sRGBAFloat objectColour;
 				CVector3 normal;
 				;
 
@@ -802,8 +802,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	for (int i = 0; i < reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
-		rayStack[i].reflectShader = sRGBAfloat();
-		rayStack[i].transparentShader = sRGBAfloat();
+		rayStack[i].reflectShader = sRGBAFloat();
+		rayStack[i].transparentShader = sRGBAFloat();
 	}
 
 	do
@@ -1043,8 +1043,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			CVector3 point = rayMarchingOut.point;
 
-			sRGBAfloat reflectShader = rayStack[rayIndex].reflectShader;
-			sRGBAfloat transparentShader = rayStack[rayIndex].transparentShader;
+			sRGBAFloat reflectShader = rayStack[rayIndex].reflectShader;
+			sRGBAFloat transparentShader = rayStack[rayIndex].transparentShader;
 
 			inOut.rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
 			inOut.rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff.data();
@@ -1108,16 +1108,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			float reflect = shaderInputData.material->reflectance;
 			float transparent = shaderInputData.material->transparencyOfSurface;
 
-			sRGBAfloat resultShader = rayStack[rayIndex].in.resultShader;
-			sRGBAfloat objectColour = rayStack[rayIndex].in.objectColour;
+			sRGBAFloat resultShader = rayStack[rayIndex].in.resultShader;
+			sRGBAFloat objectColour = rayStack[rayIndex].in.objectColour;
 			sRGBFloat transparentColor = shaderInputData.material->transparencyInteriorColor;
 			resultShader.R = transparentColor.R;
 			resultShader.G = transparentColor.G;
 			resultShader.B = transparentColor.B;
 
-			sRGBAfloat objectShader;
-			sRGBAfloat backgroundShader;
-			sRGBAfloat volumetricShader;
+			sRGBAFloat objectShader;
+			sRGBAFloat backgroundShader;
+			sRGBAFloat volumetricShader;
 			sRGBFloat iridescence;
 			sRGBFloat luminosityEmissiveOut;
 
@@ -1315,14 +1315,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				backgroundShader = BackgroundShader(shaderInputData);
 				resultShader = backgroundShader;
 				rayMarchingOut.depth = 1e20;
-				recursionOut.specular = sRGBAfloat();
-				recursionOut.outShadow = sRGBAfloat(1.0f, 1.0f, 1.0f, 1.0f);
+				recursionOut.specular = sRGBAFloat();
+				recursionOut.outShadow = sRGBAFloat(1.0f, 1.0f, 1.0f, 1.0f);
 				recursionOut.outGlobalIllumination = sRGBFloat();
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 				// rayStack[rayIndex].goDeeper = false;
 			}
 
-			sRGBAfloat opacityOut;
+			sRGBAFloat opacityOut;
 
 			if (rayStack[rayIndex].in.calcInside) // if the object interior is traced, then the absorption
 																						// of light has to be
@@ -1349,7 +1349,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					if (shaderInputData.material->insideColoringEnable)
 					{
 						sGradientsCollection gradients;
-						sRGBAfloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
+						sRGBAFloat color = SurfaceColour(insidePoint, shaderInputData, &gradients);
 						transparentColor.R *= color.R;
 						transparentColor.G *= color.G;
 						transparentColor.B *= color.B;
@@ -1418,7 +1418,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								sRGBFloat textureColor;
 								intensity *= light->CalculateCone(lightVectorTemp, textureColor);
 
-								sRGBAfloat lightShadow(1.0, 1.0, 1.0, 1.0);
+								sRGBAFloat lightShadow(1.0, 1.0, 1.0, 1.0);
 								if (intensity > 1e-3)
 								{
 									lightShadow = AuxShadow(input2, light, distanceLight, lightVectorTemp);

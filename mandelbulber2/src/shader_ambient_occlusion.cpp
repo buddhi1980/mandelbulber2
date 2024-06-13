@@ -38,9 +38,9 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
+sRGBAFloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 {
-	sRGBAfloat AO(0, 0, 0, 1.0);
+	sRGBAFloat AO(0, 0, 0, 1.0);
 
 	double start_dist = input.distThresh;
 	double end_dist = input.delta / params->resolution;

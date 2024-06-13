@@ -146,8 +146,8 @@ private:
 	{
 		sRayMarchingIn rayMarchingIn;
 		bool calcInside;
-		sRGBAfloat resultShader;
-		sRGBAfloat objectColour;
+		sRGBAFloat resultShader;
+		sRGBAFloat objectColour;
 		enumRayBranch rayBranch;
 	};
 
@@ -155,10 +155,10 @@ private:
 	{
 		sRayMarchingOut rayMarchingOut;
 		CVector3 point;
-		sRGBAfloat resultShader;
-		sRGBAfloat objectColour;
-		sRGBAfloat specular;
-		sRGBAfloat outShadow;
+		sRGBAFloat resultShader;
+		sRGBAFloat objectColour;
+		sRGBAFloat specular;
+		sRGBAFloat outShadow;
 		sRGBFloat outGlobalIllumination;
 		CVector3 normal;
 		float fogOpacity;
@@ -197,8 +197,8 @@ private:
 	{
 		sRayRecursionIn in;
 		sRayRecursionOut out;
-		sRGBAfloat reflectShader;
-		sRGBAfloat transparentShader;
+		sRGBAFloat reflectShader;
+		sRGBAFloat transparentShader;
 		enumRayBranch rayBranch;
 		bool goDeeper;
 	};
@@ -232,31 +232,31 @@ private:
 		sRGBFloat pixel, int repeat, sRGBFloat pixelSum, sRGBFloat &StdDevSum);
 
 	// shaders
-	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
-		sRGBAfloat *specularOut, sRGBFloat *iridescence, sRGBAfloat *outShadow,
+	sRGBAFloat ObjectShader(const sShaderInputData &input, sRGBAFloat *surfaceColour,
+		sRGBAFloat *specularOut, sRGBFloat *iridescence, sRGBAFloat *outShadow,
 		sRGBFloat *luminosityEmissiveOut, sGradientsCollection *gradients) const;
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
-	sRGBAfloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
+	sRGBAFloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
 		float specularWidth, float roughness, sRGBFloat diffuseGradient) const;
-	sRGBAfloat SpecularHighlightCombined(const sShaderInputData &input, CVector3 lightVector,
-		sRGBAfloat surfaceColor, sRGBFloat diffuseGradient) const;
-	sRGBAfloat SurfaceColour(
+	sRGBAFloat SpecularHighlightCombined(const sShaderInputData &input, CVector3 lightVector,
+		sRGBAFloat surfaceColor, sRGBFloat diffuseGradient) const;
+	sRGBAFloat SurfaceColour(
 		CVector3 point, const sShaderInputData &input, sGradientsCollection *gradients) const;
-	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
-	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;
-	sRGBAfloat EnvMapping(const sShaderInputData &input) const;
-	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat surfaceColor,
-		sGradientsCollection *gradients, sRGBAfloat *specularOut, sRGBAfloat *outShadow) const;
-	sRGBAfloat AuxShadow(const sShaderInputData &input, const cLight *light, double distance,
+	sRGBAFloat FastAmbientOcclusion(const sShaderInputData &input) const;
+	sRGBAFloat AmbientOcclusion(const sShaderInputData &input) const;
+	sRGBAFloat EnvMapping(const sShaderInputData &input) const;
+	sRGBAFloat AuxLightsShader(const sShaderInputData &input, sRGBAFloat surfaceColor,
+		sGradientsCollection *gradients, sRGBAFloat *specularOut, sRGBAFloat *outShadow) const;
+	sRGBAFloat AuxShadow(const sShaderInputData &input, const cLight *light, double distance,
 		CVector3 lightVector) const;
-	sRGBAfloat LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
-		const cLight *light, sGradientsCollection *gradients, sRGBAfloat *outSpecular,
-		sRGBAfloat *outShadow) const;
-	sRGBAfloat BackgroundShader(const sShaderInputData &input) const;
-	sRGBAfloat FakeLights(
-		const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const;
-	sRGBAfloat VolumetricShader(
-		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const;
+	sRGBAFloat LightShading(const sShaderInputData &input, sRGBAFloat surfaceColor,
+		const cLight *light, sGradientsCollection *gradients, sRGBAFloat *outSpecular,
+		sRGBAFloat *outShadow) const;
+	sRGBAFloat BackgroundShader(const sShaderInputData &input) const;
+	sRGBAFloat FakeLights(
+		const sShaderInputData &input, sRGBAFloat surfaceColor, sRGBAFloat *fakeSpec) const;
+	sRGBAFloat VolumetricShader(
+		const sShaderInputData &input, sRGBAFloat oldPixel, sRGBAFloat *opacityOut) const;
 
 	sRGBFloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
@@ -264,14 +264,14 @@ private:
 	float RoughnessTexture(const sShaderInputData &input) const;
 	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
 	sRGBFloat GlobalIlumination(
-		const sShaderInputData &input, sRGBAfloat objectColor, bool volumetricMode) const;
+		const sShaderInputData &input, sRGBAFloat objectColor, bool volumetricMode) const;
 	void RayleighScattering(const CVector3 &lightVectorTemp, const sShaderInputData &input,
 		sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const;
 	void PerlinNoiseForShaders(sShaderInputData *shaderInputData) const;
 	void PerlinNoiseForReflectance(
 		const sShaderInputData &shaderInputData, sRGBFloat &reflectDiffused);
 	void PerlinNoiseForTransparency(
-		const sShaderInputData &shaderInputData, sRGBAfloat &transparency);
+		const sShaderInputData &shaderInputData, sRGBAFloat &transparency);
 
 	// data got from main thread
 	const sParamRender *params;

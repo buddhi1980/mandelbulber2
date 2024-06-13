@@ -36,10 +36,10 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::SurfaceColour(
+sRGBAFloat cRenderWorker::SurfaceColour(
 	CVector3 point, const sShaderInputData &input, sGradientsCollection *gradients) const
 {
-	sRGBAfloat out;
+	sRGBAFloat out;
 
 	switch (data->objectData[input.objectId].objectType)
 	{
@@ -151,7 +151,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 		}
 		case fractal::objNone:
 		{
-			out = sRGBAfloat();
+			out = sRGBAFloat();
 			break;
 		}
 	};

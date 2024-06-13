@@ -35,10 +35,10 @@
 #include "fractparams.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::FakeLights(
-	const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const
+sRGBAFloat cRenderWorker::FakeLights(
+	const sShaderInputData &input, sRGBAFloat surfaceColor, sRGBAFloat *fakeSpec) const
 {
-	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
+	sRGBAFloat fakeLights(0.0, 0.0, 0.0, 0.0);
 
 	int fakeLightMaxLoop = 1;
 	if (params->common.fakeLightsColor2Enabled) fakeLightMaxLoop = 2;
@@ -111,7 +111,7 @@ sRGBAfloat cRenderWorker::FakeLights(
 		//		fakeSpec->G = fakeSpecular.G / r * params->fakeLightsColor.G;
 		//		fakeSpec->B = fakeSpecular.B / r * params->fakeLightsColor.B;
 
-		*fakeSpec = sRGBAfloat();
+		*fakeSpec = sRGBAFloat();
 	}
 	return fakeLights;
 }
