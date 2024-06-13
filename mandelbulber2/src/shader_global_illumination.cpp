@@ -145,7 +145,7 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			else
 				inputCopy.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
-			PerlinNoiseForShaders(&inputCopy);
+			PerlinNoiseForShaders(&inputCopy, inputCopy.point);
 
 			sGradientsCollection gradients;
 			sRGBAFloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence,

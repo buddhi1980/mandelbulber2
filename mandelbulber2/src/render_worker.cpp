@@ -1110,7 +1110,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			sRGBAFloat resultShader = rayStack[rayIndex].in.resultShader;
 			sRGBAFloat objectColour = rayStack[rayIndex].in.objectColour;
-			sRGBFloat transparentColor = shaderInputData.material->transparencyInteriorColor;
+			sRGBAFloat transparentColor = shaderInputData.material->transparencyInteriorColor;
 			resultShader.R = transparentColor.R;
 			resultShader.G = transparentColor.G;
 			resultShader.B = transparentColor.B;
@@ -1123,7 +1123,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			if (rayMarchingOut.found)
 			{
-				PerlinNoiseForShaders(&shaderInputData);
+				PerlinNoiseForShaders(&shaderInputData, shaderInputData.point);
 
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
@@ -1385,6 +1385,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								(1.0f - tex.R) * shaderInputData.material->transparencyAlphaTextureIntensityVol
 								+ 1e-6f;
 						}
+					}
+
+					PerlinNoiseForShaders(&input2, insidePoint);
+					// transparency perlin noise
+					if (shaderInputData.material->perlinNoiseEnable
+							&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
+					{
+						PerlinNoiseForTransparency(input2, transparentColor);
 					}
 
 					float opacityCollected =

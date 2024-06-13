@@ -1644,12 +1644,16 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_transparency_color_intensity", materialId), 1.0,
 		1e-15, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_transparency_color_intensity_vol", materialId), 1.0,
+		1e-15, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_transparency_color_invert", materialId), false,
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("perlin_noise_transparency_alpha_enable", materialId), false,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_transparency_alpha_intensity", materialId), 1.0,
+		1e-15, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_transparency_alpha_intensity_vol", materialId), 1.0,
 		1e-15, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_transparency_alpha_invert", materialId), false,
 		morphNone, paramStandard);

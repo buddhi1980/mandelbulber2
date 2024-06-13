@@ -267,7 +267,7 @@ private:
 		const sShaderInputData &input, sRGBAFloat objectColor, bool volumetricMode) const;
 	void RayleighScattering(const CVector3 &lightVectorTemp, const sShaderInputData &input,
 		sRGBFloat &raleighScatteringRGB, sRGBFloat &mieScatteringRGB) const;
-	void PerlinNoiseForShaders(sShaderInputData *shaderInputData) const;
+	void PerlinNoiseForShaders(sShaderInputData *shaderInputData, const CVector3 &point) const;
 	void PerlinNoiseForReflectance(
 		const sShaderInputData &shaderInputData, sRGBFloat &reflectDiffused);
 	void PerlinNoiseForTransparency(

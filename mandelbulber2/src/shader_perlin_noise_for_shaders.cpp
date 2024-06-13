@@ -42,22 +42,22 @@
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
 
-void cRenderWorker::PerlinNoiseForShaders(sShaderInputData *shaderInputData) const
+void cRenderWorker::PerlinNoiseForShaders(
+	sShaderInputData *shaderInputData, const CVector3 &point) const
 {
 	if (shaderInputData->material->perlinNoiseEnable)
 	{
 		CVector3 pointModified;
 		if (shaderInputData->material->textureFractalize)
 		{
-			sFractalIn fractIn(
-				shaderInputData->point, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
+			sFractalIn fractIn(point, 0, -1, 1, 0, &params->common, -1, false, shaderInputData->material);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
 			pointModified = fractOut.z;
 		}
 		else
 		{
-			pointModified = shaderInputData->point;
+			pointModified = point;
 		}
 		float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
 			pointModified.x / shaderInputData->material->perlinNoisePeriod.x,
