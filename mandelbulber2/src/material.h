@@ -108,6 +108,8 @@ public:
 	float perlinNoiseReflectanceIntensity;
 	float perlinNoiseTransparencyColorIntensity;
 	float perlinNoiseTransparencyAlphaIntensity;
+	float perlinNoiseTransparencyColorIntensityVol;
+	float perlinNoiseTransparencyAlphaIntensityVol;
 
 	sRGBFloat color;
 	sRGBFloat luminosityColor;

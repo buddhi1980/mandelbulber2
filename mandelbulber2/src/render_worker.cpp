@@ -1210,7 +1210,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (shaderInputData.material->perlinNoiseEnable
 						&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
 				{
-					PerlinNoiseForTransparency(shaderInputData, transparentShader);
+					PerlinNoiseForTransparency(shaderInputData, transparentShader, false);
 				}
 
 				if (reflectionsMax > 0)
@@ -1392,12 +1392,25 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
 					{
-						PerlinNoiseForTransparency(input2, transparentColor);
+						PerlinNoiseForTransparency(input2, transparentColor, true);
 					}
 
 					float opacityCollected =
 						shaderInputData.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity)
 						+ texOpacity;
+
+					if (shaderInputData.material->perlinNoiseEnable
+							&& shaderInputData.material->perlinNoiseTransparencyAlphaEnable)
+					{
+						float alpha = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
+														? 1.0f - shaderInputData.perlinNoise
+														: input2.perlinNoise;
+						alpha =
+							clamp(alpha * shaderInputData.material->perlinNoiseTransparencyAlphaIntensityVol,
+								0.0f, 1.0f);
+						alpha = 1.0f - alpha;
+						opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
+					}
 
 					double opacity = (-1.0f + 1.0f / opacityCollected) * float(step);
 					if (opacity > 1.0f) opacity = 1.0f;

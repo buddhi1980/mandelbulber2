@@ -37,7 +37,7 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAFloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAFloat surfaceColor,
+sRGBAFloat cRenderWorker::LightShading(sShaderInputData &input, sRGBAFloat surfaceColor,
 	const cLight *light, sGradientsCollection *gradients, sRGBAFloat *outSpecular,
 	sRGBAFloat *outShadow) const
 {

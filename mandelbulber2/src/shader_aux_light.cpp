@@ -36,7 +36,7 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAFloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAFloat surfaceColor,
+sRGBAFloat cRenderWorker::AuxLightsShader(sShaderInputData &input, sRGBAFloat surfaceColor,
 	sGradientsCollection *gradients, sRGBAFloat *specularOut, sRGBAFloat *outShadow) const
 {
 

@@ -111,7 +111,7 @@ void cRenderWorker::PerlinNoiseForReflectance(
 }
 
 void cRenderWorker::PerlinNoiseForTransparency(
-	const sShaderInputData &shaderInputData, sRGBAFloat &transparency)
+	const sShaderInputData &shaderInputData, sRGBAFloat &transparency, bool volumeMode)
 {
 	{
 		float perlin = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
@@ -136,8 +136,13 @@ void cRenderWorker::PerlinNoiseForTransparency(
 			transparencyPerlin.G = perlinCol;
 			transparencyPerlin.B = perlinCol;
 		}
-		float perlinRefInt = shaderInputData.material->perlinNoiseTransparencyColorIntensity;
-		float perlinRefIntN = 1.0f - shaderInputData.material->perlinNoiseTransparencyColorIntensity;
+
+		float intensity = (volumeMode)
+												? shaderInputData.material->perlinNoiseTransparencyColorIntensityVol
+												: shaderInputData.material->perlinNoiseTransparencyColorIntensity;
+
+		float perlinRefInt = intensity;
+		float perlinRefIntN = 1.0f - intensity;
 		transparency.R *= transparencyPerlin.R * perlinRefInt + perlinRefIntN;
 		transparency.G *= transparencyPerlin.G * perlinRefInt + perlinRefIntN;
 		transparency.B *= transparencyPerlin.B * perlinRefInt + perlinRefIntN;

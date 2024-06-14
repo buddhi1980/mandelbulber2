@@ -245,13 +245,12 @@ private:
 	sRGBAFloat FastAmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAFloat AmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAFloat EnvMapping(const sShaderInputData &input) const;
-	sRGBAFloat AuxLightsShader(const sShaderInputData &input, sRGBAFloat surfaceColor,
+	sRGBAFloat AuxLightsShader(sShaderInputData &input, sRGBAFloat surfaceColor,
 		sGradientsCollection *gradients, sRGBAFloat *specularOut, sRGBAFloat *outShadow) const;
-	sRGBAFloat AuxShadow(const sShaderInputData &input, const cLight *light, double distance,
-		CVector3 lightVector) const;
-	sRGBAFloat LightShading(const sShaderInputData &input, sRGBAFloat surfaceColor,
-		const cLight *light, sGradientsCollection *gradients, sRGBAFloat *outSpecular,
-		sRGBAFloat *outShadow) const;
+	sRGBAFloat AuxShadow(
+		sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const;
+	sRGBAFloat LightShading(sShaderInputData &input, sRGBAFloat surfaceColor, const cLight *light,
+		sGradientsCollection *gradients, sRGBAFloat *outSpecular, sRGBAFloat *outShadow) const;
 	sRGBAFloat BackgroundShader(const sShaderInputData &input) const;
 	sRGBAFloat FakeLights(
 		const sShaderInputData &input, sRGBAFloat surfaceColor, sRGBAFloat *fakeSpec) const;
@@ -271,7 +270,7 @@ private:
 	void PerlinNoiseForReflectance(
 		const sShaderInputData &shaderInputData, sRGBFloat &reflectDiffused);
 	void PerlinNoiseForTransparency(
-		const sShaderInputData &shaderInputData, sRGBAFloat &transparency);
+		const sShaderInputData &shaderInputData, sRGBAFloat &transparency, bool volumeMode);
 
 	// data got from main thread
 	const sParamRender *params;

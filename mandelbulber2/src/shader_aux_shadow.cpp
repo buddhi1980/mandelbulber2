@@ -37,7 +37,7 @@
 #include "render_worker.hpp"
 
 sRGBAFloat cRenderWorker::AuxShadow(
-	const sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
+	sShaderInputData &input, const cLight *light, double distance, CVector3 lightVector) const
 {
 	sRGBAFloat lightShaded(1.0, 1.0, 1.0, 1.0);
 	double totalOpacity = 0.0;
@@ -244,6 +244,17 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 			float opacityCollected =
 				input.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity) + texOpacity;
+
+			if (input.material->perlinNoiseEnable && input.material->perlinNoiseTransparencyAlphaEnable)
+			{
+				PerlinNoiseForShaders(&input, point2);
+				float alpha = (input.material->perlinNoiseTransparencyColorInvert)
+												? 1.0f - input.perlinNoise
+												: input2.perlinNoise;
+				alpha = clamp(alpha * input.material->perlinNoiseTransparencyAlphaIntensityVol, 0.0f, 1.0f);
+				alpha = 1.0f - alpha;
+				opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
+			}
 
 			double opacity = (-1.0f + 1.0f / opacityCollected) * step;
 			opacity *= (distance - i) / distance;
