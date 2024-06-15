@@ -39,9 +39,10 @@
 #include "fractal_coloring_cl.hpp"
 #include "opencl_algebra.h"
 #include "texture_enums_cl.h"
-
+#include "src/include_header_wrapper.hpp"
 #include "src/material.h"
-#endif /* OPENCL_KERNEL_CODE */
+
+#endif /* not OPENCL_KERNEL_CODE */
 
 typedef struct
 {
@@ -84,6 +85,10 @@ typedef struct
 	cl_float perlinNoiseLuminosityIntensity;
 	cl_float perlinNoiseDisplacementIntensity;
 	cl_float perlinNoiseReflectanceIntensity;
+	cl_float perlinNoiseTransparencyColorIntensity;
+	cl_float perlinNoiseTransparencyAlphaIntensity;
+	cl_float perlinNoiseTransparencyColorIntensityVol;
+	cl_float perlinNoiseTransparencyAlphaIntensityVol;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -116,6 +121,10 @@ typedef struct
 	cl_int perlinNoiseDisplacementInvert;
 	cl_int perlinNoiseReflectanceEnable;
 	cl_int perlinNoiseReflectanceInvert;
+	cl_int perlinNoiseTransparencyColorEnable;
+	cl_int perlinNoiseTransparencyColorInvert;
+	cl_int perlinNoiseTransparencyAlphaEnable;
+	cl_int perlinNoiseTransparencyAlphaInvert;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -199,6 +208,10 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.perlinNoiseLuminosityIntensity = source.perlinNoiseLuminosityIntensity;
 	target.perlinNoiseDisplacementIntensity = source.perlinNoiseDisplacementIntensity;
 	target.perlinNoiseReflectanceIntensity = source.perlinNoiseReflectanceIntensity;
+	target.perlinNoiseTransparencyColorIntensity = source.perlinNoiseTransparencyColorIntensity;
+	target.perlinNoiseTransparencyAlphaIntensity = source.perlinNoiseTransparencyAlphaIntensity;
+	target.perlinNoiseTransparencyColorIntensityVol = source.perlinNoiseTransparencyColorIntensityVol;
+	target.perlinNoiseTransparencyAlphaIntensityVol = source.perlinNoiseTransparencyAlphaIntensityVol;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -231,6 +244,10 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.perlinNoiseDisplacementInvert = source.perlinNoiseDisplacementInvert;
 	target.perlinNoiseReflectanceEnable = source.perlinNoiseReflectanceEnable;
 	target.perlinNoiseReflectanceInvert = source.perlinNoiseReflectanceInvert;
+	target.perlinNoiseTransparencyColorEnable = source.perlinNoiseTransparencyColorEnable;
+	target.perlinNoiseTransparencyColorInvert = source.perlinNoiseTransparencyColorInvert;
+	target.perlinNoiseTransparencyAlphaEnable = source.perlinNoiseTransparencyAlphaEnable;
+	target.perlinNoiseTransparencyAlphaInvert = source.perlinNoiseTransparencyAlphaInvert;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

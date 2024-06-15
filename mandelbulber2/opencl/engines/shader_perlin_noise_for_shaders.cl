@@ -71,36 +71,74 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 
 float3 PerlinNoiseForReflectance(sShaderInputDataCl *shaderInputData, float3 reflectance)
 {
-	{
-		float perlin = (shaderInputData->material->perlinNoiseReflectanceInvert)
-										 ? 1.0f - shaderInputData->perlinNoise
-										 : shaderInputData->perlinNoise;
-		float3 reflectancePerlin = 1.0f;
+	float perlin = (shaderInputData->material->perlinNoiseReflectanceInvert)
+									 ? 1.0f - shaderInputData->perlinNoise
+									 : shaderInputData->perlinNoise;
+	float3 reflectancePerlin = 1.0f;
 
 #ifdef USE_REFLECTANCE_GRADIENT
-		if (shaderInputData->material->reflectanceGradientEnable)
-		{
-			float colorPosition = fmod(perlin * shaderInputData->material->coloring_speed
-																	 + shaderInputData->material->paletteOffset,
-				1.0f);
+	if (shaderInputData->material->reflectanceGradientEnable)
+	{
+		float colorPosition = fmod(
+			perlin * shaderInputData->material->coloring_speed + shaderInputData->material->paletteOffset,
+			1.0f);
 
-			float3 gradientColor =
-				GetColorFromGradient(colorPosition, false, shaderInputData->paletteReflectanceLength,
-					shaderInputData->palette + shaderInputData->paletteReflectanceOffset);
+		float3 gradientColor =
+			GetColorFromGradient(colorPosition, false, shaderInputData->paletteReflectanceLength,
+				shaderInputData->palette + shaderInputData->paletteReflectanceOffset);
 
-			reflectancePerlin = gradientColor;
-		}
-		else
-#endif // USE_REFLECTANCE_GRADIENT
-		{
-			float perlinCol = perlin;
-			reflectancePerlin = perlinCol;
-		}
-		float perlinRefInt = shaderInputData->material->perlinNoiseReflectanceIntensity;
-		float perlinRefIntN = 1.0f - shaderInputData->material->perlinNoiseReflectanceIntensity;
-		reflectance *= reflectancePerlin * perlinRefInt + perlinRefIntN;
+		reflectancePerlin = gradientColor;
 	}
+	else
+#endif // USE_REFLECTANCE_GRADIENT
+	{
+		float perlinCol = perlin;
+		reflectancePerlin = perlinCol;
+	}
+	float perlinRefInt = shaderInputData->material->perlinNoiseReflectanceIntensity;
+	float perlinRefIntN = 1.0f - shaderInputData->material->perlinNoiseReflectanceIntensity;
+	reflectance *= reflectancePerlin * perlinRefInt + perlinRefIntN;
+
 	return reflectance;
+}
+
+float3 PerlinNoiseForTransparency(
+	sShaderInputDataCl *shaderInputData, float3 transparency, bool volumeMode)
+{
+	float perlin = (shaderInputData->material->perlinNoiseTransparencyColorInvert)
+									 ? 1.0f - shaderInputData->perlinNoise
+									 : shaderInputData->perlinNoise;
+	float3 transparencyPerlin = 1.0f;
+
+#ifdef USE_TRANSPARENCY_GRADIENT
+	if (shaderInputData->material->transparencyGradientEnable)
+	{
+		float colorPosition = fmod(
+			perlin * shaderInputData->material->coloring_speed + shaderInputData->material->paletteOffset,
+			1.0f);
+
+		float3 gradientColor =
+			GetColorFromGradient(colorPosition, false, shaderInputData->paletteTransparencyLength,
+				shaderInputData->palette + shaderInputData->paletteTransparencyOffset);
+
+		transparencyPerlin = gradientColor;
+	}
+	else
+#endif // USE_TRANSPARENCY_GRADIENT
+	{
+		float perlinCol = perlin;
+		transparencyPerlin = perlinCol;
+	}
+
+	float intensity = (volumeMode)
+											? shaderInputData->material->perlinNoiseTransparencyColorIntensityVol
+											: shaderInputData->material->perlinNoiseTransparencyColorIntensity;
+
+	float perlinRefInt = intensity;
+	float perlinRefIntN = 1.0f - intensity;
+	transparency *= transparencyPerlin * perlinRefInt + perlinRefIntN;
+
+	return transparency;
 }
 
 float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderData, int objectId)

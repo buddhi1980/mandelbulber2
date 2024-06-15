@@ -765,7 +765,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #ifdef USE_REFRACTION
 #ifdef USE_TRANSPARENCY_GRADIENT
 				if (shaderInputData.material->useColorsFromPalette
-						&& shaderInputData.material->transparencyGradientEnable)
+						&& shaderInputData.material->transparencyGradientEnable
+						&& !shaderInputData.material->perlinNoiseTransparencyColorEnable)
 					transparentShader *= (float4){
 						gradients.transparency.s0, gradients.transparency.s1, gradients.transparency.s2, 1.0f};
 				else
@@ -785,6 +786,17 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						texTransparencyIntens.s2, transparentShader.s3};
 				}
 #endif // USE_TRANSPARENCY_TEXTURE
+
+#ifdef USE_PERLIN_NOISE
+				// transparency perlin noise
+				if (shaderInputData.material->perlinNoiseEnable
+						&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
+				{
+					transparentShader.xyz =
+						PerlinNoiseForTransparency(&shaderInputData, transparentShader.xyz, false);
+				}
+#endif // USE_PERLIN_NOISE
+
 #endif // USE_REFRACTION
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
