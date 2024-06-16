@@ -168,7 +168,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 
 #ifdef USE_PERLIN_NOISE
-			PerlinNoiseForShaders(consts, calcParam, &inputCopy, renderData);
+			PerlinNoiseForShaders(consts, calcParam, &inputCopy, renderData, inputCopy.point);
 #endif
 
 			sClGradientsCollection gradients;

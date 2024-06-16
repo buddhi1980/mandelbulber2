@@ -35,11 +35,11 @@
 
 #ifdef USE_PERLIN_NOISE
 void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *calcParam,
-	sShaderInputDataCl *shaderInputData, sRenderData *renderData)
+	sShaderInputDataCl *shaderInputData, sRenderData *renderData, float3 point)
 {
 	if (shaderInputData->material->perlinNoiseEnable)
 	{
-		float3 pointModified = shaderInputData->point;
+		float3 pointModified = point;
 
 #ifdef FRACTALIZE_TEXTURE
 		if (shaderInputData->material->textureFractalize)
