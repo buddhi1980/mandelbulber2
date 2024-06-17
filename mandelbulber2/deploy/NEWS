@@ -3,7 +3,7 @@ Version history
 v2.32 (January 2023)
 TODO check all is finished with escape conditions
 - Added new fractal formulas
-
+   transfJuliabox
 
 
 - modified fractal formulas
@@ -23,6 +23,7 @@ TODO check all is finished with escape conditions
 	 pseudoKleinianMod2, correct UI
 	 pseudoKleinianStdDE, correct z scale and add aux.color
 	 transfDELinearCube, add mix option
+	 transfQuaternionFold, add customDE option
 	 transfScaleVaryV212, fix DE
 	 transfSphericalInv, fix modes
 	 transfSphericalFoldParab, fixed reverse offset and update aux.color
