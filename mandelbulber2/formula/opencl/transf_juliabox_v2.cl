@@ -18,7 +18,7 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfJuliaboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL colorAdd = 0.0f;
 
@@ -36,6 +36,11 @@ REAL4 TransfJuliaboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 	REAL4 zCol = z;
 
+	// offset1
+	if (aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
+		z += fractal->transformCommon.offsetA000;
+
 	// spherical fold
 	REAL rrCol = 0.0f;
 	REAL m = 1.0f;
@@ -43,6 +48,7 @@ REAL4 TransfJuliaboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		REAL rr = dot(z, z);
+		z += fractal->mandelbox.offset;
 		rrCol = rr;
 		if (rr < fractal->transformCommon.minR0)
 			m = fractal->transformCommon.maxMinR0factor;
@@ -50,14 +56,25 @@ REAL4 TransfJuliaboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			m = fractal->transformCommon.maxR2d1 / rr;
 		z *= m;
 		aux->DE *= m;
+		z -= fractal->mandelbox.offset;
 	}
 
 	// scale
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		z *= fractal->transformCommon.scale1;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + fractal->analyticDE.offset0;
+		REAL useScale = 1.0f;
+
+		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
+		z *= useScale;
+		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			aux->actualScaleA = -vary;
+		}
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsR
@@ -67,6 +84,13 @@ REAL4 TransfJuliaboxIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 		z += fractal->transformCommon.additionConstantA000;
+
+	if (fractal->transformCommon.rotation2EnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
