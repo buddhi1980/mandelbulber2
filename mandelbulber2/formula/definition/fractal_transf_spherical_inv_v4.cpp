@@ -6,8 +6,8 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * spherical invert (modes updated v2.15)
- * from M3D. Formula by Luca GN 2011, updated May 2012.
+ * spherical invert v4
+ * from M3D. Baded on formula by Luca GN 2011, updated May 2012.
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */

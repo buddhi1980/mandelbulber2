@@ -6,10 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * ABoxMod15,
- * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Variations from DarkBeam, Buddhi and mclarekin
- * This formula has a c.x c.y SWAP
+ * T>Juliabox
+ * Folds, scaling, rotation and offsets
+ * from Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */

@@ -516,6 +516,7 @@ enum enumFractalFormula
 	transfJuliabox = 1154,
 	transfSphericalInvV4 = 1155,
 	transfJuliaboxV2 = 1156,
+	transfBoxFold4dInfy = 1157,
 
 	// mandelbulber transfdIFS
 	// 2.20
