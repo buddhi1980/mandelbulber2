@@ -584,7 +584,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -676,16 +676,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>analytic DE alternative method</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

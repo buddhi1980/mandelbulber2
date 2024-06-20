@@ -30,6 +30,7 @@ cFractalTransfBoxFold4dInfy::cFractalTransfBoxFold4dInfy() : cAbstractFractal()
 
 void cFractalTransfBoxFold4dInfy::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 oldZ = z;
 	CVector4 size = fractal->transformCommon.offset2222;
 	CVector4 m = size * 4.0;
 
@@ -57,42 +58,37 @@ void cFractalTransfBoxFold4dInfy::FormulaCode(CVector4 &z, const sFractal *fract
 		}
 	}
 	else
-	{/*
-		CVector4 repeatPos = fractal->transformCommon.offsetA1111 * 2.0;
-		CVector4 repeatNeg = fractal->transformCommon.offsetB1111 * 2.0;
+	{
+		CVector4 repeatPos = fractal->transformCommon.offsetA1111 * 0.5;
+		CVector4 repeatNeg = fractal->transformCommon.offsetB1111 * 0.5;
 
-		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5f) * size.x
-				&& z.x > (repeatNeg.x + 0.5f) * -size.x && size.x != 0.0f)
+		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5f) * m.x
+				&& z.x > (repeatNeg.x + 0.5f) * -m.x && size.x != 0.0f)
 		{
 			z.x -= round(z.x / m.x) * m.x;
 			z.x = fabs(z.x + size.x) - fabs(z.x - size.x) - z.x;
 		}
-		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0)
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * m.y
+				&& z.y > (repeatNeg.y + 0.5) * -m.y && size.y != 0.0)
 		{
 			z.y -= round(z.y / m.y) * m.y;
 			z.y = fabs(z.y + size.y) - fabs(z.y - size.y) - z.y;
 		}
-		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0)
+		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5) * m.z
+				&& z.z > (repeatNeg.z + 0.5) * -m.z && size.z != 0.0)
 		{
 			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0)
+		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5) * m.w
+				&& z.w > (repeatNeg.w + 0.5) * -m.w && size.w != 0.0)
 		{
 			z.w -= round(z.w / size.w) * size.w;
-		}**/
+		}
 	}
 
 	if (fractal->analyticDE.enabled)
 	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		else
-		{
-			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		}
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
