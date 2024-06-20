@@ -39,7 +39,7 @@
    <item>
     <widget class="QLabel" name="label_76">
      <property name="text">
-      <string>standard box tiling (3D, plus 4D option)</string>
+      <string>box tiling with folding, if T&gt;box tiling4D produces same image use that one as it is faster</string>
      </property>
     </widget>
    </item>
