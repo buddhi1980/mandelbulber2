@@ -221,14 +221,14 @@ sRGBAFloat cRenderWorker::AuxShadow(
 
 		if (goThrough && dist < dist_thresh)
 		{
-			double opacityGradient = 1.0;
+			double opacityCollected = 1.0;
 			if (material->insideColoringEnable && material->diffuseGradientEnable)
 			{
 				sGradientsCollection gradients;
 				input2.objectId = distanceOut.objectId;
 				input2.point = point2;
 				SurfaceColour(point2, input2, &gradients);
-				opacityGradient = gradients.diffuse.R;
+				opacityCollected = gradients.diffuse.R;
 			}
 
 			float texOpacity = 0.0;
@@ -239,24 +239,23 @@ sRGBAFloat cRenderWorker::AuxShadow(
 					sRGBFloat tex = TextureShader(input2, texture::texTransparencyAlpha, input.material);
 					texOpacity =
 						(1.0f - tex.R) * input.material->transparencyAlphaTextureIntensityVol + 1e-6f;
+					opacityCollected =
+						 opacityCollected * (1.0 - texOpacity) + texOpacity;
 				}
 			}
-
-			float opacityCollected =
-				input.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity) + texOpacity;
 
 			if (input.material->perlinNoiseEnable && input.material->perlinNoiseTransparencyAlphaEnable)
 			{
 				PerlinNoiseForShaders(&input, point2);
 				float alpha = (input.material->perlinNoiseTransparencyColorInvert)
-												? 1.0f - input.perlinNoise
+												? 1.0f - input2.perlinNoise
 												: input2.perlinNoise;
 				alpha = clamp(alpha * input.material->perlinNoiseTransparencyAlphaIntensityVol, 0.0f, 1.0f);
 				alpha = 1.0f - alpha;
 				opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
 			}
 
-			double opacity = (-1.0f + 1.0f / opacityCollected) * step;
+			double opacity = (-1.0f + 1.0f / (opacityCollected * input.material->transparencyOfInterior)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;

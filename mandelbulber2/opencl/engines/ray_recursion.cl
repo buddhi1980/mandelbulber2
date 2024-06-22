@@ -988,14 +988,28 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
 					{
-						transparentColor.xyz =
-							PerlinNoiseForTransparency(&input2, transparentColor.xyz, true);
+						transparentColor.xyz = PerlinNoiseForTransparency(&input2, transparentColor.xyz, true);
 					}
-#endif //USE_PERLIN_NOISE
+#endif // USE_PERLIN_NOISE
 
 					float opacityCollected =
 						shaderInputData.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity)
 						+ texOpacity;
+
+#ifdef USE_PERLIN_NOISE
+					if (shaderInputData.material->perlinNoiseEnable
+							&& shaderInputData.material->perlinNoiseTransparencyAlphaEnable)
+					{
+						float alpha = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
+														? 1.0f - shaderInputData.perlinNoise
+														: input2.perlinNoise;
+						alpha =
+							clamp(alpha * shaderInputData.material->perlinNoiseTransparencyAlphaIntensityVol,
+								0.0f, 1.0f);
+						alpha = 1.0f - alpha;
+						opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
+					}
+#endif
 
 					float opacity = (-1.0f + 1.0f / opacityCollected) * step;
 					if (opacity > 1.0f) opacity = 1.0f;

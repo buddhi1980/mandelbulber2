@@ -70,8 +70,9 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 	bool goThrough = input->material->subsurfaceScattering;
 
-#if defined(USE_SUBSURFACE_SCATTERING) \
-	&& (defined(USE_INNER_COLORING) || defined(USE_TRANSPARENCY_ALPHA_TEXTURE))
+#if defined(USE_SUBSURFACE_SCATTERING)                                       \
+	&& (defined(USE_INNER_COLORING) || defined(USE_TRANSPARENCY_ALPHA_TEXTURE) \
+			|| defined(USE_PERLIN_NOISE))
 	sShaderInputDataCl input2 = *input;
 #endif
 
@@ -281,7 +282,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			float opacityFactor = dot(lightVector, lightVectorUnmodified);
 #endif // MC_SOFT_SHADOWS
 
-			float opacityGradient = 1.0f;
+			float opacityCollected = 1.0f;
 #if defined(USE_INNER_COLORING) && defined(USE_DIFFUSE_GRADIENT)
 			if (material->insideColoringEnable && material->diffuseGradientEnable)
 			{
@@ -289,7 +290,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 				input2.objectId = outF.objectId;
 				input2.point = point2;
 				SurfaceColor(consts, renderData, &input2, calcParam, &gradients);
-				opacityGradient = gradients.diffuse.s0;
+				opacityCollected = gradients.diffuse.s0;
 			}
 #endif // USE_INNER_COLORING && USE_DIFFUSE_GRADIENT
 
@@ -301,13 +302,26 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 					input2.material->transparencyAlphaTextureIndex, 1.0f);
 				texOpacity =
 					(1.0f - tex.s0) * input2.material->transparencyAlphaTextureIntensityVol + 1e-6f;
+				opacityCollected =
+					opacityCollected * (1.0 - texOpacity) + texOpacity;
 			}
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 
-			float opacityCollected =
-				input->material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity) + texOpacity;
+#ifdef USE_PERLIN_NOISE
+			if (input->material->perlinNoiseEnable && input->material->perlinNoiseTransparencyAlphaEnable)
+			{
+				PerlinNoiseForShaders(consts, calcParam, &input2, renderData, point2);
+				float alpha = (input->material->perlinNoiseTransparencyColorInvert)
+												? 1.0f - input2.perlinNoise
+												: input2.perlinNoise;
+				alpha =
+					clamp(alpha * input->material->perlinNoiseTransparencyAlphaIntensityVol, 0.0f, 1.0f);
+				alpha = 1.0f - alpha;
+				opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
+			}
+#endif
 
-			float opacity = (-1.0f + 1.0f / opacityCollected) * step;
+			float opacity = (-1.0f + 1.0f / (opacityCollected * input->material->transparencyOfInterior)) * step;
 
 #ifdef MC_SOFT_SHADOWS
 			opacity *= opacityFactor;
