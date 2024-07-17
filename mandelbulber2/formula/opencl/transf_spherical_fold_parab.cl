@@ -84,7 +84,41 @@ REAL4 TransfSphericalFoldParabIteration(
 	}
 
 	REAL useScale = fractal->transformCommon.scaleA1;
-	if (fractal->transformCommon.functionEnabledXFalse
+	if (fractal->transformCommon.functionEnabledXFalse)
+	{
+		if (aux->i >= fractal->transformCommon.startIterationsA
+				&& aux->i < fractal->transformCommon.stopIterationsA)
+		{
+			useScale += aux->actualScaleA;
+			z *= useScale;
+
+			aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+			// update actualScale for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
+			if (fractal->transformCommon.functionEnabledMFalse)
+				aux->actualScaleA = -vary;
+			else
+				aux->actualScaleA = aux->actualScaleA - vary;
+		}
+		else
+		{
+			if (!fractal->transformCommon.functionEnabledYFalse)
+			{
+				z *= useScale;
+				aux->DE =
+					aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+			}
+		}
+	}
+	else
+	{
+		z *= useScale;
+		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+	/*if (fractal->transformCommon.functionEnabledXFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
@@ -105,7 +139,7 @@ REAL4 TransfSphericalFoldParabIteration(
 	{
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-	}
+	}*/
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)

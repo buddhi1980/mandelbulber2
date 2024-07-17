@@ -63,17 +63,31 @@ REAL4 TransfJuliaboxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		REAL useScale = 1.0f;
 
-		useScale = (aux->actualScaleA + fractal->transformCommon.scale1);
-		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) + fractal->analyticDE.offset0;
-		if (fractal->transformCommon.functionEnabledKFalse)
+		if (!fractal->transformCommon.functionEnabledKFalse)
 		{
-			// update actualScaleA for next iteration
-			REAL vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			aux->actualScaleA = -vary;
+			z *= fractal->transformCommon.scale;
+			aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + fractal->analyticDE.offset1;
+		}
+		else
+		{
+			REAL tempVC = fractal->transformCommon.scale; // constant to be varied
+			if (aux->i >= fractal->transformCommon.startIterations
+				&& aux->i < fractal->transformCommon.stopIterations
+				&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
+					!= 0))
+			{
+				int iterationRange =
+				fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
+				int currentIteration = (aux->i - fractal->transformCommon.startIterations);
+				tempVC += fractal->transformCommon.offset0 * (1.0f * currentIteration) / iterationRange;
+			}
+			if (aux->i >= fractal->transformCommon.stopIterations)
+			{
+				tempVC = (tempVC + fractal->transformCommon.offset0);
+			}
+			z *= tempVC;
+			aux->DE = aux->DE * fabs(tempVC) + fractal->analyticDE.offset1;
 		}
 	}
 

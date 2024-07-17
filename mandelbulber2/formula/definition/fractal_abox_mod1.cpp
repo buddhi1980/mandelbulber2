@@ -64,7 +64,9 @@ void cFractalAboxMod1::FormulaCode(CVector4 &z, const sFractal *fractal, sExtend
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
 	{
 		rr = pow(rr, fractal->mandelboxVary4D.rPower);
 	}

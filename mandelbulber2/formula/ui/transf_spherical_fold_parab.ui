@@ -792,6 +792,13 @@ offset:</string>
           </widget>
          </item>
          <item>
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledY_false">
+           <property name="text">
+            <string>mode 2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,1">
            <property name="spacing">
             <number>2</number>

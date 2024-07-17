@@ -8,12 +8,14 @@ TODO check all is finished with escape conditions
 
 - modified fractal formulas
    aboxModKali, added aux.color
+	 aboxMod1, add R power iter controls
    aboxMod13, add missing xyz plane checkbox
 	 amazingSurfMulti, fix enable aux.color
 	 benesiPineTree, rework code
 	 benesiT1PineTree, remove post offset iter controls (no code)
 	 josKleinian, added more aux.color
 	 mandelboxMenger, z.z scale now works with rotation of separate planes
+	 mandelboxVaryScale4d, add missing parab checkbox
 	 menger4d, added aux.color
 	 menger4dMod1, added aux.color
 	 menger4dMod2, added aux.color
@@ -26,7 +28,7 @@ TODO check all is finished with escape conditions
 	 transfQuaternionFold, add customDE option
 	 transfScaleVaryV212, fix DE
 	 transfSphericalInv, fix modes
-	 transfSphericalFoldParab, fixed reverse offset and update aux.color
+	 transfSphericalFoldParab, fixed reverse offset, update aux.color, add mode 2
 	 transfSphericalFoldXYZBias, correct and update aux.color
 	 transfSurfBoxFold, fix and update aux.color
 	 transfSurfFoldMulti, fix and update aux.color
