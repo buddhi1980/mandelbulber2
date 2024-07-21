@@ -49,7 +49,6 @@ typedef struct
 	cl_int id;
 	cl_int textureFractalizeStartIteration;
 	cl_int perlinNoiseIterations;
-	cl_int perlinNoiseRandomSeed;
 
 	cl_float shading;
 	cl_float specular;
@@ -98,7 +97,6 @@ typedef struct
 	cl_float3 transparencyColor;
 
 	cl_float3 textureCenter;
-	cl_float3 textureRotation;
 	cl_float3 textureScale;
 	cl_float3 perlinNoisePeriod;
 
@@ -172,7 +170,6 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.id = source.id;
 	target.textureFractalizeStartIteration = source.textureFractalizeStartIteration;
 	target.perlinNoiseIterations = source.perlinNoiseIterations;
-	target.perlinNoiseRandomSeed = source.perlinNoiseRandomSeed;
 
 	target.shading = source.shading;
 	target.specular = source.specular;
@@ -221,11 +218,10 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.transparencyColor = toClFloat3(source.transparencyColor);
 
 	target.textureCenter = toClFloat3(source.textureCenter);
-	target.textureRotation = toClFloat3(source.textureRotation);
 	target.textureScale = toClFloat3(source.textureScale);
 	target.perlinNoisePeriod = toClFloat3(source.perlinNoisePeriod);
 
-	target.rotMatrix = toClMatrix33(source.rotMatrix);
+	target.rotMatrix = toClMatrix33(source.rotMatrixTexture);
 
 	target.textureMappingType = static_cast<enumTextureMappingCl>(source.textureMappingType);
 	target.fresnelReflectance = source.fresnelReflectance;

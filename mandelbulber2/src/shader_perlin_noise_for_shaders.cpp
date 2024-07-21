@@ -29,18 +29,19 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cRenderWorker::PerlinNoiseForShaders method - calculates of perlin noise for shaders
+ * cRenderWorker::PerlinNoiseForShaders method - calculates of perlin noise for
+ * shaders
  *
  */
 
 #include "shader_perlin_noise_for_shaders.hpp"
 #include "common_math.h"
-#include "render_worker.hpp"
-#include "material.h"
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "material.h"
 #include "perlin_noise_octaves.h"
 #include "render_data.hpp"
+#include "render_worker.hpp"
 
 void cRenderWorker::PerlinNoiseForShaders(
 	sShaderInputData *shaderInputData, const CVector3 &point) const
@@ -59,10 +60,16 @@ void cRenderWorker::PerlinNoiseForShaders(
 		{
 			pointModified = point;
 		}
+
+		pointModified = shaderInputData->material->rotMatrixPerlinNoise.RotateVector(pointModified);
+
 		float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
 			pointModified.x / shaderInputData->material->perlinNoisePeriod.x,
 			pointModified.y / shaderInputData->material->perlinNoisePeriod.y,
-			pointModified.z / shaderInputData->material->perlinNoisePeriod.z, 0.0, 0.0, 0.0,
+			pointModified.z / shaderInputData->material->perlinNoisePeriod.z,
+			shaderInputData->material->perlinNoisePositionOffset.x,
+			shaderInputData->material->perlinNoisePositionOffset.y,
+			shaderInputData->material->perlinNoisePositionOffset.z,
 			shaderInputData->material->perlinNoiseIterations);
 		perlin += shaderInputData->material->perlinNoiseValueOffset;
 		if (shaderInputData->material->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
@@ -153,9 +160,12 @@ double PerlinNoiseDisplacement(
 		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
 		if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 		{
-			float perlin = data->perlinNoise->normalizedOctaveNoise3D_0_1(
-				point.x / mat->perlinNoisePeriod.x, point.y / mat->perlinNoisePeriod.y,
-				point.z / mat->perlinNoisePeriod.z, 0.0, 0.0, 0.0, mat->perlinNoiseIterations);
+			CVector3 pointModified = mat->rotMatrixPerlinNoise.RotateVector(point);
+			float perlin =
+				data->perlinNoise->normalizedOctaveNoise3D_0_1(pointModified.x / mat->perlinNoisePeriod.x,
+					pointModified.y / mat->perlinNoisePeriod.y, pointModified.z / mat->perlinNoisePeriod.z,
+					mat->perlinNoisePositionOffset.x, mat->perlinNoisePositionOffset.y,
+					mat->perlinNoisePositionOffset.z, mat->perlinNoiseIterations);
 			if (mat->perlinNoiseAbs) perlin = fabs(perlin - 0.5) * 2.0;
 
 			perlin += mat->perlinNoiseValueOffset;

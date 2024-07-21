@@ -128,9 +128,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-3388</y>
+        <y>-4137</y>
         <width>472</width>
-        <height>5125</height>
+        <height>5252</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -5428,7 +5428,7 @@ rotation:</string>
                <string/>
               </property>
               <property name="decimals">
-               <number>2</number>
+               <number>4</number>
               </property>
               <property name="minimum">
                <double>-180.000000000000000</double>
@@ -5459,7 +5459,7 @@ rotation:</string>
                <string/>
               </property>
               <property name="decimals">
-               <number>2</number>
+               <number>4</number>
               </property>
               <property name="minimum">
                <double>-180.000000000000000</double>
@@ -5490,7 +5490,7 @@ rotation:</string>
                <string/>
               </property>
               <property name="decimals">
-               <number>2</number>
+               <number>4</number>
               </property>
               <property name="minimum">
                <double>-180.000000000000000</double>
@@ -5546,33 +5546,18 @@ object size)</string>
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="0" column="2">
-             <widget class="MySpinBox" name="spinboxInt_perlin_noise_iterations">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>100</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_y"/>
-            </item>
-            <item row="2" column="0" rowspan="3">
-             <widget class="QLabel" name="label_115">
+            <item row="4" column="0" rowspan="3">
+             <widget class="QLabel" name="label_402">
               <property name="text">
-               <string>Noise period:</string>
+               <string>Noise position
+offset:</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0" colspan="3">
+            <item row="1" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_x"/>
+            </item>
+            <item row="11" column="0" colspan="3">
              <widget class="MyCheckBox" name="checkBox_perlin_noise_abs">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5585,38 +5570,15 @@ object size)</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="label_135">
+            <item row="5" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_y"/>
+            </item>
+            <item row="1" column="0" rowspan="3">
+             <widget class="QLabel" name="label_115">
               <property name="text">
-               <string>x</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <string>Noise period:</string>
               </property>
              </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_111">
-              <property name="text">
-               <string>Random seed:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="MySpinBox" name="spinboxInt_perlin_noise_random_seed">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximum">
-               <number>100000</number>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_x"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_6">
@@ -5625,37 +5587,38 @@ object size)</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Value offset</string>
+            <item row="7" column="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_perlin_noise_rotation_x">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>4</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="label_137">
-              <property name="text">
-               <string>z</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="label_136">
-              <property name="text">
-               <string>y</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="2">
-             <widget class="MyLineEdit" name="vect3_perlin_noise_period_z"/>
-            </item>
-            <item row="5" column="2">
+            <item row="10" column="2">
              <widget class="MyDoubleSpinBox" name="spinbox_perlin_noise_value_offset">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5683,6 +5646,189 @@ object size)</string>
               </property>
               <property name="singleStep">
                <double>0.100000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="label_137">
+              <property name="text">
+               <string>z:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="label_408">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>z:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="label_136">
+              <property name="text">
+               <string>y:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_y"/>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Value offset</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="label_406">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>x:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="MySpinBox" name="spinboxInt_perlin_noise_iterations">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="label_407">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>y:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_z"/>
+            </item>
+            <item row="8" column="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_perlin_noise_rotation_y">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>4</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_period_z"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="label_135">
+              <property name="text">
+               <string>x:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="MyLineEdit" name="vect3_perlin_noise_position_offset_x"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_perlin_noise_rotation_z">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>4</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" rowspan="3">
+             <widget class="QLabel" name="label_409">
+              <property name="text">
+               <string>Noise
+rotation:</string>
               </property>
              </widget>
             </item>

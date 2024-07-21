@@ -726,8 +726,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 			"mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	}
 	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
-	par->addParam(
-		"mandelbox_color_4D", CVector4(0.03, 0.05, 0.07, 0.0), morphLinear, paramStandard); //  to fix
+	par->addParam("mandelbox_color_4D", CVector4(0.03, 0.05, 0.07, 0.0), morphLinear,
+		paramStandard); //  to fix
 	par->addParam("mandelbox_color_R", 0.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_color_Sp1", 0.2, morphLinear, paramStandard);
 	par->addParam("mandelbox_color_Sp2", 0.2, morphLinear, paramStandard);
@@ -1242,7 +1242,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("transf_sphere_inversion_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_spheres_enabled", true, morphLinear, paramStandard);
 
-	// par->addParam("transf_function_enabled_temp_false", false, morphLinear, paramStandard);
+	// par->addParam("transf_function_enabled_temp_false", false, morphLinear,
+	// paramStandard);
 
 	// platonic_solid
 
@@ -1256,7 +1257,8 @@ void InitFractalParams(std::shared_ptr<cParameterContainer> par)
 	// parameters for coustom formulas
 
 	QString emptyCode =
-		"REAL4 CustomIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)\n"
+		"REAL4 CustomIteration(REAL4 z, __constant sFractalCl "
+		"*fractal, sExtendedAuxCl *aux)\n"
 		"{\n"
 		"\treturn z;\n"
 		"}\n";
@@ -1459,7 +1461,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(cMaterial::Name("fractal_coloring_add_start_value", materialId), 0.0, 0.0, 1e20,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
-		int(fractalColoring_Standard), 0, 4, morphNone, paramStandard); // = 0,0,4
+		int(fractalColoring_Standard), 0, 4, morphNone,
+		paramStandard); // = 0,0,4
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphNone,
 		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, -1e20,
@@ -1555,7 +1558,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false, morphNone,
 		paramStandard); // TODO remove when finished
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId), CVector3(1.0, 1.0, 1.0),
-		morphAkima, paramStandard); // vec4??
+		morphAkima,
+		paramStandard); // vec4??
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_div_1e13_false", materialId), false,
@@ -1571,7 +1575,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_z_sqrd_enabled_false", materialId), false,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyzC_111", materialId), CVector3(1.0, 1.0, 1.0),
-		morphAkima, paramStandard); // vec4??
+		morphAkima,
+		paramStandard); // vec4??
 	par->addParam(
 		cMaterial::Name("fresnel_reflectance", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("inside_coloring", materialId), false, morphLinear, paramStandard);
@@ -1604,9 +1609,11 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		cMaterial::Name("perlin_noise_enable", materialId), false, morphNone, paramStandard);
 	par->addParam(
 		cMaterial::Name("perlin_noise_iterations", materialId), 5, 0, 100, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("perlin_noise_random_seed", materialId), 12345, 0, 100000,
-		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_period", materialId), CVector3(1.0, 1.0, 1.0),
+		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_position_offset", materialId),
+		CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("perlin_noise_rotation", materialId), CVector3(0.0, 0.0, 0.0),
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_value_offset", materialId), 0.0, -1.0, 1.0,
 		morphAkima, paramStandard);
@@ -1754,7 +1761,8 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 		cMaterial::Name("transparency_gradient_enable", materialId), false, morphLinear, paramStandard);
 
 	par->addParam(cMaterial::Name("surface_color_gradient", materialId),
-		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 "
+		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 "
+						"0b5e87 5000 c68876 6000 a51c64 7000 "
 						"3b9fee "
 						"8000 d4ffd4 9000 aba53c"),
 		morphLinear, paramStandard);

@@ -102,7 +102,6 @@ cMaterial::cMaterial()
 	transparencyGradientEnable = false;
 	perlinNoiseEnable = false;
 	perlinNoiseIterations = 0;
-	perlinNoiseRandomSeed = 0;
 	perlinNoiseValueOffset = 0.0f;
 	perlinNoiseColorIntensity = 0.0f;
 	perlinNoiseLuminosityIntensity = 0.0f;
@@ -231,8 +230,9 @@ QStringList cMaterial::paramsList = {
 	"normal_map_texture_invert_green",
 	"perlin_noise_enable",
 	"perlin_noise_iterations",
-	"perlin_noise_random_seed",
 	"perlin_noise_period",
+	"perlin_noise_position_offset",
+	"perlin_noise_rotation",
 	"perlin_noise_value_offset",
 	"perlin_noise_abs",
 	"perlin_noise_color_enable",
@@ -374,7 +374,6 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 	transparencyGradientEnable = materialParam->Get<bool>(Name("transparency_gradient_enable", id));
 
 	textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
-	textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));
 	textureScale = materialParam->Get<CVector3>(Name("texture_scale", id));
 	if (textureScale.x < 1e-20) textureScale.x = 1e-20;
 	if (textureScale.y < 1e-20) textureScale.y = 1e-20;
@@ -565,8 +564,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 
 	perlinNoiseEnable = materialParam->Get<bool>(Name("perlin_noise_enable", id));
 	perlinNoiseIterations = materialParam->Get<int>(Name("perlin_noise_iterations", id));
-	perlinNoiseRandomSeed = materialParam->Get<int>(Name("perlin_noise_random_seed", id));
 	perlinNoisePeriod = materialParam->Get<CVector3>(Name("perlin_noise_period", id));
+	perlinNoisePositionOffset = materialParam->Get<CVector3>(Name("perlin_noise_position_offset", id));
 	perlinNoiseValueOffset = materialParam->Get<float>(Name("perlin_noise_value_offset", id));
 	perlinNoiseAbs = materialParam->Get<bool>(Name("perlin_noise_abs", id));
 	perlinNoiseColorEnable = materialParam->Get<bool>(Name("perlin_noise_color_enable", id));
@@ -703,7 +702,8 @@ void cMaterial::setParameters(int _id, const std::shared_ptr<cParameterContainer
 		//		}
 	}
 
-	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
+	rotMatrixTexture.SetRotation2(materialParam->Get<CVector3>(Name("texture_rotation", id)) / 180.0 * M_PI);
+	rotMatrixPerlinNoise.SetRotation2(materialParam->Get<CVector3>(Name("perlin_noise_rotation", id)) / 180.0 * M_PI);
 }
 
 void CreateMaterialsMap(const std::shared_ptr<cParameterContainer> params,

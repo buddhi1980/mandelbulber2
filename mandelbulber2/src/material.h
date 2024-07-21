@@ -70,7 +70,6 @@ public:
 	int id;
 	int textureFractalizeStartIteration;
 	int perlinNoiseIterations;
-	int perlinNoiseRandomSeed;
 
 	float shading;
 	float specular;
@@ -137,11 +136,12 @@ public:
 	cTexture roughnessTexture;
 
 	CVector3 textureCenter;
-	CVector3 textureRotation;
 	CVector3 textureScale;
 	CVector3 perlinNoisePeriod;
+	CVector3 perlinNoisePositionOffset;
 
-	CRotationMatrix rotMatrix;
+	CRotationMatrix rotMatrixTexture;
+	CRotationMatrix rotMatrixPerlinNoise;
 
 	texture::enumTextureMapping textureMappingType;
 	bool fresnelReflectance;
