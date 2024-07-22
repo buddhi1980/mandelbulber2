@@ -51,10 +51,14 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 		}
 #endif
 
+		pointModified =
+			Matrix33MulFloat3(shaderInputData->material->rotMatrixPerlinNoise, pointModified);
+
 		float perlin = NormalizedOctavePerlinNoise3D_0_1(
 			pointModified.x / shaderInputData->material->perlinNoisePeriod.x,
 			pointModified.y / shaderInputData->material->perlinNoisePeriod.y,
-			pointModified.z / shaderInputData->material->perlinNoisePeriod.z, 0.0f,
+			pointModified.z / shaderInputData->material->perlinNoisePeriod.z,
+			shaderInputData->material->perlinNoisePositionOffset,
 			shaderInputData->material->perlinNoiseIterations, renderData->perlinNoiseSeeds);
 
 		perlin += shaderInputData->material->perlinNoiseValueOffset;
@@ -148,9 +152,11 @@ float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderD
 
 	if (mat->perlinNoiseEnable && mat->perlinNoiseDisplacementEnable)
 	{
-		float perlin = NormalizedOctavePerlinNoise3D_0_1(point.x / mat->perlinNoisePeriod.x,
-			point.y / mat->perlinNoisePeriod.y, point.z / mat->perlinNoisePeriod.z, 0.0f,
-			mat->perlinNoiseIterations, renderData->perlinNoiseSeeds);
+		float3 pointModified = Matrix33MulFloat3(mat->rotMatrixPerlinNoise, point);
+
+		float perlin = NormalizedOctavePerlinNoise3D_0_1(pointModified.x / mat->perlinNoisePeriod.x,
+			pointModified.y / mat->perlinNoisePeriod.y, pointModified.z / mat->perlinNoisePeriod.z,
+			mat->perlinNoisePositionOffset, mat->perlinNoiseIterations, renderData->perlinNoiseSeeds);
 
 		perlin += mat->perlinNoiseValueOffset;
 

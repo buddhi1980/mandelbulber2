@@ -99,8 +99,10 @@ typedef struct
 	cl_float3 textureCenter;
 	cl_float3 textureScale;
 	cl_float3 perlinNoisePeriod;
+	cl_float3 perlinNoisePositionOffset;
 
-	matrix33 rotMatrix;
+	matrix33 rotMatrixTexture;
+	matrix33 rotMatrixPerlinNoise;
 
 	enumTextureMappingCl textureMappingType;
 	cl_int fresnelReflectance;
@@ -220,8 +222,10 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.textureCenter = toClFloat3(source.textureCenter);
 	target.textureScale = toClFloat3(source.textureScale);
 	target.perlinNoisePeriod = toClFloat3(source.perlinNoisePeriod);
+	target.perlinNoisePositionOffset = toClFloat3(source.perlinNoisePositionOffset);
 
-	target.rotMatrix = toClMatrix33(source.rotMatrixTexture);
+	target.rotMatrixTexture = toClMatrix33(source.rotMatrixTexture);
+	target.rotMatrixPerlinNoise = toClMatrix33(source.rotMatrixPerlinNoise);
 
 	target.textureMappingType = static_cast<enumTextureMappingCl>(source.textureMappingType);
 	target.fresnelReflectance = source.fresnelReflectance;

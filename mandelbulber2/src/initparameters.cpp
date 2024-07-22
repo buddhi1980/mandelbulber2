@@ -1612,7 +1612,7 @@ void InitMaterialParams(int materialId, std::shared_ptr<cParameterContainer> par
 	par->addParam(cMaterial::Name("perlin_noise_period", materialId), CVector3(1.0, 1.0, 1.0),
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_position_offset", materialId),
-		CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+		CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_rotation", materialId), CVector3(0.0, 0.0, 0.0),
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("perlin_noise_value_offset", materialId), 0.0, -1.0, 1.0,

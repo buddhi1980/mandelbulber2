@@ -47,7 +47,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 		point /= objectData->size;
 	}
 
-	point = Matrix33MulFloat3(material->rotMatrix, point);
+	point = Matrix33MulFloat3(material->rotMatrixTexture, point);
 	normalVector = Matrix33MulFloat3(objectData->rotationMatrix, normalVector);
 
 	switch (material->textureMappingType)
@@ -67,12 +67,12 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			{
 				float3 texX = (float3){1.0f, 0.0f, 0.0f};
 				texX = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texX);
-				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texX);
+				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texX);
 				*textureVectorX = texX;
 
 				float3 texY = (float3){0.0f, -1.0f, 0.0f};
 				texY = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texY);
-				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
+				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texY);
 				*textureVectorY = texY;
 			}
 #endif
@@ -97,10 +97,10 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				float3 texY = (float3){0.0f, 0.0f, 1.0f};
 				float3 texX = cross(point, texY);
 				texX = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texX);
-				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texX);
+				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texX);
 				*textureVectorX = texX;
 				texY = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texY);
-				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
+				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texY);
 				*textureVectorY = texY;
 			}
 #endif
@@ -129,10 +129,10 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				texY = cross(texX, point);
 
 				texX = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texX);
-				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texX);
+				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texX);
 				*textureVectorX = texX;
 				texY = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texY);
-				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
+				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texY);
 				*textureVectorY = texY;
 			}
 #endif
@@ -254,10 +254,10 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			if (textureVectorX && textureVectorY)
 			{
 				texX = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texX);
-				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texX);
+				texX = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texX);
 				*textureVectorX = texX;
 				texY = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texY);
-				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
+				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrixTexture), texY);
 				*textureVectorY = texY;
 			}
 #endif
