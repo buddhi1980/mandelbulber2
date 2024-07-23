@@ -168,7 +168,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 
 		z = tempZ * 2.0 - z;
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-		z *= k;
+		z *= -k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
 		aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
@@ -186,7 +186,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 		if (z.z < -cSize.z) z.z = -cSize.z * 2.0 - z.z;
 
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-		z *= k;
+		z *= -k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
 		aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
