@@ -132,13 +132,13 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 
-		z += fractal->transformCommon.offsetA000;
+	//	z += fractal->transformCommon.offsetA000;
 	}
 
 	// Pseudo kleinian
 	REAL k = 1.0f;
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
-	if (fractal->transformCommon.functionEnabledAy
+	if (fractal->transformCommon.functionEnabledAw
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
@@ -237,7 +237,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL ee = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.y;
 
-			if (!fractal->transformCommon.functionEnabledAxFalse)
+			if (!fractal->transformCommon.functionEnabledOFalse)
 			{
 				bb = bb + cc;
 				dd = dd + ee;

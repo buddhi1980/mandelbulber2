@@ -64,7 +64,8 @@ REAL4 TransfSphericalFoldParabIteration(
 		REAL tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			m = maxScale - (rr * rr) * factor;
+			if (!fractal->transformCommon.functionEnabledOFalse) m = maxScale - (rr * rr) * factor;
+			else m = 1.0f + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
@@ -117,29 +118,6 @@ REAL4 TransfSphericalFoldParabIteration(
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
-
-	/*if (fractal->transformCommon.functionEnabledXFalse
-			&& aux->i >= fractal->transformCommon.startIterationsA
-			&& aux->i < fractal->transformCommon.stopIterationsA)
-	{
-		useScale += aux->actualScaleA;
-		z *= useScale;
-
-		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
-		// update actualScale for next iteration
-		REAL vary = fractal->transformCommon.scaleVary0
-								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux->actualScaleA = -vary;
-		else
-			aux->actualScaleA = aux->actualScaleA - vary;
-	}
-	else
-	{
-		z *= useScale;
-		aux->DE = aux->DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-	}*/
 
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)

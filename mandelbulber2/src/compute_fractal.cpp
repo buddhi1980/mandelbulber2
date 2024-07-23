@@ -346,8 +346,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						if (len < colorMin) colorMin = len;
 						if (aux.r > fractals.GetBailout(sequence)) break;
 
-						if (fractals.UseAdditionalBailoutCond(sequence) && (z - lastZ).Length() / aux.r < 1e-15)
-							break;
+		//				if (fractals.UseAdditionalBailoutCond(sequence) && (z - lastZ).Length() / aux.r < 1e-15)
+		//					break;
 					}
 					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
 					{

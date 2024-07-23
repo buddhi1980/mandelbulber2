@@ -75,7 +75,8 @@ void cFractalTransfSphericalFoldParab::FormulaCode(
 		double tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			m = maxScale - (rr * rr) * factor;
+			if (!fractal->transformCommon.functionEnabledOFalse) m = maxScale - (rr * rr) * factor;
+			else m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m;

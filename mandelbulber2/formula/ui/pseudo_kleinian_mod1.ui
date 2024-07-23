@@ -1778,7 +1778,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAy">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAw">
      <property name="font">
       <font>
        <weight>75</weight>
@@ -3729,7 +3729,7 @@
           </widget>
          </item>
          <item>
-          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
            </property>
@@ -4095,7 +4095,7 @@
   <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
   <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
   <tabstop>groupCheck_transf_function_enabledF_false</tabstop>
-  <tabstop>groupCheck_transf_function_enabledAy</tabstop>
+  <tabstop>groupCheck_transf_function_enabledAw</tabstop>
   <tabstop>groupCheck_transf_function_enabledAy_false</tabstop>
   <tabstop>spinbox_transf_minimum_radius_05</tabstop>
   <tabstop>spinbox_analyticDE_tweak_005</tabstop>
