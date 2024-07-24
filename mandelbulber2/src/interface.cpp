@@ -615,7 +615,12 @@ void cInterface::StartRender(bool noUndo)
 	{
 		WriteLog("cInterface::StartRender(void) - image was used by another instance", 2);
 		bool isStopped = StopRender();
-		if (!isStopped) return;
+		if (!isStopped)
+		{
+			mainWindow->manipulations->DecreaseNumberOfStartedRenders();
+			mainWindow->currentKeyEvents.clear();
+			return;
+		}
 
 		while (mainImage->IsUsed())
 		{
@@ -717,6 +722,7 @@ bool cInterface::StopRender()
 			case QMessageBox::Cancel:
 			{
 				// nothing
+				stopRequest = false;
 				return false;
 				break;
 			}
