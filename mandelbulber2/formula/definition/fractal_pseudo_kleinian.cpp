@@ -151,13 +151,13 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			double Size = 2.0 * cSize.x * fractal->transformCommon.scale3D111.x;
+			double Size = 2.0 * cSize.x * fractal->transformCommon.constantMultiplier111.x;
 			double bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
 			double dd = ((aux.const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
-			Size = 2.0 * cSize.y * fractal->transformCommon.scale3D111.y;
+			Size = 2.0 * cSize.y * fractal->transformCommon.constantMultiplier111.y;
 			double cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
 			double ee = ((aux.const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
@@ -176,7 +176,7 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			}
 
 			if (fractal->transformCommon.functionEnabledAFalse)
-			{	Size = 2.0 * cSize.z * fractal->transformCommon.scale3D111.z;
+			{	Size = 2.0 * cSize.z * fractal->transformCommon.constantMultiplier111.z;
 				double aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
 				bb = bb + aa;

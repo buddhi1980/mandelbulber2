@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -2069,7 +2072,7 @@ offset</string>
             <number>2</number>
            </property>
            <item row="0" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_x">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -2218,7 +2221,7 @@ offset</string>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_y">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -2366,7 +2369,7 @@ offset</string>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_z">
+               <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_111_z">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -2761,12 +2764,12 @@ offset</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>119</x>
-     <y>522</y>
+     <x>126</x>
+     <y>552</y>
     </hint>
     <hint type="destinationlabel">
-     <x>389</x>
-     <y>637</y>
+     <x>456</x>
+     <y>667</y>
     </hint>
    </hints>
   </connection>
@@ -2777,12 +2780,12 @@ offset</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>1445</y>
+     <x>14</x>
+     <y>1473</y>
     </hint>
     <hint type="destinationlabel">
-     <x>219</x>
-     <y>1419</y>
+     <x>196</x>
+     <y>1446</y>
     </hint>
    </hints>
   </connection>

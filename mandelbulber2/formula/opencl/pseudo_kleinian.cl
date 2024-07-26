@@ -141,13 +141,13 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			REAL Size = 2.0 * cSize.x * fractal->transformCommon.scale3D111.x;
+			REAL Size = 2.0 * cSize.x * fractal->transformCommon.constantMultiplier111.x;
 			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
 			REAL dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
-			Size = 2.0 * cSize.y * fractal->transformCommon.scale3D111.y;
+			Size = 2.0 * cSize.y * fractal->transformCommon.constantMultiplier111.y;
 			REAL cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
 			REAL ee = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
@@ -166,7 +166,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 			if (fractal->transformCommon.functionEnabledAFalse)
 			{
-				Size = 2.0 * cSize.z * fractal->transformCommon.scale3D111.z;
+				Size = 2.0 * cSize.z * fractal->transformCommon.constantMultiplier111.z;
 				REAL aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
 				bb = bb + aa;
