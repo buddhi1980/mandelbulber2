@@ -2916,23 +2916,17 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <widget class="MyGroupBox" name="checkBox_transf_function_enabled_false">
-        <property name="font">
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
+       <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
         <property name="toolTip">
          <string/>
         </property>
         <property name="title">
-         <string>aBox tw&amp;eak</string>
+         <string>Box tw&amp;eak</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_38" stretch="0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_50">
          <property name="spacing">
           <number>2</number>
          </property>

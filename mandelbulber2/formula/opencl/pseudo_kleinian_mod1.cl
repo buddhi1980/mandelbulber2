@@ -156,7 +156,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		z = tempZ * 2.0f - z;
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-		z *= -k;
+		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
 		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
 	}
@@ -174,7 +174,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		if (z.z < -cSize.z) z.z = -cSize.z * 2.0f - z.z;
 
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-		z *= -k;
+		z *= k;
 		aux->DE *= k + fractal->analyticDE.tweak005;
 		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}

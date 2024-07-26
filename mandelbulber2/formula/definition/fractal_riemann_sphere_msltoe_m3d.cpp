@@ -52,7 +52,7 @@ void cFractalRiemannSphereMsltoeM3d::FormulaCode(
 		w = 2.0 / (1.0 + s * s + t * t);
 		z.x = r * s * w;
 		z.y = r * t * w;
-		z.z = r * (1.0f - w);
+		z.z = r * (1.0 - w);
 		z += fractal->transformCommon.offset001;
 	}
 }
