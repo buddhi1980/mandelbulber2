@@ -305,7 +305,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		DisplacementMap(out.distance, pointFractalized, out.objectId, renderData, reduceDisplacement);
 #endif // USE_DISPLACEMENT_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 	out.distance = PerlinNoiseDisplacement(out.distance, pointFractalized, renderData, out.objectId);
 #endif // USE_PERLIN_NOISE
 
@@ -389,7 +389,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		dist = DisplacementMap(dist, pointFractalized, out.objectId, renderData, reduceDisplacement);
 #endif // USE_DISPLACEMENT_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 		dist = PerlinNoiseDisplacement(dist, pointFractalized, renderData, out.objectId);
 #endif // USE_PERLIN_NOISE
 	}
@@ -420,7 +420,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, renderData, reduceDisplacement);
 #endif
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 			distTemp = PerlinNoiseDisplacement(distTemp, pointFractalized, renderData, i + 1);
 #endif // USE_PERLIN_NOISE
 

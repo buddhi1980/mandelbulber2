@@ -791,6 +791,12 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasReflectanceGradient = false;
 	bool anyMaterialHasTransparencyGradient = false;
 	bool anyMaterialHasPerlin = false;
+	bool anyMaterialHasPerlinColor = false;
+	bool anyMaterialHasPerlinLuminosity = false;
+	bool anyMaterialHasPerlinReflectance = false;
+	bool anyMaterialHasPerlinTransparencyAlpha = false;
+	bool anyMaterialHasPerlinTransparencyColor = false;
+	bool anyMaterialHasPerlinDisplacement = false;
 
 	for (auto const &materialPair : renderData->materials) // for each material from materials
 	{
@@ -816,6 +822,12 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		if (material.reflectanceGradientEnable) anyMaterialHasReflectanceGradient = true;
 		if (material.transparencyGradientEnable) anyMaterialHasTransparencyGradient = true;
 		if (material.perlinNoiseEnable) anyMaterialHasPerlin = true;
+		if (material.perlinNoiseColorEnable) anyMaterialHasPerlinColor = true;
+		if (material.perlinNoiseDisplacementEnable) anyMaterialHasPerlinDisplacement = true;
+		if (material.perlinNoiseLuminosityEnable) anyMaterialHasPerlinLuminosity = true;
+		if (material.perlinNoiseReflectanceEnable) anyMaterialHasPerlinReflectance = true;
+		if (material.perlinNoiseTransparencyColorEnable) anyMaterialHasPerlinTransparencyColor = true;
+		if (material.perlinNoiseTransparencyAlphaEnable) anyMaterialHasPerlinTransparencyAlpha = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 
@@ -857,7 +869,18 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	if (anyMaterialHasTransparencyGradient) definesCollector += " -DUSE_TRANSPARENCY_GRADIENT";
 
 	if (renderEngineMode != clRenderEngineTypeFast && anyMaterialHasPerlin)
+	{
 		definesCollector += " -DUSE_PERLIN_NOISE";
+
+		if (anyMaterialHasPerlinColor) definesCollector += " -DUSE_PERLIN_NOISE_COLOR";
+		if (anyMaterialHasPerlinDisplacement) definesCollector += " -DUSE_PERLIN_NOISE_DISPLACEMENT";
+		if (anyMaterialHasPerlinLuminosity) definesCollector += " -DUSE_PERLIN_NOISE_LUMINOSITY";
+		if (anyMaterialHasPerlinReflectance) definesCollector += " -DUSE_PERLIN_NOISE_REFLECTANCE";
+		if (anyMaterialHasPerlinTransparencyColor)
+			definesCollector += " -DUSE_PERLIN_NOISE_TRANSPARENCY_COLOR";
+		if (anyMaterialHasPerlinTransparencyAlpha)
+			definesCollector += " -DUSE_PERLIN_NOISE_TRANSPARENCY_ALPHA";
+	}
 }
 
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
@@ -1191,7 +1214,7 @@ void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenC
 		workers[d]->setAntiAliasingDepth(antiAliasingDepth);
 		workers[d]->setStopRequest(stopRequest);
 		workers[d]->setReservedGpuTime(reservedGpuTime);
-		workers[d]->setFullEngineFlag(renderEngineMode == clRenderEngineTypeFull);
+		workers[d]->setFullEngineFlag(bool(renderEngineMode == clRenderEngineTypeFull));
 		workers[d]->setMaxWorkgroupSize(
 			hardware->getSelectedDevicesInformation().at(d).maxWorkGroupSize);
 		// stating threads

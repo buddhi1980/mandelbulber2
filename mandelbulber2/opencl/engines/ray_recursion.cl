@@ -702,7 +702,10 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #endif
 #endif
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE)                                                 \
+	&& (defined(USE_PERLIN_NOISE_COLOR) || defined(USE_PERLIN_NOISE_LUMINOSITY) \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR)                         \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA) || defined(USE_PERLIN_NOISE_REFLECTANCE))
 				PerlinNoiseForShaders(consts, &calcParam, &shaderInputData, renderData, point);
 #endif
 
@@ -787,7 +790,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				}
 #endif // USE_TRANSPARENCY_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR)
 				// transparency perlin noise
 				if (shaderInputData.material->perlinNoiseEnable
 						&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
@@ -852,11 +855,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA)
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseTransparencyAlphaEnable)
 					{
-						float alpha = (shaderInputData.material->perlinNoiseTransparencyColorInvert)
+						float alpha = (shaderInputData.material->perlinNoiseTransparencyAlphaInvert)
 														? 1.0f - shaderInputData.perlinNoise
 														: shaderInputData.perlinNoise;
 						alpha = clamp(
@@ -879,7 +882,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					}
 #endif // USE_REFLECTANCE_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_REFLECTANCE)
 					// reflectance perlin noise
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseReflectanceEnable)
@@ -982,8 +985,13 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					}
 #endif
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE)                      \
+	&& (defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR) \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA))
 					PerlinNoiseForShaders(consts, &calcParam, &input2, renderData, insidePoint);
+#endif
+
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR)
 					// transparency perlin noise
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseTransparencyColorEnable)
@@ -996,7 +1004,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						shaderInputData.material->transparencyOfInterior * opacityGradient * (1.0 - texOpacity)
 						+ texOpacity;
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA)
 					if (shaderInputData.material->perlinNoiseEnable
 							&& shaderInputData.material->perlinNoiseTransparencyAlphaEnable)
 					{

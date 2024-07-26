@@ -48,7 +48,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 surfaceColor = 1.0f;
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_COLOR)
 	if (input->material->perlinNoiseEnable && input->material->perlinNoiseColorEnable)
 	{
 		float perlinColInt = input->material->perlinNoiseColorIntensity;
@@ -150,7 +150,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		luminosity = input->material->luminosity * input->material->luminosityColor;
 	}
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_LUMINOSITY)
 	if (input->material->perlinNoiseEnable && input->material->perlinNoiseLuminosityEnable)
 	{
 		float perlinLumInt = input->material->perlinNoiseLuminosityIntensity;

@@ -72,7 +72,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 
 #if defined(USE_SUBSURFACE_SCATTERING)                                       \
 	&& (defined(USE_INNER_COLORING) || defined(USE_TRANSPARENCY_ALPHA_TEXTURE) \
-			|| defined(USE_PERLIN_NOISE))
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA))
 	sShaderInputDataCl input2 = *input;
 #endif
 
@@ -307,7 +307,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			}
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA)
 			if (input->material->perlinNoiseEnable && input->material->perlinNoiseTransparencyAlphaEnable)
 			{
 				PerlinNoiseForShaders(consts, calcParam, &input2, renderData, point2);

@@ -33,7 +33,10 @@
  *
  */
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE)                                                 \
+	&& (defined(USE_PERLIN_NOISE_COLOR) || defined(USE_PERLIN_NOISE_LUMINOSITY) \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR)                         \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA) || defined(USE_PERLIN_NOISE_REFLECTANCE))
 void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *calcParam,
 	sShaderInputDataCl *shaderInputData, sRenderData *renderData, float3 point)
 {
@@ -72,7 +75,9 @@ void PerlinNoiseForShaders(__constant sClInConstants *consts, sClCalcParams *cal
 		shaderInputData->perlinNoise = 0.0f;
 	}
 }
+#endif // USE_PERLIN_NOISE
 
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_REFLECTANCE)
 float3 PerlinNoiseForReflectance(sShaderInputDataCl *shaderInputData, float3 reflectance)
 {
 	float perlin = (shaderInputData->material->perlinNoiseReflectanceInvert)
@@ -105,7 +110,11 @@ float3 PerlinNoiseForReflectance(sShaderInputDataCl *shaderInputData, float3 ref
 
 	return reflectance;
 }
+#endif // USE_PERLIN_NOISE_REFLECTANCE
 
+#if defined(USE_PERLIN_NOISE)                      \
+	&& (defined(USE_PERLIN_NOISE_TRANSPARENCY_COLOR) \
+			|| defined(USE_PERLIN_NOISE_TRANSPARENCY_ALPHA))
 float3 PerlinNoiseForTransparency(
 	sShaderInputDataCl *shaderInputData, float3 transparency, bool volumeMode)
 {
@@ -144,7 +153,9 @@ float3 PerlinNoiseForTransparency(
 
 	return transparency;
 }
+#endif // USE_PERLIN_NOISE_TRANSPARENCY_COLOR or USE_PERLIN_NOISE_TRANSPARENCY_ALPHA
 
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderData, int objectId)
 {
 	__global sObjectDataCl *objectData = &renderData->objectsData[objectId];
@@ -168,5 +179,4 @@ float PerlinNoiseDisplacement(float distance, float3 point, sRenderData *renderD
 	}
 	return distance;
 }
-
-#endif // USE_PERLIN_NOISE
+#endif // USE_PERLIN_NOISE_DISPLACEMENT

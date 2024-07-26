@@ -167,7 +167,8 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 #endif
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) \
+	&& (defined(USE_PERLIN_NOISE_COLOR) || defined(USE_PERLIN_NOISE_LUMINOSITY))
 			PerlinNoiseForShaders(consts, calcParam, &inputCopy, renderData, inputCopy.point);
 #endif
 

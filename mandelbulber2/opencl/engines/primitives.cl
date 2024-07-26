@@ -402,7 +402,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 			distTemp = DisplacementMap(distTemp, point2, primitive->object.objectId, renderData, 1.0f);
 #endif
 
-#ifdef USE_PERLIN_NOISE
+#if defined(USE_PERLIN_NOISE) && defined(USE_PERLIN_NOISE_DISPLACEMENT)
 			distTemp = PerlinNoiseDisplacement(distTemp, point2, renderData, primitive->object.objectId);
 #endif // USE_PERLIN_NOISE
 
