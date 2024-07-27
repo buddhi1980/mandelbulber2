@@ -89,6 +89,8 @@ private slots:
 	void slotChangedPlaceLightBehindObjects(int state);
 	void slotChangedEnableMCDOF(bool state);
 	void slotChangedEnableGI(int state);
+	void slotChangedEnableGIVolumetric(int state);
+	void slotChangedEnableGIFog(int state);
 	void slotPressedButtonCloudsRandomize();
 	void slotNewParametersFromNavi();
 	void slotRandomLightColoringTypeChanged(int index);

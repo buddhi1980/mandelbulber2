@@ -101,6 +101,10 @@ void cDockEffects::ConnectSignals() const
 		SLOT(slotChangedEnableMCDOF(bool)));
 	connect(ui->checkBox_DOF_MC_global_illumination, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedEnableGI(int)));
+	connect(ui->checkBox_MC_global_illumination_volumetric, SIGNAL(stateChanged(int)), this,
+		SLOT(slotChangedEnableGIVolumetric(int)));
+	connect(ui->checkBox_MC_fog_illumination, SIGNAL(stateChanged(int)), this,
+		SLOT(slotChangedEnableGIFog(int)));
 
 	connect(ui->comboBox_random_lights_coloring_type, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotRandomLightColoringTypeChanged(int)));
@@ -240,6 +244,19 @@ void cDockEffects::slotChangedEnableMCDOF(bool state)
 void cDockEffects::slotChangedEnableGI(int state)
 {
 	ui->checkBox_MC_global_illumination_volumetric->setEnabled(state);
+	ui->checkBox_MC_fog_illumination->setEnabled(state);
+}
+
+void cDockEffects::slotChangedEnableGIVolumetric(int state)
+{
+	if(state == Qt::Checked)
+		ui->checkBox_MC_fog_illumination->setChecked(false);
+}
+
+void cDockEffects::slotChangedEnableGIFog(int state)
+{
+	if(state == Qt::Checked)
+		ui->checkBox_MC_global_illumination_volumetric->setChecked(false);
 }
 
 void cDockEffects::slotPressedButtonCloudsRandomize()
