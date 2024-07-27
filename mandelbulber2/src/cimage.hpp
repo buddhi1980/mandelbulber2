@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_CIMAGE_HPP_
 #define MANDELBULBER2_SRC_CIMAGE_HPP_
 
-//#include <QtGui/QWidget>
+// #include <QtGui/QWidget>
 #include <atomic>
 #include <cassert>
 #include <memory>
@@ -230,10 +230,7 @@ public:
 	{
 		return colourBuffer[getImageIndex(x, y)];
 	}
-	inline float GetPixelZBuffer(quint64 x, quint64 y) const
-	{
-		return zBuffer[getImageIndex(x, y)];
-	}
+	inline float GetPixelZBuffer(quint64 x, quint64 y) const { return zBuffer[getImageIndex(x, y)]; }
 	inline sRGBFloat GetPixelNormal(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloat, opt.optionalNormal, x, y);
@@ -310,106 +307,37 @@ public:
 		alphaBuffer16[imgIndex] = quint16(alphaBuffer16[imgIndex] * factorN + other * factor);
 	}
 
-	std::vector<sRGBFloat> &GetImageFloat()
-	{
-		return imageFloat;
-	}
-	std::vector<sRGBFloat> &GetPostImageFloat()
-	{
-		return postImageFloat;
-	}
-	std::vector<sRGB16> &GetImage16()
-	{
-		return image16;
-	}
-	std::vector<sRGB8> &GetImage8()
-	{
-		return image8;
-	}
-	std::vector<quint16> &GetAlphaBuf()
-	{
-		return alphaBuffer16;
-	}
-	std::vector<quint8> &GetAlphaBuf8()
-	{
-		return alphaBuffer8;
-	}
-	std::vector<float> &GetZBuffer()
-	{
-		return zBuffer;
-	}
-	std::vector<sRGB8> &GetColor()
-	{
-		return colourBuffer;
-	}
-	std::vector<quint16> &GetOpacity()
-	{
-		return opacityBuffer;
-	}
-	size_t GetZBufferSize() const
-	{
-		return sizeof(float) * quint64(height) * quint64(width);
-	}
-	QWidget *GetImageWidget()
-	{
-		return imageWidget;
-	}
-	std::vector<sRGB8> &GetPreview()
-	{
-		return preview2;
-	}
-	std::vector<sRGB8> &GetPreviewPrimary()
-	{
-		return preview;
-	}
+	std::vector<sRGBFloat> &GetImageFloat() { return imageFloat; }
+	std::vector<sRGBFloat> &GetPostImageFloat() { return postImageFloat; }
+	std::vector<sRGB16> &GetImage16() { return image16; }
+	std::vector<sRGB8> &GetImage8() { return image8; }
+	std::vector<quint16> &GetAlphaBuf() { return alphaBuffer16; }
+	std::vector<quint8> &GetAlphaBuf8() { return alphaBuffer8; }
+	std::vector<float> &GetZBuffer() { return zBuffer; }
+	std::vector<sRGB8> &GetColor() { return colourBuffer; }
+	std::vector<quint16> &GetOpacity() { return opacityBuffer; }
+	size_t GetZBufferSize() const { return sizeof(float) * quint64(height) * quint64(width); }
+	QWidget *GetImageWidget() { return imageWidget; }
+	std::vector<sRGB8> &GetPreview() { return preview2; }
+	std::vector<sRGB8> &GetPreviewPrimary() { return preview; }
 
 	void CompileImage(QList<int> *list = nullptr);
 	void CompileImage(const QList<QRect> *list);
 	void NullPostEffect(QList<int> *list = nullptr);
 	void NullPostEffect(const QList<QRect> *list);
 
-	quint64 GetWidth() const
-	{
-		return width;
-	}
-	quint64 GetHeight() const
-	{
-		return height;
-	}
-	quint64 GetPreviewWidth() const
-	{
-		return previewWidth;
-	}
-	quint64 GetPreviewHeight() const
-	{
-		return previewHeight;
-	}
-	int GetPreviewVisibleWidth() const
-	{
-		return previewVisibleWidth;
-	}
-	int GetPreviewVisibleHeight() const
-	{
-		return previewVisibleHeight;
-	}
+	quint64 GetWidth() const { return width; }
+	quint64 GetHeight() const { return height; }
+	quint64 GetPreviewWidth() const { return previewWidth; }
+	quint64 GetPreviewHeight() const { return previewHeight; }
+	int GetPreviewVisibleWidth() const { return previewVisibleWidth; }
+	int GetPreviewVisibleHeight() const { return previewVisibleHeight; }
 	int GetUsedMB() const;
 	void SetImageParameters(sImageAdjustments adjustments);
-	sImageAdjustments *GetImageAdjustments()
-	{
-		return &adj;
-	}
-	void SetImageOptional(sImageOptional optInput)
-	{
-		opt = optInput;
-	}
-	sImageOptional *GetImageOptional()
-	{
-		return &opt;
-	}
-	double GetDpiScale()
-	{
-		return dpiScale;
-	}
+	sImageAdjustments *GetImageAdjustments() { return &adj; }
+	void SetImageOptional(sImageOptional optInput) { opt = optInput; }
+	sImageOptional *GetImageOptional() { return &opt; }
+	double GetDpiScale() { return dpiScale; }
 
 	quint8 *ConvertGenericRGBTo8bitChar(std::vector<sRGBFloat> &from, std::vector<sRGB8> &to);
 	quint8 *ConvertGenericRGBTo16bitWord(std::vector<sRGBFloat> &from, std::vector<sRGB16> &to);
@@ -424,10 +352,7 @@ public:
 	const quint8 *GetPreviewPrimaryConstPtr() const;
 	bool IsPreview() const;
 	void RedrawInWidget(QWidget *qWidget = nullptr);
-	double GetPreviewScale() const
-	{
-		return previewScale;
-	}
+	double GetPreviewScale() const { return previewScale; }
 	void Squares(quint64 y, int progressiveFactor);
 	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
@@ -439,23 +364,14 @@ public:
 	void CircleBorder(float x, float y, float z, float r, sRGB8 border, float borderWidth,
 		sRGBFloat opacity, int layer);
 
-	bool IsStereoLeftRight() const
-	{
-		return isStereoLeftRight;
-	}
+	bool IsStereoLeftRight() const { return isStereoLeftRight; }
 	void SetStereoLeftRight(bool isStereoLeftRightInput)
 	{
 		isStereoLeftRight = isStereoLeftRightInput;
 	}
 	void GetStereoLeftRightImages(std::shared_ptr<cImage> left, std::shared_ptr<cImage> right);
-	void setMeta(QMap<QString, QString> meta)
-	{
-		this->meta = meta;
-	}
-	QMap<QString, QString> &getMeta()
-	{
-		return meta;
-	}
+	void setMeta(QMap<QString, QString> meta) { this->meta = meta; }
+	QMap<QString, QString> &getMeta() { return meta; }
 	int progressiveFactor;
 	double VisualCompare(std::shared_ptr<cImage> refImage, bool checkIfBlank);
 
@@ -463,18 +379,9 @@ private:
 	sRGB8 Interpolation(float x, float y) const;
 	bool AllocMem();
 	void FreeImage();
-	static inline sRGB16 Black16()
-	{
-		return sRGB16(0, 0, 0);
-	}
-	static inline sRGB8 Black8()
-	{
-		return sRGB8(0, 0, 0);
-	}
-	static inline sRGBFloat BlackFloat()
-	{
-		return sRGBFloat(0, 0, 0);
-	}
+	static inline sRGB16 Black16() { return sRGB16(0, 0, 0); }
+	static inline sRGB8 Black8() { return sRGB8(0, 0, 0); }
+	static inline sRGBFloat BlackFloat() { return sRGBFloat(0, 0, 0); }
 
 	bool isAllocated;
 

@@ -32,17 +32,17 @@
  * cMandelbulb3dSettings class - importing settings from Mandelbulb3d
  */
 
-//#include "mandelbulb3d_settings.hpp"
+// #include "mandelbulb3d_settings.hpp"
 
-//#include "camera_target.hpp"
-//#include "error_message.hpp"
-//#include "files.h"
-//#include "fractal_container.hpp"
-//#include "fractparams.hpp"
-//#include "initparameters.hpp"
-//#include "system.hpp"
+// #include "camera_target.hpp"
+// #include "error_message.hpp"
+// #include "files.h"
+// #include "fractal_container.hpp"
+// #include "fractparams.hpp"
+// #include "initparameters.hpp"
+// #include "system.hpp"
 
-//#include "formula/definition/all_fractal_list.hpp"
+// #include "formula/definition/all_fractal_list.hpp"
 
 // cMandelbulb3dSettings::cMandelbulb3dSettings() = default;
 

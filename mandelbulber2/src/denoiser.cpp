@@ -114,7 +114,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 
 	// Qt Concurrect is not used because this module is not available in ppa:beiner repository
 
-	//#pragma omp parallel for schedule(dynamic, 1)
+	// #pragma omp parallel for schedule(dynamic, 1)
 	for (int y = 0; y < int(boxHeight); y++)
 	{
 		for (int x = 0; x < int(boxWidth); x++)
@@ -263,7 +263,7 @@ void cDenoiser::Denoise(int boxX, int boxY, int boxWidth, int boxHeight, bool pr
 	}
 
 	// median filter
-	//#pragma omp parallel for schedule(dynamic, 1)
+	// #pragma omp parallel for schedule(dynamic, 1)
 	for (int y = 0; y < int(boxHeight); y++)
 	{
 		for (int x = 0; x < int(boxWidth); x++)

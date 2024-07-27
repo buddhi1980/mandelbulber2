@@ -89,7 +89,7 @@ void cUndo::Store(std::shared_ptr<cParameterContainer> par,
 	WriteLog("Autosave store started", 2);
 	cSettings parSettings(cSettings::formatCondensedText);
 
-	//useg gloabl variables to always save animations
+	// useg gloabl variables to always save animations
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToFile(systemDirectories.GetAutosaveFile());
 

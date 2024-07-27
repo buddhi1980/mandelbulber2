@@ -237,4 +237,3 @@ void cMaterialWidget::mousePressEvent(QMouseEvent *event)
 	emit clicked(event->button());
 	QWidget::mousePressEvent(event);
 }
-

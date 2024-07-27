@@ -556,7 +556,8 @@ sFractal::sFractal(const std::shared_ptr<cParameterContainer> container)
 	transformCommon.benesiT1EnabledFalse = container->Get<bool>("transf_benesi_T1_enabled_false");
 	transformCommon.benesiT1MEnabledFalse = container->Get<bool>("transf_benesi_T1M_enabled_false");
 	transformCommon.functionEnabled4dFalse = container->Get<bool>("transf_function_enabled4d_false");
-	transformCommon.functionEnabledAuxCFalse = container->Get<bool>("transf_function_enabled_auxC_false");
+	transformCommon.functionEnabledAuxCFalse =
+		container->Get<bool>("transf_function_enabled_auxC_false");
 
 	transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
 	transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
@@ -670,7 +671,7 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.rotationMatrix44.SetRotation44b(
 		transformCommon.rotation44b * M_PI_180); // ...............................
 
-	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180); // T>Rotation
+	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * M_PI_180);		// T>Rotation
 	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * M_PI_180); // T>Rotation2
 	transformCommon.rotationMatrixXYZ.SetRotation4(
 		transformCommon.rotationXYZ * M_PI_180); // T>RotationXYZ M3D

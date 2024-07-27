@@ -387,8 +387,8 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 			thread->setObjectName("RenderJob");
 			thread->start();
 
-//			connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
-//				&cHeadless::deleteLater, Qt::UniqueConnection);
+			//			connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
+			//				&cHeadless::deleteLater, Qt::UniqueConnection);
 			connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
 			connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 		}

@@ -338,8 +338,8 @@ void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 	}
 }
 
-void cAnimationFrames::RemoveMissingParameters(
-	std::shared_ptr<const cParameterContainer> params, std::shared_ptr<const cFractalContainer> fractal)
+void cAnimationFrames::RemoveMissingParameters(std::shared_ptr<const cParameterContainer> params,
+	std::shared_ptr<const cFractalContainer> fractal)
 {
 	QList<sParameterDescription> listOfMissingParameters;
 	for (const sParameterDescription &animatedParameter : listOfParameters)

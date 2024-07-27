@@ -39,7 +39,7 @@
 #include "src/my_ui_loader.h"
 #include "ui_primitives_manager.h"
 
-//#include "primitive_editor.h"
+// #include "primitive_editor.h"
 #include "my_tab_bar_with_checkbox.h"
 
 #include "src/initparameters.hpp"

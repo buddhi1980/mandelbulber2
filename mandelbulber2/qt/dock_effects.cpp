@@ -249,14 +249,12 @@ void cDockEffects::slotChangedEnableGI(int state)
 
 void cDockEffects::slotChangedEnableGIVolumetric(int state)
 {
-	if(state == Qt::Checked)
-		ui->checkBox_MC_fog_illumination->setChecked(false);
+	if (state == Qt::Checked) ui->checkBox_MC_fog_illumination->setChecked(false);
 }
 
 void cDockEffects::slotChangedEnableGIFog(int state)
 {
-	if(state == Qt::Checked)
-		ui->checkBox_MC_global_illumination_volumetric->setChecked(false);
+	if (state == Qt::Checked) ui->checkBox_MC_global_illumination_volumetric->setChecked(false);
 }
 
 void cDockEffects::slotPressedButtonCloudsRandomize()

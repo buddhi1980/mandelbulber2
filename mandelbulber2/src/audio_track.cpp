@@ -42,7 +42,7 @@
 #include <QUrl>
 
 #ifndef NO_QT_MULTIMEDIA_AUDIO
-//#include <QAudioRecorder>
+// #include <QAudioRecorder>
 #endif
 
 #include <QFileInfo>

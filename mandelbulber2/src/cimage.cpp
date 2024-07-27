@@ -708,9 +708,9 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				quint64 yEnd = quint64((rect.bottom() + 1) / scaleY);
 				yEnd = qMin(yEnd, h - 1);
 
-				//#ifndef _WIN32
-				//#pragma omp parallel for
-				//#endif
+				// #ifndef _WIN32
+				// #pragma omp parallel for
+				// #endif
 				for (quint64 y = yStart; y <= yEnd; y++)
 				{
 					for (quint64 x = xStart; x <= xEnd; x++)

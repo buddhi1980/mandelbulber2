@@ -190,8 +190,6 @@ enumVarType cMultiVal::Store(bool val)
 	return typeBool;
 }
 
-
-
 bool cMultiVal::isEqual(const cMultiVal &m) const
 {
 	bool isEqual = true;

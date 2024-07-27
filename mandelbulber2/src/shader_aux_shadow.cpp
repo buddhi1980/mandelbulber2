@@ -239,8 +239,7 @@ sRGBAFloat cRenderWorker::AuxShadow(
 					sRGBFloat tex = TextureShader(input2, texture::texTransparencyAlpha, input.material);
 					texOpacity =
 						(1.0f - tex.R) * input.material->transparencyAlphaTextureIntensityVol + 1e-6f;
-					opacityCollected =
-						 opacityCollected * (1.0 - texOpacity) + texOpacity;
+					opacityCollected = opacityCollected * (1.0 - texOpacity) + texOpacity;
 				}
 			}
 
@@ -255,7 +254,8 @@ sRGBAFloat cRenderWorker::AuxShadow(
 				opacityCollected = opacityCollected * (1.0f - alpha) + alpha + 1e-6f;
 			}
 
-			double opacity = (-1.0f + 1.0f / (opacityCollected * input.material->transparencyOfInterior)) * step;
+			double opacity =
+				(-1.0f + 1.0f / (opacityCollected * input.material->transparencyOfInterior)) * step;
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
 			totalOpacity = opacity + (1.0 - opacity) * totalOpacity;

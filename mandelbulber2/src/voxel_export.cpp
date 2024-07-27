@@ -198,7 +198,7 @@ void cVoxelExport::ProcessVolume()
 		if (!openClEnabled)
 		{
 #pragma omp parallel for schedule( \
-	dynamic, 1) // long long is used because size_t doesn't work with msvc and OpenMP
+		dynamic, 1) // long long is used because size_t doesn't work with msvc and OpenMP
 			for (long long x = 0; x < w; x++)
 			{
 				CVector3 point;

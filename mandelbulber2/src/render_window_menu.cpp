@@ -242,8 +242,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 		" <tr><th>" + tr("Mouse left button click") + "</th><td>" + tr("jump forward") + "</td></tr>";
 	text +=
 		" <tr><th>" + tr("Mouse right button click") + "</th><td>" + tr("jump backward") + "</td></tr>";
-	text += " <tr><th>" + tr("Mouse Wheel") + "</th><td>"
-					+ tr("forward / backward") + "</td></tr>";
+	text += " <tr><th>" + tr("Mouse Wheel") + "</th><td>" + tr("forward / backward") + "</td></tr>";
 	text += " <tr><th>" + tr("Mouse left+right buttons drag") + "</th><td>" + tr("Move camera")
 					+ "</td></tr>";
 

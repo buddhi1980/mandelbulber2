@@ -497,7 +497,7 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 	// examples don't depend on the launch directory
 	// For a relative path starting with "$SHARED_DIR", use "./$SHARED_DIR"
 	QString newPath = path;
-    newPath.replace(QRegularExpression("^\\$SHARED_DIR"), systemDirectories.sharedDir);
+	newPath.replace(QRegularExpression("^\\$SHARED_DIR"), systemDirectories.sharedDir);
 
 	// original file was found
 	if (FileExists(newPath)) return newPath;

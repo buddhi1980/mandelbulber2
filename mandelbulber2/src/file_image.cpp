@@ -48,7 +48,7 @@
 #include <ImfStringAttribute.h>
 #include <half.h>
 #endif // USE_EXR
-//#include <libpng16/pngconf.h>
+// #include <libpng16/pngconf.h>
 #include <QByteArray>
 #include <QDebug>
 #include <QDir>
