@@ -316,6 +316,9 @@ enum enumFractalFormula
 	spheretreeV4 = 274,
 	sphereClusterV3 = 275,
 
+	// 2.32
+	pseudoKleinianMod7 = 276,
+
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxV1 = 601,
