@@ -44,6 +44,7 @@
 
 #include "src/cimage.hpp"
 #include "src/common_math.h"
+#include "src/files.h"
 #include "src/global_data.hpp"
 #include "src/interface.hpp"
 #include "src/opencl_engine_render_fractal.h"
@@ -228,6 +229,7 @@ void cThumbnailWidget::AssignParameters(std::shared_ptr<const cParameterContaine
 			QString thumbnailFileName = GetThumbnailFileName();
 			if (QFileInfo::exists(thumbnailFileName) && !disableThumbnailCache)
 			{
+				fileTouch(thumbnailFileName);
 				stopRequest = true;
 				isRendered = true;
 				isFullyRendered = true;

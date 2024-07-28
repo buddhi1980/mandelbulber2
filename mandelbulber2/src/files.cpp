@@ -670,3 +670,16 @@ QString AnimatedFileName(
 
 	return outFilename;
 }
+
+bool fileTouch(const QString& filePath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadWrite)) {
+        return false;
+    }
+    const quint64 size = file.size();
+    file.seek(size);
+    file.write( QByteArray(1, '0') );
+    file.resize(size);
+    return true;
+}
