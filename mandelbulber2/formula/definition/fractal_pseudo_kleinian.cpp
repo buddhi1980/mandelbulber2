@@ -29,7 +29,6 @@ cFractalPseudoKleinian::cFractalPseudoKleinian() : cAbstractFractal()
 void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double oldZz = z.z;
-	// double oldDE = aux.DE;
 
 	// sphere inversion slot#1 iter == 0 added v2.17
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -117,19 +116,25 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 	}
 
 	// PseudoKleinian
-	CVector4 tempZ = z; //  correct c++ version. non conditional mult 2.0
+	double k = 1.0;
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;
-	if (z.x > cSize.x) tempZ.x = cSize.x;
-	if (z.x < -cSize.x) tempZ.x = -cSize.x;
-	if (z.y > cSize.y) tempZ.y = cSize.y;
-	if (z.y < -cSize.y) tempZ.y = -cSize.y;
-	if (z.z > cSize.z) tempZ.z = cSize.z;
-	if (z.z < -cSize.z) tempZ.z = -cSize.z;
-	z = tempZ * 2.0 - z;
-	double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
-	z *= k;
-	aux.DE *= k + fractal->analyticDE.tweak005;
-	aux.pseudoKleinianDE = fractal->analyticDE.scale1;
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		CVector4 tempZ = z; //  correct c++ version. non conditional mult 2.0
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+		z = tempZ * 2.0 - z;
+		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
+		z *= k;
+		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
+		aux.DE *= k + fractal->analyticDE.tweak005;
+		aux.pseudoKleinianDE = fractal->analyticDE.scale1;
+	}
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -188,7 +193,6 @@ void cFractalPseudoKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, s
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}
-
 		aux.color += colorAdd;
 	}
 }

@@ -46,38 +46,40 @@ void cFractalJosKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		}
 	}
 
-	// kleinian
-	double a = fractal->transformCommon.foldingValue;
-	double b = fractal->transformCommon.offset;
-	double f = sign(b);
-
 	CVector4 box_size = fractal->transformCommon.offset111;
-
-	CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-	CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-	CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
-
-	z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
-
-	// If above the separation line, rotate by 180deg about (-b/2, a/2)
-	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
-
-	double rr = z.Dot(z);
-
-	if (fractal->foldColor.auxColorEnabled)
+	// kleinian
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
-		aux.color = min(aux.color, colorVector.Length()); // For coloring
+		double a = fractal->transformCommon.foldingValue;
+		double b = fractal->transformCommon.offset;
+		double f = sign(b);
+
+		CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
+		CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
+		CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+
+		z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+
+		// If above the separation line, rotate by 180deg about (-b/2, a/2)
+		if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+			z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
+
+		double rr = z.Dot(z);
+
+		if (fractal->foldColor.auxColorEnabled)
+		{
+			CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
+			aux.color = min(aux.color, colorVector.Length()); // For coloring
+		}
+
+		double iR = 1.0 / rr;
+		z *= -iR;
+		z.x = -b - z.x;
+		z.y = a + z.y;
+
+		aux.DE *= fabs(iR);
 	}
-
-	double iR = 1.0 / rr;
-	z *= -iR;
-	z.x = -b - z.x;
-	z.y = a + z.y;
-
-	aux.DE *= fabs(iR);
-
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 		&& aux.i < fractal->foldColor.stopIterationsA)

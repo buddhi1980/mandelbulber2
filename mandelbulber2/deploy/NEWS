@@ -19,11 +19,11 @@ TODO check all is finished with escape conditions
 	 menger4d, added aux.color
 	 menger4dMod1, added aux.color
 	 menger4dMod2, added aux.color
-	 pseudoKleinian, added aux.color
-	 pseudoKleinianMod1, correct z scale and add aux.color
+	 pseudoKleinian, fix code and add aux.color
+	 pseudoKleinianMod1, fix code and add aux.color
 	 pseudoKleinianMod1, add iter controls to sphere inversion
-	 pseudoKleinianMod2, correct UI
-	 pseudoKleinianStdDE, correct z scale and add aux.color
+	 pseudoKleinianMod2, fix code and correct UI
+	 pseudoKleinianStdDE, fix code and add aux.color
 	 transfDELinearCube, add mix option
 	 transfQuaternionFold, add customDE option
 	 transfScaleVaryV212, fix DE

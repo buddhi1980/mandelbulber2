@@ -455,6 +455,80 @@ offset:</string>
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="0,1,0,1">
+     <item>
+      <widget class="QLabel" name="label_108">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>start at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_78">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>stop at iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
@@ -837,12 +911,15 @@ offset:</string>
    <item>
     <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled">
      <property name="text">
-      <string>aux color vector component</string>
+      <string>old aux color vector component (generally disable when using new aux color)</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="title">
       <string>new aux color components&amp; V2.32</string>
      </property>
@@ -1018,7 +1095,7 @@ offset:</string>
         <item row="3" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1340,6 +1417,16 @@ offset:</string>
           </layout>
          </item>
          <item>
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>dot xz</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="MyGroupBox" name="groupCheck_transf_function_enabledA_false">
            <property name="font">
             <font>
@@ -1488,16 +1575,6 @@ offset:</string>
              </layout>
             </item>
            </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>dot</string>
-           </property>
           </widget>
          </item>
          <item>
@@ -1715,22 +1792,5 @@ offset:</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>groupCheck_fold_color_aux_color_enabledA_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox4_fold_color_difs_0000_w</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>21</x>
-     <y>752</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>146</x>
-     <y>717</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -105,20 +105,26 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 	}
 
-	// PseudoKleinian
-	REAL4 tempZ = z;
+	// Pseudo kleinian
+	REAL k = 1.0f;
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
-	if (z.x > cSize.x) tempZ.x = cSize.x;
-	if (z.x < -cSize.x) tempZ.x = -cSize.x;
-	if (z.y > cSize.y) tempZ.y = cSize.y;
-	if (z.y < -cSize.y) tempZ.y = -cSize.y;
-	if (z.z > cSize.z) tempZ.z = cSize.z;
-	if (z.z < -cSize.z) tempZ.z = -cSize.z;
-	z = tempZ * 2.0f - z;
-	REAL k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
-	z *= k;
-	aux->DE *= k + fractal->analyticDE.tweak005;
-	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
+	if (aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
+	{
+		REAL4 tempZ = z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
+		z = tempZ * 2.0f - z;
+		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
+		z *= k;
+		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
+		aux->DE *= k + fractal->analyticDE.tweak005;
+		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
+	}
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
