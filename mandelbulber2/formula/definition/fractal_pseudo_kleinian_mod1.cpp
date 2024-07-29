@@ -31,7 +31,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 {
 	double oldZz = z.z;
 
-/*	if (fractal->transformCommon.functionEnabledPFalse
+	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
@@ -149,7 +149,7 @@ void cFractalPseudoKleinianMod1::FormulaCode(
 	}
 
 
-*/
+
 	// Pseudo kleinian
 	double k = 1.0;
 	CVector4 cSize = fractal->transformCommon.additionConstant0777;

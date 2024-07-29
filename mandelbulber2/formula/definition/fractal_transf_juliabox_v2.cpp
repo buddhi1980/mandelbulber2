@@ -47,11 +47,18 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	}
 	CVector4 zCol = z;
 
-
 	// offset1
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 			z += fractal->transformCommon.offsetA000;
+
+	// swap
+	if (fractal->transformCommon.functionEnabledSwFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+	  z = CVector4(z.z, z.y, z.x, z.w);
+	}
 
 	// spherical fold
 	double rrCol = 0.0;
@@ -77,12 +84,12 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 	{
 		if (!fractal->transformCommon.functionEnabledKFalse)
 		{
-			z *= fractal->transformCommon.scale;
-			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + fractal->analyticDE.offset1;
+			z *= fractal->transformCommon.scale1;
+			aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + fractal->analyticDE.offset0;
 		}
 		else
 		{
-			double tempVC = fractal->transformCommon.scale; // constant to be varied
+			double tempVC = fractal->transformCommon.scale1; // constant to be varied
 
 			if (aux.i >= fractal->transformCommon.startIterations
 					&& aux.i < fractal->transformCommon.stopIterations
@@ -99,7 +106,7 @@ void cFractalTransfJuliaboxV2::FormulaCode(CVector4 &z, const sFractal *fractal,
 				tempVC = (tempVC + fractal->transformCommon.offset0);
 			}
 			z *= tempVC;
-			aux.DE = aux.DE * fabs(tempVC) + fractal->analyticDE.offset1;
+			aux.DE = aux.DE * fabs(tempVC) + fractal->analyticDE.offset0;
 		}
 	}
 
