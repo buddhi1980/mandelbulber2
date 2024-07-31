@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>2946</height>
+    <height>2971</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -493,7 +493,7 @@
         <item row="5" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
           <property name="text">
-           <string>mode 1</string>
+           <string>mode A</string>
           </property>
          </widget>
         </item>
