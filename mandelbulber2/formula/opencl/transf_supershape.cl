@@ -35,7 +35,6 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL r1 = native_sqrt(z.x * z.x + z.y * z.y);
-
 	REAL phi;
 	REAL tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse)
@@ -62,8 +61,8 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	r1 = r1 * fractal->transformCommon.radius1;
 
-	if (fractal->transformCommon.functionEnabledGFalse)
-		r1 = fabs(aux->r * fractal->transformCommon.minR0 + r1);
+	if (!fractal->transformCommon.functionEnabledGFalse)
+		r1 = fabs(r1 - aux->r * fractal->transformCommon.scaleA1);
 
 	// if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux->DE0 = r;
@@ -71,9 +70,9 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAxFalse)
-			z.x = r1 * native_sin(phi);
-		else
 			z.x = r1 * native_cos(phi);
+		else
+			z.x = r1 * native_sin(phi);
 	}
 
 	if (fractal->transformCommon.functionEnabledyFalse)

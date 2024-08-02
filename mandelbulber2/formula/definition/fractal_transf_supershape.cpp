@@ -50,7 +50,6 @@ void cFractalTransfSupershape::FormulaCode(
 	}
 
 	double r1 = sqrt(z.x * z.x + z.y * z.y);
-
 	double phi;
 	double tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);
@@ -74,9 +73,8 @@ void cFractalTransfSupershape::FormulaCode(
 
 	r1 = r1 * fractal->transformCommon.radius1;
 
-	if (fractal->transformCommon.functionEnabledGFalse)
-		r1 = fabs(aux.r * fractal->transformCommon.minR0 + r1);
-
+	if (!fractal->transformCommon.functionEnabledGFalse)
+		r1 = fabs(r1 - aux.r * fractal->transformCommon.scaleA1);
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux.DE0 = r;
@@ -84,9 +82,9 @@ void cFractalTransfSupershape::FormulaCode(
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		if (!fractal->transformCommon.functionEnabledAxFalse)
-			z.x = r1 * sin(phi);
-		else
 			z.x = r1 * cos(phi);
+		else
+			z.x = r1 * sin(phi);
 	}
 
 	if (fractal->transformCommon.functionEnabledyFalse)
@@ -113,7 +111,6 @@ void cFractalTransfSupershape::FormulaCode(
 			z.y = cth * sin(phi);
 			z.z = sin(tho);
 			z *= r1;
-
 	}
 
 	if (fractal->analyticDE.enabledFalse)
@@ -122,12 +119,14 @@ void cFractalTransfSupershape::FormulaCode(
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		CVector4 zc = z;
+
+
 		double T1;
 		if (!fractal->transformCommon.functionEnabledIFalse)
 			T1 = zc.Length();
 		else
 		{
-			if (fractal->transformCommon.functionEnabledJFalse) zc = fabs(zc);
+			if (!fractal->transformCommon.functionEnabledJFalse) zc = fabs(zc);
 			T1 = max(max(zc.x, zc.y), zc.z);
 		}
 
@@ -136,5 +135,4 @@ void cFractalTransfSupershape::FormulaCode(
 
 		if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
 	}
-
 }
