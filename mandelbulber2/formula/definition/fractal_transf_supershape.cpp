@@ -50,6 +50,7 @@ void cFractalTransfSupershape::FormulaCode(
 	}
 
 	double r1 = sqrt(z.x * z.x + z.y * z.y);
+	//double r2 = sqrt(z.x * z.x + z.y * z.y); // <<<<<<<<<<<<<<<<<<<<
 	double phi;
 	double tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse) phi = atan2(z.y, z.x);
@@ -73,8 +74,11 @@ void cFractalTransfSupershape::FormulaCode(
 
 	r1 = r1 * fractal->transformCommon.radius1;
 
-	if (!fractal->transformCommon.functionEnabledGFalse)
-		r1 = fabs(r1 - aux.r * fractal->transformCommon.scaleA1);
+	if (fractal->transformCommon.functionEnabledGFalse)
+		r1 = fabs(r1 - aux.r * fractal->transformCommon.scaleA0);
+	// else
+	//	r1 = fabs(r1 - r2 * fractal->transformCommon.scaleA1);
+
 
 	//if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux.DE0 = r;

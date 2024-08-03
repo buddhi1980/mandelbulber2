@@ -53,15 +53,9 @@ void cFractalTransfSphericalInvV4::FormulaCode(
 		if (!fractal->transformCommon.functionEnabledxFalse) mn = fractal->transformCommon.minR0;
 		else mn = 2.0 * fractal->transformCommon.minR0 - RR;
 
-		if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
-		{ // if (RR < minRR) else RR
-			// if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.min
-			if (RR < fractal->transformCommon.minR0)
-				mde = mn;
-		}
 
 		if (fractal->transformCommon.functionEnabledAFalse) // Mode 2
-		{ //
+		{
 			if (RR < fractal->mandelbox.foldingSphericalFixed)
 				mde = mn;
 		}
@@ -69,6 +63,7 @@ void cFractalTransfSphericalInvV4::FormulaCode(
 		if (fractal->transformCommon.functionEnabledBFalse) // Mode 3
 		{ // if RR < max && RR > min => mn else RR
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR > fractal->transformCommon.minR0)
+			//
 				mde = mn;
 		}
 
@@ -79,24 +74,25 @@ void cFractalTransfSphericalInvV4::FormulaCode(
 			if (RR < fractal->transformCommon.minR0) mde = mn;
 		}
 
-
-
-
-
 		if (fractal->transformCommon.functionEnabledDFalse) // Mode 5
 		{
-			if ( RR > fractal->transformCommon.minR0)
-				mde = fractal->transformCommon.minR0;
+			if (RR > fractal->mandelbox.foldingSphericalFixed)
+				mde = mn;
 		}
 
-		if (fractal->transformCommon.functionEnabledEFalse) // Mode 5
-		{
+		if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
+		{ // if (RR < minRR) else RR
+			if (RR < fractal->transformCommon.minR0) mde = 1.0 / mn;
+			else if (RR < fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed;
+		}
+		//if (fractal->transformCommon.functionEnabledEFalse) // Mode 5
+		/*{
 			if (RR < fractal->transformCommon.minR0) mde = 1.0;
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR > fractal->transformCommon.minR0)
 				mde = fractal->transformCommon.minR0;
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR < fractal->transformCommon.minR0)
 				mde = mn;
-		}
+		}*/
 
 
 
