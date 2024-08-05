@@ -541,7 +541,7 @@ offset:</string>
         <item row="0" column="1">
          <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>if (rr &lt; minRR) mde = minRR</string>
+           <string>if (rr &lt; minRR) mde = minRR (no maxRR)</string>
           </property>
          </widget>
         </item>
@@ -576,7 +576,7 @@ offset:</string>
         <item row="4" column="1">
          <widget class="QLabel" name="label_20">
           <property name="text">
-           <string>if (rr &gt; minRR) mde = minRR</string>
+           <string>if (rr &gt; minRR) mde = minRR (no maxRR)</string>
           </property>
          </widget>
         </item>
