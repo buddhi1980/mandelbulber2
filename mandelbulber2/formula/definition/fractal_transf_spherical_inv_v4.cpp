@@ -72,7 +72,7 @@ void cFractalTransfSphericalInvV4::FormulaCode(
 		}
 
 		if (fractal->transformCommon.functionEnabledBFalse) // Mode 3
-		{ // if RR < max && RR > min => mn else RR
+		{
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR > fractal->transformCommon.minR0)
 				mde = mn;
 			else if (RR > fractal->mandelbox.foldingSphericalFixed) mde = fractal->mandelbox.foldingSphericalFixed / RR;
@@ -89,8 +89,6 @@ void cFractalTransfSphericalInvV4::FormulaCode(
 			if (RR > fractal->transformCommon.minR0)
 				mde = mn;
 		}
-
-
 
 		if (fractal->transformCommon.functionEnabledEFalse) // Mode 6
 		{

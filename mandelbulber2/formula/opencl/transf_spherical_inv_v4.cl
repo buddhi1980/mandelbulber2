@@ -28,7 +28,6 @@ REAL4 TransfSphericalInvV4Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	else RR = dot(oldZ, oldZ);
 	REAL mde = RR;
 
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -91,17 +90,17 @@ REAL4 TransfSphericalInvV4Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			}
 		}
 
-		if (fractal->transformCommon.functionEnabledFFalse) // Mode F
-		{ // if RR < max && RR > min => mn else RR
+		if (fractal->transformCommon.functionEnabledFFalse) // Mode 7
+		{
 			if (RR < fractal->mandelbox.foldingSphericalFixed && RR > fractal->transformCommon.minR0)
 				mde = mn;
 			else if (RR > fractal->mandelbox.foldingSphericalFixed) mde = RR / fractal->mandelbox.foldingSphericalFixed;
 		}
+
 		mde = 1.0f / mde;
 		z *= mde;
 		aux->DE *= fabs(mde);
 		z -= fractal->transformCommon.offset000;
-
 	}
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	if (fractal->analyticDE.enabledFalse)
