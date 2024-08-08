@@ -44,42 +44,39 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_81">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="3" column="4">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
-       <property name="text">
-        <string notr="true">z.w</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="text">
-        <string notr="true">z.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,0,0,0,0">
+     <item>
       <widget class="QLabel" name="label_72">
        <property name="text">
         <string>enable axis</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
         <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
+     <item>
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
+       <property name="text">
+        <string notr="true">z.w</string>
        </property>
       </widget>
      </item>
@@ -235,7 +232,8 @@
      <item row="1" column="0" rowspan="2">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>size:</string>
+        <string>half
+size:</string>
        </property>
       </widget>
      </item>
@@ -243,6 +241,45 @@
       <widget class="QLabel" name="label_127">
        <property name="text">
         <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_73">
+       <property name="text">
+        <string>size factor:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
