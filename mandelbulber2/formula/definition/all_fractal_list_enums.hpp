@@ -565,7 +565,6 @@ enum enumFractalFormula
 	transfDIFSBoxFrame = 1633,
 	// 2.28
 	transfDIFSPiriform = 1634,
-
 	// 2.29
 	transfDIFSClipCustom = 1635,
 	transfDIFSHelixV2 = 1636,
@@ -573,6 +572,9 @@ enum enumFractalFormula
 	transfDIFSHelixMenger = 1638,
 	transfDIFSChessboard = 1639,
 	transfDIFSTorusMenger = 1640,
+
+	// 2.32
+	transfDIFSSupershape = 1641,
 
 	// hybrid color
 	transfHybridColor = 2000,

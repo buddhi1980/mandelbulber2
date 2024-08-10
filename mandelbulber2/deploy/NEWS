@@ -3,9 +3,11 @@ Version history
 v2.32 (January 2023)
 TODO check all is finished with escape conditions
 - Added new fractal formulas
+   transfBoxFold4dInfy
    transfJuliabox
 	 transfJuliaboxV2
 	 transfSphericalInvV4
+
 
 
 - modified fractal formulas
