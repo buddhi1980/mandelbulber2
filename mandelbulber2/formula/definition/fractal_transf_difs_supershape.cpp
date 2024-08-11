@@ -29,7 +29,8 @@ cFractalTransfDIFSSupershape::cFractalTransfDIFSSupershape() : cAbstractFractal(
 void cFractalTransfDIFSSupershape::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (aux.i >= fractal->transformCommon.startIterationsP
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
 		if (fractal->transformCommon.functionEnabledBxFalse)
@@ -48,12 +49,16 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 						* (fractal->transformCommon.offset000.z - fabs(z.z));
 		}
 	}
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fabs(fractal->transformCommon.scale1);
-	double r1 = sqrt(z.x * z.x + z.y * z.y);
-	//double r2 = sqrt(z.x * z.x + z.y * z.y); // <<<<<<<<<<<<<<<<<<<<
+
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	double r1;
 	double phi;
-	double tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse)
 		phi = atan2(z.x, z.y);
 	else
@@ -76,28 +81,19 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 		r1 = 1.0f / r1;
 
 	r1 = r1 * fractal->transformCommon.radius1;
+	z.z *= fractal->transformCommon.scaleB1;
+	aux.DE *= fabs(fractal->transformCommon.scaleB1); // mmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (!fractal->transformCommon.functionEnabledGFalse)
 		r1 = fabs(r1 - aux.r * fractal->transformCommon.scaleA1);
 	else
 		r1 = fabs(r1 - sqrt(z.x * z.x + z.y * z.y) * fractal->transformCommon.scaleA1);
 
-
-	//if (fractal->transformCommon.functionEnabledBFalse)
-	//	aux.DE0 = r;
-
 	z.x = r1 * cos(phi);
 	z.y = r1 * sin(phi);
 
-	if (fractal->transformCommon.functionEnabledCFalse)
-	{
-		double cth = cos(tho);
-
-			z.x = cth * cos(phi);
-			z.y = cth * sin(phi);
-			z.z = sin(tho);
-			z *= r1;
-	}
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
@@ -105,35 +101,57 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 
 	// Custom DE
 	CVector4 zc = z;
-	zc = fractal->transformCommon.rotationMatrix2.RotateVector(zc);
+	double T1;
 
 	if (aux.i >= fractal->transformCommon.startIterationsD
 		&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
-		zc = (zc - fractal->transformCommon.offsetA000);
+		zc.z = (zc.z - fractal->transformCommon.offsetD0);
 	}
+	zc.z = fabs((zc.z) * fractal->transformCommon.scaleD1); // mmmmmmmmmmmmmmmmmmmm
+
+	double ht = fabs(zc.z) - fractal->transformCommon.offsetF0;
 
 
-	double T1;
-	zc *= fractal->transformCommon.scaleB1;
-	aux.DE *= fabs(fractal->transformCommon.scaleB1);
-	zc.z = fabs((zc.z + fractal->transformCommon.offsetD0) * fractal->transformCommon.scaleD1)
-				 - fractal->transformCommon.offsetF0;
+	double th = sqrt(zc.x * zc.x + zc.y * zc.y);
+	double th2;
+	th2 = th - fractal->transformCommon.offsetp05;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		th2 = fabs(th2) - fractal->transformCommon.offset01;
+		th2 = max(th2, 0.0);
+		th = th2;
+	}
+	if (fractal->transformCommon.functionEnabledMFalse) ht = max(ht, 0.0);
 
 	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			T1 =zc.Length() - (fractal->transformCommon.offset0);
+		double kk;
+		if (!fractal->transformCommon.functionEnabledKFalse)
+			kk = zc.Length() - fractal->transformCommon.offsetp05;
 		else
-			T1 = sqrt(zc.x * zc.x + zc.y * zc.y) - (fractal->transformCommon.offset0 - fabs(zc.z));
+			kk = sqrt(th * th + ht * ht) - fractal->transformCommon.offsetp05;
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			T1 = kk;
+		else
+			T1 = sqrt(zc.x * zc.x + zc.y * zc.y) - (fractal->transformCommon.offsetp05 - fabs(zc.z));
 	}
 	else
 	{
 		zc = fabs(zc);
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			T1 = max(max(zc.x, zc.y), zc.z) - (fractal->transformCommon.offset0);
+		double kk;
+		if (!fractal->transformCommon.functionEnabledKFalse)
+			kk = max(th, ht);
 		else
-			T1 = (max(zc.x, zc.y)) - (fractal->transformCommon.offset0 - fabs(zc.z));
+			kk = max(max(zc.x, zc.y), ht) - (fractal->transformCommon.offsetp05);
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			T1 = kk;
+				//	T1 = max(max(zc.x, zc.y), zc.z) - (fractal->transformCommon.offsetp05);
+		else
+			//T1 = th - (fractal->transformCommon.offsetp05 - ht);
+			T1 = (max(zc.x, zc.y)) - (fractal->transformCommon.offsetp05 - ht);
 	}
 	double colDist = aux.dist;
 	T1 = T1 / (aux.DE + fractal->transformCommon.offset1);
@@ -143,7 +161,11 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		double addCol = 0.0;
+		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.x;
+		addCol += (zc.x * zc.y) * fractal->foldColor.difs0000.y;
+		addCol += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
+		aux.color += addCol;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
