@@ -85,21 +85,21 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	aux.DE *= fabs(fractal->transformCommon.scaleB1); // mmmmmmmmmmmmmmmmmmmmmmmmm
 
 	if (!fractal->transformCommon.functionEnabledGFalse)
-		r1 = fabs(r1 - aux.r * fractal->transformCommon.scaleA1);
+		r1 = fabs(r1 - z.Length() * fractal->transformCommon.scaleA1);
 	else
 		r1 = fabs(r1 - sqrt(z.x * z.x + z.y * z.y) * fractal->transformCommon.scaleA1);
 
 	z.x = r1 * cos(phi);
 	z.y = r1 * sin(phi);
 
-	z *= fractal->transformCommon.scale1;
+	z *= fractal->transformCommon.scale1; // mmmmmmmmmmmmmmmmmmmmmmmmm
 	aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
-	// Custom DE
+	// DE
 	CVector4 zc = z;
 	double T1;
 
@@ -108,51 +108,49 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	{
 		zc.z = (zc.z - fractal->transformCommon.offsetD0);
 	}
-	zc.z = fabs((zc.z) * fractal->transformCommon.scaleD1); // mmmmmmmmmmmmmmmmmmmm
 
-	double ht = fabs(zc.z) - fractal->transformCommon.offsetF0;
+	zc.z = fabs(zc.z) - fractal->transformCommon.offsetF0;
+	if (!fractal->transformCommon.functionEnabledMFalse) zc.z = max(zc.z, 0.0);
 
-
-	double th = sqrt(zc.x * zc.x + zc.y * zc.y);
-	double th2;
-	th2 = th - fractal->transformCommon.offsetp05;
+	double th = (zc.x * zc.x + zc.y * zc.y);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		th2 = fabs(th2) - fractal->transformCommon.offset01;
-		th2 = max(th2, 0.0);
-		th = th2;
+		th = th - fractal->transformCommon.offsetAp01;
+		th = max(th, 0.0);
 	}
-	if (fractal->transformCommon.functionEnabledMFalse) ht = max(ht, 0.0);
 
 	if (!fractal->transformCommon.functionEnabledIFalse)
 	{
-		double kk;
 		if (!fractal->transformCommon.functionEnabledKFalse)
-			kk = zc.Length() - fractal->transformCommon.offsetp05;
+		{
+			T1 = sqrt(th + zc.z * zc.z) - fractal->transformCommon.offsetp05;
+			if (fractal->transformCommon.functionEnabledJFalse)
+				T1 = T1 + zc.z * fractal->transformCommon.scaleD1;
+		}
 		else
-			kk = sqrt(th * th + ht * ht) - fractal->transformCommon.offsetp05;
-
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			T1 = kk;
-		else
-			T1 = sqrt(zc.x * zc.x + zc.y * zc.y) - (fractal->transformCommon.offsetp05 - fabs(zc.z));
+		{
+			T1 = sqrt(th) + (zc.z * fractal->transformCommon.scaleD1) - fractal->transformCommon.offsetp05;
+		}
 	}
 	else
 	{
 		zc = fabs(zc);
-		double kk;
 		if (!fractal->transformCommon.functionEnabledKFalse)
-			kk = max(th, ht);
-		else
-			kk = max(max(zc.x, zc.y), ht) - (fractal->transformCommon.offsetp05);
+		{
+			if (!fractal->transformCommon.functionEnabledNFalse)
+				T1 = max(th, zc.z) - fractal->transformCommon.offsetp05;
+			else
+				T1 = max(max(zc.x, zc.y), zc.z) - fractal->transformCommon.offsetp05;
 
-		if (!fractal->transformCommon.functionEnabledJFalse)
-			T1 = kk;
-				//	T1 = max(max(zc.x, zc.y), zc.z) - (fractal->transformCommon.offsetp05);
+			if (fractal->transformCommon.functionEnabledJFalse)
+				T1 = T1 + (zc.z * fractal->transformCommon.scaleD1);
+		}
 		else
-			//T1 = th - (fractal->transformCommon.offsetp05 - ht);
-			T1 = (max(zc.x, zc.y)) - (fractal->transformCommon.offsetp05 - ht);
+		{
+			T1 = max(th, zc.z) + (zc.z * fractal->transformCommon.scaleD1) - fractal->transformCommon.offsetp05;
+		}
 	}
+
 	double colDist = aux.dist;
 	T1 = T1 / (aux.DE + fractal->transformCommon.offset1);
 	aux.dist = min(T1, aux.dist);
@@ -163,11 +161,10 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	{
 		double addCol = 0.0;
 		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.x;
-		addCol += (zc.x * zc.y) * fractal->foldColor.difs0000.y;
+		addCol += fabs(zc.x * zc.y) * fractal->foldColor.difs0000.y;
 		addCol += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
 		aux.color += addCol;
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
-
 }
