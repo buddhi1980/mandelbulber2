@@ -12,6 +12,9 @@ build-mic/
 build-win/
 build-*/
 build*.txt
+mandelbulber2/qmake/build/
+mandelbulber2/qmake/debug/
+mandelbulber2/qmake/release/
 
 # Visual Studio
 mandelbulber2/msvc/*.aps
@@ -67,6 +70,7 @@ mandelbulber2.VC.VC.opendb
 # Qt related files
 moc_*.cpp
 ui_*.h
+*.stash
 
 # =========================
 # Operating System Files
@@ -132,3 +136,6 @@ mandelbulber2/cmake/CMakeFiles/*
 mandelbulber2/cmake/Makefile
 mandelbulber2/cmake/cmake_install.cmake
 mandelbulber2/cmake/compile_commands.json
+
+# Other
+*.bak

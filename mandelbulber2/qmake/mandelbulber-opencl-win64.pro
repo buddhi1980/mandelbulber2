@@ -6,6 +6,7 @@ CONFIG += opencl
 CONFIG += gsl
 CONFIG += png
 CONFIG += zlib
+CONFIG += sndfile
 
 CONFIG += c++17
 
@@ -23,11 +24,6 @@ VERSION = 2.32
 #LIBS += -ltiff
 #DEFINES += USE_TIFF
 #message("Use tiff library for TIFF files")
-
-#DEFINES += USE_SNDFILE
-message("Use sndfile library for WAV and MP3 files")
-
-
 
 # required for proper logging output
 DEFINES += QT_MESSAGELOGCONTEXT
@@ -88,8 +84,8 @@ opencl {
     INCLUDEPATH += $$ROOT/../extlib/opencl/include
     LIBS += -L$$ROOT/../extlib/opencl/lib/x64/ -lOpenCL
     
-    opencldll.files = $$ROOT/../extlib/opencl/bin
-    opencldll.path = $$PREFIX
+    opencldll.files = $$ROOT/../extlib/opencl/bin/*.dll
+    opencldll.path = $$PREFIX/bin
     INSTALLS += opencldll    
     message("Use OpenCL library")   
 }
@@ -98,13 +94,13 @@ gsl {
     INCLUDEPATH += $$ROOT/../extlib/gsl/include
     CONFIG(release, debug|release) {
         LIBS += -L$$ROOT/../extlib/gsl/lib/release/ -lgsl
-        gsldll.files = $$ROOT/../extlib/gsl/bin/release
+        gsldll.files = $$ROOT/../extlib/gsl/bin/release/*.dll
     }
     else:CONFIG(debug, debug|release) {
         LIBS += -L$$ROOT/../extlib/gsl/lib/debug/ -lgsl
-        gsldll.files = $$ROOT/../extlib/gsl/bin/debug
+        gsldll.files = $$ROOT/../extlib/gsl/bin/debug/*.dll
     }
-    gsldll.path = $$PREFIX
+    gsldll.path = $$PREFIX/bin
     INSTALLS += gsldll  
     message("Use GSL library")
 }
@@ -113,13 +109,13 @@ png {
     INCLUDEPATH += $$ROOT/../extlib/png/include
     CONFIG(release, debug|release) {
         LIBS += -L$$ROOT/../extlib/png/lib/release/ -llibpng16
-        pngdll.files = $$ROOT/../extlib/png/bin/release
+        pngdll.files = $$ROOT/../extlib/png/bin/release/*.dll
     }
     else:CONFIG(debug, debug|release) {
         LIBS += -L$$ROOT/../extlib/png/lib/debug/ -llibpng16d
-        pngdll.files = $$ROOT/../extlib/png/bin/debug
+        pngdll.files = $$ROOT/../extlib/png/bin/debug/*.dll
     }
-    pngdll.path = $$PREFIX
+    pngdll.path = $$PREFIX/bin
     INSTALLS += pngdll 
     message("Use PNG library")
 }
@@ -128,18 +124,29 @@ zlib {
     INCLUDEPATH += $$ROOT/../extlib/zlib/include
     CONFIG(release, debug|release) {
         LIBS += -L$$ROOT/../extlib/zlib/lib/release/ -lzlib
-        zlibdll.files = $$ROOT/../extlib/zlib/bin/release
+        zlibdll.files = $$ROOT/../extlib/zlib/bin/release/*.dll
     }
     else:CONFIG(debug, debug|release) {
         LIBS += -L$$ROOT/../extlib/zlib/lib/debug/ -lzlibd
-        zlibdll.files = $$ROOT/../extlib/zlib/bin/debug
+        zlibdll.files = $$ROOT/../extlib/zlib/bin/debug/*.dll
     }
-    zlibdll.path = $$PREFIX
+    zlibdll.path = $$PREFIX/bin
     INSTALLS += zlibdll 
     message("Use ZLIB library")
 }
 
+sndfile {
+    INCLUDEPATH += $$ROOT/../extlib/sndfile/include
 
+    LIBS += -L$$ROOT/../extlib/sndfile/lib/ -lsndfile
+    sndfiledll.files = $$ROOT/../extlib/sndfile/bin/*.dll
+
+    sndfiledll.path = $$PREFIX/bin
+    INSTALLS += sndfiledll 
+    message("Use SNDFILE library")
+    
+    DEFINES += USE_SNDFILE
+}
 
 #INCLUDEPATH += "C:\Users\buddh\Git\zlib"
 #CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/Git/zlib/Release/ -lzlib
@@ -152,17 +159,13 @@ zlib {
 #INCLUDEPATH += "C:\Users\buddh\include"
 #LIBS += -LC:/Users/buddh/lib/ -lOpenCL
 
-
-
-
-
 INCLUDEPATH += "C:\Users\buddh\Git\lzo-2.10\include"
 CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/Git/lzo-2.10/build/Release/ -llzo2
 else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/Git/lzo-2.10/build/Debug/ -llzo2
 
-INCLUDEPATH += C:\Users\buddh\lib\libsndfile-1.2.2-win64\include
-CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
-else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
+# INCLUDEPATH += C:\Users\buddh\lib\libsndfile-1.2.2-win64\include
+# CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
+# else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
 
 sharefiles.files = $$ROOT/deploy/share/mandelbulber2/data 
 sharefiles.files += $$ROOT/deploy/share/mandelbulber2/examples 
