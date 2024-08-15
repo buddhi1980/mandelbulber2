@@ -21,6 +21,8 @@ QMAKE_FULL_VERSION = 2.32
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
 VERSION = 2.32
 
+RC_ICONS = $$ROOT/deploy/win64/mandelbulber2.ico
+
 # required for proper logging output
 DEFINES += QT_MESSAGELOGCONTEXT
 
