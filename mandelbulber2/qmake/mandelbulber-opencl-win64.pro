@@ -7,6 +7,9 @@ CONFIG += gsl
 CONFIG += png
 CONFIG += zlib
 CONFIG += sndfile
+CONFIG += lzo2
+CONFIG += openexr
+CONFIG += tiff
 
 CONFIG += c++17
 
@@ -17,13 +20,6 @@ SHARED = $$ROOT/deploy/share/mandelbulber2
 QMAKE_FULL_VERSION = 2.32
 QMAKE_TARGET_BUNDLE_PREFIX = com.mandelbulber
 VERSION = 2.32
-
-#DEFINES += USE_EXR
-#message("Use OpenEXR libraries for EXR files")
-
-#LIBS += -ltiff
-#DEFINES += USE_TIFF
-#message("Use tiff library for TIFF files")
 
 # required for proper logging output
 DEFINES += QT_MESSAGELOGCONTEXT
@@ -148,24 +144,43 @@ sndfile {
     DEFINES += USE_SNDFILE
 }
 
-#INCLUDEPATH += "C:\Users\buddh\Git\zlib"
-#CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/Git/zlib/Release/ -lzlib
-#else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/Git/zlib/Debug/ -lzlibd
+lzo2 {
+    INCLUDEPATH += $$ROOT/../extlib/lzo/include
+    
+    LIBS += -L$$ROOT/../extlib/lzo/lib/ -llzo2
+    zlo2dll.files = $$ROOT/../extlib/lzo/bin/*.dll
+    
+    zlo2dll.path = $$PREFIX/bin
+    INSTALLS += zlo2dll 
+    message("Use LZO library")
+}
 
-# INCLUDEPATH += "C:\Qt\6.7.2\msvc2019_64\include\QtPng"
-# CONFIG(release, debug|release): LIBS += -LC:/Qt/6.7.2/msvc2019_64/lib/ -lQt6BundledLibpng
-# else:CONFIG(debug, debug|release): LIBS += -LC:/Qt/6.7.2/msvc2019_64/lib/ -lQt6BundledLibpngd
+openexr {
+    INCLUDEPATH += $$ROOT/../extlib/openexr/include/OpenEXR
+    INCLUDEPATH += $$ROOT/../extlib/openexr/include/Imath
+    
+    LIBS += -L$$ROOT/../extlib/openexr/lib/ -lOpenEXR-3_2
+    openexrdll.files = $$ROOT/../extlib/openexr/bin/*.dll
+    
+    openexrdll.path = $$PREFIX/bin
+    INSTALLS += openexrdll 
+    message("Use OpenEXR library")
+    
+    DEFINES += USE_EXR
+}
 
-#INCLUDEPATH += "C:\Users\buddh\include"
-#LIBS += -LC:/Users/buddh/lib/ -lOpenCL
-
-INCLUDEPATH += "C:\Users\buddh\Git\lzo-2.10\include"
-CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/Git/lzo-2.10/build/Release/ -llzo2
-else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/Git/lzo-2.10/build/Debug/ -llzo2
-
-# INCLUDEPATH += C:\Users\buddh\lib\libsndfile-1.2.2-win64\include
-# CONFIG(release, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
-# else:CONFIG(debug, debug|release): LIBS += -LC:/Users/buddh/lib/libsndfile-1.2.2-win64/lib -lsndfile
+tiff {
+    INCLUDEPATH += $$ROOT/../extlib/tiff/include
+    
+    LIBS += -L$$ROOT/../extlib/tiff/lib/ -ltiff
+    tiffdll.files = $$ROOT/../extlib/tiff/bin/*.dll
+    
+    tiffdll.path = $$PREFIX/bin
+    INSTALLS += tiffdll 
+    message("Use TIFF library")
+    
+    DEFINES += USE_TIFF
+}
 
 sharefiles.files = $$ROOT/deploy/share/mandelbulber2/data 
 sharefiles.files += $$ROOT/deploy/share/mandelbulber2/examples 
