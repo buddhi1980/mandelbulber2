@@ -160,33 +160,10 @@ void cInterface::ShowUi()
 	mainWindow->ui->toolButton_rotAroundMode->setIconSize(iconSize);
 	mainWindow->ui->toolButton_rotMode->setIconSize(iconSize);
 
-	WriteLog("Restoring window geometry", 2);
-
 	if (gPar->Get<bool>("image_detached"))
 	{
 		DetachMainImageWidget();
 		mainWindow->ui->actionDetach_image_from_main_window->setChecked(true);
-	}
-
-	mainWindow->restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
-
-	WriteLog("Restoring window state", 2);
-
-	if (!mainWindow->restoreState(settings.value("mainWindowState").toByteArray()))
-	{
-		mainWindow->tabifyDockWidget(
-			mainWindow->ui->dockWidget_materialEditor, mainWindow->ui->dockWidget_effects);
-		mainWindow->tabifyDockWidget(
-			mainWindow->ui->dockWidget_effects, mainWindow->ui->dockWidget_image_adjustments);
-		mainWindow->tabifyDockWidget(
-			mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
-		mainWindow->tabifyDockWidget(
-			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_objects);
-		mainWindow->ui->dockWidget_animation->hide();
-		mainWindow->ui->dockWidget_info->hide();
-		mainWindow->ui->dockWidget_gamepad_dock->hide();
-		mainWindow->ui->dockWidget_histogram->hide();
-		mainWindow->ui->dockWidget_queue_dock->hide();
 	}
 
 	mainWindow->setFont(font);
@@ -287,11 +264,11 @@ void cInterface::ShowUi()
 #ifndef USE_OPENCL
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(false);
 #else
-	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
-		gPar->Get<bool>("opencl_enabled"));
+	 mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
+	 	gPar->Get<bool>("opencl_enabled"));
 
-	if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
-		mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
+	 if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
+	 	mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
 #endif
 
 	QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_F11), mainWindow);
@@ -329,7 +306,30 @@ void cInterface::ShowUi()
 	mainWindow->slotPopulateRecentSettings();
 	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);
+	
+	WriteLog("Restoring window geometry", 2);
 
+	mainWindow->restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
+	
+	WriteLog("Restoring window state", 2);
+	
+	if (!mainWindow->restoreState(settings.value("mainWindowState").toByteArray()))
+	{
+		mainWindow->tabifyDockWidget(
+			mainWindow->ui->dockWidget_materialEditor, mainWindow->ui->dockWidget_effects);
+		mainWindow->tabifyDockWidget(
+			mainWindow->ui->dockWidget_effects, mainWindow->ui->dockWidget_image_adjustments);
+		mainWindow->tabifyDockWidget(
+			mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
+		mainWindow->tabifyDockWidget(
+			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_objects);
+		mainWindow->ui->dockWidget_animation->hide();
+		mainWindow->ui->dockWidget_info->hide();
+		mainWindow->ui->dockWidget_gamepad_dock->hide();
+		mainWindow->ui->dockWidget_histogram->hide();
+		mainWindow->ui->dockWidget_queue_dock->hide();
+	}
+	
 	// installing event filter for disabling tooltips
 	gApplication->installEventFilter(mainWindow);
 

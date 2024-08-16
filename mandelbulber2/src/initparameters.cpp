@@ -536,7 +536,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
-	par->addParam("ui_style_type", -1, morphNone, paramApp);
+	par->addParam("ui_style_type", QString("Fusion"), morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
 	par->addParam(

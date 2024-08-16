@@ -82,10 +82,11 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
-	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
-	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
+	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
+
 	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
+
 	ui->comboboxLanguage->addItems(systemData.supportedLanguages.values());
 
 	if (systemData.supportedLanguages.contains(gPar->Get<QString>("language")))
@@ -400,8 +401,11 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 void cPreferencesDialog::on_comboBox_ui_style_type_currentIndexChanged(int index) const
 {
+	Q_UNUSED(index)
+
 	if (!initFinished) return;
-	gPar->Set<int>("ui_style_type", index);
+	gPar->Set<QString>("ui_style_type", ui->comboBox_ui_style_type->currentText());
+
 	UpdateUIStyle();
 }
 
