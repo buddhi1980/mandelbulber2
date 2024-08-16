@@ -2242,7 +2242,7 @@ offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;Menger Middle Mod&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger middle mod.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger middle mod.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/MengerMid_RotVary_SphOffsetVCL.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

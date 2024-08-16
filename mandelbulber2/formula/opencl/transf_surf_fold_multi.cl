@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -45,22 +45,22 @@ REAL4 TransfSurfFoldMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (z.x > fractal->transformCommon.additionConstant111.x)
 		{
 			z.x = fractal->mandelbox.foldingValue - z.x;
-//			aux->color += fractal->mandelbox.color.factor.x;
+			//			aux->color += fractal->mandelbox.color.factor.x;
 		}
 		else if (z.x < -fractal->transformCommon.additionConstant111.x)
 		{
 			z.x = -fractal->mandelbox.foldingValue - z.x;
-//			aux->color += fractal->mandelbox.color.factor.x;
+			//			aux->color += fractal->mandelbox.color.factor.x;
 		}
 		if (z.y > fractal->transformCommon.additionConstant111.y)
 		{
 			z.y = fractal->mandelbox.foldingValue - z.y;
-//			aux->color += fractal->mandelbox.color.factor.y;
+			//			aux->color += fractal->mandelbox.color.factor.y;
 		}
 		else if (z.y < -fractal->transformCommon.additionConstant111.y)
 		{
 			z.y = -fractal->mandelbox.foldingValue - z.y;
-//			aux->color += fractal->mandelbox.color.factor.y;
+			//			aux->color += fractal->mandelbox.color.factor.y;
 		}
 	}
 
@@ -77,19 +77,16 @@ REAL4 TransfSurfFoldMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
-				&& aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0;
+		REAL colorAdd = 0.0f;
 		REAL4 zCol = fabs(z - oldZ);
 
-		if(!fractal->foldColor.auxColorEnabledAFalse)
+		if (!fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (zCol.x > 0.0f)
-				colorAdd += fractal->foldColor.difs0000.x * zCol.x;
-			if (zCol.y > 0.0f)
-				colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+			if (zCol.x > 0.0f) colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+			if (zCol.y > 0.0f) colorAdd += fractal->foldColor.difs0000.y * zCol.y;
 		}
 		else
 		{
@@ -100,8 +97,9 @@ REAL4 TransfSurfFoldMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			else
 			{
 				colorAdd += fractal->foldColor.difs0000.x
-						* (1.0f - (fractal->transformCommon.additionConstant111.x
-						   - fabs(z.x)) / fractal->transformCommon.additionConstant111.x);
+										* (1.0f
+											 - (fractal->transformCommon.additionConstant111.x - fabs(z.x))
+													 / fractal->transformCommon.additionConstant111.x);
 			}
 
 			if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
@@ -111,8 +109,9 @@ REAL4 TransfSurfFoldMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			else
 			{
 				colorAdd += fractal->foldColor.difs0000.y
-						* (1.0f - (fractal->transformCommon.additionConstant111.y
-								  - fabs(z.y)) / fractal->transformCommon.additionConstant111.y);
+										* (1.0f
+											 - (fractal->transformCommon.additionConstant111.y - fabs(z.y))
+													 / fractal->transformCommon.additionConstant111.y);
 			}
 		}
 

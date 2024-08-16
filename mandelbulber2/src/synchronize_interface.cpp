@@ -505,7 +505,14 @@ void SynchronizeInterfaceQComboBox(
 					{
 						selection = newFractalList[comboBox->itemData(selection).toInt()]->getInternalId();
 					}
-					par->Set(props.paramName, selection);
+					if (par->GetVarType(props.paramName) == typeString)
+					{
+						par->Set(props.paramName, comboBox->currentText());
+					}
+					else
+					{
+						par->Set(props.paramName, selection);
+					}
 				}
 				else if (mode == qInterface::write)
 				{
@@ -527,7 +534,22 @@ void SynchronizeInterfaceQComboBox(
 							}
 						}
 					}
-					comboBox->setCurrentIndex(selection);
+					if (par->GetVarType(props.paramName) == typeString)
+					{
+						QString text = par->Get<QString>(props.paramName);
+						for (int i = 0; i < comboBox->count(); i++)
+						{
+							if (comboBox->itemText(i) == text)
+							{
+								comboBox->setCurrentIndex(i);
+								break;
+							}
+						}
+					}
+					else
+					{
+						comboBox->setCurrentIndex(selection);
+					}
 				}
 			}
 		}

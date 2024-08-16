@@ -322,6 +322,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSSphereGridV2());
 	fractalList->append(new cFractalTransfDIFSSphereGridV3());
 	fractalList->append(new cFractalTransfDIFSSpring());
+	fractalList->append(new cFractalTransfDIFSSupershape());
 	fractalList->append(new cFractalTransfDIFSTorus());
 	fractalList->append(new cFractalTransfDIFSTorusV2());
 	fractalList->append(new cFractalTransfDIFSTorusV3());
@@ -445,6 +446,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfBoxFold());
 	fractalList->append(new cFractalTransfBoxFold4d());
 	fractalList->append(new cFractalTransfBoxFold4dTglad());
+	fractalList->append(new cFractalTransfBoxFold4dInfy());
 	fractalList->append(new cFractalTransfBoxFoldVaryV1());
 	fractalList->append(new cFractalTransfBoxFoldXYZ());
 
@@ -463,6 +465,8 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfIterationWeight4d());
 	fractalList->append(new cFractalTransfInitial4d());
 	fractalList->append(new cFractalTransfInvCylindrical());
+	fractalList->append(new cFractalTransfJuliabox());
+	fractalList->append(new cFractalTransfJuliaboxV2());
 	fractalList->append(new cFractalTransfLinCombineCXYZ());
 	fractalList->append(new cFractalTransfLowResMode());
 	fractalList->append(new cFractalTransfMandalayFoldV1());
@@ -547,6 +551,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfSphericalInv());
 	fractalList->append(new cFractalTransfSphericalInvV2());
 	fractalList->append(new cFractalTransfSphericalInvV3());
+	fractalList->append(new cFractalTransfSphericalInvV4());
 	fractalList->append(new cFractalTransfSphericalInvPnorm());
 	fractalList->append(new cFractalTransfSphericalInvC());
 	fractalList->append(new cFractalTransfSphericalPwrFold());
@@ -577,10 +582,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
 	fractalList->append(new cFractalTinkerTowers());
-	fractalList->append(new cFractalTransfSphericalInvV4());
-	fractalList->append(new cFractalTransfJuliabox());
-	fractalList->append(new cFractalTransfJuliaboxV2());
-	fractalList->append(new cFractalTransfBoxFold4dInfy());
 
 	fractalList->append(new cFractalTransfSupershape());
 	fractalList->append(new cFractalScatorPower2StdR());

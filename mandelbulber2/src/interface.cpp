@@ -160,8 +160,6 @@ void cInterface::ShowUi()
 	mainWindow->ui->toolButton_rotAroundMode->setIconSize(iconSize);
 	mainWindow->ui->toolButton_rotMode->setIconSize(iconSize);
 
-	WriteLog("Restoring window geometry", 2);
-
 	if (gPar->Get<bool>("image_detached"))
 	{
 		DetachMainImageWidget();
@@ -266,11 +264,11 @@ void cInterface::ShowUi()
 #ifndef USE_OPENCL
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(false);
 #else
-	// mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
-	// 	gPar->Get<bool>("opencl_enabled"));
+	 mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
+	 	gPar->Get<bool>("opencl_enabled"));
 
-	// if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
-	// 	mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
+	 if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
+	 	mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
 #endif
 
 	QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_F11), mainWindow);
@@ -309,6 +307,8 @@ void cInterface::ShowUi()
 	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);
 	
+	WriteLog("Restoring window geometry", 2);
+
 	mainWindow->restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
 	
 	WriteLog("Restoring window state", 2);

@@ -193,10 +193,6 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 		redrawed = true;
 	}
-	else
-	{
-		qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): image not assigned";
-	}
 }
 
 void RenderedImage::DisplayCoordinates()

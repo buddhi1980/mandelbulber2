@@ -502,21 +502,20 @@ void UpdateDefaultPaths()
 
 void UpdateUIStyle()
 {
+	QStringList listOfAvailableStyles = QStyleFactory::keys();
+
 	// Selecting default Fusion UI style in case if wrong style is selected
-	if (gPar->Get<int>("ui_style_type") < 0
-			|| gPar->Get<int>("ui_style_type") >= QStyleFactory::keys().size())
+	if (listOfAvailableStyles.indexOf(gPar->Get<QString>("ui_style_type")) < 0)
 	{
-		QStringList listOfStyles = QStyleFactory::keys();
-		int indexOfFusion = listOfStyles.indexOf("Fusion");
-		gPar->Set<int>("ui_style_type", indexOfFusion);
+		gPar->Set<QString>("ui_style_type", "Fusion");
 	}
 
-	// set ui style
-	if (gPar->Get<int>("ui_style_type") >= 0
-			&& gPar->Get<int>("ui_style_type") < QStyleFactory::keys().size())
+	QString selectedStyle = gPar->Get<QString>("ui_style_type");
+	int indexOnList = listOfAvailableStyles.indexOf(gPar->Get<QString>("ui_style_type"));
+
+	if (indexOnList >= 0)
 	{
-		QApplication::setStyle(
-			QStyleFactory::create(QStyleFactory::keys().at(gPar->Get<int>("ui_style_type"))));
+		QApplication::setStyle(QStyleFactory::create(QStyleFactory::keys().at(indexOnList)));
 	}
 }
 
@@ -631,12 +630,12 @@ void UpdateLanguage()
 	translatorLoaded = mandelbulberMainTranslator.load(
 		locale, systemDirectories.sharedDir + QDir::separator() + "language");
 	if (!translatorLoaded)
-		qCritical() << "Translattion of main interface cannot be loaded for language" << locale;
+		WriteLogString("Translattion of main interface cannot be loaded for language", locale, 2);
 
 	translatorLoaded = mandelbulberFractalUiTranslator.load(
 		"formula_" + locale, systemDirectories.sharedDir + QDir::separator() + "language");
 	if (!translatorLoaded)
-		qCritical() << "Translattion of fractals interface cannot be loaded for language" << locale;
+		WriteLogString("Translattion of fractals interface cannot be loaded for language", locale, 2);
 
 	WriteLog("Installing translator", 2);
 	QCoreApplication::installTranslator(&mandelbulberMainTranslator);

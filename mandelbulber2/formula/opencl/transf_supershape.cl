@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -35,6 +35,7 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	REAL r1 = native_sqrt(z.x * z.x + z.y * z.y);
+	// REAL r2 = native_sqrt(z.x * z.x + z.y * z.y); // <<<<<<<<<<<<<<<<<<<<
 	REAL phi;
 	REAL tho = asin(z.z / r1);
 	if (!fractal->transformCommon.functionEnabledAFalse)
@@ -63,6 +64,8 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	if (fractal->transformCommon.functionEnabledGFalse)
 		r1 = fabs(r1 - aux->r * fractal->transformCommon.scaleA0);
+	// else
+	//	r1 = fabs(r1 - r2 * fractal->transformCommon.scaleA1);
 
 	// if (fractal->transformCommon.functionEnabledBFalse)
 	//	aux->DE0 = r;
@@ -107,6 +110,7 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
 		REAL4 zc = z;
+
 		REAL T1;
 		if (!fractal->transformCommon.functionEnabledIFalse)
 			T1 = length(zc);
@@ -121,6 +125,5 @@ REAL4 TransfSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		if (fractal->transformCommon.functionEnabledZcFalse) z = zc;
 	}
-
 	return z;
 }

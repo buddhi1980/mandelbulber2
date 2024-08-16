@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,7 +18,6 @@
 REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL oldZz = z.z;
-
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
@@ -136,7 +135,7 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 
-	//	z += fractal->transformCommon.offsetA000;
+		//	z += fractal->transformCommon.offsetA000;
 	}
 	if (fractal->transformCommon.functionEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsM
@@ -219,15 +218,13 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-		&& aux->i < fractal->foldColor.stopIterationsA)
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-
 		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 		aux->color += colorAdd;
 	}
-
 	return z;
 }

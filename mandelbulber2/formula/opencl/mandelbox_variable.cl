@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,12 +25,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL4 zCol = z;
 	REAL4 oldZ = z;
 	REAL4 limit4 = fractal->transformCommon.additionConstant111;
-//	REAL4 value4 = 2.0f * fractal->transformCommon.additionConstant111;
-//	if (fractal->transformCommon.functionEnabledFalse)
-//		value4 = fractal->transformCommon.additionConstant222;
+	//	REAL4 value4 = 2.0f * fractal->transformCommon.additionConstant111;
+	//	if (fractal->transformCommon.functionEnabledFalse)
+	//		value4 = fractal->transformCommon.additionConstant222;
 
 	if (fractal->mandelbox.rotationsEnabled)
-	{ // TODO evaluate implementation of vec3 limit and value, actually convert to limit4
+	{ // TODO evaluate implementation of vec3 limit and value
 		REAL4 zRot;
 		// cast vector to array pointer for address taking of components in opencl
 		REAL *zRotP = (REAL *)&zRot;

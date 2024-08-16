@@ -540,6 +540,7 @@ transformCommon.mboxFactor1 none none
 transformCommon.inv0 none none
 transformCommon.inv1 none none
 transformCommon.maxMinR2factor none none
+transformCommon.maxMinR0factor none none
 genFoldBox.sides_tet none none
 genFoldBox.sides_cube none none
 genFoldBox.sides_oct none none

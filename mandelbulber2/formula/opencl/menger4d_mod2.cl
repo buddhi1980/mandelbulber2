@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -41,8 +41,8 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z += fractal->transformCommon.additionConstant0000; // offset
 	}
 
-	REAL temp = 0.0;
-	REAL col = 0.0;
+	REAL temp = 0.0f;
+	REAL col = 0.0f;
 	if (z.x - z.y < 0.0f)
 	{
 		temp = z.y;
@@ -167,12 +167,10 @@ REAL4 Menger4dMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
-					&& aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		aux->color += col;
 	}
-
 	return z;
 }

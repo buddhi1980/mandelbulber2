@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -101,6 +101,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		z = (REAL4){z.z * SQRT_1_3_F + tempXZ * SQRT_2_3_F, (z.y - z.x) * SQRT_1_2_F,
 			z.z * SQRT_2_3_F - tempXZ * SQRT_1_3_F, z.w};
 	}
+
 	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
@@ -132,7 +133,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 
-	//	z += fractal->transformCommon.offsetA000;
+		//	z += fractal->transformCommon.offsetA000;
 	}
 
 	// Pseudo kleinian
@@ -142,8 +143,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL4 tempZ = z; //  correct c++ version.
-
+		REAL4 tempZ = z; //  correct c++ version. non conditional mult 2.0f
 		if (z.x > cSize.x) tempZ.x = cSize.x;
 		if (z.x < -cSize.x) tempZ.x = -cSize.x;
 		if (z.y > cSize.y) tempZ.y = cSize.y;
@@ -158,8 +158,9 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		k = max(fractal->transformCommon.minR05 / dot(z, z), 1.0f);
 		z *= k;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
+
 		aux->DE *= k + fractal->analyticDE.tweak005;
-		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
+		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse
@@ -187,6 +188,7 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
+		z = fabs(z);
 		REAL temp;
 		z = fabs(z);
 		if (z.x - z.y < 0.0f)
@@ -217,10 +219,9 @@ REAL4 PseudoKleinianMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-		&& aux->i < fractal->foldColor.stopIterationsA)
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-
 		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
