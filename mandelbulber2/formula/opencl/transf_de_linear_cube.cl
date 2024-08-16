@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -14,7 +14,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-REAL4 TransfDELinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+REAL4 TransfDELinearCubeIteration(
+	REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux) // x×(1−a)+y×a .
 {
 	REAL R;
 	if (!fractal->transformCommon.functionEnabledAFalse)
@@ -30,8 +31,8 @@ REAL4 TransfDELinearCubeIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else // mix
 	{
-		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z))
-				* (1.0f - fractal->transformCommon.scaleA0) + length(z) * fractal->transformCommon.scaleA0;
+		R = max(max(fabs(z.x), fabs(z.y)), fabs(z.z)) * (1.0f - fractal->transformCommon.scaleA0)
+				+ length(z) * fractal->transformCommon.scaleA0;
 	}
 	aux->dist =
 		(fractal->transformCommon.scale1 * R / aux->DE) - fractal->transformCommon.offset0 / 100.0f;

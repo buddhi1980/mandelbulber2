@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -23,7 +23,7 @@ REAL4 TransfSphericalCoordInvsIteration(
 
 	REAL4 t = z;
 	REAL sn = 0.0f;
-	if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabled) // M3D version
 	{
 		sn = z.x * native_sin(z.y);
 		t.x = sn * native_cos(z.z);

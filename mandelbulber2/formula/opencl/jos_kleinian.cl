@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -34,6 +34,7 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			aux->DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1;
 		}
 	}
+
 	REAL4 box_size = fractal->transformCommon.offset111;
 	// kleinian
 	if (aux->i >= fractal->transformCommon.startIterationsC
@@ -70,27 +71,26 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	}
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-		&& aux->i < fractal->foldColor.stopIterationsA)
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		double colorAdd = 0.0;
+		REAL colorAdd = 0.0f;
 		colorAdd += fractal->foldColor.difs0000.x * fabs(oldDE / aux->DE);
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.y - oldZy);
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			double Size = box_size.x * fractal->transformCommon.scale3D222.x;
-			double bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			REAL Size = box_size.x * fractal->transformCommon.scale3D222.x;
+			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
-			double dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
+			REAL dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
 			Size = box_size.z * fractal->transformCommon.scale3D222.z;
-			double cc = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+			REAL cc = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.z;
-			double ee = ((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+			REAL ee = ((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.z;
-
 
 			if (!fractal->transformCommon.functionEnabledAxFalse)
 			{
@@ -104,15 +104,17 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			}
 
 			if (fractal->transformCommon.functionEnabledAFalse)
-			{	Size = box_size.y * fractal->transformCommon.scale3D222.y;
+			{
+				Size = box_size.y * fractal->transformCommon.scale3D222.y;
 				REAL aa = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.y;
 				bb = bb + aa;
-				REAL ff = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
+				REAL ff =
+					((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.y;
 				dd = dd + ff;
 			}
-			bb = dd * (1.0 - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
+			bb = dd * (1.0f - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
 
 			colorAdd += fractal->foldColor.difs0000.w * bb;
 		}

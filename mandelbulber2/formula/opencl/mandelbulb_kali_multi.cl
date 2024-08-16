@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -62,10 +62,6 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z = aux->r * (REAL4){sinth * native_cos(ph0), native_sin(ph0) * sinth, native_cos(th0), 0.0f};
 	}
 
-
-
-
-
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		switch (fractal->mandelbulbMulti.orderOfXYZ2)
@@ -78,25 +74,17 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			case multi_OrderOfXYZCl_zxy: v = (REAL4){z.z, z.x, z.y, z.w}; break;
 			case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
 		}
-		if (v.z * v.z + v.y * v.y == 0.0f)
+		if (z.x * z.x + z.y * z.y == 0.0f)
 		{
-			v.y = -v.x * v.x;
-			v.x = 0.0f;
+			z.y = z.z * z.z;
+			z.z = 0.0f;
 		}
-
-
 		if (fractal->mandelbulbMulti.acosOrAsinA == multi_acosOrAsinCl_acos)
-		{
-
 			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
-					//	+ 1e-030f; // MUST keep exception catch
-		}
+		//	+ 1e-030f; // MUST keep exception catch
 		else
-		{
-
 			th0 += asin(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
-					//	 + 1e-030f; // MUST keep exception catch;
-		}
+		//	 + 1e-030f; // MUST keep exception catch;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2A == multi_atanOrAtan2Cl_atan)
 			ph0 += atan(v.y / v.z);
@@ -115,23 +103,17 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			case multi_OrderOfXYZCl_zxy: v = (REAL4){z.z, z.x, z.y, z.w}; break;
 			case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
 		}
-		if (v.z * v.z + v.y * v.y == 0.0f)
+		if (z.x * z.x + z.y * z.y == 0.0f)
 		{
-			v.y = -v.x * v.x;
-			v.x = 0.0f;
+			z.y = z.z * z.z;
+			z.z = 0.0f;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsinCl_acos)
-		{
-
 			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
-					//	+ 1e-030f; // MUST keep exception catch ??;
-		}
+		//	+ 1e-030f; // MUST keep exception catch ??;
 		else
-		{
-
 			th0 += asin(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
-					//	 + 1e-030f; // MUST keep exception catch ??;
-		}
+		//	 + 1e-030f; // MUST keep exception catch ??;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2Cl_atan)
 			ph0 += atan(v.y / v.z);

@@ -322,6 +322,7 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 	fractalList->append(new cFractalTransfDIFSSphereGridV2());
 	fractalList->append(new cFractalTransfDIFSSphereGridV3());
 	fractalList->append(new cFractalTransfDIFSSpring());
+	fractalList->append(new cFractalTransfDIFSSupershape());
 	fractalList->append(new cFractalTransfDIFSTorus());
 	fractalList->append(new cFractalTransfDIFSTorusV2());
 	fractalList->append(new cFractalTransfDIFSTorusV3());
@@ -581,9 +582,6 @@ void DefineFractalList(QList<cAbstractFractal *> *fractalList)
 
 	fractalList->append(new cFractalPseudoKleinianMod7());
 	fractalList->append(new cFractalTinkerTowers());
-
-
-	fractalList->append(new cFractalTransfDIFSSupershape());
 
 	fractalList->append(new cFractalTransfSupershape());
 	fractalList->append(new cFractalScatorPower2StdR());

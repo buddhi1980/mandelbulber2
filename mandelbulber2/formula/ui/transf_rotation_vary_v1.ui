@@ -364,7 +364,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;rotation variation v1. Rotation angles vary linearly between iteration parameters.&lt;br&gt;After the stop iteration, alpha = alpha + variable alpha.&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVary.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVaryV1.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/mountains_and_valleys.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/MengerMid_RotVary_SphOffsetVCL.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVary.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/abox_mod11_rotVaryV1.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/mountains_and_valleys.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

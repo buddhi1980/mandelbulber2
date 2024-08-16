@@ -19,7 +19,6 @@
 REAL4 TransfRpow3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL sqrRout = dot(z, z) * fractal->transformCommon.scale;
-
 	z *= sqrRout;
 	aux->DE = aux->DE * fabs(sqrRout) + fractal->analyticDE.offset1;
 	return z;

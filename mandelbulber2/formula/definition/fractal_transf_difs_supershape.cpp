@@ -29,6 +29,12 @@ cFractalTransfDIFSSupershape::cFractalTransfDIFSSupershape() : cAbstractFractal(
 void cFractalTransfDIFSSupershape::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		z += fractal->transformCommon.offsetA000;
+	}
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -161,7 +167,8 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	{
 		double addCol = 0.0;
 		if (colDist != aux.dist) addCol += fractal->foldColor.difs0000.x;
-		addCol += fabs(zc.x * zc.y) * fractal->foldColor.difs0000.y;
+		zc = fabs(zc);
+		addCol += zc.x * zc.y * fractal->foldColor.difs0000.y;
 		addCol += max(zc.x, zc.y) * fractal->foldColor.difs0000.z;
 		aux.color += addCol;
 	}

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,7 +18,6 @@
 REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL oldZz = z.z;
-	//REAL oldDE = aux->DE;
 
 	// sphere inversion slot#1 iter == 0 added v2.17
 	if (fractal->transformCommon.sphereInversionEnabledFalse
@@ -105,13 +104,13 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		}
 	}
 
-	// Pseudo kleinian
+	// PseudoKleinian
 	REAL k = 1.0f;
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL4 tempZ = z;
+		REAL4 tempZ = z; //  correct c++ version. non conditional mult 2.0f
 		if (z.x > cSize.x) tempZ.x = cSize.x;
 		if (z.x < -cSize.x) tempZ.x = -cSize.x;
 		if (z.y > cSize.y) tempZ.y = cSize.y;
@@ -123,7 +122,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z *= k;
 		if (fractal->transformCommon.functionEnabledNFalse) z.z = -z.z;
 		aux->DE *= k + fractal->analyticDE.tweak005;
-		aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK
+		aux->pseudoKleinianDE = fractal->analyticDE.scale1;
 	}
 
 	// rotation
@@ -137,23 +136,22 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	// color
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
-		&& aux->i < fractal->foldColor.stopIterationsA)
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		REAL colorAdd = 0.0f;
-
 		colorAdd += fractal->foldColor.difs0000.x * k;
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			REAL Size = 2.0 * cSize.x * fractal->transformCommon.constantMultiplier111.x;
+			REAL Size = 2.0f * cSize.x * fractal->transformCommon.constantMultiplier111.x;
 			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
 			REAL dd = ((aux->const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
-			Size = 2.0 * cSize.y * fractal->transformCommon.constantMultiplier111.y;
+			Size = 2.0f * cSize.y * fractal->transformCommon.constantMultiplier111.y;
 			REAL cc = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.y;
 			REAL ee = ((aux->const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
@@ -172,11 +170,12 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 			if (fractal->transformCommon.functionEnabledAFalse)
 			{
-				Size = 2.0 * cSize.z * fractal->transformCommon.constantMultiplier111.z;
+				Size = 2.0f * cSize.z * fractal->transformCommon.constantMultiplier111.z;
 				REAL aa = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.z;
 				bb = bb + aa;
-				REAL ff = ((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
+				REAL ff =
+					((aux->const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.z;
 				dd = dd + ff;
 			}

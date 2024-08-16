@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,8 +24,10 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z *= fractal->transformCommon.scale;
 	aux->DE = aux->DE * fabs(fractal->transformCommon.scale) + 1.0f;
 
-	if (!fractal->transformCommon.functionEnabledyFalse) rr = dot(z, z);
-	else rr = dot(oldZ, oldZ);
+	if (!fractal->transformCommon.functionEnabledyFalse)
+		rr = dot(z, z);
+	else
+		rr = dot(oldZ, oldZ);
 	REAL mde = rr;
 
 	if (!fractal->transformCommon.functionEnabledzFalse)
@@ -36,6 +38,7 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	else // conditional
 	{
+
 		z += fractal->transformCommon.offset000;
 		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{

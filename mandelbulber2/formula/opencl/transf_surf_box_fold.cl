@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,7 +19,7 @@
 
 REAL4 TransfSurfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 oldZ = z;
+	REAL4 oldZ = z; // aux->lastZ
 	if (fractal->surfBox.enabledX1)
 	{
 		z.x =
@@ -124,25 +124,19 @@ REAL4 TransfSurfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;
 	}
-
 	aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux->i >= fractal->foldColor.startIterationsA
-				&& aux->i < fractal->foldColor.stopIterationsA)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		REAL colorAdd = 0.0;
+		REAL colorAdd = 0.0f;
 		REAL4 zCol = fabs(z - oldZ);
 
-		if (zCol.x > 0.0f)
-			colorAdd += fractal->foldColor.difs0000.x * zCol.x;
-		if (zCol.y > 0.0f)
-			colorAdd += fractal->foldColor.difs0000.y * zCol.y;
-		if (zCol.z > 0.0f)
-			colorAdd += fractal->foldColor.difs0000.z * zCol.z;
+		if (zCol.x > 0.0f) colorAdd += fractal->foldColor.difs0000.x * zCol.x;
+		if (zCol.y > 0.0f) colorAdd += fractal->foldColor.difs0000.y * zCol.y;
+		if (zCol.z > 0.0f) colorAdd += fractal->foldColor.difs0000.z * zCol.z;
 
 		aux->color += colorAdd;
 	}
-
 	return z;
 }

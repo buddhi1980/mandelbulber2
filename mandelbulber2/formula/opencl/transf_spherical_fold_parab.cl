@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -64,8 +64,10 @@ REAL4 TransfSphericalFoldParabIteration(
 		REAL tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			if (!fractal->transformCommon.functionEnabledOFalse) m = maxScale - (rr * rr) * factor;
-			else m = 1.0f + (maxR2 - rr) * (maxR2 - rr) * factor;
+			if (!fractal->transformCommon.functionEnabledOFalse)
+				m = maxScale - (rr * rr) * factor;
+			else
+				m = 1.0f + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
@@ -79,7 +81,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			aux->DE = aux->DE * m;
 			colorAdd += fractal->mandelbox.color.factorSp2;
 
-			// z -= fractal->mandelbox.offset; fixed v2.32
+			// z -= fractal->mandelbox.offset; //  fixed v2.32
 		}
 		z -= fractal->mandelbox.offset;
 	}
