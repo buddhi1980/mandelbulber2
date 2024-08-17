@@ -143,7 +143,9 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.z);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.z - oldZz);
 
-		if (fractal->foldColor.auxColorEnabledAFalse)
+		if (fractal->foldColor.auxColorEnabledAFalse
+				&& aux->i >= fractal->transformCommon.startIterationsT
+				&& aux->i < fractal->transformCommon.stopIterationsT)
 		{
 			REAL Size = 2.0f * cSize.x * fractal->transformCommon.constantMultiplier111.x;
 			REAL bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;

@@ -74,10 +74,10 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			case multi_OrderOfXYZCl_zxy: v = (REAL4){z.z, z.x, z.y, z.w}; break;
 			case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
 		}
-		if (z.x * z.x + z.y * z.y == 0.0f)
+		if (v.x * v.x + v.y * v.y == 0.0f)
 		{
-			z.y = z.z * z.z;
-			z.z = 0.0f;
+			v.y = v.z * v.z;
+			v.z = 0.0f;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsinA == multi_acosOrAsinCl_acos)
 			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
@@ -103,10 +103,10 @@ REAL4 MandelbulbKaliMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			case multi_OrderOfXYZCl_zxy: v = (REAL4){z.z, z.x, z.y, z.w}; break;
 			case multi_OrderOfXYZCl_zyx: v = (REAL4){z.z, z.y, z.x, z.w}; break;
 		}
-		if (z.x * z.x + z.y * z.y == 0.0f)
+		if (v.x * v.x + v.y * v.y == 0.0f)
 		{
-			z.y = z.z * z.z;
-			z.z = 0.0f;
+			v.y = v.z * v.z;
+			v.z = 0.0f;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsinCl_acos)
 			th0 = acos(v.x / aux->r) + fractal->transformCommon.betaAngleOffset;
