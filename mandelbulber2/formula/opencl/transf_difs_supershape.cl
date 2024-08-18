@@ -74,7 +74,7 @@ REAL4 TransfDIFSSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	r1 = r1 * fractal->transformCommon.radius1;
 	z.z *= fractal->transformCommon.scaleB1;
-	aux->DE *= fabs(fractal->transformCommon.scaleB1); // mmmmmmmmmmmmmmmmmmmmmmmmm
+	aux->DE *= fabs(fractal->transformCommon.scaleB1); // mmmmm
 
 	if (!fractal->transformCommon.functionEnabledGFalse)
 		r1 = fabs(r1 - length(z) * fractal->transformCommon.scaleA1);
@@ -84,7 +84,7 @@ REAL4 TransfDIFSSupershapeIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	z.x = r1 * native_cos(phi);
 	z.y = r1 * native_sin(phi);
 
-	z *= fractal->transformCommon.scale1; // mmmmmmmmmmmmmmmmmmmmmmmmm
+	z *= fractal->transformCommon.scale1; // mmmmmm
 	aux->DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)

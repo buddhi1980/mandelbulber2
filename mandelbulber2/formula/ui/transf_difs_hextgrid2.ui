@@ -388,7 +388,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;transfDIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and  darkbeams optimized version @reference&lt;br&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;&quot;Beautiful iso-surface made of a hexagonal grid of tubes.&lt;br&gt;Taken from K3DSurf forum, posted by user abdelhamid belaid.&quot;&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;hex grid 001.fract&lt;br&gt;hex grid 002.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;hex grid 001.fract&lt;br&gt;hex grid 002.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/T_sphInvV4_abxKali_hexGrid2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

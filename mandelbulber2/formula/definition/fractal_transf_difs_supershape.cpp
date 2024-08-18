@@ -88,7 +88,7 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 
 	r1 = r1 * fractal->transformCommon.radius1;
 	z.z *= fractal->transformCommon.scaleB1;
-	aux.DE *= fabs(fractal->transformCommon.scaleB1); // mmmmmmmmmmmmmmmmmmmmmmmmm
+	aux.DE *= fabs(fractal->transformCommon.scaleB1); // mmmmm
 
 	if (!fractal->transformCommon.functionEnabledGFalse)
 		r1 = fabs(r1 - z.Length() * fractal->transformCommon.scaleA1);
@@ -98,12 +98,11 @@ void cFractalTransfDIFSSupershape::FormulaCode(
 	z.x = r1 * cos(phi);
 	z.y = r1 * sin(phi);
 
-	z *= fractal->transformCommon.scale1; // mmmmmmmmmmmmmmmmmmmmmmmmm
+	z *= fractal->transformCommon.scale1; // mmmmmm
 	aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 
 	// DE
 	CVector4 zc = z;
