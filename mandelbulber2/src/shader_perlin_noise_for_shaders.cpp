@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2024 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -35,6 +35,7 @@
  */
 
 #include "shader_perlin_noise_for_shaders.hpp"
+
 #include "common_math.h"
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"

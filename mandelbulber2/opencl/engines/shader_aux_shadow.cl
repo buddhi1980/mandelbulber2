@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -302,8 +302,7 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 					input2.material->transparencyAlphaTextureIndex, 1.0f);
 				texOpacity =
 					(1.0f - tex.s0) * input2.material->transparencyAlphaTextureIntensityVol + 1e-6f;
-				opacityCollected =
-					opacityCollected * (1.0 - texOpacity) + texOpacity;
+				opacityCollected = opacityCollected * (1.0 - texOpacity) + texOpacity;
 			}
 #endif // USE_TRANSPARENCY_ALPHA_TEXTURE
 
@@ -321,7 +320,8 @@ float3 AuxShadow(constant sClInConstants *consts, sRenderData *renderData,
 			}
 #endif
 
-			float opacity = (-1.0f + 1.0f / (opacityCollected * input->material->transparencyOfInterior)) * step;
+			float opacity =
+				(-1.0f + 1.0f / (opacityCollected * input->material->transparencyOfInterior)) * step;
 
 #ifdef MC_SOFT_SHADOWS
 			opacity *= opacityFactor;

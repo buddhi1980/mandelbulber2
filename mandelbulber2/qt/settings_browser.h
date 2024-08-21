@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_QT_SETTINGS_BROWSER_H_
 #define MANDELBULBER2_QT_SETTINGS_BROWSER_H_
 
-#include <QDialog>
 #include <QDateTime>
+#include <QDialog>
 #include <QTimer>
 
 namespace Ui
