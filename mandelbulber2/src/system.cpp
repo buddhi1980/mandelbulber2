@@ -207,7 +207,8 @@ bool InitSystem()
 	// detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();
 
-	printf("Detected %d CPUs\n", systemData.numberOfThreads);
+	out << "Detected " << systemData.numberOfThreads << " CPU logical cores\n";
+
 	WriteLogDouble("CPUs detected", systemData.numberOfThreads, 2);
 
 #ifdef ONETHREAD // for debugging

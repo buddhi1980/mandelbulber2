@@ -74,6 +74,8 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 {
 	if (gPar->Get<bool>("opencl_enabled"))
 	{
+		QTextStream out(stdout);
+
 		openClHardware->ListOpenClPlatforms();
 
 		int selectedPlatformIndex = gPar->Get<int>("opencl_platform");
@@ -103,6 +105,14 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 		{
 			qCritical() << "No OpenCL platforms available!";
 			gPar->Set("opencl_enabled", false);
+		}
+
+		QList<cOpenClDevice> clDeviceWorkers = openClHardware->getClWorkers();
+		out << "Selected OpenCL devices:\n";
+		for (int i = 0; i < clDeviceWorkers.size(); i++)
+		{
+			out << "Device " << i << " : " << clDeviceWorkers[i].getDeviceInformation().deviceName
+					<< "\n";
 		}
 	}
 }
