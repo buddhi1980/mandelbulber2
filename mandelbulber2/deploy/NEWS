@@ -9,8 +9,6 @@ TODO check all is finished with escape conditions
 	 transfJuliaboxV2
 	 transfSphericalInvV4
 
-
-
 - modified fractal formulas
    aboxModKali, added aux.color
 	 aboxMod1, add R power iter controls
@@ -39,11 +37,25 @@ TODO check all is finished with escape conditions
 	 transfSurfFoldMulti, fix and update aux.color
 	 transfHybridColor2, fix parameter and add color tiling
 
-
-
-   define M_PI_2_F for a few formulas
-
-
+- Shaders: Added Perlin noise texture mapping for:
+	- color
+	- luminosity
+	- transparency opacity
+	- transparency color
+	- reflectance
+	- displacement
+	- subsurface scattering
+- Shaders: Added illumination of fog by MC GI
+- Shadera: Added option for relative center position for orbit trap lights
+- Shaders: Added option for three different colors of orbit trap lights
+- UI: Added more control for precission of sliders
+- UI: Added selection for mouse dragging modes
+- UI: Added option for precise mouse dragging
+- OpenCL: Added custom OpenCL cache
+- Animatiion: Added slider for animation browsing
+- Primitives: Fixed bug in bonding of primitives and shapes of volumetric effects. There could be out of index error.
+- Files: Added touch() when thumbnails are loaded. It avoids deletion of thumbnails which are frequently used
+- Compilation: Windows version updated to Qt 6.7
 
 v2.31-1
 - Scripts: Added Delete Script button 
