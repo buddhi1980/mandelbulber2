@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -51,8 +51,8 @@
 #include "headless.h"
 #include "initparameters.hpp"
 #include "lights.hpp"
-#include "material_item_model.h"
 #include "manipulations.h"
+#include "material_item_model.h"
 #include "my_ui_loader.h"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
@@ -71,8 +71,8 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
-#include "settings.hpp"
 #include "scripts.h"
+#include "settings.hpp"
 #include "synchronize_interface.hpp"
 #include "system_data.hpp"
 #include "trace_behind.h"
@@ -264,11 +264,11 @@ void cInterface::ShowUi()
 #ifndef USE_OPENCL
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(false);
 #else
-	 mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
-	 	gPar->Get<bool>("opencl_enabled"));
+	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
+		gPar->Get<bool>("opencl_enabled"));
 
-	 if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
-	 	mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
+	if (gPar->Get<bool>("opencl_enabled") && gPar->Get<bool>("opencl_mode") > 0)
+		mainWindow->GetWidgetDockImageAdjustments()->SetAntialiasingOpenCL(true);
 #endif
 
 	QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_F11), mainWindow);
@@ -306,13 +306,13 @@ void cInterface::ShowUi()
 	mainWindow->slotPopulateRecentSettings();
 	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);
-	
+
 	WriteLog("Restoring window geometry", 2);
 
 	mainWindow->restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
-	
+
 	WriteLog("Restoring window state", 2);
-	
+
 	if (!mainWindow->restoreState(settings.value("mainWindowState").toByteArray()))
 	{
 		mainWindow->tabifyDockWidget(
@@ -325,11 +325,12 @@ void cInterface::ShowUi()
 			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_objects);
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
-		mainWindow->ui->dockWidget_gamepad_dock->hide();
+		if (mainWindow->ui->dockWidget_gamepad_dock != nullptr)
+			mainWindow->ui->dockWidget_gamepad_dock->hide();
 		mainWindow->ui->dockWidget_histogram->hide();
 		mainWindow->ui->dockWidget_queue_dock->hide();
 	}
-	
+
 	// installing event filter for disabling tooltips
 	gApplication->installEventFilter(mainWindow);
 

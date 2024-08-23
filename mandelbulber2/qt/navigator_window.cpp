@@ -1,30 +1,56 @@
-/*
- * navigator_window.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2024 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  Created on: 24 wrz 2021
- *      Author: krzysztof
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * TODO: description
  */
 
 #include "navigator_window.h"
-#include "ui_navigator_window.h"
-
-#include "tab_fractal.h"
-#include "dock_effects.h"
-#include "dock_fractal.h"
 
 #include <QThread>
 
-#include "src/image_scale.hpp"
-#include "src/shortcuts.h"
+#include "ui_navigator_window.h"
+
+#include "dock_effects.h"
+#include "dock_fractal.h"
+#include "tab_fractal.h"
+
 #include "src/ao_modes.h"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"
-#include "src/fractal_container.hpp"
 #include "src/global_data.hpp"
-#include "src/interface.hpp"
+#include "src/image_scale.hpp"
 #include "src/initparameters.hpp"
+#include "src/interface.hpp"
 #include "src/light.h"
 #include "src/lights.hpp"
 #include "src/manipulations.h"
@@ -33,6 +59,7 @@
 #include "src/render_window.hpp"
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
+#include "src/shortcuts.h"
 #include "src/synchronize_interface.hpp"
 #include "src/wait.hpp"
 #include "src/write_log.hpp"

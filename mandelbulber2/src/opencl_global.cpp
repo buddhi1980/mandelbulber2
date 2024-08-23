@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -74,6 +74,8 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 {
 	if (gPar->Get<bool>("opencl_enabled"))
 	{
+		QTextStream out(stdout);
+
 		openClHardware->ListOpenClPlatforms();
 
 		int selectedPlatformIndex = gPar->Get<int>("opencl_platform");
@@ -103,6 +105,14 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 		{
 			qCritical() << "No OpenCL platforms available!";
 			gPar->Set("opencl_enabled", false);
+		}
+
+		QList<cOpenClDevice> clDeviceWorkers = openClHardware->getClWorkers();
+		out << "Selected OpenCL devices:\n";
+		for (int i = 0; i < clDeviceWorkers.size(); i++)
+		{
+			out << "Device " << i << " : " << clDeviceWorkers[i].getDeviceInformation().deviceName
+					<< "\n";
 		}
 	}
 }

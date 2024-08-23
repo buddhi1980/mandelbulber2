@@ -86,10 +86,10 @@ void cFractalMandelbulbKaliMulti::FormulaCode(
 			case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
 			case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
 		}
-		if (z.x * z.x + z.y * z.y == 0.0)
+		if (v.x * v.x + v.y * v.y == 0.0)
 		{
-			z.y = z.z * z.z;
-			z.z = 0.0;
+			v.y = v.z * v.z;
+			v.z = 0.0;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsinA == multi_acosOrAsin_acos)
 			th0 = acos(v.x / aux.r) + fractal->transformCommon.betaAngleOffset;
@@ -115,10 +115,10 @@ void cFractalMandelbulbKaliMulti::FormulaCode(
 			case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
 			case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
 		}
-		if (z.x * z.x + z.y * z.y == 0.0)
+		if (v.x * v.x + v.y * v.y == 0.0)
 		{
-			z.y = z.z * z.z;
-			z.z = 0.0;
+			v.y = v.z * v.z;
+			v.z = 0.0;
 		}
 		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsin_acos)
 			th0 = acos(v.x / aux.r) + fractal->transformCommon.betaAngleOffset;

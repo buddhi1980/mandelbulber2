@@ -44,10 +44,10 @@
 #include <vector>
 
 #include <QByteArray>
+#include <QCache>
 #include <QList>
 #include <QString>
 #include <QVector>
-#include <QCache>
 
 #include "algebra.hpp"
 #include "color_structures.hpp"

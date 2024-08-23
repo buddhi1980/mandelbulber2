@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-20 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-23 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -41,14 +41,15 @@
 
 #include "common_my_widget_wrapper.h"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QContextMenuEvent>
 #include <QCoreApplication>
 #include <QDebug>
 #include <QInputDialog>
-#include <QClipboard>
-#include <QApplication>
 
 #include "script_dialog.h"
+
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 

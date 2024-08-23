@@ -41,6 +41,7 @@
 #include "texture.hpp"
 
 #include <memory>
+
 #include <QCache>
 
 #include "common_math.h"

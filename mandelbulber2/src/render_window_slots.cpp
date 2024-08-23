@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-21 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-24 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -36,6 +36,8 @@
  * spread over render_window_*.cpp
  */
 
+#include "ui_render_window.h"
+
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
@@ -45,21 +47,21 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "keyframes.hpp"
-#include "material_item_model.h"
 #include "manipulations.h"
+#include "material_item_model.h"
+#include "render_window.hpp"
+#include "settings.hpp"
+#include "shortcuts.h"
+#include "system_data.hpp"
+#include "system_directories.hpp"
+#include "write_log.hpp"
+
 #include "qt/detached_window.h"
 #include "qt/material_editor.h"
 #include "qt/mesh_export_dialog.h"
 #include "qt/preferences_dialog.h"
 #include "qt/thumbnail_widget.h"
 #include "qt/voxel_export_dialog.h"
-#include "render_window.hpp"
-#include "settings.hpp"
-#include "shortcuts.h"
-#include "system_data.hpp"
-#include "system_directories.hpp"
-#include "ui_render_window.h"
-#include "write_log.hpp"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const
 {

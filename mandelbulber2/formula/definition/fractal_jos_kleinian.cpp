@@ -89,50 +89,33 @@ void cFractalJosKleinian::FormulaCode(CVector4 &z, const sFractal *fractal, sExt
 		colorAdd += fractal->foldColor.difs0000.y * fabs(z.y);
 		colorAdd += fractal->foldColor.difs0000.z * fabs(z.y - oldZy);
 
-		if (fractal->foldColor.auxColorEnabledAFalse)
+		if (fractal->foldColor.auxColorEnabledAFalse
+				&& aux.i >= fractal->transformCommon.startIterationsT
+					&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
 			double Size = box_size.x * fractal->transformCommon.scale3D222.x;
-			double bb = ((z.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
-			bb = fabs(bb - round(bb)) * fractal->transformCommon.constantMultiplierC111.x;
 			double dd = ((aux.const_c.x + Size) / Size) + fractal->transformCommon.additionConstantP000.x;
 			dd = fabs(dd - round(dd)) * fractal->transformCommon.constantMultiplierC111.x;
 
 			Size = box_size.z * fractal->transformCommon.scale3D222.z;
-			double cc = ((z.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
-			cc = fabs(cc - round(cc)) * fractal->transformCommon.constantMultiplierC111.z;
 			double ee = ((aux.const_c.z + Size) / Size) + fractal->transformCommon.additionConstantP000.z;
 			ee = fabs(ee - round(ee)) * fractal->transformCommon.constantMultiplierC111.z;
 
-
-			if (!fractal->transformCommon.functionEnabledAxFalse)
-			{
-				bb = bb + cc;
-				dd = dd + ee;
-			}
-			else
-			{
-				bb = bb * bb + cc * cc;
-				dd = dd * dd + ee * ee;
-			}
+			double bb  = dd + ee;
+			dd = dd * dd + ee * ee;
 
 			if (fractal->transformCommon.functionEnabledAFalse)
-			{	Size = box_size.y * fractal->transformCommon.scale3D222.y;
-				double aa = ((z.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
-				aa = fabs(aa - round(aa)) * fractal->transformCommon.constantMultiplierC111.y;
-				bb = bb + aa;
+			{
+				Size = box_size.y * fractal->transformCommon.scale3D222.y;
 				double ff = ((aux.const_c.y + Size) / Size) + fractal->transformCommon.additionConstantP000.y;
 				ff = fabs(ff - round(ff)) * fractal->transformCommon.constantMultiplierC111.y;
 				dd = dd + ff;
 			}
-			bb = dd * (1.0 - fractal->foldColor.difs1) + bb * fractal->foldColor.difs1; // mix
+			dd = bb * (1.0 - fractal->foldColor.difs1) + dd * fractal->foldColor.difs1; // mix
 
-			colorAdd += fractal->foldColor.difs0000.w * bb;
+			colorAdd += fractal->foldColor.difs0000.w * dd;
 		}
 
 		aux.color += colorAdd;
 	}
-
-
-
-
 }

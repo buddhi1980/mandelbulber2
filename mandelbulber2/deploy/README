@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.31
+                              MANDELBULBER 2.32
 
 1. What is Mandelbulber
 -----------------------
@@ -155,12 +155,12 @@ make install
 ------------
 
 - Debian Trixie x64
-- Ubuntu 22
+- Ubuntu 24
 
-- gcc 12.2
-- clang 14.0.6
+- gcc 14.2
+- clang 16.0.6
 - msvc19
-- Qt 5.15.8, Qt 6.3
+- Qt 5.15.13, Qt 6.7
 
 7. USAGE
 --------
