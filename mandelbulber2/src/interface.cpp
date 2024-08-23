@@ -325,7 +325,8 @@ void cInterface::ShowUi()
 			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_objects);
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
-		mainWindow->ui->dockWidget_gamepad_dock->hide();
+		if (mainWindow->ui->dockWidget_gamepad_dock != nullptr)
+			mainWindow->ui->dockWidget_gamepad_dock->hide();
 		mainWindow->ui->dockWidget_histogram->hide();
 		mainWindow->ui->dockWidget_queue_dock->hide();
 	}
