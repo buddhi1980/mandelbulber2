@@ -211,6 +211,10 @@ openclfiles.files = $$ROOT/opencl
 openclfiles.path = $$PREFIX
 INSTALLS += openclfiles
 
+languagefiles.files = $$files($$ROOT/language/*.qm, false)
+languagefiles.path = $$PREFIX/language
+INSTALLS += languagefiles
+
 documentation.files = $$ROOT/deploy/doc/Mandelbulber_Manual.pdf
 documentation.files += $$ROOT/deploy/README
 documentation.files += $$ROOT/deploy/NEWS

@@ -81,6 +81,9 @@ Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\share\mandelbulber
 Source: "{#MyBinDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\NEWS"; DestDir: "{app}\doc"; Flags: ignoreversion
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\COPYING"; DestDir: "{app}\doc"; Flags: ignoreversion
+Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR__disable.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_enable.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_deprovision.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6UiTools.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\Qt6Test.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -97,6 +100,9 @@ Source: "{#MyQtBinDir}\..\plugins\platforms\*.dll"; Excludes: "*.pdb, *d.dll"; D
 Source: "{#MyQtBinDir}\..\plugins\platforms\qdirect2d.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\iconengines\qsvgicon.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion
 Source: "{#MyQtBinDir}\..\plugins\imageformats\*.dll"; Excludes: "*.pdb, *d.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+
+[Registry]
+Root: HKLM; Subkey: "System\CurrentControlSet\Control\GraphicsDrivers"; ValueType: dword; ValueName: "TdrLevel"; ValueData: $00000000
 
 [UninstallDelete]
 ; Deletes the entire installation directory, including files and subdirectories
