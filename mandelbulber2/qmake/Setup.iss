@@ -17,6 +17,7 @@
 #define MyAppPublisherURL "http://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
+;#define MyAppIcoName "mandelbulber2.ico"
 #define MyAppIcoName "..\deploy\win64\mandelbulber2.ico"
 
 #define MyBinDir "build\Desktop_Qt_6_7_2_MSVC2019_64bit-Release\bin"
@@ -81,6 +82,7 @@ Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\share\mandelbulber
 Source: "{#MyBinDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\NEWS"; DestDir: "{app}\doc"; Flags: ignoreversion
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\COPYING"; DestDir: "{app}\doc"; Flags: ignoreversion
+Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\deploy\win64\mandelbulber2.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR__disable.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_enable.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\buddh\Git\mandelbulber\mandelbulber2\tools\TDR_deprovision.bat"; DestDir: "{app}"; Flags: ignoreversion
