@@ -17,9 +17,7 @@
 #define MyAppPublisherURL "http://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
-;#define MyAppIcoName "mandelbulber2.ico"
-#define MyAppIcoName "..\deploy\win64\mandelbulber2.ico"
-
+#define MyAppIcoName "mandelbulber2.ico"
 #define MyBinDir "build\Desktop_Qt_6_7_2_MSVC2019_64bit-Release\bin"
 #define MyQtBinDir "C:\Qt\6.7.2\msvc2019_64\bin\"
 
