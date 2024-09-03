@@ -578,6 +578,7 @@ enum enumFractalFormula
 
 	// 2.33
 	transfDIFSOctahedron = 1642,
+	transfDIFSOctahedronV2 = 1643,
 
 	// hybrid color
 	transfHybridColor = 2000,

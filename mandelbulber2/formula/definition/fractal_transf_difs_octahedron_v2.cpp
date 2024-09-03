@@ -6,17 +6,17 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDIFSOctahedronIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDIFSOctahedronV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and https://iquilezles.org/articles/distfunctions/
  */
 
 #include "all_fractal_definitions.h"
 
-cFractalTransfDIFSOctahedron::cFractalTransfDIFSOctahedron() : cAbstractFractal()
+cFractalTransfDIFSOctahedronV2::cFractalTransfDIFSOctahedronV2() : cAbstractFractal()
 {
-	nameInComboBox = "T>DIFS Octahedron";
-	internalName = "transf_difs_octahedron";
-	internalID = fractal::transfDIFSOctahedron;
+	nameInComboBox = "T>DIFS Octahedron V2";
+	internalName = "transf_difs_octahedron_v2";
+	internalID = fractal::transfDIFSOctahedronV2;
 	DEType = analyticDEType;
 	DEFunctionType = customDEFunction;
 	cpixelAddition = cpixelDisabledByDefault;
@@ -25,7 +25,7 @@ cFractalTransfDIFSOctahedron::cFractalTransfDIFSOctahedron() : cAbstractFractal(
 	coloringFunction = coloringFunctionDefault;
 }
 
-void cFractalTransfDIFSOctahedron::FormulaCode(
+void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 q = z;
@@ -44,7 +44,17 @@ void cFractalTransfDIFSOctahedron::FormulaCode(
 	aux.DE *= fractal->transformCommon.scaleA1;
 
 	z = fabs(z);
-	double m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
+	double m = 0.0;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+	{
+		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
+	}
+	else
+	{
+		z -= fractal->transformCommon.offset000;
+		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
+		m = m * m * fractal->transformCommon.scale1;
+	}
 
 	q = z - CVector4(m, m, m, 0.0);
 	CVector4 k = z;
@@ -55,7 +65,10 @@ void cFractalTransfDIFSOctahedron::FormulaCode(
 	if (fractal->transformCommon.functionEnabledBFalse) q = fabs(z);
 	q = q + CVector4(t, t, t, 0.0); // - k * fractal->transformCommon.scale015;
 
-	t  = fractal->transformCommon.offset1;
+	if (!fractal->transformCommon.functionEnabledAFalse)
+		t  = fractal->transformCommon.offset1;
+	else
+		t = fractal->transformCommon.offsetA1;
 
 	q.x = clamp(q.x, 0.0, t);
 	q.y = clamp(q.y, 0.0, t);
@@ -66,10 +79,34 @@ void cFractalTransfDIFSOctahedron::FormulaCode(
 	double v2Rsqrt = t / sqrt(t);
 	double zcd = v2Rsqrt * sign(m) - fractal->transformCommon.offset0005;
 
+	double colDist = aux.dist;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		CVector4 zc = aux.const_c;
+		CVector4 boxSize = fractal->transformCommon.additionConstant0555;
+		zc = fabs(zc) - boxSize;
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		double zcb = zc.Length();
+		if (colDist != zcb) aux.color += fractal->foldColor.difs1;
+		zcd = min(zcd, zcb);
+	}
+
+	// sphere
+	if (fractal->transformCommon.functionEnabledEFalse)
+	{
+		double zcs = aux.const_c.Length() - fractal->transformCommon.scale08;
+		if (colDist != zcs) aux.color += fractal->transformCommon.offset2;
+		zcd = min(zcs, zcd);
+	}
+
+
+
+
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
-	double colDist = aux.dist;
 	aux.dist = min(aux.dist, zcd / aux.DE);
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
