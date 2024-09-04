@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDIFSOctahedronV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDIFSOctahedronV2Iteration https://www.shadertoy.com/view/sd2yWW
  * and https://iquilezles.org/articles/distfunctions/
  */
 
@@ -74,17 +74,17 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	q.y = clamp(q.y, 0.0, t);
 	q.z = clamp(q.z, 0.0, t);
 
-	CVector4 v = z - q;
-	t = v.Dot(v);
-	double v2Rsqrt = t / sqrt(t);
-	double zcd = v2Rsqrt * sign(m) - fractal->transformCommon.offset0005;
-
+	q = z - q;
+	t = q.Dot(q);
+	t = t / sqrt(t);
+	double zcd = t * sign(m) - fractal->transformCommon.offset0005;
 	double colDist = aux.dist;
+
+	// box
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		CVector4 zc = aux.const_c;
-		CVector4 boxSize = fractal->transformCommon.additionConstant0555;
-		zc = fabs(zc) - boxSize;
+		zc = fabs(zc) - fractal->transformCommon.additionConstant0555;
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
@@ -100,9 +100,6 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		if (colDist != zcs) aux.color += fractal->transformCommon.offset2;
 		zcd = min(zcs, zcd);
 	}
-
-
-
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

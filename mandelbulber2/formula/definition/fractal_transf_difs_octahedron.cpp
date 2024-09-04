@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDIFSOctahedronIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * TransfDIFSOctahedronIteration https://www.shadertoy.com/view/sd2yWW
  * and https://iquilezles.org/articles/distfunctions/
  */
 
