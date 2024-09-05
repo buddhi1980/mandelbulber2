@@ -44,13 +44,20 @@ REAL4 TransfDIFSBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	zc.y = max(zc.y, 0.0f);
 	zc.z = max(zc.z, 0.0f);
 	REAL zcd = length(zc);
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f));
 
-	/*	if (!fractal->transformCommon.functionEnabledEFalse)
-			aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f));
-		else
-			aux->dist = min(aux->dist, zcd / (aux->DE + 1.0f) - fractal->transformCommon.offsetB0);
-	}*/
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (zc.y < max(zc.x, zc.z)) aux->color += fractal->foldColor.difs0000.y;
+			if (zc.x < max(zc.y, zc.z)) aux->color += fractal->foldColor.difs0000.z;
+			REAL t = z.x * z.y;
+			if ((t > 0.0f && z.z > 0.0f) || (t < 0.0f && z.z < 0.0f)) aux->color += fractal->foldColor.difs0000.w;
+		}
+	}
 	return z;
 }

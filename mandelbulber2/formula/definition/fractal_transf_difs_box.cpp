@@ -27,8 +27,7 @@ cFractalTransfDIFSBox::cFractalTransfDIFSBox() : cAbstractFractal()
 void cFractalTransfDIFSBox::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-	zc = fabs(zc) - boxSize;
+	zc = fabs(zc) - fractal->transformCommon.additionConstant111;
 	zc.x = max(zc.x, 0.0);
 	zc.y = max(zc.y, 0.0);
 	zc.z = max(zc.z, 0.0);
@@ -36,8 +35,16 @@ void cFractalTransfDIFSBox::FormulaCode(CVector4 &z, const sFractal *fractal, sE
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, zcd / (aux.DE + 1.0) - fractal->transformCommon.offsetB0);
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (zc.y < max(zc.x, zc.z)) aux.color += fractal->foldColor.difs0000.y;
+			if (zc.x < max(zc.y, zc.z)) aux.color += fractal->foldColor.difs0000.z;
+			double t = z.x * z.y;
+			if ((t > 0.0 && z.z > 0.0) || (t < 0.0 && z.z < 0.0)) aux.color += fractal->foldColor.difs0000.w;
+		}
 	}
 }

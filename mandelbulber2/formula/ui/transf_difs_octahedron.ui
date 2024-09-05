@@ -76,7 +76,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -89,7 +89,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>clamp</string>
+           <string>clamp:</string>
           </property>
          </widget>
         </item>
@@ -111,7 +111,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -187,7 +187,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -232,7 +232,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.998999999999995</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -267,10 +267,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -311,7 +311,7 @@
         <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.010000000000000</double>
+        <double>0.001000000000000</double>
        </property>
       </widget>
      </item>

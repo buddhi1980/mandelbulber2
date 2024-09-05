@@ -55,8 +55,12 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	dx = tp * sign(zc.y - lenX);
 	dy = zc.z - lenY;
 
+	REAL colIn = 0.0f;
 	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		colIn = dx + fractal->transformCommon.offset0;
 		dx = fabs(dx) - fractal->transformCommon.offset0;
+	}
 
 	REAL maxdx = max(dx, 0.0f);
 	REAL maxdy = max(dy, 0.0f);
@@ -67,9 +71,18 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (lenY < zc.z) aux->color += fractal->foldColor.difs0000.y;
+			if (colIn < maxdx)aux->color += fractal->foldColor.difs0000.z;
+			if (lenY - fractal->transformCommon.offsetA0 < zc.z && colIn > maxdx) aux->color += fractal->foldColor.difs0000.w;
+
+		}
 	}
 	return z;
 }
