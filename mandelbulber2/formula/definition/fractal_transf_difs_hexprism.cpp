@@ -82,10 +82,6 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
 
-	if (fractal->foldColor.auxColorEnabledFalse)
-	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-	}
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
@@ -95,9 +91,7 @@ void cFractalTransfDIFSHexprism::FormulaCode(CVector4 &z, const sFractal *fracta
 		{
 			if (lenY < zc.z) aux.color += fractal->foldColor.difs0000.y;
 			if (colIn < maxdx)aux.color += fractal->foldColor.difs0000.z;
-			if (lenY - fractal->transformCommon.offsetA0 < zc.z && colIn > maxdx) aux.color += fractal->foldColor.difs0000.w;
-
+			if (lenY - fractal->foldColor.difs0 < zc.z && colIn > maxdx) aux.color += fractal->foldColor.difs0000.w;
 		}
 	}
-
 }

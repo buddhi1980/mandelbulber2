@@ -16,6 +16,7 @@
 
 REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 oldZ = z;
 	REAL4 q = z;
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
@@ -24,14 +25,14 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		q.y = clamp(q.y, -h.y, h.y);
 		q.z = clamp(q.z, -h.z, h.z);
 		z = z - q;
+		oldZ = z;
 	}
-	REAL4 oldZ = z;
+
 	REAL t = 0.0f;
 	z *= fractal->transformCommon.scaleA1;
 	aux->DE *= fractal->transformCommon.scaleA1;
 
 	z = fabs(z);
-
 	REAL m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
 
 	q = z - (REAL4){m, m, m, 0.0f};
@@ -43,14 +44,14 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledBFalse) q = fabs(z);
 	q = q + (REAL4){t, t, t, 0.0f};
 
-	t = fractal->transformCommon.offsetA1;
-
+	t = fractal->transformCommon.offset1;
+	REAL4 p = q;
 	q.x = clamp(q.x, 0.0f, t);
 	q.y = clamp(q.y, 0.0f, t);
 	q.z = clamp(q.z, 0.0f, t);
-
-	REAL4 v = z - q;
-	t = dot(v,v);
+	REAL4 o = q;
+	q = z - q;
+	t = dot(q, q);
 	REAL v2Rsqrt = t / sqrt(t);
 	REAL zcd = v2Rsqrt * sign(m) - fractal->transformCommon.offset0005;
 
@@ -69,7 +70,11 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			t = oldZ.x * oldZ.y;
 			if ((t > 0.0f && oldZ.z > 0.0f) || (t < 0.0f && oldZ.z < 0.0f)) aux->color += fractal->foldColor.difs0000.y;
 			if (t > 0.0) aux->color += fractal->foldColor.difs0000.z;
-			if (oldZ.z > 0.0f) aux->color += fractal->foldColor.difs0000.w;
+			if (fractal->foldColor.difs0000.w != 0.0f)
+			{
+				p -= o;
+				if (dot(p, p) > 0.0f) aux->color += fractal->foldColor.difs0000.w;
+			}
 		}
 	}
 	return z;

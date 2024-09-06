@@ -80,8 +80,7 @@ REAL4 TransfDIFSHexprismIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		{
 			if (lenY < zc.z) aux->color += fractal->foldColor.difs0000.y;
 			if (colIn < maxdx)aux->color += fractal->foldColor.difs0000.z;
-			if (lenY - fractal->transformCommon.offsetA0 < zc.z && colIn > maxdx) aux->color += fractal->foldColor.difs0000.w;
-
+			if (lenY - fractal->foldColor.difs0 < zc.z && colIn > maxdx) aux->color += fractal->foldColor.difs0000.w;
 		}
 	}
 	return z;

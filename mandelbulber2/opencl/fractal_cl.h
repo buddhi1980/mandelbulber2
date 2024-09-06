@@ -116,6 +116,7 @@ typedef struct
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
+	cl_float difs0;
 	cl_float difs1;
 	cl_int auxColorEnabled;
 	cl_int auxColorEnabledA;
@@ -913,6 +914,7 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.factorR = source.factorR;
 	target.factorSp1 = source.factorSp1;
 	target.factorSp2 = source.factorSp2;
+	target.difs0 = source.difs0;
 	target.difs1 = source.difs1;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledA = source.auxColorEnabledA;

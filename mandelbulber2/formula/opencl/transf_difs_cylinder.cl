@@ -33,8 +33,8 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		zc.x = zc.z;
 		zc.z = temp;
 	}
-
-	REAL cylR = native_sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	REAL xyR = native_sqrt(zc.x * zc.x + zc.y * zc.y);
+	REAL cylR = xyR - fractal->transformCommon.radius1;
 	if (fractal->transformCommon.functionEnabledFalse)
 		cylR = fabs(cylR) - fractal->transformCommon.offset0;
 	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
@@ -43,7 +43,23 @@ REAL4 TransfDIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	cylH = max(cylH, 0.0f);
 	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
-
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
+
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
+				aux->color += fractal->foldColor.difs0000.y;
+			if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
+					>= xyR)
+				aux->color += fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z)) aux->color += fractal->foldColor.difs0000.w;
+		}
+	}
 	return z;
 }

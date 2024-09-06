@@ -69,11 +69,11 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		t  = fractal->transformCommon.offset1;
 	else
 		t = fractal->transformCommon.offsetA1;
-
+	CVector4 p = q;
 	q.x = clamp(q.x, 0.0, t);
 	q.y = clamp(q.y, 0.0, t);
 	q.z = clamp(q.z, 0.0, t);
-
+	CVector4 o = q;
 	q = z - q;
 	t = q.Dot(q);
 	t = t / sqrt(t);
@@ -114,7 +114,11 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 			t = oldZ.x * oldZ.y;
 			if ((t > 0.0 && oldZ.z > 0.0) || (t < 0.0 && oldZ.z < 0.0)) aux.color += fractal->foldColor.difs0000.y;
 			if (t > 0.0) aux.color += fractal->foldColor.difs0000.z;
-			if (oldZ.z > 0.0) aux.color += fractal->foldColor.difs0000.w;
+			if (fractal->foldColor.difs0000.w != 0.0)
+			{
+				p -= o;
+				if (p.Dot(p) > 0.0) aux.color += fractal->foldColor.difs0000.w;
+			}
 		}
 	}
 }
