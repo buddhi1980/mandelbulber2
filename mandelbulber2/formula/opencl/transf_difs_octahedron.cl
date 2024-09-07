@@ -52,8 +52,8 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 o = q;
 	q = z - q;
 	t = dot(q, q);
-	REAL v2Rsqrt = t / sqrt(t);
-	REAL zcd = v2Rsqrt * sign(m) - fractal->transformCommon.offset0005;
+	t = t / sqrt(t);
+	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;

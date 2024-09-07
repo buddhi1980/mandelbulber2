@@ -53,7 +53,7 @@ void cFractalTransfDIFSOctahedron::FormulaCode(
 	k.z = min(q.z, 0.0);
 	t = (k.x + k.y + k.z) * 0.5;
 	if (fractal->transformCommon.functionEnabledBFalse) q = fabs(z);
-	q = q + CVector4(t, t, t, 0.0); // - k * fractal->transformCommon.scale015;
+	q = q + CVector4(t, t, t, 0.0); // - k * 1.5;
 
 	t  = fractal->transformCommon.offset1;
 	CVector4 p = q;
@@ -61,10 +61,10 @@ void cFractalTransfDIFSOctahedron::FormulaCode(
 	q.y = clamp(q.y, 0.0, t);
 	q.z = clamp(q.z, 0.0, t);
 	CVector4 o = q;
-	CVector4 v = z - q;
-	t = v.Dot(v);
-	double v2Rsqrt = t / sqrt(t);
-	double zcd = v2Rsqrt * sign(m) - fractal->transformCommon.offset0005;
+	q = z - q;
+	t = q.Dot(q);
+	t = t / sqrt(t);
+	double zcd = t * sign(m) - fractal->transformCommon.offset0005;
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
