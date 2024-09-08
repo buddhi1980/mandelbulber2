@@ -107,7 +107,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 		}
 	}
 
-	if (fabs(normal.x) < 1e50 && fabs(normal.y) < 1e-50 && fabs(normal.z) < 1e-50)
+	if (fabs(normal.x) < 1e-50 && fabs(normal.y) < 1e-50 && fabs(normal.z) < 1e-50)
 	{
 		normal = CVector3(1.0, 0.0, 0.0);
 	}
