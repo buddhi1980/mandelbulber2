@@ -322,7 +322,9 @@ QString cSettings::CreateOneLine(std::shared_ptr<const cParameterContainer> par,
 	{
 		QString value;
 		enumVarType type = parameter.GetValueType();
-		if (!parameter.isDefaultValue() || format == formatFullText || format == formatNetRender)
+
+		if (!parameter.isDefaultValue() || format == formatFullText || format == formatNetRender
+				|| parameter.HasScript())
 		{
 			if (type == typeBool)
 			{
