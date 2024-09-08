@@ -85,7 +85,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL4 temp = z;
 		REAL tempL = length(temp);
 		// if (tempL < 1e-21f)
-		//	tempL = 1e-21f;
+			// tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
 		aux->DE *= length(z) / tempL;
@@ -169,7 +169,11 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			case multi_OrderOfZYXCl_xzy: v = (REAL3){z.x, z.z, z.y}; break;
 			case multi_OrderOfZYXCl_xyz: v = (REAL3){z.x, z.y, z.z}; break;
 		}
-
+		if (v.x * v.x + v.y * v.y == 0.0f)
+		{
+			v.y = v.z * v.z;
+			v.z = 0.0f;
+		}
 		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcosCl_asin)
 			th0 += asin(v.x / aux->r);
 		else

@@ -350,10 +350,45 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_178">
+           <item row="3" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-100.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>100.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_179">
              <property name="text">
-              <string>y face:</string>
+              <string>chequer:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_289">
+             <property name="text">
+              <string>x face:</string>
              </property>
             </widget>
            </item>
@@ -385,10 +420,10 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_289">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_178">
              <property name="text">
-              <string>x face:</string>
+              <string>y face:</string>
              </property>
             </widget>
            </item>
@@ -421,9 +456,9 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_179">
+            <widget class="QLabel" name="label_180">
              <property name="text">
-              <string>chequer:</string>
+              <string>z face:</string>
              </property>
             </widget>
            </item>

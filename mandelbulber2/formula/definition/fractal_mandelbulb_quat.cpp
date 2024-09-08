@@ -164,7 +164,11 @@ void cFractalMandelbulbQuat::FormulaCode(CVector4 &z, const sFractal *fractal, s
 			case multi_OrderOfZYX_xzy: v = CVector3(z.x, z.z, z.y); break;
 			case multi_OrderOfZYX_xyz: v = CVector3(z.x, z.y, z.z); break;
 		}
-
+		if (v.x * v.x + v.y * v.y == 0.0)
+		{
+			v.y = v.z * v.z;
+			v.z = 0.0;
+		}
 		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
 			th0 += asin(v.x / aux.r);
 		else
