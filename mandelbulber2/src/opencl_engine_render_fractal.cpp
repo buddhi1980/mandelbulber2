@@ -858,7 +858,9 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		paramRender->reflectionsMax = 0;
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
-	if (anyMaterialHasTextureFractalize) definesCollector += " -DFRACTALIZE_TEXTURE";
+
+	if (anyMaterialHasTextureFractalize && renderEngineMode != clRenderEngineTypeFast)
+		definesCollector += " -DFRACTALIZE_TEXTURE";
 
 	if (anyMaterialHasSurfaceGradient) definesCollector += " -DUSE_SURFACE_GRADIENT";
 	if (anyMaterialHasSpecularGradient) definesCollector += " -DUSE_SPECULAR_GRADIENT";

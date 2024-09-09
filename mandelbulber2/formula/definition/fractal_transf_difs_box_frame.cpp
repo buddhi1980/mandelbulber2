@@ -135,11 +135,16 @@ void cFractalTransfDIFSBoxFrame::FormulaCode(
 	else
 		aux.dist = D;
 
-	if (fractal->foldColor.auxColorEnabledFalse
-			&& aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (q.y < max(q.x, q.z)) aux.color += fractal->foldColor.difs0000.y;
+			if (q.x < max(q.y, q.z)) aux.color += fractal->foldColor.difs0000.z;
+			if (q.z < max(q.y, q.x)) aux.color += fractal->foldColor.difs0000.w;
+		}
 	}
 
 	if (fractal->transformCommon.functionEnabledZcFalse

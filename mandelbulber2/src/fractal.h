@@ -106,6 +106,7 @@ struct sFoldColor
 	double factorR;
 	double factorSp1;
 	double factorSp2;
+	double difs0;
 	double difs1;
 	bool auxColorEnabled;
 	bool auxColorEnabledA;

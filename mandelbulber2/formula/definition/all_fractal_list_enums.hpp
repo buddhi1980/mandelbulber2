@@ -572,9 +572,13 @@ enum enumFractalFormula
 	transfDIFSHelixMenger = 1638,
 	transfDIFSChessboard = 1639,
 	transfDIFSTorusMenger = 1640,
-
 	// 2.32
 	transfDIFSSupershape = 1641,
+
+
+	// 2.33
+	transfDIFSOctahedron = 1642,
+	transfDIFSOctahedronV2 = 1643,
 
 	// hybrid color
 	transfHybridColor = 2000,

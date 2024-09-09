@@ -96,16 +96,35 @@ void cFractalTransfDIFSHexprismV2::FormulaCode(CVector4 &z, const sFractal *frac
 				&& aux.i < fractal->transformCommon.stopIterationsO)
 					k.y = fractal->transformCommon.offsetF0;
 	}
-
+	double colIn = 0.0;
 	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		colIn = dx + fractal->transformCommon.offset0;
 		dx = fabs(dx) - fractal->transformCommon.offset0;
+	}
+
 
 	double maxdx = max(dx, k.x);
 	double maxdy = max(dy, k.y);
 
 	tp = sqrt(maxdx * maxdx + maxdy * maxdy);
 	aux.DE0 = min(max(dx, dy), 0.0) + tp;
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, aux.DE0 / (aux.DE + 1.0));
+
+	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (fractal->transformCommon.offsetA1 < zc.z) aux.color += fractal->foldColor.difs0000.y;
+			if (colIn < maxdx)aux.color += fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx) aux.color += fractal->foldColor.difs0000.w;
+		}
+	}
+
 
 	if (fractal->transformCommon.functionEnabledZcFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZc
