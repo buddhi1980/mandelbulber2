@@ -41,10 +41,15 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
-	double xyR = sqrt(zc.x * zc.x + zc.y * zc.y);
-	double cylR = xyR - fractal->transformCommon.radius1;
+	double xyR = sqrt(zc.x * zc.x + zc.y * zc.y)- fractal->transformCommon.radius1;
+	double cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
+	{
 		cylR = fabs(cylR) - fractal->transformCommon.offset0;
+		if (fractal->transformCommon.functionEnabledAFalse)
+			cylR = max(cylR, xyR);
+	}
+
 	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 
 	cylR = max(cylR, 0.0);
@@ -64,8 +69,7 @@ void cFractalTransfDIFSCylinder::FormulaCode(
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux.color += fractal->foldColor.difs0000.y;
-			if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
-					>= xyR)
+			if (xyR < -fractal->transformCommon.offset0)
 				aux.color += fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z)) aux.color += fractal->foldColor.difs0000.w;
 		}

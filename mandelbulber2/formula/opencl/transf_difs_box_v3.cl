@@ -86,14 +86,23 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
-		if (fractal->foldColor.auxColorEnabledAFalse)
+		if (!fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->foldColor.difs0000.y != 0.0f && zc.x == fabs(q.x))
+			if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+		}
+		else
+		{
+/*			if (fractal->foldColor.difs0000.y != 0.0f && zc.x == fabs(q.x) && (zc.x > max(zc.y, zc.z)))
 				aux->color += fractal->foldColor.difs0000.y;
 			if (fractal->foldColor.difs0000.z != 0.0f && zc.y == fabs(q.y))
 				aux->color += fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs0000.w != 0.0f && zc.z == fabs(q.z))
+				aux->color += fractal->foldColor.difs0000.w;*/
+			if (zc.x > max(zc.y, zc.z))
+				aux->color += fractal->foldColor.difs0000.y;
+			if (zc.y > max(zc.x, zc.z))
+				aux->color += fractal->foldColor.difs0000.z;
+			if (zc.z > max(zc.y, zc.x))
 				aux->color += fractal->foldColor.difs0000.w;
 
 			if (fractal->foldColor.difs0 != 0.0)
