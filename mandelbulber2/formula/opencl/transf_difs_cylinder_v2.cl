@@ -66,8 +66,13 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	}
 
 	REAL cylRm = cylR - fractal->transformCommon.radius1;
+	REAL t = cylRm;
 	if (fractal->transformCommon.functionEnabledFalse)
-		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
+	{
+		cylRm = fabs(t) - fractal->transformCommon.offset0;
+		if (fractal->transformCommon.functionEnabledBFalse)
+			cylRm = max(cylRm, t);
+	}
 
 	cylRm += fractal->transformCommon.scale0 * absH;
 	zc.z = absH;
@@ -107,9 +112,10 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux->color += fractal->foldColor.difs0000.y;
-			if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
-					>= cylR)
-				aux->color += fractal->foldColor.difs0000.z;
+	//		if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
+	//				>= cylR)
+			if (t < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetR0)
+					aux->color += fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z) aux->color += fractal->foldColor.difs0000.w;
 		}
 	}

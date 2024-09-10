@@ -86,11 +86,14 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			k.y = fractal->transformCommon.offsetF0;
 	}
 
+	tp = dx;
 	REAL colIn = 0.0f;
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		colIn = dx + fractal->transformCommon.offset0;
 		dx = fabs(dx) - fractal->transformCommon.offset0;
+		if (fractal->transformCommon.functionEnabledBFalse)
+			dx = max(dx, tp);
 	}
 
 	REAL maxdx = max(dx, k.x);
@@ -101,7 +104,8 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, aux->DE0 / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
@@ -110,7 +114,8 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		{
 			if (fractal->transformCommon.offsetA1 < zc.z) aux->color += fractal->foldColor.difs0000.y;
 			if (colIn < maxdx)aux->color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx) aux->color += fractal->foldColor.difs0000.w;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx)
+				aux->color += fractal->foldColor.difs0000.w;
 
 		}
 	}

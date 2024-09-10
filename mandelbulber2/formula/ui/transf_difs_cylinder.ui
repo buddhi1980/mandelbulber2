@@ -144,8 +144,11 @@
      </item>
      <item row="3" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
-        <string>clamp outer diameter</string>
+        <string>clamp at midpoint</string>
        </property>
       </widget>
      </item>

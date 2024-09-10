@@ -72,9 +72,14 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 		absH *= absH;
 	}
 
-	double cylRm = cylR - fractal->transformCommon.radius1;
+	double t = cylR - fractal->transformCommon.radius1;
+	double cylRm = t;
 	if (fractal->transformCommon.functionEnabledFalse)
-		cylRm = fabs(cylRm ) - fractal->transformCommon.offset0;
+	{
+		cylRm = fabs(cylRm) - fractal->transformCommon.offset0;
+		if (fractal->transformCommon.functionEnabledBFalse)
+			cylRm = max(cylRm, t);
+	}
 
 	cylRm += fractal->transformCommon.scale0 * absH;
 	zc.z = absH;
@@ -105,7 +110,8 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
@@ -114,10 +120,12 @@ void cFractalTransfDIFSCylinderV2::FormulaCode(
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux.color += fractal->foldColor.difs0000.y;
-			if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
-					>= cylR)
+			//if (fractal->transformCommon.radius1 - fractal->transformCommon.offset0
+			//		>= cylR)
+			if (t < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetR0)
 				aux.color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z) aux.color += fractal->foldColor.difs0000.w;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z)
+				aux.color += fractal->foldColor.difs0000.w;
 		}
 	}
 
