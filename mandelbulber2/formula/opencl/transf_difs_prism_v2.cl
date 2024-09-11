@@ -23,7 +23,7 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
 	REAL4 zc = z;
-
+	REAL tp = 0.0f;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -33,7 +33,7 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	REAL absZ = fabs(zc.z);
-	REAL tp;
+//	REAL tp;
 	REAL len = fractal->transformCommon.offset1;
 	REAL face = fractal->transformCommon.offset05;
 
@@ -58,8 +58,31 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		face += tp * fractal->transformCommon.scaleB0;
 	}
 
-	REAL priD = max(fabs(zc.x) - len, max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - face);
+		REAL priX = max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - face;
+		face = fabs(priX);
+		if (fractal->transformCommon.functionEnabledFalse)
+		{
 
+			tp = face - fractal->transformCommon.offsetp01;
+			priX = max(priX, tp);
+		}
+
+	REAL priD = max(fabs(zc.x) - len, priX);
+	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, priD / (aux->DE + 1.0f));
+
+	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (priX == face)
+				aux->color += fractal->foldColor.difs0000.y;
+			if (face > fractal->transformCommon.offsetp01)
+				aux->color += fractal->foldColor.difs0000.z;
+		}
+	}
 	return z;
 }

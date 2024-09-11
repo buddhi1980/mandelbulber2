@@ -28,20 +28,20 @@ cFractalTransfDIFSPrism::cFractalTransfDIFSPrism() : cAbstractFractal()
 void cFractalTransfDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zc = z;
-	double t = 0.0;
+	double t, tp = 0.0;
 
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
-	double priL = fabs(zc.x) - fractal->transformCommon.offset1;
 	double priX = max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5f, -zc.z) - fractal->transformCommon.offset05;
+	tp = fabs(priX);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		t = fabs(priX) - fractal->transformCommon.offsetA0;
-		priX = max(priX,(t));
+		t = tp - fractal->transformCommon.offsetp01;
+		priX = max(priX, t);
 	}
 
-	double priD = max(priL, priX);
+	double priD = max(fabs(zc.x) - fractal->transformCommon.offset1, priX);
 
 	double colDist = aux.dist;
 	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
@@ -53,13 +53,10 @@ void cFractalTransfDIFSPrism::FormulaCode(CVector4 &z, const sFractal *fractal, 
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (fractal->transformCommon.offset1 <= fabs(zc.x))
+			if (priX == tp)
 				aux.color += fractal->foldColor.difs0000.y;
-			if (priX == t + fractal->transformCommon.offsetA0)
+			if (tp > fractal->transformCommon.offsetp01)
 				aux.color += fractal->foldColor.difs0000.z;
-
-		//	if (priX == t + fractal->transformCommon.offsetA0 && (fractal->transformCommon.offset1 - fractal->foldColor.difs0 <=fabs(zc.x)))
-		//			aux.color += fractal->foldColor.difs0000.w;
 		}
 	}
 }

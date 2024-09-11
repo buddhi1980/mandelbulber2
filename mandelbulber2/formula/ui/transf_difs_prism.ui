@@ -105,7 +105,10 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_p01">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -122,13 +125,13 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
@@ -287,83 +290,6 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_289">
-             <property name="text">
-              <string>cap col:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_178">
-             <property name="text">
-              <string>outer col:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_w">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-100.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>100.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-100.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>100.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_179">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_y">
              <property name="sizePolicy">
@@ -392,8 +318,22 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_178">
+             <property name="text">
+              <string>inner col:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_289">
+             <property name="text">
+              <string>outer col:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox4_fold_color_difs_0000_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -410,20 +350,13 @@
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>0.000000000000000</double>
+              <double>-100.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>99.998999999999995</double>
+              <double>100.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_180">
-             <property name="text">
-              <string/>
              </property>
             </widget>
            </item>
@@ -564,5 +497,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offset_p01</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>69</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
