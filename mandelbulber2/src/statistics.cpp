@@ -57,6 +57,8 @@ void cStatistics::Reset()
 	numberOfRenderedPixels = 0;
 	totalNumberOfDOFRepeats = 0;
 	time = 0.0;
+	tilesDone = 0.0;
+	maskedPixels = 0.0;
 	histogramIterations.Clear();
 	histogramStepCount.Clear();
 }
