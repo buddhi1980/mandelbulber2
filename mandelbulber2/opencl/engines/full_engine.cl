@@ -526,6 +526,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.shadows = shadowOut;
 	pixel.globalIllumination = globalIlluminationOut;
 	pixel.world = worldPositionRGB;
+	pixel.diffuse = objectColour;
 #endif
 
 	out[buffIndex] = pixel;
