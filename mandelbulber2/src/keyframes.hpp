@@ -77,11 +77,13 @@ public:
 	int GetFrameIndexForKeyframe(int keyframeIndex) const;
 	int GetSubIndex(int frameIndex) const;
 	const std::vector<int> &getFramesIndexesTable() const { return framesIndexesTable; }
+	void SetLooped(bool _looped) { this->looped = _looped; }
 
 private:
 	QList<cMorph *> morph;
 	std::vector<int> keyframesIndexesTable;
 	std::vector<int> framesIndexesTable;
+	bool looped = false;
 };
 
 extern std::shared_ptr<cKeyframes> gKeyframes;

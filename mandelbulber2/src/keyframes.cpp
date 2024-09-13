@@ -79,47 +79,57 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameIndex,
 	std::shared_ptr<cParameterContainer> params, std::shared_ptr<cFractalContainer> fractal)
 {
-	Q_UNUSED(fractal);
-	int keyframe = GetKeyframeIndex(frameIndex);
-	int subIndex = GetSubIndex(frameIndex);
+	Q_UNUSED(fractal);													 // Unused fractal parameter
+	int keyframe = GetKeyframeIndex(frameIndex); // Get the keyframe index for the given frame index
+	int subIndex = GetSubIndex(frameIndex);			 // Get the sub-index for the given frame index
 
-	// if(subIndex == 0)
-	//{
-	// no need to interpolate
-	//	return GetFrame(keyframe);
-	//}
+	sAnimationFrame interpolated; // Create an object to store the interpolated frame
 
-	sAnimationFrame interpolated;
-
+	// Loop over all parameters
 	for (int i = 0; i < listOfParameters.size(); i++)
 	{
+		// Construct the full parameter name
 		QString fullParameterName =
 			listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName;
 
-		// prepare interpolator
+		// Prepare the interpolator
 		if (morph.size() <= i)
 		{
-			morph.append(new cMorph());
+			morph.append(
+				new cMorph()); // Append a new morph object if the size of morph is less than or equal to i
 		}
-		for (int k = qMax(0, keyframe - 2); k <= qMin(frames.size() - 1, keyframe + 3); k++)
+		// Loop over the frames for interpolation
+		for (int k = keyframe - 2; k <= keyframe + 3; k++)
 		{
+			int kClamped;
+			if (looped)
+			{
+
+				kClamped = ((k % frames.size()) + frames.size()) % frames.size();
+			}
+			else
+			{
+				kClamped = qBound(0, k, frames.size() - 1);
+			}
+
+			// If the keyframe is not found in the morph, add it
 			if (morph[i]->findInMorph(k) == -1)
 			{
-				morph[i]->AddData(k, frames.at(k).numberOfSubFrames,
-					frames.at(k).parameters.GetAsOneParameter(fullParameterName));
+				morph[i]->AddData(k, frames.at(kClamped).numberOfSubFrames,
+					frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
 			}
 		}
-		// interpolate each parameter
+		// Interpolate each parameter
 		cOneParameter oneParameter =
 			morph[i]->Interpolate(keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
 
-		// apply audio animation
-
+		// Apply audio animation to the parameter
 		oneParameter =
 			ApplyAudioAnimation(frameIndex, oneParameter, listOfParameters[i].parameterName, params);
+		// Add the interpolated parameter to the interpolated frame
 		interpolated.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 	}
-	return interpolated;
+	return interpolated; // Return the interpolated frame
 }
 
 void cKeyframes::GetInterpolatedFrameAndConsolidate(int index,
@@ -206,7 +216,7 @@ void cKeyframes::UpdateFramesIndexesTable()
 
 			framesIndexesTable.push_back(globalFrameCounter);
 
-			if (k == frames.count() - 1) // last keyframe
+			if (!looped && k == frames.count() - 1) // last keyframe
 			{
 				numberOfSubframes = 1;
 			}

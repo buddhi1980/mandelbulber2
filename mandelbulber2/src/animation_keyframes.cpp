@@ -1149,6 +1149,8 @@ void cKeyframeAnimation::RefreshTable()
 															 // after loading of settings
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 
+	keyframes->SetLooped(params->Get<bool>("keyframe_animation_loop"));
+
 	keyframes->UpdateFramesIndexesTable();
 
 	keyframes->RefreshAllAudioTracks(params);
