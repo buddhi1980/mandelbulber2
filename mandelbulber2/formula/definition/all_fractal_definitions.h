@@ -316,7 +316,6 @@ FRACTAL_CLASS(cFractalTransfDIFSBox)
 FRACTAL_CLASS(cFractalTransfDIFSBoxFrame)
 FRACTAL_CLASS(cFractalTransfDIFSBoxV2)
 FRACTAL_CLASS(cFractalTransfDIFSBoxV3)
-
 FRACTAL_CLASS(cFractalTransfDIFSCayley2)
 FRACTAL_CLASS(cFractalTransfDIFSChessboard)
 FRACTAL_CLASS(cFractalTransfDIFSClipCustom)

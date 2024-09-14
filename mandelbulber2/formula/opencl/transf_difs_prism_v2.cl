@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2020 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -33,7 +33,7 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	REAL absZ = fabs(zc.z);
-//	REAL tp;
+	// REAL tp;
 	REAL len = fractal->transformCommon.offset1;
 	REAL face = fractal->transformCommon.offset05;
 
@@ -57,20 +57,18 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->transformCommon.functionEnabledCzFalse) tp *= tp;
 		face += tp * fractal->transformCommon.scaleB0;
 	}
-
-		REAL priX = max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - face;
-		face = fabs(priX);
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-
-			tp = face - fractal->transformCommon.offsetp01;
-			priX = max(priX, tp);
-		}
+	REAL priX = max(fabs(zc.y) * SQRT_3_4_F + zc.z * 0.5f, -zc.z) - face;
+	face = fabs(priX);
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		tp = face - fractal->transformCommon.offsetp01;
+		priX = max(priX, tp);
+	}
 
 	REAL priD = max(fabs(zc.x) - len, priX);
+
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, priD / (aux->DE + 1.0f));
-
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
@@ -78,10 +76,8 @@ REAL4 TransfDIFSPrismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
-			if (priX == face)
-				aux->color += fractal->foldColor.difs0000.y;
-			if (face > fractal->transformCommon.offsetp01)
-				aux->color += fractal->foldColor.difs0000.z;
+			if (priX == face) aux->color += fractal->foldColor.difs0000.y;
+			if (face > fractal->transformCommon.offsetp01) aux->color += fractal->foldColor.difs0000.z;
 		}
 	}
 	return z;
