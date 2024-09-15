@@ -330,7 +330,7 @@ void cNavigatorWindow::StartRender()
 	int maxWindowHeight = availableScreenGeometry.height();
 
 	int newInitImageWidth =
-		maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+		1.2 * maxWindowWidth / (4.0 - ui->comboBox_navigator_preview_size->currentIndex());
 	int newInitImageHeight =
 		maxWindowHeight / (3.2 - ui->comboBox_navigator_preview_size->currentIndex());
 
