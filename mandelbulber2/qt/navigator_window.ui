@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,10,1">
      <item>
       <widget class="QGroupBox" name="groupBoxParameterSet">
        <property name="title">
@@ -62,7 +62,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1055</width>
+             <width>491</width>
              <height>1089</height>
             </rect>
            </property>
