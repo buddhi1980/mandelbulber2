@@ -708,7 +708,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_4">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

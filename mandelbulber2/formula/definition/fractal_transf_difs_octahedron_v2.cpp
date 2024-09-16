@@ -29,6 +29,7 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 q = z;
+	double addCol = 0.0f;
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		CVector4 h = fractal->transformCommon.offsetF000;
@@ -78,7 +79,7 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	t = q.Dot(q);
 	t = t / sqrt(t);
 	double zcd = t * sign(m) - fractal->transformCommon.offset0005;
-	double colDist = aux.dist;
+	addCol = fractal->foldColor.difs0000.x; // octhed color
 
 	// box
 	if (fractal->transformCommon.functionEnabledDFalse)
@@ -88,17 +89,23 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
-		double zcb = zc.Length();
-		if (colDist != zcb) aux.color += fractal->foldColor.difs1;
-		zcd = min(zcd, zcb);
+		double zcb = zc.Length() + min(max(max(zc.x, zc.y), zc.z), 0.0);
+		if (zcb < zcd)
+		{
+			zcd = zcb;
+			addCol = fractal->transformCommon.offset4; // box color
+		}
 	}
 
 	// sphere
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		double zcs = aux.const_c.Length() - fractal->transformCommon.scale08;
-		if (colDist != zcs) aux.color += fractal->transformCommon.offset2;
-		zcd = min(zcs, zcd);
+		if (zcs < zcd)
+		{
+			zcd = zcs;
+			addCol = fractal->transformCommon.offset2; // sphere color
+		}
 	}
 
 	if (fractal->analyticDE.enabledFalse)
@@ -108,8 +115,8 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
-		if (fractal->foldColor.auxColorEnabledAFalse)
+
+		/*if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
 			if ((t > 0.0 && oldZ.z > 0.0) || (t < 0.0 && oldZ.z < 0.0)) aux.color += fractal->foldColor.difs0000.y;
@@ -119,6 +126,7 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 				p -= o;
 				if (p.Dot(p) > 0.0) aux.color += fractal->foldColor.difs0000.w;
 			}
-		}
+		}*/
+		aux.color += addCol;
 	}
 }

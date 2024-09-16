@@ -17,6 +17,7 @@
 REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 q = z;
+	REAL addCol = 0.0f;
 	if (fractal->transformCommon.functionEnabledFFalse)
 	{
 		REAL4 h = fractal->transformCommon.offsetF000;
@@ -56,7 +57,7 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		t  = fractal->transformCommon.offset1;
 	else
 		t = fractal->transformCommon.offsetA1;
-REAL4 p = q;
+	REAL4 p = q;
 	q.x = clamp(q.x, 0.0f, t);
 	q.y = clamp(q.y, 0.0f, t);
 	q.z = clamp(q.z, 0.0f, t);
@@ -65,26 +66,35 @@ REAL4 p = q;
 	t = dot(q, q);
 	t = t / sqrt(t);
 	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
-	REAL colDist = aux->dist;
+	addCol = fractal->foldColor.difs0000.x; // octhed color
 	// box
+
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL4 zc = aux->const_c; // aux->lastZ todo
+		REAL4 zc = aux->const_c;
 		zc = fabs(zc) - fractal->transformCommon.additionConstant0555;
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
-		REAL zcb = length(zc);
-		if (colDist != zcb) aux->color += fractal->foldColor.difs1;
-		zcd = min(zcd, zcb);
+		REAL zcb = length(zc) + min(max(max(zc.x, zc.y), zc.z), 0.0f);
+		if (zcb < zcd)
+		{
+			zcd = zcb;
+			addCol = fractal->transformCommon.offset4; // box color
+		}
 	}
 
 	// sphere
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
-		REAL zcs = length(aux->const_c) - fractal->transformCommon.scale08; // aux->lastZ todo
-		if (colDist != zcs) aux->color += fractal->transformCommon.offset2;
-		zcd = min(zcs, zcd);
+		REAL zcs = length(aux->const_c) - fractal->transformCommon.scale08;
+
+		if (zcs < zcd)
+		{
+			zcd = zcs;
+			addCol = fractal->transformCommon.offset2; // sphere color
+		}
+
 	}
 
 	if (fractal->analyticDE.enabledFalse)
@@ -94,9 +104,7 @@ REAL4 p = q;
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
-
-		if (fractal->foldColor.auxColorEnabledAFalse)
+		/*if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
 			if ((t > 0.0f && oldZ.z > 0.0f) || (t < 0.0f && oldZ.z < 0.0f)) aux->color += fractal->foldColor.difs0000.y;
@@ -106,7 +114,10 @@ REAL4 p = q;
 				p -= o;
 				if (dot(p, p) > 0.0f) aux->color += fractal->foldColor.difs0000.w;
 			}
-		}
+		}*/
+
+		aux->color += addCol;
 	}
+
 	return z;
 }
