@@ -62,17 +62,17 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 	double t1 = fabs(cos(fractal->transformCommon.constantMultiplierA111.x * phi)
 								 * fractal->transformCommon.constantMultiplierA111.y);
 	if (fractal->transformCommon.functionEnabledXFalse)
-		t1 = pow(t1, (fractal->transformCommon.constantMultiplierB111.x));
+		t1 = pow(t1, fractal->transformCommon.constantMultiplierB111.x);
 
 	double t2 = fabs(sin(fractal->transformCommon.constantMultiplierA111.x * phi)
 								 * fractal->transformCommon.constantMultiplierA111.z);
 	if (fractal->transformCommon.functionEnabledYFalse)
-		t2 = pow(t2, (fractal->transformCommon.constantMultiplierB111.y));
+		t2 = pow(t2, fractal->transformCommon.constantMultiplierB111.y);
 
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		r1 = (t1 + t2);
 	else
-		r1 = pow(t1 + t2, (fractal->transformCommon.constantMultiplierB111.z)); // int
+		r1 = pow(t1 + t2, fractal->transformCommon.constantMultiplierB111.z);
 
 	if (!fractal->transformCommon.functionEnabledFFalse) r1 = 1.0f / r1;
 	CVector4 zc = z;
@@ -108,7 +108,7 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux.color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offset0)
+			if (xyR < -fractal->transformCommon.offsetp01)
 				aux.color += fractal->foldColor.difs0000.z;
 		//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			//	aux.color += fractal->foldColor.difs0000.w;

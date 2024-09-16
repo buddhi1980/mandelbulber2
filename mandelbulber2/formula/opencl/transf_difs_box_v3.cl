@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2022 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -70,7 +70,6 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			zc.z = c * swap + -s * zc.y;
 		zc.y = s * swap + c * zc.y;
 	}
-
 	REAL4 q = fabs(zc) - boxSize;
 	zc = q;
 	zc.x = max(zc.x, 0.0f);
@@ -93,15 +92,23 @@ REAL4 TransfDIFSBoxV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 		else
 		{
-			if (zc.x > max(zc.y, zc.z)) aux->color += fractal->foldColor.difs0000.y;
-			if (zc.y > max(zc.x, zc.z)) aux->color += fractal->foldColor.difs0000.z;
-			if (zc.z > max(zc.y, zc.x)) aux->color += fractal->foldColor.difs0000.w;
+/*			if (fractal->foldColor.difs0000.y != 0.0f && zc.x == fabs(q.x) && (zc.x > max(zc.y, zc.z)))
+				aux->color += fractal->foldColor.difs0000.y;
+			if (fractal->foldColor.difs0000.z != 0.0f && zc.y == fabs(q.y))
+				aux->color += fractal->foldColor.difs0000.z;
+			if (fractal->foldColor.difs0000.w != 0.0f && zc.z == fabs(q.z))
+				aux->color += fractal->foldColor.difs0000.w;*/
+			if (zc.x > max(zc.y, zc.z))
+				aux->color += fractal->foldColor.difs0000.y;
+			if (zc.y > max(zc.x, zc.z))
+				aux->color += fractal->foldColor.difs0000.z;
+			if (zc.z > max(zc.y, zc.x))
+				aux->color += fractal->foldColor.difs0000.w;
 
-			if (fractal->foldColor.difs0 != 0.0f)
+			if (fractal->foldColor.difs0 != 0.0)
 			{
 				REAL t = z.x * z.y;
-				if ((t > 0.0f && z.z > 0.0f) || (t < 0.0f && z.z < 0.0f))
-					aux->color += fractal->foldColor.difs0;
+				if ((t > 0.0f && z.z > 0.0f) || (t < 0.0f && z.z < 0.0f)) aux->color += fractal->foldColor.difs0;
 			}
 		}
 	}
