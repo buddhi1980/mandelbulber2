@@ -35,12 +35,12 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL m = 0.0f;
 	if (!fractal->transformCommon.functionEnabledAFalse)
 	{
-		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
+		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3_F;
 	}
 	else
 	{
 		z -= fractal->transformCommon.offset000;
-		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3;
+		m = (z.x + z.y + z.z - fractal->transformCommon.offset1) * FRAC_1_3_F;
 		m = m * m * fractal->transformCommon.scale1;
 	}
 
@@ -54,7 +54,7 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	q = q + (REAL4){t, t, t, 0.0f};
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
-		t  = fractal->transformCommon.offset1;
+		t = fractal->transformCommon.offset1;
 	else
 		t = fractal->transformCommon.offsetA1;
 	REAL4 p = q;
@@ -64,18 +64,18 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL4 o = q;
 	q = z - q;
 	t = dot(q, q);
-	t = t / sqrt(t);
+	t = t / native_sqrt(t);
 	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
-	addCol = fractal->foldColor.difs0000.x; // octhed color
-	// box
+	addCol = fractal->foldColor.difs0000.x; // octahed color
 
+	// box
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		REAL4 zc = aux->const_c;
 		zc = fabs(zc) - fractal->transformCommon.additionConstant0555;
-		zc.x = max(zc.x, 0.0f);
-		zc.y = max(zc.y, 0.0f);
-		zc.z = max(zc.z, 0.0f);
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
 		REAL zcb = length(zc) + min(max(max(zc.x, zc.y), zc.z), 0.0f);
 		if (zcb < zcd)
 		{
@@ -88,33 +88,33 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
 		REAL zcs = length(aux->const_c) - fractal->transformCommon.scale08;
-
 		if (zcs < zcd)
 		{
 			zcd = zcs;
 			addCol = fractal->transformCommon.offset2; // sphere color
 		}
-
 	}
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	aux->dist = min(aux->dist, zcd / aux->DE);
+
 	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		/*if (fractal->foldColor.auxColorEnabledAFalse)
+		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
-			if ((t > 0.0f && oldZ.z > 0.0f) || (t < 0.0f && oldZ.z < 0.0f)) aux->color += fractal->foldColor.difs0000.y;
-			if (t > 0.0) aux->color += fractal->foldColor.difs0000.z;
+			if ((t > 0.0f && oldZ.z > 0.0f) || (t < 0.0f && oldZ.z < 0.0f))
+				addCol += fractal->foldColor.difs0000.y;
+			if (t > 0.0) addCol += fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs0000.w != 0.0)
 			{
 				p -= o;
-				if (dot(p, p) > 0.0f) aux->color += fractal->foldColor.difs0000.w;
+				if (dot(p, p) > 0.0f) addCol += fractal->foldColor.difs0000.w;
 			}
-		}*/
+		}
 
 		aux->color += addCol;
 	}

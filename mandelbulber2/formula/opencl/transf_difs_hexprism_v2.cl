@@ -113,10 +113,9 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (fractal->transformCommon.offsetA1 < zc.z) aux->color += fractal->foldColor.difs0000.y;
-			if (colIn < maxdx)aux->color += fractal->foldColor.difs0000.z;
+			if (colIn < maxdx) aux->color += fractal->foldColor.difs0000.z;
 			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx)
 				aux->color += fractal->foldColor.difs0000.w;
-
 		}
 	}
 

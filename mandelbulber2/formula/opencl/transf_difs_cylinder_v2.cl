@@ -103,7 +103,8 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
 
-	if (fractal->foldColor.auxColorEnabledFalse && aux->i >= fractal->foldColor.startIterationsA
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
 		if (colDist != aux->dist) aux->color += fractal->foldColor.difs0000.x;
@@ -116,7 +117,8 @@ REAL4 TransfDIFSCylinderV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	//				>= cylR)
 			if (t < -fractal->transformCommon.offset0 - fractal->transformCommon.offsetR0)
 					aux->color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z) aux->color += fractal->foldColor.difs0000.w;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z)
+				aux->color += fractal->foldColor.difs0000.w;
 		}
 	}
 

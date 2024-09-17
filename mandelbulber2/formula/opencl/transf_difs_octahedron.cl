@@ -52,7 +52,7 @@ REAL4 TransfDIFSOctahedronIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 o = q;
 	q = z - q;
 	t = dot(q, q);
-	t = t / sqrt(t);
+	t = t / native_sqrt(t);
 	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
 
 	if (fractal->analyticDE.enabledFalse)

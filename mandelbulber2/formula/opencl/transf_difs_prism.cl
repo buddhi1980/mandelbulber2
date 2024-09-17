@@ -36,7 +36,7 @@ REAL4 TransfDIFSPrismIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		priX = max(priX, t);
 	}
 
-	REAL priD  = max(fabs(zc.x) - fractal->transformCommon.offset1, priX);
+	REAL priD = max(fabs(zc.x) - fractal->transformCommon.offset1, priX);
 
 	REAL colDist = aux->dist;
 	aux->dist = min(aux->dist, priD / (aux->DE + 1.0f));

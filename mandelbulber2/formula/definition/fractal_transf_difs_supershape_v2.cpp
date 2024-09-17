@@ -6,8 +6,9 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`    \____/ /_/   /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * TransfDifsCylinderIteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ * superformula Johan Gielis
+ * https://bsapubs.onlinelibrary.wiley.com/doi/10.3732/ajb.90.3.333
+ * http://paulbourke.net/geometry/supershape/
  */
 
 #include "all_fractal_definitions.h"

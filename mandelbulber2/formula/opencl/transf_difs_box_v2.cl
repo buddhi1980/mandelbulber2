@@ -62,10 +62,11 @@ REAL4 TransfDIFSBoxV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			if (fractal->foldColor.difs0000.w != 0.0f && zc.z == fabs(q.z))
 				aux->color += fractal->foldColor.difs0000.w;
 
-			if (fractal->foldColor.difs0 != 0.0)
+			if (fractal->foldColor.difs0 != 0.0f)
 			{
 				REAL t = z.x * z.y;
-				if ((t > 0.0f && z.z > 0.0f) || (t < 0.0f && z.z < 0.0f)) aux->color += fractal->foldColor.difs0;
+				if ((t > 0.0f && z.z > 0.0f) || (t < 0.0f && z.z < 0.0f))
+					aux->color += fractal->foldColor.difs0;
 			}
 		}
 	}

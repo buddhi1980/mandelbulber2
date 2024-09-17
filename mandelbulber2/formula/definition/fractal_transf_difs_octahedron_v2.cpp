@@ -67,7 +67,7 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 	q = q + CVector4(t, t, t, 0.0); // - k * fractal->transformCommon.scale015;
 
 	if (!fractal->transformCommon.functionEnabledAFalse)
-		t  = fractal->transformCommon.offset1;
+		t = fractal->transformCommon.offset1;
 	else
 		t = fractal->transformCommon.offsetA1;
 	CVector4 p = q;
@@ -112,21 +112,23 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	aux.dist = min(aux.dist, zcd / aux.DE);
-	if (fractal->foldColor.auxColorEnabledFalse && aux.i >= fractal->foldColor.startIterationsA
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-
-		/*if (fractal->foldColor.auxColorEnabledAFalse)
+		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			t = oldZ.x * oldZ.y;
-			if ((t > 0.0 && oldZ.z > 0.0) || (t < 0.0 && oldZ.z < 0.0)) aux.color += fractal->foldColor.difs0000.y;
-			if (t > 0.0) aux.color += fractal->foldColor.difs0000.z;
+			if ((t > 0.0 && oldZ.z > 0.0) || (t < 0.0 && oldZ.z < 0.0))
+				addCol += fractal->foldColor.difs0000.y;
+			if (t > 0.0) addCol += fractal->foldColor.difs0000.z;
 			if (fractal->foldColor.difs0000.w != 0.0)
 			{
 				p -= o;
-				if (p.Dot(p) > 0.0) aux.color += fractal->foldColor.difs0000.w;
+				if (p.Dot(p) > 0.0) addCol += fractal->foldColor.difs0000.w;
 			}
-		}*/
+		}
 		aux.color += addCol;
 	}
 }
