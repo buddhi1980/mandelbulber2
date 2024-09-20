@@ -67,7 +67,7 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		cylR = fabs(cylR) - fractal->transformCommon.offset0;
+		cylR = fabs(cylR) - fractal->transformCommon.offsetp01;
 		cylR = max(cylR, xyR);
 	}
 	REAL cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
@@ -77,7 +77,7 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	REAL cylD = native_sqrt(cylR * cylR + cylH * cylH);
 	cylD = min(max(cylR, cylH), 0.0f) + cylD;
 	REAL colDist = aux->dist;
-	aux->dist = min(aux->dist, cylD / (aux->DE + 1.0f));
+	aux->dist = min(aux->dist, cylD / (aux->DE + fractal->analyticDE.offset0));
 
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux->i >= fractal->foldColor.startIterationsA
@@ -89,7 +89,7 @@ REAL4 TransfDIFSSupershapeV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux->color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offset0)
+			if (xyR <= -fractal->transformCommon.offsetp01)
 				aux->color += fractal->foldColor.difs0000.z;
 			//if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			//	aux->color += fractal->foldColor.difs0000.w;

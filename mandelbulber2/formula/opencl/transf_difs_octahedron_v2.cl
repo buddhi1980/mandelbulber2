@@ -66,7 +66,7 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	t = dot(q, q);
 	t = t / native_sqrt(t);
 	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
-	addCol = fractal->foldColor.difs0000.x; // octahed color
+	addCol += fractal->foldColor.difs0000.x; // octahed color
 
 	// box
 	if (fractal->transformCommon.functionEnabledDFalse)

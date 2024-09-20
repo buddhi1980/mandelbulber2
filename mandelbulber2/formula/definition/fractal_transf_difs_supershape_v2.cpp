@@ -29,8 +29,6 @@ cFractalTransfDIFSSupershapeV2::cFractalTransfDIFSSupershapeV2() : cAbstractFrac
 void cFractalTransfDIFSSupershapeV2::FormulaCode(
 	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
 				&& aux.i < fractal->transformCommon.stopIterationsP1)
@@ -51,7 +49,6 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 						* (fractal->transformCommon.offset000.z - fabs(z.z));
 		}
 	}
-
 
 	double r1;
 	double phi;
@@ -86,7 +83,7 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 	double cylR = xyR;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		cylR = fabs(cylR) - fractal->transformCommon.offset0;
+		cylR = fabs(cylR) - fractal->transformCommon.offsetp01;
 		cylR = max(cylR, xyR);
 	}
 
@@ -97,7 +94,7 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 	cylD = min(max(cylR, cylH), 0.0) + cylD;
 
 	double colDist = aux.dist;
-	aux.dist = min(aux.dist, cylD / (aux.DE + 1.0));
+	aux.dist = min(aux.dist, cylD / (aux.DE + fractal->analyticDE.offset0));
 
 	if (fractal->foldColor.auxColorEnabledFalse
 			&& aux.i >= fractal->foldColor.startIterationsA
@@ -109,7 +106,7 @@ void cFractalTransfDIFSSupershapeV2::FormulaCode(
 		{
 			if (fractal->transformCommon.offsetA1 < fabs(zc.z))
 				aux.color += fractal->foldColor.difs0000.y;
-			if (xyR < -fractal->transformCommon.offsetp01)
+			if (xyR <= -fractal->transformCommon.offsetp01)
 				aux.color += fractal->foldColor.difs0000.z;
 		//	if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < fabs(zc.z))
 			//	aux.color += fractal->foldColor.difs0000.w;
