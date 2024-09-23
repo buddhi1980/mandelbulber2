@@ -18,6 +18,8 @@
 
 REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL t;
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		z = (REAL4){-z.z, z.x, z.y, z.w};
@@ -28,7 +30,6 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
-		REAL t;
 		REAL dot1;
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
@@ -106,9 +107,9 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 		z.y -= fractal->transformCommon.offsetB0;
 
@@ -116,9 +117,10 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
+			Col.x = 1.0f;
 		}
 
 		if (fractal->transformCommon.functionEnabledyFalse)
@@ -152,7 +154,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z.x = fabs(z.x);
 		}
 		REAL dot1 = (z.x * -SQRT_3_4_F + z.y * 0.5f) * fractal->transformCommon.scaleD1;
-		REAL t = max(0.0f, dot1);
+		t = max(0.0f, dot1);
 		z.x -= t * -SQRT_3_F;
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
@@ -222,9 +224,9 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 
 		z.y = fabs(z.y - 0.5f) + 0.5f;
@@ -322,6 +324,7 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+
 	// menger
 	if (fractal->transformCommon.functionEnabledM
 			&& aux->i >= fractal->transformCommon.startIterationsM
@@ -330,31 +333,48 @@ REAL4 MengerPrismShape2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = fabs(z);
 		if (z.x - z.y < 0.0f)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.x;
-			z.x = temp;
+			z.x = t;
+			Col.y = 1.0f;
 		}
 		if (z.x - z.z < 0.0f)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
+			z.x = t;
+			Col.z = 1.0f;
 		}
 		if (z.y - z.z < 0.0f)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.y;
-			z.y = temp;
+			z.y = t;
 		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0f * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0f * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1.0f) z.z -= 2.0f * fractal->transformCommon.constantMultiplierA111.z;
+		if (z.z > 1.0f)
+		{
+			z.z -= 2.0f * fractal->transformCommon.constantMultiplierA111.z;
+			Col.w = 1.0f;
+		}
 		aux->DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = aux->DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux->i >= fractal->foldColor.startIterationsA
+			&& aux->i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux->color += Col.x + Col.y + Col.z + Col.w;
+	}
 	return z;
 }

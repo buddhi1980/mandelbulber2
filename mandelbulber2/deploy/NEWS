@@ -1,5 +1,19 @@
 Version history
 
+v2.33 (?? 2024)
+
+- Added new fractal formulas
+   transfDIFSOctahedron
+	 transfDIFSOctahedronV2
+
+- modified fractal formulas
+   mengerPrismShape & mengerPrismShape2, added aux.color
+	 transfDIFSBox & BoxV2 & BoxV3, added aux.color
+	 transfDIFSCylinder & CylinderV2, added aux.color
+	 transfDIFSHexprism & HexprismV2, added aux.color
+	 transfDIFSPrism & PrismV2, added aux.color
+	 transfDIFSPrism & PrismV2, added hollow
+
 v2.32 (August 2024)
 
 - Added new fractal formulas

@@ -28,7 +28,7 @@ cFractalMengerPrismShape::cFractalMengerPrismShape() : cAbstractFractal()
 
 void cFractalMengerPrismShape::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double col = 0.0;
+	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double dot1;
@@ -52,7 +52,7 @@ void cFractalMengerPrismShape::FormulaCode(CVector4 &z, const sFractal *fractal,
 		if (z.z > z.x)
 		{
 			swap(z.z, z.x);
-			col += fractal->foldColor.difs0000.w;
+			Col.x = 1.0;
 		}
 		if (z.x > 0.0)
 		{
@@ -144,36 +144,39 @@ void cFractalMengerPrismShape::FormulaCode(CVector4 &z, const sFractal *fractal,
 
 		z += fractal->transformCommon.offsetA000;
 	}
-	if (fractal->transformCommon.functionEnabled && aux.i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabled
+			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		double temp;
-
 		if (z.x < z.y)
 		{
-			temp = z.y;
+			t = z.y;
 			z.y = z.x;
-			z.x = temp;
-			col += fractal->foldColor.difs0000.x;
+			z.x = t;
+			Col.y = 1.0; // squares
 		}
 		if (z.x < z.z)
 		{
-			temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
-			col += fractal->foldColor.difs0000.y;
+			z.x = t;
+			Col.z = 1.0;
 		}
 		if (z.y < z.z)
 		{
-			temp = z.z;
+			t = z.z;
 			z.z = z.y;
-			z.y = temp;
+			z.y = t;
 		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+		if (z.z > 1.0)
+		{
+			z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+			Col.w = 1.0;
+		}
 		aux.DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.additionConstantA000;
@@ -185,6 +188,12 @@ void cFractalMengerPrismShape::FormulaCode(CVector4 &z, const sFractal *fractal,
 			&& aux.i >= fractal->foldColor.startIterationsA
 			&& aux.i < fractal->foldColor.stopIterationsA)
 	{
-		aux.color += col;
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+
+		// && aux.i % 2 == 0
+		aux.color += Col.x + Col.y + Col.z + Col.w;
 	}
 }

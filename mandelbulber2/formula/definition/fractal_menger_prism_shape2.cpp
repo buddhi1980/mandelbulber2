@@ -29,6 +29,8 @@ cFractalMengerPrismShape2::cFractalMengerPrismShape2() : cAbstractFractal()
 
 void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 Col = CVector4(0.0, 0.0, 0.0, 0.0);
+	double t;
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		z = CVector4(-z.z, z.x, z.y, z.w);
@@ -39,7 +41,6 @@ void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i >= fractal->transformCommon.startIterationsP
 			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
-		double t;
 		double dot1;
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
@@ -120,7 +121,11 @@ void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal
 
 		z -= gap * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
 
-		if (z.z > z.x) swap(z.z, z.x);
+		if (z.z > z.x)
+		{
+			swap(z.z, z.x);
+			Col.x = 1.0;
+		}
 
 		if (fractal->transformCommon.functionEnabledyFalse)
 		{
@@ -153,7 +158,7 @@ void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal
 			z.x = fabs(z.x);
 		}
 		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scaleD1;
-		double t = max(0.0, dot1);
+		t = max(0.0, dot1);
 		z.x -= t * -SQRT_3;
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
@@ -324,17 +329,49 @@ void cFractalMengerPrismShape2::FormulaCode(CVector4 &z, const sFractal *fractal
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		if (z.x < z.y)
+		{
+			t = z.y;
+			z.y = z.x;
+			z.x = t;
+			Col.y = 1.0;
+		}
+		if (z.x < z.z)
+		{
+			t = z.z;
+			z.z = z.x;
+			z.x = t;
+			Col.z = 1.0;
+		}
+		if (z.y < z.z)
+		{
+			t = z.z;
+			z.z = z.y;
+			z.y = t;
+		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+		if (z.z > 1.0)
+		{
+			z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+			Col.w = 1.0;
+		}
 		aux.DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux.color += Col.x + Col.y + Col.z + Col.w;
+	}
 }

@@ -104,7 +104,14 @@ void cFractalTransfDIFSOctahedronV2::FormulaCode(
 		if (zcs < zcd)
 		{
 			zcd = zcs;
-			addCol = fractal->transformCommon.offset2; // sphere color
+			if (!fractal->transformCommon.functionEnabledGFalse)
+			{
+				addCol = fractal->transformCommon.offset2;
+			}
+			else
+			{
+				addCol += fractal->transformCommon.offset2; // sphere color
+			}
 		}
 	}
 

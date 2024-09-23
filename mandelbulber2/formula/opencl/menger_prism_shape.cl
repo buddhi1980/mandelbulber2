@@ -17,7 +17,7 @@
 
 REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL col = 0.0f;
+	REAL4 Col = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
@@ -34,18 +34,18 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 		if (z.y > z.z)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.z;
-			z.z = temp;
+			z.z = t;
 		}
 		z -= gap * (REAL4){SQRT_3_4_F, 1.5f, 1.5f, 0.0f};
 		// z was pos, now some points neg (ie neg shift)
 		if (z.z > z.x)
 		{
-			REAL temp = z.z;
+			REAL t = z.z;
 			z.z = z.x;
-			z.x = temp;
-			col += fractal->foldColor.difs0000.w;
+			z.x = t;
+			Col.x = 1.0f;
 		}
 		if (z.x > 0.0f)
 		{
@@ -144,28 +144,33 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z = fabs(z);
 		if (z.x - z.y < 0.0f)
 		{
-			REAL temp = z.y;
+			t = z.y;
 			z.y = z.x;
-			z.x = temp;
-			col += fractal->foldColor.difs0000.x;
+			z.x = t;
+			Col.y = 1.0f;
 		}
 		if (z.x - z.z < 0.0f)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.x;
-			z.x = temp;
-			col += fractal->foldColor.difs0000.y;
+			z.x = t;
+			Col.z = 1.0f;
 		}
 		if (z.y - z.z < 0.0f)
 		{
-			REAL temp = z.z;
+			t = z.z;
 			z.z = z.y;
-			z.y = temp;
+			z.y = t;
 		}
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0f * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0f * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1.0f) z.z -= 2.0f * fractal->transformCommon.constantMultiplierA111.z;
+		if (z.z > 1.0f)
+		{
+			z.z -= 2.0f * fractal->transformCommon.constantMultiplierA111.z;
+			Col.w = 1.0f;
+		}
+
 		aux->DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.additionConstantA000;
@@ -177,7 +182,11 @@ REAL4 MengerPrismShapeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->foldColor.startIterationsA
 			&& aux->i < fractal->foldColor.stopIterationsA)
 	{
-		aux->color += col;
+		Col.x *= fractal->foldColor.difs0000.x;
+		Col.y *= fractal->foldColor.difs0000.y;
+		Col.z *= fractal->foldColor.difs0000.z;
+		Col.w *= fractal->foldColor.difs0000.w;
+		aux->color += Col.x + Col.y + Col.z + Col.w;
 	}
 	return z;
 }

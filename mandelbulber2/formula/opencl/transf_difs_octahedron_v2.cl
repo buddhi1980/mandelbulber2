@@ -67,17 +67,18 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	t = t / sqrt(t);
 	REAL zcd = t * sign(m) - fractal->transformCommon.offset0005;
 	addCol = fractal->foldColor.difs0000.x;
+
 	// box
 
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
-		REAL4 zc = aux->const_c; // aux->lastZ todo
+		REAL4 zc = aux->const_c;
 		zc = fabs(zc) - fractal->transformCommon.additionConstant0555;
 		zc.x = max(zc.x, 0.0f);
 		zc.y = max(zc.y, 0.0f);
 		zc.z = max(zc.z, 0.0f);
 		REAL zcb = length(zc) + min(max(max(zc.x, zc.y), zc.z), 0.0f);
-		if (zcb <= zcd)
+		if (zcb < zcd)
 		{
 			zcd = zcb;
 			addCol = fractal->transformCommon.offset4;
@@ -87,11 +88,18 @@ REAL4 TransfDIFSOctahedronV2Iteration(REAL4 z, __constant sFractalCl *fractal, s
 	// sphere
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
-		REAL zcs = length(aux->const_c) - fractal->transformCommon.scale08; // aux->lastZ todo
-		if (zcs <= zcd)
+		REAL zcs = length(aux->const_c) - fractal->transformCommon.scale08;
+		if (zcs < zcd)
 		{
 			zcd = zcs;
-			addCol = fractal->transformCommon.offset2;
+			if (!fractal->transformCommon.functionEnabledGFalse)
+			{
+				addCol = fractal->transformCommon.offset2;
+			}
+			else
+			{
+				addCol += fractal->transformCommon.offset2; // sphere color
+			}
 		}
 	}
 
