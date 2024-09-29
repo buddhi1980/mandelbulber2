@@ -273,6 +273,10 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), mode);
 			fractalWidget->SynchronizeInterface(params, mode);
 		}
+		else if (cDockFractal *dockFractalWidget = qobject_cast<cDockFractal *>(leftWidget))
+		{
+			dockFractalWidget->SynchronizeInterfaceFractals(params, fractalParams, mode);
+		}
 		else
 		{
 			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, mode);

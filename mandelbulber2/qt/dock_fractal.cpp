@@ -475,7 +475,7 @@ void cDockFractal::slotPressedButtonNavi()
 
 void cDockFractal::slotNewParametersFromNavi()
 {
-	// TODO: implement this
+	RegeneratePrimitives();
 }
 
 void cDockFractal::HideSomeWidgetsForNavi()

@@ -405,9 +405,9 @@ void cPrimitivesManager::slotButtonAlignRotation()
 
 		SynchronizeInterfaceWindow(ui->tabWidget_primitives, params, qInterface::read);
 
-		CVector3 camera = gPar->Get<CVector3>("camera");
-		CVector3 target = gPar->Get<CVector3>("target");
-		CVector3 cameraTopVector = gPar->Get<CVector3>("camera_top");
+		CVector3 camera = params->Get<CVector3>("camera");
+		CVector3 target = params->Get<CVector3>("target");
+		CVector3 cameraTopVector = params->Get<CVector3>("camera_top");
 		cCameraTarget cameraTarget(camera, target, cameraTopVector);
 		CVector3 cameraRotation = cameraTarget.GetRotation();
 
