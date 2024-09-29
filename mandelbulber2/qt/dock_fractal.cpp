@@ -215,9 +215,11 @@ void cDockFractal::InitializeFractalUi() const
 		}
 		fractalTabs[i]->AssignParameterContainers(params, fractalParams);
 		fractalTabs[i]->Init(i == 0, i);
+		fractalTabs[i]->AssignParentDockFractal(this);
 	}
 
 	static_cast<MyTabBar *>(ui->tabWidget_fractals->tabBar())->setupMoveButtons();
+
 	//}
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
 }
@@ -227,7 +229,7 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	// qDebug() << "swapping " << swapA << " with " << swapB;
 
 	// read all data from ui
-	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	SynchronizeInterfaceFractals(params, fractalParams, qInterface::read);
 
 	// swap formula specific fields in gPar
 	QStringList gParFormulaSpecificFields({"formula", "formula_iterations", "formula_weight",
@@ -264,7 +266,7 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	fractalTabs[swapB]->SynchronizeFractal(fractalParams->at(swapA), qInterface::read);
 
 	// write swapped changes to ui
-	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
+	SynchronizeInterfaceFractals(params, fractalParams, qInterface::write);
 }
 
 void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
