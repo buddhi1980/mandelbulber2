@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.32
+#define MANDELBULBER_VERSION 2.33dev001
 int GetInteger(int byte, __global char *array)
 {
 	__global int *intPointer = (__global int *)&array[byte];
@@ -526,6 +526,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	pixel.shadows = shadowOut;
 	pixel.globalIllumination = globalIlluminationOut;
 	pixel.world = worldPositionRGB;
+	pixel.diffuse = objectColour;
 #endif
 
 	out[buffIndex] = pixel;

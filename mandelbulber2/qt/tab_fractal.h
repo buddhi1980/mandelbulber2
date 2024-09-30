@@ -50,6 +50,7 @@
 class cAutomatedWidgets;
 class cParameterContainer;
 class cFractalContainer;
+class cDockFractal;
 
 namespace Ui
 {
@@ -63,6 +64,10 @@ public:
 	explicit cTabFractal(QWidget *parent = nullptr);
 	~cTabFractal() override;
 
+	void AssignParentDockFractal(const cDockFractal *dockFractal)
+	{
+		parentDockFractal = dockFractal;
+	};
 	void InitWidgetNames() const;
 	void Init(bool firstTab, int _tabIndex);
 	void FormulaTransformSetVisible(bool visible) const;
@@ -99,6 +104,8 @@ private:
 	std::unique_ptr<QWidget> fractalWidget;
 
 	cAutomatedWidgets *automatedWidgets;
+
+	const cDockFractal *parentDockFractal = nullptr;
 };
 
 #endif /* MANDELBULBER2_QT_TAB_FRACTAL_H_ */

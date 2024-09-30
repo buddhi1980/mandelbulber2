@@ -75,6 +75,7 @@ public:
 	virtual void AssignSpecialWidgets(
 		RenderedImage *_renderedImage, QComboBox *_mouseFunctionCombo) override;
 	void RegeneratePrimitives();
+	void HideSomeWidgetsForNavi();
 
 public slots:
 	void slotSynchronizeInterfaceJulia(std::shared_ptr<cParameterContainer> par) const;
@@ -91,6 +92,8 @@ private slots:
 	void slotToggledFractalEnable(int fractalIndex, bool enabled) const;
 	void slotFractalSwap(int swapA, int swapB) const;
 	void slotChangedFractalTab(int index);
+	void slotPressedButtonNavi();
+	void slotNewParametersFromNavi();
 
 signals:
 	void signalUpdatePrimitivesCombos();

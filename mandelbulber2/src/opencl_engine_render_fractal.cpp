@@ -1254,25 +1254,22 @@ sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
 }
 
 void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
-	unsigned short newAlpha, const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld,
-	unsigned short opacity, cImage *image)
+	unsigned short newAlpha, const sRGB8 &color, float zDepth, unsigned short opacity, cImage *image)
 {
 	image->PutPixelImage(xx, yy, newPixel);
 	image->PutPixelZBuffer(xx, yy, zDepth);
 	image->PutPixelAlpha(xx, yy, newAlpha);
 	image->PutPixelColor(xx, yy, color);
 	image->PutPixelOpacity(xx, yy, opacity);
-	if (image->GetImageOptional()->optionalNormalWorld)
-		image->PutPixelNormalWorld(xx, yy, normalWorld);
 }
 
-void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color,
-	const sRGBFloat &normal, const sRGBFloat &specular, const sRGBFloat &world,
-	const sRGBFloat &shadows, const sRGBFloat &gi, const sRGBFloat &notDenoised,
-	std::shared_ptr<cImage> &image)
+void cOpenClEngineRenderFractal::PutMultiPixelOptional(quint64 xx, quint64 yy,
+	const sRGBFloat &color, const sRGBFloat &normal, const sRGBFloat &specular,
+	const sRGBFloat &world, const sRGBFloat &shadows, const sRGBFloat &gi,
+	const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image)
 {
 	if (image->GetImageOptional()->optionalDiffuse)
-		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
+		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R, color.G, color.B));
 	if (image->GetImageOptional()->optionalNormal)
 		image->PutPixelNormal(xx, yy, sRGBFloat(normal.R, normal.G, normal.B));
 	if (image->GetImageOptional()->optionalSpecular)
@@ -1327,6 +1324,7 @@ void cOpenClEngineRenderFractal::FinallRefreshOfImage(
 void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &data)
 {
 	const cOpenCLWorkerOutputQueue::sClSingleOutput &output = data.tile;
+	std::shared_ptr<cImage> image = data.image;
 
 	data.inOut->tilesRenderedCounter++;
 
@@ -1400,107 +1398,38 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				{
 					if (data.in->useDenoiser)
 					{
-						data.denoiser->UpdatePixel(xx, yy, data.image->GetPixelImage(xx, yy),
-							data.image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
+						data.denoiser->UpdatePixel(xx, yy, image->GetPixelImage(xx, yy),
+							image->GetPixelZBuffer(xx, yy), 0.0f); // use zero noise for masked pixels
 					}
 					if (!data.inOut->donePixelsMask[xx + yy * data.in->width])
 						data.inOut->maskedPixelsCounter++;
 					data.inOut->donePixelsMask[xx + yy * data.in->width] = true;
 					continue;
 				}
-				sRGBFloat oldPixel = data.image->GetPixelImage(xx, yy);
+				sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 				pixel.R = min(pixel.R, data.params->monteCarloGIRadianceLimit * 2.0f);
 				pixel.G = min(pixel.G, data.params->monteCarloGIRadianceLimit * 2.0f);
 				pixel.B = min(pixel.B, data.params->monteCarloGIRadianceLimit * 2.0f);
 
 				sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
 
-				float zDepthOld = data.image->GetPixelZBuffer(xx, yy);
+				float zDepthOld = image->GetPixelZBuffer(xx, yy);
 				float zDepth = zDepthOld;
 
-				sRGBFloat nornalOld;
-				sRGBFloat normalWorld;
-				sRGBFloat globalIlluminationOut;
-				sRGBFloat notDenoisedOut;
-
 				if (output.monteCarloLoop == 1)
-				{
 					zDepth = pixelCl.zBuffer;
-					normalWorld =
-						sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
-
-					if (data.image->GetImageOptional()->optionalNormalWorld)
-						normalWorld = clFloat3TosRGBFloat(pixelCl.normalWorld);
-
-					if (data.image->GetImageOptional()->optionalGlobalIlluination)
-						globalIlluminationOut = clFloat3TosRGBFloat(pixelCl.globalIllumination);
-
-					if (data.image->GetImageOptional()->optionalNotDenoised) notDenoisedOut = pixel;
-				}
 				else
-				{
-
 					zDepth = 1.0f
 									 / (1.0f / zDepthOld * (1.0f - 1.0f / output.monteCarloLoop)
 											+ 1.0f / pixelCl.zBuffer * (1.0f / output.monteCarloLoop));
 
-					if (data.image->GetImageOptional()->optionalNormalWorld)
-					{
-						sRGBFloat normalNew =
-							sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+				MixChannels(output, pixelCl, image, xx, yy, pixel, data.in->useOptionalImageChannels);
 
-						nornalOld = data.image->GetPixelNormalWorld(xx, yy);
-
-						normalWorld.R = nornalOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-														+ normalNew.R * (1.0f / output.monteCarloLoop);
-						normalWorld.G = nornalOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-														+ normalNew.G * (1.0f / output.monteCarloLoop);
-						normalWorld.B = nornalOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-														+ normalNew.B * (1.0f / output.monteCarloLoop);
-					}
-
-					if (data.image->GetImageOptional()->optionalGlobalIlluination)
-					{
-						sRGBFloat globalIlluminationOutOld = data.image->GetPixelGlobalIllumination(xx, yy);
-
-						globalIlluminationOut.R =
-							globalIlluminationOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-							+ pixelCl.globalIllumination.s0 * (1.0f / output.monteCarloLoop);
-						globalIlluminationOut.G =
-							globalIlluminationOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-							+ pixelCl.globalIllumination.s1 * (1.0f / output.monteCarloLoop);
-						globalIlluminationOut.B =
-							globalIlluminationOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-							+ pixelCl.globalIllumination.s2 * (1.0f / output.monteCarloLoop);
-					}
-
-					if (data.image->GetImageOptional()->optionalNotDenoised)
-					{
-						sRGBFloat notDenoisedOutOld = data.image->GetPixelNotDenoised(xx, yy);
-
-						notDenoisedOut.R = notDenoisedOutOld.R * (1.0f - 1.0f / output.monteCarloLoop)
-															 + pixel.R * (1.0f / output.monteCarloLoop);
-						notDenoisedOut.G = notDenoisedOutOld.G * (1.0f - 1.0f / output.monteCarloLoop)
-															 + pixel.G * (1.0f / output.monteCarloLoop);
-						notDenoisedOut.B = notDenoisedOutOld.B * (1.0f - 1.0f / output.monteCarloLoop)
-															 + pixel.B * (1.0f / output.monteCarloLoop);
-					}
-				}
-
-				unsigned short oldAlpha = data.image->GetPixelAlpha(xx, yy);
+				unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 				unsigned short newAlpha = ushort(float(oldAlpha) * (1.0f - 1.0f / output.monteCarloLoop)
 																				 + alpha * (1.0f / output.monteCarloLoop));
 
-				PutMultiPixel(
-					xx, yy, newPixel, newAlpha, color, zDepth, normalWorld, opacity, data.image.get());
-
-				if (data.in->useOptionalImageChannels)
-				{
-					PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
-						clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
-						clFloat3TosRGBFloat(pixelCl.shadows), globalIlluminationOut, notDenoisedOut,
-						data.image);
-				}
+				PutMultiPixel(xx, yy, newPixel, newAlpha, color, zDepth, opacity, image.get());
 
 				// noise estimation
 				float noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
@@ -1519,7 +1448,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 				{
 					sumBrightness = 0.0;
 					noise = 0.0;
-					data.image->PutPixelImage(xx, yy, sRGBFloat());
+					image->PutPixelImage(xx, yy, sRGBFloat());
 				}
 
 				if (sumBrightness > 1.0f) noise /= (sumBrightness * sumBrightness * sumBrightness);
@@ -1586,15 +1515,17 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 			// if not MC then just paint pixels
 			else
 			{
-				PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer,
-					clFloat3TosRGBFloat(pixelCl.normalWorld), opacity, data.image.get());
+
+				PutMultiPixel(xx, yy, pixel, alpha, color, pixelCl.zBuffer, opacity, image.get());
+				if (image->GetImageOptional()->optionalNormalWorld)
+					image->PutPixelNormalWorld(xx, yy, clFloat3TosRGBFloat(pixelCl.normalWorld));
 
 				if (data.in->useOptionalImageChannels)
 				{
-					PutMultiPixelOptional(xx, yy, color, clFloat3TosRGBFloat(pixelCl.normal),
-						clFloat3TosRGBFloat(pixelCl.specular), clFloat3TosRGBFloat(pixelCl.world),
-						clFloat3TosRGBFloat(pixelCl.shadows), clFloat3TosRGBFloat(pixelCl.globalIllumination),
-						sRGBFloat(), data.image);
+					PutMultiPixelOptional(xx, yy, clFloat3TosRGBFloat(pixelCl.diffuse),
+						clFloat3TosRGBFloat(pixelCl.normal), clFloat3TosRGBFloat(pixelCl.specular),
+						clFloat3TosRGBFloat(pixelCl.world), clFloat3TosRGBFloat(pixelCl.shadows),
+						clFloat3TosRGBFloat(pixelCl.globalIllumination), sRGBFloat(), image);
 				}
 			}
 		} // next y
@@ -1621,7 +1552,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 						int xxx = xx + jobX;
 						int yyy = yy + jobY;
 
-						sRGBFloat pixel = data.image->GetPixelImage(xxx, yyy);
+						sRGBFloat pixel = image->GetPixelImage(xxx, yyy);
 						maxR = max(pixel.R, maxR);
 						maxG = max(pixel.G, maxG);
 						maxB = max(pixel.B, maxB);
@@ -1666,7 +1597,7 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 		{
 			data.inOut->firstBlurcalculated = true;
 			data.denoiser->Denoise(jobX, jobY, jobWidth, jobHeight,
-				data.params->monteCarloDenoiserPreserveGeometry, data.image, output.monteCarloLoop);
+				data.params->monteCarloDenoiserPreserveGeometry, image, output.monteCarloLoop);
 		}
 	}
 	//-----------
@@ -1742,6 +1673,120 @@ void cOpenClEngineRenderFractal::ConcurentProcessTile(sConcurentTileProcess &dat
 	if (gNetRender->IsServer())
 	{
 		gApplication->processEvents();
+	}
+}
+
+void cOpenClEngineRenderFractal::MixChannels(
+	const cOpenCLWorkerOutputQueue::sClSingleOutput &output, const sClPixel &pixelCl,
+	std::shared_ptr<cImage> image, quint64 xx, quint64 yy, const sRGBFloat &pixel,
+	bool useOptionalChannels)
+{
+	sRGBFloat normalWorld;
+	sRGBFloat globalIlluminationOut;
+	sRGBFloat notDenoisedOut;
+	sRGBFloat colorOut;
+	sRGBFloat normalOut;
+	sRGBFloat specularOut;
+	sRGBFloat shadowsOut;
+
+	if (output.monteCarloLoop == 1)
+	{
+		normalWorld = sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+
+		if (image->GetImageOptional()->optionalNormalWorld)
+			normalWorld = clFloat3TosRGBFloat(pixelCl.normalWorld);
+		if (image->GetImageOptional()->optionalGlobalIlluination)
+			globalIlluminationOut = clFloat3TosRGBFloat(pixelCl.globalIllumination);
+		if (image->GetImageOptional()->optionalNotDenoised) notDenoisedOut = pixel;
+		if (image->GetImageOptional()->optionalDiffuse) colorOut = clFloat3TosRGBFloat(pixelCl.diffuse);
+		if (image->GetImageOptional()->optionalNormal) normalOut = clFloat3TosRGBFloat(pixelCl.normal);
+		if (image->GetImageOptional()->optionalSpecular)
+			specularOut = clFloat3TosRGBFloat(pixelCl.specular);
+		if (image->GetImageOptional()->optionalShadows)
+			shadowsOut = clFloat3TosRGBFloat(pixelCl.shadows);
+	}
+	else
+	{
+		float k1 = (1.0f - 1.0f / output.monteCarloLoop);
+		float k2 = 1.0f / output.monteCarloLoop;
+
+		if (image->GetImageOptional()->optionalNormalWorld)
+		{
+			sRGBFloat normalNew =
+				sRGBFloat(pixelCl.normalWorld.s0, pixelCl.normalWorld.s1, pixelCl.normalWorld.s2);
+
+			sRGBFloat nornalOld = image->GetPixelNormalWorld(xx, yy);
+
+			normalWorld.R = nornalOld.R * k1 + normalNew.R * k2;
+			normalWorld.G = nornalOld.G * k1 + normalNew.G * k2;
+			normalWorld.B = nornalOld.B * k1 + normalNew.B * k2;
+		}
+
+		if (image->GetImageOptional()->optionalGlobalIlluination)
+		{
+			sRGBFloat globalIlluminationOutOld = image->GetPixelGlobalIllumination(xx, yy);
+
+			globalIlluminationOut.R =
+				globalIlluminationOutOld.R * k1 + pixelCl.globalIllumination.s0 * k2;
+			globalIlluminationOut.G =
+				globalIlluminationOutOld.G * k1 + pixelCl.globalIllumination.s1 * k2;
+			globalIlluminationOut.B =
+				globalIlluminationOutOld.B * k1 + pixelCl.globalIllumination.s2 * k2;
+		}
+
+		if (image->GetImageOptional()->optionalNotDenoised)
+		{
+			sRGBFloat notDenoisedOutOld = image->GetPixelNotDenoised(xx, yy);
+
+			notDenoisedOut.R = notDenoisedOutOld.R * k1 + pixel.R * k2;
+			notDenoisedOut.G = notDenoisedOutOld.G * k1 + pixel.G * k2;
+			notDenoisedOut.B = notDenoisedOutOld.B * k1 + pixel.B * k2;
+		}
+
+		if (image->GetImageOptional()->optionalDiffuse)
+		{
+			sRGBFloat colorOld = image->GetPixelDiffuse(xx, yy);
+
+			colorOut.R = colorOld.R * k1 + pixelCl.diffuse.s0 * k2;
+			colorOut.G = colorOld.G * k1 + pixelCl.diffuse.s1 * k2;
+			colorOut.B = colorOld.B * k1 + pixelCl.diffuse.s2 * k2;
+		}
+
+		if (image->GetImageOptional()->optionalNormal)
+		{
+			sRGBFloat normalOld = image->GetPixelNormal(xx, yy);
+
+			normalOut.R = normalOld.R * k1 + pixelCl.normal.s0 * k2;
+			normalOut.G = normalOld.G * k1 + pixelCl.normal.s1 * k2;
+			normalOut.B = normalOld.B * k1 + pixelCl.normal.s2 * k2;
+		}
+
+		if (image->GetImageOptional()->optionalSpecular)
+		{
+			sRGBFloat specularOld = image->GetPixelSpecular(xx, yy);
+
+			specularOut.R = specularOld.R * k1 + pixelCl.specular.s0 * k2;
+			specularOut.G = specularOld.G * k1 + pixelCl.specular.s1 * k2;
+			specularOut.B = specularOld.B * k1 + pixelCl.specular.s2 * k2;
+		}
+
+		if (image->GetImageOptional()->optionalShadows)
+		{
+			sRGBFloat shadowsOld = image->GetPixelShadows(xx, yy);
+
+			shadowsOut.R = shadowsOld.R * k1 + pixelCl.shadows.s0 * k2;
+			shadowsOut.G = shadowsOld.G * k1 + pixelCl.shadows.s1 * k2;
+			shadowsOut.B = shadowsOld.B * k1 + pixelCl.shadows.s2 * k2;
+		}
+	}
+
+	if (image->GetImageOptional()->optionalNormalWorld)
+		image->PutPixelNormalWorld(xx, yy, normalWorld);
+
+	if (useOptionalChannels)
+	{
+		PutMultiPixelOptional(xx, yy, colorOut, normalOut, specularOut, normalWorld, shadowsOut,
+			globalIlluminationOut, notDenoisedOut, image);
 	}
 }
 

@@ -233,8 +233,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			};
 
 			fractal::enumCPixelAddition cPixelAddition = newFractalList[index]->getCpixelAddition();
-			bool booleanState =
-				gMainInterface->mainWindow->GetWidgetDockFractal()->AreBooleanFractalsEnabled();
+			bool booleanState = parentDockFractal->AreBooleanFractalsEnabled();
 
 			if (cPixelAddition == fractal::cpixelAlreadyHas)
 				CConstantAdditionSetVisible(false);
@@ -277,7 +276,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		fractalWidget.reset();
 	}
 
-	gMainInterface->mainWindow->GetWidgetDockFractal()->SetTabText(
+	parentDockFractal->SetTabText(
 		tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
 }
 

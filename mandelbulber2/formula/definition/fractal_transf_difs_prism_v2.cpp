@@ -34,12 +34,12 @@ void cFractalTransfDIFSPrismV2::FormulaCode(CVector4 &z, const sFractal *fractal
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -fabs(z.z);
 
 	CVector4 zc = z;
-
+	double tp = 0.0;
 	// swap axis
 	if (fractal->transformCommon.functionEnabledSwFalse) swap(zc.x, zc.z);
 
 	double absZ = fabs(zc.z);
-	double tp;
+	//double tp;
 	double len = fractal->transformCommon.offset1;
 	double face = fractal->transformCommon.offset05;
 
@@ -63,8 +63,30 @@ void cFractalTransfDIFSPrismV2::FormulaCode(CVector4 &z, const sFractal *fractal
 		if (fractal->transformCommon.functionEnabledCzFalse) tp *= tp;
 		face += tp * fractal->transformCommon.scaleB0;
 	}
+	double priX = max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5f, -zc.z) - face;
+	face = fabs(priX);
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		tp = face - fractal->transformCommon.offsetp01;
+		priX = max(priX, tp);
+	}
 
-	double priD = max(fabs(zc.x) - len, max(fabs(zc.y) * SQRT_3_4 + zc.z * 0.5, -zc.z) - face);
+	double priD = max(fabs(zc.x) - len, priX);
 
+	double colDist = aux.dist;
 	aux.dist = min(aux.dist, priD / (aux.DE + 1.0));
+	if (fractal->foldColor.auxColorEnabledFalse
+			&& aux.i >= fractal->foldColor.startIterationsA
+			&& aux.i < fractal->foldColor.stopIterationsA)
+	{
+		if (colDist != aux.dist) aux.color += fractal->foldColor.difs0000.x;
+
+		if (fractal->foldColor.auxColorEnabledAFalse)
+		{
+			if (priX == face)
+				aux.color += fractal->foldColor.difs0000.y;
+			if (face > fractal->transformCommon.offsetp01)
+				aux.color += fractal->foldColor.difs0000.z;
+		}
+	}
 }

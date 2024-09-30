@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2021 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2024 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -85,12 +85,14 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				&& aux->i < fractal->transformCommon.stopIterationsO)
 			k.y = fractal->transformCommon.offsetF0;
 	}
-
+	tp = dx;
 	REAL colIn = 0.0f;
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		colIn = dx + fractal->transformCommon.offset0;
 		dx = fabs(dx) - fractal->transformCommon.offset0;
+
+		if (fractal->transformCommon.functionEnabledBFalse) dx = max(dx, tp);
 	}
 
 	REAL maxdx = max(dx, k.x);
@@ -109,9 +111,9 @@ REAL4 TransfDIFSHexprismV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		if (fractal->foldColor.auxColorEnabledAFalse)
 		{
 			if (fractal->transformCommon.offsetA1 < zc.z) aux->color += fractal->foldColor.difs0000.y;
-			if (colIn < maxdx)aux->color += fractal->foldColor.difs0000.z;
-			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx) aux->color += fractal->foldColor.difs0000.w;
-
+			if (colIn < maxdx) aux->color += fractal->foldColor.difs0000.z;
+			if (fractal->transformCommon.offsetA1 - fractal->foldColor.difs0 < zc.z && colIn > maxdx)
+				aux->color += fractal->foldColor.difs0000.w;
 		}
 	}
 

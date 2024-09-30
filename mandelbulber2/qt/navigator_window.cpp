@@ -273,6 +273,10 @@ void cNavigatorWindow::SynchronizeInterface(qInterface::enumReadWrite mode)
 			fractalWidget->SynchronizeFractal(fractalParams->at(tabIndex), mode);
 			fractalWidget->SynchronizeInterface(params, mode);
 		}
+		else if (cDockFractal *dockFractalWidget = qobject_cast<cDockFractal *>(leftWidget))
+		{
+			dockFractalWidget->SynchronizeInterfaceFractals(params, fractalParams, mode);
+		}
 		else
 		{
 			SynchronizeInterfaceWindow(ui->groupBoxParameterSet, params, mode);
@@ -330,7 +334,7 @@ void cNavigatorWindow::StartRender()
 	int maxWindowHeight = availableScreenGeometry.height();
 
 	int newInitImageWidth =
-		maxWindowWidth / (4 - ui->comboBox_navigator_preview_size->currentIndex());
+		1.2 * maxWindowWidth / (4.0 - ui->comboBox_navigator_preview_size->currentIndex());
 	int newInitImageHeight =
 		maxWindowHeight / (3.2 - ui->comboBox_navigator_preview_size->currentIndex());
 

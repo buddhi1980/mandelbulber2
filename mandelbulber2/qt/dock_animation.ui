@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1437</width>
-    <height>531</height>
+    <height>999</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -941,8 +941,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>407</width>
-              <height>634</height>
+              <width>425</width>
+              <height>848</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1012,24 +1012,29 @@
                   <property name="spacing">
                    <number>2</number>
                   </property>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_217">
-                    <property name="text">
-                     <string>last frame to render:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_213">
-                    <property name="text">
-                     <string>first frame to render:</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_177">
                     <property name="text">
                      <string>path for images:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>10000</number>
                     </property>
                    </widget>
                   </item>
@@ -1058,6 +1063,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_217">
+                    <property name="text">
+                     <string>last frame to render:</string>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="5" column="1" colspan="2">
                    <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
                     <property name="sizePolicy">
@@ -1080,16 +1092,17 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
-                   <widget class="MyLineEdit" name="text_anim_keyframe_dir">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_222">
+                    <property name="text">
+                     <string>frames per second:</string>
                     </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_219">
+                    <property name="text">
+                     <string>frames per keyframe:</string>
                     </property>
                    </widget>
                   </item>
@@ -1126,13 +1139,6 @@
                     </item>
                    </widget>
                   </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_222">
-                    <property name="text">
-                     <string>frames per second:</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="2" column="2">
                    <widget class="QPushButton" name="button_selectAnimKeyframeImageDir">
                     <property name="sizePolicy">
@@ -1143,6 +1149,13 @@
                     </property>
                     <property name="text">
                      <string>Select folder</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_150">
+                    <property name="text">
+                     <string>image type:</string>
                     </property>
                    </widget>
                   </item>
@@ -1171,36 +1184,23 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_219">
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_213">
                     <property name="text">
-                     <string>frames per keyframe:</string>
+                     <string>first frame to render:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_150">
-                    <property name="text">
-                     <string>image type:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
+                  <item row="2" column="1">
+                   <widget class="MyLineEdit" name="text_anim_keyframe_dir">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="maximum">
-                     <number>10000</number>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -1208,6 +1208,22 @@
                    <widget class="QPushButton" name="pushButton_set_frames_per_keyframe_to_all">
                     <property name="text">
                      <string>Set in all</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0" colspan="3">
+                   <widget class="MyCheckBox" name="checkBox_keyframe_animation_loop">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Interpolates first and last frames to make a loop</string>
+                    </property>
+                    <property name="text">
+                     <string>Loop</string>
                     </property>
                    </widget>
                   </item>

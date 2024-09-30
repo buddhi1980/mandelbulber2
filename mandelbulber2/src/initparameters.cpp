@@ -102,6 +102,7 @@ void InitParams(std::shared_ptr<cParameterContainer> par)
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
 	par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
 	par->addParam("keyframe_constant_target_distance", 0.1, 1e-10, 1.0e2, morphNone, paramStandard);
+	par->addParam("keyframe_animation_loop", false, morphNone, paramStandard);
 	par->addParam("show_camera_path", true, morphNone, paramApp);
 	par->addParam("show_target_path", true, morphNone, paramApp);
 	for (int i = 1; i <= 4; i++)

@@ -51,6 +51,7 @@
 #include "src/write_log.hpp"
 
 #include "formula/definition/all_fractal_list.hpp"
+#include "navigator_window.h"
 
 cDockFractal::cDockFractal(QWidget *parent)
 		: QWidget(parent), cMyWidgetWithParams(), ui(new Ui::cDockFractal)
@@ -176,6 +177,8 @@ void cDockFractal::ConnectSignals() const
 		SLOT(slotToggledFractalEnable(int, bool)));
 	connect(ui->tabWidget_fractals->tabBar(), SIGNAL(currentChanged(int)), this,
 		SLOT(slotChangedFractalTab(int)));
+	connect(
+		ui->pushButton_local_navi, &QPushButton::clicked, this, &cDockFractal::slotPressedButtonNavi);
 
 	connect(
 		ui->tabWidget_fractals, SIGNAL(swapTabs(int, int)), this, SLOT(slotFractalSwap(int, int)));
@@ -210,11 +213,13 @@ void cDockFractal::InitializeFractalUi() const
 				->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i + 1))
 				->setEnabled(false);
 		}
-		fractalTabs[i]->AssignParameterContainers(gPar, gParFractal);
+		fractalTabs[i]->AssignParameterContainers(params, fractalParams);
 		fractalTabs[i]->Init(i == 0, i);
+		fractalTabs[i]->AssignParentDockFractal(this);
 	}
 
 	static_cast<MyTabBar *>(ui->tabWidget_fractals->tabBar())->setupMoveButtons();
+
 	//}
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
 }
@@ -224,7 +229,7 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	// qDebug() << "swapping " << swapA << " with " << swapB;
 
 	// read all data from ui
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterfaceFractals(params, fractalParams, qInterface::read);
 
 	// swap formula specific fields in gPar
 	QStringList gParFormulaSpecificFields({"formula", "formula_iterations", "formula_weight",
@@ -237,9 +242,9 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 	{
 		// to keep original properties of parameters
 		cOneParameter formulaA =
-			gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1));
+			params->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1));
 		cOneParameter formulaB =
-			gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1));
+			params->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1));
 
 		// get only actual values and swap between slots
 		cMultiVal multiA = formulaB.GetMultiVal(parameterContainer::valueActual);
@@ -250,18 +255,18 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 		formulaB.SetMultiVal(multiB, parameterContainer::valueActual);
 
 		// writing parameters to original containers
-		gPar->SetFromOneParameter(
+		params->SetFromOneParameter(
 			gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1), formulaA);
-		gPar->SetFromOneParameter(
+		params->SetFromOneParameter(
 			gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1), formulaB);
 	}
 
-	// swap formula specific fields in gParFractal by swapping whole container
-	fractalTabs[swapA]->SynchronizeFractal(gParFractal->at(swapB), qInterface::read);
-	fractalTabs[swapB]->SynchronizeFractal(gParFractal->at(swapA), qInterface::read);
+	// swap formula specific fields in fractalParams by swapping whole container
+	fractalTabs[swapA]->SynchronizeFractal(fractalParams->at(swapB), qInterface::read);
+	fractalTabs[swapB]->SynchronizeFractal(fractalParams->at(swapA), qInterface::read);
 
 	// write swapped changes to ui
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	SynchronizeInterfaceFractals(params, fractalParams, qInterface::write);
 }
 
 void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
@@ -340,8 +345,8 @@ void cDockFractal::slotGroupCheckJuliaModeToggled(bool state)
 
 void cDockFractal::slotChangedJuliaPoint() const
 {
-	if (ui->groupCheck_julia_mode->isChecked() && gPar->Get<bool>("julia_preview")
-			&& gInterfaceReadyForSynchronization)
+	if (ui->groupBox_julia_preview && ui->groupCheck_julia_mode->isChecked()
+			&& params->Get<bool>("julia_preview") && gInterfaceReadyForSynchronization)
 	{
 		std::shared_ptr<cParameterContainer> params(new cParameterContainer());
 		InitParams(params);
@@ -351,7 +356,7 @@ void cDockFractal::slotChangedJuliaPoint() const
 
 		const double cameraDistance = params->Get<double>("julia_preview_distance");
 		CVector3 target(0.0, 0.0, 0.0);
-		CVector3 direction = gPar->Get<CVector3>("camera") - gPar->Get<CVector3>("target");
+		CVector3 direction = params->Get<CVector3>("camera") - params->Get<CVector3>("target");
 		direction.Normalize();
 		CVector3 camera = target + direction * cameraDistance;
 
@@ -360,24 +365,24 @@ void cDockFractal::slotChangedJuliaPoint() const
 		params->Set("julia_mode", true);
 		params->Set("ambient_occlusion_enabled", true);
 		params->Set("ambient_occlusion_mode", int(params::AOModeFast));
-		params->Copy("camera_top", gPar);
+		params->Copy("camera_top", params);
 		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 		{
-			params->Copy(QString("formula_%1").arg(i), gPar);
-			params->Copy(QString("formula_iterations_%1").arg(i), gPar);
-			params->Copy(QString("fractal_enable_%1").arg(i), gPar);
-			params->Copy(QString("formula_weight_%1").arg(i), gPar);
-			params->Copy(QString("formula_start_iteration_%1").arg(i), gPar);
-			params->Copy(QString("formula_stop_iteration_%1").arg(i), gPar);
-			params->Copy(QString("dont_add_c_constant_%1").arg(i), gPar);
-			params->Copy(QString("check_for_bailout_%1").arg(i), gPar);
+			params->Copy(QString("formula_%1").arg(i), params);
+			params->Copy(QString("formula_iterations_%1").arg(i), params);
+			params->Copy(QString("fractal_enable_%1").arg(i), params);
+			params->Copy(QString("formula_weight_%1").arg(i), params);
+			params->Copy(QString("formula_start_iteration_%1").arg(i), params);
+			params->Copy(QString("formula_stop_iteration_%1").arg(i), params);
+			params->Copy(QString("dont_add_c_constant_%1").arg(i), params);
+			params->Copy(QString("check_for_bailout_%1").arg(i), params);
 		}
-		params->Copy("hybrid_fractal_enable", gPar);
-		params->Copy("fractal_constant_factor", gPar);
-		params->Copy("opencl_mode", gPar);
-		params->Copy("opencl_enabled", gPar);
+		params->Copy("hybrid_fractal_enable", params);
+		params->Copy("fractal_constant_factor", params);
+		params->Copy("opencl_mode", params);
+		params->Copy("opencl_enabled", params);
 
-		ui->previewwidget_julia->AssignParameters(params, gParFractal);
+		ui->previewwidget_julia->AssignParameters(params, fractalParams);
 		ui->previewwidget_julia->update();
 	}
 }
@@ -448,4 +453,37 @@ void cDockFractal::AssignSpecialWidgets(
 void cDockFractal::RegeneratePrimitives()
 {
 	ui->widgetPrimitivesManager->Regenerate();
+}
+
+void cDockFractal::slotPressedButtonNavi()
+{
+	gMainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	cNavigatorWindow *navigator = new cNavigatorWindow();
+	cDockFractal *leftWidget = new cDockFractal();
+	navigator->AddLeftWidget(leftWidget);
+	navigator->setAttribute(Qt::WA_DeleteOnClose);
+	navigator->SetInitialParameters(params, fractalParams);
+	navigator->SetMouseClickFunction(gMainInterface->GetMouseClickFunction());
+	leftWidget->HideSomeWidgetsForNavi();
+	leftWidget->InitializeFractalUi();
+	navigator->SynchronizeInterface(qInterface::write);
+
+	connect(navigator, &cNavigatorWindow::signalChangesAccepted, this,
+		&cDockFractal::slotNewParametersFromNavi);
+
+	navigator->show();
+	navigator->AllPrepared();
+}
+
+void cDockFractal::slotNewParametersFromNavi()
+{
+	RegeneratePrimitives();
+}
+
+void cDockFractal::HideSomeWidgetsForNavi()
+{
+	delete ui->pushButton_get_julia_constant;
+	ui->pushButton_get_julia_constant = nullptr;
+	delete ui->groupBox_julia_preview;
+	ui->groupBox_julia_preview = nullptr;
 }

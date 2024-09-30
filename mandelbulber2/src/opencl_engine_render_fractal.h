@@ -211,11 +211,16 @@ private:
 	static sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
 	static void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel,
-		unsigned short newAlpha, const sRGB8 &color, float zDepth, const sRGBFloat &normalWorld,
-		unsigned short opacity, cImage *image);
-	static void PutMultiPixelOptional(quint64 xx, quint64 yy, sRGB8 color, const sRGBFloat &normal,
-		const sRGBFloat &specular, const sRGBFloat &world, const sRGBFloat &shadows,
-		const sRGBFloat &gi, const sRGBFloat &notDenoised, std::shared_ptr<cImage> &image);
+		unsigned short newAlpha, const sRGB8 &color, float zDepth, unsigned short opacity,
+		cImage *image);
+	static void PutMultiPixelOptional(quint64 xx, quint64 yy, const sRGBFloat &color,
+		const sRGBFloat &normal, const sRGBFloat &specular, const sRGBFloat &world,
+		const sRGBFloat &shadows, const sRGBFloat &gi, const sRGBFloat &notDenoised,
+		std::shared_ptr<cImage> &image);
+	static void MixChannels(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
+		const sClPixel &pixelCl, std::shared_ptr<cImage> image, quint64 xx, quint64 yy,
+		const sRGBFloat &pixel, bool useOptionalChannels);
+	;
 
 	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh,
 		std::shared_ptr<cImage> image, QList<QRect> &lastRenderedRects,
