@@ -264,7 +264,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		UpdateLimitsForFrameRange();
 
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
 	}
 	else
 	{
@@ -286,7 +286,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 		table->removeColumn(index + reservedColumns);
 		keyframes->UpdateFramesIndexesTable();
 		UpdateLimitsForFrameRange();
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
 	}
 }
 
@@ -329,7 +329,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 				table->setCellWidget(0, newColumn, thumbWidget);
 			}
 
-			UpdateAnimationPath();
+			UpdateAnimationPathCameraAndLights();
 		}
 		else
 		{
@@ -1197,7 +1197,7 @@ void cKeyframeAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange();
 
-	UpdateAnimationPath();
+	UpdateAnimationPathCameraAndLights();
 
 	mainInterface->progressBarAnimation->hide();
 }
@@ -1357,7 +1357,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 				thumbWidget->AssignParameters(tempPar, tempFract);
 			}
 		}
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
 	}
 	else
 	{
@@ -1733,9 +1733,19 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 
 void cKeyframeAnimation::slotCellClicked(int row, int column) const
 {
-	Q_UNUSED(row);
 	Q_UNUSED(column);
 	UpdateCameraDistanceInformation();
+
+	if (row >= reservedRows)
+	{
+		const int parameterIndex = rowParameter.at(row);
+		cAnimationFrames::sParameterDescription parameterDescr =
+			keyframes->GetListOfParameters().at(parameterIndex);
+		QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+		int vectorComponentIndex = row - parameterRows.at(parameterIndex);
+
+		UpdateAnimationPathSingleParameter(parameterIndex, vectorComponentIndex);
+	}
 }
 
 void cKeyframeAnimation::slotSetConstantTargetDistance()
@@ -1788,7 +1798,7 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
 }
 
-void cKeyframeAnimation::UpdateAnimationPath() const
+void cKeyframeAnimation::UpdateAnimationPathCameraAndLights() const
 {
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
 
@@ -1861,10 +1871,42 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 	imageWidget->update();
 }
 
+void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
+	int parameterIndex, int vectorComponentIndex) const
+{
+	keyframes->ClearMorphCache();
+	cAnimationValueChartWidget::cAnimationPath path;
+
+	cAnimationFrames::sParameterDescription parameterDescr =
+		keyframes->GetListOfParameters().at(parameterIndex);
+
+	QString fullParameterName = parameterDescr.containerName + "_" + parameterDescr.parameterName;
+
+	for (int frameIndex = 0; frameIndex < keyframes->GetTotalNumberOfFrames(); frameIndex++)
+	{
+		int keyframe =
+			keyframes->GetKeyframeIndex(frameIndex); // Get the keyframe index for the given frame index
+		int subIndex =
+			keyframes->GetSubIndex(frameIndex); // Get the sub-index for the given frame index
+
+		cOneParameter oneParameter = keyframes->InterpolateSingleParameter(
+			parameterIndex, keyframe, fullParameterName, subIndex, frameIndex, params);
+
+		// get vector component value
+		CVector4 vect4Value = oneParameter.Get<CVector4>(valueActual);
+		double vectorComponentValue = vect4Value.GetArray()[vectorComponentIndex];
+
+		path.values.push_back(vectorComponentValue);
+	}
+	path.keyframeIndices = keyframes->getFramesIndexesTable();
+
+	ui->widgetValueChart->SetAnimationPath(path);
+}
+
 void cKeyframeAnimation::slotUpdateAnimationPathSelection()
 {
 	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
-	UpdateAnimationPath();
+	UpdateAnimationPathCameraAndLights();
 }
 
 void cKeyframeAnimation::UpdateActualCameraPosition(const CVector3 &cameraPosition)
@@ -2028,7 +2070,7 @@ void cKeyframeAnimation::InsertKeyframeInBetween(int index)
 
 		RefreshTable();
 
-		UpdateAnimationPath();
+		UpdateAnimationPathCameraAndLights();
 	}
 	else
 	{

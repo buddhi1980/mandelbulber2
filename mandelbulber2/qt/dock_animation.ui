@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1437</width>
-    <height>999</height>
+    <width>1443</width>
+    <height>806</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>294</width>
-              <height>318</height>
+              <width>477</width>
+              <height>682</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -941,8 +941,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>425</width>
-              <height>848</height>
+              <width>407</width>
+              <height>656</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1505,6 +1505,9 @@ keyframes</string>
           </layout>
          </item>
          <item>
+          <widget class="cAnimationValueChartWidget" name="widgetValueChart" native="true"/>
+         </item>
+         <item>
           <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1560,6 +1563,12 @@ keyframes</string>
    <class>MyTableWidgetKeyframes</class>
    <extends>QTableWidget</extends>
    <header>my_table_widget_keyframes.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>cAnimationValueChartWidget</class>
+   <extends>QWidget</extends>
+   <header>animation_value_chart_widget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
