@@ -35,6 +35,9 @@ private:
 	float zoom = 1.0;
 	double min = 0.0;
 	double max = 1.0;
+
+	int chartHeight = 0;
+	const float margin = 0.05;
 };
 
 #endif /* MANDELBULBER2_QT_ANIMATION_VALUE_CHART_WIDGET_H_ */

@@ -76,12 +76,12 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	return *this;
 }
 
-cOneParameter cKeyframes::InterpolateSingleParameter(int i, int keyframe,
-	const QString &fullParameterName, int subIndex, int frameIndex,
+cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, int keyframe,
+	const QString &parameterName, const QString &fullParameterName, int subIndex, int frameIndex,
 	const std::shared_ptr<cParameterContainer> &params)
 {
 	// Prepare the interpolator
-	if (morph.size() <= i)
+	if (morph.size() <= morphTableItemIndex)
 	{
 		morph.append(
 			new cMorph()); // Append a new morph object if the size of morph is less than or equal to i
@@ -99,18 +99,17 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int i, int keyframe,
 			kClamped = qBound(0, k, frames.size() - 1);
 		}
 		// If the keyframe is not found in the morph, add it
-		if (morph[i]->findInMorph(k) == -1)
+		if (morph[morphTableItemIndex]->findInMorph(k) == -1)
 		{
-			morph[i]->AddData(k, frames.at(kClamped).numberOfSubFrames,
+			morph[morphTableItemIndex]->AddData(k, frames.at(kClamped).numberOfSubFrames,
 				frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
 		}
 	}
 	// Interpolate each parameter
-	cOneParameter oneParameter =
-		morph[i]->Interpolate(keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
+	cOneParameter oneParameter = morph[morphTableItemIndex]->Interpolate(
+		keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
 	// Apply audio animation to the parameter
-	oneParameter =
-		ApplyAudioAnimation(frameIndex, oneParameter, listOfParameters[i].parameterName, params);
+	oneParameter = ApplyAudioAnimation(frameIndex, oneParameter, parameterName, params);
 	return oneParameter;
 }
 
@@ -130,8 +129,8 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int frameInde
 		QString fullParameterName =
 			listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName;
 
-		cOneParameter oneParameter =
-			InterpolateSingleParameter(i, keyframe, fullParameterName, subIndex, frameIndex, params);
+		cOneParameter oneParameter = InterpolateSingleParameter(i, keyframe,
+			listOfParameters[i].parameterName, fullParameterName, subIndex, frameIndex, params);
 		// Add the interpolated parameter to the interpolated frame
 		interpolated.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 	}

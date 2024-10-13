@@ -79,8 +79,9 @@ public:
 	int GetSubIndex(int frameIndex) const;
 	const std::vector<int> &getFramesIndexesTable() const { return framesIndexesTable; }
 	void SetLooped(bool _looped) { this->looped = _looped; }
-	cOneParameter InterpolateSingleParameter(int i, int keyframe, const QString &fullParameterName,
-		int subIndex, int frameIndex, const std::shared_ptr<cParameterContainer> &params);
+	cOneParameter InterpolateSingleParameter(int i, int keyframe, const QString &parameterName,
+		const QString &fullParameterName, int subIndex, int frameIndex,
+		const std::shared_ptr<cParameterContainer> &params);
 
 private:
 	QList<cMorph *> morph;

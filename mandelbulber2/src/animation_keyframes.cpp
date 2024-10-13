@@ -1890,7 +1890,7 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 			keyframes->GetSubIndex(frameIndex); // Get the sub-index for the given frame index
 
 		cOneParameter oneParameter = keyframes->InterpolateSingleParameter(
-			parameterIndex, keyframe, fullParameterName, subIndex, frameIndex, params);
+			0, keyframe, parameterDescr.parameterName, fullParameterName, subIndex, frameIndex, params);
 
 		// get vector component value
 		CVector4 vect4Value = oneParameter.Get<CVector4>(valueActual);
