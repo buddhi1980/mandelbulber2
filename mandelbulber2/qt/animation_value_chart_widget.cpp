@@ -11,8 +11,8 @@
 
 cAnimationValueChartWidget::cAnimationValueChartWidget(QWidget *parent) : QWidget(parent)
 {
-	chartHeight = systemData.GetPreferredThumbnailSize();
-	setFixedHeight(chartHeight);
+	setFixedHeight(systemData.GetPreferredThumbnailSize());
+	setMinimumHeight(systemData.GetPreferredThumbnailSize());
 }
 
 cAnimationValueChartWidget::~cAnimationValueChartWidget()
@@ -26,6 +26,8 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setRenderHint(QPainter::Antialiasing);
 	painter.fillRect(rect(), Qt::white);
 
+	int xShift = (1.0 - 1.0 / zoom) * currentFrame;
+
 	QPen pen;
 
 	// draw grid based on keyframe indices
@@ -34,7 +36,8 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(pen);
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
-		float x = animationPath.keyframeIndices[i] * zoom / animationPath.values.size() * width();
+		float x =
+			(animationPath.keyframeIndices[i] - xShift) * zoom / animationPath.values.size() * width();
 		painter.drawLine(x, 0, x, height());
 	}
 
@@ -46,6 +49,7 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	pen.setWidth(1);
 	painter.setPen(pen);
 
+	// draw polyline
 	QPolygonF polyline;
 	for (int i = 0; i < animationPath.values.size(); i++)
 	{
@@ -53,13 +57,13 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 		{
 			// draw line
 			float y = (max - animationPath.values[i]) * yRatio + topMargin; // use pre-calculated ratio
-			QPointF point(i * zoom / animationPath.values.size() * width(), y);
+			QPointF point((i - xShift) * zoom / animationPath.values.size() * width(), y);
 			polyline << point;
 		}
 		else
 		{
 			// draw straight line
-			QPointF point(i * zoom / animationPath.values.size() * width(), height() / 2);
+			QPointF point((i - xShift) * zoom / animationPath.values.size() * width(), height() / 2);
 			polyline << point;
 		}
 	}
@@ -71,12 +75,18 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(pen);
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
-		float x = animationPath.keyframeIndices[i] * zoom / animationPath.values.size() * width();
-		float y = (max - animationPath.values[animationPath.keyframeIndices[i]]) * yRatio + topMargin;
-		painter.drawEllipse(QPointF(x, y), 3, 3);
-	}
-}
 
+		QPointF center = polyline[animationPath.keyframeIndices[i]];
+		painter.drawEllipse(center, 3, 3);
+	}
+
+	//draw cursor
+	pen.setColor(Qt::green);
+	pen.setWidth(2);
+	painter.setPen(pen);
+	QPointF cursor((currentFrame - xShift) * zoom / animationPath.values.size() * width(), 0);
+	painter.drawLine(cursor, QPointF(cursor.x(), height()));
+}
 void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path)
 {
 	animationPath = path;
@@ -97,5 +107,33 @@ void cAnimationValueChartWidget::SetAnimationPath(const cAnimationPath &path)
 			}
 		}
 	}
+	update();
+}
+
+void cAnimationValueChartWidget::resetZoom()
+{
+	zoom = 1.0;
+	update();
+}
+
+void cAnimationValueChartWidget::slotZoomIn()
+{
+	zoom *= 2.0;
+	update();
+}
+
+void cAnimationValueChartWidget::slotZoomOut()
+{
+	zoom /= 2.0;
+	if (zoom < 1.0)
+	{
+		zoom = 1.0;
+	}
+	update();
+}
+
+void cAnimationValueChartWidget::slotSetCurrentFrame(int frame)
+{
+	currentFrame = frame;
 	update();
 }

@@ -144,6 +144,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotCellClicked);
 		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, this,
 			&cKeyframeAnimation::slotSliderMovedActualFrame);
+		connect(ui->horizontalSlider_actualFrame, &QSlider::sliderMoved, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotSetCurrentFrame);
 		connect(ui->toolButton_next_frame, &QToolButton::clicked, this,
 			&cKeyframeAnimation::slotClickedNextFrame);
 		connect(ui->toolButton_previousFrame, &QToolButton::clicked, this,
@@ -170,6 +172,11 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, std::shared_ptr<c
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
 		connect(ui->checkBox_show_light_path_4, &QCheckBox::stateChanged, this,
 			&cKeyframeAnimation::slotUpdateAnimationPathSelection);
+
+		connect(ui->toolButton_chartZoomIn, &QToolButton::clicked, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotZoomIn);
+		connect(ui->toolButton_chartZoomOut, &QToolButton::clicked, ui->widgetValueChart,
+			&cAnimationValueChartWidget::slotZoomOut);
 
 		table = ui->tableWidget_keyframe_animation;
 

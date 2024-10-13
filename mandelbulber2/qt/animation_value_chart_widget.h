@@ -26,18 +26,23 @@ public:
 	};
 
 	void SetAnimationPath(const cAnimationPath &path);
-	void SetZoom(float _zoom) { zoom = _zoom; }
+	void resetZoom();
+
+public slots:
+	void slotZoomIn();
+	void slotZoomOut();
+	void slotSetCurrentFrame(int frame);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
 
 	cAnimationPath animationPath;
 	float zoom = 1.0;
+	int currentFrame = 0;
 	double min = 0.0;
 	double max = 1.0;
 
-	int chartHeight = 0;
-	const float margin = 0.05;
+	const float margin = 0.1;
 };
 
 #endif /* MANDELBULBER2_QT_ANIMATION_VALUE_CHART_WIDGET_H_ */
