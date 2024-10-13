@@ -1733,6 +1733,7 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 	{
 		int frameIndex = keyframes->GetFrameIndexForKeyframe(column - reservedColumns);
 		ui->horizontalSlider_actualFrame->setValue(frameIndex);
+		ui->widgetValueChart->slotSetCurrentFrame(frameIndex);
 		updateFrameIndexLabel(frameIndex);
 		RenderFrame(column - reservedColumns);
 	}
@@ -1905,7 +1906,9 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 
 		path.values.push_back(vectorComponentValue);
 	}
+
 	path.keyframeIndices = keyframes->getFramesIndexesTable();
+	path.parameterName = fullParameterName;
 
 	ui->widgetValueChart->SetAnimationPath(path);
 }

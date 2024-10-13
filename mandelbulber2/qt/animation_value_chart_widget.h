@@ -23,6 +23,7 @@ public:
 	public:
 		std::vector<double> values;
 		std::vector<int> keyframeIndices;
+		QString parameterName;
 	};
 
 	void SetAnimationPath(const cAnimationPath &path);
