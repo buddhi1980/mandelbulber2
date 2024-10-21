@@ -85,29 +85,43 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 	{
 		morph.append(
 			new cMorph()); // Append a new morph object if the size of morph is less than or equal to i
+
+		int numberOfSubFrames = 0;
+		for (int k = 0; k < frames.size(); k++)
+		{
+			cOneParameter onePar = frames.at(k).parameters.GetAsOneParameter(fullParameterName);
+			numberOfSubFrames += frames.at(k).numberOfSubFrames;
+			if (!onePar.IsEmpty())
+			{
+				morph[morphTableItemIndex]->AddData(k, numberOfSubFrames, onePar);
+				numberOfSubFrames = 0;
+			}
+		}
 	}
+
+	// find keyframe which is not empty
+
 	// Loop over the frames for interpolation
-	for (int k = keyframe - 2; k <= keyframe + 3; k++)
-	{
-		int kClamped;
-		if (looped)
-		{
-			kClamped = ((k % frames.size()) + frames.size()) % frames.size();
-		}
-		else
-		{
-			kClamped = qBound(0, k, frames.size() - 1);
-		}
-		// If the keyframe is not found in the morph, add it
-		if (morph[morphTableItemIndex]->findInMorph(k) == -1)
-		{
-			morph[morphTableItemIndex]->AddData(k, frames.at(kClamped).numberOfSubFrames,
-				frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
-		}
-	}
+	//	for (int k = keyframe - 2; k <= keyframe + 3; k++)
+	//	{
+	//		int kClamped;
+	//		if (looped)
+	//		{
+	//			kClamped = ((k % frames.size()) + frames.size()) % frames.size();
+	//		}
+	//		else
+	//		{
+	//			kClamped = qBound(0, k, frames.size() - 1);
+	//		}
+	//		// If the keyframe is not found in the morph, add it
+	//		if (morph[morphTableItemIndex]->findInMorph(k) == -1)
+	//		{
+	//			morph[morphTableItemIndex]->AddData(k, frames.at(kClamped).numberOfSubFrames,
+	//				frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
+	//		}
+	//	}
 	// Interpolate each parameter
-	cOneParameter oneParameter = morph[morphTableItemIndex]->Interpolate(
-		keyframe, 1.0 * subIndex / GetFramesPerKeyframe(keyframe));
+	cOneParameter oneParameter = morph[morphTableItemIndex]->Interpolate(frameIndex);
 	// Apply audio animation to the parameter
 	oneParameter = ApplyAudioAnimation(frameIndex, oneParameter, parameterName, params);
 	return oneParameter;

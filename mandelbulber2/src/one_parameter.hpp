@@ -93,6 +93,7 @@ public:
 	cMultiVal GetMultiVal(enumValueSelection selection) const;
 	void SetMultiVal(cMultiVal multi, enumValueSelection selection);
 	bool IsEmpty() const { return isEmpty; }
+	void SetEmpty() { isEmpty = true; }
 
 	template <class T>
 	void Set(const T &val, enumValueSelection selection);

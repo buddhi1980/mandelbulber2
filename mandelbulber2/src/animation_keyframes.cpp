@@ -1306,65 +1306,73 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		const int parameterFirstRow = parameterRows[rowParameter[row]];
 		const int vectIndex = row - parameterFirstRow;
 
-		using namespace parameterContainer;
-		const enumVarType type = frame.parameters.GetVarType(parameterName);
-
-		if (type == typeVector3)
+		if (cellText.isEmpty())
 		{
-			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
-			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
-			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
-			frame.parameters.Set(parameterName, vect);
-		}
-		else if (type == typeVector4)
-		{
-			CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
-			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
-			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
-			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
-			if (vectIndex == 3) vect.w = systemData.locale.toDouble(cellText);
-			frame.parameters.Set(parameterName, vect);
-		}
-		else if (type == typeRgb)
-		{
-			sRGB col = frame.parameters.Get<sRGB>(parameterName);
-			if (vectIndex == 0) col.R = cellText.toInt();
-			if (vectIndex == 1) col.G = cellText.toInt();
-			if (vectIndex == 2) col.B = cellText.toInt();
-			frame.parameters.Set(parameterName, col);
+			frame.parameters.SetEmpty(parameterName);
 		}
 		else
 		{
-			frame.parameters.Set(parameterName, cellText);
-		}
+			using namespace parameterContainer;
+			const enumVarType type = frame.parameters.GetVarType(parameterName);
 
-		keyframes->ModifyFrame(index, frame);
-
-		// update thumbnail
-		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
-		{
-			auto tempPar = std::make_shared<cParameterContainer>();
-			*tempPar = *params;
-			auto tempFract = std::make_shared<cFractalContainer>();
-			*tempFract = *fractalParams;
-
-			keyframes->GetFrameAndConsolidate(index, tempPar, tempFract);
-			cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
-
-			if (!thumbWidget)
+			if (type == typeVector3)
 			{
-				thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
-				thumbWidget->UseOneCPUCore(true);
-				thumbWidget->AssignParameters(tempPar, tempFract);
-				table->setCellWidget(0, column, thumbWidget);
+				CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
+				if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+				if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+				if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+				frame.parameters.Set(parameterName, vect);
+			}
+			else if (type == typeVector4)
+			{
+				CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
+				if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+				if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+				if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+				if (vectIndex == 3) vect.w = systemData.locale.toDouble(cellText);
+				frame.parameters.Set(parameterName, vect);
+			}
+			else if (type == typeRgb)
+			{
+				sRGB col = frame.parameters.Get<sRGB>(parameterName);
+				if (vectIndex == 0) col.R = cellText.toInt();
+				if (vectIndex == 1) col.G = cellText.toInt();
+				if (vectIndex == 2) col.B = cellText.toInt();
+				frame.parameters.Set(parameterName, col);
 			}
 			else
 			{
-				thumbWidget->AssignParameters(tempPar, tempFract);
+				frame.parameters.Set(parameterName, cellText);
 			}
+
+			keyframes->ModifyFrame(index, frame);
+
+			// update thumbnail
+			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
+			{
+				auto tempPar = std::make_shared<cParameterContainer>();
+				*tempPar = *params;
+				auto tempFract = std::make_shared<cFractalContainer>();
+				*tempFract = *fractalParams;
+
+				keyframes->GetFrameAndConsolidate(index, tempPar, tempFract);
+				cThumbnailWidget *thumbWidget =
+					static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
+
+				if (!thumbWidget)
+				{
+					thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+					thumbWidget->UseOneCPUCore(true);
+					thumbWidget->AssignParameters(tempPar, tempFract);
+					table->setCellWidget(0, column, thumbWidget);
+				}
+				else
+				{
+					thumbWidget->AssignParameters(tempPar, tempFract);
+				}
+			}
+			UpdateAnimationPathCameraAndLights();
 		}
-		UpdateAnimationPathCameraAndLights();
 	}
 	else
 	{

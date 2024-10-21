@@ -44,6 +44,7 @@
 #include <utility>
 
 #include <QList>
+#include <QPair>
 
 #include "one_parameter.hpp"
 
@@ -75,7 +76,7 @@ public:
 	void AddData(const int keyframe, const int noOfSubFrames, const cOneParameter &val);
 	int findInMorph(const int keyframe);
 	void Clear() { dataSets.clear(); }
-	cOneParameter Interpolate(const int keyframe, double factor);
+	cOneParameter Interpolate(int frameIndex);
 	cOneParameter None(const int key) const;
 	cOneParameter Linear(const int key, const double factor, bool const angular);
 	cOneParameter CatmullRom(const int key, const double factor, bool const angular);
@@ -95,6 +96,7 @@ private:
 	gsl_spline *splineCubic;
 	gsl_spline *splineSteffen;
 	QList<sMorphParameter> dataSets;
+	QList<QPair<int, double>> frameIndices;
 };
 
 #endif /* MANDELBULBER2_SRC_MORPH_HPP_ */
