@@ -23,6 +23,7 @@ public:
 	public:
 		std::vector<double> values;
 		std::vector<int> keyframeIndices;
+		std::vector<bool> emptyKeyframes;
 		QString parameterName;
 	};
 

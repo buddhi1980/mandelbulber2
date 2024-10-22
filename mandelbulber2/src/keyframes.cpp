@@ -90,7 +90,9 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 		int numberOfSubFrames = 0;
 		cOneParameter previousOnePar = frames.at(0).parameters.GetAsOneParameter(fullParameterName);
 		int previousK = 0;
-		for (int k = 0; k < frames.size(); k++)
+		numberOfSubFrames += frames.at(0).numberOfSubFrames;
+
+		for (int k = 1; k < frames.size(); k++)
 		{
 			cOneParameter onePar = frames.at(k).parameters.GetAsOneParameter(fullParameterName);
 			numberOfSubFrames += frames.at(k).numberOfSubFrames;

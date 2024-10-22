@@ -109,9 +109,11 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(pen);
 	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
 	{
-
 		QPointF center = polyline[animationPath.keyframeIndices[i]];
-		painter.drawEllipse(center, 3, 3);
+		if (!animationPath.emptyKeyframes[i])
+		{
+			painter.drawEllipse(center, 3, 3);
+		}
 	}
 
 	// draw cursor

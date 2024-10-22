@@ -1916,6 +1916,12 @@ void cKeyframeAnimation::UpdateAnimationPathSingleParameter(
 	path.keyframeIndices = keyframes->getFramesIndexesTable();
 	path.parameterName = fullParameterName;
 
+	for (int k = 0; k < keyframes->GetNumberOfFrames(); k++)
+	{
+		path.emptyKeyframes.push_back(
+			keyframes->GetFrame(k).parameters.GetAsOneParameter(fullParameterName).IsEmpty());
+	}
+
 	ui->widgetValueChart->SetAnimationPath(path);
 }
 
