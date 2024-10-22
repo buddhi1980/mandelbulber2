@@ -86,17 +86,25 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 		morph.append(
 			new cMorph()); // Append a new morph object if the size of morph is less than or equal to i
 
+		// create morph cache (pre-indexed - counting of number of subframes)
 		int numberOfSubFrames = 0;
+		cOneParameter previousOnePar = frames.at(0).parameters.GetAsOneParameter(fullParameterName);
+		int previousK = 0;
 		for (int k = 0; k < frames.size(); k++)
 		{
 			cOneParameter onePar = frames.at(k).parameters.GetAsOneParameter(fullParameterName);
 			numberOfSubFrames += frames.at(k).numberOfSubFrames;
 			if (!onePar.IsEmpty())
 			{
-				morph[morphTableItemIndex]->AddData(k, numberOfSubFrames, onePar);
+				qDebug() << numberOfSubFrames;
+				morph[morphTableItemIndex]->AddData(previousK, numberOfSubFrames, previousOnePar);
+				previousOnePar = onePar;
+				previousK = k;
 				numberOfSubFrames = 0;
 			}
 		}
+		morph[morphTableItemIndex]->AddData(frames.size() - 1, 1,
+			frames.at(frames.size() - 1).parameters.GetAsOneParameter(fullParameterName));
 	}
 
 	// find keyframe which is not empty

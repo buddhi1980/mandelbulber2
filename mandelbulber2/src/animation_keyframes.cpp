@@ -1344,35 +1344,33 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 			{
 				frame.parameters.Set(parameterName, cellText);
 			}
-
-			keyframes->ModifyFrame(index, frame);
-
-			// update thumbnail
-			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
-			{
-				auto tempPar = std::make_shared<cParameterContainer>();
-				*tempPar = *params;
-				auto tempFract = std::make_shared<cFractalContainer>();
-				*tempFract = *fractalParams;
-
-				keyframes->GetFrameAndConsolidate(index, tempPar, tempFract);
-				cThumbnailWidget *thumbWidget =
-					static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
-
-				if (!thumbWidget)
-				{
-					thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
-					thumbWidget->UseOneCPUCore(true);
-					thumbWidget->AssignParameters(tempPar, tempFract);
-					table->setCellWidget(0, column, thumbWidget);
-				}
-				else
-				{
-					thumbWidget->AssignParameters(tempPar, tempFract);
-				}
-			}
-			UpdateAnimationPathCameraAndLights();
 		}
+		keyframes->ModifyFrame(index, frame);
+
+		// update thumbnail
+		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
+		{
+			auto tempPar = std::make_shared<cParameterContainer>();
+			*tempPar = *params;
+			auto tempFract = std::make_shared<cFractalContainer>();
+			*tempFract = *fractalParams;
+
+			keyframes->GetFrameAndConsolidate(index, tempPar, tempFract);
+			cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(0, column));
+
+			if (!thumbWidget)
+			{
+				thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+				thumbWidget->UseOneCPUCore(true);
+				thumbWidget->AssignParameters(tempPar, tempFract);
+				table->setCellWidget(0, column, thumbWidget);
+			}
+			else
+			{
+				thumbWidget->AssignParameters(tempPar, tempFract);
+			}
+		}
+		UpdateAnimationPathCameraAndLights();
 	}
 	else
 	{
