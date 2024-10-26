@@ -88,15 +88,15 @@ cMorph &cMorph::operator=(const cMorph &source)
 
 void cMorph::AddData(const int keyFrame, const int noOfSubFrames, const cOneParameter &val)
 {
-	int key = findInMorph(keyFrame);
-	if (key != -1) return;
-	sMorphParameter mVal(keyFrame, noOfSubFrames, val);
-	dataSets.append(mVal);
-
 	for (int i = 0; i < noOfSubFrames; i++)
 	{
 		frameIndices.append(QPair<int, double>(keyFrame, double(i) / noOfSubFrames));
 	}
+
+	int key = findInMorph(keyFrame);
+	if (key != -1) return;
+	sMorphParameter mVal(keyFrame, noOfSubFrames, val);
+	dataSets.append(mVal);
 
 	// FIXME this code will be removed. The cache will contain all keyframes
 	//	if (dataSets.size() > listSize)

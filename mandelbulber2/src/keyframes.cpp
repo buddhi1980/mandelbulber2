@@ -88,24 +88,49 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 
 		// create morph cache (pre-indexed - counting of number of subframes)
 		int numberOfSubFrames = 0;
-		cOneParameter previousOnePar = frames.at(0).parameters.GetAsOneParameter(fullParameterName);
-		int previousK = 0;
-		numberOfSubFrames += frames.at(0).numberOfSubFrames;
+		int firstFrameIndex = looped ? frames.size() - 2 : 0;
+		int keyframeIndex = (looped) ? -2 : 0;
+		int previousKeyframeIndex = keyframeIndex;
 
-		for (int k = 1; k < frames.size(); k++)
+		cOneParameter previousOnePar =
+			frames.at(firstFrameIndex).parameters.GetAsOneParameter(fullParameterName);
+		int previousK = firstFrameIndex;
+		numberOfSubFrames += frames.at(firstFrameIndex).numberOfSubFrames;
+
+		int startFrame = looped ? frames.size() - 1 : 1;
+		int endFrame = looped ? frames.size() + frames.size() + 2 : frames.size();
+
+		for (int k = startFrame; k < endFrame; k++)
 		{
-			cOneParameter onePar = frames.at(k).parameters.GetAsOneParameter(fullParameterName);
+			int kMod = k % frames.size();
+			cOneParameter onePar = frames.at(kMod).parameters.GetAsOneParameter(fullParameterName);
 			if (!onePar.IsEmpty())
 			{
-				morph[morphTableItemIndex]->AddData(previousK, numberOfSubFrames, previousOnePar);
+				morph[morphTableItemIndex]->AddData(
+					previousKeyframeIndex, numberOfSubFrames, previousOnePar);
 				previousOnePar = onePar;
-				previousK = k;
+				previousK = kMod;
+				previousKeyframeIndex = keyframeIndex;
 				numberOfSubFrames = 0;
 			}
-			numberOfSubFrames += frames.at(k).numberOfSubFrames;
+			numberOfSubFrames += frames.at(kMod).numberOfSubFrames;
+			keyframeIndex++;
 		}
-		morph[morphTableItemIndex]->AddData(frames.size() - 1, 1,
-			frames.at(frames.size() - 1).parameters.GetAsOneParameter(fullParameterName));
+
+		if (looped)
+		{
+			frameIndexOffsetForLoop = frames.at(frames.size() - 2).numberOfSubFrames
+																+ frames.at(frames.size() - 1).numberOfSubFrames;
+
+			morph[morphTableItemIndex]->AddData(frames.size() + 1, frames.at(1).numberOfSubFrames,
+				frames.at(1).parameters.GetAsOneParameter(fullParameterName));
+		}
+		else
+		{
+			frameIndexOffsetForLoop = 0;
+			morph[morphTableItemIndex]->AddData(frames.size() - 1, 1,
+				frames.at(frames.size() - 1).parameters.GetAsOneParameter(fullParameterName));
+		}
 	}
 
 	// find keyframe which is not empty
@@ -129,8 +154,10 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 	//				frames.at(kClamped).parameters.GetAsOneParameter(fullParameterName));
 	//		}
 	//	}
+
 	// Interpolate each parameter
-	cOneParameter oneParameter = morph[morphTableItemIndex]->Interpolate(frameIndex);
+	cOneParameter oneParameter =
+		morph[morphTableItemIndex]->Interpolate(frameIndex + frameIndexOffsetForLoop);
 	// Apply audio animation to the parameter
 	oneParameter = ApplyAudioAnimation(frameIndex, oneParameter, parameterName, params);
 	return oneParameter;

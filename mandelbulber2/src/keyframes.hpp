@@ -88,6 +88,7 @@ private:
 	std::vector<int> keyframesIndexesTable;
 	std::vector<int> framesIndexesTable;
 	bool looped = false;
+	int frameIndexOffsetForLoop = 0;
 };
 
 extern std::shared_ptr<cKeyframes> gKeyframes;
