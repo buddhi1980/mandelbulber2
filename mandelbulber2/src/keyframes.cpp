@@ -95,15 +95,14 @@ cOneParameter cKeyframes::InterpolateSingleParameter(int morphTableItemIndex, in
 		for (int k = 1; k < frames.size(); k++)
 		{
 			cOneParameter onePar = frames.at(k).parameters.GetAsOneParameter(fullParameterName);
-			numberOfSubFrames += frames.at(k).numberOfSubFrames;
 			if (!onePar.IsEmpty())
 			{
-				qDebug() << numberOfSubFrames;
 				morph[morphTableItemIndex]->AddData(previousK, numberOfSubFrames, previousOnePar);
 				previousOnePar = onePar;
 				previousK = k;
 				numberOfSubFrames = 0;
 			}
+			numberOfSubFrames += frames.at(k).numberOfSubFrames;
 		}
 		morph[morphTableItemIndex]->AddData(frames.size() - 1, 1,
 			frames.at(frames.size() - 1).parameters.GetAsOneParameter(fullParameterName));
