@@ -51,6 +51,12 @@ void cFractalMandelbulbAbsPower2::FormulaCode(
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
 
+	if (z.x * z.x + z.y * z.y == 0.0)
+	{
+		z.y = z.z * z.z;
+		z.z = 0.0;
+	}
+
 	CVector4 zz = z * z;
 	CVector4 newZ = z;
 	double temp = 1.0 - zz.z / (zz.x + zz.y);

@@ -18,21 +18,22 @@ v2.32 (August 2024)
 
 - Added new fractal formulas
    transfDIFSSupershape
-   transfBoxFold4dInfy
-   transfJuliabox
+	 transfBoxFold4dInfy
+	 transfJuliabox
 	 transfJuliaboxV2
 	 transfSphericalInvV4
 
 - modified fractal formulas
    aboxModKali, added aux.color
 	 aboxMod1, add R power iter controls
-   aboxMod13, add missing xyz plane checkbox
+	 aboxMod13, add missing xyz plane checkbox
 	 amazingSurfMulti, fix enable aux.color
 	 benesiPineTree, rework code
 	 benesiT1PineTree, remove post offset iter controls (no code)
 	 josKleinian, added more aux.color
 	 mandelboxMenger, z.z scale now works with rotation of separate planes
 	 mandelboxVaryScale4d, add missing parab checkbox
+	 mandelbulbAbsPower2, catch
 	 menger4d, added aux.color
 	 menger4dMod1, added aux.color
 	 menger4dMod2, added aux.color
