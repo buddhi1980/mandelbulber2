@@ -785,3 +785,22 @@ void cParameterContainer::SetEmpty(const QString &name)
 							 << "' doesn't exists";
 	}
 }
+
+bool cParameterContainer::IsEmpty(const QString &name) const
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::const_iterator it;
+	it = myMap.find(name);
+	bool val;
+	if (it != myMap.end())
+	{
+		val = it.value().IsEmpty();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::IsEmpty(const QString &name): element '" << name
+							 << "' doesn't exists";
+	}
+	return val;
+}

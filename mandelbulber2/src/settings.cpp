@@ -213,37 +213,52 @@ void cSettings::CreateAnimationString(
 
 				for (int i = 0; i < parameterList.size(); ++i)
 				{
-					if (parameterList[i].varType == parameterContainer::typeVector3)
+					if (frames->GetFrame(f).parameters.IsEmpty(
+								parameterList[i].containerName + "_" + parameterList[i].parameterName))
 					{
-						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(
-							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
-						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
-						text += QString("%L1").arg(val.z, 0, 'g', 15);
-					}
-					else if (parameterList[i].varType == parameterContainer::typeVector4)
-					{
-						CVector4 val = frames->GetFrame(f).parameters.Get<CVector4>(
-							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
-						text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
-						text += QString("%L1").arg(val.z, 0, 'g', 15) + ";";
-						text += QString("%L1").arg(val.w, 0, 'g', 15);
-					}
-					else if (parameterList[i].varType == parameterContainer::typeRgb)
-					{
-						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(
-							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString::number(val.R) + ";";
-						text += QString::number(val.G) + ";";
-						text += QString::number(val.B);
+						switch (parameterList[i].varType)
+						{
+							case parameterContainer::typeVector3:
+							case parameterContainer::typeRgb: text += ";;"; break;
+
+							case parameterContainer::typeVector4: text += ";;;"; break;
+							default: text += ""; break;
+						}
 					}
 					else
 					{
-						text += frames->GetFrame(f).parameters.Get<QString>(
-							parameterList[i].containerName + "_" + parameterList[i].parameterName);
-					}
 
+						if (parameterList[i].varType == parameterContainer::typeVector3)
+						{
+							CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(
+								parameterList[i].containerName + "_" + parameterList[i].parameterName);
+							text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+							text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+							text += QString("%L1").arg(val.z, 0, 'g', 15);
+						}
+						else if (parameterList[i].varType == parameterContainer::typeVector4)
+						{
+							CVector4 val = frames->GetFrame(f).parameters.Get<CVector4>(
+								parameterList[i].containerName + "_" + parameterList[i].parameterName);
+							text += QString("%L1").arg(val.x, 0, 'g', 15) + ";";
+							text += QString("%L1").arg(val.y, 0, 'g', 15) + ";";
+							text += QString("%L1").arg(val.z, 0, 'g', 15) + ";";
+							text += QString("%L1").arg(val.w, 0, 'g', 15);
+						}
+						else if (parameterList[i].varType == parameterContainer::typeRgb)
+						{
+							sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(
+								parameterList[i].containerName + "_" + parameterList[i].parameterName);
+							text += QString::number(val.R) + ";";
+							text += QString::number(val.G) + ";";
+							text += QString::number(val.B);
+						}
+						else
+						{
+							text += frames->GetFrame(f).parameters.Get<QString>(
+								parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						}
+					}
 					if (i != parameterList.size() - 1)
 					{
 						text += ";";
@@ -1739,46 +1754,60 @@ bool cSettings::DecodeFramesLine(QString line, std::shared_ptr<cParameterContain
 					std::shared_ptr<cParameterContainer> container =
 						frames->ContainerSelector(containerName, par, fractPar);
 
-					if (type == typeVector3)
+					if (lineSplit[column].isEmpty())
 					{
-						CVector3 vect;
-						vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
-						vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
-						vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
-						column += 2;
-						container->Set(parameterName, vect);
-					}
-					else if (type == typeVector4)
-					{
-						CVector4 vect;
-						vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
-						vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
-						vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
-						vect.w = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 3]));
-						column += 3;
-						container->Set(parameterName, vect);
-					}
-					else if (type == typeRgb)
-					{
-						sRGB vect;
-						vect.R = lineSplit[column].toInt();
-						vect.G = lineSplit[column + 1].toInt();
-						vect.B = lineSplit[column + 2].toInt();
-						column += 2;
-						container->Set(parameterName, vect);
+						container->SetEmpty(parameterName);
+						switch (type)
+						{
+							case typeVector3: column += 2; break;
+							case typeVector4: column += 3; break;
+							case typeRgb: column += 2; break;
+							default: break;
+						}
 					}
 					else
 					{
-						QString val;
-						if (type == typeDouble)
+						if (type == typeVector3)
 						{
-							val = everyLocaleDouble(lineSplit[column]);
+							CVector3 vect;
+							vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
+							vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
+							vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
+							column += 2;
+							container->Set(parameterName, vect);
+						}
+						else if (type == typeVector4)
+						{
+							CVector4 vect;
+							vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
+							vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
+							vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
+							vect.w = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 3]));
+							column += 3;
+							container->Set(parameterName, vect);
+						}
+						else if (type == typeRgb)
+						{
+							sRGB vect;
+							vect.R = lineSplit[column].toInt();
+							vect.G = lineSplit[column + 1].toInt();
+							vect.B = lineSplit[column + 2].toInt();
+							column += 2;
+							container->Set(parameterName, vect);
 						}
 						else
 						{
-							val = lineSplit[column];
+							QString val;
+							if (type == typeDouble)
+							{
+								val = everyLocaleDouble(lineSplit[column]);
+							}
+							else
+							{
+								val = lineSplit[column];
+							}
+							container->Set(parameterName, val);
 						}
-						container->Set(parameterName, val);
 					}
 					column++;
 				}

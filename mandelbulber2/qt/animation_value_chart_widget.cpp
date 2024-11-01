@@ -79,6 +79,16 @@ void cAnimationValueChartWidget::paintEvent(QPaintEvent *event)
 	int bottomMargin = (1.0 - margin) * height();
 	float yRatio = (bottomMargin - topMargin) / (max - min); // calculate ratio outside the loop
 
+	// add texts with keyframe indices at the bottom of chart
+	pen.setColor(Qt::gray);
+	painter.setPen(pen);
+	for (int i = 0; i < animationPath.keyframeIndices.size(); i++)
+	{
+		float x =
+			(animationPath.keyframeIndices[i] - xShift) * zoom / animationPath.values.size() * width();
+		painter.drawText(x + 2, height() / 2, QString::number(i));
+	}
+
 	pen.setColor(Qt::black);
 	pen.setWidth(1);
 	painter.setPen(pen);

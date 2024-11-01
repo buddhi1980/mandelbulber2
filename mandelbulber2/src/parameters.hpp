@@ -78,6 +78,7 @@ public:
 
 	void SetScript(const QString &name, const QString &script);
 	void SetEmpty(const QString &name);
+	bool IsEmpty(const QString &name) const;
 
 	template <class T>
 	T Get(const QString &name) const;
